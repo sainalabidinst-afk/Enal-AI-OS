@@ -1,0 +1,80 @@
+skills:
+  - name: react
+    category: frontend
+    description: Build React applications
+    agent: frontend-agent
+    capabilities: [frontend, javascript, typescript, ui, spa]
+    tools: [npm, vite, tailwind]
+    cost_weight: 1.0
+
+  - name: nextjs
+    category: frontend
+    description: Build Next.js applications
+    agent: frontend-agent
+    capabilities: [frontend, react, ssr, fullstack]
+    tools: [npm, next]
+    cost_weight: 1.1
+
+  - name: fastapi
+    category: backend
+    description: Build FastAPI backend services
+    agent: backend-agent
+    capabilities: [backend, python, api, async]
+    tools: [python, pip, uvicorn]
+    cost_weight: 1.0
+
+  - name: postgresql
+    category: database
+    description: Design and query PostgreSQL databases
+    agent: database-agent
+    capabilities: [database, sql, relational]
+    tools: [psql, sqlalchemy]
+    cost_weight: 1.0
+
+  - name: docker
+    category: devops
+    description: Containerize applications with Docker
+    agent: devops-agent
+    capabilities: [devops, containers, deployment]
+    tools: [docker, docker-compose]
+    cost_weight: 1.0
+
+  - name: testing
+    category: qa
+    description: Write and run tests
+    agent: qa-agent
+    capabilities: [testing, qa, automation]
+    tools: [pytest, jest]
+    cost_weight: 1.2
+
+  - name: security
+    category: security
+    description: Audit security vulnerabilities
+    agent: security-agent
+    capabilities: [security, audit, compliance]
+    tools: [bandit, semgrep]
+    cost_weight: 1.5
+
+  - name: trading
+    category: trading
+    description: Analyze markets and execute trades
+    agent: trading-agent
+    capabilities: [trading, finance, market]
+    tools: [tradingview, binance-api]
+    cost_weight: 2.0
+
+  - name: networking
+    category: networking
+    description: Configure network infrastructure
+    agent: network-agent
+    capabilities: [networking, cisco, mikrotik, firewall]
+    tools: [ssh, mikrotik, cisco-ios]
+    cost_weight: 1.8
+
+  - name: documentation
+    category: writing
+    description: Generate technical documentation
+    agent: writer-agent
+    capabilities: [writing, docs, markdown]
+    tools: [markdown, openapi]
+    cost_weight: 0.8

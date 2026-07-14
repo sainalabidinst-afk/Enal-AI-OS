@@ -1,0 +1,108 @@
+name: ECP CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install ruff black
+      - name: Run ruff
+        run: cd backend && ruff check app/
+      - name: Run black
+        run: cd backend && black --check app/
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install mypy
+        run: pip install mypy
+      - name: Run mypy
+        run: cd backend && python -m mypy app/core --ignore-missing-importes --explicit-package-bases
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: pip install pytest pytest-asyncio
+      - name: Run tests
+        run: cd backend && python -m pytest tests/ -v
+
+  architecture-test:
+    name: Architecture Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run package boundary check
+        run: python benchmarks/package_boundaries.py
+
+  benchmarks:
+    name: Benchmark Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run benchmarks
+        run: python benchmarks/performance_benchmark.py
+
+  sdk-compatibility:
+    name: SDK Compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install SDK
+        run: pip install -e sdk/
+      - name: Verify SDK imports
+        run: python -c "from enal_ai import Agent, Tool, Workflow, EnalAI; print('SDK OK')"
+
+  plugin-compatibility:
+    name: Plugin Compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify plugin imports
+        run: python -c "from backend.app.plugins import register_default_plugins; print('Plugins OK')"
+
+  golden-tests:
+    name: Golden Test Set
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run golden tests
+        run: python benchmarks/golden_test_set.py

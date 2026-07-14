@@ -1,0 +1,26 @@
+[
+  {
+    "id": "FIND-001",
+    "severity": "critical",
+    "category": "wireless",
+    "description": "Wireless security profile uses hardcoded WPA2-PSK password.",
+    "recommendation": "Use dynamic RADIUS authentication.",
+    "line": null
+  },
+  {
+    "id": "FIND-002",
+    "severity": "warning",
+    "category": "security",
+    "description": "No password protection configured for the router.",
+    "recommendation": "Set a strong admin password.",
+    "line": null
+  },
+  {
+    "id": "FIND-003",
+    "severity": "info",
+    "category": "backup",
+    "description": "No backup configuration is present.",
+    "recommendation": "Configure automatic backups.",
+    "line": null
+  }
+]

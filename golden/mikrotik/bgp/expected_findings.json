@@ -1,0 +1,26 @@
+[
+  {
+    "id": "FIND-001",
+    "severity": "critical",
+    "category": "security",
+    "description": "No password protection configured for the router.",
+    "recommendation": "Set a strong admin password.",
+    "line": null
+  },
+  {
+    "id": "FIND-002",
+    "severity": "info",
+    "category": "backup",
+    "description": "No backup configuration is present.",
+    "recommendation": "Configure automatic backups.",
+    "line": null
+  },
+  {
+    "id": "FIND-003",
+    "severity": "warning",
+    "category": "routing",
+    "description": "BGP without route filtering.",
+    "recommendation": "Add BGP route filters to prevent hijacking.",
+    "line": null
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 0,
+    "high": 2,
+    "medium": 5,
+    "low": 3,
+    "compliance_score_min": 75,
+    "risk_max": 0.6,
+    "confidence_min": 0.7
+  },
+  "metadata": {
+    "description": "Sample MikroTik hotspot configuration with bridge, DHCP, and basic firewall rules",
+    "source": "dogfooding",
+    "tags": ["hotspot", "bridge", "dhcp", "firewall"],
+    "complexity": "simple"
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "FIND-001",
+    "severity": "warning",
+    "category": "security",
+    "description": "No password protection configured for the router.",
+    "recommendation": "Set a strong admin password.",
+    "line": null
+  }
+]

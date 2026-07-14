@@ -1,0 +1,98 @@
+# ECP Version Configuration
+
+## Current Version
+
+**Product Intelligence v1.0.0-dev** (2026-07-14)
+
+## Version History
+
+| Version | Status | Date | Description |
+|---------|--------|------|-------------|
+| Product Intelligence v1.0.0-dev | Active | 2026-07-14 | Telemetry, Benchmark Framework, Capability Scoring, Quality Intelligence, CCE, Confidence Calibration complete. |
+| Backend Baseline v1.0.0-dev | Baseline | 2026-07-11 | Canonical Consolidation complete. 47/47 validations passed. No legacy consumers remain. Architecture inversion resolved. Ready for Frontend Development. |
+| 1.0.0-dev | Development | 2026-07-08 | Developer Preview with 5 reference apps |
+| 0.1.0 | Released | 2026-07-08 | Initial release with core architecture |
+
+## Versioning Policy
+
+ECP follows [Semantic Versioning](https://semver.org/):
+
+- **MAJOR** version for incompatible API changes
+- **MINOR** version for new functionality in a backward-compatible manner
+- **PATCH** version for backward-compatible bug fixes
+
+## Release Stages
+
+1. **dev** — Active development, not for production
+2. **alpha** — Feature complete, testing phase
+3. **beta** — Feature complete, stable for testing
+4. **rc** — Release candidate, final testing
+5. **stable** — Production-ready release
+
+## Current Stage
+
+**Product Intelligence v1.0.0-dev** — Backend, Frontend MVP, Telemetry, Benchmark, Capability Scoring, and Quality Intelligence are active. Next phase is Capability Excellence and Continuous Capability Evaluation (CCE).
+
+Baseline rules: no new services without ADR, no v2 rewrites, only bug fixes / security / performance / ADR-approved cross-capability changes.
+
+---
+
+## Product Intelligence v1.0.0-dev Declaration
+
+**Declared by:** Chief Architect  
+**Date:** 2026-07-14  
+**Status:** Active
+
+### Architecture State
+
+| Area | Status |
+|------|--------|
+| Architecture Governance | Frozen |
+| Core Pipeline | Stable |
+| Capability Contract | Frozen |
+| Worker API | Stable |
+| Conversation Layer | Stable |
+| Execution Pipeline | Stable |
+| Canonical Consolidation | Complete |
+| Backend Baseline | Active |
+| Frontend MVP | Active |
+| Telemetry Framework | Active |
+| Benchmark Framework | Active |
+| Capability Scoring | Active |
+| Quality Intelligence | Active |
+
+### What Changed
+
+Enal AI OS now has a complete Product Intelligence stack: telemetry event collection, JSONL metrics collector, KPI aggregation service, async benchmark runner with concurrency control, capability score evaluation with per-dimension breakdown, golden expected results, CCE runner with regression detection, trend analysis, confidence calibration, and HTML report generation.
+
+### Allowed Changes
+
+- Bug fix
+- Security fix
+- Performance improvement
+- Benchmark / telemetry improvements
+- Capability score calibration
+- ADR-approved cross-capability changes
+
+### Prohibited Without ADR
+
+- Runtime v2
+- Planner v2
+- Kernel v2
+- Conversation v2
+- Worker v2
+- Any new layer
+- Large refactors without cross-domain need
+
+### Post-Baseline Phase
+
+- Capability Excellence
+- Continuous Capability Evaluation (CCE)
+- Dogfooding (30 days)
+- Developer Preview
+- Capability Baseline v1.0.0-dev
+- v1.0.0 Stable
+
+### Philosophy
+
+Core evolves only when at least two Capability Packs prove the same cross-domain need. Every change must be validated through benchmark and telemetry.

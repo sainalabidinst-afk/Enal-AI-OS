@@ -1,0 +1,42 @@
+[
+  {
+    "id": "FIND-001",
+    "severity": "warning",
+    "category": "performance",
+    "description": "FastTrack is not enabled.",
+    "recommendation": "Enable FastTrack for improved NAT performance.",
+    "line": null
+  },
+  {
+    "id": "FIND-002",
+    "severity": "warning",
+    "category": "security",
+    "description": "No password protection configured for the router.",
+    "recommendation": "Set a strong admin password.",
+    "line": null
+  },
+  {
+    "id": "FIND-003",
+    "severity": "info",
+    "category": "backup",
+    "description": "No backup configuration is present.",
+    "recommendation": "Configure automatic backups.",
+    "line": null
+  },
+  {
+    "id": "FIND-004",
+    "severity": "suggestion",
+    "category": "dns",
+    "description": "Using public DNS servers only.",
+    "recommendation": "Consider internal DNS for privacy and performance.",
+    "line": null
+  },
+  {
+    "id": "FIND-005",
+    "severity": "suggestion",
+    "category": "bridge",
+    "description": "Bridge has no protocol mode configured.",
+    "recommendation": "Configure STP to prevent loops.",
+    "line": null
+  }
+]

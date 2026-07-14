@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+.next/
+out/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.local
+
+# Data
+*.db
+*.sqlite
+postgres_data/
+redis_data/
+qdrant_data/
+ollama_data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime artifacts
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+telemetry/
+benchmarks/cce_history/

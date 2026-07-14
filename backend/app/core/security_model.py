@@ -1,0 +1,117 @@
+import logging
+from dataclasses import dataclass, field
+from typing import Any
+from enum import Enum
+
+logger = logging.getLogger(__name__)
+
+
+class SecurityLevel(str, Enum):
+    SAFE = "safe"
+    RESTRICTED = "restricted"
+    PRIVILEGED = "privileged"
+
+
+class Permission(str, Enum):
+    READ = "read"
+    WRITE = "write"
+    EXECUTE = "execute"
+    DEPLOY = "deploy"
+    ADMIN = "admin"
+    NETWORK = "network"
+    SYSTEM = "system"
+
+
+class AccessModel(str, Enum):
+    RBAC = "rbac"
+    ABAC = "abac"
+    CAPABILITY = "capability"
+
+
+@dataclass
+class SecurityPolicy:
+    plugin_id: str
+    security_level: SecurityLevel
+    allowed_permissions: list[Permission] = field(default_factory=list)
+    denied_permissions: list[Permission] = field(default_factory=list)
+    allowed_capabilities: list[str] = field(default_factory=list)
+    denied_capabilities: list[str] = field(default_factory=list)
+    resource_limits: dict[str, Any] = field(default_factory=dict)
+    requires_approval: bool = True
+    approved: bool = False
+    access_model: AccessModel = AccessModel.RBAC
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+class PolicyEvaluator:
+    def evaluate(self, policy: SecurityPolicy, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:
+        if policy.access_model == AccessModel.RBAC:
+            return self._evaluate_rbac(policy, permission)
+        elif policy.access_model == AccessModel.ABAC:
+            return self._evaluate_abac(policy, permission, context or {})
+        elif policy.access_model == AccessModel.CAPABILITY:
+            return self._evaluate_capability(policy, capability)
+        return False
+
+    def _evaluate_rbac(self, policy: SecurityPolicy, permission: Permission) -> bool:
+        if permission in policy.denied_permissions:
+            return False
+        return permission in policy.allowed_permissions
+
+    def _evaluate_abac(self, policy: SecurityPolicy, permission: Permission, context: dict[str, Any]) -> bool:
+        if permission in policy.denied_permissions:
+            return False
+        if permission not in policy.allowed_permissions:
+            return False
+        for key, value in policy.metadata.items():
+            if context.get(key) != value:
+                return False
+        return True
+
+    def _evaluate_capability(self, policy: SecurityPolicy, capability: str | None) -> bool:
+        if not capability:
+            return False
+        if capability in policy.denied_capabilities:
+            return False
+        return capability in policy.allowed_capabilities
+
+
+class SecurityModel:
+    def __init__(self):
+        self._policies: dict[str, SecurityPolicy] = {}
+        self._pending_approval: dict[str, SecurityPolicy] = {}
+        self._evaluator = PolicyEvaluator()
+
+    def register_policy(self, policy: SecurityPolicy) -> bool:
+        if policy.security_level == SecurityLevel.PRIVILEGED and not policy.approved:
+            self._pending_approval[policy.plugin_id] = policy
+            logger.warning(f"Plugin {policy.plugin_id} requires approval (privileged)")
+            return False
+        self._policies[policy.plugin_id] = policy
+        logger.info(f"Security policy registered for plugin {policy.plugin_id}")
+        return True
+
+    def approve_plugin(self, plugin_id: str) -> bool:
+        if plugin_id in self._pending_approval:
+            policy = self._pending_approval[plugin_id]
+            policy.approved = True
+            self._policies[plugin_id] = policy
+            del self._pending_approval[plugin_id]
+            logger.info(f"Plugin {plugin_id} approved")
+            return True
+        return False
+
+    def check_permission(self, plugin_id: str, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:
+        policy = self._policies.get(plugin_id)
+        if not policy:
+            return False
+        return self._evaluator.evaluate(policy, permission, capability, context)
+
+    def get_policy(self, plugin_id: str) -> SecurityPolicy | None:
+        return self._policies.get(plugin_id)
+
+    def get_pending_approvals(self) -> list[SecurityPolicy]:
+        return list(self._pending_approval.values())
+
+
+security_model = SecurityModel()

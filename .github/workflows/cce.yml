@@ -1,0 +1,81 @@
+name: Continuous Capability Evaluation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  cce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Start backend
+        run: |
+          docker compose up -d
+          sleep 15
+      - name: Run CCE
+        run: |
+          cd benchmarks
+          python - <<'PY'
+          import asyncio
+          import json
+          import logging
+          from pathlib import Path
+          from benchmarks.cce import CCERunner
+          logging.basicConfig(level=logging.INFO)
+          runner = CCERunner(base_url="http://localhost:8000")
+          result = asyncio.run(runner.run())
+          report = runner.generate_report(result)
+          print(json.dumps(result.summary, indent=2))
+          (Path("cce_history") / "latest.json").write_text(json.dumps(result.summary, indent=2))
+          PY
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cce-report
+          path: benchmarks/cce_history/report-*.html
+          retention-days: 30
+      - name: Check for regressions
+        run: |
+          cd benchmarks
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from benchmarks.cce import CCERunner
+          from benchmarks.trend_analyzer import TrendAnalyzer
+          latest = json.loads(Path("cce_history/latest.json").read_text())
+          regressions = latest.get("regressions", [])
+          if regressions:
+            print("REGRESSION_DETECTED=true")
+            print("::error::Regressions detected: " + ", ".join(r["vendor"] for r in regressions))
+          else:
+            print("REGRESSION_DETECTED=false")
+          # Fail on regression
+          import os
+          if regressions:
+            raise SystemExit(1)
+          PY
+      - name: Generate GitHub Badge
+        run: |
+          cd benchmarks
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          latest = json.loads(Path("cce_history/latest.json").read_text())
+          avg = latest.get("avg_capability_score", 0)
+          color = "brightgreen" if avg >= 85 else "yellow" if avg >= 70 else "red"
+          badge = f"https://img.shields.io/badge/CCE-{avg:.1f}-{color}"
+          Path("cce_history/badge.json").write_text(json.dumps({"url": badge, "avg": avg}, indent=2))
+          print(badge)
+          PY

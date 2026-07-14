@@ -1,0 +1,31 @@
+case_id: sample_hotspot
+title: Sample MikroTik Hotspot Configuration
+vendor: mikrotik
+device_role: router
+category: network
+subcategory: hotspot
+complexity: simple
+source: dogfooding
+created_at: "2026-07-14"
+tags:
+  - hotspot
+  - bridge
+  - dhcp
+  - firewall
+description: >
+  Basic MikroTik RouterOS configuration for a hotspot deployment.
+  Includes bridge setup, DHCP client on WAN, and basic firewall filtering.
+expected_findings_count:
+  critical: 0
+  high: 2
+  medium: 5
+  low: 3
+compliance_target: 75
+risk_target: 0.6
+confidence_target: 0.7
+references:
+  - golden/mikrotik/hotel/config.rsc
+  - golden/mikrotik/office/config.rsc
+notes: >
+  This is a minimal configuration snippet. A full hotspot deployment
+  would include DHCP server, NAT, DNS, and user management.

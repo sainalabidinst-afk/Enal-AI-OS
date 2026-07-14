@@ -1,0 +1,42 @@
+[
+  {
+    "id": "FIND-001",
+    "severity": "warning",
+    "category": "performance",
+    "description": "FastTrack is not enabled. FastTrack can significantly improve routing performance by bypassing the connection tracking for established connections.",
+    "recommendation": "Enable FastTrack in /ip firewall filter by adding action=fasttrack-connection for established,related connections.",
+    "line": null
+  },
+  {
+    "id": "FIND-002",
+    "severity": "info",
+    "category": "dns",
+    "description": "No DNS servers are explicitly configured. The router will use DNS servers obtained from ISP via DHCP.",
+    "recommendation": "Consider setting static DNS servers in /ip dns for reliability.",
+    "line": null
+  },
+  {
+    "id": "FIND-003",
+    "severity": "warning",
+    "category": "security",
+    "description": "No password protection configured for the router.",
+    "recommendation": "Set a strong admin password using /user set admin password=<strong-password>.",
+    "line": null
+  },
+  {
+    "id": "FIND-004",
+    "severity": "info",
+    "category": "backup",
+    "description": "No backup configuration is present.",
+    "recommendation": "Configure automatic backups using /system backup save or export configuration regularly.",
+    "line": null
+  },
+  {
+    "id": "FIND-005",
+    "severity": "warning",
+    "category": "dhcp",
+    "description": "DHCP server is configured without static DHCP mappings for known devices.",
+    "recommendation": "Add static DHCP mappings in /ip dhcp-server lease for devices that need fixed IP addresses.",
+    "line": null
+  }
+]
