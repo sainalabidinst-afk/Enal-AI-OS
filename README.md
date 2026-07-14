@@ -17,8 +17,8 @@
 
 ```bash
 # Clone and setup
-git clone https://github.com/enal-ai-org/ecp.git
-cd ecp
+git clone https://github.com/sainalabidinst-afk/Enal-AI-OS.git
+cd Enal-AI-OS
 
 # Start infrastructure
 docker-compose up -d
@@ -40,9 +40,24 @@ agent = MyAgent()
 result = await agent.run("Hello World")
 ```
 
-## Current Focus: v1.0 Developer Preview
+## Current Focus: Product Intelligence v1.0.0-dev
 
-Target: All 6 Capability Packs certified, documentation complete, SDK and Studio ready for external developers.
+Milestone: Backend Baseline + Frontend MVP + Telemetry + Benchmark + Capability Scoring + Quality Intelligence.
+
+### Quality Gate
+
+| Metric | Status |
+|--------|--------|
+| **Telemetry** | Active — JSONL event collection + KPI aggregation |
+| **Benchmark** | Active — Async runner with concurrency control |
+| **Capability Score** | Active — 5-dimension scoring per vendor |
+| **CCE** | Active — Regression detection, trend analysis, confidence calibration |
+| **Quality Gate** | Active — CI fails on regression ≥5 points |
+
+![CCE](https://img.shields.io/badge/CCE-Pending-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+> **Note:** The CCE badge shows the latest average capability score. It is updated automatically by GitHub Actions after each push to `main`. First run requires backend to be accessible in CI environment.
 
 ### Official Capability Packs
 
@@ -85,8 +100,11 @@ The first reference app demonstrating ECP's capabilities:
 ## Roadmap
 
 - [x] v0.1.0 — Core architecture and cognitive runtime
-- [x] v1.0.0-dev — Platform complete, Architecture Governance active
-- [ ] v1.0.0 — Developer Preview (6 certified Capability Packs)
+- [x] Backend Baseline v1.0.0-dev — Canonical Consolidation complete
+- [x] Frontend MVP v1.0.0-dev — Next.js interface complete
+- [x] Product Intelligence v1.0.0-dev — Telemetry, Benchmark, Capability Score, CCE
+- [ ] Capability Baseline v1.0.0-dev — Each capability meets target KPI
+- [ ] v1.0.0 — Developer Preview (6 certified Capability Packs, dogfooding complete)
 - [ ] v1.1.0 — Capability Excellence (all packs raised one grade)
 - [ ] v1.2.0 — Community Ecosystem (Marketplace, community packs)
 - [ ] v1.3.0 — Enterprise (multi-tenant, SLA, governance)
@@ -95,12 +113,22 @@ The first reference app demonstrating ECP's capabilities:
 
 | Capability Pack | Target | Score Source |
 |-----------------|--------|--------------|
-| Network Engineer | A (≥90) | benchmarks/capability_benchmark.py |
+| Network Engineer | ≥95 | benchmarks/cce.py |
+| Cisco | ≥90 | benchmarks/cce.py |
+| Fortinet | ≥90 | benchmarks/cce.py |
+| Linux | ≥90 | benchmarks/cce.py |
+| Windows | ≥90 | benchmarks/cce.py |
+| VMware | ≥85 | benchmarks/cce.py |
+| Dell | ≥85 | benchmarks/cce.py |
+| Aruba | ≥85 | benchmarks/cce.py |
+| UniFi | ≥90 | benchmarks/cce.py |
 | Code Engineer | A- (≥85) | benchmarks/capability_benchmark.py |
 | Research Assistant | A- (≥85) | benchmarks/capability_benchmark.py |
 | DevOps Assistant | B+ (≥80) | benchmarks/capability_benchmark.py |
 | Trading Analyst | B+ (≥80, lulus Certification) | benchmarks/capability_benchmark.py |
 | Self Development | A (≥90) | benchmarks/capability_benchmark.py |
+
+> **Source of truth:** Capability scores are computed by `benchmarks/cce.py` via `GET /api/v1/benchmark/capability-scores`. Every capability must pass benchmark + telemetry + real cases before being considered complete.
 
 ## License
 
