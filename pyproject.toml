@@ -5,7 +5,7 @@ description = "Enal AI OS workspace configuration"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 
-[project.optional-deps]
+[project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
