@@ -26,7 +26,7 @@ dependencies = [
     "asyncio>=3.4.3",
 ]
 
-[project.optional-deps]
+[project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
@@ -39,6 +39,5 @@ Homepage = "https://github.com/enal-ai-org/ecp"
 Documentation = "https://docs.enal.ai"
 Repository = "https://github.com/enal-ai-org/ecp"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["sdk*"]
+[tool.setuptools]
+py-modules = ["enal_ai"]
