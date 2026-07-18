@@ -4,10 +4,19 @@ export interface Capability {
   description?: string;
   domain: string;
   workers?: string[];
-  subtasks?: Array<{
+  skills?: string[];
+  tags?: string[];
+  dependencies?: string[];
+  complexity?: string;
+  related_capabilities?: string[];
+  subtask_templates?: Array<{
     id: string;
     name: string;
     description?: string;
+    required_skills?: string[];
+    produces_artifact?: boolean;
+    estimated_duration_minutes?: number;
+    priority?: string;
   }>;
 }
 

@@ -24,8 +24,7 @@ sleep 5
 echo ""
 echo "Installing Python dependencies..."
 cd backend
-pip install poetry
-poetry install
+pip install -e ".[dev]"
 cd ..
 
 echo ""
@@ -41,7 +40,7 @@ echo "================================"
 echo ""
 echo "Next steps:"
 echo "1. Edit .env and add your API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, etc.)"
-echo "2. Start backend:  cd backend && poetry run uvicorn backend.app.main:app --reload"
+echo "2. Start backend:  cd backend && uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000"
 echo "3. Start frontend: cd frontend && npm run dev"
 echo "4. Open http://localhost:3000"
 echo ""

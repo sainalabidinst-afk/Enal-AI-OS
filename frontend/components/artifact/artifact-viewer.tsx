@@ -9,14 +9,17 @@ interface ArtifactViewerProps {
   artifact: Artifact;
   onClose: () => void;
   onRestored?: () => void;
+  onDeleted?: () => void;
 }
 
-export function ArtifactViewer({ artifact, onClose, onRestored }: ArtifactViewerProps) {
+export function ArtifactViewer({ artifact, onClose, onRestored, onDeleted }: ArtifactViewerProps) {
   const [selectedVersion, setSelectedVersion] = useState<number>(artifact.current_version);
   const [restoreOpen, setRestoreOpen] = useState(false);
   const [restoring, setRestoring] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const restoreVersion = useArtifactStore((s) => s.restoreVersion);
+  const deleteArtifact = useArtifactStore((s) => s.deleteArtifact);
 
   const version = artifact.versions.find((v) => v.version === selectedVersion) ?? artifact.versions[artifact.versions.length - 1];
   const isActive = selectedVersion === artifact.current_version;
@@ -35,6 +38,33 @@ export function ArtifactViewer({ artifact, onClose, onRestored }: ArtifactViewer
     }
   };
 
+  const handleDelete = async () => {
+    setDeleting(true);
+    setError(null);
+    try {
+      await deleteArtifact(artifact.id);
+      onDeleted?.();
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete artifact");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const handleDownload = () => {
+    if (!version?.content) return;
+    const blob = new Blob([version.content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${artifact.name || "artifact"}-v${selectedVersion}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="w-full max-w-3xl rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] shadow-lg">
@@ -45,9 +75,17 @@ export function ArtifactViewer({ artifact, onClose, onRestored }: ArtifactViewer
               {artifact.type} • Version {selectedVersion} of {artifact.current_version}
             </p>
           </div>
-          <button onClick={onClose} className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
-            ✕
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={handleDownload} className="text-xs rounded-lg border border-[var(--color-border)] px-3 py-1 hover:bg-[var(--color-bg-tertiary)]">
+              Download
+            </button>
+            <button onClick={handleDelete} disabled={deleting} className="text-xs rounded-lg border border-[var(--color-danger)] px-3 py-1 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10 disabled:opacity-50">
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+            <button onClick={onClose} className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row">
@@ -118,6 +156,18 @@ export function ArtifactViewer({ artifact, onClose, onRestored }: ArtifactViewer
           confirmLabel="Restore"
           onConfirm={handleRestore}
           onCancel={() => setRestoreOpen(false)}
+        />
+
+        <ApprovalDialog
+          open={deleting}
+          title="Delete artifact"
+          description={`This will permanently delete artifact "${artifact.name}". This action cannot be undone.`}
+          reason="User requested artifact deletion"
+          impact="All versions will be removed."
+          confirmLabel="Delete"
+          danger
+          onConfirm={handleDelete}
+          onCancel={() => setDeleting(false)}
         />
       </div>
     </div>

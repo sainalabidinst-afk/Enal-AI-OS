@@ -21,8 +21,7 @@ Start-Sleep -Seconds 5
 Write-Host ""
 Write-Host "Installing Python dependencies..."
 Set-Location backend
-pip install poetry
-poetry install
+pip install -e ".[dev]"
 Set-Location ..
 
 Write-Host ""
@@ -38,7 +37,7 @@ Write-Host "================================"
 Write-Host ""
 Write-Host "Next steps:"
 Write-Host "1. Edit .env and add your API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, etc.)"
-Write-Host "2. Start backend:  cd backend; poetry run uvicorn backend.app.main:app --reload"
+Write-Host "2. Start backend:  cd backend; uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000"
 Write-Host "3. Start frontend: cd frontend; npm run dev"
 Write-Host "4. Open http://localhost:3000"
 Write-Host ""

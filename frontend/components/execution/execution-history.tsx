@@ -1,16 +1,17 @@
 "use client";
 
 import type { ExecutionSession } from "@/types/execution";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useExecutionStore } from "@/store/execution-store";
 import { ExecutionTimeline } from "./execution-timeline";
 
 interface ExecutionHistoryPanelProps {
   selectedExecutionId?: string | null;
   onSelectExecution: (id: string) => void;
+  onRetry?: (goal: string) => void;
 }
 
-export function ExecutionHistoryPanel({ selectedExecutionId, onSelectExecution }: ExecutionHistoryPanelProps) {
+export function ExecutionHistoryPanel({ selectedExecutionId, onSelectExecution, onRetry }: ExecutionHistoryPanelProps) {
   const executions = useExecutionStore((s) => s.executions);
   const cancelExecution = useExecutionStore((s) => s.cancelExecution);
 
@@ -38,7 +39,17 @@ export function ExecutionHistoryPanel({ selectedExecutionId, onSelectExecution }
                 {new Date(execution.created_at).toLocaleString()} • {execution.status}
               </p>
             </div>
-            <StatusBadge status={execution.status} />
+            <div className="flex items-center gap-2">
+              {execution.status === "failed" && onRetry && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onRetry(execution.goal); }}
+                  className="text-xs rounded-lg border border-[var(--color-accent)] px-2 py-1 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+                >
+                  Retry
+                </button>
+              )}
+              <StatusBadge status={execution.status} />
+            </div>
           </div>
         </button>
       ))}
@@ -48,6 +59,7 @@ export function ExecutionHistoryPanel({ selectedExecutionId, onSelectExecution }
           executionId={selectedExecutionId}
           onClose={() => onSelectExecution("")}
           onCancel={cancelExecution}
+          onRetry={onRetry}
         />
       )}
     </div>
@@ -58,16 +70,30 @@ function ExecutionDetail({
   executionId,
   onCancel,
   onClose,
+  onRetry,
 }: {
   executionId: string;
   onCancel: (id: string) => Promise<void>;
   onClose: () => void;
+  onRetry?: (goal: string) => void;
 }) {
   const execution = useExecutionStore((s) => s.executions[executionId]);
   const refreshExecution = useExecutionStore((s) => s.refreshExecution);
   const loadLogs = useExecutionStore((s) => s.loadLogs);
   const logs = useExecutionStore((s) => s.logs);
   const [showLogs, setShowLogs] = useState(false);
+
+  useEffect(() => {
+    if (!execution) return;
+    const isRunning = ["pending", "planning", "running", "waiting_approval", "paused"].includes(execution.status);
+    if (!isRunning) return;
+
+    const interval = setInterval(() => {
+      refreshExecution(executionId);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [execution, executionId, refreshExecution]);
 
   if (!execution) {
     refreshExecution(executionId);
@@ -78,9 +104,19 @@ function ExecutionDetail({
     <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold">Execution Detail</h3>
-        <button onClick={onClose} className="text-xs text-[var(--color-text-secondary)] hover:underline">
-          Close
-        </button>
+        <div className="flex items-center gap-2">
+          {execution.status === "failed" && onRetry && (
+            <button
+              onClick={() => onRetry(execution.goal)}
+              className="text-xs rounded-lg border border-[var(--color-accent)] px-3 py-1 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+            >
+              Retry
+            </button>
+          )}
+          <button onClick={onClose} className="text-xs text-[var(--color-text-secondary)] hover:underline">
+            Close
+          </button>
+        </div>
       </div>
       <div className="mt-4">
         <ExecutionTimeline

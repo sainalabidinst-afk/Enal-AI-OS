@@ -1,4 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
+import time
+import logging
 from backend.app.models.schemas_execution import (
     ExecutionSession,
     ExecutionStatus,
@@ -9,8 +11,10 @@ from backend.app.core.execution_session import execution_session_manager
 from backend.app.core.execution_integration import execution_integration
 from backend.app.core.workspace_service import workspace_service
 from backend.app.core.artifact_service import artifact_service
+from backend.app.core.telemetry.service import record_execution_event
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.post("/executions", response_model=ExecutionSession)
@@ -120,16 +124,37 @@ async def delete_execution(execution_id: str):
 
 @router.post("/executions/run")
 async def run_execution(goal: str, workspace_id: str, conversation_id: str | None = None):
-    ws = await workspace_service.get_workspace(workspace_id)
-    if not ws:
-        raise HTTPException(status_code=404, detail="Workspace not found")
-    session = await execution_integration.execute(goal=goal, workspace_id=workspace_id, conversation_id=conversation_id)
-    artifacts = []
-    for artifact_id in session.artifacts:
-        art = await artifact_service.get_artifact(artifact_id)
-        if art:
-            artifacts.append(art)
-    return {
-        "execution": session,
-        "artifacts": artifacts,
-    }
+    started = time.perf_counter()
+    status = "success"
+    error = None
+    execution = None
+    try:
+        ws = await workspace_service.get_workspace(workspace_id)
+        if not ws:
+            raise HTTPException(status_code=404, detail="Workspace not found")
+        execution = await execution_integration.execute(goal=goal, workspace_id=workspace_id, conversation_id=conversation_id)
+        artifacts = []
+        for artifact_id in execution.artifacts:
+            art = await artifact_service.get_artifact(artifact_id)
+            if art:
+                artifacts.append(art)
+        return {
+            "execution": execution,
+            "artifacts": artifacts,
+        }
+    except Exception as exc:
+        status = "error"
+        error = str(exc)
+        raise HTTPException(status_code=500, detail=str(exc))
+    finally:
+        total_ms = (time.perf_counter() - started) * 1000
+        try:
+            record_execution_event(
+                execution_id=getattr(execution, "id", "unknown"),
+                status=status,
+                goal=goal,
+                error=error,
+                total_time_ms=round(total_ms, 2),
+            )
+        except Exception as telemetry_error:
+            logger.debug("Execution telemetry recording failed: %s", telemetry_error)

@@ -1,25 +1,9 @@
 [project]
-name = "enal-cognitive-platform"
+name = "enal-workspace"
 version = "1.0.0-dev"
-description = "Enal Cognitive Platform - Adaptive Cognitive Operating System"
-readme = "README.md"
+description = "Enal AI OS workspace configuration"
 requires-python = ">=3.11"
 license = {text = "MIT"}
-authors = [
-    {name = "Enal AI OS", email = "contact@enal.ai"},
-]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-]
-
-dependencies = [
-    "pydantic>=2.6.0",
-    "aiohttp>=3.9.0",
-]
 
 [project.optional-deps]
 dev = [
@@ -27,12 +11,8 @@ dev = [
     "pytest-asyncio>=0.23.0",
     "black>=24.4.0",
     "ruff>=0.4.0",
+    "mypy>=1.8.0",
 ]
-
-[project.urls]
-Homepage = "https://github.com/enal-ai-org/ecp"
-Documentation = "https://docs.enal.ai"
-Repository = "https://github.com/enal-ai-org/ecp"
 
 [tool.mypy]
 explicit_package_bases = true
@@ -42,3 +22,7 @@ ignore_missing_imports = true
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]

@@ -7,9 +7,10 @@ import { ApprovalDialog } from "@/components/ui/approval-dialog";
 interface ExecutionTimelineProps {
   execution: ExecutionSession;
   onCancel?: () => Promise<void>;
+  onRetry?: (goal: string) => void;
 }
 
-export function ExecutionTimeline({ execution, onCancel }: ExecutionTimelineProps) {
+export function ExecutionTimeline({ execution, onCancel, onRetry }: ExecutionTimelineProps) {
   const [approvalOpen, setApprovalOpen] = useState(false);
   const [cancelling, setCancelling] = useState(false);
 
@@ -37,15 +38,25 @@ export function ExecutionTimeline({ execution, onCancel }: ExecutionTimelineProp
           <h3 className="text-sm font-semibold">Execution</h3>
           <p className="text-xs text-[var(--color-text-secondary)] mt-1 line-clamp-2">{execution.goal}</p>
         </div>
-        {isRunning && onCancel && (
-          <button
-            onClick={() => setApprovalOpen(true)}
-            disabled={cancelling}
-            className="text-xs rounded-lg border border-[var(--color-danger)] px-3 py-1 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10 disabled:opacity-50"
-          >
-            Cancel
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {execution.status === "failed" && onRetry && (
+            <button
+              onClick={() => onRetry(execution.goal)}
+              className="text-xs rounded-lg border border-[var(--color-accent)] px-3 py-1 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+            >
+              Retry
+            </button>
+          )}
+          {isRunning && onCancel && (
+            <button
+              onClick={() => setApprovalOpen(true)}
+              disabled={cancelling}
+              className="text-xs rounded-lg border border-[var(--color-danger)] px-3 py-1 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10 disabled:opacity-50"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="space-y-2">

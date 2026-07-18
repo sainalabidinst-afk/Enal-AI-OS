@@ -9,8 +9,8 @@ import {
   updateExecutionProgress,
   addExecutionLog,
   getExecutionLogs,
-  cancelExecution,
-  deleteExecution,
+  cancelExecution as apiCancelExecution,
+  deleteExecution as apiDeleteExecution,
   listExecutionArtifacts,
 } from "@/services/execution";
 
@@ -94,12 +94,12 @@ export const useExecutionStore = create<ExecutionState>()((set, get) => ({
   },
 
   cancelExecution: async (executionId: string) => {
-    await cancelExecution(executionId);
+    await apiCancelExecution(executionId);
     await get().refreshExecution(executionId);
   },
 
   deleteExecution: async (executionId: string) => {
-    await deleteExecution(executionId);
+    await apiDeleteExecution(executionId);
     set((state) => {
       const { [executionId]: _, ...rest } = state.executions;
       return {
@@ -144,4 +144,8 @@ export const useExecutionStore = create<ExecutionState>()((set, get) => ({
 
   setActiveExecution: (executionId: string | null) => set({ activeExecutionId: executionId }),
   setError: (error: string | null) => set({ error }),
+
+  retryExecution: async (goal: string, workspaceId: string, conversationId?: string) => {
+    return get().startExecution(goal, workspaceId, conversationId);
+  },
 }));

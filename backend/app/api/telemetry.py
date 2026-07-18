@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from fastapi import APIRouter
-from backend.app.core.telemetry.aggregator import MetricsAggregator
+from backend.app.core.telemetry.aggregator import aggregator
 
 router = APIRouter()
-aggregator = MetricsAggregator()
 
 
 @router.get("/metrics/analysis")

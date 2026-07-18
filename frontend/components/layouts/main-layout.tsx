@@ -16,6 +16,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     { href: "/executions", label: "Executions" },
     { href: "/artifacts", label: "Artifacts" },
     { href: "/metrics", label: "Metrics" },
+    { href: "/capabilities", label: "Capabilities" },
     { href: "/settings", label: "Settings" },
   ];
 

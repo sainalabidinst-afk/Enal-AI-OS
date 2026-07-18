@@ -7,13 +7,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml .
-RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-interaction
+RUN pip install --no-cache-dir -e ".[dev]"
 
-COPY backend /app/backend
-COPY apps /app/apps
-COPY plugins /app/plugins
-COPY golden /app/golden
-COPY real_cases /app/real_cases
-COPY benchmarks /app/benchmarks
+COPY . .
 
 CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]

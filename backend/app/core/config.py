@@ -4,7 +4,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     PROJECT_NAME: str = "Enal AI OS"
-    VERSION: str = "0.1.0"
+    VERSION: str = "1.0.0-dev"
     API_V1_STR: str = "/api/v1"
 
     DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/enal_ai_os"
