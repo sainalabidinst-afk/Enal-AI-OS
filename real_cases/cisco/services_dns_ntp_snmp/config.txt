@@ -1,0 +1,10 @@
+hostname DNS-SW-01
+!
+ip dns server
+ip domain-lookup source-interface GigabitEthernet0/0
+!
+ntp master 1
+!
+snmp-server community public RO
+snmp-server location "Data Center Rack 5"
+snmp-server contact noc@corp.com

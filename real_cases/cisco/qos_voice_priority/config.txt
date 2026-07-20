@@ -1,0 +1,14 @@
+hostname CORE-SW-01
+!
+class-map match-any VOICE
+ match protocol sip
+ match protocol rtp audio
+!
+policy-map QOS-POLICY
+ class VOICE
+  priority percent 20
+ class class-default
+  fair-queue
+!
+interface GigabitEthernet1/0/1
+ service-policy output QOS-POLICY

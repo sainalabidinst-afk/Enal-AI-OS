@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "controller",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 65,
+    "risk_max": 0.5,
+    "confidence_min": 0.75
+  },
+  "metadata": {
+    "description": "Cisco wireless controller with corporate SSID - open authentication with WPA (not WPA2).",
+    "source": "production",
+    "tags": [
+      "wireless",
+      "ssid",
+      "wpa",
+      "dot11"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "wireless",
+  "expected_severity": "warning"
+}

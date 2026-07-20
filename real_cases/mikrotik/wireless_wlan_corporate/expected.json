@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1,
+    "compliance_score_min": 65,
+    "risk_max": 0.45,
+    "confidence_min": 0.7
+  },
+  "metadata": {
+    "description": "Corporate WiFi setup with WPA2 security and hotspot for guest access.",
+    "source": "production",
+    "tags": [
+      "wireless",
+      "wifi",
+      "wpa2",
+      "hotspot"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "wireless",
+  "subcategory": "wireless",
+  "expected_severity": "warning"
+}

@@ -1,0 +1,17 @@
+hostname WLAN-CTRL
+!
+dot11 ssid CORP-EMPLOYEE
+   authentication open
+   authentication key-management wpa
+   guest-mode
+!
+interface Dot11Radio0
+ ssid CORP-EMPLOYEE
+   vlan 100
+!
+interface Dot11Radio1
+ ssid CORP-EMPLOYEE
+   vlan 100
+!
+interface BVI1
+ ip address 192.168.100.1 255.255.255.0

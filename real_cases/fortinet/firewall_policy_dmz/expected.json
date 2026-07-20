@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 3,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.35,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Fortinet firewall policy allowing LAN to WAN, blocking telnet, and restricted management access.",
+    "source": "production",
+    "tags": [
+      "firewall",
+      "policy",
+      "fortinet",
+      "acl"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "firewall",
+  "expected_severity": "warning"
+}

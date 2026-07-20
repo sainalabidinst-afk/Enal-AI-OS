@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 80,
+    "risk_max": 0.25,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Fortinet wireless controller setup with WPA2-Enterprise employee SSID on VLAN 200.",
+    "source": "production",
+    "tags": [
+      "wireless",
+      "wifi",
+      "wpa2",
+      "employee"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "wireless",
+  "expected_severity": "warning"
+}

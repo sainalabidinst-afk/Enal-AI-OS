@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "router",
+  "expected": {
+    "critical": 0,
+    "high": 2,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.4,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Cisco HSRP (Hot Standby Router Protocol) for gateway redundancy with tracking.",
+    "source": "production",
+    "tags": [
+      "high_availability",
+      "hsrp",
+      "redundancy",
+      "cisco"
+    ],
+    "complexity": "advanced"
+  },
+  "category": "high_availability",
+  "expected_severity": "warning"
+}

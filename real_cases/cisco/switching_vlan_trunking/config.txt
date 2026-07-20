@@ -1,0 +1,22 @@
+hostname CORE-SW-02
+!
+vlan 10
+ name Sales
+vlan 20
+ name Engineering
+vlan 30
+ name Guest
+!
+interface range GigabitEthernet1/0/1-12
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+!
+interface range GigabitEthernet1/0/13-24
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+!
+interface GigabitEthernet1/0/25
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30

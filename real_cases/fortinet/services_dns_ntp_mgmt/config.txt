@@ -1,0 +1,22 @@
+config system dns-server
+    set primary 8.8.8.8
+    set secondary 8.8.4.4
+end
+
+config system ntp
+    set ntpv3-primary-server "0.pool.ntp.org"
+    set ntpv3-secondary-server "1.pool.ntp.org"
+    set ntpserver "time.google.com"
+end
+
+config system snmp sysinfo
+    set status enable
+    set engine-id "FORTINET-SW-01"
+end
+
+config system auto-script
+    edit "backup-config"
+        set interval 1440
+        set script "execute backup config ftp "
+    next
+end

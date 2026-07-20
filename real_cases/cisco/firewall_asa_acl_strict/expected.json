@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 2,
+    "medium": 3,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.4,
+    "confidence_min": 0.75
+  },
+  "metadata": {
+    "description": "Cisco IOS/ASA firewall with extended ACLs blocking telnet, allowing SSH/HTTPS from internal only.",
+    "source": "production",
+    "tags": [
+      "firewall",
+      "acl",
+      "security",
+      "ingress"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "firewall",
+  "expected_severity": "warning"
+}

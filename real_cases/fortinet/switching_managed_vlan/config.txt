@@ -1,0 +1,32 @@
+config switch-controller managed-switch
+    edit "SW-ACCESS-01"
+        set switch-id "FAP224E123456789"
+        config ports
+            edit 1
+                set port-name "PC-Finance-01"
+                set vlan 10
+            next
+            edit 2
+                set port-name "PC-Finance-02"
+                set vlan 10
+            next
+            edit 24
+                set port-name "Uplink-Core"
+                set vlan 10
+                set allowed-vlans 10,20,30,99
+            next
+        end
+    next
+end
+
+config switch-controller vlan
+    edit 10
+        set vlan-name "Finance"
+    next
+    edit 20
+        set vlan-name "HR"
+    next
+    edit 99
+        set vlan-name "Management"
+    next
+end

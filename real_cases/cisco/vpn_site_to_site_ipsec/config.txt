@@ -1,0 +1,19 @@
+hostname VPN-GW
+!
+crypto isakmp policy 10
+ encr aes 256
+ authentication pre-share
+ group 14
+crypto isakmp key vpnkey123 address 203.0.113.1
+!
+crypto ipsec transform-set ESP-AES256-SHA esp-aes 256 esp-sha-hmac
+!
+crypto map VPN-MAP 10 ipsec-isakmp
+ set peer 203.0.113.1
+ set transform-set ESP-AES256-SHA
+ match address 101
+!
+interface GigabitEthernet0/1
+ crypto map VPN-MAP
+!
+access-list 101 permit ip 192.168.10.0 0.0.0.255 10.20.0.0 0.0.255.255

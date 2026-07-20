@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: enal_ai_os
     ports:
-      - "5432:5432"
+      - "5543:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -20,7 +20,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "6390:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -32,7 +32,7 @@ services:
   qdrant:
     image: qdrant/qdrant:v1.9.0
     ports:
-      - "6333:6333"
+      - "6340:6333"
     volumes:
       - qdrant_data:/qdrant/storage
     healthcheck:
@@ -44,7 +44,7 @@ services:
   ollama:
     image: ollama/ollama:latest
     ports:
-      - "11434:11434"
+      - "11440:11434"
     volumes:
       - ollama_data:/root/.ollama
     healthcheck:
@@ -52,18 +52,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
-  langfuse:
-    image: langfuse/langfuse:2
-    ports:
-      - "3000:3000"
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/langfuse
-      NEXTAUTH_SECRET: change-me-in-production
-      NEXTAUTH_URL: http://localhost:3000
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   backend:
     build:
@@ -76,22 +64,14 @@ services:
       REDIS_URL: redis://redis:6379/0
       QDRANT_URL: http://qdrant:6333
       OLLAMA_BASE_URL: http://ollama:11434
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
-      ollama:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 10s
       timeout: 5s
       retries: 5
     volumes:
-      - ./backend:/app
+      - ./backend:/backend
+      - ./apps:/apps
 
   frontend:
     build:
@@ -100,7 +80,7 @@ services:
     ports:
       - "3001:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      NEXT_PUBLIC_API_URL: http://host.docker.internal:8000/api/v1
     depends_on:
       - backend
     volumes:

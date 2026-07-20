@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "category": "routing",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 3,
+    "compliance_score_min": 80,
+    "risk_max": 0.4,
+    "confidence_min": 0.75
+  },
+  "metadata": {
+    "description": "Corporate router with static routes and basic BGP configuration. Default route with distance=1 for primary path, and backup routes.",
+    "source": "production",
+    "tags": [
+      "routing",
+      "bgp",
+      "static",
+      "corporate"
+    ],
+    "complexity": "moderate"
+  },
+  "subcategory": "routing",
+  "expected_severity": "warning"
+}

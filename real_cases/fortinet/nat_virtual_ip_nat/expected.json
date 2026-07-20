@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.3,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Fortinet NAT with VIP mapping for web server in DMZ, automatic policy-based NAT for LAN.",
+    "source": "production",
+    "tags": [
+      "nat",
+      "vip",
+      "fortinet",
+      "dmz"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "nat",
+  "expected_severity": "warning"
+}

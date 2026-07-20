@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 2,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.4,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Fortinet firewall with static routes and BGP for redundant internet connectivity.",
+    "source": "production",
+    "tags": [
+      "routing",
+      "bgp",
+      "fortinet",
+      "static"
+    ],
+    "complexity": "advanced"
+  },
+  "category": "routing",
+  "expected_severity": "warning"
+}

@@ -1,0 +1,38 @@
+config firewall policy
+    edit 0
+        set name "ALLOW-LAN-TO-WAN"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "HTTP" "HTTPS" "DNS"
+    next
+    edit 0
+        set name "BLOCK-TELNET"
+        set srcintf "any"
+        set dstintf "any"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action deny
+        set schedule "always"
+        set service "TELNET"
+    next
+    edit 0
+        set name "MANAGEMENT"
+        set srcintf "mgmt"
+        set dstintf "any"
+        set srcaddr "mgmt-net"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "SSH" "HTTPS" "PING"
+    next
+end
+
+config firewall address
+    edit "mgmt-net"
+        set subnet 192.168.1.0 255.255.255.0
+    next
+end

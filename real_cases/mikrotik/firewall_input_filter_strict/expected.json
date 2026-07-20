@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 1,
+    "high": 2,
+    "medium": 3,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.3,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Strict firewall input filter blocking management access from WAN while allowing from LAN subnet only.",
+    "source": "production",
+    "tags": [
+      "firewall",
+      "security",
+      "input-filter",
+      "wan-protection"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "firewall",
+  "subcategory": "firewall",
+  "expected_severity": "warning"
+}

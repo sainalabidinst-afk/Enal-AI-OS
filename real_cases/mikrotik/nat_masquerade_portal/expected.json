@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 1,
+    "high": 2,
+    "medium": 1,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.35,
+    "confidence_min": 0.75
+  },
+  "metadata": {
+    "description": "NAT rules for web portal hosting with masquerade for internet access and port forwarding.",
+    "source": "production",
+    "tags": [
+      "nat",
+      "masquerade",
+      "port-forward",
+      "web"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "nat",
+  "subcategory": "nat",
+  "expected_severity": "warning"
+}

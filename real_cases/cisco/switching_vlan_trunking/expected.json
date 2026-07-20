@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "switch",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 3,
+    "compliance_score_min": 75,
+    "risk_max": 0.3,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Cisco Catalyst switch with VLAN trunking across Sales, Engineering, and Guest networks.",
+    "source": "production",
+    "tags": [
+      "switching",
+      "vlan",
+      "trunk",
+      "catalyst"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "switching",
+  "expected_severity": "warning"
+}

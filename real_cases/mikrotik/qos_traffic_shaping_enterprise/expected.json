@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 1,
+    "compliance_score_min": 75,
+    "risk_max": 0.3,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Enterprise QoS with VoIP priority, video medium, and general traffic shaping.",
+    "source": "production",
+    "tags": [
+      "qos",
+      "traffic-shaping",
+      "voip",
+      "queue"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "qos",
+  "subcategory": "qos",
+  "expected_severity": "warning"
+}

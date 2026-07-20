@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "switch",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 60,
+    "risk_max": 0.55,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Cisco switch with DNS server, NTP master, and SNMP with public community string.",
+    "source": "production",
+    "tags": [
+      "services",
+      "dns",
+      "ntp",
+      "snmp"
+    ],
+    "complexity": "simple"
+  },
+  "category": "services",
+  "expected_severity": "warning"
+}

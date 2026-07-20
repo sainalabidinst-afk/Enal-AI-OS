@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 80,
+    "risk_max": 0.25,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "DHCP and DNS server configuration for local office network with public DNS upstream.",
+    "source": "production",
+    "tags": [
+      "services",
+      "dhcp",
+      "dns",
+      "lan"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "services",
+  "subcategory": "services",
+  "expected_severity": "warning"
+}

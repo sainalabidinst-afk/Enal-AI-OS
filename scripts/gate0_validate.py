@@ -75,8 +75,9 @@ def gate(name: str, gate_id: str):
 
 
 def run(cmd: list[str], **kwargs) -> subprocess.CompletedProcess | None:
+    timeout = kwargs.pop("timeout", 120)
     try:
-        return subprocess.run(cmd, capture_output=True, text=True, timeout=kwargs.get("timeout", 120), **kwargs)
+        return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, **kwargs)
     except FileNotFoundError:
         return None
     except subprocess.TimeoutExpired:

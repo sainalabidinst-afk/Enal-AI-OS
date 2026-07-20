@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.3,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Fortinet firewall traffic shaper with VoIP priority and video medium QoS profiles.",
+    "source": "production",
+    "tags": [
+      "qos",
+      "traffic-shaping",
+      "fortinet",
+      "shaper"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "qos",
+  "expected_severity": "warning"
+}

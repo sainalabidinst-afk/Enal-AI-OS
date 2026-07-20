@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "router",
+  "expected": {
+    "critical": 1,
+    "high": 2,
+    "medium": 2,
+    "low": 1,
+    "compliance_score_min": 60,
+    "risk_max": 0.6,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Cisco router with SSH hardened but weak admin password in configuration.",
+    "source": "production",
+    "tags": [
+      "security",
+      "ssh",
+      "hardening",
+      "password"
+    ],
+    "complexity": "simple"
+  },
+  "category": "security",
+  "expected_severity": "warning"
+}

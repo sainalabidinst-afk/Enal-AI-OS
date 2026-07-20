@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "router",
+  "expected": {
+    "critical": 0,
+    "high": 2,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.35,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Cisco PAT (Port Address Translation) with DMZ server port forwarding for web services.",
+    "source": "production",
+    "tags": [
+      "nat",
+      "pat",
+      "dmz",
+      "port-forward"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "nat",
+  "expected_severity": "warning"
+}

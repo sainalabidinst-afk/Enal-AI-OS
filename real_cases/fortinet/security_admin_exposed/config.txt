@@ -1,0 +1,21 @@
+config system admin
+    edit "admin-user"
+        set accprofile "super_admin"
+        set password admin123
+        set trusthost 0.0.0.0 0.0.0.0
+        set trustaddr 0.0.0.0 0.0.0.0
+    next
+end
+
+config system api-user
+    edit "api-user"
+        set trusthost 0.0.0.0 0.0.0.0
+        set password apikey123
+    next
+end
+
+config system ha
+    set mode a-a
+    set group-id 10
+    set group-name "HA-Pair"
+end

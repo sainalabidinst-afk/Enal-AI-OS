@@ -1,0 +1,15 @@
+hostname SEC-FW-01
+!
+access-list 100 deny tcp any any eq 23
+access-list 100 deny udp any any eq 23
+access-list 100 permit tcp 192.168.0.0 0.0.255.255 any eq 22
+access-list 100 permit tcp 192.168.0.0 0.0.255.255 any eq 443
+access-list 100 deny ip any any
+!
+interface GigabitEthernet0/0
+ ip access-group 100 in
+!
+ip access-list extended INGRESS-FW
+ permit tcp any host 192.168.1.100 eq 80
+ permit tcp any host 192.168.1.100 eq 443
+ deny ip any any log

@@ -1,0 +1,15 @@
+hostname SECURITY-HQ
+!
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+line vty 0 4
+ transport input ssh
+ exec-timeout 10
+ login local
+!
+username admin privilege 15 secret adminpassword123
+!
+service tcp-keepalives-in
+service tcp-keepalives-out

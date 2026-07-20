@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 2,
+    "medium": 3,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.4,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Fortinet IPSec site-to-site VPN with Phase1 and Phase2 configuration for data center connectivity.",
+    "source": "production",
+    "tags": [
+      "vpn",
+      "ipsec",
+      "fortinet",
+      "site-to-site"
+    ],
+    "complexity": "advanced"
+  },
+  "category": "vpn",
+  "expected_severity": "warning"
+}

@@ -13,7 +13,15 @@
   "metadata": {
     "description": "Sample MikroTik hotspot configuration with bridge, DHCP, and basic firewall rules",
     "source": "dogfooding",
-    "tags": ["hotspot", "bridge", "dhcp", "firewall"],
+    "tags": [
+      "hotspot",
+      "bridge",
+      "dhcp",
+      "firewall"
+    ],
     "complexity": "simple"
-  }
+  },
+  "category": "firewall",
+    "subcategory": "firewall",
+  "expected_severity": "warning"
 }

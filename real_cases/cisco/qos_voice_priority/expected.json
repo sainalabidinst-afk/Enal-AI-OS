@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "switch",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.25,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Cisco switch QoS policy prioritizing VoIP traffic with 20% bandwidth guarantee.",
+    "source": "production",
+    "tags": [
+      "qos",
+      "voice",
+      "priority",
+      "telephony"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "qos",
+  "expected_severity": "warning"
+}

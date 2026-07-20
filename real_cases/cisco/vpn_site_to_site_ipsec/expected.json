@@ -1,0 +1,26 @@
+{
+  "vendor": "cisco",
+  "device_type": "router",
+  "expected": {
+    "critical": 1,
+    "high": 2,
+    "medium": 3,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.5,
+    "confidence_min": 0.85
+  },
+  "metadata": {
+    "description": "Cisco IOS IPSec site-to-site VPN with AES256 encryption, PSK authentication.",
+    "source": "production",
+    "tags": [
+      "vpn",
+      "ipsec",
+      "site-to-site",
+      "cisco"
+    ],
+    "complexity": "advanced"
+  },
+  "category": "vpn",
+  "expected_severity": "warning"
+}

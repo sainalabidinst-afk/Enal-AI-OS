@@ -1,0 +1,23 @@
+config router static
+    edit 0
+        set dst 0.0.0.0/0
+        set gateway 10.0.0.2
+        set distance 1
+    next
+    edit 0
+        set dst 172.16.0.0/12
+        set gateway 10.0.0.2
+        set distance 2
+    next
+end
+
+config router bgp
+    set as 65001
+    set router-id 10.0.0.1
+    set redistribute-connected enable
+    config neighbor
+        edit 10.0.0.2
+            set remote-as 65002
+        next
+    end
+end

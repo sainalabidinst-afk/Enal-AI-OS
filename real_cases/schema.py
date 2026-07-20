@@ -22,6 +22,8 @@ class RealCase:
     category: str
     subcategory: str = ""
     vendor: str = ""
+    os_version: str = ""
+    difficulty: str = "medium"
     device_role: str = ""
     source_files: list[str] = field(default_factory=list)
     context: str = ""

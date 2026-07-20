@@ -1,0 +1,19 @@
+hostname HQ-RTR-01
+!
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface GigabitEthernet0/1
+ ip address 10.0.0.1 255.255.255.252
+ ip nat outside
+!
+router ospf 1
+ router-id 10.0.0.1
+ network 192.168.1.0 0.0.0.255 area 0
+ network 10.0.0.0 0.0.0.3 area 0
+!
+ip route 0.0.0.0 0.0.0.0 10.0.0.2 1
+ip route 172.16.0.0 255.240.0.0 10.0.0.2 2
+!
+ip name-server 8.8.8.8 8.8.4.4

@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "switch",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 1,
+    "low": 2,
+    "compliance_score_min": 75,
+    "risk_max": 0.35,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Managed switch with VLAN segmentation across departments. STP enabled for loop prevention.",
+    "source": "production",
+    "tags": [
+      "switching",
+      "vlan",
+      "stp",
+      "layer2"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "switching",
+  "subcategory": "switching",
+  "expected_severity": "warning"
+}

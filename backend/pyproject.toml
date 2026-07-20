@@ -6,7 +6,6 @@ build-backend = "hatchling.build"
 name = "enal-backend"
 version = "1.0.0-dev"
 description = "Enal AI OS Backend — AI Operating System API"
-readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [

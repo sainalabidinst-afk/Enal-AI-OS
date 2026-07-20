@@ -1,0 +1,28 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 4,
+    "high": 3,
+    "medium": 2,
+    "low": 1,
+    "compliance_score_min": 30,
+    "risk_max": 0.9,
+    "confidence_min": 0.95
+  },
+  "metadata": {
+    "description": "Router with insecure defaults - telnet enabled, weak SSH crypto, default admin password, services open to world.",
+    "source": "incident",
+    "tags": [
+      "security",
+      "telnet",
+      "ssh",
+      "weak-password",
+      "service-exposure"
+    ],
+    "complexity": "simple"
+  },
+  "category": "security",
+  "subcategory": "security",
+  "expected_severity": "warning"
+}

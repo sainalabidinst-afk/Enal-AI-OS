@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 3,
+    "high": 2,
+    "medium": 2,
+    "low": 1,
+    "compliance_score_min": 40,
+    "risk_max": 0.85,
+    "confidence_min": 0.9
+  },
+  "metadata": {
+    "description": "Fortinet firewall with admin user exposed to all IPs, weak password, and API user exposed.",
+    "source": "incident",
+    "tags": [
+      "security",
+      "admin-exposed",
+      "weak-password",
+      "api"
+    ],
+    "complexity": "simple"
+  },
+  "category": "security",
+  "expected_severity": "warning"
+}

@@ -12,4 +12,3 @@ venv
 *.sqlite
 .git
 .gitignore
-README.md

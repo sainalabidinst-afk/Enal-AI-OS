@@ -1,0 +1,27 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "category": "high_availability",
+  "expected": {
+    "critical": 0,
+    "high": 3,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.45,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "High availability with BGP peer tracking, hardware watchdog, and health monitoring.",
+    "source": "production",
+    "tags": [
+      "high_availability",
+      "bgp",
+      "watchdog",
+      "health"
+    ],
+    "complexity": "advanced"
+  },
+  "subcategory": "high_availability",
+  "expected_severity": "warning"
+}

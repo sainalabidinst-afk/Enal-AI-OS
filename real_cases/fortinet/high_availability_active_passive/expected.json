@@ -1,0 +1,26 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 2,
+    "compliance_score_min": 70,
+    "risk_max": 0.35,
+    "confidence_min": 0.8
+  },
+  "metadata": {
+    "description": "Fortinet Active-Passive HA cluster configuration with heartbeat interfaces and session sync.",
+    "source": "production",
+    "tags": [
+      "high_availability",
+      "ha",
+      "fortinet",
+      "cluster"
+    ],
+    "complexity": "advanced"
+  },
+  "category": "high_availability",
+  "expected_severity": "warning"
+}

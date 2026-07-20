@@ -1,0 +1,29 @@
+config system interface
+    edit "wifi-employee"
+        set alias "WiFi-Employee"
+        set type vlan
+        set vlan-forward enable
+        set interface "internal"
+        set vlanid 200
+    next
+end
+
+config user group
+    edit "employee-group"
+        set member "employee-users"
+    next
+end
+
+config user device-group
+    edit "trusted-devices"
+        set member "known-mac-addresses"
+    next
+end
+
+config wireless-controller vap
+    edit "employee-vap"
+        set ssid "Corp-Employee"
+        set vlan 200
+        set security wpa2-enterprise
+    next
+end

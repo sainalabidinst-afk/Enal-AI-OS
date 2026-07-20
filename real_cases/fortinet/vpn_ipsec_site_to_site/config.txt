@@ -1,0 +1,29 @@
+config vpn ipsec phase1-interface
+    edit "VPN-TO-DC"
+        set interface "wan1"
+        set peertype any
+        set net-device disable
+        set mode aggressive
+        set proposal aes256-sha256
+        set dhgrp 14
+        set remote-gw 203.0.113.1
+        set psksecret ENC XXXX
+    next
+end
+
+config vpn ipsec phase2-interface
+    edit "VPN-TO-DC-P2"
+        set phase1name "VPN-TO-DC"
+        set proposal aes256-sha256
+        set pfs enable
+        set replay enable
+    next
+end
+
+config vpn ipsec phase2-interface
+    edit "VPN-TO-BRANCH-P2"
+        set phase1name "VPN-TO-DC"
+        set proposal aes128-sha1
+        set pfs disable
+    next
+end
