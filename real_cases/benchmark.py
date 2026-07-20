@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class BenchmarkResult:
     case_id: str
-    passed: bool
+    passed: bool = False
     score: float = 0.0
     findings_matched: int = 0
     expected_findings: int = 0

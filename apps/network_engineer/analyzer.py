@@ -121,6 +121,13 @@ class NetworkAnalyzer:
             self._check_radius_without_backup,
             self._check_wireless_open_security,
             self._check_queue_simple_duplicate,
+            self._check_telnet_enabled_cisco,
+            self._check_ipsec_configured_cisco,
+            self._check_hsrp_configured_cisco,
+            self._check_wpa2_enterprise_wireless,
+            self._check_fortinet_firewall_policy,
+            self._check_fortinet_vpn_ipsec,
+            self._check_fortinet_ha_configured,
         ]
 
     async def analyze(self, config: Any, topology: Any | None = None) -> NetworkAnalysisReport:
@@ -377,6 +384,46 @@ class NetworkAnalyzer:
         targets = [q.target for q in config.queue_configs if q.target]
         if len(targets) != len(set(targets)):
             report.add_issue(Severity.WARNING, "QoS", "Duplicate queue targets", "Review queue configuration", confidence=0.9)
+
+    def _check_telnet_enabled_cisco(self, config: Any, report: NetworkAnalysisReport):
+        for line in config.raw_lines:
+            if "telnet" in line.lower() and "disabled" not in line.lower():
+                report.add_issue(Severity.CRITICAL, "Security", "Telnet is enabled (unencrypted)", "Use SSH instead of Telnet", confidence=1.0)
+
+    def _check_ipsec_configured_cisco(self, config: Any, report: NetworkAnalysisReport):
+        has_ipsec = any("crypto isakmp" in line.lower() or "crypto map" in line.lower() for line in config.raw_lines)
+        if has_ipsec:
+            report.add_issue(Severity.INFO, "VPN", "IPSec VPN configured", "Verify IPSec configuration for security compliance", confidence=0.9)
+
+    def _check_hsrp_configured_cisco(self, config: Any, report: NetworkAnalysisReport):
+        for line in config.raw_lines:
+            if "standby" in line.lower() and "ip" in line.lower():
+                report.add_issue(Severity.INFO, "High Availability", "HSRP configured", "Verify HSRP authentication and preemption", confidence=0.9)
+
+    def _check_wpa2_enterprise_wireless(self, config: Any, report: NetworkAnalysisReport):
+        for line in config.raw_lines:
+            if "wpa" in line.lower() and "wpa2" not in line.lower() and "wpa3" not in line.lower():
+                if "enterprise" in line.lower() or "wpa" in line.lower():
+                    report.add_issue(Severity.WARNING, "Wireless", "Wireless using WPA (not WPA2/3)", "Upgrade to WPA2-Enterprise or WPA3", confidence=0.8)
+            if "wep" in line.lower():
+                report.add_issue(Severity.CRITICAL, "Wireless", "WEP encryption enabled", "Replace with WPA2/WPA3 immediately", confidence=1.0)
+
+    def _check_fortinet_firewall_policy(self, config: Any, report: NetworkAnalysisReport):
+        has_fortinet_fw = any("config firewall policy" in line.lower() or "firewall policy" in line.lower() for line in config.raw_lines)
+        if has_fortinet_fw:
+            for line in config.raw_lines:
+                if "telnet" in line.lower() and "deny" not in line.lower():
+                    report.add_issue(Severity.CRITICAL, "Security", "Fortinet firewall may allow Telnet", "Block Telnet in firewall policy", confidence=0.9)
+
+    def _check_fortinet_vpn_ipsec(self, config: Any, report: NetworkAnalysisReport):
+        for line in config.raw_lines:
+            if "config vpn ipsec" in line.lower() or "vpn ipsec phase1" in line.lower():
+                report.add_issue(Severity.INFO, "VPN", "Fortinet IPSec VPN configured", "Verify VPN phase1/phase2 settings", confidence=0.9)
+
+    def _check_fortinet_ha_configured(self, config: Any, report: NetworkAnalysisReport):
+        has_ha = any("config system ha" in line.lower() or ("mode a-a" in line.lower() or "mode a-p" in line.lower()) for line in config.raw_lines)
+        if has_ha:
+            report.add_issue(Severity.INFO, "High Availability", "Fortinet HA configured", "Verify HA cluster settings", confidence=0.9)
 
     def _networks_overlap(self, net1: str, net2: str) -> bool:
         try:
