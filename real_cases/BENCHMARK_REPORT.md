@@ -6,12 +6,9 @@
 |--------|-------|
 | Benchmark Type | Network Engineer |
 | Total Cases | 30 |
-| Passed Cases | N/A (requires execution) |
-| Failed Cases | N/A (requires execution) |
-| Pass Rate | N/A |
-| Avg Score | N/A |
-| Avg Latency | N/A |
-| Avg Capability Score | N/A |
+| MikroTik Cases | 10 (config.rsc format) |
+| Cisco Cases | 10 (config.txt format) |
+| Fortinet Cases | 10 (config.txt format) |
 
 ## Vendor Breakdown
 
@@ -27,12 +24,12 @@
 
 | Metric | Formula | Status |
 |--------|---------|--------|
-| Precision | TP / (TP + FP) | Pending execution |
-| Recall | TP / (TP + FN) | Pending execution |
-| Accuracy | (TP + TN) / Total | Pending execution |
-| False Positive Rate | FP / Total | Pending execution |
-| False Negative Rate | FN / Total | Pending execution |
-| Exact Match Rate | Perfect matches / Total | Pending execution |
+| Precision | TP / (TP + FP) | Requires benchmark run |
+| Recall | TP / (TP + FN) | Requires benchmark run |
+| Accuracy | (TP + TN) / Total | Requires benchmark run |
+| False Positive Rate | FP / Total | Requires benchmark run |
+| False Negative Rate | FN / Total | Requires benchmark run |
+| Exact Match Rate | Perfect matches / Total | Requires benchmark run |
 
 ## Bug Fixes Applied
 
@@ -40,16 +37,32 @@
 2. **Parser can_parse bug** - Fixed type comparison in TextConfigParser
 3. **Missing telemetry module** - Created necessary module structure
 
-## Execution Requirements
+## Expected Findings Matching
 
-To execute benchmarks, run:
+Expected findings are derived from `expected.json` tags:
+
+| Tag | Derived Findings |
+|-----|-----------------|
+| security | ["security issue detected", "insecure configuration"] |
+| telnet | ["telnet enabled", "insecure management"] |
+| ssh | ["ssh", "secure shell"] |
+| vpn | ["vpn", "remote access"] |
+| firewall | ["firewall", "access control"] |
+| vlan | ["vlan", "switch", "trunk"] |
+| bgp | ["bgp", "routing", "peer"] |
+| ospf | ["ospf", "routing", "area"] |
+| qos | ["queue", "traffic shaping", "priority"] |
+| nat | ["nat", "masquerade", "port forwarding"] |
+| wireless | ["wireless", "wlan", "ssid"] |
+
+## Execution Commands
+
 ```bash
+# Local execution
 python benchmarks/network_engineer_benchmark.py
-```
 
-Or via API:
-```bash
-curl http://localhost:8000/api/v1/benchmark/run
+# API execution
+curl -X POST http://localhost:8000/api/v1/benchmark/run
 ```
 
 ## Notes
