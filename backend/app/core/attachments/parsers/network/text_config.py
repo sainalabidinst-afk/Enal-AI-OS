@@ -16,7 +16,8 @@ class TextConfigParser(BaseParser):
     """Shared text-based parsing helpers for network configs."""
 
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.attachment_type in {meta.attachment_type.config, meta.attachment_type.backup, meta.attachment_type.log}
+        from backend.app.core.attachments.models import AttachmentType
+        return meta.attachment_type in {AttachmentType.config, AttachmentType.backup, AttachmentType.log}
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
         ast = InfrastructureAST(format="text", version="")

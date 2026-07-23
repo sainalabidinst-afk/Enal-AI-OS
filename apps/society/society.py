@@ -38,7 +38,7 @@ from apps.organization.economics import organizational_economics
 from apps.organization.optimizer import workforce_optimizer
 from apps.organization.learning import organizational_learning
 from apps.organization.capability_graph import capability_graph
-from apps.organization.task_planner import task_planner
+from apps.organization.task_planner import SubTask, TaskPlan, task_planner
 from apps.organization.execution_planner import (
     ExecutionPlan,
     ExecutionStage,
@@ -50,7 +50,6 @@ from apps.organization.execution_runtime import (
     ExecutionRuntime,
     execution_runtime,
 )
-from apps.organization.task_planner import SubTask, TaskPlan, task_planner
 from apps.society.intent_router import intent_router, Intent, IntentDomain, IntentComplexity
 from apps.society.workers import network_worker
 

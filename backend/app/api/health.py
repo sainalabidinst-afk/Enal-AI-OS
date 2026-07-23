@@ -5,7 +5,8 @@ router = APIRouter()
 
 @router.get("/health")
 async def health():
-    return {"status": "ok", "service": "enal-ai-os", "version": "0.1.0"}
+    from ..core.config import settings
+    return {"status": "ok", "service": "enal-ai-os", "version": settings.VERSION}
 
 
 @router.get("/agents")

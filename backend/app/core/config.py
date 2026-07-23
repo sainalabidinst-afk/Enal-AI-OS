@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     MAX_TOKENS: int = 4096
     TEMPERATURE: float = 0.7
 
-    SECRET_KEY: str = "change-me-in-production"
+    SECRET_KEY: str = ""
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
 
     LANGCHAIN_TRACING_V2: bool = False

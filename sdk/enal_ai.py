@@ -66,13 +66,13 @@ class WorkflowConfig(BaseModel):
 class Agent:
     """Base class for all Enal AI OS agents."""
 
-    config: AgentConfig = None
+    config: AgentConfig | None = None
 
     def __init__(self, **kwargs):
         if self.config is None:
             self.config = AgentConfig(**kwargs)
         else:
-            self.config = AgentConfig(**self.config.dict(), **kwargs)
+            self.config = AgentConfig(**self.config.model_dump(), **kwargs)
 
     async def execute(self, task: str, context: dict[str, Any] | None = None) -> str:
         raise NotImplementedError
@@ -86,19 +86,19 @@ class Agent:
             return {"agent": self.config.name, "task": task, "result": str(e), "success": False}
 
     def to_dict(self) -> dict[str, Any]:
-        return self.config.dict()
+        return self.config.model_dump()
 
 
 class Tool:
     """Base class for all Enal AI OS tools."""
 
-    config: ToolConfig = None
+    config: ToolConfig | None = None
 
     def __init__(self, **kwargs):
         if self.config is None:
             self.config = ToolConfig(**kwargs)
         else:
-            self.config = ToolConfig(**self.config.dict(), **kwargs)
+            self.config = ToolConfig(**self.config.model_dump(), **kwargs)
 
     async def invoke(self, parameters: dict[str, Any]) -> dict[str, Any]:
         if self.config.handler:
@@ -107,21 +107,22 @@ class Tool:
         return {"tool": self.config.name, "result": None, "success": False}
 
     def to_dict(self) -> dict[str, Any]:
-        return self.config.dict()
+        return self.config.model_dump()
 
 
 class Workflow:
     """Base class for all Enal AI OS workflows."""
 
-    config: WorkflowConfig = None
+    config: WorkflowConfig | None = None
 
     def __init__(self, **kwargs):
         if self.config is None:
             self.config = WorkflowConfig(**kwargs)
         else:
-            self.config = WorkflowConfig(**self.config.dict(), **kwargs)
+            self.config = WorkflowConfig(**self.config.model_dump(), **kwargs)
 
     async def execute(self, context: dict[str, Any] | None = None) -> dict[str, Any]:
+        context = context or {}
         results = {}
         for step in self.config.steps:
             try:
@@ -131,7 +132,7 @@ class Workflow:
         return {"workflow": self.config.name, "results": results}
 
     def to_dict(self) -> dict[str, Any]:
-        return self.config.dict()
+        return self.config.model_dump()
 
 
 class EnalAI:

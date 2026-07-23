@@ -26,11 +26,14 @@ class CrossFileReasoningEngine:
             combined.wireless.extend(ast.wireless)
             combined.ha.extend(ast.ha)
             combined.findings.extend(ast.findings)
-            combined.system.setdefault("sources", []).append(ast.metadata.get("source"))
-            for key, value in ast.system.items():
-                combined.system.setdefault(key, []).extend(value if isinstance(value, list) else [value])
-            for key, value in ast.metadata.items():
-                combined.metadata.setdefault(key, value)
+combined.system["sources"] = combined.system.get("sources", []) + [ast.metadata.get("source")]
+             for key, value in ast.system.items():
+                 if isinstance(value, list):
+                     combined.system.setdefault(key, []).extend(value)
+                 else:
+                     combined.system[key] = value
+             for key, value in ast.metadata.items():
+                 combined.metadata.setdefault(key, value)
 
         self._detect_vlan_gaps(combined)
         self._detect_unreachable_subnets(combined)
