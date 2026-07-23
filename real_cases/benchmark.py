@@ -170,6 +170,43 @@ class BenchmarkHarness:
         }
 
 
+def _derive_expected_findings(expected_inner: dict[str, Any], tags: list[str]) -> list[str]:
+    findings: list[str] = []
+    tag_to_finding = {
+        "security": ["security issue detected", "insecure configuration"],
+        "telnet": ["telnet enabled", "insecure management"],
+        "ssh": ["ssh", "secure shell"],
+        "vpn": ["vpn", "remote access"],
+        "firewall": ["firewall", "access control"],
+        "acl": ["access list", "acl"],
+        "nat": ["nat", "masquerade", "port forwarding"],
+        "routing": ["routing", "ospf", "bgp", "static route"],
+        "vlan": ["vlan", "switch", "trunk"],
+        "bridge": ["bridge", "stp"],
+        "wireless": ["wireless", "wlan", "ssid"],
+        "hotspot": ["hotspot", "captive portal"],
+        "dhcp": ["dhcp", "dns server"],
+        "qos": ["queue", "traffic shaping", "priority"],
+        "ha": ["vrrp", "hsrp", "high availability", "failover"],
+        "high_availability": ["vrrp", "hsrp", "high availability", "failover", "watchdog"],
+        "bgp": ["bgp", "routing", "peer"],
+        "ospf": ["ospf", "routing", "area"],
+        "watchdog": ["watchdog", "health monitoring"],
+        "health": ["health", "watchdog"],
+    }
+    for tag in tags:
+        if tag.lower() in tag_to_finding:
+            findings.extend(tag_to_finding[tag.lower()])
+    critical = expected_inner.get("critical", 0)
+    high = expected_inner.get("high", 0)
+    medium = expected_inner.get("medium", 0)
+    low = expected_inner.get("low", 0)
+    total_expected = critical + high + medium + low
+    if total_expected > 0 and not findings:
+        findings = [f"finding_{i}" for i in range(total_expected)]
+    return findings
+
+
 def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
     cases: list[RealCase] = []
     if not Path(base_dir).exists():
@@ -195,6 +232,7 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
                 except Exception:
                     pass
             expected_inner = expected.get("expected", expected)
+            expected_findings = _derive_expected_findings(expected_inner, expected.get("metadata", {}).get("tags", []))
             case = RealCase(
                 id=f"{vendor_dir.name}:{case_dir.name}",
                 title=expected.get("title", case_dir.name),
@@ -202,7 +240,7 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
                 vendor=vendor_dir.name,
                 source_files=[str(case_dir / config_file)],
                 context=expected.get("metadata", {}).get("description", ""),
-                expected_findings=[],
+                expected_findings=expected_findings,
                 expected_risk_score=expected_inner.get("risk_max"),
                 expected_compliance_score=expected_inner.get("compliance_score_min"),
                 tags=expected.get("metadata", {}).get("tags", [vendor_dir.name]),

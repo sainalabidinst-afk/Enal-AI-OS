@@ -1,45 +1,63 @@
-# BENCHMARK INVENTORY
-# Network Engineer Benchmark System
+# Benchmark Inventory
 
-## Files
-| File | Purpose |
-|------|---------|
-| `benchmark.py` | Benchmark runner and harness |
-| `schema.py` | RealCase and RealCaseEvidence dataclasses |
-| `collector.py` | Case persistence utilities |
-| `kpi.py` | KPI tracking (empty) |
-| `analyzer_rules_mapping.md` | Rule domain classification |
-| `RULE_INVENTORY.md` | Rule catalog |
-| `RULE_GAP_REPORT.md` | Gap analysis |
-| `RULE_COVERAGE.md` | Coverage metrics |
+## Summary
+- Total real cases: 30
+- MikroTik cases: 10
+- Cisco cases: 10
+- Fortinet cases: 9
+- Other: 1
 
-## Benchmark Runner Components
-| Component | Location | Description |
-|-----------|----------|-------------|
-| `BenchmarkHarness` | benchmark.py:34 | Main harness class |
-| `BenchmarkResult` | benchmark.py:16 | Result dataclass |
-| `load_cases_from_disk()` | benchmark.py:173 | Loads cases from real_cases/ |
-| `run()` | benchmark.py:38 | Executes single benchmark |
-| `run_benchmark_for_category()` | benchmark.py:214 | Batch run by category |
-| `summary()` | benchmark.py:156 | Aggregate metrics |
+## Benchmark Components
 
-## Evaluator Components
-| Component | Location | Description |
-|-----------|----------|-------------|
-| `_score_parser()` | benchmark.py:116 | Parser quality scoring |
-| `_score_reasoning()` | benchmark.py:124 | Reasoning quality scoring |
-| `_score_evidence()` | benchmark.py:137 | Evidence quality scoring |
-| `_score_compliance()` | benchmark.py:143 | Compliance scoring |
-| `_score_executive_report()` | benchmark.py:149 | Report quality scoring |
+| Component | Location | Status |
+|-----------|----------|--------|
+| Benchmark Runner | `benchmarks/network_engineer_benchmark.py` | Present |
+| Benchmark Harness | `real_cases/benchmark.py` | Present |
+| Expected Results | `real_cases/*/expected.json` | Present (30 files) |
+| Real Cases Dataset | `real_cases/` | Present (30 cases) |
+| Report Generator | `benchmarks/network_engineer_benchmark.py:_write_report` | Present |
+| Summary Printer | `benchmarks/network_engineer_benchmark.py:print_summary` | Present |
 
-## Expected Results
-- `expected.json` per case directory
-- Contains: vendor, device_type, expected.critical/high/medium/low, compliance_score_min, risk_max, metadata.description
+## Real Cases Inventory
 
-## Output Analyzer
-- `analyze_attachment()` in backend/app/core/attachments/analyzer.py
-- Returns AttachmentAnalysisResult with: ast, summary, risk_score, recommendations
+### MikroTik (10 cases)
+| Case | Config File | Expected Findings Source |
+|------|-------------|------------------------|
+| mikrotik:wireless_wlan_corporate | config.rsc | tags: wireless, ssid |
+| mikrotik:vpn_pptp_remote_access | config.rsc | tags: vpn, pptp |
+| mikrotik:switching_vlan_switch | config.rsc | tags: vlan, switching |
+| mikrotik:services_dhcp_dns_server | config.rsc | tags: dhcp, services |
+| mikrotik:security_insecure_defaults | config.rsc | tags: security, telnet |
+| mikrotik:sample_hotspot | sample_hotspot.txt | tags: hotspot, bridge |
+| mikrotik:routing_static_route_default | config.rsc | tags: routing |
+| mikrotik:qos_traffic_shaping_enterprise | config.rsc | tags: qos |
+| mikrotik:nat_masquerade_portal | config.rsc | tags: nat |
+| mikrotik:high_availability_bgpi_peer_tracking | config.rsc | tags: ha, bgp |
 
-## Report Generator
-- Executive summary in analysis result
-- Capability scores in benchmark result
+### Cisco (10 cases)
+| Case | Config File | Expected Findings Source |
+|------|-------------|------------------------|
+| cisco:wireless_corporate_ssid | config.rsc | tags: wireless, ssid |
+| cisco:routing_ospf_enterprise | config.rsc | tags: routing, ospf |
+| cisco:vpn_site_to_site_ipsec | config.rsc | tags: vpn |
+| cisco:services_dns_ntp_snmp | config.rsc | tags: services |
+| cisco:qos_voice_priority | config.rsc | tags: qos |
+| cisco:switching_vlan_trunking | config.rsc | tags: vlan, switching |
+| cisco:security_ssh_hardened | config.rsc | tags: security, ssh |
+| cisco:nat_pat_dmz | config.rsc | tags: nat |
+| cisco:firewall_asa_acl_strict | config.rsc | tags: firewall, acl |
+| cisco:high_availability_hsrp_router | config.rsc | tags: ha, hsrp |
+
+### Fortinet (10 cases)
+| Case | Config File | Expected Findings Source |
+|------|-------------|------------------------|
+| fortinet:wireless_employee_wifi | config.rsc | tags: wireless |
+| fortinet:vpn_ipsec_site_to_site | config.rsc | tags: vpn |
+| fortinet:switching_managed_vlan | config.rsc | tags: vlan |
+| fortinet:services_dns_ntp_mgmt | config.rsc | tags: services |
+| fortinet:security_admin_exposed | config.rsc | tags: security |
+| fortinet:routing_static_bgp_ha | config.rsc | tags: routing, ha |
+| fortinet:firewall_policy_dmz | config.rsc | tags: firewall |
+| fortinet:qos_traffic_shaping | config.rsc | tags: qos |
+| fortinet:nat_virtual_ip_nat | config.rsc | tags: nat |
+| fortinet:high_availability_active_passive | config.rsc | tags: ha |
