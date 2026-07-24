@@ -1,0 +1,47 @@
+# EXECUTION FLOW AUDIT
+
+## Execution Status Lifecycle
+
+Current `ExecutionStatus` enum:
+- `pending` - Task created, waiting to run
+- `planning` - Planning phase
+- `running` - Actively executing
+- `waiting_approval` - Paused for approval
+- `paused` - Temporarily paused
+- `completed` - Successfully finished
+- `failed` - Error occurred
+- `cancelled` - Explicit cancellation
+
+---
+
+## Execution Flow
+
+### Request
+1. User sends request via API (`execution.py` or chat)
+2. Request validated (workspace_id required)
+
+### Validation
+- Workspace existence verified
+- Required fields present
+- File content readable (for attachments)
+
+### Execution
+1. `execution_integration.execute()` called
+2. Execution graph created with 4 tasks:
+   - `understand` → `plan` → `execute` → `verify`
+3. Each task runs sequentially via scheduler
+
+### Completion
+- All tasks complete
+- Artifacts created
+- Session marked completed
+- Progress = 100%
+
+### Failure
+- Exception in any task
+- Session marked failed
+- Error logged
+
+### Telemetry
+- Events recorded at each transition
+- `record_execution_event()` called on finish/error
