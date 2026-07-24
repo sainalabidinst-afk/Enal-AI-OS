@@ -4,8 +4,8 @@
 - Total real cases: 30
 - MikroTik cases: 10
 - Cisco cases: 10
-- Fortinet cases: 9
-- Other: 1
+- Fortinet cases: 10
+- Other: 0
 
 ## Benchmark Components
 

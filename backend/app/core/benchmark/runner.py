@@ -179,7 +179,8 @@ class BenchmarkRunner:
             return ExpectedResult(vendor=case.vendor, device_type=case.device_type)
         try:
             return ExpectedResult.from_dict(json.loads(expected_path.read_text(encoding="utf-8")))
-        except Exception:
+        except Exception as exc:
+            logger.warning("Failed to parse expected.json for %s: %s", case.case_id, exc)
             return ExpectedResult(vendor=case.vendor, device_type=case.device_type)
 
     def _score_case(

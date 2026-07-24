@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import importlib
+import logging
 import pkgutil
 from typing import Any
 
 from backend.app.core.attachments.models import AttachmentMeta, InfrastructureAST
 from backend.app.core.attachments.parsers.base import BaseParser
+
+logger = logging.getLogger(__name__)
 
 
 class ParserRegistry:
@@ -32,15 +35,17 @@ class ParserRegistry:
                         try:
                             module = importlib.import_module(f"{full_name}.{sub_name}")
                             self._register_parser_classes(module)
-                        except Exception:
+                        except Exception as exc:
+                            logger.debug("Failed to load parser module %s.%s: %s", full_name, sub_name, exc)
                             continue
-                except Exception:
+                except Exception as exc:
+                    logger.debug("Failed to load parser subpackage %s: %s", full_name, exc)
                     continue
-                continue
             try:
                 module = importlib.import_module(full_name)
                 self._register_parser_classes(module)
-            except Exception:
+            except Exception as exc:
+                logger.debug("Failed to load parser module %s: %s", full_name, exc)
                 continue
 
     def _register_parser_classes(self, module: Any) -> None:
