@@ -8,7 +8,7 @@ Tracks project completion time, quality, token cost, collaboration rate, and tea
 
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class ProjectMetrics:
     def duration_seconds(self) -> float:
         if self.end_time:
             return (self.end_time - self.start_time).total_seconds()
-        return (datetime.now(timezone.utc) - self.start_time).total_seconds()
+        return (datetime.now(UTC) - self.start_time).total_seconds()
 
     @property
     def success_rate(self) -> float:
@@ -61,7 +61,7 @@ class OrganizationalMetrics:
         metrics = ProjectMetrics(
             project_id=project_id,
             team_id=team_id,
-            start_time=datetime.now(timezone.utc),
+            start_time=datetime.now(UTC),
         )
         self._project_metrics[project_id] = metrics
         return metrics
@@ -69,7 +69,7 @@ class OrganizationalMetrics:
     def end_project(self, project_id: str) -> ProjectMetrics | None:
         metrics = self._project_metrics.get(project_id)
         if metrics:
-            metrics.end_time = datetime.now(timezone.utc)
+            metrics.end_time = datetime.now(UTC)
             self._update_team_metrics(metrics)
         return metrics
 

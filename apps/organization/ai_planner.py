@@ -30,7 +30,7 @@ Flow:
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -146,8 +146,8 @@ class AIPlan:
     total_steps: int = 0
     completed_steps: int = 0
     failed_steps: int = 0
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -415,7 +415,7 @@ class AIPlanner:
                 step.error = f"Unsupported step type: {step.step_type}"
                 return None
 
-        except Exception as exc:
+        except (ValueError, RuntimeError, KeyError) as exc:
             step.status = PlanStatus.FAILED
             plan.failed_steps += 1
             step.error = str(exc)
@@ -603,7 +603,7 @@ class AIPlanner:
         else:
             plan.status = PlanStatus.IN_PROGRESS
 
-        plan.updated_at = datetime.now(timezone.utc)
+        plan.updated_at = datetime.now(UTC)
 
     # ─── Telemetry ───
 

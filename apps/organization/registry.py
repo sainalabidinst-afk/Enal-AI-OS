@@ -8,7 +8,7 @@ availability, memory, tools, and manager.
 """
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -82,7 +82,7 @@ class AgentRecord:
     memory: AgentMemory = field(default_factory=AgentMemory)
     metrics: AgentMetrics = field(default_factory=AgentMetrics)
     metadata: dict[str, Any] = field(default_factory=dict)
-    created_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 class AgentRegistry:

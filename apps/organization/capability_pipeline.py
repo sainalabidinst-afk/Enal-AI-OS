@@ -222,10 +222,9 @@ class CapabilityPipeline:
             except Exception as exc:
                 # Engine-level crash (not a capability error, but infrastructure)
                 logger.exception(
-                    "Pipeline step %d crashed: capability='%s' error=%s",
+                    "Pipeline step %d crashed: capability='%s'",
                     idx,
                     step.capability_id,
-                    exc,
                 )
                 response = ExecutionResponse(
                     status=ExecutionStatus.FAILED,

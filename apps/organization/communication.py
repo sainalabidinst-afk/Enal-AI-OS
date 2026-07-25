@@ -10,7 +10,7 @@ import logging
 import uuid
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -43,7 +43,7 @@ class Message:
     subject: str
     body: Any
     priority: Priority = Priority.NORMAL
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
     reply_to: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
@@ -77,7 +77,7 @@ class Event:
         self.type = event_type
         self.source = source
         self.data = data
-        self.timestamp = datetime.now(timezone.utc)
+        self.timestamp = datetime.now(UTC)
 
 
 class EventBus:

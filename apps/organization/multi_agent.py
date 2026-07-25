@@ -29,7 +29,7 @@ import logging
 import uuid
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -564,7 +564,7 @@ class MultiAgentOrchestrator:
                         task.status = PlanStatus.COMPLETED
                         agent_tasks.append(task)
 
-        except Exception as exc:
+        except (ValueError, RuntimeError, KeyError) as exc:
             logger.error("Multi-agent execution failed: %s", exc)
             # Create failed tasks for remaining steps
             for step in plan.steps:
@@ -632,14 +632,14 @@ class MultiAgentOrchestrator:
             return task
 
         task.status = PlanStatus.IN_PROGRESS
-        task.started_at = datetime.now(timezone.utc)
+        task.started_at = datetime.now(UTC)
 
         try:
             # Execute the agent's executor
             result = await executor(task.step, task.input_data)
             task.result = result
             task.status = PlanStatus.COMPLETED
-            task.completed_at = datetime.now(timezone.utc)
+            task.completed_at = datetime.now(UTC)
 
             # Update agent status
             agent.status = AgentStatus.IDLE
@@ -649,10 +649,10 @@ class MultiAgentOrchestrator:
             # Emit telemetry
             self._emit_task_completed(task)
 
-        except Exception as exc:
+        except (ValueError, RuntimeError, KeyError) as exc:
             task.status = PlanStatus.FAILED
             task.error = str(exc)
-            task.completed_at = datetime.now(timezone.utc)
+            task.completed_at = datetime.now(UTC)
 
             agent.status = AgentStatus.ERROR
             agent.current_task = None

@@ -9,7 +9,7 @@ Includes project memory, team memory, and organizational knowledge.
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class MemoryEntry:
     category: str
     content: Any
     metadata: dict[str, Any] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 class CollectiveMemory:

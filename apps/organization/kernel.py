@@ -13,7 +13,7 @@ Organization Kernel manages organizations, teams, and workers.
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -44,7 +44,7 @@ class Budget:
     allocated: float = 0.0
     spent: float = 0.0
     currency: str = "USD"
-    period_start: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    period_start: datetime = field(default_factory=lambda: datetime.now(UTC))
     period_end: datetime | None = None
 
 
@@ -69,7 +69,7 @@ class ConflictRecord:
     status: str = "open"
     resolution: str = ""
     resolved_by: str | None = None
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 @dataclass
@@ -81,7 +81,7 @@ class ProductivityMetrics:
     total_cost: float = 0.0
     quality_score: float = 0.0
     collaboration_score: float = 0.0
-    last_updated: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    last_updated: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 class OrganizationKernel:
@@ -197,7 +197,7 @@ class OrganizationKernel:
         else:
             metrics.tasks_failed += 1
         metrics.quality_score = quality_score
-        metrics.last_updated = datetime.now(timezone.utc)
+        metrics.last_updated = datetime.now(UTC)
 
     def get_productivity(self, worker_id: str) -> ProductivityMetrics | None:
         return self._productivity.get(worker_id)
@@ -238,7 +238,7 @@ class OrganizationKernel:
         worker_id = data.get("worker_id", "")
         self._worker_lifecycle.setdefault(worker_id, []).append({
             "event": "created",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         })
 
     def _on_worker_completed(self, event: Any) -> None:
@@ -246,7 +246,7 @@ class OrganizationKernel:
         worker_id = data.get("worker_id", "")
         self._worker_lifecycle.setdefault(worker_id, []).append({
             "event": "completed",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         })
 
     def _on_worker_failed(self, event: Any) -> None:
@@ -254,7 +254,7 @@ class OrganizationKernel:
         worker_id = data.get("worker_id", "")
         self._worker_lifecycle.setdefault(worker_id, []).append({
             "event": "failed",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         })
 
     def _on_project_completed(self, event: Any) -> None:
