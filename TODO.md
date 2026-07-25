@@ -1,36 +1,46 @@
-# ECP Implementation Master Plan
+# ECP Implementation Master Plan & Gap Analysis
 
-## Architecture
+## 18-Layer Vision vs. ECP Reality
 
-```
-ECP Platform
-├── Kernel (Stable, Frozen)
-├── Cognitive Services (NEW)
-│   ├── General Chatbot
-│   ├── AGI Planner
-│   ├── Memory Agent
-│   ├── Orchestrator
-│   ├── Autonomous Agent
-│   ├── Browser Agent
-│   ├── Reflection Agent
-│   ├── Debate Agent
-│   └── Multi-Agent Swarm
-└── Domain Applications
-    ├── Network Engineer (→ Production)
-    ├── Code Engineer (→ Full Pipeline) ← PHASE 1
-    ├── Research Assistant (→ Real RAG)
-    ├── DevOps Engineer
-    ├── Security Auditor
-    ├── Database Engineer
-    ├── Enterprise Architect
-    ├── Documentation Engineer
-    ├── QA Engineer
-    └── Infrastructure Engineer
-```
+| Layer | Status | Assessment |
+|-------|--------|------------|
+| **L1: Cognitive** | ✅ 90% | cognitive_kernel.py + 7 services, cognitive/ modules exist |
+| **L2: Knowledge** | ⚠️ 50% | semantic_graph.py (project only), missing cross-domain, ontology |
+| **L3: Memory** | ✅ 80% | memory_layer.py, memory.py, experience.py exist. Missing: Episodic, consolidation |
+| **L4: Multi-Agent** | ✅ 80% | organization.py, multi_agent.py, society/, agents/core/ exist |
+| **L5: Tool** | ✅ 85% | tool_registry.py complete, mcp_registry.py exists |
+| **L6: Workflow** | ⚠️ 60% | workflow_engine.py exists, steps have no real execution logic |
+| **L7: Collaboration** | ✅ 70% | debate_engine.py, society/, collective_memory.py exist |
+| **L8: Learning** | ⚠️ 50% | continuous_learning.py, experience.py exist. Missing: RL, human feedback |
+| **L9: Evaluation** | ⚠️ 40% | evaluation.py basic, missing automated regression, quality gates |
+| **L10: Security** | ⚠️ 30% | security_model.py, governance.py basic. Missing: Full RBAC, audit log, sandbox |
+| **L11: Marketplace** | ⚠️ 20% | plugin_marketplace.py stub |
+| **L12: Studio** | ⚠️ 20% | ai_studio.py minimal |
+| **L13: Observability** | ⚠️ 40% | observability.py exists, missing distributed tracing |
+| **L14: Simulation** | ✅ 70% | simulation_engine.py, sandbox.py exist |
+| **L15: Human-in-loop** | ⚠️ 50% | controlled_deployment.py has approval step |
+| **L16: Voice & Vision** | ❌ 0% | MISSING |
+| **L17: Domain Packs** | ✅ 60% | 5 reference apps, Self Development exist |
+| **L18: Enterprise** | ⚠️ 20% | governance.py basic |
 
 ---
 
-## Phase 1: Code Engineer Full Pipeline (PRIORITY 1B)
+**Priority 10 Implementation Order (Highest Impact):**
+
+1. **Memory Engine Enhancement** - Episodic memory, consolidation, cross-session retrieval
+2. **Orchestrator Unification** - multi_agent + adaptive_runtime + organization into one
+3. **Planner Upgrade** - Real workflow decomposition + execution
+4. **Browser Agent** - Web browsing, data extraction, API interaction
+5. **Multi-Agent Coordination** - Agent-to-agent protocol, shared memory
+6. **Reflection & Self-Critic** - Connect to all services, iterative improvement
+7. **Knowledge Graph + Evidence Engine** - Cross-domain, citation tracking
+8. **Tool Execution Framework** - Sandbox, retry, timeout
+9. **Evaluation & Benchmark Engine** - Golden tests, quality gates, regression
+10. **Enterprise Security & Governance** - RBAC, audit logging, tenant isolation
+
+---
+
+## Phase 1: Memory Engine Enhancement (Days 1-3)
 
 ### 1.1 Architecture Reader
 - [x] `apps/code_engineer/architecture_reader.py` — Multi-file repo structure analysis
@@ -262,13 +272,14 @@ ECP Platform
 
 ---
 
-## Progress Tracking
+## Completed Code Engineer Components
 
-| Phase | Status | Completion |
-|-------|--------|------------|
-| Phase 1: Code Engineer | 📝 Not Started | 0% |
-| Phase 2: Network Engineer | 📝 Not Started | 0% |
-| Phase 3: Research Assistant | 📝 Not Started | 0% |
-| Phase 4: Cognitive Services | 📝 Not Started | 0% |
-| Phase 5: Domain Applications | 📝 Not Started | 0% |
-
+| File | Status |
+|------|--------|
+| `apps/code_engineer/architecture_reader.py` | ✅ |
+| `apps/code_engineer/dependency_graph.py` | ✅ |
+| `apps/code_engineer/impact_analyzer.py` | ✅ |
+| `apps/code_engineer/refactoring_engine.py` | ✅ |
+| `apps/code_engineer/patch_generator.py` | ✅ |
+| `apps/code_engineer/regression_analyzer.py` | ✅ |
+| `apps/code_engineer/test_generator.py` | ✅ |
