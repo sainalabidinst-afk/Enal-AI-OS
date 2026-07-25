@@ -71,17 +71,17 @@ ECP Platform
 - [x] Patch validation (compile check)
 
 ### 1.6 Regression Risk
-- [ ] `apps/code_engineer/regression_analyzer.py` — Test impact prediction
-- [ ] Test coverage mapping
-- [ ] Risk scoring per change
-- [ ] Suggested test prioritization
+- [x] `apps/code_engineer/regression_analyzer.py` — Test impact prediction
+- [x] Test coverage mapping
+- [x] Risk scoring per change
+- [x] Suggested test prioritization
 
 ### 1.7 Test Generator
-- [ ] `apps/code_engineer/test_generator.py` — Automated test generation
-- [ ] Pytest unit test generation
-- [ ] Mock/ fixture generation
-- [ ] Edge case detection
-- [ ] Test coverage analysis
+- [x] `apps/code_engineer/test_generator.py` — Automated test generation
+- [x] Pytest unit test generation
+- [x] Mock/ fixture generation
+- [x] Edge case detection
+- [x] Test coverage analysis (estimated)
 
 ### 1.8 Integration
 - [ ] `apps/code_engineer/__init__.py` — Updated with all new components

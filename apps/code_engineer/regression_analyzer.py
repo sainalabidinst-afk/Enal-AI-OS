@@ -11,8 +11,10 @@ Pipeline:
   → Test Mapping → Risk Scoring → Prioritized Test List
 """
 
+import ast
 import logging
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
@@ -93,12 +95,12 @@ class RegressionReport:
 class RegressionAnalyzer:
     """Analyzes regression risk for code changes."""
 
-    def __init__(self):
-        self._dependency_graph_builder_cls = None
-        self._impact_analyzer_cls = None
+    def __init__(self) -> None:
+        self._dependency_graph_builder_cls: Any = None
+        self._impact_analyzer_cls: Any = None
 
-    async def _ensure_components(self):
-        """Lazy-load dependency graph and impact analyzer."""
+    async def _ensure_components(self) -> None:
+        """Lazy-load dependency graph and impact analyzer classes."""
         if self._dependency_graph_builder_cls is None:
             from apps.code_engineer.dependency_graph import DependencyGraphBuilder
             self._dependency_graph_builder_cls = DependencyGraphBuilder
@@ -129,18 +131,16 @@ class RegressionAnalyzer:
             RegressionReport with risk assessment.
         """
         await self._ensure_components()
-        from pathlib import Path
 
         repo = Path(repo_path)
-        test_patterns = test_patterns or ["test_*.py", "*_test.py", "tests/"]
+        resolved_patterns = test_patterns or ["test_*.py", "*_test.py", "tests/"]
 
-        # Build dependency graph if not already built
-        dep_graph = await self._dependency_graph.build_graph(str(repo))
+        # Build dependency graph
+        builder = self._dependency_graph_builder_cls(str(repo))
+        dep_graph_summary = await builder.build()
 
-        # Find all test files
-        test_files = self._find_test_files(repo, test_patterns)
-
-        # Map test files to the modules they test
+        # Find all test files and map them
+        test_files = self._find_test_files(repo, resolved_patterns)
         test_module_map = self._map_tests_to_modules(test_files, repo)
 
         report = RegressionReport(changes=changes)
@@ -155,11 +155,9 @@ class RegressionAnalyzer:
             if not file_path:
                 continue
 
-            # Get impacted modules from the dependency graph
-            impacted = self._get_impacted_modules(dep_graph, file_path, change_type)
+            impacted = self._get_impacted_modules(dep_graph_summary, file_path, change_type)
 
-            # Find tests that cover impacted modules
-            for test_path, test_name, covered_modules in test_module_map:
+            for test_path_obj, test_name, covered_modules in test_module_map:
                 matched_modules = [m for m in impacted if m in covered_modules]
                 if not matched_modules:
                     continue
@@ -168,13 +166,13 @@ class RegressionAnalyzer:
                 risk_score = self._compute_risk_score(
                     change_type=change_type,
                     is_direct=is_direct,
-                    distance=self._get_distance(dep_graph, file_path, covered_modules),
+                    distance=self._get_distance(dep_graph_summary, file_path, covered_modules),
                     matched_count=len(matched_modules),
                     total_coverage=len(covered_modules),
                 )
 
                 report.affected_tests.append(TestImpact(
-                    test_path=str(test_path),
+                    test_path=str(test_path_obj),
                     test_name=test_name,
                     risk_score=risk_score,
                     affected_by=matched_modules,
@@ -182,7 +180,7 @@ class RegressionAnalyzer:
                     reason=self._generate_reason(change, matched_modules, is_direct),
                 ))
 
-        # Deduplicate tests (same test may be affected by multiple changes)
+        # Deduplicate tests
         seen: set[str] = set()
         unique_tests: list[TestImpact] = []
         for t in report.affected_tests:
@@ -191,7 +189,6 @@ class RegressionAnalyzer:
                 seen.add(key)
                 unique_tests.append(t)
             else:
-                # Merge affected_by from duplicate
                 for existing in unique_tests:
                     if f"{existing.test_path}::{existing.test_name}" == key:
                         existing.affected_by.extend(
@@ -207,31 +204,34 @@ class RegressionAnalyzer:
             label = t.risk_label
             report.risk_distribution[label] = report.risk_distribution.get(label, 0) + 1
 
-        # Generate recommended test order (high risk first)
+        # Generate recommended test order
         report.recommended_order = [
             f"{t.test_path}::{t.test_name}" for t in report.affected_tests
             if t.risk_score >= 0.3
         ]
 
-        # Generate skip recommendations (very low risk, not directly affected)
+        # Generate skip recommendations
         report.skip_recommended = [
             f"{t.test_path}::{t.test_name}" for t in report.affected_tests
             if t.risk_score < 0.2 and not t.is_direct
         ]
 
-        # Detect coverage gaps (modules with changes but no tests)
-        covered_modules = set()
+        # Detect coverage gaps
+        all_covered: set[str] = set()
         for _, _, modules in test_module_map:
-            covered_modules.update(modules)
+            for m in modules:
+                all_covered.add(m)
 
         for change in changes:
             file_path = change.get("file_path", "")
-            impacted = self._get_impacted_modules(dep_graph, file_path, change.get("change_type", "modified"))
-            uncovered = [m for m in impacted if m not in covered_modules]
+            impacted = self._get_impacted_modules(
+                dep_graph_summary, file_path, change.get("change_type", "modified")
+            )
+            uncovered = [m for m in impacted if m not in all_covered]
             if uncovered:
                 report.coverage_gaps.extend(uncovered)
 
-        report.coverage_gaps = list(set(report.coverage_gaps))
+        report.coverage_gaps = sorted(set(report.coverage_gaps))
 
         logger.info(
             f"Regression analysis: {len(report.affected_tests)} affected tests "
@@ -242,24 +242,30 @@ class RegressionAnalyzer:
 
     def _find_test_files(self, repo_path: Path, patterns: list[str]) -> list[Path]:
         """Find test files matching the given patterns."""
-        import fnmatch
+        import fnmatch  # noqa: F401
 
-        test_files = []
+        test_files: list[Path] = []
         for pattern in patterns:
             if pattern.endswith("/"):
-                # Directory pattern
                 test_dir = repo_path / pattern.rstrip("/")
                 if test_dir.exists():
                     for f in test_dir.rglob("*.py"):
                         if f.name.startswith("test_") or f.name.endswith("_test.py"):
                             test_files.append(f)
             else:
-                # Glob pattern
                 for f in repo_path.rglob(pattern):
                     if f.is_file() and f.suffix == ".py":
                         test_files.append(f)
 
-        return list(set(test_files))
+        # Deduplicate
+        seen_paths: set[str] = set()
+        unique_files: list[Path] = []
+        for f in test_files:
+            key = str(f)
+            if key not in seen_paths:
+                seen_paths.add(key)
+                unique_files.append(f)
+        return unique_files
 
     def _map_tests_to_modules(
         self, test_files: list[Path], repo_path: Path
@@ -268,8 +274,6 @@ class RegressionAnalyzer:
         Map test files to the modules they test.
         Tries to infer from test name conventions and imports.
         """
-        import ast
-
         test_module_map: list[tuple[Path, str, list[str]]] = []
 
         for test_file in test_files:
@@ -279,7 +283,7 @@ class RegressionAnalyzer:
             except (SyntaxError, Exception):
                 continue
 
-            imports = []
+            imports: list[str] = []
             for node in ast.walk(tree):
                 if isinstance(node, ast.Import):
                     for alias in node.names:
@@ -288,42 +292,51 @@ class RegressionAnalyzer:
                     if node.module:
                         imports.append(node.module)
 
-            # Infer tested modules from filename
-            rel_path = test_file.relative_to(repo_path)
-            test_name = test_file.stem  # e.g., test_analyzer or analyzer_test
+            # Infer tested module from filename
+            try:
+                rel_path = test_file.relative_to(repo_path)
+            except ValueError:
+                continue
+            test_name = test_file.stem
 
-            # Remove test prefix/suffix to get module name
+            # Remove test prefix/suffix
             module_name = test_name
             if module_name.startswith("test_"):
                 module_name = module_name[5:]
             elif module_name.endswith("_test"):
                 module_name = module_name[:-5]
 
-            # Collect all covered modules
-            covered = set(imports)
+            covered: list[str] = []
+            covered.extend(imports)
             if module_name:
-                covered.add(module_name)
+                covered.append(module_name)
 
-            # Add the parent package if it's a test within a package
             parts = list(rel_path.parts)
             if len(parts) > 1:
-                # e.g., tests/test_analyzer.py → tests
                 parent_pkg = parts[0]
                 if parent_pkg != "tests":
-                    covered.add(parent_pkg)
+                    covered.append(parent_pkg)
 
-            test_module_map.append((test_file, test_name, list(covered)))
+            # Deduplicate
+            seen_mods: set[str] = set()
+            unique_covered: list[str] = []
+            for m in covered:
+                if m not in seen_mods:
+                    seen_mods.add(m)
+                    unique_covered.append(m)
+
+            test_module_map.append((test_file, test_name, unique_covered))
 
         return test_module_map
 
     def _get_impacted_modules(
-        self, dep_graph: Any, file_path: str, change_type: str
+        self, dep_graph_summary: Any, file_path: str, change_type: str
     ) -> list[str]:
         """
         Get all modules impacted by a change to the given file.
         Uses dependency graph to find direct and transitive dependents.
         """
-        impacted = set()
+        impacted: set[str] = set()
 
         # Normalize file path to module path
         module_path = file_path.replace("/", ".").replace("\\", ".")
@@ -336,14 +349,11 @@ class RegressionAnalyzer:
         impacted.add(module_path)
 
         # Find modules that depend on this file
-        if hasattr(dep_graph, "get_dependents"):
-            dependents = dep_graph.get_dependents(module_path)
-            impacted.update(dependents)
-
-        # Find modules that this file depends on (for "deleted" changes)
-        if change_type == "deleted" and hasattr(dep_graph, "get_dependencies"):
-            dependencies = dep_graph.get_dependencies(module_path)
-            impacted.update(dependencies)
+        if hasattr(dep_graph_summary, "modules"):
+            mod_info = dep_graph_summary.modules.get(module_path)
+            if mod_info and hasattr(mod_info, "dependents"):
+                for dep in mod_info.dependents:
+                    impacted.add(dep)
 
         # Find modules in the same package
         parts = module_path.split(".")
@@ -351,7 +361,7 @@ class RegressionAnalyzer:
             parent = ".".join(parts[:-1])
             impacted.add(parent)
 
-        return list(impacted)
+        return sorted(impacted)
 
     def _compute_risk_score(
         self,
@@ -363,16 +373,9 @@ class RegressionAnalyzer:
     ) -> float:
         """
         Compute a risk score between 0.0 and 1.0.
-
-        Factors:
-        - Direct changes are higher risk
-        - Deleted files are higher risk
-        - Shorter dependency distance = higher risk
-        - More matched coverage = higher confidence in risk
         """
         base_score = 0.3
 
-        # Change type factor
         type_factors = {
             "deleted": 1.0,
             "modified": 0.8,
@@ -380,40 +383,36 @@ class RegressionAnalyzer:
         }
         base_score *= type_factors.get(change_type, 0.5)
 
-        # Direct vs indirect
         if is_direct:
             base_score += 0.3
         else:
-            # Distance factor: closer = higher risk
             distance_factor = max(0.0, 1.0 - (distance * 0.1))
             base_score *= distance_factor
 
-        # Coverage confidence
         if total_coverage > 0:
             coverage_ratio = matched_count / total_coverage
             base_score *= (0.5 + 0.5 * coverage_ratio)
 
         return min(1.0, max(0.0, base_score))
 
-    def _get_distance(self, dep_graph: Any, file_path: str, covered_modules: list[str]) -> int:
-        """
-        Compute minimum dependency distance between file_path and covered modules.
-        """
-        if not hasattr(dep_graph, "get_distance"):
-            return 1
-
+    def _get_distance(
+        self, dep_graph_summary: Any, file_path: str, covered_modules: list[str]
+    ) -> int:
+        """Compute minimum dependency distance between file_path and covered modules."""
         module_path = file_path.replace("/", ".").replace("\\", ".")
         if module_path.endswith(".py"):
             module_path = module_path[:-3]
 
+        if not hasattr(dep_graph_summary, "modules"):
+            return 1
+
         min_distance = float("inf")
         for module in covered_modules:
-            try:
-                dist = dep_graph.get_distance(module_path, module)
-                if dist is not None and dist < min_distance:
-                    min_distance = dist
-            except Exception:
-                continue
+            mod_info = dep_graph_summary.modules.get(module)
+            if mod_info and hasattr(mod_info, "dependency_count"):
+                dep_count = mod_info.dependency_count
+                if isinstance(dep_count, (int, float)) and dep_count < min_distance:
+                    min_distance = float(dep_count)
 
         return int(min_distance) if min_distance != float("inf") else 2
 
