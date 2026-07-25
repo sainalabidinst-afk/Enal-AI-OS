@@ -17,8 +17,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from apps.organization.registry import AgentRecord, AgentRole, Department, agent_registry
-from apps.organization.communication import mailbox, event_bus, blackboard, Event
+from apps.organization.communication import Event, event_bus
 
 logger = logging.getLogger(__name__)
 

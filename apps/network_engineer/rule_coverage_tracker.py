@@ -6,9 +6,9 @@ Tracks rule hit counts, false positives, and false negatives.
 """
 
 import logging
-from typing import Any
-from dataclasses import dataclass, field
 from collections import defaultdict
+from dataclasses import dataclass
+from typing import Any
 
 logger = logging.getLogger(__name__)
 

@@ -6,14 +6,18 @@ to the frozen Capability Contract v1 schema.
 """
 
 import pytest
-from apps.organization.capability_graph import CapabilityGraph, capability_graph
+
 from apps.organization.capability_contract import (
     CapabilityContractError,
     validate_capability_node,
-    validate_capability_pack,
     validate_subtask_template,
 )
-from apps.organization.capability_graph import CapabilityNode, SubtaskTemplate
+from apps.organization.capability_graph import (
+    CapabilityGraph,
+    CapabilityNode,
+    SubtaskTemplate,
+    capability_graph,
+)
 
 
 def test_all_capabilities_have_version():

@@ -10,7 +10,11 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.network_engineer.nic.knowledge.ontology import ConceptMapper, UniversalConcept, ConceptDefinition
+from apps.network_engineer.nic.knowledge.ontology import (
+    ConceptDefinition,
+    ConceptMapper,
+    UniversalConcept,
+)
 
 logger = logging.getLogger(__name__)
 

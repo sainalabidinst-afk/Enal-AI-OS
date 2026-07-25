@@ -23,19 +23,18 @@ from pathlib import Path
 
 import pytest
 
-from apps.organization.workflow_executor import (
-    WorkflowExecutor,
-    WorkflowDefinition,
-    WorkflowStep,
-    WorkflowResponse,
-    WorkflowStepResult,
-)
 from apps.organization.capability_execution_engine import (
     CapabilityExecutionEngine,
     ExecutionStatus,
 )
 from apps.organization.capability_pipeline import CapabilityPipeline
-
+from apps.organization.workflow_executor import (
+    WorkflowDefinition,
+    WorkflowExecutor,
+    WorkflowResponse,
+    WorkflowStep,
+    WorkflowStepResult,
+)
 
 # -- Fixtures ---
 
@@ -420,7 +419,7 @@ async def test_execution_history(executor: WorkflowExecutor):
     executor.register_from_dict(THREE_STEP_WORKFLOW_DICT)
 
     resp1 = await executor.execute("test-simple")
-    resp2 = await executor.execute("test-three-step")
+    await executor.execute("test-three-step")
 
     history1 = executor.get_execution(resp1.execution_id)
     assert history1 is not None

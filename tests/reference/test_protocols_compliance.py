@@ -9,8 +9,8 @@ import asyncio
 from pathlib import Path
 
 from apps.network_engineer import get_app
-from apps.network_engineer.vendor.detector import detect_vendor
 from apps.network_engineer.compliance import compliance_engine
+from apps.network_engineer.vendor.detector import detect_vendor
 
 GOLDEN_DIR = Path(__file__).resolve().parents[2] / "golden"
 
@@ -75,7 +75,7 @@ async def test_fortinet_vpn_parsing():
 async def test_compliance_engine():
     config = load_config(GOLDEN_DIR / "mikrotik" / "home")
     app = get_app()
-    analysis = await app.analyze_config(config)
+    await app.analyze_config(config)
     from apps.network_engineer.vendor.models import NetworkAST
     ast = NetworkAST(vendor="mikrotik")
     ast.system.hostname = "test-router"

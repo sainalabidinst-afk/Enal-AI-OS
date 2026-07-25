@@ -1,13 +1,11 @@
 import asyncio
 from pathlib import Path
 
-from apps.network_engineer.controlled_deployment import controlled_deployment
-from apps.network_engineer.diff_engine import semantic_diff_engine
 from apps.network_engineer.backup_manager import backup_manager
+from apps.network_engineer.controlled_deployment import RollbackStatus, controlled_deployment
+from apps.network_engineer.diff_engine import semantic_diff_engine
 from apps.network_engineer.risk_scorer import risk_scoring_engine
 from apps.network_engineer.verification_engine import verification_engine
-from apps.network_engineer.audit_trail import audit_trail_manager
-from apps.network_engineer.controlled_deployment import RollbackStatus
 
 GOLDEN_DIR = Path(__file__).resolve().parents[2] / "golden" / "mikrotik"
 

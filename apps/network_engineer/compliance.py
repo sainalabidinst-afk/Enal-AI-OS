@@ -7,9 +7,9 @@ Cross-vendor: works with Universal AST from any vendor.
 """
 
 import logging
-from typing import Any
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
 
 from apps.network_engineer.vendor.models import NetworkAST
 

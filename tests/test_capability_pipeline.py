@@ -25,9 +25,13 @@ Test scenarios:
     ✅ resolve input passthrough
 """
 
-import pytest
-from typing import Any
 
+import pytest
+
+from apps.organization.capability_execution_engine import (
+    CapabilityExecutionEngine,
+    ExecutionStatus,
+)
 from apps.organization.capability_pipeline import (
     CapabilityPipeline,
     PipelineRequest,
@@ -35,11 +39,6 @@ from apps.organization.capability_pipeline import (
     PipelineStep,
     StepResult,
 )
-from apps.organization.capability_execution_engine import (
-    CapabilityExecutionEngine,
-    ExecutionStatus,
-)
-
 
 # -- Fixtures ---
 

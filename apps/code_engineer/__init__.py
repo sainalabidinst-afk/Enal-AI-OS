@@ -6,9 +6,10 @@ Reference application #2: AI-powered code analysis and generation.
 """
 
 from typing import Any
+
 from apps.base import BaseReferenceApp
-from apps.code_engineer.parser import code_parser, CodeAST
-from apps.code_engineer.analyzer import code_analyzer, CodeIssue
+from apps.code_engineer.analyzer import CodeIssue, code_analyzer
+from apps.code_engineer.parser import CodeAST, code_parser
 
 
 class CodeEngineerApp(BaseReferenceApp):

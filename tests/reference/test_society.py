@@ -11,19 +11,18 @@ Tests AI Organization Platform:
 """
 
 import pytest
-from apps.organization.registry import AgentRecord, AgentRole, Department, agent_registry
-from apps.organization.runtime import organization_runtime
-from apps.organization.team_builder import TaskRequirement, team_builder
-from apps.organization.communication import mailbox, blackboard
+
 from apps.organization.collective_memory import collective_memory
-from apps.society.society import create_society, SocietyRuntime
-from apps.society.agent import Agent, AgentContext
-from apps.society.workers.network_worker import network_worker
+from apps.organization.communication import blackboard, mailbox
+from apps.organization.registry import AgentRole, Department, agent_registry
+from apps.society.agent import Agent
+from apps.society.society import create_society
 from apps.society.workers.code_worker import code_worker
-from apps.society.workers.research_worker import research_worker
 from apps.society.workers.devops_worker import devops_worker
-from apps.society.workers.trading_worker import trading_worker
+from apps.society.workers.network_worker import network_worker
+from apps.society.workers.research_worker import research_worker
 from apps.society.workers.self_development_worker import self_development_worker
+from apps.society.workers.trading_worker import trading_worker
 
 
 class SimpleAgent(Agent):
@@ -143,21 +142,20 @@ def test_communication():
     society.register_agent(recipient)
     
     society.send_message("sender-1", "recipient-1", "Task Update", {"status": "in_progress"})
-    from apps.organization.communication import mailbox
     messages = mailbox.receive("recipient-1")
     assert len(messages) == 1
     assert messages[0].subject == "Task Update"
 
 
 def test_blackboard():
-    society = create_society("Test Corp")
+    create_society("Test Corp")
     blackboard.write("architecture", "microservices")
     assert blackboard.read("architecture") == "microservices"
     assert "architecture" in blackboard.read_all()
 
 
 def test_collective_memory():
-    society = create_society("Test Corp")
+    create_society("Test Corp")
     entry_id = collective_memory.store("project_decision", {"decision": "use FastAPI"})
     entry = collective_memory.recall(entry_id)
     assert entry is not None

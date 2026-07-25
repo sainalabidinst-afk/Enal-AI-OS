@@ -9,16 +9,13 @@ import asyncio
 from pathlib import Path
 
 from apps.network_engineer import get_app
-from apps.network_engineer.vendor.detector import detect_vendor, parse_config
-from apps.network_engineer.nic.knowledge.ontology import concept_mapper, UniversalConcept
 from apps.network_engineer.nic.knowledge.enricher import knowledge_enricher
+from apps.network_engineer.nic.knowledge.ontology import UniversalConcept
 from apps.network_engineer.nic.knowledge.profiles import (
-    get_compliance_engine,
-    CISProfile,
-    NISTProfile,
-    PCIDSSProfile,
     PROFILES,
+    get_compliance_engine,
 )
+from apps.network_engineer.vendor.detector import parse_config
 
 GOLDEN_DIR = Path(__file__).resolve().parents[2] / "golden"
 

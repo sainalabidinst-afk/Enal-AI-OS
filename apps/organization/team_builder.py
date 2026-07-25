@@ -7,13 +7,11 @@ Searches the Agent Registry for the best agents for each role needed.
 """
 
 from dataclasses import dataclass, field
-from typing import Any
 
 from apps.organization.registry import (
     AgentRecord,
-    AgentRole,
-    Department,
     AgentRegistry,
+    Department,
     agent_registry,
 )
 from apps.organization.runtime import OrganizationRuntime, organization_runtime

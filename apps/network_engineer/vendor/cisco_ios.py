@@ -6,27 +6,20 @@ Full Cisco IOS/IOS-XE/NX-OS parser.
 """
 
 import logging
-import re
-from typing import Any
 
 from apps.network_engineer.vendor.base import VendorAdapter
 from apps.network_engineer.vendor.models import (
+    InterfaceType,
     NetworkAST,
+    RuleAction,
+    UniversalDHCPServer,
+    UniversalFirewallRule,
     UniversalInterface,
     UniversalIPAddress,
-    UniversalFirewallRule,
     UniversalNATRule,
     UniversalRoute,
-    UniversalDHCPServer,
-    UniversalSystem,
-    InterfaceType,
-    RuleAction,
-)
-from apps.network_engineer.vendor.models import (
-    UniversalBridge,
-    UniversalVLAN,
-    UniversalQueue,
     UniversalUser,
+    UniversalVLAN,
 )
 
 logger = logging.getLogger(__name__)
@@ -122,9 +115,7 @@ class CiscoIOSAdapter(VendorAdapter):
                     current_iface.status = "disabled"
                 elif stripped == "no shutdown":
                     current_iface.status = "enabled"
-                elif stripped.startswith("speed "):
-                    pass
-                elif stripped.startswith("duplex "):
+                elif stripped.startswith(("speed ", "duplex ")):
                     pass
                 elif stripped.startswith("mac-address "):
                     current_iface.mac_address = stripped.split(" ", 1)[1]
@@ -198,13 +189,13 @@ class CiscoIOSAdapter(VendorAdapter):
 
     @staticmethod
     def _mask_to_prefix(mask: str) -> str:
-        binary = sum(bin(int(o)).count("1") for o in mask.split("."))
+        binary = sum(int(o).bit_count() for o in mask.split("."))
         return str(binary)
 
     def _parse_acls(self, ast: NetworkAST, lines: list[str]):
         for line in lines:
             stripped = line.strip()
-            if stripped.startswith("access-list ") or stripped.startswith("ip access-list "):
+            if stripped.startswith(("access-list ", "ip access-list ")):
                 parts = stripped.split()
                 if len(parts) >= 4:
                     action = RuleAction.ACCEPT if parts[2].lower() == "permit" else RuleAction.DROP
@@ -229,7 +220,6 @@ class CiscoIOSAdapter(VendorAdapter):
                 if "static" in stripped:
                     parts = stripped.split()
                     to_addr = ""
-                    to_port = ""
                     for i, p in enumerate(parts):
                         if p == "address" and i + 1 < len(parts):
                             to_addr = parts[i + 1]

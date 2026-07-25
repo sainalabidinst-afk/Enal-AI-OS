@@ -6,23 +6,23 @@ Converts FortiOS configs to/from Universal AST.
 """
 
 import logging
-import re
-from typing import Any
 
 from apps.network_engineer.vendor.base import VendorAdapter
 from apps.network_engineer.vendor.models import (
+    InterfaceType,
     NetworkAST,
+    RuleAction,
+    UniversalDHCPServer,
+    UniversalDNS,
+    UniversalFirewallRule,
     UniversalInterface,
     UniversalIPAddress,
-    UniversalFirewallRule,
     UniversalNATRule,
     UniversalRoute,
-    UniversalDHCPServer,
-    UniversalSystem,
-    InterfaceType,
-    RuleAction,
+    UniversalUser,
+    UniversalVLAN,
+    UniversalVPN,
 )
-from apps.network_engineer.vendor.models import UniversalDNS, UniversalVPN, UniversalUser, UniversalVLAN
 
 logger = logging.getLogger(__name__)
 
@@ -208,12 +208,7 @@ class FortiOSAdapter(VendorAdapter):
                 in_dns = True
             elif in_dns and stripped == "end":
                 in_dns = False
-            elif in_dns and stripped.startswith("set primary "):
-                server = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
-                if ast.dns is None:
-                    ast.dns = UniversalDNS()
-                ast.dns.servers.append(server)
-            elif in_dns and stripped.startswith("set secondary "):
+            elif in_dns and stripped.startswith("set primary ") or in_dns and stripped.startswith("set secondary "):
                 server = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
                 if ast.dns is None:
                     ast.dns = UniversalDNS()
@@ -251,7 +246,6 @@ class FortiOSAdapter(VendorAdapter):
     def _parse_firewall_policies(self, ast: NetworkAST, lines: list[str]):
         in_policy = False
         policy_id = None
-        in_service = False
         current_rule = None
         for line in lines:
             stripped = line.strip()

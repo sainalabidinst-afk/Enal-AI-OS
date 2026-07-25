@@ -17,6 +17,7 @@ Workflow:
 """
 
 from typing import Any
+
 from apps.base import BaseReferenceApp
 from apps.research_assistant.engine import research_engine
 
@@ -33,7 +34,7 @@ class ResearchAssistantApp(BaseReferenceApp):
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         context = context or {}
-        project_id = context.get("project_id", "research-assistant-default")
+        context.get("project_id", "research-assistant-default")
 
         evidence = await self.engine.search_evidence(user_input)
         analysis = await self.engine.analyze_findings(user_input, evidence)

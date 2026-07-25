@@ -12,10 +12,11 @@ micro-agent execution.
 
 import asyncio
 import logging
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Awaitable, Callable
+from typing import Any
 
 from apps.organization.execution_planner import ExecutionPlan, ExecutionStage
 from apps.organization.task_planner import SubTask
@@ -124,7 +125,7 @@ class ExecutionRuntime:
                 result.finished_at = datetime.utcnow()
                 logger.info("Subtask completed: %s duration=%.2fs", subtask.subtask_id, result.duration_seconds)
                 return result
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 logger.warning("Subtask timeout: %s attempt=%d", subtask.subtask_id, attempt)
                 result.error = "timeout"
             except Exception as exc:

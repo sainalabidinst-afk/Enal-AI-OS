@@ -1,4 +1,3 @@
-from __future__ import annotations
 """
 Task Planner
 ============
@@ -8,15 +7,19 @@ using the Capability Graph. Produces a TaskPlan that the Execution
 Planner and Team Builder can consume.
 """
 
+from __future__ import annotations
+
 import logging
 import uuid
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from apps.organization.capability_graph import (
-    SubtaskTemplate,
     capability_graph,
 )
+
+if TYPE_CHECKING:
+    from apps.society.intent_router import Intent
 
 logger = logging.getLogger(__name__)
 

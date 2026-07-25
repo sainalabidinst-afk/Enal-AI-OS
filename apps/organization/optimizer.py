@@ -9,12 +9,7 @@ Continuously improves the workforce based on metrics and learning.
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
 from typing import Any
-
-from apps.organization.registry import AgentRecord, AgentRole, Department, agent_registry
-from apps.organization.economics import organizational_economics, ROIAnalysis
-from apps.organization.kernel import organization_kernel
 
 logger = logging.getLogger(__name__)
 

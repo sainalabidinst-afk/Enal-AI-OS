@@ -8,8 +8,8 @@ Shows added/removed/modified rules grouped by category.
 
 import logging
 from dataclasses import dataclass, field
-from typing import Any
 from enum import Enum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 

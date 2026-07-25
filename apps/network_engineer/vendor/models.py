@@ -7,8 +7,8 @@ All vendor parsers convert their config into this model.
 """
 
 from dataclasses import dataclass, field
-from typing import Any
 from enum import Enum
+from typing import Any
 
 
 class InterfaceType(str, Enum):

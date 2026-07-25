@@ -1,11 +1,10 @@
 import asyncio
 import json
+import re
 from pathlib import Path
 from typing import Any
-import re
 
 from apps.network_engineer import get_app
-
 
 GOLDEN_DIR = Path(__file__).resolve().parents[2] / "golden" / "mikrotik"
 
@@ -29,7 +28,7 @@ def load_expected(scenario: str, name: str) -> Any:
 
 def extract_keywords(text: str) -> list[str]:
     text = text.lower()
-    stop_words = {"the", "is", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "from", "as", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "do", "does", "did", "will", "would", "could", "should", "may", "might", "must", "can", "shall", "not", "no", "nor", "so", "very", "just", "because", "but", "and", "or", "yet", "if", "then", "than", "too", "very", "s", "t", "don", "now"}
+    stop_words = {"the", "is", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "from", "as", "are", "was", "were", "be", "been", "being", "have", "has", "had", "do", "does", "did", "will", "would", "could", "should", "may", "might", "must", "can", "shall", "not", "no", "nor", "so", "very", "just", "because", "yet", "if", "then", "than", "too", "s", "t", "don", "now"}
     words = re.findall(r"[a-z0-9\-]+", text)
     return [w for w in words if len(w) > 3 and w not in stop_words]
 
@@ -80,7 +79,7 @@ async def main() -> int:
 
     print("=" * 80)
 
-    errored = [r for r in results if "error" in r]
+    [r for r in results if "error" in r]
     successful = [r for r in results if "error" not in r]
     if not successful:
         print("FAILED: No scenarios completed successfully")

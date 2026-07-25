@@ -21,36 +21,30 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
-from apps.organization.registry import (
-    AgentRecord,
-    AgentRole,
-    Department,
-    AgentRegistry,
-    agent_registry,
-)
-from apps.organization.runtime import OrganizationRuntime, organization_runtime
-from apps.organization.team_builder import TeamBuilder, TaskRequirement, Team, team_builder
-from apps.organization.communication import mailbox, event_bus, blackboard
-from apps.organization.collective_memory import collective_memory
-from apps.organization.metrics import organizational_metrics
-from apps.organization.kernel import organization_kernel, ResourceRequest, ConflictRecord
+from apps.organization.communication import blackboard, mailbox
 from apps.organization.economics import organizational_economics
-from apps.organization.optimizer import workforce_optimizer
-from apps.organization.learning import organizational_learning
-from apps.organization.capability_graph import capability_graph
-from apps.organization.task_planner import SubTask, TaskPlan, task_planner
 from apps.organization.execution_planner import (
-    ExecutionPlan,
-    ExecutionStage,
     ExecutionPlanner,
     execution_planner,
 )
 from apps.organization.execution_runtime import (
     ExecutionContext,
-    ExecutionRuntime,
     execution_runtime,
 )
-from apps.society.intent_router import intent_router, Intent, IntentDomain, IntentComplexity
+from apps.organization.kernel import ConflictRecord, ResourceRequest, organization_kernel
+from apps.organization.learning import organizational_learning
+from apps.organization.metrics import organizational_metrics
+from apps.organization.optimizer import workforce_optimizer
+from apps.organization.registry import (
+    AgentRecord,
+    AgentRole,
+    Department,
+    agent_registry,
+)
+from apps.organization.runtime import organization_runtime
+from apps.organization.task_planner import SubTask, TaskPlan, task_planner
+from apps.organization.team_builder import TaskRequirement, Team, team_builder
+from apps.society.intent_router import Intent, IntentComplexity, IntentDomain, intent_router
 from apps.society.workers import network_worker
 
 logger = logging.getLogger(__name__)
@@ -389,7 +383,7 @@ class SocietyRuntime:
         self._kernel_set_budget(float(max(1000, team_size * 500)))
         self._kernel_request_resource(project_id, "agent", task.get("intent", task.get("name", project_id)), float(team_size * 100))
 
-        metrics = organizational_metrics.start_project(project_id, team_id)
+        organizational_metrics.start_project(project_id, team_id)
         blackboard.write("current_project", project_id)
         blackboard.write("current_task", task)
 

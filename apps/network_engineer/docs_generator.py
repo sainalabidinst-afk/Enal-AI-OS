@@ -6,9 +6,9 @@ Generates comprehensive network documentation from configurations and analysis.
 """
 
 import logging
-from typing import Any
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Any
 
 logger = logging.getLogger(__name__)
 

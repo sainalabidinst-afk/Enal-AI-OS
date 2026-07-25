@@ -34,6 +34,7 @@ Result
 """
 
 from typing import Any
+
 from apps.base import BaseReferenceApp
 from apps.self_development.engine import self_development_engine
 
@@ -50,7 +51,7 @@ class SelfDevelopmentApp(BaseReferenceApp):
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         context = context or {}
-        project_id = context.get("project_id", "self-development-default")
+        context.get("project_id", "self-development-default")
 
         project_analysis = await self.engine.analyze_project()
         problems = await self.engine.identify_problems()
@@ -60,7 +61,7 @@ class SelfDevelopmentApp(BaseReferenceApp):
             problem_id = problem.get("id", "")
             solution = await self.engine.propose_solution(problem_id)
             patch = await self.engine.generate_patch(problem_id)
-            approval = await self.engine.get_approval_status(problem_id)
+            await self.engine.get_approval_status(problem_id)
             solutions.append(solution)
             patches.append(patch)
 

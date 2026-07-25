@@ -12,10 +12,8 @@ from datetime import datetime
 from typing import Any
 
 from apps.organization.registry import (
-    AgentRecord,
     AgentRole,
     Department,
-    AgentRegistry,
     agent_registry,
 )
 

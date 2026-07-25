@@ -4,20 +4,15 @@ ensuring the "General Intelligence Layer" behaves correctly.
 """
 
 import pytest
+
 from apps.organization.capability_graph import (
-    CapabilityGraph,
     capability_graph,
-    CapabilityNode,
-    SubtaskTemplate,
 )
-from apps.organization.task_planner import TaskPlanner, task_planner, TaskPlan, SubTask
 from apps.organization.execution_planner import (
-    ExecutionPlanner,
     execution_planner,
-    ExecutionPlan,
-    ExecutionStage,
 )
-from apps.society.intent_router import Intent, IntentDomain, IntentComplexity
+from apps.organization.task_planner import SubTask, TaskPlan, task_planner
+from apps.society.intent_router import Intent, IntentComplexity, IntentDomain
 
 
 @pytest.fixture(autouse=True)
@@ -140,7 +135,6 @@ def test_task_planner_refine_limits_by_latency():
 
 
 def test_execution_planner_serial_strategy_produces_serial_stages():
-    from apps.organization.task_planner import TaskPlan
     plan = TaskPlan(intent=build_intent(IntentDomain.CODE), subtasks=[], strategy="serial")
     plan.subtasks = [
         SubTask(subtask_id="a", name="A", description="A", priority=1, can_parallelize=False, depends_on=[]),
@@ -153,7 +147,6 @@ def test_execution_planner_serial_strategy_produces_serial_stages():
 
 
 def test_execution_planner_parallel_strategy_produces_single_stage():
-    from apps.organization.task_planner import TaskPlan
     plan = TaskPlan(intent=build_intent(IntentDomain.CODE), subtasks=[], strategy="parallel")
     plan.subtasks = [
         SubTask(subtask_id="a", name="A", description="A", can_parallelize=True),
@@ -166,7 +159,6 @@ def test_execution_planner_parallel_strategy_produces_single_stage():
 
 
 def test_execution_planner_mixed_strategy_groups_serial_then_parallel():
-    from apps.organization.task_planner import TaskPlan
     plan = TaskPlan(intent=build_intent(IntentDomain.CODE), subtasks=[], strategy="mixed")
     plan.subtasks = [
         SubTask(subtask_id="a", name="A", description="A", priority=1, can_parallelize=False),

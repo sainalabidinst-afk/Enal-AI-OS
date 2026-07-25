@@ -6,9 +6,7 @@ Analyzes Python code for quality, security, and best practices.
 """
 
 import logging
-import re
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
 from apps.code_engineer.parser import CodeAST
 
@@ -61,7 +59,7 @@ class CodeAnalyzer:
                 issues.append(CodeIssue(
                     severity=Severity.MEDIUM,
                     category="Security",
-                    description=f"Use of os module may pose security risks",
+                    description="Use of os module may pose security risks",
                     recommendation="Review os module usage for path traversal or command injection",
                     line_number=1,
                     confidence=0.8,

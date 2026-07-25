@@ -76,7 +76,7 @@ class SelfDevelopmentEngine:
             "problem_id": problem_id,
             "patch_type": "refactor",
             "files_affected": ["communication.py", "team_builder.py"],
-            "diff": f"""--- a/communication.py
+            "diff": """--- a/communication.py
 +++ b/communication.py
 @@ -10,7 +10,7 @@
  class CommunicationChannel:

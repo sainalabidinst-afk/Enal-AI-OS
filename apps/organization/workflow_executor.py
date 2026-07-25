@@ -27,16 +27,15 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from apps.organization.capability_execution_engine import (
+    ExecutionStatus,
+)
 from apps.organization.capability_pipeline import (
     CapabilityPipeline,
     PipelineRequest,
     PipelineResponse,
     PipelineStep,
     capability_pipeline,
-)
-from apps.organization.capability_execution_engine import (
-    ExecutionStatus,
-    TelemetryRecord,
 )
 
 logger = logging.getLogger(__name__)

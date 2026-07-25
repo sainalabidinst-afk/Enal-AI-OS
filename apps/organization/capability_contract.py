@@ -16,8 +16,6 @@ CapabilityGraph imports from here.
 
 import re
 from dataclasses import dataclass, field
-from typing import Any
-
 
 CAPABILITY_CONTRACT_VERSION = "1.0.0"
 

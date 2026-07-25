@@ -13,6 +13,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
+from apps.organization.communication import blackboard
+
 logger = logging.getLogger(__name__)
 
 
@@ -93,12 +95,12 @@ class MeetingSystem:
         participants = [MeetingParticipant(entity_id=pid, role="participant", required=True) for pid in participant_ids]
         participants.append(MeetingParticipant(entity_id=organizer_id, role="organizer", required=True))
 
-        agenda = []
+        agenda: list[AgendaItem] = []
         if agenda_titles:
-            for i, title in enumerate(agenda_titles):
+            for i, agenda_title in enumerate(agenda_titles):
                 agenda.append(AgendaItem(
                     id=f"agenda-{i+1}",
-                    title=title,
+                    title=agenda_title,
                     description="",
                     owner=organizer_id,
                     time_allocated_minutes=max(5, timebox_minutes // len(agenda_titles)),

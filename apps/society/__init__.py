@@ -21,15 +21,15 @@ Or, using the intent-router main entry point:
 """
 
 from apps.society.society import (
-    SocietyConfig,
     Project,
+    SocietyConfig,
     SocietyRuntime,
     create_society,
 )
 
 __all__ = [
-    "SocietyConfig",
     "Project",
+    "SocietyConfig",
     "SocietyRuntime",
     "create_society",
 ]

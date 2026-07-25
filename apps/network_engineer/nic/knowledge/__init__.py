@@ -2,80 +2,68 @@
 Network Knowledge
 ==================
 
-Ontology, Concept Mapping, Compliance Profiles, Inference Engine, Knowledge Graph.
+Ontology, Concept Mapping, Compliance Profiles, Knowledge Graph.
 The brain of ECP's network intelligence.
 """
 
-from apps.network_engineer.nic.knowledge.ontology import (
-    ConceptMapper,
-    ConceptDefinition,
-    UniversalConcept,
-    concept_mapper,
-    CONCEPT_DEFINITIONS,
-)
 from apps.network_engineer.nic.knowledge.enricher import (
-    KnowledgeEnricher,
     ConceptTag,
+    KnowledgeEnricher,
     knowledge_enricher,
 )
+from apps.network_engineer.nic.knowledge.ontology import (
+    CONCEPT_DEFINITIONS,
+    ConceptDefinition,
+    ConceptMapper,
+    UniversalConcept,
+    concept_mapper,
+)
 from apps.network_engineer.nic.knowledge.profiles import (
-    ComplianceProfile,
-    ComplianceRule,
-    ComplianceCheck,
-    ComplianceReport,
-    ComplianceEngine,
+    PROFILES,
     CISProfile,
+    ComplianceCheck,
+    ComplianceEngine,
+    ComplianceProfile,
+    ComplianceReport,
+    ComplianceRule,
+    ISPBestPracticeProfile,
     NISTProfile,
     PCIDSSProfile,
-    ISPBestPracticeProfile,
     SMBBestPracticeProfile,
-    PROFILES,
     get_compliance_engine,
 )
-from apps.network_engineer.nic.inference import (
-    InferenceEngine,
-    Evidence,
-    Hypothesis,
-    ReasoningChain,
-    inference_engine,
-)
 from apps.network_engineer.nic.knowledge_graph import (
+    KnowledgeEdge,
     KnowledgeGraph,
     KnowledgeNode,
-    KnowledgeEdge,
     build_default_knowledge_graph,
     knowledge_graph,
 )
 
 __all__ = [
-    "ConceptMapper",
-    "ConceptDefinition",
-    "UniversalConcept",
-    "concept_mapper",
     "CONCEPT_DEFINITIONS",
-    "KnowledgeEnricher",
-    "ConceptTag",
-    "knowledge_enricher",
-    "ComplianceProfile",
-    "ComplianceRule",
-    "ComplianceCheck",
-    "ComplianceReport",
-    "ComplianceEngine",
-    "CISProfile",
-    "NISTProfile",
-    "PCIDSSProfile",
-    "ISPBestPracticeProfile",
-    "SMBBestPracticeProfile",
     "PROFILES",
-    "get_compliance_engine",
-    "InferenceEngine",
-    "Evidence",
-    "Hypothesis",
-    "ReasoningChain",
-    "inference_engine",
+    "CISProfile",
+    "ComplianceCheck",
+    "ComplianceEngine",
+    "ComplianceProfile",
+    "ComplianceReport",
+    "ComplianceRule",
+    "ConceptDefinition",
+    "ConceptMapper",
+    "ConceptTag",
+    "ISPBestPracticeProfile",
+    "KnowledgeEdge",
+    "KnowledgeEnricher",
     "KnowledgeGraph",
     "KnowledgeNode",
-    "KnowledgeEdge",
+    "NISTProfile",
+    "PCIDSSProfile",
+    "SMBBestPracticeProfile",
+    "UniversalConcept",
     "build_default_knowledge_graph",
+    "concept_mapper",
+    "get_compliance_engine",
+    "knowledge_enricher",
     "knowledge_graph",
 ]

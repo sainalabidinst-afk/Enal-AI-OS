@@ -191,7 +191,6 @@ class ConceptMapper:
         for concept, definition in self._concepts.items():
             vendor_keywords = definition.vendor_names.get(vendor, [])
             evidence = []
-            confidence = 0.0
 
             for keyword in vendor_keywords:
                 if keyword in raw:
@@ -204,7 +203,7 @@ class ConceptMapper:
 
             if evidence:
                 detected[concept] = evidence
-                confidence = min(1.0, 0.5 + 0.1 * len(evidence))
+                min(1.0, 0.5 + 0.1 * len(evidence))
 
         return detected
 

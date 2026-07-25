@@ -31,11 +31,15 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from apps.organization.capability_graph import capability_graph
 from apps.organization.capability_contract import (
+    CapabilityContractError,
     CapabilityNode,
     validate_capability_node,
-    CapabilityContractError,
+)
+from apps.organization.capability_graph import capability_graph
+from apps.organization.execution_planner import (
+    ExecutionPlan,
+    ExecutionStage,
 )
 from apps.organization.execution_runtime import (
     ExecutionContext,
@@ -44,15 +48,10 @@ from apps.organization.execution_runtime import (
     SubtaskStatus,
     execution_runtime,
 )
-from apps.organization.execution_planner import (
-    ExecutionPlan,
-    ExecutionStage,
-    ExecutionPlanner,
-)
-from apps.organization.task_planner import SubTask
-from apps.organization.metrics import organizational_metrics
 from apps.organization.kernel import organization_kernel
-from apps.society.intent_router import Intent, IntentDomain, IntentComplexity
+from apps.organization.metrics import organizational_metrics
+from apps.organization.task_planner import SubTask
+from apps.society.intent_router import Intent, IntentComplexity, IntentDomain
 from apps.society.society import WORKER_REGISTRY
 
 logger = logging.getLogger(__name__)

@@ -31,6 +31,7 @@ Result
 """
 
 from typing import Any
+
 from apps.base import BaseReferenceApp
 from apps.trading_analyst.engine import trading_engine
 

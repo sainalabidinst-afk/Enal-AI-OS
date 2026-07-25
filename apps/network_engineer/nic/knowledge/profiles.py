@@ -10,7 +10,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.network_engineer.nic.knowledge.ontology import UniversalConcept, ConceptDefinition
+from apps.network_engineer.nic.knowledge.ontology import UniversalConcept
 from apps.network_engineer.vendor.models import NetworkAST
 
 logger = logging.getLogger(__name__)
@@ -587,9 +587,7 @@ class ComplianceEngine:
         vs = getattr(ast, "vendor_specific", {}) or {}
 
         has_ha = False
-        if vendor == "cisco" and ("hsrp" in vs or "hsrp_priority" in vs):
-            has_ha = True
-        elif vendor == "fortinet" and "ha_mode" in vs:
+        if vendor == "cisco" and ("hsrp" in vs or "hsrp_priority" in vs) or vendor == "fortinet" and "ha_mode" in vs:
             has_ha = True
         elif vendor == "mikrotik":
             raw = "\n".join(ast.raw_lines).lower()

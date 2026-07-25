@@ -8,9 +8,14 @@ Each role has specific responsibilities and authority levels.
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any
 
-from apps.organization.registry import AgentRecord, AgentRole, Department, AgentRegistry, agent_registry
+from apps.organization.registry import (
+    AgentRecord,
+    AgentRegistry,
+    AgentRole,
+    Department,
+    agent_registry,
+)
 
 
 class AuthorityLevel(int, Enum):

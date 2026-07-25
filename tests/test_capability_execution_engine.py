@@ -22,9 +22,8 @@ Test scenarios:
     ✅ response follows contract
 """
 
+
 import pytest
-from datetime import datetime
-from typing import Any
 
 from apps.organization.capability_execution_engine import (
     CapabilityExecutionEngine,
@@ -34,8 +33,6 @@ from apps.organization.capability_execution_engine import (
     TelemetryRecord,
 )
 from apps.organization.capability_graph import capability_graph
-from apps.organization.capability_contract import CapabilityNode
-
 
 # ── Helpers ──
 

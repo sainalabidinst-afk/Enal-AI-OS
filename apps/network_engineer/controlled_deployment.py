@@ -9,16 +9,16 @@ Key principle: Human approval is required in the middle of the pipeline.
 """
 
 import logging
-from typing import Any
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
 
 from apps.network_engineer import get_app
-from apps.network_engineer.diff_engine import semantic_diff_engine
+from apps.network_engineer.audit_trail import AuditEventType, audit_trail_manager
 from apps.network_engineer.backup_manager import backup_manager
+from apps.network_engineer.diff_engine import semantic_diff_engine
 from apps.network_engineer.risk_scorer import risk_scoring_engine
 from apps.network_engineer.verification_engine import verification_engine
-from apps.network_engineer.audit_trail import audit_trail_manager, AuditEventType
 
 logger = logging.getLogger(__name__)
 
@@ -275,11 +275,7 @@ class ControlledDeployment:
         elif plan.backup_id:
             timeline.mark_completed("backup")
 
-        if plan.status == DeploymentStatus.VERIFIED:
-            timeline.mark_completed("deploy")
-            timeline.mark_completed("verify")
-            timeline.mark_completed("complete")
-        elif plan.status == DeploymentStatus.ROLLED_BACK:
+        if plan.status == DeploymentStatus.VERIFIED or plan.status == DeploymentStatus.ROLLED_BACK:
             timeline.mark_completed("deploy")
             timeline.mark_completed("verify")
             timeline.mark_completed("complete")
@@ -354,7 +350,7 @@ class ControlledDeployment:
     async def rollback(self, plan: DeploymentPlan) -> DeploymentPlan:
         """Step 9: Rollback if needed."""
         if plan.backup_id:
-            restored = backup_manager.restore_backup(plan.backup_id)
+            backup_manager.restore_backup(plan.backup_id)
             plan.status = DeploymentStatus.ROLLED_BACK
             plan.error = "Rolled back after verification failure"
 

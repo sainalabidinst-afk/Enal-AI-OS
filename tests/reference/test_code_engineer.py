@@ -5,11 +5,9 @@ Code Engineer Golden Tests
 Tests Code Engineer with various Python code samples.
 """
 
-import pytest
 from apps.code_engineer import get_app
-from apps.code_engineer.parser import code_parser, CodeAST
 from apps.code_engineer.analyzer import code_analyzer
-
+from apps.code_engineer.parser import code_parser
 
 SIMPLE_CODE = '''
 import os

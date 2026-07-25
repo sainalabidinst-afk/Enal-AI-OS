@@ -13,8 +13,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from apps.organization.kernel import organization_kernel
 from apps.organization.economics import organizational_economics
+from apps.organization.kernel import organization_kernel
 
 logger = logging.getLogger(__name__)
 

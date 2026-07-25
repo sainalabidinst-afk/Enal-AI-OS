@@ -24,11 +24,11 @@ from pathlib import Path
 import pytest
 
 from apps.organization.workflow_catalog import (
+    CatalogError,
+    ResolveError,
+    ResolveResult,
     WorkflowCatalog,
     WorkflowCatalogEntry,
-    ResolveResult,
-    ResolveError,
-    CatalogError,
 )
 
 
@@ -62,15 +62,20 @@ DOCS_WORKFLOW_DICT = {
 def assert_valid_resolve_result(result: ResolveResult) -> None:
     assert isinstance(result, ResolveResult)
     assert isinstance(result.found, bool)
+    assert isinstance(result.confidence, float)
+    assert isinstance(result.reason, str)
     if result.found:
         assert isinstance(result.workflow_id, str)
         assert isinstance(result.entry, WorkflowCatalogEntry)
         assert result.error is None
         assert isinstance(result.matched_intent, str)
+        assert result.confidence > 0.0
+        assert len(result.reason) > 0
     else:
         assert result.workflow_id is None
         assert result.entry is None
         assert result.error is not None
+        assert result.confidence == 0.0
 
 
 # -- Tests: Registration / Loading ---

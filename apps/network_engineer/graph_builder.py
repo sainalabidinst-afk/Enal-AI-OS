@@ -6,16 +6,16 @@ Builds a network graph from parsed RouterOS configuration.
 """
 
 import logging
-from typing import Any
+
+from apps.network_engineer.mikrotik.routeros_parser import RouterOSConfig
 from apps.network_engineer.topology import (
-    NetworkTopology,
-    NetworkDevice,
-    NetworkInterface,
-    NetworkConnection,
     DeviceType,
     InterfaceType,
+    NetworkConnection,
+    NetworkDevice,
+    NetworkInterface,
+    NetworkTopology,
 )
-from apps.network_engineer.mikrotik.routeros_parser import RouterOSConfig
 
 logger = logging.getLogger(__name__)
 

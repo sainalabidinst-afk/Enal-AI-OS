@@ -45,6 +45,7 @@ class WorkflowCatalogEntry:
         description: Description of what this entry does.
         supported_intents: List of intent/task identifiers that resolve to this workflow.
         tags: Optional tags for categorization.
+        category: Optional category for grouping workflows (e.g., "network", "code", "devops").
         metadata: Additional metadata.
     """
     workflow_id: str
@@ -52,6 +53,7 @@ class WorkflowCatalogEntry:
     description: str = ""
     supported_intents: list[str] = field(default_factory=list)
     tags: list[str] = field(default_factory=list)
+    category: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -65,12 +67,16 @@ class ResolveResult:
         entry: The catalog entry (None if not found).
         error: Error message if not found (None on success).
         matched_intent: The specific intent that matched.
+        confidence: Confidence score (1.0 for exact match).
+        reason: Human-readable reason for the resolution.
     """
     found: bool
     workflow_id: str | None
     entry: WorkflowCatalogEntry | None
     error: str | None = None
     matched_intent: str | None = None
+    confidence: float = 0.0
+    reason: str = ""
 
 
 # --- Error ---
@@ -176,6 +182,36 @@ class WorkflowCatalog:
         content = path.read_text(encoding="utf-8")
         return self.register_from_json(content)
 
+    # --- Unregistration ---
+
+    def unregister(self, workflow_id: str) -> None:
+        """Unregister a workflow and all its intents from the catalog.
+
+        Args:
+            workflow_id: The workflow to remove.
+
+        Raises:
+            CatalogError: If the workflow is not registered.
+        """
+        entry = self._entries.get(workflow_id)
+        if entry is None:
+            raise CatalogError(f"Workflow '{workflow_id}' not found in catalog")
+
+        # Remove all intents mapped to this workflow
+        for intent in entry.supported_intents:
+            self._intent_index.pop(intent, None)
+            self._intent_to_entry_id.pop(intent, None)
+
+        # Remove the entry itself
+        self._entries.pop(workflow_id, None)
+
+        logger.info(
+            "Catalog entry unregistered: %s (%s) with %d intents",
+            entry.workflow_id,
+            entry.display_name,
+            len(entry.supported_intents),
+        )
+
     # --- Lookup / Resolution ---
 
     def resolve(self, intent: str) -> ResolveResult:
@@ -194,6 +230,8 @@ class WorkflowCatalog:
                 workflow_id=None,
                 entry=None,
                 error="Intent cannot be empty",
+                confidence=0.0,
+                reason="Empty intent provided",
             )
 
         entry = self._intent_index.get(intent)
@@ -204,6 +242,8 @@ class WorkflowCatalog:
                 entry=None,
                 error=f"No workflow found for intent: '{intent}'",
                 matched_intent=None,
+                confidence=0.0,
+                reason=f"Intent '{intent}' not found in catalog",
             )
 
         return ResolveResult(
@@ -212,6 +252,8 @@ class WorkflowCatalog:
             entry=entry,
             error=None,
             matched_intent=intent,
+            confidence=1.0,
+            reason=f"Exact match for intent '{intent}' → workflow '{entry.workflow_id}'",
         )
 
     def resolve_or_raise(self, intent: str) -> WorkflowCatalogEntry:

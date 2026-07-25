@@ -13,11 +13,12 @@ Responsibilities:
 """
 
 import logging
+from collections.abc import AsyncGenerator
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, AsyncGenerator
+from typing import Any
 
-from apps.society.society import create_society, SocietyRuntime
+from apps.society.society import SocietyRuntime, create_society
 
 try:
     from backend.app.core.memory import conversation_store as _memory

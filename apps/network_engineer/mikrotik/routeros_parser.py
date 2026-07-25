@@ -8,8 +8,8 @@ Parses RouterOS configuration files (.rsc) into structured data.
 import logging
 import re
 from dataclasses import dataclass, field
-from typing import Any
 from enum import Enum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -219,7 +219,7 @@ class RouterOSParser:
             self._parse_ip_service(config, line)
 
     def _parse_interface(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.interfaces.append(InterfaceConfig(
                 name=params.get("name", ""),
@@ -230,7 +230,7 @@ class RouterOSParser:
             ))
 
     def _parse_ip_address(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.ip_addresses.append(IPAddressConfig(
                 address=params.get("address", ""),
@@ -240,7 +240,7 @@ class RouterOSParser:
             ))
 
     def _parse_route(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.routes.append(RouteConfig(
                 dst_address=params.get("dst-address", ""),
@@ -250,7 +250,7 @@ class RouterOSParser:
             ))
 
     def _parse_firewall(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             if self._current_subsection == "nat":
                 config.nat_rules.append(NATRule(
@@ -275,7 +275,7 @@ class RouterOSParser:
                 ))
 
     def _parse_dhcp(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.dhcp_servers.append(DHCPConfig(
                 name=params.get("name", ""),
@@ -286,7 +286,7 @@ class RouterOSParser:
             ))
 
     def _parse_hotspot(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.hotspot_configs.append(HotspotConfig(
                 name=params.get("name", ""),
@@ -296,7 +296,7 @@ class RouterOSParser:
             ))
 
     def _parse_dns(self, config: RouterOSConfig, line: str):
-        if line.startswith("set ") or line.startswith("add "):
+        if line.startswith(("set ", "add ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             if config.dns_config is None:
                 config.dns_config = DNSConfig()
@@ -314,7 +314,7 @@ class RouterOSParser:
             config.bridge_configs.append(bridge)
 
     def _parse_queue(self, config: RouterOSConfig, line: str):
-        if line.startswith("add ") or line.startswith("set "):
+        if line.startswith(("add ", "set ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.queue_configs.append(QueueConfig(
                 name=params.get("name", ""),
@@ -324,12 +324,12 @@ class RouterOSParser:
             ))
 
     def _parse_system(self, config: RouterOSConfig, line: str):
-        if line.startswith("identity set ") or line.startswith("identity add "):
+        if line.startswith(("identity set ", "identity add ")):
             params = self._parse_params(line.split(" ", 2)[2] if line.count(" ") >= 2 else "")
             config.system_identity = SystemIdentity(name=params.get("name", ""))
 
     def _parse_ip_service(self, config: RouterOSConfig, line: str):
-        if line.startswith("set ") or line.startswith("add "):
+        if line.startswith(("set ", "add ")):
             params = self._parse_params(line.split(" ", 1)[1] if " " in line else "")
             config.metadata.setdefault("ip_services", []).append({
                 "name": params.get("name", ""),

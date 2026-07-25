@@ -6,11 +6,12 @@ Tests Organization Kernel, Economics, Optimizer, and Learning.
 """
 
 import pytest
-from apps.organization.registry import agent_registry
-from apps.organization.kernel import organization_kernel
+
 from apps.organization.economics import organizational_economics
-from apps.organization.optimizer import workforce_optimizer
+from apps.organization.kernel import organization_kernel
 from apps.organization.learning import organizational_learning
+from apps.organization.optimizer import workforce_optimizer
+from apps.organization.registry import agent_registry
 from apps.society.agent import Agent, AgentRole, Department
 
 
@@ -128,7 +129,7 @@ def test_learning_lessons():
 
 
 def test_learning_best_practices():
-    practice = organizational_learning.record_best_practice(
+    organizational_learning.record_best_practice(
         name="API Versioning",
         description="Always version APIs from day one",
         context="software engineering",
@@ -149,7 +150,7 @@ def test_learning_mistakes():
 
 
 def test_learning_reusable_assets():
-    asset = organizational_learning.record_reusable_asset(
+    organizational_learning.record_reusable_asset(
         name="Docker Compose Template",
         asset_type="template",
         content={"version": "3.8", "services": {}},
@@ -175,4 +176,4 @@ def test_society_kernel_integration():
     resolved = organization_kernel.resolve_conflict(conflict.id, "Prioritize task A", "manager-1")
     assert resolved.status == "resolved"
 
-    print(f"[PASS] Society Kernel Integration: budget, resources, conflicts, economics")
+    print("[PASS] Society Kernel Integration: budget, resources, conflicts, economics")

@@ -13,7 +13,6 @@ Contract: Capability Contract v1
 """
 
 import logging
-from typing import Any
 
 from apps.organization.capability_contract import (
     CAPABILITY_CONTRACT_VERSION,

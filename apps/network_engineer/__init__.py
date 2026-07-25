@@ -23,21 +23,22 @@ Architecture:
 """
 
 from typing import Any
+
 from apps.base import BaseReferenceApp
-from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser, parse_routeros_config
-from apps.network_engineer.analyzer import network_analyzer, NetworkAnalysisReport
-from apps.network_engineer.graph_builder import network_graph_builder
-from apps.network_engineer.recommendation_engine import recommendation_engine
-from apps.network_engineer.generator import routeros_generator
-from apps.network_engineer.simulator import network_simulator
+from apps.network_engineer.analyzer import NetworkAnalysisReport, network_analyzer
 from apps.network_engineer.docs_generator import network_doc_generator
+from apps.network_engineer.generator import routeros_generator
+from apps.network_engineer.graph_builder import network_graph_builder
+from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser, parse_routeros_config
 from apps.network_engineer.nic import (
-    knowledge_enricher,
-    inference_engine,
-    get_compliance_engine,
     ConceptTag,
     ReasoningChain,
+    get_compliance_engine,
+    inference_engine,
+    knowledge_enricher,
 )
+from apps.network_engineer.recommendation_engine import recommendation_engine
+from apps.network_engineer.simulator import network_simulator
 
 
 class NetworkEngineerApp(BaseReferenceApp):

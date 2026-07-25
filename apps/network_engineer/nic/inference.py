@@ -9,8 +9,7 @@ Example reasoning:
   No VRRP + Single WAN + No Backup Route → Single Point of Failure
 """
 
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
 from apps.network_engineer.nic.knowledge.ontology import UniversalConcept
 

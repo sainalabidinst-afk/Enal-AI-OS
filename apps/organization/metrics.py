@@ -7,10 +7,8 @@ Tracks project completion time, quality, token cost, collaboration rate, and tea
 """
 
 import logging
-import time
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any
 
 logger = logging.getLogger(__name__)
 

@@ -6,26 +6,25 @@ Converts RouterOS configs to/from Universal AST.
 """
 
 import logging
-from typing import Any
 
+from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser
 from apps.network_engineer.vendor.base import VendorAdapter
 from apps.network_engineer.vendor.models import (
+    InterfaceType,
     NetworkAST,
+    RuleAction,
+    UniversalBridge,
+    UniversalDHCPServer,
+    UniversalDNS,
+    UniversalFirewallRule,
+    UniversalHotspot,
     UniversalInterface,
     UniversalIPAddress,
-    UniversalFirewallRule,
     UniversalNATRule,
-    UniversalRoute,
-    UniversalDHCPServer,
-    UniversalHotspot,
-    UniversalDNS,
-    UniversalBridge,
     UniversalQueue,
+    UniversalRoute,
     UniversalSystem,
-    InterfaceType,
-    RuleAction,
 )
-from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser, RouterOSConfig
 
 logger = logging.getLogger(__name__)
 
@@ -228,14 +227,13 @@ class MikroTikAdapter(VendorAdapter):
 
         # WireGuard
         for line in config.raw_lines:
-            if line.startswith("/interface wireguard"):
-                if "add" in line:
-                    parts = dict(p.split("=", 1) for p in line.split("add ")[1].split() if "=" in p)
-                    ast.wireguard.append(UniversalWireGuard(
-                        name=parts.get("name", ""),
-                        listen_port=int(parts.get("listen-port", "0")),
-                        enabled=True,
-                    ))
+            if line.startswith("/interface wireguard") and "add" in line:
+                parts = dict(p.split("=", 1) for p in line.split("add ")[1].split() if "=" in p)
+                ast.wireguard.append(UniversalWireGuard(
+                    name=parts.get("name", ""),
+                    listen_port=int(parts.get("listen-port", "0")),
+                    enabled=True,
+                ))
 
         return ast
 

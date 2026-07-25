@@ -6,9 +6,9 @@ Analyzes RouterOS configurations for security, performance, and best practices.
 """
 
 import logging
-from typing import Any
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -338,7 +338,7 @@ class NetworkAnalyzer:
     def _check_dns_servers_public_only(self, config: Any, report: NetworkAnalysisReport):
         if config.dns_config and config.dns_config.servers:
             for server in config.dns_config.servers:
-                if server.startswith("8.8.8.") or server.startswith("1.1.1."):
+                if server.startswith(("8.8.8.", "1.1.1.")):
                     report.add_issue(Severity.SUGGESTION, "DNS", "Using public DNS only", "Consider internal DNS for privacy", confidence=0.5)
 
     def _check_hotspot_dns_unsafe(self, config: Any, report: NetworkAnalysisReport):
