@@ -9,7 +9,7 @@ Meetings have agendas, timeboxes, and produce outcomes written to Blackboard.
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -123,7 +123,7 @@ class MeetingSystem:
         meeting = self._meetings.get(meeting_id)
         if meeting and meeting.status == MeetingStatus.SCHEDULED:
             meeting.status = MeetingStatus.IN_PROGRESS
-            meeting.started_at = datetime.utcnow()
+            meeting.started_at = datetime.now(timezone.utc)
             logger.info("Meeting started: %s", meeting_id)
             return meeting
         return None
@@ -132,7 +132,7 @@ class MeetingSystem:
         meeting = self._meetings.get(meeting_id)
         if meeting and meeting.status == MeetingStatus.IN_PROGRESS:
             meeting.status = MeetingStatus.COMPLETED
-            meeting.ended_at = datetime.utcnow()
+            meeting.ended_at = datetime.now(timezone.utc)
             meeting.outcome = outcome
             self._write_outcome_to_blackboard(meeting)
             logger.info("Meeting completed: %s - %d decisions, %d action items", meeting_id, len(outcome.decisions), len(outcome.action_items))
@@ -167,7 +167,7 @@ class MeetingSystem:
             "action_items": meeting.outcome.action_items,
             "blockers": meeting.outcome.blockers,
             "summary": meeting.outcome.summary,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         })
 
 

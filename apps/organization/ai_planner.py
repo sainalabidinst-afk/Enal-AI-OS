@@ -30,7 +30,7 @@ Flow:
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -146,8 +146,8 @@ class AIPlan:
     total_steps: int = 0
     completed_steps: int = 0
     failed_steps: int = 0
-    created_at: datetime = field(default_factory=datetime.utcnow)
-    updated_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -603,7 +603,7 @@ class AIPlanner:
         else:
             plan.status = PlanStatus.IN_PROGRESS
 
-        plan.updated_at = datetime.utcnow()
+        plan.updated_at = datetime.now(timezone.utc)
 
     # ─── Telemetry ───
 

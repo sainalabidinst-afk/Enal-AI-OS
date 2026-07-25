@@ -8,8 +8,9 @@ Enables agents to collaborate without always going through a central planner.
 
 import logging
 import uuid
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -42,7 +43,7 @@ class Message:
     subject: str
     body: Any
     priority: Priority = Priority.NORMAL
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     reply_to: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
@@ -76,16 +77,16 @@ class Event:
         self.type = event_type
         self.source = source
         self.data = data
-        self.timestamp = datetime.utcnow()
+        self.timestamp = datetime.now(timezone.utc)
 
 
 class EventBus:
     """Publish-subscribe event bus for organization-wide events."""
 
     def __init__(self):
-        self._subscribers: dict[str, list[callable]] = {}
+        self._subscribers: dict[str, list[Callable[[Any], None]]] = {}
 
-    def subscribe(self, event_type: str, callback: callable) -> None:
+    def subscribe(self, event_type: str, callback: Callable[[Any], None]) -> None:
         self._subscribers.setdefault(event_type, []).append(callback)
 
     def publish(self, event: Event) -> None:

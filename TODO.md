@@ -1,33 +1,47 @@
-# Stabilization Sprint - Type Safety & Architecture Consistency
+# QUALITY REMEDIATION SPRINT - TODO
 
-## TODO Checklist
+## Priority 1: Mypy Errors
 
-### PHASE 1: CRITICAL FIXES (High Severity)
+- [x] 1.1 `communication.py`: Fix `callable` → `typing.Callable`
+- [x] 1.2 `capability_graph.py`: Fix missing type annotation for `related`
 
-- [x] 1. Create STATIC_ANALYSIS_CLASSIFICATION.md
-- [ ] 2. `apps/organization/task_planner.py` - Add missing `Intent` import
-- [ ] 3. `apps/organization/meeting.py` - Add missing `blackboard` import & fix init
-- [ ] 4. `apps/organization/communication.py` - Fix `callable` → `Callable` type annotation
-- [ ] 5. `apps/society/society.py` - Add `team_id` field to `Team` dataclass
-- [ ] 6. `apps/society/society.py` - Fix line 455 type mismatch (`dict` vs `SubtaskResult`)
-- [ ] 7. `apps/society/conversation_manager.py` - Add missing `_persist_artifact` method
+## Priority 2: Ruff Issues
 
-### PHASE 2: TYPE ANNOTATION FIXES (Medium Severity)
+### DTZ003 - `datetime.utcnow()` → `datetime.now(timezone.utc)`
 
-- [ ] 8. `apps/organization/capability_graph.py` - Add `list[str]` type annotation for `related`
-- [ ] 9. `apps/society/intent_router.py` - Fix `max()` key function
-- [ ] 10. `apps/organization/workflow_executor.py` - Remove unused `TelemetryRecord` import
+- [ ] 2.1 `apps/organization/reasoning_engine.py` — 1 occurrence (Evidence dataclass default)
+- [ ] 2.2 `apps/organization/communication.py` — 1 occurrence
+- [ ] 2.3 `apps/organization/capability_execution_engine.py` — 5 occurrences
+- [ ] 2.4 `apps/organization/execution_runtime.py` — 3 occurrences
+- [ ] 2.5 `apps/organization/kernel.py` — 4 occurrences
+- [ ] 2.6 `apps/organization/meeting.py` — 3 occurrences
+- [ ] 2.7 `apps/organization/metrics.py` — 3 occurrences
+- [ ] 2.8 `apps/organization/multi_agent.py` — 3 occurrences
+- [ ] 2.9 `apps/organization/ai_planner.py` — 2 occurrences
+- [ ] 2.10 `apps/organization/registry.py` — 1 occurrence
 
-### PHASE 3: NETWORK VENDOR MODEL CONSISTENCY
+### BLE001 - Blind `except Exception`
 
-- [ ] 11. `apps/network_engineer/vendor/cisco_ios.py` - Fix `UniversalBGP` references
-- [ ] 12. `apps/network_engineer/vendor/mikrotik.py` - Fix all undefined model refs & type assignments
-- [ ] 13. `apps/network_engineer/vendor/models.py` - Fix `UniversalRoute.interface` field
+- [ ] 2.11 `apps/organization/ai_planner.py` — 1 occurrence
+- [ ] 2.12 `apps/organization/communication.py` — 1 occurrence
+- [ ] 2.13 `apps/organization/execution_runtime.py` — 1 occurrence
+- [ ] 2.14 `apps/organization/multi_agent.py` — 2 occurrences
 
-### PHASE 4: VALIDATION
+### TRY401 - Redundant exception in logging.exception
 
-- [ ] 14. Run `ruff check --fix`
-- [ ] 15. Run `mypy` to verify fixes
-- [ ] 16. Run `pytest` to ensure no regressions
-- [ ] 17. Create TYPE_FIX_REPORT.md
-- [ ] 18. Create ARCHITECTURE_CONSISTENCY_REPORT.md
+- [ ] 2.15 `apps/organization/capability_pipeline.py` — 1 occurrence
+
+## Priority 3: Markdownlint
+
+- [ ] 3.1 Fix heading spacing
+- [ ] 3.2 Fix blank lines
+- [ ] 3.3 Fix table formatting
+- [ ] 3.4 Fix strong style
+
+## Validation
+
+- [ ] 4.1 Run mypy
+- [ ] 4.2 Run ruff
+- [ ] 4.3 Run pytest
+- [ ] 4.4 Generate QUALITY_REMEDIATION_REPORT.md
+

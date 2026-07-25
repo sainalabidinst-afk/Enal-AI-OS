@@ -27,7 +27,7 @@ import logging
 import time
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -176,7 +176,7 @@ class CapabilityExecutionEngine:
             capability_id=request.capability_id,
             status=ExecutionStatus.CREATED,
             execution_time_ms=0.0,
-            started_at=datetime.utcnow(),
+            started_at=datetime.now(timezone.utc),
         )
 
         try:
@@ -215,7 +215,7 @@ class CapabilityExecutionEngine:
 
             elapsed_ms = (time.monotonic() - start_time) * 1000
             telemetry.execution_time_ms = elapsed_ms
-            telemetry.finished_at = datetime.utcnow()
+            telemetry.finished_at = datetime.now(timezone.utc)
             telemetry.worker_domain = context.metadata.get("domain", "")
             telemetry.retry_count = sum(r.attempts - 1 for r in subtask_results)
 
@@ -249,7 +249,7 @@ class CapabilityExecutionEngine:
             elapsed_ms = (time.monotonic() - start_time) * 1000
             telemetry.status = ExecutionStatus.CANCELLED
             telemetry.execution_time_ms = elapsed_ms
-            telemetry.finished_at = datetime.utcnow()
+            telemetry.finished_at = datetime.now(timezone.utc)
             self._record_telemetry(telemetry)
             return ExecutionResponse(
                 status=ExecutionStatus.CANCELLED,
@@ -265,7 +265,7 @@ class CapabilityExecutionEngine:
             elapsed_ms = (time.monotonic() - start_time) * 1000
             telemetry.status = ExecutionStatus.FAILED
             telemetry.execution_time_ms = elapsed_ms
-            telemetry.finished_at = datetime.utcnow()
+            telemetry.finished_at = datetime.now(timezone.utc)
             telemetry.error_type = "runtime_error"
             telemetry.error_message = str(exc)
             self._record_telemetry(telemetry)
@@ -497,7 +497,7 @@ class CapabilityExecutionEngine:
         elapsed_ms = (time.monotonic() - start_time) * 1000
         telemetry.status = ExecutionStatus.FAILED
         telemetry.execution_time_ms = elapsed_ms
-        telemetry.finished_at = datetime.utcnow()
+        telemetry.finished_at = datetime.now(timezone.utc)
         telemetry.error_type = error_type
         telemetry.error_message = error
         self._record_telemetry(telemetry)

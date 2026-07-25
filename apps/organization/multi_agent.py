@@ -29,7 +29,7 @@ import logging
 import uuid
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -632,14 +632,14 @@ class MultiAgentOrchestrator:
             return task
 
         task.status = PlanStatus.IN_PROGRESS
-        task.started_at = datetime.utcnow()
+        task.started_at = datetime.now(timezone.utc)
 
         try:
             # Execute the agent's executor
             result = await executor(task.step, task.input_data)
             task.result = result
             task.status = PlanStatus.COMPLETED
-            task.completed_at = datetime.utcnow()
+            task.completed_at = datetime.now(timezone.utc)
 
             # Update agent status
             agent.status = AgentStatus.IDLE
@@ -652,7 +652,7 @@ class MultiAgentOrchestrator:
         except Exception as exc:
             task.status = PlanStatus.FAILED
             task.error = str(exc)
-            task.completed_at = datetime.utcnow()
+            task.completed_at = datetime.now(timezone.utc)
 
             agent.status = AgentStatus.ERROR
             agent.current_task = None

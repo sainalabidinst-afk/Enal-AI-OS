@@ -722,7 +722,7 @@ class CapabilityGraph:
         return list(self._capabilities.keys())
 
     def get_related_capabilities(self, capability_id: str) -> list[str]:
-        related = []
+        related: list[str] = []
         node = self._capabilities.get(capability_id)
         if not node:
             return related

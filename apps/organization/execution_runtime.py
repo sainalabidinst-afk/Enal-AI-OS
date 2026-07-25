@@ -14,7 +14,7 @@ import asyncio
 import logging
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -102,7 +102,7 @@ class ExecutionRuntime:
             attempt += 1
             result.attempts = attempt
             result.status = SubtaskStatus.RUNNING
-            result.started_at = datetime.utcnow()
+            result.started_at = datetime.now(timezone.utc)
             logger.info("Subtask started: %s attempt=%d", subtask.subtask_id, attempt)
             try:
                 task_context = {
@@ -122,7 +122,7 @@ class ExecutionRuntime:
                 )
                 result.status = SubtaskStatus.COMPLETED
                 result.result = worker_output
-                result.finished_at = datetime.utcnow()
+                result.finished_at = datetime.now(timezone.utc)
                 logger.info("Subtask completed: %s duration=%.2fs", subtask.subtask_id, result.duration_seconds)
                 return result
             except TimeoutError:
@@ -132,7 +132,7 @@ class ExecutionRuntime:
                 logger.error("Subtask failed: %s attempt=%d error=%s", subtask.subtask_id, attempt, exc)
                 result.error = str(exc)
             result.status = SubtaskStatus.RETRYING if attempt < context.retry_limit else SubtaskStatus.FAILED
-            result.finished_at = datetime.utcnow()
+            result.finished_at = datetime.now(timezone.utc)
             if result.status == SubtaskStatus.RETRYING:
                 await asyncio.sleep(context.retry_delay_seconds)
         return result
