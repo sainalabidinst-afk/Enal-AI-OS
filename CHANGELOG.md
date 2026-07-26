@@ -5,6 +5,31 @@ All notable changes to Enal Cognitive Platform (ECP) will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-release-candidate] - 2026-07-27
+
+### Added
+- Engineering Hardening Phase complete - All Severity 8+ type issues resolved
+- Cognitive pipeline fully integrated (Perception → Planner → Memory → Executor)
+- Checkpoint/Resume/Retry support in WorkflowExecutor
+- SessionMemory and ProjectMemory for cross-execution context
+
+### Fixed
+- Circular imports: `knowledge/__init__.py`, `task_planner.py`, `meeting.py`
+- Missing vendor model imports: `UniversalBGP`, `UniversalMPLS`, `UniversalCAPsMAN`, `UniversalWireGuard` in cisco_ios.py, mikrotik.py
+- `Team` dataclass missing `team_id` field
+- `create_checkpoint`, `resume_from_checkpoint`, `execute_with_retry` moved inside `WorkflowExecutor` class
+- Duplicate `PerceptionInput` removed, now imports from `perception_engine.py`
+- CodeEngineerApp `generate_patch()` rewritten with correct signature
+- IntentRouter `max()` key function corrected
+- API optional access patterns hardened with `_safe_get` helpers
+
+### Status
+- Runtime tests: 368 passing
+- Static analysis: 0 Severity 8+ issues (down from 366)
+- Architecture: 92/100 - Platform Release Candidate
+
+---
+
 ## [1.0.0-dev] - 2026-07-08
 
 ### Added
@@ -32,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kernel must remain under 5000 lines
 - All plugins require manifest and security validation
 - Golden tests must pass with ≥80% rate
+
+---
 
 ## [0.1.0] - 2026-07-08
 

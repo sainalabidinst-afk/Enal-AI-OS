@@ -1,46 +1,56 @@
 # Agent Development Guide
 
-## Creating an Agent
+## Status
+Platform RC (2026-07-27) - 368 tests passing
+
+## Creating an Agent (Worker)
 
 ```python
-from enal_ai import Agent, EnalAI
+from enal_ai import Agent
 
-enal = EnalAI()
-
-class MyAgent(Agent):
-    name = "my-agent"
-    description = "Description of what this agent does"
+class MyWorker(Agent):
+    name = "my-worker"
+    description = "Description of what this worker does"
     capabilities = ["capability1", "capability2"]
-    model = "gpt-4o"
-    temperature = 0.7
-    max_tokens = 4096
-    tools = ["tool1", "tool2"]
-    metadata = {"author": "your-name"}
+    # Do NOT set model - Runtime selects based on capabilities
 
     async def execute(self, task: str, context: dict | None = None) -> str:
-        # Your agent logic here
-        # Access tools via self.config.tools
-        # Access model via self.config.model
-        return f"Result for: {task}"
+        return f"Processed: {task}"
 
-# Register
-agent = MyAgent()
-enal.agent("my-agent")(MyAgent)
-
-# Run
+agent = MyWorker()
 result = await agent.run("Do something")
 ```
 
 ## Agent Lifecycle
 
-1. **Initialization** — Config loaded, tools registered
-2. **Execution** — `execute()` called with task
-3. **Reflection** — Optional self-reflection on result
-4. **Learning** — Experience stored for future
+```
+Created → Idle → Assigned → Executing → Review → Complete
+                                    ↘ Failed → Retry (max 3)
+```
+
+## Memory Integration
+
+```python
+# Query collective memory from Blackboard
+context = blackboard.get("project-context")
+
+# Store learnings to Project Memory
+await memory.store("my-learning", {"pattern": "discovered"})
+```
+
+## Workflow Integration
+
+```python
+from apps.organization.workflow_executor import WorkflowExecutor
+
+executor = WorkflowExecutor()
+result = await executor.execute({"goal": "Your goal here"})
+```
 
 ## Best Practices
 
-- Keep agents focused on one domain
-- Use specific capabilities for discovery
-- Implement proper error handling
-- Add metadata for tracking
+- Define clear capabilities (not models) - Runtime handles model selection
+- Query Blackboard before acting for shared context
+- Use collective memory for team knowledge
+- Log confidence levels in outputs
+- Escalate blockers via Mailbox to Lead

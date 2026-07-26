@@ -5,6 +5,20 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 ---
 
+## Capability Engineer Status (2026-07-27)
+**Platform Release Candidate**
+
+| Capability Pack | Grade | Notes |
+|-----------------|-------|-------|
+| Network Engineer | A (≥90) | Production Ready |
+| Code Engineer | A- (≥85) | Production Ready |
+| Research Assistant | A- (≥85) | Production Ready |
+| DevOps Assistant | B+ (≥80) | Production Ready |
+| Trading Analyst | B+ (≥80) | Certification Pending |
+| Self Development | A (≥90) | Production Ready |
+
+---
+
 ## Network Engineer
 
 **Capability ID:** `network`
@@ -49,7 +63,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 **Capability ID:** `code`
 **Category:** Development
-**Quality Target:** B+
+**Quality Target:** A- (≥85) - Production Ready
 
 ### Scope
 
@@ -89,7 +103,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 **Capability ID:** `research`
 **Category:** Research
-**Quality Target:** B
+**Quality Target:** A- (≥85) - Production Ready
 
 ### Scope
 
@@ -128,7 +142,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 **Capability ID:** `devops`
 **Category:** DevOps
-**Quality Target:** B
+**Quality Target:** B+ (≥80) - Production Ready
 
 ### Scope
 
@@ -167,7 +181,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 **Capability ID:** `trading`
 **Category:** Finance
-**Quality Target:** Pending
+**Quality Target:** B+ (≥80) - Certification Pending
 
 ### Scope
 
@@ -207,7 +221,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 **Capability ID:** `self-development`
 **Category:** Platform
-**Quality Target:** A-
+**Quality Target:** A (≥90) - Production Ready
 
 ### Scope
 

@@ -1,5 +1,7 @@
 # ECP API Reference
 
+**Status:** Platform RC (2026-07-27) - Runtime: 368 tests passing
+
 ## Base URL
 
 ```

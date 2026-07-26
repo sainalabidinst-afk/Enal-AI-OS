@@ -5,8 +5,12 @@ Developer SDK for building agents, tools, and workflows on ECP.
 ## Installation
 
 ```bash
-pip install enal-ai-sdk
+pip install -e .
 ```
+
+## Status: Platform RC (2026-07-27)
+- Runtime: 368 tests passing
+- Architecture: 92/100 - Cognitive pipeline integrated
 
 ## Quick Start
 

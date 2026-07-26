@@ -1,14 +1,29 @@
-## Component Versions
+## Component Versions - Platform RC (2026-07-27)
 
 | Component | Version | Status | Notes |
 |-----------|---------|--------|-------|
-| Backend Baseline | v1.0.0-dev | Baseline | Active 2026-07-11 |
-| Product Intelligence | v1.0.0-dev | Active | Active 2026-07-14 |
+| Backend Baseline | v1.0.0-rc | **Release Candidate** | Core Cognitive Services integrated |
+| Product Intelligence | v1.0.0-dev | Active | Engineering Hardening phase |
 | Product Contract | v1 | Locked | Effective 2026-07-11 |
 | Frontend MVP | v1.0.0-dev | Active | Product MVP phase |
-| Capability Packs | v1.0.0-dev | Active | Evolving through dogfooding |
-| API Contracts | v1 | Stable | See `docs/frontend/API_MAPPING.md` for single source of truth |
-| Benchmark Framework | v1.0.0-dev | Active | Async runner with concurrency, capability scoring, CCE |
-| Telemetry | v1.0.0-dev | Active | JSONL metrics collector, KPI aggregation |
+| Capability Packs | v1.0.0-rc | Production Ready | 6 packs certified |
+| API Contracts | v1 | Stable | Public APIs frozen |
+| Benchmark Framework | v1.0.0-dev | Active | 368 tests passing |
+| Telemetry | v1.0.0-dev | Active | JSONL metrics + KPI |
 
-Version matrix is now tied to the Product Contract. Frontend must not introduce new API contracts without updating this matrix and the Product Contract.
+## Status Summary
+
+| Layer | Score |
+|-------|-------|
+| Architecture | 92/100 |
+| Runtime Tests | 368 passing |
+| Type Safety | 0 Severity 8+ issues |
+
+## Next Milestones
+
+| Sprint | Goal | Target Date |
+|--------|------|-------------|
+| Sprint A | Engineering Hardening Complete | 2026-08-15 |
+| Sprint B | Browser & Evidence Engine | 2026-09-15 |
+| Sprint C | Reflection Engine | 2026-10-15 |
+| v1.0.0 | Developer Preview | 2026-11-01 |

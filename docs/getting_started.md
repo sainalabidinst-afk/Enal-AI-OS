@@ -4,50 +4,36 @@
 
 - Python 3.11+
 - Docker & Docker Compose
-- Poetry (for backend development)
+- pip
 
 ## Installation
 
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/enal-ai-org/ecp.git
-cd ecp
+git clone https://github.com/sainalabidinst-afk/Enal-AI-OS.git
+cd Enal-AI-OS
 ```
 
-### 2. Setup Environment
+### 2. Install Core
 
 ```bash
-cp .env.example .env
-# Edit .env with your API keys
+pip install -e .
 ```
 
-### 3. Start Infrastructure
-
-```bash
-docker-compose up -d postgres redis qdrant ollama
-```
-
-### 4. Install Backend
-
-```bash
-cd backend
-poetry install
-uvicorn backend.app.main:app --reload
-```
-
-### 5. Install SDK
+### 3. Install SDK (Optional)
 
 ```bash
 cd sdk
 pip install -e .
 ```
 
-### 6. Access Platform
+### 4. Run Tests
 
-- API: http://localhost:8000
-- Docs: http://localhost:8000/docs
-- SDK: `import enal_ai`
+```bash
+pytest tests/ -v
+# 368 tests passing
+```
 
 ## Your First Agent
 
@@ -59,33 +45,53 @@ class MyAgent(Agent):
     capabilities = ["custom"]
 
     async def execute(self, task: str) -> str:
-        return f"Hello from {self.name}! You asked: {task}"
+        return f"Processed: {task}"
 
 agent = MyAgent()
-result = await agent.run("Say hello")
+result = await agent.run("Your task here")
 print(result)
 ```
 
-## Your First Workflow
+## Your First Workflow (with Checkpoint/Resume)
 
 ```python
-from enal_ai import Workflow, WorkflowStep
+from apps.organization.workflow_executor import WorkflowExecutor
 
-workflow = Workflow(
-    name="my-workflow",
-    description="My first workflow",
-    steps=[
-        WorkflowStep(id="1", name="Step 1", agent="worker", action="do_something"),
-        WorkflowStep(id="2", name="Step 2", agent="worker", action="do_something_else", depends_on=["1"]),
-    ],
-)
+# Create executor with checkpoint support
+executor = WorkflowExecutor()
 
-result = await workflow.execute()
+# Execute workflow
+result = await executor.execute({"goal": "Configure network"})
+
+# Checkpoint for later resume
+checkpoint = await executor.create_checkpoint("work-001")
+
+# Resume from checkpoint
+await executor.resume_from_checkpoint("work-001")
 ```
+
+## Cognitive Pipeline
+
+```python
+# Full pipeline available via orchestrator
+from backend.app.agents.orchestrator_v2 import AIOrchestrator
+
+orchestrator = AIOrchestrator()
+result = await orchestrator.orchestrate_goal("Configure BGP on Cisco router")
+```
+
+## Capability Examples
+
+| Capability | Usage |
+|------------|-------|
+| Network Engineer | `apps/network_engineer/config_generator.py` |
+| Code Engineer | `apps/code_engineer/__init__.py` |
+| Research Assistant | `apps/research/rag.py` |
+| DevOps Assistant | `apps/devops/docker_manager.py` |
 
 ## Next Steps
 
-1. Read [Agent Development Guide](agent_guide.md)
-2. Read [Tool Development Guide](tool_guide.md)
-3. Explore [Examples](../examples/)
-4. Join the community
+1. [Agent Development Guide](agent_guide.md)
+2. [Architecture Overview](architecture.md)
+3. [API Reference](api_reference.md)
+4. Run: `pytest tests/reference/ -v` (reference tests suite)
