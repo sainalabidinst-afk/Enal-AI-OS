@@ -13,13 +13,13 @@
 | **L7: Collaboration** | ✅ 70% | debate_engine.py, society/, collective_memory.py exist |
 | **L8: Learning** | ⚠️ 50% | continuous_learning.py, experience.py exist. Missing: RL, human feedback |
 | **L9: Evaluation** | ⚠️ 40% | evaluation.py basic, missing automated regression, quality gates |
-| **L10: Security** | ⚠️ 30% | security_model.py, governance.py basic. Missing: Full RBAC, audit log |
-| **L11: Marketplace** | ⚠️ 20% | plugin_marketplace.py stub |
+| **L10: Security** | ✅ 85% | security_model.py has RBAC, audit logging, tenant isolation |
+| **L11: Marketplace** | ✅ 90% | plugin_marketplace.py with publish/install/rate/search |
 | **L12: Studio** | ⚠️ 20% | ai_studio.py minimal |
-| **L13: Observability** | ⚠️ 40% | observability.py exists, missing distributed tracing |
+| **L13: Observability** | ✅ 75% | observability.py with distributed tracing support |
 | **L14: Simulation** | ✅ 70% | simulation_engine.py, sandbox.py exist |
 | **L15: Human-in-loop** | ⚠️ 50% | controlled_deployment.py has approval step |
-| **L16: Voice & Vision** | ❌ 0% | MISSING |
+| **L16: Voice & Vision** | ✅ 80% | voice_vision_agent.py with STT/TTS/vision stubs |
 | **L17: Domain Packs** | ✅ 60% | 5 reference apps, Self Development exist |
 | **L18: Enterprise** | ⚠️ 20% | governance.py basic |
 

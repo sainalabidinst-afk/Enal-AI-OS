@@ -30,23 +30,24 @@ class CodeEngineerApp(BaseReferenceApp):
             return
         from apps.code_engineer.parser import code_parser
         from apps.code_engineer.analyzer import code_analyzer
-        from apps.code_engineer.architecture_reader import architecture_reader
+        from apps.code_engineer.architecture_reader import ArchitectureReader, read_architecture
         from apps.code_engineer.dependency_graph import DependencyGraphBuilder
         from apps.code_engineer.impact_analyzer import ImpactAnalyzer
-        from apps.code_engineer.refactoring_engine import refactoring_engine
-        from apps.code_engineer.patch_generator import patch_generator
-        from apps.code_engineer.regression_analyzer import regression_analyzer
-        from apps.code_engineer.test_generator import test_generator
+        from apps.code_engineer.refactoring_engine import RefactoringEngine
+        from apps.code_engineer.patch_generator import PatchGenerator
+        from apps.code_engineer.regression_analyzer import RegressionAnalyzer
+        from apps.code_engineer.test_generator import TestGenerator
 
         self.parser = code_parser
         self.analyzer = code_analyzer
-        self.architecture_reader = architecture_reader
+        self.architecture_reader_cls = ArchitectureReader
+        self.architecture_reader = read_architecture
         self.dependency_graph_builder = DependencyGraphBuilder
         self.impact_analyzer_cls = ImpactAnalyzer
-        self.refactoring_engine = refactoring_engine
-        self.patch_generator = patch_generator
-        self.regression_analyzer = regression_analyzer
-        self.test_generator = test_generator
+        self.refactoring_engine_cls = RefactoringEngine
+        self.patch_generator_cls = PatchGenerator
+        self.regression_analyzer_cls = RegressionAnalyzer
+        self.test_generator_cls = TestGenerator
         self._components_loaded = True
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -77,7 +78,8 @@ class CodeEngineerApp(BaseReferenceApp):
             return {"error": f"Repository path not found: {repo_path}"}
 
         # Step 1: Architecture Reader
-        architecture = await self.architecture_reader.analyze(str(path))
+        reader = self.architecture_reader_cls(str(path))
+        architecture = await reader.read()
         if not architecture:
             return {"error": "Architecture analysis failed"}
 
@@ -115,23 +117,23 @@ class CodeEngineerApp(BaseReferenceApp):
     def parse_code(self, code: str, filename: str = "<unknown>") -> Any:
         """Parse Python code into AST."""
         import asyncio
-        try:
-            loop = asyncio.get_running_loop()
-            if not self._components_loaded:
+        if not self._components_loaded:
+            try:
+                loop = asyncio.get_running_loop()
                 loop.run_until_complete(self._ensure_components())
-        except RuntimeError:
-            pass
+            except RuntimeError:
+                asyncio.run(self._ensure_components())
         return self.parser.parse(code, filename=filename)
 
     def analyze_code(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:
         """Analyze Python code for issues."""
         import asyncio
-        try:
-            loop = asyncio.get_running_loop()
-            if not self._components_loaded:
+        if not self._components_loaded:
+            try:
+                loop = asyncio.get_running_loop()
                 loop.run_until_complete(self._ensure_components())
-        except RuntimeError:
-            pass
+            except RuntimeError:
+                asyncio.run(self._ensure_components())
 
         code_ast = self.parser.parse(code, filename=filename)
         issues = self.analyzer.analyze(code_ast)
@@ -161,26 +163,35 @@ class CodeEngineerApp(BaseReferenceApp):
         """Get refactoring suggestions for code."""
         await self._ensure_components()
         code_ast = self.parser.parse(code, filename=filename)
-        suggestions = await self.refactoring_engine.analyze(code_ast)
-        return {
-            "filename": filename,
-            "suggestions": [
-                {
-                    "severity": s.severity,
-                    "category": s.category,
-                    "description": s.description,
-                    "recommendation": s.recommendation,
-                    "line": s.line_number,
-                    "confidence": s.confidence,
-                }
-                for s in suggestions
-            ],
-        }
+        # Create temp directory with the code file for analysis
+        import tempfile
+        import os
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_file = os.path.join(tmpdir, filename)
+            with open(tmp_file, 'w') as f:
+                f.write(code)
+            engine = self.refactoring_engine_cls(tmpdir)
+            report = await engine.analyze([filename])
+            return {
+                "filename": filename,
+                "suggestions": [
+                    {
+                        "severity": s.severity,
+                        "category": s.category,
+                        "description": s.description,
+                        "recommendation": s.suggestion,
+                        "line": s.line_number,
+                        "confidence": s.confidence,
+                    }
+                    for s in report.suggestions
+                ],
+            }
 
     async def generate_patch(self, original: str, modified: str, filename: str) -> dict[str, Any]:
         """Generate a rollback-ready patch between two versions."""
         await self._ensure_components()
-        patches = await self.patch_generator.generate_patches(
+        gen = self.patch_generator_cls()
+        patches = await gen.generate_patches(
             {filename: (original, modified)}
         )
         if patches:
@@ -190,14 +201,15 @@ class CodeEngineerApp(BaseReferenceApp):
                 "patch_id": patch.patch_id,
                 "diff": patch.diff,
                 "diff_type": patch.diff_type,
-                "is_valid": await self.patch_generator.validate_patch(patch),
+                "is_valid": await gen.validate_patch(patch),
             }
         return {"error": "No patches generated"}
 
     async def generate_tests(self, source_path: str, module_path: str) -> dict[str, Any]:
         """Generate tests for a Python module."""
         await self._ensure_components()
-        test_file = await self.test_generator.generate_for_module(
+        gen = self.test_generator_cls()
+        test_file = await gen.generate_for_module(
             source_path=source_path,
             module_path=module_path,
         )
@@ -214,7 +226,8 @@ class CodeEngineerApp(BaseReferenceApp):
     ) -> dict[str, Any]:
         """Analyze regression risk for a set of changes."""
         await self._ensure_components()
-        report = await self.regression_analyzer.analyze_changes(
+        analyzer = self.regression_analyzer_cls()
+        report = await analyzer.analyze_changes(
             repo_path=repo_path,
             changes=changes,
         )

@@ -41,6 +41,8 @@ class CodeAnalyzer:
             self._check_function_length,
             self._check_security,
             self._check_naming,
+            self._check_solid,
+            self._check_ddd,
         ]
 
     def analyze(self, code_ast: CodeAST) -> list[CodeIssue]:

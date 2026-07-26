@@ -515,7 +515,7 @@ class SocietyRuntime:
                 for dept in Department
             },
             "active_projects": len(self._projects),
-            "blackboard_entries": len(blackboard.read_all()),
+            "blackboard_entries": len(blackboard.read_all_sync()),
         }
 
 

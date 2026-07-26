@@ -150,9 +150,8 @@ def test_communication():
 
 def test_blackboard():
     create_society("Test Corp")
-    import asyncio
-    asyncio.get_event_loop().run_until_complete(blackboard.write("architecture", "microservices"))
-    result = asyncio.get_event_loop().run_until_complete(blackboard.read("architecture"))
+    blackboard.write_sync("architecture", "microservices")
+    result = blackboard.read_sync("architecture")
     assert result == "microservices"
 
 

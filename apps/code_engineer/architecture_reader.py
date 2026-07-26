@@ -440,3 +440,7 @@ def invalidate_cache(repo_path: str | None = None):
     else:
         architecture_reader_cache.clear()
 
+
+# Default singleton for backward compatibility
+architecture_reader = None  # Lazy-initialized when needed
+

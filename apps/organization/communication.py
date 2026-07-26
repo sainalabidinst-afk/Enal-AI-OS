@@ -123,10 +123,25 @@ class Blackboard:
             pass
         logger.debug(f"Blackboard write: {key}")
 
+    def write_sync(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:
+        self._entries[key] = value
+        self._history.append({
+            "key": key,
+            "agent": agent_id,
+            "timestamp": datetime.now(UTC).isoformat(),
+            "action": "write",
+        })
+
     async def read(self, key: str) -> Any:
         return self._entries.get(key)
 
+    def read_sync(self, key: str) -> Any:
+        return self._entries.get(key)
+
     async def read_all(self) -> dict[str, Any]:
+        return dict(self._entries)
+
+    def read_all_sync(self) -> dict[str, Any]:
         return dict(self._entries)
 
     async def read_by_agent(self, agent_id: str) -> dict[str, Any]:
