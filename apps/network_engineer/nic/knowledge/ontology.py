@@ -24,8 +24,11 @@ class UniversalConcept(str, Enum):
     DNS_RESOLUTION = "dns_resolution"
     TIME_SYNCHRONIZATION = "time_synchronization"
     WIRELESS = "wireless"
+    WIRELESS_MANAGEMENT = "wireless_management"
     VLAN = "vlan"
     VPN = "vpn"
+    BGP = "bgp"
+    MPLS = "mpls"
     QOS = "qos"
     LOGGING = "logging"
     SYSTEM_IDENTITY = "system_identity"
@@ -142,17 +145,47 @@ CONCEPT_DEFINITIONS: dict[UniversalConcept, ConceptDefinition] = {
         },
         references=["RFC 5905"],
     ),
-    UniversalConcept.VPN: ConceptDefinition(
-        concept=UniversalConcept.VPN,
-        description="VPN tunnels and encryption",
-        vendor_names={
-            "cisco": ["crypto map", "tunnel", "ipsec"],
-            "fortinet": ["vpn ipsec", "ssl vpn"],
-            "mikrotik": ["interface", "vpn", "ipsec", "wireguard"],
-        },
-        references=["RFC 4301", "RFC 7296"],
-    ),
-    UniversalConcept.QOS: ConceptDefinition(
+UniversalConcept.VPN: ConceptDefinition(
+         concept=UniversalConcept.VPN,
+         description="VPN tunnels and encryption",
+         vendor_names={
+             "cisco": ["crypto map", "tunnel", "ipsec"],
+             "fortinet": ["vpn ipsec", "ssl vpn"],
+             "mikrotik": ["interface", "vpn", "ipsec", "wireguard"],
+         },
+         references=["RFC 4301", "RFC 7296"],
+     ),
+     UniversalConcept.BGP: ConceptDefinition(
+         concept=UniversalConcept.BGP,
+         description="Border Gateway Protocol for external routing",
+         vendor_names={
+             "cisco": ["router bgp", "bgp", "neighbor", "as-path"],
+             "fortinet": ["router bgp", "bgp", "neighbor"],
+             "mikrotik": ["routing bgp", "bgp", "peer"],
+         },
+         references=["RFC 4271", "RFC 1997"],
+     ),
+     UniversalConcept.MPLS: ConceptDefinition(
+         concept=UniversalConcept.MPLS,
+         description="Multiprotocol Label Switching for traffic engineering",
+         vendor_names={
+             "cisco": ["mpls", "ldp", "label", "traffic-eng"],
+             "fortinet": ["mpls"],
+             "mikrotik": ["mpls", "ldp", "label"],
+         },
+         references=["RFC 3031", "RFC 5036"],
+     ),
+     UniversalConcept.WIRELESS_MANAGEMENT: ConceptDefinition(
+         concept=UniversalConcept.WIRELESS_MANAGEMENT,
+         description="Centralized wireless access point management",
+         vendor_names={
+             "cisco": ["wireless", "capwap", "flexconnect"],
+             "fortinet": ["wireless", "wlan"],
+             "mikrotik": ["capsman", "managed by capsman"],
+         },
+         references=["RFC 5415"],
+     ),
+     UniversalConcept.QOS: ConceptDefinition(
         concept=UniversalConcept.QOS,
         description="Quality of Service and traffic shaping",
         vendor_names={

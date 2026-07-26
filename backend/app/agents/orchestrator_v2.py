@@ -1,32 +1,51 @@
 import logging
 from typing import Any
-from backend.app.core.background_tasks import background_task_manager
-from backend.app.core.workspace_service import workspace_service
-from backend.app.core.observability import observability
-from backend.app.core.state_recovery import state_recovery
+
+from backend.app.core.perception_engine import PerceptionInput
 
 logger = logging.getLogger(__name__)
 
 
 class AIOrchestrator:
     def __init__(self):
-        self.orchestrator = "ai-orchestrator"
+        self._orchestrator = "ai-orchestrator"
+        self._active_sessions: dict[str, dict[str, Any]] = {}
 
-    async def process_request(self, user_message: str, project_id: str | None = None) -> dict[str, Any]:
-        project_id = project_id or "default"
-        await workspace_service.add_memory(project_id, "last_user_message", {"message": user_message, "timestamp": str(__import__("datetime").datetime.utcnow())})
-        trace_id = observability.start_trace(f"request-{project_id}")
-        task_id = await background_task_manager.submit(
-            name=f"process-{__import__('uuid').uuid4().hex[:8]}",
-            agent="orchestrator",
-            payload={"message": user_message, "project_id": project_id},
+    async def orchestrate_goal(
+        self,
+        goal: str,
+        context: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Full orchestration: goal → plan → execute with memory."""
+        from apps.organization.ai_planner import ai_planner
+        from backend.app.core.perception_engine import perception_engine
+
+        context = context or {}
+
+        perception_input = PerceptionInput(
+            source="user",
+            content=goal,
+            content_type="text/plain",
+            metadata=context,
         )
-        await state_recovery.save(project_id, "started", {"task_id": task_id, "message": user_message})
-        return {"task_id": task_id, "status": "processing", "trace_id": trace_id, "message": "Request is being processed by AI agents."}
+        perception_result = await perception_engine.process(perception_input)
+        plan = ai_planner.plan_from_goal(goal, context)
 
-    async def get_result(self, task_id: str) -> dict[str, Any] | None:
-        status = await background_task_manager.get_status(task_id)
-        return status
+        capabilities_needed = [s.capability_id for s in plan.steps if s.step_type.value == "capability"]
+
+        session_id = f"orch-{hash(goal) % 10000}"
+        self._active_sessions[session_id] = {"goal": goal, "plan_id": plan.plan_id}
+
+        return {
+            "session_id": session_id,
+            "plan_id": plan.plan_id,
+            "goal": goal,
+            "perception": {"entities": perception_result.entities, "intents": perception_result.intents},
+            "capabilities_needed": capabilities_needed,
+            "steps": len(plan.steps),
+            "cost_estimate": plan.metadata.get("cost_estimate"),
+            "risk_assessment": plan.metadata.get("risk_assessment"),
+        }
 
 
 ai_orchestrator = AIOrchestrator()

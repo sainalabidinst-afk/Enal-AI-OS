@@ -13,6 +13,8 @@ from apps.network_engineer.vendor.models import (
     InterfaceType,
     NetworkAST,
     RuleAction,
+    UniversalBGP,
+    UniversalCAPsMAN,
     UniversalBridge,
     UniversalDHCPServer,
     UniversalDNS,
@@ -20,10 +22,12 @@ from apps.network_engineer.vendor.models import (
     UniversalHotspot,
     UniversalInterface,
     UniversalIPAddress,
+    UniversalMPLS,
     UniversalNATRule,
     UniversalQueue,
     UniversalRoute,
     UniversalSystem,
+    UniversalWireGuard,
 )
 
 logger = logging.getLogger(__name__)

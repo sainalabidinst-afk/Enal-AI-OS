@@ -33,6 +33,7 @@ class AccessModel(str, Enum):
 class SecurityPolicy:
     plugin_id: str
     security_level: SecurityLevel
+    tenant_id: str | None = None
     allowed_permissions: list[Permission] = field(default_factory=list)
     denied_permissions: list[Permission] = field(default_factory=list)
     allowed_capabilities: list[str] = field(default_factory=list)
@@ -115,6 +116,11 @@ class SecurityModel:
     def check_permission(self, plugin_id: str, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:
         policy = self._policies.get(plugin_id)
         if not policy:
+            self._log_audit("check_permission", plugin_id, permission, False)
+            return False
+        # Tenant isolation check
+        tenant_id = context.get("tenant_id") if context else None
+        if policy.tenant_id and tenant_id and policy.tenant_id != tenant_id:
             self._log_audit("check_permission", plugin_id, permission, False)
             return False
         result = self._evaluator.evaluate(policy, permission, capability, context)

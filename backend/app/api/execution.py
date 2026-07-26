@@ -46,9 +46,12 @@ async def add_phase(execution_id: str, name: str):
     session = await execution_session_manager.get_session(execution_id)
     if not session:
         raise HTTPException(status_code=404, detail="Execution not found")
-    phase = await execution_session_manager.add_phase(execution_id, name)
-    await execution_session_manager.add_log(execution_id, f"Phase added: {name}", metadata={"phase_id": phase.id})
-    return phase
+    phase_result = await execution_session_manager.add_phase(execution_id, name)
+    if not phase_result:
+        raise HTTPException(status_code=500, detail="Failed to create phase")
+    phase_id = phase_result.get("id", "")
+    await execution_session_manager.add_log(execution_id, f"Phase added: {name}", metadata={"phase_id": phase_id})
+    return phase_result
 
 
 @router.patch("/executions/{execution_id}/phases/{phase_id}", response_model=ExecutionPhase)
@@ -97,7 +100,7 @@ async def list_artifacts(execution_id: str):
     session = await execution_session_manager.get_session(execution_id)
     if not session:
         raise HTTPException(status_code=404, detail="Execution not found")
-    artifacts = []
+    artifacts: list[ExecutionArtifact] = []
     for artifact_id in session.artifacts:
         art = await execution_session_manager.get_execution_artifact(artifact_id)
         if art:
@@ -127,13 +130,13 @@ async def run_execution(goal: str, workspace_id: str, conversation_id: str | Non
     started = time.perf_counter()
     status = "success"
     error = None
-    execution = None
+    execution: ExecutionSession | None = None
     try:
         ws = await workspace_service.get_workspace(workspace_id)
         if not ws:
             raise HTTPException(status_code=404, detail="Workspace not found")
         execution = await execution_integration.execute(goal=goal, workspace_id=workspace_id, conversation_id=conversation_id)
-        artifacts = []
+        artifacts: list[ExecutionArtifact] = []
         for artifact_id in execution.artifacts:
             art = await artifact_service.get_artifact(artifact_id)
             if art:
@@ -150,7 +153,7 @@ async def run_execution(goal: str, workspace_id: str, conversation_id: str | Non
         total_ms = (time.perf_counter() - started) * 1000
         try:
             record_execution_event(
-                execution_id=getattr(execution, "id", "unknown"),
+                execution_id=execution.id if execution else "unknown",
                 status=status,
                 goal=goal,
                 error=error,

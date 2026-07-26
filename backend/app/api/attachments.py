@@ -16,6 +16,12 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
+def _safe_get(obj: Any, attr: str, default: Any = None) -> Any:
+    if obj is None:
+        return default
+    return getattr(obj, attr, default)
+
+
 @router.post("/attachments/upload")
 async def upload_attachment(
     file: UploadFile = File(...),
@@ -56,13 +62,13 @@ async def upload_attachment(
                         path=f"/attachments/{file.filename}",
                         size=len(content),
                         metadata={
-                            "attachment_type": result.meta.attachment_type.value,
-                            "vendor": result.meta.vendor.value,
-                            "device_role": result.meta.device_role.value,
-                            "analysis": result.ast.to_dict(),
-                            "summary": result.summary,
-                            "risk_score": result.risk_score,
-                            "recommendations": result.recommendations,
+                            "attachment_type": _safe_get(_safe_get(result, "meta"), "attachment_type"),
+                            "vendor": _safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value"),
+                            "device_role": _safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value"),
+                            "analysis": _safe_get(_safe_get(result, "ast"), "to_dict") and _safe_get(result, "ast", None).to_dict() or {},
+                            "summary": _safe_get(result, "summary"),
+                            "risk_score": _safe_get(result, "risk_score"),
+                            "recommendations": _safe_get(result, "recommendations"),
                         },
                     )
             except Exception as exc:
@@ -80,35 +86,35 @@ async def upload_attachment(
                 status=status,
                 error=error,
                 workspace_id=workspace_id or conversation_id or "",
-                vendor=getattr(getattr(result, "meta", None), "vendor", None) and result.meta.vendor.value or "",
-                device_type=getattr(getattr(result, "meta", None), "device_role", None) and result.meta.device_role.value or "",
+                vendor=_safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value") or "",
+                device_type=_safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value") or "",
                 files=1,
                 size_bytes=len(content),
-                parser=getattr(getattr(result, "ast", None), "format", "") or "",
+                parser=_safe_get(_safe_get(result, "ast"), "format"),
                 total_time_ms=round(total_ms, 2),
-                findings=len(getattr(getattr(result, "ast", None), "findings", []) or []),
-                confidence=getattr(getattr(result, "meta", None), "confidence", 0.0),
-                compliance_score=getattr(result, "risk_score", None),
-                executive_report=bool(getattr(result, "summary", "")),
+                findings=len(_safe_get(_safe_get(result, "ast"), "findings") or []),
+                confidence=_safe_get(_safe_get(result, "meta"), "confidence"),
+                compliance_score=_safe_get(result, "risk_score"),
+                executive_report=bool(_safe_get(result, "summary")),
             )
         except Exception as telemetry_error:
             logger.debug("Analysis telemetry recording failed: %s", telemetry_error)
 
     payload: dict[str, Any] = {
-        "filename": result.meta.filename,
-        "attachment_type": result.meta.attachment_type.value,
-        "vendor": result.meta.vendor.value,
-        "device_role": result.meta.device_role.value,
-        "format": result.meta.detected_format,
-        "version": result.meta.detected_version,
-        "confidence": result.meta.confidence,
-        "summary": result.summary,
-        "risk_score": result.risk_score,
-        "recommendations": result.recommendations,
-        "ast": result.ast.to_dict(),
+        "filename": _safe_get(_safe_get(result, "meta"), "filename"),
+        "attachment_type": _safe_get(_safe_get(_safe_get(result, "meta"), "attachment_type"), "value"),
+        "vendor": _safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value"),
+        "device_role": _safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value"),
+        "format": _safe_get(_safe_get(result, "meta"), "detected_format"),
+        "version": _safe_get(_safe_get(result, "meta"), "detected_version"),
+        "confidence": _safe_get(_safe_get(result, "meta"), "confidence"),
+        "summary": _safe_get(result, "summary"),
+        "risk_score": _safe_get(result, "risk_score"),
+        "recommendations": _safe_get(result, "recommendations"),
+        "ast": _safe_get(_safe_get(result, "ast"), "to_dict") and _safe_get(_safe_get(result, "ast"), "to_dict")() or {},
     }
-    if result.analysis_error:
-        payload["analysis_error"] = result.analysis_error
+    if _safe_get(result, "analysis_error"):
+        payload["analysis_error"] = _safe_get(result, "analysis_error")
     return payload
 
 
@@ -122,8 +128,8 @@ async def analyze_attachments(
 
     items: list[tuple[str, bytes]] = []
     for upload in files:
-        content = await upload.read()
-        items.append((upload.filename or "unknown", content))
+        content_bytes = await upload.read()
+        items.append((upload.filename or "unknown", content_bytes))
 
     started = time.perf_counter()
     status = "success"
@@ -135,11 +141,11 @@ async def analyze_attachments(
         result = analyze_multi(items, compliance_frameworks=compliance_frameworks)
         return {
             "count": len(items),
-            "summary": result.summary,
-            "risk_score": result.risk_score,
-            "recommendations": result.recommendations,
-            "ast": result.ast.to_dict(),
-            "analysis_error": result.analysis_error,
+            "summary": _safe_get(result, "summary"),
+            "risk_score": _safe_get(result, "risk_score"),
+            "recommendations": _safe_get(result, "recommendations"),
+            "ast": _safe_get(_safe_get(result, "ast"), "to_dict") and _safe_get(result, "ast").to_dict() or {},
+            "analysis_error": _safe_get(result, "analysis_error"),
         }
     except Exception as exc:
         status = "error"
@@ -156,9 +162,9 @@ async def analyze_attachments(
                 files=len(items),
                 size_bytes=sum(len(item[1]) for item in items),
                 total_time_ms=round(total_ms, 2),
-                findings=len(getattr(getattr(result, "ast", None), "findings", []) or []),
-                confidence=getattr(getattr(result, "meta", None), "confidence", 0.0),
-                executive_report=bool(getattr(result, "summary", "")),
+                findings=len(_safe_get(_safe_get(result, "ast"), "findings") or []),
+                confidence=_safe_get(_safe_get(result, "meta"), "confidence"),
+                executive_report=bool(_safe_get(result, "summary")),
             )
         except Exception as telemetry_error:
             logger.debug("Analysis telemetry recording failed: %s", telemetry_error)

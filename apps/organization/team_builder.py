@@ -6,6 +6,7 @@ Dynamically forms teams based on task requirements.
 Searches the Agent Registry for the best agents for each role needed.
 """
 
+import uuid
 from dataclasses import dataclass, field
 
 from apps.organization.registry import (
@@ -37,8 +38,9 @@ class TeamMember:
 
 @dataclass
 class Team:
-    task: TaskRequirement
-    members: list[TeamMember]
+    team_id: str = field(default_factory=lambda: f"team-{uuid.uuid4().hex[:8]}")
+    task: TaskRequirement = field(default_factory=TaskRequirement)
+    members: list[TeamMember] = field(default_factory=list)
     lead_id: str | None = None
     estimated_cost: float = 0.0
     estimated_latency_ms: float = 0.0
@@ -52,17 +54,17 @@ class TeamBuilder:
         self._runtime = runtime
 
     def build_team(self, requirement: TaskRequirement) -> Team:
-        members = []
+        members: list[TeamMember] = []
         candidates = self._registry.list_all()
 
-        skill_candidates = []
+        skill_candidates: list[AgentRecord] = []
         for skill in requirement.required_skills:
             matched = self._registry.find_by_skill(skill)
             skill_candidates.extend(matched)
         if not skill_candidates:
             skill_candidates = candidates
 
-        scored = []
+        scored: list[tuple[float, AgentRecord]] = []
         for agent in skill_candidates:
             if agent.status.value == "offline":
                 continue

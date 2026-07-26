@@ -133,6 +133,12 @@ class NetworkAnalyzer:
             self._check_cisco_wireless_dot11,
             self._check_cisco_vlan_trunking,
             self._check_cisco_policy_map_qos,
+            self._check_bgp_security,
+            self._check_mpls_ldp,
+            self._check_capsman_security,
+            self._check_wireguard_peers,
+            self._check_isis_configured,
+            self._check_eigrp_stubs,
         ]
 
     async def analyze(self, config: Any, topology: Any | None = None) -> NetworkAnalysisReport:
@@ -476,6 +482,52 @@ class NetworkAnalyzer:
             return n1.overlaps(n2)
         except Exception:
             return False
+
+    def _check_bgp_security(self, config: Any, report: NetworkAnalysisReport):
+        has_bgp = any("bgp" in line.lower() or "router bgp" in line.lower() for line in config.raw_lines)
+        if has_bgp:
+            has_auth = any("neighbor" in line.lower() and ("password" in line.lower() or "ttl-security" in line.lower()) for line in config.raw_lines)
+            if not has_auth:
+                report.add_issue(Severity.WARNING, "BGP", "BGP without neighbor authentication", "Add MD5 authentication or TTL security to BGP peers", confidence=0.9)
+            if "no synchronization" not in str(config.raw_lines).lower():
+                report.add_issue(Severity.INFO, "BGP", "BGP synchronization check", "Consider enabling synchronization for full-mesh iBGP", confidence=0.7)
+
+    def _check_mpls_ldp(self, config: Any, report: NetworkAnalysisReport):
+        has_mpls = any("mpls" in line.lower() or "ldp" in line.lower() for line in config.raw_lines)
+        if has_mpls:
+            report.add_issue(Severity.INFO, "MPLS", "MPLS LDP configured", "Verify LDP parameters and transport address", confidence=0.8)
+            if not any("label mode" in line.lower() for line in config.raw_lines):
+                report.add_issue(Severity.WARNING, "MPLS", "MPLS label conservation not configured", "Enable label mode for LDP label conservation", confidence=0.7)
+
+    def _check_capsman_security(self, config: Any, report: NetworkAnalysisReport):
+        has_capsman = any("capsman" in line.lower() or "managed by capsman" in line.lower() for line in config.raw_lines)
+        if has_capsman:
+            has_security = any("security" in line.lower() and "wpa2" in line.lower() for line in config.raw_lines)
+            if not has_security:
+                report.add_issue(Severity.WARNING, "CAPsMAN", "CAPsMAN without WPA2 security", "Configure WPA2 security for managed APs", confidence=0.9)
+
+    def _check_wireguard_peers(self, config: Any, report: NetworkAnalysisReport):
+        has_wg = any("wireguard" in line.lower() or "wg0" in line.lower() for line in config.raw_lines)
+        if has_wg:
+            if not any("allowed-address" in line.lower() for line in config.raw_lines):
+                report.add_issue(Severity.WARNING, "WireGuard", "WireGuard peer without allowed-address", "Configure allowed-address for proper routing", confidence=0.9)
+            if not any("persistent-keepalive" in line.lower() for line in config.raw_lines):
+                report.add_issue(Severity.INFO, "WireGuard", "WireGuard without persistent-keepalive", "Add keepalive for NAT traversal", confidence=0.7)
+
+    def _check_isis_configured(self, config: Any, report: NetworkAnalysisReport):
+        has_isis = any("isis" in line.lower() or "router isis" in line.lower() for line in config.raw_lines)
+        if has_isis:
+            report.add_issue(Severity.INFO, "Routing", "IS-IS routing configured", "Verify IS-IS NET address and area configuration", confidence=0.8)
+            net_present = any("net " in line.lower() for line in config.raw_lines)
+            if not net_present:
+                report.add_issue(Severity.WARNING, "Routing", "IS-IS without NET address", "Configure NET address for IS-IS", confidence=0.9)
+
+    def _check_eigrp_stubs(self, config: Any, report: NetworkAnalysisReport):
+        has_eigrp = any("eigrp" in line.lower() or "router eigrp" in line.lower() for line in config.raw_lines)
+        if has_eigrp:
+            report.add_issue(Severity.INFO, "Routing", "EIGRP routing configured", "Verify EIGRP autonomous system number and networks", confidence=0.8)
+            if not any("passive-interface" in line.lower() for line in config.raw_lines):
+                report.add_issue(Severity.SUGGESTION, "Routing", "EIGRP without passive interfaces", "Configure passive-interface for LAN segments", confidence=0.7)
 
 
 network_analyzer = NetworkAnalyzer()

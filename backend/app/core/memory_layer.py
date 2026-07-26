@@ -290,7 +290,120 @@ class EpisodicMemory(MemoryLayer):
 
 
 # ---------------------------------------------------------------------------
-# Memory Manager (Unified Interface)
+# Session Memory (Conversation-based context)
+# ---------------------------------------------------------------------------
+
+class SessionMemory(MemoryLayer):
+    def __init__(self, base_path: str = "./workspace/memory/session"):
+        self.base_path = Path(base_path)
+        self.base_path.mkdir(parents=True, exist_ok=True)
+        self._sessions: dict[str, dict] = {}
+
+    async def store(self, key: str, value: Any, ttl: int | None = 86400, session_id: str | None = None):
+        sid = session_id or key.split(":")[0] if ":" in key else key
+        if sid not in self._sessions:
+            self._sessions[sid] = {}
+        self._sessions[sid][key] = {"value": value, "timestamp": time.time()}
+        self._persist_session(sid)
+
+    async def retrieve(self, key: str, session_id: str | None = None) -> Any | None:
+        sid = session_id or key.split(":")[0] if ":" in key else key
+        return self._sessions.get(sid, {}).get(key, {}).get("value")
+
+    async def search(self, query: str, limit: int = 10, session_id: str | None = None) -> list[dict]:
+        results = []
+        query_lower = query.lower()
+        sessions = {session_id: self._sessions.get(session_id, {})} if session_id else self._sessions
+        for sid, session in sessions.items():
+            for k, v in session.items():
+                if query_lower in str(v.get("value", "")).lower():
+                    results.append({"key": k, "value": v.get("value"), "session_id": sid})
+            if len(results) >= limit:
+                break
+        return results
+
+    async def delete(self, key: str, session_id: str | None = None) -> bool:
+        sid = session_id or key.split(":")[0] if ":" in key else key
+        if sid in self._sessions and key in self._sessions[sid]:
+            del self._sessions[sid][key]
+            self._persist_session(sid)
+            return True
+        return False
+
+    async def list_keys(self, pattern: str = "*", session_id: str | None = None) -> list[str]:
+        sid = session_id
+        if sid and sid in self._sessions:
+            return list(self._sessions[sid].keys())
+        return list(self._sessions.keys())
+
+    def _persist_session(self, session_id: str):
+        path = self.base_path / f"{session_id}.json"
+        path.write_text(json.dumps(self._sessions.get(session_id, {}), default=str))
+
+    def load_session(self, session_id: str) -> bool:
+        path = self.base_path / f"{session_id}.json"
+        if path.exists():
+            self._sessions[session_id] = json.loads(path.read_text())
+            return True
+        return False
+
+
+# ---------------------------------------------------------------------------
+# Project Memory (Project-focused context, longer TTL)
+# ---------------------------------------------------------------------------
+
+class ProjectMemory(MemoryLayer):
+    def __init__(self, base_path: str = "./workspace/memory/project"):
+        self.base_path = Path(base_path)
+        self.base_path.mkdir(parents=True, exist_ok=True)
+
+    async def store(self, key: str, value: Any, ttl: int | None = None, project_id: str | None = None):
+        pid = project_id or key.split(":")[0] if ":" in key else "default"
+        path = self.base_path / f"{pid}" / f"{key}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        data = {"key": key, "value": value, "updated_at": time.time()}
+        path.write_text(json.dumps(data, default=str))
+
+    async def retrieve(self, key: str, project_id: str | None = None) -> Any | None:
+        pid = project_id or key.split(":")[0] if ":" in key else "default"
+        path = self.base_path / f"{pid}" / f"{key}.json"
+        if path.exists():
+            data = json.loads(path.read_text())
+            return data.get("value")
+        return None
+
+    async def search(self, query: str, limit: int = 10, project_id: str | None = None) -> list[dict]:
+        results = []
+        pid = project_id or "*"
+        query_lower = query.lower()
+        # Simplified search across all projects
+        for proj_dir in self.base_path.iterdir():
+            if proj_dir.is_dir():
+                for file in proj_dir.glob("*.json"):
+                    data = json.loads(file.read_text())
+                    if query_lower in str(data.get("value", "")).lower():
+                        results.append({"key": data["key"], "value": data["value"], "project_id": proj_dir.name})
+                        if len(results) >= limit:
+                            return results
+        return results
+
+    async def delete(self, key: str, project_id: str | None = None) -> bool:
+        pid = project_id or key.split(":")[0] if ":" in key else "default"
+        path = self.base_path / f"{pid}" / f"{key}.json"
+        return path.unlink(missing_ok=True)
+
+    async def list_keys(self, pattern: str = "*", project_id: str | None = None) -> list[str]:
+        pid = project_id or "*"
+        results = []
+        for proj_dir in self.base_path.glob(f"{pid}" if pid != "*" else "*"):
+            if proj_dir.is_dir():
+                for f in proj_dir.glob(f"{pattern}.json"):
+                    results.append(f.stem)
+        return results
+
+
+# ---------------------------------------------------------------------------
+# Memory Manager (Unified Interface) - Enhanced
 # ---------------------------------------------------------------------------
 
 class MemoryManager:
@@ -301,19 +414,77 @@ class MemoryManager:
             "knowledge": KnowledgeMemory(),
             "longterm": LongTermMemory(),
             "episodic": EpisodicMemory(),
+            "session": SessionMemory(),
+            "project": ProjectMemory(),
         }
 
-    async def store(self, layer: str, key: str, value: Any, ttl: int | None = None):
-        mem = self._layers.get(layer)
-        if mem:
-            await mem.store(key, value, ttl)
-            logger.info(f"Stored in {layer} memory: {key}")
+    async def get_session_context(self, session_id: str, query: str | None = None) -> dict[str, Any]:
+        """Get full session context, optionally filtered by query."""
+        context = {"session_id": session_id, "entries": [], "summary": ""}
+        session_results = await self._layers["session"].search("", limit=100, session_id=session_id)
+        context["entries"] = session_results
+        if query:
+            context["entries"] = [e for e in session_results if query.lower() in str(e.get("value", "")).lower()]
+        return context
 
-    async def retrieve(self, layer: str, key: str) -> Any | None:
-        mem = self._layers.get(layer)
-        if mem:
-            return await mem.retrieve(key)
+    async def get_project_context(self, project_id: str, query: str | None = None) -> dict[str, Any]:
+        """Get full project context, optionally filtered by query."""
+        context = {"project_id": project_id, "entries": [], "summary": ""}
+        proj_results = await self._layers["project"].search("", limit=100, project_id=project_id)
+        context["entries"] = proj_results
+        if query:
+            context["entries"] = [e for e in proj_results if query.lower() in str(e.get("value", "")).lower()]
+        return context
+
+    async def rank_memories(self, candidates: list[dict], importance_factor: float = 1.0) -> list[dict]:
+        """Rank memory candidates by recency, importance, and relevance."""
+        scored = []
+        now = time.time()
+        for c in candidates:
+            scores = []
+            ts = c.get("timestamp", now)
+            recency = max(0.1, 1.0 - (now - ts) / 86400)
+            scores.append(recency)
+            imp = float(c.get("importance", 0.5))
+            scores.append(imp * importance_factor)
+            c["rank_score"] = sum(scores) / len(scores) if scores else 0
+            scored.append(c)
+        return sorted(scored, key=lambda x: x.get("rank_score", 0), reverse=True)
+
+    async def compress_memory(self, layer: str, threshold: int = 50) -> str | None:
+        """Compress old memories when threshold exceeded."""
+        keys = await self._layers[layer].list_keys() if layer in self._layers else []
+        if len(keys) > threshold:
+            block = await self.consolidate(layer, "", max_entries=threshold)
+            if block:
+                await self.store("longterm", block.block_id, block.consolidated_content)
+                for k in block.source_ids:
+                    await self._layers[layer].delete(k)
+                return block.block_id
         return None
+
+    async def store(self, layer: str, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):
+        mem = self._layers.get(layer)
+        if not mem:
+            return
+        if layer == "session" and hasattr(mem, "store"):
+            await mem.store(key, value, ttl, session_id)
+        elif layer == "project" and hasattr(mem, "store"):
+            await mem.store(key, value, ttl, project_id)
+        else:
+            await mem.store(key, value, ttl)
+        logger.info(f"Stored in {layer} memory: {key}")
+
+    async def retrieve(self, layer: str, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:
+        mem = self._layers.get(layer)
+        if not mem:
+            return None
+        if layer == "session" and hasattr(mem, "retrieve"):
+            return await mem.retrieve(key, session_id)
+        elif layer == "project" and hasattr(mem, "retrieve"):
+            return await mem.retrieve(key, project_id)
+        else:
+            return await mem.retrieve(key)
 
     async def search(self, layer: str, query: str, limit: int = 10) -> list[dict]:
         mem = self._layers.get(layer)

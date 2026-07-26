@@ -285,6 +285,10 @@ class AIPlanner:
             },
         )
 
+        # 5. Add cost and risk assessment
+        plan.metadata["cost_estimate"] = self.estimate_cost(plan)
+        plan.metadata["risk_assessment"] = self.assess_risk(plan)
+
         self._plans[plan_id] = plan
         self._emit_plan_created(plan, intent)
         logger.info("Plan created: %s with %d steps", plan_id, len(steps))
@@ -586,6 +590,53 @@ class AIPlanner:
         elif intent.complexity == IntentComplexity.SIMPLE:
             base_time = int(base_time * 0.5)
         return base_time
+
+    def estimate_cost(self, plan: AIPlan) -> dict[str, float]:
+        """Estimate execution cost for a plan.
+
+        Returns:
+            dict with estimated token_cost, api_calls, and total_estimated_cost
+        """
+        token_estimate = len(plan.goal) * len(plan.steps) * 0.01
+        api_calls = sum(1 for s in plan.steps if s.step_type == StepType.WORKFLOW)
+        for s in plan.steps:
+            if s.workflow_id:
+                api_calls += 2
+        return {
+            "token_cost": token_estimate,
+            "api_calls": float(api_calls),
+            "total_estimated_cost": token_estimate + api_calls * 0.05,
+        }
+
+    def assess_risk(self, plan: AIPlan) -> dict[str, Any]:
+        """Assess risk level for plan execution.
+
+        Returns:
+            dict with risk_level, blocking_steps, and mitigation_suggestions
+        """
+        risk_factors = []
+        blocking_steps = []
+        for i, step in enumerate(plan.steps):
+            # Steps with many dependencies are higher risk
+            if len(step.depends_on) > 2:
+                risk_factors.append({"step": step.step_id, "factor": "many_dependencies"})
+            if step.step_type == StepType.CAPABILITY:
+                # Capability steps without input validation are risky
+                if not step.input_data:
+                    risk_factors.append({"step": step.step_id, "factor": "missing_input_validation"})
+        # Determine risk level
+        high_risk_count = len([r for r in risk_factors if r["factor"] == "many_dependencies"])
+        risk_level = "high" if high_risk_count > 2 else "medium" if high_risk_count > 0 else "low"
+        return {
+            "risk_level": risk_level,
+            "blocking_steps": blocking_steps,
+            "risk_factors": risk_factors,
+            "mitigation_suggestions": [
+                "Add checkpoint after complex steps",
+                "Validate input before capability execution",
+                "Consider parallel execution for independent steps",
+            ] if risk_level != "low" else [],
+        }
 
     def _update_plan_status(self, plan: AIPlan) -> None:
         """Update the overall plan status based on step statuses."""

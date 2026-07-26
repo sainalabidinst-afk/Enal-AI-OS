@@ -11,18 +11,37 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
+class HumanFeedback:
+    rating: float  # 0.0 - 5.0
+    feedback_text: str
+    source: str  # human or system
+    timestamp: str = field(default_factory=lambda: str(uuid.uuid4().time))
+
+
+@dataclass
+class RLAction:
+    action_id: str
+    context: dict[str, Any]
+    reward: float
+    next_context: dict[str, Any] | None = None
+
+
+@dataclass
 class LearningCycle:
     id: str
     benchmark_id: str
     failures: list[dict[str, Any]]
     improvements: list[str]
     applied: bool = False
+    human_feedback: list[HumanFeedback] = field(default_factory=list)
+    rl_actions: list[RLAction] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class ContinuousLearning:
     def __init__(self):
         self._cycles: dict[str, LearningCycle] = {}
+        self._feedback_queue: list[HumanFeedback] = []
 
     async def run_benchmark_and_learn(self, benchmark_id: str, run_fn) -> dict[str, Any]:
         result = await evaluation_framework.run_benchmark(benchmark_id, run_fn)
@@ -75,6 +94,32 @@ class ContinuousLearning:
             )
         cycle.applied = True
         return True
+
+    def record_human_feedback(self, cycle_id: str, rating: float, feedback_text: str, source: str = "human") -> None:
+        feedback = HumanFeedback(rating=rating, feedback_text=feedback_text, source=source)
+        cycle = self._cycles.get(cycle_id)
+        if cycle:
+            cycle.human_feedback.append(feedback)
+        else:
+            self._feedback_queue.append(feedback)
+        logger.info(f"Human feedback recorded for cycle {cycle_id}: rating={rating}")
+
+    def record_rl_action(self, cycle_id: str, action: RLAction) -> None:
+        cycle = self._cycles.get(cycle_id)
+        if cycle:
+            cycle.rl_actions.append(action)
+        logger.debug(f"RL action recorded for cycle {cycle_id}")
+
+    def compute_policy_gradient(self, cycle_id: str) -> dict[str, float]:
+        cycle = self._cycles.get(cycle_id)
+        if not cycle or not cycle.rl_actions:
+            return {}
+        rewards = [a.reward for a in cycle.rl_actions]
+        return {
+            "avg_reward": sum(rewards) / len(rewards),
+            "total_reward": sum(rewards),
+            "action_count": len(cycle.rl_actions),
+        }
 
 
 continuous_learning = ContinuousLearning()

@@ -101,7 +101,7 @@ class NetworkEngineerApp(BaseReferenceApp):
             return parse_config(config_content, vendor="fortinet")
         return self.parser.parse(config_content)
 
-    def _detect_vendor(self, config_content: str) -> str:
+    def _detect_vendor(self, config_content: str) -> str | None:
         from apps.network_engineer.vendor.detector import detect_vendor
         return detect_vendor(config_content)
 

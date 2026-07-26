@@ -58,5 +58,24 @@ class AIStudio:
         graph = await self.get_graph(workspace_id)
         return {"workspace_id": workspace_id, "artifacts": [a.model_dump() for a in artifacts], "graph": graph}
 
+    async def create_workspace(self, name: str, description: str = "") -> dict[str, Any]:
+        workspace = await artifact_service.create_workspace(name=name, description=description)
+        return {"id": workspace.id, "name": workspace.name, "created_at": workspace.created_at.isoformat()}
+
+    async def create_artifact(self, workspace_id: str, name: str, content: str, artifact_type: str = "text") -> dict[str, Any]:
+        artifact = await artifact_service.create_artifact(workspace_id=workspace_id, name=name, content=content, artifact_type=artifact_type)
+        return {"id": artifact.id, "name": artifact.name, "type": artifact.type, "created_at": artifact.created_at.isoformat()}
+
+    async def execute_task(self, task: str, workspace_id: str | None = None) -> dict[str, Any]:
+        project_id = workspace_id or f"studio-task-{hash(task)}"
+        result = await adaptive_runtime.execute(task, project_id=project_id)
+        return {"task": task, "result": result, "project_id": project_id}
+
+    async def clear_workspace(self, workspace_id: str) -> bool:
+        return await artifact_service.clear_workspace(workspace_id)
+
+    async def delete_workspace(self, workspace_id: str) -> bool:
+        return await artifact_service.delete_workspace(workspace_id)
+
 
 ai_studio = AIStudio()
