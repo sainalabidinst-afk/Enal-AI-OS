@@ -166,5 +166,85 @@ class CodeAnalyzer:
                 ))
         return issues
 
+    def _check_solid(self, code_ast: CodeAST) -> list[CodeIssue]:
+        """Check for SOLID principle violations."""
+        issues = []
+        raw = "\n".join(code_ast.raw_lines)
+
+        # Single Responsibility Principle: Classes with too many methods
+        for cls in code_ast.classes:
+            num_methods = len(cls.methods)
+            if num_methods > 15:
+                issues.append(CodeIssue(
+                    severity=Severity.HIGH,
+                    category="SOLID",
+                    description=f"Class '{cls.name}' has {num_methods} methods - violates Single Responsibility",
+                    recommendation="Split class into smaller, focused classes",
+                    line_number=cls.lineno,
+                    confidence=0.85,
+                ))
+
+        # Open/Closed Principle: Large if-elif chains (feature envy)
+        for func in code_ast.functions:
+            if "elif" in raw and func.name not in ("__init__", "__new__"):
+                lines = [l for l in code_ast.raw_lines if f"elif" in l]
+                if len(lines) > 3:
+                    issues.append(CodeIssue(
+                        severity=Severity.MEDIUM,
+                        category="SOLID",
+                        description=f"Function '{func.name}' has multiple elif branches - consider Strategy pattern (Open/Closed)",
+                        recommendation="Use strategy pattern or polymorphism instead of conditionals",
+                        line_number=func.lineno,
+                        confidence=0.7,
+                    ))
+
+        # Liskov Substitution: Check for mutable defaults
+        if " = []" in raw or " = {}" in raw:
+            issues.append(CodeIssue(
+                severity=Severity.HIGH,
+                category="SOLID",
+                description="Mutable default arguments violate Liskov Substitution",
+                recommendation="Use None as default and instantiate inside function",
+                line_number=1,
+                confidence=0.95,
+            ))
+
+        return issues
+
+    def _check_ddd(self, code_ast: CodeAST) -> list[CodeIssue]:
+        """Check for Domain-Driven Design patterns."""
+        issues = []
+
+        # Check for Entity patterns (classes with identity/id)
+        for cls in code_ast.classes:
+            has_id_attr = any("id" in method.name.lower() or "uuid" in method.name.lower()
+                             for method in cls.methods)
+            has_init = any(method.name == "__init__" for method in cls.methods)
+
+            # Recommendation for Entity pattern
+            if has_init and not has_id_attr:
+                issues.append(CodeIssue(
+                    severity=Severity.INFO,
+                    category="DDD",
+                    description=f"Class '{cls.name}' could be an Entity - consider adding identity field",
+                    recommendation="Add 'id' or 'uuid' field for Entity pattern",
+                    line_number=cls.lineno,
+                    confidence=0.6,
+                ))
+
+            # Value Object: Check for __eq__ without side effects
+            has_eq = any(method.name == "__eq__" for method in cls.methods)
+            if has_eq and not has_id_attr:
+                issues.append(CodeIssue(
+                    severity=Severity.INFO,
+                    category="DDD",
+                    description=f"Class '{cls.name}' implements __eq__ without identity - could be Value Object",
+                    recommendation="Consider making this class immutable",
+                    line_number=cls.lineno,
+                    confidence=0.5,
+                ))
+
+        return issues
+
 
 code_analyzer = CodeAnalyzer()
