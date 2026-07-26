@@ -10,6 +10,7 @@ Each component builds on the previous to provide a complete
 code engineering workflow from analysis to safe deployment.
 """
 
+import tempfile
 from typing import Any
 
 from apps.base import BaseReferenceApp
@@ -24,6 +25,7 @@ class CodeEngineerApp(BaseReferenceApp):
 
     def __init__(self):
         self._components_loaded = False
+        self._repo_path: str | None = None
 
     async def _ensure_components(self):
         if self._components_loaded:
@@ -45,7 +47,8 @@ class CodeEngineerApp(BaseReferenceApp):
         self.dependency_graph_builder = DependencyGraphBuilder
         self.impact_analyzer_cls = ImpactAnalyzer
         self.refactoring_engine_cls = RefactoringEngine
-        self.patch_generator_cls = PatchGenerator
+        self._repo_path = tempfile.mkdtemp()
+        self.patch_generator_cls = lambda: PatchGenerator(self._repo_path)
         self.regression_analyzer_cls = RegressionAnalyzer
         self.test_generator_cls = TestGenerator
         self._components_loaded = True
@@ -191,19 +194,20 @@ class CodeEngineerApp(BaseReferenceApp):
         """Generate a rollback-ready patch between two versions."""
         await self._ensure_components()
         gen = self.patch_generator_cls()
-        patches = await gen.generate_patches(
-            {filename: (original, modified)}
+        bundle = await gen.generate_from_changes(
+            file_path=filename,
+            old_content=original,
+            new_content=modified,
         )
-        if patches:
-            patch = patches[0]
-            return {
-                "filename": filename,
-                "patch_id": patch.patch_id,
-                "diff": patch.diff,
-                "diff_type": patch.diff_type,
-                "is_valid": await gen.validate_patch(patch),
-            }
-        return {"error": "No patches generated"}
+        diff = bundle.to_unified_diff()
+        is_valid = await gen.validate_patch(bundle)
+        return {
+            "filename": filename,
+            "patch_id": bundle.patch_id,
+            "diff": diff,
+            "diff_type": "unified",
+            "is_valid": is_valid,
+        }
 
     async def generate_tests(self, source_path: str, module_path: str) -> dict[str, Any]:
         """Generate tests for a Python module."""

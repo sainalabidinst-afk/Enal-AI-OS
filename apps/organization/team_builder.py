@@ -8,6 +8,7 @@ Searches the Agent Registry for the best agents for each role needed.
 
 import uuid
 from dataclasses import dataclass, field
+from typing import Any
 
 from apps.organization.registry import (
     AgentRecord,
@@ -39,7 +40,7 @@ class TeamMember:
 @dataclass
 class Team:
     team_id: str = field(default_factory=lambda: f"team-{uuid.uuid4().hex[:8]}")
-    task: TaskRequirement = field(default_factory=TaskRequirement)
+    task: TaskRequirement = field(default_factory=lambda: TaskRequirement(description="default"))
     members: list[TeamMember] = field(default_factory=list)
     lead_id: str | None = None
     estimated_cost: float = 0.0

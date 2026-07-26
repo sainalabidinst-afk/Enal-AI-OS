@@ -157,7 +157,7 @@ class IntentRouter:
             if hinted_domain and hinted_domain in domain_scores:
                 domain_scores[hinted_domain] += 2
 
-        best_domain = max(domain_scores, key=domain_scores.get)
+        best_domain = max(domain_scores, key=lambda d: domain_scores[d])
         if domain_scores[best_domain] == 0:
             best_domain = IntentDomain.GENERAL
 
