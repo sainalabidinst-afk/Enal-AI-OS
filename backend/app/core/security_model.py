@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 from enum import Enum
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +82,16 @@ class SecurityModel:
         self._policies: dict[str, SecurityPolicy] = {}
         self._pending_approval: dict[str, SecurityPolicy] = {}
         self._evaluator = PolicyEvaluator()
+        self._audit_log: list[dict[str, Any]] = []
+
+    def _log_audit(self, action: str, plugin_id: str, permission: Permission | None = None, allowed: bool | None = None):
+        self._audit_log.append({
+            "timestamp": datetime.utcnow().isoformat(),
+            "action": action,
+            "plugin_id": plugin_id,
+            "permission": permission.value if permission else None,
+            "allowed": allowed,
+        })
 
     def register_policy(self, policy: SecurityPolicy) -> bool:
         if policy.security_level == SecurityLevel.PRIVILEGED and not policy.approved:
@@ -104,10 +115,17 @@ class SecurityModel:
     def check_permission(self, plugin_id: str, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:
         policy = self._policies.get(plugin_id)
         if not policy:
+            self._log_audit("check_permission", plugin_id, permission, False)
             return False
-        return self._evaluator.evaluate(policy, permission, capability, context)
+        result = self._evaluator.evaluate(policy, permission, capability, context)
+        self._log_audit("check_permission", plugin_id, permission, result)
+        return result
+
+    def get_audit_log(self) -> list[dict[str, Any]]:
+        return list(self._audit_log)
 
     def get_policy(self, plugin_id: str) -> SecurityPolicy | None:
+        self._log_audit("get_policy", plugin_id)
         return self._policies.get(plugin_id)
 
     def get_pending_approvals(self) -> list[SecurityPolicy]:

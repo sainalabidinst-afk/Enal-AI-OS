@@ -105,19 +105,39 @@ class Blackboard:
     def __init__(self):
         self._entries: dict[str, Any] = {}
         self._lock: bool = False
+        self._history: list[dict] = []
 
-    def write(self, key: str, value: Any) -> None:
+    async def write(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:
         self._entries[key] = value
+        self._history.append({
+            "key": key,
+            "agent": agent_id,
+            "timestamp": datetime.now(UTC).isoformat(),
+            "action": "write",
+        })
+        # Store in shared memory if available
+        try:
+            from backend.app.core.memory_layer import memory_manager
+            await memory_manager.store("blackboard", f"{key}:{agent_id or 'anon'}", value, ttl=ttl)
+        except Exception:
+            pass
         logger.debug(f"Blackboard write: {key}")
 
-    def read(self, key: str) -> Any | None:
+    async def read(self, key: str) -> Any:
         return self._entries.get(key)
 
-    def read_all(self) -> dict[str, Any]:
+    async def read_all(self) -> dict[str, Any]:
         return dict(self._entries)
+
+    async def read_by_agent(self, agent_id: str) -> dict[str, Any]:
+        return {k: v for k, v in self._entries.items() if agent_id in str(k)}
 
     def clear(self) -> None:
         self._entries.clear()
+        self._history.clear()
+
+    def get_history(self) -> list[dict]:
+        return list(self._history)
 
 
 mailbox = Mailbox()

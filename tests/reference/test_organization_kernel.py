@@ -6,6 +6,7 @@ Tests Organization Kernel, Economics, Optimizer, and Learning.
 """
 
 import pytest
+from typing import Any
 
 from apps.organization.economics import organizational_economics
 from apps.organization.kernel import organization_kernel

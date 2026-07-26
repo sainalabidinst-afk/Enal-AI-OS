@@ -168,5 +168,53 @@ class SemanticProjectGraph:
         }
         path.write_text(json.dumps(data, indent=2))
 
+    def _calculate_evidence_score(self, node: GraphNode) -> float:
+        """Calculate evidence score based on sources and confidence."""
+        sources = node.properties.get("sources", [])
+        confidence_sum = sum(s.get("confidence", 0.5) for s in sources)
+        count = len(sources)
+        return round(confidence_sum / count, 2) if count > 0 else 0.5
+
+    def _format_citation(self, node: GraphNode) -> str:
+        """Format citation string for a node's sources."""
+        sources = node.properties.get("sources", [])
+        citations = []
+        for s in sources:
+            if s.get("url"):
+                citations.append(f"Retrieved from {s['url']}")
+            elif s.get("document"):
+                citations.append(f"Source: {s['document']}")
+        return "; ".join(citations) if citations else f"Internal knowledge: {node.name}"
+
+    async def query(self, query_str: str, node_type: NodeType | None = None) -> list[dict[str, Any]]:
+        """Query nodes by name/description."""
+        results = []
+        query_lower = query_str.lower()
+        for node in self._nodes.values():
+            if node_type and node.node_type != node_type:
+                continue
+            if query_lower in node.name.lower() or query_lower in node.description.lower():
+                results.append({
+                    "id": node.id,
+                    "type": node.node_type.value,
+                    "name": node.name,
+                    "description": node.description,
+                    "evidence_score": self._calculate_evidence_score(node),
+                    "citation": self._format_citation(node),
+                })
+        return results
+
+    async def get_evidence(self, node_id: str) -> dict[str, Any] | None:
+        """Get evidence details for a node."""
+        node = self._nodes.get(node_id)
+        if not node:
+            return None
+        return {
+            "node_id": node.id,
+            "evidence_score": self._calculate_evidence_score(node),
+            "sources": node.properties.get("sources", []),
+            "citations": self._format_citation(node),
+        }
+
 
 semantic_graph = SemanticProjectGraph()

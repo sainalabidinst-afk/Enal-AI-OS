@@ -1,6 +1,6 @@
 """
 Network Configuration Analyzer
-================================
+===============================
 
 Analyzes RouterOS configurations for security, performance, and best practices.
 """
@@ -128,18 +128,21 @@ class NetworkAnalyzer:
             self._check_fortinet_firewall_policy,
             self._check_fortinet_vpn_ipsec,
             self._check_fortinet_ha_configured,
+            self._check_cisco_ospf_configured,
+            self._check_cisco_snmp_enabled,
+            self._check_cisco_wireless_dot11,
+            self._check_cisco_vlan_trunking,
+            self._check_cisco_policy_map_qos,
         ]
 
     async def analyze(self, config: Any, topology: Any | None = None) -> NetworkAnalysisReport:
         device_name = config.system_identity.name if config.system_identity else "Router"
         report = NetworkAnalysisReport(device_name=device_name)
-
         for rule in self._rules:
             try:
                 rule(config, report)
             except Exception as e:
                 logger.error(f"Analysis rule failed: {e}")
-
         report.summary = report.get_summary()
         parser_errors = getattr(config, "errors", [])
         report.metadata["total_rules"] = len(self._rules)
@@ -424,6 +427,38 @@ class NetworkAnalyzer:
         has_ha = any("config system ha" in line.lower() or ("mode a-a" in line.lower() or "mode a-p" in line.lower()) for line in config.raw_lines)
         if has_ha:
             report.add_issue(Severity.INFO, "High Availability", "Fortinet HA configured", "Verify HA cluster settings", confidence=0.9)
+
+    def _check_cisco_ospf_configured(self, config: Any, report: NetworkAnalysisReport):
+        for line in config.raw_lines:
+            if "router ospf" in line.lower():
+                has_auth = any("message-digest" in l.lower() or "area" in l.lower() for l in config.raw_lines)
+                if not has_auth:
+                    report.add_issue(Severity.WARNING, "Routing", "OSPF configured without authentication", "Add OSPF authentication for security", confidence=0.8)
+                else:
+                    report.add_issue(Severity.INFO, "Routing", "OSPF routing configured", "Verify OSPF configuration and areas", confidence=0.9)
+                break
+
+    def _check_cisco_snmp_enabled(self, config: Any, report: NetworkAnalysisReport):
+        if any("snmp-server" in line.lower() for line in config.raw_lines):
+            has_acl = any("snmp-server" in line.lower() and "acl" in line.lower() for line in config.raw_lines)
+            if not has_acl:
+                report.add_issue(Severity.WARNING, "Services", "SNMP enabled without ACL restriction", "Restrict SNMP access with ACL", confidence=0.8)
+
+    def _check_cisco_wireless_dot11(self, config: Any, report: NetworkAnalysisReport):
+        if any("dot11" in line.lower() or "ssid" in line.lower() for line in config.raw_lines):
+            has_wpa = any("wpa" in line.lower() for line in config.raw_lines)
+            if not has_wpa:
+                report.add_issue(Severity.CRITICAL, "Wireless", "Wireless SSID without WPA encryption", "Enable WPA2/WPA3 for wireless security", confidence=0.9)
+
+    def _check_cisco_vlan_trunking(self, config: Any, report: NetworkAnalysisReport):
+        if any("vlan" in line.lower() and "switchport" in line.lower() for line in config.raw_lines):
+            report.add_issue(Severity.INFO, "Switching", "VLAN trunking configured", "Verify trunking and allowed VLANs", confidence=0.8)
+        if any("vlan" in line.lower() and "switchport mode trunk" in line.lower() for line in config.raw_lines):
+            report.add_issue(Severity.INFO, "Switching", "Switchport trunk mode enabled", "Confirm trunk encapsulation", confidence=0.9)
+
+    def _check_cisco_policy_map_qos(self, config: Any, report: NetworkAnalysisReport):
+        if any("policy-map" in line.lower() or "class-map" in line.lower() for line in config.raw_lines):
+            report.add_issue(Severity.INFO, "QoS", "QoS policy-map configured", "Review bandwidth allocation and priority", confidence=0.8)
 
     def _networks_overlap(self, net1: str, net2: str) -> bool:
         try:

@@ -40,6 +40,7 @@ class Observability:
     def __init__(self):
         self._traces: dict[str, list[TraceSpan]] = {}
         self._current_trace: str | None = None
+        self._context: dict[str, str] = {}
 
     def start_trace(self, name: str) -> str:
         trace_id = str(uuid.uuid4())
@@ -101,6 +102,15 @@ class Observability:
             "total_cost": sum(s.cost for s in all_spans),
             "total_tokens": sum(s.tokens_used for s in all_spans),
         }
+
+    def inject_context(self, trace_id: str, parent_id: str | None = None) -> dict[str, str]:
+        return {"trace_id": trace_id, "parent_id": parent_id or ""}
+
+    def extract_context(self, headers: dict[str, str]) -> tuple[str, str | None]:
+        return headers.get("trace_id", ""), headers.get("parent_id") or None
+
+    def propagate_context(self, trace_id: str) -> str:
+        return f"trace_id={trace_id}"
 
 
 observability = Observability()

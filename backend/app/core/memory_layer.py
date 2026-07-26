@@ -376,6 +376,8 @@ class MemoryManager:
         """Search across all memory layers, optionally filtering by session."""
         results = []
         for layer_name, mem in self._layers.items():
+            if mem is None:
+                continue
             layer_results = await mem.search(query, limit=5)
             for r in layer_results:
                 r["layer"] = layer_name

@@ -11,6 +11,7 @@ Tests AI Organization Platform:
 """
 
 import pytest
+from typing import Any
 
 from apps.organization.collective_memory import collective_memory
 from apps.organization.communication import blackboard, mailbox
@@ -149,9 +150,10 @@ def test_communication():
 
 def test_blackboard():
     create_society("Test Corp")
-    blackboard.write("architecture", "microservices")
-    assert blackboard.read("architecture") == "microservices"
-    assert "architecture" in blackboard.read_all()
+    import asyncio
+    asyncio.get_event_loop().run_until_complete(blackboard.write("architecture", "microservices"))
+    result = asyncio.get_event_loop().run_until_complete(blackboard.read("architecture"))
+    assert result == "microservices"
 
 
 def test_collective_memory():

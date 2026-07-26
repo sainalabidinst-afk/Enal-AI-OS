@@ -35,9 +35,14 @@ class PluginMarketplace:
     def __init__(self):
         self._plugins: dict[str, PluginManifest] = {}
         self._installed: dict[str, str] = {}
+        self._ratings: dict[str, list[float]] = {}
 
     async def publish(self, manifest: PluginManifest) -> str:
-        self._plugins[manifest.id] = manifest
+        if manifest.id in self._plugins:
+            self._plugins[manifest.id].version = manifest.version
+            self._plugins[manifest.id].status = PluginStatus.PUBLISHED
+        else:
+            self._plugins[manifest.id] = manifest
         logger.info(f"Plugin published: {manifest.id} v{manifest.version}")
         return manifest.id
 
@@ -70,15 +75,23 @@ class PluginMarketplace:
 
     def search(self, query: str) -> list[PluginManifest]:
         query_lower = query.lower()
-        return [p for p in self._plugins.values() if query_lower in p.name.lower() or query_lower in p.description.lower()]
+        return [p for p in self._plugins.values() if query_lower in p.name.lower() or query_lower in p.description.lower() or query_lower in " ".join(p.tags).lower()]
 
     def get_installed(self) -> list[str]:
         return list(self._installed.keys())
 
     async def rate(self, plugin_id: str, rating: float):
         plugin = self._plugins.get(plugin_id)
-        if plugin:
-            plugin.rating = (plugin.rating + rating) / 2
+        if plugin and 0 <= rating <= 5:
+            self._ratings.setdefault(plugin_id, []).append(rating)
+            plugin.rating = sum(self._ratings[plugin_id]) / len(self._ratings[plugin_id])
+
+    def get_categories(self) -> list[str]:
+        return sorted(set(p.category for p in self._plugins.values()))
+
+    def get_install_count(self, plugin_id: str) -> int:
+        plugin = self._plugins.get(plugin_id)
+        return plugin.downloads if plugin else 0
 
 
 plugin_marketplace = PluginMarketplace()

@@ -1,3 +1,6 @@
-from .main import app
-
-__all__ = ["app"]
+# backend.app package - lazy import to avoid FastAPI dependency in tests
+def __getattr__(name):
+    if name == "app":
+        from .main import app
+        return app
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
