@@ -29,6 +29,15 @@ def validate_filename(filename: str) -> AttachmentMeta:
     return meta
 
 
+def _make_infra(vendor, device_role, fmt, **kwargs):
+    """Create InfrastructureAST inline to avoid import order issues."""
+    import backend.app.core.attachments.models as m
+    ast = m.InfrastructureAST(vendor=vendor, device_role=device_role, format=fmt)
+    for k, v in kwargs.items():
+        ast.metadata[k] = v
+    return ast
+
+
 def analyze_bytes(filename: str, content: bytes) -> AttachmentAnalysisResult:
     text = ""
     meta = validate_filename(filename)
@@ -37,42 +46,47 @@ def analyze_bytes(filename: str, content: bytes) -> AttachmentAnalysisResult:
             text = content.decode("utf-8", errors="ignore")
             meta = detect_from_content(filename, text)
         except Exception as exc:
-            return AttachmentAnalysisResult(meta=meta, ast=__import__("backend.app.core.attachments.models", fromlist=["models"]).InfrastructureAST(), analysis_error=str(exc))
+            ast = _make_infra(meta.vendor, meta.device_role, "")
+            return AttachmentAnalysisResult(meta=meta, ast=ast, analysis_error=str(exc))
     else:
         text = _safe_decode(content)
 
     if meta.attachment_type in {AttachmentType.archive}:
         archive_summary = summarize_archive(content, filename)
+        ast = _make_infra(meta.vendor, meta.device_role, "archive")
+        ast.metadata.update(archive_summary)
         return AttachmentAnalysisResult(
             meta=meta,
-            ast=__import__("backend.app.core.attachments.models", fromlist=["models"]).InfrastructureAST(vendor=meta.vendor, device_role=meta.device_role, format="archive", metadata=archive_summary),
+            ast=ast,
             summary=f"Archive contains {archive_summary.get('member_count', 0)} items.",
             recommendations=["Extract archive before analysis if deeper inspection is needed."],
         )
 
     if meta.attachment_type == AttachmentType.image:
+        ast = _make_infra(meta.vendor, meta.device_role, "image")
         return AttachmentAnalysisResult(
             meta=meta,
-            ast=__import__("backend.app.core.attachments.models", fromlist=["models"]).InfrastructureAST(vendor=meta.vendor, device_role=meta.device_role, format="image"),
+            ast=ast,
             summary="Image file detected. Screenshot/diagram analysis should be handled by image-capable models.",
             recommendations=["Route image to multimodal analysis if supported."],
         )
 
     if not text:
+        ast = _make_infra(meta.vendor, meta.device_role, meta.detected_format)
         return AttachmentAnalysisResult(
             meta=meta,
-            ast=__import__("backend.app.core.attachments.models", fromlist=["models"]).InfrastructureAST(vendor=meta.vendor, device_role=meta.device_role, format=meta.detected_format),
+            ast=ast,
             analysis_error="Unable to decode content for analysis.",
         )
 
     text = text[:MAX_ANALYSIS_TEXT]
     if meta.attachment_type == AttachmentType.document:
+        ast = _make_infra(meta.vendor, meta.device_role, meta.detected_format, text_preview=text[:500])
         return AttachmentAnalysisResult(
             meta=meta,
-            ast=__import__("backend.app.core.attachments.models", fromlist=["models"]).InfrastructureAST(vendor=meta.vendor, device_role=meta.device_role, format=meta.detected_format),
+            ast=ast,
             summary=f"Document detected ({filename}). Text extraction result may need document-aware parsing.",
             recommendations=["Use document-aware parsing for structured fields if needed."],
-            metadata={"text_preview": text[:500]},
         )
 
     meta.text_preview = text[:1000]

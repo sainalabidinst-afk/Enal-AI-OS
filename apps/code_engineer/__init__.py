@@ -80,13 +80,13 @@ class CodeEngineerApp(BaseReferenceApp):
         if not path.exists():
             return {"error": "Repository path not found: " + repo_path}
 
-        self._repo_path = repo_path
-        reader = self.architecture_reader_cls(repo_path=path)
+        self._repo_path = str(path)
+        reader = self.architecture_reader_cls(str(path))
         architecture = await reader.read()
         if not architecture:
             return {"error": "Architecture analysis failed"}
 
-        dep_builder = self.dependency_graph_builder(repo_path=str(path))
+        dep_builder = self.dependency_graph_builder(str(path))
         dep_graph_summary = await dep_builder.build()
 
         return {
@@ -162,12 +162,10 @@ class CodeEngineerApp(BaseReferenceApp):
         """Get refactoring suggestions for code."""
         await self._ensure_components()
         self.parser.parse(code, filename=filename)
-        import tempfile
-        import os
+        import os, asyncio
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_file = os.path.join(tmpdir, filename)
-            with open(tmp_file, 'w') as f:
-                f.write(code)
+            await asyncio.to_thread(self._write_file_sync, tmp_file, code)
             engine = self.refactoring_engine_cls(tmpdir)
             report = await engine.analyze([filename])
             return {
@@ -184,6 +182,11 @@ class CodeEngineerApp(BaseReferenceApp):
                     for s in report.suggestions
                 ],
             }
+
+    def _write_file_sync(self, path: str, content: str) -> None:
+        """Synchronous file write helper."""
+        with open(path, 'w') as f:
+            f.write(content)
 
     async def generate_patch(self, original: str, modified: str, filename: str) -> dict[str, Any]:
         """Generate a rollback-ready patch between two versions."""

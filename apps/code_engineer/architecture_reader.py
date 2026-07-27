@@ -4,14 +4,6 @@ Architecture Reader
 
 Multi-file repository structure analysis.
 Detects project architecture, frameworks, entry points, module organization.
-
-Features:
-- Module tree builder (Python packages, modules)
-- Framework detection (FastAPI, Django, Flask, CLI tools)
-- Entry point detection (main.py, app.py, CLI entrypoints)
-- Test directory detection
-- Static resource detection
-- Project type classification
 """
 
 import ast
@@ -22,6 +14,11 @@ from pathlib import Path
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib  # type: ignore[no-redef]
 
 
 class ProjectType(str, Enum):
@@ -92,7 +89,6 @@ class ArchitectureSummary:
 class ArchitectureReader:
     """Reads and analyzes repository architecture."""
 
-    # Framework signatures
     FRAMEWORK_SIGNATURES: dict[str, list[str]] = {
         "fastapi": ["fastapi", "FastAPI", "APIRouter"],
         "django": ["django", "DJANGO_SETTINGS_MODULE", "django.core"],
@@ -108,14 +104,13 @@ class ArchitectureReader:
         "asyncio": ["asyncio", "async def"],
     }
 
-    # Entry point patterns
     ENTRY_POINT_PATTERNS: list[str] = [
         "main.py", "app.py", "cli.py", "run.py",
         "server.py", "manage.py", "wsgi.py", "asgi.py",
         "__main__.py",
     ]
 
-    def __init__(self, repo_path: str | Path):
+    def __init__(self, repo_path: str | Path) -> None:
         self.repo_path = Path(repo_path)
         self._modules: list[ModuleInfo] = []
         self._entry_points: list[str] = []
@@ -132,60 +127,42 @@ class ArchitectureReader:
         if not self.repo_path.exists():
             raise FileNotFoundError(f"Repository path not found: {self.repo_path}")
 
-        # Scan all Python files recursively
         python_files = list(self.repo_path.rglob("*.py"))
         self._total_files = len(python_files)
-
-        # Check for project metadata
         project_name = self._detect_project_name()
+        module_tree_lines: list[str] = []
 
-        # Analyze each Python file
-        module_tree_lines = []
         for py_file in sorted(python_files):
             try:
                 relative = py_file.relative_to(self.repo_path)
-                depth = len(relative.parts) - 1
-                indent = "  " * depth
-                module_tree_lines.append(f"{indent}{'📄 ' if not py_file.name == '__init__.py' else '📦 '}{py_file.name}")
+                module_tree_lines.append(f"{'  ' * (len(relative.parts) - 1)}{py_file.name}")
 
                 module_info = await self._analyze_file(py_file, relative)
                 if module_info:
                     self._modules.append(module_info)
-
-                    # Detect entry points
                     if py_file.name in self.ENTRY_POINT_PATTERNS:
                         self._entry_points.append(str(relative))
                         module_info.module_type = ModuleType.ENTRY_POINT
-
-                    # Detect test modules
                     if "test" in py_file.name.lower() or "test" in relative.parts:
                         self._test_modules.append(str(relative))
                         module_info.module_type = ModuleType.TEST_MODULE
-
             except Exception as e:
                 logger.warning(f"Error analyzing {py_file}: {e}")
 
-        # Detect framework
         self._frameworks_found = self._detect_frameworks()
-
-        # Check for __init__.py files
         self._missing_init = self._check_missing_init(python_files)
 
-        # Check infrastructure files
         has_docker = bool(list(self.repo_path.glob("Dockerfile")) or list(self.repo_path.glob("docker-compose*")))
         has_ci_cd = bool(list(self.repo_path.glob(".github/workflows/*")) or list(self.repo_path.glob(".gitlab-ci*")))
         has_docs = bool((self.repo_path / "docs").exists() or (self.repo_path / "README.md").exists())
         has_config = bool(list(self.repo_path.glob("pyproject.toml")) or list(self.repo_path.glob("setup.py")) or list(self.repo_path.glob("setup.cfg")))
         has_tests = bool(self._test_modules) or (self.repo_path / "tests").exists()
 
-        # Detect dependency files
         for dep_file in ["pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "poetry.lock"]:
             if (self.repo_path / dep_file).exists():
                 self._dependency_files.append(dep_file)
 
-        # Detect project type
         project_type = self._classify_project_type()
-
         directory_tree = "\n".join(module_tree_lines)
 
         return ArchitectureSummary(
@@ -199,7 +176,7 @@ class ArchitectureReader:
             frameworks=self._frameworks_found,
             api_routes=self._api_routes,
             has_docker=has_docker,
-            has_ci_cd=bool(has_ci_cd),
+            has_ci_cd=has_ci_cd,
             has_docs=has_docs,
             has_config=has_config,
             has_tests=has_tests,
@@ -215,17 +192,15 @@ class ArchitectureReader:
             lines = content.splitlines()
             loc = len(lines)
             self._total_lines += loc
-
-            # Parse AST
             tree = ast.parse(content, filename=str(py_file))
 
             imports: list[str] = []
             classes: list[str] = []
             functions: list[str] = []
             decorators: list[str] = []
-            docstring = None
+            docstring: Optional[str] = None
 
-            if isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Constant):
+            if tree.body and isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Constant):
                 docstring = ast.get_docstring(tree)
 
             for node in ast.walk(tree):
@@ -241,7 +216,6 @@ class ArchitectureReader:
                         dec_name = self._extract_decorator_name(dec)
                         if dec_name:
                             decorators.append(dec_name)
-                    # Detect API routes from decorators
                     for dec in node.decorator_list:
                         dec_name = self._extract_decorator_name(dec)
                         if dec_name and dec_name in ("router", "api_router", "app"):
@@ -257,7 +231,6 @@ class ArchitectureReader:
                         dec_name = self._extract_decorator_name(dec)
                         if dec_name:
                             decorators.append(dec_name)
-                            # Detect HTTP method decorators
                             if dec_name in ("get", "post", "put", "delete", "patch", "route", "api_route"):
                                 self._api_routes.append({
                                     "module": str(relative),
@@ -283,7 +256,6 @@ class ArchitectureReader:
                 lines_of_code=loc,
                 docstring=docstring,
             )
-
         except SyntaxError:
             logger.warning(f"Syntax error in {py_file}, skipping AST analysis")
             return None
@@ -362,16 +334,10 @@ class ArchitectureReader:
         if pyproject.exists():
             try:
                 content = pyproject.read_text(encoding="utf-8")
-                import tomllib
                 data = tomllib.loads(content)
                 if "project" in data and "name" in data["project"]:
                     return data["project"]["name"]
             except (ImportError, tomllib.TOMLDecodeError):
-                # Python 3.11+ tomllib or fallback
-                try:
-                    import tomli as tomllib
-                except ImportError:
-                    pass
                 try:
                     import toml
                     data = toml.loads(content)
@@ -379,19 +345,16 @@ class ArchitectureReader:
                         return data["project"]["name"]
                 except ImportError:
                     pass
-
-        # Fallback: use directory name
         return self.repo_path.name
 
     def _check_missing_init(self, python_files: list[Path]) -> list[str]:
         """Check for missing __init__.py in Python package directories."""
-        missing = []
-        dirs_with_py = set()
+        missing: list[str] = []
+        dirs_with_py: set[Path] = set()
         for pf in python_files:
             parent = pf.parent
             if parent != self.repo_path:
                 dirs_with_py.add(parent)
-
         for d in dirs_with_py:
             if not (d / "__init__.py").exists():
                 try:
@@ -415,23 +378,21 @@ class ArchitectureReader:
         return {}
 
 
-# Singleton instance
 architecture_reader_cache: dict[str, ArchitectureSummary] = {}
 
 
 async def read_architecture(repo_path: str | Path) -> ArchitectureSummary:
     """Read and cache architecture summary for a repository."""
-    repo_path = str(repo_path)
-    if repo_path in architecture_reader_cache:
-        return architecture_reader_cache[repo_path]
-
+    repo_path_str = str(repo_path)
+    if repo_path_str in architecture_reader_cache:
+        return architecture_reader_cache[repo_path_str]
     reader = ArchitectureReader(repo_path)
     summary = await reader.read()
-    architecture_reader_cache[repo_path] = summary
+    architecture_reader_cache[repo_path_str] = summary
     return summary
 
 
-def invalidate_cache(repo_path: str | None = None):
+def invalidate_cache(repo_path: str | None = None) -> None:
     """Invalidate architecture cache."""
     global architecture_reader_cache
     if repo_path:
@@ -440,6 +401,4 @@ def invalidate_cache(repo_path: str | None = None):
         architecture_reader_cache.clear()
 
 
-# Default singleton for backward compatibility
-architecture_reader = None  # Lazy-initialized when needed
-
+architecture_reader: ArchitectureReader | None = None

@@ -1,10 +1,10 @@
+"""Perception Engine - Process and extract meaning from various input sources."""
 import logging
 from dataclasses import dataclass, field
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
-# ─── Perception Types ──
 
 @dataclass
 class PerceptionInput:
@@ -13,6 +13,7 @@ class PerceptionInput:
     content: str | bytes
     content_type: str = "text/plain"
     metadata: dict[str, Any] = field(default_factory=dict)
+
 
 @dataclass
 class PerceptionResult:
@@ -25,24 +26,27 @@ class PerceptionResult:
     extracted_data: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)
 
-# ─── Perception Engine ──
 
 class PerceptionEngine:
     """Process and extract meaning from various input sources."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._processors: dict[str, Any] = {}
 
     async def process(self, perception_input: PerceptionInput) -> PerceptionResult:
         """Process input and extract entities/intents."""
         result = PerceptionResult(source=perception_input.source)
+        content = perception_input.content
 
         if perception_input.content_type == "text/plain":
-            result = await self._process_text(perception_input.content, result)
+            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+            result = await self._process_text(text_content, result)
         elif perception_input.content_type.startswith("image/"):
-            result = await self._process_image(perception_input.content, result)
+            bytes_content = content if isinstance(content, bytes) else content.encode("utf-8")
+            result = await self._process_image(bytes_content, result)
         elif perception_input.content_type == "application/json":
-            result = await self._process_json(perception_input.content, result)
+            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+            result = await self._process_json(text_content, result)
 
         result.metadata.update(perception_input.metadata)
         return result
@@ -63,11 +67,11 @@ class PerceptionEngine:
         result.confidence = 0.5
         return result
 
-    async def _process_json(self, content: str | bytes, result: PerceptionResult) -> PerceptionResult:
+    async def _process_json(self, content: str, result: PerceptionResult) -> PerceptionResult:
         """Extract from JSON structure."""
         import json
         try:
-            data = json.loads(content) if isinstance(content, str) else json.loads(content.decode())
+            data = json.loads(content)
             result.entities = list(data.keys())[:10]
             result.extracted_data = data
             result.confidence = 0.9
@@ -78,8 +82,8 @@ class PerceptionEngine:
 
     def _infer_intents(self, text: str) -> list[str]:
         """Infer intents from text keywords."""
-        intents = []
-        patterns = {
+        intents: list[str] = []
+        patterns: dict[str, list[str]] = {
             "search": ["find", "search", "look", "seek"],
             "create": ["make", "create", "build", "generate"],
             "analyze": ["analyze", "examine", "study", "review"],
@@ -93,17 +97,19 @@ class PerceptionEngine:
 
     def _analyze_sentiment(self, text: str) -> float:
         """Simple sentiment analysis (-1 to 1)."""
-        positive = ["good", "great", "excellent", "positive", "success"]
-        negative = ["bad", "poor", "fail", "error", "negative"]
-        score = 0
+        positive: list[str] = ["good", "great", "excellent", "positive", "success"]
+        negative: list[str] = ["bad", "poor", "fail", "error", "negative"]
+        score = 0.0
         text_lower = text.lower()
         for p in positive:
             if p in text_lower:
-                score += 1
+                score += 1.0
         for n in negative:
             if n in text_lower:
-                score -= 1
-        return max(-1, min(1, score / max(1, len(text.split()))))
+                score -= 1.0
+        word_count = max(1, len(text.split()))
+        return max(-1.0, min(1.0, score / word_count))
+
 
 # ─── Singleton ──
 

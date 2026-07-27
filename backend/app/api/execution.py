@@ -1,3 +1,4 @@
+from typing import Any
 from fastapi import APIRouter, HTTPException, Query
 import time
 import logging
@@ -136,11 +137,18 @@ async def run_execution(goal: str, workspace_id: str, conversation_id: str | Non
         if not ws:
             raise HTTPException(status_code=404, detail="Workspace not found")
         execution = await execution_integration.execute(goal=goal, workspace_id=workspace_id, conversation_id=conversation_id)
-        artifacts: list[ExecutionArtifact] = []
-        for artifact_id in execution.artifacts:
-            art = await artifact_service.get_artifact(artifact_id)
-            if art:
-                artifacts.append(art)
+        artifacts: list[dict[str, Any]] = []
+        if execution:
+            for artifact_id in execution.artifacts:
+                art = await artifact_service.get_artifact(artifact_id)
+                if art:
+                    artifacts.append({
+                        "id": art.id,
+                        "name": getattr(art, 'name', artifact_id),
+                        "type": getattr(art, 'type', ''),
+                        "execution_id": execution.id,
+                        "metadata": getattr(art, 'metadata', {}),
+                    })
         return {
             "execution": execution,
             "artifacts": artifacts,

@@ -436,7 +436,7 @@ class SocietyRuntime:
                 worker=worker.execute,
                 concurrency=min(4, max(1, len(team_members))),
             )
-            results = await execution_runtime.execute(context)
+            results: list[Any] = await execution_runtime.execute(context)
         else:
             results = []
             for member in team_members:

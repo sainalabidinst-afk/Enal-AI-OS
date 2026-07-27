@@ -51,12 +51,40 @@ class MikroTikAdapter(VendorAdapter):
         ]
         return any(indicator in config_text for indicator in indicators)
 
+    def _map_firewall_action(self, action_str: str) -> RuleAction:
+        """Map firewall rule action string to RuleAction enum."""
+        mapping = {
+            "accept": RuleAction.ACCEPT,
+            "masquerade": RuleAction.MASQUERADE,
+            "fasttrack-connection": RuleAction.FASTTRACK,
+            "log": RuleAction.LOG,
+            "return": RuleAction.RETURN,
+            "jump": RuleAction.JUMP,
+            "snat": RuleAction.SNAT,
+            "srcnat": RuleAction.SNAT,
+            "dnat": RuleAction.DNAT,
+            "drop": RuleAction.DROP,
+        }
+        return mapping.get(action_str.lower(), RuleAction.DROP)
+
+    def _map_nat_action(self, action_str: str) -> RuleAction:
+        """Map NAT rule action string to RuleAction enum."""
+        mapping = {
+            "accept": RuleAction.ACCEPT,
+            "drop": RuleAction.DROP,
+            "snat": RuleAction.SNAT,
+            "srcnat": RuleAction.SNAT,
+            "dnat": RuleAction.DNAT,
+            "masquerade": RuleAction.MASQUERADE,
+        }
+        return mapping.get(action_str.lower(), RuleAction.MASQUERADE)
+
     def parse(self, config_text: str) -> NetworkAST:
         """Parse RouterOS config into Universal AST."""
         parser = RouterOSParser()
         config = parser.parse(config_text)
 
-        ast = NetworkAST(
+        ast: NetworkAST = NetworkAST(
             vendor="mikrotik",
             device_id=config.system_identity.name if config.system_identity else "router",
         )
@@ -98,28 +126,11 @@ class MikroTikAdapter(VendorAdapter):
 
         # Firewall Rules
         for rule in config.firewall_rules:
-            action = RuleAction.DROP
-            if rule.action.lower() == "accept":
-                action = RuleAction.ACCEPT
-            elif rule.action.lower() == "masquerade":
-                action = RuleAction.MASQUERADE
-            elif rule.action.lower() == "fasttrack-connection":
-                action = RuleAction.FASTTRACK
-            elif rule.action.lower() == "log":
-                action = RuleAction.LOG
-            elif rule.action.lower() == "return":
-                action = RuleAction.RETURN
-            elif rule.action.lower() == "jump":
-                action = RuleAction.JUMP
-            elif rule.action.lower() in ("snat", "srcnat"):
-                action = RuleAction.SNAT
-            elif rule.action.lower() == "dnat":
-                action = RuleAction.DNAT
-
+            fw_action = self._map_firewall_action(rule.action)
             ast.firewall_rules.append(UniversalFirewallRule(
                 id=f"fw-{len(ast.firewall_rules)}",
                 chain=rule.chain,
-                action=action,
+                action=fw_action,
                 src_address=rule.src_address,
                 dst_address=rule.dst_address,
                 protocol=rule.protocol,
@@ -130,28 +141,20 @@ class MikroTikAdapter(VendorAdapter):
             ))
 
         # NAT Rules
-        for rule in config.nat_rules:
-            action = RuleAction.MASQUERADE
-            if rule.action.lower() == "accept":
-                action = RuleAction.ACCEPT
-            elif rule.action.lower() == "drop":
-                action = RuleAction.DROP
-            elif rule.action.lower() == "snat":
-                action = RuleAction.SNAT
-            elif rule.action.lower() == "dnat":
-                action = RuleAction.DNAT
-
+        for nat_rule in config.nat_rules:
+            nat_action = self._map_nat_action(nat_rule.action)
             ast.nat_rules.append(UniversalNATRule(
                 id=f"nat-{len(ast.nat_rules)}",
-                chain=rule.chain,
-                action=action,
-                src_address=rule.src_address,
-                dst_address=rule.dst_address,
-                in_interface=rule.in_interface,
-                out_interface=rule.out_interface,
-                comment=rule.comment,
+                chain=nat_rule.chain,
+                action=nat_action,
+                src_address=nat_rule.src_address,
+                dst_address=nat_rule.dst_address,
+                in_interface=nat_rule.in_interface,
+                out_interface=nat_rule.out_interface,
+                comment=nat_rule.comment,
             ))
 
+        # DHCP Servers
         # DHCP Servers
         for dhcp in config.dhcp_servers:
             ast.dhcp_servers.append(UniversalDHCPServer(
@@ -312,12 +315,12 @@ class MikroTikAdapter(VendorAdapter):
         # NAT Rules
         if ast.nat_rules:
             lines.append("/ip firewall nat")
-            for rule in ast.nat_rules:
-                line = f"add action={rule.action.value} chain={rule.chain}"
-                if rule.out_interface:
-                    line += f" out-interface={rule.out_interface}"
-                if rule.comment:
-                    line += f" comment=\"{rule.comment}\""
+            for nat_rule2 in ast.nat_rules:
+                line = f"add action={nat_rule2.action.value} chain={nat_rule2.chain}"
+                if nat_rule2.out_interface:
+                    line += f" out-interface={nat_rule2.out_interface}"
+                if nat_rule2.comment:
+                    line += f" comment=\"{nat_rule2.comment}\""
                 lines.append(line)
             lines.append("")
 

@@ -90,7 +90,7 @@ class TaskQueue:
         if not handler:
             raise ValueError(f"No handler for agent: {task.agent}")
         try:
-            task.result = await handler(task)
+            task.result = await handler(task)  # type: ignore[func-returns-value]
             task.status = TaskStatus.COMPLETED
             await event_bus.publish(Event(
                 event_type="task.completed",
@@ -107,7 +107,7 @@ class TaskQueue:
         task.finished_at = datetime.utcnow()
         return task
 
-    def register_handler(self, agent: str, handler: Callable[[Task], Awaitable[None]]):
+    def register_handler(self, agent: str, handler: Callable[[Task], Awaitable[None]]) -> None:
         self._handlers[agent] = handler
 
     async def get_task(self, task_id: str) -> Task | None:

@@ -615,7 +615,7 @@ class AIPlanner:
             dict with risk_level, blocking_steps, and mitigation_suggestions
         """
         risk_factors = []
-        blocking_steps = []
+        blocking_steps: list[dict[str, Any]] = []
         for i, step in enumerate(plan.steps):
             # Steps with many dependencies are higher risk
             if len(step.depends_on) > 2:

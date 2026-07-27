@@ -82,7 +82,7 @@ class SelfVerification:
             return VerificationResult(step=step, passed=False, output="", error=str(e), duration_ms=(time.time() - start) * 1000)
         return VerificationResult(step=step, passed=False, output="", error="Unknown step", duration_ms=(time.time() - start) * 1000)
 
-    async def _compile(self, code: str, language: str) -> tuple[str, str | None]:
+    async def _compile(self, code: str, language: str) -> tuple[str | None, str | None]:
         if language == "python":
             result = await sandbox_runtime.execute(language=__import__("backend.app.core.sandbox", fromlist=["SandboxLanguage"]).SandboxLanguage.PYTHON, code=code)
             return result.result, result.error

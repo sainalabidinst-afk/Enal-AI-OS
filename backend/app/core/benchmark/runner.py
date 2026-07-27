@@ -280,7 +280,7 @@ class BenchmarkRunner:
             return 0.0
         return round(float(compliance) * 100, 2)
 
-    def _score_executive_report(self, data: dict[str, Any]) -> float:
-        if data.get("summary"):
+    def _score_executive_report(self, data: dict[str, Any] | None) -> float:
+        if data and data.get("summary"):
             return 100.0
         return 0.0
