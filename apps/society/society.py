@@ -384,8 +384,8 @@ class SocietyRuntime:
         self._kernel_request_resource(project_id, "agent", task.get("intent", task.get("name", project_id)), float(team_size * 100))
 
         organizational_metrics.start_project(project_id, team_id)
-        blackboard.write("current_project", project_id)
-        blackboard.write("current_task", task)
+        blackboard.write_sync("current_project", project_id)
+        blackboard.write_sync("current_task", task)
 
         team_members = [self._agent_instances[m.agent.id] for m in team.members if m.agent.id in self._agent_instances]
         domain = task.get("type", IntentDomain.GENERAL.value)

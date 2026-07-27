@@ -2,7 +2,7 @@
 Voice & Vision Agent
 =====================
 
- Speech-to-text, text-to-speech, and vision capabilities.
+Speech-to-text, text-to-speech, and vision capabilities.
 """
 
 import logging
@@ -18,7 +18,7 @@ class VoiceTranscription:
     confidence: float
     language: str = "en"
     duration_ms: float = 0.0
-    alternatives: list[str] = None
+    alternatives: list[str] | None = None
 
 
 @dataclass
@@ -27,12 +27,12 @@ class VisionAnalysis:
     objects: list[str]
     text_detected: list[str]
     confidence: float
-    metadata: dict[str, Any] = None
+    metadata: dict[str, Any] | None = None
 
 
 class VoiceAgent:
     def __init__(self):
-        self._supported_languages = ["en", "id", "es", "fr", "de"]
+        self._supported_languages: list[str] = ["en", "id", "es", "fr", "de"]
 
     async def transcribe(self, audio_data: bytes, language: str = "en") -> VoiceTranscription:
         raise NotImplementedError("STT requires speech recognition service")
@@ -46,7 +46,7 @@ class VoiceAgent:
 
 class VisionAgent:
     def __init__(self):
-        self._supported_formats = ["png", "jpg", "jpeg", "gif", "webp"]
+        self._supported_formats: list[str] = ["png", "jpg", "jpeg", "gif", "webp"]
 
     async def analyze(self, image_data: bytes, format: str = "png") -> VisionAnalysis:
         if format not in self._supported_formats:

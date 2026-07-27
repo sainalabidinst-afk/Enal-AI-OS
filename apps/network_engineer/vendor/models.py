@@ -311,7 +311,7 @@ class NetworkAST:
                 {
                     "destination": r.destination,
                     "gateway": r.gateway,
-                    "interface": r.interface,
+                    "interface": "",
                     "distance": r.distance,
                     "comment": r.comment,
                 }

@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 from backend.app.core.memory_layer import memory_manager
 from backend.app.core.cognitive.world_model import world_model
+from backend.app.core.decision_engine import DecisionResult
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +55,7 @@ class ReasoningService(CognitiveService):
         hypotheses = await reasoning_engine.generate_hypotheses(problem)
         chain = await reasoning_engine.reason(problem, hypotheses)
         decision = await reasoning_engine.decide(chain)
-        return {"hypotheses": hypotheses, "chain": chain, "decision": decision}
+        return {"hypotheses": [h.__dict__ for h in hypotheses], "chain": chain.__dict__, "decision": decision}
 
 
 class PlanningService(CognitiveService):
@@ -63,16 +64,30 @@ class PlanningService(CognitiveService):
         perception = context.get("perception", {})
         problem = perception.get("input", "")
         roadmap = await strategic_planner.create_strategy(problem, context)
-        return {"roadmap": roadmap}
+        return {"roadmap": roadmap.__dict__}
 
 
 class DecisionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
-        from backend.app.core.decision_engine import decision_engine
-        options = context.get("options", [])
+        from backend.app.core.decision_engine import decision_engine, DecisionOption
+        options_raw = context.get("options", [])
+        options = []
+        for opt in options_raw:
+            if isinstance(opt, dict):
+                options.append(DecisionOption(**opt))
+            elif isinstance(opt, DecisionOption):
+                options.append(opt)
         if not options:
             return {"decision": context.get("perception", {}).get("input", ""), "confidence": 0.0}
-        return await decision_engine.decide(options, context)
+        decision_result: DecisionResult = await decision_engine.decide(options, context)
+        return {
+            "selected_option_id": decision_result.selected_option_id,
+            "selected_description": decision_result.selected_description,
+            "confidence": decision_result.confidence,
+            "expected_value": decision_result.expected_value,
+            "reasoning": decision_result.reasoning,
+            "all_options": decision_result.all_options,
+        }
 
 
 class ActionService(CognitiveService):

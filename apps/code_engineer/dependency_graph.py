@@ -18,7 +18,6 @@ import logging
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -427,7 +426,6 @@ class DependencyGraphBuilder:
 
 def find_circular_imports(repo_path: str | Path) -> list[list[str]]:
     """Quick function to find circular imports in a repository."""
-    from apps.code_engineer.architecture_reader import ArchitectureReader
     import asyncio
 
     builder = DependencyGraphBuilder(repo_path)

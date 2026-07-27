@@ -64,6 +64,15 @@ Orchestrated by `backend/app/agents/orchestrator_v2.py`.
 
 ---
 
+## Architecture Rule (2026-07-27)
+
+> **Core Cognitive Services Decoupling Rule:**
+> No Core Cognitive Service may call another directly without going through service interface or orchestration layer.
+
+**Enforce:** Memory ↔ Planner ↔ Executor ↔ Learning communicate through contracts only.
+
+---
+
 ## Package Structure
 
 ```
@@ -154,3 +163,29 @@ Contract v2.x → Breaking changes, migration guide provided
 ```
 
 > **Policy Change (2026-07-27):** All public API contracts are frozen. Internal changes allowed; public signature changes require review.
+
+---
+
+## Next Sprints (Revised Priority)
+
+### Sprint A — Engineering Hardening
+- 0 Pylance Severity 8
+- 100% Public API Typed
+- Async consistency
+
+### Sprint B — AES Documentation
+- Architecture Specification
+- Engineering Specification
+- Behavioral contracts
+
+### Sprint C — Reflection + Evaluation
+```
+Generate → Evaluate → Reflect → Improve → Verify
+```
+
+### Sprint D — Evidence Layer
+```
+Search → Retrieve → Extract → Normalize → Rank → Evidence → Citation
+```
+
+### Sprint E — Debate Engine

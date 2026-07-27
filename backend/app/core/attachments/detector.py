@@ -105,12 +105,18 @@ def _extension_for(filename: str) -> str:
 def detect_from_filename(filename: str) -> AttachmentMeta:
     ext = _extension_for(filename)
     mapped = EXTENSION_MAP.get(ext)
-    attachment_type = AttachmentType.unknown
-    vendor = VendorFamily.unknown
-    device_role = DeviceRole.unknown
+    attachment_type: AttachmentType = AttachmentType.unknown
+    vendor: VendorFamily | None = None
+    device_role: DeviceRole | None = None
     if mapped:
         attachment_type, vendor, device_role = mapped
-    return AttachmentMeta(filename=filename, attachment_type=attachment_type, vendor=vendor or VendorFamily.unknown, device_role=device_role or DeviceRole.unknown, detected_format=ext)
+    return AttachmentMeta(
+        filename=filename,
+        attachment_type=attachment_type,
+        vendor=vendor or VendorFamily.unknown,
+        device_role=device_role or DeviceRole.unknown,
+        detected_format=ext,
+    )
 
 
 def detect_from_content(filename: str, content: str, max_preview: int = 2000) -> AttachmentMeta:
@@ -119,23 +125,19 @@ def detect_from_content(filename: str, content: str, max_preview: int = 2000) ->
     preview = content[:max_preview]
     meta.text_preview = preview
 
-    confidence = 0.3
-    best_vendor: VendorFamily = VendorFamily.unknown
-    best_role: DeviceRole | None = None
-
-    for signature, (vendor, role) in VENDOR_SIGNATURES.items():
+    # Auto-detect vendor and role from content signatures
+    best_confidence = 0.3
+    for signature, (sig_vendor, sig_role) in VENDOR_SIGNATURES.items():
         if signature in lowered:
             weight = len(signature)
-            if weight > confidence:
-                best_vendor = vendor
-                best_role = role
-                confidence = weight
+            if weight > best_confidence:
+                meta.vendor = sig_vendor
+                if sig_role is not None:
+                    meta.device_role = sig_role
+                best_confidence = weight
 
-    if best_vendor != VendorFamily.unknown:
-        meta.vendor = best_vendor
-        if best_role:
-            meta.device_role = best_role
-        meta.confidence = min(1.0, 0.5 + confidence / 10.0)
+    if meta.vendor != VendorFamily.unknown:
+        meta.confidence = min(1.0, 0.5 + best_confidence / 10.0)
 
     if meta.attachment_type == AttachmentType.unknown:
         if any(key in lowered for key in ["/interface", "/ip ", "routeros", "/routing", "/ip firewall"]):

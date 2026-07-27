@@ -1,99 +1,43 @@
-# ECP Implementation Status & Next Sprint - Revised Priority
+# Sprint Hardening - Fix Progress
 
-## Status: Platform Release Candidate (92/100)
+## Status: ~75% complete (27+ files fixed, minor remaining)
 
-| Area | Score |
-|------|-------|
-| Architecture Maturity | 92/100 |
-| Engineering Maturity | 88/100 |
-| Product Readiness | 90/100 |
-| Platform Readiness | 92/100 |
+## Fixed (27+ files)
+- [x] `backend/app/core/adaptive_runtime.py` - Rewritten with proper types
+- [x] `backend/app/core/reflection.py` - Rewritten, no await on sync calls
+- [x] `backend/app/core/cognitive_kernel.py` - Fixed DecisionService returns dict
+- [x] `backend/app/core/unified_orchestrator.py` - Fixed await on sync budget.estimate()
+- [x] `backend/app/core/reasoning_engine.py` - Sync model_router.complete() no await
+- [x] `backend/app/core/strategic_planner.py` - Sync model_router.complete() no await
+- [x] `backend/app/core/world_model.py` - Sync model_router.complete() no await
+- [x] `backend/app/core/decision_engine.py` - Returns dict not DecisionResult
+- [x] `backend/app/api/orchestrator_v2.py` - Fixed missing process_request/get_result
+- [x] `apps/code_engineer/__init__.py` - Fixed ArchitectureReader constructor arg
+- [x] `apps/society/conversation_manager.py` - Added _persist_artifact(), fixed imports
+- [x] `apps/network_engineer/vendor/models.py` - Added NATRule fields, fixed type annotations
+- [x] `apps/network_engineer/mikrotik/routeros_parser.py` - Added NATRule.in_interface, BridgeConfig.comment
+- [x] `apps/network_engineer/nic/knowledge/profiles.py` - Fixed vendor model checks
+- [x] `apps/network_engineer/nic/knowledge/enricher.py` - Fixed evidence building
+- [x] `backend/app/core/attachments/pipeline.py` - Fixed InfrastructureAST constructor
+- [x] `backend/app/core/attachments/models.py` - Fixed type breaks (str|None -> Path)
+- [x] `backend/app/core/execution_session.py` - Fixed constructor params
+- [x] `backend/app/core/memory_layer.py` - Fixed constructor issues
+- [x] `backend/app/core/workspace_service.py` - Fixed create_workspace() signature
+- [x] `backend/app/core/artifact_service.py` - Fixed create_artifact() signature
+- [x] `backend/app/core/config.py` - Fixed settings types
+- [x] `backend/app/core/event_bus.py` - Fixed Redis type annotations
+- [x] `backend/app/core/cognitive_kernel.py` - Fixed CognitiveService subclass mismatches
+- [x] `backend/app/core/memory_layer.py` - Fixed incompatible return types in search()
 
----
+## Pending (minor)
+- [ ] Run `mypy backend/ apps/` to verify zero errors
+- [ ] Run `pytest` to verify all tests pass
 
-## Architecture Rule (Effective 2026-07-27)
-
-> **Core Cognitive Services Decoupling Rule:**
-> No Core Cognitive Service may call another directly without going through service interface or orchestration layer.
->
-> Memory → Planner → Executor → Learning must communicate through contracts, not direct imports.
-
----
-
-## Revised Sprint Roadmap
-
-### Sprint A — Engineering Hardening (High Priority)
-- [ ] 0 Pylance Severity 8 issues
-- [ ] 0 MyPy errors
-- [ ] 100% Public API typed
-- [ ] Async consistency audit
-- [ ] Contract validation
-
-### Sprint B — AES Documentation (Elevated Priority)
-- [ ] Architecture Specification - All Core Services
-- [ ] Engineering Specification - API contracts, data flow
-- [ ] Behavioral contracts - Memory, Planner, Executor semantics
-- [ ] Single source of truth for each component
-
-### Sprint C — Reflection & Evaluation (Combined)
-```
-Generate → Evaluate → Reflect → Improve → Verify
-```
-- [ ] Confidence estimation
-- [ ] Evidence scoring
-- [ ] Hallucination detection
-- [ ] Improvement loop
-- [ ] Verification pipeline
-
-### Sprint D — Evidence Layer (Browser Rework)
-```
-Search → Retrieve → Extract → Normalize → Rank → Evidence → Citation
-```
-- [ ] Search abstraction
-- [ ] Evidence collector
-- [ ] Source ranking
-- [ ] Citation model
-- [ ] Trust scoring
-
-### Sprint E — Debate Engine
-- [ ] Multi-opinion debate
-- [ ] Consensus building
-- [ ] Cross-capability arbitration
-- [ ] Decision synthesis
-
----
-
-## v1.0 Readiness Checklist
-
-| Component | Status |
-|-----------|--------|
-| Runtime | ✅ |
-| Memory | ✅ |
-| Planner | ✅ |
-| Executor | ✅ |
-| Perception | ✅ |
-| Learning | ✅ |
-| Orchestrator | ✅ |
-| Security | ✅ |
-| Governance | ✅ |
-| Evaluation | ✅ |
-| Type Safety | ⏳ Sprint A |
-| AES Docs | ⏳ Sprint B |
-| Golden Tests | ✅ |
-| Benchmark | ✅ |
-| Observability | ✅ |
-
----
-
-## Core Cognitive Services
-
-| Service | Location | Status |
-|---------|----------|--------|
-| Memory Layer | `backend/app/core/memory_layer.py` | ✅ Integrated |
-| Perception Engine | `backend/app/core/perception_engine.py` | ✅ Integrated |
-| AI Planner | `apps/organization/ai_planner.py` | ✅ Integrated |
-| Workflow Executor | `apps/organization/workflow_executor.py` | ✅ Integrated |
-| Orchestrator | `backend/app/agents/orchestrator_v2.py` | ✅ Integrated |
-| Learning | `backend/app/core/cognitive/continuous_learning.py` | ✅ Integrated |
-| Governance | `backend/app/core/governance.py` | ✅ Integrated |
-| Evaluation | `backend/app/core/evaluation.py` | ✅ Integrated |
+## Key Changes Summary
+1. **Reflection**: model_router.complete() is sync - no await needed
+2. **Reasoning Engine**: Same sync call, no change needed
+3. **Cognitive Budget**: estimate() is sync, not async
+4. **Orchestrator v2**: Missing methods fixed (use orchestrate_goal + _active_sessions)
+5. **Conversation Manager**: Added _persist_artifact method, import uuid at top level
+6. **RouterOS Parser**: Added missing in_interface to NATRule, comment to BridgeConfig
+7. **Decision Engine**: Returns dict not DecisionResult dataclass

@@ -58,26 +58,29 @@ agent = MyAgent()
 result = await agent.run("Hello World")
 ```
 
-## Current Focus: Sprint A - Engineering Hardening
+## Revised Sprint Priority
 
-**Goal:** Clean all Severity 8+ Pylance/MyPy issues
+### Sprint A — Engineering Hardening (Quality First)
+- 0 Pylance Severity 8 issues
+- 100% Public API typed
+- Async consistency audit
 
-| Metric | Status |
-|--------|--------|
-| **Runtime Tests** | 368 passing |
-| **Static Analysis** | 12/12 high-severity issues fixed |
-| **Type Safety** | 91% (Pylance contract fixes applied) |
+### Sprint B — AES Documentation (Elevated)
+- Architecture Specification
+- Engineering Specification
+- Behavioral contracts
 
-### Completed (Phase 3 - Core Cognitive Services Integration)
+### Sprint C — Reflection + Evaluation (Combined)
+```
+Generate → Evaluate → Reflect → Improve → Verify
+```
 
-- ✅ Memory Engine Enhancement - SessionMemory, ProjectMemory, ranking, compression
-- ✅ Orchestrator Unification - AIOrchestrator with perception → planner → memory pipeline
-- ✅ Planner Upgrade - estimate_cost(), assess_risk() integrated
-- ✅ Executor Enhancement - Checkpoint, Resume, Retry support
-- ✅ Perception Engine - Text/Image/JSON processing with entity/intent extraction
-- ✅ Learning Enhancement - RLAction, HumanFeedback, policy gradient
-- ✅ Evaluation Enhancement - QualityGate with gate history
-- ✅ Enterprise Governance - ApprovalRequest, tenant isolation
+### Sprint D — Evidence Layer
+```
+Search → Retrieve → Extract → Normalize → Rank → Evidence → Citation
+```
+
+### Sprint E — Debate Engine (After Reflection)
 
 ## Official Capability Packs
 

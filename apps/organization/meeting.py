@@ -159,7 +159,7 @@ class MeetingSystem:
     def _write_outcome_to_blackboard(self, meeting: Meeting) -> None:
         if not meeting.outcome:
             return
-        self._blackboard.write(f"meeting-{meeting.id}-outcome", {
+        self._blackboard.write_sync(f"meeting-{meeting.id}-outcome", {
             "meeting_id": meeting.id,
             "title": meeting.title,
             "type": meeting.meeting_type.value,

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class SelfReflection:
     def __init__(self, max_iterations: int = 3):
         self.max_iterations = max_iterations
-        self._feedback_history: list[dict] = []
+        self._feedback_history: list[dict[str, Any]] = []
 
     async def review(self, task: str, result: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         prompt = (
@@ -24,7 +24,8 @@ class SelfReflection:
                 model=settings.DEFAULT_REASONING_MODEL,
                 temperature=0.3,
             )
-            return json.loads(response.choices[0].message.content)
+            content = response.choices[0].message.content
+            return json.loads(content)
         except json.JSONDecodeError:
             return {"passed": True, "score": 7, "issues": [], "suggestions": []}
         except Exception as e:
@@ -79,7 +80,7 @@ class SelfReflection:
         """Get summary of feedback collected across services."""
         if not self._feedback_history:
             return {"total": 0, "avg_score": 0}
-        scores = [f["score"] for f in self._feedback_history if f["score"]]
+        scores = [f["score"] for f in self._feedback_history if f.get("score")]
         return {
             "total": len(self._feedback_history),
             "avg_score": sum(scores) / len(scores) if scores else 0,

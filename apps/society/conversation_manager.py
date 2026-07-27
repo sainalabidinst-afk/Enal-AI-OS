@@ -13,6 +13,7 @@ Responsibilities:
 """
 
 import logging
+import uuid
 from collections.abc import AsyncGenerator
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -22,7 +23,6 @@ from apps.society.society import SocietyRuntime, create_society
 
 try:
     from backend.app.core.memory import conversation_store as _memory
-
     _MEMORY_AVAILABLE = True
 except Exception:
     _MEMORY_AVAILABLE = False
@@ -218,7 +218,7 @@ class ConversationManager:
             subtask_count = len(task_plan.get("subtasks", []))
             yield {"type": "plan", "subtasks": subtask_count, "strategy": task_plan.get("strategy")}
             for subtask in task_plan.get("subtasks", []):
-                yield {"type": "status", "message": f"Working on: {subtask.get('name', '')}"}
+                yield {"type": "status", "message": "Working on: " + subtask.get("name", "")}
 
         if execution_plan:
             for stage in execution_plan.get("stages", []):
@@ -336,6 +336,21 @@ class ConversationManager:
             await _memory.append_message(conversation_id, message)
         except Exception:
             self._local_memory.setdefault(conversation_id, []).append(message)
+
+    async def _persist_artifact(self, conversation_id: str, artifact: dict[str, Any]) -> None:
+        artifact_id = "artifact-" + uuid.uuid4().hex[:8]
+        artifact["id"] = artifact_id
+        if not _MEMORY_AVAILABLE:
+            return
+        try:
+            msg = {
+                "role": "system",
+                "content": artifact_id,
+                "metadata": artifact,
+            }
+            await _memory.append_message(conversation_id, msg)
+        except Exception:
+            pass
 
     async def _maybe_analyze_attachments(self, user_message: str, context: dict[str, Any]) -> dict[str, Any] | None:
         lowered = user_message.lower()

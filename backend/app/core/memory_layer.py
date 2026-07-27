@@ -56,7 +56,7 @@ class MemoryLayer(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def search(self, query: str, limit: int = 10) -> list[dict]:
+    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:
         raise NotImplementedError
 
     @abstractmethod
@@ -390,11 +390,15 @@ class ProjectMemory(MemoryLayer):
     async def delete(self, key: str, project_id: str | None = None) -> bool:
         pid = project_id or key.split(":")[0] if ":" in key else "default"
         path = self.base_path / f"{pid}" / f"{key}.json"
-        return path.unlink(missing_ok=True)
+        try:
+            path.unlink(missing_ok=True)
+            return True
+        except Exception:
+            return False
 
     async def list_keys(self, pattern: str = "*", project_id: str | None = None) -> list[str]:
         pid = project_id or "*"
-        results = []
+        results: list[str] = []
         for proj_dir in self.base_path.glob(f"{pid}" if pid != "*" else "*"):
             if proj_dir.is_dir():
                 for f in proj_dir.glob(f"{pattern}.json"):
@@ -420,7 +424,7 @@ class MemoryManager:
 
     async def get_session_context(self, session_id: str, query: str | None = None) -> dict[str, Any]:
         """Get full session context, optionally filtered by query."""
-        context = {"session_id": session_id, "entries": [], "summary": ""}
+        context: dict[str, Any] = {"session_id": session_id, "entries": [], "summary": ""}
         session_results = await self._layers["session"].search("", limit=100, session_id=session_id)
         context["entries"] = session_results
         if query:
@@ -429,7 +433,7 @@ class MemoryManager:
 
     async def get_project_context(self, project_id: str, query: str | None = None) -> dict[str, Any]:
         """Get full project context, optionally filtered by query."""
-        context = {"project_id": project_id, "entries": [], "summary": ""}
+        context: dict[str, Any] = {"project_id": project_id, "entries": [], "summary": ""}
         proj_results = await self._layers["project"].search("", limit=100, project_id=project_id)
         context["entries"] = proj_results
         if query:

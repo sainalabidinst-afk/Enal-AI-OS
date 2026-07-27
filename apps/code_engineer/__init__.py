@@ -3,8 +3,8 @@ Code Engineer
 =============
 
 Reference application #2: AI-powered code analysis and generation.
-Full pipeline: Architecture Reader → Dependency Graph → Impact Analysis
-→ Refactoring Suggestions → Patch Generator → Regression Risk → Test Generator
+Full pipeline: Architecture Reader -> Dependency Graph -> Impact Analysis
+-> Refactoring Suggestions -> Patch Generator -> Regression Risk -> Test Generator
 
 Each component builds on the previous to provide a complete
 code engineering workflow from analysis to safe deployment.
@@ -78,20 +78,16 @@ class CodeEngineerApp(BaseReferenceApp):
 
         path = Path(repo_path)
         if not path.exists():
-            return {"error": f"Repository path not found: {repo_path}"}
+            return {"error": "Repository path not found: " + repo_path}
 
-        # Step 1: Architecture Reader
-        reader = self.architecture_reader_cls(str(path))
+        self._repo_path = repo_path
+        reader = self.architecture_reader_cls(repo_path=path)
         architecture = await reader.read()
         if not architecture:
             return {"error": "Architecture analysis failed"}
 
-        # Step 2: Dependency Graph
-        dep_graph_cls = self.dependency_graph_builder(str(path))
-        dep_graph_summary = await dep_graph_cls.build()
-
-        # Step 3: Impact analysis (baseline)
-        impact_cls = self.impact_analyzer_cls(str(path))
+        dep_builder = self.dependency_graph_builder(repo_path=str(path))
+        dep_graph_summary = await dep_builder.build()
 
         return {
             "app": self.name,
@@ -165,8 +161,7 @@ class CodeEngineerApp(BaseReferenceApp):
     async def get_refactoring_suggestions(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:
         """Get refactoring suggestions for code."""
         await self._ensure_components()
-        code_ast = self.parser.parse(code, filename=filename)
-        # Create temp directory with the code file for analysis
+        self.parser.parse(code, filename=filename)
         import tempfile
         import os
         with tempfile.TemporaryDirectory() as tmpdir:

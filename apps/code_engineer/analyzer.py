@@ -187,7 +187,7 @@ class CodeAnalyzer:
         # Open/Closed Principle: Large if-elif chains (feature envy)
         for func in code_ast.functions:
             if "elif" in raw and func.name not in ("__init__", "__new__"):
-                lines = [l for l in code_ast.raw_lines if f"elif" in l]
+                lines = [l for l in code_ast.raw_lines if "elif" in l]
                 if len(lines) > 3:
                     issues.append(CodeIssue(
                         severity=Severity.MEDIUM,

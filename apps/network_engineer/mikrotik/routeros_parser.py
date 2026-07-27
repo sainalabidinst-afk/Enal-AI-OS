@@ -80,6 +80,7 @@ class NATRule:
     action: str = ""
     src_address: str = ""
     dst_address: str = ""
+    in_interface: str = ""
     out_interface: str = ""
     comment: str = ""
 
@@ -113,6 +114,7 @@ class BridgeConfig:
     name: str = ""
     ports: list[str] = field(default_factory=list)
     protocol_mode: str = ""
+    comment: str = ""
 
 
 @dataclass

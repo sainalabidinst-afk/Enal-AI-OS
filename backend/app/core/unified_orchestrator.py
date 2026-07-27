@@ -75,17 +75,17 @@ class UnifiedOrchestrator:
 
     async def _execute_cognitive(self, task: str, project_id: str | None, context: dict) -> dict[str, Any]:
         kernel = self._get_kernel()
-        runtime, PIPELINE_PRESETS, TaskComplexity = self._get_runtime()
+        runtime_obj, pipeline_presets, task_complexity = self._get_runtime()
 
-        pipeline_selection = await runtime.budget.estimate(task)
-        pipeline = PIPELINE_PRESETS.get(pipeline_selection.complexity)
+        budget = runtime_obj.budget.estimate(task)
+        pipeline = pipeline_presets.get(budget.complexity)
         if not pipeline:
-            pipeline = PIPELINE_PRESETS[TaskComplexity.MEDIUM]
+            pipeline = pipeline_presets[task_complexity.MEDIUM]
 
         exec_context = {
             "input": task,
             "project_id": project_id,
-            "budget": pipeline_selection,
+            "budget": budget,
             **context,
         }
         result = await kernel.execute_pipeline(pipeline, exec_context)

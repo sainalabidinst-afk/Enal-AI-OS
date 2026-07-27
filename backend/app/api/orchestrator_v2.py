@@ -8,7 +8,10 @@ router = APIRouter()
 @router.post("/v2/chat")
 async def chat_v2(request: ChatRequest):
     try:
-        result = await ai_orchestrator.process_request(request.message, request.conversation_id)
+        result = await ai_orchestrator.orchestrate_goal(
+            goal=request.message,
+            context={"conversation_id": request.conversation_id},
+        )
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -16,7 +19,7 @@ async def chat_v2(request: ChatRequest):
 
 @router.get("/v2/tasks/{task_id}")
 async def get_task_status(task_id: str):
-    result = await ai_orchestrator.get_result(task_id)
-    if not result:
+    session = ai_orchestrator._active_sessions.get(task_id)
+    if not session:
         raise HTTPException(status_code=404, detail="Task not found")
-    return result
+    return session
