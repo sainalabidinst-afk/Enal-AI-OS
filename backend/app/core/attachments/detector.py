@@ -106,15 +106,15 @@ def detect_from_filename(filename: str) -> AttachmentMeta:
     ext = _extension_for(filename)
     mapped = EXTENSION_MAP.get(ext)
     attachment_type: AttachmentType = AttachmentType.unknown
-    vendor: VendorFamily | None = None
-    device_role: DeviceRole | None = None
+    vendor: VendorFamily = VendorFamily.unknown
+    device_role: DeviceRole = DeviceRole.unknown
     if mapped:
         attachment_type, vendor, device_role = mapped
     return AttachmentMeta(
         filename=filename,
         attachment_type=attachment_type,
-        vendor=vendor or VendorFamily.unknown,
-        device_role=device_role or DeviceRole.unknown,
+        vendor=vendor,
+        device_role=device_role,
         detected_format=ext,
     )
 

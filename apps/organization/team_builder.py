@@ -8,7 +8,6 @@ Searches the Agent Registry for the best agents for each role needed.
 
 import uuid
 from dataclasses import dataclass, field
-from typing import Any
 
 from apps.organization.registry import (
     AgentRecord,

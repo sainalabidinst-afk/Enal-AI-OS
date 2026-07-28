@@ -4,7 +4,6 @@ Tests for Reflection & Self-Critic
 Tests for feedback loop integration and iterative improvement.
 """
 
-import pytest
 
 
 class TestSelfReflection:

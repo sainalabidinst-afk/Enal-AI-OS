@@ -7,8 +7,6 @@ Provides web browsing, data extraction, and API interaction capabilities.
 Uses: aiohttp for HTTP requests, BeautifulSoup-like parsing for content extraction.
 """
 
-import asyncio
-import json
 import logging
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -52,7 +50,6 @@ class BrowserAgent:
             return BrowserResult(url=url, title="Stub", content="Browser not available", evidence_score=0.3)
 
         try:
-            import aiohttp
             async with self.session.get(url) as response:
                 html = await response.text()
                 return self._parse_html(url, html)
@@ -158,7 +155,6 @@ class BrowserAgent:
             return {"error": "Browser not available"}
 
         try:
-            import aiohttp
             if method.upper() == "GET":
                 async with self.session.get(endpoint, params=data) as response:
                     return await response.json() if "json" in response.content_type else await response.text()

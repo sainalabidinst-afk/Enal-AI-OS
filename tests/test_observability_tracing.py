@@ -4,7 +4,6 @@ Tests for Observability & Distributed Tracing
 Tests for trace propagation and context management.
 """
 
-import pytest
 
 
 class TestObservabilityDistributedTracing:

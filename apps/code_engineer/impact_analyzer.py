@@ -372,14 +372,14 @@ class ImpactAnalyzer:
     def _generate_summary(self, result: ImpactAnalysisResult) -> str:
         """Generate human-readable summary."""
         lines = [
-            f"# Impact Analysis Summary",
-            f"",
+            "# Impact Analysis Summary",
+            "",
             f"**Changes**: {len(result.changes)}",
             f"**Impacted Items**: {result.total_impacted}",
             f"**Impacted Tests**: {result.total_tests_impacted}",
             f"**Max Severity**: {result.max_severity}",
             f"**Risk Score**: {result.risk_score:.1%}",
-            f"",
+            "",
         ]
 
         # Group by severity

@@ -13,7 +13,6 @@ Categories:
 """
 
 import asyncio
-import json
 from typing import Any
 from backend.app.core.evaluation import Benchmark, evaluation_framework
 from backend.app.core.adaptive_runtime import adaptive_runtime

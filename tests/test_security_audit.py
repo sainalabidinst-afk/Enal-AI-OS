@@ -4,7 +4,6 @@ Tests for Enterprise Security & Governance
 Tests for audit logging and policy management.
 """
 
-import pytest
 
 
 class TestSecurityModelAudit:

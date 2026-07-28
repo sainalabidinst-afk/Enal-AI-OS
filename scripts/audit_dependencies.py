@@ -87,6 +87,6 @@ for label, path in [("Makefile", makefile), ("Dockerfile", dockerfile), ("CI", c
     if path.exists():
         text = path.read_text(encoding="utf-8", errors="ignore")
         if "poetry" in text:
-            print(f"  - Uses poetry")
+            print("  - Uses poetry")
         if "pip install -e" in text:
-            print(f"  - Uses editable install")
+            print("  - Uses editable install")

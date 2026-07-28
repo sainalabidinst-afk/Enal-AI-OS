@@ -61,21 +61,25 @@ result = await agent.run("Hello World")
 ## Revised Sprint Priority
 
 ### Sprint A — Engineering Hardening (Quality First)
+
 - 0 Pylance Severity 8 issues
 - 100% Public API typed
 - Async consistency audit
 
 ### Sprint B — AES Documentation (Elevated)
+
 - Architecture Specification
 - Engineering Specification
 - Behavioral contracts
 
 ### Sprint C — Reflection + Evaluation (Combined)
+
 ```
 Generate → Evaluate → Reflect → Improve → Verify
 ```
 
 ### Sprint D — Evidence Layer
+
 ```
 Search → Retrieve → Extract → Normalize → Rank → Evidence → Citation
 ```
@@ -85,7 +89,7 @@ Search → Retrieve → Extract → Normalize → Rank → Evidence → Citation
 ## Official Capability Packs
 
 | Capability Pack | Status | Grade |
-|-----------------|--------|-------|
+|---------------|--------|-------|
 | **Network Engineer** | ✅ Production Ready | A (≥90) |
 | **Code Engineer** | ✅ Production Ready | A- (≥85) |
 | **Research Assistant** | ✅ Production Ready | A- (≥85) |

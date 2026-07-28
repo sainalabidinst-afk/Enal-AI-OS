@@ -389,7 +389,7 @@ class TestGenerator:
                 src = f"def test_{name}_empty_{param.arg}(self):\n"
                 src += f'    """Test {name} with empty {param.arg}."""\n'
                 src += f"    result = {name}({param.arg}='')\n"
-                src += f"    assert result is not None\n"
+                src += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{name}_empty_{param.arg}",
                     source_code=src,
@@ -399,7 +399,7 @@ class TestGenerator:
                 src2 = f"def test_{name}_none_{param.arg}(self):\n"
                 src2 += f'    """Test {name} with None {param.arg}."""\n'
                 src2 += f"    result = {name}({param.arg}=None)\n"
-                src2 += f"    assert result is not None\n"
+                src2 += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{name}_none_{param.arg}",
                     source_code=src2,
@@ -410,7 +410,7 @@ class TestGenerator:
                 src = f"def test_{name}_zero_{param.arg}(self):\n"
                 src += f'    """Test {name} with zero {param.arg}."""\n'
                 src += f"    result = {name}({param.arg}=0)\n"
-                src += f"    assert result is not None\n"
+                src += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{name}_zero_{param.arg}",
                     source_code=src,
@@ -420,7 +420,7 @@ class TestGenerator:
                 src2 = f"def test_{name}_negative_{param.arg}(self):\n"
                 src2 += f'    """Test {name} with negative {param.arg}."""\n'
                 src2 += f"    result = {name}({param.arg}=-1)\n"
-                src2 += f"    assert result is not None\n"
+                src2 += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{name}_negative_{param.arg}",
                     source_code=src2,
@@ -431,7 +431,7 @@ class TestGenerator:
                 src = f"def test_{name}_empty_{param.arg}(self):\n"
                 src += f'    """Test {name} with empty {param.arg}."""\n'
                 src += f"    result = {name}({param.arg}=[])\n"
-                src += f"    assert result is not None\n"
+                src += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{name}_empty_{param.arg}",
                     source_code=src,
@@ -459,7 +459,7 @@ class TestGenerator:
                 src = f"def test_{prefix}_empty_{param.arg}(self, {inst}):\n"
                 src += f"    inst = {inst}\n"
                 src += f"    result = inst.{name}({param.arg}='')\n"
-                src += f"    assert result is not None\n"
+                src += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{prefix}_empty_{param.arg}",
                     source_code=src,
@@ -471,7 +471,7 @@ class TestGenerator:
                 src2 = f"def test_{prefix}_none_{param.arg}(self, {inst}):\n"
                 src2 += f"    inst = {inst}\n"
                 src2 += f"    result = inst.{name}({param.arg}=None)\n"
-                src2 += f"    assert result is not None\n"
+                src2 += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{prefix}_none_{param.arg}",
                     source_code=src2,
@@ -484,7 +484,7 @@ class TestGenerator:
                 src = f"def test_{prefix}_zero_{param.arg}(self, {inst}):\n"
                 src += f"    inst = {inst}\n"
                 src += f"    result = inst.{name}({param.arg}=0)\n"
-                src += f"    assert result is not None\n"
+                src += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{prefix}_zero_{param.arg}",
                     source_code=src,
@@ -496,7 +496,7 @@ class TestGenerator:
                 src2 = f"def test_{prefix}_negative_{param.arg}(self, {inst}):\n"
                 src2 += f"    inst = {inst}\n"
                 src2 += f"    result = inst.{name}({param.arg}=-1)\n"
-                src2 += f"    assert result is not None\n"
+                src2 += "    assert result is not None\n"
                 results.append(GeneratedTest(
                     name=f"test_{prefix}_negative_{param.arg}",
                     source_code=src2,

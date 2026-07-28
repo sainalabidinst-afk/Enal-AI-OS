@@ -19,7 +19,6 @@ Test scenarios:
 """
 
 import pytest
-from typing import Any
 
 from apps.organization.capability_execution_engine import (
     ExecutionStatus,

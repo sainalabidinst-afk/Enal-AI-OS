@@ -5,7 +5,6 @@ Multi-Vendor Golden Tests
 Tests Network Engineer with MikroTik, Cisco IOS, and Fortinet configs.
 """
 
-import asyncio
 import pytest
 from pathlib import Path
 

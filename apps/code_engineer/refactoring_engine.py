@@ -18,7 +18,6 @@ import ast
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -146,10 +145,10 @@ class RefactoringEngine:
 
         # Generate summary
         lines = [
-            f"# Refactoring Analysis Report",
-            f"",
+            "# Refactoring Analysis Report",
+            "",
             f"**Total Suggestions**: {report.total_suggestions}",
-            f"",
+            "",
         ]
         for cat, count in sorted(report.by_category.items(), key=lambda x: x[1], reverse=True):
             lines.append(f"- **{cat}**: {count}")
@@ -200,7 +199,7 @@ class RefactoringEngine:
                         line_number=node.lineno,
                         description=f"Function '{node.name}' has {len(args)} parameters",
                         problem="Too many parameters makes functions hard to call and test.",
-                        suggestion=f"Consider using a dataclass/object to group parameters, or split the function",
+                        suggestion="Consider using a dataclass/object to group parameters, or split the function",
                         confidence=0.9,
                         effort="medium",
                         impact="medium",
@@ -284,7 +283,7 @@ class RefactoringEngine:
                         line_number=node.lineno,
                         description=f"Function '{node.name}' has {len(returns)} return statements",
                         problem="Multiple return points make control flow harder to follow.",
-                        suggestion=f"Consider using a single exit point or guard clauses more consistently",
+                        suggestion="Consider using a single exit point or guard clauses more consistently",
                         confidence=0.6,
                         effort="low",
                         impact="low",
@@ -421,7 +420,7 @@ class RefactoringEngine:
                     line_number=1,
                     description=f"Module '{module_path}' is {total_lines} lines long",
                     problem="Large modules violate Single Responsibility Principle and become unmanageable.",
-                    suggestion=f"Split into smaller modules (aim for <300 lines per module)",
+                    suggestion="Split into smaller modules (aim for <300 lines per module)",
                     confidence=0.8,
                     effort="high",
                     impact="high",

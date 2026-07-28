@@ -11,14 +11,12 @@ from __future__ import annotations
 import csv
 import json
 import logging
-import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from real_cases.benchmark import BenchmarkHarness, load_cases_from_disk
-from real_cases.collector import list_cases
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

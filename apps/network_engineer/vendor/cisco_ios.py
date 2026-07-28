@@ -13,17 +13,14 @@ from apps.network_engineer.vendor.models import (
     NetworkAST,
     RuleAction,
     UniversalBGP,
-    UniversalCAPsMAN,
     UniversalDHCPServer,
     UniversalFirewallRule,
     UniversalInterface,
     UniversalIPAddress,
-    UniversalMPLS,
     UniversalNATRule,
     UniversalRoute,
     UniversalUser,
     UniversalVLAN,
-    UniversalWireGuard,
 )
 
 logger = logging.getLogger(__name__)

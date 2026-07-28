@@ -4,7 +4,6 @@ Tests for Plugin Marketplace
 Tests for plugin discovery, installation, and management.
 """
 
-import pytest
 
 
 class TestPluginManifest:

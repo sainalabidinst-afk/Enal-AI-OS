@@ -15,9 +15,7 @@ import asyncio
 import time
 import hashlib
 from typing import Any
-from backend.app.core.evaluation import Benchmark, evaluation_framework
 from backend.app.core.adaptive_runtime import adaptive_runtime
-from backend.app.core.cognitive_kernel import cognitive_kernel
 
 
 class BenchmarkMetrics:

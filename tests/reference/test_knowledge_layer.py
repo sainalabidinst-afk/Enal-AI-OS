@@ -5,7 +5,6 @@ Test Knowledge Layer
 Tests Network Ontology, Concept Enricher, and Compliance Profiles.
 """
 
-import asyncio
 import pytest
 from pathlib import Path
 

@@ -20,7 +20,6 @@ Example:
 
 from typing import Any, Callable, Awaitable, Optional
 from pydantic import BaseModel, Field
-import asyncio
 import logging
 
 logger = logging.getLogger(__name__)

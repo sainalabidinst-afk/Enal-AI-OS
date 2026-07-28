@@ -108,12 +108,12 @@ class PatchBundle:
         """Generate human-readable markdown summary."""
         lines = [
             f"# Patch Bundle: {self.title}",
-            f"",
+            "",
             f"**ID**: {self.patch_id}",
             f"**Created**: {self.created_at}",
             f"**Status**: {self.status}",
             f"**Files**: {len(self.files)}",
-            f"",
+            "",
         ]
         if self.description:
             lines.append(f"## Description\n\n{self.description}\n")
@@ -429,7 +429,7 @@ class PatchGenerator:
                 patch_file.status = PatchStatus.ROLLED_BACK
                 logger.info(f"Rolled back patch on {patch_file.file_path}")
 
-            except Exception as e:
+            except Exception:
                 patch_file.status = PatchStatus.FAILED
                 all_rolled_back = False
 
@@ -440,10 +440,10 @@ class PatchGenerator:
         """Generate a preview of what the patch will do."""
         lines = [
             f"# Patch Preview: {bundle.title}",
-            f"",
+            "",
             f"**Patch ID**: {bundle.patch_id}",
             f"**Files to modify**: {len(bundle.files)}",
-            f"",
+            "",
         ]
 
         for patch_file in bundle.files:
