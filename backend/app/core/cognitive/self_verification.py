@@ -88,17 +88,17 @@ class SelfVerification:
             return result.result, result.error
         return "", "Unsupported language"
 
-    async def _lint(self, code: str, language: str) -> tuple[str | None, str | None]:
-        return None, "Lint passed"
+    async def _lint(self, code: str, language: str) -> tuple[str, str | None]:
+        return "Lint passed", None
 
-    async def _test(self, code: str, language: str) -> tuple[str | None, str | None]:
-        return None, "All tests passed"
+    async def _test(self, code: str, language: str) -> tuple[str, str | None]:
+        return "All tests passed", None
 
-    async def _security_scan(self, code: str, language: str) -> tuple[str | None, str | None]:
-        return None, "No security issues found"
+    async def _security_scan(self, code: str, language: str) -> tuple[str, str | None]:
+        return "No security issues found", None
 
-    async def _review(self, code: str) -> tuple[str | None, str | None]:
-        return None, "Code review passed"
+    async def _review(self, code: str) -> tuple[str, str | None]:
+        return "Code review passed", None
 
 
 self_verification = SelfVerification()

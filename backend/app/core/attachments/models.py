@@ -121,6 +121,7 @@ class InfrastructureAST:
     security: list[dict[str, Any]] = field(default_factory=list)
     wireless: list[dict[str, Any]] = field(default_factory=list)
     ha: list[dict[str, Any]] = field(default_factory=list)
+    storage: list[dict[str, Any]] = field(default_factory=list)
     system: dict[str, Any] = field(default_factory=dict)
     raw_sections: dict[str, Any] = field(default_factory=dict)
     findings: list[InfrastructureFinding] = field(default_factory=list)
@@ -140,6 +141,7 @@ class InfrastructureAST:
             "security": self.security,
             "wireless": self.wireless,
             "ha": self.ha,
+            "storage": self.storage,
             "system": self.system,
             "findings": [
                 {

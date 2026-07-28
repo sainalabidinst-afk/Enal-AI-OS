@@ -109,7 +109,9 @@ def detect_from_filename(filename: str) -> AttachmentMeta:
     vendor: VendorFamily = VendorFamily.unknown
     device_role: DeviceRole = DeviceRole.unknown
     if mapped:
-        attachment_type, vendor, device_role = mapped
+        attachment_type, _vendor, _device_role = mapped
+        vendor = _vendor or VendorFamily.unknown
+        device_role = _device_role or DeviceRole.unknown
     return AttachmentMeta(
         filename=filename,
         attachment_type=attachment_type,

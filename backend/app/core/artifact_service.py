@@ -48,7 +48,7 @@ class ArtifactService:
     async def create_artifact(self, workspace_id: str, name: str, artifact_type: str, description: Optional[str] = None, content: Optional[str] = None, path: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None) -> Artifact:
         async with self._lock:
             artifact = Artifact(workspace_id=workspace_id, name=name, type=artifact_type, description=description)
-            version = ArtifactVersion(version=1, content=content, path=path, metadata=metadata or {})
+            version = ArtifactVersion(version=1, created_at=datetime.now(timezone.utc), content=content, path=path, metadata=metadata or {})
             artifact.versions.append(version)
             self._artifacts[artifact.id] = artifact
             return artifact
@@ -69,7 +69,7 @@ class ArtifactService:
         if not artifact:
             return None
         artifact.current_version += 1
-        version = ArtifactVersion(version=artifact.current_version, content=content, path=path, metadata=metadata or {})
+        version = ArtifactVersion(version=artifact.current_version, created_at=datetime.now(timezone.utc), content=content, path=path, metadata=metadata or {})
         artifact.versions.append(version)
         artifact.updated_at = datetime.now(timezone.utc)
         return artifact
@@ -91,7 +91,7 @@ class ArtifactService:
         if not target:
             return None
         artifact.current_version += 1
-        restored = ArtifactVersion(version=artifact.current_version, content=target.content, path=target.path, metadata={**target.metadata, "restored_from": version})
+        restored = ArtifactVersion(version=artifact.current_version, created_at=datetime.now(timezone.utc), content=target.content, path=target.path, metadata={**target.metadata, "restored_from": version})
         artifact.versions.append(restored)
         artifact.updated_at = datetime.now(timezone.utc)
         return artifact
