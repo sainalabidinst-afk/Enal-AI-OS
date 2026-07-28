@@ -1,5 +1,7 @@
 import logging
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
+
 from backend.app.core.event_bus import event_bus
 from backend.app.core.task_queue import Task, TaskStatus, task_queue
 

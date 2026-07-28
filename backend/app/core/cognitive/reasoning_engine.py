@@ -1,9 +1,10 @@
 import logging
 from dataclasses import dataclass, field
-from typing import Any
 from enum import Enum
-from backend.app.core.model_router import model_router
+from typing import Any
+
 from backend.app.core.config import settings
+from backend.app.core.model_router import model_router
 
 logger = logging.getLogger(__name__)
 

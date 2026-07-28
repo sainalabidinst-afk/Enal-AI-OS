@@ -1,8 +1,9 @@
 import logging
 import uuid
-from typing import Any
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
+
 from backend.app.core.event_bus import Event, event_bus
 from backend.app.core.task_queue import Task
 

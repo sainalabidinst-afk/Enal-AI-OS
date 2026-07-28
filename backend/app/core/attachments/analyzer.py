@@ -3,8 +3,8 @@ from __future__ import annotations
 from backend.app.core.attachments.models import (
     AttachmentAnalysisResult,
     AttachmentMeta,
-    InfrastructureAST,
     AttachmentType,
+    InfrastructureAST,
 )
 from backend.app.core.attachments.parsers.registry import parser_registry
 from backend.app.core.attachments.reasoning import InfrastructureReasoningEngine
@@ -53,12 +53,12 @@ def analyze_multi(files: list[tuple[str, bytes]], compliance_frameworks: list[st
         return AttachmentAnalysisResult(meta=AttachmentMeta(filename="multi-file", attachment_type=AttachmentType.unknown), ast=InfrastructureAST(), analysis_error="No readable files")
 
     combined_ast = CrossFileReasoningEngine().cross_reason([r.ast for r in all_results])
-    
+
     frameworks = None
     if compliance_frameworks:
         from backend.app.core.attachments.compliance import ComplianceFramework
         frameworks = [ComplianceFramework(value) for value in compliance_frameworks if value in ComplianceFramework.__members__]
-    
+
     reasoning_result = InfrastructureReasoningEngine().reason(combined_ast, compliance_frameworks=frameworks)
 
     return AttachmentAnalysisResult(

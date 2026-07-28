@@ -1,11 +1,13 @@
 import logging
 import uuid
-from datetime import datetime
-from typing import Any, Callable, Awaitable
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
-from backend.app.core.events import Event
+from typing import Any
+
 from backend.app.core.event_bus import event_bus
+from backend.app.core.events import Event
 from backend.app.core.state_recovery import state_recovery
 from backend.app.core.task_queue import Task, task_queue
 

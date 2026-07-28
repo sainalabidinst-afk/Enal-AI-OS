@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import zipfile
 import tarfile
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -11,7 +11,6 @@ from backend.app.core.attachments.models import (
     DeviceRole,
     VendorFamily,
 )
-
 
 EXTENSION_MAP: dict[str, tuple[AttachmentType, VendorFamily | None, DeviceRole | None]] = {
     ".rsc": (AttachmentType.config, VendorFamily.mikrotik, DeviceRole.router),

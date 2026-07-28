@@ -15,9 +15,9 @@ from backend.app.core.attachments.parsers.network.meraki import MerakiParser
 from backend.app.core.attachments.parsers.network.mikrotik import MikroTikParser
 from backend.app.core.attachments.parsers.network.omada import OmadaParser
 from backend.app.core.attachments.parsers.network.palo_alto import PaloAltoParser
+from backend.app.core.attachments.parsers.network.ruckus import RuckusParser
 from backend.app.core.attachments.parsers.network.ruijie import RuijieParser
 from backend.app.core.attachments.parsers.network.ruijie_reyee import RuijieReyeeParser
-from backend.app.core.attachments.parsers.network.ruckus import RuckusParser
 from backend.app.core.attachments.parsers.network.sonicwall import SonicWallParser
 from backend.app.core.attachments.parsers.network.sophos import SophosParser
 from backend.app.core.attachments.parsers.network.text_config import TextConfigParser

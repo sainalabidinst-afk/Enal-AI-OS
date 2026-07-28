@@ -1,9 +1,11 @@
-import logging
 import json
+import logging
 import uuid
+from collections.abc import Awaitable, Callable
 from datetime import datetime
-from typing import Callable, Awaitable
+
 from redis.asyncio import Redis
+
 from backend.app.core.config import settings
 from backend.app.core.events import Event, EventEnvelope
 

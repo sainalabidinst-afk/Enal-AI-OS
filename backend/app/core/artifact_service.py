@@ -1,14 +1,14 @@
 import asyncio
-from datetime import datetime, timezone
-from typing import Optional, Dict, Any, List
+from datetime import UTC, datetime
+from typing import Any
 
 from backend.app.models.schemas_execution import Artifact, ArtifactVersion
 
 
 class ArtifactService:
     def __init__(self) -> None:
-        self._artifacts: Dict[str, Artifact] = {}
-        self._workspaces: Dict[str, Any] = {}
+        self._artifacts: dict[str, Artifact] = {}
+        self._workspaces: dict[str, Any] = {}
         self._lock = asyncio.Lock()
 
     async def create_workspace(self, name: str, description: str = "") -> Any:
@@ -42,21 +42,21 @@ class ArtifactService:
                 return True
             return False
 
-    async def get_workspace(self, workspace_id: str) -> Optional[Any]:
+    async def get_workspace(self, workspace_id: str) -> Any | None:
         return self._workspaces.get(workspace_id)
 
-    async def create_artifact(self, workspace_id: str, name: str, artifact_type: str, description: Optional[str] = None, content: Optional[str] = None, path: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None) -> Artifact:
+    async def create_artifact(self, workspace_id: str, name: str, artifact_type: str, description: str | None = None, content: str | None = None, path: str | None = None, metadata: dict[str, Any] | None = None) -> Artifact:
         async with self._lock:
             artifact = Artifact(workspace_id=workspace_id, name=name, type=artifact_type, description=description)
-            version = ArtifactVersion(version=1, created_at=datetime.now(timezone.utc), content=content, path=path, metadata=metadata or {})
+            version = ArtifactVersion(version=1, created_at=datetime.now(UTC), content=content, path=path, metadata=metadata or {})
             artifact.versions.append(version)
             self._artifacts[artifact.id] = artifact
             return artifact
 
-    async def get_artifact(self, artifact_id: str) -> Optional[Artifact]:
+    async def get_artifact(self, artifact_id: str) -> Artifact | None:
         return self._artifacts.get(artifact_id)
 
-    async def list_artifacts(self, workspace_id: Optional[str] = None, artifact_type: Optional[str] = None) -> List[Artifact]:
+    async def list_artifacts(self, workspace_id: str | None = None, artifact_type: str | None = None) -> list[Artifact]:
         artifacts = list(self._artifacts.values())
         if workspace_id:
             artifacts = [a for a in artifacts if a.workspace_id == workspace_id]
@@ -64,17 +64,17 @@ class ArtifactService:
             artifacts = [a for a in artifacts if a.type == artifact_type]
         return artifacts
 
-    async def add_version(self, artifact_id: str, content: Optional[str] = None, path: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None) -> Optional[Artifact]:
+    async def add_version(self, artifact_id: str, content: str | None = None, path: str | None = None, metadata: dict[str, Any] | None = None) -> Artifact | None:
         artifact = self._artifacts.get(artifact_id)
         if not artifact:
             return None
         artifact.current_version += 1
-        version = ArtifactVersion(version=artifact.current_version, created_at=datetime.now(timezone.utc), content=content, path=path, metadata=metadata or {})
+        version = ArtifactVersion(version=artifact.current_version, created_at=datetime.now(UTC), content=content, path=path, metadata=metadata or {})
         artifact.versions.append(version)
-        artifact.updated_at = datetime.now(timezone.utc)
+        artifact.updated_at = datetime.now(UTC)
         return artifact
 
-    async def get_version(self, artifact_id: str, version: int) -> Optional[ArtifactVersion]:
+    async def get_version(self, artifact_id: str, version: int) -> ArtifactVersion | None:
         artifact = self._artifacts.get(artifact_id)
         if not artifact:
             return None
@@ -83,7 +83,7 @@ class ArtifactService:
                 return v
         return None
 
-    async def restore_version(self, artifact_id: str, version: int) -> Optional[Artifact]:
+    async def restore_version(self, artifact_id: str, version: int) -> Artifact | None:
         artifact = self._artifacts.get(artifact_id)
         if not artifact:
             return None
@@ -91,9 +91,9 @@ class ArtifactService:
         if not target:
             return None
         artifact.current_version += 1
-        restored = ArtifactVersion(version=artifact.current_version, created_at=datetime.now(timezone.utc), content=target.content, path=target.path, metadata={**target.metadata, "restored_from": version})
+        restored = ArtifactVersion(version=artifact.current_version, created_at=datetime.now(UTC), content=target.content, path=target.path, metadata={**target.metadata, "restored_from": version})
         artifact.versions.append(restored)
-        artifact.updated_at = datetime.now(timezone.utc)
+        artifact.updated_at = datetime.now(UTC)
         return artifact
 
     async def delete_artifact(self, artifact_id: str) -> bool:

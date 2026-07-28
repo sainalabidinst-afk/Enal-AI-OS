@@ -31,8 +31,8 @@ class ConfigurationDiffResult:
 
 class ConfigurationDiffEngine:
     def diff(self, before: str, after: str) -> ConfigurationDiffResult:
-        from backend.app.core.attachments.parsers.registry import parser_registry
         from backend.app.core.attachments.detector import detect_from_content
+        from backend.app.core.attachments.parsers.registry import parser_registry
 
         before_meta = detect_from_content("before", before)
         after_meta = detect_from_content("after", after)

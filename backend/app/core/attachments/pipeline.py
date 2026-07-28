@@ -3,13 +3,16 @@ from __future__ import annotations
 from pathlib import Path
 
 from backend.app.core.attachments.analyzer import analyze_attachment
-from backend.app.core.attachments.detector import detect_from_content, detect_from_filename, summarize_archive
+from backend.app.core.attachments.detector import (
+    detect_from_content,
+    detect_from_filename,
+    summarize_archive,
+)
 from backend.app.core.attachments.models import (
     AttachmentAnalysisResult,
     AttachmentMeta,
     AttachmentType,
 )
-
 
 MAX_ANALYSIS_TEXT = 1_000_000
 MAX_ARCHIVE_MEMBERS = 200

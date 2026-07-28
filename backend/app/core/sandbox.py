@@ -1,12 +1,12 @@
-import logging
 import asyncio
-import tempfile
+import logging
 import os
-from pathlib import Path
-from typing import Any
+import tempfile
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,7 @@ class SandboxRuntime:
             )
             stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=self._max_execution_time)
             return stdout.decode('utf-8'), stderr.decode('utf-8') if stderr else None
-        except asyncio.TimeoutError:
+        except TimeoutError:
             return "", f"Execution timeout after {self._max_execution_time}s"
         finally:
             os.unlink(temp_path)
@@ -95,7 +95,7 @@ class SandboxRuntime:
         try:
             stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=self._max_execution_time)
             return stdout.decode('utf-8'), stderr.decode('utf-8') if stderr else None
-        except asyncio.TimeoutError:
+        except TimeoutError:
             proc.kill()
             return "", f"Execution timeout after {self._max_execution_time}s"
 

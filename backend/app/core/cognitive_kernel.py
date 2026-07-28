@@ -1,9 +1,10 @@
 import logging
 from abc import ABC, abstractmethod
 from typing import Any
-from backend.app.core.memory_layer import memory_manager
+
 from backend.app.core.cognitive.world_model import world_model
 from backend.app.core.decision_engine import DecisionResult
+from backend.app.core.memory_layer import memory_manager
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +70,7 @@ class PlanningService(CognitiveService):
 
 class DecisionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
-        from backend.app.core.decision_engine import decision_engine, DecisionOption
+        from backend.app.core.decision_engine import DecisionOption, decision_engine
         options_raw = context.get("options", [])
         options = []
         for opt in options_raw:

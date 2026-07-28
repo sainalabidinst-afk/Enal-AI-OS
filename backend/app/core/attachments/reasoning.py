@@ -3,7 +3,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from backend.app.core.attachments.compliance import ComplianceCheck, ComplianceEngine, ComplianceFramework
+from backend.app.core.attachments.compliance import (
+    ComplianceCheck,
+    ComplianceEngine,
+    ComplianceFramework,
+)
 from backend.app.core.attachments.models import InfrastructureAST, InfrastructureFinding, Severity
 
 

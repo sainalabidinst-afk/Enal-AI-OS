@@ -1,10 +1,11 @@
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any
 from enum import Enum
-from backend.app.core.events import Event
+from typing import Any
+
 from backend.app.core.event_bus import event_bus
+from backend.app.core.events import Event
 
 logger = logging.getLogger(__name__)
 

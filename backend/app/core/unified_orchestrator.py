@@ -42,11 +42,15 @@ class UnifiedOrchestrator:
         return cognitive_kernel
 
     def _get_runtime(self):
-        from backend.app.core.adaptive_runtime import adaptive_runtime, PIPELINE_PRESETS, TaskComplexity
+        from backend.app.core.adaptive_runtime import (
+            PIPELINE_PRESETS,
+            TaskComplexity,
+            adaptive_runtime,
+        )
         return adaptive_runtime, PIPELINE_PRESETS, TaskComplexity
 
     def _get_planner(self):
-        from apps.organization.ai_planner import ai_planner, PlanStatus
+        from apps.organization.ai_planner import PlanStatus, ai_planner
         return ai_planner, PlanStatus
 
     def _get_multi_agent(self):

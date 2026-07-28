@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 from backend.app.core.attachments.models import AttachmentMeta, InfrastructureAST
 from backend.app.core.attachments.parsers.base import BaseParser
 

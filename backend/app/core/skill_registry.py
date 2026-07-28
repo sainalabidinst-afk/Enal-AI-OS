@@ -1,8 +1,9 @@
-import yaml
 import logging
 from dataclasses import dataclass, field
-from typing import Any
 from pathlib import Path
+from typing import Any
+
+import yaml
 
 logger = logging.getLogger(__name__)
 

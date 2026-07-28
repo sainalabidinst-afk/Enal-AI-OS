@@ -1,5 +1,6 @@
 import logging
 from collections import defaultdict
+
 from backend.app.core.skill_registry import Skill, skill_registry
 
 logger = logging.getLogger(__name__)

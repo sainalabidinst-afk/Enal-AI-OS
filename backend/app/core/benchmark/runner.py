@@ -76,7 +76,7 @@ class BenchmarkRunner:
                 f"--{boundary}\r\n"
                 f'Content-Disposition: form-data; name="files"; filename="{case.filename}"\r\n'
                 f"Content-Type: application/octet-stream\r\n\r\n"
-            ).encode("utf-8") + content.encode("utf-8", errors="ignore") + f"\r\n--{boundary}--\r\n".encode("utf-8")
+            ).encode() + content.encode("utf-8", errors="ignore") + f"\r\n--{boundary}--\r\n".encode()
 
             response = await client.post(
                 f"{self.base_url}/api/v1/attachments/analyze",

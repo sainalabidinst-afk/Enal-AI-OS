@@ -1,7 +1,9 @@
 import logging
-from backend.app.core.config import settings
+
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client.models import Distance, PointStruct, VectorParams
+
+from backend.app.core.config import settings
 
 logger = logging.getLogger(__name__)
 

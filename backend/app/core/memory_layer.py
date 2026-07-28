@@ -1,12 +1,14 @@
+import json
 import logging
 import time
-import json
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Any
 from pathlib import Path
-from backend.app.core.config import settings
+from typing import Any
+
 import redis.asyncio as aioredis
+
+from backend.app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -509,8 +511,9 @@ class MemoryManager:
 
     async def consolidate(self, layer: str, query: str, max_entries: int = 100) -> ConsolidatedBlock | None:
         """Compress related memories into consolidated block."""
-        from backend.app.core.model_router import model_router
         import uuid
+
+        from backend.app.core.model_router import model_router
 
         mem = self._layers.get(layer)
         if not mem:

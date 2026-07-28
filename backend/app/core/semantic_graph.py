@@ -1,11 +1,11 @@
-import logging
 import json
+import logging
 import uuid
+from dataclasses import dataclass, field
+from datetime import UTC, datetime
+from enum import Enum
 from pathlib import Path
 from typing import Any, TypedDict
-from datetime import datetime, timezone
-from enum import Enum
-from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ class GraphNode:
     properties: dict[str, Any] = field(default_factory=_empty_properties)
     project_id: str | None = None
     created_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
+        default_factory=lambda: datetime.now(UTC)
     )
 
 

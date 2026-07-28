@@ -1,8 +1,9 @@
 import logging
 from dataclasses import dataclass
 from typing import Any
-from backend.app.core.cognitive_budget import cognitive_budget, TaskComplexity
+
 from backend.app.core.adaptive_runtime import PIPELINE_PRESETS
+from backend.app.core.cognitive_budget import TaskComplexity, cognitive_budget
 from backend.app.core.cost_optimizer import cost_optimizer
 
 logger = logging.getLogger(__name__)

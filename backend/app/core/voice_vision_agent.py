@@ -6,8 +6,8 @@ Speech-to-text, text-to-speech, and vision capabilities.
 """
 
 import logging
-from typing import Any
 from dataclasses import dataclass
+from typing import Any
 
 logger = logging.getLogger(__name__)
 

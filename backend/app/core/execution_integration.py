@@ -1,33 +1,33 @@
-from datetime import datetime
-from typing import Optional, Dict, Any, List
 import asyncio
+from datetime import datetime
+from typing import Any
 
+from backend.app.core.artifact_service import artifact_service
+from backend.app.core.execution_session import execution_session_manager
+from backend.app.core.notification_service import notification_service
+from backend.app.core.workspace_service import workspace_service
 from backend.app.models.schemas_execution import (
+    ExecutionGraph,
     ExecutionSession,
     ExecutionStatus,
     ExecutionTask,
-    ExecutionGraph,
 )
-from backend.app.core.execution_session import execution_session_manager
-from backend.app.core.workspace_service import workspace_service
-from backend.app.core.artifact_service import artifact_service
-from backend.app.core.notification_service import notification_service
 
 
 class ExecutionScheduler:
     def __init__(self) -> None:
-        self._queues: Dict[str, List[ExecutionTask]] = {}
+        self._queues: dict[str, list[ExecutionTask]] = {}
         self._lock = asyncio.Lock()
 
-    async def submit(self, session_id: str, graph: ExecutionGraph) -> List[ExecutionTask]:
+    async def submit(self, session_id: str, graph: ExecutionGraph) -> list[ExecutionTask]:
         async with self._lock:
-            queue: List[ExecutionTask] = []
+            queue: list[ExecutionTask] = []
             for task_id, task in graph.tasks.items():
                 queue.append(task)
             self._queues[session_id] = queue
             return queue
 
-    async def next(self, session_id: str) -> Optional[ExecutionTask]:
+    async def next(self, session_id: str) -> ExecutionTask | None:
         queue = self._queues.get(session_id, [])
         for task in queue:
             if task.status == ExecutionStatus.pending and self._dependencies_met(task, queue):
@@ -36,7 +36,7 @@ class ExecutionScheduler:
                 return task
         return None
 
-    async def complete(self, session_id: str, task_id: str, result: Dict[str, Any]) -> Optional[ExecutionTask]:
+    async def complete(self, session_id: str, task_id: str, result: dict[str, Any]) -> ExecutionTask | None:
         queue = self._queues.get(session_id, [])
         for task in queue:
             if task.id == task_id:
@@ -46,7 +46,7 @@ class ExecutionScheduler:
                 return task
         return None
 
-    async def fail(self, session_id: str, task_id: str, error: str) -> Optional[ExecutionTask]:
+    async def fail(self, session_id: str, task_id: str, error: str) -> ExecutionTask | None:
         queue = self._queues.get(session_id, [])
         for task in queue:
             if task.id == task_id:
@@ -55,7 +55,7 @@ class ExecutionScheduler:
                 return task
         return None
 
-    def _dependencies_met(self, task: ExecutionTask, queue: List[ExecutionTask]) -> bool:
+    def _dependencies_met(self, task: ExecutionTask, queue: list[ExecutionTask]) -> bool:
         task_map = {t.id: t for t in queue}
         for dep_id in task.dependencies:
             dep = task_map.get(dep_id)
@@ -67,19 +67,19 @@ class ExecutionScheduler:
 class ExecutionIntegration:
     def __init__(self) -> None:
         self.scheduler = ExecutionScheduler()
-        self._progress_callbacks: List[Any] = []
+        self._progress_callbacks: list[Any] = []
 
     def on_progress(self, callback: Any) -> None:
         self._progress_callbacks.append(callback)
 
-    async def _notify_progress(self, event: Dict[str, Any]) -> None:
+    async def _notify_progress(self, event: dict[str, Any]) -> None:
         for callback in self._progress_callbacks:
             try:
                 await callback(event)
             except Exception:
                 pass
 
-    async def execute(self, goal: str, workspace_id: str, conversation_id: Optional[str] = None) -> ExecutionSession:
+    async def execute(self, goal: str, workspace_id: str, conversation_id: str | None = None) -> ExecutionSession:
         session = await execution_session_manager.create_session(
             goal=goal,
             conversation_id=conversation_id,
@@ -91,7 +91,7 @@ class ExecutionIntegration:
         if not ws:
             raise ValueError(f"Workspace {workspace_id} not found")
 
-        async def _notify(event: Dict[str, Any]) -> None:
+        async def _notify(event: dict[str, Any]) -> None:
             await self._notify_progress(event)
             recipient = conversation_id or session.id
             await notification_service.send(
@@ -107,7 +107,7 @@ class ExecutionIntegration:
         finally:
             self._progress_callbacks = [cb for cb in self._progress_callbacks if cb != _notify]
 
-    async def _run(self, goal: str, workspace_id: str, conversation_id: Optional[str], session: ExecutionSession, ws: Any) -> ExecutionSession:
+    async def _run(self, goal: str, workspace_id: str, conversation_id: str | None, session: ExecutionSession, ws: Any) -> ExecutionSession:
 
         graph = ExecutionGraph(
             tasks={
@@ -130,7 +130,7 @@ class ExecutionIntegration:
         await self._notify_progress({"type": "status", "session_id": session.id, "status": "running", "message": "Menjalankan eksekusi..."})
 
         queue = await self.scheduler.submit(session.id, graph)
-        results: Dict[str, Any] = {}
+        results: dict[str, Any] = {}
 
         for task in queue:
             await execution_session_manager.update_progress(session.id, (list(graph.tasks.keys()).index(task.id) / len(queue)) * 100.0)
@@ -181,7 +181,7 @@ class ExecutionIntegration:
 
         return session
 
-    async def _run_task(self, session_id: str, task: ExecutionTask, workspace: Any) -> Dict[str, Any]:
+    async def _run_task(self, session_id: str, task: ExecutionTask, workspace: Any) -> dict[str, Any]:
         await asyncio.sleep(0.1)
         return {"task_id": task.id, "name": task.name, "status": "completed", "result": f"{task.name} completed"}
 

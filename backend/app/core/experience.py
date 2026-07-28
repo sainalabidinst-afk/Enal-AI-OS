@@ -1,7 +1,7 @@
-import logging
 import json
+import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TypedDict
 
@@ -33,7 +33,7 @@ class Lesson:
     action_taken: str
     outcome: str
     quality_score: float
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
     tags: list[str] = field(default_factory=_empty_tags)
 
 
@@ -53,7 +53,7 @@ class ExperienceLearning:
         quality_score: float,
         tags: list[str] | None = None,
     ):
-        lesson_id = f"lesson-{datetime.now(timezone.utc).timestamp()}"
+        lesson_id = f"lesson-{datetime.now(UTC).timestamp()}"
         lesson_tags = tags or []
 
         lesson = Lesson(

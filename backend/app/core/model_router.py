@@ -1,6 +1,7 @@
 import logging
-from typing import Optional
+
 from litellm import acompletion, completion
+
 from backend.app.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -27,11 +28,11 @@ class ModelRouter:
     def complete(
         self,
         messages: list[dict],
-        model: Optional[str] = None,
+        model: str | None = None,
         temperature: float = 0.7,
         max_tokens: int = 4096,
         stream: bool = False,
-        tools: Optional[list] = None,
+        tools: list | None = None,
     ):
         model = model or self.default_model
         config = self.get_provider_config(model)
@@ -55,11 +56,11 @@ class ModelRouter:
     async def acomplete(
         self,
         messages: list[dict],
-        model: Optional[str] = None,
+        model: str | None = None,
         temperature: float = 0.7,
         max_tokens: int = 4096,
         stream: bool = False,
-        tools: Optional[list] = None,
+        tools: list | None = None,
     ):
         model = model or self.default_model
         config = self.get_provider_config(model)
