@@ -37,32 +37,29 @@
 | **Capability service** | ✅ **DONE** | `services/capability.ts` — listCapabilities, getCapability |
 | **Execution service** | ✅ **DONE** | `services/execution.ts` — full CRUD + phases + logs + artifacts |
 
-### ⚠️ Remaining for Next Sprints
+### ✅ Completed — Sprint 5.3 (Artifact Viewer, Metrics & Real-Time)
+
+| Item | Status | Deliverable |
+|---|---|---|
+| **Artifact viewer page** | ✅ **RENEWED** | `app/artifacts/page.tsx` — auto-load, type filter, skeleton, empty state, ErrorBoundary |
+| **Artifact viewer modal** | ✅ **DONE** | `components/artifact/artifact-viewer.tsx` — version selector, content preview, download, restore, delete |
+| **Artifact card** | ✅ **DONE** | `components/artifact/artifact-card.tsx` — type badge, version indicator, expandable viewer |
+| **Artifact store** | ✅ **DONE** | `store/artifact-store.ts` — CRUD, version management, restore |
+| **Metrics page** | ✅ **RENEWED** | `app/metrics/page.tsx` — full rewrite: skeleton, ErrorBoundary, auto-refresh toggle, distribution charts, summary cards |
+| **Execution auto-refresh** | ✅ **DONE** | `app/executions/page.tsx` — 3s polling for running executions |
+| **Error state recovery** | ✅ **DONE** | Retry buttons, ErrorBoundary on all pages, toast notifications |
+| **Stream service** | ✅ **DONE** | `services/stream.ts` — SSE-based chat stream |
+
+### ⚠️ Remaining (Backlog)
 
 | Item | Priority | Notes |
 |---|---|---|
-| **Artifact viewer page** | P1 | `app/artifacts/page.tsx` exists but needs content component |
-| **WebSocket reconnection** | P1 | For real-time execution updates |
-| **Metrics page** | P1 | `app/metrics/page.tsx` exists but needs content component |
-| **Theme toggle UI** | P2 | Store exists, sidebar has dropdown, but needs full theme provider |
-| **Responsive mobile nav** | P2 | Sidebar hidden on mobile, no hamburger yet |
-| **Empty states refinement** | P2 | Basic empty states exist, can be richer |
-| **TanStack Query / Axios** | P2 | Not installed — current fetch-based approach works |
-| **Chart library** | P3 | For metrics page |
+| **WebSocket reconnection** | P2 | Fallback to SSE currently works |
+| **Responsive mobile nav** | P2 | Sidebar hidden on mobile, hamburger menu needed |
+| **Theme toggle provider** | P2 | Sidebar has dropdown, needs CSS variable switching |
+| **TanStack Query / Axios** | P3 | Not installed — current fetch works |
+| **Chart library** | P3 | For advanced metrics visualization |
 | **Session replay / undo** | P3 | Advanced UX |
-
-## Sprint 5.3 Recommended Scope
-
-### Must Have (P1)
-1. ✅ Artifact viewer page — browse and inspect execution artifacts
-2. ✅ Execution detail with logs — real-time log streaming via polling
-3. ✅ Error state recovery — graceful failure handling
-4. ✅ Metrics page — platform KPIs (executions, success rate, duration)
-
-### Nice to Have (P2)
-5. WebSocket reconnection for real-time updates
-6. Responsive mobile sidebar navigation
-7. Theme toggle provider integration
 
 ---
 
