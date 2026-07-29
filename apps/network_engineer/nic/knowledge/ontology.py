@@ -17,19 +17,29 @@ class UniversalConcept(str, Enum):
     ADDRESS_TRANSLATION = "address_translation"
     IP_MANAGEMENT = "ip_management"
     ROUTING = "routing"
-    AUTHENTICATION = "authentication"
-    AUTHORIZATION = "authorization"
-    MONITORING = "monitoring"
-    BACKUP = "backup"
-    DNS_RESOLUTION = "dns_resolution"
-    TIME_SYNCHRONIZATION = "time_synchronization"
+    OSPF = "ospf"
+    BGP = "bgp"
+    IS_IS = "is_is"
+    SWITCHING = "switching"
+    VLAN = "vlan"
+    VXLAN = "vxlan"
+    EVPN = "evpn"
+    MPLS = "mpls"
+    SD_WAN = "sd_wan"
+    QOS = "qos"
+    MULTICAST = "multicast"
     WIRELESS = "wireless"
     WIRELESS_MANAGEMENT = "wireless_management"
-    VLAN = "vlan"
     VPN = "vpn"
-    BGP = "bgp"
-    MPLS = "mpls"
-    QOS = "qos"
+    IPV6 = "ipv6"
+    DNS_RESOLUTION = "dns_resolution"
+    DHCP = "dhcp"
+    AUTHENTICATION = "authentication"
+    AUTHORIZATION = "authorization"
+    ZERO_TRUST = "zero_trust"
+    MONITORING = "monitoring"
+    BACKUP = "backup"
+    TIME_SYNCHRONIZATION = "time_synchronization"
     LOGGING = "logging"
     SYSTEM_IDENTITY = "system_identity"
     CERTIFICATE = "certificate"
@@ -135,6 +145,16 @@ CONCEPT_DEFINITIONS: dict[UniversalConcept, ConceptDefinition] = {
         },
         references=["RFC 1034", "RFC 1035"],
     ),
+    UniversalConcept.DHCP: ConceptDefinition(
+        concept=UniversalConcept.DHCP,
+        description="DHCP server and relay configuration",
+        vendor_names={
+            "cisco": ["ip dhcp", "dhcp pool", "dhcp relay"],
+            "fortinet": ["dhcp server", "dhcp relay"],
+            "mikrotik": ["ip dhcp-server", "dhcp-server", "dhcp relay"],
+        },
+        references=["RFC 2131", "RFC 2132"],
+    ),
     UniversalConcept.TIME_SYNCHRONIZATION: ConceptDefinition(
         concept=UniversalConcept.TIME_SYNCHRONIZATION,
         description="NTP and time configuration",
@@ -204,6 +224,96 @@ UniversalConcept.VPN: ConceptDefinition(
             "mikrotik": ["log", "system log"],
         },
         references=["RFC 5424"],
+    ),
+    UniversalConcept.SWITCHING: ConceptDefinition(
+        concept=UniversalConcept.SWITCHING,
+        description="Layer 2 switching, port configuration, and MAC learning",
+        vendor_names={
+            "cisco": ["switchport", "mac address-table", "vlan", "spanning-tree"],
+            "fortinet": ["switch interface", "spanning-tree"],
+            "mikrotik": ["etherswitch", "bridge", "interface bridge"],
+        },
+        references=["IEEE 802.1D", "IEEE 802.1Q"],
+    ),
+    UniversalConcept.OSPF: ConceptDefinition(
+        concept=UniversalConcept.OSPF,
+        description="Open Shortest Path First interior routing protocol",
+        vendor_names={
+            "cisco": ["router ospf", "ospf", "area", "network"],
+            "fortinet": ["router ospf", "ospf"],
+            "mikrotik": ["routing ospf", "ospf", "area"],
+        },
+        references=["RFC 2328", "RFC 5340"],
+    ),
+    UniversalConcept.IS_IS: ConceptDefinition(
+        concept=UniversalConcept.IS_IS,
+        description="Intermediate System to Intermediate System routing protocol",
+        vendor_names={
+            "cisco": ["router isis", "is-type", "net"],
+            "fortinet": ["router isis"],
+            "mikrotik": ["routing isis", "isis"],
+        },
+        references=["ISO 10589", "RFC 1195"],
+    ),
+    UniversalConcept.VXLAN: ConceptDefinition(
+        concept=UniversalConcept.VXLAN,
+        description="Virtual Extensible LAN for overlay networks",
+        vendor_names={
+            "cisco": ["vxlan", "segment", "nve", "vni"],
+            "fortinet": ["vxlan", "interface vxlan"],
+            "mikrotik": ["vxlan", "vxlan1"],
+        },
+        references=["RFC 7348"],
+    ),
+    UniversalConcept.EVPN: ConceptDefinition(
+        concept=UniversalConcept.EVPN,
+        description="Ethernet VPN for L2VPN and L3VPN services",
+        vendor_names={
+            "cisco": ["evpn", "l2vpn", "evpn instance"],
+            "fortinet": ["evpn", "bgp evpn"],
+            "mikrotik": ["evpn", "bgp evpn"],
+        },
+        references=["RFC 7432", "RFC 8365"],
+    ),
+    UniversalConcept.SD_WAN: ConceptDefinition(
+        concept=UniversalConcept.SD_WAN,
+        description="Software-Defined Wide Area Network orchestration",
+        vendor_names={
+            "cisco": ["sd-wan", "vsmart", "vmanage", "cEdge"],
+            "fortinet": ["sd-wan", "sdwan", "performance-sla"],
+            "mikrotik": ["sd-wan", "zerotier", "vxlan"],
+        },
+        references=["IETF SD-WAN"],
+    ),
+    UniversalConcept.IPV6: ConceptDefinition(
+        concept=UniversalConcept.IPV6,
+        description="IPv6 addressing and routing",
+        vendor_names={
+            "cisco": ["ipv6", "ipv6 address", "ipv6 route"],
+            "fortinet": ["ipv6", "config ipv6"],
+            "mikrotik": ["ipv6", "ipv6 address"],
+        },
+        references=["RFC 8200"],
+    ),
+    UniversalConcept.MULTICAST: ConceptDefinition(
+        concept=UniversalConcept.MULTICAST,
+        description="Multicast routing and forwarding",
+        vendor_names={
+            "cisco": ["ip multicast-routing", "pim", "igmp"],
+            "fortinet": ["multicast", "pim"],
+            "mikrotik": ["routing pim", "multicast"],
+        },
+        references=["RFC 7761", "RFC 3376"],
+    ),
+    UniversalConcept.ZERO_TRUST: ConceptDefinition(
+        concept=UniversalConcept.ZERO_TRUST,
+        description="Zero Trust network access and segmentation",
+        vendor_names={
+            "cisco": ["zero-trust", "ztpa", "identity services engine"],
+            "fortinet": ["zero-trust", "fortigate", "identity"],
+            "mikrotik": ["zero-trust", "radius", "certificate"],
+        },
+        references=["NIST SP 800-207"],
     ),
 }
 

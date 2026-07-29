@@ -69,11 +69,23 @@ class KnowledgeEnricher:
             "Backup": UniversalConcept.BACKUP,
             "DNS": UniversalConcept.DNS_RESOLUTION,
             "Routing": UniversalConcept.ROUTING,
+            "OSPF": UniversalConcept.OSPF,
+            "BGP": UniversalConcept.BGP,
+            "IS-IS": UniversalConcept.IS_IS,
+            "VXLAN": UniversalConcept.VXLAN,
+            "EVPN": UniversalConcept.EVPN,
+            "SD-WAN": UniversalConcept.SD_WAN,
             "System": UniversalConcept.TIME_SYNCHRONIZATION,
             "IP": UniversalConcept.IP_MANAGEMENT,
             "VLAN": UniversalConcept.VLAN,
             "Wireless": UniversalConcept.WIRELESS,
+            "WiFi": UniversalConcept.WIRELESS,
             "PPP": UniversalConcept.VPN,
+            "DHCP": UniversalConcept.DHCP,
+            "Multicast": UniversalConcept.MULTICAST,
+            "Switching": UniversalConcept.SWITCHING,
+            "IPv6": UniversalConcept.IPV6,
+            "Zero Trust": UniversalConcept.ZERO_TRUST,
         }
 
         concept = concept_map.get(finding_category)
@@ -160,6 +172,46 @@ class KnowledgeEnricher:
             UniversalConcept.VLAN: (
                 "VLANs segment broadcast domains for security and performance. "
                 "Proper VLAN design limits traffic scope and improves network efficiency."
+            ),
+            UniversalConcept.SWITCHING: (
+                "Switching forwards frames based on MAC addresses within a broadcast domain. "
+                "Proper switch configuration prevents loops and optimizes traffic flow."
+            ),
+            UniversalConcept.OSPF: (
+                "OSPF is an interior gateway protocol that calculates shortest paths using link-state databases. "
+                "Proper area design and authentication improve scalability and security."
+            ),
+            UniversalConcept.IS_IS: (
+                "IS-IS is a link-state routing protocol used for large service provider networks. "
+                "It provides fast convergence and supports both IPv4 and IPv6."
+            ),
+            UniversalConcept.VXLAN: (
+                "VXLAN tunnels Layer 2 traffic over Layer 3 networks using UDP encapsulation. "
+                "It enables scalable network segmentation across data centers."
+            ),
+            UniversalConcept.EVPN: (
+                "EVPN provides control plane for VXLAN and other overlay networks. "
+                "It enables multi-tenancy and efficient MAC learning across sites."
+            ),
+            UniversalConcept.SD_WAN: (
+                "SD-WAN orchestrates WAN connectivity with application-aware routing. "
+                "It improves performance, reduces costs, and simplifies management."
+            ),
+            UniversalConcept.IPV6: (
+                "IPv6 provides larger address space and improved header efficiency. "
+                "Proper dual-stack or native IPv6 deployment ensures future readiness."
+            ),
+            UniversalConcept.MULTICAST: (
+                "Multicast delivers traffic to multiple receivers efficiently. "
+                "PIM and IGMP control multicast distribution without flooding all hosts."
+            ),
+            UniversalConcept.ZERO_TRUST: (
+                "Zero Trust assumes no implicit trust and verifies every access request. "
+                "Identity, device health, and least-privilege access reduce breach impact."
+            ),
+            UniversalConcept.DHCP: (
+                "DHCP automatically assigns IP addresses and network parameters to devices. "
+                "Proper DHCP sizing and relay configuration prevent address exhaustion."
             ),
         }
 

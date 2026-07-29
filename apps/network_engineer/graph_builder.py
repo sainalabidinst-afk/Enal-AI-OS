@@ -14,7 +14,9 @@ from apps.network_engineer.topology import (
     NetworkConnection,
     NetworkDevice,
     NetworkInterface,
+    NetworkSegment,
     NetworkTopology,
+    RedundancyRole,
 )
 
 logger = logging.getLogger(__name__)
@@ -29,22 +31,29 @@ class NetworkGraphBuilder:
         topology.add_device(router)
         self._link_interfaces(config, router, topology)
         self._link_bridges(config, router, topology)
+        self._detect_segments(config, router, topology)
         return topology
 
     def _build_router(self, config: RouterOSConfig) -> NetworkDevice:
         name = config.system_identity.name if config.system_identity else "router"
+        interfaces = []
+        for iface in config.interfaces:
+            redundancy_role = RedundancyRole.NONE
+            if any("vrrp" in line.lower() or "redundancy" in line.lower() for line in getattr(iface, "raw_lines", [])):
+                redundancy_role = RedundancyRole.SECONDARY
+            interfaces.append(NetworkInterface(
+                name=iface.name,
+                interface_type=InterfaceType.ETHERNET,
+                comment=iface.comment,
+                redundancy_role=redundancy_role,
+            ))
+
         return NetworkDevice(
             id="router-1",
             name=name,
             device_type=DeviceType.ROUTER,
-            interfaces=[
-                NetworkInterface(
-                    name=iface.name,
-                    interface_type=InterfaceType.ETHERNET,
-                    comment=iface.comment,
-                )
-                for iface in config.interfaces
-            ],
+            interfaces=interfaces,
+            vendor="mikrotik",
             configuration={
                 "interfaces": len(config.interfaces),
                 "ip_addresses": len(config.ip_addresses),
@@ -88,6 +97,24 @@ class NetworkGraphBuilder:
                     target_interface=port,
                     connection_type="bridge-member",
                 ))
+
+    def _detect_segments(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):
+        seen_networks = set()
+        for ip_addr in config.ip_addresses:
+            if ip_addr.network and ip_addr.network not in seen_networks:
+                seen_networks.add(ip_addr.network)
+                segment = NetworkSegment(
+                    id=f"segment-{len(topology.segments)+1}",
+                    name=f"Network {ip_addr.network}",
+                    cidr=ip_addr.network,
+                    devices=[router.id],
+                    purpose="LAN",
+                    security_level="standard",
+                )
+                if ip_addr.network.startswith("192.168.") or ip_addr.network.startswith("10."):
+                    segment.purpose = "Internal LAN"
+                    segment.security_level = "private"
+                topology.add_segment(segment)
 
 
 network_graph_builder = NetworkGraphBuilder()

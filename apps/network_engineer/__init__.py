@@ -6,30 +6,40 @@ Demonstrates ECP capabilities for network configuration and management.
 Uses: SDK, Runtime, Marketplace, Studio, Contracts
 
 Workflow:
-1. Natural Language Input
-2. Topology Understanding
-3. Requirement Extraction
-4. Network Planning
-5. Configuration Generation
-6. Simulation
-7. Verification
-8. Security Audit
-9. Documentation
+ 1. Natural Language Input
+ 2. Topology Understanding
+ 3. Requirement Extraction
+ 4. Network Planning
+ 5. Configuration Generation
+ 6. Simulation
+ 7. Verification
+ 8. Security Audit
+ 9. Documentation
 10. Deployment (future)
 11. Post Validation (future)
 
-Architecture:
-  Config → Universal AST → NIC (Ontology → Inference) → Analyzer → Compliance → Recommendations → Docs
+Network Engineer 2.0 capabilities:
+ - Configuration parsing & validation
+ - Security compliance auditing
+ - Risk analysis & recommendations
+ - Configuration generation & simulation
+ - Design review (SPOF, bottleneck, security gap, scalability)
+ - Troubleshooting engine (evidence → hypothesis → root cause)
+ - Migration planner (cross-vendor with risk & rollback)
+ - Network advisor (high-level design questions)
 """
 
 from typing import Any
 
 from apps.base import BaseReferenceApp
+from apps.network_engineer.advisor import network_advisor
 from apps.network_engineer.analyzer import NetworkAnalysisReport, network_analyzer
+from apps.network_engineer.design_review import design_review_engine
 from apps.network_engineer.docs_generator import network_doc_generator
 from apps.network_engineer.generator import routeros_generator
 from apps.network_engineer.graph_builder import network_graph_builder
 from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser, parse_routeros_config
+from apps.network_engineer.migration_planner import migration_planner
 from apps.network_engineer.nic import (
     ConceptTag,
     ReasoningChain,
@@ -39,12 +49,13 @@ from apps.network_engineer.nic import (
 )
 from apps.network_engineer.recommendation_engine import recommendation_engine
 from apps.network_engineer.simulator import network_simulator
+from apps.network_engineer.troubleshooting import troubleshooting_engine
 
 
 class NetworkEngineerApp(BaseReferenceApp):
     name = "network-engineer"
-    version = "1.0.0"
-    description = "Vendor-agnostic network intelligence platform powered by NIC"
+    version = "2.0.0"
+    description = "Vendor-agnostic network intelligence platform: configuration analysis, design review, troubleshooting, migration planning, and advisory."
     category = "networking"
     pipeline = ["perception", "memory", "reasoning", "decision", "action"]
 
@@ -86,6 +97,10 @@ class NetworkEngineerApp(BaseReferenceApp):
                     "knowledge",
                     "compliance",
                     "reasoning",
+                    "design_review",
+                    "troubleshooting",
+                    "migration_planning",
+                    "advisory",
                 ],
             },
         }
@@ -110,15 +125,10 @@ class NetworkEngineerApp(BaseReferenceApp):
         config = self._parse_config(config_content)
         vendor = getattr(config, "vendor", None) or self._detect_vendor(config_content) or "unknown"
 
-        # Layer 2: Universal AST (already parsed)
-        # Layer 3: NIC - Ontology
         concept_tags = knowledge_enricher.enrich(config)
-
-        # Layer 4: NIC - Inference Engine
         evidence = self._build_evidence(concept_tags)
         reasoning_chains = inference_engine.reason(evidence)
 
-        # Traditional analysis (now consumer of NIC output)
         topology = self.graph_builder.build(config)
         report: NetworkAnalysisReport = await self.analyzer.analyze(config, topology)
         recommendations = await self.recommendation_engine.generate(report.issues)
@@ -272,6 +282,85 @@ class NetworkEngineerApp(BaseReferenceApp):
                 markdown += f"**Recommendation:** {chain.recommendation}\n\n"
 
         return markdown
+
+    async def review_design(self, topology_json: dict[str, Any], context: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Perform design review on a network topology."""
+        from apps.network_engineer.topology import NetworkTopology
+
+        topology = NetworkTopology()
+        for device_id, device_data in topology_json.get("devices", {}).items():
+            from apps.network_engineer.topology import DeviceType, InterfaceType, RedundancyRole
+            interfaces = [
+                NetworkInterface(
+                    name=i.get("name", ""),
+                    interface_type=InterfaceType(i.get("type", "ethernet")),
+                    ip_address=i.get("ip_address", ""),
+                    vlan_id=i.get("vlan_id"),
+                    bandwidth=i.get("bandwidth", ""),
+                    redundancy_role=RedundancyRole(i.get("redundancy_role", "none")),
+                )
+                for i in device_data.get("interfaces", [])
+            ]
+            device = NetworkDevice(
+                id=device_data.get("id", device_id),
+                name=device_data.get("name", device_id),
+                device_type=DeviceType(device_data.get("type", "router")),
+                vendor=device_data.get("vendor", ""),
+                model=device_data.get("model", ""),
+                interfaces=interfaces,
+                zone=device_data.get("zone", ""),
+            )
+            topology.add_device(device)
+
+        for conn in topology_json.get("connections", []):
+            topology.add_connection(NetworkConnection(
+                source_device=conn.get("source_device", ""),
+                source_interface=conn.get("source_interface", ""),
+                target_device=conn.get("target_device", ""),
+                target_interface=conn.get("target_interface", ""),
+                connection_type=conn.get("connection_type", "ethernet"),
+                bandwidth=conn.get("bandwidth", "1Gbps"),
+                latency=conn.get("latency", "0ms"),
+                redundancy_path=conn.get("redundancy_path", False),
+                protocol=conn.get("protocol", ""),
+            ))
+
+        for segment_id, segment_data in topology_json.get("segments", {}).items():
+            topology.add_segment(NetworkSegment(
+                id=segment_data.get("id", segment_id),
+                name=segment_data.get("name", segment_id),
+                cidr=segment_data.get("cidr", ""),
+                vlan_id=segment_data.get("vlan_id"),
+                devices=segment_data.get("devices", []),
+                purpose=segment_data.get("purpose", ""),
+                security_level=segment_data.get("security_level", "standard"),
+            ))
+
+        report = await design_review_engine.review(topology, context)
+        return report.to_dict()
+
+    async def troubleshoot(self, symptom: str, evidence: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+        """Start or continue a troubleshooting session."""
+        session = troubleshooting_engine.create_session(symptom)
+        if evidence:
+            for item in evidence:
+                troubleshooting_engine.add_evidence(
+                    session,
+                    source=item.get("source", "user"),
+                    content=item.get("content", ""),
+                    confidence=item.get("confidence", 1.0),
+                )
+        hypotheses = troubleshooting_engine.generate_hypotheses(session)
+        return session.to_dict()
+
+    async def plan_migration(self, source_vendor: str, target_vendor: str, source_config: str = "") -> dict[str, Any]:
+        """Generate a cross-vendor migration plan."""
+        plan = await migration_planner.plan(source_config, source_vendor, target_vendor)
+        return plan.to_dict()
+
+    async def advise(self, query: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Provide high-level network design advice."""
+        return await network_advisor.advise(query, context)
 
     def _build_evidence(self, concept_tags: list[ConceptTag]) -> list[Any]:
         from apps.network_engineer.nic.inference import Evidence
