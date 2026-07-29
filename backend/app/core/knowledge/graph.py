@@ -60,6 +60,61 @@ class KnowledgeGraph:
         dfs(start_id, [])
         return paths if paths else None
 
+    def query(self, **filters: Any) -> list[KnowledgeNode]:
+        results = list(self.nodes.values())
+        if "domain" in filters:
+            results = [n for n in results if n.domain == filters["domain"]]
+        if "category" in filters:
+            results = [n for n in results if n.category == filters["category"]]
+        if "type" in filters:
+            results = [n for n in results if n.type == filters["type"]]
+        if "status" in filters:
+            results = [n for n in results if n.status == filters["status"]]
+        if "tag" in filters:
+            results = [n for n in results if filters["tag"] in n.tags]
+        if "name_contains" in filters:
+            lowered = filters["name_contains"].lower()
+            results = [n for n in results if lowered in n.name.lower()]
+        if "min_confidence" in filters:
+            results = [n for n in results if n.confidence >= filters["min_confidence"]]
+        if "related_to" in filters:
+            related_ids = {e.target_id for e in self.edges.values() if e.source_id == filters["related_to"]}
+            results = [n for n in results if n.id in related_ids]
+        return results
+
+    def similarity(self, query: str, limit: int = 5) -> list[tuple[KnowledgeNode, float]]:
+        query_terms = set(query.lower().split())
+        scored: list[tuple[KnowledgeNode, float]] = []
+        for node in self.nodes.values():
+            text = " ".join([node.name, node.description, " ".join(node.tags)]).lower()
+            node_terms = set(text.split())
+            overlap = query_terms & node_terms
+            score = len(overlap) / max(len(query_terms), 1)
+            if score > 0:
+                scored.append((node, score))
+        scored.sort(key=lambda item: item[1], reverse=True)
+        return scored[:limit]
+
+    def traverse(self, start_id: str, relation: str | None = None, max_depth: int = 3) -> list[list[KnowledgeNode]]:
+        paths: list[list[KnowledgeNode]] = []
+
+        def dfs(current_id: str, current_path: list[KnowledgeNode], depth: int) -> None:
+            if depth >= max_depth:
+                return
+            current_node = self.nodes.get(current_id)
+            if not current_node:
+                return
+            current_path = current_path + [current_node]
+            for edge in self.edges.values():
+                if edge.source_id == current_id and (relation is None or edge.relation == relation):
+                    target = self.nodes.get(edge.target_id)
+                    if target:
+                        paths.append(current_path + [target])
+                        dfs(edge.target_id, current_path + [target], depth + 1)
+
+        dfs(start_id, [], 0)
+        return paths
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "nodes": [

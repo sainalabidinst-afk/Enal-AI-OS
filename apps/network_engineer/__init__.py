@@ -49,6 +49,7 @@ from apps.network_engineer.nic import (
 )
 from apps.network_engineer.recommendation_engine import recommendation_engine
 from apps.network_engineer.simulator import network_simulator
+from apps.network_engineer.topology import NetworkConnection, NetworkDevice, NetworkInterface, NetworkSegment
 from apps.network_engineer.troubleshooting import troubleshooting_engine
 
 

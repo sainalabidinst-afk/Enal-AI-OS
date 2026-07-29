@@ -17,6 +17,8 @@ import json
 from typing import Any
 from dataclasses import dataclass, field
 
+from apps.trading_analyst.market_intelligence.models import TradingContext
+
 logger = logging.getLogger(__name__)
 
 BINANCE_BASE = "https://api.binance.com"
@@ -24,6 +26,7 @@ TIMEFRAME_MAP = {
     "1m": "1m", "5m": "5m", "15m": "15m", "30m": "30m",
     "1h": "1h", "4h": "4h", "1d": "1d", "1w": "1w",
 }
+DEFAULT_TIMEFRAMES = ["15m", "1h", "4h", "1d"]
 DEFAULT_LIMIT = 100  # candles per request
 
 
@@ -136,4 +139,18 @@ def validate_symbol(symbol: str) -> bool:
         return True
     except MarketProviderError:
         return False
+
+
+def build_trading_context(symbol: str, timeframes: list[str], exchange: str = "binance") -> TradingContext:
+    """Build a TradingContext by fetching market data for multiple timeframes."""
+    data = fetch_multi_timeframe(symbol, timeframes)
+    return TradingContext(
+        symbol=symbol.upper(),
+        exchange=exchange,
+        timeframes=data,
+        metadata={
+            "requested_timeframes": timeframes,
+            "fetched_timeframes": [tf for tf, candles in data.items() if candles],
+        },
+    )
 
