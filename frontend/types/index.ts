@@ -19,3 +19,11 @@ export type {
 export type { ModelProvider, ModelRouteRequest, ModelRouteResponse, HealthStatus } from "./models";
 export type { Capability, CapabilitySummary, CapabilityListResponse } from "./capability";
 export type { TradingEvidence, TradingAnalysisResult, TradingAnalysisMetadata, TradingAnalyzeResponse } from "./trading";
+export type {
+  UnifiedEvidence,
+  IntegrationResult,
+  IntegrationResponse,
+  TradingIntegrationRequest,
+  NetworkDesignReviewRequest,
+  SelfImprovementRequest,
+} from "./integration";

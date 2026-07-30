@@ -74,7 +74,7 @@ class MarketData:
 
 
 @dataclass
-class Evidence:
+class MarketEvidence:
     """A single evidence item (fact, not decision)."""
     id: str
     type: str          # e.g., "market_structure", "trend", "volume", "volatility", "session"
@@ -88,6 +88,10 @@ class Evidence:
     def __post_init__(self):
         self.strength = max(0.0, min(1.0, self.strength))
         self.confidence = max(0.0, min(1.0, self.confidence))
+
+
+# TODO(v2): remove compatibility alias after all modules migrate to MarketEvidence.
+Evidence = MarketEvidence
 
 
 @dataclass
@@ -109,7 +113,7 @@ class AnalysisResult:
     symbol: str
     bias: Bias = Bias.NEUTRAL
     confidence: float = 0.0        # 0.0 - 1.0
-    evidence: list[Evidence] = field(default_factory=list)
+    evidence: list[MarketEvidence] = field(default_factory=list)
     risk_level: RiskLevel = RiskLevel.MEDIUM
     counter_scenario: str = ""
     suggested_strategy: str = ""

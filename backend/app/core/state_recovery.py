@@ -1,6 +1,6 @@
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -12,7 +12,7 @@ class Checkpoint:
         self.workflow_id = workflow_id
         self.step_id = step_id
         self.state = state
-        self.timestamp = datetime.utcnow()
+        self.timestamp = datetime.now(timezone.utc)
 
 
 class StateRecovery:
@@ -60,3 +60,4 @@ class StateRecovery:
 
 
 state_recovery = StateRecovery()
+

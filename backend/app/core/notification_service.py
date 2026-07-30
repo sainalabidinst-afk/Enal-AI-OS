@@ -1,6 +1,6 @@
 import asyncio
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 
@@ -16,7 +16,7 @@ class NotificationService:
                 "recipient": recipient,
                 "channel": channel,
                 "message": message,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
                 "metadata": metadata or {},
                 "read": False,
             }
@@ -35,3 +35,4 @@ class NotificationService:
 
 
 notification_service = NotificationService()
+

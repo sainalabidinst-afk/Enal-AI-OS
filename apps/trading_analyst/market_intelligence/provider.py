@@ -17,7 +17,7 @@ import json
 from typing import Any
 from dataclasses import dataclass, field
 
-from apps.trading_analyst.market_intelligence.models import TradingContext
+from apps.trading_analyst.market_intelligence.models import OHLCV, TradingContext
 
 logger = logging.getLogger(__name__)
 
@@ -141,16 +141,29 @@ def validate_symbol(symbol: str) -> bool:
         return False
 
 
-def build_trading_context(symbol: str, timeframes: list[str], exchange: str = "binance") -> TradingContext:
+async def build_trading_context(symbol: str, timeframes: list[str], exchange: str = "binance") -> TradingContext:
     """Build a TradingContext by fetching market data for multiple timeframes."""
-    data = fetch_multi_timeframe(symbol, timeframes)
+    raw_data = fetch_multi_timeframe(symbol, timeframes)
+    parsed: dict[str, list[OHLCV]] = {}
+    for tf, candles in raw_data.items():
+        parsed[tf] = [
+            OHLCV(
+                timestamp=c["timestamp"],
+                open=c["open"],
+                high=c["high"],
+                low=c["low"],
+                close=c["close"],
+                volume=c["volume"],
+            )
+            for c in candles
+        ]
     return TradingContext(
         symbol=symbol.upper(),
         exchange=exchange,
-        timeframes=data,
+        timeframes=parsed,
         metadata={
             "requested_timeframes": timeframes,
-            "fetched_timeframes": [tf for tf, candles in data.items() if candles],
+            "fetched_timeframes": [tf for tf, candles in parsed.items() if candles],
         },
     )
 

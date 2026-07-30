@@ -9,7 +9,7 @@ Transforms user vision into business goals, organizational design, budget, and e
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -293,7 +293,7 @@ class ExecutiveIntelligence:
 
     def _generate_timeline(self, goal: BusinessGoal, phases: list[dict[str, Any]]) -> dict[str, datetime]:
         timeline = {}
-        current_date = datetime.utcnow()
+        current_date = datetime.now(timezone.utc)
         for phase in phases:
             timeline[phase["name"]] = current_date
             duration = phase.get("duration_days", 7)
@@ -302,3 +302,4 @@ class ExecutiveIntelligence:
 
 
 executive_intelligence = ExecutiveIntelligence()
+

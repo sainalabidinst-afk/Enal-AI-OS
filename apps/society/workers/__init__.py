@@ -8,6 +8,7 @@ Each worker knows how to execute subtasks for its domain.
 
 from apps.society.workers.code_worker import CodeWorker, code_worker
 from apps.society.workers.devops_worker import DevOpsWorker, devops_worker
+from apps.society.workers.full_stack_worker import FullStackWorker, full_stack_worker
 from apps.society.workers.network_worker import NetworkWorker, network_worker
 from apps.society.workers.research_worker import ResearchWorker, research_worker
 from apps.society.workers.self_development_worker import (
@@ -19,12 +20,14 @@ from apps.society.workers.trading_worker import TradingWorker, trading_worker
 __all__ = [
     "CodeWorker",
     "DevOpsWorker",
+    "FullStackWorker",
     "NetworkWorker",
     "ResearchWorker",
     "SelfDevelopmentWorker",
     "TradingWorker",
     "code_worker",
     "devops_worker",
+    "full_stack_worker",
     "network_worker",
     "research_worker",
     "self_development_worker",

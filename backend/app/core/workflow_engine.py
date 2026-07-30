@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -130,7 +130,7 @@ class WorkflowEngine:
 
         workflow.status = WorkflowStatus.COMPLETED
         self._execution_history[workflow_id] = {
-            "completed_at": datetime.utcnow().isoformat(),
+            "completed_at": datetime.now(timezone.utc).isoformat(),
             "results": results,
         }
         return {"status": "completed", "results": results}
@@ -192,3 +192,4 @@ class WorkflowEngine:
 
 
 workflow_engine = WorkflowEngine()
+

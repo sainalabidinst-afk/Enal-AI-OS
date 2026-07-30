@@ -16,7 +16,7 @@ import logging
 from typing import Any
 
 from apps.trading_analyst.market_intelligence.models import (
-    TradingContext, OHLCV, Evidence,
+    TradingContext, OHLCV, MarketEvidence,
 )
 from apps.trading_analyst.market_intelligence import indicators as ind
 
@@ -34,14 +34,14 @@ class MarketAnalyzer:
     def __init__(self):
         self._analyzed_timeframes: list[str] = []
 
-    async def analyze(self, ctx: TradingContext) -> dict[str, list[Evidence]]:
+    async def analyze(self, ctx: TradingContext) -> dict[str, list[MarketEvidence]]:
         """
         Run full analysis across all timeframes.
         
-        Returns dict mapping category -> list[Evidence]
+        Returns dict mapping category -> list[MarketEvidence]
         Categories: market_structure, trend, volume, volatility
         """
-        categories: dict[str, list[Evidence]] = {
+        categories: dict[str, list[MarketEvidence]] = {
             "market_structure": [],
             "trend": [],
             "volume": [],
@@ -83,10 +83,10 @@ class MarketAnalyzer:
         return categories
 
     def _create_evidence(self, etype: str, description: str, tf: str,
-                         strength: float, direction: str, source: str) -> Evidence:
-        """Helper to create an Evidence instance with a unique ID."""
+                         strength: float, direction: str, source: str) -> MarketEvidence:
+        """Helper to create an MarketEvidence instance with a unique ID."""
         evidence_id = f"{etype}_{tf}_{len(description)}"
-        return Evidence(
+        return MarketEvidence(
             id=evidence_id,
             type=etype,
             description=description,
@@ -98,9 +98,9 @@ class MarketAnalyzer:
         )
 
     def _analyze_structure(self, ohlcv: list[OHLCV], tf: str,
-                           current_price: float) -> list[Evidence]:
+                           current_price: float) -> list[MarketEvidence]:
         """Analyze market structure: swing points, HH/HL, support/resistance."""
-        evidence: list[Evidence] = []
+        evidence: list[MarketEvidence] = []
         highs = [c.high for c in ohlcv]
         lows = [c.low for c in ohlcv]
         closes = [c.close for c in ohlcv]
@@ -181,9 +181,9 @@ class MarketAnalyzer:
 
         return evidence
 
-    def _analyze_trend(self, closes: list[float], tf: str) -> list[Evidence]:
+    def _analyze_trend(self, closes: list[float], tf: str) -> list[MarketEvidence]:
         """Analyze trend: EMA alignment, regression slope, MACD."""
-        evidence: list[Evidence] = []
+        evidence: list[MarketEvidence] = []
 
         # 1. EMA Alignment
         ema20 = ind.compute_ema(closes, 20)
@@ -241,9 +241,9 @@ class MarketAnalyzer:
         return evidence
 
     def _analyze_volume(self, volumes: list[float], closes: list[float],
-                        tf: str) -> list[Evidence]:
+                        tf: str) -> list[MarketEvidence]:
         """Analyze volume: trend, spikes, divergence."""
-        evidence: list[Evidence] = []
+        evidence: list[MarketEvidence] = []
 
         # 1. Volume trend
         vol_trend = ind.compute_volume_trend(volumes)
@@ -289,9 +289,9 @@ class MarketAnalyzer:
         return evidence
 
     def _analyze_volatility(self, closes: list[float], highs: list[float],
-                            lows: list[float], tf: str) -> list[Evidence]:
+                            lows: list[float], tf: str) -> list[MarketEvidence]:
         """Analyze volatility: ATR, Bollinger Bands."""
-        evidence: list[Evidence] = []
+        evidence: list[MarketEvidence] = []
 
         # 1. ATR (volatility level)
         atr = ind.compute_atr(highs, lows, closes)
@@ -350,4 +350,3 @@ class MarketAnalyzer:
     def get_analyzed_timeframes(self) -> list[str]:
         """Return list of timeframes that were analyzed."""
         return self._analyzed_timeframes
-

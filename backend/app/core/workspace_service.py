@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from backend.app.models.schemas_execution import Workspace
@@ -26,8 +26,8 @@ class WorkspaceService:
         ws = self._workspaces.get(workspace_id)
         if not ws:
             return None
-        ws.files.append({"filename": filename, "path": path, "size": size, "uploaded_at": datetime.utcnow().isoformat(), "metadata": metadata or {}})
-        ws.updated_at = datetime.utcnow()
+        ws.files.append({"filename": filename, "path": path, "size": size, "uploaded_at": datetime.now(timezone.utc).isoformat(), "metadata": metadata or {}})
+        ws.updated_at = datetime.now(timezone.utc)
         return ws
 
     async def list_files(self, workspace_id: str) -> list[dict[str, Any]] | None:
@@ -52,7 +52,7 @@ class WorkspaceService:
         before = len(ws.files)
         ws.files = [f for f in ws.files if f.get("filename") != filename]
         if len(ws.files) != before:
-            ws.updated_at = datetime.utcnow()
+            ws.updated_at = datetime.now(timezone.utc)
             return True
         return False
 
@@ -61,7 +61,7 @@ class WorkspaceService:
         if not ws:
             return None
         ws.memory[key] = value
-        ws.updated_at = datetime.utcnow()
+        ws.updated_at = datetime.now(timezone.utc)
         return ws
 
     async def get_memory(self, workspace_id: str, key: str) -> Any:
@@ -78,3 +78,4 @@ class WorkspaceService:
 
 
 workspace_service = WorkspaceService()
+

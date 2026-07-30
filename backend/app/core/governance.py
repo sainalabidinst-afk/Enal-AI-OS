@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -73,7 +73,7 @@ class PolicyEngine:
 
     def create_approval(self, agent: str, action: str, justification: str, requester: str) -> ApprovalRequest:
         approval = ApprovalRequest(
-            id=f"approval-{datetime.utcnow().timestamp()}",
+            id=f"approval-{datetime.now(timezone.utc).timestamp()}",
             agent=agent,
             action=action,
             justification=justification,
@@ -89,7 +89,7 @@ class PolicyEngine:
             return False
         approval.status = ApprovalStatus.APPROVED
         approval.approver = approver
-        approval.resolved_at = datetime.utcnow()
+        approval.resolved_at = datetime.now(timezone.utc)
         logger.info(f"Approval {approval_id} approved by {approver}")
         return True
 
@@ -99,7 +99,7 @@ class PolicyEngine:
             return False
         approval.status = ApprovalStatus.REJECTED
         approval.approver = approver
-        approval.resolved_at = datetime.utcnow()
+        approval.resolved_at = datetime.now(timezone.utc)
         logger.info(f"Approval {approval_id} rejected by {approver}: {reason}")
         return True
 
@@ -111,3 +111,4 @@ class PolicyEngine:
 
 
 policy_engine = PolicyEngine()
+

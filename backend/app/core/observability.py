@@ -1,7 +1,7 @@
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -60,13 +60,13 @@ class Observability:
             span_type=span_type,
             name=name,
             agent=agent,
-            started_at=datetime.utcnow(),
+            started_at=datetime.now(timezone.utc),
         )
         self._traces[trace_id].append(span)
         return span
 
     def end_span(self, span: TraceSpan, output: Any = None, error: str | None = None):
-        span.finished_at = datetime.utcnow()
+        span.finished_at = datetime.now(timezone.utc)
         span.latency_ms = (span.finished_at - span.started_at).total_seconds() * 1000
         span.output = output
         span.error = error
@@ -114,3 +114,4 @@ class Observability:
 
 
 observability = Observability()
+

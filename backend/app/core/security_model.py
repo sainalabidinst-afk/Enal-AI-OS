@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -87,7 +87,7 @@ class SecurityModel:
 
     def _log_audit(self, action: str, plugin_id: str, permission: Permission | None = None, allowed: bool | None = None):
         self._audit_log.append({
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "action": action,
             "plugin_id": plugin_id,
             "permission": permission.value if permission else None,
@@ -139,3 +139,4 @@ class SecurityModel:
 
 
 security_model = SecurityModel()
+

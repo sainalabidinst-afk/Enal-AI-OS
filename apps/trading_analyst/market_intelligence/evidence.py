@@ -12,7 +12,7 @@ Does NOT produce decisions — only structured evidence.
 import logging
 from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import Evidence, Bias
+from apps.trading_analyst.market_intelligence.models import MarketEvidence, Bias
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +38,10 @@ class EvidenceBuilder:
     """
 
     def __init__(self):
-        self._all_evidence: list[Evidence] = []
+        self._all_evidence: list[MarketEvidence] = []
         self._timeframes_analyzed: list[str] = []
 
-    def build(self, raw: dict[str, list[Evidence]], timeframes: list[str]) -> list[Evidence]:
+    def build(self, raw: dict[str, list[MarketEvidence]], timeframes: list[str]) -> list[MarketEvidence]:
         """
         Build structured evidence from raw analyzer output.
 
@@ -81,7 +81,7 @@ class EvidenceBuilder:
             return
 
         # Group evidence by type + direction
-        groups: dict[str, list[Evidence]] = {}
+        groups: dict[str, list[MarketEvidence]] = {}
         for ev in self._all_evidence:
             key = f"{ev.type}:{ev.direction}"
             if key not in groups:
@@ -105,8 +105,8 @@ class EvidenceBuilder:
         If two evidence items have the same type + description + timeframe,
         keep the one with higher confidence.
         """
-        seen: dict[str, Evidence] = {}
-        deduped: list[Evidence] = []
+        seen: dict[str, MarketEvidence] = {}
+        deduped: list[MarketEvidence] = []
 
         for ev in self._all_evidence:
             key = f"{ev.type}:{ev.description}:{ev.timeframe}"
@@ -150,7 +150,7 @@ class EvidenceBuilder:
             return Bias.NEUTRAL, 0.0
 
         # Group evidence by category
-        by_category: dict[str, list[Evidence]] = {}
+        by_category: dict[str, list[MarketEvidence]] = {}
         for ev in self._all_evidence:
             cat = ev.type
             if cat not in by_category:
@@ -198,14 +198,14 @@ class EvidenceBuilder:
 
         return bias, confidence
 
-    def get_top_evidence(self, n: int = 5) -> list[Evidence]:
+    def get_top_evidence(self, n: int = 5) -> list[MarketEvidence]:
         """Return top N evidence items by confidence."""
         sorted_ev = sorted(self._all_evidence, key=lambda e: e.confidence, reverse=True)
         return sorted_ev[:n]
 
-    def get_evidence_by_category(self) -> dict[str, list[Evidence]]:
+    def get_evidence_by_category(self) -> dict[str, list[MarketEvidence]]:
         """Group evidence by type/category."""
-        by_cat: dict[str, list[Evidence]] = {}
+        by_cat: dict[str, list[MarketEvidence]] = {}
         for ev in self._all_evidence:
             if ev.type not in by_cat:
                 by_cat[ev.type] = []

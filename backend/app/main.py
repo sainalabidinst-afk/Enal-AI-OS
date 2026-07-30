@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .api import chat, health, orchestrator_v2, phase3, ecosystem, capability_discovery, execution, workspace, artifact, model_gateway, notifications, attachments, telemetry, benchmark, trading
+from .api import chat, health, orchestrator_v2, phase3, ecosystem, capability_discovery, execution, workspace, artifact, model_gateway, notifications, attachments, telemetry, benchmark, trading, integration
 from .core.config import settings
 
 app = FastAPI(
@@ -32,6 +32,7 @@ app.include_router(attachments.router, prefix=settings.API_V1_STR, tags=["attach
 app.include_router(telemetry.router, prefix=settings.API_V1_STR, tags=["telemetry"])
 app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmark"])
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
+app.include_router(integration.router, prefix=settings.API_V1_STR, tags=["integration"])
 
 
 @app.get("/")

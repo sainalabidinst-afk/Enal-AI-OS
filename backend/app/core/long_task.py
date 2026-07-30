@@ -2,7 +2,7 @@ import logging
 import uuid
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -62,7 +62,7 @@ class AutonomousLongTask:
         if not task:
             raise ValueError(f"Long task not found: {task_id}")
         task.status = LongTaskStatus.RUNNING
-        task.started_at = datetime.utcnow()
+        task.started_at = datetime.now(timezone.utc)
         checkpoint = await state_recovery.load(task_id)
         if checkpoint:
             task.current_step = checkpoint.get("step", 0)
@@ -106,7 +106,7 @@ class AutonomousLongTask:
                 payload={"task_id": task_id, "result": task.result},
                 source="longtask-manager",
             ))
-        task.finished_at = datetime.utcnow()
+        task.finished_at = datetime.now(timezone.utc)
         return task
 
     async def pause(self, task_id: str):
@@ -155,3 +155,4 @@ class AutonomousLongTask:
 
 
 long_task_manager = AutonomousLongTask()
+

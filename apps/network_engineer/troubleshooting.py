@@ -205,11 +205,11 @@ class TroubleshootingEngine:
         return TroubleshootingSession(session_id=str(uuid.uuid4())[:8], symptom=symptom)
 
     def add_evidence(self, session: TroubleshootingSession, source: str, content: str, confidence: float = 1.0) -> None:
-        from datetime import datetime
+        from datetime import datetime, timezone
         session.evidence.append(EvidenceItem(
             source=source,
             content=content,
-            timestamp=datetime.utcnow().isoformat() + "Z",
+            timestamp=datetime.now(timezone.utc).isoformat() + "Z",
             confidence=confidence,
         ))
 

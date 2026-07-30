@@ -8,7 +8,7 @@ Each agent has identity, role, department, skills, tools, and lifecycle methods.
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from apps.organization.registry import (
@@ -73,5 +73,6 @@ class Agent(ABC):
             tasks_failed=0 if success else 1,
             total_tokens=tokens,
             total_cost=cost,
-            last_active=datetime.utcnow(),
+            last_active=datetime.now(timezone.utc),
         )
+

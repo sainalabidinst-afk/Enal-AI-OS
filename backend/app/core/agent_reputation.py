@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -35,7 +35,7 @@ class AgentReputation:
         self.metrics[MetricType.SUCCESS_RATE] = self.successful_tasks / self.total_tasks if self.total_tasks > 0 else 0.0
         self.metrics[MetricType.LATENCY] = (self.metrics.get(MetricType.LATENCY, 0.0) * (self.total_tasks - 1) + latency_ms) / self.total_tasks
         self.metrics[MetricType.COST] = (self.metrics.get(MetricType.COST, 0.0) * (self.total_tasks - 1) + cost) / self.total_tasks
-        self.last_updated = datetime.utcnow()
+        self.last_updated = datetime.now(timezone.utc)
 
     def get_score(self) -> float:
         if self.total_tasks == 0:
@@ -82,3 +82,4 @@ class AgentReputationManager:
 
 
 agent_reputation = AgentReputationManager()
+

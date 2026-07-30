@@ -10,7 +10,7 @@ import hashlib
 import logging
 import time
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -40,7 +40,7 @@ class BackupManager:
         """Create a backup of the current configuration."""
         backup_id = f"bkp-{int(time.time() * 1000)}"
         config_hash = hashlib.sha256(config_content.encode()).hexdigest()[:16]
-        timestamp = datetime.utcnow().isoformat()
+        timestamp = datetime.now(timezone.utc).isoformat()
 
         artifact_path = self.store_dir / f"{device_id}-{backup_id}.rsc"
         artifact_path.write_text(config_content, encoding="utf-8")
@@ -93,3 +93,4 @@ class BackupManager:
 
 
 backup_manager = BackupManager()
+

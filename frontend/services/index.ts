@@ -39,3 +39,8 @@ export { listCapabilities, getCapability } from "./capability";
 export { listModelProviders, checkProviderHealth, routeModel } from "./models";
 export { createChatStream } from "./stream";
 export { analyzeMarket } from "./trading";
+export {
+  analyzeTradingWithKnowledge,
+  reviewNetworkDesignWithKnowledge,
+  runSelfImprovementCycle,
+} from "./integration";

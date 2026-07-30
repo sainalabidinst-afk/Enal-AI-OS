@@ -17,7 +17,7 @@ from typing import Any
 from datetime import datetime, timezone
 
 from apps.trading_analyst.market_intelligence.models import (
-    AnalysisResult, AnalysisMetadata, Evidence, Bias, RiskLevel,
+    AnalysisResult, AnalysisMetadata, MarketEvidence, Bias, RiskLevel,
 )
 from apps.trading_analyst.market_intelligence.evidence import EvidenceBuilder
 from apps.trading_analyst.market_intelligence.confidence import (
@@ -42,7 +42,7 @@ class MarketSummaryGenerator:
 
     def generate(
         self,
-        raw_evidence: dict[str, list[Evidence]],
+        raw_evidence: dict[str, list[MarketEvidence]],
         timeframes: list[str],
         symbol: str,
         exchange: str = "binance",
@@ -83,7 +83,7 @@ class MarketSummaryGenerator:
             exchange=exchange,
             timeframes=timeframes,
             generated_at=datetime.now(timezone.utc).isoformat(),
-            data_source=f"binance_public_api",
+            data_source="binance_public_api",
             analysis_version="1.0.0",
             latency_ms=latency_ms,
             raw_data_points=sum(len(raw_evidence.get(cat, [])) for cat in raw_evidence),
@@ -123,7 +123,7 @@ class MarketSummaryGenerator:
         symbol: str,
         bias: Bias,
         confidence: float,
-        evidence: list[Evidence],
+        evidence: list[MarketEvidence],
         category_scores: dict[str, float],
     ) -> str:
         """Build a human-readable market summary."""
@@ -159,7 +159,7 @@ class MarketSummaryGenerator:
 
         return " ".join(summary_parts)
 
-    def _build_counter_scenario(self, bias: Bias, evidence: list[Evidence]) -> str:
+    def _build_counter_scenario(self, bias: Bias, evidence: list[MarketEvidence]) -> str:
         """Build a counter-scenario that could invalidate the current bias."""
         if bias == Bias.NEUTRAL:
             return (
@@ -203,7 +203,7 @@ class MarketSummaryGenerator:
 
     def _build_reasoning_steps(
         self,
-        evidence: list[Evidence],
+        evidence: list[MarketEvidence],
         bias: Bias,
         confidence: float,
         category_scores: dict[str, float],

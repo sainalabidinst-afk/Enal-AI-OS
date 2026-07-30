@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from backend.app.core.artifact_service import artifact_service
@@ -32,7 +32,7 @@ class ExecutionScheduler:
         for task in queue:
             if task.status == ExecutionStatus.pending and self._dependencies_met(task, queue):
                 task.status = ExecutionStatus.running
-                task.started_at = datetime.utcnow()
+                task.started_at = datetime.now(timezone.utc)
                 return task
         return None
 
@@ -41,7 +41,7 @@ class ExecutionScheduler:
         for task in queue:
             if task.id == task_id:
                 task.status = ExecutionStatus.completed
-                task.completed_at = datetime.utcnow()
+                task.completed_at = datetime.now(timezone.utc)
                 task.result = result
                 return task
         return None
@@ -187,3 +187,4 @@ class ExecutionIntegration:
 
 
 execution_integration = ExecutionIntegration()
+

@@ -16,7 +16,7 @@ import logging
 import uuid
 from collections.abc import AsyncGenerator
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from apps.society.society import SocietyRuntime, create_society
@@ -69,7 +69,7 @@ class ConversationManager:
                 turns.append(ConversationTurn(
                     role=msg.get("role", "user"),
                     content=msg.get("content", ""),
-                    timestamp=datetime.fromisoformat(msg.get("timestamp", datetime.utcnow().isoformat())),
+                    timestamp=datetime.fromisoformat(msg.get("timestamp", datetime.now(timezone.utc).isoformat())),
                     metadata=msg.get("metadata", {}),
                 ))
             state = ConversationState(conversation_id=conversation_id, turns=turns)
@@ -138,7 +138,7 @@ class ConversationManager:
             },
         )
         state.turns.extend([user_turn, assistant_turn])
-        state.updated_at = datetime.utcnow()
+        state.updated_at = datetime.now(timezone.utc)
 
         await self._persist_turn(conversation_id, user_turn)
         await self._persist_turn(conversation_id, assistant_turn)
@@ -210,7 +210,7 @@ class ConversationManager:
             "task_plan": task_plan,
             "execution_plan": execution_plan,
             "result": results_raw,
-            "timestamp": __import__("datetime").datetime.utcnow().isoformat(),
+            "timestamp": __import__("datetime").datetime.now(timezone.utc).isoformat(),
         }
         await self._persist_artifact(conversation_id, artifact)
 
@@ -248,7 +248,7 @@ class ConversationManager:
             },
         )
         state.turns.extend([user_turn, assistant_turn])
-        state.updated_at = datetime.utcnow()
+        state.updated_at = datetime.now(timezone.utc)
 
         await self._persist_turn(conversation_id, user_turn)
         await self._persist_turn(conversation_id, assistant_turn)
@@ -394,3 +394,4 @@ class ConversationManager:
 
 
 conversation_manager = ConversationManager()
+

@@ -1,7 +1,7 @@
 import json
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from backend.app.core.event_bus import Event, event_bus
@@ -33,7 +33,7 @@ class AutonomousGoalEngine:
         event_bus.subscribe("task.failed", self._on_task_failed)
 
     async def create_goal(self, description: str, success_criteria: list[str], project_id: str | None = None) -> Goal:
-        goal_id = f"goal-{datetime.utcnow().timestamp()}"
+        goal_id = f"goal-{datetime.now(timezone.utc).timestamp()}"
         goal = Goal(
             id=goal_id,
             description=description,
@@ -107,3 +107,4 @@ class AutonomousGoalEngine:
 
 
 goal_engine = AutonomousGoalEngine()
+
