@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-from backend.app.core.knowledge.registry import KnowledgeRegistry
-from backend.app.core.knowledge.graph import KnowledgeGraph
-from backend.app.core.knowledge.store import KnowledgeStore
 from backend.app.core.knowledge.seeders.trading import seed_trading_knowledge
+from backend.app.core.knowledge.store import KnowledgeStore
 
 
 def build_knowledge_store() -> KnowledgeStore:

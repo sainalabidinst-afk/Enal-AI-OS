@@ -1,18 +1,20 @@
-from typing import Any
-from fastapi import APIRouter, HTTPException, Query
-import time
 import logging
+import time
+from typing import Any
+
+from fastapi import APIRouter, HTTPException, Query
+
+from backend.app.core.artifact_service import artifact_service
+from backend.app.core.execution_integration import execution_integration
+from backend.app.core.execution_session import execution_session_manager
+from backend.app.core.telemetry.service import record_execution_event
+from backend.app.core.workspace_service import workspace_service
 from backend.app.models.schemas_execution import (
+    ExecutionArtifact,
+    ExecutionPhase,
     ExecutionSession,
     ExecutionStatus,
-    ExecutionPhase,
-    ExecutionArtifact,
 )
-from backend.app.core.execution_session import execution_session_manager
-from backend.app.core.execution_integration import execution_integration
-from backend.app.core.workspace_service import workspace_service
-from backend.app.core.artifact_service import artifact_service
-from backend.app.core.telemetry.service import record_execution_event
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

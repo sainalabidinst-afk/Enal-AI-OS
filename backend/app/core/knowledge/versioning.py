@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -9,7 +9,7 @@ from typing import Any
 class KnowledgeVersion:
     entity_id: str
     version: str
-    changed_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    changed_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     changed_by: str | None = None
     change_summary: str = ""
     snapshot: dict[str, Any] = field(default_factory=dict)

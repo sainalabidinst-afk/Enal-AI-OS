@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -69,7 +69,7 @@ class EvaluationFramework:
             except Exception as e:
                 result.failed += 1
                 result.results.append({"case": case, "passed": False, "error": str(e)})
-        result.finished_at = datetime.now(timezone.utc)
+        result.finished_at = datetime.now(UTC)
 
         # Evaluate quality gates
         pass_rate = result.passed / result.total if result.total > 0 else 0
@@ -83,7 +83,7 @@ class EvaluationFramework:
                 "threshold": gate.threshold,
                 "actual": pass_rate,
                 "passed": gate_passed,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             })
         return result
 

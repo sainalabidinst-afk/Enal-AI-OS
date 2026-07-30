@@ -15,11 +15,9 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from apps.integration.registry import capability_registry
-
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/integration", tags=["integration"])
+router = APIRouter(prefix="/integration", tags=["integration"])
 
 
 class TradingAnalysisRequest(BaseModel):

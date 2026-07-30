@@ -18,6 +18,7 @@ class AIOrchestrator:
     ) -> dict[str, Any]:
         """Full orchestration: goal → plan → execute with memory."""
         from apps.organization.ai_planner import ai_planner
+
         from backend.app.core.perception_engine import perception_engine
 
         context = context or {}

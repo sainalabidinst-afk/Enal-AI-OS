@@ -9,6 +9,6 @@ def test_health():
     assert "Enal AI OS" in response.json()["message"]
 
 def test_agents_list():
-    response = client.get("/api/v1/agents")
+    response = client.get("/agents")
     assert response.status_code == 200
     assert "agents" in response.json()

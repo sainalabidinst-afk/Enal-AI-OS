@@ -2,7 +2,6 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any
 
-from backend.app.core.cognitive.world_model import world_model
 from backend.app.core.decision_engine import DecisionResult
 from backend.app.core.memory_layer import memory_manager
 
@@ -17,6 +16,7 @@ class CognitiveService(ABC):
 
 class PerceptionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
+        from backend.app.core.cognitive.world_model import world_model
         user_input = context.get("input", "")
         project_id = context.get("project_id")
         memories = []

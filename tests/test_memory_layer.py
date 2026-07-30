@@ -90,7 +90,7 @@ class TestMemoryManager:
 
     def _get_memory_manager_class(self):
         """Load MemoryManager without triggering FastAPI import."""
-        from backend.app.core.memory_layer import MemoryManager, KnowledgeMemory, EpisodicMemory
+        from backend.app.core.memory_layer import EpisodicMemory, KnowledgeMemory, MemoryManager
         return MemoryManager, KnowledgeMemory, EpisodicMemory
 
     @pytest.mark.asyncio

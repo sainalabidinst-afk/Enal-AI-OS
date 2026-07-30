@@ -1,6 +1,24 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .api import chat, health, orchestrator_v2, phase3, ecosystem, capability_discovery, execution, workspace, artifact, model_gateway, notifications, attachments, telemetry, benchmark, trading, integration
+
+from .api import (
+    artifact,
+    attachments,
+    benchmark,
+    capability_discovery,
+    chat,
+    ecosystem,
+    execution,
+    health,
+    integration,
+    model_gateway,
+    notifications,
+    orchestrator_v2,
+    phase3,
+    telemetry,
+    trading,
+    workspace,
+)
 from .core.config import settings
 
 app = FastAPI(

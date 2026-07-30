@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
+
 from backend.app.core.knowledge.schema import (
     KnowledgeCategory,
     KnowledgeDomain,
@@ -21,8 +22,8 @@ class SuccessPattern:
     outcome: str
     confidence: float = 0.0
     occurrences: int = 1
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -36,8 +37,8 @@ class FailurePattern:
     severity: str = "medium"
     occurrences: int = 1
     confidence: float = 0.0
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -51,7 +52,7 @@ class Recommendation:
     confidence: float = 0.0
     based_on_patterns: list[str] = field(default_factory=list)
     based_on_lessons: list[str] = field(default_factory=list)
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -62,7 +63,7 @@ class LearningEngine:
         self._recommendations: dict[str, Recommendation] = {}
 
     def record_success(self, domain: str, context: dict[str, Any], action_taken: str, outcome: str, confidence: float = 0.0, metadata: dict[str, Any] | None = None) -> SuccessPattern:
-        pattern_id = f"success-{domain}-{datetime.now(timezone.utc).timestamp()}"
+        pattern_id = f"success-{domain}-{datetime.now(UTC).timestamp()}"
         pattern = SuccessPattern(
             pattern_id=pattern_id,
             domain=domain,
@@ -76,7 +77,7 @@ class LearningEngine:
         return pattern
 
     def record_failure(self, domain: str, context: dict[str, Any], action_taken: str, failure_reason: str, severity: str = "medium", confidence: float = 0.0, metadata: dict[str, Any] | None = None) -> FailurePattern:
-        pattern_id = f"failure-{domain}-{datetime.now(timezone.utc).timestamp()}"
+        pattern_id = f"failure-{domain}-{datetime.now(UTC).timestamp()}"
         pattern = FailurePattern(
             pattern_id=pattern_id,
             domain=domain,
@@ -111,7 +112,7 @@ class LearningEngine:
             based_on_patterns.append(worst.pattern_id)
         if not suggestion_parts:
             return None
-        recommendation_id = f"recommendation-{domain}-{datetime.now(timezone.utc).timestamp()}"
+        recommendation_id = f"recommendation-{domain}-{datetime.now(UTC).timestamp()}"
         recommendation = Recommendation(
             recommendation_id=recommendation_id,
             domain=domain,

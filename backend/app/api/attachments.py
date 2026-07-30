@@ -1,16 +1,17 @@
 from __future__ import annotations
 
+import logging
 import time
 import uuid
-import logging
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Query
-from backend.app.core.attachments.pipeline import validate_filename
+from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
+
 from backend.app.core.attachments.analyzer import analyze_attachment, analyze_multi
 from backend.app.core.attachments.diff_engine import ConfigurationDiffEngine
-from backend.app.core.workspace_service import workspace_service
+from backend.app.core.attachments.pipeline import validate_filename
 from backend.app.core.telemetry.service import record_analysis_event
+from backend.app.core.workspace_service import workspace_service
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

@@ -826,7 +826,7 @@ class ArchitectureReviewEngine:
             mono_score += 0.1
         scores["monolith"] = mono_score
 
-        best_style = max(scores, key=scores.get)
+        best_style = max(scores, key=lambda k: scores[k])
         best_score = scores[best_style]
 
         # Normalize confidence

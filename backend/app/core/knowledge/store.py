@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+
 from backend.app.core.knowledge.evidence import Evidence, EvidenceStore
 from backend.app.core.knowledge.graph import KnowledgeGraph
 from backend.app.core.knowledge.node import KnowledgeNode

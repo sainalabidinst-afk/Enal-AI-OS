@@ -10,8 +10,9 @@ Tests AI Organization Platform:
 - Organizational metrics
 """
 
-import pytest
 from typing import Any
+
+import pytest
 
 from apps.organization.collective_memory import collective_memory
 from apps.organization.communication import blackboard, mailbox

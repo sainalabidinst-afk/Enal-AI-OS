@@ -2,7 +2,6 @@ import logging
 from typing import Any
 
 from backend.app.core.cognitive_budget import TaskComplexity, cognitive_budget
-from backend.app.core.cognitive_kernel import cognitive_kernel
 from backend.app.core.cost_optimizer import cost_optimizer
 from backend.app.core.model_router import model_router
 
@@ -28,6 +27,7 @@ PIPELINE_DESCRIPTIONS = {
 
 class AdaptiveCognitiveRuntime:
     def __init__(self):
+        from backend.app.core.cognitive_kernel import cognitive_kernel
         self.kernel = cognitive_kernel
         self.budget = cognitive_budget
         self.model_router = model_router

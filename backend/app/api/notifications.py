@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+
 from backend.app.core.notification_service import notification_service
 
 router = APIRouter()

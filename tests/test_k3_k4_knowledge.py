@@ -3,24 +3,18 @@ Tests for Knowledge K3 — Evidence Intelligence
 and Knowledge K4 — Experience Memory.
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 
 from apps.organization.evidence_intelligence import (
     EvidenceIntelligenceEngine,
-    EvidenceRecord,
     EvidenceSource,
     EvidenceType,
-    evidence_intelligence_engine,
 )
 from apps.organization.experience_memory import (
     ExperienceMemory,
-    ExecutionRecord,
-    LessonLearned,
-    experience_memory,
 )
-
 
 # ─── K3 Tests ───
 
@@ -104,7 +98,7 @@ def test_enrich_for_reasoning():
 
 def test_record_execution():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     record = memory.record_execution(
         capability_id="trading-analyst",
         subtask_id="subtask-1",
@@ -120,7 +114,7 @@ def test_record_execution():
 
 def test_record_lesson_from_execution():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     exec_record = memory.record_execution(
         capability_id="network-engineer",
         subtask_id="subtask-1",
@@ -146,7 +140,7 @@ def test_record_lesson_from_execution():
 
 def test_get_lessons_for_capability():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for i in range(3):
         exec_record = memory.record_execution(
             capability_id="code-engineer",
@@ -170,7 +164,7 @@ def test_get_lessons_for_capability():
 
 def test_quality_trend():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for i in range(5):
         exec_record = memory.record_execution(
             capability_id="full-stack-engineer",
@@ -195,7 +189,7 @@ def test_quality_trend():
 
 def test_search_experiences():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     exec_record = memory.record_execution(
         capability_id="devops-assistant",
         subtask_id="deploy",
@@ -220,7 +214,7 @@ def test_search_experiences():
 
 def test_to_knowledge_update():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     exec_record = memory.record_execution(
         capability_id="trading-analyst",
         subtask_id="analysis",
@@ -246,7 +240,7 @@ def test_to_knowledge_update():
 
 def test_recent_executions():
     memory = ExperienceMemory()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for i in range(5):
         memory.record_execution(
             capability_id="network-engineer",

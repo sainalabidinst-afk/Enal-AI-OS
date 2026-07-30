@@ -1,5 +1,12 @@
 import logging
-from backend.app.core.mcp_registry import MCPPlugin, MCPTool, MCPResource, MCPResourceType, mcp_registry
+
+from backend.app.core.mcp_registry import (
+    MCPPlugin,
+    MCPResource,
+    MCPResourceType,
+    MCPTool,
+    mcp_registry,
+)
 
 logger = logging.getLogger(__name__)
 

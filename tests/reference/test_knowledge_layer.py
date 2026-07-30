@@ -5,8 +5,9 @@ Test Knowledge Layer
 Tests Network Ontology, Concept Enricher, and Compliance Profiles.
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 from apps.network_engineer import get_app
 from apps.network_engineer.nic.knowledge.enricher import knowledge_enricher

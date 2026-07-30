@@ -1,14 +1,13 @@
 import logging
 from typing import Any
 
-from backend.app.core.adaptive_runtime import adaptive_runtime
-from backend.app.core.meta_cognition import meta_cognition
-
 logger = logging.getLogger(__name__)
 
 
 class CognitiveOrchestrator:
     def __init__(self):
+        from backend.app.core.adaptive_runtime import adaptive_runtime
+        from backend.app.core.meta_cognition import meta_cognition
         self.runtime = adaptive_runtime
         self.meta = meta_cognition
 

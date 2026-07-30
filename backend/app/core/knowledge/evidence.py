@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -12,7 +12,7 @@ class Evidence:
     source: str
     source_type: str = "manual"
     confidence: float = 0.0
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
     capability: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
     citations: list[str] = field(default_factory=list)

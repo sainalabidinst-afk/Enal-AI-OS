@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from typing import Any
-from backend.app.core.knowledge.graph import KnowledgeGraph, KnowledgeNode
+
+from backend.app.core.knowledge.graph import KnowledgeGraph
 from backend.app.core.knowledge.registry import KnowledgeRegistry
 
 

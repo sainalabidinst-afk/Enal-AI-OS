@@ -20,7 +20,7 @@ from apps.organization.knowledge_retrieval import (
     create_context_builder,
     create_knowledge_retrieval,
 )
-from backend.app.core.knowledge.evidence import EvidenceStore, EvidenceBuilder
+from backend.app.core.knowledge.evidence import EvidenceBuilder, EvidenceStore
 from backend.app.core.knowledge.graph import KnowledgeGraph, KnowledgeNode
 from backend.app.core.knowledge.registry import KnowledgeRegistry
 from backend.app.core.knowledge.retrieval import KnowledgeRetrieval
@@ -31,7 +31,6 @@ from backend.app.core.knowledge.schema import (
     KnowledgeStatus,
     KnowledgeType,
 )
-
 
 # ─── Fixtures ───
 

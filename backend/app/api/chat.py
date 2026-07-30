@@ -1,19 +1,21 @@
 from __future__ import annotations
 
-import time
-import uuid
 import json
 import logging
+import time
+import uuid
 from typing import Any
 
+from apps.society.conversation_manager import conversation_manager
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
+
+from backend.app.core.execution_integration import execution_integration
+from backend.app.core.telemetry.service import record_chat_event
+from backend.app.core.workspace_service import workspace_service
+
 from ..models.schemas import ChatRequest, ChatResponse
 from ..models.schemas_execution import ExecutionSession
-from apps.society.conversation_manager import conversation_manager
-from backend.app.core.execution_integration import execution_integration
-from backend.app.core.workspace_service import workspace_service
-from backend.app.core.telemetry.service import record_chat_event
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

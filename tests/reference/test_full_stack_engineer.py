@@ -8,12 +8,14 @@ Tests for F1–F6 capabilities.
 import asyncio
 
 from apps.full_stack_engineer import get_app
-from apps.full_stack_engineer.architecture_review import ArchitectureReviewEngine, architecture_review_engine
-from apps.full_stack_engineer.code_review import FullStackCodeReviewEngine, code_review_engine
-from apps.full_stack_engineer.performance_engineer import PerformanceEngineer, performance_engineer
-from apps.full_stack_engineer.refactoring_planner import RefactoringPlanner, refactoring_planner
-from apps.full_stack_engineer.release_engineer import ReleaseEngineer, release_engineer
-from apps.full_stack_engineer.test_engineer import TestEngineer, test_engineer
+from apps.full_stack_engineer.architecture_review import (
+    architecture_review_engine,
+)
+from apps.full_stack_engineer.code_review import code_review_engine
+from apps.full_stack_engineer.performance_engineer import performance_engineer
+from apps.full_stack_engineer.refactoring_planner import refactoring_planner
+from apps.full_stack_engineer.release_engineer import release_engineer
+from apps.full_stack_engineer.test_engineer import test_engineer
 
 
 def test_architecture_review_returns_score():

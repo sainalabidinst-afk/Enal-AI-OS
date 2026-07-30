@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from backend.app.core.model_gateway import model_gateway
 
 router = APIRouter()

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
-from backend.app.models.schemas_execution import Artifact, ArtifactVersion
+
 from backend.app.core.artifact_service import artifact_service
+from backend.app.models.schemas_execution import Artifact, ArtifactVersion
 
 router = APIRouter()
 

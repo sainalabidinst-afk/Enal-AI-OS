@@ -1,29 +1,30 @@
 from fastapi import APIRouter, HTTPException
-from backend.app.core.organization import organization_tree, RoleType, OrgNode
+
 from backend.app.core.agent_reputation import agent_reputation
-from backend.app.core.experience import experience_learning
-from backend.app.core.observability import observability
-from backend.app.core.governance import policy_engine, Permission
-from backend.app.core.state_recovery import state_recovery
-from backend.app.core.evaluation import evaluation_framework
-from backend.app.core.mcp_registry import mcp_registry
 from backend.app.core.artifact_service import artifact_service
-from backend.app.core.semantic_graph import semantic_graph, NodeType, RelationType
-from backend.app.core.prompt_compiler import prompt_compiler
-from backend.app.core.cognitive_budget import cognitive_budget
-from backend.app.core.goal_engine import goal_engine
-from backend.app.core.long_task import long_task_manager
-from backend.app.core.cognitive.reasoning_engine import reasoning_engine
+from backend.app.core.cognitive import cognitive_orchestrator
+from backend.app.core.cognitive.continuous_learning import continuous_learning
 from backend.app.core.cognitive.debate_engine import debate_engine
+from backend.app.core.cognitive.reasoning_engine import reasoning_engine
 from backend.app.core.cognitive.self_verification import self_verification
 from backend.app.core.cognitive.simulation_engine import simulation_engine
-from backend.app.core.cognitive.world_model import world_model
 from backend.app.core.cognitive.strategic_planner import strategic_planner
-from backend.app.core.cognitive.continuous_learning import continuous_learning
-from backend.app.core.cognitive import cognitive_orchestrator
+from backend.app.core.cognitive.world_model import world_model
+from backend.app.core.cognitive_budget import cognitive_budget
 from backend.app.core.cognitive_kernel import cognitive_kernel
-from backend.app.core.meta_cognition import meta_cognition
 from backend.app.core.decision_engine import decision_engine
+from backend.app.core.evaluation import evaluation_framework
+from backend.app.core.experience import experience_learning
+from backend.app.core.goal_engine import goal_engine
+from backend.app.core.governance import Permission, policy_engine
+from backend.app.core.long_task import long_task_manager
+from backend.app.core.mcp_registry import mcp_registry
+from backend.app.core.meta_cognition import meta_cognition
+from backend.app.core.observability import observability
+from backend.app.core.organization import OrgNode, RoleType, organization_tree
+from backend.app.core.prompt_compiler import prompt_compiler
+from backend.app.core.semantic_graph import NodeType, RelationType, semantic_graph
+from backend.app.core.state_recovery import state_recovery
 from backend.app.plugins import register_default_plugins
 
 router = APIRouter()

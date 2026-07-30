@@ -1,7 +1,8 @@
-from datetime import datetime, timezone
-from typing import Optional, List, Dict, Any
-from pydantic import BaseModel, Field
+from datetime import UTC, datetime
 from enum import Enum
+from typing import Any
+
+from pydantic import BaseModel, Field
 
 
 class ExecutionStatus(str, Enum):
@@ -20,16 +21,16 @@ class ExecutionTask(BaseModel):
     name: str
     status: ExecutionStatus = ExecutionStatus.pending
     progress: float = 0.0
-    dependencies: List[str] = []
-    result: Optional[Dict[str, Any]] = None
-    started_at: Optional[datetime] = None
-    completed_at: Optional[datetime] = None
+    dependencies: list[str] = []
+    result: dict[str, Any] | None = None
+    started_at: datetime | None = None
+    completed_at: datetime | None = None
 
 
 class ExecutionGraph(BaseModel):
-    tasks: Dict[str, ExecutionTask] = {}
-    edges: List[Dict[str, str]] = []
-    entry_point: Optional[str] = None
+    tasks: dict[str, ExecutionTask] = {}
+    edges: list[dict[str, str]] = []
+    entry_point: str | None = None
 
 
 class ExecutionPhase(BaseModel):
@@ -37,9 +38,9 @@ class ExecutionPhase(BaseModel):
     name: str
     status: ExecutionStatus
     progress: float = 0.0
-    tasks: List[Dict[str, Any]] = []
-    started_at: Optional[datetime] = None
-    completed_at: Optional[datetime] = None
+    tasks: list[dict[str, Any]] = []
+    started_at: datetime | None = None
+    completed_at: datetime | None = None
 
 
 class ExecutionSession(BaseModel):
@@ -47,17 +48,17 @@ class ExecutionSession(BaseModel):
     goal: str
     status: ExecutionStatus = ExecutionStatus.pending
     progress: float = 0.0
-    eta_seconds: Optional[int] = None
-    phases: List[Dict[str, Any]] = []
-    artifacts: List[str] = []
-    logs: List[Dict[str, Any]] = []
-    workspace_id: Optional[str] = None
-    conversation_id: Optional[str] = None
-    graph: Optional[Dict[str, Any]] = None
-    error: Optional[str] = None
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    completed_at: Optional[datetime] = None
+    eta_seconds: int | None = None
+    phases: list[dict[str, Any]] = []
+    artifacts: list[str] = []
+    logs: list[dict[str, Any]] = []
+    workspace_id: str | None = None
+    conversation_id: str | None = None
+    graph: dict[str, Any] | None = None
+    error: str | None = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    completed_at: datetime | None = None
 
 
 class ExecutionArtifact(BaseModel):
@@ -65,32 +66,32 @@ class ExecutionArtifact(BaseModel):
     execution_id: str
     name: str
     type: str
-    content: Optional[str] = None
-    path: Optional[str] = None
+    content: str | None = None
+    path: str | None = None
     version: int = 1
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    metadata: Dict[str, Any] = {}
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    metadata: dict[str, Any] = {}
 
 
 class Workspace(BaseModel):
     id: str = Field(default_factory=lambda: __import__("uuid").uuid4().hex)
     name: str
-    description: Optional[str] = None
-    conversation_ids: List[str] = []
-    execution_ids: List[str] = []
-    artifact_ids: List[str] = []
-    files: List[Dict[str, Any]] = []
-    memory: Dict[str, Any] = {}
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    description: str | None = None
+    conversation_ids: list[str] = []
+    execution_ids: list[str] = []
+    artifact_ids: list[str] = []
+    files: list[dict[str, Any]] = []
+    memory: dict[str, Any] = {}
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
 class ArtifactVersion(BaseModel):
     version: int
     created_at: datetime
-    content: Optional[str] = None
-    path: Optional[str] = None
-    metadata: Dict[str, Any] = {}
+    content: str | None = None
+    path: str | None = None
+    metadata: dict[str, Any] = {}
 
 
 class Artifact(BaseModel):
@@ -98,8 +99,8 @@ class Artifact(BaseModel):
     workspace_id: str
     name: str
     type: str
-    description: Optional[str] = None
+    description: str | None = None
     current_version: int = 1
-    versions: List[ArtifactVersion] = []
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    versions: list[ArtifactVersion] = []
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))

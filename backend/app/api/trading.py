@@ -10,17 +10,19 @@ Accepts a symbol and optional parameters, returns structured market analysis.
 import logging
 import time
 from typing import Any
-from pydantic import BaseModel, Field
 
-from fastapi import APIRouter, HTTPException
-
-from apps.trading_analyst.market_intelligence.provider import build_trading_context, DEFAULT_TIMEFRAMES
 from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
+from apps.trading_analyst.market_intelligence.provider import (
+    DEFAULT_TIMEFRAMES,
+    build_trading_context,
+)
 from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/trading", tags=["trading"])
+router = APIRouter(prefix="/trading", tags=["trading"])
 
 
 class AnalyzeRequest(BaseModel):

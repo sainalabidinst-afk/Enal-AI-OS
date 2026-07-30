@@ -1,6 +1,7 @@
 """AI Studio - observability, debug, and management interface."""
 import logging
 from typing import Any
+
 from backend.app.core.observability import observability
 from backend.app.core.artifact_service import artifact_service
 from backend.app.core.semantic_graph import semantic_graph

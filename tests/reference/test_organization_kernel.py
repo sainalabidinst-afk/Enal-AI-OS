@@ -5,8 +5,9 @@ Organization Kernel Tests
 Tests Organization Kernel, Economics, Optimizer, and Learning.
 """
 
-import pytest
 from typing import Any
+
+import pytest
 
 from apps.organization.economics import organizational_economics
 from apps.organization.kernel import organization_kernel

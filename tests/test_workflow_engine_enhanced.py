@@ -12,7 +12,7 @@ class TestWorkflowEngineBasic:
 
     @pytest.mark.asyncio
     async def test_create_workflow(self):
-        from backend.app.core.workflow_engine import Workflow, WorkflowStep, WorkflowEngine
+        from backend.app.core.workflow_engine import Workflow, WorkflowEngine, WorkflowStep
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-1",
@@ -60,7 +60,7 @@ class TestWorkflowEngineDependencies:
 
     @pytest.mark.asyncio
     async def test_run_workflow_with_dependencies(self):
-        from backend.app.core.workflow_engine import Workflow, WorkflowStep, WorkflowEngine
+        from backend.app.core.workflow_engine import Workflow, WorkflowEngine, WorkflowStep
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-4",

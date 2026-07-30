@@ -15,7 +15,12 @@ class TestSecurityModelAudit:
         assert isinstance(sm._audit_log, list)
 
     def test_check_permission_logs_audit(self):
-        from backend.app.core.security_model import SecurityModel, SecurityPolicy, SecurityLevel, Permission
+        from backend.app.core.security_model import (
+            Permission,
+            SecurityLevel,
+            SecurityModel,
+            SecurityPolicy,
+        )
         sm = SecurityModel()
         policy = SecurityPolicy(
             plugin_id="test-plugin",
@@ -38,7 +43,7 @@ class TestSecurityPolicy:
     """Tests for SecurityPolicy."""
 
     def test_policy_creation(self):
-        from backend.app.core.security_model import SecurityPolicy, SecurityLevel, Permission
+        from backend.app.core.security_model import Permission, SecurityLevel, SecurityPolicy
         policy = SecurityPolicy(
             plugin_id="my-plugin",
             security_level=SecurityLevel.RESTRICTED,
@@ -52,7 +57,7 @@ class TestPolicyEvaluator:
     """Tests for PolicyEvaluator."""
 
     def test_rbac_evaluation(self):
-        from backend.app.core.security_model import PolicyEvaluator, SecurityPolicy, Permission
+        from backend.app.core.security_model import Permission, PolicyEvaluator, SecurityPolicy
         evaluator = PolicyEvaluator()
         policy = SecurityPolicy(
             plugin_id="test",
@@ -63,7 +68,12 @@ class TestPolicyEvaluator:
         assert evaluator.evaluate(policy, Permission.WRITE) is False
 
     def test_abac_evaluation(self):
-        from backend.app.core.security_model import PolicyEvaluator, SecurityPolicy, AccessModel, Permission
+        from backend.app.core.security_model import (
+            AccessModel,
+            Permission,
+            PolicyEvaluator,
+            SecurityPolicy,
+        )
         evaluator = PolicyEvaluator()
         policy = SecurityPolicy(
             plugin_id="test",

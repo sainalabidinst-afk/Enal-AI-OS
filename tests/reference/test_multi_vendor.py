@@ -5,8 +5,9 @@ Multi-Vendor Golden Tests
 Tests Network Engineer with MikroTik, Cisco IOS, and Fortinet configs.
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 from apps.network_engineer import get_app
 from apps.network_engineer.vendor.detector import detect_vendor, parse_config

@@ -2,7 +2,7 @@ import json
 import logging
 import uuid
 from collections.abc import Awaitable, Callable
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from redis.asyncio import Redis
 
@@ -65,7 +65,7 @@ class EventBus:
                         payload=json.loads(data.get("data", "{}")),
                         source=data.get("source", "system"),
                         target=data.get("target", "*"),
-                        timestamp=datetime.fromisoformat(data.get("timestamp", datetime.now(timezone.utc).isoformat())),
+                        timestamp=datetime.fromisoformat(data.get("timestamp", datetime.now(UTC).isoformat())),
                         correlation_id=data.get("correlation_id") or None,
                         metadata=json.loads(data.get("metadata", "{}")),
                     )

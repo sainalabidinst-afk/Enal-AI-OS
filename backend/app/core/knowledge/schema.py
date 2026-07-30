@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
-
 
 KNOWLEDGE_SCHEMA_VERSION = "1.0.0"
 
@@ -62,8 +61,8 @@ class KnowledgeEntity:
     confidence: float = 0.0
     schema_version: str = field(default_factory=lambda: KNOWLEDGE_SCHEMA_VERSION)
     knowledge_version: str = field(default_factory=lambda: "1.0.0")
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     tags: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
     evidence: list[str] = field(default_factory=list)
@@ -72,4 +71,4 @@ class KnowledgeEntity:
     owner: str | None = None
 
     def touch(self) -> None:
-        self.updated_at = datetime.now(timezone.utc)
+        self.updated_at = datetime.now(UTC)

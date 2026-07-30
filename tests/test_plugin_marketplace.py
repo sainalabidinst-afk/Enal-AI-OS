@@ -27,7 +27,11 @@ class TestPluginMarketplace:
     """Tests for PluginMarketplace."""
 
     def test_publish_plugin(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="test-plugin",
@@ -43,7 +47,11 @@ class TestPluginMarketplace:
         assert mp.get_plugin("test-plugin") is not None
 
     def test_install_plugin(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="test-plugin",
@@ -61,7 +69,11 @@ class TestPluginMarketplace:
         assert "test-plugin" in mp.get_installed()
 
     def test_install_unpublished_fails(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="draft-plugin",
@@ -78,7 +90,11 @@ class TestPluginMarketplace:
         assert result is False
 
     def test_uninstall_plugin(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="test-plugin",
@@ -97,7 +113,11 @@ class TestPluginMarketplace:
         assert "test-plugin" not in mp.get_installed()
 
     def test_search_plugins(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="network-plugin",
@@ -115,7 +135,11 @@ class TestPluginMarketplace:
         assert len(results) == 1
 
     def test_list_categories(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="net-plugin",
@@ -132,7 +156,11 @@ class TestPluginMarketplace:
         assert "network" in categories
 
     def test_rate_plugin(self):
-        from backend.app.core.plugin_marketplace import PluginMarketplace, PluginManifest, PluginStatus
+        from backend.app.core.plugin_marketplace import (
+            PluginManifest,
+            PluginMarketplace,
+            PluginStatus,
+        )
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="rated-plugin",

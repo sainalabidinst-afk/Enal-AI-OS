@@ -5,8 +5,9 @@ Golden Tests for Multi-Vendor Protocols
 Tests BGP, MPLS, CAPsMAN, WireGuard, Cisco sub-vendors, Fortinet VPN/policies.
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 from apps.network_engineer import get_app
 from apps.network_engineer.compliance import compliance_engine

@@ -10,24 +10,18 @@ Tests for:
 """
 
 import asyncio
-import json
 
-from apps.network_engineer import get_app
-from apps.network_engineer.advisor import NetworkAdvisor, network_advisor
-from apps.network_engineer.design_review import DesignReviewEngine, design_review_engine
-from apps.network_engineer.migration_planner import MigrationPlanner, migration_planner
+from apps.network_engineer.advisor import network_advisor
+from apps.network_engineer.design_review import design_review_engine
+from apps.network_engineer.migration_planner import migration_planner
 from apps.network_engineer.topology import (
     DeviceType,
     InterfaceType,
-    NetworkConnection,
     NetworkDevice,
     NetworkInterface,
-    NetworkSegment,
     NetworkTopology,
-    RedundancyRole,
 )
 from apps.network_engineer.troubleshooting import (
-    TroubleshootingEngine,
     troubleshooting_engine,
 )
 

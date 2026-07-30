@@ -1,7 +1,8 @@
-from fastapi import APIRouter
+import logging
+
 from apps.organization.capability_graph import capability_graph
 from apps.society.intent_router import intent_router
-import logging
+from fastapi import APIRouter
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

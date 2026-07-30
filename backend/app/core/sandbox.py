@@ -3,7 +3,7 @@ import logging
 import os
 import tempfile
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from pathlib import Path
 from typing import Any
@@ -40,9 +40,9 @@ class SandboxRuntime:
         self._max_execution_time = 30
 
     async def execute(self, language: SandboxLanguage, code: str, tools: list[str] | None = None) -> SandboxExecution:
-        execution_id = f"sandbox-{datetime.now(timezone.utc).timestamp()}"
+        execution_id = f"sandbox-{datetime.now(UTC).timestamp()}"
         execution = SandboxExecution(id=execution_id, language=language, code=code)
-        start = datetime.now(timezone.utc)
+        start = datetime.now(UTC)
         try:
             if language == SandboxLanguage.PYTHON:
                 result, error = await self._execute_python(code, tools or [])
@@ -56,7 +56,7 @@ class SandboxRuntime:
         except Exception as e:
             execution.error = str(e)
             execution.exit_code = 1
-        execution.finished_at = datetime.now(timezone.utc)
+        execution.finished_at = datetime.now(UTC)
         execution.duration_ms = (execution.finished_at - start).total_seconds() * 1000
         logger.info(f"Sandbox execution {execution.id}: {execution.duration_ms:.2f}ms, exit={execution.exit_code}")
         return execution

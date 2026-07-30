@@ -65,7 +65,7 @@ class TestTraceSpan:
     """Tests for TraceSpan."""
 
     def test_span_creation(self):
-        from backend.app.core.observability import TraceSpan, SpanType
+        from backend.app.core.observability import SpanType, TraceSpan
         span = TraceSpan(
             trace_id="trace-1",
             span_type=SpanType.LLM,

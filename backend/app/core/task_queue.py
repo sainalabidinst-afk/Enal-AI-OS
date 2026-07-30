@@ -2,7 +2,7 @@ import logging
 import uuid
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -60,7 +60,7 @@ class TaskQueue:
         if task_id in self._tasks:
             self._tasks[task_id].status = TaskStatus.COMPLETED
             self._tasks[task_id].result = event.payload.get("result")
-            self._tasks[task_id].finished_at = datetime.now(timezone.utc)
+            self._tasks[task_id].finished_at = datetime.now(UTC)
 
     async def _on_task_failed(self, event: Event):
         task_id = event.payload.get("task_id")
@@ -73,7 +73,7 @@ class TaskQueue:
                 await self.enqueue(task)
             else:
                 task.status = TaskStatus.FAILED
-                task.finished_at = datetime.now(timezone.utc)
+                task.finished_at = datetime.now(UTC)
 
     async def enqueue(self, task: Task) -> str:
         task.status = TaskStatus.QUEUED
@@ -87,7 +87,7 @@ class TaskQueue:
 
     async def execute(self, task: Task) -> Task:
         task.status = TaskStatus.RUNNING
-        task.started_at = datetime.now(timezone.utc)
+        task.started_at = datetime.now(UTC)
         handler = self._handlers.get(task.agent)
         if not handler:
             raise ValueError(f"No handler for agent: {task.agent}")
@@ -106,7 +106,7 @@ class TaskQueue:
                 payload={"task_id": task.id, "error": str(e)},
                 source="task-queue",
             ))
-        task.finished_at = datetime.now(timezone.utc)
+        task.finished_at = datetime.now(UTC)
         return task
 
     def register_handler(self, agent: str, handler: Callable[[Task], Awaitable[None]]) -> None:

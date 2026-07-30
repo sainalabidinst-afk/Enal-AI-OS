@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
-from backend.app.core.knowledge.edge import KnowledgeEdge, RelationType
+
+from backend.app.core.knowledge.edge import KnowledgeEdge
 from backend.app.core.knowledge.node import KnowledgeNode
 
 

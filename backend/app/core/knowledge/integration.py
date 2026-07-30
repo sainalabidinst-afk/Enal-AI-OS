@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 from typing import Any
-from backend.app.core.knowledge.evidence import EvidenceBuilder, EvidenceStore
-from backend.app.core.knowledge.graph import KnowledgeGraph
+
+from backend.app.core.knowledge.evidence import EvidenceBuilder
 from backend.app.core.knowledge.learning import LearningEngine
 from backend.app.core.knowledge.ontology import Ontology
 from backend.app.core.knowledge.reference import Reference, ReferenceStore
-from backend.app.core.knowledge.registry import KnowledgeRegistry
 from backend.app.core.knowledge.retrieval import KnowledgeRetrieval
 from backend.app.core.knowledge.schema import KnowledgeEntity
 from backend.app.core.knowledge.store import KnowledgeStore

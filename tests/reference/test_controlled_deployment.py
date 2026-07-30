@@ -1,5 +1,6 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 from apps.network_engineer.backup_manager import backup_manager
 from apps.network_engineer.controlled_deployment import RollbackStatus, controlled_deployment
