@@ -18,7 +18,7 @@ from typing import Any
 from apps.integration.context import CapabilityContext
 from apps.integration.evidence_adapter import EvidenceAdapter, UnifiedEvidence
 from apps.integration.registry import CapabilityDescriptor, capability_registry
-from apps.integration.workflow import WorkflowEngine, WorkflowStep
+from apps.integration.workflow import WorkflowEngine, WorkflowResult, WorkflowStep
 
 logger = logging.getLogger(__name__)
 
