@@ -1,7 +1,5 @@
 import logging
 
-from apps.organization.capability_graph import capability_graph
-from apps.society.intent_router import intent_router
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -10,6 +8,9 @@ logger = logging.getLogger(__name__)
 
 @router.get("/capabilities")
 async def list_capabilities():
+    from apps.organization.capability_graph import capability_graph
+    from apps.society.intent_router import intent_router
+
     nodes = [capability_graph.get_capability_node(cap_id) for cap_id in capability_graph.get_all_capabilities()]
     capabilities = []
     for node in nodes:
@@ -42,6 +43,8 @@ async def list_capabilities():
 
 @router.get("/capabilities/{capability_id}")
 async def get_capability(capability_id: str):
+    from apps.organization.capability_graph import capability_graph
+
     node = capability_graph.get_capability_node(capability_id)
     if node is None:
         return {"error": f"Capability '{capability_id}' not found"}

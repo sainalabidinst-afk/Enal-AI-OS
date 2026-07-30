@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -6,5 +6,22 @@ COPY package.json package-lock.json* ./
 RUN npm install
 
 COPY . .
+RUN npm run build
 
-CMD ["npm", "run", "dev", "--", "--port", "3000", "--hostname", "0.0.0.0"]
+
+FROM node:20-alpine
+
+RUN addgroup -g 1001 -S nodejs \
+    && adduser -S nextjs -u 1001 -G nodejs
+
+WORKDIR /app
+
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]

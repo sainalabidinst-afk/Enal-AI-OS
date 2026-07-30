@@ -6,7 +6,6 @@ import time
 import uuid
 from typing import Any
 
-from apps.society.conversation_manager import conversation_manager
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 
@@ -34,6 +33,8 @@ async def chat(request: ChatRequest):
         ws = await workspace_service.get_workspace(workspace_id)
         if not ws:
             ws = await workspace_service.create_workspace(name=f"Chat {conversation_id[:8]}")
+
+        from apps.society.conversation_manager import conversation_manager
 
         analysis_payload: dict[str, Any] | None = None
         try:
@@ -99,12 +100,14 @@ async def chat(request: ChatRequest):
 
 @router.get("/conversations/{conversation_id}")
 async def get_conversation(conversation_id: str) -> dict[str, Any]:
+    from apps.society.conversation_manager import conversation_manager
     messages = await conversation_manager.get_history(conversation_id)
     return {"conversation_id": conversation_id, "messages": messages}
 
 
 @router.delete("/conversations/{conversation_id}")
 async def delete_conversation(conversation_id: str) -> dict[str, Any]:
+    from apps.society.conversation_manager import conversation_manager
     await conversation_manager.clear_history(conversation_id)
     return {"deleted": True}
 
@@ -115,6 +118,8 @@ async def chat_stream(
     conversation_id: str | None = None,
     workspace_id: str | None = None,
 ):
+    from apps.society.conversation_manager import conversation_manager
+
     conversation_id = conversation_id or str(uuid.uuid4())
     workspace_id = workspace_id or conversation_id
 

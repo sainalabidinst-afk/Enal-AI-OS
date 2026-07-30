@@ -2,8 +2,9 @@ import logging
 import time
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 
+from backend.app.core.auth import require_permission
 from backend.app.core.artifact_service import artifact_service
 from backend.app.core.execution_integration import execution_integration
 from backend.app.core.execution_session import execution_session_manager
@@ -20,7 +21,7 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-@router.post("/executions", response_model=ExecutionSession)
+@router.post("/executions", response_model=ExecutionSession, dependencies=[Depends(require_permission("execute"))])
 async def create_execution(goal: str, conversation_id: str | None = None, workspace_id: str | None = None):
     session = await execution_session_manager.create_session(
         goal=goal,
@@ -31,7 +32,7 @@ async def create_execution(goal: str, conversation_id: str | None = None, worksp
     return session
 
 
-@router.get("/executions/{execution_id}", response_model=ExecutionSession)
+@router.get("/executions/{execution_id}", response_model=ExecutionSession, dependencies=[Depends(require_permission("read"))])
 async def get_execution(execution_id: str):
     session = await execution_session_manager.get_session(execution_id)
     if not session:
@@ -39,12 +40,12 @@ async def get_execution(execution_id: str):
     return session
 
 
-@router.get("/executions", response_model=list[ExecutionSession])
+@router.get("/executions", response_model=list[ExecutionSession], dependencies=[Depends(require_permission("read"))])
 async def list_executions(workspace_id: str | None = Query(None)):
     return await execution_session_manager.list_sessions(workspace_id=workspace_id)
 
 
-@router.post("/executions/{execution_id}/phases", response_model=ExecutionPhase)
+@router.post("/executions/{execution_id}/phases", response_model=ExecutionPhase, dependencies=[Depends(require_permission("write"))])
 async def add_phase(execution_id: str, name: str):
     session = await execution_session_manager.get_session(execution_id)
     if not session:
@@ -57,7 +58,7 @@ async def add_phase(execution_id: str, name: str):
     return phase_result
 
 
-@router.patch("/executions/{execution_id}/phases/{phase_id}", response_model=ExecutionPhase)
+@router.patch("/executions/{execution_id}/phases/{phase_id}", response_model=ExecutionPhase, dependencies=[Depends(require_permission("write"))])
 async def update_phase(execution_id: str, phase_id: str, status: ExecutionStatus, progress: float | None = None):
     phase = await execution_session_manager.update_phase(execution_id, phase_id, status, progress)
     if not phase:
@@ -65,7 +66,7 @@ async def update_phase(execution_id: str, phase_id: str, status: ExecutionStatus
     return phase
 
 
-@router.post("/executions/{execution_id}/progress")
+@router.post("/executions/{execution_id}/progress", dependencies=[Depends(require_permission("write"))])
 async def update_progress(execution_id: str, progress: float, eta_seconds: int | None = None):
     session = await execution_session_manager.update_progress(execution_id, progress, eta_seconds)
     if not session:
@@ -73,7 +74,7 @@ async def update_progress(execution_id: str, progress: float, eta_seconds: int |
     return {"progress": session.progress, "eta_seconds": session.eta_seconds}
 
 
-@router.post("/executions/{execution_id}/logs")
+@router.post("/executions/{execution_id}/logs", dependencies=[Depends(require_permission("write"))])
 async def add_log(execution_id: str, message: str, level: str = "info", metadata: dict | None = None):
     entry = await execution_session_manager.add_log(execution_id, message, level, metadata)
     if not entry:
@@ -81,7 +82,7 @@ async def add_log(execution_id: str, message: str, level: str = "info", metadata
     return entry
 
 
-@router.get("/executions/{execution_id}/logs")
+@router.get("/executions/{execution_id}/logs", dependencies=[Depends(require_permission("read"))])
 async def get_logs(execution_id: str):
     session = await execution_session_manager.get_session(execution_id)
     if not session:
@@ -89,7 +90,7 @@ async def get_logs(execution_id: str):
     return {"execution_id": execution_id, "logs": session.logs}
 
 
-@router.post("/executions/{execution_id}/artifacts", response_model=ExecutionArtifact)
+@router.post("/executions/{execution_id}/artifacts", response_model=ExecutionArtifact, dependencies=[Depends(require_permission("write"))])
 async def add_artifact(execution_id: str, name: str, artifact_type: str, content: str | None = None, path: str | None = None, metadata: dict | None = None):
     artifact = await execution_session_manager.add_artifact(execution_id, name, artifact_type, content, path, metadata)
     if not artifact:
@@ -98,7 +99,7 @@ async def add_artifact(execution_id: str, name: str, artifact_type: str, content
     return artifact
 
 
-@router.get("/executions/{execution_id}/artifacts", response_model=list[ExecutionArtifact])
+@router.get("/executions/{execution_id}/artifacts", response_model=list[ExecutionArtifact], dependencies=[Depends(require_permission("read"))])
 async def list_artifacts(execution_id: str):
     session = await execution_session_manager.get_session(execution_id)
     if not session:

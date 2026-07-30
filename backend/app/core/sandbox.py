@@ -83,11 +83,14 @@ class SandboxRuntime:
         import shlex
         allowed = set(self._allowed_tools) if self._allowed_tools else None
         if allowed:
-            for cmd_part in shlex.split(code)[:1]:
-                if cmd_part not in allowed:
-                    return "", f"Command not allowed: {cmd_part}"
-        proc = await asyncio.create_subprocess_shell(
-            code,
+            parts = shlex.split(code)
+            if not parts:
+                return "", "Empty command"
+            cmd = parts[0]
+            if cmd not in allowed:
+                return "", f"Command not allowed: {cmd}"
+        proc = await asyncio.create_subprocess_exec(
+            *shlex.split(code),
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
             cwd=str(self.base_path),

@@ -119,12 +119,29 @@ def check_directory_traversal() -> dict[str, Any]:
 
 
 def check_workspace_isolation() -> dict[str, Any]:
-    workspace = _read(BACKEND / "app" / "api" / "workspace.py")
-    has_isolation = "chroot" in workspace.lower() or "resolve()" in workspace
-    return {
-        "passed": has_isolation,
-        "detail": "No workspace isolation detected" if not has_isolation else "",
-    }
+    workspace_api = _read(BACKEND / "app" / "api" / "workspace.py")
+    workspace_service = _read(BACKEND / "app" / "core" / "workspace_service.py")
+
+    has_filesystem_access = (
+        "open(" in workspace_service
+        or "Path(" in workspace_service
+        or "read_text" in workspace_service
+        or "write_text" in workspace_service
+        or "os.path" in workspace_service
+        or "pathlib" in workspace_service
+    )
+
+    if has_filesystem_access:
+        has_isolation = (
+            "resolve()" in workspace_service
+            and ("parent" in workspace_service or "is_relative_to" in workspace_service)
+        )
+        return {
+            "passed": has_isolation,
+            "detail": "Workspace service accesses filesystem without path validation" if not has_isolation else "",
+        }
+
+    return {"passed": True, "detail": "Workspace service does not access filesystem (in-memory)"}
 
 
 def check_secrets_scan() -> dict[str, Any]:

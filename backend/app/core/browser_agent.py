@@ -49,6 +49,12 @@ class BrowserAgent:
         if self.session is None:
             return BrowserResult(url=url, title="Stub", content="Browser not available", evidence_score=0.3)
 
+        parsed = urlparse(url)
+        hostname = parsed.hostname or ""
+        blocked_hosts = {"127.0.0.1", "localhost", "0.0.0.0", "169.254.169.254", "[::1]"}
+        if hostname.lower() in blocked_hosts or hostname.startswith("10.") or hostname.startswith("192.168.") or hostname.startswith("172."):
+            return BrowserResult(url=url, title="Blocked", content="SSRF blocked", evidence_score=0.0)
+
         try:
             async with self.session.get(url) as response:
                 html = await response.text()

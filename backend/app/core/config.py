@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0-dev"
     API_V1_STR: str = "/api/v1"
 
-    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/enal_ai_os"
+    DATABASE_URL: str = ""
     REDIS_URL: str = "redis://localhost:6379/0"
     QDRANT_URL: str = "http://localhost:6333"
     QDRANT_API_KEY: str = ""
@@ -35,5 +35,11 @@ class Settings(BaseSettings):
     LANGFUSE_SECRET_KEY: str = ""
     LANGFUSE_PUBLIC_KEY: str = ""
     LANGFUSE_HOST: str = "http://localhost:3000"
+
+    def require_database_url(self) -> str:
+        if not self.DATABASE_URL:
+            raise ValueError("DATABASE_URL is required. Set it via environment variable or .env file.")
+        return self.DATABASE_URL
+
 
 settings = Settings()

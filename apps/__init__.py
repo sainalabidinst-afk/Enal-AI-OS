@@ -39,6 +39,7 @@ APPS = {
     "code-engineer": _load_app("code_engineer"),
     "research-assistant": _load_app("research_assistant"),
     "full-stack-engineer": _load_app("full_stack_engineer"),
+    "self-development": _load_app("self_development"),
 }
 
 

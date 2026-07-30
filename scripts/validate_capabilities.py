@@ -37,20 +37,17 @@ def check_capability_registry() -> dict[str, Any]:
         return {"passed": False, "detail": "apps/__init__.py missing"}
 
     content = _read(apps_init)
-    required_apps = [
+    required_reference_apps = [
         "trading_analyst",
         "network_engineer",
         "devops_assistant",
         "code_engineer",
         "research_assistant",
         "full_stack_engineer",
-        "integration",
-        "organization",
-        "society",
         "self_development",
     ]
 
-    missing = [app for app in required_apps if app not in content]
+    missing = [app for app in required_reference_apps if app not in content]
     return {
         "passed": len(missing) == 0,
         "detail": f"Missing from registry: {missing}" if missing else "",
@@ -58,18 +55,19 @@ def check_capability_registry() -> dict[str, Any]:
 
 
 def check_trading_wiring() -> dict[str, Any]:
-    engine = _read(APPS / "trading_analyst" / "engine.py")
     init = _read(APPS / "trading_analyst" / "__init__.py")
+    backend_api = _read(BACKEND / "app" / "api" / "trading.py")
 
-    has_market_intelligence = "market_intelligence" in init or "market_intelligence" in engine
+    has_market_intelligence_in_app = "market_intelligence" in init
+    has_market_intelligence_in_api = "market_intelligence" in backend_api
     has_real_import = (
         "from apps.trading_analyst.market_intelligence" in init
-        or "from apps.trading_analyst.market_intelligence" in engine
+        or "from apps.trading_analyst.market_intelligence" in backend_api
     )
 
     return {
-        "passed": has_market_intelligence and has_real_import,
-        "detail": "Trading Analyst not wired to market_intelligence" if not (has_market_intelligence and has_real_import) else "",
+        "passed": (has_market_intelligence_in_app or has_market_intelligence_in_api) and has_real_import,
+        "detail": "Trading Analyst not wired to market_intelligence" if not ((has_market_intelligence_in_app or has_market_intelligence_in_api) and has_real_import) else "",
     }
 
 

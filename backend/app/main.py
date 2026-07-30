@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from .api import (
     artifact,
@@ -21,11 +22,92 @@ from .api import (
 )
 from .core.config import settings
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     description="AI Operating System - Multi-Agent AI Platform",
 )
+
+
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Content-Security-Policy"] = "default-src 'self'; frame-ancestors 'none'"
+        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+        return response
+
+
+class RateLimitMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app, max_requests: int = 100, window_seconds: int = 60):
+        super().__init__(app)
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self._requests: dict[str, list[float]] = {}
+
+    async def dispatch(self, request: Request, call_next):
+        import time
+        client_ip = request.client.host if request.client else "unknown"
+        now = time.time()
+        window_start = now - self.window_seconds
+        requests = [t for t in self._requests.get(client_ip, []) if t > window_start]
+        if len(requests) >= self.max_requests:
+            from fastapi.responses import JSONResponse
+            return JSONResponse(status_code=429, content={"detail": "Too many requests"})
+        requests.append(now)
+        self._requests[client_ip] = requests
+        return await call_next(request)
+
+
+class AuthenticationMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        if request.url.path in ("/", "/docs", "/openapi.json", "/redoc", "/health"):
+            return await call_next(request)
+
+        if not settings.SECRET_KEY:
+            from fastapi.responses import JSONResponse
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "SECRET_KEY is not configured. Set SECRET_KEY to enable authentication."},
+            )
+
+        auth = request.headers.get("Authorization")
+        if not auth or not auth.startswith("Bearer "):
+            from fastapi.responses import JSONResponse
+            return JSONResponse(status_code=401, content={"detail": "Missing or invalid authorization header"})
+        return await call_next(request)
+
+
+class AuditLoggingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        import time
+        start = time.perf_counter()
+        response = await call_next(request)
+        elapsed_ms = (time.perf_counter() - start) * 1000
+
+        user = request.headers.get("Authorization", "anonymous")
+        logger.info(
+            "audit %s %s status=%d duration=%.2fms user=%s",
+            request.method,
+            request.url.path,
+            response.status_code,
+            elapsed_ms,
+            user[:20] if user else "anonymous",
+        )
+        return response
+
+
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimitMiddleware, max_requests=100, window_seconds=60)
+app.add_middleware(AuthenticationMiddleware)
+app.add_middleware(AuditLoggingMiddleware)
 
 app.add_middleware(
     CORSMiddleware,

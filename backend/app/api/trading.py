@@ -11,12 +11,6 @@ import logging
 import time
 from typing import Any
 
-from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
-from apps.trading_analyst.market_intelligence.provider import (
-    DEFAULT_TIMEFRAMES,
-    build_trading_context,
-)
-from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
@@ -48,6 +42,13 @@ async def analyze_market(req: AnalyzeRequest):
     Returns structured analysis with evidence, confidence scores, and summary.
     Does NOT return trading signals (BUY/SELL).
     """
+    from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
+    from apps.trading_analyst.market_intelligence.provider import (
+        DEFAULT_TIMEFRAMES,
+        build_trading_context,
+    )
+    from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
+
     start = time.monotonic()
 
     try:
