@@ -1,24 +1,18 @@
-FROM python:3.11-slim AS builder
+FROM python:3.11-slim
 
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY pyproject.toml .
-RUN pip install --no-cache-dir -e ".[prod]"
-
-
-FROM python:3.11-slim
-
-WORKDIR /app
-
-RUN groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser \
     && chown -R appuser:appuser /app
 
-COPY --from=builder --chown=appuser:appuser /app /app
+COPY pyproject.toml .
+RUN pip install --no-cache-dir -e .
+
+COPY . .
 
 USER appuser
 

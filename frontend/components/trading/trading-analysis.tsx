@@ -104,6 +104,7 @@ export function TradingAnalysis() {
                   Latency: {result.metadata.latency_ms.toFixed(0)}ms
                 </p>
               </div>
+            </div>
 
             <ConfidenceMeter
               confidence={result.confidence}
@@ -133,48 +134,52 @@ export function TradingAnalysis() {
               ))}
             </div>
 
-          {/* Evidence Panel */}
-          <EvidencePanel evidence={result.evidence} />
+            {/* Evidence Panel */}
+            <EvidencePanel evidence={result.evidence} />
 
-          {/* Strategy & Counter-scenario */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4 space-y-2">
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
-                Suggested Strategy
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                {result.suggested_strategy}
-              </p>
-            </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4 space-y-2">
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
-                Counter Scenario
-              </h3>
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                {result.counter_scenario}
-              </p>
-            </div>
-
-          {/* Reasoning Steps */}
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4 space-y-2">
-            <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
-              Reasoning Trace
-            </h3>
-            <div className="space-y-1">
-              {result.reasoning_steps.map((step, i) => (
-                <p key={i} className="text-xs text-[var(--color-text-secondary)]">
-                  {step}
+            {/* Strategy & Counter-scenario */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4 space-y-2">
+                <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+                  Suggested Strategy
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                  {result.suggested_strategy}
                 </p>
-              ))}
+              </div>
+              <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4 space-y-2">
+                <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+                  Counter Scenario
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                  {result.counter_scenario}
+                </p>
+              </div>
             </div>
 
-          {/* Metadata */}
-          <div className="text-[10px] text-[var(--color-text-secondary)] space-y-1">
-            <p>Analysis version: {result.metadata.analysis_version}</p>
-            <p>Generated at: {result.metadata.generated_at}</p>
-            <p>Data source: {result.metadata.data_source}</p>
-            <p>Raw data points: {result.metadata.raw_data_points}</p>
+            {/* Reasoning Steps */}
+            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-4 space-y-2">
+              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+                Reasoning Trace
+              </h3>
+              <div className="space-y-1">
+                {result.reasoning_steps.map((step, i) => (
+                  <p key={i} className="text-xs text-[var(--color-text-secondary)]">
+                    {step}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            {/* Metadata */}
+            <div className="text-[10px] text-[var(--color-text-secondary)] space-y-1">
+              <p>Analysis version: {result.metadata.analysis_version}</p>
+              <p>Generated at: {result.metadata.generated_at}</p>
+              <p>Data source: {result.metadata.data_source}</p>
+              <p>Raw data points: {result.metadata.raw_data_points}</p>
+            </div>
           </div>
+        </div>
       )}
     </div>
   );

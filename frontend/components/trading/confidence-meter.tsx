@@ -32,5 +32,7 @@ export function ConfidenceMeter({ confidence, bias, size = "md" }: ConfidenceMet
       </div>
       <div className={`w-full bg-[var(--color-bg-tertiary)] rounded-full ${sizes[size] || sizes.md}`}>
         <div
-  );
-}
+          className={`${barColor} ${sizes[size] || sizes.md} rounded-full`}
+          style={{ width: `${confidence}%` }}
+        />
+      </div>
