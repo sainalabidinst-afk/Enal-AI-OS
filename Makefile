@@ -25,7 +25,7 @@ logs:
 	docker-compose logs -f
 
 backend:
-	cd backend && pip install -e ".[dev]" && uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000
+	pip install -e ".[dev]" && uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000
 
 frontend:
 	cd frontend && npm install && npm run dev

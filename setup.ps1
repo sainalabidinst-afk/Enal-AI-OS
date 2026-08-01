@@ -20,9 +20,7 @@ Start-Sleep -Seconds 5
 
 Write-Host ""
 Write-Host "Installing Python dependencies..."
-Set-Location backend
 pip install -e ".[dev]"
-Set-Location ..
 
 Write-Host ""
 Write-Host "Installing Node dependencies..."

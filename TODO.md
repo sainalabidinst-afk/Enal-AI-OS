@@ -1,35 +1,38 @@
-# ECP Roadmap — Post-Baseline
+# Repository Restructure to Enterprise Monorepo — Implementation Steps
 
-## Current Sprint
+## ✅ Step 1: docker-compose.yml
+- [x] Change backend build context from `./backend` to `.`
+- [x] Set `dockerfile: backend/Dockerfile`
 
-### Knowledge K2 — Hybrid Retrieval & Context Builder
-- [x] `apps/organization/knowledge_retrieval.py`
-- [x] `tests/test_knowledge_retrieval.py`
-- [x] `docs/KNOWLEDGE_RETRIEVAL.md`
+## ✅ Step 2: backend/Dockerfile
+- [x] Rewrite to build from repository root
+- [x] Preserve monorepo directory layout: `/app/backend`, `/app/apps`, `/app/workspace`, `/app/plugins`
+- [x] Set `WORKDIR /app`
+- [x] Set `ENV PYTHONPATH=/app`
+- [x] Install backend via `pip install -e backend/`
+- [x] Keep `CMD ["uvicorn", "backend.app.main:app", ...]`
 
-## Backlog
+## ✅ Step 3: backend/.dockerignore
+- [x] Update for root-level build context (exclude unnecessary files)
 
-### Trading T2 — Advanced Market Structure & Evidence
-- [ ] `apps/trading_analyst/market_intelligence/market_structure.py`
-- [ ] `tests/test_market_structure.py`
+## ✅ Step 4: workspace/__init__.py
+- [x] Add `__init__.py` so `workspace` is resolvable as namespace
 
-### Full Stack F0 — Repository Intelligence
-- [ ] `apps/full_stack_engineer/repo_intelligence.py`
-- [ ] `tests/test_repo_intelligence.py`
+## ✅ Step 5: plugins/__init__.py
+- [x] Add `__init__.py` so `plugins` is resolvable as namespace
 
-### Self-Improvement S1 — Observation Engine
-- [ ] `apps/organization/observation_engine.py`
-- [ ] `tests/test_observation_engine.py`
+## ✅ Step 6: Root .dockerignore
+- [x] Create root-level `.dockerignore` (build context is now repo root)
 
-## Future Phases
+## Validation Steps
+- [x] Validate: `python -c "import backend"` PASS
+- [x] Validate: `python -c "import backend.app"` PASS
+- [x] Validate: `python -c "from backend.app.main import app"` PASS
+- [x] Validate: `python -c "import apps"` PASS
+- [x] Validate: `python -c "import plugins"` PASS
+- [x] Validate: `python -c "import workspace"` PASS
+- [x] Validate: `docker compose build` PASS
+- [x] Validate: `docker compose up` PASS
+- [x] Validate: `docker exec backend ls /app` shows `backend`, `apps`, `workspace`, `plugins`
+- [x] Validate: Full test suite — 426 tests passing, 0 failures
 
-- Knowledge K3 — Ontology & Reasoning Integration
-- Knowledge K4 — Learning & Evidence Propagation
-- Trading T3 — Multi-Timeframe Correlation
-- Trading T4 — Strategy Backtesting
-- Full Stack F1 — Architecture Review Enhancement
-- Self-Improvement S2 — Evaluation Engine
-- Self-Improvement S3 — Diagnosis Engine
-- Self-Improvement S4 — Improvement Planner
-- Self-Improvement S5 — Validation Engine
-- Self-Improvement S6 — Learning Engine

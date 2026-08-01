@@ -1,0 +1,29 @@
+==================================================
+IMPORT CHECKS
+==================================================
+IMPORT backend: PASS
+IMPORT backend.app: PASS
+IMPORT backend.app.main: PASS
+FROM backend.app.main import app: PASS
+IMPORT apps: PASS
+IMPORT plugins: PASS
+IMPORT workspace: PASS
+
+==================================================
+KEY PACKAGES
+==================================================
+PKG fastapi: 0.140.0
+PKG uvicorn: 0.52.0
+PKG sqlalchemy: MISSING - ModuleNotFoundError: No module named 'sqlalchemy'
+PKG pydantic: 2.13.4
+PKG pydantic_settings: 2.14.2
+PKG litellm: ?
+PKG httpx: 0.28.1
+PKG redis: 8.0.1
+PKG qdrant_client: MISSING - ModuleNotFoundError: No module named 'qdrant_client'
+PKG aiohttp: 3.14.3
+PKG pytest: 9.1.1
+PKG pytest_asyncio: 1.4.0
+
+PYTHON EXE: C:\Users\ICT\AppData\Local\Programs\Python\Python311\python.exe
+PYTHON VERSION: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]

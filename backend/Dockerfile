@@ -9,10 +9,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser \
     && chown -R appuser:appuser /app
 
-COPY pyproject.toml .
-RUN pip install --no-cache-dir -e .
-
+# Copy entire monorepo — preserves /app/backend, /app/apps, /app/workspace, /app/plugins
 COPY . .
+
+# Set PYTHONPATH so backend, apps, workspace, plugins are all resolvable from /app
+ENV PYTHONPATH=/app
+
+# Install backend package from monorepo root
+RUN pip install --no-cache-dir -e .
 
 USER appuser
 

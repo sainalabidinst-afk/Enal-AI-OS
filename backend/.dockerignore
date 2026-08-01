@@ -1,14 +1,46 @@
+# Python
 __pycache__
 *.pyc
 *.pyo
+*.pyd
 .pytest_cache
 .mypy_cache
 .ruff_cache
 .venv
 venv
+*.egg-info/
+dist/
+build/
+
+# Environment
 .env
 .env.*
+
+# Data
 *.db
 *.sqlite
+
+# Git
 .git
 .gitignore
+.github
+
+# IDE
+.vscode
+.idea
+
+# Node (frontend dev dependencies — not needed for backend image)
+frontend/.next
+frontend/node_modules
+frontend/out
+frontend/.env.local
+
+# Docker artifacts
+artifacts
+
+# Workspace runtime data
+workspace/checkpoints
+
+# OS
+.DS_Store
+Thumbs.db
