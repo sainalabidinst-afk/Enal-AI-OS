@@ -618,7 +618,7 @@ See `docs/quality/QUALITY_GATES.md` for complete policy.
 | Gate | Requirement | Severity |
 |---|---|---|
 | MyPy | 0 errors | 🔴 BLOCKER |
-| Tests | ≥95% pass (baseline: 368) | 🔴 BLOCKER |
+| Tests | ≥95% pass (baseline: 426) | 🔴 BLOCKER |
 | API Contract | Backward compatible | 🔴 BLOCKER |
 | ADR | Required for architecture changes | 🔴 BLOCKER |
 | Ruff Lint | No blockers | 🟡 WARNING |
@@ -633,7 +633,7 @@ See `docs/quality/QUALITY_GATES.md` for complete policy.
 
 | Layer | Location | Count | Framework |
 |---|---|---|---|
-| Unit tests | `tests/test_*.py` | 368 | pytest + pytest-asyncio |
+| Unit tests | `tests/test_*.py` | 426 | pytest + pytest-asyncio |
 | Integration | `backend/tests/` | Via unit tests | pytest |
 | Benchmark | `benchmarks/` | 10+ | Custom benchmark runner |
 | Real cases | `real_cases/` | 20+ | Dataset-driven validation |

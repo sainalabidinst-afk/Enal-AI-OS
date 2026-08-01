@@ -8,7 +8,7 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities to security@enal.ai.
+Please report security vulnerabilities to sainal.abidin.st@gmail.com
 
 Do not report security vulnerabilities through public GitHub issues.
 

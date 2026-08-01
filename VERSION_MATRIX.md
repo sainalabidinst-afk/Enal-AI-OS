@@ -8,7 +8,7 @@
 | Frontend MVP | v1.0.0-dev | Active | Product MVP phase |
 | Capability Packs | v1.0.0-rc | Production Ready | 6 packs certified |
 | API Contracts | v1 | Stable | Public APIs frozen |
-| Benchmark Framework | v1.0.0-dev | Active | 368 tests passing |
+| Benchmark Framework | v1.0.0-dev | Active | 426 tests passing |
 | Telemetry | v1.0.0-dev | Active | JSONL metrics + KPI |
 
 ## Status Summary
@@ -16,7 +16,7 @@
 | Layer | Score |
 |-------|-------|
 | Architecture | 92/100 |
-| Runtime Tests | 368 passing |
+| Runtime Tests | 426 passing |
 | Type Safety | 0 Severity 8+ issues |
 
 ## Next Milestones

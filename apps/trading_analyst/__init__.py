@@ -25,7 +25,7 @@ Execution Runtime
     ↓
 Trading Worker
     ↓
-Trading Engine
+Trading Engine (full market intelligence pipeline)
     ↓
 Result
 """
@@ -33,7 +33,7 @@ Result
 from typing import Any
 
 from apps.base import BaseReferenceApp
-from apps.trading_analyst.engine import trading_engine
+from apps.trading_analyst.engine import trading_engine, TradingEngine
 
 
 class TradingAnalystApp(BaseReferenceApp):
@@ -50,10 +50,22 @@ class TradingAnalystApp(BaseReferenceApp):
         context = context or {}
         project_id = context.get("project_id", "trading-analyst-default")
 
-        market = await self.engine.analyze_market(project_id)
-        risk = await self.engine.assess_risk(project_id)
+        # Parse symbol from user input if possible.
+        symbol = context.get("symbol", "BTCUSDT")
+        if not symbol and user_input:
+            candidate = user_input.strip().upper().replace(" ", "")
+            # crude symbol detection: strip common words
+            for word in ("ANALISA", "ANALYZE", "ANALISIS", "ANALYSIS", "CARA", "HOW", "TO",
+                         "MARKET", "PASAR", "SYMBOL", "PERDAGANGAN", "TRADING"):
+                candidate = candidate.replace(word, "")
+            if candidate:
+                symbol = candidate
+
+        # Run full pipeline.
+        market = await self.engine.analyze_market(symbol, use_live_data=False)
+        risk = self.engine.assess_risk_from_result(market)
         portfolio = await self.engine.analyze_portfolio()
-        strategy = await self.engine.generate_strategy(project_id)
+        strategy = self.engine.generate_strategy_from_result(market)
 
         return {
             "app": self.name,
@@ -61,7 +73,7 @@ class TradingAnalystApp(BaseReferenceApp):
             "input": user_input,
             "pipeline": self.pipeline,
             "result": {
-                "market": market,
+                "market": market.to_dict(),
                 "risk": risk,
                 "portfolio": portfolio,
                 "strategy": strategy,
@@ -74,9 +86,14 @@ class TradingAnalystApp(BaseReferenceApp):
                     "portfolio-optimization",
                     "strategy-backtesting",
                 ],
+                "symbol": symbol,
             },
         }
 
 
 def get_app() -> TradingAnalystApp:
     return TradingAnalystApp()
+
+
+__all__ = ["TradingAnalystApp", "TradingEngine", "trading_engine", "get_app"]
+

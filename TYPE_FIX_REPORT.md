@@ -4,7 +4,7 @@
 
 | Metric | Count |
 |--------|-------|
-| Runtime Tests | 368 passing |
+| Runtime Tests | 426 passing |
 | Pylance Severity 8 | 0 |
 | MyPy Errors (core modules) | 0 ✅ |
 | VS Code Problems | 0 |

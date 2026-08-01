@@ -32,7 +32,7 @@ pip install -e .
 
 ```bash
 pytest tests/ -v
-# 368 tests passing
+# 426 tests passing
 ```
 
 ## Your First Agent

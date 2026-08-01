@@ -19,7 +19,7 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 - **Python 3.11 Compatibility:** Verified with `compile()` — 0 issues in production code
 - **Pylance Severity 8:** 0 remaining diagnostics
 - **VS Code Problems:** 0 remaining issues
-- **Test Suite:** 368 tests passing
+- **Test Suite:** 426 tests passing
 - **Architecture Consistency:** All structural contracts validated
 - **API Contract Consistency:** All signatures verified
 
@@ -47,7 +47,7 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 | Python 3.11 Compatibility | ✅ |
 | Pylance Severity 8 | ✅ 0 |
 | VS Code Problems | ✅ 0 |
-| Test Suite | ✅ 368 Passed |
+| Test Suite | ✅ 426 Passed |
 | Engineering Hardening | ✅ Complete |
 | Engineering Baseline | ✅ **Stable** |
 
@@ -72,7 +72,7 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 - API optional access patterns hardened with `_safe_get` helpers
 
 ### Status
-- Runtime tests: 368 passing
+- Runtime tests: 426 passing
 - Static analysis: 0 Severity 8+ issues (down from 366)
 - Architecture: 92/100 - Platform Release Candidate
 

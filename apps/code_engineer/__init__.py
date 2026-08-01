@@ -39,6 +39,8 @@ class CodeEngineerApp(BaseReferenceApp):
         from apps.code_engineer.patch_generator import PatchGenerator
         from apps.code_engineer.regression_analyzer import RegressionAnalyzer
         from apps.code_engineer.test_generator import TestGenerator
+        from apps.code_engineer.architecture_patterns import architecture_pattern_analyzer, ArchitecturePatternAnalyzer
+        from apps.code_engineer.secure_coding import secure_coding_analyzer, SecureCodingAnalyzer
 
         self.parser = code_parser
         self.analyzer = code_analyzer
@@ -51,6 +53,8 @@ class CodeEngineerApp(BaseReferenceApp):
         self.patch_generator_cls = lambda: PatchGenerator(self._repo_path)
         self.regression_analyzer_cls = RegressionAnalyzer
         self.test_generator_cls = TestGenerator
+        self.architecture_pattern_analyzer = architecture_pattern_analyzer
+        self.secure_coding_analyzer = secure_coding_analyzer
         self._components_loaded = True
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -125,7 +129,7 @@ class CodeEngineerApp(BaseReferenceApp):
         return self.parser.parse(code, filename=filename)
 
     def analyze_code(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:
-        """Analyze Python code for issues."""
+        """Analyze Python code for issues, architecture patterns, and security."""
         import asyncio
         if not self._components_loaded:
             try:
@@ -136,6 +140,37 @@ class CodeEngineerApp(BaseReferenceApp):
 
         code_ast = self.parser.parse(code, filename=filename)
         issues = self.analyzer.analyze(code_ast)
+
+        # Architecture pattern analysis
+        arch_results = self.architecture_pattern_analyzer.analyze(code_ast)
+        arch_findings = []
+        for category, findings in arch_results.items():
+            for finding in findings:
+                arch_findings.append({
+                    "category": f"architecture.{finding.category}",
+                    "pattern": finding.pattern,
+                    "severity": finding.severity,
+                    "description": finding.description,
+                    "recommendation": finding.recommendation,
+                    "line": finding.line_number,
+                    "confidence": finding.confidence,
+                })
+
+        # Secure coding analysis
+        sec_results = self.secure_coding_analyzer.analyze(code_ast)
+        sec_findings = []
+        for category, findings in sec_results.items():
+            for finding in findings:
+                sec_findings.append({
+                    "category": f"security.{finding.category}",
+                    "pattern": finding.pattern,
+                    "severity": finding.severity,
+                    "description": finding.description,
+                    "recommendation": finding.recommendation,
+                    "line": finding.line_number,
+                    "confidence": finding.confidence,
+                })
+
         return {
             "filename": filename,
             "functions": len(code_ast.functions),
@@ -151,6 +186,14 @@ class CodeEngineerApp(BaseReferenceApp):
                 }
                 for issue in issues
             ],
+            "architecture_patterns": {
+                "total_findings": len(arch_findings),
+                "findings": arch_findings,
+            },
+            "secure_coding": {
+                "total_findings": len(sec_findings),
+                "findings": sec_findings,
+            },
         }
 
     async def analyze_code_async(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:
@@ -162,9 +205,9 @@ class CodeEngineerApp(BaseReferenceApp):
         """Get refactoring suggestions for code."""
         await self._ensure_components()
         self.parser.parse(code, filename=filename)
-        import os, asyncio
+        import os as _os, asyncio
         with tempfile.TemporaryDirectory() as tmpdir:
-            tmp_file = os.path.join(tmpdir, filename)
+            tmp_file = _os.path.join(tmpdir, filename)
             await asyncio.to_thread(self._write_file_sync, tmp_file, code)
             engine = self.refactoring_engine_cls(tmpdir)
             report = await engine.analyze([filename])

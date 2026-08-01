@@ -70,4 +70,4 @@
 
 ## Next Phase: Dogfooding → Network Operations
 
-See `docs/roadmap.md` for next steps.
+See `docs/ROADMAP.md` for next steps.

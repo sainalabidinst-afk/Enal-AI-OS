@@ -562,7 +562,7 @@ await memory_manager.store("episodic", key, value)
 | **Reliability** | State Recovery for long tasks; Event Bus persistence | Additional storage for checkpoint data |
 | **Security** | RBAC via SecurityModel; tenant isolation via Governance | Additional latency on auth checks |
 | **Maintainability** | Loose coupling via Event Bus; clear dependency rules | Event flow is implicit — requires documentation |
-| **Testability** | 368 unit tests; memory layers are mockable | Integration tests require Redis/PostgreSQL |
+| **Testability** | 426 unit tests; memory layers are mockable | Integration tests require Redis/PostgreSQL |
 | **Extensibility** | Capability Pack pattern; plugin system | New packs must implement BaseApp contract |
 | **Observability** | Telemetry events across all operations | Additional event bus traffic |
 

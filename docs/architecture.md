@@ -55,7 +55,7 @@ Input → Perception → Planner → Memory → Executor → Learning → Govern
 Each layer is implemented and tested:
 - **Perception** (`backend/app/core/perception_engine.py`) - Input processing, entity/intent extraction
 - **Planner** (`apps/organization/ai_planner.py`) - Goal decomposition, cost/risk estimation  
-- **Memory** (`backend/app/core/memory_layer.py`) - 6 memory layers with consolidation
+- **Memory** (`backend/app/core/memory_layer.py`) - 7 memory layers with consolidation
 - **Executor** (`apps/organization/workflow_executor.py`) - Workflow execution, checkpoint, retry
 - **Learning** (`backend/app/core/cognitive/continuous_learning.py`) - RL, human feedback
 - **Governance** (`backend/app/core/governance.py`) - Approval workflow, tenant isolation
@@ -133,7 +133,7 @@ benchmarks/                   # Performance + quality benchmarks
 | Capability Packs | ✅ Production Ready | 90 |
 | Operational Layer | ✅ Implemented | 90 |
 | Security | ✅ RBAC + Isolation | 89 |
-| Testing | ✅ 368 tests pass | 92 |
+| Testing | ✅ 426 tests pass | 92 |
 
 ---
 

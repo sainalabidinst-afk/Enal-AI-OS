@@ -25,7 +25,7 @@ This document records the exact engineering state of the Enal Cognitive Platform
 | MyPy strict | ✅ **0 errors** | All 27+ files fixed across sprints |
 | Pylance Severity 8 | ✅ **0** | Clean type resolution |
 | VS Code Problems | ✅ **0** | No remaining diagnostics |
-| Test Suite | ✅ **368 passing** | All tests pass |
+| Test Suite | ✅ **426 passing** | All tests pass |
 | Python 3.11 f-string | ✅ **0 issues in production** | Verified via `compile()` scan |
 | Ruff hygiene | ⚠️ Residual warnings | `ruff check --fix` and `ruff format` pending (auto-fixable) |
 | Architecture consistency | ✅ Validated | AR-001 through AR-017 pass |
@@ -53,7 +53,7 @@ enal-ai-os/
 ├── real_cases/         # Real-world test datasets
 ├── scripts/            # CI/CD, gate validation, release readiness
 ├── sdk/                # Python SDK
-├── tests/              # Unit tests (368 passing)
+├── tests/              # Unit tests (426 passing)
 ├── tools/
 │   └── audit/          # Utility scripts (hygiene, mypy fixing, f-string scanning)
 └── workspace/          # Runtime workspace
@@ -209,7 +209,7 @@ These principles form the "constitution" of engineering for this project. Every 
 | 2 | **Backward Compatibility** | All public APIs and interfaces must maintain backward compatibility. Breaking changes require ADR, deprecation period, and migration path |
 | 3 | **Strong Typing** | All code must pass MyPy strict checking. No `Any` types in public interfaces. Use `X \| None` over `Optional[X]` |
 | 4 | **No Hidden Dependencies** | All dependencies must be explicitly declared in `pyproject.toml` or `package.json`. No reliance on transitive or system-level packages |
-| 5 | **Test First** | Every change must include or update tests. Baseline: 368 tests passing. No regression below 95% pass rate |
+| 5 | **Test First** | Every change must include or update tests. Baseline: 426 tests passing. No regression below 95% pass rate |
 | 6 | **Observability First** | All runtime operations must emit telemetry events. Every execution path must be traceable via `record_execution_event` |
 | 7 | **Event Driven** | Cross-module communication must use the Event Bus. No direct coupling between capability packs or core modules |
 | 8 | **Plugin First** | Extend functionality through plugins, not by modifying core. Plugins require manifest and security validation |
@@ -240,7 +240,7 @@ Every pull request targeting `main` or `release/*` must pass:
 | Gate | Requirement | Severity |
 |------|-------------|----------|
 | MyPy | 0 errors | 🔴 BLOCKER |
-| Tests | ≥95% pass (baseline: 368) | 🔴 BLOCKER |
+| Tests | ≥95% pass (baseline: 426) | 🔴 BLOCKER |
 | API Contract | Backward compatible | 🔴 BLOCKER |
 | ADR | Required for architecture changes | 🔴 BLOCKER |
 | Ruff Lint | No blockers | 🟡 WARNING |

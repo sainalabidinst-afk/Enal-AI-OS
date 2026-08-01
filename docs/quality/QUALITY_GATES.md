@@ -21,7 +21,7 @@ The goal is not to prevent change, but to ensure every change maintains or impro
 | 1 | **MyPy** | `0 errors` on `apps/ backend/ benchmarks/ tests/ sdk/` | 🔴 BLOCKER | `mypy apps/ backend/ benchmarks/ tests/` |
 | 2 | **Ruff Lint** | `0 blockers`. Warnings must be justified in PR description | 🟡 WARNING | `ruff check apps/ backend/` |
 | 3 | **Ruff Format** | `0 files would be reformatted` | 🟡 WARNING | `ruff format --check apps/ backend/` |
-| 4 | **Tests** | `≥95% pass rate` (baseline: 368 passing) | 🔴 BLOCKER | `pytest --tb=short -q` |
+| 4 | **Tests** | `≥95% pass rate` (baseline: 426 passing) | 🔴 BLOCKER | `pytest --tb=short -q` |
 | 5 | **Test Stability** | Flaky tests = blocker. `--reruns 3` must not hide failures | 🔴 BLOCKER | `pytest --reruns 3 -q` |
 | 6 | **API Contract** | All public API signatures must be backward compatible | 🔴 BLOCKER | Manual review + type checker |
 | 7 | **ADR** | Architecture changes require approved ADR before implementation | 🔴 BLOCKER | Manual review |
@@ -64,7 +64,7 @@ python -m pytest --tb=short -q --coverage
 ```
 
 Requirements:
-- ≥95% of baseline tests must pass (baseline: 368)
+- ≥95% of baseline tests must pass (baseline: 426)
 - New code must include corresponding tests
 - Test coverage must not decrease below 80% (overall)
 

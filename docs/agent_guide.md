@@ -1,7 +1,7 @@
 # Agent Development Guide
 
 ## Status
-Platform RC (2026-07-27) - 368 tests passing
+Platform RC (2026-07-27) - 426 tests passing
 
 ## Creating an Agent (Worker)
 

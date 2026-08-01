@@ -1,6 +1,6 @@
 # ECP API Reference
 
-**Status:** Platform RC (2026-07-27) - Runtime: 368 tests passing
+**Status:** Platform RC (2026-07-27) - Runtime: 426 tests passing
 
 ## Base URL
 
@@ -10,10 +10,10 @@ http://localhost:8000/api/v1
 
 ## Authentication
 
-All API endpoints require authentication via API key:
+All API endpoints require authentication via Bearer token:
 
 ```bash
-curl -H "X-API-Key: your-api-key" http://localhost:8000/api/v1/health
+curl -H "Authorization: Bearer your-api-key" http://localhost:8000/api/v1/health
 ```
 
 ## Endpoints
@@ -36,17 +36,12 @@ Send a message to the AI orchestrator.
 **Response:**
 ```json
 {
-  "message": "I'll build a full-stack todo app for you...",
+  "reply": "I'll build a full-stack todo app for you...",
   "conversation_id": "conv-123",
-  "agent": "orchestrator",
-  "tasks_completed": 5,
-  "metadata": {}
+  "session_id": "orch-1234",
+  "artifacts": []
 }
 ```
-
-#### GET /conversations/{conversation_id}
-
-Get conversation history.
 
 ### Cognitive
 
@@ -186,9 +181,15 @@ Get meta-cognition metrics.
 
 ### Chat Streaming
 
-#### POST /chat/stream
+#### POST /stream
 
-Send a message and receive Server-Sent Events (SSE) stream.
+Send a message and receive Server-Sent Events (SSE) stream via query parameter.
+
+Use `POST /api/v1/chat` with `stream: true` or use SSE endpoint:
+
+```bash
+GET /api/v1/chat/stream?message=Hello&conversation_id=conv-123
+```
 
 **Request:** Same as POST /chat.
 
