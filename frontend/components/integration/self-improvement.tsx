@@ -86,6 +86,13 @@ export function SelfImprovementIntegration() {
 }
 
 function IntegrationResultView({ result }: { result: IntegrationResult }) {
+  // Backend result shape: { inputs, outputs, intermediate, reasoning_output, knowledge_context }
+  const resultData = result.result as Record<string, unknown>;
+  const outputs = resultData.outputs as Record<string, unknown> | undefined;
+  const intermediate = resultData.intermediate as Record<string, unknown> | undefined;
+  const reasoningOutput = resultData.reasoning_output as Record<string, unknown> | undefined;
+  const knowledgeContext = resultData.knowledge_context as Record<string, unknown> | undefined;
+
   return (
     <div className="space-y-4">
       <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
@@ -100,18 +107,58 @@ function IntegrationResultView({ result }: { result: IntegrationResult }) {
             </span>
           </div>
           <div>
+            <span className="text-[var(--color-text-secondary)]">Workflow Type:</span>
+            <span className="ml-2 text-[var(--color-text-primary)]">
+              {result.workflow_type}
+            </span>
+          </div>
+          <div>
             <span className="text-[var(--color-text-secondary)]">Status:</span>
             <span className="ml-2 text-[var(--color-text-primary)]">
-              {result.result.status as string}
+              {result.success ? "Success" : "Failed"}
+            </span>
+          </div>
+          <div>
+            <span className="text-[var(--color-text-secondary)]">Latency:</span>
+            <span className="ml-2 font-mono text-[var(--color-text-primary)]">
+              {result.latency_ms}ms
             </span>
           </div>
         </div>
-        {result.result.message && (
-          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
-            {result.result.message as string}
-          </p>
-        )}
       </div>
+
+      {outputs && Object.keys(outputs).length > 0 && (
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
+          <h4 className="text-sm font-semibold text-[var(--color-text-primary)]">
+            Outputs
+          </h4>
+          <pre className="mt-2 overflow-auto text-xs text-[var(--color-text-secondary)]">
+            {JSON.stringify(outputs, null, 2)}
+          </pre>
+        </div>
+      )}
+
+      {reasoningOutput && Object.keys(reasoningOutput).length > 0 && (
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
+          <h4 className="text-sm font-semibold text-[var(--color-text-primary)]">
+            Reasoning
+          </h4>
+          <pre className="mt-2 overflow-auto text-xs text-[var(--color-text-secondary)]">
+            {JSON.stringify(reasoningOutput, null, 2)}
+          </pre>
+        </div>
+      )}
+
+      {knowledgeContext && Object.keys(knowledgeContext).length > 0 && (
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
+          <h4 className="text-sm font-semibold text-[var(--color-text-primary)]">
+            Knowledge Context
+          </h4>
+          <pre className="mt-2 overflow-auto text-xs text-[var(--color-text-secondary)]">
+            {JSON.stringify(knowledgeContext, null, 2)}
+          </pre>
+        </div>
+      )}
 
       {result.reasoning_chain.length > 0 && (
         <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
@@ -123,6 +170,17 @@ function IntegrationResultView({ result }: { result: IntegrationResult }) {
               <li key={idx}>{step}</li>
             ))}
           </ol>
+        </div>
+      )}
+
+      {intermediate && Object.keys(intermediate).length > 0 && (
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
+          <h4 className="text-sm font-semibold text-[var(--color-text-primary)]">
+            Intermediate Data
+          </h4>
+          <pre className="mt-2 overflow-auto text-xs text-[var(--color-text-secondary)]">
+            {JSON.stringify(intermediate, null, 2)}
+          </pre>
         </div>
       )}
     </div>

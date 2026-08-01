@@ -227,16 +227,16 @@ function ExecutionsPageContent() {
                   Artifacts ({selectedExecution.artifacts.length})
                 </h3>
                 <div className="space-y-2">
-                  {selectedExecution.artifacts.map((artifact, idx) => (
+                  {selectedExecution.artifacts.map((artifactId, idx) => (
                     <div
-                      key={typeof artifact === "string" ? artifact : idx}
+                      key={artifactId || idx}
                       className="flex items-center justify-between rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2"
                     >
                       <span className="text-sm text-[var(--color-text-primary)]">
-                        {typeof artifact === "string" ? artifact : artifact.name || `Artifact ${idx + 1}`}
+                        Artifact {idx + 1}
                       </span>
                       <span className="text-xs text-[var(--color-text-secondary)]">
-                        {typeof artifact === "object" && artifact.type ? artifact.type : ""}
+                        {artifactId}
                       </span>
                     </div>
                   ))}

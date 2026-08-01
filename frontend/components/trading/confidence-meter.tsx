@@ -36,3 +36,7 @@ export function ConfidenceMeter({ confidence, bias, size = "md" }: ConfidenceMet
           style={{ width: `${confidence}%` }}
         />
       </div>
+    </div>
+  );
+}
+

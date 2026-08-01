@@ -142,6 +142,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      # Use host network for RUN steps — BuildKit's default sandbox blocks
+      # outbound connections to registry.npmjs.org (ECONNRESET) on this host.
+      network: host
     ports:
       - "3001:3000"
     environment:
