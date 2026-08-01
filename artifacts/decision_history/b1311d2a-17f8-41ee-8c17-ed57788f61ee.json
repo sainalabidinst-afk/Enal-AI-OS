@@ -1,0 +1,15 @@
+{
+  "record_id": "b1311d2a-17f8-41ee-8c17-ed57788f61ee",
+  "decision_id": "9944de38-fe2a-49da-83d3-4e678ecef675",
+  "timestamp": "2026-08-01T21:51:51.139304+00:00",
+  "context": "Should I enter a long position on BTCUSDT?",
+  "chosen_alternative": "Enter partial position, add on confirmation",
+  "alternatives_count": 4,
+  "confidence_score": 0.6373,
+  "evidence_count": 4,
+  "risk_score": 0.06,
+  "explanation": "Recommendation: Enter partial position, add on confirmation (score 61%). Confidence 64% with uncertainty \u00b120%. Evidence quality: 80%; Evidence agreement: 76%; Evidence coverage: 80%; Decision margin: 3%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

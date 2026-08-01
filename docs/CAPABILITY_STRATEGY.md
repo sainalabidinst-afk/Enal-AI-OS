@@ -48,6 +48,7 @@ Maturity describes the **lifecycle stage** of a Capability Pack — not its qual
 | DevOps Assistant | 3 — Production Ready | 4 — Domain Expert |
 | Trading Analyst | 2 — Functional | 3 — Production Ready |
 | Self Development | 3 — Production Ready | 4 — Domain Expert |
+| Decision Intelligence | 3 — Production Ready | 4 — Domain Expert |
 
 ---
 
@@ -74,6 +75,7 @@ Quality Grades describe the **current benchmark result** of a Capability Pack. T
 | DevOps Assistant | B+ | ≥80 | Production Ready |
 | Trading Analyst | B+ | ≥80 | Certification Pending |
 | Self Development | A | ≥90 | Production Ready |
+| Decision Intelligence | A | 91.25% | Production Ready (RFC-0007) |
 
 ### Quality Grade vs Maturity Level
 
@@ -131,6 +133,7 @@ Deprecated
 | DevOps Assistant | Stable | Progressing toward Certified |
 | Trading Analyst | Experimental → Stable | Certification in progress |
 | Self Development | Stable | Progressing toward Certified |
+| Decision Intelligence | Stable | Shared reasoning layer (RFC-0007) |
 
 ---
 
@@ -208,6 +211,20 @@ Deprecated
 - Requires explicit user approval before applying changes
 **Quality Target:** A (≥90) — 10 real projects, ≥80% improvement acceptance
 **Maturity Target:** Level 4 — Domain Expert
+
+### 5.7 Decision Intelligence
+
+**Category:** Platform — Shared Reasoning
+**Capabilities:** Evidence collection, alternative generation, risk analysis, trade-off analysis, scoring, confidence estimation, explainable decision, decision history
+**Success Criteria (RFC-0007):**
+- Evidence-based decision-making from multiple Capability Pack sources
+- Generates explainable recommendations with confidence scores
+- Analyzes risk (probability × impact) and trade-offs across alternatives
+- Records decisions to Experience Memory / Decision History
+- Full explainability chain: evidence → reasoning → alternatives → risk → decision → rationale
+**Quality Target:** A (≥90) — benchmark overall 91.25%
+**Benchmark:** `benchmarks/decision_intelligence_benchmark.py` (8 dimensions)
+**Maturity Target:** Level 3 — Production Ready
 
 ---
 
@@ -318,26 +335,9 @@ All planned knowledge additions are tracked via RFCs and implemented inside Capa
 
 ## 8. Future Capability Packs (Roadmap)
 
-Capability Pack baru hanya akan dikembangkan setelah 6 pack existing mencapai target grade A/A-. Berikut adalah rencana pengembangan berdasarkan prioritas:
+Capability Pack baru hanya akan dikembangkan setelah 7 pack existing mencapai target grade A/A-. Berikut adalah rencana pengembangan berdasarkan prioritas:
 
-### 8.1 Decision Intelligence (Prioritas Tertinggi — ⭐⭐⭐⭐⭐)
-
-**Fase:** Fase 2 — Setelah Capability Excellence
-**Fungsi:** "Brain" lintas domain untuk pengambilan keputusan
-**Pipeline:**
-```
-Evidence → Reasoning → Simulation → Debate → Risk → Decision → Explanation
-```
-**Kemampuan:**
-- Membuat keputusan dengan confidence score
-- Menjelaskan alasan di balik setiap keputusan
-- Risk analysis dan perbandingan alternatif
-- Memilih keputusan terbaik dari beberapa opsi
-**Dependent Packs:** Trading, Network, Code, semua pack
-**RFC Status:** Belum dimulai
-**Target Maturity:** Level 3 — Production Ready
-
-### 8.2 Security Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
+### 8.1 Security Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
 **Fase:** Fase 2 — Setelah Capability Excellence
 **Fungsi:** Keamanan aplikasi dan infrastruktur

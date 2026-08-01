@@ -51,7 +51,7 @@ Dokumen `v1_roadmap.md` telah dipecah menjadi 5 dokumen strategis berikut:
 
 ### Success Criteria (v1.0.0-dev)
 
-1. ✅ **6 Capability Packs** exist and are registered in Capability Graph
+1. ✅ **7 Capability Packs** exist and are registered in Capability Graph
 2. ✅ **Golden Test Suite** passes with ≥80% pass rate
 3. ✅ **CI/CD Pipeline** blocks merges on any failure
 4. ✅ **Documentation** covers getting started, SDK, contracts, and architecture
@@ -68,6 +68,7 @@ Dokumen `v1_roadmap.md` telah dipecah menjadi 5 dokumen strategis berikut:
 | DevOps Assistant | DevOps | B+ (≥80) |
 | Trading Analyst | Finance | B+ (≥80) — Certification Pending |
 | Self Development | Platform | A (≥90) |
+| Decision Intelligence | Platform — Shared Reasoning | A (91.25%) — RFC-0007 |
 
 ### Capability Maturity Model
 

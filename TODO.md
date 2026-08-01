@@ -66,3 +66,39 @@ docs/
 - [x] 29. Perbaiki synthetic data generator — 3 fase pasar (range 60%, trend 25%, volatility 15%) agar semua analyzer mendapat struktur
 - [x] 30. Tambah FVG cap (8 per timeframe) — kurangi noise SMC yang banjiri confidence scoring
 - [x] 31. Smoke test pipeline — 13 evidence types, semua 9 domain aktif, bullish bias 97% confidence, 83 evidence, 11 reasoning steps ✅
+
+## Implementasi RFC-0007 (Decision Intelligence)
+
+- [x] 32. Buat `apps/decision_intelligence/` package — schemas.py (Pydantic), __init__.py
+- [x] 33. Implementasi Evidence Collection — `evidence_collector.py` (multi-source, quality scoring, weighted synthesis)
+- [x] 34. Implementasi Alternative Generation — `alternative_generator.py` (template library, constraint filtering, feasibility)
+- [x] 35. Implementasi Risk Analysis — `risk_analyzer.py` (probability × impact, risk factors, tolerance)
+- [x] 36. Implementasi Trade-off Analysis — `tradeoff_analyzer.py` (multi-objective weighted, Pareto frontier)
+- [x] 37. Implementasi Decision Scoring + Confidence — `scoring_engine.py`, `confidence_estimator.py`
+- [x] 38. Implementasi Explanation + History — `explanation_generator.py`, `decision_history.py`
+- [x] 39. Implementasi Engine + Worker — `engine.py` (orchestrator), `worker.py` (thin adapter ADR-003)
+- [x] 40. Smoke test pipeline — DecisionResult lengkap (4 evidence, 4 alternatives, 7 reasoning steps, confidence 63%)
+- [x] 41. Benchmark Decision Intelligence — 8 dimensi, overall 91.25%, pass rate 100% ✅
+- [x] 42. Worker integration test — DecisionIntelligenceWorker.execute() berfungsi (5 alternatives)
+- [x] 43. Buat `docs/capabilities/decision-intelligence.md` — profile Capability Pack resmi
+- [x] 44. Update `docs/CAPABILITY_STRATEGY.md` — Decision Intelligence → official pack (5.7), quality A, maturity Level 3, lifecycle Stable
+- [x] 45. Update `docs/v1_roadmap.md` — tambah Decision Intelligence di Capability Packs Overview
+
+## Implementasi RFC-0011 (System Architect)
+
+- [ ] 46. Buat `apps/system_architect/` package — `schemas.py` (Pydantic models), `__init__.py`
+- [ ] 47. Implementasi Dependency Graph Builder — `dependency_graph.py` (import graph, circular dep, layer classification)
+- [ ] 48. Implementasi Layer Analyzer — `layer_analyzer.py` (Clean Architecture layer violation detection)
+- [ ] 49. Implementasi DDD Analyzer — `ddd_analyzer.py` (bounded contexts, aggregates, anti-corruption)
+- [ ] 50. Implementasi Event Analyzer — `event_analyzer.py` (event-driven design review, saga patterns)
+- [ ] 51. Implementasi CQRS Evaluator — `cqrs_evaluator.py` (command/query separation assessment)
+- [ ] 52. Implementasi Microservices Analyzer — `microservices_analyzer.py` (monolith decomposition, migration)
+- [ ] 53. Implementasi ADR Generator — `adr_generator.py` (ADR document generation, template-based)
+- [ ] 54. Implementasi Boundary Enforcer + Governance — `boundary_enforcer.py`, `governance.py`
+- [ ] 55. Implementasi Engine + Worker — `engine.py` (orchestrator), `worker.py` (thin adapter ADR-003)
+- [ ] 56. Buat `benchmarks/system_architect_benchmark.py` — 10 golden test scenarios, 100 project benchmark
+- [ ] 57. Buat `docs/capabilities/system-architect.md` — profile Capability Pack resmi
+- [ ] 58. Update `docs/CAPABILITY_STRATEGY.md` — System Architect → official pack (5.8)
+- [ ] 59. Update `docs/RELEASE_CRITERIA.md` — tambah DoD + Developer Preview Quality Targets
+- [ ] 60. Update `docs/v1_roadmap.md` — tambah System Architect di Capability Packs Overview
+- [ ] 61. Smoke test + benchmark verification — System Architect pipeline berfungsi

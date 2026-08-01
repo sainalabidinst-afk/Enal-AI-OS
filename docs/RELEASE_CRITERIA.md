@@ -11,7 +11,7 @@
 
 ECP v1.0.0-dev is successful if and only if:
 
-1. ✅ **6 Capability Packs** exist and are registered in Capability Graph
+1. ✅ **7 Capability Packs** exist and are registered in Capability Graph
 2. ✅ **Golden Test Suite** passes with ≥80% pass rate
 3. ✅ **CI/CD Pipeline** blocks merges on any failure
 4. ✅ **Documentation** covers getting started, SDK, contracts, and architecture
@@ -78,6 +78,7 @@ Certification requires each Capability Pack to meet or exceed the following benc
 | DevOps | ≥80 | B+ |
 | Trading | ≥80 | B+ (must also pass Certification) |
 | Self Development | ≥90 | A |
+| Decision Intelligence | ≥90 | A (91.25% benchmark — RFC-0007) |
 
 All scores are measured by the 6-dimension Capability Benchmark framework (Accuracy, Completeness, Explainability, Safety, Efficiency, Consistency).
 
@@ -192,6 +193,17 @@ Release Notes
 | Regression | No regression across all 6 benchmark dimensions |
 | Documentation | `CAPABILITY_GUIDE.md` and contract updated |
 | Reproducibility | Benchmark reproducible; results persisted |
+| Changelog | Capability Changelog updated |
+
+### 7.7 Decision Intelligence
+
+| DoD Item | Criterion |
+|----------|-----------|
+| Golden Benchmark | ≥90% (grade A — benchmark overall 91.25%) |
+| Real Cases | (Shared reasoning layer — real cases tracked per consuming pack) |
+| Regression | No regression across all 8 benchmark dimensions |
+| Documentation | `docs/capabilities/decision-intelligence.md` updated |
+| Reproducibility | Benchmark reproducible via `benchmarks/decision_intelligence_benchmark.py`; results persisted |
 | Changelog | Capability Changelog updated |
 
 ---
