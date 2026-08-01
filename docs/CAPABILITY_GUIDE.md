@@ -402,3 +402,125 @@ This section documents planned knowledge expansions for each Capability Pack dur
 - Architecture smell taxonomy
 - Change risk modeling
 - Automated improvement suggestions
+
+---
+
+## System Architect
+
+**Reference RFC:** RFC-0011
+
+**Capability ID:** `system-architect`
+**Category:** Architecture
+**Quality Target:** A (≥90)
+**Maturity Target:** Level 3 — Production Ready
+
+### Scope
+
+- Clean Architecture layer analysis and violation detection
+- DDD evaluation (bounded contexts, aggregates, anti-corruption layers)
+- Event-driven design review (event schemas, saga patterns)
+- CQRS evaluation
+- Microservices/monolith decomposition analysis
+- Architecture governance enforcement
+- ADR generation for architectural decisions
+- Package boundary enforcement (dependency cycles, layer inversions)
+
+### Knowledge Focus
+
+- Clean Architecture (Robert C. Martin)
+- Domain-Driven Design (Eric Evans)
+- Event-Driven Architecture (Enterprise Integration Patterns)
+- CQRS patterns and anti-patterns
+- Microservices decomposition strategies
+- Architecture smells and governance rules
+
+### Out of Scope
+
+- Actual code refactoring or implementation
+- Infrastructure/cloud architecture design
+- Real-time architecture compliance monitoring
+- Live deployment or runtime monitoring
+- Database schema design (Database Engineer handles this)
+- Network topology design (Network Engineer handles this)
+
+### Benchmark Target
+
+- 100 architecture projects (Python, JS/TS, Java, Go, TypeScript)
+- ≥95% architecture review completeness
+- ≥95% dependency violation detection
+- ≥90% package boundary enforcement
+- ≥95% explainability
+
+### Consumers
+
+- Code Engineer — architecture review of generated code
+- Self Development — package boundary validation and improvement evaluation
+- Decision Intelligence — architecture risk scoring
+- QA Engineer — architecture-based test strategy planning
+- DevOps Assistant — microservices deployment architecture review
+
+---
+
+## Future Capability Packs (Roadmap)
+
+The following Capability Packs are planned for Fase 2 and beyond. They will be developed once all 6 existing packs reach target grade A/A-.
+
+### Security Engineer
+
+**Fase:** Fase 2 — Setelah Capability Excellence
+**Capability ID:** `security-engineer`
+**Reference RFC:** RFC-0008
+
+**Purpose:** Enterprise security capabilities across OWASP Top 10, threat modeling, secret detection, vulnerability analysis, dependency audit, configuration hardening, and compliance mapping.
+
+**Consumers:** Code Engineer, DevOps Assistant, Network Engineer, System Architect
+
+### Data Engineer
+
+**Fase:** Fase 2 — Setelah Capability Excellence
+**Capability ID:** `data-engineer`
+**Reference RFC:** RFC-0009
+
+**Purpose:** Full data lifecycle management: ETL/ELT, data cleaning, dataset validation, schema evolution, feature engineering, time series handling, and data quality assurance.
+
+**Consumers:** Trading Analyst, Research Assistant, Decision Intelligence, System Architect
+
+### Database Engineer
+
+**Fase:** Fase 2 — Setelah Capability Excellence
+**Capability ID:** `database-engineer`
+**Reference RFC:** RFC-0010
+
+**Purpose:** Enterprise database capabilities: schema design, query optimization, migration management, replication planning, backup/recovery, index recommendation, and performance analysis.
+
+**Consumers:** Code Engineer, Data Engineer, DevOps Assistant
+
+### Decision Intelligence
+
+**Fase:** Fase 2 — Setelah Capability Excellence
+**Capability ID:** `decision-intelligence`
+**Reference RFC:** RFC-0007
+
+**Purpose:** Cross-domain reasoning layer for evidence-based decision-making: evidence collection, alternative generation, risk analysis, trade-off analysis, decision scoring, confidence estimation, explainable decisions, and decision history.
+
+**Consumers:** All Capability Packs
+
+### QA Engineer
+
+**Fase:** Fase 3 — Enterprise
+**Capability ID:** `qa-engineer`
+**Reference RFC:** RFC-0012
+
+**Purpose:** Automated quality assurance: unit/integration test generation, regression test automation, mutation testing, golden test generation for other packs, benchmark test generation, flaky test detection, coverage analysis, and performance validation.
+
+**Consumers:** All Capability Packs
+
+### Business Analyst
+
+**Fase:** Fase 3 — Enterprise
+**Capability ID:** `business-analyst`
+**Reference RFC:** RFC-0013
+
+**Purpose:** Business-to-technical translation: requirement gathering, business process modeling, user story generation, use case modeling, BRD generation, functional specification, gap analysis, ROI analysis, and process optimization.
+
+**Consumers:** Code Engineer, System Architect, Self Development

@@ -49,6 +49,7 @@ Maturity describes the **lifecycle stage** of a Capability Pack — not its qual
 | Trading Analyst | 2 — Functional | 3 — Production Ready |
 | Self Development | 3 — Production Ready | 4 — Domain Expert |
 | Decision Intelligence | 3 — Production Ready | 4 — Domain Expert |
+| System Architect | 3 — Production Ready | 4 — Domain Expert |
 
 ---
 
@@ -76,6 +77,7 @@ Quality Grades describe the **current benchmark result** of a Capability Pack. T
 | Trading Analyst | B+ | ≥80 | Certification Pending |
 | Self Development | A | ≥90 | Production Ready |
 | Decision Intelligence | A | 91.25% | Production Ready (RFC-0007) |
+| System Architect | A | 97.50% | Production Ready (RFC-0011) |
 
 ### Quality Grade vs Maturity Level
 
@@ -134,6 +136,7 @@ Deprecated
 | Trading Analyst | Experimental → Stable | Certification in progress |
 | Self Development | Stable | Progressing toward Certified |
 | Decision Intelligence | Stable | Shared reasoning layer (RFC-0007) |
+| System Architect | Stable | Architecture authority (RFC-0011) |
 
 ---
 
@@ -225,6 +228,20 @@ Deprecated
 **Quality Target:** A (≥90) — benchmark overall 91.25%
 **Benchmark:** `benchmarks/decision_intelligence_benchmark.py` (8 dimensions)
 **Maturity Target:** Level 3 — Production Ready
+
+### 5.8 System Architect
+
+**Category:** Platform — Architecture Authority
+**Capabilities:** Architecture review, Clean Architecture validation, DDD analysis, event-driven design, CQRS evaluation, microservices/monolith analysis, package boundary enforcement, governance, ADR generation
+**Success Criteria (RFC-0011):**
+- Reviews repository structure against Clean Architecture, DDD, event-driven, CQRS, and microservices patterns
+- Detects dependency cycles, layer violations, and package boundary violations
+- Enforces Architecture Governance: Core change guard, Capability First Rule, pack independence
+- Generates structured ADR drafts from review findings
+- Full explainability chain: findings → metrics → recommendation → ADR
+**Quality Target:** A (≥90) — benchmark overall 97.50%
+**Benchmark:** `benchmarks/system_architect_benchmark.py` (8 dimensions)
+**Maturity Target:** Level 4 — Domain Expert
 
 ---
 
@@ -335,7 +352,7 @@ All planned knowledge additions are tracked via RFCs and implemented inside Capa
 
 ## 8. Future Capability Packs (Roadmap)
 
-Capability Pack baru hanya akan dikembangkan setelah 7 pack existing mencapai target grade A/A-. Berikut adalah rencana pengembangan berdasarkan prioritas:
+Capability Pack baru hanya akan dikembangkan setelah 8 pack existing mencapai target grade A/A-. Berikut adalah rencana pengembangan berdasarkan prioritas:
 
 ### 8.1 Security Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
