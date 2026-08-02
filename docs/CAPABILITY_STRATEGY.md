@@ -55,7 +55,7 @@ Kematangan menggambarkan **tahap lifecycle** dari sebuah Capability Pack — buk
 |Kode Insinyur|3 — Siap Produksi|4 — Ahli Domain|
 |Asisten Peneliti|3 — Siap Produksi|4 — Ahli Domain|
 |Asisten DevOps|3 — Siap Produksi|4 — Ahli Domain|
-|Analis Perdagangan|2 — Fungsional|3 — Siap Produksi|
+|Analis Perdagangan|3 — Siap Produksi|4 — Ahli Domain|
 |Pengembangan Diri|3 — Siap Produksi|4 — Ahli Domain|
 |Decision Intelligence|3 — Siap Produksi|4 — Ahli Domain|
 |Sistem Arsitek|3 — Siap Produksi|4 — Ahli Domain|
@@ -88,7 +88,7 @@ Quality Grades menggambarkan **hasil Benchmark terkini** dari sebuah Capability 
 |Kode Insinyur|A-|≥85|Siap Produksi|
 |Asisten Peneliti|A-|≥85|Siap Produksi|
 |Asisten DevOps|B+|≥80|Siap Produksi|
-|Analis Perdagangan|B+|≥80|Sertifikasi Tertunda|
+|Analis Perdagangan|A|≥90|Bersertifikat|
 |Pengembangan Diri|A|≥90|Siap Produksi|
 |Decision Intelligence|A|91,25%|Siap Produksi (RFC-0007)|
 |Sistem Arsitek|A|97,50%|Siap Produksi (RFC-0011)|
@@ -152,7 +152,7 @@ Deprecated
 |Kode Insinyur|Stabil|Berkembang menuju Bersertifikat|
 |Asisten Peneliti|Stabil|Berkembang menuju Bersertifikat|
 |Asisten DevOps|Stabil|Berkembang menuju Bersertifikat|
-|Analis Perdagangan|Eksperimental → Stabil|Sertifikasi berlangsung|
+|Analis Perdagangan|Stabil → Bersertifikat|Selesai|
 |Pengembangan Diri|Stabil|Berkembang menuju Bersertifikat|
 |Decision Intelligence|Stabil|Lapisan penalaran bersama (RFC-0007)|
 |Sistem Arsitek|Stabil|Otoritas arsitektur (RFC-0011)|
@@ -224,8 +224,8 @@ Deprecated
 - Kesimpulannya rekomendasi trading dengan skor keyakinan
 - Menggunakan mesin debat untuk perbandingan multi-strategi
 - Mencatat keputusan ke pengalaman kenangan
-**Target Kualitas:** B+ (≥80) — 100 skenario pasar, pengembalian yang disesuaikan dengan risiko
-**Target Kematangan:** Level 3 — Siap Produksi (Sertifikasi Tertunda)
+**Target Kualitas:** A (≥90) — 200 skenario pasar, pengembalian yang disesuaikan dengan risiko
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### 5.6 Pengembangan Diri
 

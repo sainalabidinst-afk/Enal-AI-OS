@@ -13,9 +13,8 @@ class VectorStore:
         self.client = QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY or None)
         self.collection_name = "enal_ai_os_docs"
         self.embedding_model = settings.DEFAULT_EMBEDDING_MODEL
-        self._init_collection()
 
-    def _init_collection(self):
+    def _ensure_collection(self):
         try:
             self.client.get_collection(self.collection_name)
         except Exception:
@@ -30,6 +29,7 @@ class VectorStore:
         return response.data[0]["embedding"]
 
     def index(self, documents: list[dict]):
+        self._ensure_collection()
         points = []
         for i, doc in enumerate(documents):
             vector = self.embed(doc["content"])
@@ -41,6 +41,7 @@ class VectorStore:
         self.client.upsert(collection_name=self.collection_name, points=points)
 
     def search(self, query: str, limit: int = 5) -> list[dict]:
+        self._ensure_collection()
         query_vector = self.embed(query)
         results = self.client.search(
             collection_name=self.collection_name,

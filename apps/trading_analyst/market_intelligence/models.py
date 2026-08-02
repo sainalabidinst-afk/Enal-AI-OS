@@ -155,5 +155,6 @@ class AnalysisResult:
                 "latency_ms": round(self.metadata.latency_ms, 2),
                 "raw_data_points": self.metadata.raw_data_points,
             },
+            "raw": self.raw,
         }
 

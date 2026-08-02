@@ -55,9 +55,19 @@ class TradingBenchmarkReport:
     passed: bool = False
 
     def to_dict(self) -> dict[str, Any]:
+        grade = "F"
+        if self.overall_score >= 95.0:
+            grade = "A+"
+        elif self.overall_score >= 90.0:
+            grade = "A"
+        elif self.overall_score >= 80.0:
+            grade = "B"
+        elif self.overall_score >= 70.0:
+            grade = "C"
         return {
             "generated_at": self.generated_at.isoformat(),
             "overall_score": round(self.overall_score, 2),
+            "grade": grade,
             "reasoning_score": round(self.reasoning_score, 2),
             "coverage_score": round(self.coverage_score, 2),
             "explainability_score": round(self.explainability_score, 2),
@@ -177,7 +187,8 @@ def _score_explainability(result: dict[str, Any]) -> float:
         score += 25.0
     if len(market.get("reasoning_steps", [])) >= 2:
         score += 25.0
-    if market.get("raw", {}).get("top_evidence"):
+    top_evidence = market.get("raw", {}).get("top_evidence")
+    if top_evidence:
         score += 20.0
     return min(score, 100.0)
 
@@ -321,17 +332,18 @@ async def run_trading_benchmark(
         report.consistency_score * 0.20 +
         report.safety_score * 0.15
     )
-    report.passed = report.overall_score >= 80.0
+    report.passed = report.overall_score >= 90.0
 
     return report
 
 
 def print_summary(report: TradingBenchmarkReport) -> None:
+    grade = "A+" if report.overall_score >= 95.0 else "A" if report.overall_score >= 90.0 else "B" if report.overall_score >= 80.0 else "C" if report.overall_score >= 70.0 else "F"
     print("\n" + "=" * 60)
     print("  Trading Analyst Benchmark Report")
     print("=" * 60)
     print(f"  Generated        : {report.generated_at.isoformat()}")
-    print(f"  Overall Score    : {report.overall_score:.1f}%")
+    print(f"  Overall Score    : {report.overall_score:.1f}% ({grade})")
     print(f"  Reasoning        : {report.reasoning_score:.1f}%")
     print(f"  Coverage         : {report.coverage_score:.1f}%")
     print(f"  Explainability   : {report.explainability_score:.1f}%")
@@ -344,9 +356,9 @@ def print_summary(report: TradingBenchmarkReport) -> None:
     print("=" * 60 + "\n")
 
     if report.passed:
-        print("  ✅ Trading Analyst benchmark PASSED\n")
+        print("  [PASS] Trading Analyst benchmark PASSED\n")
     else:
-        print("  ❌ Trading Analyst benchmark FAILED\n")
+        print("  [FAIL] Trading Analyst benchmark FAILED\n")
 
 
 def main() -> int:

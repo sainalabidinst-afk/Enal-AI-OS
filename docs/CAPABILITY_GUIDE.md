@@ -23,7 +23,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 |Kode Insinyur|SEBUAH- (≥85)|Siap Produksi|
 |Asisten Peneliti|SEBUAH- (≥85)|Siap Produksi|
 |Asisten DevOps|B+ (≥80)|Siap Produksi|
-|Analis Perdagangan|B+ (≥80)|Sertifikasi Tertunda|
+|Analis Perdagangan|A (≥90)|Bersertifikat|
 |Pengembangan Diri|SEBUAH (≥90)|Siap Produksi|
 |Decision Intelligence|SEBUAH (≥90)|Siap Produksi|
 |Sistem Arsitek|SEBUAH (≥90)|Siap Produksi|
@@ -197,7 +197,8 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `trading`
 **Kategori:** Keuangan
-**Target Kualitas:** B+ (≥80) - Sertifikasi Menunggu Keputusan
+**Target Kualitas:** A (≥90) - Bersertifikat
+**Target Kematangan:** Level 4 — Pakar Domain
 
 ### Cakupan
 
