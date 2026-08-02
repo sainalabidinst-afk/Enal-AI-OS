@@ -1,27 +1,8 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Rangkaian Benchmark ECP
 
+Direktori ini berisi tolok ukur untuk mengukur kinerja dan kualitas ECP.
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `benchmarks/README.md`
-- Judul: Readme
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# ECP Benchmark Suite
-
-This directory contains benchmarks for measuring ECP performance and quality.
-> Terjemahan Indonesia: Ini directory contains benchmarks untuk measuring ECP performance dan kualitas.
-
-## Running Benchmarks
+## Tolok Ukur yang Berjalan
 
 ```bash
 # Run all benchmarks
@@ -31,45 +12,42 @@ python -m benchmarks.performance_benchmark
 python -m benchmarks.agent_quality
 ```
 
-## Benchmark Categories
+## Benchmark Kategori
 
-### Performance Benchmarks
+### Tolok Ukur Kinerja
 
+- `performance_benchmark.py` — Latensi, efisiensi token, determinisme, tingkat keberhasilan
+- `package_boundaries.py` — Penegakan paket ketergantungan
 
-- `performance_benchmark.py` — Latency, token efficiency, determinism, success rate
-- `package_boundaries.py` — Package dependency enforcement
+### Tolok Ukur Kualitas
 
-### Quality Benchmarks
+- `agent_quality.py` — Kualitas respons agen
+- `capability_benchmark.py` — Capability Pack kualitas dalam 6 dimensi: Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi
+- Kasus dunia nyata dari `real_cases/<capability_id>/` dimasukkan ke dalam tolok ukur kemampuan
 
-- `agent_quality.py` — Agent response quality
-- `capability_benchmark.py` — Capability Pack quality across 6 dimensions: Accuracy, Completeness, Explainability, Safety, Efficiency, Consistency
-- Real-world cases from `real_cases/<capability_id>/` feed into capability benchmarks
+## Benchmark Jenis
 
-## Benchmark Types
+### Sintetis Benchmark
 
-### Synthetic Benchmark
+Skenario disusun dengan keluaran yang diharapkan diketahui, ditentukan dalam `benchmarks/`.
 
-Structured scenarios with known expected outputs, defined in `benchmarks/`.
-> Terjemahan Indonesia: Structured scenarios dengan known expected outputs, defined dalam benchmarks/.
+### Benchmark di dunia nyata
 
-### Real-world Benchmark
+Kasus dari penggunaan sebenarnya disimpan di `real_cases/<capability_id>/`.
+Setiap kasus berisi masukan, keluaran, dan evaluasi.
+Kasus-kasus di dunia nyata adalah sumber utama perbaikan Capability Pack.
+Tolok ukur sintetis memvalidasi peningkatan; kasus-kasus dunia nyata mendorong mereka.
 
-Cases from actual usage stored in `real_cases/<capability_id>/`.
-Each case contains input, output, and evaluation.
-Real-world cases are the primary source of Capability Pack improvement.
-Synthetic benchmarks validate improvements; real-world cases drive them.
-> Terjemahan Indonesia: Cases dari actual usage stored dalam real_cases//. Each case contains input, output, dan evaluation. Real-world cases adalah primary source dari kapabilitas Pack improvement. Synthetic benchmarks validate improvements; real-world cases drive them.
+## Menambahkan Tolok Ukur Baru
 
-## Adding New Benchmarks
+1. Buat file Python baru di direktori ini
+2. Gunakan kelas `Benchmark` dari `backend.app.core.evaluation`
+3. Jalankan dengan `python -m benchmarks.your_benchmark`
 
-1. Create a new Python file in this directory
-2. Use the `Benchmark` class from `backend.app.core.evaluation`
-3. Run with `python -m benchmarks.your_benchmark`
+## Integrasi CI
 
-## CI Integration
+Tolok ukur dijalankan secara otomatis di setiap PR:
+- Kinerja tolok ukur tidak boleh menurun > 10%
+- Tolok ukur kualitas harus mempertahankan tingkat kelulusan > 80%.
+- Batasan paket tidak boleh ada pelanggaran
 
-Benchmarks run automatically on every PR:
-> Terjemahan Indonesia: Benchmarks run automatically pada every PR:
-- Performance benchmarks must not degrade > 10%
-- Quality benchmarks must maintain > 80% pass rate
-- Package boundaries must have zero violations

@@ -1,144 +1,121 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# RFC-0013: Capability Pack Business Analyst
 
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0013-business-analyst.md`
-- Judul: Rfc 0013 Business Analyst
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC-0013: Business Analyst Capability Pack
-
-| Field | Value |
+| Field | Nilai |
 |-------|-------|
 | **RFC ID** | RFC-0013 |
 | **Status** | Draft |
-| **Version** | 0.1.0 |
-| **Author** | Enal AI OS Core Team |
-| **Target Release** | v1.3.0 (Enterprise phase) |
+| **Versi** | 0.1.0 |
+| **Penulis** | Enal AI OS Core Team |
+| **Target Rilis** | v1.3.0 (fase Enterprise) |
 | **Capability Pack** | Business Analyst |
 | **Capability ID** | `business-analyst` |
-| **Category** | Business Analysis |
-| **Quality Target** | A (≥90) |
-| **Maturity Target** | Level 3 — Production Ready |
-| **Reference RFC** | RFC-0013 |
+| **Kategori** | Business Analysis |
+| **Target Kualitas** | A (≥90) |
+| **Target Maturity** | Level 3 — Production Ready |
+| **RFC Referensi** | RFC-0013 |
 
 ---
 
-## Motivation
+## Motivasi
 
-ECP's existing Capability Packs build systems, but there is no dedicated business analysis layer that translates business needs into technical specifications that can be executed by other packs.
-> Terjemahan Indonesia: ECP's existing kapabilitas Packs membangun systems, but there adalah no dedicated business analysis layer itu translates business needs into technical specifications itu dapat menjadi executed oleh other packs.
+Capability Pack ECP yang ada membangun sistem, tetapi tidak ada layer business analysis khusus yang menerjemahkan kebutuhan bisnis menjadi spesifikasi teknis yang dapat dieksekusi oleh pack lain.
 
-Currently:
-> Terjemahan Indonesia: Saat ini:
+Saat ini:
 
-1. **Requirements are gathered manually** — business needs are passed as natural language, often with ambiguity, gaps, and conflicting stakeholder priorities.
-2. **No business process modeling** — workflows and processes are not formally modeled before being translated to technical implementations.
-3. **User stories and acceptance criteria are not standardized** — different packs interpret requirements differently.
-4. **No gap analysis** — discrepancies between business needs and technical capabilities are not systematically identified.
-5. **No ROI analysis** — investment decisions lack quantified return-on-investment analysis.
-6. **BRD and functional specifications are generated ad hoc** — no systematic generation of Business Requirement Documents or functional specs.
-7. **No requirement quality scoring** — ambiguous, incomplete, or conflicting requirements are not flagged before they cause downstream rework.
+1. **Kebutuhan dikumpulkan secara manual** — kebutuhan bisnis disampaikan sebagai bahasa alami, sering kali dengan ambiguitas, kesenjangan, dan prioritas stakeholder yang bertentangan.
+2. **Tidak ada pemodelan proses bisnis** — alur kerja dan proses tidak dimodelkan secara formal sebelum diterjemahkan ke implementasi teknis.
+3. **User story dan kriteria penerimaan tidak terstandarisasi** — pack yang berbeda menginterpretasikan kebutuhan secara berbeda.
+4. **Tidak ada gap analysis** — perbedaan antara kebutuhan bisnis dan kapabilitas teknis tidak diidentifikasi secara sistematis.
+5. **Tidak ada analisis ROI** — keputusan investasi kekurangan analisis return-on-investment yang terkuantifikasi.
+6. **BRD dan spesifikasi fungsional dihasilkan secara ad hoc** — tidak ada generasi sistematis Business Requirement Documents atau functional specs.
+7. **Tidak ada scoring kualitas kebutuhan** — kebutuhan yang ambigu, tidak lengkap, atau bertentangan tidak ditandai sebelum menyebabkan pengerjaan ulang downstream.
 
-The Business Analyst Capability Pack becomes the requirements translation layer, converting business needs into clear, unambiguous, executable specifications that Code Engineer, System Architect, and all other packs can consume.
-> Terjemahan Indonesia: Business Analyst kapabilitas Pack becomes requirements translation layer, converting business needs into clear, unambiguous, executable specifications itu Code Engineer, sistem Architect, dan all other packs dapat consume.
+Capability Pack Business Analyst menjadi layer penerjemahan kebutuhan, mengonversi kebutuhan bisnis menjadi spesifikasi yang jelas, tidak ambigu, dan dapat dieksekusi yang dapat dikonsumsi oleh Code Engineer, System Architect, dan semua pack lain.
 
 ---
 
-## Problem Statement
+## Pernyataan Masalah
 
-Without a dedicated Business Analyst Capability Pack:
-> Terjemahan Indonesia: Without sebuah dedicated Business Analyst kapabilitas Pack:
+Tanpa Capability Pack Business Analyst yang khusus:
 
-- **Ambiguous requirements reach development** — unclear, vague, or contradictory requirements cause rework downstream.
-- **No business process modeling** — complex workflows are not visualized or analyzed before implementation.
-- **User stories lack acceptance criteria** — stories are generated without clear, testable acceptance conditions.
-- **No gap analysis** — business needs vs. technical capabilities are not systematically compared.
-- **ROI is not quantified** — investment decisions lack data-driven return calculations.
-- **BRD and functional specifications are missing** — formal documentation is not systematically produced.
-- **Stakeholder conflicts are not resolved** — conflicting needs are not structured or mediated.
-- **No process optimization** — business processes are not analyzed for inefficiencies before implementation.
+- **Kebutuhan ambigu mencapai pengembangan** — kebutuhan yang tidak jelas, samar, atau bertentangan menyebabkan pengerjaan ulang downstream.
+- **Tidak ada pemodelan proses bisnis** — alur kerja kompleks tidak divisualisasikan atau dianalisis sebelum implementasi.
+- **User story kekurangan kriteria penerimaan** — story dihasilkan tanpa kondisi penerimaan yang jelas dan dapat diuji.
+- **Tidak ada gap analysis** — kebutuhan bisnis vs kapabilitas teknis tidak dibandingkan secara sistematis.
+- **ROI tidak dikuantifikasi** — keputusan investasi kekurangan perhitungan return berbasis data.
+- **BRD dan spesifikasi fungsional tidak ada** — dokumentasi formal tidak dihasilkan secara sistematis.
+- **Konflik stakeholder tidak diselesaikan** — kebutuhan yang bertentangan tidak distrukturkan atau dimediasi.
+- **Tidak ada optimasi proses** — proses bisnis tidak dianalisis untuk inefisiensi sebelum implementasi.
 
-The absence of Business Analyst means that good requirements—the foundation of all good software—are not systematically ensured, leading to expensive rework and poor outcomes.
-> Terjemahan Indonesia: Absence dari Business Analyst means itu good requirements— foundation dari all good software—adalah not systematically ensured, leading untuk expensive rework dan poor outcomes.
+Tidak adanya Business Analyst berarti bahwa kebutuhan yang baik — fondasi semua perangkat lunak yang baik — tidak dijamin secara sistematis, menyebabkan pengerjaan ulang yang mahal dan hasil yang buruk.
 
 ---
 
-## Goals
+## Tujuan
 
-1. **Requirement Gathering** — Collect, structure, and validate business requirements from stakeholders.
-2. **Business Process Modeling** — Model workflows and processes using BPMN-like notation.
-3. **User Story Generation** — Generate well-formed user stories with acceptance criteria.
-4. **Use Case Modeling** — Generate detailed use cases from requirements.
-5. **BRD Generation** — Generate Business Requirement Documents from raw inputs.
-6. **Functional Specification** — Generate executable functional specifications for downstream packs.
-7. **Gap Analysis** — Identify and document gaps between business needs and technical capabilities.
-8. **ROI Analysis** — Quantify return-on-investment for proposed features or projects.
-9. **Process Optimization** — Identify inefficiencies in business processes and recommend improvements.
+1. **Requirement Gathering** — Mengumpulkan, menyusun, dan memvalidasi kebutuhan bisnis dari stakeholder.
+2. **Business Process Modeling** — Memodelkan alur kerja dan proses menggunakan notasi mirip BPMN.
+3. **User Story Generation** — Menghasilkan user story yang terbentuk baik dengan kriteria penerimaan.
+4. **Use Case Modeling** — Menghasilkan use case terperinci dari kebutuhan.
+5. **BRD Generation** — Menghasilkan Business Requirement Documents dari input mentah.
+6. **Functional Specification** — Menghasilkan spesifikasi fungsional yang dapat dieksekusi untuk pack downstream.
+7. **Gap Analysis** — Mengidentifikasi dan mendokumentasikan kesenjangan antara kebutuhan bisnis dan kapabilitas teknis.
+8. **ROI Analysis** — Mengkuantifikasi return-on-investment untuk fitur atau proyek yang diusulkan.
+9. **Process Optimization** — Mengidentifikasi inefisiensi dalam proses bisnis dan merekomendasikan perbaikan.
 
-### Success Criteria
+### Kriteria Keberhasilan
 
-| Metric | Target | Grade |
+| Metrik | Target | Grade |
 |--------|--------|-------|
-| Requirement Clarity | ≥90% (requirements free of ambiguity) | A |
-| User Story Quality | ≥95% (stories with complete acceptance criteria) | A |
-| Gap Analysis Coverage | ≥90% (all gaps identified) | A |
-| ROI Accuracy | ≥85% (ROI predictions within ±10% of actual) | A |
-| Process Optimization | ≥80% (inefficiencies identified and addressed) | A |
-| BRD Completeness | ≥95% (all required sections present) | A |
-| Stakeholder Consistency | ≥90% (conflicts identified and resolved) | A |
-| Explainability | ≥95% (rationale for all recommendations) | A+ |
+| Kejelasan Kebutuhan | ≥90% (kebutuhan bebas ambiguitas) | A |
+| Kualitas User Story | ≥95% (story dengan kriteria penerimaan lengkap) | A |
+| Cakupan Gap Analysis | ≥90% (semua kesenjangan teridentifikasi) | A |
+| Akurasi ROI | ≥85% (prediksi ROI dalam ±10% dari aktual) | A |
+| Optimasi Proses | ≥80% (inefisiensi teridentifikasi dan ditangani) | A |
+| Kelengkapan BRD | ≥95% (semua bagian yang diperlukan ada) | A |
+| Konsistensi Stakeholder | ≥90% (konflik teridentifikasi dan diselesaikan) | A |
+| Explainability | ≥95% (alasan untuk semua rekomendasi) | A+ |
 
 ---
 
-## Non-Goals
+## Non-Tujuan
 
-1. **Stakeholder facilitation** — Business Analyst structures requirements; it does not conduct stakeholder meetings.
-2. **Business strategy definition** — Focus is on requirements translation, not business strategy.
-3. **Replacing dedicated BA tools** — Tools like JIRA, Confluence, Miro remain; Business Analyst provides analysis and generation.
-4. **Project management** — Does not manage project timelines, resources, or sprint planning.
-5. **Core modification** — All implementation resides within the Business Analyst Capability Pack.
+1. **Fasilitasi stakeholder** — Business Analyst menyusun kebutuhan; ia tidak melakukan pertemuan stakeholder.
+2. **Definisi strategi bisnis** — Fokus pada penerjemahan kebutuhan, bukan strategi bisnis.
+3. **Menggantikan alat BA khusus** — Alat seperti JIRA, Confluence, Miro tetap dipakai; Business Analyst menyediakan analisis dan generasi.
+4. **Manajemen proyek** — Tidak mengelola timeline proyek, sumber daya, atau sprint planning.
+5. **Modifikasi Core** — Semua implementasi berada di dalam Capability Pack Business Analyst.
 
 ---
 
-## Capability Scope
+## Scope Kapabilitas
 
-### Core Capabilities
+### Kapabilitas Inti
 
-| Capability | Description | Inputs | Outputs |
+| Kapabilitas | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| Requirement Gathering | Collect, structure, and validate requirements from stakeholder inputs | Natural language requirements, stakeholder notes, interview transcripts | Structured requirement documents with quality scores |
-| Business Process Modeling | Model workflows using BPMN-like notation | Process descriptions, workflow narratives | Process models with activities, gateways, data flows |
-| User Story Generation | Generate INVEST-compliant user stories with acceptance criteria | Requirements, personas, user journeys | User stories with detailed acceptance criteria |
-| Use Case Modeling | Generate detailed use cases from requirements | Requirements, user roles, system interactions | Use case diagrams and detailed use case descriptions |
-| BRD Generation | Generate Business Requirement Documents | Raw requirements, business context, stakeholder inputs | BRD document with all standard sections |
-| Functional Specification | Generate executable functional specs for downstream packs | BRD, user stories, use cases | Functional specification in structured format |
-| Gap Analysis | Identify gaps between business needs and technical capabilities | Requirements, current state, technical constraints | Gap analysis report with prioritization |
-| ROI Analysis | Quantify return-on-investment for proposed features | Cost estimates, benefit projections, timeline | ROI analysis report with NPV, payback period |
-| Process Optimization | Identify and recommend process improvements | Process models, current performance data | Process optimization recommendations |
+| Requirement Gathering | Mengumpulkan, menyusun, dan memvalidasi kebutuhan dari input stakeholder | Kebutuhan bahasa alami, catatan stakeholder, transkrip wawancara | Dokumen kebutuhan terstruktur dengan skor kualitas |
+| Business Process Modeling | Memodelkan alur kerja menggunakan notasi mirip BPMN | Deskripsi proses, narasi alur kerja | Model proses dengan activities, gateways, data flows |
+| User Story Generation | Menghasilkan user story sesuai INVEST dengan kriteria penerimaan | Kebutuhan, persona, user journeys | User story dengan kriteria penerimaan terperinci |
+| Use Case Modeling | Menghasilkan use case terperinci dari kebutuhan | Kebutuhan, peran pengguna, interaksi sistem | Diagram use case dan deskripsi use case terperinci |
+| BRD Generation | Menghasilkan Business Requirement Documents | Kebutuhan mentah, konteks bisnis, input stakeholder | Dokumen BRD dengan semua bagian standar |
+| Functional Specification | Menghasilkan functional specs yang dapat dieksekusi untuk pack downstream | BRD, user stories, use cases | Spesifikasi fungsional dalam format terstruktur |
+| Gap Analysis | Mengidentifikasi kesenjangan antara kebutuhan bisnis dan kapabilitas teknis | Kebutuhan, kondisi saat ini, batasan teknis | Laporan gap analysis dengan prioritisasi |
+| ROI Analysis | Mengkuantifikasi return-on-investment untuk fitur yang diusulkan | Estimasi biaya, proyeksi manfaat, timeline | Laporan analisis ROI dengan NPV, payback period |
+| Process Optimization | Mengidentifikasi dan merekomendasikan perbaikan proses | Model proses, data performa saat ini | Rekomendasi optimasi proses |
 
 ### Out of Scope
 
-- Stakeholder facilitation or meeting management
-- Project planning or resource allocation
-- Business strategy formulation
-- Financial planning beyond ROI analysis
-- Change management implementation
-- Live process execution or monitoring
+- Fasilitasi stakeholder atau manajemen pertemuan
+- Perencanaan proyek atau alokasi sumber daya
+- Formulasi strategi bisnis
+- Perencanaan keuangan di luar analisis ROI
+- Implementasi change management
+- Eksekusi atau monitoring proses langsung
 
 ---
 
-## Public Contracts
+## Kontrak Publik
 
 ### Input Contract: Business Analysis Request
 
@@ -265,7 +242,7 @@ The absence of Business Analyst means that good requirements—the foundation of
 }
 ```
 
-### Requirement Record (Experience Memory)
+### Catatan Kebutuhan (Experience Memory)
 
 ```json
 {
@@ -283,7 +260,7 @@ The absence of Business Analyst means that good requirements—the foundation of
 
 ---
 
-## Integration Points (Capability Graph)
+## Titik Integrasi (Capability Graph)
 
 ```
 Business Stakeholder / User
@@ -317,45 +294,44 @@ Consumer Capability Packs
 User / Human Approval Loop
 ```
 
-### Task Template
+### Template Tugas
 
-| Task | Subtasks |
+| Tugas | Subtugas |
 |------|----------|
 | Business Analysis | Input collection → Requirement gathering → Process modeling → User story generation → Use case modeling → Gap analysis → ROI analysis → Process optimization → Specification generation |
 
 ---
 
-## Consumer Capability Packs
+## Capability Pack Konsumen
 
-| Consumer Capability Pack | Use Case |
+| Capability Pack Konsumen | Use Case |
 |--------------------------|----------|
-| **Code Engineer** | Consume functional specs to generate code and tests |
-| **System Architect** | Consume functional specs for architecture design |
-| **DevOps Assistant** | Consume deployment requirements and infrastructure specs |
-| **Decision Intelligence** | Evaluate ROI and risk of proposed business initiatives |
-| **Self Development** | Identify business process improvement opportunities |
+| **Code Engineer** | Mengonsumsi functional specs untuk menghasilkan kode dan test |
+| **System Architect** | Mengonsumsi functional specs untuk desain arsitektur |
+| **DevOps Assistant** | Mengonsumsi kebutuhan deployment dan spesifikasi infrastruktur |
+| **Decision Intelligence** | Mengevaluasi ROI dan risiko dari inisiatif bisnis yang diusulkan |
+| **Self Development** | Mengidentifikasi peluang perbaikan proses bisnis |
 
 ---
 
-## Dependencies
+## Dependensi
 
-### Internal Dependencies (Shared Contracts)
+### Dependensi Internal (Shared Contracts)
 
-1. **Execution Runtime** — Task routing and orchestration (per ADR-002)
-2. **Experience Memory** — Requirement and decision records persistence (per ADR-011)
-3. **Shared Contracts** — Task/Intent definition and result schema (per ADR-006)
+1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+2. **Experience Memory** — Persistensi catatan kebutuhan dan keputusan (sesuai ADR-011)
+3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
 
-### External Knowledge
+### Pengetahuan Eksternal
 
-1. **BABOK (Business Analysis Body of Knowledge)** — Standard BA practices
+1. **BABOK (Business Analysis Body of Knowledge)** — Praktik BA standar
 2. **BPMN** — Business Process Model and Notation
-3. **INVEST Criteria** — User story quality framework
-4. **ROI/NPV/IRR** — Financial analysis methodologies
+3. **INVEST Criteria** — Kerangka kualitas user story
+4. **ROI/NPV/IRR** — Metodologi analisis keuangan
 
-### No Core Changes Required
+### Tidak Ada Perubahan Core yang Diperlukan
 
-All implementation resides within the Business Analyst Capability Pack:
-> Terjemahan Indonesia: All implementation resides within Business Analyst kapabilitas Pack:
+Semua implementasi berada di dalam Capability Pack Business Analyst:
 
 ```
 apps/
@@ -374,89 +350,87 @@ apps/
     └── optimizer.py           # Process optimization
 ```
 
-**ADR Impact:** None. No Core, Runtime, Kernel, or shared contract modification required.
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract.
 
 ---
 
-## Benchmark Specification
+## Spesifikasi Benchmark
 
-### Benchmark Framework
+### Kerangka Benchmark
 
-| Dimension | Definition | Measurement | Target |
+| Dimensi | Definisi | Pengukuran | Target |
 |-----------|------------|-------------|--------|
-| **Requirement Clarity** | % of requirements free of ambiguity | Expert review of requirement quality | ≥90% |
-| **User Story Quality** | % of stories with complete acceptance criteria | Acceptance criteria present / stories | ≥95% |
-| **Gap Analysis Coverage** | % of business-technical gaps identified | Gaps found / ground truth gaps | ≥90% |
-| **ROI Accuracy** | ROI predictions match actual outcomes | ROI predicted vs. actual within ±10% | ≥85% |
-| **Process Optimization** | % of inefficiencies identified and addressed | Improvements found / total inefficiencies | ≥80% |
-| **BRD Completeness** | % of required BRD sections present | Sections present / total expected | ≥95% |
-| **Stakeholder Consistency** | % of conflicts identified and resolved | Conflicts resolved / total conflicts | ≥90% |
-| **Explainability** | Clarity of rationale for recommendations | Human evaluation score | ≥95% |
-| **Consistency** | Same input produces same spec | Variance across 10 runs < 5% | ≥90% |
+| **Requirement Clarity** | % kebutuhan bebas ambiguitas | Review ahli terhadap kualitas kebutuhan | ≥90% |
+| **User Story Quality** | % story dengan kriteria penerimaan lengkap | Kriteria penerimaan ada / story | ≥95% |
+| **Gap Analysis Coverage** | % kesenjangan bisnis-teknis teridentifikasi | Kesenjangan ditemukan / ground truth kesenjangan | ≥90% |
+| **ROI Accuracy** | Prediksi ROI sesuai hasil aktual | ROI diprediksi vs aktual dalam ±10% | ≥85% |
+| **Process Optimization** | % inefisiensi teridentifikasi dan ditangani | Perbaikan ditemukan / total inefisiensi | ≥80% |
+| **BRD Completeness** | % bagian BRD yang diperlukan ada | Bagian ada / total yang diharapkan | ≥95% |
+| **Stakeholder Consistency** | % konflik teridentifikasi dan diselesaikan | Konflik diselesaikan / total konflik | ≥90% |
+| **Explainability** | Kejelasan alasan untuk rekomendasi | Skor evaluasi manusia | ≥95% |
+| **Consistency** | Input yang sama menghasilkan spec yang sama | Varian di 10 run < 5% | ≥90% |
 
-### Benchmark Dataset
+### Dataset Benchmark
 
-- **100 business cases** covering:
+- **100 kasus bisnis** yang mencakup:
   - E-commerce (inventory, checkout, recommendation)
-  - Fintech (trading platform, risk assessment, compliance)
-  - Healthcare (patient management, appointment scheduling)
-  - SaaS (multi-tenant platform, billing, analytics)
-  - Enterprise (workflow automation, reporting, integration)
-> Terjemahan Indonesia: E-commerce (inventory, checkout, recommendation) Fintech (trading platform, risk assessment, compliance) Healthcare (patient management, appointment scheduling) SaaS (multi-tenant platform, billing, analytics) Enterprise (alur kerja automation, reporting, integrasi)
+  - Fintech (platform trading, penilaian risiko, kepatuhan)
+  - Healthcare (manajemen pasien, penjadwalan janji temu)
+  - SaaS (platform multi-tenant, billing, analitik)
+  - Enterprise (otomasi alur kerja, reporting, integrasi)
 
-### Benchmark Dimensions Detail
+### Detail Dimensi Benchmark
 
-| Scenario Type | Description | Ground Truth |
+| Tipe Skenario | Deskripsi | Ground Truth |
 |---------------|-------------|-------------|
-| Ambiguous Requirements | Requirements with unclear language | Expert disambiguation |
-| Conflicting Stakeholder Needs | Stakeholders with opposing priorities | Conflict resolution records |
-| Missing Acceptance Criteria | Stories without testable conditions | Expert-completed criteria |
-| Process Optimization | Inefficient business processes | Process improvement records |
+| Ambiguous Requirements | Kebutuhan dengan bahasa tidak jelas | Disambiguasi ahli |
+| Conflicting Stakeholder Needs | Stakeholder dengan prioritas berlawanan | Catatan resolusi konflik |
+| Missing Acceptance Criteria | Story tanpa kondisi yang dapat diuji | Kriteria yang dilengkapi ahli |
+| Process Optimization | Proses bisnis tidak efisien | Catatan perbaikan proses |
 
 ---
 
-## Golden Test Specification
+## Spesifikasi Golden Test
 
-| # | Scenario | Expected Outcome | Acceptance Criteria |
+| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
 |---|----------|-----------------|---------------------|
-| 1 | Ambiguous requirement ("fast system") | Requirement clarified with measurable criteria | ≥90% clarity improvement |
-| 2 | Conflicting stakeholder needs (security vs. usability) | Conflict identified and mediated | ≥90% resolution |
-| 3 | Missing acceptance criteria in user story | Criteria generated with testable conditions | ≥95% completeness |
-| 4 | Process with inefficiency (manual approval step) | Bottleneck identified with automation suggestion | ≥85% detection |
-| 5 | ROI analysis with cost/benefit data | NPV, payback, IRR calculated | ≥85% accuracy vs. actual |
-| 6 | Gap analysis (current vs. target state) | Gaps identified with priorities | ≥90% coverage |
-| 7 | BRD generation from raw notes | Complete BRD with all sections | ≥95% completeness |
-| 8 | Use case modeling from requirement | Detailed use cases with actors and flows | ≥90% completeness |
-| 9 | Functional specification for Code Engineer | Structured spec consumable by Code Engineer | ≥90% usability |
-| 10 | Business process model from workflow description | BPMN-like model with activities and gateways | ≥90% accuracy |
+| 1 | Kebutuhan ambigu ("sistem cepat") | Kebutuhan diklarifikasi dengan kriteria terukur | ≥90% peningkatan kejelasan |
+| 2 | Kebutuhan stakeholder bertentangan (keamanan vs kegunaan) | Konflik teridentifikasi dan dimediasi | ≥90% resolusi |
+| 3 | Kriteria penerimaan hilang di user story | Kriteria dihasilkan dengan kondisi yang dapat diuji | ≥95% kelengkapan |
+| 4 | Proses dengan inefisiensi (langkah persetujuan manual) | Bottleneck teridentifikasi dengan saran otomasi | ≥85% deteksi |
+| 5 | Analisis ROI dengan data biaya/manfaat | NPV, payback, IRR dihitung | ≥85% akurasi vs aktual |
+| 6 | Gap analysis (kondisi saat ini vs target) | Kesenjangan teridentifikasi dengan prioritas | ≥90% cakupan |
+| 7 | BRD generation dari catatan mentah | BRD lengkap dengan semua bagian | ≥95% kelengkapan |
+| 8 | Use case modeling dari kebutuhan | Use case terperinci dengan aktor dan alur | ≥90% kelengkapan |
+| 9 | Functional specification untuk Code Engineer | Spec terstruktur yang dapat dikonsumsi Code Engineer | ≥90% kegunaan |
+| 10 | Model proses bisnis dari deskripsi alur kerja | Model mirip BPMN dengan activities dan gateways | ≥90% akurasi |
 
-### Golden Test Acceptance Criteria
+### Kriteria Penerimaan Golden Test
 
-- All 10 golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
-- Overall Business Analyst golden test pass rate ≥90%
-- All generated user stories have complete acceptance criteria
-- ROI calculations validated against financial standards
+- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu (100% pass)
+- Tingkat kelulusan golden test Business Analyst keseluruhan ≥90%
+- Semua user story yang dihasilkan memiliki kriteria penerimaan lengkap
+- Perhitungan ROI divalidasi terhadap standar keuangan
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-### Real Case Directory
+### Direktori Real Case
 
-`real_cases/business_analyst/` must contain:
-> Terjemahan Indonesia: Real_cases/business_analyst/ must contain:
+`real_cases/business_analyst/` harus berisi:
 
-| Requirement | Minimum Count |
+| Persyaratan | Jumlah Minimum |
 |-------------|---------------|
-| Real business analysis cases from actual usage | 20 |
-| Cases with ambiguous requirements | 5 |
-| Cases with conflicting stakeholder needs | 5 |
-| Cases with missing acceptance criteria | 5 |
-| Cases with ROI analysis | 10 |
-| Cases with process optimization | 5 |
-| Cases with expert review/validation | 15 |
+| Kasus business analysis nyata dari penggunaan aktual | 20 |
+| Kasus dengan kebutuhan ambigu | 5 |
+| Kasus dengan kebutuhan stakeholder bertentangan | 5 |
+| Kasus dengan kriteria penerimaan hilang | 5 |
+| Kasus dengan analisis ROI | 10 |
+| Kasus dengan optimasi proses | 5 |
+| Kasus dengan review/validasi ahli | 15 |
 
-### Real Case Structure
+### Struktur Real Case
 
 ```
 real_cases/business_analyst/<case_id>/
@@ -472,13 +446,13 @@ real_cases/business_analyst/<case_id>/
 └── evaluation.md               # Ground truth, expert review, lessons learned
 ```
 
-### Real Case Targets
+### Target Real Case
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Real cases logged | ≥20 (Level 3) → ≥100 (Level 4) |
-| Real case quality score (expert review) | ≥90% |
-| Requirements accepted downstream | ≥85% of generated specs used without major revision |
+| Kasus nyata yang dicatat | ≥20 (Level 3) → ≥100 (Level 4) |
+| Skor kualitas kasus nyata (review ahli) | ≥90% |
+| Kebutuhan diterima downstream | ≥85% spec yang dihasilkan digunakan tanpa revisi besar |
 
 ---
 
@@ -548,110 +522,110 @@ Release Notes
 
 ---
 
-## Risks
+## Risiko
 
-| Risk | Impact | Likelihood | Mitigation |
+| Risiko | Dampak | Kemungkinan | Mitigasi |
 |------|--------|------------|------------|
-| Ambiguous requirements misinterpreted | High — downstream rework | High | Conservative interpretation; confidence scoring; stakeholder review required |
-| ROI analysis is inaccurate | Medium — poor investment decisions | Medium | Sensitivity analysis; confidence intervals; historical calibration |
-| Process optimization recommendations are impractical | Medium — wasted effort | Medium | Effort estimation included; expert validation on real cases |
-| User stories don't match developer expectations | Medium — development friction | High | Developer feedback loop; story review with Code Engineer |
-| BRD/functional spec too verbose or too sparse | Medium — poor downstream consumption | High | Template-based with configurable detail levels; downstream validation |
-| Gap analysis misses critical gaps | High — incomplete implementation | Medium | Multi-perspective analysis; stakeholder cross-check |
-| Process modeling oversimplifies complex workflows | Medium — incorrect analysis | Medium | Incremental refinement; stakeholder validation checkpoints |
+| Kebutuhan ambigu salah diinterpretasikan | Tinggi — pengerjaan ulang downstream | Tinggi | Interpretasi konservatif; confidence scoring; review stakeholder diperlukan |
+| Analisis ROI tidak akurat | Sedang — keputusan investasi buruk | Sedang | Analisis sensitivitas; interval confidence; kalibrasi historis |
+| Rekomendasi optimasi proses tidak praktis | Sedang — usaha terbuang | Sedang | Estimasi usaha disertakan; validasi ahli pada kasus nyata |
+| User story tidak sesuai ekspektasi developer | Sedang — gesekan pengembangan | Tinggi | Loop umpan balik developer; review story dengan Code Engineer |
+| BRD/functional spec terlalu panjang atau terlalu ringkas | Sedang — konsumsi downstream buruk | Tinggi | Berbasis template dengan tingkat detail yang dapat dikonfigurasi; validasi downstream |
+| Gap analysis melewatkan kesenjangan kritis | Tinggi — implementasi tidak lengkap | Sedang | Analisis multi-perspektif; cross-check stakeholder |
+| Pemodelan proses menyederhanakan alur kerja kompleks secara berlebihan | Sedang — analisis salah | Sedang | Penyempurnaan inkremental; checkpoint validasi stakeholder |
 
 ---
 
-## ADR Impact
+## Dampak ADR
 
-**Does this require Core changes?** No.
+**Apakah ini memerlukan perubahan Core?** Tidak.
 
-Business Analyst is a **new Capability Pack** that follows the established patterns:
-> Terjemahan Indonesia: Business Analyst adalah sebuah new kapabilitas Pack itu follows established patterns:
+Business Analyst adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
-- **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/business_analyst/`.
-- **ADR-002 (Capability Pack Independence):** Business Analyst communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
-- **ADR-003 (Worker = Adapter Only):** A thin Worker routes tasks to the Domain Engine.
-- **ADR-004 (Domain Engine Owns Business Logic):** All business analysis logic resides in `apps/business_analyst/engine.py`.
-- **ADR-005 (Human Approval Required):** All requirements and recommendations require human stakeholder approval before downstream consumption.
-- **ADR-006 (Capability Contract v1 Frozen):** Uses the existing Capability Contract for node and subtask template registration. No contract changes.
-- **ADR-007 (Conversation Boundary):** Business Analyst is invoked through Execution Runtime, not directly by Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Not applicable — no Core changes.
+- **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/business_analyst/`.
+- **ADR-002 (Capability Pack Independence):** Business Analyst berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
+- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-004 (Domain Engine Owns Business Logic):** Semua logika business analysis berada di `apps/business_analyst/engine.py`.
+- **ADR-005 (Human Approval Required):** Semua kebutuhan dan rekomendasi memerlukan persetujuan stakeholder manusia sebelum konsumsi downstream.
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Conversation Boundary):** Business Analyst dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR Required:** None. This is a new Capability Pack, not a Core modification.
-
----
-
-## Rollout Plan
-
-### Phase 1: Prototype (RFC → Experimental)
-
-**Duration:** 5 weeks
-
-- [ ] Create `apps/business_analyst/` package structure
-- [ ] Implement requirement gathering with quality scoring
-- [ ] Implement user story generation with acceptance criteria
-- [ ] Implement BRD generation (partial — core sections)
-- [ ] Define public contracts (BA Request, BA Report)
-- [ ] Implement thin Worker adapter
-- [ ] Create 10 golden test scenarios
-- [ ] Integration: Code Engineer ← Business Analyst (functional spec consumption)
-- [ ] Integration: Self Development ← Business Analyst (process optimization)
-- **Gate:** 10 golden tests pass at ≥80%
-
-### Phase 2: Full Capabilities (Experimental → Stable)
-
-**Duration:** 8 weeks
-
-- [ ] Implement business process modeling (BPMN-like)
-- [ ] Implement use case modeling
-- [ ] Implement gap analysis
-- [ ] Implement ROI analysis (NPV, payback, IRR)
-- [ ] Implement process optimization
-- [ ] Complete BRD generation (all sections)
-- [ ] Implement functional specification generation
-- [ ] Expand golden tests to 10 full scenarios
-- [ ] Log ≥20 real cases from Code Engineer and project planning usage
-- [ ] **Benchmark:** 100 business cases, ≥90% clarity, ≥95% story quality
-- [ ] **Integration:** System Architect starts consuming functional specs from Business Analyst
-- [ ] **Integration:** DevOps Assistant starts consuming infrastructure requirements from Business Analyst
-- **Gate:** All 10 golden tests pass at ≥90%; benchmark ≥90%
-
-### Phase 3: Ecosystem (Stable → Certified)
-
-**Duration:** 6 weeks
-
-- [ ] All 4 consumer packs integrated
-- [ ] ROI analysis validated against financial standards
-- [ ] Process optimization validated on real business processes
-- [ ] Functional specs validated by Code Engineer consumption
-- [ ] Independent audit of requirement quality and gap analysis
-- [ ] Public benchmark dashboard available
-- [ ] **Benchmark:** ≥90% across all dimensions sustained
-- [ ] **Real Cases:** ≥100 cases with ≥80% downstream adoption
-- **Gate:** Independent audit passed; benchmark ≥90% sustained
+**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Future Enhancements
+## Rencana Rollout
 
-### Fase 2 (Post-v1.0.0 Release)
+### Fase 1: Prototipe (RFC → Experimental)
 
-1. **Stakeholder Simulation** — Model different stakeholder perspectives and resolve conflicts automatically
-2. **Requirements Traceability Matrix** — End-to-end traceability from business needs to code and tests
-3. **Acceptance Criteria Auto-Generation for QA** — Feed acceptance criteria directly to QA Engineer for test generation
-4. **Business Impact Forecasting** — Predict downstream impact of requirement changes on code, tests, and deployment
+**Durasi:** 5 minggu
+
+- [ ] Membuat struktur paket `apps/business_analyst/`
+- [ ] Mengimplementasikan requirement gathering dengan quality scoring
+- [ ] Mengimplementasikan user story generation dengan kriteria penerimaan
+- [ ] Mengimplementasikan BRD generation (sebagian — bagian inti)
+- [ ] Mendefinisikan kontrak publik (BA Request, BA Report)
+- [ ] Mengimplementasikan adapter Worker tipis
+- [ ] Membuat 10 skenario golden test
+- [ ] Integrasi: Code Engineer ← Business Analyst (konsumsi functional spec)
+- [ ] Integrasi: Self Development ← Business Analyst (optimasi proses)
+- **Gate:** 10 golden test lulus pada ≥80%
+
+### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+
+**Durasi:** 8 minggu
+
+- [ ] Mengimplementasikan business process modeling (mirip BPMN)
+- [ ] Mengimplementasikan use case modeling
+- [ ] Mengimplementasikan gap analysis
+- [ ] Mengimplementasikan ROI analysis (NPV, payback, IRR)
+- [ ] Mengimplementasikan process optimization
+- [ ] Menyelesaikan BRD generation (semua bagian)
+- [ ] Mengimplementasikan generasi functional specification
+- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan perencanaan proyek
+- [ ] **Benchmark:** 100 kasus bisnis, ≥90% kejelasan, ≥95% kualitas story
+- [ ] **Integrasi:** System Architect mulai mengonsumsi functional specs dari Business Analyst
+- [ ] **Integrasi:** DevOps Assistant mulai mengonsumsi kebutuhan infrastruktur dari Business Analyst
+- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥90%
+
+### Fase 3: Ekosistem (Stable → Certified)
+
+**Durasi:** 6 minggu
+
+- [ ] Keempat pack konsumen terintegrasi
+- [ ] Analisis ROI divalidasi terhadap standar keuangan
+- [ ] Optimasi proses divalidasi pada proses bisnis nyata
+- [ ] Functional specs divalidasi melalui konsumsi Code Engineer
+- [ ] Audit independen terhadap kualitas kebutuhan dan gap analysis
+- [ ] Dashboard benchmark publik tersedia
+- [ ] **Benchmark:** ≥90% di semua dimensi berkelanjutan
+- [ ] **Real Cases:** ≥100 kasus dengan ≥80% adopsi downstream
+- **Gate:** Audit independen lulus; benchmark ≥90% berkelanjutan
+
+---
+
+## Peningkatan di Masa Depan
+
+### Fase 2 (Pasca-Rilis v1.0.0)
+
+1. **Stakeholder Simulation** — Memodelkan perspektif stakeholder yang berbeda dan menyelesaikan konflik secara otomatis
+2. **Requirements Traceability Matrix** — Ketertelusuran end-to-end dari kebutuhan bisnis ke kode dan test
+3. **Acceptance Criteria Auto-Generation untuk QA** — Memberi makan kriteria penerimaan langsung ke QA Engineer untuk generasi test
+4. **Business Impact Forecasting** — Memprediksi dampak downstream dari perubahan kebutuhan pada kode, test, dan deployment
 
 ### Fase 3 (Enterprise)
 
-1. **Multi-Project Portfolio Analysis** — Analyze and prioritize requirements across an entire project portfolio
-2. **Business Architecture Integration** — Link business capabilities to technical architecture
-3. **Regulatory Compliance Requirements** — Generate compliance-mapped requirements (GDPR, HIPAA, SOX)
-4. **Business Process Automation Discovery** — Identify automation opportunities from process models
+1. **Multi-Project Portfolio Analysis** — Menganalisis dan memprioritaskan kebutuhan di seluruh portofolio proyek
+2. **Business Architecture Integration** — Menghubungkan kapabilitas bisnis ke arsitektur teknis
+3. **Regulatory Compliance Requirements** — Menghasilkan kebutuhan yang dipetakan kepatuhan (GDPR, HIPAA, SOX)
+4. **Business Process Automation Discovery** — Mengidentifikasi peluang otomasi dari model proses
 
-### Long-term
+### Jangka Panjang
 
-1. **AI-Powered Requirements Discovery** — Interview stakeholders and extract requirements from conversation
-2. **Requirements Evolution Management** — Track requirement changes and their cascading impact
-3. **Business Value Stream Mapping** — End-to-end value stream analysis from business need to customer outcome
-4. **Automated Business Case Generation** — Full business case documents from requirements and ROI analysis
+1. **AI-Powered Requirements Discovery** — Mewawancarai stakeholder dan mengekstrak kebutuhan dari percakapan
+2. **Requirements Evolution Management** — Melacak perubahan kebutuhan dan dampak berjenjangnya
+3. **Business Value Stream Mapping** — Analisis value stream end-to-end dari kebutuhan bisnis ke hasil pelanggan
+4. **Automated Business Case Generation** — Dokumen business case lengkap dari kebutuhan dan analisis ROI
+

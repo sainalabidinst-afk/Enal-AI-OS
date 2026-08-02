@@ -1,31 +1,12 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Panduan Pengembangan Aplikasi — Platform Kognitif Enal
 
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/APP_DEV_GUIDE.md`
-- Judul: App Dev Guide
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Application Development Guide — Enal Cognitive Platform
-
-
-**Version:** 1.0.0  
-**Based on:** `docs/REFERENCE_ARCHITECTURE.md`  
-**Status:** 🟢 Active  
+**Versi:** 1.0.0
+**Berdasarkan:** `docs/REFERENCE_ARCHITECTURE.md`
+**Status:** 🟢 Aktif
 
 ---
 
-## Table of Contents
+## Daftar isi
 
 1. [Introduction](#1-introduction)
 2. [Development Environment Setup](#2-development-environment-setup)
@@ -42,19 +23,18 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ---
 
-## 1. Introduction
+## 1. Pendahuluan
 
-This guide provides **step-by-step instructions** for developers building applications on the Enal Cognitive Platform (ECP). It covers the entire lifecycle from project setup through deployment.
-> Terjemahan Indonesia: Ini panduan menyediakan step-oleh-step instructions untuk developers building applications pada Enal kognitif platform (ECP). It covers entire lifecycle dari proyek setup through penyebaran.
+Panduan ini memberikan **petunjuk langkah demi langkah** bagi pengembang yang membangun aplikasi di Enal Cognitive Platform (ECP). Ini mencakup seluruh siklus hidup mulai dari penyusunan proyek hingga standar.
 
-### Prerequisites
+### Prasyarat
 
 - Python 3.11+
-- Redis (for Event Bus, Working Memory, Conversation Memory)
-- PostgreSQL (for execution sessions, artifacts metadata)
+- Redis (untuk Bus Acara, Memori Kerja, Memori Percakapan)
+- PostgreSQL (untuk sesi eksekusi, artefak metadata)
 - Git
 
-### Quick Start
+### Mulai Cepat
 
 ```bash
 # Clone repository
@@ -75,10 +55,10 @@ mypy apps/ backend/ benchmarks/ tests/
 
 ---
 
-## 2. Development Environment Setup
+## 2. Pengaturan Lingkungan Pengembangan
 
 
-### 2.1 Python Environment
+### 2.1 Lingkungan Python
 
 
 ```bash
@@ -95,7 +75,7 @@ pip install -r backend/requirements-dev.txt  # if exists
 pip install -e "backend/[dev]"
 ```
 
-### 2.2 Redis Setup
+### 2.2 Pengaturan Ulang
 
 ```bash
 # Local Redis (Windows - use WSL or Docker)
@@ -105,7 +85,7 @@ docker run -d -p 6379:6379 redis:7-alpine
 redis-cli ping  # Should return PONG
 ```
 
-### 2.3 Environment Variables
+### 2.3 Variabel Lingkungan
 
 
 ```bash
@@ -115,7 +95,7 @@ export DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/enal
 export OPENAI_API_KEY=sk-...  # Or other LLM provider key
 ```
 
-### 2.4 Verify Setup
+### 2.4 Pengaturan Verifikasi
 
 ```python
 # test_setup.py
@@ -139,19 +119,19 @@ asyncio.run(verify())
 
 ---
 
-## 3. Creating a New Capability Pack
+## 3. Membuat Capability Pack Baru
 
 
-### 3.1 Step-by-Step
+### 3.1 Langkah demi Langkah
 
-#### Step 1: Create the App Module
+#### Langkah 1: Buat Modul Aplikasi
 
 
 ```bash
 mkdir -p apps/my_app
 ```
 
-#### Step 2: Create `__init__.py` with App Class
+#### Langkah 2: Buat `__init__.py` dengan Kelas Aplikasi
 
 
 ```python
@@ -201,7 +181,7 @@ def get_app() -> BaseApp:
     return MyApp()
 ```
 
-#### Step 3: Implement Domain Logic
+#### Langkah 3: Menerapkan Domain Logika
 
 
 ```python
@@ -230,7 +210,7 @@ class MyDomainAnalyzer:
         return findings
 ```
 
-#### Step 4: Create Data Models
+#### Langkah 4: Buat Data Model
 
 
 ```python
@@ -254,7 +234,7 @@ class MyDomainResult:
     metadata: dict[str, Any] = field(default_factory=dict)
 ```
 
-#### Step 5: Register Skills
+#### Langkah 5: Daftarkan Keterampilan
 
 
 ```yaml
@@ -270,7 +250,7 @@ skills:
       - "Check [domain] input for errors"
 ```
 
-#### Step 6: Add Orchestration Integration
+#### Langkah 6: Tambahkan Integrasi Orkestrasi
 
 
 ```python
@@ -289,10 +269,10 @@ def _extract_skills(self, task: str, context: dict) -> list[str]:
 
 ---
 
-## 4. Adding Custom Cognitive Logic
+## 4. Menambahkan Logika Kognitif Kustom
 
 
-### 4.1 Extending a Service
+### 4.1 Memperluas Layanan
 
 
 ```python
@@ -322,7 +302,7 @@ class MyCustomService(CognitiveService):
 # self.services["my_service"] = MyCustomService()
 ```
 
-### 4.2 Creating a Custom Pipeline
+### 4.2 Membuat Saluran Pipa Kustom
 
 
 ```python
@@ -347,10 +327,10 @@ async def execute_custom(task: str) -> dict:
 
 ---
 
-## 5. Registering API Routes
+## 5. Mendaftarkan Rute API
 
 
-### 5.1 Create Router Module
+### 5.1 Membuat Modul Router
 
 
 ```python
@@ -388,7 +368,7 @@ async def generate(spec: dict):
     return result
 ```
 
-### 5.2 Register in Main Router
+### 5.2 Daftar di Router Utama
 
 
 ```python
@@ -401,9 +381,9 @@ app.include_router(my_app_router)
 
 ---
 
-## 6. Using Memory
+## 6. Menggunakan Memori
 
-### 6.1 Basic Memory Operations
+### 6.1 Operasi Memori Dasar
 
 
 ```python
@@ -439,20 +419,20 @@ await memory_manager.delete(
 )
 ```
 
-### 6.2 Memory Layer Selection Guide
+### 6.2 Panduan Pemilihan Lapisan Memori
 
 
-| Use Case | Layer | TTL | Example |
+|Kasus Penggunaan|Lapisan|TTL|Contoh|
 |---|---|---|---|
-| Short-term session state | `working` | 1 hour | Current analysis context |
-| Chat history | `conversation` | 24 hours | User conversation |
-| Domain knowledge | `knowledge` | ∞ | Vendor rules, patterns |
-| Long-term patterns | `longterm` | ∞ | Consolidated learnings |
-| Event timeline | `episodic` | ∞ | Task history |
-| Conversation context | `session` | 24 hours | Multi-turn context |
-| Project data | `project` | ∞ | Project configurations |
+|Status sesi jangka pendek|`working`|1 jam|Analisis konteks saat ini|
+|Riwayat percakapan|`conversation`|24 jam|Mempercakapkan pengguna|
+|domain Pengetahuan|`knowledge`| ∞ |Aturan vendor, pola|
+|Pola jangka panjang|`longterm`| ∞ |Pembelajaran yang terkonsolidasi|
+|Batas waktu acara|`episodic`| ∞ |Riwayat tugas|
+|Konteks percakapan|`session`|24 jam|Konteks multi-putaran|
+|Proyek data|`project`| ∞ |Konfigurasi proyek|
 
-### 6.3 Cross-Session Search
+### 6.3 Pencarian Lintas Sesi
 
 
 ```python
@@ -465,10 +445,10 @@ all_results = await memory_manager.cross_session_search(
 
 ---
 
-## 7. Publishing and Subscribing to Events
+## 7. Penerbitan dan Berlangganan Acara
 
 
-### 7.1 Publishing Events
+### 7.1 Acara Penerbitan
 
 
 ```python
@@ -489,7 +469,7 @@ async def report_progress(task_id: str, progress: float):
     ))
 ```
 
-### 7.2 Subscribing to Events
+### 7.2 Acara Berlangganan
 
 
 ```python
@@ -506,7 +486,7 @@ async def handle_completion(event: Event):
 event_bus.subscribe("task.completed", handle_completion)
 ```
 
-### 7.3 Custom Event Types
+### 7.3 Jenis Acara Khusus
 
 
 ```python
@@ -520,10 +500,10 @@ class MyAppEvents:
 
 ---
 
-## 8. Testing Your Application
+## 8. Menguji Aplikasi Anda
 
 
-### 8.1 Unit Test Template
+### 8.1 Templat Uji Unit
 
 
 ```python
@@ -577,7 +557,7 @@ async def test_analyze_with_mock(mock_pipeline, app):
     mock_pipeline.assert_called_once()
 ```
 
-### 8.2 Integration Test Template
+### 8.2 Templat Uji Integrasi
 
 
 ```python
@@ -630,10 +610,10 @@ async def test_memory_store_retrieve():
 
 ---
 
-## 9. Debugging and Observability
+## 9. Debugging dan Observabilitas
 
 
-### 9.1 Logging
+### 9.1 Pencatatan
 
 ```python
 import logging
@@ -646,7 +626,7 @@ logger.warning("Rule matched with low confidence", extra={"rule": rule_name, "co
 logger.error("Analysis failed", exc_info=True)
 ```
 
-### 9.2 Recording Execution Events
+### 9.2 Merekam Peristiwa Eksekusi
 
 
 ```python
@@ -664,7 +644,7 @@ await record_execution_event(
 )
 ```
 
-### 9.3 Debugging Pipeline Execution
+### 9.3 Men-debug Eksekusi Pipeline
 
 
 ```python
@@ -688,9 +668,9 @@ for stage in ["perception_result", "memory_result", "decision_result"]:
 
 ---
 
-## 10. Deployment
+## 10. Penempatan
 
-### 10.1 Docker Deployment
+### 10.1 Docker Penerapan
 
 
 ```dockerfile
@@ -708,7 +688,7 @@ RUN pip install -e /app/backend/
 CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-### 10.2 Docker Compose
+### 10.2 Docker Menulis
 
 ```yaml
 # docker-compose.yml
@@ -741,69 +721,69 @@ services:
       - "5432:5432"
 ```
 
-### 10.3 Production Checklist
+### 10.3 DaftarPeriksa Produksi
 
 
-- [ ] Redis configured with persistence and replication
-- [ ] PostgreSQL configured with connection pooling
-- [ ] API keys/secrets in environment variables or secret manager
-- [ ] CORS configured for frontend domains
-- [ ] Rate limiting enabled
-- [ ] Health check endpoints configured
-- [ ] Logging to centralized destination (ELK, CloudWatch)
-- [ ] Prometheus metrics exported
-- [ ] TLS/SSL configured
-- [ ] Backup strategy for memory persistence files
-
----
-
-## 11. Checklist: Before Merge
-
-
-### Code Quality
-
-- [ ] `mypy apps/ backend/` — 0 errors
-- [ ] `ruff check apps/ backend/` — 0 blockers
-- [ ] No circular imports (`ruff check --select RUF011`)
-- [ ] No new mutable defaults (`ruff check --select RUF012`)
-- [ ] No `except Exception:` without justification
-
-### Testing
-
-- [ ] `pytest -v` — ≥95% pass
-- [ ] New code has corresponding tests
-- [ ] Integration tests pass (if applicable)
-
-### Documentation
-
-- [ ] Docstrings on all public functions/classes
-- [ ] Capability Pack registered in `agents/skills.yaml`
-- [ ] ADR filed if architectural change
-- [ ] CHANGELOG.md updated
-
-### Integration
-
-- [ ] `python -c "from apps.my_app import get_app; app = get_app()"` — no import errors
-- [ ] `python -c "from backend.app.api.my_app import router"` — no import errors
-- [ ] `git checkout` in clean repo and verify
+- [ ] Redis dikonfigurasi dengan persistensi dan replikasi
+- [ ] PostgreSQL dikonfigurasi dengan pengumpulan koneksi
+- [ ] API kunci/rahasia dalam variabel lingkungan atau rahasia manajer
+- [ ] CORS dikonfigurasi untuk frontend domain
+- [ ] Pembatasan tarif diaktifkan
+- [ ] Titik akhir pemeriksaan kesehatan telah terpenuhi
+- [ ] Masuk ke tujuan yang diinginkan (ELK, CloudWatch)
+- [ ] Metrik Prometheus diekspor
+- [ ] TLS/SSL dikonfigurasi
+- [ ] Strategi pencadangan untuk file persistensi memori
 
 ---
 
-## 12. Troubleshooting
+## 11. Daftar Periksa: Sebelum Penggabungan
 
-### 12.1 Common Issues
 
-| Problem | Likely Cause | Solution |
+### Kode Kualitas
+
+- [ ] `mypy apps/ backend/` — 0 kesalahan
+- [ ] `ruff check apps/ backend/` — 0 pemblokiran
+- [ ] Tidak ada impor melingkar (`ruff check --select RUF011`)
+- [ ] Tidak ada default baru yang dapat diubah (`ruff check --select RUF012`)
+- [ ] Tidak ada `except Exception:` tanpa pembenaran
+
+### Pengujian
+
+- [ ] `pytest -v` — ≥95% lulus
+- [ ] Kode baru memiliki tes yang sesuai
+- [ ] Lulus tes integrasi (jika ada)
+
+### Dokumentasi
+
+- [ ] Docstrings pada semua fungsi/kelas publik
+- [ ] Capability Pack terdaftar di `agents/skills.yaml`
+- [ ] ADR digunakan jika terjadi perubahan arsitektur
+- [] CHANGELOG.md diperbarui
+
+### Integrasi
+
+- [ ] `python -c "from apps.my_app import get_app; app = get_app()"` — tidak ada kesalahan yang diimpor
+- [ ] `python -c "from backend.app.api.my_app import router"` — tidak ada kesalahan yang diimpor
+- [ ] `git checkout` di repo bersih dan verifikasi
+
+---
+
+## 12. Pemecahan masalah
+
+### 12.1 Masalah Umum
+
+|Masalah|Kemungkinan Penyebabnya|Larutan|
 |---|---|---|
-| `ModuleNotFoundError` | Missing dependency | `pip install -e backend/` |
-| `Redis connection error` | Redis not running | `docker start <redis-container>` |
-| `Circular import` | Core module imports app | Move import inside function (lazy) |
-| `MyPy errors` | Missing type hints | Add type annotations to all functions |
-| `Tests failing` | Async test without `@pytest.mark.asyncio` | Add decorator |
-| `Event not received` | Subscriber not registered | Check subscribe at module level or startup |
-| `Memory not persisted` | Layer not flushed | Use `store()` for writes, not direct file access |
+|`ModuleNotFoundError`|Ketergantungan hilang|`pip install -e backend/`|
+|`Redis connection error`|Redis tidak berjalan|`docker start <redis-container>`|
+|`Circular import`|Aplikasi impor modul inti|mengoperasikan fungsi impor ke dalam (malas)|
+|`MyPy errors`|Petunjuk jenisnya tidak ada|Tambahkan anotasi tipe ke semua fungsi|
+|`Tests failing`|Tes asinkron tanpa `@pytest.mark.asyncio`|Tambahkan dekorator|
+|`Event not received`|Pelanggan tidak terdaftar|Periksa berlangganan di tingkat modul atau startup|
+|`Memory not persisted`|Lapisan tidak memerah|Gunakan `store()` untuk penulisan, bukan mengakses file langsung|
 
-### 12.2 Debugging Commands
+### 12.2 Perintah Debugging
 
 
 ```bash
@@ -828,23 +808,23 @@ print(response.choices[0].message.content)
 "
 ```
 
-### 12.3 Getting Help
+### 12.3 Mendapatkan Bantuan
 
-1. Check **AES Architecture** (`docs/AES_ARCHITECTURE.md`) — how the platform is built
-2. Check **Reference Architecture** (`docs/REFERENCE_ARCHITECTURE.md`) — patterns and decisions
-3. Check **ADR** (`docs/adr/`) — why architectural decisions were made
-4. Check **Quality Gates** (`docs/quality/QUALITY_GATES.md`) — what's required for merge
-5. Check **Existing Capability Packs** — learn from working examples in `apps/`
+1. Periksa **Arsitektur AES** (`docs/AES_ARCHITECTURE.md`) — bagaimana platform dibangun
+2. Periksa **Referensi Arsitektur** (`docs/REFERENCE_ARCHITECTURE.md`) — pola dan keputusan
+3. Periksa **ADR** (`docs/adr/`) — alasan keputusan arsitektur dibuat
+4. Periksa **Kualitas Gerbang** (`docs/quality/QUALITY_GATES.md`) — apa yang diperlukan untuk penggabungan
+5. Periksa **Paket kemampuan yang Ada** — pelajari contoh kerja di `apps/`
 
 ---
 
-## Document Version History
+## Riwayat Dokumen Versi
 
 
-| Version | Date | Changes |
+|Versi|Tanggal|Perubahan|
 |---|---|---|
-| 1.0.0 | 2024 | Initial Application Development Guide |
+|1.0.0|2024|Panduan Pengembangan Aplikasi Awal|
 
 ---
 
-*End of Application Development Guide*
+*Panduan Akhir Pengembangan Aplikasi*

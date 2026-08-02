@@ -1,143 +1,120 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0007-decision-intelligence.md`
-- Judul: Rfc 0007 Decision Intelligence
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+# RFC-0007: Capability Pack Decision Intelligence
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
 <!-- DOCUMENT_METADATA_END -->
 
-# RFC-0007: Decision Intelligence Capability Pack
-
-| Field | Value |
+| Field | Nilai |
 |-------|-------|
 | **RFC ID** | RFC-0007 |
 | **Status** | Draft |
-| **Version** | 0.1.0 |
-| **Author** | Enal AI OS Core Team |
-| **Target Release** | v1.2.0 (Capability Excellence phase) |
+| **Versi** | 0.1.0 |
+| **Penulis** | Enal AI OS Core Team |
+| **Target Rilis** | v1.2.0 (fase Capability Excellence) |
 | **Capability Pack** | Decision Intelligence |
 | **Capability ID** | `decision-intelligence` |
-| **Category** | Reasoning |
-| **Quality Target** | A (≥90) |
-| **Maturity Target** | Level 3 — Production Ready |
-| **Reference RFC** | RFC-0007 |
+| **Kategori** | Reasoning |
+| **Target Kualitas** | A (≥90) |
+| **Target Maturity** | Level 3 — Production Ready |
+| **RFC Referensi** | RFC-0007 |
 
 ---
 
-## Motivation
+## Motivasi
 
-The 13 existing Capability Packs cover code, network, research, DevOps, trading, and self-development. Each produces outputs—code, configurations, research reports, trading signals—that involve decisions requiring evidence-based reasoning.
-> Terjemahan Indonesia: 13 existing kapabilitas Packs cover code, network, research, DevOps, trading, dan self-development. Each produces outputs—code, configurations, research reports, trading signals—itu involve decisions requiring evidence-based reasoning.
+13 Capability Pack yang ada mencakup code, network, research, DevOps, trading, dan self-development. Setiap pack menghasilkan output — kode, konfigurasi, laporan research, sinyal trading — yang melibatkan keputusan yang memerlukan penalaran berbasis evidence.
 
-Currently, these decisions are made in an embedded, pack-specific way. There is no shared reasoning layer that applies a consistent, auditable, and explainable decision framework across domains. This leads to:
-> Terjemahan Indonesia: Currently, these decisions adalah made dalam sebuah embedded, pack-specific way. There adalah no shared reasoning layer itu applies sebuah consistent, auditable, dan explainable decision kerangka kerja across domains. ini leads untuk:
+Saat ini, keputusan ini dibuat secara embedded dan spesifik-pack. Tidak ada shared reasoning layer yang menerapkan kerangka keputusan yang konsisten, dapat diaudit, dan dapat dijelaskan di seluruh domain. Hal ini menyebabkan:
 
-1. **Inconsistent decision quality** — each pack reinvents evidence collection, risk scoring, and confidence estimation.
-2. **No cross-domain decision reuse** — Trading Analyst's risk analysis cannot inform Code Engineer's refactoring choices, even though both involve risk vs. reward trade-offs.
-3. **Limited explainability** — decisions are explained through domain-specific narratives, not through a structured evidence-to-decision chain.
-4. **No decision audit trail** — decisions are produced but never recorded in a structured, queryable experience memory for learning and rollback.
+1. **Kualitas keputusan yang tidak konsisten** — setiap pack menemukan ulang pengumpulan evidence, risk scoring, dan estimasi confidence.
+2. **Tidak ada penggunaan ulang keputusan lintas domain** — analisis risiko Trading Analyst tidak dapat menginformasikan pilihan refactoring Code Engineer, meskipun keduanya melibatkan trade-off risiko vs imbal hasil.
+3. **Explainability yang terbatas** — keputusan dijelaskan melalui narasi spesifik-domain, bukan melalui rantai evidence-ke-keputusan yang terstruktur.
+4. **Tidak ada jejak audit keputusan** — keputusan diproduksi tetapi tidak pernah dicatat dalam experience memory terstruktur yang dapat ditelusuri untuk pembelajaran dan rollback.
 
-Decision Intelligence becomes the **reasoning layer** that sits between evidence producers (all Capability Packs) and decision consumers (all Capability Packs), providing a unified framework for evidence-based, explainable, and auditable decision-making.
-> Terjemahan Indonesia: Decision Intelligence becomes reasoning layer itu sits between evidence producers (all kapabilitas Packs) dan decision consumers (all kapabilitas Packs), providing sebuah unified kerangka kerja untuk evidence-based, explainable, dan auditable decision-making.
+Decision Intelligence menjadi **reasoning layer** yang berada di antara produsen evidence (semua Capability Pack) dan konsumen keputusan (semua Capability Pack), menyediakan kerangka kerja terpadu untuk pengambilan keputusan berbasis evidence, dapat dijelaskan, dan dapat diaudit.
 
 ---
 
-## Problem Statement
+## Pernyataan Masalah
 
-Without a dedicated Decision Intelligence Capability Pack:
-> Terjemahan Indonesia: Without sebuah dedicated Decision Intelligence kapabilitas Pack:
+Tanpa Capability Pack Decision Intelligence yang khusus:
 
-- **Evidence is siloed per pack** — no mechanism exists to collect, rank, and synthesize evidence from multiple Capability Packs before reaching a decision.
-- **Alternatives are rarely explored** — most packs produce a single recommendation without generating or comparing alternatives.
-- **Risk analysis is ad hoc** — risk scoring exists in some packs (Trading, Network) but with no standardized methodology across the platform.
-- **Confidence is not quantified** — confidence estimates are implicit in recommendations, not explicitly modeled or communicated.
-- **Decisions are not recorded** — there is no structured Decision History to support learning, rollback recommendations, or compliance audit.
-- **Trade-off analysis is missing** — multi-objective optimization (accuracy vs. latency, cost vs. reliability) is handled per-pack, not through a unified framework.
+- **Evidence terisolasi per pack** — tidak ada mekanisme untuk mengumpulkan, memeringkat, dan mensintesis evidence dari banyak Capability Pack sebelum mencapai keputusan.
+- **Alternatif jarang dieksplorasi** — kebanyakan pack menghasilkan satu rekomendasi tanpa membuat atau membandingkan alternatif.
+- **Analisis risiko bersifat ad hoc** — risk scoring ada di sebagian pack (Trading, Network) tetapi tanpa metodologi terstandarisasi di seluruh platform.
+- **Confidence tidak dikuantifikasi** — estimasi confidence tersirat dalam rekomendasi, tidak dimodelkan atau dikomunikasikan secara eksplisit.
+- **Keputusan tidak dicatat** — tidak ada Decision History terstruktur untuk mendukung pembelajaran, rekomendasi rollback, atau audit kepatuhan.
+- **Analisis trade-off tidak ada** — optimasi multi-objektif (akurasi vs latensi, biaya vs keandalan) ditangani per-pack, bukan melalui kerangka kerja terpadu.
 
-The absence of Decision Intelligence means that as ECP grows to include more Capability Packs, the quality and consistency of decisions will not scale—instead, they will fragment further.
-> Terjemahan Indonesia: Absence dari Decision Intelligence means itu as ECP grows untuk include more kapabilitas Packs, kualitas dan consistency dari decisions akan not scale—instead, they akan fragment further.
+Tidak adanya Decision Intelligence berarti ketika ECP berkembang mencakup lebih banyak Capability Pack, kualitas dan konsistensi keputusan tidak akan berskala — sebaliknya, keputusan justru akan semakin terfragmentasi.
 
 ---
 
-## Goals
+## Tujuan
 
-1. **Evidence Collection** — Collect and structure evidence from one or more sources (Capability Pack outputs, real-case data, benchmark results).
-2. **Alternative Generation** — Generate multiple viable alternatives for any decision context.
-3. **Risk Analysis** — Quantify and categorize risks associated with each alternative (probability × impact).
-4. **Trade-off Analysis** — Analyze multi-objective trade-offs between alternatives (accuracy vs. cost, speed vs. safety, etc.).
-5. **Decision Scoring** — Score each alternative against configurable criteria and weights.
-6. **Confidence Estimation** — Produce an explicit confidence score for each decision, with uncertainty quantification.
-7. **Explainable Decision** — Generate a human-readable explanation chain: evidence → reasoning → simulation → alternatives → risk → decision → rationale.
-8. **Decision History** — Record every decision, its evidence, alternatives considered, and outcome to Experience Memory for learning and rollback.
+1. **Evidence Collection** — Mengumpulkan dan menyusun evidence dari satu atau lebih sumber (output Capability Pack, data kasus nyata, hasil benchmark).
+2. **Alternative Generation** — Menghasilkan banyak alternatif yang layak untuk setiap konteks keputusan.
+3. **Risk Analysis** — Mengkuantifikasi dan mengategorikan risiko yang terkait dengan setiap alternatif (probabilitas × dampak).
+4. **Trade-off Analysis** — Menganalisis trade-off multi-objektif antar alternatif (akurasi vs biaya, kecepatan vs keamanan, dll.).
+5. **Decision Scoring** — Memberi skor pada setiap alternatif terhadap kriteria dan bobot yang dapat dikonfigurasi.
+6. **Confidence Estimation** — Menghasilkan skor confidence eksplisit untuk setiap keputusan, dengan kuantifikasi ketidakpastian.
+7. **Explainable Decision** — Menghasilkan rantai penjelasan yang dapat dibaca manusia: evidence → reasoning → simulation → alternatives → risk → decision → rationale.
+8. **Decision History** — Mencatat setiap keputusan, evidence, alternatif yang dipertimbangkan, dan hasilnya ke Experience Memory untuk pembelajaran dan rollback.
 
-### Success Criteria
+### Kriteria Keberhasilan
 
-| Metric | Target | Grade |
+| Metrik | Target | Grade |
 |--------|--------|-------|
-| Decision Accuracy | ≥90% (correct decisions when ground truth available) | A |
-| Explainability | ≥95% (full evidence-to-decision chain presented) | A+ |
-| Consistency | ≥90% (same input produces same decision across runs) | A |
-| Confidence Calibration | ≥85% (confidence score reflects actual accuracy ±5%) | A |
-| Risk Detection | ≥90% (risks identified match ground truth) | A |
-| Trade-off Completeness | ≥85% (all relevant objectives considered) | A |
+| Akurasi Keputusan | ≥90% (keputusan benar ketika ground truth tersedia) | A |
+| Explainability | ≥95% (rantai evidence-ke-keputusan lengkap disajikan) | A+ |
+| Konsistensi | ≥90% (input yang sama menghasilkan keputusan yang sama di setiap run) | A |
+| Kalibrasi Confidence | ≥85% (skor confidence mencerminkan akurasi aktual ±5%) | A |
+| Deteksi Risiko | ≥90% (risiko teridentifikasi sesuai ground truth) | A |
+| Kelengkapan Trade-off | ≥85% (semua objektif relevan dipertimbangkan) | A |
 
 ---
 
-## Non-Goals
+## Non-Tujuan
 
-1. **Live execution of decisions** — Decision Intelligence produces recommendations; execution requires explicit user approval per ADR-005.
-2. **Replacing domain expertise** — Decision Intelligence is a reasoning layer, not a substitute for domain knowledge. It amplifies but does not replace Trading, Code, Network, etc.
-3. **Real-time market trading signals** — Trading Analyst retains ownership of trading signal generation. Decision Intelligence may score trading decisions but does not generate signals.
-4. **Single decision point enforcement** — Each Capability Pack may still produce its own domain-specific recommendations. Decision Intelligence provides a cross-cutting scoring and explanation layer.
-5. **Core modification** — All implementation must reside within the Decision Intelligence Capability Pack, following ADR-002 and ADR-004.
+1. **Eksekusi keputusan langsung** — Decision Intelligence menghasilkan rekomendasi; eksekusi memerlukan persetujuan eksplisit pengguna sesuai ADR-005.
+2. **Menggantikan keahlian domain** — Decision Intelligence adalah reasoning layer, bukan pengganti pengetahuan domain. Ia memperkuat tetapi tidak menggantikan Trading, Code, Network, dll.
+3. **Sinyal trading pasar real-time** — Trading Analyst tetap memiliki kepemilikan pembuatan sinyal trading. Decision Intelligence dapat memberi skor pada keputusan trading tetapi tidak menghasilkan sinyal.
+4. **Penegakan titik keputusan tunggal** — Setiap Capability Pack tetap dapat menghasilkan rekomendasinya sendiri yang spesifik-domain. Decision Intelligence menyediakan layer scoring dan penjelasan lintas-bagian.
+5. **Modifikasi Core** — Semua implementasi harus berada di dalam Capability Pack Decision Intelligence, mengikuti ADR-002 dan ADR-004.
 
 ---
 
-## Capability Scope
+## Scope Kapabilitas
 
-### Core Capabilities
+### Kapabilitas Inti
 
-| Capability | Description | Inputs | Outputs |
+| Kapabilitas | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| Evidence Collection | Collect, validate, and structure evidence from one or more sources. | Capability Pack outputs, API responses, benchmark data, real-case files | Structured evidence set with quality scores |
-| Alternative Generation | Enumerate viable alternatives for a given decision context. | Decision context, evidence set, constraints | Set of alternatives with initial feasibility scores |
-| Risk Analysis | Assess probability and impact of each alternative. | Alternatives, evidence, historical data | Risk profile per alternative (probability × impact) |
-| Trade-off Analysis | Analyze multi-objective trade-offs between alternatives. | Alternatives, weighted criteria, constraints | Pareto frontier of trade-off scores |
-| Decision Scoring | Score and rank alternatives against configurable criteria. | Alternatives, criteria weights, evidence, risk | Ranked alternatives with composite scores |
-| Confidence Estimation | Quantify uncertainty and confidence in the final decision. | Evidence quality, model confidence, historical calibration | Confidence score (0–100%) with uncertainty bounds |
-| Explainable Decision | Produce a traceable, human-readable explanation. | Full decision trace, evidence, reasoning chain | Explanation document (evidence → decision → rationale) |
-| Decision History | Record decisions to Experience Memory for learning and rollback. | Final decision, alternatives, evidence, outcome | Decision record in Experience Memory |
+| Evidence Collection | Mengumpulkan, memvalidasi, dan menyusun evidence dari satu atau lebih sumber. | Output Capability Pack, respons API, data benchmark, file kasus nyata | Set evidence terstruktur dengan skor kualitas |
+| Alternative Generation | Menghitung alternatif yang layak untuk konteks keputusan tertentu. | Konteks keputusan, set evidence, batasan | Set alternatif dengan skor kelayakan awal |
+| Risk Analysis | Menilai probabilitas dan dampak setiap alternatif. | Alternatif, evidence, data historis | Profil risiko per alternatif (probabilitas × dampak) |
+| Trade-off Analysis | Menganalisis trade-off multi-objektif antar alternatif. | Alternatif, kriteria berbobot, batasan | Pareto frontier dari skor trade-off |
+| Decision Scoring | Memberi skor dan memeringkat alternatif terhadap kriteria yang dapat dikonfigurasi. | Alternatif, bobot kriteria, evidence, risiko | Alternatif terurut dengan skor gabungan |
+| Confidence Estimation | Mengkuantifikasi ketidakpastian dan confidence pada keputusan akhir. | Kualitas evidence, confidence model, kalibrasi historis | Skor confidence (0–100%) dengan batas ketidakpastian |
+| Explainable Decision | Menghasilkan penjelasan yang dapat ditelusuri dan dibaca manusia. | Jejak keputusan lengkap, evidence, rantai penalaran | Dokumen penjelasan (evidence → decision → rationale) |
+| Decision History | Mencatat keputusan ke Experience Memory untuk pembelajaran dan rollback. | Keputusan akhir, alternatif, evidence, hasil | Catatan keputusan di Experience Memory |
 
 ### Out of Scope
 
-- Real-time trading execution
-- Live cloud resource provisioning
-- Direct integration with external decision systems without mediation
-- Legal, medical, or financial advisory beyond ECP's existing Scope boundaries
-- Autonomous application of decisions (requires approval per ADR-005)
-- Replacing the internal reasoning of other Capability Packs
+- Eksekusi trading real-time
+- Provisioning sumber daya cloud langsung
+- Integrasi langsung dengan sistem keputusan eksternal tanpa mediasi
+- Advisory legal, medis, atau keuangan di luar batas Scope ECP yang ada
+- Penerapan keputusan secara otonom (memerlukan persetujuan sesuai ADR-005)
+- Menggantikan penalaran internal Capability Pack lain
 
 ---
 
-## Public Contracts
+## Kontrak Publik
 
 ### Input Contract: Decision Request
 
@@ -221,7 +198,7 @@ The absence of Decision Intelligence means that as ECP grows to include more Cap
 }
 ```
 
-### Decision Record (Experience Memory)
+### Catatan Keputusan (Experience Memory)
 
 ```json
 {
@@ -243,12 +220,11 @@ The absence of Decision Intelligence means that as ECP grows to include more Cap
 
 ---
 
-## Integration Points (Capability Graph)
+## Titik Integrasi (Capability Graph)
 
-The Decision Intelligence Capability Pack integrates with all existing and future Capability Packs through the **Execution Runtime** and **shared contracts only** (per ADR-002). It does not import other Capability Pack engines directly.
-> Terjemahan Indonesia: Decision Intelligence kapabilitas Pack integrates dengan all existing dan future kapabilitas Packs through Execution Runtime dan shared contracts only (per ADR-002). It does not import other kapabilitas Pack engines directly.
+Capability Pack Decision Intelligence berintegrasi dengan semua Capability Pack yang ada dan yang akan datang melalui **Execution Runtime** dan **shared contract saja** (sesuai ADR-002). Ia tidak mengimpor engine Capability Pack lain secara langsung.
 
-### Integration Pipeline
+### Pipeline Integrasi
 
 ```
 Consumer Capability Pack
@@ -281,43 +257,41 @@ Consumer Capability Pack
 User / Human Approval Loop
 ```
 
-### Task Template
+### Template Tugas
 
-| Task | Subtasks |
+| Tugas | Subtugas |
 |------|----------|
 | Score Decision | Evidence Collection → Alternative Generation → Risk Analysis → Trade-off Analysis → Decision Scoring → Confidence Estimation → Explanation → Decision History |
 
 ---
 
-## Consumer Capability Packs
+## Capability Pack Konsumen
 
-Decision Intelligence serves all existing Capability Packs as a cross-cutting reasoning layer:
-> Terjemahan Indonesia: Decision Intelligence serves all existing kapabilitas Packs as sebuah cross-cutting reasoning layer:
+Decision Intelligence melayani semua Capability Pack yang ada sebagai reasoning layer lintas-bagian:
 
-| Consumer Capability Pack | Use Case |
+| Capability Pack Konsumen | Use Case |
 |--------------------------|----------|
-| **Trading Analyst** | Score trading alternatives, quantify risk-adjusted confidence, explain rationale for trade recommendations |
-| **Code Engineer** | Score refactoring alternatives, analyze trade-offs (complexity vs. performance), estimate risk of changes |
-| **Network Engineer** | Compare configuration alternatives, analyze failure risk, recommend rollback-safe changes |
-| **DevOps Assistant** | Evaluate deployment strategies, trade-off cost vs. reliability, recommend optimal rollout |
-| **Research Assistant** | Score evidence quality, quantify confidence in synthesized conclusions, explain reasoning |
-| **Self Development** | Evaluate architecture improvement proposals, score risk vs. benefit, produce explainable plans |
-| **Decision Intelligence** (self) | Use its own reasoning layer for meta-decisions about evidence weighting and confidence calibration |
+| **Trading Analyst** | Memberi skor alternatif trading, mengkuantifikasi confidence yang disesuaikan risiko, menjelaskan alasan rekomendasi trading |
+| **Code Engineer** | Memberi skor alternatif refactoring, menganalisis trade-off (kompleksitas vs performa), mengestimasi risiko perubahan |
+| **Network Engineer** | Membandingkan alternatif konfigurasi, menganalisis risiko kegagalan, merekomendasikan perubahan yang aman untuk rollback |
+| **DevOps Assistant** | Mengevaluasi strategi deployment, trade-off biaya vs keandalan, merekomendasikan rollout optimal |
+| **Research Assistant** | Memberi skor kualitas evidence, mengkuantifikasi confidence pada kesimpulan yang disintesis, menjelaskan penalaran |
+| **Self Development** | Mengevaluasi proposal perbaikan arsitektur, memberi skor risiko vs manfaat, menghasilkan rencana yang dapat dijelaskan |
+| **Decision Intelligence** (internal) | Menggunakan reasoning layer-nya sendiri untuk meta-keputusan tentang pembobotan evidence dan kalibrasi confidence |
 
 ---
 
-## Dependencies
+## Dependensi
 
-### Internal Dependencies (Shared Contracts)
+### Dependensi Internal (Shared Contracts)
 
-1. **Execution Runtime** — Task routing and orchestration (per ADR-002)
-2. **Experience Memory** — Decision record persistence (per ADR-011)
-3. **Shared Contracts** — Task/Intent definition and result schema (per ADR-006)
+1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+2. **Experience Memory** — Persistensi catatan keputusan (sesuai ADR-011)
+3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
 
-### No Core Changes Required
+### Tidak Ada Perubahan Core yang Diperlukan
 
-All implementation resides within the Decision Intelligence Capability Pack:
-> Terjemahan Indonesia: All implementation resides within Decision Intelligence kapabilitas Pack:
+Semua implementasi berada di dalam Capability Pack Decision Intelligence:
 
 ```
 apps/
@@ -334,97 +308,93 @@ apps/
     └── explanation_generator.py # Explainable decision submodule
 ```
 
-**ADR Impact:** None. No Core, Runtime, Kernel, or shared contract modification required (ADR-001, ADR-006 remain unchanged).
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract (ADR-001, ADR-006 tetap tidak berubah).
 
 ---
 
-## Benchmark Specification
+## Spesifikasi Benchmark
 
-### Benchmark Framework
+### Kerangka Benchmark
 
-| Dimension | Definition | Measurement | Target |
+| Dimensi | Definisi | Pengukuran | Target |
 |-----------|------------|-------------|--------|
-| **Accuracy** | Correctness of final decision | % of decisions matching ground truth or expert consensus | ≥90% |
-| **Completeness** | Coverage of evidence, alternatives, and objectives | % of required elements considered in decision | ≥90% |
-| **Explainability** | Clarity and traceability of the decision chain | Human evaluation: full evidence→decision chain presented | ≥95% |
-| **Safety** | No harmful or unsafe recommendations | % of decisions passing safety constraints | ≥95% |
-| **Efficiency** | Response time and resource usage | Latency P95 < 2000ms, token usage optimal | within budget |
-| **Consistency** | Same input produces same output across runs | Variance across 10 repeated runs < 5% | ≥90% |
-| **Confidence Calibration** | Confidence score reflects actual accuracy | Calibration curve: confidence within ±5% of actual accuracy | ≥85% |
-| **Risk Detection** | Risks identified match ground truth | % of known risks detected before decision | ≥90% |
+| **Accuracy** | Kebenaran keputusan akhir | % keputusan yang sesuai dengan ground truth atau konsensus ahli | ≥90% |
+| **Completeness** | Cakupan evidence, alternatif, dan objektif | % elemen yang diperlukan yang dipertimbangkan dalam keputusan | ≥90% |
+| **Explainability** | Kejelasan dan kemampuan telusur rantai keputusan | Evaluasi manusia: rantai evidence→decision lengkap disajikan | ≥95% |
+| **Safety** | Tidak ada rekomendasi berbahaya atau tidak aman | % keputusan yang lulus batasan keamanan | ≥95% |
+| **Efficiency** | Waktu respons dan penggunaan sumber daya | Latency P95 < 2000ms, penggunaan token optimal | dalam anggaran |
+| **Consistency** | Input yang sama menghasilkan output yang sama di setiap run | Varian di 10 run berulang < 5% | ≥90% |
+| **Confidence Calibration** | Skor confidence mencerminkan akurasi aktual | Kurva kalibrasi: confidence dalam ±5% dari akurasi aktual | ≥85% |
+| **Risk Detection** | Risiko teridentifikasi sesuai ground truth | % risiko yang diketahui terdeteksi sebelum keputusan | ≥90% |
 
-### Benchmark Dataset
+### Dataset Benchmark
 
-- **100 decision scenarios** covering the domains of:
-  - Trading (risk-adjusted trade selection, position sizing)
-  - Code (refactoring vs. rewrite, library selection)
-  - Network (configuration migration, firewall policy changes)
-  - DevOps (deployment strategy, rollback planning)
-  - Research (evidence synthesis, conclusion confidence)
-  - Self-Development (architecture improvement scoring)
-  - Cross-domain (multi-pack trade-off decisions)
-> Terjemahan Indonesia: Trading (risk-adjusted trade selection, position sizing) Code (refactoring vs. rewrite, library selection) Network (konfigurasi migration, firewall policy changes) DevOps (penyebaran strategy, rollback planning) Research (evidence synthesis, conclusion confidence) Self-Development (arsitektur improvement scoring) Cross-domain (multi-pack trade-off decisions)
+- **100 skenario keputusan** yang mencakup domain:
+  - Trading (pemilihan trade yang disesuaikan risiko, position sizing)
+  - Code (refactoring vs rewrite, pemilihan library)
+  - Network (migrasi konfigurasi, perubahan firewall policy)
+  - DevOps (strategi deployment, perencanaan rollback)
+  - Research (sintesis evidence, confidence kesimpulan)
+  - Self-Development (scoring perbaikan arsitektur)
+  - Cross-domain (keputusan trade-off multi-pack)
 
-### Benchmark Dimensions Detail
+### Detail Dimensi Benchmark
 
-| Scenario Type | Description | Ground Truth Source |
+| Tipe Skenario | Deskripsi | Sumber Ground Truth |
 |---------------|-------------|---------------------|
-| Conflicting Evidence | Evidence sources disagree | Expert consensus |
-| Incomplete Evidence | Some evidence missing | Expert consensus |
-| Multi-objective Optimization | Multiple competing objectives | Pareto optimality |
-| High Risk | Decision with significant downside | Expert review |
-| Low Confidence | High uncertainty in evidence | Confidence calibration |
-| Decision Revision | Revisiting prior decisions with new evidence | Decision history |
-| Rollback Recommendation | Identifying when to revert a decision | Historical outcomes |
+| Conflicting Evidence | Sumber evidence saling bertentangan | Konsensus ahli |
+| Incomplete Evidence | Sebagian evidence hilang | Konsensus ahli |
+| Multi-objective Optimization | Banyak objektif yang saling bersaing | Pareto optimality |
+| High Risk | Keputusan dengan risiko penurunan signifikan | Review ahli |
+| Low Confidence | Ketidakpastian tinggi dalam evidence | Kalibrasi confidence |
+| Decision Revision | Meninjau ulang keputusan sebelumnya dengan evidence baru | Riwayat keputusan |
+| Rollback Recommendation | Mengidentifikasi kapan harus mengembalikan keputusan | Hasil historis |
 
 ---
 
-## Golden Test Specification
+## Spesifikasi Golden Test
 
-The golden test suite (`benchmarks/golden_test_set.py`) must include Decision Intelligence scenarios:
-> Terjemahan Indonesia: Golden test suite (benchmarks/golden_test_set.py) must include Decision Intelligence scenarios:
+Golden test suite (`benchmarks/golden_test_set.py`) harus menyertakan skenario Decision Intelligence:
 
-| # | Scenario | Expected Outcome | Acceptance Criteria |
+| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
 |---|----------|-----------------|---------------------|
-| 1 | Simple binary decision (Go/No-Go) | Correct choice with explanation | ≥90% accuracy |
-| 2 | Conflicting evidence from 3 sources | Weighted evidence synthesis | ≥85% resolution accuracy |
-| 3 | Incomplete evidence (2 of 4 sources missing) | Proceed with confidence downgrade | Confidence < 70%, explicit warning |
-| 4 | Multi-objective optimization (3 objectives) | Pareto-optimal alternative selected | ≥90% correctness |
-| 5 | High-risk decision | Risk flagged and explained | ≥95% risk detection |
-| 6 | Low confidence scenario | Confidence score ≤ 30%, recommendation deferred | Confidence calibration within ±5% |
-| 7 | Decision revision with new evidence | Revised decision with comparison to prior | Revision trace logged |
-| 8 | Rollback recommendation | Rollback advised when risk exceeds threshold | ≥90% trigger accuracy |
-| 9 | Trade-off analysis (speed vs. accuracy) | Clear trade-off visualization | All objectives scored |
-| 10 | Explainability chain completeness | Full evidence→decision chain presented | ≥95% completeness |
+| 1 | Keputusan biner sederhana (Go/No-Go) | Pilihan yang benar dengan penjelasan | ≥90% akurasi |
+| 2 | Evidence bertentangan dari 3 sumber | Sintesis evidence berbobot | ≥85% akurasi resolusi |
+| 3 | Evidence tidak lengkap (2 dari 4 sumber hilang) | Lanjutkan dengan penurunan confidence | Confidence < 70%, peringatan eksplisit |
+| 4 | Optimasi multi-objektif (3 objektif) | Alternatif Pareto-optimal dipilih | ≥90% kebenaran |
+| 5 | Keputusan berisiko tinggi | Risiko ditandai dan dijelaskan | ≥95% deteksi risiko |
+| 6 | Skenario confidence rendah | Skor confidence ≤ 30%, rekomendasi ditangguhkan | Kalibrasi confidence dalam ±5% |
+| 7 | Revisi keputusan dengan evidence baru | Keputusan direvisi dengan perbandingan ke keputusan sebelumnya | Jejak revisi dicatat |
+| 8 | Rekomendasi rollback | Rollback disarankan ketika risiko melebihi ambang | ≥90% akurasi pemicu |
+| 9 | Analisis trade-off (kecepatan vs akurasi) | Visualisasi trade-off yang jelas | Semua objektif diberi skor |
+| 10 | Kelengkapan rantai explainability | Rantai evidence→decision lengkap disajikan | ≥95% kelengkapan |
 
-### Golden Test Acceptance Criteria
+### Kriteria Penerimaan Golden Test
 
-- All 10 golden test scenarios pass at ≥90% of individual acceptance criteria
-- Overall Decision Intelligence golden test pass rate ≥90%
-- Full explanation chain generated for every scenario
-- Confidence scores calibrated within ±5% of actual accuracy
+- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu
+- Tingkat kelulusan golden test Decision Intelligence keseluruhan ≥90%
+- Rantai penjelasan lengkap dihasilkan untuk setiap skenario
+- Skor confidence terkalibrasi dalam ±5% dari akurasi aktual
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-### Real Case Directory
+### Direktori Real Case
 
-`real_cases/decision_intelligence/` must contain:
-> Terjemahan Indonesia: Real_cases/decision_intelligence/ must contain:
+`real_cases/decision_intelligence/` harus berisi:
 
-| Requirement | Minimum Count |
+| Persyaratan | Jumlah Minimum |
 |-------------|---------------|
-| Real decision cases from actual usage | 20 |
-| Cases with decision revision history | 5 |
-| Cases with rollback recommendations | 5 |
-| Cases involving multiple Capability Packs | 10 |
-| Cases with expert review/validation | 15 |
+| Kasus keputusan nyata dari penggunaan aktual | 20 |
+| Kasus dengan riwayat revisi keputusan | 5 |
+| Kasus dengan rekomendasi rollback | 5 |
+| Kasus yang melibatkan banyak Capability Pack | 10 |
+| Kasus dengan review/validasi ahli | 15 |
 
-### Real Case Structure
+### Struktur Real Case
 
-Each real case must include:
-> Terjemahan Indonesia: Setiap kasus nyata harus mencakup:
+Setiap kasus nyata harus menyertakan:
 
 ```
 real_cases/decision_intelligence/<case_id>/
@@ -440,13 +410,13 @@ real_cases/decision_intelligence/<case_id>/
 └── evaluation.md            # Ground truth, expert review, lessons learned
 ```
 
-### Real Case Targets
+### Target Real Case
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Real cases logged | ≥20 (Level 3 Production Ready) → ≥50 (Level 4 Domain Expert) |
-| Real case quality score (expert review) | ≥90% |
-| Post-decision outcome tracking | ≥80% of cases with tracked outcomes |
+| Kasus nyata yang dicatat | ≥20 (Level 3 Production Ready) → ≥50 (Level 4 Domain Expert) |
+| Skor kualitas kasus nyata (review ahli) | ≥90% |
+| Pelacakan hasil pasca-keputusan | ≥80% kasus dengan hasil yang dilacak |
 
 ---
 
@@ -508,125 +478,124 @@ Release Notes
 
 ---
 
-## Risks
+## Risiko
 
-| Risk | Impact | Likelihood | Mitigation |
+| Risiko | Dampak | Kemungkinan | Mitigasi |
 |------|--------|------------|------------|
-| Decision Intelligence becomes a bottleneck | High — all packs depend on it | Medium | Design as non-blocking; cache evidence scoring; parallel evidence processing |
-| Explanations are too verbose or too terse | Medium — affects explainability metric | High | Configurable explanation depth; default to medium; user feedback loop |
-| Confidence scores are poorly calibrated | High — undermines trust | Medium | Calibrate on 100 scenarios before release; continuous learning from real cases |
-| Risk analysis over-weights rare events | Medium — suboptimal decisions | Medium | Bounded risk scoring; risk tolerance parameter |
-| Circular dependency: Decision Intelligence depends on packs that depend on it | High — architectural deadlock | Low | Use asynchronous evidence submission; no synchronous pack-to-pack calls |
-| Multi-objective optimization finds no viable solution | Medium — decision failure | Low | Fallback to single-objective scoring; report infeasibility |
-| Experience Memory grows unbounded | Low — storage cost | Medium | TTL-based pruning; summarization of old decisions |
+| Decision Intelligence menjadi bottleneck | Tinggi — semua pack bergantung padanya | Sedang | Desain non-blocking; cache scoring evidence; pemrosesan evidence paralel |
+| Penjelasan terlalu panjang atau terlalu ringkas | Sedang — memengaruhi metrik explainability | Tinggi | Kedalaman penjelasan dapat dikonfigurasi; default sedang; loop umpan balik pengguna |
+| Skor confidence kurang terkalibrasi | Tinggi — merusak kepercayaan | Sedang | Kalibrasi pada 100 skenario sebelum rilis; continuous learning dari kasus nyata |
+| Analisis risiko membebani lebih pada event langka | Sedang — keputusan suboptimal | Sedang | Risk scoring berbatas; parameter toleransi risiko |
+| Dependensi sirkular: Decision Intelligence bergantung pada pack yang bergantung padanya | Tinggi — deadlock arsitektur | Rendah | Gunakan pengajuan evidence asinkron; tanpa panggilan pack-ke-pack sinkron |
+| Optimasi multi-objektif tidak menemukan solusi layak | Sedang — kegagalan keputusan | Rendah | Fallback ke scoring objektif tunggal; laporkan infeasibility |
+| Experience Memory tumbuh tanpa batas | Rendah — biaya penyimpanan | Sedang | Pruning berbasis TTL; summarisasi keputusan lama |
 
 ---
 
-## ADR Impact
+## Dampak ADR
 
-**Does this require Core changes?** No.
+**Apakah ini memerlukan perubahan Core?** Tidak.
 
-Decision Intelligence is a **new Capability Pack** that follows the established patterns:
-> Terjemahan Indonesia: Decision Intelligence adalah sebuah new kapabilitas Pack itu follows established patterns:
+Decision Intelligence adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
-- **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/decision_intelligence/`.
-- **ADR-002 (Capability Pack Independence):** Decision Intelligence communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
-- **ADR-003 (Worker = Adapter Only):** A thin Worker routes tasks to the Domain Engine.
-- **ADR-004 (Domain Engine Owns Business Logic):** All reasoning logic resides in `apps/decision_intelligence/engine.py`.
-- **ADR-005 (Human Approval Required):** Decisions are recommendations; execution requires explicit user approval.
-- **ADR-006 (Capability Contract v1 Frozen):** Uses the existing Capability Contract for node and subtask template registration. No contract changes.
-- **ADR-007 (Conversation Boundary):** Decision Intelligence is invoked through Execution Runtime, not directly by Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Not applicable — no Core changes.
+- **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/decision_intelligence/`.
+- **ADR-002 (Capability Pack Independence):** Decision Intelligence berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
+- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-004 (Domain Engine Owns Business Logic):** Semua logika penalaran berada di `apps/decision_intelligence/engine.py`.
+- **ADR-005 (Human Approval Required):** Keputusan adalah rekomendasi; eksekusi memerlukan persetujuan eksplisit pengguna.
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Conversation Boundary):** Decision Intelligence dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR Required:** None. This is a new Capability Pack, not a Core modification.
-
----
-
-## Rollout Plan
-
-### Phase 1: Prototype (RFC → Experimental)
-
-**Duration:** 4 weeks
-
-- [ ] Create `apps/decision_intelligence/` package structure
-- [ ] Implement Evidence Collection and Decision Scoring (single-criteria)
-- [ ] Define public contracts (Decision Request, Decision Result)
-- [ ] Implement thin Worker adapter
-- [ ] Create 10 golden test scenarios (simplified: binary decisions)
-- [ ] Integration: Trading Analyst → Decision Intelligence (evidence submission)
-- **Gate:** 10 golden tests pass at ≥80%
-
-### Phase 2: Full Capabilities (Experimental → Stable)
-
-**Duration:** 6 weeks
-
-- [ ] Implement Alternative Generation
-- [ ] Implement Risk Analysis (probability × impact)
-- [ ] Implement Trade-off Analysis (multi-objective weighted scoring)
-- [ ] Implement Confidence Estimation with calibration
-- [ ] Implement Explainable Decision (full chain)
-- [ ] Implement Decision History → Experience Memory
-- [ ] Expand golden tests to 10 full scenarios
-- [ ] Log ≥20 real cases from Trading Analyst usage
-- [ ] **Benchmark:** 100 scenarios, ≥90% accuracy, ≥95% explainability
-- [ ] **Integration:** Network Engineer, Code Engineer, DevOps Assistant start using Decision Intelligence for scored decisions
-- **Gate:** All 10 golden tests pass at ≥90%; benchmark ≥90%
-
-### Phase 3: Ecosystem (Stable → Certified)
-
-**Duration:** 8 weeks
-
-- [ ] All 13+ Capability Packs integrated with Decision Intelligence
-- [ ] Confidence calibration validated on ≥50 real cases
-- [ ] Decision History supports rollback recommendations
-- [ ] Independent audit of decision quality and explainability
-- [ ] Public benchmark dashboard available
-- [ ] **Benchmark:** ≥90% across all dimensions
-- [ ] **Real Cases:** ≥50 cases with ≥80% outcome tracking
-- **Gate:** Independent audit passed; benchmark ≥90% sustained
+**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Future Enhancements
+## Rencana Rollout
 
-### Fase 2 (Post-v1.0.0 Release)
+### Fase 1: Prototipe (RFC → Experimental)
 
-1. **Decision Simulation Engine** — Monte Carlo simulation of alternatives before scoring
-2. **Multi-Model Debate** — Use multiple LLMs to debate alternatives (leveraging existing debate engine pattern from Trading Analyst)
-3. **Adaptive Criteria Weighting** — Learn optimal objective weights from historical decision outcomes
-4. **Decision Graph Visualization** — Interactive graph of evidence → decision → outcome chains
+**Durasi:** 4 minggu
+
+- [ ] Membuat struktur paket `apps/decision_intelligence/`
+- [ ] Mengimplementasikan Evidence Collection dan Decision Scoring (kriteria tunggal)
+- [ ] Mendefinisikan kontrak publik (Decision Request, Decision Result)
+- [ ] Mengimplementasikan adapter Worker tipis
+- [ ] Membuat 10 skenario golden test (disederhanakan: keputusan biner)
+- [ ] Integrasi: Trading Analyst → Decision Intelligence (pengajuan evidence)
+- **Gate:** 10 golden test lulus pada ≥80%
+
+### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+
+**Durasi:** 6 minggu
+
+- [ ] Mengimplementasikan Alternative Generation
+- [ ] Mengimplementasikan Risk Analysis (probabilitas × dampak)
+- [ ] Mengimplementasikan Trade-off Analysis (scoring berbobot multi-objektif)
+- [ ] Mengimplementasikan Confidence Estimation dengan kalibrasi
+- [ ] Mengimplementasikan Explainable Decision (rantai lengkap)
+- [ ] Mengimplementasikan Decision History → Experience Memory
+- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Mencatat ≥20 kasus nyata dari penggunaan Trading Analyst
+- [ ] **Benchmark:** 100 skenario, ≥90% akurasi, ≥95% explainability
+- [ ] **Integrasi:** Network Engineer, Code Engineer, DevOps Assistant mulai menggunakan Decision Intelligence untuk keputusan yang diberi skor
+- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥90%
+
+### Fase 3: Ekosistem (Stable → Certified)
+
+**Durasi:** 8 minggu
+
+- [ ] Semua 13+ Capability Pack terintegrasi dengan Decision Intelligence
+- [ ] Kalibrasi confidence divalidasi pada ≥50 kasus nyata
+- [ ] Decision History mendukung rekomendasi rollback
+- [ ] Audit independen terhadap kualitas dan explainability keputusan
+- [ ] Dashboard benchmark publik tersedia
+- [ ] **Benchmark:** ≥90% di semua dimensi
+- [ ] **Real Cases:** ≥50 kasus dengan ≥80% pelacakan hasil
+- **Gate:** Audit independen lulus; benchmark ≥90% berkelanjutan
+
+---
+
+## Peningkatan di Masa Depan
+
+### Fase 2 (Pasca-Rilis v1.0.0)
+
+1. **Decision Simulation Engine** — Simulasi Monte Carlo dari alternatif sebelum scoring
+2. **Multi-Model Debate** — Menggunakan banyak LLM untuk memperdebatkan alternatif (memanfaatkan pola debate engine yang ada dari Trading Analyst)
+3. **Adaptive Criteria Weighting** — Mempelajari bobot objektif optimal dari hasil keputusan historis
+4. **Decision Graph Visualization** — Grafik interaktif dari rantai evidence → decision → outcome
 
 ### Fase 3 (Enterprise)
 
-1. **Decision Templates** — Pre-built decision frameworks for common scenarios (architecture review, deployment strategy, investment decision)
-2. **Policy Engine** — Encode organizational decision policies as constraints
-3. **Cross-Workspace Decision Learning** — Aggregate anonymized decision outcomes across workspaces for platform-wide confidence calibration
-4. **Regulatory Compliance Layer** — Decision explainability tailored for SOC 2, ISO 27001, and other compliance frameworks
+1. **Decision Templates** — Kerangka keputusan yang sudah jadi untuk skenario umum (architecture review, strategi deployment, keputusan investasi)
+2. **Policy Engine** — Menyandikan kebijakan keputusan organisasi sebagai batasan
+3. **Cross-Workspace Decision Learning** — Mengagregasi hasil keputusan anonim lintas workspace untuk kalibrasi confidence di seluruh platform
+4. **Regulatory Compliance Layer** — Explainability keputusan yang disesuaikan untuk SOC 2, ISO 27001, dan kerangka kepatuhan lain
 
-### Long-term
+### Jangka Panjang
 
-1. **Decision Intelligence Marketplace** — Third-party decision frameworks and custom reasoning models
-2. **Causal Inference Engine** — Move from correlation-based evidence to causal reasoning for decision support
-3. **Active Learning Loop** — Automatically identify and request missing evidence to reduce decision uncertainty
-4. **Decision-Time Optimization** — Dynamically select reasoning depth based on decision importance and time constraints
+1. **Decision Intelligence Marketplace** — Kerangka keputusan pihak ketiga dan model penalaran kustom
+2. **Causal Inference Engine** — Berpindah dari evidence berbasis korelasi ke penalaran kausal untuk dukungan keputusan
+3. **Active Learning Loop** — Mengidentifikasi dan meminta evidence yang hilang secara otomatis untuk mengurangi ketidakpastian keputusan
+4. **Decision-Time Optimization** — Memilih kedalaman penalaran secara dinamis berdasarkan pentingnya keputusan dan batasan waktu
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-*(See [Real Case Requirements](#real-case-requirements) section above for full specification)*
+*(Lihat bagian [Persyaratan Real Case](#persyaratan-real-case) di atas untuk spesifikasi lengkap)*
 
-Decision Intelligence real cases are sourced from:
-> Terjemahan Indonesia: Decision Intelligence real cases adalah sourced dari:
+Real case Decision Intelligence bersumber dari:
 
-1. **Trading Analyst** — Trade recommendation decisions with post-market outcome
-2. **Code Engineer** — Refactoring vs. rewrite decisions with code quality metrics
-3. **Network Engineer** — Configuration change decisions with post-deployment verification
-4. **DevOps Assistant** — Deployment strategy decisions with success/failure tracking
-5. **Self Development** — Architecture improvement proposals with post-implementation review
+1. **Trading Analyst** — Keputusan rekomendasi trading dengan hasil pasca-pasar
+2. **Code Engineer** — Keputusan refactoring vs rewrite dengan metrik kualitas kode
+3. **Network Engineer** — Keputusan perubahan konfigurasi dengan verifikasi pasca-deployment
+4. **DevOps Assistant** — Keputusan strategi deployment dengan pelacakan sukses/gagal
+5. **Self Development** — Proposal perbaikan arsitektur dengan review pasca-implementasi
 
 ---
 
 ## Definition of Done
 
-*(See [Definition of Done](#definition-of-done) section above for full checklist)*
+*(Lihat bagian [Definition of Done](#definition-of-done) di atas untuk daftar periksa lengkap)*
+

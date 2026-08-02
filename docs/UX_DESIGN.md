@@ -1,163 +1,130 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/UX_DESIGN.md`
-- Judul: Ux Design
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿# Spesifikasi UX Design
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
 <!-- DOCUMENT_METADATA_END -->
 
-# UX Design Specification
-
-This document defines the user-facing experience of Enal AI OS.
-It is the source of truth for how users interact with the platform.
-> Terjemahan Indonesia: Ini dokumen defines user-facing experience dari Enal AI OS. It adalah source dari truth untuk how users interact dengan platform.
+Dokumen ini mendefinisikan pengalaman yang dilihat pengguna (user-facing experience) dari Enal AI OS. Ini adalah sumber kebenaran untuk cara pengguna berinteraksi dengan platform.
 
 ---
 
-## Core Principle
+## Prinsip Inti
 
-One conversation. One AI. One goal. Many tasks. One result.
-> Terjemahan Indonesia: Satu percakapan. Satu AI. Satu tujuan. Banyak tugas. Satu hasil.
+Satu percakapan. Satu AI. Satu tujuan. Banyak tugas. Satu hasil.
 
-Users do not need to know about Capability Packs, Workers, Execution Runtime, Task Planners, Execution Graphs, or any other internal mechanism.
-All of that is hidden behind a natural conversational interface.
-> Terjemahan Indonesia: Users do not need untuk know about kapabilitas Packs, Workers, Execution Runtime, Task Planners, Execution Graphs, or any other internal mechanism. All dari itu adalah hidden behind sebuah natural conversational interface.
+Pengguna tidak perlu tahu tentang Capability Packs, Workers, Execution Runtime, Task Planners, Execution Graphs, atau mekanisme internal lainnya.
+Semua itu disembunyikan di balik antarmuka percakapan yang alami.
 
 ---
 
 ## Positioning
 
-Enal AI OS is an **AI Execution Platform**.
-> Terjemahan Indonesia: Enal AI OS adalah sebuah AI Execution platform.
+Enal AI OS adalah **AI Execution Platform**.
 
-Users describe the outcome they want.
-ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcomeâ€”all through a single conversation.
-> Terjemahan Indonesia: Users describe outcome they want. ECP understands goal, plans execution, coordinates tasks, verifies results, dan delivers sebuah complete outcomeâ€”all through sebuah single conversation.
+Pengguna mendeskripsikan outcome yang mereka inginkan.
+ECP memahami tujuan, merencanakan eksekusi, mengoordinasikan tugas, memverifikasi hasil, dan mengirimkan outcome yang lengkap — semuanya melalui satu percakapan.
 
-Not:
-- "AI with 300 micro-agents"
+Bukan:
+- "AI dengan 300 micro-agents"
 - "AI Workforce"
 - "Multi-Agent Framework"
 
-But:
-- "One AI that gets things done"
+Tetapi:
+- "Satu AI yang menyelesaikan pekerjaan"
 
 ---
 
 ## Interface
 
-The user interface is a single conversational window:
-> Terjemahan Indonesia: User interface adalah sebuah single conversational window:
+User interface adalah satu window percakapan:
 
 ```
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚         Enal AI OS                   â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚                                      â”‚
-â”‚  Describe the outcome you want.      â”‚
-â”‚                                      â”‚
-â”‚  ________________________________    â”‚
-â”‚ | Ketik perintah...              |   â”‚
-â”‚ |________________________________|   â”‚
-â”‚                                      â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌─────────────────────────────────────┐
+│         Enal AI OS                   │
+├─────────────────────────────────────┤
+│                                      │
+│  Describe the outcome you want.      │
+│                                      │
+│  ________________________________    │
+│ | Ketik perintah...              |   │
+│ |________________________________|   │
+│                                      │
+└─────────────────────────────────────┘
 ```
 
-There is no menu for selecting Capability Packs.
-There is no configuration panel for choosing Workers.
-There is no dropdown for selecting Execution Runtime.
-There is no "Agent Swarm" indicator.
-> Terjemahan Indonesia: There adalah no menu untuk selecting kapabilitas Packs. There adalah no konfigurasi panel untuk choosing Workers. There adalah no dropdown untuk selecting Execution Runtime. There adalah no "agen Swarm" indicator.
+Tidak ada menu untuk memilih Capability Packs.
+Tidak ada panel konfigurasi untuk memilih Workers.
+Tidak ada dropdown untuk memilih Execution Runtime.
+Tidak ada indikator "Agent Swarm".
 
-The AI does everything internally.
-> Terjemahan Indonesia: AI does everything internally.
+AI melakukan semuanya secara internal.
 
 ---
 
-## Execution Model
+## Model Eksekusi
 
 ```
 One Conversation
-        â†“
+        ↓
     One Goal
-        â†“
+        ↓
   Goal Understanding
-        â†“
+        ↓
  Execution Planning
-        â†“
+        ↓
     Many Tasks
-        â†“
+        ↓
    Execution Graph
-        â†“
+        ↓
     Scheduler
-        â†“
+        ↓
    Many Workers
-        â†“
+        ↓
     Verification
-        â†“
+        ↓
      Artifacts
-        â†“
+        ↓
    One Result
 ```
 
-The user sees: One Conversation â†’ One Goal â†’ One Result.
-Internally: Goal Understanding â†’ Execution Planning â†’ Task DAG â†’ Scheduler â†’ Workers â†’ Verification â†’ Artifacts.
-> Terjemahan Indonesia: User sees: One Conversation â†’ One Goal â†’ One Result. Internally: Goal Understanding â†’ Execution Planning â†’ Task DAG â†’ Scheduler â†’ Workers â†’ Verification â†’ Artifacts.
+Pengguna melihat: One Conversation → One Goal → One Result.
+Secara internal: Goal Understanding → Execution Planning → Task DAG → Scheduler → Workers → Verification → Artifacts.
 
-Goal Understanding is the most critical step. The AI must understand intent, context, constraints, and desired outcome before executing anything.
-> Terjemahan Indonesia: Goal Understanding adalah most critical step. AI must understand intent, context, constraints, dan desired outcome before executing anything.
+Goal Understanding adalah langkah paling kritis. AI harus memahami intent, konteks, batasan, dan outcome yang diinginkan sebelum mengeksekusi apa pun.
 
 ---
 
-## User Workflow
+## Alur Kerja Pengguna
 
-### 1. User States a Goal
+### 1. Pengguna Menyatakan Tujuan
 
-User describes the desired outcome in natural language or uploads a file.
-> Terjemahan Indonesia: User describes desired outcome dalam natural language or uploads sebuah file.
+Pengguna mendeskripsikan outcome yang diinginkan dalam bahasa alami atau mengunggah file.
 
-Examples:
-> Terjemahan Indonesia: Contoh:
+Contoh:
 - "Bangun aplikasi Inventory."
 - "Analisa konfigurasi MikroTik ini."
 - "Audit project FastAPI saya."
 - "Saya ingin membuat ISP."
 
-### 2. AI Understands the Goal
+### 2. AI Memahami Tujuan
 
-Behind the scenes, ECP:
-> Terjemahan Indonesia: Behind scenes, ECP:
-1. Understands the goal deeply
-2. Identifies required capabilities
-3. Breaks goal into phases and tasks
-4. Identifies dependencies and parallelism
-5. Estimates effort, artifacts, and risks
-6. Builds Execution Graph
+Di balik layar, ECP:
+1. Memahami tujuan secara mendalam
+2. Mengidentifikasi capability yang dibutuhkan
+3. Memecah tujuan menjadi phase dan task
+4. Mengidentifikasi dependensi dan paralelisme
+5. Memperkirakan effort, artifacts, dan risiko
+6. Membangun Execution Graph
 
-This is **Goal Understanding**. It is the hardest and most important part.
-> Terjemahan Indonesia: Ini adalah Goal Understanding. It adalah hardest dan most important part.
+Ini adalah **Goal Understanding**. Ini adalah bagian yang paling sulit dan paling penting.
 
-### 3. AI Presents the Plan
+### 3. AI Menyajikan Rencana
 
-AI responds with a clear, actionable plan:
-> Terjemahan Indonesia: AI responds dengan sebuah clear, actionable plan:
+AI merespons dengan rencana yang jelas dan dapat ditindaklanjuti:
 
 ```
 Saya memahami tujuan Anda.
@@ -175,28 +142,26 @@ Estimasi: 187 subtasks, 38 artifacts, existing packs
 Mulai?
 ```
 
-### 4. User Approves or Refines
+### 4. Pengguna Menyetujui atau Menyempurnakan
 
-- User can approve, refine, or cancel
-- No hidden configuration required
-- User sees one coherent plan, not internal task lists
+- Pengguna dapat menyetujui, menyempurnakan, atau membatalkan
+- Tidak diperlukan konfigurasi tersembunyi
+- Pengguna melihat satu rencana yang koheren, bukan daftar task internal
 
-### 5. AIExecutes
+### 5. AI Mengeksekusi
 
-AI shows real-time progress:
-> Terjemahan Indonesia: AI menunjukkan kemajuan waktu nyata:
+AI menampilkan progress real-time:
 
 ```
-âœ“ Tujuan dipahami
-âœ“ Plan dibuat
-âœ“ Menjalankan Phase 1: Business Analysis
-â³ Menjalankan Phase 2: Architecture Design...
+✓ Tujuan dipahami
+✓ Plan dibuat
+✓ Menjalankan Phase 1: Business Analysis
+⏳ Menjalankan Phase 2: Architecture Design...
 ```
 
-### 6. AI Delivers Result
+### 6. AI Mengirimkan Hasil
 
-AI presents the final outcome:
-> Terjemahan Indonesia: AI presents final outcome:
+AI menyajikan outcome akhir:
 
 ```
 Selesai.
@@ -217,88 +182,80 @@ Apakah ada yang perlu diperbaiki?
 
 ## Workspace
 
-Each project gets its own Workspace.
-> Terjemahan Indonesia: Each proyek gets its own Workspace.
+Setiap proyek memiliki Workspace sendiri.
 
-- History persists across sessions
-- Memory is scoped per Workspace
-- Artifacts are organized per Workspace
-- User can switch between Workspaces
+- Riwayat bertahan antar session
+- Memory dibatasi per Workspace
+- Artifacts diorganisasi per Workspace
+- Pengguna dapat berpindah antar Workspace
 
-Example:
-> Terjemahan Indonesia: Contoh:
+Contoh:
 ```
 Workspace: Inventory System
-â”œâ”€â”€ History
-â”œâ”€â”€ Artifacts
-â”‚   â”œâ”€â”€ requirements.md
-â”‚   â”œâ”€â”€ schema.sql
-â”‚   â””â”€â”€ backend/
-â””â”€â”€ Memory
+├── History
+├── Artifacts
+│   ├── requirements.md
+│   ├── schema.sql
+│   └── backend/
+└── Memory
 ```
 
 ---
 
-## Progress Transparency
+## Transparansi Progress
 
-During execution, AI shows human-readable progress:
-> Terjemahan Indonesia: Selama eksekusi, AI menunjukkan kemajuan yang dapat dibaca manusia:
+Selama eksekusi, AI menampilkan progress yang dapat dibaca manusia:
 
 ```
-âœ“ Memahami permintaan
-âœ“ Memilih Capability
-âœ“ Menyusun Task
-â³ Menganalisis konfigurasi...
-â³ Membuat dokumentasi...
+✓ Memahami permintaan
+✓ Memilih Capability
+✓ Menyusun Task
+⏳ Menganalisis konfigurasi...
+⏳ Membuat dokumentasi...
 ```
 
-Not:
+Bukan:
 - "Stage 3: Execute Subtask 7"
-- Internal state names
-- Worker IDs or Execution Graph node IDs
+- Nama state internal
+- Worker ID atau Execution Graph node ID
 
 ---
 
 ## Explainability
 
-User can ask "why" at any time:
-> Terjemahan Indonesia: User dapat ask "why" at any time:
+Pengguna dapat bertanya "mengapa" kapan saja:
 
 > "Why did you choose that approach?"
 
-AI responds with:
-> Terjemahan Indonesia: AI responds dengan:
-- Goal understanding summary
-- Capability used
-- Reasoning behind the choice
-- Confidence level
-- Steps taken
+AI merespons dengan:
+- Ringkasan pemahaman tujuan
+- Capability yang digunakan
+- Reasoning di balik pilihan
+- Tingkat confidence
+- Langkah yang diambil
 
-No internal architecture terms. User-friendly explanations only.
-> Terjemahan Indonesia: No internal arsitektur terms. User-friendly explanations only.
+Tanpa istilah arsitektur internal. Hanya penjelasan yang ramah pengguna.
 
 ---
 
 ## Skill Discovery
 
-User can ask:
-> Terjemahan Indonesia: User dapat ask:
+Pengguna dapat bertanya:
 - "Apa yang bisa kamu lakukan?"
 - "What can you do?"
 
-AI responds from the Capability Graph, dynamically:
-> Terjemahan Indonesia: AI responds dari kapabilitas Graph, dynamically:
+AI merespons dari Capability Graph secara dinamis:
 
 ```
 Saya memiliki 13 Capability Pack:
-âœ“ Network Engineering
+✓ Network Engineering
   - Audit MikroTik
   - Audit Cisco
   - Audit Fortinet
   - Generate Documentation
   - Compliance Check
   - Security Review
-âœ“ Code Engineering
+✓ Code Engineering
   - Full-stack generation
   - Code review
   - Security review
@@ -311,29 +268,26 @@ Mau mulai dari mana?
 
 ## Artifacts
 
-All significant outputs are persisted as Artifacts:
-> Terjemahan Indonesia: All significant outputs adalah persisted as Artifacts:
-- Analysis reports
-- Recommendations
-- Patches and diffs
-- Test reports
-- Deployment plans
-- Documentation
+Semua output signifikan dipersist sebagai Artifacts:
+- Laporan analisis
+- Rekomendasi
+- Patch dan diff
+- Laporan test
+- Rencana deployment
+- Dokumentasi
 
-Artifacts are:
-> Terjemahan Indonesia: Artifacts adalah:
+Artifacts bersifat:
 - Versioned
-- Scoped per Workspace
-- Retrievable
-- Comparable
-- Restorable
+- Dibatasi per Workspace
+- Dapat diambil kembali
+- Dapat dibandingkan
+- Dapat dipulihkan
 
 ---
 
-## Human Approval
+## Persetujuan Manusia
 
-For irreversible actions, AI requires explicit approval:
-> Terjemahan Indonesia: Untuk irreversible actions, AI requires explicit approval:
+Untuk tindakan ireversibel, AI memerlukan persetujuan eksplisit:
 
 ```
 Saya akan menerapkan patch ini.
@@ -349,54 +303,52 @@ Tests: 43/43 passed
 
 ---
 
-## Plugin Ecosystem
+## Ekosistem Plugin
 
-New Capability Packs installed via Marketplace automatically integrate:
-> Terjemahan Indonesia: New kapabilitas Packs installed via Marketplace automatically integrate:
-- Appear in skill discovery
-- Follow the same workflow
-- No user configuration needed
-
----
-
-## What Users Never See
-
-- Capability Pack selection menus
-- Worker configuration panels
-- Execution Runtime settings
-- Task Planner outputs
-- Execution Graph internals
-- Worker IDs or names
-- Internal data structures
-- Error messages from internal modules
-
-If a user sees any of these, the UX design has failed.
-> Terjemahan Indonesia: If sebuah user sees any dari these, UX design memiliki failed.
+Capability Pack baru yang diinstal melalui Marketplace secara otomatis terintegrasi:
+- Muncul di skill discovery
+- Mengikuti workflow yang sama
+- Tidak diperlukan konfigurasi pengguna
 
 ---
 
-## What Users Should Feel
+## Apa yang Tidak Pernah Dilihat Pengguna
 
-- One competent AI assistant
-- No configuration needed
-- Results come from expertise, not menus
-- AI explains when asked
-- AI never acts without approval
-- AI remembers context across conversations
-- AI gets better over time
-- "I can trust Enal AI OS to finish the job"
-- "This AI understands what I want, not just what I type"
+- Menu pemilihan Capability Pack
+- Panel konfigurasi Worker
+- Pengaturan Execution Runtime
+- Output Task Planner
+- Internal Execution Graph
+- Worker ID atau nama
+- Struktur data internal
+- Pesan error dari modul internal
+
+Jika pengguna melihat salah satu dari ini, desain UX telah gagal.
 
 ---
 
-## Success Criteria
+## Apa yang Seharusnya Dirasakan Pengguna
 
-The UX is successful when:
-> Terjemahan Indonesia: UX adalah successful when:
-1. A new user can accomplish a real task without reading documentation
-2. User never needs to select a Capability Pack manually
-3. User never needs to configure Workers, Runtimes, or Planners
-4. All explainability, progress, and approval flows feel natural
-5. The system feels like one AI, not a collection of tools
-6. Users describe ECP as "an AI that gets things done" rather than "a framework with many agents"
-7. Users can describe their goal in plain language and get a complete, verified result
+- Satu asisten AI yang kompeten
+- Tanpa perlu konfigurasi
+- Hasil datang dari keahlian, bukan menu
+- AI menjelaskan saat diminta
+- AI tidak pernah bertindak tanpa persetujuan
+- AI mengingat konteks antar percakapan
+- AI semakin baik seiring waktu
+- "Saya dapat mempercayai Enal AI OS untuk menyelesaikan pekerjaan"
+- "AI ini memahami apa yang saya inginkan, bukan hanya apa yang saya ketik"
+
+---
+
+## Kriteria Keberhasilan
+
+UX dianggap berhasil ketika:
+1. Pengguna baru dapat menyelesaikan tugas nyata tanpa membaca dokumentasi
+2. Pengguna tidak pernah perlu memilih Capability Pack secara manual
+3. Pengguna tidak pernah perlu mengonfigurasi Workers, Runtimes, atau Planners
+4. Semua alur explainability, progress, dan persetujuan terasa alami
+5. Sistem terasa seperti satu AI, bukan kumpulan tool
+6. Pengguna mendeskripsikan ECP sebagai "AI yang menyelesaikan pekerjaan" daripada "framework dengan banyak agent"
+7. Pengguna dapat mendeskripsikan tujuannya dalam bahasa sederhana dan mendapatkan hasil yang lengkap dan terverifikasi
+

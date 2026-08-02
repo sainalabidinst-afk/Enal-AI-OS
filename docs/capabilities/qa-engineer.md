@@ -1,63 +1,41 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# QA Engineer — Spesifikasi Capability
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/qa-engineer.md`
-- Judul: Qa Engineer
-- Status: bilingual content applied
-
-<!-- BILINGUAL_DOCS_END -->
-
-# QA Engineer Capability Specification
-
-## Version: 1.0.0
-## Status: Production Ready (RFC-0012)
-## Quality Target: A (≥90)
+**Versi:** 1.0.0
+**Status:** Production Ready (RFC-0012)
+**Target Kualitas:** A (≥90)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-QA Engineer adalah **otoritas kualitas perangkat lunak** untuk ECP — Capability Pack yang
-menjamin kualitas kode melalui generasi test, mutation testing, coverage analysis,
-flaky detection, dan validasi performa.
-> Terjemahan Indonesia: QA Engineer adalah otoritas kualitas perangkat lunak untuk ECP — kapabilitas Pack yang menjamin kualitas kode melalui generasi test, mutation testing, coverage analysis, flaky detection, dan validasi performa.
+QA Engineer adalah **otoritas kualitas perangkat lunak** untuk ECP — Capability Pack yang menjamin kualitas kode melalui test generation, mutation testing, coverage analysis, flaky test detection, dan performance validation.
 
-Capability Pack ini menganalisis kode sumber, menghasilkan unit test, integration test,
-regression test, golden test, dan laporan kualitas — **tanpa memodifikasi Core**.
-> Terjemahan Indonesia: Kapabilitas Pack ini menganalisis kode sumber, menghasilkan unit test, integrasi test, regression test, golden test, dan laporan kualitas — tanpa memodifikasi Core.
+Capability Pack ini menganalisis source code, menghasilkan unit test, integration test, regression test, Golden Test, dan laporan kualitas — **tanpa memodifikasi Core**.
 
 ---
 
-## 2. Scope
+## 2. Ruang Lingkup
 
-### In Scope
-- **Unit Test Generation** — Generasi test unit otomatis dari kode sumber
-- **Integration Test Generation** — Generasi test integrasi untuk endpoints dan interaksi
-- **Regression Test Automation** — Generasi suite regresi dengan risk assessment
+### Dalam Ruang Lingkup
+- **Unit Test Generation** — Generasi unit test otomatis dari source code
+- **Integration Test Generation** — Generasi integration test untuk endpoint dan interaksi
+- **Regression Test Automation** — Generasi regression suite dengan risk scoring
 - **Mutation Testing** — Analisis kekuatan test dengan mutation score
-- **Golden Test Generation** — Test golden untuk Capability Pack lain
-- **Benchmark Test Generation** — Test performa dan beban
+- **Golden Test Generation** — Golden Test untuk Capability Pack lainnya
+- **Benchmark Test Generation** — Test kinerja dan beban
 - **Flaky Test Detection** — Deteksi test yang tidak stabil
-- **Coverage Analysis** — Analisis line, branch, dan function coverage
+- **Coverage Analysis** — Analisis cakupan line, branch, dan function
 - **Performance Validation** — Validasi latency dan throughput
-- **Experience Memory** — Perekaman hasil kualitas ke history
+- **Experience Memory** — Perekaman hasil kualitas ke riwayat
 
-### Out of Scope
+### Di Luar Cakupan
 - Eksekusi test langsung ke environment produksi
-- Modifikasi Core contracts
-- Direct import dari Capability Pack lain (ADR-002 compliance)
+- Modifikasi kontrak Core
+- Import langsung dari Capability Pack lain (kepatuhan ADR-002)
 
 ---
 
-## 3. Contract
+## 3. Kontrak
 
 ### Input: QATestRequestModel
 ```json
@@ -77,7 +55,7 @@ regression test, golden test, dan laporan kualitas — **tanpa memodifikasi Core
 }
 ```
 
-### Output: QATestReport
+### Output: Laporan QATest
 ```json
 {
   "request_id": "uuid",
@@ -132,43 +110,43 @@ regression test, golden test, dan laporan kualitas — **tanpa memodifikasi Core
 
 ---
 
-## 4. Operations
+## 4. Operasi
 
-| Operation | Description | Inputs | Outputs |
+| Operasi | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| unit_test | Generate unit tests from source code | source_code, language, framework | TestArtifacts + CoverageReport |
-| integration_test | Generate integration tests | source_code, language, framework | TestArtifacts + CoverageReport |
-| regression_test | Generate regression test suite | source_code, language, framework | TestArtifacts + RegressionInfo |
-| mutation_test | Run mutation testing analysis | source_code, language, test_artifacts | MutationReport |
-| golden_test | Generate golden tests for a pack | target_pack, source_code | TestArtifacts |
-| benchmark_test | Generate benchmark tests | source_code, language | TestArtifacts |
-| flaky_test | Detect flaky tests | test_results | FlakyTestFindings |
-| coverage | Analyze test coverage | source_code, test_suite | CoverageReport |
-| performance_validation | Validate performance requirements | source_code, perf_reqs | PerformanceValidation |
+| `unit_test` | Menghasilkan unit test dari source code | source_code, language, framework | TestArtifacts + Coverage Report |
+| `integration_test` | Menghasilkan integration test | source_code, language, framework | TestArtifacts + Coverage Report |
+| `regression_test` | Menghasilkan regression suite | source_code, language, framework | TestArtifacts + RegressionInfo |
+| `mutation_test` | Menjalankan analisis mutation testing | source_code, language, test_artifacts | Mutation Report |
+| `golden_test` | Menghasilkan golden test untuk satu pack | for_capability_pack, source_code | TestArtifacts |
+| `benchmark_test` | Menghasilkan benchmark test | source_code, language | TestArtifacts |
+| `flaky_test` | Deteksi test tidak stabil | test_results | FlakyTest Findings |
+| `coverage` | Menganalisis coverage test | source_code, test_suite | Coverage Report |
+| `performance_validation` | Memvalidasi requirements kinerja | source_code, performance_requirements | Performance Validation |
 
 ---
 
-## 5. Analyzer Modules
+## 5. Modul Analyzer
 
-| Module | Responsibility |
+| Modul | Tanggung Jawab |
 |--------|----------------|
-| test_generator.py | Generate unit, integration, regression, benchmark tests |
-| mutation_tester.py | Generate and evaluate mutation operators |
-| flaky_detector.py | Detect flaky tests from execution history |
-| coverage_analyzer.py | Analyze line, branch, function coverage |
-| performance_validator.py | Validate latency and throughput requirements |
-| golden_test_gen.py | Generate golden tests for Capability Packs |
+| `test_generator.py` | Menghasilkan unit, integration, regression, benchmark test |
+| `mutation_tester.py` | Menghasilkan dan menginduksi mutation operator |
+| `flaky_detector.py` | Mendeteksi test tidak stabil dari riwayat eksekusi |
+| `coverage_analyzer.py` | Menganalisis cakupan line, branch, function |
+| `performance_validator.py` | Memvalidasi requirement latency dan throughput |
+| `golden_test_gen.py` | Menghasilkan Golden Test untuk Capability Pack |
 
 ---
 
-## 6. Benchmark Dimensions
+## 6. Dimensi Benchmark
 
-| Dimension | Target | Grade |
+| Dimensi | Target | Grade |
 |-----------|--------|-------|
 | Test Generation Coverage | ≥95% | A |
 | Mutation Score | ≥80% | A |
 | Regression Detection | ≥95% | A |
-| Golden Test Gen | ≥90% | A |
+| Golden Test Quality | ≥90% | A |
 | Flaky Test Detection | ≥90% | A |
 | Coverage Accuracy | ≥85% | A |
 | Performance Validation | ≥90% | A |
@@ -177,16 +155,16 @@ regression test, golden test, dan laporan kualitas — **tanpa memodifikasi Core
 
 ---
 
-## 7. Dependencies
+## 7. Dependensi
 
-- **apps/base.py** — Base model definitions
-- **apps/qa_engineer/schemas.py** — Public contracts
-- **apps/qa_engineer/engine.py** — Domain Engine
-- **apps/qa_engineer/worker.py** — Thin adapter (ADR-003)
+- **apps/base.py** — Definisi model dasar
+- **apps/qa_engineer/schemas.py** — Kontrak publik
+- **apps/qa_engineer/engine.py** — Domain engine
+- **apps/qa_engineer/worker.py** — Adaptor tipis (ADR-003)
 
 ---
 
-## 8. Usage Example
+## 8. Contoh Penggunaan
 
 ```python
 from apps.qa_engineer.engine import QAEngineerEngine
@@ -201,3 +179,4 @@ report = engine.review(request)
 print(f"Generated {report.summary.total_tests_generated} tests")
 print(f"Coverage: {report.coverage_report.line_coverage:.0%}")
 ```
+

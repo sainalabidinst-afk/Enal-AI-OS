@@ -1,47 +1,29 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `sdk/README.md`
-- Judul: Readme
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Enal Cognitive Platform (ECP) SDK
+﻿# SDK Enal Cognitive Platform (ECP)
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Project overview
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Ikhtisar proyek
 <!-- DOCUMENT_METADATA_END -->
 
-Developer SDK for building agents, tools, and workflows on ECP.
-> Terjemahan Indonesia: Developer SDK untuk building agen, alat, dan workflows pada ECP.
+SDK Developer untuk membangun agen, tool, dan workflow di atas ECP.
 
-## Installation
+## Instalasi
 
 ```bash
 pip install -e .
 ```
 
 ## Status: Platform RC (2026-07-27)
-- Runtime: 426 tests passing
-- Architecture: 92/100 - Cognitive pipeline integrated
+- Runtime: 426 test lulus
+- Architecture: 92/100 - Cognitive pipeline terintegrasi
 
 ## Quick Start
 
-### Create an Agent
+### Membuat Agent
 
 ```python
 from enal_ai import Agent, EnalAI
@@ -64,7 +46,7 @@ result = await agent.run("Configure hotspot with 3 VLANs")
 print(result)
 ```
 
-### Create a Tool
+### Membuat Tool
 
 ```python
 from enal_ai import Tool
@@ -75,7 +57,7 @@ async def docker_build(dockerfile_path: str, image_name: str):
     return {"status": "built", "image": image_name}
 ```
 
-### Create a Workflow
+### Membuat Workflow
 
 ```python
 from enal_ai import Workflow, WorkflowStep
@@ -94,7 +76,7 @@ workflow = Workflow(
 result = await workflow.execute({"project_id": "erp-001"})
 ```
 
-## API Reference
+## Referensi API
 
 ### Agent
 
@@ -124,7 +106,7 @@ class Workflow:
     def to_dict(self) -> dict
 ```
 
-### EnalAI (SDK Entry Point)
+### EnalAI (Titik Masuk SDK)
 
 ```python
 enal = EnalAI(api_url="http://localhost:8000")
@@ -144,32 +126,30 @@ enal.list_tools()
 enal.list_workflows()
 ```
 
-## Contracts
+## Kontrak
 
-All components implement stable contracts:
-> Terjemahan Indonesia: Semua komponen menerapkan kontrak yang stabil:
+Semua komponen menerapkan kontrak yang stabil:
 
-- `CapabilityContract` â€” Agent capabilities
-- `ToolContract` â€” Tool invocation
-- `ArtifactContract` â€” Artifact management
-- `MemoryContract` â€” Memory operations
-- `WorkflowContract` â€” Workflow execution
-- `WorldModelContract` â€” World model queries
-- `LearningContract` â€” Learning operations
+- `CapabilityContract` — Kapabilitas Agent
+- `ToolContract` — Invokasi Tool
+- `ArtifactContract` — Manajemen Artifact
+- `MemoryContract` — Operasi Memory
+- `WorkflowContract` — Eksekusi Workflow
+- `WorldModelContract` — Kueri World Model
+- `LearningContract` — Operasi Learning
 
-## Examples
+## Contoh
 
-See `examples/` directory:
-> Terjemahan Indonesia: Lihat contoh/direktori:
-- `custom_agent.py` â€” Creating custom agents
-- `custom_workflow.py` â€” Building workflows
+Lihat direktori `examples/`:
+- `custom_agent.py` — Membuat custom agent
+- `custom_workflow.py` — Membangun workflow
 
-## Documentation
+## Dokumentasi
 
-See `docs/` directory for:
-> Terjemahan Indonesia: See docs/ directory untuk:
+Lihat direktori `docs/` untuk:
 - Getting Started Guide
 - Agent Development Guide
 - Tool Development Guide
 - Workflow Design Guide
 - API Reference
+

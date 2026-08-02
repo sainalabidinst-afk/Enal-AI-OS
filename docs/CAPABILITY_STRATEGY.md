@@ -1,540 +1,508 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/CAPABILITY_STRATEGY.md`
-- Judul: Capability Strategy
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Capability Pack maturity model, profiles, and lifecycle strategy
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Model kematangan Capability Pack, profil, dan siklus hidup strategis
 <!-- DOCUMENT_METADATA_END -->
 
-# ECP Capability Strategy
+# Strategi Kemampuan ECP
 
-**Version:** 1.0.0
-**Effective:** 2026-08-02
-**Parent:** `GOVERNANCE_CHARTER.md`
-**Purpose:** Defines the strategy for Capability Pack evolution, maturity, quality grading, lifecycle, and knowledge expansion.
-
----
-
-## 1. Strategy Philosophy
-
-> **Core is the stable platform. Capability Packs are the place where innovation happens.**
-
-All knowledge expansion, feature growth, and domain evolution happens **inside Capability Packs**. Core remains unchanged.
-> Terjemahan Indonesia: All knowledge expansion, feature growth, dan domain evolution happens inside kapabilitas Packs. Core remains unchanged.
-
-The development cycle is:
-> Terjemahan Indonesia: Development cycle adalah:
-
-```
-Real Usage → Measurement → Capability Improvement → Benchmark → Release
-```
-
-- Real-world cases are the **primary source** of Capability Pack improvement.
-- Synthetic benchmarks **validate** improvements; real-world cases **drive** them.
-- Each Capability Pack independently evolves at its own pace.
+**Versi:** 1.0.0
+**Berlaku:** 02-08-2026
+**Induk:** `GOVERNANCE_CHARTER.md`
+**Tujuan:** Mendefinisikan strategi evolusi Capability Pack, kematangan, kualitas grading, lifecycle, dan perluasan pengetahuan.
 
 ---
 
-## 2. Capability Maturity Model
+## 1. Filosofi Strategi
 
-Maturity describes the **lifecycle stage** of a Capability Pack — not its quality grade. A pack must progress through these levels to reach production readiness.
-> Terjemahan Indonesia: Maturity describes lifecycle stage dari sebuah kapabilitas Pack — not its kualitas grade. sebuah pack must progress through these levels untuk reach production readiness.
+> **Core adalah platform yang stabil. Capability Pack adalah tempat terjadinya inovasi.**
 
-| Level | Label | Description | Requirements |
+Semua perluasan pengetahuan, pertumbuhan fitur, dan evolusi domain terjadi **di dalam Capability Pack**. Inti tetap tidak berubah.
+
+Siklus pengembangan adalah:
+
+```
+Penggunaan Nyata → Pengukuran → Peningkatan Capability → Benchmark → Rilis
+```
+
+- Kasus dunia nyata adalah **sumber utama** peningkatan Capability Pack.
+- Benchmark sintetis **memvalidasi** peningkatan; kasus dunia nyata **mendorong** peningkatan tersebut.
+- Setiap Capability Pack berputar secara independen sesuai kecepatannya masing-masing.
+
+---
+
+## 2. Kemampuan Model Kematangan
+
+Kematangan menggambarkan **tahap lifecycle** dari sebuah Capability Pack — bukan kualitas grading-nya. Sebuah paket harus melalui level-level berikut untuk mencapai kesiapan produksi.
+
+|Tingkat|Label|Deskripsi|Urutannya|
 |-------|-------|-------------|--------------|
-| 1 | **Experimental** | Concept prototype, exploratory | RFC, basic implementation |
-| 2 | **Functional** | Works for basic scenarios | Golden tests, documented scope, known limitations |
-| 3 | **Production Ready** | Stable, qualified for release | Benchmark ≥80%, ≥50 real cases, documentation, no P0/P1 security issues |
-| 4 | **Domain Expert** | Deep domain knowledge, multi-vendor/multi-domain | Benchmark ≥90%, ≥200 real cases, multi-vendor coverage |
-| 5 | **Certified** | Audited, benchmarked, reference-quality | Independent audit, public benchmark dashboard, ≥500 real cases |
-| 6 | **Reference Capability** | Industry benchmark for the domain | Cross-project validation, published methodology, community adoption |
+|1|**Eksperimental**|Prototipe konsep, eksplorasi|RFC, implementasi dasar|
+|2|**Fungsional**|Berfungsi untuk skenario dasar|Golden Test, mencakup terdokumentasi, batasan yang tidak diketahui|
+|3|**Siap Produksi**|Stabil, memenuhi syarat rilis|Benchmark ≥80%, ≥50 kasus nyata, dokumentasi, tidak ada masalah keamanan P0/P1|
+|4|**Ahli Domain**|Pengetahuan domain mendalam, multi-vendor/multi-domain|Benchmark ≥90%, ≥200 kasus nyata, mencakup multi-vendor|
+|5|**Bersertifikat**|Diaudit, dibenchmark, kualitas referensi|Audit independen, dashboard Benchmark publik, ≥500 kasus nyata|
+|6|**Referensi Kemampuan**|Tolok ukur industri untuk domain tersebut|Validasi lintas proyek, metodologi terpublikasi, adopsi komunitas|
 
-**Current Status (2026-08-02):**
+**Status Saat Ini (2026-08-02):**
 
-| Capability Pack | Maturity Level | Target Level |
-|-----------------|----------------|--------------|
-| Network Engineer | 3 — Production Ready | 4 — Domain Expert |
-| Code Engineer | 3 — Production Ready | 4 — Domain Expert |
-| Research Assistant | 3 — Production Ready | 4 — Domain Expert |
-| DevOps Assistant | 3 — Production Ready | 4 — Domain Expert |
-| Trading Analyst | 2 — Functional | 3 — Production Ready |
-| Self Development | 3 — Production Ready | 4 — Domain Expert |
-| Decision Intelligence | 3 — Production Ready | 4 — Domain Expert |
-| System Architect | 3 — Production Ready | 4 — Domain Expert |
-| Security Engineer | 3 — Production Ready | 4 — Domain Expert |
-| Data Engineer | 3 — Production Ready | 4 — Domain Expert |
-| Database Engineer | 3 — Production Ready | 4 — Domain Expert |
-| QA Engineer | 3 — Production Ready | 4 — Domain Expert |
-| Business Analyst | 3 — Production Ready | 4 — Domain Expert |
+|Capability Pack|Tingkat Kematangan|Sasaran Tingkat|
+|-----------------|------------------|--------------|
+|Insinyur Jaringan|3 — Siap Produksi|4 — Ahli Domain|
+|Kode Insinyur|3 — Siap Produksi|4 — Ahli Domain|
+|Asisten Peneliti|3 — Siap Produksi|4 — Ahli Domain|
+|Asisten DevOps|3 — Siap Produksi|4 — Ahli Domain|
+|Analis Perdagangan|2 — Fungsional|3 — Siap Produksi|
+|Pengembangan Diri|3 — Siap Produksi|4 — Ahli Domain|
+|Decision Intelligence|3 — Siap Produksi|4 — Ahli Domain|
+|Sistem Arsitek|3 — Siap Produksi|4 — Ahli Domain|
+|Security Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|Data Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|Database Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|QA Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|Business Analyst|3 — Siap Produksi|4 — Ahli Domain|
 
 ---
 
-## 3. Quality Grades
+## 3. Nilai Kualitas
 
-Quality Grades describe the **current benchmark result** of a Capability Pack. They are outcomes of evaluation, not maturity levels.
-> Terjemahan Indonesia: Kualitas Grades describe current benchmark result dari sebuah kapabilitas Pack. They adalah outcomes dari evaluation, not maturity levels.
+Quality Grades menggambarkan **hasil Benchmark terkini** dari sebuah Capability Pack. Grade ini adalah hasil evaluasi, bukan level kematangan.
 
-| Grade | Meaning | Benchmark Score |
-|-------|---------|-----------------|
-| C | **Functional** — works for basic scenarios | ≥65% |
-| B | **Production-ready** — stable and reliable | ≥75% |
-| B+ | **Production-ready** — above-average reliability | ≥80% |
-| A- | **Domain expert** — deep knowledge in primary domain | ≥85% |
-| A | **Expert** — comprehensive domain mastery | ≥90% |
-| A+ | **Reference implementation** — industry benchmark | ≥95% |
+|Nilai|Makna|Skor Benchmark|
+|-------|-------|-----------------|
+|C|**Fungsional** — berfungsi untuk skenario dasar|≥65%|
+|B|**Siap produksi** — stabil dan andal|≥75%|
+|B+|**Siap produksi** — kehebatan di atas rata-rata|≥80%|
+|A-|**Ahli domain** — pengetahuan mendalam di domain utama|≥85%|
+|A|**Ahli** — penguasaan domain yang komprehensif|≥90%|
+|SEBUAH+|**Implementasi referensi** — tolok ukur industri|≥95%|
 
-**Current Quality Grades (2026-08-02):**
+**Nilai Kualitas Saat Ini (2026-08-02):**
 
-| Capability Pack | Grade | Score | Status |
+|Capability Pack|Nilai|Skor|Status|
 |-----------------|-------|-------|--------|
-| Network Engineer | A | ≥90 | Production Ready |
-| Code Engineer | A- | ≥85 | Production Ready |
-| Research Assistant | A- | ≥85 | Production Ready |
-| DevOps Assistant | B+ | ≥80 | Production Ready |
-| Trading Analyst | B+ | ≥80 | Certification Pending |
-| Self Development | A | ≥90 | Production Ready |
-| Decision Intelligence | A | 91.25% | Production Ready (RFC-0007) |
-| System Architect | A | 97.50% | Production Ready (RFC-0011) |
-| Security Engineer | A- | ≥85 | Production Ready (RFC-0008) |
-| Data Engineer | A- | ≥85 | Production Ready (RFC-0009) |
-| Database Engineer | A- | ≥85 | Production Ready (RFC-0010) |
-| QA Engineer | A | ≥90 | Production Ready (RFC-0012) |
-| Business Analyst | A- | ≥85 | Production Ready (RFC-0013) |
+|Insinyur Jaringan|A|≥90|Siap Produksi|
+|Kode Insinyur|A-|≥85|Siap Produksi|
+|Asisten Peneliti|A-|≥85|Siap Produksi|
+|Asisten DevOps|B+|≥80|Siap Produksi|
+|Analis Perdagangan|B+|≥80|Sertifikasi Tertunda|
+|Pengembangan Diri|A|≥90|Siap Produksi|
+|Decision Intelligence|A|91,25%|Siap Produksi (RFC-0007)|
+|Sistem Arsitek|A|97,50%|Siap Produksi (RFC-0011)|
+|Security Engineer|A-|≥85|Siap Produksi (RFC-0008)|
+|Data Engineer|A-|≥85|Siap Produksi (RFC-0009)|
+|Database Engineer|A-|≥85|Siap Produksi (RFC-0010)|
+|QA Engineer|A|≥90|Siap Produksi (RFC-0012)|
+|Business Analyst|A-|≥85|Siap Produksi (RFC-0013)|
 
-### Quality Grade vs Maturity Level
+### Mutu Kelas vs Tingkat Kematangan
 
-These two concepts are independent:
-> Terjemahan Indonesia: These two concepts adalah independent:
+Kedua konsep ini bersifat mandiri:
 
-- **Maturity Level** = Where the pack is in its lifecycle (e.g., Production Ready)
-- **Quality Grade** = How well the pack performs in benchmarks (e.g., A)
+- **Level Kematangan** = Di mana paket berada dalam lifecycle-nya (misalnya, Siap Produksi)
+- **Quality Grade** = Keberhasilan kinerja paket dalam Benchmark (misalnya, A)
 
-A pack at Level 3 (Production Ready) may be working toward A+ grade. A pack at Level 4 (Domain Expert) may have a lower grade if its domain scope has expanded faster than benchmark scores.
-> Terjemahan Indonesia: Sebuah pack at Level 3 (Production Ready) may menjadi working toward sebuah+ grade. sebuah pack at Level 4 (Domain Expert) may memiliki sebuah lower grade if its domain scope memiliki expanded faster than benchmark scores.
+Sebuah paket di Level 3 (Siap Produksi) mungkin sedang menuju grade A+. Sebuah paket di Level 4 (Ahli Domain) mungkin memiliki tingkat lebih rendah jika cakupan domainnya berkembang lebih cepat daripada skor Benchmark-nya.
 
 ---
 
-## 4. Capability Lifecycle
+## 4. Kemampuan Siklus Hidup
 
-Each Capability Pack follows a defined lifecycle from proposal to deprecation:
-> Terjemahan Indonesia: Each kapabilitas Pack follows sebuah defined lifecycle dari proposal untuk deprecation:
+Setiap Capability Pack mengikuti siklus hidup yang terdefinisi dari proposal hingga penebangan:
 
 ```
 Proposal
     ↓
   RFC
     ↓
-Prototype
+Prototipe
     ↓
-Experimental
+Eksperimental
     ↓
-Stable
+Stabil
     ↓
-Certified
+Bersertifikat
     ↓
-Maintenance
+Pemeliharaan
     ↓
 Deprecated
 ```
 
-### Phase Descriptions
+### Deskripsi Fase
 
-| Phase | Gate | Activities |
+|Fase|Gerbang|Aktivitas|
 |-------|------|------------|
-| **Proposal** | Idea document | Define scope, target domain, use cases |
-| **RFC** | RFC approved | Community review, architecture alignment |
-| **Prototype** | Prototype demo | Core logic implemented, basic tests |
-| **Experimental** | Golden tests pass | Known limitations documented, benchmark v1 |
-| **Stable** | Benchmark ≥80%, ≥50 real cases | Full documentation, security review, SDK access |
-| **Certified** | Independent audit | Public benchmark dashboard, reference documentation |
-| **Maintenance** | No active development | Bug fixes only, no new features |
-| **Deprecated** | Replacement identified | Notice period, migration guide, archive |
+|**Usul**|Dokumen ide|Menentukan cakupan, domain target, use case|
+|**RFC**|RFC disetujui|Tinjau komunitas, penyelarasan arsitektur|
+|**Prototipe**|Demo prototipe|Logika inti diimplementasikan, pengujian dasar|
+|**Eksperimental**|Golden Test lulus|Keterbatasan terdokumentasi, Benchmark v1|
+|**Stabil**|Benchmark ≥80%, ≥50 kasus nyata|Dokumentasi lengkap, pengamatan keamanan, akses SDK|
+|**Bersertifikat**|Audit independen|Dashboard Benchmark publik, dokumentasi referensi|
+|**Pemeliharaan**|Tidak ada pengembangan aktif|Hanya perbaikan bug, tanpa fitur baru|
+|**Tidak digunakan lagi**|Pengganti teridentifikasi|Periode pemberitahuan, panduan migrasi, arsip|
 
-### Current Lifecycle Status
+### Status Siklus Hidup Saat Ini
 
-| Capability Pack | Lifecycle Phase | Notes |
+|Capability Pack|Fase Siklus Hidup|Catatan|
 |-----------------|-----------------|-------|
-| Network Engineer | Stable | Progressing toward Certified |
-| Code Engineer | Stable | Progressing toward Certified |
-| Research Assistant | Stable | Progressing toward Certified |
-| DevOps Assistant | Stable | Progressing toward Certified |
-| Trading Analyst | Experimental → Stable | Certification in progress |
-| Self Development | Stable | Progressing toward Certified |
-| Decision Intelligence | Stable | Shared reasoning layer (RFC-0007) |
-| System Architect | Stable | Architecture authority (RFC-0011) |
-| Security Engineer | Stable | Production Ready (RFC-0008) |
-| Data Engineer | Stable | Production Ready (RFC-0009) |
-| Database Engineer | Stable | Production Ready (RFC-0010) |
-| QA Engineer | Stable | Production Ready (RFC-0012) |
-| Business Analyst | Stable | Production Ready (RFC-0013) |
+|Insinyur Jaringan|Stabil|Berkembang menuju Bersertifikat|
+|Kode Insinyur|Stabil|Berkembang menuju Bersertifikat|
+|Asisten Peneliti|Stabil|Berkembang menuju Bersertifikat|
+|Asisten DevOps|Stabil|Berkembang menuju Bersertifikat|
+|Analis Perdagangan|Eksperimental → Stabil|Sertifikasi berlangsung|
+|Pengembangan Diri|Stabil|Berkembang menuju Bersertifikat|
+|Decision Intelligence|Stabil|Lapisan penalaran bersama (RFC-0007)|
+|Sistem Arsitek|Stabil|Otoritas arsitektur (RFC-0011)|
+|Security Engineer|Stabil|Siap Produksi (RFC-0008)|
+|Data Engineer|Stabil|Siap Produksi (RFC-0009)|
+|Database Engineer|Stabil|Siap Produksi (RFC-0010)|
+|QA Engineer|Stabil|Siap Produksi (RFC-0012)|
+|Business Analyst|Stabil|Siap Produksi (RFC-0013)|
 
 ---
 
-## 5. Official Capability Packs
+## 5. Capability Pack Resmi
 
-### 5.1 Network Engineer
+### 5.1 Insinyur Jaringan
 
-**Category:** Networking
-**Capabilities:** Configuration generation, validation, deployment
-**Success Criteria:**
-- Configures MikroTik routers via Plugin
-- Validates configurations before deployment
-- Generates rollback scripts
-- Uses Knowledge Graph for network topology
-**Quality Target:** A — 100 real configs, ≥95% accuracy
-**Maturity Target:** Level 4 — Domain Expert
+**Kategori:** Jaringan
+**Kemampuan:** Pembuatan konfigurasi, validasi, penerapan
+**Kriteria Keberhasilan:**
+- Mengonfigurasi router MikroTik melalui Plugin
+- Memvalidasi konfigurasi sebelum penerapan
+- Akhirnya naskah dikembalikan
+- Menggunakan Knowledge Graph untuk topologi jaringan
+**Target Kualitas:** A — 100 konfigurasi nyata, akurasi ≥95%.
+**Target Kematangan:** Level 4 — Domain Ahli
 
-### 5.2 Code Engineer
+### 5.2 Kode Insinyur
 
-**Category:** Development
-**Capabilities:** Full-stack code generation, testing, documentation
-**Success Criteria:**
-- Generates backend API from requirements
-- Generates frontend UI from API spec
-- Creates database schema
-- Generates tests and documentation
-- All components work together
-**Quality Target:** A- (≥85) — 100 repositories, ≥90% code quality
-**Maturity Target:** Level 4 — Domain Expert
+**Kategori:** Pengembangan
+**Kemampuan:** Generasi kode full-stack, pengujian, dokumentasi
+**Kriteria Keberhasilan:**
+- Hasilkan backend API dari persyaratan
+- Kesimpulannya frontend UI dari API spec
+- Membuat skema database
+- Menghasilkan pengujian dan dokumentasi
+- Semua komponen bekerja bersama
+**Target Kualitas:** A- (≥85) — 100 repositori, ≥90% kualitas kode
+**Target Kematangan:** Level 4 — Domain Ahli
 
-### 5.3 Research Assistant
+### 5.3 Asisten Peneliti
 
-**Category:** Research
-**Capabilities:** RAG, Knowledge Graphs, citation, learning
-**Success Criteria:**
-- Retrieves relevant documents from knowledge base
-- Synthesizes information from multiple sources
-- Provides citations for claims
-- Learns from research sessions
-**Quality Target:** A- (≥85) — 100 research questions, ≥85% citation accuracy
-**Maturity Target:** Level 4 — Domain Expert
+**Kategori:** Penelitian
+**Kemampuan:** RAG, Knowledge Graph, sitasi, pembelajaran
+**Kriteria Keberhasilan:**
+- Mengambil dokumen yang relevan dari dasar pengetahuan
+- Menyintesis informasi dari berbagai sumber
+- Menyediakan situs untuk setiap klaim
+- Belajar dari sesi penelitian
+**Target Kualitas:** A- (≥85) — 100 pertanyaan penelitian, ≥85% akurasi sitasi
+**Target Kematangan:** Level 4 — Domain Ahli
 
-### 5.4 DevOps Assistant
+### 5.4 Asisten DevOps
 
-**Category:** DevOps
-**Capabilities:** CI/CD, containerization, deployment
-**Success Criteria:**
-- Generates Dockerfiles from application requirements
-- Creates GitHub Actions workflows
-- Deploys to container registry
-- Verifies deployment health
-**Quality Target:** B+ (≥80) — 100 infrastructure scenarios, ≥85% correctness
-**Maturity Target:** Level 4 — Domain Expert
+**Kategori:** DevOps
+**Kemampuan:** CI/CD, containerisasi, penerapan
+**Kriteria Keberhasilan:**
+- Menghasilkan Dockerfile dari kebutuhan aplikasi
+- Membuat alur kerja GitHub Actions
+- Penerapan ke registri kontainer
+- Memverifikasi penyebaran kesehatan
+**Target Kualitas:** B+ (≥80) — 100 skenario infrastruktur, ≥85% kebenaran
+**Target Kematangan:** Level 4 — Domain Ahli
 
-### 5.5 Trading Analyst
+### 5.5 Analis Perdagangan
 
-**Category:** Finance
-**Capabilities:** Market analysis, simulation, decision theory
-**Success Criteria:**
-- Analyzes market data using cognitive pipeline
-- Generates trading recommendations with confidence scores
-- Uses debate engine for multi-strategy comparison
-- Records decisions to experience memory
-**Quality Target:** B+ (≥80) — 100 market scenarios, risk-adjusted returns
-**Maturity Target:** Level 3 — Production Ready (Certification Pending)
+**Kategori:** Keuangan
+**Kemampuan:** Analisis pasar, simulasi, teori keputusan
+**Kriteria Keberhasilan:**
+- Menganalisis data pasar menggunakan saluran kognitif
+- Kesimpulannya rekomendasi trading dengan skor keyakinan
+- Menggunakan mesin debat untuk perbandingan multi-strategi
+- Mencatat keputusan ke pengalaman kenangan
+**Target Kualitas:** B+ (≥80) — 100 skenario pasar, pengembalian yang disesuaikan dengan risiko
+**Target Kematangan:** Level 3 — Siap Produksi (Sertifikasi Tertunda)
 
-### 5.6 Self Development
+### 5.6 Pengembangan Diri
 
-**Category:** Platform
-**Capabilities:** Architecture analysis, improvement proposal, patch generation, approval workflow
-**Success Criteria:**
-- Analyzes project structure and identifies bottlenecks
-- Generates improvement proposals with risk assessment
-- Produces patches and test reports
-- Requires explicit user approval before applying changes
-**Quality Target:** A (≥90) — 10 real projects, ≥80% improvement acceptance
-**Maturity Target:** Level 4 — Domain Expert
+**Kategori:** Platform
+**Kemampuan:** Analisis arsitektur, proposal perbaikan, pembuatan patch, alur persetujuan
+**Kriteria Keberhasilan:**
+- Menganalisis struktur proyek dan mengidentifikasi kemacetan
+- Akhirnya usulan perbaikan dengan penilaian risiko
+- Hasil patch dan laporan pengujian
+- Memerlukan persetujuan eksplisit pengguna sebelum menerapkan perubahan
+**Target Kualitas:** A (≥90) — 10 proyek nyata, ≥80% penerimaan perbaikan
+**Target Kematangan:** Level 4 — Domain Ahli
 
 ### 5.7 Decision Intelligence
 
-**Category:** Platform — Shared Reasoning
-**Capabilities:** Evidence collection, alternative generation, risk analysis, trade-off analysis, scoring, confidence estimation, explainable decision, decision history
-**Success Criteria (RFC-0007):**
-- Evidence-based decision-making from multiple Capability Pack sources
-- Generates explainable recommendations with confidence scores
-- Analyzes risk (probability × impact) and trade-offs across alternatives
-- Records decisions to Experience Memory / Decision History
-- Full explainability chain: evidence → reasoning → alternatives → risk → decision → rationale
-**Quality Target:** A (≥90) — benchmark overall 91.25%
-**Benchmark:** `benchmarks/decision_intelligence_benchmark.py` (8 dimensions)
-**Maturity Target:** Level 3 — Production Ready
+**Kategori:** Platform — Penalaran Bersama
+**Kemampuan:** Pengumpulan bukti, generasi alternatif, analisis risiko, analisis trade-off, scoring, estimasi kepercayaan, keputusan yang dapat dijelaskan, riwayat keputusan
+**Kriteria Keberhasilan (RFC-0007):**
+- Pengambilan keputusan berdasarkan bukti dari berbagai sumber Capability Pack
+- Menghasilkan rekomendasi yang dapat dijelaskan dengan skor keyakinan
+- Menganalisis risiko (probabilitas × dampak) dan trade-off antar alternatif
+- Mencatat keputusan ke Experience Memory / Decision History
+- Rantai penjelasan lengkap: bukti → alasan → alternatif → risiko → keputusan → alasan
+**Target Kualitas:** A (≥90) — Benchmark total 91,25%
+**Benchmark:** `benchmarks/decision_intelligence_benchmark.py` (8 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
 
-### 5.8 System Architect
+### 5.8 Sistem Arsitek
 
-**Category:** Platform — Architecture Authority
-**Capabilities:** Architecture review, Clean Architecture validation, DDD analysis, event-driven design, CQRS evaluation, microservices/monolith analysis, package boundary enforcement, governance, ADR generation
-**Success Criteria (RFC-0011):**
-- Reviews repository structure against Clean Architecture, DDD, event-driven, CQRS, and microservices patterns
-- Detects dependency cycles, layer violations, and package boundary violations
-- Enforces Architecture Governance: Core change guard, Capability First Rule, pack independence
-- Generates structured ADR drafts from review findings
-- Full explainability chain: findings → metrics → recommendation → ADR
-**Quality Target:** A (≥90) — benchmark overall 97.50%
-**Benchmark:** `benchmarks/system_architect_benchmark.py` (8 dimensions)
-**Maturity Target:** Level 4 — Domain Expert
+**Kategori:** Platform — Otoritas Arsitektur
+**Kemampuan:** Tinjauan arsitektur, validasi Clean Architecture, analisis DDD, desain event-driven, evaluasi CQRS, analisis microservices/monolith, penegakan batasan paket, tata kelola, generasi ADR
+**Kriteria Keberhasilan (RFC-0011):**
+- Mereview struktur repositori terhadap Clean Architecture, DDD, event-driven, CQRS, dan pola microservices
+- Mendeteksi siklus ketergantungan, pelanggaran lapisan, dan pelanggaran batas paket
+- Menegakkan Arsitektur Tata Kelola: Inti penjaga perubahan, Kapabilitas Aturan Utama, paket independensi
+- Hasil rencana ADR disusun dari pengamatan temuan
+- Penjelasan rantai lengkap: temuan → metrik → rekomendasi → ADR
+**Target Kualitas:** A (≥90) — Benchmark keseluruhan 97,50%
+**Benchmark:** `benchmarks/system_architect_benchmark.py` (8 dimensi)
+**Target Kematangan:** Level 4 — Domain Ahli
 
 ### 5.9 Security Engineer
 
-**Category:** Security
-**Capabilities:** OWASP Top 10 analysis, security audit, penetration test, threat modeling, secret detection, vulnerability analysis, dependency audit, configuration hardening, compliance mapping
-**Success Criteria (RFC-0008):**
-- Enterprise security capabilities across OWASP Top 10
-- Threat modeling and secret detection
-- Vulnerability analysis and dependency audit
-- Configuration hardening and compliance mapping
-**Quality Target:** A- (≥85)
-**Benchmark:** `benchmarks/security_engineer_benchmark.py` (9 dimensions)
-**Maturity Target:** Level 3 — Production Ready
+**Kategori:**Keamanan
+**Kemampuan:** Analisis OWASP Top 10, audit keamanan, uji penetrasi, pemodelan ancaman, deteksi rahasia, analisis kerentanan, audit dependensi, pengerasan konfigurasi, persyaratan kepatuhan
+**Kriteria Keberhasilan (RFC-0008):**
+- Kemampuan keamanan perusahaan mencakup OWASP Top 10
+- Pemodelan ancaman dan deteksi rahasia
+- Analisis kerentanan dan ketergantungan audit
+- Konfigurasi konfigurasi dan pemadatan
+**Target Kualitas:** A- (≥85)
+**Benchmark:** `benchmarks/security_engineer_benchmark.py` (9 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
 
 ### 5.10 Data Engineer
 
-**Category:** Data
-**Capabilities:** ETL/ELT pipeline, data cleaning, dataset validation, schema evolution, feature engineering, time-series handling, data quality assurance
-**Success Criteria (RFC-0009):**
-- Full data lifecycle management: ETL/ELT, data cleaning, dataset validation
-- Schema evolution and feature engineering
-- Time-series handling and data quality assurance
-**Quality Target:** A- (≥85)
-**Benchmark:** `benchmarks/data_engineer_benchmark.py` (8 dimensions)
-**Maturity Target:** Level 3 — Production Ready
+**Kategori:** Data
+**Kemampuan:** Pipeline ETL/ELT, pembersihan data, validasi dataset, evolusi skema, rekayasa fitur, penanganan time-series, jaminan kualitas data
+**Kriteria Keberhasilan (RFC-0009):**
+- Manajemen data siklus hidup lengkap: ETL/ELT, pembersihan data, validasi dataset
+- Evolusi skema dan rekayasa fitur
+- Penanganan time-series dan jaminan kualitas data
+**Target Kualitas:** A- (≥85)
+**Benchmark:** `benchmarks/data_engineer_benchmark.py` (8 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
 
 ### 5.11 Database Engineer
 
-**Category:** Database
-**Capabilities:** Schema design, query optimization, migration management, replication planning, backup/recovery, index recommendation, performance analysis
-**Success Criteria (RFC-0010):**
-- Enterprise database capabilities: schema design, query optimization
-- Migration management, replication planning, backup/recovery
-- Index recommendation and performance analysis
-**Quality Target:** A- (≥85)
-**Benchmark:** `benchmarks/database_engineer_benchmark.py` (8 dimensions)
-**Maturity Target:** Level 3 — Production Ready
+**Kategori:** Data Dasar
+**Kemampuan:** Desain skema, optimasi query, manajemen migrasi, perencanaan replikasi, backup/recovery, rekomendasi indeks, analisis kinerja
+**Kriteria Keberhasilan (RFC-0010):**
+- Kemampuan database enterprise: desain skema, optimasi query
+- Manajemen migrasi, perencanaan replikasi, pencadangan/pemulihan
+- Rekomendasi indeks dan analisis kinerja
+**Target Kualitas:** A- (≥85)
+**Benchmark:** `benchmarks/database_engineer_benchmark.py` (8 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
 
 ### 5.12 QA Engineer
 
-**Category:** Quality Assurance
-**Capabilities:** Unit/integration test generation, regression test automation, mutation testing, Golden Test generation for other packs, benchmark test generation, flaky test detection, coverage analysis, performance validation
-**Success Criteria (RFC-0012):**
-- Automated quality assurance: unit/integration test generation
-- Regression test automation and mutation testing
-- Golden Test generation for other packs
-- Benchmark test generation and coverage analysis
-**Quality Target:** A (≥90)
-**Benchmark:** `benchmarks/qa_engineer_benchmark.py` (9 dimensions)
-**Maturity Target:** Level 3 — Production Ready
+**Kategori:** Jaminan Mutu
+**Kemampuan:** Uji unit/integrasi generasi, uji regresi otomasi, uji pengobatan, generasi Golden Test untuk paket lain, uji generasi Benchmark, uji deteksi flaky, meliputi analisis, validasi kinerja
+**Kriteria Keberhasilan (RFC-0012):**
+- Jaminan kualitas otomatis: pengujian unit/integrasi
+- Uji regresi otomasi dan uji pengobatan
+- Generasi Golden Test untuk paket lain
+- Cakupan tes dan analisis Generasi Benchmark
+**Target Kualitas:** A (≥90)
+**Benchmark:** `benchmarks/qa_engineer_benchmark.py` (9 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
 
 ### 5.13 Business Analyst
 
-**Category:** Business Analysis
-**Capabilities:** Requirement gathering, business process modeling, user story generation, use case modeling, BRD generation, functional specification, gap analysis, ROI analysis, process optimization
-**Success Criteria (RFC-0013):**
-- Business-to-technical translation: requirement gathering
-- Business process modeling and user story generation
-- Use case modeling, BRD generation, functional specification
-- Gap analysis, ROI analysis, and process optimization
-**Quality Target:** A- (≥85)
-**Benchmark:** `benchmarks/business_analyst_benchmark.py` (9 dimensions)
-**Maturity Target:** Level 3 — Production Ready
+**Kategori:** Analisis Bisnis
+**Kemampuan:** Pengumpulan kebutuhan, pemodelan proses bisnis, generasi user story, pemodelan use case, generasi BRD, spesifikasi fungsional, gap analysis, analisis ROI, proses optimasi
+**Kriteria Keberhasilan (RFC-0013):**
+- Penerjemahan bisnis-ke-teknis: persyaratan pengumpulan
+- Pemodelan proses bisnis dan generasi user story
+- Pemodelan use case, generasi BRD, spesifikasi fungsional
+- Analisis gambaran, analisis ROI, dan proses optimasi
+**Target Kualitas:** A- (≥85)
+**Benchmark:** `benchmarks/business_analyst_benchmark.py` (9 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
 
 ---
 
-## 6. Benchmark Requirements
+## 6. Persyaratan Benchmark
 
-### 6.1 Capability Benchmark
+### 6.1 kemampuan Benchmark
 
-Each Capability Pack must define and maintain a benchmark:
-> Terjemahan Indonesia: Each kapabilitas Pack must define dan maintain sebuah benchmark:
+Setiap Capability Pack harus mendefinisikan dan memelihara Benchmark:
 
-- Minimum **100 scenarios** for A/B grade targets
-- Minimum **10 projects** for A-/B+ grade targets
-- Benchmark must cover 6 dimensions: **Accuracy, Completeness, Explainability, Safety, Efficiency, Consistency**
-- Results must be **reproducible** and persisted in `benchmarks/`
+- Minimum **100 skenario** untuk menargetkan nilai A/B
+- Minimum **10 proyek** untuk target kelas A-/B+
+- Benchmark harus mencakup 6 dimensi: **Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi**
+- Hasil harus **dapat direproduksi** dan disimpan di `benchmarks/`
 
-### 6.2 Real-world Benchmark
+### 6.2 Benchmark Dunia Nyata
 
-Each Capability Pack must maintain a `real_cases/<capability_id>/` directory containing:
-> Terjemahan Indonesia: Each kapabilitas Pack must maintain sebuah real_cases// directory containing:
+Setiap Capability Pack harus memelihara direktori `real_cases/<capability_id>/` yang berisi:
 
-- Real input/output pairs from actual usage
-- Evaluation notes for each case
-- Links to synthetic benchmark updates driven by real findings
+- Pasangan input/output nyata dari penggunaan aktual
+- Catatan evaluasi untuk setiap kasus
+- Tautan ke pembaruan Benchmark sintetis yang didorong oleh temuan nyata
 
-### 6.3 Benchmark Dimensions
+### 6.3 Dimensi Benchmark
 
-| Dimension | Definition | Measurement |
+|Dimensi|Definisi|pengukuran|
 |-----------|------------|-------------|
-| Accuracy | Correctness of outputs | % of correct findings/recommendations |
-| Completeness | Coverage of all relevant aspects | % of required elements covered |
-| Explainability | Clarity and reasoning quality | Human evaluation score |
-| Safety | No harmful or insecure outputs | % of outputs passing safety checks |
-| Efficiency | Response time and resource usage | Latency P95, token usage |
-| Consistency | Same output for same input | Variance across repeated runs |
+|Ketepatan|Keluaran kebenaran|% temuan/rekomendasi yang benar|
+|Kelengkapan|Cakupan semua aspek relevan|% elemen yang diperlukan tercakup|
+|Penjelasan|Kejelasan dan kualitas penalaran|Skor evaluasi manusia|
+|Keamanan|Tidak ada keluaran berbahaya atau tidak aman|% output yang lolos pemeriksaan keamanan|
+|Efisiensi|Waktu respons dan penggunaan sumber daya|Latensi P95, penggunaan token|
+|Konsistensi|Keluaran yang sama untuk masukan yang sama|Varian di keseluruhannya berlipat ganda|
 
 ---
 
-## 7. Knowledge Expansion
+## 7. Perluasan Pengetahuan
 
-All planned knowledge additions are tracked via RFCs and implemented inside Capability Packs only. Core remains unchanged.
-> Terjemahan Indonesia: All planned knowledge additions adalah tracked via RFCs dan implemented inside kapabilitas Packs only. Core remains unchanged.
+Semua penambahan pengetahuan yang direncanakan dilacak melalui RFC dan diimplementasikan hanya di dalam Capability Pack. Inti tetap tidak berubah.
 
-### 7.1 Network Engineer
+### 7.1 Insinyur Jaringan
 
-**Reference RFC:** RFC-0004
+**Referensi RFC:** RFC-0004
 
-**Planned additions:**
-- Cisco Design Guide: campus, data center, SD-WAN, HA
-- MikroTik Best Practice: ISP edge, hotspot, IPv6, FastTrack
-- Fortinet Hardening: FortiOS, policy, VPN, threat protection
-- BGP: path selection, filtering, communities, monitoring
-- MPLS: forwarding, LDP, VRF, traffic engineering basics
-- IPv6: dual-stack, SLAAC, DHCPv6, transition mechanisms
-- Zero Trust: principles, micro-segmentation, ZTNA
+**Penambahan yang direncanakan:**
+- Panduan Desain Cisco: kampus, pusat data, SD-WAN, HA
+- Praktik Terbaik MikroTik: ISP edge, hotspot, IPv6, FastTrack
+- Pengerasan Fortinet: FortiOS, kebijakan, VPN, ancaman perlindungan
+- BGP: pemilihan jalur, pemfilteran, komunitas, pemantauan
+- MPLS: penerusan, LDP, VRF, dasar-dasar rekayasa lalu lintas
+- IPv6: dual-stack, SLAAC, DHCPv6, mekanisme transisi
+- Zero Trust: prinsip, segmentasi mikro, ZTNA
 
-### 7.2 Code Engineer
+### 7.2 Kode Insinyur
 
-**Reference RFC:** RFC-0006
+**Referensi RFC:** RFC-0006
 
-**Planned additions:**
-- Clean Architecture: layers, dependency rule, boundaries
-- DDD: bounded contexts, aggregates, domain events, anti-corruption
-- SOLID: all 5 principles with Python/TypeScript examples
-- CQRS: command/query separation, write/read models
-- Event Sourcing: event store, replay, projection
-- Secure Coding: OWASP Top 10, injection, auth, secrets
+**Penambahan yang direncanakan:**
+- Arsitektur Bersih: lapisan, aturan, ketergantungan, batasan
+- DDD: konteks terbatas, agregat, peristiwa domain, anti korupsi
+- SOLID: seluruh 5 prinsip dengan contoh Python/TypeScript
+- CQRS: perpecahan perintah/query, model tulis/baca
+- Sumber Acara: penyimpanan acara, pemutaran ulang, proyeksi
+- Pengkodean Aman: OWASP Top 10, injeksi, autentikasi, rahasia
 
-### 7.3 Research Assistant
+### 7.3 Asisten Peneliti
 
-**Planned additions:**
-- Evidence ranking: source quality, recency, methodology
-- Contradiction detection: identify conflicting claims
-- Citation quality: completeness, format, provenance
-- Confidence estimation: uncertainty quantification
-- Synthesis patterns: multi-paper integration
+**Penambahan yang direncanakan:**
+- Peringkat bukti: kualitas sumber, kebaruan, metodologi
+- Deteksi membedakan: mengidentifikasi klaim yang berbeda
+- Kualitas situs: kelengkapan, format, asal
+- Estimasi keyakinan: kuantifikasi keseluruhan
+- Pola sintesis: integrasi multi-kertas
 
-### 7.4 DevOps Assistant
+### 7.4 Asisten DevOps
 
-**Planned additions:**
-- Multi-cloud: AWS, Azure, GCP service patterns
-- GitOps: ArgoCD, Flux, declarative deployment
-- Platform engineering: IDP, developer portals
-- Policy-as-code: OPA, Sentinel, Kyverno
-- Chaos engineering principles
+**Penambahan yang direncanakan:**
+- Multi-cloud: pola layanan AWS, Azure, GCP
+- GitOps: ArgoCD, Flux, standar deklaratif
+- Platform Rekayasa: IDP, pengembang portal
+- Kebijakan sebagai kode: OPA, Sentinel, Kyverno
+- Prinsip chaos engineering
 
-### 7.5 Trading Analyst
+### 7.5 Analis Perdagangan
 
-**Reference RFC:** RFC-0005
+**Referensi RFC:** RFC-0005
 
-**Planned additions:**
-- Wyckoff: phases, composite operator, supply/demand
-- ICT: market structure, FVG, order blocks, liquidity
-- SMC: institutional flow, liquidity sweeps, premium/discount
-- Elliott Wave: impulse/corrective patterns, Fibonacci
-- Volume Profile: POC, value area, volume patterns
-- Macro: indicators, Fed policy, risk-on/off
-- Options: Greeks, strategies, IV, unusual activity
-- Futures: contango/backwardation, basis, COT
-- Psychology: biases, risk tolerance, emotional management
+**Penambahan yang direncanakan:**
+- Wyckoff: fase, operator gabungan, penawaran/permintaan
+- ICT: struktur pasar, FVG, blok pesanan, likuiditas
+- SMC: aliran institusional, likuiditas, premi/diskon
+- Elliott Wave: pola impuls/korektif, Fibonacci
+- Volume Profil: POC, nilai area, volume pola
+- Makro: indikator, kebijakan Fed, risk-on/off
+- Pilihan: Yunani, Strategi, IV, Aktivitas Tidak Biasa
+- Kontrak berjangka: contango/backwardation, basis, COT
+- Psikologi: bias, toleransi risiko, manajemen emosi
 
-### 7.6 Self Development
+### 7.6 Pengembangan Diri
 
-**Planned additions:**
-- Cross-project pattern learning
-- Impact prediction before changes
-- Architecture smell taxonomy
-- Change risk modeling
-- Automated improvement suggestions
+**Penambahan yang direncanakan:**
+- Pembelajaran pola lintas proyek
+- Prediksi dampak sebelum perubahan
+- Bau arsitektur Taksonomi
+- Pemodelan risiko perubahan
+- Saran perbaikan otomatis
 
 ---
 
-## 8. Future Capability Packs (Roadmap)
+## 8. Capability Pack Masa Depan (Peta Jalan)
 
-All Capability Packs listed below have been implemented. Future packs will only be developed after the 13 existing packs reach target grade A/A-.
-> Terjemahan Indonesia: All kapabilitas Packs listed below memiliki been implemented. Future packs akan only menjadi developed after 13 existing packs reach target grade sebuah/sebuah-.
+Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pack hanya akan dikembangkan setelah 13 pack yang ada mencapai target grade A/A-.
 
 ### 8.1 Security Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
 **Fase:** Fase 2 — Setelah Capability Excellence
-**Status:** ✅ Implemented (RFC-0008)
-**Fungsi:** Keamanan aplikasi dan infrastruktur
+**Status:** ✅ Diimplementasikan (RFC-0008)
+**Fungsi:**Keamanan aplikasi dan infrastruktur
 **Kemampuan:**
-- OWASP Top 10 analysis
-- Security audit dan penetration test
-- Threat modeling
-- Secret detection dan vulnerability assessment
-**Dependent Packs:** Code, DevOps, Network
-**RFC Status:** RFC-0008 — Diimplementasikan
-**Target Maturity:** Level 3 — Production Ready
+- Analisis 10 OWASP
+- Audit keamanan dan uji penetrasi
+- Ancaman pemodelan
+- Deteksi kerahasiaan dan penilaian kerentanan
+**Paket Tergantung:** Kode, DevOps, Jaringan
+**Status RFC:** RFC-0008 — Diimplementasikan
+**Target Kematangan:** Level 3 — Siap Produksi
 
 ### 8.2 Data Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
 **Fase:** Fase 2 — Setelah Capability Excellence
-**Status:** ✅ Implemented (RFC-0009)
+**Status:** ✅ Diimplementasikan (RFC-0009)
 **Fungsi:** Fondasi data untuk meningkatkan Trading, Research, dan analitik
 **Kemampuan:**
-- ETL pipeline
-- Data cleaning dan quality
-- Dataset versioning
-- Feature engineering
-- Time-series pipeline
-**Dependent Packs:** Trading, Research, DevOps
-**RFC Status:** RFC-0009 — Diimplementasikan
-**Target Maturity:** Level 3 — Production Ready
+- pipa ETL
+- Pembersihan dan kualitas data
+- Pembuatan versi kumpulan data
+- Fitur Rekayasa
+- Saluran pipa deret waktu
+**Paket bergantung:** Perdagangan, Riset, DevOps
+**Status RFC:** RFC-0009 — Diimplementasikan
+**Target Kematangan:** Level 3 — Siap Produksi
 
-### 8.3 Enterprise Packs (Fase 3)
+### 8.3 Paket Perusahaan (Fase 3)
 
-| Capability Pack | Fungsi | Dependent Packs |
+|Capability Pack|Fungsi|Paket Tanggungan|
 |-----------------|--------|-----------------|
-| **Database Engineer** | SQL optimization, schema design, migration, index recommendation, performance analysis | Code, DevOps |
-| **System Architect** | DDD, microservices, event driven, ADR generator, architecture review, refactoring recommendation | Code, Self Development |
-| **QA Engineer** | Test generation, regression, mutation testing, Golden Test builder, benchmark generator | Code, DevOps, Self Development |
-| **Business Analyst** | Requirement analysis, user story, BRD, use case, workflow | Semua pack |
+|**Database Engineer**|Optimasi SQL, desain skema, migrasi, rekomendasi indeks, analisis kinerja|Kode, DevOps|
+|**QA Engineer**|Uji generasi, regresi, uji mutasi, pembangun Golden Test, generator Benchmark|Kode, DevOps, Pengembangan Diri|
+|**Business Analyst**|Persyaratan analisis, cerita pengguna, BRD, use case, alur kerja|Semua paket|
 
-### 8.4 Long-term Packs (Fase 4)
+### 8.4 Paket Jangka Panjang (Fase 4)
 
-| Capability Pack | Fungsi |
+|Capability Pack|Fungsi|
 |-----------------|--------|
-| **Product Manager** | Roadmap, prioritization, ROI, sprint planning |
-| **Documentation Engineer** | Sync documentation, OpenAPI, ADR, changelog, release notes |
-| **UI/UX Designer** | Design system, wireframe, accessibility, UX audit |
-| **AI Engineer** | RAG, fine-tuning, prompt engineering, agent design, evaluation |
-| **Infrastructure Engineer** | Kubernetes, Docker, storage, monitoring, observability, HA cluster |
+|**Manajer Produk**|Peta jalan, prioritas, ROI, perencanaan sprint|
+|**Insinyur Dokumentasi**|Sinkronisasi dokumentasi, OpenAPI, ADR, changelog, catatan rilis|
+|**Desainer UI/UX**|Sistem desain, wireframe, aksesibilitas, audit UX|
+|**Insinyur AI**|RAG, penyempurnaan, rekayasa cepat, desain agen, evaluasi|
+|**Insinyur Infrastruktur**|Kubernetes, Docker, penyimpanan, pemantauan, observabilitas, cluster HA|
 
-### 8.5 Yang Tidak Akan Menjadi Capability Pack
+### 8.5 Komponen yang Tidak Akan Menjadi Capability Pack
 
-Komponen berikut akan diposisikan sebagai **Plugin**, **Service**, atau **infrastruktur platform**, bukan Capability Pack:
-> Terjemahan Indonesia: Komponen berikut akan diposisikan sebagai Plugin, layanan, atau infrastruktur platform, bukan kapabilitas Pack:
+Komponen berikut akan diposisikan sebagai **Plugin**, **Layanan**, atau **platform infrastruktur**, bukan Capability Pack:
 
-- Authentication / Authorization
+- Otentikasi / Otorisasi
 - PostgreSQL / Redis / MinIO / Kafka
-- Plugin Marketplace
-- Broker Connector / Exchange Connector
-- Infrastruktur murni (load balancer, DNS, container runtime)
+- Plugin Pasar
+- Konektor Pialang / Konektor Pertukaran
+- Infrastruktur murni (penyeimbang beban, DNS, wadah Runtime)
 
 ---
 
-## 9. Capability Changelog Template
+## 9.Kemampuan Templat Changelog
 
-Each Capability Pack maintains its own changelog. The changelog records knowledge additions, benchmark improvements, and reasoning enhancements. It does not record Core changes.
-> Terjemahan Indonesia: Each kapabilitas Pack maintains its own changelog. changelog records knowledge additions, benchmark improvements, dan reasoning enhancements. It does not record Core changes.
+Setiap Capability Pack memelihara changelog-nya sendiri. Changelog mencatat penambahan pengetahuan, peningkatan Benchmark, dan peningkatan penalaran. Changelog tidak mencatat perubahan Core.
 
 ### Format
 
@@ -545,16 +513,16 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 - <knowledge/topic>
 
 ### Improved
-- <aspect>
+- <aspek>
 
 ### Fixed
-- <issue>
+- <masalah>
 
 ### Benchmark
-- <dimension>: <before> → <after>
+- <dimensi>: <sebelum> → <sesudah>
 ```
 
-### Example
+### Contoh
 
 ```markdown
 ## Network v1.1
@@ -565,11 +533,11 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 - IPv6 dual-stack patterns
 
 ### Improved
-- Firewall explanation depth
-- Risk scoring accuracy: 85% → 92%
+- Kedalaman penjelasan firewall
+- Akurasi risk scoring: 85% → 92%
 
 ### Fixed
-- VLAN false positive on trunk interfaces
+- VLAN false positive pada trunk interface
 
 ### Benchmark
 - Accuracy: 89% → 92%
@@ -578,9 +546,9 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 
 ---
 
-## 10. Approval
+## 10. Persetujuan
 
-| Role | Status | Date |
+|Peran|Status|Tanggal|
 |------|--------|------|
-| Chief Product Officer | Approved | 2026-08-02 |
-| Chief Architect | Approved | 2026-08-02 |
+|Kepala Bagian Produk|Disetujui|08-02-2026|
+|Kepala Arsitek|Disetujui|08-02-2026|

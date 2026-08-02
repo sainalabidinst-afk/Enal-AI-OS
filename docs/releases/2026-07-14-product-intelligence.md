@@ -1,82 +1,64 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/releases/2026-07-14-product-intelligence.md`
-- Judul: 2026 07 14 Product Intelligence
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Product Intelligence v1.0.0-dev Release Notes
+﻿# Catatan Rilis v1.0.0-dev Product Intelligence
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Release documentation
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 02-08-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi rilis
 <!-- DOCUMENT_METADATA_END -->
 
-**Release Date:** 2026-07-14  
-**Milestone:** Product Intelligence  
-**Codename:** Capability Benchmark + Quality Intelligence
+**Tanggal Rilis:** 14-07-2026
+**Tonggak Pencapaian:** Kecerdasan Produk
+**Nama Kode:** Kemampuan Benchmark + Kecerdasan Berkualitas
 
-## Overview
+## Ringkasnya
 
-This release transforms Enal AI OS from a config analysis platform into an AI Quality Engineering platform. The system now measures its own capability quality through telemetry, benchmarking, capability scoring, regression detection, and confidence calibration.
-> Terjemahan Indonesia: Ini rilis transforms Enal AI OS dari sebuah config analysis platform into sebuah AI kualitas rekayasa platform. sistem now measures its own kapabilitas kualitas through telemetry, benchmarking, kapabilitas scoring, regression detection, dan confidence calibration.
+Rilis ini mengubah Enal AI OS dari platform analisis konfigurasi menjadi platform AI Quality Engineering. Sistem kini mengukur kualitas kemampuan-nya sendiri melalui telemetri, benchmarking, penilaian kemampuan, deteksi regresi, dan kalibrasi kepercayaan.
 
-## What Changed
+## Yang Berubah
 
-### Backend
+### Bagian belakang
 
-- **Telemetry Framework**: JSONL-based event collection for analysis, chat, parser, and reasoning events. KPI aggregation service computes pass rate, evidence coverage, compliance coverage, false positive rate, and more.
-- **Benchmark Framework**: Async `BenchmarkRunner` with `httpx.AsyncClient` connection pooling, `asyncio.Semaphore` concurrency control (default 5), and `ProgressCallback` protocol for real-time progress.
-- **Capability Scoring**: Per-case capability breakdown across 5 dimensions: parser, reasoning, evidence, compliance, and executive report. Each dimension scored 0-100, averaged into total capability score.
-- **Golden Expected Results**: Benchmark cases now support `expected.json` with structured expected findings, risk/confidence thresholds, and compliance targets. Case directories follow the `sample_hotspot/` pattern with `config.rsc`, `expected.json`, `report.md`, and `metadata.yaml`.
-- **CCE API**: `POST /api/v1/benchmark/run` now returns `capability_score` and `capability_breakdown` per result. `GET /api/v1/benchmark/capability-scores` aggregates per vendor. `GET /api/v1/benchmark/cce/status` shows latest CCE status with regression alerts and calibration data.
+- **Kerangka Telemetri**: Kumpulan peristiwa berbasis JSONL untuk analisis peristiwa, obrolan, parser, dan penalaran. Layanan agregasi KPI menghitung tingkat kelulusan, cakupan bukti, cakupan kepatuhan, tingkat positif palsu, dan lainnya.
+- **Benchmark Framework**: `BenchmarkRunner` async dengan koneksi pool `httpx.AsyncClient`, kontrol konkurensi `asyncio.Semaphore` (default 5), dan protokol `ProgressCallback` untuk kemajuan real-time.
+- **Capability Scoring**: Kemampuan perincian per kasus dalam 5 dimensi: parser, Reasoning, Evidence, Compliance, dan Executive Report. Setiap dimensi diberi skor 0-100, dirata-rata menjadi total skor kemampuan.
+- **Golden Expected Results**: Kasus Benchmark kini mendukung `expected.json` dengan temuan yang diharapkan yang terstruktur, ambang batas risiko/keyakinan, dan kepatuhan target. Direktori kasus mengikuti pola `sample_hotspot/` dengan `config.rsc`, `expected.json`, `report.md`, dan `metadata.yaml`.
+- **CCE API**: `POST /api/v1/benchmark/run` kini mengembalikan `capability_score` dan `capability_breakdown` per hasil. `GET /api/v1/benchmark/capability-scores` mengagregasi per vendor. `GET /api/v1/benchmark/cce/status` menampilkan status CCE terbaru dengan peringatan regresi dan kalibrasi data.
 
-### New Modules
+### Modul Baru
 
-- `benchmarks/cce.py` â€” Continuous Capability Evaluation runner. Executes full benchmark suite, computes capability scores, detects regressions against previous runs/baseline, runs confidence calibration, persists history, and generates HTML reports.
-- `benchmarks/trend_analyzer.py` â€” Trend analysis and regression detection. Computes per-vendor trend direction (`up`/`down`/`stable`) and flags regressions where capability score drops by â‰¥5 points.
-- `benchmarks/calibration.py` â€” Confidence calibration analyzer. Bins results by confidence score and computes empirical accuracy per bin, detecting overconfidence and underconfidence.
-- `benchmarks/report_generator.py` â€” HTML dashboard generator. Produces visual reports with capability breakdown tables, regression alerts, confidence calibration tables, and CSS-styled trend indicators.
+- `benchmarks/cce.py` — Pelari Evaluasi Kemampuan Berkelanjutan. Mengeksekusi rangkaian Benchmark lengkap, menghitung skor kemampuan, mendeteksi regresi terhadap run/baseline sebelumnya, menjalankan kalibrasi kepercayaan, menyimpan riwayat, dan menghasilkan laporan HTML.
+- `benchmarks/trend_analyzer.py` — Analisis tren dan deteksi regresi. Menghitung arah tren per-vendor (`up`/`down`/`stable`) dan menandai regresi ketika skor kemampuan turun ≥5 poin.
+- `benchmarks/calibration.py` — Penganalisis kalibrasi kepercayaan. Mengelompokkan hasil berdasarkan skor kepercayaan dan menghitung akurasi empiris per bin, mendeteksi overconfident dan underconfident.
+- `benchmarks/report_generator.py` — HTML dasbor pembuat. Menghasilkan laporan visual dengan tabel kemampuan perincian, peringatan regresi, tabel kalibrasi keyakinan, dan indikator tren bergaya CSS.
 
 ### CI/CD
 
-- `.github/workflows/cce.yml` â€” Automated CCE on every push/PR to `main`. Fails build on regression detection. Uploads HTML report as artifact. Generates GitHub Badge URL.
+- `.github/workflows/cce.yml` — CCE otomatis pada setiap push/PR ke `main`. Membuat build gagal saat deteksi regresi. Mengunggah laporan HTML sebagai artefak. URL Keluaran GitHub Badge.
 
 ### Data
 
-- `real_cases/mikrotik/sample_hotspot/` â€” First real case with golden expected results, report, and metadata.
-- `benchmarks/cce_history/` â€” Runtime-generated CCE history storage (gitignored).
+- `real_cases/mikrotik/sample_hotspot/` — Kasus nyata pertama dengan hasil yang diharapkan, laporan, dan metadata.
+- `benchmarks/cce_history/` — Penyimpanan riwayat CCE yang dihasilkan saat Runtime (gitignored).
 
-## Migration Notes
+## Catatan Migrasi
 
-- `BenchmarkRunner._load_expected()` now searches `expected.json` inside the case directory first, then falls back to legacy `<filename>.expected.json`.
-- `BenchmarkRunner._load_case_content()` supports both absolute paths and relative `real_cases/<vendor>/<filename>` paths.
-- `BenchmarkResult` now includes `capability_score` and `capability_breakdown`.
-- `ExpectedResult.from_dict()` supports nested `{"expected": {...}, "metadata": {...}}` format.
+- `BenchmarkRunner._load_expected()` kini mencari `expected.json` di dalam direktori kasus terlebih dahulu, lalu jatuh kembali ke format legacy `<filename>.expected.json`.
+- `BenchmarkRunner._load_case_content()` mendukung jalur absolut dan jalur relatif `real_cases/<vendor>/<filename>`.
+- `BenchmarkResult` kini termasuk `capability_score` dan `capability_breakdown`.
+- `ExpectedResult.from_dict()` mendukung format penyimpanan `{"expected": {...}, "metadata": {...}}`.
 
-## Validation
+## Validasi
 
-- All benchmark modules pass `ruff` lint.
-- All imports verified.
-- Existing test suite: 74 passed, 18 failed (pre-existing, unrelated to this release).
+- Semua modul Benchmark lolos serat `ruff`.
+- Semua impor terverifikasi.
+- Rangkaian tes yang ada: 74 lulus, 18 gagal (sudah ada sebelumnya, tidak terkait rilis ini).
 
-## Next Steps
+## Langkah Berikutnya
 
-- Capability Excellence Campaign: raise each capability score to target KPIs.
-- Continuous Capability Evaluation (CCE) integration into daily development workflow.
-- 30-day dogfooding period with real-world cases.
-- Developer Preview with CCE quality gate active.
+- Kampanye Keunggulan Kapabilitas: menaikkan setiap skor kapabilitas ke target KPI.
+- Evaluasi Kemampuan Berkelanjutan (CCE) masuk ke alur kerja pengembangan harian.
+- Periode dogfooding 30 hari dengan kasus dunia nyata.
+- Pratinjau Pengembang dengan gerbang kualitas CCE aktif.

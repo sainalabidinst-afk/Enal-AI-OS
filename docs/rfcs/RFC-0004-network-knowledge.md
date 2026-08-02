@@ -1,104 +1,86 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0004-network-knowledge.md`
-- Judul: Rfc 0004 Network Knowledge
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC: Network Knowledge Expansion
+﻿# RFC: Perluasan Pengetahuan Jaringan
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** RFC for RFC-0004-network-knowledge
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** RFC untuk RFC-0004-network-knowledge
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Planned
-**Target:** Capability Excellence phase
+**Status:** Direncanakan
+**Target:** Fase Capability Excellence
 **Capability Pack:** Network Engineer
 
-## Summary
+## Ringkasan
 
-Expand Network Engineer knowledge depth across enterprise networking, security hardening, and advanced protocols.
-> Terjemahan Indonesia: Expand Network Engineer knowledge depth across enterprise networking, keamanan hardening, dan advanced protocols.
+Memperluas kedalaman pengetahuan Network Engineer di seluruh networking enterprise, security hardening, dan protokol lanjutan.
 
-## Knowledge Domains
+## Domain Pengetahuan
 
 ### Cisco Design Guide
-- Enterprise campus design
+- Desain campus enterprise
 - Data center fabric
-- Borderless network architecture
-- SD-WAN design principles
-- High availability patterns
+- Arsitektur jaringan borderless
+- Prinsip desain SD-WAN
+- Pola high availability
 
 ### MikroTik Best Practice
-- ISP edge and PPPoE patterns
-- Hotspot and traffic shaping
-- FastTrack optimization
-- IPv6 deployment on RouterOS
-- Secure administrative access
+- Pola ISP edge dan PPPoE
+- Hotspot dan traffic shaping
+- Optimasi FastTrack
+- Deployment IPv6 di RouterOS
+- Akses administrasi aman
 
 ### Fortinet Hardening
-- FortiOS security best practices
-- Policy optimization
-- VPN design (IPsec, SSL)
-- Threat protection integration
-- Logging and analytics
+- Best practice keamanan FortiOS
+- Optimasi policy
+- Desain VPN (IPsec, SSL)
+- Integrasi threat protection
+- Logging dan analitik
 
 ### BGP
 - BGP path selection
-- Route filtering and manipulation
+- Route filtering dan manipulasi
 - BGP communities
-- RR/CE design patterns
-- BGP monitoring and troubleshooting
+- Pola desain RR/CE
+- Monitoring dan troubleshooting BGP
 
 ### MPLS
-- MPLS forwarding and labels
-- LDP, RSVP-TE basics
-- VRF and route leaking
-- MPLS traffic engineering overview
-- Service provider edge patterns
+- MPLS forwarding dan label
+- Dasar LDP, RSVP-TE
+- VRF dan route leaking
+- Ikhtisar MPLS traffic engineering
+- Pola service provider edge
 
 ### IPv6
-- Dual-stack design
+- Desain dual-stack
 - SLAAC vs DHCPv6
-- IPv6 security considerations
-- Transition mechanisms overview
-- ISP IPv6 deployment patterns
+- Pertimbangan keamanan IPv6
+- Ikhtisar mekanisme transisi
+- Pola deployment IPv6 ISP
 
 ### Zero Trust
-- Zero Trust architecture principles
-- Micro-segmentation concepts
-- Identity-based access patterns
-- Continuous verification concepts
+- Prinsip arsitektur Zero Trust
+- Konsep micro-segmentation
+- Pola akses berbasis identitas
+- Konsep verifikasi berkelanjutan
 - Zero Trust network access (ZTNA)
 
-## Implementation Approach
+## Pendekatan Implementasi
 
-All knowledge is added to the Network Capability Pack domain engine. No Core changes are required.
-> Terjemahan Indonesia: All knowledge adalah added untuk Network kapabilitas Pack domain engine. No Core changes adalah required.
+Semua pengetahuan ditambahkan ke domain engine Network Capability Pack. Tidak ada perubahan Core yang diperlukan.
 
-## Success Criteria
+## Kriteria Keberhasilan
 
-- Each knowledge domain is represented in the analyzer/recommender
-- Golden tests updated for new knowledge areas
-- Benchmark scores maintained or improved
+- Setiap domain pengetahuan terwakili di analyzer/recommender
+- Golden test diperbarui untuk area pengetahuan baru
+- Skor benchmark dipertahankan atau ditingkatkan
 
-## References
+## Referensi
 
 - RFC-0004: Network Knowledge Base
 - RFC-0005: Security Hardening Patterns
-- CAPABILITY_GUIDE.md â€” Network Engineer section
+- CAPABILITY_GUIDE.md — bagian Network Engineer
+

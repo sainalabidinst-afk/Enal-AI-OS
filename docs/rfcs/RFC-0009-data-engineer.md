@@ -1,136 +1,114 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# RFC-0009: Capability Pack Data Engineer
 
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0009-data-engineer.md`
-- Judul: Rfc 0009 Data Engineer
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC-0009: Data Engineer Capability Pack
-
-| Field | Value |
+| Field | Nilai |
 |-------|-------|
 | **RFC ID** | RFC-0009 |
 | **Status** | Draft |
-| **Version** | 0.1.0 |
-| **Author** | Enal AI OS Core Team |
-| **Target Release** | v1.2.0 (Capability Excellence phase) |
+| **Versi** | 0.1.0 |
+| **Penulis** | Enal AI OS Core Team |
+| **Target Rilis** | v1.2.0 (fase Capability Excellence) |
 | **Capability Pack** | Data Engineer |
 | **Capability ID** | `data-engineer` |
-| **Category** | Data |
-| **Quality Target** | A- (≥85) |
-| **Maturity Target** | Level 3 — Production Ready |
-| **Reference RFC** | RFC-0009 |
+| **Kategori** | Data |
+| **Target Kualitas** | A- (≥85) |
+| **Target Maturity** | Level 3 — Production Ready |
+| **RFC Referensi** | RFC-0009 |
 
 ---
 
-## Motivation
+## Motivasi
 
-ECP's existing Capability Packs rely on high-quality data as input or produce data as output. Trading Analyst needs clean market data; Research Assistant needs validated datasets; Decision Intelligence needs reliable evidence. However, there is no dedicated data engineering layer that manages the entire data lifecycle—from ingestion to quality assurance.
-> Terjemahan Indonesia: ECP's existing kapabilitas Packs rely pada high-kualitas data as input or produce data as output. Trading Analyst needs clean market data; Research Assistant needs validated datasets; Decision Intelligence needs reliable evidence. However, there adalah no dedicated data rekayasa layer itu manages entire data lifecycle—dari ingestion untuk kualitas assurance.
+Capability Pack ECP yang ada bergantung pada data berkualitas tinggi sebagai input atau menghasilkan data sebagai output. Trading Analyst membutuhkan data pasar yang bersih; Research Assistant membutuhkan dataset tervalidasi; Decision Intelligence membutuhkan evidence yang andal. Namun, tidak ada layer data engineering khusus yang mengelola seluruh siklus hidup data — dari ingestion hingga quality assurance.
 
-Currently:
-> Terjemahan Indonesia: Saat ini:
+Saat ini:
 
-1. **Data quality is assumed, not verified** — packs trust that input data is clean, but often it is not.
-2. **ETL/ELT is ad hoc per pack** — each pack builds its own data ingestion without standardized pipelines.
-3. **Schema drift goes undetected** — data structure changes silently break downstream analysis.
-4. **Data cleaning is manual** — missing values, duplicates, and outliers are not systematically handled.
-5. **Feature engineering is pack-specific** — no reusable feature store or time-series utilities.
-6. **No dataset validation framework** — datasets are consumed without quality gates.
+1. **Kualitas data diasumsikan, bukan diverifikasi** — pack mempercayai bahwa data input sudah bersih, tetapi sering kali tidak.
+2. **ETL/ELT bersifat ad hoc per pack** — setiap pack membangun data ingestion-nya sendiri tanpa pipeline terstandarisasi.
+3. **Schema drift tidak terdeteksi** — perubahan struktur data secara diam-diam merusak analisis downstream.
+4. **Data cleaning manual** — missing values, duplikat, dan outlier tidak ditangani secara sistematis.
+5. **Feature engineering spesifik-pack** — tidak ada feature store atau utilitas time-series yang dapat digunakan ulang.
+6. **Tidak ada framework validasi dataset** — dataset dikonsumsi tanpa quality gate.
 
-The Data Engineer Capability Pack becomes the data foundation layer, providing ETL/ELT, data cleaning, dataset validation, schema evolution, feature engineering, and time-series handling for all downstream Capability Packs.
-> Terjemahan Indonesia: Data Engineer kapabilitas Pack becomes data foundation layer, providing ETL/ELT, data cleaning, dataset validation, schema evolution, feature rekayasa, dan time-series handling untuk all downstream kapabilitas Packs.
+Capability Pack Data Engineer menjadi layer fondasi data, menyediakan ETL/ELT, data cleaning, validasi dataset, schema evolution, feature engineering, dan penanganan time-series untuk semua Capability Pack downstream.
 
 ---
 
-## Problem Statement
+## Pernyataan Masalah
 
-Without a dedicated Data Engineer Capability Pack:
-> Terjemahan Indonesia: Without sebuah dedicated Data Engineer kapabilitas Pack:
+Tanpa Capability Pack Data Engineer yang khusus:
 
-- **No data quality framework** — bad data silently degrades output quality across Trading, Research, and Decision Intelligence.
-- **ETL pipelines are fragmented** — each pack builds its own ingestion logic, creating inconsistency and duplication.
-- **Schema drift is undetected** — structural changes in data sources break downstream consumers without warning.
-- **Data cleaning is inconsistent** — missing values, duplicates, and outliers are handled differently (or not at all) across packs.
-- **No feature engineering layer** — derived features are computed ad hoc, leading to inconsistency across models.
-- **Time series gaps are not handled** — irregular or missing timestamps break time-series analysis in Trading and Research.
-- **Dataset validation is manual** — large datasets are consumed without automated quality gates.
+- **Tidak ada framework kualitas data** — data buruk secara diam-diam menurunkan kualitas output di seluruh Trading, Research, dan Decision Intelligence.
+- **Pipeline ETL terfragmentasi** — setiap pack membangun logika ingestion sendiri, menciptakan inkonsistensi dan duplikasi.
+- **Schema drift tidak terdeteksi** — perubahan struktural di sumber data merusak konsumen downstream tanpa peringatan.
+- **Data cleaning tidak konsisten** — missing values, duplikat, dan outlier ditangani berbeda (atau tidak sama sekali) antar pack.
+- **Tidak ada layer feature engineering** — fitur turunan dihitung secara ad hoc, menyebabkan inkonsistensi antar model.
+- **Kesenjangan time series tidak ditangani** — timestamp tidak teratur atau hilang merusak analisis time-series di Trading dan Research.
+- **Validasi dataset manual** — dataset besar dikonsumsi tanpa quality gate otomatis.
 
 ---
 
-## Goals
+## Tujuan
 
-1. **ETL/ELT Pipeline** — Extract, transform, and load data from heterogeneous sources into standardized formats.
-2. **Data Cleaning** — Detect and remediate missing values, duplicates, outliers, and schema inconsistencies.
-3. **Dataset Validation** — Validate dataset integrity, schema compliance, and quality before consumption.
-4. **Schema Evolution** — Detect and manage schema changes across data source versions.
-5. **Feature Engineering** — Generate and maintain derived features for downstream analysis.
-6. **Time Series Handling** — Process, align, and interpolate time-series data.
-7. **Data Quality Assurance** — Measure and report data quality metrics (completeness, accuracy, freshness, consistency).
+1. **ETL/ELT Pipeline** — Mengekstrak, mentransformasi, dan memuat data dari sumber heterogen ke format terstandarisasi.
+2. **Data Cleaning** — Mendeteksi dan memperbaiki missing values, duplikat, outlier, dan inkonsistensi skema.
+3. **Dataset Validation** — Memvalidasi integritas dataset, kepatuhan skema, dan kualitas sebelum dikonsumsi.
+4. **Schema Evolution** — Mendeteksi dan mengelola perubahan skema di berbagai versi sumber data.
+5. **Feature Engineering** — Menghasilkan dan memelihara fitur turunan untuk analisis downstream.
+6. **Time Series Handling** — Memproses, menyelaraskan, dan menginterpolasi data time-series.
+7. **Data Quality Assurance** — Mengukur dan melaporkan metrik kualitas data (kelengkapan, akurasi, kebaruan, konsistensi).
 
-### Success Criteria
+### Kriteria Keberhasilan
 
-| Metric | Target | Grade |
+| Metrik | Target | Grade |
 |--------|--------|-------|
-| Data Cleaning Accuracy | ≥95% (all anomalies detected and remediated) | A |
-| Dataset Validation Rate | ≥98% (all datasets validated before consumption) | A |
-| Schema Drift Detection | ≥90% (all schema changes detected) | A- |
-| Quality Coverage | ≥95% (all quality dimensions checked) | A |
-| Time Series Integrity | ≥95% (gaps filled, alignment correct) | A |
-| Feature Consistency | ≥95% (same feature computed identically across runs) | A |
-| Explainability | ≥90% (data quality issues explained with remediation) | A- |
-| Consistency | ≥95% (same input produces same output across runs) | A |
+| Akurasi Data Cleaning | ≥95% (semua anomali terdeteksi dan diperbaiki) | A |
+| Tingkat Validasi Dataset | ≥98% (semua dataset divalidasi sebelum dikonsumsi) | A |
+| Deteksi Schema Drift | ≥90% (semua perubahan skema terdeteksi) | A- |
+| Cakupan Kualitas | ≥95% (semua dimensi kualitas diperiksa) | A |
+| Integritas Time Series | ≥95% (kesenjangan terisi, penyelarasan benar) | A |
+| Konsistensi Fitur | ≥95% (fitur yang sama dihitung identik di setiap run) | A |
+| Explainability | ≥90% (masalah kualitas data dijelaskan dengan remediasi) | A- |
+| Konsistensi | ≥95% (input yang sama menghasilkan output yang sama di setiap run) | A |
 
 ---
 
-## Non-Goals
+## Non-Tujuan
 
-1. **Live data streaming and real-time processing** — Data Engineer focuses on batch ETL/ELT; streaming is a future enhancement.
-2. **Data storage infrastructure provisioning** — Data Engineer produces pipelines and quality reports; it does not provision databases or data lakes.
-3. **Replacing dedicated data engineering tools** — dbt, Airflow, Spark remain valid; Data Engineer provides orchestration and quality assurance layer.
-4. **Business intelligence / reporting** — Data Engineer does not produce dashboards or BI reports.
-5. **Core modification** — All implementation resides within the Data Engineer Capability Pack.
+1. **Streaming data langsung dan pemrosesan real-time** — Data Engineer berfokus pada batch ETL/ELT; streaming adalah peningkatan di masa depan.
+2. **Provisioning infrastruktur penyimpanan data** — Data Engineer menghasilkan pipeline dan laporan kualitas; ia tidak menyediakan database atau data lake.
+3. **Menggantikan alat data engineering khusus** — dbt, Airflow, Spark tetap valid; Data Engineer menyediakan layer orkestrasi dan quality assurance.
+4. **Business intelligence / reporting** — Data Engineer tidak menghasilkan dashboard atau laporan BI.
+5. **Modifikasi Core** — Semua implementasi berada di dalam Capability Pack Data Engineer.
 
 ---
 
-## Capability Scope
+## Scope Kapabilitas
 
-### Core Capabilities
+### Kapabilitas Inti
 
-| Capability | Description | Inputs | Outputs |
+| Kapabilitas | Deskripsi | Input | Output |
 |-----------|--------------|--------|---------|
-| ETL Pipeline | Extract, transform, load from heterogeneous sources | Source data (CSV, JSON, API, DB, files) | Standardized dataset |
-| ELT Pipeline | Extract, load, then transform within target | Raw data, schema definition, transform rules | Loaded + transformed dataset |
-| Data Cleaning | Detect and remediate anomalies | Dirty data, quality rules | Cleaned data + quality report |
-| Dataset Validation | Validate schema, integrity, quality | Dataset, schema, quality rules | Validation report with pass/fail |
-| Schema Evolution | Detect and manage schema changes | Schema versions, diff | Schema drift report + migration plan |
-| Feature Engineering | Generate derived features | Raw data, feature specs | Feature store entries |
-| Time Series Handling | Align, interpolate, resample | Time-series data, frequency spec | Cleaned time-series dataset |
-| Data Quality Assurance | Measure completeness, accuracy, freshness | Dataset, quality dimensions | Quality metrics report |
+| ETL Pipeline | Mengekstrak, mentransformasi, memuat dari sumber heterogen | Data sumber (CSV, JSON, API, DB, files) | Dataset terstandarisasi |
+| ELT Pipeline | Mengekstrak, memuat, lalu mentransformasi di dalam target | Data mentah, definisi skema, aturan transformasi | Dataset termuat + tertransformasi |
+| Data Cleaning | Mendeteksi dan memperbaiki anomali | Data kotor, aturan kualitas | Data bersih + laporan kualitas |
+| Dataset Validation | Memvalidasi skema, integritas, kualitas | Dataset, skema, aturan kualitas | Laporan validasi dengan pass/fail |
+| Schema Evolution | Mendeteksi dan mengelola perubahan skema | Versi skema, diff | Laporan schema drift + rencana migrasi |
+| Feature Engineering | Menghasilkan fitur turunan | Data mentah, spesifikasi fitur | Entri feature store |
+| Time Series Handling | Menyelaraskan, menginterpolasi, resampling | Data time-series, spesifikasi frekuensi | Dataset time-series yang bersih |
+| Data Quality Assurance | Mengukur kelengkapan, akurasi, kebaruan | Dataset, dimensi kualitas | Laporan metrik kualitas |
 
 ### Out of Scope
 
-- Live streaming data processing (Apache Kafka, Flink)
-- Data lake or warehouse provisioning
-- Business intelligence dashboarding
-- Machine learning model training (beyond feature engineering)
-- Data governance policy definition
+- Pemrosesan data streaming langsung (Apache Kafka, Flink)
+- Provisioning data lake atau warehouse
+- Dashboard business intelligence
+- Pelatihan model machine learning (di luar feature engineering)
+- Definisi kebijakan data governance
 - Master data management
 
 ---
 
-## Public Contracts
+## Kontrak Publik
 
 ### Input Contract: Data Engineering Request
 
@@ -237,7 +215,7 @@ Without a dedicated Data Engineer Capability Pack:
 }
 ```
 
-### Data Quality Record (Experience Memory)
+### Catatan Kualitas Data (Experience Memory)
 
 ```json
 {
@@ -257,7 +235,7 @@ Without a dedicated Data Engineer Capability Pack:
 
 ---
 
-## Integration Points (Capability Graph)
+## Titik Integrasi (Capability Graph)
 
 ```
 Consumer Capability Pack (Trading, Research, Decision Intelligence)
@@ -290,44 +268,43 @@ Consumer Capability Pack
 User / Human Approval Loop
 ```
 
-### Task Template
+### Template Tugas
 
-| Task | Subtasks |
+| Tugas | Subtugas |
 |------|----------|
 | Process Dataset | Source analysis → ETL/ELT → Data cleaning → Schema validation → Feature engineering → Time series handling → Quality report → Lineage → Persistence |
 
 ---
 
-## Consumer Capability Packs
+## Capability Pack Konsumen
 
-| Consumer Capability Pack | Use Case |
+| Capability Pack Konsumen | Use Case |
 |--------------------------|----------|
-| **Trading Analyst** | Clean market data, align time-series, generate technical features |
-| **Research Assistant** | Validate datasets, detect schema drift, clean source data |
-| **Decision Intelligence** | Validate evidence datasets, clean input data, track data lineage |
-| **System Architect** | Analyze data architecture, schema evolution impact on design |
+| **Trading Analyst** | Membersihkan data pasar, menyelaraskan time-series, menghasilkan fitur teknikal |
+| **Research Assistant** | Memvalidasi dataset, mendeteksi schema drift, membersihkan data sumber |
+| **Decision Intelligence** | Memvalidasi dataset evidence, membersihkan data input, melacak data lineage |
+| **System Architect** | Menganalisis arsitektur data, dampak schema evolution pada desain |
 
 ---
 
-## Dependencies
+## Dependensi
 
-### Internal Dependencies (Shared Contracts)
+### Dependensi Internal (Shared Contracts)
 
-1. **Execution Runtime** — Task routing and orchestration (per ADR-002)
-2. **Experience Memory** — Data quality records persistence (per ADR-011)
-3. **Shared Contracts** — Task/Intent definition and result schema (per ADR-006)
+1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+2. **Experience Memory** — Persistensi catatan kualitas data (sesuai ADR-011)
+3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
 
-### External Libraries
+### Library Eksternal
 
-1. **pandas** — DataFrame operations, ETL transformations
-2. **polars** — High-performance DataFrame (optional, for large datasets)
-3. **numpy** — Numerical computations
-4. **pyarrow** — Schema definition and Parquet I/O
+1. **pandas** — Operasi DataFrame, transformasi ETL
+2. **polars** — DataFrame berperforma tinggi (opsional, untuk dataset besar)
+3. **numpy** — Komputasi numerik
+4. **pyarrow** — Definisi skema dan I/O Parquet
 
-### No Core Changes Required
+### Tidak Ada Perubahan Core yang Diperlukan
 
-All implementation resides within the Data Engineer Capability Pack:
-> Terjemahan Indonesia: All implementation resides within Data Engineer kapabilitas Pack:
+Semua implementasi berada di dalam Capability Pack Data Engineer:
 
 ```
 apps/
@@ -344,87 +321,85 @@ apps/
     └── quality_assurance.py # Data quality assurance
 ```
 
-**ADR Impact:** None. No Core, Runtime, Kernel, or shared contract modification required.
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract.
 
 ---
 
-## Benchmark Specification
+## Spesifikasi Benchmark
 
-### Benchmark Framework
+### Kerangka Benchmark
 
-| Dimension | Definition | Measurement | Target |
+| Dimensi | Definisi | Pengukuran | Target |
 |-----------|------------|-------------|--------|
-| **Data Cleaning Accuracy** | % of anomalies correctly detected and remediated | % of ground truth anomalies found and fixed | ≥95% |
-| **Dataset Validation Rate** | % of datasets passing validation before consumption | % of datasets with validation | ≥98% |
-| **Schema Drift Detection** | % of schema changes correctly detected | % of schema changes identified | ≥90% |
-| **Quality Coverage** | % of quality dimensions checked | Completeness × Uniqueness × Validity × Freshness × Consistency | ≥95% |
-| **Time Series Integrity** | % of time series correctly aligned and gaps filled | % of time series with correct frequency and no gaps | ≥95% |
-| **Feature Consistency** | % of features computed identically across runs | Variance across 10 runs < 5% | ≥95% |
-| **Explainability** | Clarity of quality issues and remediation | Human evaluation score | ≥90% |
-| **Efficiency** | Response time and resource usage | Latency P95 < 3000ms for 10K rows | within budget |
+| **Data Cleaning Accuracy** | % anomali terdeteksi dan diperbaiki dengan benar | % anomali ground truth ditemukan dan diperbaiki | ≥95% |
+| **Dataset Validation Rate** | % dataset lulus validasi sebelum dikonsumsi | % dataset dengan validasi | ≥98% |
+| **Schema Drift Detection** | % perubahan skema terdeteksi dengan benar | % perubahan skema teridentifikasi | ≥90% |
+| **Quality Coverage** | % dimensi kualitas yang diperiksa | Kelengkapan × Uniqueness × Validity × Freshness × Consistency | ≥95% |
+| **Time Series Integrity** | % time series terselaraskan dengan benar dan kesenjangan terisi | % time series dengan frekuensi benar dan tanpa kesenjangan | ≥95% |
+| **Feature Consistency** | % fitur dihitung identik di setiap run | Varian di 10 run < 5% | ≥95% |
+| **Explainability** | Kejelasan masalah kualitas dan remediasi | Skor evaluasi manusia | ≥90% |
+| **Efficiency** | Waktu respons dan penggunaan sumber daya | Latency P95 < 3000ms untuk 10K baris | dalam anggaran |
 
-### Benchmark Dataset
+### Dataset Benchmark
 
-- **100 dataset scenarios** covering:
-  - Trading: market data (OHLCV, order books, volume)
-  - Research: academic datasets (CSV, JSON, XML)
-  - DevOps: log data, metrics, configuration data
-  - Self-Development: code metrics, project data
-> Terjemahan Indonesia: Trading: market data (OHLCV, order books, volume) Research: academic datasets (CSV, JSON, XML) DevOps: log data, metrics, konfigurasi data Self-Development: code metrics, proyek data
+- **100 skenario dataset** yang mencakup:
+  - Trading: data pasar (OHLCV, order books, volume)
+  - Research: dataset akademik (CSV, JSON, XML)
+  - DevOps: data log, metrik, data konfigurasi
+  - Self-Development: metrik kode, data proyek
 
-### Benchmark Dimensions Detail
+### Detail Dimensi Benchmark
 
-| Scenario Type | Description | Ground Truth |
+| Tipe Skenario | Deskripsi | Ground Truth |
 |---------------|-------------|-------------|
-| Missing Values | Rows/columns with null, NaN, empty strings | Manual annotation |
-| Duplicate Data | Fully or partially duplicated rows | Ground truth dataset |
-| Time Series Gap | Missing timestamps in regular intervals | Known gap insertions |
-| Schema Drift | Column type changes, added/removed columns | Schema version diffs |
-| Corrupted Dataset | Malformed rows, invalid formats, encoding issues | Ground truth corruption |
+| Missing Values | Baris/kolom dengan null, NaN, string kosong | Anotasi manual |
+| Duplicate Data | Baris terduplikasi penuh atau sebagian | Dataset ground truth |
+| Time Series Gap | Timestamp hilang pada interval teratur | Penyisipan kesenjangan yang diketahui |
+| Schema Drift | Perubahan tipe kolom, kolom ditambah/dihapus | Diff versi skema |
+| Corrupted Dataset | Baris malformed, format tidak valid, masalah encoding | Korupsi ground truth |
 
 ---
 
-## Golden Test Specification
+## Spesifikasi Golden Test
 
-| # | Scenario | Expected Outcome | Acceptance Criteria |
+| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
 |---|----------|-----------------|---------------------|
-| 1 | Missing values in CSV dataset | Values detected and imputed | ≥95% detection, ≥90% imputation accuracy |
-| 2 | Fully duplicated rows | Duplicates removed | ≥95% detection, 0 false removals |
-| 3 | Time series with gaps | Gaps filled at correct frequency | ≥95% gap detection, correct interpolation |
-| 4 | Schema drift (column type change) | Drift detected and migration planned | ≥90% detection, correct migration |
-| 5 | Corrupted rows (malformed JSON) | Corrupted rows flagged/removed | ≥95% detection, ≥90% recovery |
-| 6 | Categorical encoding | Categories encoded correctly | ≥95% correctness |
-| 7 | Feature engineering (rolling mean) | Derived feature matches expected values | ≥95% accuracy |
-| 8 | Outlier detection | Outliers identified and handled | ≥90% detection, <5% false positive |
-| 9 | Uniqueness constraint violation | Violation detected | ≥98% detection |
-| 10 | Data freshness check | Stale data flagged | ≥95% detection |
+| 1 | Missing values di dataset CSV | Nilai terdeteksi dan diimputasi | ≥95% deteksi, ≥90% akurasi imputasi |
+| 2 | Baris terduplikasi penuh | Duplikat dihapus | ≥95% deteksi, 0 penghapusan palsu |
+| 3 | Time series dengan kesenjangan | Kesenjangan terisi pada frekuensi benar | ≥95% deteksi kesenjangan, interpolasi benar |
+| 4 | Schema drift (perubahan tipe kolom) | Drift terdeteksi dan migrasi direncanakan | ≥90% deteksi, migrasi benar |
+| 5 | Baris rusak (JSON malformed) | Baris rusak ditandai/dihapus | ≥95% deteksi, ≥90% pemulihan |
+| 6 | Encoding kategorikal | Kategori terenkode dengan benar | ≥95% kebenaran |
+| 7 | Feature engineering (rolling mean) | Fitur turunan sesuai nilai yang diharapkan | ≥95% akurasi |
+| 8 | Deteksi outlier | Outlier teridentifikasi dan ditangani | ≥90% deteksi, <5% false positive |
+| 9 | Pelanggaran batasan uniqueness | Pelanggaran terdeteksi | ≥98% deteksi |
+| 10 | Pemeriksaan kebaruan data | Data basi ditandai | ≥95% deteksi |
 
-### Golden Test Acceptance Criteria
+### Kriteria Penerimaan Golden Test
 
-- All 10 golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
-- Overall Data Engineer golden test pass rate ≥95%
-- Dataset validation rate ≥98%
-- No data corruption introduced during cleaning
+- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu (100% pass)
+- Tingkat kelulusan golden test Data Engineer keseluruhan ≥95%
+- Tingkat validasi dataset ≥98%
+- Tidak ada korupsi data yang diperkenalkan selama cleaning
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-### Real Case Directory
+### Direktori Real Case
 
-`real_cases/data_engineer/` must contain:
-> Terjemahan Indonesia: Real_cases/data_engineer/ must contain:
+`real_cases/data_engineer/` harus berisi:
 
-| Requirement | Minimum Count |
+| Persyaratan | Jumlah Minimum |
 |-------------|---------------|
-| Real dataset processing cases from actual usage | 20 |
-| Cases with missing values remediation | 5 |
-| Cases with time series gap handling | 5 |
-| Cases with schema drift detection | 5 |
-| Cases with feature engineering | 10 |
-| Cases with expert review/validation | 15 |
+| Kasus pemrosesan dataset nyata dari penggunaan aktual | 20 |
+| Kasus dengan remediasi missing values | 5 |
+| Kasus dengan penanganan kesenjangan time series | 5 |
+| Kasus dengan deteksi schema drift | 5 |
+| Kasus dengan feature engineering | 10 |
+| Kasus dengan review/validasi ahli | 15 |
 
-### Real Case Structure
+### Struktur Real Case
 
 ```
 real_cases/data_engineer/<case_id>/
@@ -439,13 +414,13 @@ real_cases/data_engineer/<case_id>/
 └── evaluation.md             # Ground truth, expert review, lessons learned
 ```
 
-### Real Case Targets
+### Target Real Case
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Real cases logged | ≥20 (Level 3) → ≥100 (Level 4) |
-| Real case quality score (expert review) | ≥90% |
-| Data quality improvement (before → after) | ≥85% average improvement |
+| Kasus nyata yang dicatat | ≥20 (Level 3) → ≥100 (Level 4) |
+| Skor kualitas kasus nyata (review ahli) | ≥90% |
+| Peningkatan kualitas data (sebelum → sesudah) | ≥85% rata-rata peningkatan |
 
 ---
 
@@ -512,106 +487,106 @@ Release Notes
 
 ---
 
-## Risks
+## Risiko
 
-| Risk | Impact | Likelihood | Mitigation |
+| Risiko | Dampak | Kemungkinan | Mitigasi |
 |------|--------|------------|------------|
-| Data cleaning removes valid data | High — information loss | Medium | Conservative cleaning with explainability; user review for destructive ops |
-| Schema drift detection misses silent changes | High — downstream breakage | Medium | Multi-layer validation (schema + content-level checks) |
-| Time series imputation introduces bias | Medium — skewed analysis | Medium | Multiple interpolation methods; user-selectable |
-| Performance bottleneck on large datasets | Medium — blocks workflows | High | Lazy evaluation; chunked processing; parallelism |
-| Feature engineering creates inconsistency | Medium — model drift | Medium | Feature store with versioning; lineage tracking |
-| Data quality metrics are noisy | Low — false alerts | High | Statistical smoothing; threshold tuning per domain |
-| External dependency (pandas, polars) version conflicts | Low — compatibility issues | Medium | Pinned versions; compatibility tests |
+| Data cleaning menghapus data valid | Tinggi — kehilangan informasi | Sedang | Cleaning konservatif dengan explainability; review pengguna untuk operasi destruktif |
+| Deteksi schema drift melewatkan perubahan diam-diam | Tinggi — kerusakan downstream | Sedang | Validasi multi-layer (pemeriksaan skema + konten) |
+| Imputasi time series memperkenalkan bias | Sedang — analisis miring | Sedang | Banyak metode interpolasi; dapat dipilih pengguna |
+| Bottleneck performa pada dataset besar | Sedang — memblokir alur kerja | Tinggi | Evaluasi lazy; pemrosesan chunked; paralelisme |
+| Feature engineering menciptakan inkonsistensi | Sedang — model drift | Sedang | Feature store dengan versioning; pelacakan lineage |
+| Metrik kualitas data noise | Rendah — alarm palsu | Tinggi | Penghalusan statistik; penyesuaian ambang per domain |
+| Konflik versi dependensi eksternal (pandas, polars) | Rendah — masalah kompatibilitas | Sedang | Versi dikunci; tes kompatibilitas |
 
 ---
 
-## ADR Impact
+## Dampak ADR
 
-**Does this require Core changes?** No.
+**Apakah ini memerlukan perubahan Core?** Tidak.
 
-Data Engineer is a **new Capability Pack** that follows the established patterns:
-> Terjemahan Indonesia: Data Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
+Data Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
-- **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/data_engineer/`.
-- **ADR-002 (Capability Pack Independence):** Data Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
-- **ADR-003 (Worker = Adapter Only):** A thin Worker routes tasks to the Domain Engine.
-- **ADR-004 (Domain Engine Owns Business Logic):** All data engineering logic resides in `apps/data_engineer/engine.py`.
-- **ADR-005 (Human Approval Required):** Data transformations are recommendations; execution requires explicit user approval.
-- **ADR-006 (Capability Contract v1 Frozen):** Uses the existing Capability Contract for node and subtask template registration. No contract changes.
-- **ADR-007 (Conversation Boundary):** Data Engineer is invoked through Execution Runtime, not directly by Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Not applicable — no Core changes.
+- **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/data_engineer/`.
+- **ADR-002 (Capability Pack Independence):** Data Engineer berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
+- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-004 (Domain Engine Owns Business Logic):** Semua logika data engineering berada di `apps/data_engineer/engine.py`.
+- **ADR-005 (Human Approval Required):** Transformasi data adalah rekomendasi; eksekusi memerlukan persetujuan eksplisit pengguna.
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Conversation Boundary):** Data Engineer dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR Required:** None. This is a new Capability Pack, not a Core modification.
-
----
-
-## Rollout Plan
-
-### Phase 1: Prototype (RFC → Experimental)
-
-**Duration:** 5 weeks
-
-- [ ] Create `apps/data_engineer/` package structure
-- [ ] Implement basic ETL pipeline (CSV/JSON ingestion)
-- [ ] Implement data cleaning (missing values, duplicates)
-- [ ] Implement dataset validation (completeness, uniqueness)
-- [ ] Define public contracts (Data Engineering Request, Report)
-- [ ] Implement thin Worker adapter
-- [ ] Create 10 golden test scenarios
-- [ ] Integration: Trading Analyst → Data Engineer (market data cleaning)
-- [ ] Integration: Research Assistant → Data Engineer (dataset validation)
-- **Gate:** 10 golden tests pass at ≥80%
-
-### Phase 2: Full Capabilities (Experimental → Stable)
-
-**Duration:** 7 weeks
-
-- [ ] Implement full ETL/ELT with API and database sources
-- [ ] Implement schema evolution detection
-- [ ] Implement feature engineering
-- [ ] Implement time series handling with multiple interpolation methods
-- [ ] Implement full data quality assurance (5 dimensions)
-- [ ] Expand golden tests to 10 full scenarios
-- [ ] Log ≥20 real cases from Trading and Research usage
-- [ ] **Benchmark:** 100 scenarios, ≥95% cleaning accuracy, ≥98% validation
-- [ ] **Integration:** Decision Intelligence starts using Data Engineer for evidence validation
-- **Gate:** All 10 golden tests pass at ≥90%; benchmark ≥95% cleaning, ≥98% validation
-
-### Phase 3: Ecosystem (Stable → Certified)
-
-**Duration:** 6 weeks
-
-- [ ] All 4 consumer packs integrated
-- [ ] Feature store with versioning and lineage
-- [ ] Time series handling validated on real market data
-- [ ] Independent audit of data quality and schema drift detection
-- [ ] Public benchmark dashboard available
-- [ ] **Benchmark:** ≥95% across all dimensions sustained
-- [ ] **Real Cases:** ≥100 cases with ≥80% expert validation
-- **Gate:** Independent audit passed; benchmark ≥95% sustained
+**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Future Enhancements
+## Rencana Rollout
 
-### Fase 2 (Post-v1.0.0 Release)
+### Fase 1: Prototipe (RFC → Experimental)
 
-1. **Streaming ETL** — Real-time data ingestion and transformation (Kafka, Kinesis)
-2. **Data Catalog** — Metadata management, data discovery, and lineage visualization
-3. **Anomaly Detection** — Statistical and ML-based anomaly detection in data streams
-4. **Data Observability** — Automated monitoring of data quality metrics in production
+**Durasi:** 5 minggu
+
+- [ ] Membuat struktur paket `apps/data_engineer/`
+- [ ] Mengimplementasikan pipeline ETL dasar (ingestion CSV/JSON)
+- [ ] Mengimplementasikan data cleaning (missing values, duplikat)
+- [ ] Mengimplementasikan validasi dataset (kelengkapan, uniqueness)
+- [ ] Mendefinisikan kontrak publik (Data Engineering Request, Report)
+- [ ] Mengimplementasikan adapter Worker tipis
+- [ ] Membuat 10 skenario golden test
+- [ ] Integrasi: Trading Analyst → Data Engineer (pembersihan data pasar)
+- [ ] Integrasi: Research Assistant → Data Engineer (validasi dataset)
+- **Gate:** 10 golden test lulus pada ≥80%
+
+### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+
+**Durasi:** 7 minggu
+
+- [ ] Mengimplementasikan ETL/ELT penuh dengan sumber API dan database
+- [ ] Mengimplementasikan deteksi schema evolution
+- [ ] Mengimplementasikan feature engineering
+- [ ] Mengimplementasikan penanganan time series dengan banyak metode interpolasi
+- [ ] Mengimplementasikan data quality assurance penuh (5 dimensi)
+- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Mencatat ≥20 kasus nyata dari penggunaan Trading dan Research
+- [ ] **Benchmark:** 100 skenario, ≥95% akurasi cleaning, ≥98% validasi
+- [ ] **Integrasi:** Decision Intelligence mulai menggunakan Data Engineer untuk validasi evidence
+- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥95% cleaning, ≥98% validasi
+
+### Fase 3: Ekosistem (Stable → Certified)
+
+**Durasi:** 6 minggu
+
+- [ ] Keempat pack konsumen terintegrasi
+- [ ] Feature store dengan versioning dan lineage
+- [ ] Penanganan time series divalidasi pada data pasar nyata
+- [ ] Audit independen terhadap kualitas data dan deteksi schema drift
+- [ ] Dashboard benchmark publik tersedia
+- [ ] **Benchmark:** ≥95% di semua dimensi berkelanjutan
+- [ ] **Real Cases:** ≥100 kasus dengan ≥80% validasi ahli
+- **Gate:** Audit independen lulus; benchmark ≥95% berkelanjutan
+
+---
+
+## Peningkatan di Masa Depan
+
+### Fase 2 (Pasca-Rilis v1.0.0)
+
+1. **Streaming ETL** — Ingestion dan transformasi data real-time (Kafka, Kinesis)
+2. **Data Catalog** — Manajemen metadata, penemuan data, dan visualisasi lineage
+3. **Anomaly Detection** — Deteksi anomali berbasis statistik dan ML pada data streams
+4. **Data Observability** — Pemantauan otomatis metrik kualitas data di produksi
 
 ### Fase 3 (Enterprise)
 
-1. **Data Governance** — Data ownership, access control, and retention policy enforcement
-2. **Master Data Management** — Golden record creation and conflict resolution
-3. **Cross-Workspace Data Sharing** — Secure data sharing between workspaces with lineage
-4. **Data Cost Optimization** — Storage tiering and query optimization recommendations
+1. **Data Governance** — Kepemilikan data, kontrol akses, dan penegakan kebijakan retensi
+2. **Master Data Management** — Pembuatan golden record dan resolusi konflik
+3. **Cross-Workspace Data Sharing** — Berbagi data aman antar workspace dengan lineage
+4. **Data Cost Optimization** — Rekomendasi storage tiering dan optimasi query
 
-### Long-term
+### Jangka Panjang
 
-1. **Automated Data Pipeline Generation** — End-to-end pipeline generation from requirements
-2. **Causal Data Inference** — Beyond correlation to causal relationships in data
-3. **Data Mesh Architecture** — Domain-oriented data ownership and distributed architecture
-4. **AI-Powered Data Quality** — Predictive data quality management with auto-remediation
+1. **Automated Data Pipeline Generation** — Generasi pipeline end-to-end dari persyaratan
+2. **Causal Data Inference** — Melampaui korelasi menuju hubungan kausal dalam data
+3. **Data Mesh Architecture** — Kepemilikan data berorientasi domain dan arsitektur terdistribusi
+4. **AI-Powered Data Quality** — Manajemen kualitas data prediktif dengan auto-remediasi
+

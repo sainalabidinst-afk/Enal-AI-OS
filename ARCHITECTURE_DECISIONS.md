@@ -1,122 +1,101 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `ARCHITECTURE_DECISIONS.md`
-- Judul: Architecture Decisions
-- Status: bilingual header added
+### Informasi Dokumen / Info Dokumen
+- Berkas: `ARCHITECTURE_DECISIONS.md`
+- Judul: Keputusan Arsitektur
+- Status: editor bilingual ditambahkan
 
-<!-- BILINGUAL_DOCS_END -->
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Architecture Decision Records (ADR) and architecture governance
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Catatan Keputusan Arsitektur (ADR) dan tata kelola arsitektur
 <!-- DOCUMENT_METADATA_END -->
 
-# Architecture Decisions
+# Keputusan Arsitektur
 
-This document records architecture decisions that are considered stable and must not be changed without formal review.
-Each decision is identified by an Architecture Decision Record (ADR) and is treated as part of Enal Cognitive Platform's technical constitution.
-> Terjemahan Indonesia: Ini dokumen records arsitektur decisions itu adalah considered stable dan must not menjadi changed without formal review. Each decision adalah identified oleh sebuah arsitektur Decision Record (ADR) dan adalah treated as part dari Enal kognitif platform's technical constitution.
+Dokumen ini mencatat keputusan arsitektur yang dianggap stabil dan tidak boleh diubah tanpa pengamatan formal.
+Setiap keputusan diidentifikasi oleh Architecture Decision Record (ADR) dan diperlakukan sebagai bagian dari konstitusi teknis Enal Cognitive Platform.
 
-Contributors must not bypass these decisions via shortcuts, new dependencies, or layer violations.
-If a decision must change, the proposer must submit a new ADR with impact analysis and approval from the project's architecture authority.
-> Terjemahan Indonesia: Contributors must not bypass these decisions via shortcuts, new dependencies, or layer violations. If sebuah decision must change, proposer must submit sebuah new ADR dengan impact analysis dan approval dari proyek's arsitektur authority.
+Kontributor tidak boleh mengabaikan keputusan ini melalui stres, ketergantungan baru, atau pelanggaran lapisan.
+Jika suatu keputusan harus berubah, pengusul harus mengajukan ADR baru dengan analisis dampak dan persetujuan dari otoritas arsitektur proyek.
 
 ---
 
-## Governance Principle: Two Equal Architectures
+## Prinsip Tata Kelola: Dua Arsitektur yang Setara
 
-Enal AI OS is governed by two architectures of equal importance:
-> Terjemahan Indonesia: Enal AI OS adalah governed oleh two architectures dari equal importance:
+Enal AI OS diatur oleh dua arsitektur yang sama pentingnya:
 
-1. **Technical Architecture** — represented by ADR-001 through ADR-008
-2. **Experience Architecture** — represented by ADR-009 through ADR-012 and `docs/UX_DESIGN.md`
+1. **Arsitektur Teknis** — diperiksa oleh ADR-001 hingga ADR-008
+2. **Arsitektur Pengalaman** — disimpan oleh ADR-009 hingga ADR-012 dan `docs/UX_DESIGN.md`
 
-Both are frozen. Both are binding. Neither may be violated without an approved ADR.
-> Terjemahan Indonesia: Both adalah frozen. Both adalah binding. Neither may menjadi violated without sebuah approved ADR.
+Keduanya membeku. Keduanya mengikat. Keduanya tidak boleh dilanggar tanpa ADR yang disetujui.
 
-Technical Architecture ensures the platform remains stable, maintainable, and extensible.
-Experience Architecture ensures users interact with one AI through one conversation, without exposure to internal mechanisms.
-> Terjemahan Indonesia: Technical arsitektur ensures platform remains stable, maintainable, dan extensible. Experience arsitektur ensures users interact dengan one AI through one conversation, without exposure untuk internal mechanisms.
+Arsitektur Teknis memastikan platform tetap stabil, dapat dipertahankan, dan dipertahankan.
+Arsitektur Pengalaman memastikan pengguna berinteraksi dengan satu AI melalui satu percakapan, tanpa paparan mekanisme internal.
 
-A change that violates either architecture is a defect, regardless of its technical merit.
-> Terjemahan Indonesia: Sebuah change itu violates either arsitektur adalah sebuah defect, regardless dari its technical merit.
+Perubahan yang melanggar salah satu arsitektur merupakan suatu cacat, terlepas dari manfaat teknisnya.
 
 ---
 
-## Feature Acceptance Rule
+## Aturan Penerimaan Fitur
 
-Every new feature must answer these three questions before implementation:
-> Terjemahan Indonesia: Setiap fitur baru harus menjawab tiga pertanyaan berikut sebelum diterapkan:
+Setiap fitur baru harus menjawab tiga pertanyaan berikut sebelum diterapkan:
 
-1. Which Capability improves?
-   - If no Capability improves: do not build.
-> Terjemahan Indonesia: If no kapabilitas improves: do not membangun.
+1. Kemampuan mana yang ditingkatkan?
+   - Jika tidak ada kemampuan yang meningkat: jangan membangun.
 
-2. Which Journey becomes better?
-   - If no Journey becomes better: do not build.
-> Terjemahan Indonesia: If no journey becomes better: do not membangun.
+2. Perjalanan mana yang lebih baik?
+   - Jika tidak ada Perjalanan yang menjadi lebih baik: jangan membangun.
 
-3. Which Benchmark increases?
-   - If no Benchmark increases: do not build.
-> Terjemahan Indonesia: If no benchmark increases: do not membangun.
+3. Benchmark yang mana yang meningkat?
+   - Jika tidak ada Benchmark yang bertambah: jangan membangun.
 
-If all three answers are "yes", implementation may proceed.
-This rule prevents feature creep and keeps development aligned with product value, not architectural novelty.
-> Terjemahan Indonesia: If all three answers adalah "yes", implementation may proceed. ini rule prevents feature creep dan keeps development aligned dengan product value, not architectural novelty.
+Jika jawaban ketiga tersebut adalah “ya”, implementasi dapat dilanjutkan.
+Aturan ini mencegah fitur menambahkan dan menjaga pengembangan selaras dengan nilai produk, bukan kebaruan arsitektur.
 
 ---
 
-## ADR-001: Core Pipeline Freeze
+## ADR-001: Pembekuan Pipa Inti
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-The Core Pipeline must remain small, stable, and predictable.
-> Terjemahan Indonesia: Core jalur must remain small, stable, dan predictable.
+Core Pipeline harus tetap kecil, stabil, dan dapat diprediksi.
 
-- Core must stay under 5,000 lines of code.
-- Core must have zero external dependencies beyond stdlib + pydantic.
-- Core contracts are versioned and backward-compatible within major versions.
-- Breaking changes require a 2-release grace period with migration guides.
+- Inti harus tetap berada di bawah 5.000 baris kode.
+- Inti tidak boleh memiliki ketergantungan eksternal selain stdlib + pydantic.
+- Kontrak inti memiliki versi dan kompatibel dengan versi utama.
+- Perubahan yang dapat menyebabkan gangguan memerlukan masa tenggang 2 rilis dengan panduan migrasi.
 
-**Rationale:**
-A growing Core becomes a maintenance bottleneck and reduces ECP's ability to evolve Capability Packs independently.
-Freezing Core size and dependencies forces new work into Capability Packs, preserving Core stability.
-> Terjemahan Indonesia: Sebuah growing Core becomes sebuah maintenance bottleneck dan reduces ECP's ability untuk evolve kapabilitas Packs independently. Freezing Core size dan dependencies forces new work into kapabilitas Packs, preserving Core stability.
+**Alasan:**
+Core yang berkembang menjadi pemeliharaan dan mengurangi kemampuan ECP untuk mengembangkan Paket kemampuan secara mandiri.
+Membekukan ukuran dan kemandirian Inti memaksa pekerjaan baru ke dalam Paket Kemampuan, menjaga stabilitas Inti.
 
 ---
 
-## ADR-002: Capability Pack Independence
+## ADR-002: Capability Pack Kemerdekaan
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-Capability Packs must not import other Capability Packs directly.
-> Terjemahan Indonesia: Kapabilitas Packs must not import other kapabilitas Packs directly.
+Paket kemampuan tidak dapat mengimpor Paket kemampuan lain secara langsung.
 
-Communication between Capability Packs must flow through:
-> Terjemahan Indonesia: Communication between kapabilitas Packs must flow through:
+Komunikasi antar Paket Kemampuan harus mengalir melalui:
 
-1. Task / Intent definition
+1. Definisi Tugas / Maksud
 2. Execution Runtime
-3. Shared contracts only
+3. Hanya kontrak bersama
 
-Example of forbidden pattern:
-> Terjemahan Indonesia: Example dari forbidden pattern:
+Contoh pola terlarang:
 
 ```python
 # FORBIDDEN
@@ -124,8 +103,7 @@ from apps.trading_analyst import engine as trading_engine
 trading_engine.analyze(...)
 ```
 
-Example of allowed pattern:
-> Terjemahan Indonesia: Example dari allowed pattern:
+Contoh pola yang diperbolehkan:
 
 ```python
 # ALLOWED
@@ -136,31 +114,26 @@ task = {
 result = await execution_runtime.execute(task)
 ```
 
-**Rationale:**
-Direct imports create tight coupling, hidden dependencies, and circular import risks.
-Independence allows Capability Packs to be developed, tested, and deployed without coordinating changes across packs.
-> Terjemahan Indonesia: Direct imports membuat tight coupling, hidden dependencies, dan circular import risks. Independence memungkinkan kapabilitas Packs untuk menjadi developed, tested, dan deployed without coordinating changes across packs.
+**Alasan:**
+Impor langsung menciptakan hubungan yang erat, ketergantungan yang tersembunyi, dan risiko impor yang sirkular.
+Kemandirian memungkinkan Paket kemampuan untuk dikembangkan, diuji, dan diterapkan tanpa mengoordinasikan perubahan di seluruh paket.
 
 ---
 
-## ADR-003: Worker = Adapter Only
+## ADR-003: Pekerja = Hanya Adaptor
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-A Worker is an adapter. A Worker does not own business logic.
-> Terjemahan Indonesia: Sebuah Worker adalah sebuah adapter. sebuah Worker does not own business logic.
+Pekerja adalah adaptor. Seorang Pekerja tidak memiliki logika bisnis.
 
-Business logic belongs to the Domain Engine inside the Capability Pack.
-> Terjemahan Indonesia: Business logic belongs untuk Domain Engine inside kapabilitas Pack.
+Logika bisnis milik Mesin Domain di dalam Capability Pack.
 
-Responsibilities:
-> Terjemahan Indonesia: Tanggung jawab:
-- Worker: translates subtask into Capability Pack call, returns result
-- Domain Engine: owns analysis, generation, validation, and domain-specific logic
+Tanggung jawab:
+- Pekerja: menerjemahkan subtugas menjadi panggilan Capability Pack, mengembalikan hasil
+- Mesin Domain: memiliki analisis, pembuatan, validasi, dan logika khusus domain
 
-Forbidden pattern:
-> Terjemahan Indonesia: Pola terlarang:
+Pola terlarang:
 
 ```python
 # FORBIDDEN - Worker owning business logic
@@ -170,8 +143,7 @@ class NetworkWorker:
         ...
 ```
 
-Required pattern:
-> Terjemahan Indonesia: Pola yang diperlukan:
+Pola yang diperlukan:
 
 ```python
 # ALLOWED - Worker delegates to Domain Engine
@@ -180,380 +152,328 @@ class NetworkWorker:
         return await self._app.engine.analyze(config)
 ```
 
-**Rationale:**
-Keeping business logic in Domain Engines preserves testability, reusability, and separation of concerns.
-Workers remain thin adapters that can be replaced or extended without changing domain logic.
-> Terjemahan Indonesia: Keeping business logic dalam Domain Engines preserves testability, reusability, dan separation dari concerns. Workers remain thin adapters itu dapat menjadi replaced or extended without changing domain logic.
+**Alasan:**
+Mempertahankan logika bisnis di Mesin Domain akan menjaga kemampuan pengujian, penggunaan kembali, dan pemisahan masalah.
+Pekerja tetap menjadi adaptor tipis yang dapat diganti atau tidak berfungsi tanpa mengubah domain logika.
 
 ---
 
-## ADR-004: Domain Engine Owns Business Logic
+## ADR-004: Mesin Domain Memiliki Logika Bisnis
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-All business logic for a Capability Pack resides in its Domain Engine.
-> Terjemahan Indonesia: All business logic untuk sebuah kapabilitas Pack resides dalam its Domain Engine.
+Semua logika bisnis untuk Capability Pack berada di Mesin Domainnya.
 
-- Domain Engine: analysis, generation, validation, simulation, recommendation
-- Worker: adapter only (see ADR-003)
-- Conversation Layer: context, history, streaming only
+- Mesin Domain: analisis, pembuatan, validasi, simulasi, rekomendasi
+- Pekerja: hanya adaptor (lihat ADR-003)
+- Lapisan Percakapan: konteks, riwayat, streaming saja
 
-A Domain Engine may not:
-> Terjemahan Indonesia: Sebuah Domain Engine may not:
-- Import other Capability Pack engines directly
-- Modify Core contracts
-- Bypass Execution Runtime for cross-pack communication
+Mesin Domain tidak boleh:
+- Impor mesin Capability Pack lainnya secara langsung
+- Ubah kontrak Inti
+- Lewati Execution Runtime untuk komunikasi lintas paket
 
-**Rationale:**
-Centralizing business logic in Domain Engines makes each Capability Pack self-contained and independently testable.
-This is the architectural boundary that protects Core from domain-specific change.
-> Terjemahan Indonesia: Centralizing business logic dalam Domain Engines makes each kapabilitas Pack self-contained dan independently testable. ini adalah architectural boundary itu protects Core dari domain-specific change.
+**Alasan:**
+Memusatkan logika bisnis di Mesin Domain membuat setiap Capability Pack mandiri dan dapat diuji secara independen.
+Ini adalah batasan arsitektur yang melindungi Core dari perubahan domain spesifik.
 
 ---
 
-## ADR-005: Human Approval Required
+## ADR-005: Diperlukan Persetujuan Manusia
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-No code, configuration, or architecture changes may be applied without explicit user approval.
-> Terjemahan Indonesia: No code, konfigurasi, or arsitektur changes may menjadi applied without explicit user approval.
+Tidak ada perubahan kode, konfigurasi, atau arsitektur yang dapat diterapkan tanpa persetujuan pengguna secara eksplisit.
 
-- Autonomous capabilities may analyze, propose, and prepare changes.
-- Execution of changes requires explicit user approval.
-- All proposals, diffs, test results, and approval records are preserved as artifacts.
-- The platform never modifies itself without a human decision in the loop.
+- Kemampuan otonom dapat menganalisis, merencanakan, dan mempersiapkan perubahan.
+- Eksekusi perubahan memerlukan persetujuan pengguna secara eksplisit.
+- Semua proposal, perbedaan, hasil pengujian, dan catatan persetujuan disimpan sebagai artefak.
+- Platform tidak pernah memodifikasi dirinya sendiri tanpa adanya keputusan manusia.
 
-Implementation rule:
-> Terjemahan Indonesia: Aturan implementasi:
-- Approval step must come before Apply step in any change workflow.
-- Approval records must be immutable once created.
+Penerapan aturan:
+- Langkah persetujuan harus dilakukan sebelum langkah Terapkan dalam alur kerja perubahan apa pun.
+- Catatan persetujuan tidak dapat diubah setelah dibuat.
 
-**Rationale:**
-This principle is non-negotiable for user trust, auditability, and safe AI operation.
-It is the governance mechanism that allows ECP to have autonomous capabilities without becoming autonomous in decision-making.
-> Terjemahan Indonesia: Ini principle adalah non-negotiable untuk user trust, auditability, dan safe AI operation. It adalah tata kelola mechanism itu memungkinkan ECP untuk memiliki autonomous kapabilitas without becoming autonomous dalam decision-making.
+**Alasan:**
+Prinsip ini tidak dapat dinegosiasikan demi kepercayaan pengguna, kemampuan audit, dan pengoperasian AI yang aman.
+Mekanisme tata kelola inilah yang memungkinkan ECP memiliki kemampuan otonom tanpa menjadi otonom dalam keputusan pengambilan.
 
 ---
 
-## ADR-006: Capability Contract v1 Frozen
+## ADR-006: Kontrak Kemampuan v1 Dibekukan
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-Capability Contract v1 is the stable schema for all Capability Packs.
-> Terjemahan Indonesia: Kapabilitas Contract v1 adalah stable schema untuk all kapabilitas Packs.
+Kontrak Kemampuan v1 adalah skema stabil untuk semua Paket Kemampuan.
 
-Contract elements:
-> Terjemahan Indonesia: Elemen kontrak:
-- CapabilityNode: capability_id, name, description, required_skills, dependencies, estimated_complexity, tags
-- SubtaskTemplate: subtask_id, name, description, required_skills, produces_artifact, estimated_duration_minutes, priority, can_parallelize
-- Validation functions: validate_capability_node, validate_subtask_template, validate_capability_pack
+Elemen kontrak:
+- CapabilityNode: ability_id, nama, deskripsi, diperlukan_skills, dependensi, estimasi_kompleksitas, tag
+- SubtugasTemplate: subtugas_id, nama, deskripsi, keterampilan_yang diperlukan, artefak_produksi, perkiraan_durasi_menit, prioritas, can_parallelize
+- Fungsi validasi: validasi_capability_node, validasi_subtask_template, validasi_capability_pack
 
-Changes to Capability Contract require:
-> Terjemahan Indonesia: Changes untuk kapabilitas Contract require:
-- RFC process with 7-day review period
-- Backward compatibility for all existing Capability Packs
-- Migration guide for all affected templates
-- Approval by project architecture authority
+Perubahan Kontrak Kemampuan memerlukan:
+- Proses RFC dengan periode peninjauan 7 hari
+- Kompatibilitas mundur untuk semua Paket kemampuan yang ada
+- Panduan migrasi untuk semua template yang mempengaruhi
+- Persetujuan oleh otoritas arsitektur proyek
 
-**Rationale:**
-The Capability Contract is the interface between the platform and all Capability Packs.
-Freezing it enables a marketplace of internal, community, and third-party packs to coexist without version conflicts.
-> Terjemahan Indonesia: Kapabilitas Contract adalah interface between platform dan all kapabilitas Packs. Freezing it memungkinkan sebuah marketplace dari internal, community, dan third-party packs untuk coexist without versi conflicts.
+**Alasan:**
+Kontrak Kemampuan adalah antarmuka antara platform dan semua Paket Kemampuan.
+Membekukannya memungkinkan pasar paket internal, komunitas, dan pihak ketiga untuk hidup berdampingan tanpa konflik versi.
 
 ---
 
-## ADR-007: Conversation Boundary
+## ADR-007: Batas Percakapan
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-Conversation Manager is responsible for:
-> Terjemahan Indonesia: Conversation Manager adalah responsible untuk:
-- Context management
-- History tracking
-- Streaming events
-- Capability discovery responses
+Manajer Percakapan bertanggung jawab untuk:
+- Manajemen konteks
+- Pelacakan sejarah
+- Streaming acara
+- Tanggapan penemuan kemampuan
 
-Conversation Manager must not:
-> Terjemahan Indonesia: Manajer Percakapan tidak boleh:
-- Perform planning
-- Execute reasoning
-- Schedule tasks
-- Invoke Domain Engines directly
+Manajer Percakapan tidak boleh:
+- Lakukan perencanaan
+- Jalankan penalaran
+- Jadwalkan tugas
+- Panggil Mesin Domain secara langsung
 
-All task execution must flow through Society Runtime → Execution Runtime.
-> Terjemahan Indonesia: Semua pelaksanaan tugas harus mengalir melalui Society Runtime → Execution Runtime.
+Semua pelaksanaan tugas harus mengalir melalui Masyarakat Runtime → Execution Runtime.
 
-**Rationale:**
-Keeping Conversation Manager thin preserves the layer boundary between user interaction and task execution.
-If Conversation Manager absorbs planning or execution logic, the system becomes harder to debug, test, and extend.
-> Terjemahan Indonesia: Keeping Conversation Manager thin preserves layer boundary between user interaction dan task execution. If Conversation Manager absorbs planning or execution logic, sistem becomes harder untuk debug, test, dan extend.
+**Alasan:**
+Menjaga Conversation Manager tetap menjaga batas antara lapisan interaksi pengguna dan pelaksanaan tugas.
+Jika Conversation Manager menyerap logika perencanaan atau eksekusi, sistem menjadi lebih sulit untuk di-debug, diuji, dan dibahas.
 
 ---
 
-## ADR-008: Core Change Requires Cross-Capability Proof
+## ADR-008: Perubahan Inti Membutuhkan Bukti Lintas Kemampuan
 
-**Status:** Frozen
-**Effective:** 2026-07-10
+**Status:** Beku
+**Berlaku:** 07-10-2026
 
-No change to Core may be made unless it is proven to be required by at least two Capability Packs.
-> Terjemahan Indonesia: No change untuk Core may menjadi made unless it adalah proven untuk menjadi required oleh at least two kapabilitas Packs.
+Tidak ada perubahan pada Inti yang dapat dilakukan kecuali terbukti diperlukan oleh setidaknya dua Paket Kemampuan.
 
-Process:
-> Terjemahan Indonesia: Proses:
-1. Identify the Core change needed
-2. Document which Capability Packs require it
-3. If fewer than 2 packs require it, the change belongs in the Capability Pack, not Core
-4. If 2 or more packs require it, submit an RFC with test cases from both packs
-5. RFC must be accepted before any Core modification
+Proses:
+1. identifikasi perubahan Inti yang diperlukan
+2. Dokumentasikan Paket kemampuan mana yang memerlukannya
+3. Jika kurang dari 2 paket memerlukannya, perubahannya menjadi milik Capability Pack, bukan Inti
+4. Jika 2 paket atau lebih memerlukannya, kirimkan RFC dengan kasus uji dari kedua paket
+5. RFC harus diterima sebelum modifikasi Inti apa pun
 
-**Rationale:**
-This prevents Core from growing based on single-use cases.
-It ensures Core evolution is driven by cross-cutting concerns, not individual Capability Pack needs.
-> Terjemahan Indonesia: Ini prevents Core dari growing based pada single-use cases. It ensures Core evolution adalah driven oleh cross-cutting concerns, not individual kapabilitas Pack needs.
+**Alasan:**
+Hal ini mencegah Core berkembang berdasarkan kasus penggunaan tunggal.
+Hal ini memastikan evolusi Inti didorong oleh seluruh sektoral, bukan kebutuhan Capability Pack individu.
 
 ---
 
-## Process: Changing an Architecture Decision
+## Proses: Mengubah Keputusan Arsitektur
 
-1. Propose a new ADR or update an existing ADR
-2. Document rationale and impact analysis
-3. Submit to architecture review
-4. If approved, update this document and notify all maintainers
-5. Existing implementations must migrate according to the deprecation policy
+1. Usulkan ADR baru atau perbarui ADR yang sudah ada
+2. Dokumentasikan alasan dan analisis dampak
+3. Kirim ke pandangan arsitektur
+4. Jika disetujui, perbarui dokumen ini dan beri tahu semua pengelola
+5. Implementasi yang ada harus dimigrasikan sesuai dengan kebijakan yang ditetapkan
 
-Changes to frozen ADRs require:
-> Terjemahan Indonesia: Changes untuk frozen ADRs require:
-- RFC process with extended review period
-- Migration plan for all affected components
-- Approval by project architecture authority
-
----
-
-## Definition of Architecture Complete
-
-Enal AI OS architecture is considered complete when both conditions are satisfied:
-> Terjemahan Indonesia: Enal AI OS arsitektur adalah considered complete when both conditions adalah satisfied:
-
-1. A new Capability Pack can be added without any modification to Core.
-2. Any change that impacts multiple Capability Packs requires an approved ADR with cross-capability proof.
-
-Both conditions are satisfied as of 2026-07-10. Development focus shifts from platform construction to capability excellence.
-> Terjemahan Indonesia: Both conditions adalah satisfied as dari 2026-07-10. Development focus shifts dari platform construction untuk kapabilitas excellence.
+Perubahan pada ADR yang memerlukan:
+- Proses RFC dengan periode peninjauan yang diperpanjang
+- Rencana migrasi untuk semua komponen yang terkena dampak
+- Persetujuan oleh otoritas arsitektur proyek
 
 ---
 
-## Exception List: What Requires an ADR
+## Pengertian Arsitektur Lengkap
 
-The following changes are no longer routine. Any exception must be approved through the ADR process:
-> Terjemahan Indonesia: Following changes adalah no longer routine. Any exception must menjadi approved through ADR process:
+Arsitektur Enal AI OS dianggap selesai jika kedua kondisi terpenuhi:
 
-- Adding a new Runtime
-- Adding a new Planner
-- Adding a new Kernel
-- Adding a new architectural Layer
-- Modifying Core to improve a single Capability Pack
+1. Capability Pack baru dapat ditambahkan tanpa modifikasi apa pun pada Core.
+2. Setiap perubahan yang berdampak pada beberapa Paket kemampuan memerlukan ADR yang disetujui dengan bukti lintas kemampuan.
 
-All of the above require:
-> Terjemahan Indonesia: All dari above require:
-1. Proof of cross-capability need (minimum 2 existing packs)
-2. RFC with impact analysis
-3. Approval by project architecture authority
+Kedua kondisi tersebut terpenuhi pada 10-07-2026. Fokus pengembangan bergeser dari konstruksi platform ke keunggulan kemampuan.
 
 ---
 
-## Architecture v1 Closure
+## Daftar Pengecualian: Yang Membutuhkan ADR
 
-**Effective:** 2026-07-11
-**Status:** Closed
+Perubahan berikut tidak lagi rutin. Pengecualian apa pun harus disetujui melalui proses ADR:
 
-Architecture v1 is officially closed. The following conditions are met:
-> Terjemahan Indonesia: Arsitektur v1 adalah officially closed. following conditions adalah met:
-- Core Pipeline is frozen
-- Capability Contract is frozen
-- Worker API is stable
-- Conversation Layer is stable
-- Capability Discovery is stable
-- Architecture Governance is active
-- ADR process is established
-- Capability Benchmark framework is active
-- Real-world Benchmark is active
-- Capability Excellence definition is formalized
-- Documentation is synchronized
+- Menambahkan Runtime baru
+- Menambahkan Perencana baru
+- Menambahkan Kernel baru
+- Menambahkan Layer arsitektur baru
+- Memodifikasi Inti untuk meningkatkan satu Capability Pack
 
-From this point forward, development focus shifts entirely from platform construction to Capability Excellence and Product Polish.
-> Terjemahan Indonesia: Dari ini point forward, development focus shifts entirely dari platform construction untuk kapabilitas Excellence dan Product Polish.
-
-New work must follow this cycle:
-> Terjemahan Indonesia: New work must follow ini cycle:
-> Real Usage → Measurement → Capability Improvement → Benchmark → Release
-
-No further architecture changes are expected or permitted unless they satisfy the Exception List above.
-> Terjemahan Indonesia: No further arsitektur changes adalah expected or permitted unless they satisfy Exception List above.
-
-This document, together with ADR-001 through ADR-014, constitutes the Architecture Governance of Enal AI OS.
-> Terjemahan Indonesia: Ini dokumen, together dengan ADR-001 through ADR-014, constitutes arsitektur tata kelola dari Enal AI OS.
+Semua hal di atas memerlukan:
+1. Bukti kebutuhan lintas kemampuan (minimal 2 paket yang ada)
+2. RFC dengan analisis dampak
+3. Persetujuan oleh otoritas arsitektur proyek
 
 ---
 
-## ADR-009: Single Conversation Interface
+## Penutupan Arsitektur v1
 
-**Status:** Frozen
-**Effective:** 2026-07-11
+**Efektif:** 07-11-2026
+**Status:** Ditutup
 
-Users interact with Enal AI OS through a single conversational interface.
-Users must not be required to select Capability Packs, configure Workers, choose Execution Runtimes, or understand any internal mechanism.
-> Terjemahan Indonesia: Users interact dengan Enal AI OS through sebuah single conversational interface. Users must not menjadi required untuk select kapabilitas Packs, configure Workers, choose Execution Runtimes, or understand any internal mechanism.
+Arsitektur v1 resmi ditutup. Kondisi berikut terpenuhi:
+- Pipa Inti Pembekuan
+- Kontrak Kemampuan Pembekuan
+- Pekerja API stabil
+- Lapisan Percakapan stabil
+- Kemampuan Penemuan stabil
+- Tata Kelola Arsitektur aktif
+- Proses ADR ditetapkan
+- Kemampuan kerangka Benchmark aktif
+- Benchmark di dunia nyata aktif
+- Definisi Keunggulan Kemampuan diformalkan
+- Dokumentasi disinkronkan
 
-All of the following must remain internal:
-> Terjemahan Indonesia: All dari following must remain internal:
-- Capability Pack selection
-- Worker routing
-- Execution Runtime selection
-- Task Planning details
-- Internal data structures
+Mulai saat ini, fokus pengembangan sepenuhnya beralih dari konstruksi platform ke Keunggulan Kemampuan dan Penyempurnaan Produk.
 
-Users see one AI. Internally, ECP routes to the appropriate Capability Pack, plans tasks, and executes through Workers.
-> Terjemahan Indonesia: Users see one AI. Internally, ECP routes untuk appropriate kapabilitas Pack, plans tasks, dan executes through Workers.
+Pekerjaan baru harus mengikuti siklus ini:
+> Penggunaan Nyata → Pengukuran → Peningkatan Kemampuan → Benchmark → Rilis
 
-Violation of this principle is a UX defect, not a feature.
-> Terjemahan Indonesia: Violation dari ini principle adalah sebuah UX defect, not sebuah feature.
+Tidak ada perubahan arsitektur lebih lanjut yang diharapkan atau diizinkan kecuali perubahan tersebut memenuhi Daftar Pengecualian di atas.
 
-**Rationale:**
-Enal AI OS competes with ChatGPT, Claude, and Kimi on user experience, not on architectural complexity.
-The value proposition is "one AI that understands multiple professional domains through one conversation."
-Exposing internal mechanisms breaks this promise and creates cognitive load for users.
-> Terjemahan Indonesia: Enal AI OS competes dengan ChatGPT, Claude, dan Kimi pada user experience, not pada architectural complexity. value proposition adalah "one AI itu understands multiple professional domains through one conversation." Exposing internal mechanisms breaks ini promise dan membuat kognitif load untuk users.
+Dokumen ini, bersama dengan ADR-001 hingga ADR-014, merupakan Tata Kelola Arsitektur Enal AI OS.
 
 ---
 
-## ADR-010: Workspace Isolation
+## ADR-009: Antarmuka Percakapan Tunggal
 
-**Status:** Frozen
-**Effective:** 2026-07-11
+**Status:** Beku
+**Efektif:** 07-11-2026
 
-Each project or work context is isolated in a Workspace.
-Workspace contains: History, Artifacts, and Memory.
-Memory is scoped per Workspace. Cross-Workspace memory sharing requires explicit user action.
-> Terjemahan Indonesia: Each proyek or work context adalah isolated dalam sebuah Workspace. Workspace contains: History, Artifacts, dan Memory. Memory adalah scoped per Workspace. Cross-Workspace memory sharing requires explicit user action.
+Pengguna berinteraksi dengan Enal AI OS melalui satu antarmuka percakapan.
+Pengguna tidak boleh diharuskan memilih Paket kemampuan, mengonfigurasi Pekerja, memilih Waktu Proses Eksekusi, atau memahami mekanisme internal apa pun.
 
-**Rationale:**
-Users work on multiple projects simultaneously.
-Mixing memory and artifacts between projects creates confusion and privacy risks.
-Workspace isolation keeps contexts clean and predictable.
-> Terjemahan Indonesia: Users work pada multiple projects simultaneously. Mixing memory dan artifacts between projects membuat confusion dan privacy risks. Workspace isolation keeps contexts clean dan predictable.
+Semua hal berikut harus tetap bersifat internal:
+- Capability Pack seleksi
+- Pekerja Perutean
+- Execution Runtime seleksi
+- Detil Perencanaan Tugas
+- Struktur data internal
 
----
+Pengguna melihat satu AI. Secara internal, ECP mengarahkan ke Capability Pack yang sesuai, merencanakan tugas, dan mengeksekusi melalui Pekerja.
 
-## ADR-011: Artifact Persistence
+Pelanggaran terhadap prinsip ini merupakan cacat UX, bukan fitur.
 
-**Status:** Frozen
-**Effective:** 2026-07-11
-
-All significant outputs from Capability Packs must be persisted as Artifacts.
-Artifacts are versioned and scoped per Workspace.
-Users can retrieve, compare, and restore previous artifact versions.
-> Terjemahan Indonesia: All significant outputs dari kapabilitas Packs must menjadi persisted as Artifacts. Artifacts adalah versioned dan scoped per Workspace. Users dapat retrieve, compare, dan restore previous artifact versions.
-
-Artifact types include, but are not limited to:
-> Terjemahan Indonesia: Artifact types include, but adalah not limited untuk:
-- Analysis reports
-- Recommendations
-- Patches and diffs
-- Test reports
-- Deployment plans
-- Documentation
-
-**Rationale:**
-AI outputs are valuable and should not be ephemeral.
-Persistent, versioned artifacts enable auditability, comparison, and rollback.
-This is especially important for Self Development and controlled deployment workflows.
-> Terjemahan Indonesia: AI outputs adalah valuable dan should not menjadi ephemeral. Persistent, versioned artifacts memungkinkan auditability, comparison, dan rollback. ini adalah especially important untuk Self Development dan controlled penyebaran workflows.
+**Alasan:**
+Enal AI OS bersaing dengan ChatGPT, Claude, dan Kimi dalam hal pengalaman pengguna, bukan dalam kompleksitas arsitektur.
+Proposisi nilainya adalah "satu AI yang memahami berbagai domain profesional melalui satu percakapan."
+Mengekspos mekanisme internal mengingkari janji ini dan menciptakan beban kognitif bagi pengguna.
 
 ---
 
-## ADR-012: Progress Transparency
+## ADR-010: Isolasi Ruang Kerja
 
-**Status:** Frozen
-**Effective:** 2026-07-11
+**Status:** Beku
+**Efektif:** 07-11-2026
 
-During long-running tasks, the system must show progress to the user.
-Progress indication must be coarse-grained and human-readable.
-Users should never see a silent spinner with no information.
-> Terjemahan Indonesia: During long-running tasks, sistem must show progress untuk user. Progress indication must menjadi coarse-grained dan human-readable. Users should never see sebuah silent spinner dengan no information.
+Setiap proyek atau konteks pekerjaan diisolasi di Ruang Kerja.
+Ruang Kerja berisi: Sejarah, Artefak, dan Memori.
+Memori dicakup per Ruang Kerja. Berbagi memori melintasi Ruang Kerja memerlukan tindakan pengguna yang eksplisit.
 
-Acceptable progress patterns:
-> Terjemahan Indonesia: Pola kemajuan yang dapat diterima:
-- "Analyzing configuration..."
-- "Generating documentation..."
-- "Running tests..."
-
-Not acceptable:
-> Terjemahan Indonesia: Tidak dapat diterima:
-- Generic "Loading..." with no context
-- Internal step names like "Stage 3: Execute Subtask 7"
-
-**Rationale:**
-Progress indication builds trust and reduces perceived wait time.
-It also helps users understand what the AI is doing, which is part of explainability.
-> Terjemahan Indonesia: Progress indication membangun trust dan reduces perceived wait time. It also helps users understand what AI adalah doing, which adalah part dari explainability.
+**Alasan:**
+Pengguna mengerjakan banyak proyek secara bersamaan.
+Mencampur memori dan artefak antar proyek menimbulkan kebingungan dan risiko privasi.
+Isolasi ruang kerja menjaga konteks tetap bersih dan dapat diprediksi.
 
 ---
 
-## ADR-013: Outcome First Rule
+## ADR-011: Kegigihan Artefak
 
-**Status:** Frozen
-**Effective:** 2026-07-11
+**Status:** Beku
+**Efektif:** 07-11-2026
 
-Users request outcomes, not mechanisms.
-> Terjemahan Indonesia: Pengguna meminta hasil, bukan mekanisme.
+Semua keluaran signifikan dari Paket Kemampuan harus dipertahankan sebagai Artefak.
+Artefak diberi versi dan cakupannya per Ruang Kerja.
+Pengguna dapat mengambil, membandingkan, dan memulihkan versi artefak sebelumnya.
 
-A user never says:
-> Terjemahan Indonesia: Sebuah user never says:
-- "Use Capability Network."
-- "Call Worker NetworkWorker."
-- "Run Execution Runtime."
+Jenis artefak termasuk, namun tidak terbatas pada:
+- Analisis laporan
+- Rekomendasi
+- Tambalan dan perbedaan
+- Laporan pengujian
+- Rencana penerapan
+- Dokumentasi
 
-A user says:
-> Terjemahan Indonesia: Sebuah user says:
+**Alasan:**
+Keluaran AI sangat berharga dan tidak boleh bersifat sementara.
+Artefak yang persisten dan berversi memungkinkan kemampuan audit, pengukuran, dan rollback.
+Hal ini sangat penting untuk Pengembangan Diri dan alur kerja penerapan yang terkendali.
+
+---
+
+## ADR-012: Transparansi Kemajuan
+
+**Status:** Beku
+**Efektif:** 07-11-2026
+
+Selama tugas yang berjalan lama, sistem harus menunjukkan kemajuan kepada pengguna.
+Indikasi kemajuan harus terperinci dan dapat dibaca oleh manusia.
+Pengguna tidak dapat melihat informasi rahasia tanpa.
+
+Pola kemajuan yang dapat diterima:
+- "Menganalisis konfigurasi..."
+- "Membuat dokumentasi..."
+- "Menjalankan tes..."
+
+Tidak dapat diterima:
+- Generik "Memuat..." tanpa konteks
+- Nama langkah internal seperti "Tahap 3: Jalankan Subtugas 7"
+
+**Alasan:**
+Indikasi kemajuan membangun kepercayaan dan mengurangi waktu tunggu yang dirasakan.
+Hal ini juga membantu pengguna memahami apa yang dilakukan AI, yang merupakan bagian dari kemampuan menjelaskan.
+
+---
+
+## ADR-013: Aturan Hasil Pertama
+
+**Status:** Beku
+**Efektif:** 07-11-2026
+
+Pengguna meminta hasil, bukan mekanisme.
+
+Seorang pengguna tidak pernah mengatakan:
+- "Gunakan Kemampuan Jaringan."
+- "Panggil Pekerja Jaringan Pekerja."
+- "Jalankan Execution Runtime."
+
+Seorang pengguna mengatakan:
 - "Audit jaringan kantor saya."
 - "Analisa BTCUSDT."
-- "Bangun aplikasi Inventory."
+- "Bangun aplikasi Inventaris."
 
-All internal mechanisms—Capability Packs, Workers, Execution Graph, Scheduler, Model Gateway—are means to an end. The end is the user's outcome.
-> Terjemahan Indonesia: All internal mechanisms—kapabilitas Packs, Workers, Execution Graph, Scheduler, Model Gateway—adalah means untuk sebuah end. end adalah user's outcome.
+Semua mekanisme internal—Paket kemampuan, Pekerja, Grafik Eksekusi, Penjadwalan, Model Gateway—adalah sarana untuk mencapai tujuan. Ujungnya adalah hasil pengguna.
 
-Any feature, UI element, or API that exposes internal mechanisms to the user is a defect, not a feature.
-> Terjemahan Indonesia: Any feature, UI element, or API itu exposes internal mechanisms untuk user adalah sebuah defect, not sebuah feature.
+Fitur apa pun, elemen UI, atau API yang menampilkan mekanisme internal kepada pengguna merupakan cacat, bukan fitur.
 
-**Rationale:**
-Enal AI OS competes on outcomes, not on architectural transparency. Users do not need to know how the AI works; they need to know that it works. Exposing internal concepts like Capability Packs, Workers, or Execution Graphs violates the single-conversation promise and creates unnecessary cognitive load. The product is judged by what it delivers, not by how it delivers it.
-> Terjemahan Indonesia: Enal AI OS competes pada outcomes, not pada architectural transparency. Users do not need untuk know how AI works; they need untuk know itu it works. Exposing internal concepts like kapabilitas Packs, Workers, or Execution Graphs violates single-conversation promise dan membuat unnecessary kognitif load. product adalah judged oleh what it delivers, not oleh how it delivers it.
+**Alasan:**
+Enal AI OS bersaing dalam hal hasil, bukan transparansi arsitektur. Pengguna tidak perlu mengetahui cara kerja AI; mereka perlu tahu bahwa itu berhasil. Mengekspos konsep internal seperti Paket Kemampuan, Pekerja, atau Grafik Eksekusi janji percakapan tunggal dan menciptakan beban kognitif yang tidak perlu. Produk dinilai dari apa yang dikirimkannya, bukan dari cara pengirimannya.
 
 ---
 
-## ADR-014: Operational Product Layer
+## ADR-014: Lapisan Produk Operasional
 
-**Status:** Frozen
-**Effective:** 2026-07-11
+**Status:** Beku
+**Efektif:** 07-11-2026
 
-The Operational Product Layer consists of services that make ECP feel like a real product rather than an AI framework. These services are built on top of the stable Core and are required for production use.
-> Terjemahan Indonesia: Operational Product Layer consists dari services itu make ECP feel like sebuah real product rather than sebuah AI kerangka kerja. These services adalah built pada top dari stable Core dan adalah required untuk production use.
+Lapisan Produk Operasional terdiri dari layanan yang membuat ECP terasa seperti produk nyata dan bukan kerangka AI. Layanan ini dibangun di atas Core yang stabil dan diperlukan untuk penggunaan produksi.
 
-Required services:
-> Terjemahan Indonesia: Layanan yang dibutuhkan:
-- Execution Service: manages full lifecycle of execution sessions
-- Workspace Service: isolates projects with conversation, files, memory, artifacts, timeline
-- Artifact Service: versioned storage with compare, restore, export
-- Model Gateway: unified routing to OpenAI, Anthropic, Gemini, Qwen, DeepSeek, Llama, Ollama
-- Notification Service: real-time progress and completion notifications
+Layanan yang dibutuhkan:
+- Layanan Eksekusi: mengelola siklus hidup penuh sesi eksekusi
+- Layanan Ruang Kerja: mengisolasi proyek dengan percakapan, file, memori, artefak, garis waktu
+- Layanan Artefak: penyimpanan berversi dengan perbandingan, pemulihan, ekspor
+- Model Gateway: perutean terpadu ke OpenAI, Anthropic, Gemini, Qwen, DeepSeek, Llama, Ollama
+- Layanan Pemberitahuan: pemberitahuan kemajuan dan penyelesaian waktu nyata
 
-These services must not modify Core. They are part of the product layer, not the platform layer.
-> Terjemahan Indonesia: These services must not modify Core. They adalah part dari product layer, not platform layer.
+Layanan ini tidak dapat mengubah Core. Mereka adalah bagian dari lapisan produk, bukan lapisan platform.
 
-**Rationale:**
-Users judge ECP by daily usability, not by internal architecture. The Operational Product Layer is what transforms a powerful AI runtime into a product that users can rely on for real work. Without these services, ECP remains a framework. With them, it becomes an AI Execution Platform.
-> Terjemahan Indonesia: Users judge ECP oleh daily usability, not oleh internal arsitektur. Operational Product Layer adalah what transforms sebuah powerful AI runtime into sebuah product itu users dapat rely pada untuk real work. Without these services, ECP remains sebuah kerangka kerja. dengan them, it becomes sebuah AI Execution platform.
+**Alasan:**
+Pengguna menilai ECP berdasarkan kegunaan sehari-hari, bukan berdasarkan arsitektur internal. Lapisan Produk Operasional inilah yang mengubah AI Runtime yang kuat menjadi produk yang dapat diandalkan pengguna untuk pekerjaan nyata. Tanpa layanan ini, ECP hanya akan menjadi sebuah kerangka kerja. Bersama mereka, ini menjadi Platform Eksekusi AI.

@@ -1,254 +1,232 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/REFERENCE_ARCHITECTURE.md`
-- Judul: Reference Architecture
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Reference Architecture â€” Enal Cognitive Platform (ECP)
+﻿# Arsitektur Referensi - Platform Kognitif Enal (ECP)
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for REFERENCE_ARCHITECTURE
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 02-08-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk REFERENCE_ARCHITECTURE
 <!-- DOCUMENT_METADATA_END -->
 
-**Version:** 1.0.0  
-**Based on:** `docs/AES_ARCHITECTURE.md`  
-**Status:** ðŸŸ¢ Active  
+**Versi:** 1.0.0
+**Berbasis pada:** `docs/AES_ARCHITECTURE.md`
+**Status:** 🟢 Aktif
 
 ---
 
-## Table of Contents
+## Daftar Isi
 
-1. [Purpose](#1-purpose)
-2. [What is a Reference Architecture](#2-what-is-a-reference-architecture)
-3. [Architecture Building Blocks](#3-architecture-building-blocks)
-4. [Application Types on ECP](#4-application-types-on-ecp)
-5. [Building an Application on ECP](#5-building-an-application-on-ecp)
-6. [Architecture Decision Framework](#6-architecture-decision-framework)
-7. [Patterns Catalog](#7-patterns-catalog)
-8. [Anti-Patterns](#8-anti-patterns)
-9. [Quality Attributes](#9-quality-attributes)
-10. [Architecture Evolution](#10-architecture-evolution)
-11. [Related Documents](#11-related-documents)
-
----
-
-## 1. Purpose
-
-This Reference Architecture extends the AES (Architecture Engineering Specification) by providing:
-> Terjemahan Indonesia: Ini Reference arsitektur extends AES (arsitektur rekayasa Specification) oleh providing:
-
-- **Reusable patterns** for building applications on ECP
-- **Decision framework** for architects building new capability packs or applications
-- **Quality attribute tradeoffs** and how to evaluate them
-- **Evolution guidance** for growing the platform without breaking the baseline
-
-**Audience:** Solution architects, senior engineers, and platform teams building on ECP.
+1. [Tujuan](#1-tujuan)
+2. [Apa itu Reference Architecture](#2-apa-itu-reference-architecture)
+3. [Building Blocks Arsitektur](#3-architecture-building-blocks)
+4. [Tipe Aplikasi di ECP](#4-application-types-on-ecp)
+5. [Membangun Aplikasi di ECP](#5-building-an-application-on-ecp)
+6. [Kerangka Keputusan Arsitektur](#6-architecture-decision-framework)
+7. [Katalog Pola](#7-patterns-catalog)
+8. [Anti-Pola](#8-anti-patterns)
+9. [Atribut Kualitas](#9-quality-attributes)
+10. [Evolusi Arsitektur](#10-architecture-evolution)
+11. [Dokumen Terkait](#11-related-documents)
 
 ---
 
-## 2. What is a Reference Architecture
+## 1. Tujuan
 
-A Reference Architecture is a **template architecture** that:
-> Terjemahan Indonesia: Sebuah Reference arsitektur adalah sebuah template arsitektur itu:
+Referensi Arsitektur ini memperluas AES (Spesifikasi Teknik Arsitektur) dengan menyediakan:
 
-1. Identifies the key **architectural building blocks**
-2. Defines **how blocks interact** (contracts, protocols, data flow)
-3. Documents **proven patterns** and known **anti-patterns**
-4. Provides **decision criteria** for choosing approaches
+- **Pola yang dapat digunakan ulang (pola yang dapat digunakan kembali)** untuk membangun aplikasi di ECP
+- **Kerangka keputusan** bagi arsitek yang membangun Capability Pack atau aplikasi baru
+- **Tradeoff atribut kualitas** dan cara memutarnya
+- **Panduan berevolusi** untuk menumbuhkan platform tanpa merusak baseline
 
-It is NOT a rigid blueprint. It is a **starting point** that application teams adapt to their specific domain requirements while maintaining platform compatibility.
-> Terjemahan Indonesia: It adalah NOT sebuah rigid blueprint. It adalah sebuah starting point itu application teams adapt untuk their specific domain requirements while maintaining platform compatibility.
+**Audiens:** Arsitek solusi, insinyur senior, dan tim platform yang membangun di atas ECP.
 
-### Relationship to Other Documents
+---
+
+## 2. Arsitektur Referensi Apa itu
+
+Arsitektur Referensi adalah **template arsitektur** yang:
+
+1. Mengidentifikasi **building block arsitektur** utama
+2. Mendefinisikan **cara blok berinteraksi** (kontrak, protokol, alur data)
+3. Mendokumentasikan **pola terbukti** dan **anti-pola** yang dikenal
+4. Menyediakan **kriteria keputusan** untuk memilih pendekatan
+
+Ia BUKAN cetak biru yang kaku. Ia adalah **titik awal** yang disesuaikan oleh tim aplikasi sesuai kebutuhan domain spesifik mereka sambil tetap menjaga kompatibilitas platform.
+
+### Hubungan dengan Dokumen Lain
 
 ```
-Engineering Baseline (what is frozen)
-        â”‚
-        â–¼
-AES Architecture (how the platform is built)
-        â”‚
-        â–¼
-Reference Architecture (how to build ON the platform) â† ANDA DISINI
-        â”‚
-        â–¼
-Application Development Guide (step-by-step for app teams)
+Engineering Baseline (apa yang dibekukan)
+        │
+        ▼
+AES Architecture (bagaimana platform dibangun)
+        │
+        ▼
+Reference Architecture (bagaimana membangun DI ATAS platform) ← ANDA DISINI
+        │
+        ▼
+Application Development Guide (langkah demi langkah untuk tim aplikasi)
 ```
 
 ---
 
-## 3. Architecture Building Blocks
+## 3. Arsitektur Blok Bangunan
 
-ECP provides these reusable building blocks for any application:
-> Terjemahan Indonesia: ECP menyediakan these reusable building blocks untuk any application:
+ECP menyediakan blok bangunan yang dapat digunakan ulang untuk aplikasi apa pun:
 
-### 3.1 Core Blocks (Provided by Platform)
+### 3.1 Blok Inti (Platform yang Disediakan)
 
-| Block | Component | How to Use |
+|Blok|Komponen|Cara Menggunakan|
 |---|---|---|
-| **Perception** | `CognitiveKernel.perception` | Feed user input, get structured entities/intents |
-| **Memory** | `MemoryManager` (7 layers) | Store/retrieve/search across memory hierarchies |
-| **Reasoning** | `ReasoningEngine` | Generate hypotheses, chain reasoning steps |
-| **Planning** | `StrategicPlanner` / `AIPlanner` | Decompose goals into actionable plans |
-| **Decision** | `DecisionEngine` | Evaluate options, select with confidence |
-| **Reflection** | `ReflectionService` | Self-review outputs for quality |
-| **Learning** | `ContinuousLearning` | Extract learning signals from outcomes |
-| **Debate** | `DebateEngine` | Multi-perspective output verification |
-| **Simulation** | `SimulationEngine` | What-if analysis before execution |
-| **Verification** | `SelfVerification` | Post-execution correctness checking |
+|**Persepsi**|`CognitiveKernel.perception`|Masukkan masukan pengguna, dapatkan entitas/niat yang dikumpulkan|
+|**Ingatan**|`MemoryManager` (7 lapisan)|Simpan/ambil/cari di hirarki memory|
+|**Pemikiran**|`ReasoningEngine`|Hasilkan hipotesis, rantai langkah penalaran|
+|**Perencanaan**|`StrategicPlanner` / `AIPlanner`|Uraikan tujuan menjadi rencana yang dapat dilaksanakan|
+|**Keputusan**|`DecisionEngine`|Evaluasi opsi, pilih dengan percaya diri|
+|**Cerminan**|`ReflectionService`|Tinjau ulang keluaran untuk kualitas|
+|**Sedang belajar**|`ContinuousLearning`|Ekstrak sinyal pembelajaran dari hasil|
+|**Perdebatan**|`DebateEngine`|Verifikasi keluaran multiperspektif|
+|**Simulasi**|`SimulationEngine`|Analisis bagaimana-jika sebelum eksekusi|
+|**Verifikasi**|`SelfVerification`|Pemeriksaan kebenaran pasca-eksekusi|
 
-### 3.2 Infrastructure Blocks (Provided by Platform)
+### 3.2 Blok Infrastruktur (Platform Disediakan)
 
-| Block | Component | Abstraction |
+|Blok|Komponen|Abstraksi|
 |---|---|---|
-| **Event Bus** | `EventBus` | Redis Streams â€” pub/sub + persistent |
-| **Task Queue** | `TaskQueue` | In-memory async queue |
-| **Execution** | `ExecutionIntegration` | Session + scheduler + progress |
-| **Model Router** | `ModelRouter` | LiteLLM â€” multi-provider LLM access |
-| **State Recovery** | `StateRecovery` | Checkpoint/restore for long tasks |
-| **Governance** | `Governance` | Approval workflows, tenant isolation |
-| **Security** | `SecurityModel` | RBAC, audit logging |
+|**Bus Acara**|`EventBus`|Redis Streams — pub/sub + bertahan|
+|**Antrian Tugas**|`TaskQueue`|Antrean asinkron dalam memori|
+|**Eksekusi**|`ExecutionIntegration`|Sesi + penjadwal + kemajuan|
+|**Model Router**|`ModelRouter`|LiteLLM — akses multi-penyedia LLM|
+|**Pemulihan Negara**|`StateRecovery`|Pos pemeriksaan/pemulihan untuk tugas panjang|
+|**Tata Kelola**|`Governance`|Alur kerja persetujuan, isolasi penyewa|
+|**Keamanan**|`SecurityModel`|RBAC, audit pencatatan|
 
-### 3.3 Extension Points (For Application Teams)
+### 3.3 Titik Ekstensi (Untuk Tim Aplikasi)
 
-| Extension Point | What to Implement | Example |
+|Titik Ekstensi|Yang Diimplementasikan|Contoh|
 |---|---|---|
-| **Capability Pack** | `BaseApp` subclass + `get_app()` factory | `NetworkEngineerApp` |
-| **Vendor Parser** | Parse config â†’ Universal AST models | `mikrotik.py` â†’ `UniversalFirewallRule` |
-| **Custom Worker** | Task handler for society runtime | `network_worker.py` |
-| **Plugin** | Plugin manifest + handler | MikroTik plugin |
-| **API Route** | FastAPI router module | `api/chat.py` |
-| **Event Handler** | Subscribe to event type | `task.completed` â†’ notify |
+|**Capability Pack**|Subkelas `BaseApp` + pabrik `get_app()`|`NetworkEngineerApp`|
+|**Pengurai Vendor**|Parsing konfigurasi → model Universal AST|`mikrotik.py` → `UniversalFirewallRule`|
+|**Pekerja Kustom**|Pengendali tugas untuk masyarakat Runtime|`network_worker.py`|
+|**Plugin**|Plugin manifes + pengendali|MikroTik Plugin|
+|**API Rute**|Modul router FastAPI|`api/chat.py`|
+|** Pengendali Peristiwa **|Tipe acara berlangganan|`task.completed` → notifikasi|
 
 ---
 
-## 4. Application Types on ECP
+## 4. Tipe Aplikasi di ECP
 
-Based on the existing capability packs, ECP supports these application archetypes:
-> Terjemahan Indonesia: Based pada existing kapabilitas packs, ECP mendukung these application archetypes:
+Berdasarkan ability packs yang ada, ECP mendukung archetype aplikasi berikut:
 
-### 4.1 Analysis Applications
+### 4.1 Aplikasi Analisis (Aplikasi Analisis)
 
-**Description:** Analyze input data, produce insights and recommendations.
+**Deskripsi:** Menganalisis masukan data, menghasilkan wawasan dan rekomendasi.
 
-**Examples:** Network Engineer (config analysis), Code Engineer (code review)
+**Contoh:** Network Engineer (analisis konfigurasi), Code Engineer (peninjauan kode)
 
-**Common Pipeline:**
+**Jalur umum:**
 ```
-Perception â†’ Memory â†’ Reasoning â†’ Decision â†’ Reflection
-```
-
-**Key Blocks:** Perception, Memory, Reasoning, Knowledge Graph
-
-### 4.2 Generation Applications
-
-**Description:** Generate artifacts (configs, code, documents) from specifications.
-
-**Examples:** Network Engineer (config generation), Code Engineer (patch generation)
-
-**Common Pipeline:**
-```
-Perception â†’ Planning â†’ Reasoning â†’ Decision â†’ Action â†’ Reflection
+Perception → Memory → Reasoning → Decision → Reflection
 ```
 
-**Key Blocks:** Planning, Action, Verification, Debate
+**Blok Kunci:** Persepsi, Memori, Penalaran, Knowledge Graph
 
-### 4.3 Assistant Applications
+### 4.2 Aplikasi Generasi (Aplikasi Generasi)
 
-**Description:** Interactive chat-based assistant with memory and context.
+**Deskripsi:** Menghasilkan artefak (config, kode, dokumen) dari spesifikasi.
 
-**Examples:** Research Assistant, DevOps Assistant, Self-Development
+**Contoh:** Network Engineer (generasi konfigurasi), Code Engineer (generasi patch)
 
-**Common Pipeline:**
+**Jalur umum:**
 ```
-Perception â†’ Memory â†’ Reasoning â†’ Decision â†’ Reflection â†’ Learning
-```
-
-**Key Blocks:** Memory (conversation + session), Continuous Learning
-
-### 4.4 Automation Applications
-
-**Description:** Execute multi-step workflows with monitoring and recovery.
-
-**Examples:** DevOps (CI/CD orchestration), Trading (strategy execution)
-
-**Common Pipeline:**
-```
-Perception â†’ Planning â†’ Execution â†’ Verification â†’ Reflection
+Perception → Planning → Reasoning → Decision → Action → Reflection
 ```
 
-**Key Blocks:** Execution Integration, State Recovery, Governance
+**Blok Kunci:** Perencanaan, Aksi, Verifikasi, Debat
+
+### 4.3 Aplikasi Asisten (Aplikasi Asisten)
+
+**Deskripsi:** Asisten interaktif berbasis chat dengan memori dan konteks.
+
+**Contoh:** Asisten Peneliti, Asisten DevOps, Pengembangan Diri
+
+**Jalur umum:**
+```
+Perception → Memory → Reasoning → Decision → Reflection → Learning
+```
+
+**Blok Kunci:** Memori (percakapan + sesi), Pembelajaran Berkelanjutan
+
+### 4.4 Aplikasi Otomasi (Aplikasi Otomasi)
+
+**Deskripsi:** Mengeksekusi alur kerja multi-langkah dengan pemantauan dan pemulihan.
+
+**Contoh:** DevOps (orkestrasi CI/CD), Trading (eksekusi strategi)
+
+**Jalur umum:**
+```
+Perception → Planning → Execution → Verification → Reflection
+```
+
+**Blok Kunci:** Integrasi Eksekusi, Pemulihan Negara, Tata Kelola
 
 ---
 
-## 5. Building an Application on ECP
+## 5. Membangun Aplikasi di ECP
 
-### 5.1 Step-by-Step Process
+### 5.1 Proses Langkah-demi-Langkah
 
 ```
-Step 1: Define Domain Scope
-        â”‚
-        â–¼
-Step 2: Identify Required Building Blocks
-        â”‚
-        â–¼
-Step 3: Implement Capability Pack
-        â”‚
-        â–¼
-Step 4: Register Skills
-        â”‚
-        â–¼
-Step 5: Implement Custom Logic
-        â”‚
-        â–¼
-Step 6: Add Tests
-        â”‚
-        â–¼
-Step 7: Register API Routes (if needed)
-        â”‚
-        â–¼
-Step 8: Integrate with Orchestration
+Langkah 1: Tentukan Domain Scope
+        │
+        ▼
+Langkah 2: Identifikasi Building Blocks yang Diperlukan
+        │
+        ▼
+Langkah 3: Implementasikan Capability Pack
+        │
+        ▼
+Langkah 4: Daftarkan Skills
+        │
+        ▼
+Langkah 5: Implementasikan Logika Kustom
+        │
+        ▼
+Langkah 6: Tambahkan Test
+        │
+        ▼
+Langkah 7: Daftarkan API Routes (jika perlu)
+        │
+        ▼
+Langkah 8: Integrasikan dengan Orchestration
 ```
 
-### 5.2 Step Details
+### 5.2 Detil Langkah
 
-#### Step 1: Define Domain Scope
+#### Langkah 1: Tentukan Cakupan Domain
 
 ```markdown
 Domain: Network Engineering
-Scope: Configuration analysis, generation, compliance checking
-Boundary: Starts from config text, ends at validated configuration
-Exclusions: Real-time network monitoring, traffic analysis
+Scope: Analisis konfigurasi, generasi, pemeriksaan kepatuhan
+Boundary: Mulai dari teks config, berakhir pada konfigurasi tervalidasi
+Exclusions: Network monitoring real-time, traffic analysis
 ```
 
-#### Step 2: Identify Required Building Blocks
+#### Langkah 2: Identifikasi Building Block yang diperlukan
 
 ```python
 required_blocks = [
-    "perception",    # Parse config text
-    "memory",        # Recall vendor knowledge
-    "reasoning",     # Analyze config patterns
-    "decision",      # Select fixes
-    "reflection",    # Verify output quality
+    "perception",    # Parse teks konfigurasi
+    "memory",        # Panggil kembali pengetahuan vendor
+    "reasoning",     # Analisis pola konfigurasi
+    "decision",      # Pilih perbaikan
+    "reflection",    # Verifikasi kualitas output
 ]
 ```
 
-#### Step 3: Implement Capability Pack
+#### Langkah 3: Implementasikan Capability Pack
 
 ```python
 # apps/my_app/__init__.py
@@ -267,7 +245,7 @@ def get_app() -> BaseApp:
     return MyApp()
 ```
 
-#### Step 4: Register Skills
+#### Langkah 4: Daftarkan Keterampilan
 
 ```yaml
 # agents/skills.yaml
@@ -279,20 +257,19 @@ skills:
     pipeline: ["perception", "memory", "reasoning", "decision"]
 ```
 
-#### Step 5: Implement Custom Logic
+#### Langkah 5: Implementasi Logika Kustom
 
-Place domain-specific logic in the app module. Keep core cognitive services generic.
-> Terjemahan Indonesia: Place domain-specific logic dalam app module. Keep core kognitif services generic.
+letakkan logika khusus domain di modul aplikasi. Jaga layanan kognitif core tetap generik.
 
 ```
 apps/my_app/
-â”œâ”€â”€ __init__.py           # App class + factory
-â”œâ”€â”€ analyzer.py           # Domain analysis logic
-â”œâ”€â”€ generator.py          # Output generation
-â””â”€â”€ models.py             # Domain data models
+├── __init__.py           # Class App + factory
+├── analyzer.py           # Logika analisis domain
+├── generator.py          # Generasi output
+└── models.py             # Model data domain
 ```
 
-#### Step 6: Add Tests
+#### Langkah 6: Tambahkan Tes
 
 ```python
 # tests/test_my_app.py
@@ -306,7 +283,7 @@ async def test_my_app_analyze():
     assert result["status"] == "success"
 ```
 
-#### Step 7: Register API Routes
+#### Langkah 7: Daftarkan API Rute
 
 ```python
 # backend/app/api/my_app.py
@@ -321,90 +298,90 @@ async def analyze(input: str):
     return await app.analyze(input)
 ```
 
-#### Step 8: Integrate with Orchestration
+#### Langkah 8: Integrasikan dengan Orkestrasi
 
 ```python
-# Register in unified_orchestrator._extract_skills()
+# Daftarkan di unified_orchestrator._extract_skills()
 if "my-keyword" in task_lower:
     skills.append("my-domain")
 ```
 
 ---
 
-## 6. Architecture Decision Framework
+## 6. Kerangka Keputusan Arsitektur
 
-### 6.1 Decision Categories
+### 6.1 Kategori Keputusan
 
-| Category | When to Use | Requires ADR |
+|Kategori|Kapan Digunakan|Membutuhkan ADR|
 |---|---|---|
-| **Core Platform Change** | Modifying Event Bus, Memory Manager, Cognitive Kernel | âœ… Yes |
-| **New Capability Pack** | Adding a new domain application | âŒ No (unless it breaks existing contracts) |
-| **New Infrastructure** | Adding PostgreSQL, new LLM provider, new queue | âœ… Yes (if it changes data flow) |
-| **API Contract Change** | Modifying public endpoint signatures | âœ… Yes (backward compatibility required) |
-| **Internal Refactor** | Restructuring within a module | âŒ No |
-| **New Pattern** | First use of a new architectural pattern | âœ… Yes |
+|**Perubahan Inti Platform**|Memodifikasi Event Bus, Memory Manager, Cognitive Kernel|✅ Ya|
+|**Capability Pack Baru**|Menambahkan aplikasi domain baru|❌ Tidak (kecuali melanggar kontrak yang ada)|
+|**Infrastruktur Baru**|Menambahkan PostgreSQL, penyedia LLM baru, antrian baru|✅ Ya (jika mengubah alur data)|
+|**Perubahan Kontrak API**|Memodifikasi tanda tangan endpoint publik|✅ Ya (kompatibilitas mundur diperlukan)|
+|**Memfaktorkan Ulang Internal**|Restrukturisasi di dalam modul|❌ Tidak|
+|**Pola Baru**|Penggunaan pertama pola arsitektur baru|✅ Ya|
 
-### 6.2 Decision Flowchart
+### 6.2 Diagram Alur Keputusan
 
 ```
-Do you need to change ECP?
-        â”‚
-        â”œâ”€â”€ Modify core (Event Bus, Kernel, Memory)?
-        â”‚   â””â”€â”€ âœ… ADR required + Baseline freeze review
-        â”‚
-        â”œâ”€â”€ Add new capability pack?
-        â”‚   â””â”€â”€ âŒ No ADR needed. Follow Reference Architecture
-        â”‚
-        â”œâ”€â”€ Change public API?
-        â”‚   â”œâ”€â”€ Backward compatible? â†’ âŒ No ADR
-        â”‚   â””â”€â”€ Breaking change? â†’ âœ… ADR + deprecation period
-        â”‚
-        â””â”€â”€ Change infrastructure?
-            â”œâ”€â”€ Additive (new feature)? â†’ âŒ No ADR
-            â””â”€â”€ Replacing (swap component)? â†’ âœ… ADR required
+Perlu mengubah ECP?
+        │
+        ├── Modifikasi core (Event Bus, Kernel, Memory)?
+        │   └── ✅ ADR diperlukan + tinjauan Baseline freeze
+        │
+        ├── Tambah capability pack baru?
+        │   └── ❌ Tidak perlu ADR. Ikuti Reference Architecture
+        │
+        ├── Ubah API publik?
+        │   ├── Backward compatible? → ❌ Tidak perlu ADR
+        │   └── Breaking change? → ✅ ADR + periode deprecation
+        │
+        └── Ubah infrastruktur?
+            ├── Aditif (fitur baru)? → ❌ Tidak perlu ADR
+            └── Mengganti (swap komponen)? → ✅ ADR diperlukan
 ```
 
-### 6.3 Tradeoff Evaluation Template
+### 6.3 Pengorbanan Evaluasi Templat
 
 ```markdown
-## Decision: [Title]
+## Keputusan: [Judul]
 
-### Options Considered
-1. Option A: [description]
-2. Option B: [description]
+### Opsi yang Dipertimbangkan
+1. Opsi A: [deskripsi]
+2. Opsi B: [deskripsi]
 
-### Evaluation Criteria
-| Criterion | Weight | Option A | Option B |
+### Kriteria Evaluasi
+| Kriteria | Bobot | Opsi A | Opsi B |
 |---|---|---|---|
 | Development effort | 30% | 8/10 | 5/10 |
 | Runtime performance | 25% | 7/10 | 9/10 |
 | Maintainability | 25% | 9/10 | 6/10 |
 | Platform alignment | 20% | 8/10 | 7/10 |
 
-### Recommendation
-Option A: [rationale]
+### Rekomendasi
+Opsi A: [rasional]
 
-### Consequences
-- Positive: [benefits]
-- Negative: [tradeoffs]
-- Mitigation: [how to address negative]
+### Konsekuensi
+- Positif: [manfaat]
+- Negatif: [tradeoff]
+- Mitigasi: [cara mengatasi sisi negatif]
 ```
 
 ---
 
-## 7. Patterns Catalog
+## 7. Katalog Pola
 
-### Pattern 1: Lazy Singleton
+### Pola 1: Lajang Malas
 
-**Context:** Avoid circular imports at module load time.
+**Konteks:** Menghindari impor melingkar saat memuat modul.
 
-**Solution:**
+**Solusi:**
 
 ```python
-# Instead of module-level instantiation:
-event_bus = EventBus()  # âŒ May cause circular imports
+# Alih-alih instansiasi level modul:
+event_bus = EventBus()  # ❌ Dapat menyebabkan circular imports
 
-# Use lazy initialization:
+# Gunakan inisialisasi lazy:
 _event_bus = None
 
 def get_event_bus() -> EventBus:
@@ -414,15 +391,15 @@ def get_event_bus() -> EventBus:
     return _event_bus
 ```
 
-**Used in:** `unified_orchestrator.py`, `event_bus.py`
+**Digunakan di:** `unified_orchestrator.py`, `event_bus.py`
 
 ---
 
-### Pattern 2: Pipeline Execution
+### Pola 2: Eksekusi Saluran Pipa
 
-**Context:** Execute a sequence of cognitive services where each service enriches a shared context.
+**Konteks:** Mengeksekusi urutan layanan kognitif di mana setiap layanan memperkaya konteks bersama.
 
-**Solution:**
+**Solusi:**
 
 ```python
 async def execute_pipeline(pipeline: list[str], context: dict) -> dict:
@@ -434,95 +411,95 @@ async def execute_pipeline(pipeline: list[str], context: dict) -> dict:
     return result
 ```
 
-**Used in:** `cognitive_kernel.py`, `adaptive_runtime.py`
+**Digunakan di:** `cognitive_kernel.py`, `adaptive_runtime.py`
 
 ---
 
-### Pattern 3: Universal AST
+### Pola 3: AST Universal
 
-**Context:** Support multiple vendor formats without NÃ—M complexity.
+**Konteks:** Mendukung banyak format vendor tanpa kerumitan N×M.
 
-**Solution:**
+**Solusi:**
 
 ```
-vendor_config â†’ [Vendor Parser] â†’ UniversalAST â†’ [Analysis/Gemeration]
-                                      â”‚
-                                      â”œâ”€â”€ UniversalFirewallRule
-                                      â”œâ”€â”€ UniversalNATRule
-                                      â”œâ”€â”€ UniversalBGP
-                                      â””â”€â”€ UniversalInterface
+vendor_config → [Vendor Parser] → UniversalAST → [Analisis/Generasi]
+                                      │
+                                      ├── UniversalFirewallRule
+                                      ├── UniversalNATRule
+                                      ├── UniversalBGP
+                                      └── UniversalInterface
 ```
 
-**Used in:** `apps/network_engineer/`, `attachments/parsers/network/`
+**Digunakan di:** `apps/network_engineer/`, `attachments/parsers/network/`
 
 ---
 
-### Pattern 4: Event-Driven Decoupling
+### Pola 4: Pemisahan Berbasis Peristiwa
 
-**Context:** Modules must communicate without direct coupling.
+**Konteks:** Modul harus berkomunikasi tanpa kopling langsung.
 
-**Solution:**
+**Solusi:**
 
 ```python
-# Publisher: No knowledge of subscribers
+# Publisher: Tidak tahu subscriber
 await event_bus.publish(Event(
     event_type="task.completed",
     payload={"task_id": task.id, "result": result},
     source="execution_scheduler",
 ))
 
-# Subscriber: No knowledge of publishers
+# Subscriber: Tidak tahu publisher
 event_bus.subscribe("task.completed", handle_task_completed)
 ```
 
-**Used in:** `event_bus.py` â€” cross-module communication
+**Digunakan di:** `event_bus.py` — komunikasi lintas-modul
 
 ---
 
-### Pattern 5: Memory Consolidation
+### Pola 5: Konsolidasi Memori
 
-**Context:** Prevent unbounded memory growth while retaining important information.
+**Konteks:** Membantu pertumbuhan memori tak terbatas sambil mempertahankan informasi penting.
 
-**Solution:**
+**Solusi:**
 
 ```
-threshold exceeded â†’ collect entries â†’ LLM summary â†’ consolidate â†’ store in long-term â†’ delete originals
+threshold terlampaui → kumpulkan entri → ringkasan LLM → konsolidasi → simpan di long-term → hapus asli
 ```
 
-**Trigger:** Automatic when any memory layer exceeds 50 entries.
+**Pemicu:** Otomatis saat lapisan memori mana pun melebihi 50 entri.
 
-**Used in:** `memory_layer.py`
+**Digunakan di:** `memory_layer.py`
 
 ---
 
-### Pattern 6: Cognitive Pipeline Selection
+### Pola 6: Pemilihan Saluran Kognitif
 
-**Context:** Different task complexities require different cognitive processing depth.
+**Konteks:** Kompleksitas tugas yang berbeda memerlukan kedalaman pemrosesan kognitif yang berbeda.
 
-**Solution:**
+**Solusi:**
 
 ```python
 complexity = cognitive_budget.estimate(task)
 pipeline = PIPELINE_PRESETS[complexity]
-# TRIVIAL â†’ 4 services (fast, cheap)
-# COMPLEX â†’ 10 services (thorough, expensive)
+# TRIVIAL → 4 layanan (cepat, murah)
+# COMPLEX → 10 layanan (menyeluruh, mahal)
 ```
 
-**Used in:** `adaptive_runtime.py`
+**Digunakan di:** `adaptive_runtime.py`
 
 ---
 
-## 8. Anti-Patterns
+## 8. Anti Pola
 
-### Anti-Pattern 1: Direct Cross-Module Call
+### Anti-Pola 1: Panggilan Langsung Lintas-Modul
 
 ```python
-# âŒ ANTI-PATTERN: Direct import between capability packs
+# ❌ ANTI-POLAR: Import langsung antar capability packs
 from apps.code_engineer import CodeEngineerApp
 network_app = NetworkEngineerApp()
 network_app._code_engineer = CodeEngineerApp()  # Tight coupling!
 
-# âœ… CORRECT: Use Event Bus
+# ✅ BENAR: Gunakan Event Bus
 await event_bus.publish(Event(
     event_type="code:analyze",
     payload={"code": config_script},
@@ -531,38 +508,38 @@ await event_bus.publish(Event(
 ))
 ```
 
-### Anti-Pattern 2: Core Importing Apps
+### Anti-Pola 2: Aplikasi Inti Mengimpor
 
 ```python
-# âŒ ANTI-PATTERN: Core module imports app
+# ❌ ANTI-POLAR: Modul core mengimpor app
 from apps.network_engineer import NetworkEngineerApp
-# This creates a circular dependency: apps â†’ core â†’ apps
+# Ini membuat circular dependency: apps → core → apps
 
-# âœ… CORRECT: Apps import core, not the other way
+# ✅ BENAR: Apps mengimpor core, bukan sebaliknya
 from backend.app.core.adaptive_runtime import adaptive_runtime
 ```
 
-### Anti-Pattern 3: Direct Infrastructure Access from Apps
+### Anti-Pola 3: Akses Infrastruktur Langsung dari Apps
 
 ```python
-# âŒ ANTI-PATTERN: App accesses infrastructure directly
+# ❌ ANTI-POLAR: App mengakses infrastruktur langsung
 import redis.asyncio as aioredis
 redis = aioredis.from_url("redis://localhost")
 
-# âœ… CORRECT: Use platform abstractions
+# ✅ BENAR: Gunakan abstraksi platform
 from backend.app.core.memory_layer import memory_manager
 await memory_manager.store("working", key, value)
 ```
 
-### Anti-Pattern 4: Bypassing Pipeline
+### Anti-Pola 4: Pipa Melewati
 
 ```python
-# âŒ ANTI-PATTERN: Direct service call bypassing pipeline
+# ❌ ANTI-POLAR: Panggilan layanan langsung melewati pipeline
 from backend.app.core.decision_engine import decision_engine
 result = await decision_engine.decide(options, context)
-# Bypasses perception, memory, reasoning, planning
+# Melewati perception, memory, reasoning, planning
 
-# âœ… CORRECT: Use pipeline
+# ✅ BENAR: Gunakan pipeline
 from backend.app.core.cognitive_kernel import cognitive_kernel
 result = await cognitive_kernel.execute_pipeline(
     ["perception", "memory", "reasoning", "decision"],
@@ -570,96 +547,96 @@ result = await cognitive_kernel.execute_pipeline(
 )
 ```
 
-### Anti-Pattern 5: Unbounded Memory Growth
+### Anti-Pola 5: Pertumbuhan Memori Tak Terbatas
 
 ```python
-# âŒ ANTI-PATTERN: Store without consolidation plan
+# ❌ ANTI-POLAR: Simpan tanpa rencana konsolidasi
 await memory_manager.store("episodic", key, value)
-# Never called: await memory_manager.compress_memory("episodic")
+# Tidak pernah dipanggil: await memory_manager.compress_memory("episodic")
 
-# âœ… CORRECT: Automatic consolidation via threshold
-# MemoryManager enforces compression at threshold=50
+# ✅ BENAR: Konsolidasi otomatis via threshold
+# MemoryManager menegakkan compression pada threshold=50
 ```
 
 ---
 
-## 9. Quality Attributes
+## 9. Atribut Kualitas
 
-### 9.1 Quality Attribute Tradeoffs
+### 9.1 Tradeoff Atribut Kualitas
 
-| Attribute | How ECP Addresses | Tradeoff |
+|Atribut|Cara ECP Mengatasinya|Pengorbanan|
 |---|---|---|
-| **Performance** | Pipeline selection minimizes unnecessary services | Less thorough for complex tasks when misclassified |
-| **Scalability** | Event Bus enables horizontal scaling; memory consolidation bounds growth | Redis dependency adds operational complexity |
-| **Reliability** | State Recovery for long tasks; Event Bus persistence | Additional storage for checkpoint data |
-| **Security** | RBAC via SecurityModel; tenant isolation via Governance | Additional latency on auth checks |
-| **Maintainability** | Loose coupling via Event Bus; clear dependency rules | Event flow is implicit â€” requires documentation |
-| **Testability** | 426 unit tests; memory layers are mockable | Integration tests require Redis/PostgreSQL |
-| **Extensibility** | Capability Pack pattern; plugin system | New packs must implement BaseApp contract |
-| **Observability** | Telemetry events across all operations | Additional event bus traffic |
+|**Pertunjukan**|Pemilihan saluran pipa meminimalkan layanan yang tidak perlu|Kurang menyeluruh untuk tugas kompleks jika salah klasifikasi|
+|**Skalabilitas**|Bus Acara memungkinkan penskalaan horizontal; konsolidasi memori membatasi pertumbuhan|Ketergantungan Redis menambah kerumitan operasional|
+|**Keandalan**|Pemulihan Negara untuk tugas panjang; persistensi Event Bus|Penyimpanan tambahan untuk pos pemeriksaan data|
+|**Keamanan**|RBAC melalui SecurityModel; isolasi penyewa melalui Tata Kelola|Latensi tambahan pada pemeriksaan autentikasi|
+|**Kemampuan Pemeliharaan**|Kopling longgar melalui Bus Acara; aturan ketergantungan jelas|Alur acara implisit — membutuhkan dokumentasi|
+|**Kemampuan untuk diuji**|426 unit uji; lapisan memori dapat di-mock|Tes integrasi membutuhkan Redis/PostgreSQL|
+|**Kemungkinan diperpanjang**|Pola Capability Pack; sistem Plugin|Paket baru harus mengimplementasikan kontrak BaseApp|
+|**Kemampuan observasi**|Telemetri peristiwa di semua operasi|Bus acara lalu lintas tambahan|
 
-### 9.2 Measuring Quality Attributes
+### 9.2 Mengukur Kualitas Atribut
 
-| Attribute | Metric | Target | Measurement |
+|Atribut|Metrik|Target|pengukuran|
 |---|---|---|---|
-| Performance | P95 response time | < 30s for MEDIUM pipeline | Benchmark runner |
-| Reliability | Task success rate | > 99% | Execution session logs |
-| Code Quality | MyPy errors | 0 | `mypy apps/ backend/` |
-| Test Quality | Test pass rate | > 95% | `pytest` |
-| Coverage | Line coverage | > 80% | `pytest --cov` |
-| Memory | Memory layer size | < 50 entries before consolidation | `memory_manager.count()` |
+|Pertunjukan|Waktu respons P95|< 30 detik untuk saluran pipa MEDIUM|Benchmark pelari|
+|Keandalan|Tingkat keberhasilan tugas|> 99%|Log sesi eksekusi|
+|Kualitas Kode|Kesalahan MyPy|0|`mypy apps/ backend/`|
+|Kualitas Tes|Tingkat kelulusan tes|> 95%|`pytest`|
+|Cakupan|Cakupan garis|> 80%|`pytest --cov`|
+|Ingatan|Ukuran lapisan memori|< 50 entri sebelum konsolidasi|`memory_manager.count()`|
 
 ---
 
-## 10. Architecture Evolution
+## 10. Evolusi Arsitektur
 
-### 10.1 Evolution Principles
+### 10.1 Prinsip Evolusi
 
-1. **Preserve the baseline:** Never break frozen contracts without ADR
-2. **Add, don't replace:** New functionality should be additive, not replacement
-3. **Abstract, don't concretize:** Keep generic patterns in core; domain specifics in apps
-4. **Document first:** ADR before implementation for architectural changes
+1. **Pertahankan baseline:** Jangan pernah merusak kontrak yang dibekukan tanpa ADR
+2. **Tambahkan, jangan ganti:** Fungsionalitas baru harus aditif, bukan pengganti
+3. **Abstraksikan, jangan konkritkan:** Jaga pola umum di inti; domain spesifik di aplikasi
+4. **Dokumentasikan dulu:** ADR sebelum implementasi untuk perubahan arsitektur
 
-### 10.2 Expected Evolution Paths
+### 10.2 Jalur Evolusi yang diharapkan
 
-| Evolution | Trigger | Approach |
+|Evolusi|Pemicu|Pendekatan|
 |---|---|---|
-| **New LLM provider** | Better model available | Add to `ModelRouter`, no architecture change |
-| **New memory backend** | Qdrant/vector search for knowledge | Add new `MemoryLayer` subclass, register in `MemoryManager` |
-| **Multi-region deployment** | Production scaling | Event Bus â†’ Kafka/RabbitMQ compatible |
-| **New capability pack** | New domain application | Follow Reference Architecture, no core change |
-| **Plugin ecosystem** | Third-party extensions | Extend `PluginManifest`, add marketplace |
-| **Real-time collaboration** | Multi-user requirement | Add WebSocket to Event Bus, conflict resolution |
+|**Penyedia LLM baru**|Model lebih baik tersedia|Tambahkan ke `ModelRouter`, tanpa perubahan arsitektur|
+|**Memori backend baru**|Pencarian Qdrant/vektor untuk pengetahuan|Tambahkan subkelas `MemoryLayer` baru, daftarkan di `MemoryManager`|
+|**Penerapan multi-wilayah**|Skala produksi|Bus Acara → kompatibel Kafka/RabbitMQ|
+|**Capability Pack baru**|Aplikasi domain baru|Ikuti Arsitektur Referensi, tanpa perubahan core|
+|**Ekosistem Plugin**|Ekstensi pihak ketiga|Perluas `PluginManifest`, tambahkan marketplace|
+|**Kolaborasi real-time**|Kebutuhan multi-pengguna|Tambahkan WebSocket ke Event Bus, resolusi konflik|
 
-### 10.3 Deprecation Policy
+### 10.3 Penghentian Kebijakan
 
-1. Mark as deprecated in CHANGELOG.md + doc comment
-2. Maintain backward compatibility for 2 minor versions
-3. Remove in next major version
-4. Provide migration guide
+1. Tandai sebagai tidak digunakan lagi di CHANGELOG.md + komentar dokumen
+2. Mempertahankan kompatibilitas mundur selama 2 versi minor
+3. Hapus di versi mayor berikutnya
+4. Panduan migrasi sediakan
 
 ---
 
-## 11. Related Documents
+## 11. Dokumen Terkait
 
-| Document | Location | Purpose |
+|Dokumen|Lokasi|Tujuan|
 |---|---|---|
-| Engineering Baseline | `docs/ENGINEERING_BASELINE.md` | What is frozen |
-| AES Architecture | `docs/AES_ARCHITECTURE.md` | How platform is built |
-| Quality Gate Policy | `docs/quality/QUALITY_GATES.md` | Merge rules |
-| Architecture Decisions | `docs/adr/ADR-*.md` | Why decisions were made |
-| Application Dev Guide | `docs/APP_DEV_GUIDE.md` | Step-by-step for app teams |
-| Sprint Hardening Summary | `SPRINT_HARDENING_SUMMARY.md` | What was fixed |
-| API Reference | `docs/api_reference.md` | API endpoint documentation |
+|Dasar Teknik|`docs/ENGINEERING_BASELINE.md`|Apa yang membekukan|
+|Arsitektur AES|`docs/AES_ARCHITECTURE.md`|Bagaimana platform dibangun|
+|Kebijakan Gerbang Mutu|`docs/quality/QUALITY_GATES.md`|Aturannya bergabung|
+|Keputusan Arsitektur|`docs/adr/ADR-*.md`|Mengapa keputusan dibuat|
+|Panduan Pengembangan Aplikasi|`docs/APP_DEV_GUIDE.md`|Langkah demi langkah untuk tim aplikasi|
+|Ringkasan Pengerasan Sprint|`SPRINT_HARDENING_SUMMARY.md`|Apa yang diperbaiki|
+|API Referensi|`docs/api_reference.md`|Titik akhir dokumentasi API|
 
 ---
 
-## Document Version History
+## Riwayat Dokumen Versi
 
-| Version | Date | Changes |
+|Versi|Tanggal|Perubahan|
 |---|---|---|
-| 1.0.0 | 2024 | Initial Reference Architecture document |
+|1.0.0|2024|Dokumen Referensi Arsitektur awal|
 
 ---
 
-*End of Reference Architecture*
+*Akhir dari Arsitektur Referensi*

@@ -1,76 +1,59 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/WORKFLOW_CATALOG.md`
-- Judul: Workflow Catalog
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Workflow Catalog & Intent Resolver
+﻿# Workflow Catalog & Intent Resolver
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for WORKFLOW_CATALOG
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk WORKFLOW_CATALOG
 <!-- DOCUMENT_METADATA_END -->
 
-## Architecture
+## Arsitektur
 
 ```
 User Intent / Task Name
-        â”‚
-        â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚            Intent Resolver                   â”‚
-â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
-â”‚  â”‚ Exact   â”‚  â”‚ Alias   â”‚  â”‚ Tag         â”‚  â”‚
-â”‚  â”‚ Match   â”‚â”€â–¶â”‚ Match   â”‚â”€â–¶â”‚ Fallback    â”‚  â”‚
-â”‚  â”‚(conf1.0)â”‚  â”‚(conf0.9)â”‚  â”‚(conf0.7)    â”‚  â”‚
-â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
-â”‚                    â”‚                         â”‚
-â”‚                    â–¼                         â”‚
-â”‚         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚
-â”‚         â”‚  WorkflowCatalog â”‚                 â”‚
-â”‚         â”‚  (intentâ†’workflowâ”‚                 â”‚
-â”‚         â”‚   mapping)       â”‚                 â”‚
-â”‚         â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                    â”‚
-                    â–¼ workflow_id
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚           Workflow Executor                  â”‚
-â”‚                    â”‚                         â”‚
-â”‚                    â–¼                         â”‚
-â”‚         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚
-â”‚         â”‚ CapabilityPipelineâ”‚                 â”‚
-â”‚         â”‚  (multi-step      â”‚                 â”‚
-â”‚         â”‚   orchestration)  â”‚                 â”‚
-â”‚         â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚
-â”‚                    â”‚                         â”‚
-â”‚         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚
-â”‚         â”‚CapabilityExecEngineâ”‚               â”‚
-â”‚         â”‚  (single step)    â”‚                 â”‚
-â”‚         â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚
-â”‚                    â”‚                         â”‚
-â”‚         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚
-â”‚         â”‚ ExecutionRuntime  â”‚                 â”‚
-â”‚         â”‚  (worker pool)    â”‚                 â”‚
-â”‚         â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                    â”‚
-                    â–¼
+        |
+        ▼
+┌──────────────────────────────────────────┐
+│            Intent Resolver               │
+│  ┌─────────┐  ┌─────────┐  ┌──────────┐  │
+│  │ Exact   │  │ Alias   │  │ Tag      │  │
+│  │ Match   │─▶│ Match   │─▶│ Fallback   │
+│  │(conf1.0)│  │(conf0.9)│  │(conf0.7) │  │
+│  └─────────┘  └─────────┘  └──────────┘  │
+│                    │                     │
+│                    ▼                     │
+│         ┌───────────────────┐            │
+│         │  WorkflowCatalog  │            │
+│         │  (intent→workflow │            │
+│         │   mapping)        │            │
+│         └───────────────────┘            │
+└──────────────────────────────────────────┘
+                    │
+                    ▼ workflow_id
+┌──────────────────────────────────────────┐
+│           Workflow Executor                  │
+│                    │                         │
+│                    ▼                         │
+│         ┌───────────────────┐                 │
+│         │ CapabilityPipeline│                 │
+│         │  (multi-step      │                 │
+│         │   orchestration)  │                 │
+│         └───────────────────┘                 │
+│                    │                         │
+│         ┌───────────────────┐                 │
+│         │CapabilityExecEngine│               │
+│         │  (single step)    │                 │
+│         └───────────────────┘                 │
+│                    │                         │
+│         ┌───────────────────┐                 │
+│         │ ExecutionRuntime  │                 │
+│         │  (worker pool)    │                 │
+│         └───────────────────┘                 │
+└──────────────────────────────────────────┘
+                    │
+                    ▼
             Execution Result
 ```
 
@@ -79,64 +62,61 @@ User Intent / Task Name
 ### WorkflowCatalogEntry
 
 Setiap workflow dalam catalog memiliki atribut berikut:
-> Terjemahan Indonesia: Setiap alur kerja dalam catalog memiliki atribut berikut:
 
-| Field | Type | Required | Description |
+| Field | Type | Required | Deskripsi |
 |-------|------|----------|-------------|
-| `workflow_id` | str | Yes | Unique identifier for the workflow |
-| `display_name` | str | Yes | Human-readable name |
-| `description` | str | No | Description of the workflow |
-| `supported_intents` | list[str] | Yes | List of intent identifiers that trigger this workflow |
-| `tags` | list[str] | No | Tags for categorization and discovery |
-| `category` | str | No | Category for grouping (e.g., "network", "code") |
-| `metadata` | dict | No | Additional metadata (version, author, etc.) |
+| `workflow_id` | str | Ya | Pengidentifikasi unik untuk workflow |
+| `display_name` | str | Ya | Nama yang dapat dibaca manusia |
+| `description` | str | Tidak | Deskripsi workflow |
+| `supported_intents` | list[str] | Ya | Daftar identifier intent yang memicu workflow ini |
+| `tags` | list[str] | Tidak | Tag untuk kategorisasi dan discovery |
+| `category` | str | Tidak | Kategori untuk pengelompokan (misalnya, "network", "code") |
+| `metadata` | dict | Tidak | Metadata tambahan (version, author, dll.) |
 
-### Operations
+### Operasi
 
-| Method | Description |
+| Method | Deskripsi |
 |--------|-------------|
-| `register(entry)` | Register a workflow entry (validates duplicates) |
-| `register_from_dict(data)` | Register from dictionary |
-| `register_from_json(json_str)` | Register from JSON string |
-| `register_from_file(filepath)` | Register from JSON file |
-| `unregister(workflow_id)` | Remove a workflow and its intents |
-| `resolve(intent)` | Find workflow matching an intent |
-| `resolve_or_raise(intent)` | Resolve or raise ResolveError |
-| `get_entry(workflow_id)` | Get entry by workflow_id |
-| `get_workflow_id(intent)` | Quick lookup: intent â†’ workflow_id |
-| `find_by_tag(tag)` | Find all entries with a tag |
-| `list_entries()` | List all entries (summary) |
-| `list_intents()` | List all intentâ†’workflow mappings |
-| `entry_count()` | Number of registered entries |
-| `intent_count()` | Number of registered intents |
-| `clear()` | Remove all entries |
+| `register(entry)` | Mendaftarkan entri workflow (memvalidasi duplikat) |
+| `register_from_dict(data)` | Mendaftarkan dari dictionary |
+| `register_from_json(json_str)` | Mendaftarkan dari string JSON |
+| `register_from_file(filepath)` | Mendaftarkan dari file JSON |
+| `unregister(workflow_id)` | Menghapus workflow beserta intent-nya |
+| `resolve(intent)` | Menemukan workflow yang cocok dengan intent |
+| `resolve_or_raise(intent)` | Resolve atau memunculkan ResolveError |
+| `get_entry(workflow_id)` | Mendapatkan entri berdasarkan workflow_id |
+| `get_workflow_id(intent)` | Pencarian cepat: intent → workflow_id |
+| `find_by_tag(tag)` | Menemukan semua entri dengan tag |
+| `list_entries()` | Mendaftar semua entri (ringkasan) |
+| `list_intents()` | Mendaftar semua pemetaan intent→workflow |
+| `entry_count()` | Jumlah entri yang terdaftar |
+| `intent_count()` | Jumlah intent yang terdaftar |
+| `clear()` | Menghapus semua entri |
 
-### Validation
+### Validasi
 
 Catalog melakukan validasi saat registrasi:
-> Terjemahan Indonesia: Katalog melakukan validasi saat registrasi:
 
 - `workflow_id` wajib diisi
 - Minimal satu `supported_intent`
 - **Duplicate workflow**: Terdaftar secara independen (tidak ada duplikasi ID)
-- **Duplicate intent**: Intent yang sama tidak boleh milik workflow berbeda
+- **Duplicate intent**: Intent yang sama tidak boleh menjadi milik workflow berbeda
 
 ## Resolver
 
 ### IntentResolver
 
 Resolver menggunakan aturan deterministik untuk mencocokkan intent ke workflow:
-> Terjemahan Indonesia: Resolver menggunakan aturan deterministik untuk mencocokkan intent ke alur kerja:
 
-| Strategy | Precedence | Confidence | Criteria |
+| Strategy | Precedence | Confidence | Kriteria |
 |----------|-----------|------------|----------|
-| **Exact Match** | 1 (highest) | 1.0 | Intent ID cocok persis dengan `supported_intents` di catalog |
+| **Exact Match** | 1 (tertinggi) | 1.0 | Intent ID cocok persis dengan `supported_intents` di catalog |
 | **Alias Match** | 2 | 0.9 | Intent cocok dengan alias yang terdaftar |
 | **Task Name Exact** | 3 | 1.0 | Task name cocok persis |
 | **Task Name Prefix** | 4 | 0.8 | Intent diawali dengan task name yang terdaftar |
-| **Tag Fallback** | 5 (lowest) | 0.7 | Intent cocok dengan tag workflow |
+| **Tag Fallback** | 5 (terendah) | 0.7 | Intent cocok dengan tag workflow |
 
-### Alias Management
+### Manajemen Alias
 
 ```python
 resolver.register_alias("audit", "audit-network")
@@ -149,7 +129,7 @@ aliases = resolver.get_aliases()
 aliases_for_intent = resolver.get_alias_for_intent("audit-network")
 ```
 
-### Task Name Registration
+### Registrasi Task Name
 
 ```python
 resolver.register_task_name("run security audit on network", "audit-network")
@@ -160,7 +140,7 @@ resolver.register_task_names({
 
 ## Response Contract
 
-### ResolveResult (Found)
+### ResolveResult (Ditemukan)
 
 ```json
 {
@@ -178,11 +158,11 @@ resolver.register_task_names({
     "error": null,
     "matched_intent": "audit-network",
     "confidence": 1.0,
-    "reason": "Exact match for intent 'audit-network' â†’ workflow 'network-audit-flow'"
+    "reason": "Exact match for intent 'audit-network' → workflow 'network-audit-flow'"
 }
 ```
 
-### ResolveResult (Not Found)
+### ResolveResult (Tidak Ditemukan)
 
 ```json
 {
@@ -198,37 +178,36 @@ resolver.register_task_names({
 
 ## Execution Flow
 
-End-to-end flow dari intent ke hasil eksekusi:
-> Terjemahan Indonesia: End-untuk-end flow dari intent ke hasil eksekusi:
+Alur end-to-end dari intent ke hasil eksekusi:
 
 ```
 1. Intent: "audit network security"
-       â”‚
+       │
 2. IntentResolver.resolve("audit-network")
-       â”‚ Exact match â†’ confidence 1.0
-       â–¼
+       │ Exact match → confidence 1.0
+       ▼
 3. ResolveResult(workflow_id="network-audit-flow")
-       â”‚
-4. IntentResolver._emit_resolved()     â†’ Telemetry: IntentResolved
-       â”‚
+       │
+4. IntentResolver._emit_resolved()     → Telemetry: IntentResolved
+       │
 5. WorkflowExecutor.execute("network-audit-flow")
-       â”‚
-6. IntentResolver._emit_workflow_selected() â†’ Telemetry: WorkflowSelected
-   IntentResolver._emit_execution_started() â†’ Telemetry: WorkflowExecutionStarted
-       â”‚
+       │
+6. IntentResolver._emit_workflow_selected() → Telemetry: WorkflowSelected
+   IntentResolver._emit_execution_started() → Telemetry: WorkflowExecutionStarted
+       │
 7. CapabilityPipeline.execute(steps)
-       â”‚
+       │
 8. CapabilityExecutionEngine.execute(step)
-       â”‚
+       │
 9. ExecutionRuntime.execute(plan)
-       â”‚
+       │
 10. WorkflowResponse(status="completed", steps=[...])
 ```
 
 ### Integration Helper
 
 ```python
-# resolve_and_execute() connects the full flow:
+# resolve_and_execute() menghubungkan seluruh alur:
 response = await resolver.resolve_and_execute(
     intent_id="audit-network",
     executor=workflow_executor,
@@ -238,15 +217,14 @@ response = await resolver.resolve_and_execute(
 
 ## Telemetry Events
 
-| Event | When | Data |
+| Event | Saat | Data |
 |-------|------|------|
 | `IntentResolved` | Intent berhasil di-resolve | `resolved`, `workflow_id`, `matched_intent`, `confidence`, `reason` |
 | `IntentNotFound` | Intent tidak ditemukan | `resolved=false`, `intent_id`, `error` |
 | `WorkflowSelected` | Workflow dipilih untuk eksekusi | `workflow_id`, `matched_intent`, `confidence` |
 | `WorkflowExecutionStarted` | Eksekusi workflow dimulai | `workflow_id`, `matched_intent`, `has_input_data` |
 
-Events dikirim melalui `EventBus` dari `apps.organization.communication`.
-> Terjemahan Indonesia: Acara dikirim melalui EventBus dari apps.organization.communication.
+Event dikirim melalui `EventBus` dari `apps.organization.communication`.
 
 ## Contoh Penggunaan
 
@@ -258,10 +236,10 @@ from apps.organization.workflow_catalog import (
 )
 from apps.organization.intent_resolver import IntentResolver
 
-# Create resolver
+# Buat resolver
 resolver = IntentResolver()
 
-# Register a workflow
+# Daftarkan workflow
 resolver.get_catalog().register(WorkflowCatalogEntry(
     workflow_id="network-audit-flow",
     display_name="Network Security Audit",
@@ -271,7 +249,7 @@ resolver.get_catalog().register(WorkflowCatalogEntry(
     category="network",
 ))
 
-# Register alias
+# Daftarkan alias
 resolver.register_alias("audit", "audit-network")
 
 # Resolve
@@ -296,7 +274,7 @@ engine = CapabilityExecutionEngine()
 pipeline = CapabilityPipeline(engine=engine)
 executor = WorkflowExecutor(pipeline=pipeline)
 
-# Register workflow definition
+# Daftarkan definisi workflow
 executor.register(WorkflowDefinition(
     workflow_id="network-audit-flow",
     name="Network Security Audit",
@@ -309,7 +287,7 @@ executor.register(WorkflowDefinition(
     ],
 ))
 
-# Resolve and execute
+# Resolve dan eksekusi
 response = await resolver.resolve_and_execute(
     intent_id="audit",
     executor=executor,
@@ -320,10 +298,10 @@ print(response.status)  # ExecutionStatus.COMPLETED
 print(response.summarize(response))
 ```
 
-### Error Handling
+### Penanganan Error
 
 ```python
-# Unknown intent
+# Intent tidak dikenal
 result = resolver.resolve("nonexistent")
 if not result.found:
     print(f"Error: {result.error}")  # "No workflow found for intent: 'nonexistent'"
@@ -335,11 +313,12 @@ except ResolveError as e:
     print(f"Resolution failed: {e}")
 ```
 
-## File Locations
+## Lokasi File
 
-| File | Description |
+| File | Deskripsi |
 |------|-------------|
-| `apps/organization/workflow_catalog.py` | WorkflowCatalog and ResolveResult |
-| `apps/organization/intent_resolver.py` | IntentResolver with alias, task name, tag resolution |
-| `tests/test_workflow_catalog.py` | Integration tests for catalog |
-| `tests/test_intent_resolver.py` | Integration tests for resolver |
+| `apps/organization/workflow_catalog.py` | WorkflowCatalog dan ResolveResult |
+| `apps/organization/intent_resolver.py` | IntentResolver dengan resolusi alias, task name, tag |
+| `tests/test_workflow_catalog.py` | Integration test untuk catalog |
+| `tests/test_intent_resolver.py` | Integration test untuk resolver |
+

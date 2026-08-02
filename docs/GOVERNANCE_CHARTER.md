@@ -1,178 +1,148 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/GOVERNANCE_CHARTER.md`
-- Judul: Governance Charter
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-<!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Project vision, principles, and constitutional rules
+﻿<!-- DOCUMENT_METADATA_START -->
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Visi proyek, prinsip, dan aturan konstitusional
 <!-- DOCUMENT_METADATA_END -->
 
-# ECP Governance Charter
+# Piagam Tata Kelola ECP
 
-**Version:** 1.0.0
-**Status:** Ratified
-**Effective:** 2026-08-01
-**Authority:** Chief Architect + Chief Product Officer
-**Document Type:** Constitution / Governance Charter
-
----
-
-## Preamble
-
-This Charter is the supreme strategic and technical governance document of the Enal Cognitive Platform (ECP). It defines the product philosophy, the fundamental principles, and the decision-making rules that all RFCs, ADRs, Capability Packs, and release activities must follow.
-> Terjemahan Indonesia: Ini Charter adalah supreme strategic dan technical tata kelola dokumen dari Enal kognitif platform (ECP). It defines product philosophy, fundamental principles, dan decision-making rules itu all RFCs, ADRs, kapabilitas Packs, dan rilis activities must follow.
-
-Any document, RFC, ADR, implementation, or release that contradicts this Charter is invalid until amended through the prescribed amendment process.
-> Terjemahan Indonesia: Any dokumen, RFC, ADR, implementation, or rilis itu contradicts ini Charter adalah invalid until amended through prescribed amendment process.
+**Versi:** 1.0.0
+**Status:** Diratifikasi
+**Berlaku:** 08-01-2026
+**Otoritas:** Kepala Arsitek + Chief Product Officer
+**Jenis Dokumen:** Konstitusi / Piagam Tata Kelola
 
 ---
 
-## 1. North Star Vision
+## Pembukaan
 
-> **Platform adalah enabler. Tujuan akhirnya adalah AI Trading yang membuat keputusan investasi cerdas secara otonom.**
+Piagam ini adalah dokumen tata kelola strategi dan teknis tertinggi dari Enal Cognitive Platform (ECP). Piagam ini mendefinisikan filosofi produk, prinsip fundamental, dan aturan pengambilan keputusan yang harus diikuti oleh semua RFC, ADR, Capability Pack, dan aktivitas rilis.
 
-ECP dibangun sebagai platform AI eksekusi yang stabil. **Trading Analyst** adalah Capability Pack utama yang menjadi tujuan akhir. Semua kemampuan lain â€” Network, Code, Research, DevOps, Self Development, Decision Intelligence, Security, Data, dan yang akan datang â€” adalah enabler yang memperkuat ekosistem menuju visi tersebut.
-> Terjemahan Indonesia: ECP dibangun sebagai platform AI eksekusi yang stabil. Trading Analyst adalah kapabilitas Pack utama yang menjadi tujuan akhir. Semua kemampuan lain â€” Network, Code, Research, DevOps, Self Development, Decision Intelligence, keamanan, Data, dan yang akan datang â€” adalah enabler yang memperkuat ekosistem menuju visi tersebut.
+Dokumen, RFC, ADR, implementasi, atau rilis apa pun yang bertentangan dengan Piagam ini dianggap tidak sah hingga diubah melalui proses amendemen yang ditentukan.
 
-Prinsip ini memandu setiap keputusan strategis:
-> Terjemahan Indonesia: Prinsip ini memandu setiap keputusan strategi:
+---
+
+## 1. Visi Bintang Utara
+
+> **Platform adalah penggerak. Tujuan akhirnya adalah AI Trading yang membuat keputusan investasi cerdas secara otonom.**
+
+ECP dibangun sebagai platform eksekusi AI yang stabil. **Trading Analyst** adalah Capability Pack utama yang menjadi tujuan akhir. Semua kemampuan lainnya — Network, Code, Research, DevOps, Self Development, Decision Intelligence, Security, Data, dan yang akan datang — adalah kekuatan yang memperkuat ekosistem menuju visi tersebut.
+
+Prinsip ini memandu setiap keputusan strategi:
 - Setiap Capability Pack baru harus dievaluasi: *"Apakah ini memperkuat Trading Analyst atau ekosistem yang mendukungnya?"*
-- Kualitas Trading Analyst adalah prioritas tertinggi â€” pack ini harus menjadi yang paling matang, paling akurat, dan paling dapat diandalkan.
+- Kualitas Trading Analyst adalah prioritas tertinggi — paket ini harus menjadi yang paling matang, paling akurat, dan paling dapat diandalkan.
 - Platform tidak akan melebar ke domain yang tidak relevan dengan visi ini.
 
 ---
 
-## 2. Product Philosophy
+## 2. Filosofi Produk
 
-> **Core is not the place where features grow. Core is the stable platform. Capability Packs are the place where innovation happens.**
+> **Core bukanlah tempat fitur bertumbuh. Core adalah platform yang stabil. Capability Pack adalah tempat terjadinya inovasi.**
 
-This is the single most important architectural principle of ECP.
-> Terjemahan Indonesia: Ini adalah single most important architectural principle dari ECP.
+Ini adalah prinsip arsitektur paling penting dari ECP.
 
-- **Core** is frozen, small, stable, and predictable. It provides contracts, execution, and governance.
-- **Capability Packs** are the vehicle for all domain evolution, knowledge expansion, and feature growth.
-- **No Core change** may be made to serve a single Capability Pack. Core evolves only when multiple packs prove a shared need.
+- **Inti** berhenti, kecil, stabil, dan dapat diprediksi. Inti menyediakan kontrak, eksekusi, dan tata kelola.
+- **Capability Pack** adalah kendaraan untuk semua evolusi domain, perluasan pengetahuan, dan pertumbuhan fitur.
+- **Tidak ada perubahan Core** yang boleh dilakukan untuk melayani satu Capability Pack saja. Core hanya berevolusi ketika banyak pack membuktikan adanya kebutuhan bersama.
 
-### Why This Matters
+### Mengapa Ini Penting
 
-- Keeps architecture stable and prevents feature-driven churn of the foundation.
-- Enables a marketplace of internal, community, and third-party packs without version conflicts.
-- Allows each Capability Pack to evolve, be tested, and be released independently.
-- Shifts the development focus from platform construction to **Capability Excellence**.
+- Menjaga arsitektur tetap stabil dan mencegah churn fondasi yang didorong oleh fitur.
+- proyek marketplace pack internal, komunitas, dan pihak ketiga tanpa konflik versi.
+- Film setiap Capability Pack diputar, diuji, dan dirilis secara independen.
+- Menggeser fokus pengembangan dari konstruksi platform ke **Capability Excellence**.
 
 ---
 
-## 3. Core Principles
+## 3. Prinsip Inti
 
-| # | Principle | Meaning |
+| # |Prinsip|Makna|
 |---|-----------|---------|
-| 1 | **Core Frozen** | Core contracts, Kernel, and Core Pipeline are stable. Changes require Architecture Freeze Policy approval (see `GOVERNANCE.md`). |
-| 2 | **Capability First** | No Core change is allowed to improve a single Capability Pack. Changes must stay inside the pack. |
-| 3 | **Cross-Capability Proof** | Core changes require proof from at least two Capability Packs and an approved ADR. |
-| 4 | **Use Case Before Engine** | No new engine, module, or abstraction without at least two Capability Packs needing it, a golden test case, and architecture documentation. |
-| 5 | **Human Approval** | No code, configuration, or architecture change may be applied without explicit user approval. (ADR-005) |
-| 6 | **Outcome Over Mechanism** | Users request outcomes, not mechanisms. Internal machinery is never exposed. (ADR-009, ADR-013) |
-| 7 | **Measure by Outcomes** | Progress is measured by benchmark scores, real-world case velocity, and user outcomes â€” not by artifact count. |
-| 8 | **Continuous Learning** | Real cases â†’ Review â†’ Knowledge Update â†’ Benchmark. The platform improves from every execution. |
+|1|**Inti Dibekukan**|Kontrak Core, Kernel, dan Core Pipeline stabil. Perubahan memerlukan persetujuan Architecture Freeze Policy (lihat `GOVERNANCE.md`).|
+|2|**Kemampuan Pertama**|Tidak ada perubahan Core yang diizinkan hanya untuk meningkatkan satu Capability Pack. Perubahan harus tetap berada di dalam paket.|
+|3|**Kemampuan Bukti Lintas**|Perubahan Core memerlukan bukti dari setidaknya dua Capability Pack dan ADR yang disetujui.|
+|4|**Use Case Sebelum Mesin**|Tidak ada mesin, modul, atau abstraksi baru tanpa setidaknya dua Capability Pack yang menarik, Golden Test case, dan dokumentasi arsitektur.|
+|5|**Persetujuan Manusia**|Tidak ada perubahan kode, konfigurasi, atau arsitektur yang boleh diterapkan tanpa persetujuan eksplisit pengguna. (ADR-005)|
+|6|**Hasil di Atas Mekanisme**|Pengguna meminta hasil, bukan mekanisme. Mesin internal tidak pernah diekspos. (ADR-009, ADR-013)|
+|7|**Diukur dari Hasil**|Kemajuan diukur dari skor Benchmark, kecepatan kasus nyata, dan hasil pengguna — bukan dari jumlah artefak.|
+|8|**Pembelajaran Berkelanjutan**|Kasus nyata → Review → Pembaruan → Benchmark. Peningkatan platform dari setiap eksekusi.|
 
 ---
 
-## 4. Documents Governed by This Charter
+## 4. Dokumen yang Diatur oleh Piagam Ini
 
-| Document | Purpose | Stability |
+|Dokumen|Tujuan|Stabilitas|
 |----------|---------|-----------|
-| `GOVERNANCE.md` | Operational rules: Capability First, No New Engines, Architecture Freeze Policy, Kernel Stability, ADR process, CI/CD enforcement, Capability Changelog | Stable, changes via amendment |
-| `RELEASE_CRITERIA.md` | Release conditions, quality gates, Definition of Done, certification | Changes per release |
-| `CAPABILITY_STRATEGY.md` | Capability Pack strategy, maturity model, quality grades, lifecycle, benchmarks, knowledge expansion | Evolves with pack development |
-| `ROADMAP.md` | Release timeline, 12-month plan, 5-year free roadmap, model strategy | Changes as plans evolve |
-| `DOCUMENT_STRUCTURE.md` | Role of each document, single source of truth (SSOT), who updates what | Stable |
+|`GOVERNANCE.md`|Aturan operasional: Capability First, No New Engine, Architecture Freeze Policy, Kernel Stability, proses ADR, penegakan CI/CD, Capability Changelog|Stabil, berubah melalui amandemen|
+|`RELEASE_CRITERIA.md`|Kondisi rilis, gerbang kualitas, Definisi Selesai, sertifikasi|Berubah per rilis|
+|`CAPABILITY_STRATEGY.md`|Strategi Capability Pack, model kematangan, tingkat kualitas, siklus hidup, Benchmark, perluasan pengetahuan|Berevolusi seiring pengembangan paket|
+|`ROADMAP.md`|Linimasa rilis, rencana 12 bulan, roadmap bebas 5 tahun, model strategi|Berubah seiring rencana berkembang|
+|`DOCUMENT_STRUCTURE.md`|Peran setiap dokumen, single source of truth (SSOT), siapa memperbarui apa|Stabil|
 
 ---
 
-## 5. Capability Maturity & Quality Grade
+## 5. Kematangan Kemampuan & Mutu Kelas
 
-Maturity and quality are **two separate concepts**:
-> Terjemahan Indonesia: Maturity dan kualitas adalah two separate concepts:
+Kematangan dan kualitas adalah **dua konsep terpisah**:
 
-- **Capability Maturity Model** describes the lifecycle maturity of a Capability Pack (Level 1â€“6). See `CAPABILITY_STRATEGY.md`.
-- **Quality Grades** (A, A-, B+, â€¦) describe the **current benchmark result** of a pack. They are outcomes of evaluation, not maturity levels.
+- **Capability Maturity Model** menggambarkan siklus hidup kematangan sebuah Capability Pack (Level 1–6). Lihat `CAPABILITY_STRATEGY.md`.
+- **Quality Grades** (A, A-, B+, …) menggambarkan **hasil Benchmark terkini** dari sebuah paket. Grade ini adalah hasil evaluasi, bukan level kematangan.
 
-A pack may be mature (Stable/Certified) but still working to raise its quality grade.
-> Terjemahan Indonesia: Sebuah pack may menjadi mature (Stable/Certified) but still working untuk raise its kualitas grade.
+Sebuah paket mungkin matang (Stabil/Bersertifikat) tetapi tetap berupaya meningkatkan kualitas grade-nya.
 
 ---
 
-## 6. Governance Obligations
+## 6. Kewajiban Tata Kelola
 
-Every RFC, ADR, Capability Pack, and release must:
-> Terjemahan Indonesia: Every RFC, ADR, kapabilitas Pack, dan rilis must:
+Setiap RFC, ADR, Capability Pack, dan rilis harus:
 
-1. **Be consistent with this Charter.** Contradiction = rejection.
-2. **Respect the Core Freeze.** Core changes require Architecture Freeze Policy approval.
-3. **Provide cross-capability proof** for any Core or shared-layer change (minimum 2 packs).
-4. **Define a benchmark** and a real-world case directory before being considered for release.
-5. **Pass all governance checks in CI/CD.** Changes that violate governance (e.g., Core change without ADR) must fail before merge.
-
----
-
-## 7. Amendment Process
-
-This Charter is a constitution. Amendments are exceptional and require:
-> Terjemahan Indonesia: Ini Charter adalah sebuah constitution. Amendments adalah exceptional dan require:
-
-1. **Proposal** by Chief Architect or Chief Product Officer, with:
-   - Rationale
-   - Impact analysis
-   - Migration plan (if applicable)
-> Terjemahan Indonesia: Dasar Pemikiran Analisa dampak Rencana migrasi (jika ada)
-2. **Review period** of at least 7 days for community/team feedback.
-3. **Ratification** by:
-   - Chief Architect approval
-   - Chief Product Officer approval
-> Terjemahan Indonesia: Persetujuan Kepala Arsitek Persetujuan Chief Product Officer
-4. **Publication** â€” updated Charter version recorded, superseded version archived.
-
-In case of conflict with any other document, **this Charter prevails**.
-> Terjemahan Indonesia: Dalam case dari conflict dengan any other dokumen, ini Charter prevails.
+1. **Konsisten dengan Piagam ini.** Kontradiksi = persetujuan.
+2. **Menghormati Core Freeze.** Perubahan Core memerlukan persetujuan Architecture Freeze Policy.
+3. **Memberikan bukti lintas-capability** untuk setiap perubahan Core atau shared-layer (minimal 2 pack).
+4. **Mendefinisikan Benchmark** dan direktori kasus nyata sebelum dipertimbangkan untuk rilis.
+5. **Lulus semua pemeriksaan tata kelola di CI/CD.** Perubahan yang melanggar tata kelola (misalnya, perubahan Core tanpa ADR) harus gagal sebelum penggabungan.
 
 ---
 
-## 8. Definition of Architecture Governance Active
+## 7. Proses Amandemen
 
-Architecture Governance is considered **active** when all of the following are true:
-> Terjemahan Indonesia: Arsitektur tata kelola adalah considered active when all dari following adalah true:
+Piagam ini adalah konstitusi. Amandemen bersifat luar biasa dan memerlukan:
 
-- [ ] Core is frozen and protected by the Architecture Freeze Policy.
-- [ ] Capability First Rule is enforced in code review and CI/CD.
-- [ ] Every Core change has an approved ADR with cross-capability proof.
-- [ ] Every Capability Pack has a benchmark and a `real_cases/` directory.
-- [ ] RFCs and ADRs reference this Charter.
-- [ ] CI/CD blocks governance violations before merge.
+1. **Proposal** oleh Chief Architect atau Chief Product Officer, dengan:
+   - Dasar pemikiran
+   - Analisis dampak
+   - Rencana migrasi (jika ada)
+2. **Periode peninjauan** minimal 7 hari untuk umpan balik komunitas/tim.
+3. **Ratifikasi** oleh:
+   - Persetujuan Kepala Arsitek
+   - Persetujuan Chief Product Officer
+4. **Publikasi** — versi Piagam yang diperbarui dicatat, versi yang diganti diarsipkan.
+
+Jika terjadi konflik dengan dokumen lain, **Piagam ini yang berlaku**.
 
 ---
 
-## 9. Approval
+## 8. Definisi Arsitektur Tata Kelola Aktif
 
-| Role | Status | Date |
+Tata Kelola Arsitektur dianggap **aktif** ketika semua hal berikut terpenuhi:
+
+- [ ] Inti konservasi dan dilindungi oleh Kebijakan Pembekuan Arsitektur.
+- [ ] Capability First Rule ditegakkan dalam code review dan CI/CD.
+- [ ] Setiap perubahan Core memiliki ADR yang disetujui dengan bukti lintas-kemampuan.
+- [ ] Setiap Capability Pack memiliki Benchmark dan direktori `real_cases/`.
+- [ ] RFC dan ADR mereferensikan Piagam ini.
+- [ ] CI/CD memblokir pelanggaran tata kelola sebelum penggabungan.
+
+---
+
+## 9. Persetujuan
+
+|Peran|Status|Tanggal|
 |------|--------|------|
-| Chief Architect | Approved | 2026-08-01 |
-| Chief Product Officer | Approved | 2026-08-01 |
+|Kepala Arsitek|Disetujui|01-08-2026|
+|Kepala Bagian Produk|Disetujui|01-08-2026|
 
-**Next Review:** 2026-11-01 or upon any amendment.
+**Review Berikutnya:** 11-01-2026 atau saat ada perubahan.

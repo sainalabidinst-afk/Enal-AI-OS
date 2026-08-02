@@ -1,131 +1,112 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/PHASE_SUMMARY.md`
-- Judul: Phase Summary
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Phase Summary - Platform Release Candidate (2026-07-27)
+﻿# Fase Ringkas — Kandidat Peluncuran Platform (27-07-2026)
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for PHASE_SUMMARY
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk PHASE_SUMMARY
 <!-- DOCUMENT_METADATA_END -->
 
-## What Is Done
+## Apa yang Sudah Selesai
 
-### Core Platform (Complete)
-- Kernel contracts and abstractions
-- Conversation Layer with streaming
-- Intent Router and Capability Graph
-- Task Planner and Execution Planner
-- Execution Runtime with Worker Registry
-- Capability Contract v1 frozen
-- Capability Discovery API
+### Platform Inti (Selesai)
+- Kontrak kernel dan abstraksi
+- Lapisan Percakapan dengan streaming
+- Intent Router dan Kemampuan Grafik
+- Perencana Tugas dan Perencana Eksekusi
+- Execution Runtime dengan Registri Pekerja
+- Kontrak Kemampuan v1 difreeze
+- Penemuan Kemampuan API
 
-### Core Cognitive Services (Integrated)
-- **Memory Engine** - EpisodicMemory, ConversationMemory, KnowledgeMemory, LongTermMemory, SessionMemory, ProjectMemory
-- **Orchestrator** - AIOrchestrator with full pipeline integration
-- **Planner** - estimate_cost(), assess_risk() methods
-- **Executor** - Checkpoint, Resume, Retry support for long-running workflows
-- **Perception Engine** - Text/Image/JSON processing, entity/intent extraction
-- **Learning** - RLAction, HumanFeedback, policy gradient computation
-- **Evaluation** - QualityGate with gate history, benchmark integration
-- **Governance** - ApprovalRequest workflow, tenant isolation
+### Layanan Kognitif Inti (Terintegrasi)
+- **Mesin Memori** — EpisodicMemory, ConversationMemory, KnowledgeMemory, LongTermMemory, SessionMemory, ProjectMemory
+- **Orchestrator** — AIOrchestrator dengan integrasi pipeline lengkap
+- **Perencana** — metode `estimate_cost()`, `assess_risk()`
+- **Executor** — dukungan Checkpoint, Resume, Retry untuk alur kerja berdurasi panjang
+- **Mesin Persepsi** — pemrosesan Teks/Gambar/JSON, ekstraksi entitas/maksud
+- **Pembelajaran** — RLAction, HumanFeedback, gradien kebijakan perhitungan
+- **Evaluasi** — QualityGate dengan gerbang sejarah, integrasi Benchmark
+- **Tata Kelola** — Permintaan Persetujuan alur kerja, penyewa isolasi
 
-### Capability Packs (Production Ready)
-- Network Engineer (RouterOS, Cisco, Fortinet, BGP, MPLS, IPv6, Zero Trust)
-- Code Engineer (Review, Refactor, Generate, Architecture, Modernization)
-- Research Assistant (RAG, Evidence Ranking, Contradiction Detection)
-- DevOps Assistant (Docker, CI/CD, Kubernetes, Multi-Cloud)
-- Trading Analyst (Wyckoff, ICT, SMC, Elliott, Options, Futures)
-- Self Development (Analyze, Propose, Patch, Learn, Predict)
+### Paket Kemampuan (Siap Produksi)
+- Insinyur Jaringan (RouterOS, Cisco, Fortinet, BGP, MPLS, IPv6, Zero Trust)
+- Code Engineer (Review, Refactor, Generate, Arsitektur, Modernisasi)
+- Asisten Peneliti (RAG, Pemeringkatan Bukti, Deteksi Kontradiksi)
+- Asisten DevOps (Docker, CI/CD, Kubernetes, Multi-Cloud)
+- Analis Perdagangan (Wyckoff, ICT, SMC, Elliott, Options, Futures)
+- Pengembangan Diri (Menganalisis, Mengusulkan, Menambal, Mempelajari, Memprediksi)
 
-### Operational Product Layer
-- Execution Service: session lifecycle, phases, progress, artifacts, logs
-- Workspace Service: project isolation, files, memory, timeline
-- Artifact Service: versioning, compare, restore
-- Model Gateway: OpenAI, Anthropic, Gemini, Qwen, DeepSeek, Llama, Ollama
-- Notification Service: real-time progress and completion
+### Lapisan Produk Operasional
+- Layanan Eksekusi: sesi siklus hidup, fase, kemajuan, artefak, log
+- Layanan Ruang Kerja: isolasi proyek, file, memori, timeline
+- Layanan Artefak: membuat versi, membandingkan, memulihkan
+- Model Gerbang: OpenAI, Antropis, Gemini, Qwen, DeepSeek, Llama, Ollama
+- Layanan Notifikasi: kemajuan dan penyelesaian secara real-time
 
-### UX & Governance
-- UX Design Specification: one conversation, no internal exposure
-- User Journeys: 7 canonical flows
-- Architecture Decisions: ADR-001 through ADR-014
-- Feature Acceptance Rule: Capability + Journey + Benchmark
-- Capability Benchmark: 6 dimensions including Consistency
-- Real-world Benchmark: `real_cases/<capability_id>/`
-
----
-
-## What Is Next (Post-v1.0)
-
-### Sprint A â€” Engineering Hardening
-- [ ] Clean remaining Severity 8 Pylance issues
-- [ ] MyPy strict compliance
-- [ ] Optional access pattern audit
-- [ ] Public API contract stabilization
-
-### Sprint B â€” Browser & Evidence Engine
-- [ ] Search abstraction layer
-- [ ] Evidence collector with source ranking
-- [ ] Citation model and trust scoring
-- [ ] Evidence â†’ Confidence pipeline
-
-### Sprint C â€” Reflection Engine
-- [ ] Self-critique mechanism
-- [ ] Verification loop
-- [ ] Improvement iteration
-- [ ] Confidence estimation
-
-### Sprint D â€” Evaluation v2
-- [ ] Confidence Score
-- [ ] Hallucination Risk detection
-- [ ] Evidence Coverage metrics
-- [ ] Explainability scoring
+### UX & Tata Kelola
+- Spesifikasi UX Design: satu percakapan, tanpa eksposur internal
+- Perjalanan Pengguna: 7 aliran kanonik
+- Keputusan Arsitektur: ADR-001 sampai ADR-014
+- Aturan Penerimaan Fitur: Kemampuan + Perjalanan + Benchmark
+- Kapabilitas Benchmark: 6 dimensi termasuk Konsistensi
+- Benchmark di dunia nyata: `real_cases/<capability_id>/`
 
 ---
 
-## Current State
+## Apa yang berikutnya (Pasca-v1.0)
 
-| Layer | Status | Score |
+### Sprint A - Teknik Pengerasan
+- [ ] Membersihkan sisa isu Severity 8 Pylance
+- [ ] Kepatuhan MyPy ketat
+- [ ] Audit pola akses opsional
+- [ ] Stabilisasi kontrak Publik API
+
+### Sprint B — Browser & Mesin Bukti
+- [ ] Pencarian lapisan abstraksi
+- [ ] Pengumpul bukti dengan sumber peringkat
+- [ ] Model kutipan dan penilaian kepercayaan
+- [ ] Bukti Saluran → Keyakinan
+
+### Sprint C — Mesin Refleksi
+- [ ] Mekanisme Kritik Diri
+- [ ] Putaran verifikasi
+- [ ] Iterasi perbaikan
+- [ ] Estimasi keyakinan
+
+### Sprint D — Evaluasi v2
+- [ ] Skor Keyakinan
+- [ ] Deteksi Risiko Halusinasi
+- [ ] Cakupan Bukti Metrik
+- [ ] Mencetak penjelasan
+
+---
+
+## Kondisi Saat Ini
+
+|Lapisan|Status|Skor|
 |-------|--------|-------|
-| Core Platform | âœ… Complete | 90 |
-| Cognitive Services | âœ… Integrated | 91 |
-| Capability Packs | âœ… Excellence | 90 |
-| Operational Layer | âœ… Implemented | 90 |
-| UX Contract | âœ… Frozen | 90 |
-| Architecture Governance | âœ… Active | 90 |
-| Documentation | âœ… Synchronized | 90 |
-| Product Readiness | âœ… **Release Candidate** | **92/100** |
+|Peron Inti|✅ Selesai|90|
+|Layanan Kognitif|✅ Terintegrasi|91|
+|Paket Kemampuan|✅ Keunggulan|90|
+|Lapisan Operasional|✅ Diimplementasikan|90|
+|Kontrak UX|✅ Dibekukan|90|
+|Tata Kelola Arsitektur|✅ Aktif|90|
+|Dokumentasi|✅ Tersinkronisasi|90|
+|Kesiapan Produk|✅ **Lepaskan Kandidat**|**92/100**|
 
 ---
 
-## Positioning
+## Penentuan posisi
 
-Enal AI OS is an **AI Execution Platform**.
-> Terjemahan Indonesia: Enal AI OS adalah sebuah AI Execution platform.
+AI OS terakhir adalah **Platform Eksekusi AI**.
 
-Users describe the outcome they want.
-ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcomeâ€”all through a single conversation.
-> Terjemahan Indonesia: Users describe outcome they want. ECP understands goal, plans execution, coordinates tasks, verifies results, dan delivers sebuah complete outcomeâ€”all through sebuah single conversation.
+Pengguna mendeskripsikan hasil yang mereka inginkan.
+ECP memahami tujuan, merencanakan eksekusi, mengoordinasikan tugas, memverifikasi hasil, dan mengirimkan hasil yang lengkap — semuanya melalui satu percakapan.
 
 ```
-Input â†’ Perception â†’ Planner â†’ Memory â†’ Executor â†’ Learning â†’ Governance
+Input → Perception → Planner → Memory → Executor → Learning → Governance
 ```
 
-**Motto: A stable core. Expert capabilities. One conversation.**
+**Motto: Inti yang stabil. Kemampuan yang ahli. Satu percakapan.**

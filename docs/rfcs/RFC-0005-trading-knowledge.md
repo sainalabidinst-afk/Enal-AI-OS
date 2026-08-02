@@ -1,116 +1,98 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0005-trading-knowledge.md`
-- Judul: Rfc 0005 Trading Knowledge
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC: Trading Knowledge Expansion
+﻿# RFC: Perluasan Pengetahuan Trading
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** RFC for RFC-0005-trading-knowledge
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** RFC untuk RFC-0005-trading-knowledge
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Planned
-**Target:** Capability Excellence phase
+**Status:** Direncanakan
+**Target:** Fase Capability Excellence
 **Capability Pack:** Trading Analyst
 
-## Summary
+## Ringkasan
 
-Expand Trading Analyst knowledge depth across technical analysis, risk management, and trading psychology.
-> Terjemahan Indonesia: Expand Trading Analyst knowledge depth across technical analysis, risk management, dan trading psychology.
+Memperluas kedalaman pengetahuan Trading Analyst di seluruh analisis teknikal, manajemen risiko, dan psikologi trading.
 
-## Knowledge Domains
+## Domain Pengetahuan
 
 ### Wyckoff
-- Wyckoff phases: Accumulation, Markup, Distribution, Markdown
-- Composite Operator behavior
-- Supply and demand analysis
-- Wyckoff price and volume relationships
+- Fase Wyckoff: Accumulation, Markup, Distribution, Markdown
+- Perilaku Composite Operator
+- Analisis supply dan demand
+- Hubungan harga dan volume Wyckoff
 
 ### ICT (Inner Circle Trader)
--ICT market structure concepts
+- Konsep struktur pasar ICT
 - Fair Value Gaps (FVG)
-- Order blocks and mitigation blocks
-- Liquidity models
-- Time-based analysis concepts
+- Order blocks dan mitigation blocks
+- Model likuiditas
+- Konsep analisis berbasis waktu
 
 ### SMC (Smart Money Concepts)
 - Institutional order flow
 - Liquidity sweeps
-- Market maker models
-- Order block interpretation
-- Premium and discount zones
+- Model market maker
+- Interpretasi order block
+- Zona premium dan discount
 
 ### Elliott Wave
-- Elliott Wave theory basics
-- Impulse and corrective patterns
-- Fibonacci relationships
-- Wave degree and fractal nature
-- Validation and invalidation rules
+- Dasar teori Elliott Wave
+- Pola impulse dan corrective
+- Hubungan Fibonacci
+- Derajat wave dan sifat fractal
+- Aturan validasi dan invalidasi
 
 ### Volume Profile
 - Volume profile vs volume by price
 - Point of Control (POC)
-- Value Area and Value Area High/Low
-- Volume profile patterns
-- Integration with price action
+- Value Area serta Value Area High/Low
+- Pola volume profile
+- Integrasi dengan price action
 
 ### Macro
-- Macro indicator interpretation
-- Fed policy and rates impact
-- Economic calendar significance
-- Cross-market relationships
-- Risk-on vs risk-off regimes
+- Interpretasi indikator makro
+- Dampak kebijakan Fed dan suku bunga
+- Signifikansi kalender ekonomi
+- Hubungan lintas pasar
+- Regime risk-on vs risk-off
 
 ### Options
 - Option Greeks: Delta, Gamma, Theta, Vega
-- Option strategies overview
-- Implied volatility and skew
-- Put/call ratio interpretation
+- Ikhtisar strategi opsi
+- Implied volatility dan skew
+- Interpretasi put/call ratio
 - Unusual options activity
 
 ### Futures
-- Futures contract basics
+- Dasar kontrak futures
 - Contango vs backwardation
-- Basis and roll cost
-- Position limits and commitments (COT)
-- Futures as hedging instruments
+- Basis dan biaya roll
+- Position limits dan commitments (COT)
+- Futures sebagai instrumen hedging
 
 ### Psychology
-- Trading psychology fundamentals
-- Cognitive biases in trading
-- Risk tolerance and position sizing psychology
-- Emotional management
-- Behavioral patterns in market participants
+- Dasar psikologi trading
+- Bias kognitif dalam trading
+- Toleransi risiko dan psikologi position sizing
+- Manajemen emosi
+- Pola perilaku pelaku pasar
 
-## Implementation Approach
+## Pendekatan Implementasi
 
-All knowledge is added to the Trading Capability Pack domain engine. No Core changes are required.
-> Terjemahan Indonesia: All knowledge adalah added untuk Trading kapabilitas Pack domain engine. No Core changes adalah required.
+Semua pengetahuan ditambahkan ke domain engine Trading Capability Pack. Tidak ada perubahan Core yang diperlukan.
 
-## Success Criteria
+## Kriteria Keberhasilan
 
-- Each knowledge domain is represented in analysis and recommendation logic
-- Reasoning outputs include domain explanation
-- Benchmark scores for reasoning and explainability improve
+- Setiap domain pengetahuan terwakili dalam logika analisis dan rekomendasi
+- Output penalaran menyertakan penjelasan domain
+- Skor benchmark untuk penalaran dan explainability meningkat
 
-## References
+## Referensi
 
 - RFC-0006: Trading Knowledge Base
-- CAPABILITY_GUIDE.md â€” Trading Analyst section
+- CAPABILITY_GUIDE.md — bagian Trading Analyst
+

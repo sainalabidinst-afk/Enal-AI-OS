@@ -1,77 +1,60 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/baseline_freeze.md`
-- Judul: Baseline Freeze
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-<!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-<!-- DOCUMENT_METADATA_END -->
-
 # ECP Network Engineer — Baseline Freeze
 
-**Baseline Tag:** `v1.0.0-dev+network-sprint2`
+<!-- DOCUMENT_METADATA_START -->
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+<!-- DOCUMENT_METADATA_END -->
+
+**Tag Baseline:** `v1.0.0-dev+network-sprint2`
 **Status:** Accepted
-**Date:** 2026-08-02
-**Note:** Historical sprints are preserved for baseline integrity. Current development uses "Milestone" terminology.
+**Tanggal:** 2026-08-02
+**Catatan:** Sprint historis dipertahankan untuk integritas baseline. Perkembangan saat ini menggunakan terminologi "Milestone".
 
-## Definition of Done — Met
+## Definition of Done — Terpenuhi
 
-### Milestone 1 — Network Engineer MVP (Sprint 1)
-- [x] Upload `.rsc` file
-- [x] Parse RouterOS configuration
-- [x] Build internal topology
-- [x] Detect configuration problems (45 rules)
-- [x] Generate recommendations (P0–P3 with Why/Impact/Confidence)
-- [x] Generate improved configuration
-- [x] Produce deployment documentation (Markdown)
-- [x] Pass all Golden Tests (31/31 scenarios)
+### Capaian 1 — Network Engineer MVP (Sprint 1)
+- [x] Upload file `.rsc`
+- [x] Parse konfigurasi RouterOS
+- [x] Bangun topologi internal
+- [x] Deteksi masalah konfigurasi (45 aturan)
+- [x] Hasilkan rekomendasi (P0–P3 dengan Nature/Impact/Confidence)
+- [x] Hasilkan konfigurasi yang ditingkatkan
+- [x] Pertahankan dokumentasi kebijakan (Markdown)
+- [x] Lulus semua Golden Test (31/31 skenario)
 
-### Milestone 1.5 — Hardening (Sprint 1.5)
-- [x] 31 golden test scenarios (7 original + 24 new)
-- [x] Regression dataset: broken-config, invalid-syntax, partial-config, old-v6, new-v7
+### Capaian 1.5 — Hardening (Sprint 1.5)
+- [x] 31 skenario Golden Test (7 asli + 24 baru)
+- [x] Dataset regresi: konfigurasi rusak, sintaksis tidak valid, konfigurasi parsial, v6 lama, v7 baru
 - [x] Rule coverage tracker (hit count, precision, recall, F1)
-- [x] Performance benchmarks (500/5k/50k lines)
-- [x] Confidence calibration from evidence
-- [x] All tests passing
+- [x] Benchmark kinerja (500/5k/50k baris)
+- [x] Kalibrasi confidence dari evidence
+- [x] Semua test lulus
 
 ### Milestone 2 — Controlled Deployment (Sprint 2)
 - [x] Semantic Configuration Diff Engine
 - [x] Backup Manager (export → hash → timestamp → artifact store)
-- [x] Risk Scoring Engine (config/rollback/security/downtime risk)
+- [x] Risk Scoring Engine (config/rollback/security/downtime)
 - [x] Verification Engine (interface, gateway, DNS, DHCP, routes)
-- [x] Audit Trail (all steps recorded as artifacts)
+- [x] Audit Trail (semua langkah dicatat sebagai artifacts)
 - [x] Controlled Deployment Orchestrator
 - [x] Deployment Runbook UX (Changes/Risk/Pre-Deployment/Deployment/Post-Deployment/Recovery)
-- [x] Deployment Timeline (visual step progress)
-- [x] Explain Before Deploy (process-oriented, not binary yes/no)
+- [x] Deployment Timeline (progress visual per langkah)
+- [x] Explain Before Deploy (berorientasi proses, bukan biner ya/tidak)
 - [x] Rollback Status: Pending / Ready / Unavailable / Completed
-- [x] Human approval required in v1.0-dev
-- [x] All Milestone 2 tests pass (7/7)
+- [x] Persetujuan manusia diperlukan di v1.0-dev
+- [x] Semua test Milestone 2 lulus (7/7)
 
-## Baseline Artifacts
+## Artifacts Baseline
 
-- Golden Test Scenarios: `golden/mikrotik/` (31 scenarios)
+- Golden Test Scenarios: `golden/mikrotik/` (31 skenario)
 - Golden Test Runner: `tests/reference/test_network_engineer.py`
 - Controlled Deployment Tests: `tests/reference/test_controlled_deployment.py`
 - Performance Benchmark: `benchmarks/network_performance_benchmark.py`
 - Rule Coverage Tracker: `apps/network_engineer/rule_coverage_tracker.py`
-- Core Modules:
+- Modul inti:
   - `apps/network_engineer/mikrotik/routeros_parser.py`
   - `apps/network_engineer/analyzer.py`
   - `apps/network_engineer/graph_builder.py`
@@ -83,18 +66,17 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
   - `apps/network_engineer/verification_engine.py`
   - `apps/network_engineer/audit_trail.py`
   - `apps/network_engineer/controlled_deployment.py`
-> Terjemahan Indonesia: Apps/network_engineer/mikrotik/routeros_parser.py apps/network_engineer/analyzer.py apps/network_engineer/graph_builder.py apps/network_engineer/recommendation_engine.py apps/network_engineer/docs_generator.py apps/network_engineer/diff_engine.py apps/network_engineer/backup_manager.py apps/network_engineer/risk_scorer.py apps/network_engineer/verification_engine.py apps/network_engineer/audit_trail.py apps/network_engineer/controlled_deployment.py
 
-## Known Limitations
+## Keterbatasan yang Diketahui
 
-- Parser: RouterOS v6/v7 basic sections only (no advanced routing protocols yet)
-- Analyzer: 45 rules, domain-specific to basic networking
-- Deployment: Simulated only (no live SSH/API to MikroTik devices)
-- Documentation: Markdown only (no HTML/PDF/Draw.io yet)
-- No multi-router orchestration
-- No parallel deployment
+- Parser: hanya bagian dasar RouterOS v6/v7 (belum ada protokol routing lanjutan)
+- Analyzer: 45 aturan, domain khusus untuk jaringan dasar
+- Deployment: hanya simulasi (tidak ada SSH/API langsung ke perangkat MikroTik)
+- Dokumentasi: hanya Markdown (belum ada HTML/PDF/Draw.io)
+- Tidak ada orkestrasi multi-router
+- Tidak ada deployment paralel
 
-## Next Phase: Dogfooding → Network Operations
+## Fase Berikutnya: Dogfooding → Network Operations
 
-See `docs/ROADMAP.md` for next steps.
-> Terjemahan Indonesia: See docs/ROADMAP.MD untuk next steps.
+Lihat `docs/ROADMAP.md` untuk langkah selanjutnya.
+

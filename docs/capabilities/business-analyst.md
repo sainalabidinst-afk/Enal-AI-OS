@@ -1,68 +1,45 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Business Analyst — Spesifikasi Capability
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/business-analyst.md`
-- Judul: Business Analyst
-- Status: bilingual content applied
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Business Analyst Capability Specification
-
-## Version: 1.0.0
-## Status: Production Ready (RFC-0013)
-## Quality Target: A- (≥85)
+**Versi:** 1.0.0
+**Status:** Production Ready (RFC-0013)
+**Target Kualitas:** A- (≥85)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-Business Analyst adalah **otoritas analisis bisnis** untuk ECP — Capability Pack yang
-menerjemahkan kebutuhan bisnis menjadi spesifikasi teknis yang jelas, terstruktur,
-dan dapat dieksekusi oleh pack lain.
-> Terjemahan Indonesia: Business Analyst adalah otoritas analisis bisnis untuk ECP — kapabilitas Pack yang menerjemahkan kebutuhan bisnis menjadi spesifikasi teknis yang jelas, terstruktur, dan dapat dieksekusi oleh pack lain.
+Business Analyst adalah **otoritas analisis bisnis** untuk ECP — Capability Pack yang menerjemahkan kebutuhan bisnis menjadi spesifikasi teknis yang jelas, terstruktur, dan dapat dieksekusi oleh Capability Pack lain.
 
-Capability Pack ini mengumpulkan requirements, memodelkan proses bisnis, menghasilkan
-user story, use case, BRD, functional spec, gap analysis, ROI analysis, dan
-rekomendasi optimasi proses — **tanpa memodifikasi Core**.
-> Terjemahan Indonesia: Kapabilitas Pack ini mengumpulkan requirements, memodelkan proses bisnis, menghasilkan user story, use case, BRD, functional spec, gap analysis, ROI analysis, dan rekomendasi optimasi proses — tanpa memodifikasi Core.
+Capability Pack ini mengumpulkan requirement, memodelkan proses bisnis, menghasilkan user story, use case, BRD, functional specification, gap analysis, ROI analysis, dan rekomendasi optimasi proses — **tanpa memodifikasi Core**.
 
 ---
 
-## 2. Scope
+## 2. Ruang Lingkup
 
-### In Scope
-- **Requirement Gathering** — Kumpulkan, struktur, dan validasi requirements
-- **Business Process Modeling** — Model workflow dengan notasi BPMN-like
-- **User Story Generation** — Generate user story INVEST-compliant dengan acceptance criteria
-- **Use Case Modeling** — Generate use case detail dari requirements
-- **BRD Generation** — Generate Business Requirement Documents
-- **Functional Specification** — Generate functional spec untuk downstream packs
-- **Gap Analysis** — Identifikasi gap antara kebutuhan bisnis dan kemampuan teknis
-- **ROI Analysis** — Analisis return-on-investment (NPV, payback period)
-- **Process Optimization** — Identifikasi dan rekomendasikan perbaikan proses
-- **Experience Memory** — Perekaman hasil ke history
+### Dalam Ruang Lingkup
+- **Requirement Gathering** — Pengumpulan, penataan, dan validasi requirement
+- **Business Process Modeling** — Pemodelan alur kerja dengan notasi seperti BPMN
+- **User Story Generation** — Menghasilkan user story yang memenuhi kriteria INVEST
+- **Use Case Modeling** — Menghasilkan detail use case dari spesifikasi
+- **BRD Generation** — Menghasilkan Business Requirements Document
+- **Functional Specification** — Spesifikasi fungsional untuk Capability Pack hilir
+- **Gap Analysis** — Identifikasi kesenjangan antara kebutuhan bisnis dan kemampuan teknis
+- **ROI Analysis** — Analisis laba atas investasi (NPV, payback period)
+- **Process Optimization** — Mengidentifikasi dan merekomendasikan perbaikan proses
+- **Experience Memory** — Merekam hasil ke riwayat
 
-### Out of Scope
-- Fasilitasi stakeholder meeting
+### Di Luar Cakupan
+- Fasilitasi pertemuan stakeholder
 - Manajemen proyek atau alokasi sumber daya
 - Definisi strategi bisnis
-- Perencanaan finansial di luar ROI analysis
-- Implementasi change management
-- Eksekusi atau monitoring proses live
-- Modifikasi Core contracts
+- Perencanaan keuangan di luar ROI
+- Implementasi manajemen perubahan
+- Eksekusi atau monitoring proses secara langsung
+- Modifikasi kontrak Core
 
 ---
 
-## 3. Contract
+## 3. Kontrak
 
 ### Input: BusinessAnalysisRequest
 ```json
@@ -98,7 +75,7 @@ rekomendasi optimasi proses — **tanpa memodifikasi Core**.
 }
 ```
 
-### Output: BusinessAnalysisReport
+### Output: Laporan Analisis Bisnis
 ```json
 {
   "request_id": "uuid",
@@ -180,41 +157,41 @@ rekomendasi optimasi proses — **tanpa memodifikasi Core**.
 
 ---
 
-## 4. Operations
+## 4. Operasi
 
-| Operation | Description | Inputs | Outputs |
+| Operasi | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| requirement_gathering | Collect and structure requirements | natural_language_requirements, personas | Requirements + UserStories |
-| process_modeling | Model business workflows | current_state_documentation | ProcessModel |
-| user_story | Generate user stories | requirements, personas | UserStories |
-| use_case | Generate use cases | requirements, personas | UseCases |
-| brd_generation | Generate BRD document | requirements, user_stories | Markdown BRD |
-| functional_spec | Generate functional specification | requirements, user_stories, use_cases | FunctionalSpec |
-| gap_analysis | Identify capability gaps | inputs, technical_constraints | GapItems |
-| roi_analysis | Calculate ROI | inputs, business_context | ROIResult |
-| process_optimization | Optimize business processes | current_state_documentation | ProcessOptimizations |
+| `requirement_gathering` | Mengumpulkan dan menata requirement | natural_language_requirements, personas | Requirements + User Stories |
+| `process_modeling` | Memodelkan alur kerja bisnis | current_state_documentation | Process Model |
+| `user_story` | Menghasilkan user story | requirements, personas | User Stories |
+| `use_case` | Menghasilkan use case | requirements, personas | Use Cases |
+| `brd_generation` | Menghasilkan dokumen BRD | requirements, user_stories | BRD |
+| `functional_spec` | Menghasilkan functional specification | requirements, user_stories, use_cases | Functional Specification |
+| `gap_analysis` | Mengidentifikasi kesenjangan kemampuan | inputs, technical_constraints | Gap Items |
+| `roi_analysis` | Menghitung ROI | inputs, business_context | ROI Result |
+| `process_optimization` | Mengoptimalkan proses bisnis | current_state_documentation | Process Optimizations |
 
 ---
 
-## 5. Analyzer Modules
+## 5. Modul Analyzer
 
-| Module | Responsibility |
+| Modul | Tanggung Jawab |
 |--------|----------------|
-| requirement_gatherer.py | Collect, structure, validate requirements |
-| process_modeler.py | Model workflows in BPMN-like notation |
-| story_generator.py | Generate INVEST-compliant user stories |
-| use_case_modeler.py | Generate detailed use cases |
-| brd_generator.py | Generate Business Requirement Documents |
-| spec_generator.py | Generate functional specifications |
-| gap_analyzer.py | Identify business-technical gaps |
-| roi_calculator.py | Calculate ROI, NPV, payback period |
-| optimizer.py | Identify process inefficiencies |
+| `requirement_collector.py` | Mengumpulkan, menata, dan memvalidasi requirement |
+| `process_modeler.py` | Memodelkan alur kerja dalam notasi mirip BPMN |
+| `story_generator.py` | Menghasilkan user story yang sesuai INVEST |
+| `use_case_modeler.py` | Menghasilkan use case secara rinci |
+| `brd_generator.py` | Menghasilkan Business Requirements Document |
+| `spec_generator.py` | Menghasilkan functional specification |
+| `gap_analyzer.py` | Mengidentifikasi kesenjangan bisnis-teknis |
+| `roi_calculator.py` | Menghitung ROI, NPV, payback period |
+| `optimizer.py` | Mengidentifikasi inefisiensi proses |
 
 ---
 
-## 6. Benchmark Dimensions
+## 6. Dimensi Benchmark
 
-| Dimension | Target | Grade |
+| Dimensi | Target | Grade |
 |-----------|--------|-------|
 | Requirement Clarity | ≥90% | A |
 | User Story Quality | ≥95% | A |
@@ -228,16 +205,16 @@ rekomendasi optimasi proses — **tanpa memodifikasi Core**.
 
 ---
 
-## 7. Dependencies
+## 7. Dependensi
 
-- **apps/base.py** — Base model definitions
-- **apps/business_analyst/schemas.py** — Public contracts
-- **apps/business_analyst/engine.py** — Domain Engine
-- **apps/business_analyst/worker.py** — Thin adapter (ADR-003)
+- **apps/base.py** — Definisi model dasar
+- **apps/business_analyst/schemas.py** — Kontrak publik
+- **apps/business_analyst/engine.py** — Domain engine
+- **apps/business_analyst/worker.py** — Adaptor tipis (ADR-003)
 
 ---
 
-## 8. Usage Example
+## 8. Contoh Penggunaan
 
 ```python
 from apps.business_analyst.engine import BusinessAnalystEngine
@@ -253,3 +230,4 @@ report = engine.analyze(request)
 print(f"Generated {len(report.requirements)} requirements")
 print(f"Quality score: {report.quality_score:.0%}")
 ```
+

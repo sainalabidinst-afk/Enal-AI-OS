@@ -1,57 +1,36 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# ADR-001: Arsitektur Bus Acara
 
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/adr/ADR-001-event-bus-architecture.md`
-- Judul: Adr 001 Event Bus Architecture
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# ADR-001: Event Bus Architecture
-
-
-**Status:** ✅ Accepted  
-**Date:** 2024  
-**Deciders:** Chief Architect, Engineering Team
+**Status:** ✅ Diterima
+**Tanggal:** 2024
+**Pengambilan Keputusan:** Kepala Arsitek, Tim Teknik
 
 ---
 
-## Context
+## Konteks
 
-The Enal Cognitive Platform requires cross-module communication between:
-> Terjemahan Indonesia: Enal kognitif platform requires cross-module communication between:
-- Capability Packs (Network Engineer, Code Engineer, etc.)
-- Core services (memory, execution, telemetry)
-- Orchestration layer
-- Frontend
+Platform Kognitif Enal memerlukan komunikasi lintas modul antara:
+- Paket Kemampuan (Insinyur Jaringan, Insinyur Kode, dll.)
+- Layanan inti (memori, eksekusi, telemetri)
+- Lapisan orkestrasi
+- Bagian depan
 
-Direct imports between modules would create tight coupling and circular dependencies.
-> Terjemahan Indonesia: Direct imports between modules would membuat tight coupling dan circular dependencies.
+Impor langsung antar modul akan menciptakan hubungan erat dan ketergantungan melingkar.
 
 ---
 
-## Decision
+## Keputusan
 
-Use a centralized **Event Bus** pattern for all cross-module communication.
-> Terjemahan Indonesia: Use sebuah centralized Event Bus pattern untuk all cross-module communication.
+Gunakan pola **Bus Peristiwa** ringkasan untuk semua komunikasi lintas modul.
 
-### Chosen Approach
+### Pendekatan yang Dipilih
 
-- Publish-Subscribe pattern via `event_bus.py`
-- Async event emission using `asyncio`
-- Typed event schemas with Pydantic validation
-- Lazy singleton instantiation to avoid circular imports at module load
+- Pola Publikasikan-Berlangganan melalui `event_bus.py`
+- Emisi peristiwa asinkron menggunakan `asyncio`
+- Skema acara yang diketik dengan validasi Pydantic
+- Instansiasi tunggal yang malas untuk menghindari impor melingkar saat memuat modul
 
-### Key Design
+### Desain Kunci
 
 ```python
 class EventBus:
@@ -63,28 +42,27 @@ class EventBus:
 
 ---
 
-## Alternatives Considered
+## Alternatif yang Dipertimbangkan
 
 
-| Alternative | Reason Rejected |
+|Alternatif|Alasan Ditolak|
 |-------------|-----------------|
-| Direct function calls | Creates tight coupling between modules |
-| RPC/HTTP communication | Unnecessary network overhead for in-process communication |
-| Global mutable state | Not thread-safe, hard to test |
-| Message queue (Redis Pub/Sub) | Available but reserved for cross-process communication |
+|Panggilan fungsi langsung|Menciptakan hubungan erat antar modul|
+|Komunikasi RPC/HTTP|Jaringan overhead yang tidak diperlukan untuk komunikasi dalam proses|
+|Keadaan global yang bisa berubah|Tidak aman untuk thread, sulit untuk diuji|
+|Pesan Antrean (Redis Pub/Sub)|Tersedia tetapi disediakan untuk komunikasi proses|
 
 ---
 
-## Consequences
+## Lanjutnya
 
-- **Positive:** Loose coupling, easy to add new event types, testable via mock subscribers
-- **Positive:** Circular import prevention via lazy singleton pattern
-- **Negative:** Event flow is implicit — requires documentation to trace
-- **Negative:** No compile-time checking for event type correctness
+- **Positif:** Penggabungan yang longgar, mudah untuk menambahkan jenis acara baru, dapat diuji melalui pelanggan tiruan
+- **Positif:** Pencegahan impor melingkari pola singleton yang malas
+- **Negatif:** Alur peristiwa bersifat implisit — memerlukan dokumentasi untuk dilacak
+- **Negatif:** Tidak ada waktu kompilasi yang memeriksa kebenaran jenis peristiwa
 
 ---
 
-## Compliance
+## Kepatuhan
 
-All cross-module communication MUST use the Event Bus. Direct imports between capability packs or core modules are prohibited without ADR override.
-> Terjemahan Indonesia: All cross-module communication MUST use Event Bus. Direct imports between kapabilitas packs or core modules adalah prohibited without ADR override.
+Semua komunikasi lintas modul HARUS menggunakan Event Bus. Impor langsung antara paket kemampuan atau modul inti dilarang tanpa penggantian ADR.

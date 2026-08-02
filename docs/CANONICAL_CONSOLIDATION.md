@@ -1,183 +1,153 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Tonggak Sejarah: Canonical Consolidation
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/CANONICAL_CONSOLIDATION.md`
-- Judul: Canonical Consolidation
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Milestone: Canonical Consolidation
-
-**Status:** Frozen  
-**Effective:** 2026-07-11  
-**Owner:** Chief Architect  
-**Purpose:** Konsolidasi fondasi backend sebelum Developer Preview. Tidak ada fitur baru. Hanya pembersihan canonical, penghapusan legacy, dan perbaikan arsitektur.
+**Status:** Frozen (Beku)
+**Efektif:** 2026-07-11
+**Pemilik:** Chief Architect
+**Tujuan:** Konsolidasi backend sebelum Developer Preview. Tidak ada fitur baru. Hanya canonical cleanup, penghapusan legacy, dan perbaikan arsitektur.
 
 ---
 
-## Non-Negotiable Rules
+## Aturan yang Tidak Dapat Dinegosiasikan
 
-These rules apply during this milestone. They are enforced at PR review.
-> Terjemahan Indonesia: These rules apply during ini milestone. They adalah enforced at PR review.
+Aturan berikut berlaku selama milestone ini. Aturan ditegakkan pada saat PR review.
 
-1. **No new features.** Only cleanup, deletion, and migration.
-2. **No architecture changes.** Only consolidation within existing architecture.
-3. **All tests must pass after every task.** No "I'll fix tests later."
-4. **Verify before touching banned items.** `mikrotik.py` and `capability_benchmark.py` are blocked from direct modification until their actual state is confirmed by reading the current code.
-5. **`modules/rag.py` must be read before migration.** Do not assume it contains only VSS. Extract only the parts Core actually needs.
-6. **`marketplace/`, `studio/`, `plugins/` are untouched.** Roadmap-only.
+1. **Tidak ada fitur baru.** Hanya pembersihan, penghapusan, dan migrasi.
+2. **Tidak ada perubahan arsitektur.** Hanya konsolidasi dalam arsitektur yang sudah ada.
+3. **Semua test harus lulus setelah setiap tugas.** Tidak ada "Saya akan memperbaiki testnya nanti."
+4. **Verifikasi sebelum menyentuh item terlarang.** `mikrotik.py` dan `capability_benchmark.py` diblokir dari modifikasi langsung hingga kondisi sebenarnya dikonfirmasi dengan membaca kode saat ini.
+5. **`modules/rag.py` harus dibaca sebelum migrasi.** Jangan berasumsi bahwa file ini hanya berisi VSS (vector store). Ekstrak hanya bagian yang benar-benar dibutuhkan Core.
+6. **`marketplace/`, `studio/`, `plugins/` tidak disentuh.** Hanya untuk roadmap.
 
 ---
 
-## Demo Policy
+## Demo Kebijakan
 
-Each Epic must end with a live demonstration, not just green tests.
-> Terjemahan Indonesia: Each Epic must end dengan sebuah live demonstration, not just green tests.
+Setiap Epic harus diakhiri dengan demontrasi langsung, bukan sekadar test yang ramah lingkungan.
 
 | Epic | Demo |
 |------|------|
-| Epic 1 | App boots cleanly; no broken imports on startup |
-| Epic 2 | Only one Artifact Service, one Workspace Service, one Model Router are active |
-| Epic 3 | Dependency graph shows no edge from `core/` to `modules/` |
-| Epic 4 | Documentation pages render current API and architecture accurately |
-| Epic 5 | Full end-to-end: Chat → Execution → Artifact → Workspace reload works without intervention |
+| Epic 1 | Aplikasi dapat booting dengan bersih; tidak ada import yang rusak saat startup |
+| Epic 2 | Hanya satu Artifact Service, satu Workspace Service, satu Model Router yang aktif |
+| Epic 3 | Dependency graph tidak menunjukkan edge dari `core/` ke `modules/` |
+| Epic 4 | Halaman dokumentasi menampilkan API dan arsitektur terkini secara akurat |
+| Epic 5 | End-to-end penuh: Chat → Execution → Artifact → Workspace reload berfungsi tanpa intervensi |
 
 ---
 
-## Implementation Order
+## Urutan Implementasi
 
 ```
-Epic 1: P0 Bugfixes            (Day 1, Morning)
-Epic 2: Canonical Cleanup      (Day 1, Afternoon — Day 2)
-Epic 3: Architecture Inversion (Day 3 — Day 5)
-Epic 4: Documentation          (Day 6)
-Epic 5: Runtime Validation     (Day 7)
+Epic 1: P0 Bugfixes             (Hari 1, Pagi)
+Epic 2: Canonical Cleanup       (Hari 1, Siang — Hari 2)
+Epic 3: Architecture Inversion  (Hari 3 — Hari 5)
+Epic 4: Documentation           (Hari 6)
+Epic 5: Runtime Validation      (Hari 7)
 ```
 
-Total estimate: **4–7 working days** with vibe coding + AI assistance. Risk-adjusted: **7 days** (buffer for Epic 3 regression testing and Epic 5 end-to-end validation).
-> Terjemahan Indonesia: Total estimate: 4–7 working days dengan vibe coding + AI assistance. Risk-adjusted: 7 days (buffer untuk Epic 3 regression testing dan Epic 5 end-untuk-end validation).
+Estimasi total: **4–7 hari kerja** dengan vibe coding + bantuan AI. Disesuaikan dengan risiko: **7 hari** (buffer untuk regression testing Epic 3 dan validasi end-to-end Epic 5).
 
 ---
 
-## Epic 1: P0 Bugfixes (Unblockers)
+## Epic 1: Perbaikan Bug P0 (Pembuka Blokir)
 
-These bugs prevent other work. Fix before anything else.
-> Terjemahan Indonesia: Bug ini menghalangi pekerjaan lain. Perbaiki sebelum melakukan hal lain.
+Bug berikut menghalangi pekerjaan lain. Perbaiki sebelum melakukan hal lain.
 
-| # | Task | Effort | Risk | Notes |
+| # | Tugas | Effort | Risiko | Catatan |
 |---|------|--------|------|-------|
-| 1.1 | Fix `phase3.py` broken `artifact_system` imports | 30 min | Low | `artifact_system.py` is missing `dataclass`/`field` imports. Either fix the import or (better) migrate to `artifact_service` in Epic 2. |
-| 1.2 | Fix 6 dead `model_router` imports (`cognitive_kernel`, `cost_optimizer`, `evaluation`, `meta_cognition`, `modules/rag`, `modules/tools`) | 15 min | None | These files import `model_router` but never use it. Remove the imports. |
-| 1.3 | Verify `capability_benchmark.py` import | 15 min | Low | Audit claimed self-import. Read the file first. If confirmed, fix. If not, no action needed. |
+| 1.1 | Perbaiki import `artifact_system` yang rusak di `phase3.py` | 30 menit | Rendah | `artifact_system.py` tidak punya import `dataclass`/`field`. Perbaiki import atau (lebih baik) migrasi ke `artifact_service` di Epic 2. |
+| 1.2 | Perbaiki 6 import `model_router` yang mati (`cognitive_kernel`, `cost_optimizer`, `evaluation`, `meta_cognition`, `modules/rag`, `modules/tools`) | 15 menit | Tidak ada | File-file ini mengimpor `model_router` tetapi tidak pernah menggunakannya. Hapus import. |
+| 1.3 | Verifikasi import `capability_benchmark.py` | 15 menit | Rendah | Audit mengklaim ada self-import. Baca file dulu. Jika terkonfirmasi, perbaiki. Jika tidak, tidak ada tindakan. |
 
 **Definition of Done:**
-- [ ] `backend/app/api/phase3.py` imports resolve (no `NameError` on load)
-- [ ] `pytest` runs without import errors
-- [ ] `mypy` passes for modified files
-- [ ] `capability_benchmark.py` verified (issue confirmed or dismissed)
+- [ ] `backend/app/api/phase3.py` menyelesaikan import (tidak ada `NameError` saat di-load)
+- [ ] `pytest` berjalan tanpa error import
+- [ ] `mypy` lulus untuk file yang dimodifikasi
+- [ ] `capability_benchmark.py` terverifikasi (masalah dikonfirmasi atau ditutup)
 
 ---
 
 ## Epic 2: Canonical Cleanup
 
-Choose one implementation per service. Migrate all consumers. Delete legacy.
-> Terjemahan Indonesia: Choose one implementation per layanan. Migrate all consumers. Delete legacy.
+Pilih satu implementasi per layanan. Migrasi semua konsumen. Hapus legacy.
 
 ### 2.1 Artifact Service
 
-| Aspect | Canonical (`artifact_service.py`) | Legacy (`artifact_system.py`) |
+| Aspek | Canonical (`artifact_service.py`) | Legacy (`artifact_system.py`) |
 |--------|-----------------------------------|-------------------------------|
-| Lines | 71 | 120 |
-| Consumers | 4 (`execution`, `execution_integration`, `artifact`, `chat`) | 2 (`phase3`, `ai_studio`) |
-| Status | **CANONICAL** | **BROKEN** — missing `dataclass`/`field` |
+| Baris | 71 | 120 |
+| Konsumen | 4 (`execution`, `execution_integration`, `artifact`, `chat`) | 2 (`phase3`, `ai_studio`) |
+| Status | **CANONICAL** | **RUSAK** — kehilangan `dataclass`/`field` |
 
-Migrate legacy consumers:
-> Terjemahan Indonesia: Migrasi konsumen lama:
-- `phase3.py` — Replace `artifact_system.create()` → `artifact_service.create_artifact()`
-- `ai_studio.py` — Replace `artifact_system.get_by_project()` → `artifact_service.list_artifacts(workspace_id=...)`
+Migrasi konsumen lama:
+- `phase3.py` — Ganti `artifact_system.create()` → `artifact_service.create_artifact()`
+- `ai_studio.py` — Ganti `artifact_system.get_by_project()` → `artifact_service.list_artifacts(workspace_id=...)`
 
-Then delete `artifact_system.py`.
-> Terjemahan Indonesia: Kemudian hapus artifak_system.py.
+Kemudian hapus `artifact_system.py`.
 
 ### 2.2 Workspace Service
 
-| Aspect | Canonical (`workspace_service.py`) | Legacy (`workspace.py`) |
+| Aspek | Canonical (`workspace_service.py`) | Legacy (`workspace.py`) |
 |--------|-----------------------------------|------------------------|
-| Lines | 54 | 82 |
-| Consumers | 4 (`execution`, `execution_integration`, `workspace`, `chat`) | 1 (`orchestrator_v2`) |
+| Baris | 54 | 82 |
+| Konsumen | 4 (`execution`, `execution_integration`, `workspace`, `chat`) | 1 (`orchestrator_v2`) |
 | Status | **CANONICAL** | **LEGACY** |
 
-Migrate legacy consumer:
-> Terjemahan Indonesia: Migrasikan konsumen lama:
-- `orchestrator_v2.py` — Replace `workspace_manager.get()` → `workspace_service.get_workspace()`
+Migrasi konsumen lama:
+- `orchestrator_v2.py` — Ganti `workspace_manager.get()` → `workspace_service.get_workspace()`
 
-Then delete `workspace.py`.
-> Terjemahan Indonesia: Kemudian hapus workspace.py.
+Kemudian hapus `workspace.py`.
 
-### 2.3 Model Gateway (Not a Duplicate — Keep)
+### 2.3 Model Gateway (Bukan Duplikat — Pertahankan)
 
-`model_gateway.py` serves a **different purpose** from `model_router.py`:
-> Terjemahan Indonesia: Model_gateway.py serves sebuah different purpose dari model_router.py:
-- `model_router.py` = LLM execution (15 active callers, 21 imports)
+`model_gateway.py` memiliki **tujuan yang berbeda** dari `model_router.py`:
+- `model_router.py` = Eksekusi LLM (15 pemanggil aktif, 21 import)
 - `model_gateway.py` = Health/status API (1 API endpoint)
 
-**Action:** Keep `model_gateway.py`. Document this in `CANONICAL_OWNER.md`.
+**Tindakan:** Pertahankan `model_gateway.py`. Dokumentasikan di `CANONICAL_OWNER.md`.
 
-Delete dead code:
-> Terjemahan Indonesia: Hapus kode mati:
-- `apps/society/model_router.py` (189 lines, 0 importers)
+Hapus kode mati:
+- `apps/society/model_router.py` (189 baris, 0 import)
 
-### 2.4 Dead Entry-Point Files
+### 2.4 Entry Point File Mati
 
-These top-level `.py` files are shadowed by their package directories. Delete them.
-> Terjemahan Indonesia: These top-level .py files adalah shadowed oleh their package directories. Delete them.
+File `.py` tingkat atas berikut dibayangi oleh direktori paketnya. Hapus file-file ini.
 
-| File | Shadowed by | Importers |
+| File | Dibayangi oleh | Importer |
 |------|-------------|-----------|
 | `apps/code_engineer.py` | `apps/code_engineer/__init__.py` | 0 |
 | `apps/devops_assistant.py` | `apps/devops_assistant/__init__.py` | 0 |
 | `apps/trading_analyst.py` | `apps/trading_analyst/__init__.py` | 0 |
 | `apps/research_assistant.py` | `apps/research_assistant/__init__.py` | 0 |
-| `backend/app/agents/orchestrator.py` (v1) | Superseded by `orchestrator_v2.py` | 0 |
-| `frontend/lib/api.ts` | Inline fetch in `page.tsx` | 0 |
+| `backend/app/agents/orchestrator.py` (v1) | Digantikan oleh `orchestrator_v2.py` | 0 |
+| `frontend/lib/api.ts` | Fetch inline di `page.tsx` | 0 |
 
-### 2.5 Mikrotik Parser — Gate for Epic 4
+### 2.5 Mikrotik Parser — Gerbang ke Epic 4
 
-**Do NOT touch `mikrotik.py` during this epic.**
+**JANGAN sentuh `mikrotik.py` selama epic ini.**
 
-**Verification required first:**
-- Read `apps/network_engineer/vendor/__init__.py`. Is it imported anywhere?
-- Search for any other file that parses RouterOS config (`RouterOS`, `NetworkAST`, `parse`).
-- If another canonical parser exists → `mikrotik.py` is dead, delete it.
-- If no other parser exists → `mikrotik.py` is canonical, but `parse()` body at line 209 needs fixing. This moves to Epic 4.
+**Verifikasi diperlukan terlebih dahulu:**
+- Baca `apps/network_engineer/vendor/__init__.py`. Apakah diimpor ke mana pun?
+- Cari file lain yang mem-parsing konfigurasi RouterOS (`RouterOS`, `NetworkAST`, `parse`).
+- Jika ada parser canonical lain → `mikrotik.py` mati, hapus parser tersebut.
+- Jika tidak ada parser lain → `mikrotik.py` bersifat canonical, tetapi isi `parse()` pada baris 209 perlu diperbaiki. Dipindahkan ke Epic 4.
 
-**Action:** Mark `mikrotik.py` as "pending canonical verification" and do not touch until Epic 4.
+**Tindakan:** Tandai `mikrotik.py` sebagai "verifikasi canonical menunggu keputusan" dan jangan sentuh hingga Epic 4.
 
 ---
 
 ## Epic 2: Import Hygiene
 
-Fix broken imports, circular dependencies, missing `__init__.py`.
-> Terjemahan Indonesia: Perbaiki impor yang rusak, ketergantungan melingkar, init.py yang hilang.
+Perbaiki import yang rusak, dependency circular, dan `__init__.py` yang hilang.
 
-### 2.1 Circular Dependencies
+### 2.1 Dependency Circular
 
-**Audit finding: organization ↔ society circular dependency.**
+**Temuan audit:** dependency circular `organization` ↔ `society`.
 
-**Verification result: No circular dependency found.** The audit referenced non-existent `society/` directory. Actual state:
-- `organization.py` exists (77 lines, 3 importers).
-- No `society/` directory exists under `backend/app/core/`.
+**Hasil verifikasi:** Tidak ditemukan dependency circular. Audit merujuk pada direktori `society/` yang tidak ada. Sebenarnya:
+- `organization.py` ada (77 baris, 3 importer).
+- Tidak ada direktori `society/` di bawah `backend/app/core/`.
 
-**Action:** Run a circular dependency check anyway to be sure.
+**Tindakan:** Jalankan pemeriksaan kedua untuk memastikan.
 
 ```bash
 pydeps backend/app --no-show --cluster
@@ -185,133 +155,119 @@ pydeps backend/app --no-show --cluster
 pylint --disable=all --enable=cyclic-import backend/app
 ```
 
-If any circular dependency is found, break it by extracting the shared dependency into a new module or reordering imports.
-> Terjemahan Indonesia: If any circular dependency adalah found, break it oleh extracting shared dependency into sebuah new module or reordering imports.
+Jika terjadi dependency circular, hentikan dengan mengekstraksi dependency bersama ke modul baru atau menyusun ulang import.
 
-### 2.2 Missing `__init__.py` Files
+### 2.2 `__init__.py` Hilang
 
-Add missing `__init__.py` to 6 packages.
-> Terjemahan Indonesia: Add missing init.py untuk 6 packages.
+Tambahkan `__init__.py` yang hilang ke 6 paket.
 
-### 2.3 Dead Import Cleanup
+### 2.3 Pembersihan Import Mati
 
-Already partially done in Epic 0. Complete any remaining dead imports.
-> Terjemahan Indonesia: Already partially done dalam Epic 0. Complete any remaining dead imports.
+Sudah sebagian selesai di Epic 0. Selesaikan sisa import mati.
 
 ---
 
-## Epic 3: Architecture Inversion Fix (modules → core)
+## Epic 3: Perbaikan Inversi Arsitektur (modules → core)
 
-**This is the highest-risk epic. Allocate full days for testing.**
+**Ini epic dengan risiko tertinggi. Alokasikan satu hari penuh untuk pengujian.**
 
-### The Problem
+### Masalah
 
-`core/memory_layer.py` imports from `modules/rag.py`. Core depends on modules. This is backwards. The correct dependency should be:
-> Terjemahan Indonesia: Core/memory_layer.py imports dari modules/rag.py. Core depends pada modules. ini adalah backwards. correct dependency should menjadi:
+`core/memory_layer.py` diimpor dari `modules/rag.py`. Core bergantung pada module. Ini terbalik. Dependency yang benar seharusnya:
 
 ```
 modules (legacy) → core (canonical)
 ```
 
-### Prerequisite — Verify `modules/rag.py` Contents
+### Prasyarat — Verifikasi Isi `modules/rag.py`
 
-Before extracting anything, read `backend/app/modules/rag.py` and confirm:
-> Terjemahan Indonesia: Before extracting anything, read backend/app/modules/rag.py dan confirm:
+Sebelum mengekstrak apa pun, baca `backend/app/modules/rag.py` dan konfirmasi:
 
-1. Does it contain **only** vector-store logic (embedding, retrieval), or does it also contain business logic (ranking, reasoning)?
-2. What is the exact interface that `core/memory_layer.py` uses?
-3. Is there another core file that already implements a subset of this logic?
+1. Apakah berisi **hanya** logika vector store (embedding, retrieval), atau juga berisi business logic (ranking, reasoning)?
+2. Apa antarmuka yang sebenarnya digunakan `core/memory_layer.py`?
+3. Apakah ada file core lain yang sudah mengimplementasikan subset logika ini?
 
-**Do not copy the entire file blindly.** Extract only the minimum code needed to satisfy the Core dependency.
+**Jangan menyalin seluruh file secara buta.** Ekstrak hanya kode minimum yang diperlukan untuk memenuhi dependency Core.
 
-### The Fix
+### Perbaikan
 
-**Step 1: Break the inversion.**
+**Langkah 1: Hancurkan inversinya.**
 
-Create `core/vector_store.py` containing only the vector-store logic extracted from `modules/rag.py`. The new file must expose the same interface that `core/memory_layer.py` expects.
-> Terjemahan Indonesia: Membuat core/vector_store.py containing only vector-store logic extracted dari modules/rag.py. new file must expose same interface itu core/memory_layer.py expects.
+Buat `core/vector_store.py` yang hanya berisi logika vector store yang diekstraksi dari `modules/rag.py`. File baru harus menampilkan antarmuka yang sama dengan yang diharapkan `core/memory_layer.py`.
 
-**Step 2: Migrate `modules/memory.py` consumers.**
+**Langkah 2: Migrasikan konsumen `modules/memory.py`.**
 
-Migrate `conversation_manager.py` (and any other imports of `modules/memory`) to use `core/memory_layer.py`.
-> Terjemahan Indonesia: Migrate conversation_manager.py (dan any other imports dari modules/memory) untuk use core/memory_layer.py.
+Migrasi `conversation_manager.py` (dan import `modules/memory` lainnya) untuk menggunakan `core/memory_layer.py`.
 
-**Step 3: Migrate `modules/planner.py` consumers.**
+**Langkah 3: Migrasikan konsumen `modules/planner.py`.**
 
-Migrate `planner_agent.py` and `reviewer_agent.py` (and any other imports) to use `core/cognitive_kernel.py` + `core/cognitive/strategic_planner.py`.
-> Terjemahan Indonesia: Migrate planner_agent.py dan reviewer_agent.py (dan any other imports) untuk use core/cognitive_kernel.py + core/kognitif/strategic_planner.py.
+Migrasi `planner_agent.py` dan `reviewer_agent.py` (dan import lainnya) untuk menggunakan `core/cognitive_kernel.py` + `core/cognitive/strategic_planner.py`.
 
-**Step 4: Migrate `modules/tools.py` consumers.**
+**Langkah 4: Migrasikan konsumen `modules/tools.py`.**
 
-Migrate `executor_agent.py` (and any other imports) to use `core/tool_registry.py`.
-> Terjemahan Indonesia: Migrate executor_agent.py (dan any other imports) untuk use core/tool_registry.py.
+Migrasi `executor_agent.py` (dan import lainnya) untuk menggunakan `core/tool_registry.py`.
 
-**Step 5: Delete `modules/` directory.**
+**Langkah 5: Hapus direktori `modules/`.**
 
-`backend/app/modules/` → DELETE. All contents migrated.
-> Terjemahan Indonesia: Backend/app/modules/ → DELETE. All contents migrated.
+`backend/app/modules/` → HAPUS. Semua konten dimigrasikan.
 
-### Migration Tasks
+### Tugas Migrasi
 
-| # | Task | Effort | Risk |
+| # | Tugas | Effort | Risiko |
 |---|------|--------|------|
-| 3.1 | Create `core/vector_store.py` from `modules/rag.py` | 2 days | High — new code, must match existing interface |
-| 3.2 | Update `core/memory_layer.py` to import from new `core/vector_store.py` | 30 min | Low |
-| 3.3 | Migrate `conversation_manager.py` from `modules/memory` → `core/memory_layer` | 0.5 day | Low |
-| 3.4 | Migrate `planner_agent.py`, `reviewer_agent.py` from `modules/planner` → `core/cognitive_kernel` | 2 days | Medium |
-| 3.5 | Migrate `executor_agent.py` from `modules/tools` → `core/tool_registry` | 2 days | Medium-High |
-| 3.6 | Delete `backend/app/modules/` directory | 5 min | None (after above) |
-| 3.7 | Full regression test suite | 1 day | High — catch any missed imports |
+| 3.1 | Buat `core/vector_store.py` dari `modules/rag.py` | 2 hari | Tinggi — kode baru, harus cocok dengan antarmuka yang ada |
+| 3.2 | Update `core/memory_layer.py` untuk mengimpor dari `core/vector_store.py` baru | 30 menit | Rendah |
+| 3.3 | Migrasi `conversation_manager.py` dari `modules/memory` → `core/memory_layer` | 0,5 hari | Rendah |
+| 3.4 | Migrasi `planner_agent.py`, `reviewer_agent.py` dari `modules/planner` → `core/cognitive_kernel` | 2 hari | Sedang |
+| 3.5 | Migrasi `executor_agent.py` dari `modules/tools` → `core/tool_registry` | 2 hari | Sedang–Tinggi |
+| 3.6 | Hapus direktori `backend/app/modules/` | 5 menit | Tidak ada (setelah di atas) |
+| 3.7 | Regression test lengkap | 1 hari | Tinggi — menangkap import yang terlewat |
 
 **Definition of Done:**
-- [ ] `pydeps backend/app --no-show --cluster` shows no edge from `core/` to `modules/`
-- [ ] `pylint` reports no circular imports
-- [ ] All tests pass
-- [ ] `mypy` passes
-- [ ] `modules/` directory no longer exists
-- [ ] No production code imports from `backend.app.modules`
+- [ ] `pydeps backend/app --no-show --cluster` tidak menunjukkan edge dari `core/` ke `modules/`
+- [ ] `pylint` melaporkan tidak ada import circular
+- [ ] Semua test lulus
+- [ ] `mypy` lulus
+- [ ] Direktori `modules/` sudah tidak ada lagi
+- [ ] Tidak ada import production code dari `backend.app.modules`
 
 ---
 
-## Epic 4: Documentation & Golden Tests
+## Epic 4: Dokumentasi & Golden Test
 
-All documentation must match actual code after Epic 2 and Epic 3.
-> Terjemahan Indonesia: All dokumentasi must match actual code after Epic 2 dan Epic 3.
+Semua dokumentasi harus cocok dengan kode sebenarnya setelah Epic 2 dan Epic 3.
 
-### 4.1 Documentation Sync
+### 4.1 Sinkronisasi Dokumentasi
 
-| File | Action | Effort |
+| File | Tindakan | Effort |
 |------|--------|--------|
-| `docs/architecture.md` | Update to reflect canonical file layout | 1 hour |
-| `docs/api_reference.md` | Add all 70+ endpoints | 2 hours |
-| `CANONICAL_OWNER.md` | Add to each canonical service | 30 min |
+| `docs/architecture.md` | Update untuk mencerminkan tata letak file canonical | 1 jam |
+| `docs/api_reference.md` | Tambahkan semua 70+ endpoint | 2 jam |
+| `CANONICAL_OWNER.md` | Tambahkan ke setiap layanan canonical | 30 menit |
 
-### 4.2 Golden Test Gaps
+### 4.2 Golden Test Gap
 
-Fill 110 test cases currently missing.
-> Terjemahan Indonesia: Isi 110 kasus uji yang saat ini hilang.
+Isi 110 test case yang saat ini hilang.
 
-| Priority | Area | Gap |
+| Prioritas | Area | Gap |
 |----------|------|-----|
-| High | Artifact service | Versioning, workspace filtering |
-| High | Workspace service | Memory CRUD, file upload |
-| High | Model router | Error paths, provider fallback |
-| Medium | Execution | Progress streaming, cancellation |
-| Medium | Chat | Error retry, 429 handling |
+| Tinggi | Artifact service | Versioning, filtering workspace |
+| Tinggi | Workspace service | Memory CRUD, file upload |
+| Tinggi | Model router | Error path, provider routing |
+| Sedang | Execution | Progress streaming, cancellation |
+| Sedang | Chat | Retry error, penanganan 429 |
 
-### 4.3 CI Fixes
+### 4.3 Perbaikan CI
 
-- Fix `mypy` typo in CI config (2 min)
+- Perbaiki `mypy` type error di CI configuration (2 menit)
 
 ---
 
-## CANONICAL_OWNER.md Rule
+## Aturan CANONICAL_OWNER.md
 
 Setiap service/folder yang memiliki implementasi canonical harus memiliki file `CANONICAL_OWNER.md` di direktori yang sama.
-> Terjemahan Indonesia: Setiap layanan/folder yang memiliki implementasi canonical harus memiliki file CANONICAL_OWNER.MD di direktori yang sama.
 
 Format:
-> Terjemahan Indonesia: Format:
 
 ```markdown
 # CANONICAL_OWNER
@@ -319,7 +275,7 @@ Format:
 ## Service: [nama service]
 
 **Canonical:** `backend/app/core/[nama_service].py`
-**Legacy:** `backend/app/core/[legacy_file.py]` (if applicable)
+**Legacy:** `backend/app/core/[legacy_file.py]` (jika berlaku)
 **Status:** canonical / deprecated / dead
 
 ## Migration History
@@ -335,10 +291,10 @@ Format:
 
 ## Notes
 
-[Anything developers need to know]
+[Informasi yang perlu diketahui developer]
 ```
 
-**Application order:**
+**Urutan pembuatan:**
 1. `backend/app/core/artifact_service.py/CANONICAL_OWNER.md`
 2. `backend/app/core/workspace_service.py/CANONICAL_OWNER.md`
 3. `backend/app/core/model_router.py/CANONICAL_OWNER.md`
@@ -347,107 +303,100 @@ Format:
 
 ## Definition of Done — Developer Preview
 
-Developer Preview is NOT ready until:
-> Terjemahan Indonesia: Developer Preview adalah NOT ready until:
+Developer Preview TIDAK siap sampai:
 
-### Code
-- [ ] One canonical implementation per service
-- [ ] No legacy consumer remains
-- [ ] No broken imports
-- [ ] No architecture inversion (core does not import modules)
-- [ ] No dead runtime paths
-- [ ] All tests pass
-- [ ] `pydeps` shows clean dependency graph
-- [ ] `mypy` passes with zero errors
-- [ ] `CANONICAL_OWNER.md` exists for each canonical service
+### Kode
+- [ ] Satu implementasi canonical per service
+- [ ] Tidak ada legacy consumer yang tersisa
+- [ ] Tidak ada import yang rusak
+- [ ] Tidak ada inversi arsitektur (core tidak mengimpor modules)
+- [ ] Tidak ada runtime path yang mati
+- [ ] Semua test lulus
+- [ ] `pydeps` menunjukkan dependency graph yang bersih
+- [ ] `mypy` tanpa error
+- [ ] `CANONICAL_OWNER.md` ada untuk setiap layanan canonical
 
 ### Runtime
-- [ ] Execution end-to-end runs: trigger → phases → completion
-- [ ] Workspace is consistent across reloads
-- [ ] Artifact restore works and triggers approval dialog
-- [ ] Streaming stays alive and reconnects after network drop
+- [ ] Execution berjalan end-to-end: trigger → phase → completion
+- [ ] Workspace konsisten di seluruh reload
+- [ ] Artifact recovery berfungsi dan memicu dialog persetujuan
+- [ ] Streaming tetap hidup dan terhubung kembali setelah network terputus
 
-### Documentation
-- [ ] `CANONICAL_OWNER.md` is updated
-- [ ] `docs/architecture.md` matches actual layout
-- [ ] `docs/api_reference.md` is synced
+### Dokumentasi
+- [ ] `CANONICAL_OWNER.md` diperbarui
+- [ ] `docs/architecture.md` cocok dengan tata letak sebenarnya
+- [ ] `docs/api_reference.md` disinkronkan
 
 ---
 
-## Epic 5: Runtime Validation (Gate for Developer Preview)
+## Epic 5: Runtime Validation (Gerbang untuk Developer Preview)
 
-This is the final gate before Developer Preview. No code changes. Only testing.
-> Terjemahan Indonesia: Ini adalah final gate before Developer Preview. No code changes. Only testing.
+Ini gerbang terakhir sebelum Developer Preview. Tidak ada perubahan kode. Hanya pengujian.
 
-This epic validates the real user flows end-to-end, against the live backend. If any flow fails, the epic is not done.
-> Terjemahan Indonesia: Ini epic validates real user flows end-untuk-end, against live backend. If any flow fails, epic adalah not done.
+Epic ini memvalidasi alur pengguna sebenarnya secara end-to-end terhadap backend langsung. Jika ada alur yang gagal, epic tidak selesai.
 
-### Validation Checklist
+### Checklist Validasi
 
-| # | Flow | Steps | Pass Criteria |
+| # | Alur | Langkah | Kriteria Lulus |
 |---|------|-------|---------------|
-| 5.1 | Chat | Send a goal → receive a response | Response arrives, displayed correctly |
-| 5.2 | Streaming | Send a long-running goal → watch progress | Progress updates stream in real-time; no polling visible |
-| 5.3 | Execution | Trigger execution → see phases → see completion | All phases appear in order; completion state is terminal |
-| 5.4 | Cancellation | Start execution → cancel mid-run | Execution status becomes `cancelled`; no orphan process |
-| 5.5 | Resume | Restart server → open previous workspace | Previous conversation, files, and artifacts are present |
-| 5.6 | Artifact | Run task that produces artifact → view artifact → download → restore previous version | All three actions succeed; restore triggers approval dialog |
-| 5.7 | Workspace | Create new workspace → rename → delete | All operations succeed; no orphan data |
-| 5.8 | Reconnection | Disconnect network during stream → reconnect | Stream resumes or user can retry without duplicate messages |
-| 5.9 | Error paths | 401, 404, 429, 500 responses from backend | UI shows correct actionable message per `ERROR_STATES.md` |
-| 5.10 | Settings | Change theme → change model preference → reload | Settings persist and apply correctly |
+| 5.1 | Chat | Kirim goal → terima respons | Respons tiba, ditampilkan dengan benar |
+| 5.2 | Streaming | Kirim goal jangka panjang → lihat progress | Update progress mengalir real-time; tidak ada polling yang terlihat |
+| 5.3 | Execution | Trigger execution → lihat phase → lihat completion | Semua phase muncul berurutan; status completion adalah terminal |
+| 5.4 | Cancellation | Mulai execution → batalkan di tengah proses | Status execution menjadi `cancelled`; tidak ada proses yatim |
+| 5.5 | Resume | Restart server → buka workspace sebelumnya | Percakapan, file, dan artifact sebelumnya ada |
+| 5.6 | Artifact | Jalankan tugas yang menghasilkan artifact → lihat artifact → unduh → pulihkan versi sebelumnya | Ketiga tindakan berhasil; recovery memicu dialog persetujuan |
+| 5.7 | Workspace | Buat workspace baru → rename → hapus | Semua operasi berhasil; tidak ada data yatim |
+| 5.8 | Reconnect | Putuskan koneksi jaringan saat streaming → sambungkan kembali | Streaming dilanjutkan atau user dapat retry tanpa pesan duplikat |
+| 5.9 | Error path | Respons 401, 404, 429, 500 dari backend | UI menampilkan pesan yang benar dan dapat ditindaklanjuti sesuai `ERROR_STATES.md` |
+| 5.10 | Settings | Ubah tema → ubah model preference → reload | Settings tersimpan dan diterapkan dengan benar |
 
-### Regression Gates
+### Regression Gate
 
-Before a flow is marked passing:
-> Terjemahan Indonesia: Before sebuah flow adalah marked passing:
-- [ ] Manual tester confirms the flow works end-to-end
-- [ ] No console errors in browser DevTools
-- [ ] No 500s or unexpected 4xxs in server logs
-- [ ] No orphan background processes after cancellation
-- [ ] No duplicate messages after reconnection retry
+Sebelum suatu alur ditandai lulus:
+- [ ] Tester manual mengonfirmasi alur bekerja end-to-end
+- [ ] Tidak ada console error di browser DevTools
+- [ ] Tidak ada 500 atau 4xx yang tidak terduga di server log
+- [ ] Tidak ada background process yatim setelah cancellation
+- [ ] Tidak ada pesan duplikat setelah reconnect attempt
 
-### Exit Criteria
+### Kriteria Keluar
 
-Epic 5 is complete only when all of the following flows are verified green:
-> Terjemahan Indonesia: Epic 5 adalah complete only when all dari following flows adalah verified green:
+Epic 5 selesai hanya ketika semua alur berikut hijau:
 
-- [x] Chat → Execution succeeds
-- [x] Execution → Artifact succeeds
-- [x] Artifact → Workspace succeeds
-- [x] Streaming reconnect succeeds
-- [x] Pause / Resume succeeds
-- [x] Approval flow succeeds
-- [x] Workspace reload succeeds
-- [x] History remains consistent across reloads
+- [x] Chat → Execution berhasil
+- [x] Execution → Artifact berhasil
+- [x] Artifact → Workspace berhasil
+- [x] Streaming reconnect berhasil
+- [x] Pause / Resume berhasil
+- [x] Alur persetujuan berhasil
+- [x] Workspace reload berhasil
+- [x] History tetap konsisten di seluruh reload
 
-All checkboxes must be checked. If any flow fails, the epic is not done and blockers must be resolved before proceeding.
-> Terjemahan Indonesia: All checkboxes must menjadi checked. If any flow fails, epic adalah not done dan blockers must menjadi resolved before proceeding.
+Semua kotak harus dicentang. Jika ada alur yang gagal, epic tidak selesai dan blocker harus diatasi sebelum melanjutkan.
 
 ---
 
-## Canonical Coverage KPI
+## KPI: Risiko Canonical Cleanup
 
-| Risk | Likelihood | Impact | Mitigation |
+| Risiko | Kemungkinan | Dampak | Mitigasi |
 |------|-----------|--------|-----------|
-| Epic 3 breaks hidden import path | Medium | High | Full regression test suite before and after. Staged migration (one module at a time). |
-| `modules/` has consumers outside `backend/app/` | Low | High | Search all Python files for `backend.app.modules` before starting Epic 3. |
-| `modules/rag.py` contains business logic beyond VSS | Medium | Medium | Read file first; extract only Core-visible interface. Do not blind-copy. |
-| `mikrotik.py` is the only canonical parser | Medium | Medium | Verify in Epic 1 before Epic 2. Confirm no other `RouterOS → NetworkAST` converter exists. |
-| `capability_benchmark.py` actual issue is misdiagnosed | Low | Low | Read file first; fix only what is confirmed broken. |
-| `artifact_system.py` has live consumers in `studio/` | Medium | Medium | Verify `studio/ai_studio.py` import before deleting. Migrate or delete accordingly. |
-| Race condition in editor during migration | Low | Medium | Work from a clean git state. Commit after each task. |
-| Human forgets CANONICAL_OWNER.md | Medium | Low | Add to PR template / DoD checklist. |
-| Runtime flows fail despite clean code | Medium | High | Epic 5 (Runtime Validation) is the final gate. Do not skip. |
+| Epic 3 merusak import path yang tersembunyi | Sedang | Tinggi | Regression test lengkap sebelum dan sesudah. Migrasi bertahap (satu modul pada satu waktu). |
+| `modules/` memiliki konsumen di luar `backend/app/` | Rendah | Tinggi | Cari semua file Python untuk `backend.app.modules` sebelum memulai Epic 3. |
+| `modules/rag.py` berisi business logic di luar VSS | Sedang | Sedang | Baca file terlebih dahulu; ekstrak hanya antarmuka yang terlihat Core. Jangan menyalin secara buta. |
+| `mikrotik.py` adalah satu-satunya parser canonical | Sedang | Sedang | Verifikasi di Epic 1 sebelum Epic 2. Konfirmasi tidak ada converter `RouterOS → NetworkAST` lainnya. |
+| Masalah `capability_benchmark.py` salah didiagnosis | Rendah | Rendah | Baca file terlebih dahulu; perbaiki hanya yang terkonfirmasi rusak. |
+| `artifact_system.py` memiliki konsumen langsung di `studio/` | Sedang | Sedang | Verifikasi import `studio/ai_studio.py` sebelum menghapus. Migrasikan atau hapus sesuai kebutuhan. |
+| Kondisi race di editor selama migrasi | Rendah | Sedang | Bekerja dari kondisi git bersih. Commit setelah setiap tugas. |
+| Developer lupa CANONICAL_OWNER.md | Sedang | Rendah | Tambahkan ke template PR/checklist DoD. |
+| Runtime flow gagal meskipun kode bersih | Sedang | Tinggi | Epic 5 (Runtime Validation) adalah gerbang terakhir. Jangan dilewati. |
 
 ---
 
-## Canonical Coverage KPI
+## KPI: Cakupan Canonical
 
 Target: **100%**
-> Terjemahan Indonesia: Sasaran: 100%
 
-| Service | Canonical File | Status | Coverage |
+| Service | File Canonical | Status | Cakupan |
 |---------|---------------|--------|----------|
 | Artifact | `artifact_service.py` | Canonical | 100% |
 | Workspace | `workspace_service.py` | Canonical | 100% |
@@ -457,104 +406,99 @@ Target: **100%**
 | Execution | `execution_integration.py` | Canonical | 100% |
 | Streaming | `stream_handler.py` | Canonical | 100% |
 
-**Formula:** Canonical Services / Total Services = Coverage
+**Rumus:** Service Canonical / Total Service = Cakupan
 
-This KPI is tracked after Epic 2 and must reach 100% before Epic 3 begins. Any service not at 100% blocks the milestone.
-> Terjemahan Indonesia: Ini KPI adalah tracked after Epic 2 dan must reach 100% before Epic 3 begins. Any layanan not at 100% blocks milestone.
+KPI ini dilacak setelah Epic 2 dan harus mencapai 100% sebelum Epic 3 dimulai. Service apa pun yang tidak 100% menghalangi milestone.
 
 ---
 
 ## Backend Baseline v1
 
-After Epic 5 passes, the backend enters **Backend Baseline v1** status.
-> Terjemahan Indonesia: After Epic 5 passes, backend enters Backend dasar v1 status.
+Setelah Epic 5 lulus, backend memasuki status **Backend Baseline v1**.
 
-This is a project milestone, not a branch name. It marks the transition from development to stabilization.
-> Terjemahan Indonesia: Ini adalah sebuah proyek milestone, not sebuah branch name. It marks transition dari development untuk stabilization.
+Ini adalah milestone proyek, bukan nama branch. Ini menandai transisi dari pembangunan menuju stabilisasi.
 
-### What Backend Baseline v1 Means
+### Apa Arti Backend Baseline v1
 
-- No new services may be added without an ADR.
-- No existing service may be rewritten (no `v2` versions).
-- All changes must be one of: bug fix, security fix, performance improvement, or cross-capability requirement documented in an ADR.
-- The architecture defined in this document is frozen. Changes to the architecture require a new ADR signed by the Chief Architect.
+- Tidak ada service baru yang boleh ditambahkan tanpa ADR.
+- Tidak ada service yang ada yang boleh ditulis ulang (tidak ada versi `v2`).
+- Semua perubahan harus berupa salah satu dari: bug fix, security fix, performance improvement, atau persyaratan lintas capability yang didokumentasikan dalam ADR.
+- Arsitektur terdefinisi dalam dokumen ini. Perubahan arsitektur memerlukan ADR baru yang ditandatangani oleh Chief Architect.
 
-### Backend Baseline v1 Date
+### Tanggal Backend Baseline v1
 
-**2026-07-11** — All Epics 1–5 complete. 47/47 validation checks passed.
+**2026-07-11** — Semua Epic 1–5 selesai. 47/47 validasi check lulus.
 
-### Backend Baseline v1 Entry Criteria
+### Kriteria Entry Backend Baseline v1
 
-- [x] All Epics 1–5 are complete
-- [x] All DoD checkboxes are checked
-- [x] Runtime Validation Exit Criteria are all green
-- [x] Canonical Coverage is 100%
-- [x] No open P0 or P1 bugs (regression test: 74/104 existing tests pass; 25 failures are pre-existing environment issues with pytest-asyncio plugin, NOT regressions from this milestone)
+- [x] Semua Epic 1–5 telah selesai
+- [x] Semua checkbox DoD dicentang
+- [x] Runtime Validation Exit Criteria semuanya hijau
+- [x] Cakupan Canonical 100%
+- [x] Tidak ada bug P0 atau P1 yang terbuka (regression test: 74/104 test yang ada lulus; 25 kegagalan adalah masalah environment yang sudah ada sebelumnya dengan plugin pytest-asyncio, BUKAN regresi dari milestone ini)
 
-### What Was Accomplished
+### Apa yang Telah Dicapai
 
-**Epic 1: P0 Bugfixes**
-- Migrated `phase3.py` to use `artifact_service` instead of broken `artifact_system`
-- Replaced `ai_studio.py` with canonical `artifact_service`
-- Migrated `orchestrator_v2.py` from filesystem `workspace.py` to canonical `workspace_service`
-- Removed 4 dead `model_router` imports (`cognitive_kernel`, `cost_optimizer`, `evaluation`, `meta_cognition`)
+**Epic 1: Perbaikan Bug P0**
+- Memigrasikan `phase3.py` untuk menggunakan `artifact_service` alih-alih `artifact_system` yang rusak
+- Mengganti `ai_studio.py` dengan `artifact_service` canonical
+- Memigrasikan `orchestrator_v2.py` dari file system `workspace.py` ke `workspace_service` canonical
+- Menghapus 4 import `model_router` yang mati (`cognitive_kernel`, `cost_optimizer`, `evaluation`, `meta_cognition`)
 
 **Epic 2: Canonical Cleanup**
-- Deleted `artifact_system.py` (broken on import, missing `dataclass`/`field`)
-- Deleted `workspace.py` (filesystem workspace, legacy storage model)
-- Deleted 6 dead capability-pack entry-point files (`code_engineer.py`, `devops_assistant.py`, `trading_analyst.py`, `research_assistant.py`)
-- Deleted `orchestrator.py` v1 (superseded by v2)
-- Deleted `apps/society/model_router.py` (0 importers, 189 lines dead code)
-- Deleted `frontend/lib/api.ts` (0 importers)
-- Verified `capability_benchmark.py` has no actual self-import (docstring false positive)
+- `artifact_system.py` dihapus (rusak saat diimport, kehilangan `dataclass`/`field`)
+- Menghapus `workspace.py` (workspace file-system, model penyimpanan lama)
+- Menghapus 6 entry point file paket capability yang mati (`code_engineer.py`, `devops_assistant.py`, `trading_analyst.py`, `research_assistant.py`)
+- Menghapus `orchestrator.py` v1 (digantikan oleh v2)
+- Menghapus `apps/society/model_router.py` (0 importer, 189 baris kode mati)
+- Menghapus `frontend/lib/api.ts` (0 importer)
+- `capability_benchmark.py` terverifikasi tidak memiliki self-import yang sebenarnya (docstring false positive)
 
-**Epic 3: Architecture Inversion Fix**
-- Extracted `modules/rag.py` → `core/vector_store.py` (identical Qdrant vector store interface)
-- Created `core/memory.py` as canonical Redis-backed conversation store (replaces `modules/memory.py`)
-- Created `core/cognitive/planner.py` with `create_plan()` and `review_result()` (replaces `modules/planner.py`)
-- Updated `core/tool_registry.py` with `get_tools(agent_type)` compatibility method (replaces `modules/tools.py`)
-- Migrated all 5 consumers of `backend.app.modules`:
+**Epic 3: Perbaikan Inversi Arsitektur**
+- Diekstraksi `modules/rag.py` → `core/vector_store.py` (antarmuka vector store Qdrant identik)
+- Dibuat `core/memory.py` sebagai conversation store canonical berbasis Redis (mengganti `modules/memory.py`)
+- Dibuat `core/cognitive/planner.py` dengan `create_plan()` dan `review_result()` (mengganti `modules/planner.py`)
+- Diperbarui `core/tool_registry.py` dengan metode kompatibilitas `get_tools(agent_type)` (mengganti `modules/tools.py`)
+- Memigrasikan kelima konsumen `backend.app.modules`:
   - `conversation_manager.py` → `core/memory`
   - `core/memory_layer.py` → `core/vector_store`
   - `planner_agent.py` → `core/cognitive/planner`
   - `reviewer_agent.py` → `core/cognitive/planner`
   - `executor_agent.py` → `core/tool_registry`
-> Terjemahan Indonesia: Conversation_manager.py → core/memory core/memory_layer.py → core/vector_store planner_agent.py → core/kognitif/planner reviewer_agent.py → core/kognitif/planner executor_agent.py → core/tool_registry
-- Deleted `backend/app/modules/` directory (after all consumers migrated)
-- `pydeps` verified: no edge from `core/` → `modules/`
+- Direktori `backend/app/modules/` dihapus (setelah semua konsumen bermigrasi)
+- `pydeps` terverifikasi: tidak ada edge dari `core/` → `modules/`
 
-**Epic 4: Documentation & Golden Tests**
-- Updated `docs/architecture.md` to reflect actual `backend/app/core/` file layout
-- Expanded `docs/api_reference.md` to cover 70+ endpoints across all route modules
-- Created `CANONICAL_OWNER_artifacts.md`, `CANONICAL_OWNER_workspace.md`, `CANONICAL_OWNER_model_router.md`
-- All 11 modified files pass AST syntax validation
+**Epic 4: Dokumentasi & Golden Test**
+- Memperbarui `docs/architecture.md` untuk mencerminkan tata letak file `backend/app/core/` yang sebenarnya
+- Memperluas `docs/api_reference.md` untuk mencakup 70+ endpoint di semua route module
+- Dibuat `CANONICAL_OWNER_artifacts.md`, `CANONICAL_OWNER_workspace.md`, `CANONICAL_OWNER_model_router.md`
+- Semua 11 file yang dimodifikasi lulus validasi sintaksis AST
 
 **Epic 5: Runtime Validation**
-- Verified all import chains resolve correctly (no broken imports)
-- Confirmed no stale `backend.app.modules`, `artifact_system`, or `workspace_manager` references
-- Confirmed 74 pre-existing tests still pass (25 pre-existing failures are environment-related, NOT regressions)
-- Confirmed `main.py` imports are clean
-- Demo gate completed for all 5 Epics
+- Memverifikasi seluruh rantai import terselesaikan dengan benar (tidak ada import yang rusak)
+- Dikonfirmasi tidak ada referensi `backend.app.modules`, `artifact_system`, atau `workspace_manager`
+- Dikonfirmasi 74 test yang sudah ada sebelumnya masih lulus (25 kegagalan yang sudah ada sebelumnya terkait environment, BUKAN regresi)
+- Import `main.py` terkonfirmasi bersih
+- Demo gate selesai untuk semua 5 Epic
 
-### What Backend Baseline v1 Means
+### Apa Arti Backend Baseline v1
 
-- No new services may be added without an ADR.
-- No existing service may be rewritten (no `v2` versions).
-- All changes must be one of: bug fix, security fix, performance improvement, or cross-capability requirement documented in an ADR.
-- The architecture defined in this document is frozen. Changes to the architecture require a new ADR signed by the Chief Architect.
+- Tidak ada service baru yang boleh ditambahkan tanpa ADR.
+- Tidak ada service yang ada yang boleh ditulis ulang (tidak ada versi `v2`).
+- Semua perubahan harus berupa salah satu dari: bug fix, security fix, performance improvement, atau persyaratan lintas capability yang didokumentasikan dalam ADR.
+- Arsitektur terdefinisi dalam dokumen ini. Perubahan arsitektur memerlukan ADR baru yang ditandatangani oleh Chief Architect.
 
-### Backend Baseline v1 Entry Criteria
+### Kriteria Entry Backend Baseline v1
 
-- [ ] All Epics 1–5 are complete
-- [ ] All DoD checkboxes are checked
-- [ ] Runtime Validation Exit Criteria are all green
-- [ ] Canonical Coverage is 100%
-- [ ] No open P0 or P1 bugs
+- [ ] Semua Epic 1–5 telah selesai
+- [ ] Semua checkbox DoD dicentang
+- [ ] Runtime Validation Exit Criteria semuanya hijau
+- [ ] Cakupan Canonical 100%
+- [ ] Tidak ada bug P0 atau P1 yang terbuka
 
-### Post-Baseline v1 Rules
+### Aturan Pasca-Baseline v1
 
-After Backend Baseline v1, the following are **prohibited** without a signed ADR:
-> Terjemahan Indonesia: After Backend dasar v1, following adalah prohibited without sebuah signed ADR:
+Setelah Backend Baseline v1, hal berikut ini **dilarang** tanpa ADR yang ditandatangani:
 
 - `Runtime v2`
 - `Planner v2`
@@ -562,58 +506,55 @@ After Backend Baseline v1, the following are **prohibited** without a signed ADR
 - `Conversation v2`
 - `Execution v2`
 - `Worker v2`
-- Any new top-level `v2` directory or module
+- Direktori atau modul `v2` tingkat atas yang baru
 
-All engineering energy shifts to:
-> Terjemahan Indonesia: All rekayasa energy shifts untuk:
-- Frontend development
-- Capability excellence (Network, Trading, Research)
-- Real cases and benchmarks
+Semua energi engineering dialihkan ke:
+- Pengembangan frontend
+- Capability Excellence (Network, Trading, Research)
+- Real cases dan benchmark-nya
 - Dogfooding
 
 ---
 
-## Estimation Summary
+## Ringkasan Estimasi
 
-| Epic | Estimate | Cumulative |
+| Epic | Estimasi | Kumulatif |
 |------|----------|------------|
-| Epic 1: P0 Bugfixes | 1 hour | 1 hour |
-| Epic 2: Canonical Cleanup | 1.5 days | Day 1–2 |
-| Epic 3: Architecture Inversion | 4–7 days | Day 3–5 (optimistic) / Day 3–7 (risk-adjusted) |
-| Epic 4: Docs & Golden Tests | 0.5–1 day | Day 6 |
-| Epic 5: Runtime Validation | 1 day | Day 7 |
-| **Total** | **4–7 days** | **7 days buffered** |
+| Epic 1: Perbaikan Bug P0 | 1 jam | 1 jam |
+| Epic 2: Canonical Cleanup | 1,5 hari | Hari 1–2 |
+| Epic 3: Architecture Inversion | 4–7 hari | Hari 3–5 (optimis) / Hari 3–7 (disesuaikan risiko) |
+| Epic 4: Dokumentasi & Golden Test | 0,5–1 hari | Hari 6 |
+| Epic 5: Runtime Validation | 1 hari | Hari 7 |
+| **Total** | **4–7 hari** | **7 hari dengan buffer** |
 
-The 4–7 day estimate assumes:
-> Terjemahan Indonesia: 4–7 day estimate assumes:
-- No new bugs are introduced
-- Each task commits cleanly
-- AI assistance handles most code migration
-- Regression testing is automated or fast
+Estimasi 4–7 hari mengasumsikan:
+- Tidak ada bug baru yang diperkenalkan
+- Setiap tugas dikerjakan dengan bersih
+- Bantuan AI menangani sebagian besar kode migrasi
+- Regression testing dilakukan secara otomatis atau cepat
 
-The 10–14 day audit estimate assumed full manual migration with slower iteration. With structured AI-assisted refactoring, the actual effort is lower.
-> Terjemahan Indonesia: 10–14 day audit estimate assumed full manual migration dengan slower iteration. dengan structured AI-assisted refactoring, actual effort adalah lower.
+Estimasi audit 10–14 hari mengasumsikan migrasi manual penuh dengan iterasi yang lebih lambat. Dengan refactoring terstruktur berbantuan AI, effort sebenarnya menjadi lebih rendah.
 
-## Project Status
+## Status Proyek
 
 | Area | Status |
 |------|--------|
-| Architecture | Frozen |
-| Canonical Plan | Mature |
-| Migration Strategy | Approved |
-| Risk Management | Good |
-| Backend Readiness | Waiting for execution |
-| Frontend | Ready after Backend Baseline v1 |
+| Arsitektur | Frozen |
+| Rencana Canonical | Matang |
+| Strategi Migrasi | Disetujui |
+| Manajemen Risiko | Baik |
+| Kesiapan Backend | Menunggu eksekusi |
+| Frontend | Siap setelah Backend Baseline v1 |
 
 ---
 
-## Commands Reference
+## Referensi Perintah
 
 ```bash
-# Find all imports of a module
+# Temukan semua import sebuah modul
 rg "from backend\.app\.core\.artifact_system" backend/app/
 
-# Find circular dependencies
+# Temukan dependency circular
 pylint --disable=all --enable=cyclic-import backend/app/
 
 # Dependency graph
@@ -625,3 +566,4 @@ mypy backend/app/
 # Test
 pytest
 ```
+

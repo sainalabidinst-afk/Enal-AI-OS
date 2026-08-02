@@ -1,129 +1,106 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/REASONING_ENGINE.md`
-- Judul: Reasoning Engine
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Reasoning Engine
+﻿# Mesin Penalaran
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for REASONING_ENGINE
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk REASONING_ENGINE
 <!-- DOCUMENT_METADATA_END -->
 
-## Overview
+## Ikhtisar
 
-Reasoning Engine adalah symbolic/rule-based reasoning engine untuk multi-step reasoning, decision making, dan constraint validation. Engine menggunakan aturan deterministik (BUKAN LLM) untuk menghasilkan kesimpulan dan keputusan yang dapat dijelaskan.
-> Terjemahan Indonesia: Reasoning Engine adalah mesin penalaran simbolik/berbasis aturan untuk penalaran multi-langkah, pengambilan keputusan, dan validasi batasan. Mesin menggunakan aturan deterministik (BUKAN LLM) untuk menghasilkan kesimpulan dan keputusan yang dapat dijelaskan.
+Reasoning Engine adalah mesin penalaran simbolik/berbasis aturan untuk penalaran multi-langkah, pengambilan keputusan, dan validasi batasan. Mesin menggunakan aturan deterministik (BUKAN LLM) untuk menghasilkan kesimpulan dan keputusan yang dapat dijelaskan.
 
-## Methods
+## Metode
 
-### 1. Forward Chaining
-Mulai dari fakta yang diketahui, aplikasikan rules untuk mencapai kesimpulan.
-> Terjemahan Indonesia: Mulai dari fakta yang diketahui, terapkan aturan untuk mencapai kesimpulan.
+### 1. Rantai Maju
+Mulai dari fakta yang diketahui, menerapkan aturan untuk mencapai kesimpulan.
 
 ```
-Known Facts â†’ Apply Rules â†’ New Facts â†’ Apply Rules â†’ ... â†’ Conclusions
+Known Facts → Apply Rules → New Facts → Apply Rules → ... → Conclusions
 ```
 
-**Use case**: Goal decomposition, capability identification
+**Use case**: Dekomposisi tujuan, identifikasi kapabilitas
 
-### 2. Backward Chaining
-Mulai dari outcome yang diinginkan, cari prerequisites yang diperlukan.
-> Terjemahan Indonesia: Mulai dari hasil yang diinginkan, cari prasyarat yang diperlukan.
+### 2. Rantai Mundur
+Mulai dari hasil yang diinginkan, pencarian perenang yang diperlukan.
 
 ```
-Desired Outcome â† Find Prerequisites â† Find Sub-prerequisites â† ...
+Desired Outcome ← Find Prerequisites ← Find Sub-prerequisites ← ...
 ```
 
-**Use case**: Finding what's needed to achieve a goal
+**Kasus penggunaan**: Menemukan apa yang diperlukan untuk mencapai suatu tujuan
 
-### 3. Decision Tree
+### 3. Pohon Keputusan
 Evaluasi opsi-opsi terhadap kriteria yang ditentukan.
-> Terjemahan Indonesia: Evaluasi opsi-opsi terhadap kriteria yang ditentukan.
 
 ```
-Options Ã— Criteria â†’ Scoring â†’ Best Option Selected
+Options × Criteria → Scoring → Best Option Selected
 ```
 
-**Use case**: Technology selection, resource allocation decisions
+**Kasus penggunaan**: Pemilihan teknologi, keputusan alokasi sumber daya
 
-### 4. Constraint Propagation
-Verifikasi bahwa semua constraint terpenuhi.
-> Terjemahan Indonesia: Verifikasi bahwa semua kendala terpenuhi.
-
-```
-Variables Ã— Constraints â†’ Satisfied/Violated â†’ Proceed/Block
-```
-
-**Use case**: Budget validation, timeline checking
-
-### 5. Causal Reasoning
-Analisis cause-effect relationships.
-> Terjemahan Indonesia: Analisis hubungan sebab-akibat.
+### 4. Kendala Dakwah
+Verifikasi bahwa semua kendala terpenuhi.
 
 ```
-Event â†’ Find Causes â†’ Identify Effects â†’ Generate Recommendations
+Variables × Constraints → Satisfied/Violated → Proceed/Block
 ```
 
-**Use case**: Failure analysis, impact assessment
+**Kasus penggunaan**: Validasi anggaran, jadwal pemeriksaan
 
-## Data Structures
+### 5. Penalaran Kausal
+Analisis hubungan sebab-akibat.
 
-### Evidence
-- `id`: Unique identifier
-- `type`: FACT, RULE, CONSTRAINT, OBSERVATION, DERIVED
-- `description`: Human-readable description
-- `confidence`: 0.0 - 1.0
-- `source`: Where this evidence came from
+```
+Event → Find Causes → Identify Effects → Generate Recommendations
+```
 
-### ReasoningRule
-- `rule_id`: Unique identifier
-- `conditions[]`: Conditions that must be true
-- `conclusions[]`: Conclusions when conditions are met
-- `confidence`: Confidence when rule fires
-- `priority`: For conflict resolution
+**Kasus penggunaan**: Analisis kegagalan, penilaian dampak
 
-### Decision
-- `decision_id`: Unique identifier
-- `options[]`: Available options
-- `selected`: The chosen option
-- `confidence`: Confidence in decision
-- `reasoning`: Explanation of why
-- `urgency`: LOW, MEDIUM, HIGH, CRITICAL
+## Struktur Data
 
-### Conclusion
-- `conclusion_id`: Unique identifier
-- `statement`: The conclusion
-- `confidence`: Confidence level
-- `evidence_ids[]`: Supporting evidence
-- `derived`: Whether derived (vs direct)
+### Bukti
+- `id`: Pengenal unik
+- `type`: FAKTA, ATURAN, KENDALA, PENGAMATAN, BERASAL
+- `description`: Deskripsi yang dapat dibaca manusia
+- `confidence`: 0,0 - 1,0
+- `source`: Dari mana bukti ini berasal
 
-### ReasoningResult
-- `reasoning_id`: Unique session ID
-- `method`: The reasoning method used
-- `status`: COMPLETED, FAILED, INCONCLUSIVE
+### Aturan Penalaran
+- `rule_id`: Pengenal unik
+- `conditions[]`: Kondisi yang harus dipenuhi
+- `conclusions[]`: Kesimpulan ketika kondisi terpenuhi
+- `confidence`: Keyakinan ketika rule aktif
+- `priority`: Untuk menyelesaikan konflik
+
+### Keputusan
+- `decision_id`: Pengenal unik
+- `options[]`: Opsi yang tersedia
+- `selected`: Opsi yang dipilih
+- `confidence`: Keyakinan dalam mengambil keputusan
+- `reasoning`: Penjelasan mengapa
+- `urgency`: RENDAH, SEDANG, TINGGI, KRITIS
+
+### Kesimpulan
+- `conclusion_id`: Pengenal unik
+- `statement`: Kesimpulan
+- `confidence`: Tingkat kepercayaan diri
+- `evidence_ids[]` : Bukti pendukung
+- `derived`: Diturunkan (vs langsung)
+
+### Hasil Penalaran
+- `reasoning_id`: sesi ID unik
+- `method`: Metode penalaran yang digunakan
+- `status`: SELESAI, GAGAL, ​​TIDAK MENYATAKAN
 - `evidence[]`, `conclusions[]`, `decisions[]`
-- `confidence`: Overall confidence
-- `explanation`: Human-readable explanation
-- `execution_time_ms`: Time taken
+- `confidence`: Keyakinan secara keseluruhan
+- `explanation`: Penjelasan yang dapat dibaca manusia
+- `execution_time_ms`: Waktu yang diambil
 
-## Usage
+## Penggunaan
 
 ```python
 from apps.organization.reasoning_engine import (
@@ -181,20 +158,20 @@ engine.register_rule(ReasoningRule(
 ))
 ```
 
-## Telemetry Events
+## Peristiwa Telemetri
 
-- `ReasoningStarted`: When reasoning begins
-- `ReasoningRuleApplied`: When a rule is fired
-- `ReasoningCompleted`: When reasoning succeeds
-- `ReasoningFailed`: When reasoning encounters an error
-- `ReasoningDecisionMade`: When a decision is made
+- `ReasoningStarted`: Ketika penalaran dimulai
+- `ReasoningRuleApplied`: Ketika sebuah aturan diaktifkan
+- `ReasoningCompleted`: Ketika penalaran berhasil
+- `ReasoningFailed`: Ketika penalaran mengalami error
+- `ReasoningDecisionMade`: Ketika sebuah keputusan dibuat
 
-## Default Rules
+## Aturan Default
 
-1. **Goal Decomposition** (priority 1): Complex goals â†’ sub-goals
-2. **Capability Requirement** (priority 2): Goal domain â†’ required capabilities
-3. **Dependency Resolution** (priority 3): Steps â†’ ordered execution
-4. **Constraint Validation** (priority 4): Constraints â†’ validated/blocked
-5. **Resource Planning** (priority 5): Requirements â†’ resource allocation
-6. **Risk Assessment** (priority 6): Complexity + dependencies â†’ risk level
-7. **Quality Gate** (priority 7): Completed steps â†’ quality verification
+1. **Dekomposisi Tujuan** (prioritas 1): Tujuan kompleks → sub-tujuan
+2. **Persyaratan kemampuan** (prioritas 2): Domain tujuan → kapabilitas yang diperlukan
+3. **Resolusi Ketergantungan** (prioritas 3): Langkah → eksekusi terurut
+4. **Constraint Validation** (prioritas 4): Constraint → divalidasi/diblokir
+5. **Perencanaan Sumber Daya** (prioritas 5): Persyaratan → alokasi sumber daya
+6. **Penilaian Risiko** (prioritas 6): Kompleksitas + ketergantungan → tingkat risiko
+7. **Gerbang Kualitas** (prioritas 7): Langkah selesai → verifikasi kualitas

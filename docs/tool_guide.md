@@ -1,32 +1,15 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/tool_guide.md`
-- Judul: Tool Guide
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Tool Development Guide
+﻿# Panduan Pengembangan Tool
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for tool_guide
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk tool_guide
 <!-- DOCUMENT_METADATA_END -->
 
-## Creating a Tool
+## Membuat Tool
 
 ```python
 from enal_ai import Tool, EnalAI
@@ -52,35 +35,33 @@ async def my_tool(param1: str, param2: int = 0):
     return {"result": f"Processed {param1}"}
 ```
 
-## Tool Contracts
+## Kontrak Tool
 
-All tools must implement:
-> Terjemahan Indonesia: All alat must implement:
-- `invoke(parameters)` â€” Execute tool with parameters
-- `get_schema()` â€” Return OpenAI-compatible schema
+Semua tool harus mengimplementasikan:
+- `invoke(parameters)` — Mengeksekusi tool dengan parameter
+- `get_schema()` — Mengembalikan skema yang kompatibel dengan OpenAI
 
 ## Sandboxing
 
-Tools marked with `sandbox=True` run in isolated environment:
-> Terjemahan Indonesia: Alat marked dengan sandbox=True run dalam isolated environment:
-- No direct filesystem access
-- No network access (unless explicitly allowed)
-- Resource limits enforced
+Tool yang ditandai dengan `sandbox=True` berjalan di lingkungan terisolasi:
+- Tidak ada akses filesystem langsung
+- Tidak ada akses jaringan (kecuali diizinkan secara eksplisit)
+- Batasan resource ditegakkan
 
 ## Permissions
 
-Tools require explicit permissions:
-> Terjemahan Indonesia: Alat require explicit permissions:
-- `read` â€” Read data
-- `write` â€” Write data
-- `execute` â€” Execute code/commands
-- `deploy` â€” Deploy to production
-- `admin` â€” Administrative operations
+Tool memerlukan permission eksplisit:
+- `read` — Membaca data
+- `write` — Menulis data
+- `execute` — Mengeksekusi kode/command
+- `deploy` — Melakukan deployment ke produksi
+- `admin` — Operasi administratif
 
 ## Best Practices
 
-- Keep tools single-purpose
-- Validate all inputs
-- Return structured output
-- Document parameters thoroughly
-- Use appropriate permissions
+- Jaga tool agar bersifat single-purpose
+- Validasi semua input
+- Kembalikan output terstruktur
+- Dokumentasikan parameter secara menyeluruh
+- Gunakan permission yang sesuai
+

@@ -1,46 +1,40 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `backend/app/core/CANONICAL_OWNER_workspace.md`
-- Judul: Canonical Owner Workspace
-- Status: bilingual header added
+### Informasi Dokumen / Info Dokumen
+- Berkas: `backend/app/core/CANONICAL_OWNER_workspace.md`
+- Judul: Ruang Kerja Pemilik Canonical
+- Status: editor bilingual ditambahkan
 
-<!-- BILINGUAL_DOCS_END -->
 
-# CANONICAL_OWNER
+# KANONIK_PEMILIK
 
-## Service: Workspace
+## Layanan: Ruang Kerja
 
-**Canonical:** `backend/app/core/workspace_service.py`  
-**Legacy:** `backend/app/core/workspace.py`  
-**Status:** canonical / deleted
+**Kanonik:** `backend/app/core/workspace_service.py`
+**Warisan:** `backend/app/core/workspace.py`
+**Status:** kanonis / dihapus
 
 ---
 
-## Migration History
+## Sejarah Migrasi
 
-| Date | Action | By |
+|Tanggal|Tindakan|Oleh|
 |------|--------|----|
-| 2026-07-11 | Migrated `orchestrator_v2.py` to `workspace_service.add_memory()` | Canonical Consolidation Epic 2 |
-| 2026-07-11 | Deleted `workspace.py` (filesystem workspace, legacy) | Canonical Consolidation Epic 2 |
+|07-11-2026|Migrasi `orchestrator_v2.py` ke `workspace_service.add_memory()`|Epik Konsolidasi Kanonik 2|
+|07-11-2026|Menghapus `workspace.py` (ruang kerja sistem file, lama)|Epik Konsolidasi Kanonik 2|
 
-## Canonical Consumers
+## Konsumen Kanonis
 
 - `backend/app/api/workspace.py`
 - `backend/app/api/execution.py`
 - `backend/app/api/chat.py`
 - `backend/app/core/execution_integration.py`
 
-## Migration Notes
+## Catatan Migrasi
 
-`workspace.py` stored data on the filesystem (`./workspace/`) using `ProjectWorkspace` and `WorkspaceManager`. `workspace_service.py` uses in-memory Pydantic schemas. Migration was direct because `orchestrator_v2.py` only called `workspace_manager.get(project_id).save_memory(key, value)`, which maps 1:1 to `workspace_service.add_memory(workspace_id, key, value)`.
-> Terjemahan Indonesia: Workspace.py stored data pada filesystem (./workspace/) using ProjectWorkspace dan WorkspaceManager. workspace_service.py uses dalam-memory Pydantic schemas. Migration was direct because orchestrator_v2.py only called workspace_manager.get(project_id).save_memory(key, value), which maps 1:1 untuk workspace_service.add_memory(workspace_id, key, value).
+`workspace.py` menyimpan data pada file sistem (`./workspace/`) menggunakan `ProjectWorkspace` dan `WorkspaceManager`. `workspace_service.py` menggunakan skema Pydantic dalam memori. Migrasi bersifat langsung karena `orchestrator_v2.py` hanya disebut `workspace_manager.get(project_id).save_memory(key, value)`, yang pemetaannya 1:1 ke `workspace_service.add_memory(workspace_id, key, value)`.

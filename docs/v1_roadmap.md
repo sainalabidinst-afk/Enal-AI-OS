@@ -1,21 +1,3 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/v1_roadmap.md`
-- Judul: V1 Roadmap
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
@@ -41,7 +23,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 > **Core tidak lagi menjadi tempat berkembangnya fitur; Core menjadi platform yang stabil, sedangkan Capability Pack menjadi tempat inovasi.**
 
 Prinsip ini adalah fondasi arsitektur ECP:
-> Terjemahan Indonesia: Prinsip ini adalah fondasi arsitektur ECP:
 
 - **Core** dibekukan — stabil, backward-compatible, zero external dependencies selain stdlib + pydantic
 - **Capability Pack** berevolusi — tempat inovasi, knowledge expansion, dan domain expertise
@@ -52,7 +33,6 @@ Prinsip ini adalah fondasi arsitektur ECP:
 ## Governance Charter
 
 Dokumen ini adalah **dokumen konstitusi (governance charter)** proyek ECP. Artinya:
-> Terjemahan Indonesia: Dokumen ini adalah dokumen konstitusi (tata kelola charter) proyek ECP. Artinya:
 
 - Semua RFC harus konsisten dengan dokumen ini.
 - Semua ADR harus merujuk dokumen ini.
@@ -64,7 +44,6 @@ Dokumen ini adalah **dokumen konstitusi (governance charter)** proyek ECP. Artin
 ## Document Index
 
 Dokumen ini telah dipecah menjadi 5 dokumen strategis berikut:
-> Terjemahan Indonesia: Dokumen ini telah terpecah menjadi 5 dokumen strategi berikut:
 
 | Document | Purpose | SSOT For |
 |----------|---------|----------|

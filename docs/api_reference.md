@@ -1,24 +1,6 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Referensi API ECP
 
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/api_reference.md`
-- Judul: Api Reference
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# ECP API Reference
-
-**Status:** Platform RC (2026-07-27) - Runtime: 426 tests passing
+**Status:** Platform RC (2026-07-27) — Runtime: 426 test lulus
 
 ## Base URL
 
@@ -26,23 +8,21 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 http://localhost:8000/api/v1
 ```
 
-## Authentication
+## Autentikasi
 
-All API endpoints require authentication via Bearer token:
-> Terjemahan Indonesia: Semua titik akhir API memerlukan autentikasi melalui token Pembawa:
+Semua endpoint API memerlukan autentikasi melalui Bearer token:
 
 ```bash
 curl -H "Authorization: Bearer your-api-key" http://localhost:8000/api/v1/health
 ```
 
-## Endpoints
+## Endpoint
 
 ### Chat
 
 #### POST /chat
 
-Send a message to the AI orchestrator.
-> Terjemahan Indonesia: Send sebuah message untuk AI orchestrator.
+Mengirim pesan ke AI orchestrator.
 
 **Request:**
 ```json
@@ -63,13 +43,38 @@ Send a message to the AI orchestrator.
 }
 ```
 
+#### GET /chat/stream
+
+Melakukan streaming pesan dan menerima aliran Server-Sent Events (SSE).
+
+```bash
+GET /api/v1/chat/stream?message=Hello&conversation_id=conv-123
+```
+
+**Response:** Aliran SSE dengan tipe event:
+- `final` — Pesan respons terakhir
+- `execution_started` — Eksekusi dimulai
+- `phase` — Pembaruan fase eksekusi
+- `task` — Pembaruan task
+- `log` — Entri log eksekusi
+- `artifact` — Artifact baru dibuat
+- `progress` — Pembaruan progress (0–100)
+- `execution_complete` — Eksekusi selesai
+- `error` — Terjadi error
+
+#### GET /conversations/{conversation_id}
+
+Mendapatkan detail percakapan.
+
+#### DELETE /conversations/{conversation_id}
+
+Menghapus percakapan.
+
 ### Cognitive
 
 #### POST /cognitive/process
 
-
-Full cognitive pipeline processing.
-> Terjemahan Indonesia: Full kognitif jalur processing.
+Pemrosesan pipeline kognitif penuh.
 
 **Request:**
 ```json
@@ -93,9 +98,7 @@ Full cognitive pipeline processing.
 
 #### POST /cognitive/decide
 
-
-Make a decision using decision theory.
-> Terjemahan Indonesia: Make sebuah decision using decision theory.
+Mengambil keputusan menggunakan decision theory.
 
 **Request:**
 ```json
@@ -119,12 +122,71 @@ Make a decision using decision theory.
 }
 ```
 
+#### POST /cognitive/reason
+
+Menghasilkan hipotesis dan mengambil keputusan.
+
+#### POST /cognitive/debate
+
+Menjalankan debat antar agen AI.
+
+#### POST /cognitive/verify
+
+Menjalankan alur self-verification.
+
+#### POST /cognitive/simulate
+
+Mensimulasikan sebuah rencana (simulasi).
+
+#### GET /cognitive/world/query
+
+Proses query terhadap world model.
+
+#### POST /cognitive/strategy
+
+Membuat strategic roadmap.
+
+#### POST /cognitive/learn
+
+Menjalankan Benchmark dan pembelajaran.
+
+#### GET /cognitive/services
+
+Mendaftar semua layanan kognitif yang tersedia.
+
+#### POST /cognitive/execute
+
+Mengeksekusi pipeline kognitif.
+
+#### POST /cognitive/adaptive
+
+Menjalankan pipeline kognitif adaptif.
+
+#### POST /cognitive/meta/optimize
+
+Optimalisasi meta-cognition.
+
+#### GET /cognitive/meta/metrics
+
+Mendapatkan metrik meta-cognition.
+
+#### POST /cognitive/meta/choose-pipeline
+
+Memilih pipeline untuk sebuah task.
+
+#### POST /budget/estimate
+
+Memperkirakan cognitive budget untuk sebuah task.
+
+#### POST /prompt/compile
+
+Mengompilasi prompt untuk tipe agent.
+
 ### Organization
 
 #### POST /organization
 
-Create an organization node.
-> Terjemahan Indonesia: Membuat sebuah organization node.
+Membuat node organisasi.
 
 **Request:**
 ```json
@@ -137,19 +199,29 @@ Create an organization node.
 }
 ```
 
+#### GET /organization/{node_id}
+
+Mendapatkan node organisasi.
+
 #### GET /organization/{node_id}/subtree
 
+Mendapatkan subtree organisasi.
 
-Get organization subtree.
-> Terjemahan Indonesia: Dapatkan subpohon organisasi.
+### Orchestrator v2
+
+#### POST /v2/chat
+
+Mengirim pesan ke orchestrator v2.
+
+#### GET /v2/tasks/{task_id}
+
+Mendapatkan status task dari orchestrator v2.
 
 ### Marketplace
 
 #### POST /marketplace/publish
 
-
-Publish a plugin.
-> Terjemahan Indonesia: Publish sebuah plugin.
+Menerbitkan Plugin.
 
 **Request:**
 ```json
@@ -166,105 +238,75 @@ Publish a plugin.
 
 #### GET /marketplace/plugins
 
+Mendaftar Plugin yang tersedia.
 
-List available plugins.
-> Terjemahan Indonesia: Daftar plugin yang tersedia.
+#### GET /marketplace/plugins/search
+
+Mencari Plugin.
+
+#### POST /marketplace/install/{plugin_id}
+
+Memasang Plugin.
+
+#### POST /marketplace/uninstall/{plugin_id}
+
+Mencopot Plugin.
+
+#### GET /marketplace/installed
+
+Mendaftar Plugin yang terpasang.
 
 ### Studio
 
 #### GET /studio/traces/{trace_id}
 
-
-Get trace details for debugging.
-> Terjemahan Indonesia: Get trace details untuk debugging.
+Mendapatkan detail trace untuk debugging.
 
 #### GET /studio/metrics
 
-Get observability metrics.
-> Terjemahan Indonesia: Dapatkan metrik observabilitas.
+Mendapatkan metrik observability.
 
 #### GET /studio/artifacts/{project_id}
 
+Mendapatkan artifact untuk sebuah proyek.
 
-Get artifacts for a project.
-> Terjemahan Indonesia: Get artifacts untuk sebuah proyek.
+#### GET /studio/graph/{project_id}
 
-#### GET /studio/graph
-
-Get the knowledge graph.
-> Terjemahan Indonesia: Get knowledge graph.
+Mendapatkan Knowledge Graph.
 
 #### GET /studio/memory
 
-Search memory by layer.
-> Terjemahan Indonesia: Search memory oleh layer.
+Mencari memory berdasarkan layer.
 
 #### GET /studio/reputation
 
+Mendapatkan leaderboard reputasi agent.
 
-Get agent reputation leaderboard.
-> Terjemahan Indonesia: Get agen reputation leaderboard.
+#### GET /studio/cognitive/services
 
-#### GET /studio/cognitive-services
+Mendaftar layanan kognitif yang tersedia.
 
+#### GET /studio/cognitive/pipelines
 
-List available cognitive services.
-> Terjemahan Indonesia: List available kognitif services.
+Mendaftar preset pipeline adaptif.
 
-#### GET /studio/pipeline-presets
+#### GET /studio/cognitive/meta/metrics
 
+Mendapatkan metrik meta-cognition.
 
-List adaptive pipeline presets.
-> Terjemahan Indonesia: List adaptive jalur presets.
+#### GET /studio/export/{project_id}
 
-#### GET /studio/meta/metrics
-
-
-Get meta-cognition metrics.
-> Terjemahan Indonesia: Dapatkan metrik meta-kognisi.
-
----
-
-### Chat Streaming
-
-#### POST /stream
-
-Send a message and receive Server-Sent Events (SSE) stream via query parameter.
-> Terjemahan Indonesia: Send sebuah message dan receive Server-Sent Events (SSE) stream via query parameter.
-
-Use `POST /api/v1/chat` with `stream: true` or use SSE endpoint:
-> Terjemahan Indonesia: Use POST /API/v1/chat dengan stream: true or use SSE endpoint:
-
-```bash
-GET /api/v1/chat/stream?message=Hello&conversation_id=conv-123
-```
-
-**Request:** Same as POST /chat.
-
-**Response:** SSE stream with event types:
-- `final` — Final response message
-- `execution_started` — Execution began
-- `phase` — Execution phase update
-- `task` — Task update
-- `log` — Execution log entry
-- `artifact` — New artifact created
-- `progress` — Progress update (0–100)
-- `execution_complete` — Execution finished
-- `error` — Error occurred
-
----
+Mengekspor data proyek.
 
 ### Workspace
 
 #### GET /workspaces
 
-List all workspaces.
-> Terjemahan Indonesia: Daftar semua ruang kerja.
+Mendaftar semua workspace.
 
 #### POST /workspaces
 
-Create a new workspace.
-> Terjemahan Indonesia: Membuat sebuah new workspace.
+Membuat workspace baru.
 
 **Request:**
 ```json
@@ -276,43 +318,41 @@ Create a new workspace.
 
 #### GET /workspaces/{workspace_id}
 
-
-Get workspace detail.
-> Terjemahan Indonesia: Dapatkan detail ruang kerja.
+Mendapatkan detail workspace.
 
 #### DELETE /workspaces/{workspace_id}
 
-
-Delete a workspace.
-> Terjemahan Indonesia: Delete sebuah workspace.
+Menghapus workspace.
 
 #### POST /workspaces/{workspace_id}/files
 
+Mengunggah file ke workspace.
 
-Upload a file to workspace.
-> Terjemahan Indonesia: Upload sebuah file untuk workspace.
+#### GET /workspaces/{workspace_id}/files
+
+Mendaftar file di workspace.
+
+#### GET /workspaces/{workspace_id}/files/{filename}
+
+Mendapatkan file tertentu.
+
+#### DELETE /workspaces/{workspace_id}/files/{filename}
+
+Menghapus file di workspace.
 
 #### POST /workspaces/{workspace_id}/memory
 
-
-Set a memory key.
-> Terjemahan Indonesia: Set sebuah memory key.
+Menetapkan memory key.
 
 #### GET /workspaces/{workspace_id}/memory/{key}
 
-
-Get a memory value.
-> Terjemahan Indonesia: Get sebuah memory value.
-
----
+Mendapatkan nilai memory.
 
 ### Execution
 
 #### POST /executions/run
 
-
-Run an execution end-to-end.
-> Terjemahan Indonesia: Run sebuah execution end-untuk-end.
+Menjalankan eksekusi end-to-end.
 
 **Request:**
 ```json
@@ -331,11 +371,21 @@ Run an execution end-to-end.
 }
 ```
 
+#### POST /executions
+
+Membuat execution session baru.
+
+#### GET /executions
+
+Mendaftar semua execution session.
+
+#### GET /executions/{execution_id}
+
+Mendapatkan detail execution session.
+
 #### PATCH /executions/{execution_id}/phases/{phase_id}
 
-
-Update a phase status.
-> Terjemahan Indonesia: Update sebuah phase status.
+Memperbarui status fase.
 
 **Request:**
 ```json
@@ -345,17 +395,13 @@ Update a phase status.
 }
 ```
 
-#### POST /executions/{execution_id}/cancel
+#### POST /executions/{execution_id}/phases
 
-
-Cancel a running execution.
-> Terjemahan Indonesia: Cancel sebuah running execution.
+Menambahkan fase eksekusi.
 
 #### POST /executions/{execution_id}/progress
 
-
-Update execution progress.
-> Terjemahan Indonesia: Perbarui kemajuan eksekusi.
+Memperbarui progress eksekusi.
 
 **Request:**
 ```json
@@ -365,33 +411,41 @@ Update execution progress.
 }
 ```
 
+#### POST /executions/{execution_id}/cancel
+
+Membatalkan eksekusi yang sedang berjalan.
+
 #### GET /executions/{execution_id}/logs
 
+Mendapatkan log eksekusi.
 
-Get execution logs.
-> Terjemahan Indonesia: Dapatkan log eksekusi.
+#### POST /executions/{execution_id}/logs
+
+Menambahkan log eksekusi.
 
 #### GET /executions/{execution_id}/artifacts
 
+Mendaftar artifact yang dihasilkan oleh eksekusi.
 
-List artifacts produced by an execution.
-> Terjemahan Indonesia: List artifacts produced oleh sebuah execution.
+#### POST /executions/{execution_id}/artifacts
 
----
+Menambahkan artifact ke eksekusi.
+
+#### DELETE /executions/{execution_id}
+
+Menghapus execution session.
 
 ### Artifact
 
 #### GET /artifacts
 
-List artifacts, optionally filtered.
-> Terjemahan Indonesia: Daftar artefak, difilter secara opsional.
+Mendaftar artifact, difilter secara opsional.
 
 **Query params:** `workspace_id`, `artifact_type`
 
 #### POST /artifacts
 
-Create an artifact.
-> Terjemahan Indonesia: Membuat sebuah artifact.
+Membuat artifact.
 
 **Request:**
 ```json
@@ -405,38 +459,31 @@ Create an artifact.
 }
 ```
 
+#### GET /artifacts/{artifact_id}
+
+Mendapatkan detail artifact.
+
 #### GET /artifacts/{artifact_id}/versions/{version}
 
-
-Get a specific version.
-> Terjemahan Indonesia: Get sebuah specific versi.
+Mendapatkan versi tertentu.
 
 #### POST /artifacts/{artifact_id}/versions
 
-
-Add a new version.
-> Terjemahan Indonesia: Add sebuah new versi.
+Menambahkan versi baru.
 
 #### POST /artifacts/{artifact_id}/restore/{version}
 
-
-Restore to a previous version.
-> Terjemahan Indonesia: Restore untuk sebuah previous versi.
+Mengembalikan ke versi sebelumnya.
 
 #### DELETE /artifacts/{artifact_id}
 
-
-Delete an artifact.
-> Terjemahan Indonesia: Delete sebuah artifact.
-
----
+Menghapus artifact.
 
 ### Capability Discovery
 
 #### GET /capabilities
 
-List all available capabilities.
-> Terjemahan Indonesia: List all available kapabilitas.
+Mendaftar semua capability yang tersedia.
 
 **Response:**
 ```json
@@ -448,53 +495,43 @@ List all available capabilities.
 
 #### GET /capabilities/{capability_id}
 
+Mendapatkan detail capability.
 
-Get capability detail.
-> Terjemahan Indonesia: Get kapabilitas detail.
-
----
-
-### Notifications
+### Notification
 
 #### GET /notifications/{recipient}
 
-
-Get notifications for a recipient.
-> Terjemahan Indonesia: Get notifications untuk sebuah recipient.
+Mendapatkan notification untuk recipient.
 
 **Query params:** `limit` (default 20)
 
+#### POST /notifications
+
+Membuat notification.
+
 #### PATCH /notifications/{recipient}/read/{notification_id}
 
-
-Mark a notification as read.
-> Terjemahan Indonesia: Mark sebuah notification as read.
-
----
+Menandai notification telah dibaca.
 
 ### Model Routing
 
-#### GET /models/providers
+#### GET /providers
 
+Mendaftar provider model yang tersedia.
 
-List available model providers.
-> Terjemahan Indonesia: Daftar penyedia model yang tersedia.
+#### GET /health
 
-#### GET /models/health
+Pemeriksaan kesehatan untuk model gateway.
 
-Health check for a specific provider.
-> Terjemahan Indonesia: Health check untuk sebuah specific provider.
+#### POST /route
 
-**Query params:** `provider`
-
----
+Merutekan permintaan LLM ke provider.
 
 ### Long Tasks
 
 #### POST /longtasks
 
-Submit a long-running workflow.
-> Terjemahan Indonesia: Submit sebuah long-running alur kerja.
+Menjadwalkan workflow berjalan lama.
 
 **Request:**
 ```json
@@ -506,228 +543,177 @@ Submit a long-running workflow.
 
 #### POST /longtasks/{task_id}/start
 
+Memulai workflow yang dijadwalkan.
 
-Start a submitted workflow.
-> Terjemahan Indonesia: Start sebuah submitted alur kerja.
+#### GET /longtasks/{task_id}
+
+Mendapatkan status task.
 
 #### POST /longtasks/{task_id}/pause
 
-
-Pause a running workflow.
-> Terjemahan Indonesia: Pause sebuah running alur kerja.
+Menjeda workflow yang sedang berjalan.
 
 #### POST /longtasks/{task_id}/resume
 
+Melanjutkan workflow yang ditentukan.
 
-Resume a paused workflow.
-> Terjemahan Indonesia: Resume sebuah paused alur kerja.
-
----
-
-### Phase3 (Experimental APIs)
-
-
-#### POST /cognitive/process
-
-
-Full cognitive pipeline processing.
-> Terjemahan Indonesia: Full kognitif jalur processing.
-
-#### POST /cognitive/reason
-
-
-Generate hypotheses and reach a decision.
-> Terjemahan Indonesia: Generate hypotheses dan reach sebuah decision.
-
-#### POST /cognitive/debate
-
-
-Run a debate between AI agents.
-> Terjemahan Indonesia: Run sebuah debate between AI agen.
-
-#### POST /cognitive/verify
-
-
-Run self-verification pipeline.
-> Terjemahan Indonesia: Run self-verification jalur.
-
-#### POST /cognitive/simulate
-
-
-Simulate a plan (dry-run).
-> Terjemahan Indonesia: Simulate sebuah plan (dry-run).
-
-#### GET /cognitive/world/query
-
-
-Query the world model.
-> Terjemahan Indonesia: Query world model.
-
-#### POST /cognitive/strategy
-
-
-Create a strategic roadmap.
-> Terjemahan Indonesia: Membuat sebuah strategic roadmap.
-
-#### POST /cognitive/learn
-
-
-Run a benchmark and learn.
-> Terjemahan Indonesia: Run sebuah benchmark dan learn.
-
-#### POST /cognitive/adaptive
-
-
-Run adaptive cognitive pipeline.
-> Terjemahan Indonesia: Run adaptive kognitif jalur.
-
-#### POST /cognitive/meta/optimize
-
-
-Meta-cognition optimization.
-> Terjemahan Indonesia: Optimalisasi meta-kognisi.
-
-#### GET /cognitive/meta/metrics
-
-
-Get meta-cognition metrics.
-> Terjemahan Indonesia: Dapatkan metrik meta-kognisi.
-
-#### POST /cognitive/meta/choose-pipeline
-
-
-Select pipeline for a task.
-> Terjemahan Indonesia: Select jalur untuk sebuah task.
-
-#### POST /budget/estimate
-
-
-Estimate cognitive budget for a task.
-> Terjemahan Indonesia: Estimate kognitif budget untuk sebuah task.
-
-#### POST /prompt/compile
-
-
-Compile a prompt for an agent type.
-> Terjemahan Indonesia: Compile sebuah prompt untuk sebuah agen type.
+### Goals
 
 #### POST /goals
 
-Create a goal.
-> Terjemahan Indonesia: Membuat sebuah goal.
+Membuat goal.
 
 #### POST /goals/{goal_id}/execute
 
-
-Execute a goal.
-> Terjemahan Indonesia: Execute sebuah goal.
+Menjalankan goal.
 
 #### GET /goals/{goal_id}
 
+Mendapatkan goal berdasarkan ID.
 
-Get a goal by ID.
-> Terjemahan Indonesia: Get sebuah goal oleh ID.
-
-#### POST /evaluation/benchmarks
-
-
-Register a benchmark.
-> Terjemahan Indonesia: Register sebuah benchmark.
-
-#### GET /recovery/checkpoints
-
-
-List recovery checkpoints.
-> Terjemahan Indonesia: Daftar pos pemeriksaan pemulihan.
-
-#### POST /graph/nodes
-
-Create a graph node.
-> Terjemahan Indonesia: Membuat sebuah graph node.
-
-#### POST /graph/edges
-
-Create a graph edge.
-> Terjemahan Indonesia: Membuat sebuah graph edge.
-
-#### GET /graph/nodes/{node_id}/related
-
-
-Get related nodes.
-> Terjemahan Indonesia: Dapatkan node terkait.
-
-#### POST /mcp/tools
-
-List MCP tools.
-> Terjemahan Indonesia: List MCP alat.
-
-**Query params:** `permissions` (comma-separated)
-
-#### GET /mcp/plugins
-
-List MCP plugins.
-> Terjemahan Indonesia: Daftar plugin MCP.
-
-#### POST /reputation/record
-
-
-Record an agent reputation event.
-> Terjemahan Indonesia: Record sebuah agen reputation event.
+### Reputation & Experience
 
 #### GET /reputation/leaderboard
 
+Mendapatkan leaderboard agent.
 
-Get agent leaderboard.
-> Terjemahan Indonesia: Get agen leaderboard.
+#### POST /reputation/record
+
+Mencatat event reputasi agent.
 
 #### GET /experience/search
 
-
-Search experience database.
-> Terjemahan Indonesia: Basis data pengalaman pencarian.
+Mencari database pengalaman.
 
 #### POST /experience/record
 
+Mencatat pengalaman baru.
 
-Record a new experience.
-> Terjemahan Indonesia: Record sebuah new experience.
+### Observability
 
 #### GET /observability/traces/{trace_id}
 
-
-Get trace details.
-> Terjemahan Indonesia: Dapatkan detail jejak.
+Mendapatkan detail trace.
 
 #### GET /observability/metrics
 
+Mendapatkan metrik observability.
 
-Get observability metrics.
-> Terjemahan Indonesia: Dapatkan metrik observabilitas.
+#### GET /metrics
+
+Mendapatkan metrik telemetry agregat.
+
+#### GET /metrics/analysis
+
+Mendapatkan metrik analisis.
+
+#### GET /metrics/chat
+
+Mendapatkan metrik chat.
+
+#### GET /metrics/parser
+
+Mendapatkan metrik parser.
+
+#### GET /metrics/reasoning
+
+Mendapatkan metrik reasoning.
+
+### Governance
 
 #### POST /governance/policies
 
+Membuat policy governance.
 
-Create a governance policy.
-> Terjemahan Indonesia: Membuat sebuah tata kelola policy.
+### Recovery
 
-#### POST /artifacts (Phase3)
+#### GET /recovery/checkpoints
 
+Mendaftar checkpoint pemulihan.
 
-Create an artifact via Phase3 API.
-> Terjemahan Indonesia: Membuat sebuah artifact via Phase3 API.
+### Evaluation
 
-#### GET /artifacts/{artifact_id} (Phase3)
+#### POST /evaluation/benchmarks
 
+Mendaftarkan Benchmark.
 
-Get artifact via Phase3 API.
-> Terjemahan Indonesia: Dapatkan artefak melalui API Phase3.
+### MCP
+
+#### GET /mcp/tools
+
+Mendaftar MCP tools.
+
+**Query params:** `permissions` (dipisahkan koma)
+
+#### GET /mcp/plugins
+
+Mendaftar MCP Plugins.
+
+### Graph
+
+#### POST /graph/nodes
+
+Membuat graph node.
+
+#### POST /graph/edges
+
+Membuat graph edge.
+
+#### GET /graph/nodes/{node_id}/related
+
+Mendapatkan node terkait.
+
+### Attachments
+
+#### POST /attachments/upload
+
+Mengunggah file.
+
+#### POST /attachments/analyze
+
+Menganalisis file.
+
+#### POST /attachments/diff
+
+Membandingkan file.
+
+### Distributed
+
+#### POST /distributed/nodes
+
+Mendaftarkan node terdistribusi.
+
+#### GET /distributed/cluster
+
+Mendapatkan status cluster.
+
+#### GET /distributed/nodes/{node_id}
+
+Mendapatkan node terdistribusi.
+
+### Benchmark
+
+#### GET /benchmark/suite
+
+Mendapatkan daftar suite Benchmark.
+
+#### POST /benchmark/run
+
+Menjalankan Benchmark.
+
+#### GET /benchmark/capability-scores
+
+Mendapatkan skor capability.
+
+#### GET /benchmark/cce/status
+
+Mendapatkan status CCE benchmark.
 
 ---
 
-## Error Responses
+## Error Response
 
-All errors follow this format:
-> Terjemahan Indonesia: All errors follow ini format:
+Semua error mengikuti format ini:
 
 ```json
 {
@@ -735,11 +721,11 @@ All errors follow this format:
 }
 ```
 
-Common HTTP status codes:
-> Terjemahan Indonesia: Kode status HTTP umum:
+Kode status HTTP umum:
 - `400` — Bad request
 - `401` — Unauthorized
 - `403` — Forbidden
 - `404` — Not found
 - `422` — Validation error
 - `500` — Internal server error
+

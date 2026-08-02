@@ -1,570 +1,548 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/CAPABILITY_GUIDE.md`
-- Judul: Capability Guide
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+# Panduan kemampuan
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Capability Pack specifications, scope, benchmark targets, and quality grades
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Spesifikasi Capability Pack, cakupan, target Benchmark, dan tingkat kualitas
 <!-- DOCUMENT_METADATA_END -->
 
-# Capability Guide
-
-This document describes each official Capability Pack, including its scope, knowledge focus, benchmark targets, and explicit out-of-scope boundaries.
-Use this as the source of truth for what each Capability Pack is expected to know and not know.
-> Terjemahan Indonesia: Ini dokumen describes each official kapabilitas Pack, including its scope, knowledge focus, benchmark targets, dan explicit out-dari-scope boundaries. Use ini as source dari truth untuk what each kapabilitas Pack adalah expected untuk know dan not know.
+Dokumen ini menjelaskan setiap Capability Pack resmi, termasuk scope, fokus pengetahuan, target Benchmark, dan batasan out-of-scope yang eksplisit.
+Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang diharapkan dan tidak diketahui oleh setiap Capability Pack.
 
 ---
 
-## Capability Engineer Status (2026-08-02)
-**Platform Release Candidate**
+## Status Kemampuan (2026-08-02)
+**Platform Kandidat Pelepasan**
 
-| Capability Pack | Grade | Notes |
+|Capability Pack|Nilai|Catatan|
 |-----------------|-------|-------|
-| Network Engineer | A (≥90) | Production Ready |
-| Code Engineer | A- (≥85) | Production Ready |
-| Research Assistant | A- (≥85) | Production Ready |
-| DevOps Assistant | B+ (≥80) | Production Ready |
-| Trading Analyst | B+ (≥80) | Certification Pending |
-| Self Development | A (≥90) | Production Ready |
-| Decision Intelligence | A (≥90) | Production Ready |
-| System Architect | A (≥90) | Production Ready |
-| Security Engineer | A- (≥85) | Production Ready |
-| Data Engineer | A- (≥85) | Production Ready |
-| Database Engineer | A- (≥85) | Production Ready |
-| QA Engineer | A (≥90) | Production Ready |
-| Business Analyst | A- (≥85) | Production Ready |
+|Insinyur Jaringan|SEBUAH (≥90)|Siap Produksi|
+|Kode Insinyur|SEBUAH- (≥85)|Siap Produksi|
+|Asisten Peneliti|SEBUAH- (≥85)|Siap Produksi|
+|Asisten DevOps|B+ (≥80)|Siap Produksi|
+|Analis Perdagangan|B+ (≥80)|Sertifikasi Tertunda|
+|Pengembangan Diri|SEBUAH (≥90)|Siap Produksi|
+|Decision Intelligence|SEBUAH (≥90)|Siap Produksi|
+|Sistem Arsitek|SEBUAH (≥90)|Siap Produksi|
+|Security Engineer|SEBUAH- (≥85)|Siap Produksi|
+|Data Engineer|SEBUAH- (≥85)|Siap Produksi|
+|Database Engineer|SEBUAH- (≥85)|Siap Produksi|
+|QA Engineer|SEBUAH (≥90)|Siap Produksi|
+|Business Analyst|SEBUAH- (≥85)|Siap Produksi|
 
 ---
 
-## Network Engineer
+## Insinyur Jaringan
 
-**Capability ID:** `network`
-**Category:** Networking
-**Quality Target:** A
+**Kemampuan ID:** `network`
+**Kategori:** Jaringan
+**Target Kualitas:** A
 
-### Scope
+### Cakupan
 
-- MikroTik RouterOS v6/v7 configuration analysis
-- Topology inference from configuration
-- Security and performance audit
-- Configuration diff and rollback planning
-- Deployment verification and risk assessment
-- Compliance audit and health reporting
+- Analisis konfigurasi MikroTik RouterOS v6/v7
+- Inferensi topologi dari konfigurasi
+- Audit keamanan dan kinerja
+- Perbandingan konfigurasi (diff) dan perencanaan rollback
+- Verifikasi penerapan dan penilaian risiko
+- Audit kehadiran dan pelaporan kesehatan
 
-### Knowledge Focus
+### Fokus Pengetahuan
 
-- RouterOS syntax and semantics
-- Firewall, NAT, routing, DHCP, DNS
-- MikroTik-specific best practices
-- Enterprise network design patterns
-- ISP backbone and edge patterns
+- Sintaks dan semantik RouterOS
+- Firewall, NAT, perutean, DHCP, DNS
+- Praktik terbaik khusus MikroTik
+- Pola desain jaringan perusahaan
+- Pola ISP backbone dan edge
 
-### Out of Scope
+### Di Luar Cakupan
 
-- Cisco IOS/NX-OS full automation
-- Fortinet FortiOS full automation
-- BGP/OSPF/MPLS automation
-- Multi-router orchestration
-- Live device API/SSH execution
-- Hardware procurement or cabling
+- Otomasi penuh Cisco IOS/NX-OS
+- Otomasi penuh Fortinet FortiOS
+- Otomasi BGP/OSPF/MPLS
+- Orkestra multi-router
+- Eksekusi API/SSH perangkat langsung
+- Pengadaan perangkat keras atau kabel
 
-### Benchmark Target
+### Target Benchmark
 
-- 100 real MikroTik configs
-- ≥95% accuracy on issue detection
-- ≥90% recommendation quality
-
----
-
-## Code Engineer
-
-**Capability ID:** `code`
-**Category:** Development
-**Quality Target:** A- (≥85) - Production Ready
-
-### Scope
-
-- Backend API design and implementation
-- Frontend UI generation from API spec
-- Database schema design and migration
-- Unit, integration, and E2E test generation
-- Documentation generation (API, README, runbooks)
-- Code review for correctness, security, and maintainability
-
-### Knowledge Focus
-
-- Python, JavaScript/TypeScript, SQL
-- Clean Architecture, DDD, Hexagonal, CQRS
-- REST and GraphQL API design
-- Database indexing, query optimization
-- Testing strategies and coverage patterns
-- Security: injection, auth, secrets handling
-
-### Out of Scope
-
-- Mobile native (Swift/Kotlin) production apps
-- Kernel/driver development
-- Game development
-- ML model training pipelines
-- Infrastructure provisioning
-
-### Benchmark Target
-
-- 100 real repositories
-- ≥90% code quality score
-- ≥85% test generation usefulness
+- 100 konfigurasi MikroTik nyata
+- ≥95% akurasi deteksi masalah
+- ≥90% kualitas rekomendasi
 
 ---
 
-## Research Assistant
+## Kode Insinyur
 
-**Capability ID:** `research`
-**Category:** Research
-**Quality Target:** A- (≥85) - Production Ready
+**Kemampuan ID:** `code`
+**Kategori:** Pengembangan
+**Target Kualitas:** A- (≥85) - Siap Produksi
 
-### Scope
+### Cakupan
 
-- Literature survey and synthesis
-- Multi-source RAG retrieval
-- Evidence ranking and contradiction detection
-- Citation with provenance
-- Structured report generation
-- Experiment design advisory
+- Desain dan implementasi backend API
+- Frontend Generasi UI dari API spesifikasi
+- Desain dan skema database migrasi
+- Unit tes generasi, integrasi, dan E2E
+- Dokumentasi generasi (API, README, runbook)
+- Tinjauan kode untuk kebenaran, keamanan, dan pemeliharaan
 
-### Knowledge Focus
+### Fokus Pengetahuan
 
-- Scientific and technical writing patterns
-- Evidence quality evaluation
-- Citation formats and provenance tracking
-- Statistical significance and experimental design
-- Research gap identification
+- Python, JavaScript/Skrip Ketik, SQL
+- Arsitektur Bersih, DDD, Heksagonal, CQRS
+- Desain API REST dan GraphQL
+- Pengindeksan database, optimasi kueri
+- Strategi pemeliharaan dan perlindungan pola
+- Keamanan: injeksi, autentikasi, penanganan rahasia
 
-### Out of Scope
+### Di Luar Cakupan
 
-- Live web search without approved retrieval tools
-- Medical/legal/financial advice
-- Primary data collection
-- Human subject research oversight
-- Patent or IP legal analysis
+- Aplikasi produksi seluler asli (Swift/Kotlin)
+- Pengembangan kernel/driver
+- Pengembangan permainan
+- Model pelatihan pipeline ML
+- Penyediaan infrastruktur
 
-### Benchmark Target
+### Target Benchmark
 
-- 100 research questions
-- ≥85% citation accuracy
-- ≥80% evidence ranking quality
+- 100 repositori nyata
+- ≥90% skor kualitas kode
+- ≥85% kegunaan generasi test
 
 ---
 
-## DevOps Assistant
+## Asisten Peneliti
 
-**Capability ID:** `devops`
-**Category:** DevOps
-**Quality Target:** B+ (≥80) - Production Ready
+**Kemampuan ID:** `research`
+**Kategori:** Penelitian
+**Target Kualitas:** A- (≥85) - Siap Produksi
 
-### Scope
+### Cakupan
 
-- Dockerfile generation from requirements
-- CI/CD pipeline generation
-- Kubernetes manifest generation
-- Monitoring and alerting configuration
-- Deployment health verification
-- Infrastructure diagram and documentation
+- Survei literatur dan sintesis
+- Pengambilan RAG multi-sumber
+- Peringkat bukti dan penemuan fosil
+- Sitasi dengan asal
+- Generasi laporan terstruktur
+- Eksperimen desain penasehat
 
-### Knowledge Focus
+### Fokus Pengetahuan
+
+- Pola penulisan ilmiah dan teknis
+- Evaluasi kualitas bukti
+- Format sitasi dan pelacakan asal
+- Signifikansi statistik dan desain eksperimen
+- penampakan penelitian penemuan
+
+### Di Luar Cakupan
+
+- Pencarian web langsung tanpa alat pengambilan yang disetujui
+- Nasihat medis/hukum/keuangan
+- Pengumpulan data primer
+- Pengawasan penelitian subjek manusia
+- Analisis hukum paten atau IP
+
+### Target Benchmark
+
+- 100 pertanyaan penelitian
+- ≥85% akurasi sitasi
+- ≥80% kualitas peringkat bukti
+
+---
+
+## Asisten DevOps
+
+**Kemampuan ID:** `devops`
+**Kategori:** DevOps
+**Target Kualitas:** B+ (≥80) - Siap Produksi
+
+### Cakupan
+
+- Generasi Dockerfile dari persyaratan
+- CI/CD saluran generasi
+- Generasi mewujudkan Kubernetes
+- Konfigurasi pemantauan dan peringatan
+- Verifikasi penyebaran kesehatan
+- Diagram infrastruktur dan dokumentasi
+
+### Fokus Pengetahuan
 
 - Docker, Kubernetes, Terraform
-- GitHub Actions, GitLab CI
-- Cloud patterns: AWS, Azure, GCP
-- Observability: metrics, logs, traces
-- Security scanning and policy-as-code
+- Tindakan GitHub, GitLab CI
+- Pola awan: AWS, Azure, GCP
+- Observabilitas: metrik, log, jejak
+- Pemindaian keamanan dan kebijakan sebagai kode
 
-### Out of Scope
+### Di Luar Cakupan
 
-- Live cloud account provisioning
-- Production incident command
-- Hardware datacenter operations
-- Custom cloud provider integrations outside registry
-- Cost optimization auditing
+- Penyediaan akun cloud langsung
+- Perintah kejadian produksi
+- Operasi pusat data perangkat keras
+- Integrasi penyedia cloud kustom di luar registrasi
+- Biaya optimasi audit
 
-### Benchmark Target
+### Target Benchmark
 
-- 100 infrastructure scenarios
-- ≥85% correctness on generated configs
-- ≥80% deployment verification accuracy
-
----
-
-## Trading Analyst
-
-**Capability ID:** `trading`
-**Category:** Finance
-**Quality Target:** B+ (≥80) - Certification Pending
-
-### Scope
-
-- Market data analysis and trend detection
-- Risk assessment and position sizing
-- Portfolio exposure analysis
-- Strategy backtesting
-- Multi-strategy comparison via Debate Engine
-- Decision recording and experience memory
-
-### Knowledge Focus
-
-- Technical indicators and statistical signals
-- Market regime detection
-- Risk models: VaR, drawdown, correlation
-- Portfolio construction and rebalancing
-- Macro event and news impact assessment
-- Trading psychology and behavioral biases
-
-### Out of Scope
-
-- Live trade execution
-- Brokerage account integration
-- Regulatory compliance for specific jurisdictions
-- Tax optimization
-- Personal financial advisory
-
-### Benchmark Target
-
-- 100 market scenarios
-- Risk-adjusted return quality
-- Consistency across repeated analysis
+- 100 skenario infrastruktur
+- ≥85% kebenaran pada konfigurasi yang dihasilkan
+- ≥80% memperoleh verifikasi penerapan
 
 ---
 
-## Self Development
+## Analis Perdagangan
 
-**Capability ID:** `self-development`
-**Category:** Platform
-**Quality Target:** A (≥90) - Production Ready
+**Kemampuan ID:** `trading`
+**Kategori:** Keuangan
+**Target Kualitas:** B+ (≥80) - Sertifikasi Menunggu Keputusan
 
-### Scope
+### Cakupan
 
-- Project structure analysis
-- Bottleneck and dead-code detection
-- Refactoring proposal generation
-- Patch and test report generation
-- Approval workflow orchestration
-- Cross-project pattern learning
+- Analisis data pasar dan deteksi tren
+- Penilaian risiko dan position sizing
+- Analisis eksposur portofolio
+- Strategi pengujian ulang
+- Perbandingan multi-strategi melalui Debate Engine
+- Pencatatan keputusan dan pengalaman kenangan
 
-### Knowledge Focus
+### Fokus Pengetahuan
 
-- Software architecture patterns
-- Code smell taxonomy
-- Testing and coverage strategies
-- Documentation quality standards
-- Change impact and risk assessment
+- Indikator teknis dan sinyal statistik
+- Deteksi rezim pasar
+- Model risiko: VaR, drawdown, korelasi
+- Konstruksi portofolio dan penyeimbangan kembali
+- Penilaian dampak acara makro dan berita
+- Psikologi perdagangan dan bias perilaku
 
-### Out of Scope
+### Di Luar Cakupan
 
-- Autonomous code execution without approval
-- Direct modification of Core contracts
-- Cross-Capability Pack engine reuse by direct import
-- Production deployment without explicit user approval
+- Eksekusi perdagangan langsung
+- Integrasi akun broker
+- Kepatuhan pengaturan untuk memastikan tertentu
+- Optimasi pajak
+- Penasihat keuangan pribadi
 
-### Benchmark Target
+### Target Benchmark
 
-- 10 real projects
-- ≥80% improvement acceptance rate
-- ≥90% approval workflow compliance
+- 100 skenario pasar
+- Kualitas return yang disesuaikan risiko
+- Konsistensi di seluruh analisis berulang
 
 ---
 
-## Task Templates
+## Pengembangan Diri
 
-Each Capability Pack defines standard task templates.
-Templates represent common execution paths and are used by Execution Runtime to plan and parallelize work.
-> Terjemahan Indonesia: Each kapabilitas Pack defines standard task templates. Templates represent common execution paths dan adalah used oleh Execution Runtime untuk plan dan parallelize work.
+**Kemampuan ID:** `self-development`
+**Kategori:** Platform
+**Target Kualitas:** A (≥90) - Siap Produksi
 
-### Network Engineer
+### Cakupan
 
-| Task | Subtasks |
+- Analisis struktur proyek
+- Deteksi kemacetan dan kode mati
+- Pemfaktoran ulang usulan Generasi
+- Generasi patch dan laporan tes
+- Alur kerja persetujuan orkestrasi
+- Pembelajaran pola lintas proyek
+
+### Fokus Pengetahuan
+
+- Pola arsitektur perangkat lunak
+- Bau kode taksonomi
+- Strategi pemeliharaan dan perlindungan
+- Standar kualitas dokumentasi
+- Penilaian dampak perubahan dan risiko
+
+### Di Luar Cakupan
+
+- Eksekusi kode otonom tanpa persetujuan
+- Modifikasi langsung kontrak Core
+- Penggunaan ulang engine Capability Pack lain melalui import langsung
+- Deployment produksi tanpa persetujuan eksplisit pengguna
+
+### Target Benchmark
+
+- 10 proyek nyata
+- ≥80% tingkat perbaikan penerimaan
+- ≥90% memenuhi alur kerja persetujuan
+
+---
+
+## Templat Tugas
+
+Setiap Capability Pack mendefinisikan template tugas standar.
+Templat mewakili jalur eksekusi umum dan digunakan oleh Execution Runtime untuk merencanakan dan memparalelkan pekerjaan.
+
+### Insinyur Jaringan
+
+|Tugas|Subtugas|
 |------|----------|
-| Audit | Parse → Topology → Security → Compliance → Recommendation → Documentation |
-| Optimization | Performance review → Bottleneck identification → Configuration tuning → Validation |
-| Migration | Version assessment → Change impact → Rollback plan → Execution → Verification |
-| Design | Requirements → Topology design → Security design → Documentation → Implementation plan |
-| Automation | Diff generation → Risk scoring → Backup → Verification → Deployment |
+|Audit|Parse → Topologi → Keamanan → Kepatuhan → Rekomendasi → Dokumentasi|
+|Optimasi|Tinjauan kinerja → hambatan identifikasi → Penyetelan konfigurasi → Validasi|
+|Migrasi|Penilaian versi → Perubahan dampak → Rencana rollback → Eksekusi → Verifikasi|
+|Desain|Persyaratan → Desain topologi → Desain keamanan → Dokumentasi → Rencana implementasi|
+|Otomatisasi|Pembuatan perbedaan → Penilaian risiko → Pencadangan → Verifikasi → Penerapan|
 
-### Code Engineer
+### Kode Insinyur
 
-| Task | Subtasks |
+|Tugas|Subtugas|
 |------|----------|
-| Review | Parse → Architecture → Security → Dead code → Recommendations |
-| Refactor | Analysis → Proposal → Patch → Tests → Validation |
-| Generate | Requirements → Architecture → Backend → Frontend → Database → Tests → Documentation |
-| Architecture | Requirements → Domain modeling → Layer design → Interface definition → Documentation |
-| Modernization | Assessment → Dependency analysis → Migration plan → Execution → Validation |
+|Tinjauan|Parsing → Arsitektur → Keamanan → Kode mati → Rekomendasi|
+|Refaktorisasi|Analisis → Proposal → Patch → Tes → Validasi|
+|Hasilnya|Persyaratan → Arsitektur → Backend → Frontend → Database → Pengujian → Dokumentasi|
+|Arsitektur|Persyaratan → Pemodelan domain → Desain lapisan → Definisi antarmuka → Dokumentasi|
+|Modernisasi|Penilaian → Analisis ketergantungan → Rencana migrasi → Eksekusi → Validasi|
 
-### Trading Analyst
+### Analis Perdagangan
 
-| Task | Subtasks |
+|Tugas|Subtugas|
 |------|----------|
-| Analysis | Market data → Indicators → Structure → Bias → Levels |
-| Strategy | Idea → Rules → Backtest → Risk → Validation |
-| Portfolio | Holdings → Correlation → Exposure → Rebalancing → Risk |
-| Risk | Position sizing → Stop loss → Drawdown → Scenario → Mitigation |
-| Execution Planning | Entry → Exit → Position size → Risk check → Alternatives → Decision |
+|Analisa|Data pasar → Indikator → Struktur → Bias → Level|
+|Strategi|Ide → Aturan → Backtest → Risiko → Validasi|
+|Portofolio|Kepemilikan → Korelasi → Eksposur → Penyeimbangan Kembali → Risiko|
+|Mempertaruhkan|Ukuran posisi → Hentikan kerugian → Penarikan → Skenario → Mitigasi|
+|Perencanaan Eksekusi|Masuk → Keluar → Ukuran posisi → Pemeriksaan risiko → Alternatif → Keputusan|
 
-### Research Assistant
+### Asisten Peneliti
 
-| Task | Subtasks |
+|Tugas|Subtugas|
 |------|----------|
-| Retrieval | Question → Source search → Filtering → Ranking → Citations |
-| Evidence | Sources → Quality check → Contradiction detection → Confidence → Synthesis |
-| Synthesis | Sources → Themes → Integration → Gaps → Summary → Citations |
-| Experiment | Hypothesis → Design → Variables → Method → Validation |
-| Peer Review | Submission → Criteria check → Gap analysis → Feedback → Score |
+|Pengambilan|Pertanyaan → Pencarian sumber → Pemfilteran → Pemeringkatan → Kutipan|
+|Bukti|Sumber → Pemeriksaan kualitas → Deteksi esensi → Keyakinan → Sintesis|
+|Sintesis|Sumber → Tema → Integrasi → Kesenjangan → Ringkasan → Kutipan|
+|Percobaan|Hipotesis → Desain → Variabel → Metode → Validasi|
+|Tinjauan Sejawat|Pengajuan → Pemeriksaan Kriteria → Analisis Kesan → Umpan Balik → Skor|
 
-### DevOps Assistant
+### Asisten DevOps
 
-| Task | Subtasks |
+|Tugas|Subtugas|
 |------|----------|
-| Generate | Requirements → Container config → CI/CD → IaC → Documentation |
-| Verify | Configuration review → Security scan → Health check → Validation |
-| Multi-cloud | Requirements → Provider selection → Service mapping → Cost estimate → Implementation |
-| Platform | Requirements → Observability design → Policy definition → GitOps setup → Documentation |
-| Resilience | Requirements → Failure modes → Chaos plan → Monitoring → Runbooks |
+|Hasilnya|Persyaratan → Konfigurasi kontainer → CI/CD → IaC → Dokumentasi|
+|Memeriksa|Tinjauan konfigurasi → Pemindaian keamanan → Pemeriksaan kesehatan → Validasi|
+|Multi-cloud|Persyaratan → Pemilihan penyedia → Pemetaan layanan → Perkiraan biaya → Implementasi|
+|Platform|Persyaratan → Desain observabilitas → Definisi kebijakan → Penyiapan GitOps → Dokumentasi|
+|Ketangguhan|Persyaratan → Mode kegagalan → Rencana kekacauan → Pemantauan → Runbook|
 
-### Self Development
+### Pengembangan Diri
 
-| Task | Subtasks |
+|Tugas|Subtugas|
 |------|----------|
-| Analyze | Project scan → Structure analysis → Bottleneck detection → Dependency analysis |
-| Propose | Issues → Impact assessment → Solution design → Risk evaluation → Proposal |
-| Patch | Proposal → Diff generation → Test creation → Validation → Rollback plan |
-| Learn | Patterns → Cross-project analysis → Knowledge update → Recommendation |
-| Predict | Change → Impact model → Risk forecast → Mitigation → Confidence |
+|Menganalisa|Pemindaian proyek → Analisis Struktur → Deteksi kemacetan → Analisis ketergantungan|
+|Mengusulkan|Permasalahan → Penilaian dampak → Desain solusi → Evaluasi risiko → Proposal|
+|Tambalan|Proposal → Pembuatan diff → Pembuatan pengujian → Validasi → Rencana rollback|
+|Mempelajari|Pola → Analisis lintas proyek → Pembaruan pengetahuan → Rekomendasi|
+|Meramalkan|Perubahan → Model dampak → Perkiraan risiko → Mitigasi → Keyakinan|
 
 ---
 
-## Knowledge Expansion Roadmap
+## Peta Jalan Perluasan Pengetahuan
 
-This section documents planned knowledge expansions for each Capability Pack during the Capability Excellence phase. All additions happen inside Capability Packs. Core remains unchanged.
-> Terjemahan Indonesia: Ini section documents planned knowledge expansions untuk each kapabilitas Pack during kapabilitas Excellence phase. All additions happen inside kapabilitas Packs. Core remains unchanged.
+Bagian ini mendokumentasikan perluasan pengetahuan yang direncanakan untuk setiap Capability Pack selama fase Capability Excellence. Semua penambahan terjadi di dalam Capability Pack. Inti tetap tidak berubah.
 
-### Network Engineer
+### Insinyur Jaringan
 
-**Planned additions:**
-- Cisco Design Guide: campus, data center, SD-WAN, HA
-- MikroTik Best Practice: ISP edge, hotspot, IPv6, FastTrack
-- Fortinet Hardening: FortiOS, policy, VPN, threat protection
-- BGP: path selection, filtering, communities, monitoring
-- MPLS: forwarding, LDP, VRF, traffic engineering basics
-- IPv6: dual-stack, SLAAC, DHCPv6, transition mechanisms
-- Zero Trust: principles, micro-segmentation, ZTNA
+**Penambahan yang direncanakan:**
+- Panduan Desain Cisco: kampus, pusat data, SD-WAN, HA
+- Praktik Terbaik MikroTik: ISP edge, hotspot, IPv6, FastTrack
+- Pengerasan Fortinet: FortiOS, kebijakan, VPN, ancaman perlindungan
+- BGP: pemilihan jalur, pemfilteran, komunitas, pemantauan
+- MPLS: penerusan, LDP, VRF, dasar-dasar rekayasa lalu lintas
+- IPv6: dual-stack, SLAAC, DHCPv6, mekanisme transisi
+- Zero Trust: prinsip, segmentasi mikro, ZTNA
 
-**Reference RFC:** RFC-0004
-
----
-
-### Code Engineer
-
-**Planned additions:**
-- Clean Architecture: layers, dependency rule, boundaries
-- DDD: bounded contexts, aggregates, domain events, anti-corruption
-- SOLID: all 5 principles with Python/TypeScript examples
-- CQRS: command/query separation, write/read models
-- Event Sourcing: event store, replay, projection
-- Secure Coding: OWASP Top 10, injection, auth, secrets
-
-**Reference RFC:** RFC-0006
+**Referensi RFC:** RFC-0004
 
 ---
 
-### Research Assistant
+### Kode Insinyur
 
-**Planned additions:**
-- Evidence ranking: source quality, recency, methodology
-- Contradiction detection: identify conflicting claims
-- Citation quality: completeness, format, provenance
-- Confidence estimation: uncertainty quantification
-- Synthesis patterns: multi-paper integration
+**Penambahan yang direncanakan:**
+- Arsitektur Bersih: lapisan, aturan, ketergantungan, batasan
+- DDD: konteks terbatas, agregat, peristiwa domain, anti korupsi
+- SOLID: semua 5 prinsip dengan contoh Python/TypeScript
+- CQRS: perpecahan perintah/query, model tulis/baca
+- Sumber Acara: penyimpanan acara, pemutaran ulang, proyeksi
+- Pengkodean Aman: OWASP Top 10, injeksi, autentikasi, rahasia
 
----
-
-### DevOps Assistant
-
-**Planned additions:**
-- Multi-cloud: AWS, Azure, GCP service patterns
-- GitOps: ArgoCD, Flux, declarative deployment
-- Platform engineering: IDP, developer portals
-- Policy-as-code: OPA, Sentinel, Kyverno
-- Chaos engineering principles
+**Referensi RFC:** RFC-0006
 
 ---
 
-### Trading Analyst
+### Asisten Peneliti
 
-**Planned additions:**
-- Wyckoff: phases, composite operator, supply/demand
-- ICT: market structure, FVG, order blocks, liquidity
-- SMC: institutional flow, liquidity sweeps, premium/discount
-- Elliott Wave: impulse/corrective patterns, Fibonacci
-- Volume Profile: POC, value area, volume patterns
-- Macro: indicators, Fed policy, risk-on/off
-- Options: Greeks, strategies, IV, unusual activity
-- Futures: contango/backwardation, basis, COT
-- Psychology: biases, risk tolerance, emotional management
-
-**Reference RFC:** RFC-0005
+**Penambahan yang direncanakan:**
+- Peringkat bukti: kualitas sumber, kebaruan, metodologi
+- Deteksi membedakan: mengidentifikasi klaim yang berbeda
+- Kualitas situs: kelengkapan, format, asal
+- Estimasi keyakinan: kuantifikasi keseluruhan
+- Pola sintesis: integrasi multi-kertas
 
 ---
 
-### Self Development
+### Asisten DevOps
 
-**Planned additions:**
-- Cross-project pattern learning
-- Impact prediction before changes
-- Architecture smell taxonomy
-- Change risk modeling
-- Automated improvement suggestions
-
----
-
-## System Architect
-
-**Reference RFC:** RFC-0011
-
-**Capability ID:** `system-architect`
-**Category:** Architecture
-**Quality Target:** A (≥90)
-**Maturity Target:** Level 3 — Production Ready
-
-### Scope
-
-- Clean Architecture layer analysis and violation detection
-- DDD evaluation (bounded contexts, aggregates, anti-corruption layers)
-- Event-driven design review (event schemas, saga patterns)
-- CQRS evaluation
-- Microservices/monolith decomposition analysis
-- Architecture governance enforcement
-- ADR generation for architectural decisions
-- Package boundary enforcement (dependency cycles, layer inversions)
-
-### Knowledge Focus
-
-- Clean Architecture (Robert C. Martin)
-- Domain-Driven Design (Eric Evans)
-- Event-Driven Architecture (Enterprise Integration Patterns)
-- CQRS patterns and anti-patterns
-- Microservices decomposition strategies
-- Architecture smells and governance rules
-
-### Out of Scope
-
-- Actual code refactoring or implementation
-- Infrastructure/cloud architecture design
-- Real-time architecture compliance monitoring
-- Live deployment or runtime monitoring
-- Database schema design (Database Engineer handles this)
-- Network topology design (Network Engineer handles this)
-
-### Benchmark Target
-
-- 100 architecture projects (Python, JS/TS, Java, Go, TypeScript)
-- ≥95% architecture review completeness
-- ≥95% dependency violation detection
-- ≥90% package boundary enforcement
-- ≥95% explainability
-
-### Consumers
-
-- Code Engineer — architecture review of generated code
-- Self Development — package boundary validation and improvement evaluation
-- Decision Intelligence — architecture risk scoring
-- QA Engineer — architecture-based test strategy planning
-- DevOps Assistant — microservices deployment architecture review
+**Penambahan yang direncanakan:**
+- Multi-cloud: pola layanan AWS, Azure, GCP
+- GitOps: ArgoCD, Flux, standar deklaratif
+- Platform Rekayasa: IDP, pengembang portal
+- Kebijakan sebagai kode: OPA, Sentinel, Kyverno
+- Prinsip chaos engineering
 
 ---
 
-## Implemented Capability Packs (Completed)
+### Analis Perdagangan
 
-The following Capability Packs have been fully implemented and are production ready:
-> Terjemahan Indonesia: Following kapabilitas Packs memiliki been fully implemented dan adalah production ready:
+**Penambahan yang direncanakan:**
+- Wyckoff: fase, operator gabungan, penawaran/permintaan
+- ICT: struktur pasar, FVG, blok pesanan, likuiditas
+- SMC: aliran institusional, likuiditas, premi/diskon
+- Elliott Wave: pola impuls/korektif, Fibonacci
+- Volume Profil: POC, nilai area, volume pola
+- Makro: indikator, kebijakan Fed, risk-on/off
+- Pilihan: Yunani, Strategi, IV, Aktivitas Tidak Biasa
+- Kontrak berjangka: contango/backwardation, basis, COT
+- Psikologi: bias, toleransi risiko, manajemen emosi
+
+**Referensi RFC:** RFC-0005
+
+---
+
+### Pengembangan Diri
+
+**Penambahan yang direncanakan:**
+- Pembelajaran pola lintas proyek
+- Prediksi dampak sebelum perubahan
+- Bau arsitektur Taksonomi
+- Pemodelan risiko perubahan
+- Saran perbaikan otomatis
+
+---
+
+## Sistem Arsitek
+
+**Referensi RFC:** RFC-0011
+
+**Kemampuan ID:** `system-architect`
+**Kategori:** Arsitektur
+**Target Kualitas:** A (≥90)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Analisis lapisan Clean Architecture dan deteksi pelanggaran
+- Evaluasi DDD (konteks terbatas, agregat, lapisan anti korupsi)
+- Tinjau desain berbasis peristiwa (skema peristiwa, pola saga)
+- Evaluasi CQRS
+- Analisis dekomposisi layanan mikro/monolit
+- Penegakan tata kelola arsitektur
+- Generasi ADR untuk keputusan arsitektur
+- Penegakan batas paket (siklus ketergantungan, inversi lapisan)
+
+### Fokus Pengetahuan
+
+- Arsitektur Bersih (Robert C. Martin)
+- Desain Berbasis Domain (Eric Evans)
+- Arsitektur Berbasis Peristiwa (Pola Integrasi Perusahaan)
+- Pola dan anti pola CQRS
+- Strategi dekomposisi layanan mikro
+- Arsitekturnya berbau dan memerintah pemerintahan
+
+### Di Luar Cakupan
+
+- Refactoring atau implementasi kode aktual
+- Desain arsitektur infrastruktur/cloud
+- Pemantauan keberadaan arsitektur secara real-time
+- Deployment langsung atau pemantauan Runtime
+- Desain skema database (ditangani Database Engineer)
+- Desain topologi jaringan (ditangani Network Engineer)
+
+### Target Benchmark
+
+- 100 proyek arsitektur (Python, JS/TS, Java, Go, TypeScript)
+- ≥95% mengamati arsitektur kelengkapan
+- ≥95% deteksi pelanggaran dependensi
+- ≥90% penegakan batasan paket
+- ≥95% kemampuan menjelaskan
+
+### Konsumen
+
+- Code Engineer — pandangan arsitektur dari kode yang dihasilkan
+- Pengembangan Diri — validasi batasan paket dan evaluasi perbaikan
+- Decision Intelligence — arsitektur penilaian risiko
+- QA Engineer — strategi uji perencanaan berbasis arsitektur
+- Asisten DevOps — meninjau layanan mikro arsitektur arsitektur
+
+---
+
+## Capability Pack yang Telah Diimplementasikan (Selesai)
+
+Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap produksi:
 
 ### Security Engineer
 
-**Phase:** Phase 2 — Capability Excellence (Completed)
-**Capability ID:** `security-engineer`
-**Reference RFC:** RFC-0008
-**Grade:** A- (≥85)
+**Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
+**Kemampuan ID:** `security-engineer`
+**Referensi RFC:** RFC-0008
+**Nilai:** A- (≥85)
 
-**Purpose:** Enterprise security capabilities across OWASP Top 10, threat modeling, secret detection, vulnerability analysis, dependency audit, configuration hardening, and compliance mapping.
+**Tujuan:** Kapabilitas keamanan perusahaan di seluruh OWASP Top 10, pemodelan ancaman, deteksi rahasia, analisis kerentanan, audit ketergantungan, pengerasan konfigurasi, dan pemetaan kepatuhan.
 
-**Consumers:** Code Engineer, DevOps Assistant, Network Engineer, System Architect
+**Konsumen:** Insinyur Kode, Asisten DevOps, Insinyur Jaringan, Arsitek Sistem
 
 ### Data Engineer
 
-**Phase:** Phase 2 — Capability Excellence (Completed)
-**Capability ID:** `data-engineer`
-**Reference RFC:** RFC-0009
-**Grade:** A- (≥85)
+**Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
+**Kemampuan ID:** `data-engineer`
+**Referensi RFC:** RFC-0009
+**Nilai:** A- (≥85)
 
-**Purpose:** Full data lifecycle management: ETL/ELT, data cleaning, dataset validation, schema evolution, feature engineering, time-series handling, and data quality assurance.
+**Tujuan:** Manajemen siklus hidup data lengkap: ETL/ELT, pembersihan data, validasi kumpulan data, evolusi skema, rekayasa fitur, penanganan deret waktu, dan jaminan kualitas data.
 
-**Consumers:** Trading Analyst, Research Assistant, Decision Intelligence, System Architect
+**Konsumen:** Analis Perdagangan, Asisten Peneliti, Decision Intelligence, Arsitek Sistem
 
 ### Database Engineer
 
-**Phase:** Phase 2 — Capability Excellence (Completed)
-**Capability ID:** `database-engineer`
-**Reference RFC:** RFC-0010
-**Grade:** A- (≥85)
+**Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
+**Kemampuan ID:** `database-engineer`
+**Referensi RFC:** RFC-0010
+**Nilai:** A- (≥85)
 
-**Purpose:** Enterprise database capabilities: schema design, query optimization, migration management, replication planning, backup/recovery, index recommendation, and performance analysis.
+**Tujuan:** Kapabilitas database perusahaan: skema desain, optimasi query, manajemen migrasi, perencanaan replikasi, backup/recovery, rekomendasi indeks, dan analisis kinerja.
 
-**Consumers:** Code Engineer, Data Engineer, DevOps Assistant
+**Konsumen:** Kode Insinyur, Data Engineer, Asisten DevOps
 
 ### Decision Intelligence
 
-**Phase:** Phase 2 — Capability Excellence (Completed)
-**Capability ID:** `decision-intelligence`
-**Reference RFC:** RFC-0007
-**Grade:** A (≥90)
+**Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
+**Kemampuan ID:** `decision-intelligence`
+**Referensi RFC:** RFC-0007
+**Nilai:** A (≥90)
 
-**Purpose:** Cross-domain reasoning layer for evidence-based decision-making: evidence collection, alternative generation, risk analysis, trade-off analysis, decision scoring, confidence estimation, explainable decisions, and decision history.
+**Tujuan:** Lapisan penalaran lintas domain untuk pengambilan keputusan berdasarkan bukti: pengumpulan bukti, generasi alternatif, analisis risiko, analisis trade-off, penilaian keputusan, estimasi kepercayaan, keputusan yang dapat dijelaskan, dan riwayat keputusan.
 
-**Consumers:** All Capability Packs
+**Konsumen:** Semua Capability Pack
 
 ### QA Engineer
 
-**Phase:** Phase 3 — Enterprise (Completed)
-**Capability ID:** `qa-engineer`
-**Reference RFC:** RFC-0012
-**Grade:** A (≥90)
+**Fase:** Fase 3 — Perusahaan (Selesai)
+**Kemampuan ID:** `qa-engineer`
+**Referensi RFC:** RFC-0012
+**Nilai:** A (≥90)
 
-**Purpose:** Automated quality assurance: unit/integration test generation, regression test automation, mutation testing, Golden Test generation for other packs, benchmark test generation, flaky test detection, coverage analysis, and performance validation.
+**Tujuan:** Jaminan kualitas otomatis: generasi test unit/integrasi, uji regresi otomasi, pengujian mutasi, pembuatan Golden Test untuk paket lain, pengujian generasi Benchmark, deteksi flaky test, cover analisis, dan validasi kinerja.
 
-**Consumers:** All Capability Packs
+**Konsumen:** Semua Capability Pack
 
 ### Business Analyst
 
-**Phase:** Phase 3 — Enterprise (Completed)
-**Capability ID:** `business-analyst`
-**Reference RFC:** RFC-0013
-**Grade:** A- (≥85)
+**Fase:** Fase 3 — Perusahaan (Selesai)
+**Kemampuan ID:** `business-analyst`
+**Referensi RFC:** RFC-0013
+**Nilai:** A- (≥85)
 
-**Purpose:** Business-to-technical translation: requirement gathering, business process modeling, user story generation, use case modeling, BRD generation, functional specification, gap analysis, ROI analysis, and process optimization.
+**Tujuan:** Penerjemahan bisnis-ke-teknis: pengumpulan kebutuhan, pemodelan proses bisnis, pembuatan user story, pemodelan use case, pembuatan BRD, spesifikasi fungsional, analisis gap, analisis ROI, dan proses optimasi.
 
-**Consumers:** Code Engineer, System Architect, Self Development
+**Konsumen:** Insinyur Kode, Arsitek Sistem, Pengembangan Diri

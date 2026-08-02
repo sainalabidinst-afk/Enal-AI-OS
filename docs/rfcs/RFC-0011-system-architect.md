@@ -1,137 +1,115 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# RFC-0011: Capability Pack System Architect
 
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0011-system-architect.md`
-- Judul: Rfc 0011 System Architect
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC-0011: System Architect Capability Pack
-
-| Field | Value |
+| Field | Nilai |
 |-------|-------|
 | **RFC ID** | RFC-0011 |
 | **Status** | Draft |
-| **Version** | 0.1.0 |
-| **Author** | Enal AI OS Core Team |
-| **Target Release** | v1.3.0 (Enterprise phase) |
+| **Versi** | 0.1.0 |
+| **Penulis** | Enal AI OS Core Team |
+| **Target Rilis** | v1.3.0 (fase Enterprise) |
 | **Capability Pack** | System Architect |
 | **Capability ID** | `system-architect` |
-| **Category** | Architecture |
-| **Quality Target** | A (≥90) |
-| **Maturity Target** | Level 3 — Production Ready |
-| **Reference RFC** | RFC-0011 |
+| **Kategori** | Architecture |
+| **Target Kualitas** | A (≥90) |
+| **Target Maturity** | Level 3 — Production Ready |
+| **RFC Referensi** | RFC-0011 |
 
 ---
 
-## Motivation
+## Motivasi
 
-ECP's existing Capability Packs generate code, design systems, and propose improvements. However, there is no dedicated architectural authority that reviews, validates, and guides the overall system design across all components.
-> Terjemahan Indonesia: ECP's existing kapabilitas Packs generate code, design systems, dan propose improvements. However, there adalah no dedicated architectural authority itu reviews, validates, dan guides overall sistem design across all components.
+Capability Pack ECP yang ada menghasilkan kode, mendesain sistem, dan mengusulkan perbaikan. Namun, tidak ada otoritas arsitektur khusus yang mereview, memvalidasi, dan memandu desain sistem secara keseluruhan di semua komponen.
 
-Currently:
-> Terjemahan Indonesia: Saat ini:
+Saat ini:
 
-1. **Architecture decisions are decentralized** — each pack designs its own components without a unified architectural vision.
-2. **No architecture governance** — there is no systematic enforcement of architectural principles, dependency rules, or design patterns.
-3. **ADR generation is manual** — architectural decisions are not recorded in a structured, trackable format.
-4. **No monolith-to-microservices analysis** — no guidance on when and how to decompose or consolidate services.
-5. **Architecture reviews are ad hoc** — no systematic review of dependency violations, package boundaries, or scalability concerns.
-6. **Event-driven and CQRS patterns are not evaluated** — modern architectural patterns are not systematically applied or validated.
+1. **Keputusan arsitektur terdesentralisasi** — setiap pack mendesain komponennya sendiri tanpa visi arsitektur yang terpadu.
+2. **Tidak ada governance arsitektur** — tidak ada penegakan sistematis terhadap prinsip arsitektur, aturan dependensi, atau pola desain.
+3. **Generasi ADR manual** — keputusan arsitektur tidak dicatat dalam format terstruktur yang dapat dilacak.
+4. **Tidak ada analisis monolith-ke-microservices** — tidak ada panduan kapan dan bagaimana memecah atau mengonsolidasi layanan.
+5. **Review arsitektur bersifat ad hoc** — tidak ada review sistematis terhadap pelanggaran dependensi, package boundaries, atau masalah skalabilitas.
+6. **Pola event-driven dan CQRS tidak dievaluasi** — pola arsitektur modern tidak diterapkan atau divalidasi secara sistematis.
 
-The System Architect Capability Pack becomes the architectural authority layer, providing architecture review, Clean Architecture/DDD guidance, event-driven design, CQRS evaluation, microservices/monolith analysis, and ADR generation for all ECP projects and Capability Packs.
-> Terjemahan Indonesia: Sistem Architect kapabilitas Pack becomes architectural authority layer, providing arsitektur review, Clean arsitektur/DDD guidance, event-driven design, CQRS evaluation, microservices/monolith analysis, dan ADR generation untuk all ECP projects dan kapabilitas Packs.
+Capability Pack System Architect menjadi layer otoritas arsitektur, menyediakan review arsitektur, panduan Clean Architecture/DDD, desain event-driven, evaluasi CQRS, analisis microservices/monolith, dan generasi ADR untuk semua proyek dan Capability Pack ECP.
 
 ---
 
-## Problem Statement
+## Pernyataan Masalah
 
-Without a dedicated System Architect Capability Pack:
-> Terjemahan Indonesia: Without sebuah dedicated sistem Architect kapabilitas Pack:
+Tanpa Capability Pack System Architect yang khusus:
 
-- **No centralized architecture governance** — architectural violations (dependency cycles, layer violations, package boundary breaches) go undetected.
-- **ADR generation is not automated** — architectural decisions are not systematically documented and tracked.
-- **Design pattern evaluation is missing** — Clean Architecture, DDD, CQRS, Event-Driven patterns are not systematically applied or validated.
-- **Microservices vs. monolith decisions are ad hoc** — no framework for evaluating decomposition strategies and their trade-offs.
-- **Scalability and maintainability are not assessed** — no systematic analysis of architectural qualities.
-- **Cross-Pack architecture consistency is not enforced** — each pack evolves independently, leading to architectural drift.
-- **No architecture governance automation** — manual review processes are slow and inconsistent.
+- **Tidak ada governance arsitektur terpusat** — pelanggaran arsitektur (dependency cycles, layer violations, package boundary breaches) tidak terdeteksi.
+- **Generasi ADR tidak otomatis** — keputusan arsitektur tidak didokumentasikan dan dilacak secara sistematis.
+- **Evaluasi pola desain hilang** — pola Clean Architecture, DDD, CQRS, Event-Driven tidak diterapkan atau divalidasi secara sistematis.
+- **Keputusan microservices vs monolith bersifat ad hoc** — tidak ada kerangka untuk mengevaluasi strategi dekomposisi dan trade-off-nya.
+- **Skalabilitas dan maintainability tidak dinilai** — tidak ada analisis sistematis terhadap kualitas arsitektur.
+- **Konsistensi arsitektur lintas-pack tidak ditegakkan** — setiap pack berkembang secara independen, menyebabkan architectural drift.
+- **Tidak ada otomasi governance arsitektur** — proses review manual lambat dan tidak konsisten.
 
 ---
 
-## Goals
+## Tujuan
 
-1. **Clean Architecture Review** — Evaluate and enforce Clean Architecture principles (layers, dependency rule, boundaries).
-2. **DDD Analysis** — Evaluate domain-driven design (bounded contexts, aggregates, domain events, anti-corruption layers).
-3. **Event-Driven Design** — Evaluate event-driven architecture patterns and event schema design.
-4. **CQRS Evaluation** — Evaluate Command Query Responsibility Segregation patterns and appropriateness.
-5. **Microservices/Monolith Review** — Evaluate service decomposition strategies and monolith-to-microservices migration.
-6. **Architecture Governance** — Enforce architectural rules, dependency constraints, and package boundaries.
-7. **ADR Generation** — Generate and track Architecture Decision Records.
-8. **Package Boundary Enforcement** — Detect and prevent dependency violations and layer inversions.
+1. **Clean Architecture Review** — Mengevaluasi dan menegakkan prinsip Clean Architecture (layer, dependency rule, boundaries).
+2. **DDD Analysis** — Mengevaluasi domain-driven design (bounded contexts, aggregates, domain events, anti-corruption layers).
+3. **Event-Driven Design** — Mengevaluasi pola arsitektur event-driven dan desain event schema.
+4. **CQRS Evaluation** — Mengevaluasi pola Command Query Responsibility Segregation dan kesesuaiannya.
+5. **Microservices/Monolith Review** — Mengevaluasi strategi dekomposisi layanan dan migrasi monolith-ke-microservices.
+6. **Architecture Governance** — Menegakkan aturan arsitektur, batasan dependensi, dan package boundaries.
+7. **ADR Generation** — Menghasilkan dan melacak Architecture Decision Records.
+8. **Package Boundary Enforcement** — Mendeteksi dan mencegah pelanggaran dependensi dan inversi layer.
 
-### Success Criteria
+### Kriteria Keberhasilan
 
-| Metric | Target | Grade |
+| Metrik | Target | Grade |
 |--------|--------|-------|
-| Architecture Review Completeness | ≥95% (all architectural aspects reviewed) | A |
-| Dependency Violation Detection | ≥95% (all violations found) | A |
-| Package Boundary Enforcement | ≥90% (all violations detected) | A |
-| ADR Coverage | ≥90% (decisions documented) | A |
-| Design Pattern Application | ≥85% (patterns correctly evaluated) | A |
-| Scalability Assessment | ≥90% (scalability concerns identified) | A |
-| Maintainability Score | ≥90% (maintainability issues detected) | A |
-| Explainability | ≥95% (findings explained with rationale) | A+ |
+| Kelengkapan Review Arsitektur | ≥95% (semua aspek arsitektur direview) | A |
+| Deteksi Pelanggaran Dependensi | ≥95% (semua pelanggaran ditemukan) | A |
+| Penegakan Package Boundary | ≥90% (semua pelanggaran terdeteksi) | A |
+| Cakupan ADR | ≥90% (keputusan didokumentasikan) | A |
+| Penerapan Pola Desain | ≥85% (pola dievaluasi dengan benar) | A |
+| Penilaian Skalabilitas | ≥90% (masalah skalabilitas teridentifikasi) | A |
+| Skor Maintainability | ≥90% (masalah maintainability terdeteksi) | A |
+| Explainability | ≥95% (temuan dijelaskan dengan alasan) | A+ |
 
 ---
 
-## Non-Goals
+## Non-Tujuan
 
-1. **Actual code architecture refactoring** — System Architect analyzes and recommends; refactoring is executed by Code Engineer.
-2. **Real-time architecture monitoring** — Focus is on review and governance, not continuous monitoring.
-3. **Replacing dedicated architecture tools** — tools like Structurizr, ArchUnit, or dependency checkers remain valid; System Architect provides orchestration.
-4. **Infrastructure architecture** — Does not design physical infrastructure or cloud topology (DevOps Assistant handles deployment).
-5. **Core modification** — All implementation resides within the System Architect Capability Pack.
+1. **Refactoring kode arsitektur aktual** — System Architect menganalisis dan merekomendasikan; refactoring dieksekusi oleh Code Engineer.
+2. **Monitoring arsitektur real-time** — Fokus pada review dan governance, bukan monitoring berkelanjutan.
+3. **Menggantikan alat arsitektur khusus** — alat seperti Structurizr, ArchUnit, atau dependency checkers tetap valid; System Architect menyediakan orkestrasi.
+4. **Arsitektur infrastruktur** — Tidak mendesain infrastruktur fisik atau topologi cloud (DevOps Assistant menangani deployment).
+5. **Modifikasi Core** — Semua implementasi berada di dalam Capability Pack System Architect.
 
 ---
 
-## Capability Scope
+## Scope Kapabilitas
 
-### Core Capabilities
+### Kapabilitas Inti
 
-| Capability | Description | Inputs | Outputs |
+| Kapabilitas | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| Clean Architecture Review | Evaluate layers, dependency rule, boundaries | Codebase, architecture diagrams | Review report with violations and recommendations |
-| DDD Analysis | Evaluate bounded contexts, aggregates, domain events | Domain model, code structure | DDD assessment with improvement suggestions |
-| Event-Driven Design | Evaluate event schemas, event flow, saga patterns | Event definitions, flow diagrams | Event-driven design review |
-| CQRS Evaluation | Evaluate command/query separation appropriateness | Use cases, data models | CQRS suitability assessment |
-| Microservices/Monolith Review | Evaluate decomposition strategy and migration path | Service boundaries, data relationships | Decomposition review with recommendations |
-| Architecture Governance | Enforce architectural rules and constraints | Codebase, dependency graph | Governance report with violations |
-| ADR Generation | Generate and track architectural decisions | Decision context, options considered | ADR document + tracking record |
-| Package Boundary Enforcement | Detect dependency violations and layer inversions | Code structure, import graph | Violation report with fix guidance |
+| Clean Architecture Review | Mengevaluasi layer, dependency rule, boundaries | Codebase, diagram arsitektur | Laporan review dengan pelanggaran dan rekomendasi |
+| DDD Analysis | Mengevaluasi bounded contexts, aggregates, domain events | Model domain, struktur kode | Penilaian DDD dengan saran perbaikan |
+| Event-Driven Design | Mengevaluasi event schemas, alur event, pola saga | Definisi event, diagram alur | Review desain event-driven |
+| CQRS Evaluation | Mengevaluasi kesesuaian pemisahan command/query | Use cases, model data | Penilaian kesesuaian CQRS |
+| Microservices/Monolith Review | Mengevaluasi strategi dekomposisi dan jalur migrasi | Service boundaries, hubungan data | Review dekomposisi dengan rekomendasi |
+| Architecture Governance | Menegakkan aturan dan batasan arsitektur | Codebase, dependency graph | Laporan governance dengan pelanggaran |
+| ADR Generation | Menghasilkan dan melacak keputusan arsitektur | Konteks keputusan, opsi yang dipertimbangkan | Dokumen ADR + catatan pelacakan |
+| Package Boundary Enforcement | Mendeteksi pelanggaran dependensi dan inversi layer | Struktur kode, import graph | Laporan pelanggaran dengan panduan perbaikan |
 
 ### Out of Scope
 
-- Actual code refactoring or implementation
-- Infrastructure/cloud architecture design
-- Real-time architecture compliance monitoring
-- Replacing dedicated static analysis tools
-- Database schema design (Database Engineer handles this)
-- Network topology design (Network Engineer handles this)
+- Refactoring atau implementasi kode aktual
+- Desain arsitektur infrastruktur/cloud
+- Monitoring kepatuhan arsitektur real-time
+- Menggantikan alat static analysis khusus
+- Desain skema database (ditangani Database Engineer)
+- Desain topologi jaringan (ditangani Network Engineer)
 
 ---
 
-## Public Contracts
+## Kontrak Publik
 
 ### Input Contract: Architecture Review Request
 
@@ -216,7 +194,7 @@ Without a dedicated System Architect Capability Pack:
 }
 ```
 
-### Architecture Review Record (Experience Memory)
+### Catatan Review Arsitektur (Experience Memory)
 
 ```json
 {
@@ -236,7 +214,7 @@ Without a dedicated System Architect Capability Pack:
 
 ---
 
-## Integration Points (Capability Graph)
+## Titik Integrasi (Capability Graph)
 
 ```
 Consumer Capability Pack (Code Engineer, Self Development, and all others)
@@ -269,48 +247,47 @@ Consumer Capability Pack
 User / Human Approval Loop
 ```
 
-### Task Template
+### Template Tugas
 
-| Task | Subtasks |
+| Tugas | Subtugas |
 |------|----------|
 | Architecture Review | Project scan → Dependency graph → Layer analysis → Package boundary check → DDD evaluation → Clean architecture review → ADR generation → Metrics → Report |
 
 ---
 
-## Consumer Capability Packs
+## Capability Pack Konsumen
 
-| Consumer Capability Pack | Use Case |
+| Capability Pack Konsumen | Use Case |
 |--------------------------|----------|
-| **Code Engineer** | Review generated code architecture, check for violations, apply ADRs |
-| **Self Development** | Architecture improvement evaluation, package boundary validation |
-| **Decision Intelligence** | Architecture risk scoring for system changes |
-| **QA Engineer** | Architecture-based test strategy planning |
-| **DevOps Assistant** | Microservices deployment architecture review |
+| **Code Engineer** | Review arsitektur kode yang dihasilkan, memeriksa pelanggaran, menerapkan ADR |
+| **Self Development** | Evaluasi perbaikan arsitektur, validasi package boundary |
+| **Decision Intelligence** | Risk scoring arsitektur untuk perubahan sistem |
+| **QA Engineer** | Perencanaan strategi test berbasis arsitektur |
+| **DevOps Assistant** | Review arsitektur deployment microservices |
 
 ---
 
-## Dependencies
+## Dependensi
 
-### Internal Dependencies (Shared Contracts)
+### Dependensi Internal (Shared Contracts)
 
-1. **Execution Runtime** — Task routing and orchestration (per ADR-002)
-2. **Experience Memory** — Architecture review records persistence (per ADR-011)
-3. **Shared Contracts** — Task/Intent definition and result schema (per ADR-006)
-4. **Capability Graph** — Dependency graph from Capability Pack registrations
+1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+2. **Experience Memory** — Persistensi catatan review arsitektur (sesuai ADR-011)
+3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
+4. **Capability Graph** — Dependency graph dari registrasi Capability Pack
 
-### External Knowledge
+### Pengetahuan Eksternal
 
-1. **Clean Architecture** — Robert C. Martin's principles (layers, dependency rule, boundaries)
-2. **DDD** — Eric Evans' domain-driven design patterns
-3. **Event-Driven Architecture** — Enterprise integration patterns, event sourcing
-4. **CQRS** — Command Query Responsibility Segregation patterns
-5. **Microservices Patterns** — Chris Richardson's decomposition strategies
-6. **Architecture Smells** — Taxonomy of architecture quality issues
+1. **Clean Architecture** — Prinsip Robert C. Martin (layer, dependency rule, boundaries)
+2. **DDD** — Pola domain-driven design Eric Evans
+3. **Event-Driven Architecture** — Pola integrasi enterprise, event sourcing
+4. **CQRS** — Pola Command Query Responsibility Segregation
+5. **Microservices Patterns** — Strategi dekomposisi Chris Richardson
+6. **Architecture Smells** — Taksonomi masalah kualitas arsitektur
 
-### No Core Changes Required
+### Tidak Ada Perubahan Core yang Diperlukan
 
-All implementation resides within the System Architect Capability Pack:
-> Terjemahan Indonesia: All implementation resides within sistem Architect kapabilitas Pack:
+Semua implementasi berada di dalam Capability Pack System Architect:
 
 ```
 apps/
@@ -328,89 +305,87 @@ apps/
     └── adr_generator.py       # ADR document generation
 ```
 
-**ADR Impact:** None. No Core, Runtime, Kernel, or shared contract modification required.
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract.
 
 ---
 
-## Benchmark Specification
+## Spesifikasi Benchmark
 
-### Benchmark Framework
+### Kerangka Benchmark
 
-| Dimension | Definition | Measurement | Target |
+| Dimensi | Definisi | Pengukuran | Target |
 |-----------|------------|-------------|--------|
-| **Architecture Review Completeness** | % of architectural aspects reviewed | % of expected analysis performed | ≥95% |
-| **Dependency Violation Detection** | % of violations correctly identified | % of ground truth violations found | ≥95% |
-| **Package Boundary Enforcement** | % of boundary violations detected | % of boundary issues found | ≥90% |
-| **ADR Coverage** | % of decisions documented as ADRs | ADRs generated / decisions made | ≥90% |
-| **Design Pattern Application** | % of patterns correctly evaluated | % of patterns correctly assessed | ≥85% |
-| **Scalability Assessment** | % of scalability concerns identified | % of scalability issues found | ≥90% |
-| **Maintainability** | % of maintainability issues detected | % of issues found in expert review | ≥90% |
-| **Explainability** | Clarity of findings and recommendations | Human evaluation score | ≥95% |
-| **Consistency** | Same input produces same output | Variance across 10 runs < 5% | ≥90% |
+| **Architecture Review Completeness** | % aspek arsitektur yang direview | % analisis yang diharapkan dilakukan | ≥95% |
+| **Dependency Violation Detection** | % pelanggaran teridentifikasi dengan benar | % pelanggaran ground truth ditemukan | ≥95% |
+| **Package Boundary Enforcement** | % pelanggaran boundary terdeteksi | % masalah boundary ditemukan | ≥90% |
+| **ADR Coverage** | % keputusan didokumentasikan sebagai ADR | ADR dihasilkan / keputusan dibuat | ≥90% |
+| **Design Pattern Application** | % pola dievaluasi dengan benar | % pola dinilai dengan benar | ≥85% |
+| **Scalability Assessment** | % masalah skalabilitas teridentifikasi | % masalah skalabilitas ditemukan | ≥90% |
+| **Maintainability** | % masalah maintainability terdeteksi | % masalah ditemukan dalam review ahli | ≥90% |
+| **Explainability** | Kejelasan temuan dan rekomendasi | Skor evaluasi manusia | ≥95% |
+| **Consistency** | Input yang sama menghasilkan output yang sama | Varian di 10 run < 5% | ≥90% |
 
-### Benchmark Dataset
+### Dataset Benchmark
 
-- **100 architecture projects** covering:
-  - Python monoliths
-  - Node.js microservices
-  - Java/Spring layered applications
-  - Go hexagonal architectures
-  - TypeScript frontend/backend applications
-  - Mixed technology stacks
-> Terjemahan Indonesia: Monolit Python Layanan mikro Node.js Aplikasi berlapis Java/Spring Gunakan arsitektur heksagonal Aplikasi frontend/backend TypeScript Tumpukan teknologi campuran
+- **100 proyek arsitektur** yang mencakup:
+  - Monolith Python
+  - Microservices Node.js
+  - Aplikasi berlapis Java/Spring
+  - Arsitektur hexagonal Go
+  - Aplikasi frontend/backend TypeScript
+  - Tumpukan teknologi campuran
 
-### Benchmark Dimensions Detail
+### Detail Dimensi Benchmark
 
-| Scenario Type | Description | Ground Truth |
+| Tipe Skenario | Deskripsi | Ground Truth |
 |---------------|-------------|-------------|
-| Architecture Review | Full project structure analyzed for violations | Expert review |
-| Dependency Violation | Cyclic dependencies, layer inversions | Manual static analysis |
-| Package Boundary | Unauthorized cross-package imports | Import graph analysis |
-| Scalability | Performance and scaling design issues | Architectural review |
-| Maintainability | Code organization and testability concerns | Expert maintainability assessment |
+| Architecture Review | Struktur proyek penuh dianalisis untuk pelanggaran | Review ahli |
+| Dependency Violation | Dependensi siklik, inversi layer | Static analysis manual |
+| Package Boundary | Import lintas paket tidak sah | Analisis import graph |
+| Scalability | Masalah desain performa dan scaling | Review arsitektur |
+| Maintainability | Masalah organisasi kode dan testability | Penilaian maintainability ahli |
 
 ---
 
-## Golden Test Specification
+## Spesifikasi Golden Test
 
-| # | Scenario | Expected Outcome | Acceptance Criteria |
+| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
 |---|----------|-----------------|---------------------|
-| 1 | Clean Architecture layer violation | Violation detected with fix suggestion | ≥95% detection |
-| 2 | Dependency cycle in Python project | Cycle identified with breaking points | ≥95% detection |
-| 3 | Package boundary violation | Unauthorized import detected | ≥90% detection |
-| 4 | DDD bounded context misalignment | Context boundary issues identified | ≥85% detection |
-| 5 | Event-driven design anti-pattern | Missing event schema or saga detected | ≥85% detection |
-| 6 | CQRS anti-pattern (write-through reads) | CQRS mismatch identified | ≥85% detection |
-| 7 | Monolith decomposition opportunity | Decomposition candidates identified | ≥90% completeness |
-| 8 | ADR generation for architectural decision | ADR draft produced with context/decision/consequences | ≥90% completeness |
-| 9 | Scalability bottleneck in service design | Scalability concern identified | ≥90% detection |
-| 10 | Maintainability degradation | Maintainability issue with remediation | ≥90% detection |
+| 1 | Pelanggaran layer Clean Architecture | Pelanggaran terdeteksi dengan saran perbaikan | ≥95% deteksi |
+| 2 | Dependency cycle di proyek Python | Cycle teridentifikasi dengan titik pemutusan | ≥95% deteksi |
+| 3 | Pelanggaran package boundary | Import tidak sah terdeteksi | ≥90% deteksi |
+| 4 | Ketidakselarasan bounded context DDD | Masalah batas context teridentifikasi | ≥85% deteksi |
+| 5 | Anti-pattern desain event-driven | Event schema atau saga yang hilang terdeteksi | ≥85% deteksi |
+| 6 | Anti-pattern CQRS (write-through reads) | Mismatch CQRS teridentifikasi | ≥85% deteksi |
+| 7 | Peluang dekomposisi monolith | Kandidat dekomposisi teridentifikasi | ≥90% kelengkapan |
+| 8 | Generasi ADR untuk keputusan arsitektur | Draft ADR dihasilkan dengan context/decision/consequences | ≥90% kelengkapan |
+| 9 | Bottleneck skalabilitas dalam desain layanan | Masalah skalabilitas teridentifikasi | ≥90% deteksi |
+| 10 | Degradasi maintainability | Masalah maintainability dengan remediasi | ≥90% deteksi |
 
-### Golden Test Acceptance Criteria
+### Kriteria Penerimaan Golden Test
 
-- All 10 golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
-- Overall System Architect golden test pass rate ≥90%
-- All architecture violations include remediation guidance
-- ADR drafts conform to standard template
+- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu (100% pass)
+- Tingkat kelulusan golden test System Architect keseluruhan ≥90%
+- Semua pelanggaran arsitektur menyertakan panduan remediasi
+- Draft ADR sesuai template standar
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-### Real Case Directory
+### Direktori Real Case
 
-`real_cases/system_architect/` must contain:
-> Terjemahan Indonesia: Real_cases/system_architect/ must contain:
+`real_cases/system_architect/` harus berisi:
 
-| Requirement | Minimum Count |
+| Persyaratan | Jumlah Minimum |
 |-------------|---------------|
-| Real architecture reviews from actual usage | 20 |
-| Cases with dependency violations | 10 |
-| Cases with package boundary violations | 10 |
-| Cases with ADR generation | 10 |
-| Cases with expert review/validation | 15 |
+| Review arsitektur nyata dari penggunaan aktual | 20 |
+| Kasus dengan pelanggaran dependensi | 10 |
+| Kasus dengan pelanggaran package boundary | 10 |
+| Kasus dengan generasi ADR | 10 |
+| Kasus dengan review/validasi ahli | 15 |
 
-### Real Case Structure
+### Struktur Real Case
 
 ```
 real_cases/system_architect/<case_id>/
@@ -424,13 +399,13 @@ real_cases/system_architect/<case_id>/
 └── evaluation.md            # Ground truth, expert review, lessons learned
 ```
 
-### Real Case Targets
+### Target Real Case
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Real cases logged | ≥20 (Level 3) → ≥100 (Level 4) |
-| Real case quality score (expert review) | ≥90% |
-| ADR adoption rate | ≥80% of generated ADRs accepted by consumer packs |
+| Kasus nyata yang dicatat | ≥20 (Level 3) → ≥100 (Level 4) |
+| Skor kualitas kasus nyata (review ahli) | ≥90% |
+| Tingkat adopsi ADR | ≥80% ADR yang dihasilkan diterima oleh pack konsumen |
 
 ---
 
@@ -497,107 +472,107 @@ Release Notes
 
 ---
 
-## Risks
+## Risiko
 
-| Risk | Impact | Likelihood | Mitigation |
+| Risiko | Dampak | Kemungkinan | Mitigasi |
 |------|--------|------------|------------|
-| Over-flagging leads to analysis paralysis | High — too many findings to address | Medium | Severity-based filtering; prioritize critical findings |
-| Architecture metrics are noisy or inconsistent | Medium — unreliable assessment | High | Standardized metric definitions; calibration across projects |
-| ADR generation produces boilerplate content | Medium — low value ADRs | Medium | Template-based with context-aware content; quality threshold |
-| Package boundary analysis misses complex imports | Medium — undetected violations | Low | AST-based analysis with import resolution; multi-language support |
-| DDD analysis misclassifies domain boundaries | Medium — incorrect recommendations | Low | Pattern-based with expert validation; confidence scoring |
-| Recommendations conflict with existing architecture decisions | Medium — confusion and rework | Medium | ADR cross-reference; existing decision awareness |
-| Performance cost of deep analysis on large codebases | Low — slow review process | High | Incremental analysis; parallel processing; progress reporting |
+| Over-flagging menyebabkan analisis paralysis | Tinggi — terlalu banyak temuan untuk ditangani | Sedang | Filter berbasis severity; prioritaskan temuan kritis |
+| Metrik arsitektur noise atau tidak konsisten | Sedang — penilaian tidak andal | Tinggi | Definisi metrik terstandarisasi; kalibrasi lintas proyek |
+| Generasi ADR menghasilkan konten boilerplate | Sedang — ADR bernilai rendah | Sedang | Berbasis template dengan konten sadar-konteks; ambang kualitas |
+| Analisis package boundary melewatkan import kompleks | Sedang — pelanggaran tidak terdeteksi | Rendah | Analisis berbasis AST dengan resolusi import; dukungan multi-bahasa |
+| Analisis DDD salah mengklasifikasi batas domain | Sedang — rekomendasi salah | Rendah | Berbasis pola dengan validasi ahli; confidence scoring |
+| Rekomendasi bertentangan dengan keputusan arsitektur yang ada | Sedang — kebingungan dan pengerjaan ulang | Sedang | Cross-reference ADR; kesadaran keputusan yang ada |
+| Biaya performa analisis mendalam pada codebase besar | Rendah — proses review lambat | Tinggi | Analisis inkremental; pemrosesan paralel; pelaporan progres |
 
 ---
 
-## ADR Impact
+## Dampak ADR
 
-**Does this require Core changes?** No.
+**Apakah ini memerlukan perubahan Core?** Tidak.
 
-System Architect is a **new Capability Pack** that follows the established patterns:
-> Terjemahan Indonesia: Sistem Architect adalah sebuah new kapabilitas Pack itu follows established patterns:
+System Architect adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
-- **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/system_architect/`.
-- **ADR-002 (Capability Pack Independence):** System Architect communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
-- **ADR-003 (Worker = Adapter Only):** A thin Worker routes tasks to the Domain Engine.
-- **ADR-004 (Domain Engine Owns Business Logic):** All architecture analysis logic resides in `apps/system_architect/engine.py`.
-- **ADR-005 (Human Approval Required):** All architectural recommendations and ADRs require human approval; no automated refactoring.
-- **ADR-006 (Capability Contract v1 Frozen):** Uses the existing Capability Contract for node and subtask template registration. No contract changes.
-- **ADR-007 (Conversation Boundary):** System Architect is invoked through Execution Runtime, not directly by Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Not applicable — no Core changes.
+- **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/system_architect/`.
+- **ADR-002 (Capability Pack Independence):** System Architect berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
+- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-004 (Domain Engine Owns Business Logic):** Semua logika analisis arsitektur berada di `apps/system_architect/engine.py`.
+- **ADR-005 (Human Approval Required):** Semua rekomendasi arsitektur dan ADR memerlukan persetujuan manusia; tidak ada refactoring otomatis.
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Conversation Boundary):** System Architect dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR Required:** None. This is a new Capability Pack, not a Core modification.
-
----
-
-## Rollout Plan
-
-### Phase 1: Prototype (RFC → Experimental)
-
-**Duration:** 5 weeks
-
-- [ ] Create `apps/system_architect/` package structure
-- [ ] Implement dependency graph builder (Python import analysis)
-- [ ] Implement basic layer analysis and package boundary detection
-- [ ] Implement Clean Architecture violation detection
-- [ ] Define public contracts (Review Request, Review Report)
-- [ ] Implement thin Worker adapter
-- [ ] Create 10 golden test scenarios
-- [ ] Integration: Code Engineer → System Architect (architecture review)
-- [ ] Integration: Self Development → System Architect (boundary enforcement)
-- **Gate:** 10 golden tests pass at ≥80%
-
-### Phase 2: Full Capabilities (Experimental → Stable)
-
-**Duration:** 8 weeks
-
-- [ ] Implement DDD analysis (bounded contexts, aggregates)
-- [ ] Implement event-driven design review
-- [ ] Implement CQRS evaluation
-- [ ] Implement microservices/monolith review
-- [ ] Implement ADR generation with standard template
-- [ ] Add JavaScript/TypeScript and Java support
-- [ ] Expand golden tests to 10 full scenarios
-- [ ] Log ≥20 real cases from Code Engineer and Self Development usage
-- [ ] **Benchmark:** 100 projects, ≥95% review completeness, ≥95% violation detection
-- [ ] **Integration:** QA Engineer starts using System Architect for architecture-based test planning
-- **Gate:** All 10 golden tests pass at ≥90%; benchmark ≥95%
-
-### Phase 3: Ecosystem (Stable → Certified)
-
-**Duration:** 6 weeks
-
-- [ ] All 5+ consumer packs integrated
-- [ ] ADR generation validated by expert review
-- [ ] Multi-language support (Python, JS/TS, Java, Go)
-- [ ] Independent audit of violation detection accuracy
-- [ ] Public benchmark dashboard available
-- [ ] **Benchmark:** ≥95% across all dimensions sustained
-- [ ] **Real Cases:** ≥100 cases with ≥80% expert validation
-- **Gate:** Independent audit passed; benchmark ≥95% sustained
+**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Future Enhancements
+## Rencana Rollout
 
-### Fase 2 (Post-v1.0.0 Release)
+### Fase 1: Prototipe (RFC → Experimental)
 
-1. **Architecture Decision Impact Analysis** — Evaluate consequences of architectural decisions before they are made
-2. **Architecture Fitness Function** — Continuously validate architectural rules through automated tests
-3. **Multi-Repository Architecture Review** — Review architecture across multiple services/repositories
-4. **Architecture Debt Tracking** — Track and prioritize architectural debt accumulation
+**Durasi:** 5 minggu
+
+- [ ] Membuat struktur paket `apps/system_architect/`
+- [ ] Mengimplementasikan dependency graph builder (analisis import Python)
+- [ ] Mengimplementasikan analisis layer dasar dan deteksi package boundary
+- [ ] Mengimplementasikan deteksi pelanggaran Clean Architecture
+- [ ] Mendefinisikan kontrak publik (Review Request, Review Report)
+- [ ] Mengimplementasikan adapter Worker tipis
+- [ ] Membuat 10 skenario golden test
+- [ ] Integrasi: Code Engineer → System Architect (review arsitektur)
+- [ ] Integrasi: Self Development → System Architect (penegakan boundary)
+- **Gate:** 10 golden test lulus pada ≥80%
+
+### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+
+**Durasi:** 8 minggu
+
+- [ ] Mengimplementasikan analisis DDD (bounded contexts, aggregates)
+- [ ] Mengimplementasikan review desain event-driven
+- [ ] Mengimplementasikan evaluasi CQRS
+- [ ] Mengimplementasikan review microservices/monolith
+- [ ] Mengimplementasikan generasi ADR dengan template standar
+- [ ] Menambahkan dukungan JavaScript/TypeScript dan Java
+- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan Self Development
+- [ ] **Benchmark:** 100 proyek, ≥95% kelengkapan review, ≥95% deteksi pelanggaran
+- [ ] **Integrasi:** QA Engineer mulai menggunakan System Architect untuk perencanaan test berbasis arsitektur
+- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥95%
+
+### Fase 3: Ekosistem (Stable → Certified)
+
+**Durasi:** 6 minggu
+
+- [ ] Semua 5+ pack konsumen terintegrasi
+- [ ] Generasi ADR divalidasi oleh review ahli
+- [ ] Dukungan multi-bahasa (Python, JS/TS, Java, Go)
+- [ ] Audit independen terhadap akurasi deteksi pelanggaran
+- [ ] Dashboard benchmark publik tersedia
+- [ ] **Benchmark:** ≥95% di semua dimensi berkelanjutan
+- [ ] **Real Cases:** ≥100 kasus dengan ≥80% validasi ahli
+- **Gate:** Audit independen lulus; benchmark ≥95% berkelanjutan
+
+---
+
+## Peningkatan di Masa Depan
+
+### Fase 2 (Pasca-Rilis v1.0.0)
+
+1. **Architecture Decision Impact Analysis** — Mengevaluasi konsekuensi keputusan arsitektur sebelum diambil
+2. **Architecture Fitness Function** — Memvalidasi aturan arsitektur secara berkelanjutan melalui test otomatis
+3. **Multi-Repository Architecture Review** — Mereview arsitektur di banyak layanan/repositori
+4. **Architecture Debt Tracking** — Melacak dan memprioritaskan akumulasi utang arsitektur
 
 ### Fase 3 (Enterprise)
 
-1. **Enterprise Architecture Governance** — Central policy management and compliance reporting across all projects
-2. **Architecture Intelligence Dashboard** — Portfolio-level architecture metrics and trend analysis
-3. **Cross-Project Architecture Reuse** — Identify and promote architectural patterns across projects
-4. **Architecture Migration Planning** — Plan and execute large-scale architectural transformations
+1. **Enterprise Architecture Governance** — Manajemen kebijakan terpusat dan pelaporan kepatuhan di semua proyek
+2. **Architecture Intelligence Dashboard** — Metrik arsitektur tingkat portofolio dan analisis tren
+3. **Cross-Project Architecture Reuse** — Mengidentifikasi dan mempromosikan pola arsitektur lintas proyek
+4. **Architecture Migration Planning** — Merencanakan dan mengeksekusi transformasi arsitektur skala besar
 
-### Long-term
+### Jangka Panjang
 
-1. **AI-Driven Architecture Synthesis** — Generate optimal architectures from requirements
-2. **Architecture Evolution Forecasting** — Predict architectural drift and recommend interventions
-3. **Architecture Compliance as Code** — Express architectural rules as executable specifications
-4. **Self-Healing Architecture** — Automatically detect and resolve architectural violations
+1. **AI-Driven Architecture Synthesis** — Menghasilkan arsitektur optimal dari persyaratan
+2. **Architecture Evolution Forecasting** — Memprediksi architectural drift dan merekomendasikan intervensi
+3. **Architecture Compliance as Code** — Mengekspresikan aturan arsitektur sebagai spesifikasi yang dapat dieksekusi
+4. **Self-Healing Architecture** — Mendeteksi dan menyelesaikan pelanggaran arsitektur secara otomatis
+

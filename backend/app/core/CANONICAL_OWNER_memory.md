@@ -1,43 +1,37 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `backend/app/core/CANONICAL_OWNER_memory.md`
-- Judul: Canonical Owner Memory
-- Status: bilingual header added
+### Informasi Dokumen / Info Dokumen
+- Berkas: `backend/app/core/CANONICAL_OWNER_memory.md`
+- Judul: Memori Pemilik Canonical
+- Status: editor bilingual ditambahkan
 
-<!-- BILINGUAL_DOCS_END -->
 
-# CANONICAL_OWNER
+# KANONIK_PEMILIK
 
-## Service: Memory
+## Layanan: Memori
 
-**Canonical:** `backend/app/core/memory.py`  
-**Legacy:** `backend/app/modules/memory.py`  
-**Status:** canonical / deleted
+**Kanonik:** `backend/app/core/memory.py`
+**Warisan:** `backend/app/modules/memory.py`
+**Status:** kanonis / dihapus
 
 ---
 
-## Migration History
+## Sejarah Migrasi
 
-| Date | Action | By |
+|Tanggal|Tindakan|Oleh|
 |------|--------|----|
-| 2026-07-11 | Created `core/memory.py` as canonical Redis-backed conversation store | Canonical Consolidation Epic 3 |
-| 2026-07-11 | Migrated `conversation_manager.py` from `modules/memory` → `core/memory` | Canonical Consolidation Epic 3 |
+|07-11-2026|Membuat `core/memory.py` sebagai penyimpanan percakapan kanonik yang didukung Redis|Epik Konsolidasi Kanonik 3|
+|07-11-2026|Migrasi `conversation_manager.py` dari `modules/memory` → `core/memory`|Epik Konsolidasi Kanonik 3|
 
-## Canonical Consumers
+## Konsumen Kanonis
 
 - `apps/society/conversation_manager.py`
 
-## Notes
+## Catatan
 
-`core/memory.py` exposes `conversation_store` with `get_conversation()`, `append_message()`, and `clear_conversation()` methods, all backed by Redis with the key prefix `conversation:`. This matches the interface that `conversation_manager.py` requires.
-> Terjemahan Indonesia: Core/memory.py exposes conversation_store dengan get_conversation(), append_message(), dan clear_conversation() methods, all backed oleh Redis dengan key prefix conversation:. ini matches interface itu conversation_manager.py requires.
+`core/memory.py` mengekspos `conversation_store` dengan metode `get_conversation()`, `append_message()`, dan `clear_conversation()`, semuanya didukung oleh Redis dengan kunci awal `conversation:`. Ini cocok dengan antarmuka yang membutuhkan `conversation_manager.py`.

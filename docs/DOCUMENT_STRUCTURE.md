@@ -1,82 +1,65 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/DOCUMENT_STRUCTURE.md`
-- Judul: Document Structure
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Document Structure â€” ECP Strategic Documentation
+﻿# Struktur Dokumen — Dokumentasi Strategis ECP
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for DOCUMENT_STRUCTURE
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk DOCUMENT_STRUCTURE
 <!-- DOCUMENT_METADATA_END -->
 
-**Purpose:** Maps the function, ownership, and stability level of each strategic document. Helps contributors know where to find information and where to make updates.
+**Tujuan:** Memetakan fungsi, kepemilikan, dan tingkat stabilitas setiap dokumen strategis. Membantu kontributor mengetahui di mana menemukan informasi dan di mana harus melakukan pembaruan.
 
 ---
 
-## Principles
+## Prinsip
 
-1. **Single Source of Truth (SSOT)** â€” Each piece of information lives in exactly one document. Other documents may reference it but must not duplicate it.
-2. **Stability Levels** â€” Documents are classified as `Frozen`, `Stable`, `Active`, or `Ephemeral` to indicate how frequently they change.
-3. **Clear Ownership** â€” Each document has an owner responsible for keeping it accurate.
+1. **Single Source of Truth (SSOT)** — Setiap informasi berada di tepat satu dokumen. Dokumen lain boleh merujuknya tetapi tidak boleh menduplikasinya.
+2. **Tingkat Stabilitas** — Dokumen diklasifikasikan sebagai `Frozen`, `Stable`, `Active`, atau `Ephemeral` untuk menunjukkan seberapa sering dokumen berubah.
+3. **Kepemilikan yang Jelas** — Setiap dokumen memiliki pemilik yang bertanggung jawab menjaga keakuratannya.
 
 ---
 
-## Document Inventory
+## Inventarisasi Dokumen
 
-| Document | SSOT For | Stability | Owner | Update Frequency |
+|Dokumen|SSOT Untuk|Stabilitas|Pemilik|Frekuensi Pembaruan|
 |----------|----------|-----------|-------|------------------|
-| `GOVERNANCE_CHARTER.md` | Vision, philosophy, constitutional rules | **Frozen** | Chief Architect | Constitution-level amendments only |
-| `GOVERNANCE.md` | Operational rules (ADR, Capability First, Architecture Freeze) | **Stable** | Chief Architect | When rules change (via ADR) |
-| `RELEASE_CRITERIA.md` | Release conditions, Definition of Done, quality gates | **Stable** | Release Manager | Per release cycle |
-| `CAPABILITY_STRATEGY.md` | Capability Pack profiles, maturity model, lifecycle, knowledge expansion | **Active** | Capability Lead | Per capability improvement cycle |
-| `ROADMAP.md` | Timeline, release targets, long-term vision | **Active** | Chief Product Officer | Per quarter or when roadmap shifts |
-| `DOCUMENT_STRUCTURE.md` | This table â€” document mapping | **Stable** | Chief Architect | When new strategic docs are added |
-| `v1_roadmap.md` | (Legacy landing page) | **Frozen** | â€” | No longer updated; redirects to new docs |
-| `ARCHITECTURE_DECISIONS.md` | ADR records | **Frozen** | Chief Architect | Only when new ADR is approved |
-| `PRODUCT_CONTRACT.md` | Product definition, UI/API contracts | **Frozen** | Chief Product Officer | Product Change Request only |
-| `CAPABILITY_GUIDE.md` | Detailed capability specs (complementary to CAPABILITY_STRATEGY) | **Active** | Capability Lead | Per pack improvement |
-| `QUALITY_GATE.md` | Quality gate status | **Ephemeral** | QA Lead | Updated per build/validation run |
+|`GOVERNANCE_CHARTER.md`|Visi, filosofi, aturan konstitusional|**Beku**|Kepala Arsitek|Hanya amandemen tingkat konstitusi|
+|`GOVERNANCE.md`|Aturan operasional (ADR, Capability First, Architecture Freeze)|**Stabil**|Kepala Arsitek|Ketika aturan berubah (melalui ADR)|
+|`RELEASE_CRITERIA.md`|Kondisi rilis, Definisi Selesai, gerbang kualitas|**Stabil**|Manajer Rilis|Per siklus rilis|
+|`CAPABILITY_STRATEGY.md`|Profil Capability Pack, model kedewasaan, siklus hidup, perluasan pengetahuan|**Aktif**|Kemampuan pemimpin|Per siklus peningkatan kemampuan|
+|`ROADMAP.md`|Linimasa, target rilis, visi jangka panjang|**Aktif**|Kepala Bagian Produk|Per kuartal atau ketika roadmap berubah|
+|`DOCUMENT_STRUCTURE.md`|Tabel ini — pemetaan dokumen|**Stabil**|Kepala Arsitek|Ketika dokumen strategi baru ditambahkan|
+|`v1_roadmap.md`|(Halaman Arahan warisan)|**Beku**| — |Tidak diperbarui lagi; mengarahkan ke dokumen baru|
+|`ARCHITECTURE_DECISIONS.md`|Catatan ADR|**Beku**|Kepala Arsitek|Hanya ketika ADR baru disetujui|
+|`PRODUCT_CONTRACT.md`|Definisi produk, kontrak UI/API|**Beku**|Kepala Bagian Produk|Permintaan Perubahan Produk saja|
+|`CAPABILITY_GUIDE.md`|Spesifikasi kemampuan terperinci (pelengkap CAPABILITY_STRATEGY)|**Aktif**|Kemampuan pemimpin|Per paket peningkatan|
+|`QUALITY_GATE.md`|Status gerbang kualitas|**Tdk kekal**|Pimpinan QA|Diperbarui per build/validasi|
 
 ---
 
-## Where to Find What
+## Di Mana Menemukan Apa
 
-| If you need... | Go to... |
+|Jika Anda membutuhkan...|Buka...|
 |----------------|----------|
-| Project vision and philosophy | `GOVERNANCE_CHARTER.md` |
-| Rules for making changes (ADR, governance) | `GOVERNANCE.md` |
-| What "done" means for a release | `RELEASE_CRITERIA.md` |
-| Capability Pack details, maturity, lifecycle | `CAPABILITY_STRATEGY.md` |
-| Timeline and release schedule | `ROADMAP.md` |
-| ADR decisions | `ARCHITECTURE_DECISIONS.md` |
-| Product contract (frontend-backend) | `PRODUCT_CONTRACT.md` |
-| Quality gate status | `QUALITY_GATE.md` |
-| RFC process | `docs/rfcs/README.md` |
+|Visi dan filosofi proyek|`GOVERNANCE_CHARTER.md`|
+|Aturan untuk melakukan perubahan (ADR, tata kelola)|`GOVERNANCE.md`|
+|Arti "selesai" untuk sebuah rilis|`RELEASE_CRITERIA.md`|
+|Detail Capability Pack, kedewasaan, siklus hidup|`CAPABILITY_STRATEGY.md`|
+|Linimasa dan jadwal rilis|`ROADMAP.md`|
+|Keputusan ADR|`ARCHITECTURE_DECISIONS.md`|
+|Kontrak produk (frontend-backend)|`PRODUCT_CONTRACT.md`|
+|Status gerbang kualitas|`QUALITY_GATE.md`|
+|Proses RFC|`docs/rfcs/README.md`|
 
 ---
 
-## Stability Level Definitions
+## Definisi Tingkat Stabilitas
 
-| Level | Description | Can Change... |
+|Tingkat|Deskripsi|Dapat Berubah...|
 |-------|-------------|---------------|
-| **Frozen** | Cannot be changed without formal amendment process | Via ADR or constitutional amendment only |
-| **Stable** | Seldom changes; changes require review | Via PR with architecture review |
-| **Active** | Changes regularly as part of development cycle | Via normal PR process |
-| **Ephemeral** | Snapshots of current state; may be regenerated | Any time, may be overwritten |
+|**Beku**|Tidak dapat diubah tanpa proses amandemen formal|Hanya melalui ADR atau amandemen konstitusi|
+|**Stabil**|Jarang berubah; perubahan memerlukan wawasan|Melalui PR dengan pengamatan arsitektur|
+|**Aktif**|Berubah secara teratur sebagai bagian dari siklus pengembangan|Melalui proses PR normal|
+|**Tdk kekal**|Cuplikan dari keadaan saat ini; dapat dibuat ulang|Kapan saja, dapat ditimpa|

@@ -1,566 +1,504 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/PRODUCT_CONTRACT.md`
-- Judul: Product Contract
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿# Kontrak Produk v1.0
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Product contract, user promises, and capability commitments
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Kontrak produk, janji pengguna, dan kemampuan komitmen
 <!-- DOCUMENT_METADATA_END -->
 
-# Product Contract v1.0
-
-**Status:** Frozen  
-**Effective:** 2026-07-11  
-**Owner:** Chief Product Officer  
-**Purpose:** Defines the product-level contract between backend baseline and frontend implementation. No frontend code may be written before this document is approved and all Product Gate checks pass.
+**Status:** Beku
+**Efektif:** 07-11-2026
+**Pemilik:** Chief Product Officer
+**Tujuan:** Mendefinisikan kontrak tingkat produk antara baseline backend dan implementasi frontend. Tidak ada kode frontend yang boleh ditulis sebelum dokumen ini disetujui dan semua pemeriksaan Product Gate lulus.
 
 ---
 
-## 1. Product Positioning
+## 1. Penentuan Posisi Produk
 
-Enal AI OS is an **AI Execution Platform**.
-> Terjemahan Indonesia: Enal AI OS adalah sebuah AI Execution platform.
+AI OS terakhir adalah **Platform Eksekusi AI**.
 
-Users describe the outcome they want. ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcomeâ€”all through a single conversation.
-> Terjemahan Indonesia: Users describe outcome they want. ECP understands goal, plans execution, coordinates tasks, verifies results, dan delivers sebuah complete outcomeâ€”all through sebuah single conversation.
+Pengguna mendeskripsikan hasil yang mereka inginkan. ECP memahami tujuan, merencanakan eksekusi, mengoordinasikan tugas, memverifikasi hasil, dan mengirimkan hasil yang lengkap — semuanya melalui satu percakapan.
 
-The user sees one AI. The user never sees the machinery underneath.
-> Terjemahan Indonesia: User sees one AI. user never sees machinery underneath.
+Pengguna hanya melihat satu AI. Pengguna tidak pernah melihat mesin di balik layar.
 
-**Motto:** A stable core. Expert capabilities. One conversation.
+**Motto:** Inti yang stabil. Kemampuan yang ahli. Satu percakapan.
 
-**Target user:** Developers, operators, and knowledge workers who need AI assistance for complex, multi-step tasks.
+**Target pengguna:** Pengembang, operator, dan pekerja pengetahuan yang membutuhkan bantuan AI untuk tugas kompleks multi-langkah.
 
-**Core value proposition:** One conversation â†’ complete outcome.
+**Value proposition inti:** Satu percakapan → hasil yang lengkap.
 
 ---
 
-## 2. Product Contract Lock
+## 2. Kunci Kontrak Produk
 
-This document locks the product definition for the Product MVP phase.
-> Terjemahan Indonesia: Ini dokumen locks product definition untuk Product MVP phase.
+Dokumen ini mengunci resolusi produk untuk fase Product MVP.
 
-### Locked Artifacts
+### Artefak yang Dikunci
 
-| Document | Status | Effective |
+|Dokumen|Status|Efektif|
 |----------|--------|-----------|
-| `docs/frontend/PRODUCT_UI_SPEC.md` | Frozen | 2026-07-11 |
-| `docs/frontend/UI_ARCHITECTURE.md` | Frozen | 2026-07-11 |
-| `docs/frontend/SCREEN_FLOW.md` | Frozen | 2026-07-11 |
-| `docs/frontend/COMPONENT_LIBRARY.md` | Frozen | 2026-07-11 |
-| `docs/frontend/STATE_MANAGEMENT.md` | Frozen | 2026-07-11 |
-| `docs/frontend/API_MAPPING.md` | Frozen | 2026-07-11 |
-| `docs/frontend/ERROR_STATES.md` | Frozen | 2026-07-11 |
-| `docs/frontend/MOBILE_LAYOUT.md` | Frozen | 2026-07-11 |
-| `docs/frontend/DESIGN_TOKENS.md` | Frozen | 2026-07-11 |
-| `docs/frontend/FRONTEND_DEFINITION_OF_DONE.md` | Frozen | 2026-07-11 |
+|`docs/frontend/PRODUCT_UI_SPEC.md`|Beku|07-11-2026|
+|`docs/frontend/UI_ARCHITECTURE.md`|Beku|07-11-2026|
+|`docs/frontend/SCREEN_FLOW.md`|Beku|07-11-2026|
+|`docs/frontend/COMPONENT_LIBRARY.md`|Beku|07-11-2026|
+|`docs/frontend/STATE_MANAGEMENT.md`|Beku|07-11-2026|
+|`docs/frontend/API_MAPPING.md`|Beku|07-11-2026|
+|`docs/frontend/ERROR_STATES.md`|Beku|07-11-2026|
+|`docs/frontend/MOBILE_LAYOUT.md`|Beku|07-11-2026|
+|`docs/frontend/DESIGN_TOKENS.md`|Beku|07-11-2026|
+|`docs/frontend/FRONTEND_DEFINITION_OF_DONE.md`|Beku|07-11-2026|
 
-No further changes to these documents are allowed during Product MVP implementation without a Product Change Request.
-> Terjemahan Indonesia: No further changes untuk these documents adalah allowed during Product MVP implementation without sebuah Product Change Request.
+Tidak ada perubahan lebih lanjut pada dokumen-dokumen ini yang diizinkan selama implementasi Product MVP tanpa Product Change Request.
 
 ---
 
-## 3. Product MVP Scope
+## 3. MVP Produk Ruang Lingkup
 
-### In Scope
+### Dalam Ruang Lingkup
 
-| Screen | Purpose | Must-Have for MVP |
+|Layar|Tujuan|Harus Dimiliki untuk MVP|
 |--------|---------|-------------------|
-| Chat | Primary interface. Single conversation with AI. | Yes |
-| Workspace | Project overview with conversation, files, memory, artifacts, execution history. | Yes |
-| Artifact Viewer | View, compare, restore artifact versions. | Yes |
-| Approval Dialog | Confirm or reject irreversible actions. | Yes |
-| Settings | Theme, model preference, notifications. | Yes |
-| Capability Discovery | Dynamic list of capabilities from backend. | Yes |
-| Execution History | List of executions with status, progress, artifacts. | Yes |
+|Mengobrol|antarmuka utama. Satu percakapan dengan AI.|Ya|
+|Ruang kerja|Ringkas proyek dengan percakapan, file, memori, artefak, eksekusi.|Ya|
+|Penampil Artefak|Melihat, membandingkan, memulihkan versi artefak.|Ya|
+|Dialog Persetujuan|Mengonfirmasi atau menolak tindakan yang tidak dapat diubah.|Ya|
+|Pengaturan|Tema, preferensi model, notifikasi.|Ya|
+|Penemuan Kemampuan|Daftar kemampuan dinamis dari backend.|Ya|
+|Sejarah Eksekusi|Daftar eksekusi dengan status, kemajuan, artefak.|Ya|
 
-### Out of Scope (Post-MVP)
+### Di Luar Ruang Lingkup (Pasca-MVP)
 
-- Agent selection UI
-- Capability Pack configuration
-- Worker configuration
-- Model selection UI (except in Settings)
-- Execution Graph visualization
-- Admin dashboard
-- Analytics dashboard
-- Plugin management UI
-- Advanced theming
-
----
-
-## 4. Non-Negotiable Product Principles
-
-These principles are locked. Any UI element that violates them is a defect.
-> Terjemahan Indonesia: These principles adalah locked. Any UI element itu violates them adalah sebuah defect.
-
-### Principle 1: One Conversation
-
-The user interface is a single conversation. There is no menu for selecting Capability Pack. There is no dropdown for selecting a Worker. There is no configuration panel for choosing a Model.
-> Terjemahan Indonesia: User interface adalah sebuah single conversation. There adalah no menu untuk selecting kapabilitas Pack. There adalah no dropdown untuk selecting sebuah Worker. There adalah no konfigurasi panel untuk choosing sebuah Model.
-
-The AI does that internally.
-> Terjemahan Indonesia: AI does itu internally.
-
-### Principle 2: Outcome Over Mechanism
-
-Users describe outcomes, not mechanisms.
-> Terjemahan Indonesia: Pengguna menggambarkan hasil, bukan mekanisme.
-
-User says: "Audit jaringan kantor saya."
-User does NOT say: "Jalankan Network Capability."
-> Terjemahan Indonesia: User says: "Audit jaringan kantor saya." User does NOT say: "Jalankan Network kapabilitas."
-
-The UI must never expose internal concepts such as Capability Pack, Worker, Execution Runtime, Task Planner, or Execution Graph to the user.
-> Terjemahan Indonesia: UI must never expose internal concepts such as kapabilitas Pack, Worker, Execution Runtime, Task Planner, or Execution Graph untuk user.
-
-### Principle 3: Progress Transparency
-
-During long-running tasks, the system must show progress. Progress indication must be coarse-grained and human-readable.
-> Terjemahan Indonesia: During long-running tasks, sistem must show progress. Progress indication must menjadi coarse-grained dan human-readable.
-
-Acceptable:
-> Terjemahan Indonesia: Dapat diterima:
-- "Analyzing configuration..."
-- "Generating documentation..."
-- "Running tests..."
-
-Not acceptable:
-> Terjemahan Indonesia: Tidak dapat diterima:
-- Generic "Loading..."
-- Internal step names like "Stage 3: Execute Subtask 7"
-
-### Principle 4: Approval Before Action
-
-For irreversible actions, the UI must show an explicit approval dialog. AI never applies changes without user approval.
-> Terjemahan Indonesia: Untuk irreversible actions, UI must show sebuah explicit approval dialog. AI never applies changes without user approval.
-
-### Principle 5: Artifact First
-
-Every significant output is an Artifact. Artifacts are always visible, versioned, and retrievable.
-> Terjemahan Indonesia: Every significant output adalah sebuah Artifact. Artifacts adalah always visible, versioned, dan retrievable.
-
-### Principle 6: Workspace Isolation
-
-Each project is isolated in a Workspace. Conversation, files, memory, tasks, artifacts, and execution history are scoped per Workspace.
-> Terjemahan Indonesia: Each proyek adalah isolated dalam sebuah Workspace. Conversation, files, memory, tasks, artifacts, dan execution history adalah scoped per Workspace.
-
-### Principle 7: No Mock Data
-
-The frontend must consume backend APIs. Mock data is not allowed in any production screen.
-> Terjemahan Indonesia: Frontend must consume backend APIs. Mock data adalah not allowed dalam any production screen.
+- Agen pemilihan UI
+- Konfigurasi Capability Pack
+- Konfigurasi Pekerja
+- Model pemilihan UI (kecuali pada Pengaturan)
+- Visualisasi Grafik Eksekusi
+- Admin berlari
+- Analitik dasbor
+- Manajemen UI Plugin
+- Tema lanjutan
 
 ---
 
-## 5. Backend Dependency Lock
+## 4. Prinsip Produk yang Tidak Dapat Ditawar
 
-The frontend is locked to **Backend Baseline v1.0.0-dev** (2026-07-11).
-> Terjemahan Indonesia: Frontend adalah locked untuk Backend dasar v1.0.0-dev (2026-07-11).
+Prinsip-prinsip ini terkunci. Elemen UI apa pun yang melanggarnya adalah cacat.
 
-The baseline is stable. The following changes are allowed without a Product Change Request:
-> Terjemahan Indonesia: Dasar adalah stable. following changes adalah allowed without sebuah Product Change Request:
+### Prinsip 1: Satu Percakapan
 
-- Bug fix
-- Security fix
-- Performance improvement
-- Small integration needed by frontend
-- ADR-approved cross-capability changes
+antarmuka pengguna adalah satu percakapan. Tidak ada menu untuk memilih Capability Pack. Tidak ada dropdown untuk memilih Worker. Tidak ada panel konfigurasi untuk memilih Model.
 
-The following changes require a Product Change Request:
-> Terjemahan Indonesia: Following changes require sebuah Product Change Request:
+AI melakukannya secara internal.
+
+### Prinsip 2: Hasil di Atas Mekanisme
+
+Pengguna mendeskripsikan hasil, bukan mekanisme.
+
+Pengguna berkata: "Audit jaringan kantor saya."
+Pengguna TIDAK berkata: "Jalankan Network Capability."
+
+UI tidak boleh mengekspos konsep internal seperti Capability Pack, Worker, Execution Runtime, Task Planner, atau Execution Graph kepada pengguna.
+
+### Prinsip 3: Transparansi Kemajuan
+
+Selama tugas berdurasi panjang, sistem harus menampilkan kemajuan. Indikasi kemajuan harus terperinci dan mudah dibaca manusia.
+
+Dapat diterima:
+- "Menganalisis konfigurasi..."
+- "Membuat dokumentasi..."
+- "Menjalankan tes..."
+
+Tidak dapat diterima:
+- "Memuat..." yang umum
+- Nama langkah internal seperti "Stage 3: Execute Subtask 7"
+
+### Prinsip 4: Persetujuan Sebelum Tindakan
+
+Untuk tindakan yang tidak dapat diubah, UI harus menampilkan dialog persetujuan eksplisit. AI tidak pernah menerapkan perubahan tanpa persetujuan pengguna.
+
+### Prinsip 5: Artefak Pertama
+
+Setiap keluaran penting adalah Artefak. Artefak selalu terlihat, memiliki versi, dan dapat diambil kembali.
+
+### Prinsip 6: Isolasi Ruang Kerja
+
+Setiap proyek diisolasi dalam Ruang Kerja. Percakapan, file, memori, tugas, artefak, dan riwayat eksekusi dibatasi per Ruang Kerja.
+
+### Prinsip 7: Tanpa Data Palsu
+
+Frontend harus menggunakan backend API. Data palsu tidak diizinkan di layar produksi mana pun.
+
+---
+
+## 5. Kunci Ketergantungan Backend
+
+Frontend tidak terkunci ke **Backend Baseline v1.0.0-dev** (11-07-2026).
+
+Baseline tersebut stabil. Perubahan berikut diizinkan tanpa permintaan Perubahan Produk:
+
+- Perbaikan bug
+- Perbaikan keamanan
+- Peningkatan kinerja
+- Integrasi kecil yang dibutuhkan frontend
+- Perubahan kemampuan lintas yang disetujui ADR
+
+Perubahan berikut memerlukan Permintaan Perubahan Produk:
 
 - Runtime v2
-- Planner v2
+- Perencana v2
 - Kernel v2
-- Conversation v2
-- Worker v2
-- Any new layer
-- Large refactors without cross-domain need
-- Breaking changes to locked API endpoints
+- Percakapan v2
+- Pekerja v2
+- Lapisan baru apa pun
+- Refactor besar tanpa kebutuhan lintas domain
+- Perubahan jalur pada endpoint API yang tidak terkunci
 
-### Required Backend APIs for MVP
+### Backend API yang diperlukan untuk MVP
 
-The following backend APIs must be stable and available before frontend development begins:
-> Terjemahan Indonesia: Following backend APIs must menjadi stable dan available before frontend development begins:
+Backend API berikut harus stabil dan tersedia sebelum pengembangan frontend dimulai:
 
-#### Chat
-- [x] POST `/api/v1/chat`
-- [x] POST `/api/v1/chat/stream`
-- [x] GET `/api/v1/conversations/{conversationId}`
-- [x] DELETE `/api/v1/conversations/{conversationId}`
+#### Mengobrol
+- [x] POSTING `/api/v1/chat`
+- [x] POSTING `/api/v1/chat/stream`
+- [x] DAPATKAN `/api/v1/conversations/{conversationId}`
+- [x] HAPUS `/api/v1/conversations/{conversationId}`
 
-#### Workspace
-- [x] GET `/api/v1/workspaces`
-- [x] POST `/api/v1/workspaces`
-- [x] GET `/api/v1/workspaces/{workspaceId}`
-- [x] DELETE `/api/v1/workspaces/{workspaceId}`
-- [x] POST `/api/v1/workspaces/{workspaceId}/files`
-- [x] POST `/api/v1/workspaces/{workspaceId}/memory`
-- [x] GET `/api/v1/workspaces/{workspaceId}/memory/{key}`
+#### Ruang kerja
+- [x] DAPATKAN `/api/v1/workspaces`
+- [x] POSTING `/api/v1/workspaces`
+- [x] DAPATKAN `/api/v1/workspaces/{workspaceId}`
+- [x] HAPUS `/api/v1/workspaces/{workspaceId}`
+- [x] POSTING `/api/v1/workspaces/{workspaceId}/files`
+- [x] POSTING `/api/v1/workspaces/{workspaceId}/memory`
+- [x] DAPATKAN `/api/v1/workspaces/{workspaceId}/memory/{key}`
 
-#### Execution
-- [x] POST `/api/v1/executions`
-- [x] GET `/api/v1/executions/{executionId}`
-- [x] GET `/api/v1/executions`
-- [x] POST `/api/v1/executions/{executionId}/phases`
+#### Eksekusi
+- [x] POSTING `/api/v1/executions`
+- [x] DAPATKAN `/api/v1/executions/{executionId}`
+- [x] DAPATKAN `/api/v1/executions`
+- [x] POSTING `/api/v1/executions/{executionId}/phases`
 - [x] PATCH `/api/v1/executions/{executionId}/phases/{phaseId}`
-- [x] POST `/api/v1/executions/{executionId}/progress`
-- [x] POST `/api/v1/executions/{executionId}/logs`
-- [x] GET `/api/v1/executions/{executionId}/logs`
-- [x] POST `/api/v1/executions/{executionId}/cancel`
-- [x] DELETE `/api/v1/executions/{executionId}`
-- [x] POST `/api/v1/executions/run`
+- [x] POSTING `/api/v1/executions/{executionId}/progress`
+- [x] POSTING `/api/v1/executions/{executionId}/logs`
+- [x] DAPATKAN `/api/v1/executions/{executionId}/logs`
+- [x] POSTING `/api/v1/executions/{executionId}/cancel`
+- [x] HAPUS `/api/v1/executions/{executionId}`
+- [x] POSTING `/api/v1/executions/run`
 
-#### Artifact
-- [x] GET `/api/v1/artifacts`
-- [x] POST `/api/v1/artifacts`
-- [x] GET `/api/v1/artifacts/{artifactId}`
-- [x] GET `/api/v1/artifacts/{artifactId}/versions/{version}`
-- [x] POST `/api/v1/artifacts/{artifactId}/versions`
-- [x] POST `/api/v1/artifacts/{artifactId}/restore/{version}`
-- [x] GET `/api/v1/executions/{executionId}/artifacts`
-- [x] DELETE `/api/v1/artifacts/{artifactId}`
+#### Artefak
+- [x] DAPATKAN `/api/v1/artifacts`
+- [x] POSTING `/api/v1/artifacts`
+- [x] DAPATKAN `/api/v1/artifacts/{artifactId}`
+- [x] DAPATKAN `/api/v1/artifacts/{artifactId}/versions/{version}`
+- [x] POSTING `/api/v1/artifacts/{artifactId}/versions`
+- [x] POSTING `/api/v1/artifacts/{artifactId}/restore/{version}`
+- [x] DAPATKAN `/api/v1/executions/{executionId}/artifacts`
+- [x] HAPUS `/api/v1/artifacts/{artifactId}`
 
-#### Capability
-- [x] GET `/api/v1/capabilities`
-- [x] GET `/api/v1/capabilities/{capabilityId}`
+#### Kemampuan
+- [x] DAPATKAN `/api/v1/capabilities`
+- [x] DAPATKAN `/api/v1/capabilities/{capabilityId}`
 
 #### Model
-- [x] GET `/api/v1/models/providers`
-- [x] GET `/api/v1/models/health`
-- [x] POST `/api/v1/models/route`
+- [x] DAPATKAN `/api/v1/models/providers`
+- [x] DAPATKAN `/api/v1/models/health`
+- [x] POSTING `/api/v1/models/route`
 
-#### Notification
-- [x] GET `/api/v1/notifications/{recipient}`
+#### Pemberitahuan
+- [x] DAPATKAN `/api/v1/notifications/{recipient}`
 - [x] PATCH `/api/v1/notifications/{recipient}/read/{notificationId}`
 
-#### Streaming Events
-- [x] SSE from `/api/v1/chat/stream` with events: `final`, `execution_started`, `phase`, `task`, `log`, `artifact`, `progress`, `execution_complete`, `error`
+#### Acara Streaming
+- [x] SSE dari `/api/v1/chat/stream` dengan acara: `final`, `execution_started`, `phase`, `task`, `log`, `artifact`, `progress`, `execution_complete`, `error`
 
 ---
 
-## 6. Design Token Lock
+## 6. Desain Kunci Token
 
-All visual values must use these tokens. No hardcoded colors, spacing, or typography.
-> Terjemahan Indonesia: Semua nilai visual harus menggunakan token ini. Tidak ada warna, spasi, atau tipografi hardcode.
+Semua nilai visual harus menggunakan token ini. Tidak ada warna, spasi, atau tipografi yang di-hardcode.
 
-### Colors
+### Warna
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--color-bg-primary` | #0f1117 | Main background |
-| `--color-bg-secondary` | #1a1d27 | Cards, panels |
-| `--color-bg-tertiary` | #252830 | Elevated surfaces |
-| `--color-text-primary` | #e4e6eb | Primary text |
-| `--color-text-secondary` | #9ca3af | Secondary text |
-| `--color-accent` | #3b82f6 | Primary action |
-| `--color-success` | #22c55e | Success state |
-| `--color-warning` | #f59e0b | Warning state |
-| `--color-danger` | #ef4444 | Error/danger state |
-| `--color-border` | #374151 | Borders |
+|`--color-bg-primary`|#0f1117|Latar belakang utama|
+|`--color-bg-secondary`|#1a1d27|Kartu, panel|
+|`--color-bg-tertiary`|#252830|Permukaannya ditinggikan|
+|`--color-text-primary`|#e4e6eb|Teks utama|
+|`--color-text-secondary`|#9ca3af|Teks sekunder|
+|`--color-accent`|#3b82f6|Aksi utama|
+|`--color-success`|#22c55e|Status sukses|
+|`--color-warning`|#f59e0b|Status peringatan|
+|`--color-danger`|#ef4444|Status kesalahan/bahaya|
+|`--color-border`|#374151|Berbatasan|
 
-### Typography
+### Tipografi
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--font-family` | Inter, system-ui, sans-serif | All text |
-| `--font-size-xs` | 0.75rem | Labels, hints |
-| `--font-size-sm` | 0.875rem | Secondary text |
-| `--font-size-md` | 1rem | Body text |
-| `--font-size-lg` | 1.125rem | Emphasized text |
-| `--font-size-xl` | 1.25rem | Headings |
-| `--font-size-2xl` | 1.5rem | Page titles |
+|`--font-family`|Antar, sistem-ui, sans-serif|Semua teks|
+|`--font-size-xs`|0,75rem|Label, petunjuk|
+|`--font-size-sm`|0,875rem|Teks sekunder|
+|`--font-size-md`|1rem|Tubuh teks|
+|`--font-size-lg`|1.125rem|Teks yang ditekankan|
+|`--font-size-xl`|1,25rem|Menuju|
+|`--font-size-2xl`|1,5rem|halaman judul|
 
-### Spacing
+### Jarak
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--space-1` | 4px | Tight spacing |
-| `--space-2` | 8px | Compact spacing |
-| `--space-3` | 12px | Default spacing |
-| `--space-4` | 16px | Comfortable spacing |
-| `--space-5` | 24px | Section spacing |
-| `--space-6` | 32px | Page spacing |
+|`--space-1`|4 piksel|Jarak rapat|
+|`--space-2`|8 piksel|Jarak tanamnya kompak|
+|`--space-3`|12 piksel|Spasi bawaan|
+|`--space-4`|16 piksel|Jarak tanamnya nyaman|
+|`--space-5`|24 piksel|Bagian spasi|
+|`--space-6`|32 piksel|Spasi halaman|
 
 ### Radius
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--radius-sm` | 4px | Small elements |
-| `--radius-md` | 8px | Cards, buttons |
-| `--radius-lg` | 12px | Panels, modals |
+|`--radius-sm`|4 piksel|Elemen kecil|
+|`--radius-md`|8 piksel|Kartu, tombol|
+|`--radius-lg`|12 piksel|Panel, modal|
 
-### Shadows
+### Bayangan
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--shadow-sm` | 0 1px 2px rgba(0,0,0,0.3) | Subtle elevation |
-| `--shadow-md` | 0 4px 6px rgba(0,0,0,0.4) | Cards |
-| `--shadow-lg` | 0 10px 15px rgba(0,0,0,0.5) | Modals, dialogs |
+|`--shadow-sm`|0 1px 2px rgba(0,0,0,0.3)|Ketinggian halus|
+|`--shadow-md`|0 4px 6px rgba(0,0,0,0.4)|Kartu|
+|`--shadow-lg`|0 10px 15px rgba(0,0,0,0.5)|Modal, dialog|
 
 ---
 
-## 7. API Contract Rule
+## 7. Kontrak Aturan API
 
-This rule is non-negotiable during the Product MVP phase.
-> Terjemahan Indonesia: Ini rule adalah non-negotiable during Product MVP phase.
+Aturan ini tidak dapat ditawar selama fase Product MVP.
 
-- Frontend **must not** define new backend endpoints.
-- Frontend **must not** call any endpoint not listed in `docs/frontend/API_MAPPING.md`.
-- If the frontend needs an endpoint, the backend must add a small, focused endpoint following existing patterns.
-- After any new endpoint is added, `API_MAPPING.md` and `PRODUCT_CONTRACT.md` must be updated before the frontend consumes it.
-- `API_MAPPING.md` is the single source of truth for all API contracts.
+- Frontend **tidak boleh** mendefinisikan endpoint backend baru.
+- Frontend **tidak boleh** memanggil endpoint yang tidak tercantum di `docs/frontend/API_MAPPING.md`.
+- Jika frontend membutuhkan endpoint, backend harus menambahkan endpoint kecil dan fokus mengikuti pola yang ada.
+- Setelah endpoint baru ditambahkan, `API_MAPPING.md` dan `PRODUCT_CONTRACT.md` harus diperbarui sebelum frontend menggunakannya.
+- `API_MAPPING.md` adalah single source of truth untuk semua kontrak API.
 
-This prevents frontend/backend drift and ensures the Product Contract remains the executable contract between the two layers.
-> Terjemahan Indonesia: Ini prevents frontend/backend drift dan ensures Product Contract remains executable contract between two layers.
+Ini mencegah memastikan drift frontend/backend dan Product Contract tetap menjadi kontrak yang dapat dieksekusi antara dua layer.
 
 ---
 
-## 8. Product Gate Checklist
+## 8. DaftarPeriksa Gerbang Produk
 
-All items must be checked before frontend coding begins.
-> Terjemahan Indonesia: All items must menjadi checked before frontend coding begins.
+Semua item harus dicentang sebelum coding frontend dimulai.
 
-### Documentation Gate
-- [x] PRODUCT_UI_SPEC.md exists and is frozen
-- [x] UI_ARCHITECTURE.md exists and is frozen
-- [x] SCREEN_FLOW.md exists and is frozen
-- [x] COMPONENT_LIBRARY.md exists and is frozen
-- [x] STATE_MANAGEMENT.md exists and is frozen
-- [x] API_MAPPING.md exists and is frozen
-- [x] ERROR_STATES.md exists and is frozen
-- [x] MOBILE_LAYOUT.md exists and is frozen
-- [x] DESIGN_TOKENS.md exists and is frozen
-- [x] FRONTEND_DEFINITION_OF_DONE.md exists and is frozen
+### Gerbang Dokumentasi
+- [x] product_ui_spec.md ada dan dibekukan
+- [x] UI_ARCHITECTURE.md ada dan difreeze
+- [x] SCREEN_FLOW.md ada dan difreeze
+- [x] COMPONENT_LIBRARY.md ada dan difreeze
+- [x] STATE_MANAGEMENT.md ada dan difreeze
+- [x] API_MAPPING.md ada dan difreeze
+- [x] ERROR_STATES.md ada dan difreeze
+- [x] MOBILE_LAYOUT.md ada dan difreeze
+- [x] DESIGN_TOKENS.md ada dan difreeze
+- [x] FRONTEND_DEFINITION_OF_DONE.md ada dan difreeze
 
-### Backend Gate
-- [x] Backend Baseline v1.0.0-dev is active
-- [x] All required APIs are implemented and documented
-- [x] API contracts are stable (no breaking changes planned)
-- [x] Streaming SSE endpoint is functional
-- [x] No backend architecture changes pending that affect frontend
+### Gerbang Belakang
+- [x] Backend Baseline v1.0.0-dev aktif
+- [x] Semua API yang dibutuhkan diimplementasikan dan didokumentasikan
+- [x] Kontrak API stabil (tidak ada perubahan yang direncanakan)
+- [x] Streaming SSE titik akhir berfungsi
+- [x] Tidak ada perubahan arsitektur backend yang tertunda yang mempengaruhi frontend
 
-### Product Gate
-- [x] All 7 screens have clear purpose and acceptance criteria
-- [x] All user journeys can be completed from a single chat
-- [x] Mobile flow is defined and approved
-- [x] Error states are defined for all API calls
-- [x] Approval flow is defined for irreversible actions
-- [x] Artifact lifecycle is defined (create, view, version, restore)
-- [x] Workspace lifecycle is defined (create, switch, delete)
-- [x] No Capability Pack or Worker exposed in UI
-- [x] No mock data allowed in production screens
+### Gerbang Produk
+- [x] Semua 7 layar memiliki tujuan dan kriteria penerimaan yang jelas
+- [x] Semua perjalanan pengguna dapat diselesaikan dari satu percakapan
+- [x] Aliran seluler halus dan memuaskan
+- [x] Status kesalahan ditentukan untuk semua panggilan API
+- [x] Alur persetujuan ditentukan untuk tindakan yang tidak dapat diubah
+- [x] Siklus hidup artefak didefinisikan (buat, lihat, versi, pulihkan)
+- [x] Siklus hidup ruang kerja didefinisikan (buat, alihkan, hapus)
+- [x] Tidak ada Capability Pack atau Pekerja yang diekspos di UI
+- [x] Tidak ada data asli yang diizinkan di layar produksi
 
-### Technical Gate
-- [x] Frontend framework chosen: Next.js 14 + React 18 + TypeScript
-- [x] State management chosen: Zustand
-- [x] Styling chosen: Tailwind CSS v3
-- [x] API client chosen: fetch with custom service layer
-- [x] Streaming client chosen: EventSource with custom hook
-- [x] All design tokens are defined in DESIGN_TOKENS.md
-- [x] Tech stack aligns with UI_ARCHITECTURE.md
+### Gerbang Teknis
+- [x] Kerangka frontend dipilih: Next.js 14 + React 18 + TypeScript
+- [x] Manajemen negara yang dipilih: Zustand
+- [x] Gaya yang dipilih: Tailwind CSS v3
+- [x] API klien dipilih: ambil dengan lapisan layanan khusus
+- [x] Klien streaming dipilih: EventSource dengan kait khusus
+- [x] Semua desain token didefinisikan di DESIGN_TOKENS.md
+- [x] Tumpukan teknologi selaras dengan UI_ARCHITECTURE.md
 
-### Gap Analysis
+### Analisis Kesenjangan
 
-| Frontend Requirement | Backend Status | Action |
+|Kebutuhan Frontend|Latar Belakang Status|Tindakan|
 |---------------------|----------------|--------|
-| POST /chat | Implemented | None |
-| POST /chat/stream | Implemented | None |
-| GET /conversations/{id} | Implemented | None |
-| DELETE /conversations/{id} | Implemented | None |
-| GET /workspaces | Implemented | None |
-| POST /workspaces | Implemented | None |
-| GET /workspaces/{id} | Implemented | None |
-| DELETE /workspaces/{id} | Implemented | None |
-| GET /workspaces/{id}/files | Implemented | None |
-| POST /workspaces/{id}/files | Implemented | None |
-| DELETE /workspaces/{id}/files/{filename} | Implemented | None |
-| GET /workspaces/{id}/memory/{key} | Implemented | None |
-| POST /workspaces/{id}/memory | Implemented | None |
-| All execution APIs | Implemented | None |
-| All artifact APIs | Implemented | None |
-| GET /api/v1/capabilities | Implemented | None |
-| GET /api/v1/capabilities/{id} | Implemented | None |
-| GET /api/v1/models/providers | Implemented | None |
-| GET /api/v1/models/health | Implemented | None |
-| POST /api/v1/models/route | Implemented | None |
-| GET /api/v1/notifications/{recipient} | Implemented | None |
-| PATCH /api/v1/notifications/{recipient}/read/{id} | Implemented | None |
-| SSE streaming events | Implemented | None |
+|POSTING/ngobrol|Diimplementasikan|Tidak ada|
+|POSTING /obrolan/aliran|Diimplementasikan|Tidak ada|
+|DAPATKAN /percakapan/{id}|Diimplementasikan|Tidak ada|
+|HAPUS /percakapan/{id}|Diimplementasikan|Tidak ada|
+|DAPATKAN /ruang kerja|Diimplementasikan|Tidak ada|
+|POST /ruang kerja|Diimplementasikan|Tidak ada|
+|DAPATKAN /ruang kerja/{id}|Diimplementasikan|Tidak ada|
+|HAPUS /ruang kerja/{id}|Diimplementasikan|Tidak ada|
+|DAPATKAN /workspaces/{id}/files|Diimplementasikan|Tidak ada|
+|POST /ruang kerja/{id}/files|Diimplementasikan|Tidak ada|
+|HAPUS /ruang kerja/{id}/files/{nama file}|Diimplementasikan|Tidak ada|
+|DAPATKAN /ruang kerja/{id}/memori/{key}|Diimplementasikan|Tidak ada|
+|POST /ruang kerja/{id}/memory|Diimplementasikan|Tidak ada|
+|Semua API eksekusi|Diimplementasikan|Tidak ada|
+|Semua API artefak|Diimplementasikan|Tidak ada|
+|DAPATKAN /API/v1/capability|Diimplementasikan|Tidak ada|
+|DAPATKAN /API/v1/capabilities/{id}|Diimplementasikan|Tidak ada|
+|DAPATKAN /API/v1/models/providers|Diimplementasikan|Tidak ada|
+|DAPATKAN /API/v1/models/health|Diimplementasikan|Tidak ada|
+|POST /API/v1/models/route|Diimplementasikan|Tidak ada|
+|DAPATKAN /API/v1/notifications/{penerima}|Diimplementasikan|Tidak ada|
+|PATCH /API/v1/notifications/{penerima}/baca/{id}|Diimplementasikan|Tidak ada|
+|Acara streaming SSE|Diimplementasikan|Tidak ada|
 
-**Blocker:** None. All 22 required backend APIs are implemented and available.
-
----
-
-## 8. Frontend Implementation Plan
-
-### Phase 1: Foundation (3â€“5 days)
-
-Scaffold the project structure. Wire up all services to real backend APIs. Zero mock data.
-> Terjemahan Indonesia: Scaffold proyek structure. Wire up all services untuk real backend APIs. Zero mock data.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- Project structure matches `docs/frontend/PRODUCT_UI_SPEC.md` Section 10
-- All services in `services/` call real backend APIs
-- All types in `types/` match backend schemas
-- Zustand stores in `store/` are wired to services
-- `layout.tsx` renders without errors
-
-### Phase 2: Chat MVP (1 week)
-
-Build the single conversation interface. This is the heart of the product.
-> Terjemahan Indonesia: Membangun single conversation interface. ini adalah heart dari product.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- User can type a goal and send it
-- AI response streams in via SSE
-- Progress events render in real-time
-- Artifact events render inline
-- Error states are actionable
-- Mobile responsive at 320px
-
-### Phase 3: Workspace (3 days)
-
-Build the workspace screen.
-> Terjemahan Indonesia: Membangun workspace screen.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- List workspaces
-- Create new workspace
-- Switch between workspaces
-- View files, memory, artifacts, execution history
-- Delete workspace with approval dialog
-
-**Blocker:** None. Semua endpoint yang dibutuhkan untuk Frontend MVP sudah tersedia di backend.
-
-### Phase 4: Streaming UX (2 days)
-
-Polish the streaming experience.
-> Terjemahan Indonesia: Polish streaming experience.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- Human-readable progress messages
-- Phase transitions are smooth
-- Logs are collapsible
-- Artifact cards appear inline
-- Connection drop shows reconnect indicator
-
-### Phase 5: Approval UX (1 day)
-
-Build the approval dialog.
-> Terjemahan Indonesia: Membangun approval dialog.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- Approval dialog renders for irreversible actions
-- Cancel dismisses without side effects
-- Approve sends the actual API call
-- Loading state while pending
-- Error state if API call fails
-
-### Phase 6: Artifact Viewer (2 days)
-
-Build the artifact viewer.
-> Terjemahan Indonesia: Membangun artifact viewer.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- View artifact content
-- Compare versions
-- Restore previous version
-- Download artifact
-- Type-specific rendering (code, markdown, config)
-
-### Phase 7: Polish & Mobile (2 days)
-
-Final polish before dogfooding.
-> Terjemahan Indonesia: Poles terakhir sebelum dogfood.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- Mobile layout at 320px
-- Navigation works on mobile
-- All screens responsive
-- Design tokens used consistently
-- Accessibility: keyboard navigation, ARIA labels, focus rings
-
-### Phase 8: Dogfooding (30 days)
-
-Use Enal AI OS to build and improve Enal AI OS.
-> Terjemahan Indonesia: Use Enal AI OS untuk membangun dan improve Enal AI OS.
-
-Deliverables:
-> Terjemahan Indonesia: Kiriman:
-- Daily usage by team
-- Real cases logged in `real_cases/`
-- Bugs and UX issues tracked
-- Capability improvements measured via benchmarks
+**Pemblokiran:** Tidak ada. Semua 22 backend API yang dibutuhkan telah diimplementasikan dan tersedia.
 
 ---
 
-## 9. Definition of Done â€” Product MVP
+## 9. Rencana Implementasi Frontend
 
-Product MVP is complete when:
-> Terjemahan Indonesia: Product MVP adalah complete when:
+### Fase 1: Fondasi (3–5 hari)
 
-- [ ] All 7 screens are implemented and functional
-- [ ] Chat works end-to-end: send message â†’ receive response â†’ see progress â†’ see artifacts
-- [ ] Streaming renders real-time progress events
-- [ ] Workspace is created automatically on first chat
-- [ ] Approval dialog works for all irreversible actions
-- [ ] Artifact viewer can display, compare, and restore versions
-- [ ] Execution history shows all past executions
-- [ ] Mobile layout works at 320px width
-- [ ] All screens consume real backend APIs
-- [ ] No mock data in production code
-- [ ] All design tokens are used
-- [ ] No internal architecture terms exposed to user
-- [ ] 30-day dogfooding completed
-- [ ] â‰¥100 real cases logged
-- [ ] Capability benchmark score â‰¥85%
+Proyek struktur perancah. menghubungkan semua layanan ke backend API yang sebenarnya. Tidak ada data tiruan.
+
+Kiriman:
+- Struktur proyek sesuai `docs/frontend/PRODUCT_UI_SPEC.md` Bagian 10
+- Semua layanan di `services/` memanggil backend API asli
+- Semua tipe di `types/` sesuai skema backend
+- Zustand store di `store/` terhubung ke layanan
+- `layout.tsx` render tanpa kesalahan
+
+### Fase 2: Chat MVP (1 minggu)
+
+Bangun antarmuka percakapan tunggal. Ini adalah inti dari produk.
+
+Kiriman:
+- Pengguna dapat mengetik tujuan dan mengirimnya
+- Tanggapan AI di-stream melalui SSE
+- Kemajuan acara dirender secara real-time
+- Peristiwa artefak dirender sebaris
+- Status kesalahan dapat dilanjutkan
+- Responsif seluler pada 320px
+
+### Fase 3: Ruang Kerja (3 hari)
+
+Ruang kerja layar Bangun.
+
+Kiriman:
+- Daftar ruang kerja
+- Membuat ruang kerja baru
+- Berpindah antar ruang kerja
+- Melihat file, memori, artefak, riwayat eksekusi
+- Menghapus ruang kerja dengan dialog persetujuan
+
+**Pemblokiran:** Tidak ada. Semua endpoint yang dibutuhkan untuk Frontend MVP sudah tersedia di backend.
+
+### Fase 4: Streaming UX (2 hari)
+
+Sempurnakan pengalaman streaming.
+
+Kiriman:
+- Kemajuan pesan yang mudah dibaca manusia
+- Fase transisi yang mulus
+- Log dapat dilipat
+- Artefak kartu muncul inline
+- Koneksi putusnya menampilkan indikator reconnect
+
+### Fase 5: Persetujuan UX (1 hari)
+
+Bangun dialog persetujuan.
+
+Kiriman:
+- Dialog persetujuan diberikan untuk tindakan yang tidak dapat diubah
+- Batal menutup tanpa efek samping
+- Setujui pengiriman API panggilan yang sebenarnya
+- Memuat status saat menunggu
+- Status kesalahan jika panggilan API gagal
+
+### Fase 6 : Penampil Artefak (2 hari)
+
+Penampil artefak Bangun.
+
+Kiriman:
+- Melihat artefak konten
+- Membandingkan versi
+- Memulihkan versi sebelumnya
+- Mengunduh artefak
+- Merender tipe khusus (kode, penurunan harga, konfigurasi)
+
+### Fase 7: Bahasa Polandia & Seluler (2 hari)
+
+Polandia terakhir sebelum dogfood.
+
+Kiriman:
+- Tata letak seluler pada 320px
+- Navigasi berfungsi di seluler
+- Semua layar responsif
+- Desain token digunakan secara konsisten
+- Aksesibilitas: navigasi keyboard, label ARIA, cincin fokus
+
+### Fase 8: Dogfood (30 hari)
+
+Gunakan Enal AI OS untuk membangun dan meningkatkan Enal AI OS.
+
+Kiriman:
+- Penggunaan harian oleh tim
+- Kasus nyata dicatat di `real_cases/`
+- Bug dan isu UX dilacak
+- Peningkatan kemampuan diukur melalui Benchmark
 
 ---
 
-## 10. Post-MVP Roadmap
+## 10. Definisi Selesai — Produk MVP
 
-After Product MVP is complete:
-> Terjemahan Indonesia: After Product MVP adalah complete:
+MVP Produk selesai ketika:
 
-1. **Dogfooding Insights** â†’ Capability improvements
-2. **Real Cases** â†’ Benchmark-driven capability excellence
-3. **User Feedback** â†’ UX refinements
-4. **Performance** â†’ Optimization based on real usage
-5. **v1.0.0 Stable** â†’ Production readiness
+- [ ] Semua 7 layar diimplementasikan dan berfungsi
+- [ ] Obrolan berfungsi end-to-end: kirim pesan → terima respons → lihat kemajuan → lihat artefak
+- [ ] Streaming merender perkembangan peristiwa secara real-time
+- [ ] Ruang kerja dibuat otomatis pada chat pertama
+- [ ] Dialog persetujuan berfungsi untuk semua tindakan yang tidak dapat diubah
+- [ ] Artifact viewer dapat menampilkan, membandingkan, dan memulihkan versi
+- [ ] Riwayat Eksekusi menampilkan semua eksekusi sebelumnya
+- [ ] Tata letak seluler berfungsi pada lebar 320px
+- [ ] Semua layar menggunakan backend API asli
+- [ ] Tidak ada data tiruan dalam kode produksi
+- [ ] Semua token desain digunakan
+- [ ] Tidak ada istilah arsitektur internal yang diekspos ke pengguna
+- [ ] Dogfood 30 hari selesai
+- [ ] ≥100 kasus nyata dicatat
+- [ ] Skor kemampuan Benchmark ≥85%
 
 ---
 
-## 11. Approval
+## 11. Peta Jalan Pasca-MVP
 
-| Role | Name | Status | Date |
+Setelah MVP Produk selesai:
+
+1. **Dogfooding Insights** → Peningkatan kemampuan
+2. **Kasus Nyata** → Kemampuan unggul berbasis Benchmark
+3. **Masukan Pengguna** → Penyempurnaan UX
+4. **Kinerja** → Optimasi berdasarkan penggunaan nyata
+5. **v1.0.0 Stable** → Kesiapan produksi
+
+---
+
+## 12. Persetujuan
+
+|Peran|Nama|Status|Tanggal|
 |------|------|--------|------|
-| Chief Product Officer | | Approved | 2026-07-11 |
-| Chief Architect | | Approved | 2026-07-11 |
-| Frontend Lead | | Pending | |
+|Kepala Bagian Produk| |Disetujui|07-11-2026|
+|Kepala Arsitek| |Disetujui|07-11-2026|
+|Pemimpin Bagian Depan| |Tertunda| |
 
-This document is locked. No further changes to product scope, design principles, or backend dependencies are allowed without a Product Change Request signed by the Chief Product Officer and Chief Architect.
-> Terjemahan Indonesia: Ini dokumen adalah locked. No further changes untuk product scope, design principles, or backend dependencies adalah allowed without sebuah Product Change Request signed oleh Chief Product Officer dan Chief Architect.
+Dokumen ini terkunci. Tidak ada perubahan lebih lanjut pada ruang lingkup produk, prinsip desain, atau dependensi backend yang diizinkan tanpa permintaan Perubahan Produk yang ditandatangani oleh Chief Product Officer dan Chief Architect.

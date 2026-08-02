@@ -1,176 +1,156 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/USER_JOURNEYS.md`
-- Judul: User Journeys
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# User Journeys
+﻿# User Journeys
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for USER_JOURNEYS
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk USER_JOURNEYS
 <!-- DOCUMENT_METADATA_END -->
 
-Canonical user journeys for Enal AI OS.
-All design and implementation work must preserve these journeys.
-> Terjemahan Indonesia: Canonical user journeys untuk Enal AI OS. All design dan implementation work must preserve these journeys.
+User journeys kanonikal untuk Enal AI OS.
+Semua pekerjaan desain dan implementasi harus mempertahankan journeys ini.
 
-For full UX specifications, see `docs/UX_DESIGN.md`.
-> Terjemahan Indonesia: Untuk full UX specifications, see docs/UX_DESIGN.MD.
+Untuk spesifikasi UX lengkap, lihat `docs/UX_DESIGN.md`.
 
 ---
 
-## Journey 1 â€” Network Engineer
+## Journey 1 — Network Engineer
 
-**Goal:** Audit a MikroTik configuration and get a fix proposal.
+**Tujuan:** Mengaudit konfigurasi MikroTik dan mendapatkan proposal perbaikan.
 
-**Steps:**
-1. Open Workspace
-2. Upload `.rsc` file
-3. AI analyzes configuration
-4. AI presents findings: Critical, Warning, Suggestion
-5. User approves fix proposal
-6. AI generates improved configuration
-7. AI runs tests
-8. AI presents diff and test results
-9. User approves deployment
-10. AI deploys with rollback plan
+**Langkah:**
+1. Buka Workspace
+2. Unggah file `.rsc`
+3. AI menganalisis konfigurasi
+4. AI menyajikan findings: Critical, Warning, Suggestion
+5. Pengguna menyetujui proposal perbaikan
+6. AI menghasilkan konfigurasi yang diperbaiki
+7. AI menjalankan test
+8. AI menyajikan diff dan hasil test
+9. Pengguna menyetujui deployment
+10. AI men-deploy dengan rollback plan
 
-**User sees:** Progress indication, structured findings, proposal, diff, test results, deployment confirmation.
-**User does NOT see:** Capability Pack selection, Worker routing, Execution Runtime stages, internal task planning.
-
----
-
-## Journey 2 â€” Code Engineer
-
-**Goal:** Review a project and get a fix patch.
-
-**Steps:**
-1. Open Workspace
-2. Upload project ZIP or provide repository
-3. AI analyzes codebase
-4. AI presents findings: Security, Architecture, Dead Code
-5. User approves patch generation
-6. AI generates patch
-7. AI runs tests
-8. AI presents patch and test results
-9. User approves application
-10. AI applies patch
-
-**User sees:** Progress indication, structured findings, patch, test results, application confirmation.
-**User does NOT see:** AST parsing details, static analysis engine selection, test runner configuration.
+**Yang dilihat pengguna:** Indikasi progress, findings terstruktur, proposal, diff, hasil test, konfirmasi deployment.
+**Yang TIDAK dilihat pengguna:** Pemilihan Capability Pack, routing Worker, tahapan Execution Runtime, perencanaan task internal.
 
 ---
 
-## Journey 3 â€” Trading Analyst
+## Journey 2 — Code Engineer
 
-**Goal:** Analyze a market scenario and get a trading recommendation.
+**Tujuan:** Me-review sebuah proyek dan mendapatkan patch perbaikan.
 
-**Steps:**
-1. Open Workspace
-2. Provide market data or instrument
-3. AI analyzes market structure
-4. AI presents bias, support/resistance, risk
-5. AI gives recommendation with reasoning
-6. User can ask for alternative scenarios
-7. AI explains risk and failure case
+**Langkah:**
+1. Buka Workspace
+2. Unggah ZIP proyek atau berikan repositori
+3. AI menganalisis codebase
+4. AI menyajikan findings: Security, Architecture, Dead Code
+5. Pengguna menyetujui generasi patch
+6. AI menghasilkan patch
+7. AI menjalankan test
+8. AI menyajikan patch dan hasil test
+9. Pengguna menyetujui penerapan
+10. AI menerapkan patch
 
-**User sees:** Market bias, key levels, risk assessment, recommendation with reasoning.
-**User does NOT see:** Indicator calculations, strategy library selection, debate engine internals.
-
----
-
-## Journey 4 â€” Research Assistant
-
-**Goal:** Research a topic and get a cited summary.
-
-**Steps:**
-1. Open Workspace
-2. Ask a research question
-3. AI retrieves relevant sources
-4. AI ranks evidence quality
-5. AI detects contradictions between sources
-6. AI synthesizes findings
-7. AI presents summary with citations
-8. User can ask for deeper analysis
-
-**User sees:** Research summary, citations with provenance, confidence estimate, contradiction notes.
-**User does NOT see:** RAG retrieval details, embedding similarity scores, source ranking algorithms.
+**Yang dilihat pengguna:** Indikasi progress, findings terstruktur, patch, hasil test, konfirmasi penerapan.
+**Yang TIDAK dilihat pengguna:** Detail parsing AST, pemilihan engine static analysis, konfigurasi test runner.
 
 ---
 
-## Journey 5 â€” Self Development
+## Journey 3 — Trading Analyst
 
-**Goal:** Audit a project and apply improvements.
+**Tujuan:** Menganalisis skenario pasar dan mendapatkan rekomendasi trading.
 
-**Steps:**
-1. Open Workspace
-2. Request project audit
-3. AI analyzes project structure
-4. AI identifies bottlenecks and issues
-5. AI presents findings with severity
-6. User approves proposal
-7. AI generates patch
-8. AI runs tests
-9. AI presents proposal, patch, and test results
-10. User approves application
-11. AI applies changes
+**Langkah:**
+1. Buka Workspace
+2. Berikan data pasar atau instrument
+3. AI menganalisis struktur pasar
+4. AI menyajikan bias, support/resistance, risiko
+5. AI memberikan rekomendasi dengan reasoning
+6. Pengguna dapat meminta skenario alternatif
+7. AI menjelaskan risiko dan kasus kegagalan
 
-**User sees:** Project analysis, issues list, proposal, patch diff, test results, application confirmation.
-**User does NOT see:** Architecture analysis internals, code smell detection algorithms, patch generation logic.
+**Yang dilihat pengguna:** Market bias, level kunci, penilaian risiko, rekomendasi dengan reasoning.
+**Yang TIDAK dilihat pengguna:** Perhitungan indikator, pemilihan strategy library, internal debate engine.
 
 ---
 
-## Journey 6 â€” Multi-Capability
+## Journey 4 — Research Assistant
 
-**Goal:** Build an ISP from concept to deployment plan.
+**Tujuan:** Meneliti sebuah topik dan mendapatkan ringkasan dengan sitasi.
 
-**Steps:**
-1. User describes goal in natural language
-2. AI classifies intent and selects multiple Capability Packs
-3. AI creates execution plan
-4. AI executes each stage:
-   - Research: market and best practices
-   - Network: design topology
-   - DevOps: infrastructure plan
-   - Code: billing system design
-   - Self Development: deployment proposal
-> Terjemahan Indonesia: Research: market dan best practices Network: design topology DevOps: infrastructure plan Code: billing sistem design Self Development: penyebaran proposal
-5. AI presents integrated plan
-6. User can drill into each section
-7. User approves overall plan
-8. AI executes with progress indication
+**Langkah:**
+1. Buka Workspace
+2. Ajukan pertanyaan riset
+3. AI mengambil sumber yang relevan
+4. AI memeringkat kualitas evidence
+5. AI mendeteksi kontradiksi antar sumber
+6. AI menyintesis findings
+7. AI menyajikan ringkasan dengan sitasi
+8. Pengguna dapat meminta analisis lebih dalam
 
-**User sees:** Single coherent plan, progress per stage, results per capability, integrated documentation.
-**User does NOT see:** Capability Pack routing, cross-pack communication, task decomposition logic.
+**Yang dilihat pengguna:** Ringkasan riset, sitasi dengan provenance, estimasi confidence, catatan kontradiksi.
+**Yang TIDAK dilihat pengguna:** Detail retrieval RAG, skor similarity embedding, algoritma peringkat sumber.
 
 ---
 
-## Journey 7 â€” Goal Execution
+## Journey 5 — Self Development
 
-**Goal:** Complex end-to-end execution from a single goal statement.
+**Tujuan:** Mengaudit sebuah proyek dan menerapkan perbaikan.
 
-**Steps:**
-1. User states a goal: "Bangun aplikasi Inventory."
-2. AI understands the goal and breaks it into phases
-3. AI presents execution plan with estimates
-4. User approves
-5. AI executes:
+**Langkah:**
+1. Buka Workspace
+2. Minta audit proyek
+3. AI menganalisis struktur proyek
+4. AI mengidentifikasi bottleneck dan isu
+5. AI menyajikan findings dengan severity
+6. Pengguna menyetujui proposal
+7. AI menghasilkan patch
+8. AI menjalankan test
+9. AI menyajikan proposal, patch, dan hasil test
+10. Pengguna menyetujui penerapan
+11. AI menerapkan perubahan
+
+**Yang dilihat pengguna:** Analisis proyek, daftar isu, proposal, patch diff, hasil test, konfirmasi penerapan.
+**Yang TIDAK dilihat pengguna:** Internal analisis arsitektur, algoritma deteksi code smell, logika generasi patch.
+
+---
+
+## Journey 6 — Multi-Capability
+
+**Tujuan:** Membangun ISP dari konsep hingga rencana deployment.
+
+**Langkah:**
+1. Pengguna mendeskripsikan tujuan dalam bahasa alami
+2. AI mengklasifikasikan intent dan memilih beberapa Capability Pack
+3. AI membuat rencana eksekusi
+4. AI mengeksekusi setiap tahap:
+   - Research: market dan best practices
+   - Network: desain topologi
+   - DevOps: rencana infrastruktur
+   - Code: desain sistem billing
+   - Self Development: proposal deployment
+5. AI menyajikan rencana terintegrasi
+6. Pengguna dapat menelusuri setiap section
+7. Pengguna menyetujui rencana keseluruhan
+8. AI mengeksekusi dengan indikasi progress
+
+**Yang dilihat pengguna:** Satu rencana yang koheren, progress per tahap, hasil per capability, dokumentasi terintegrasi.
+**Yang TIDAK dilihat pengguna:** Routing Capability Pack, komunikasi antar pack, logika dekomposisi task.
+
+---
+
+## Journey 7 — Goal Execution
+
+**Tujuan:** Eksekusi end-to-end yang kompleks dari satu pernyataan tujuan.
+
+**Langkah:**
+1. Pengguna menyatakan tujuan: "Bangun aplikasi Inventory."
+2. AI memahami tujuan dan memecahnya menjadi phase
+3. AI menyajikan rencana eksekusi dengan estimasi
+4. Pengguna menyetujui
+5. AI mengeksekusi:
    - Requirement gathering
    - Architecture design
    - Database design
@@ -178,38 +158,35 @@ For full UX specifications, see `docs/UX_DESIGN.md`.
    - Frontend implementation
    - Testing
    - Documentation
-> Terjemahan Indonesia: Requirement gathering arsitektur design Database design Backend implementation Frontend implementation Testing dokumentasi
-6. AI shows real-time progress
-7. AI delivers complete, verified result
+6. AI menampilkan progress real-time
+7. AI mengirimkan hasil yang lengkap dan terverifikasi
 
-**User sees:** One goal, one plan, one result.
-**User does NOT see:** Task decomposition, worker selection, scheduling, retries, verification loops.
-
----
-
-## Design Principles
-
-All journeys must follow these principles:
-> Terjemahan Indonesia: Semua perjalanan harus mengikuti prinsip-prinsip berikut:
-
-1. **One conversation:** User never selects a Capability Pack manually.
-2. **No internal exposure:** Users never see Workers, Runtimes, Planners, or internal data structures.
-3. **Progress transparency:** Long-running tasks show human-readable progress.
-4. **Approval before action:** Irreversible actions require explicit user approval.
-5. **Artifact persistence:** All significant outputs are saved and retrievable.
-6. **Explainability on demand:** User can ask "why" at any time.
+**Yang dilihat pengguna:** Satu tujuan, satu rencana, satu hasil.
+**Yang TIDAK dilihat pengguna:** Dekomposisi task, pemilihan worker, penjadwalan, retry, verification loop.
 
 ---
 
-## Validation
+## Prinsip Desain
 
-Every new feature or change must be validated against:
-> Terjemahan Indonesia: Every new feature or change must menjadi validated against:
-1. Does it preserve the one-conversation experience?
-2. Does it hide internal mechanisms from the user?
-3. Does it maintain progress transparency?
-4. Does it respect the approval workflow?
-5. Does it persist artifacts?
+Semua journeys harus mengikuti prinsip-prinsip berikut:
 
-If any answer is "no", the feature must be redesigned before release.
-> Terjemahan Indonesia: If any answer adalah "no", feature must menjadi redesigned before rilis.
+1. **Satu percakapan:** Pengguna tidak pernah memilih Capability Pack secara manual.
+2. **Tanpa eksposur internal:** Pengguna tidak pernah melihat Workers, Runtimes, Planners, atau struktur data internal.
+3. **Transparansi progress:** Tugas berdurasi panjang menampilkan progress yang dapat dibaca manusia.
+4. **Persetujuan sebelum tindakan:** Tindakan ireversibel memerlukan persetujuan eksplisit pengguna.
+5. **Persistensi artifact:** Semua output signifikan disimpan dan dapat diambil kembali.
+6. **Explainability sesuai permintaan:** Pengguna dapat bertanya "mengapa" kapan saja.
+
+---
+
+## Validasi
+
+Setiap fitur atau perubahan baru harus divalidasi terhadap:
+1. Apakah mempertahankan pengalaman satu percakapan?
+2. Apakah menyembunyikan mekanisme internal dari pengguna?
+3. Apakah menjaga transparansi progress?
+4. Apakah menghormati workflow persetujuan?
+5. Apakah mempersist artifacts?
+
+Jika ada jawaban "tidak", fitur harus didesain ulang sebelum rilis.
+

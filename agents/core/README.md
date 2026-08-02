@@ -1,39 +1,33 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
-### Ringkasan / Summary
+### Ringka / Ringka
 
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `agents/core/README.md`
+### Informasi Dokumen / Info Dokumen
+- Berkas: `agents/core/README.md`
 - Judul: Readme
-- Status: bilingual header added
+- Status: editor bilingual ditambahkan
 
-<!-- BILINGUAL_DOCS_END -->
 
-# Core Agents (Phase 1)
+# Agen Inti (Fase 1)
 
-These are the 10 core agents implemented in Phase 1:
-> Terjemahan Indonesia: These adalah 10 core agen implemented dalam Phase 1:
+Berikut adalah 10 agen inti yang diterapkan pada Fase 1:
 
-1. **Planner** - Analyzes requests and creates structured plans
-2. **Coding Agent** - Writes and reviews code in multiple languages
-3. **Research Agent** - Gathers information from web and documents
-4. **Data Agent** - Handles databases, data analysis, and migrations
-5. **UI Agent** - Designs and builds user interfaces
-6. **Trading Agent** - Analyzes markets and executes trades
-7. **Network Agent** - Configures networking and security
-8. **Writer Agent** - Creates documentation and content
-9. **QA Agent** - Tests and validates outputs
-10. **Security Agent** - Audits code and infrastructure
-11. **Reviewer** - Reviews and merges results
+1. **Perencana** - Menganalisis permintaan dan membuat rencana terstruktur
+2. **Agen Pengkodean** - Menulis dan meninjau kode dalam berbagai bahasa
+3. **Agen Penelitian** - Mengumpulkan informasi dari web dan dokumen
+4. **Agen Data** - mengoordinasikan database, analisis data, dan migrasi
+5. **Agen UI** - Merancang dan membangun antarmuka pengguna
+6. **Agen Perdagangan** - Menganalisis pasar dan mengeksekusi perdagangan
+7. **Agen Jaringan** - Mengonfigurasi jaringan dan keamanan
+8. **Agen Penulis** - Membuat dokumentasi dan konten
+9. **Agen QA** - Menguji dan memvalidasi keluaran
+10. **Agen Keamanan** - Mengaudit kode dan infrastruktur
+11. **Reviewer** - Meninjau dan menggabungkan hasil
 
-## Usage
+## Penggunaan
 
 ```python
 from backend.app.agents.orchestrator import orchestrator

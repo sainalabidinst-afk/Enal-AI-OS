@@ -1,136 +1,114 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# RFC-0008: Capability Pack Security Engineer
 
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0008-security-engineer.md`
-- Judul: Rfc 0008 Security Engineer
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC-0008: Security Engineer Capability Pack
-
-| Field | Value |
+| Field | Nilai |
 |-------|-------|
 | **RFC ID** | RFC-0008 |
 | **Status** | Draft |
-| **Version** | 0.1.0 |
-| **Author** | Enal AI OS Core Team |
-| **Target Release** | v1.2.0 (Capability Excellence phase) |
+| **Versi** | 0.1.0 |
+| **Penulis** | Enal AI OS Core Team |
+| **Target Rilis** | v1.2.0 (fase Capability Excellence) |
 | **Capability Pack** | Security Engineer |
 | **Capability ID** | `security-engineer` |
-| **Category** | Security |
-| **Quality Target** | A- (≥85) |
-| **Maturity Target** | Level 3 — Production Ready |
-| **Reference RFC** | RFC-0008 |
+| **Kategori** | Security |
+| **Target Kualitas** | A- (≥85) |
+| **Target Maturity** | Level 3 — Production Ready |
+| **RFC Referensi** | RFC-0008 |
 
 ---
 
-## Motivation
+## Motivasi
 
-ECP's existing Capability Packs generate code, configurations, and deployments. Each produces outputs that carry security risk, but there is no dedicated security reasoning layer that systematically evaluates, detects, and remediates vulnerabilities across all artifacts.
-> Terjemahan Indonesia: ECP's existing kapabilitas Packs generate code, configurations, dan deployments. Each produces outputs itu carry keamanan risk, but there adalah no dedicated keamanan reasoning layer itu systematically evaluates, detects, dan remediates vulnerabilities across all artifacts.
+Capability Pack ECP yang ada menghasilkan kode, konfigurasi, dan deployment. Setiap pack menghasilkan output yang membawa risiko keamanan, tetapi tidak ada security reasoning layer khusus yang secara sistematis mengevaluasi, mendeteksi, dan memperbaiki kerentanan di semua artefak.
 
-Currently:
-> Terjemahan Indonesia: Saat ini:
+Saat ini:
 
-1. **Security checks are embedded** — Code Engineer has basic OWASP awareness, Network Engineer has firewall auditing, but there is no unified security framework.
-2. **Threat modeling is absent** — No systematic analysis of attack surface, trust boundaries, or threat actors before deployment.
-3. **Secret detection is ad hoc** — No centralized detection and rotation recommendation for credentials in code or configuration.
-4. **Dependency risk is not tracked** — Vulnerabilities in third-party packages are not systematically audited or correlated with exploit availability.
-5. **Compliance is not mapped** — Security findings are not tied to compliance frameworks (SOC 2, ISO 27001, HIPAA, PCI-DSS).
+1. **Pemeriksaan keamanan bersifat embedded** — Code Engineer memiliki kesadaran OWASP dasar, Network Engineer memiliki audit firewall, tetapi tidak ada kerangka keamanan yang terpadu.
+2. **Threat modeling tidak ada** — Tidak ada analisis sistematis terhadap attack surface, trust boundaries, atau threat actors sebelum deployment.
+3. **Deteksi secret bersifat ad hoc** — Tidak ada deteksi dan rekomendasi rotasi terpusat untuk kredensial di kode atau konfigurasi.
+4. **Risiko dependensi tidak dilacak** — Kerentanan di paket pihak ketiga tidak diaudit secara sistematis atau dikorelasikan dengan ketersediaan exploit.
+5. **Kepatuhan tidak dipetakan** — Temuan keamanan tidak dikaitkan dengan kerangka kepatuhan (SOC 2, ISO 27001, HIPAA, PCI-DSS).
 
-The Security Engineer Capability Pack becomes the dedicated security layer that analyzes all ECP-generated artifacts against industry standards, detects threats and vulnerabilities, and provides remediation guidance with compliance mapping.
-> Terjemahan Indonesia: Keamanan Engineer kapabilitas Pack becomes dedicated keamanan layer itu analyzes all ECP-generated artifacts against industry standards, detects threats dan vulnerabilities, dan menyediakan remediation guidance dengan compliance mapping.
+Capability Pack Security Engineer menjadi layer keamanan khusus yang menganalisis semua artefak yang dihasilkan ECP terhadap standar industri, mendeteksi ancaman dan kerentanan, serta menyediakan panduan remediasi dengan pemetaan kepatuhan.
 
 ---
 
-## Problem Statement
+## Pernyataan Masalah
 
-Without a dedicated Security Engineer Capability Pack:
-> Terjemahan Indonesia: Without sebuah dedicated keamanan Engineer kapabilitas Pack:
+Tanpa Capability Pack Security Engineer yang khusus:
 
-- **No unified vulnerability detection** — security findings are pack-specific; SQL injection is checked by Code Engineer, firewall misconfigurations by Network Engineer, but no single view exists.
-- **OWASP Top 10 coverage is incomplete** — only a subset of issues is detected, and detection quality varies by pack.
-- **Threat modeling is manual** — no automated analysis of trust boundaries, data flow, or attack surface.
-- **No secret detection pipeline** — credentials in code, configuration, or artifacts are not systematically identified or flagged.
-- **Dependency vulnerabilities are not audited** — third-party package vulnerabilities (CVEs) are not tracked or prioritized.
-- **Compliance is not enforced** — security findings are not mapped to compliance requirements, making audit preparation manual and error-prone.
-- **False positives and negatives are not tracked per domain** — no feedback loop to improve detection precision.
+- **Tidak ada deteksi kerentanan terpadu** — temuan keamanan bersifat spesifik-pack; SQL injection diperiksa oleh Code Engineer, firewall misconfiguration oleh Network Engineer, tetapi tidak ada satu tampilan pun yang menyatukan semuanya.
+- **Cakupan OWASP Top 10 tidak lengkap** — hanya sebagian masalah yang terdeteksi, dan kualitas deteksi bervariasi antar pack.
+- **Threat modeling manual** — tidak ada analisis otomatis terhadap trust boundaries, data flow, atau attack surface.
+- **Tidak ada pipeline deteksi secret** — kredensial di kode, konfigurasi, atau artefak tidak diidentifikasi atau ditandai secara sistematis.
+- **Kerentanan dependensi tidak diaudit** — kerentanan paket pihak ketiga (CVE) tidak dilacak atau diprioritaskan.
+- **Kepatuhan tidak ditegakkan** — temuan keamanan tidak dipetakan ke persyaratan kepatuhan, membuat persiapan audit manual dan rawan kesalahan.
+- **False positive dan false negative tidak dilacak per domain** — tidak ada loop umpan balik untuk meningkatkan presisi deteksi.
 
 ---
 
-## Goals
+## Tujuan
 
-1. **OWASP Top 10 Analysis** — Detect all 10 vulnerability categories in code, configurations, and artifacts.
-2. **Threat Modeling** — Analyze system architecture for attack surface, trust boundaries, and threat actors.
-3. **Secret Detection** — Identify hardcoded secrets, credentials, API keys, and tokens across all outputs.
-4. **Vulnerability Analysis** — Detect and prioritize known vulnerabilities (CVEs) in dependencies.
-5. **Dependency Audit** — Audit third-party packages for known vulnerabilities, outdated versions, and risky licenses.
-6. **Security Review** — Perform systematic security review of generated artifacts and configurations.
-7. **Configuration Hardening** — Identify and remediate insecure configuration defaults.
-8. **Compliance Mapping** — Map findings to SOC 2, ISO 27001, HIPAA, PCI-DSS, and other compliance frameworks.
+1. **OWASP Top 10 Analysis** — Mendeteksi semua 10 kategori kerentanan di kode, konfigurasi, dan artefak.
+2. **Threat Modeling** — Menganalisis arsitektur sistem untuk attack surface, trust boundaries, dan threat actors.
+3. **Secret Detection** — Mengidentifikasi secret hardcoded, kredensial, API key, dan token di semua output.
+4. **Vulnerability Analysis** — Mendeteksi dan memprioritaskan kerentanan yang diketahui (CVE) di dependensi.
+5. **Dependency Audit** — Mengaudit paket pihak ketiga untuk kerentanan yang diketahui, versi usang, dan lisensi berisiko.
+6. **Security Review** — Melakukan review keamanan sistematis terhadap artefak dan konfigurasi yang dihasilkan.
+7. **Configuration Hardening** — Mengidentifikasi dan memperbaiki default konfigurasi yang tidak aman.
+8. **Compliance Mapping** — Memetakan temuan ke SOC 2, ISO 27001, HIPAA, PCI-DSS, dan kerangka kepatuhan lain.
 
-### Success Criteria
+### Kriteria Keberhasilan
 
-| Metric | Target | Grade |
+| Metrik | Target | Grade |
 |--------|--------|-------|
-| Detection Rate | ≥95% (all known vulnerabilities detected) | A- |
-| False Positive Rate | <5% | A- |
-| Threat Coverage | ≥90% (all defined threat categories analyzed) | A- |
-| Secret Detection | ≥95% (hardcoded secrets found) | A- |
-| Dependency CVE Coverage | ≥90% (known CVEs in dependencies identified) | A- |
-| Compliance Mapping | ≥95% (findings mapped to relevant controls) | A- |
-| Explainability | ≥90% (findings explained with remediation guidance) | A- |
-| Consistency | ≥90% (same input produces same findings across runs) | A- |
+| Tingkat Deteksi | ≥95% (semua kerentanan yang diketahui terdeteksi) | A- |
+| Tingkat False Positive | <5% | A- |
+| Cakupan Threat | ≥90% (semua kategori ancaman yang didefinisikan dianalisis) | A- |
+| Deteksi Secret | ≥95% (secret hardcoded ditemukan) | A- |
+| Cakupan CVE Dependensi | ≥90% (CVE yang diketahui di dependensi teridentifikasi) | A- |
+| Pemetaan Kepatuhan | ≥95% (temuan dipetakan ke kontrol yang relevan) | A- |
+| Explainability | ≥90% (temuan dijelaskan dengan panduan remediasi) | A- |
+| Konsistensi | ≥90% (input yang sama menghasilkan temuan yang sama di setiap run) | A- |
 
 ---
 
-## Non-Goals
+## Non-Tujuan
 
-1. **Active penetration testing against live systems** — Security Engineer analyzes outputs; it does not perform live exploitation.
-2. **Incident response execution** — Security Engineer identifies and recommends; incident response requires human execution.
-3. **Replacing dedicated security tools** — SAST/DAST tools remain the source of truth; Security Engineer provides orchestration and correlation.
-4. **Vulnerability disclosure** — Security Engineer does not disclose vulnerabilities externally.
-5. **Core modification** — All implementation resides within the Security Engineer Capability Pack.
+1. **Penetration testing aktif terhadap sistem langsung** — Security Engineer menganalisis output; ia tidak melakukan eksploitasi langsung.
+2. **Eksekusi incident response** — Security Engineer mengidentifikasi dan merekomendasikan; incident response memerlukan eksekusi manusia.
+3. **Menggantikan alat keamanan khusus** — Alat SAST/DAST tetap menjadi sumber kebenaran; Security Engineer menyediakan orkestrasi dan korelasi.
+4. **Pengungkapan kerentanan** — Security Engineer tidak mengungkapkan kerentanan secara eksternal.
+5. **Modifikasi Core** — Semua implementasi berada di dalam Capability Pack Security Engineer.
 
 ---
 
-## Capability Scope
+## Scope Kapabilitas
 
-### Core Capabilities
+### Kapabilitas Inti
 
-| Capability | Description | Inputs | Outputs |
+| Kapabilitas | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| OWASP Top 10 Analysis | Detect injection, XSS, SSRF, CSRF, broken auth, etc. in code and configs | Source code, API specs, configuration files | Finding list with severity, OWASP category, remediation |
-| Threat Modeling | Analyze architecture for attack surface, trust boundaries, data flows | Architecture diagrams, data flow descriptions | Threat model with STRIDE analysis |
-| Secret Detection | Identify hardcoded secrets, credentials, API keys, tokens | Code, configs, environment files, CI/CD pipelines | Secret findings with type, severity, rotation guidance |
-| Vulnerability Analysis | Detect known vulnerabilities in application code | Source code, dependency manifests | Vulnerability report with CVE references |
-| Dependency Audit | Audit third-party packages for CVEs, outdated versions, license risks | dependency manifests (requirements.txt, package-lock.json, etc.) | Dependency report with CVEs, upgrade paths, licenses |
-| Security Review | Systematic review of artifacts for security posture | Generated artifacts, configurations, code | Security review report with prioritized findings |
-| Configuration Hardening | Identify insecure defaults and recommend hardening | Configuration files, security baselines | Hardening recommendations mapped to benchmarks |
-| Compliance Mapping | Map findings to compliance frameworks | Security findings, compliance requirements | Compliance mapping report |
+| OWASP Top 10 Analysis | Mendeteksi injection, XSS, SSRF, CSRF, broken auth, dll. di kode dan konfigurasi | Source code, API spec, file konfigurasi | Daftar temuan dengan severity, kategori OWASP, remediasi |
+| Threat Modeling | Menganalisis arsitektur untuk attack surface, trust boundaries, data flows | Diagram arsitektur, deskripsi data flow | Model ancaman dengan analisis STRIDE |
+| Secret Detection | Mengidentifikasi secret hardcoded, kredensial, API key, token | Kode, konfigurasi, file lingkungan, pipeline CI/CD | Temuan secret dengan tipe, severity, panduan rotasi |
+| Vulnerability Analysis | Mendeteksi kerentanan yang diketahui di kode aplikasi | Source code, manifest dependensi | Laporan kerentanan dengan referensi CVE |
+| Dependency Audit | Mengaudit paket pihak ketiga untuk CVE, versi usang, risiko lisensi | manifest dependensi (requirements.txt, package-lock.json, dll.) | Laporan dependensi dengan CVE, jalur upgrade, lisensi |
+| Security Review | Review sistematis artefak untuk postur keamanan | Artefak yang dihasilkan, konfigurasi, kode | Laporan review keamanan dengan temuan terprioritas |
+| Configuration Hardening | Mengidentifikasi default tidak aman dan merekomendasikan hardening | File konfigurasi, baseline keamanan | Rekomendasi hardening yang dipetakan ke benchmark |
+| Compliance Mapping | Memetakan temuan ke kerangka kepatuhan | Temuan keamanan, persyaratan kepatuhan | Laporan pemetaan kepatuhan |
 
 ### Out of Scope
 
-- Live exploit execution
-- Production incident response
-- Vulnerability disclosure to vendors
-- Security orchestration and automated response (SOAR)
-- Network penetration testing against live infrastructure
-- Hardware security module operations
+- Eksekusi exploit langsung
+- Incident response produksi
+- Pengungkapan kerentanan kepada vendor
+- Orkestrasi keamanan dan respons otomatis (SOAR)
+- Penetration testing jaringan terhadap infrastruktur langsung
+- Operasi hardware security module
 
 ---
 
-## Public Contracts
+## Kontrak Publik
 
 ### Input Contract: Security Assessment Request
 
@@ -220,7 +198,7 @@ Without a dedicated Security Engineer Capability Pack:
 }
 ```
 
-### Security Findings (Experience Memory)
+### Temuan Keamanan (Experience Memory)
 
 ```json
 {
@@ -244,7 +222,7 @@ Without a dedicated Security Engineer Capability Pack:
 
 ---
 
-## Integration Points (Capability Graph)
+## Titik Integrasi (Capability Graph)
 
 ```
 Consumer Capability Pack (Code Engineer, Network Engineer, DevOps Assistant)
@@ -277,45 +255,44 @@ Consumer Capability Pack
 User / Human Approval Loop
 ```
 
-### Task Template
+### Template Tugas
 
-| Task | Subtasks |
+| Tugas | Subtugas |
 |------|----------|
 | Security Assessment | Target analysis → OWASP scan → Secret detection → Dependency audit → Threat modeling → Vulnerability analysis → Hardening review → Compliance mapping → Report |
 
 ---
 
-## Consumer Capability Packs
+## Capability Pack Konsumen
 
-| Consumer Capability Pack | Use Case |
+| Capability Pack Konsumen | Use Case |
 |--------------------------|----------|
-| **Code Engineer** | Security review of generated code, OWASP scanning, secret detection in source |
-| **DevOps Assistant** | Security audit of generated configurations, container hardening, CI/CD security |
-| **Network Engineer** | Security review of network configurations, firewall policy analysis, compliance auditing |
-| **System Architect** | Threat modeling for architecture proposals, security-by-design validation |
+| **Code Engineer** | Review keamanan kode yang dihasilkan, pemindaian OWASP, deteksi secret di source |
+| **DevOps Assistant** | Audit keamanan konfigurasi yang dihasilkan, container hardening, keamanan CI/CD |
+| **Network Engineer** | Review keamanan konfigurasi jaringan, analisis firewall policy, audit kepatuhan |
+| **System Architect** | Threat modeling untuk proposal arsitektur, validasi security-by-design |
 
 ---
 
-## Dependencies
+## Dependensi
 
-### Internal Dependencies (Shared Contracts)
+### Dependensi Internal (Shared Contracts)
 
-1. **Execution Runtime** — Task routing and orchestration (per ADR-002)
-2. **Experience Memory** — Security findings persistence (per ADR-011)
-3. **Shared Contracts** — Task/Intent definition and result schema (per ADR-006)
+1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+2. **Experience Memory** — Persistensi temuan keamanan (sesuai ADR-011)
+3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
 
-### External Knowledge Bases
+### Basis Pengetahuan Eksternal
 
-1. **OWASP Top 10 (2021)** — Vulnerability classification
-2. **CWE (Common Weakness Enumeration)** — Weakness taxonomy
-3. **CVE Database** — Known vulnerability references
-4. **CIS Benchmarks** — Configuration hardening baselines
-5. **Compliance frameworks** — SOC 2, ISO 27001, HIPAA, PCI-DSS, NIST-CSF
+1. **OWASP Top 10 (2021)** — Klasifikasi kerentanan
+2. **CWE (Common Weakness Enumeration)** — Taksonomi kelemahan
+3. **CVE Database** — Referensi kerentanan yang diketahui
+4. **CIS Benchmarks** — Baseline hardening konfigurasi
+5. **Kerangka kepatuhan** — SOC 2, ISO 27001, HIPAA, PCI-DSS, NIST-CSF
 
-### No Core Changes Required
+### Tidak Ada Perubahan Core yang Diperlukan
 
-All implementation resides within the Security Engineer Capability Pack:
-> Terjemahan Indonesia: All implementation resides within keamanan Engineer kapabilitas Pack:
+Semua implementasi berada di dalam Capability Pack Security Engineer:
 
 ```
 apps/
@@ -333,90 +310,88 @@ apps/
     └── knowledge_base.py          # Security knowledge
 ```
 
-**ADR Impact:** None. No Core, Runtime, Kernel, or shared contract modification required.
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract.
 
 ---
 
-## Benchmark Specification
+## Spesifikasi Benchmark
 
-### Benchmark Framework
+### Kerangka Benchmark
 
-| Dimension | Definition | Measurement | Target |
+| Dimensi | Definisi | Pengukuran | Target |
 |-----------|------------|-------------|--------|
-| **Detection Rate** | % of known vulnerabilities detected | % of ground truth vulnerabilities found | ≥95% |
-| **False Positive Rate** | % of findings that are false alarms | False positives / total findings | <5% |
-| **Completeness** | Coverage of all security checks | % of OWASP/STRIDE/CIS checks applied | ≥90% |
-| **Explainability** | Clarity of findings and remediation | Human evaluation score | ≥90% |
-| **Safety** | No false security guarantees | % of safe findings | ≥95% |
-| **Efficiency** | Response time and resource usage | Latency P95 < 3000ms | within budget |
-| **Consistency** | Same input produces same output | Variance across 10 runs < 5% | ≥90% |
-| **Compliance Mapping** | % of findings mapped to standards | Findings mapped / total findings | ≥95% |
+| **Detection Rate** | % kerentanan yang diketahui terdeteksi | % kerentanan ground truth ditemukan | ≥95% |
+| **False Positive Rate** | % temuan yang merupakan alarm palsu | False positive / total temuan | <5% |
+| **Completeness** | Cakupan semua pemeriksaan keamanan | % pemeriksaan OWASP/STRIDE/CIS yang diterapkan | ≥90% |
+| **Explainability** | Kejelasan temuan dan remediasi | Skor evaluasi manusia | ≥90% |
+| **Safety** | Tidak ada jaminan keamanan palsu | % temuan yang aman | ≥95% |
+| **Efficiency** | Waktu respons dan penggunaan sumber daya | Latency P95 < 3000ms | dalam anggaran |
+| **Consistency** | Input yang sama menghasilkan output yang sama | Varian di 10 run < 5% | ≥90% |
+| **Compliance Mapping** | % temuan yang dipetakan ke standar | Temuan dipetakan / total temuan | ≥95% |
 
-### Benchmark Dataset
+### Dataset Benchmark
 
-- **100 security assessments** covering:
-  - Code: Python, JavaScript/TypeScript, SQL, Go, Java applications
-  - Configurations: Docker, Kubernetes, cloud IaC (Terraform), network configs
-  - Dependencies: Python/pip, Node/npm, Go modules, Java/Maven
-  - Architecture: microservices, monolith, serverless, hybrid
-> Terjemahan Indonesia: Code: Python, JavaScript/TypeScript, SQL, Go, Java applications Configurations: Docker, Kubernetes, cloud IaC (Terraform), network configs Dependencies: Python/pip, Node/npm, Go modules, Java/Maven arsitektur: microservices, monolith, serverless, hybrid
+- **100 penilaian keamanan** yang mencakup:
+  - Kode: aplikasi Python, JavaScript/TypeScript, SQL, Go, Java
+  - Konfigurasi: Docker, Kubernetes, cloud IaC (Terraform), konfigurasi jaringan
+  - Dependensi: Python/pip, Node/npm, Go modules, Java/Maven
+  - Arsitektur: microservices, monolith, serverless, hybrid
 
-### Benchmark Dimensions Detail
+### Detail Dimensi Benchmark
 
-| Scenario Type | Description | Ground Truth Source |
+| Tipe Skenario | Deskripsi | Sumber Ground Truth |
 |---------------|-------------|---------------------|
-| SQL Injection | Classic and blind SQLi patterns | OWASP Benchmark, DVWA |
-| Cross-Site Scripting (XSS) | Reflected, stored, DOM-based XSS | OWASP Benchmark |
-| Server-Side Request Forgery (SSRF) | SSRF to internal/external endpoints | SSRF test suites |
-| Cross-Site Request Forgery (CSRF) | Missing CSRF tokens, same-origin issues | OWASP Testing Guide |
-| Command Injection | OS command injection patterns | Injection test suites |
-| Secret Exposure | Hardcoded credentials, tokens, keys | Gitleaks, TruffleHog test data |
-| Dependency CVE | Known CVEs in third-party packages | NVD, Snyk, GitHub Advisory |
-| Configuration Hardening | Insecure defaults, missing encryption | CIS Benchmarks |
+| SQL Injection | Pola SQLi klasik dan blind | OWASP Benchmark, DVWA |
+| Cross-Site Scripting (XSS) | XSS reflected, stored, DOM-based | OWASP Benchmark |
+| Server-Side Request Forgery (SSRF) | SSRF ke endpoint internal/eksternal | SSRF test suites |
+| Cross-Site Request Forgery (CSRF) | Token CSRF hilang, masalah same-origin | OWASP Testing Guide |
+| Command Injection | Pola injection perintah OS | Injection test suites |
+| Secret Exposure | Kredensial hardcoded, token, kunci | Gitleaks, TruffleHog test data |
+| Dependency CVE | CVE yang diketahui di paket pihak ketiga | NVD, Snyk, GitHub Advisory |
+| Configuration Hardening | Default tidak aman, enkripsi hilang | CIS Benchmarks |
 
 ---
 
-## Golden Test Specification
+## Spesifikasi Golden Test
 
-| # | Scenario | Expected Outcome | Acceptance Criteria |
+| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
 |---|----------|-----------------|---------------------|
-| 1 | SQL Injection in Python code | SQLi detected with remediation | ≥95% detection, <5% FP |
-| 2 | Reflected XSS in JavaScript | XSS detected with remediation | ≥95% detection, <5% FP |
-| 3 | SSRF in API endpoint | SSRF detected with remediation | ≥95% detection, <5% FP |
-| 4 | CSRF on state-changing endpoint | CSRF detected with remediation | ≥95% detection, <5% FP |
-| 5 | Command injection in shell call | Cmd injection detected | ≥95% detection, <5% FP |
-| 6 | Hardcoded API key in config | Secret detected with rotation advice | ≥95% detection, <5% FP |
-| 7 | Dependency with known CVE | CVE identified with fix version | ≥90% detection, <5% FP |
-| 8 | Insecure Docker configuration | Hardening recommendations provided | ≥90% coverage, <5% FP |
-| 9 | Threat modeling on microservice architecture | Attack surface and threats identified | ≥90% threat coverage |
-| 10 | Compliance mapping for SOC 2 | Findings mapped to SOC 2 controls | ≥95% mapping accuracy |
+| 1 | SQL Injection di kode Python | SQLi terdeteksi dengan remediasi | ≥95% deteksi, <5% FP |
+| 2 | XSS reflected di JavaScript | XSS terdeteksi dengan remediasi | ≥95% deteksi, <5% FP |
+| 3 | SSRF di endpoint API | SSRF terdeteksi dengan remediasi | ≥95% deteksi, <5% FP |
+| 4 | CSRF pada endpoint pengubah state | CSRF terdeteksi dengan remediasi | ≥95% deteksi, <5% FP |
+| 5 | Command injection di panggilan shell | Injection command terdeteksi | ≥95% deteksi, <5% FP |
+| 6 | API key hardcoded di konfigurasi | Secret terdeteksi dengan saran rotasi | ≥95% deteksi, <5% FP |
+| 7 | Dependensi dengan CVE yang diketahui | CVE teridentifikasi dengan versi perbaikan | ≥90% deteksi, <5% FP |
+| 8 | Konfigurasi Docker tidak aman | Rekomendasi hardening disediakan | ≥90% cakupan, <5% FP |
+| 9 | Threat modeling pada arsitektur microservice | Attack surface dan ancaman teridentifikasi | ≥90% cakupan threat |
+| 10 | Pemetaan kepatuhan untuk SOC 2 | Temuan dipetakan ke kontrol SOC 2 | ≥95% akurasi pemetaan |
 
-### Golden Test Acceptance Criteria
+### Kriteria Penerimaan Golden Test
 
-- All 10 golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
-- Overall Security Engineer golden test pass rate ≥90%
-- False positive rate <5% across all scenarios
-- Full remediation guidance generated for every finding
+- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu (100% pass)
+- Tingkat kelulusan golden test Security Engineer keseluruhan ≥90%
+- Tingkat false positive <5% di semua skenario
+- Panduan remediasi lengkap dihasilkan untuk setiap temuan
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-### Real Case Directory
+### Direktori Real Case
 
-`real_cases/security_engineer/` must contain:
-> Terjemahan Indonesia: Real_cases/security_engineer/ must contain:
+`real_cases/security_engineer/` harus berisi:
 
-| Requirement | Minimum Count |
+| Persyaratan | Jumlah Minimum |
 |-------------|---------------|
-| Real security assessments from actual usage | 20 |
-| Cases with secret exposure findings | 5 |
-| Cases with dependency CVE findings | 5 |
-| Cases with compliance mapping (SOC 2/ISO 27001) | 10 |
-| Cases with threat modeling | 10 |
-| Cases with expert review/validation | 15 |
+| Penilaian keamanan nyata dari penggunaan aktual | 20 |
+| Kasus dengan temuan secret exposure | 5 |
+| Kasus dengan temuan CVE dependensi | 5 |
+| Kasus dengan pemetaan kepatuhan (SOC 2/ISO 27001) | 10 |
+| Kasus dengan threat modeling | 10 |
+| Kasus dengan review/validasi ahli | 15 |
 
-### Real Case Structure
+### Struktur Real Case
 
 ```
 real_cases/security_engineer/<case_id>/
@@ -430,13 +405,13 @@ real_cases/security_engineer/<case_id>/
 └── evaluation.md               # Ground truth, expert review, lessons learned
 ```
 
-### Real Case Targets
+### Target Real Case
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Real cases logged | ≥20 (Level 3) → ≥100 (Level 4) |
-| Real case quality score (expert review) | ≥90% |
-| Findings validated by human reviewer | ≥80% |
+| Kasus nyata yang dicatat | ≥20 (Level 3) → ≥100 (Level 4) |
+| Skor kualitas kasus nyata (review ahli) | ≥90% |
+| Temuan divalidasi oleh reviewer manusia | ≥80% |
 
 ---
 
@@ -503,119 +478,118 @@ Release Notes
 
 ---
 
-## Risks
+## Risiko
 
-| Risk | Impact | Likelihood | Mitigation |
+| Risiko | Dampak | Kemungkinan | Mitigasi |
 |------|--------|------------|------------|
-| High false positive rate undermines trust | High — users ignore findings | Medium | Continuous calibration on 100 assessments; FP feedback loop |
-| False negatives (missed vulns) create false security | Critical — production breach | Medium | Multi-source scanning; confidence scoring; human-in-loop validation |
-| Dependency on external CVE databases (availability) | Medium — stale vulnerability data | Low | Local cache with TTL; fallback to last-known CVE data |
-| Threat modeling over-fits to known patterns | Medium — misses novel attacks | Medium | Pattern-based + heuristic analysis; regular model updates |
-| Compliance mapping lags behind framework updates | Low — stale compliance data | High | Quarterly compliance framework sync; version tracking |
-| Scan latency on large codebases | Medium — blocks developer workflow | High | Incremental scanning; parallel analysis; caching |
-| Secret detection produces false positives on test data | Medium — reduces signal quality | High | Context-aware detection (test vs. prod paths); allowlist support |
+| Tingkat false positive tinggi merusak kepercayaan | Tinggi — pengguna mengabaikan temuan | Sedang | Kalibrasi berkelanjutan pada 100 penilaian; loop umpan balik FP |
+| False negative (kerentanan terlewat) menciptakan rasa aman palsu | Kritis — pelanggaran produksi | Sedang | Pemindaian multi-sumber; confidence scoring; validasi human-in-loop |
+| Ketergantungan pada database CVE eksternal (ketersediaan) | Sedang — data kerentanan basi | Rendah | Cache lokal dengan TTL; fallback ke data CVE terakhir yang diketahui |
+| Threat modeling terlalu berfokus pada pola yang diketahui | Sedang — melewatkan serangan baru | Sedang | Analisis berbasis pola + heuristik; pembaruan model rutin |
+| Pemetaan kepatuhan tertinggal dari pembaruan kerangka | Rendah — data kepatuhan basi | Tinggi | Sinkronisasi kerangka kepatuhan triwulanan; pelacakan versi |
+| Latensi pemindaian pada codebase besar | Sedang — memblokir alur kerja developer | Tinggi | Pemindaian inkremental; analisis paralel; caching |
+| Deteksi secret menghasilkan false positive pada data test | Sedang — menurunkan kualitas sinyal | Tinggi | Deteksi sadar konteks (jalur test vs prod); dukungan allowlist |
 
 ---
 
-## ADR Impact
+## Dampak ADR
 
-**Does this require Core changes?** No.
+**Apakah ini memerlukan perubahan Core?** Tidak.
 
-Security Engineer is a **new Capability Pack** that follows the established patterns:
-> Terjemahan Indonesia: Keamanan Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
+Security Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
-- **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/security_engineer/`.
-- **ADR-002 (Capability Pack Independence):** Security Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
-- **ADR-003 (Worker = Adapter Only):** A thin Worker routes tasks to the Domain Engine.
-- **ADR-004 (Domain Engine Owns Business Logic):** All security analysis logic resides in `apps/security_engineer/engine.py`.
-- **ADR-005 (Human Approval Required):** Assessments are recommendations; remediation requires explicit user approval.
-- **ADR-006 (Capability Contract v1 Frozen):** Uses the existing Capability Contract for node and subtask template registration. No contract changes.
-- **ADR-007 (Conversation Boundary):** Security Engineer is invoked through Execution Runtime, not directly by Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Not applicable — no Core changes.
+- **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/security_engineer/`.
+- **ADR-002 (Capability Pack Independence):** Security Engineer berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
+- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-004 (Domain Engine Owns Business Logic):** Semua logika analisis keamanan berada di `apps/security_engineer/engine.py`.
+- **ADR-005 (Human Approval Required):** Penilaian adalah rekomendasi; remediasi memerlukan persetujuan eksplisit pengguna.
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Conversation Boundary):** Security Engineer dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR Required:** None. This is a new Capability Pack, not a Core modification.
-
----
-
-## Rollout Plan
-
-### Phase 1: Prototype (RFC → Experimental)
-
-**Duration:** 5 weeks
-
-- [ ] Create `apps/security_engineer/` package structure
-- [ ] Implement OWASP Top 10 analyzer (SQLi, XSS patterns)
-- [ ] Implement basic secret detection
-- [ ] Define public contracts (Assessment Request, Report)
-- [ ] Implement thin Worker adapter
-- [ ] Create 10 golden test scenarios (core attack types)
-- [ ] Integration: Code Engineer → Security Engineer (code scan)
-- [ ] Integration: Network Engineer → Security Engineer (config audit)
-- **Gate:** 10 golden tests pass at ≥80%
-
-### Phase 2: Full Capabilities (Experimental → Stable)
-
-**Duration:** 8 weeks
-
-- [ ] Implement Threat Modeling (STRIDE analysis)
-- [ ] Implement Dependency Audit (pip, npm, Go, Maven)
-- [ ] Implement Vulnerability Analysis (CVE correlation)
-- [ ] Implement Configuration Hardening (CIS baselines)
-- [ ] Implement Compliance Mapping (SOC 2, ISO 27001)
-- [ ] Expand golden tests to 10 full scenarios
-- [ ] Log ≥20 real cases from Code Engineer and Network Engineer usage
-- [ ] **Benchmark:** 100 assessments, ≥95% detection, <5% FP
-- [ ] **Integration:** DevOps Assistant starts using Security Engineer for CI/CD security
-- **Gate:** All 10 golden tests pass at ≥90%; benchmark ≥95% detection
-
-### Phase 3: Ecosystem (Stable → Certified)
-
-**Duration:** 6 weeks
-
-- [ ] All 3 consumer packs fully integrated
-- [ ] Compliance mapping validated by expert review
-- [ ] Dependency audit integrated with real CVE databases
-- [ ] Independent audit of detection accuracy and FP rate
-- [ ] Public benchmark dashboard available
-- [ ] **Benchmark:** ≥95% detection, <5% FP sustained
-- [ ] **Real Cases:** ≥100 cases with ≥80% expert validation
-- **Gate:** Independent audit passed; benchmark ≥95% sustained
+**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Future Enhancements
+## Rencana Rollout
 
-### Fase 2 (Post-v1.0.0 Release)
+### Fase 1: Prototipe (RFC → Experimental)
 
-1. **Interactive Application Security Testing (IAST)** — Runtime security analysis during testing
-2. **Software Composition Analysis (SCA) Deep Integration** — Real-time dependency monitoring with exploit prediction scoring (EPSS)
-3. **Security Chokepoints** — Security checks embedded in CI/CD pipeline stages
-4. **Threat Intelligence Feed** — Correlate findings with real-time threat intelligence
+**Durasi:** 5 minggu
+
+- [ ] Membuat struktur paket `apps/security_engineer/`
+- [ ] Mengimplementasikan analyzer OWASP Top 10 (pola SQLi, XSS)
+- [ ] Mengimplementasikan deteksi secret dasar
+- [ ] Mendefinisikan kontrak publik (Assessment Request, Report)
+- [ ] Mengimplementasikan adapter Worker tipis
+- [ ] Membuat 10 skenario golden test (tipe serangan inti)
+- [ ] Integrasi: Code Engineer → Security Engineer (code scan)
+- [ ] Integrasi: Network Engineer → Security Engineer (config audit)
+- **Gate:** 10 golden test lulus pada ≥80%
+
+### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+
+**Durasi:** 8 minggu
+
+- [ ] Mengimplementasikan Threat Modeling (analisis STRIDE)
+- [ ] Mengimplementasikan Dependency Audit (pip, npm, Go, Maven)
+- [ ] Mengimplementasikan Vulnerability Analysis (korelasi CVE)
+- [ ] Mengimplementasikan Configuration Hardening (baseline CIS)
+- [ ] Mengimplementasikan Compliance Mapping (SOC 2, ISO 27001)
+- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan Network Engineer
+- [ ] **Benchmark:** 100 penilaian, ≥95% deteksi, <5% FP
+- [ ] **Integrasi:** DevOps Assistant mulai menggunakan Security Engineer untuk keamanan CI/CD
+- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥95% deteksi
+
+### Fase 3: Ekosistem (Stable → Certified)
+
+**Durasi:** 6 minggu
+
+- [ ] Ketiga pack konsumen terintegrasi penuh
+- [ ] Pemetaan kepatuhan divalidasi oleh review ahli
+- [ ] Dependency audit terintegrasi dengan database CVE nyata
+- [ ] Audit independen terhadap akurasi deteksi dan tingkat FP
+- [ ] Dashboard benchmark publik tersedia
+- [ ] **Benchmark:** ≥95% deteksi, <5% FP berkelanjutan
+- [ ] **Real Cases:** ≥100 kasus dengan ≥80% validasi ahli
+- **Gate:** Audit independen lulus; benchmark ≥95% berkelanjutan
+
+---
+
+## Peningkatan di Masa Depan
+
+### Fase 2 (Pasca-Rilis v1.0.0)
+
+1. **Interactive Application Security Testing (IAST)** — Analisis keamanan runtime selama testing
+2. **Software Composition Analysis (SCA) Deep Integration** — Pemantauan dependensi real-time dengan scoring prediksi exploit (EPSS)
+3. **Security Chokepoints** — Pemeriksaan keamanan tertanam di tahap pipeline CI/CD
+4. **Threat Intelligence Feed** — Mengorelasikan temuan dengan threat intelligence real-time
 
 ### Fase 3 (Enterprise)
 
-1. **Automated Remediation** — Auto-fix low-risk findings with human approval (per ADR-005)
-2. **Regulatory Reporting** — Generate audit-ready compliance reports for SOC 2, ISO 27001, HIPAA
-3. **Security Scorecard** — Aggregate security posture across all projects and workspaces
-4. **Adversarial Simulation** — Red-team style scenario generation against own architecture
+1. **Automated Remediation** — Auto-perbaikan temuan berisiko rendah dengan persetujuan manusia (sesuai ADR-005)
+2. **Regulatory Reporting** — Menghasilkan laporan kepatuhan siap-audit untuk SOC 2, ISO 27001, HIPAA
+3. **Security Scorecard** — Mengagregasi postur keamanan di semua proyek dan workspace
+4. **Adversarial Simulation** — Generasi skenario gaya red-team terhadap arsitektur sendiri
 
-### Long-term
+### Jangka Panjang
 
-1. **Security-by-Design Advisor** — Security guidance integrated into architecture and code design from the start
-2. **Vulnerability Prediction** — ML-based prediction of security hotspots before code is written
-3. **Security Knowledge Graph** — Link findings, CVEs, threats, and compliance controls in a unified graph
-4. **Cross-Workspace Threat Intelligence** — Aggregate anonymized threat data across workspaces (with privacy controls)
+1. **Security-by-Design Advisor** — Panduan keamanan terintegrasi ke dalam desain arsitektur dan kode sejak awal
+2. **Vulnerability Prediction** — Prediksi berbasis ML terhadap hotspot keamanan sebelum kode ditulis
+3. **Security Knowledge Graph** — Menautkan temuan, CVE, ancaman, dan kontrol kepatuhan dalam satu grafik terpadu
+4. **Cross-Workspace Threat Intelligence** — Mengagregasi data ancaman anonim lintas workspace (dengan kontrol privasi)
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-*(See [Real Case Requirements](#real-case-requirements) section above for full specification)*
+*(Lihat bagian [Persyaratan Real Case](#persyaratan-real-case) di atas untuk spesifikasi lengkap)*
 
-Security Engineer real cases are sourced from:
-> Terjemahan Indonesia: Keamanan Engineer real cases adalah sourced dari:
+Real case Security Engineer bersumber dari:
 
-1. **Code Engineer** — Generated code security reviews with post-fix validation
-2. **Network Engineer** — Configuration audits with compliance verification
-3. **DevOps Assistant** — CI/CD pipeline security scans with post-deployment verification
-4. **System Architect** — Architecture threat modeling with design review feedback
+1. **Code Engineer** — Review keamanan kode yang dihasilkan dengan validasi pasca-perbaikan
+2. **Network Engineer** — Audit konfigurasi dengan verifikasi kepatuhan
+3. **DevOps Assistant** — Pemindaian keamanan pipeline CI/CD dengan verifikasi pasca-deployment
+4. **System Architect** — Threat modeling arsitektur dengan umpan balik design review
+

@@ -1,29 +1,10 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/AI_PLANNER.md`
-- Judul: Ai Planner
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
 # AI Planner
 
-## Overview
+## Ringkasan
 
-AI Planner adalah layer strategis yang membuat rencana eksekusi multi-langkah dari goal/vision tingkat tinggi. Planner menggunakan WorkflowCatalog, IntentResolver, TaskPlanner, dan CapabilityGraph untuk menyusun rencana yang optimal.
-> Terjemahan Indonesia: AI Planner adalah lapisan strategi yang membuat rencana eksekusi multi-langkah dari tujuan/visi tingkat tinggi. Planner menggunakan WorkflowCatalog, IntentResolver, TaskPlanner, dan CapabilityGraph untuk menyusun rencana yang optimal.
+AI Planner adalah lapisan strategi yang membuat rencana eksekusi multi-langkah dari tujuan/visi tingkat tinggi. Planner menggunakan WorkflowCatalog, IntentResolver, TaskPlanner, dan CapabilityGraph untuk menyusun rencana yang optimal.
 
-## Flow
+## Alur
 
 ```
 Goal / Vision
@@ -44,57 +25,58 @@ AIPlanner.execute_plan(plan_id, executor)
 WorkflowExecutor → Pipeline → Engine
 ```
 
-## Data Structures
+## Struktur Data
 
 ### PlanStep
-- `step_id`: Unique identifier
+- `step_id`: Pengidentifikasi unik
 - `step_type`: WORKFLOW, CAPABILITY, SUB_PLAN, DECISION, PARALLEL
-- `description`: Human-readable description
-- `workflow_id`: Workflow to execute (if type==WORKFLOW)
-- `capability_id`: Capability to execute (if type==CAPABILITY)
-- `input_data`: Input for this step
-- `depends_on`: List of step_ids that must complete first
+- `description`: Deskripsi yang dapat dibaca manusia
+- `workflow_id`: Workflow yang akan dijalankan (jika type==WORKFLOW)
+- `capability_id`: Capability untuk dieksekusi (jika type==CAPABILITY)
+- `input_data`: Input untuk langkah ini
+- `depends_on`: Daftar step_id yang harus diselesaikan terlebih dahulu
 - `status`: DRAFT → READY → IN_PROGRESS → COMPLETED/FAILED
 
 ### AIPlan
-- `plan_id`: Unique identifier
-- `goal`: Original goal description
-- `steps[]`: Ordered execution steps
-- `status`: READY → IN_PROGRESS → COMPLETED/FAILED/CANCELLED
+- `plan_id`: Pengidentifikasi unik
+- `goal`: Deskripsi tujuan asli
+- `steps[]`: Langkah-langkah eksekusi yang diurutkan
+- `status`: READY → IN_PROGRESS → COMPLETED/FAILED/CANCELED
 - `progress`: 0.0 - 1.0
-- `estimated_duration_minutes`: Estimated total time
+- `estimated_duration_minutes`: Estimasi total waktu
 
-## Usage
+## Penggunaan
 
 ```python
 from apps.organization.ai_planner import ai_planner
 
-# Create plan from goal
+# Buat rencana dari tujuan
 plan = ai_planner.plan_from_goal(
     "Audit network security and generate compliance report"
 )
 
-# Create plan with explicit workflows
+# Buat rencana dengan workflow eksplisit
 plan = ai_planner.plan_with_workflows(
     "Security workflow",
     workflow_ids=["network-audit-flow", "docs-generation-flow"]
 )
 
-# Execute plan
+# Eksekusi rencana
 from apps.organization.workflow_executor import workflow_executor
 result = await ai_planner.execute_plan(plan.plan_id, workflow_executor)
 
-# Get summary
+# Dapatkan ringkasan
 summary = ai_planner.get_plan_summary(plan.plan_id)
 
-# Cancel plan
+# Batalkan rencana
 ai_planner.cancel_plan(plan.plan_id)
 ```
 
 ## Telemetry Events
 
-- `PlanCreated`: When a plan is created
-- `PlanStepAssigned`: When a step is assigned for execution
-- `PlanExecutionStarted`: When plan execution begins
-- `PlanCompleted`: When all steps complete
-- `PlanFailed`: When a step fails
+- `PlanCreated`: Saat rencana dibuat
+- `PlanStepAssigned`: Ketika sebuah langkah ditetapkan untuk eksekusi
+- `PlanExecutionStarted`: Ketika eksekusi rencana dimulai
+- `PlanCompleted`: Ketika semua langkah selesai
+- `PlanFailed`: Ketika suatu langkah gagal
+

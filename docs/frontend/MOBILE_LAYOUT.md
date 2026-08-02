@@ -1,133 +1,114 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/MOBILE_LAYOUT.md`
-- Judul: Mobile Layout
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Mobile Layout
+﻿# Tata Letak Seluler
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for MOBILE_LAYOUT
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk MOBILE_LAYOUT
 <!-- DOCUMENT_METADATA_END -->
 
-This document defines responsive behavior for v1 screens. Mobile is a first-class target, not an afterthought.
-> Terjemahan Indonesia: Ini dokumen defines responsive behavior untuk v1 screens. Mobile adalah sebuah first-class target, not sebuah afterthought.
+Dokumen ini mendefinisikan perilaku responsif untuk layar v1. Mobile adalah target kelas utama, bukan pemikiran kedua.
 
 ---
 
-## Breakpoints
+## Titik henti sementara
 
-| Name | Width | Layout |
+|Nama|Lebaran|Tata Letak|
 |------|-------|--------|
-| Mobile | < 640px | Full-screen panels, bottom navigation |
-| Tablet | 640px - 1024px | Collapsible sidebar, wider panels |
-| Desktop | > 1024px | Fixed sidebar, multi-panel layout |
+|Seluler|<640 piksel|Panel layar penuh, navigasi bawah|
+|Tablet|640 piksel - 1024 piksel|Sidebar yang dapat dilipat, panel lebih lebar|
+|Desktop|> 1024 piksel|Memperbaiki sidebar, tata letak multi-panel|
 
 ---
 
-## Screen Behaviors
+## Layar Perilaku
 
-### Chat
+### Mengobrol
 
-| Behavior | Mobile | Tablet | Desktop |
+|Perilaku|Seluler|Tablet|Desktop|
 |----------|--------|--------|---------|
-| Sidebar | Hidden (bottom sheet) | Collapsible left | Fixed left |
-| Message width | Full width | 90% | 70% |
-| PromptBox | Full width, bottom-fixed | Centered, bottom | Centered, bottom |
-| ProgressCard | Full width, compact | Full width | Inline with messages |
-| ArtifactCard | Full width | Full width | Inline, max 60% |
+|Bila samping|Tersembunyi (lembar bawah)|Kiri yang bisa dilipat|Perbaiki ke kiri|
+|pesan lebaran|Lebaran penuh|90%|70%|
+|Kotak Prompt|Lebar penuh, tetap di bawah|Tengah, bawah|Tengah, bawah|
+|Kartu Kemajuan|Lebar penuh, kompak|Lebaran penuh|Sejalan dengan pesan|
+|Kartu Artefak|Lebaran penuh|Lebaran penuh|Sebaris, maks 60%|
 
-### Workspace
+### Ruang kerja
 
-| Behavior | Mobile | Tablet | Desktop |
+|Perilaku|Seluler|Tablet|Desktop|
 |----------|--------|--------|---------|
-| Sidebar | Bottom sheet | Collapsible left | Fixed left |
-| Tabs | Horizontal scroll | Horizontal scroll | Full tabs |
-| File list | Full width cards | List + preview | List + preview |
-| Artifact grid | 1 column | 2 columns | 3 columns |
+|Bila samping|Lembaran bawah|Kiri yang bisa dilipat|Perbaiki ke kiri|
+|tab|Gulir mendatar|Gulir mendatar|Tab penuh|
+|Daftar berkas|Kartu lebar penuh|Daftar + mengecewakan|Daftar + mengecewakan|
+|Jaringan artefak|1 kolom|2 kolom|3 kolom|
 
-### Artifact Viewer
+### Penampil Artefak
 
-| Behavior | Mobile | Tablet | Desktop |
+|Perilaku|Seluler|Tablet|Desktop|
 |----------|--------|--------|---------|
-| Layout | Full screen overlay | Split view | Split view |
-| Version selector | Bottom sheet | Inline dropdown | Inline dropdown |
-| Action buttons | Bottom bar | Top bar | Top bar |
+|Tata Letak|Hamparan layar penuh|Tampilan terpisah|Tampilan terpisah|
+|Pemilih versi|Lembaran bawah|Tarik-turun sebaris|Tarik-turun sebaris|
+|Tombol tindakan|Bila bawah|Bila atas|Bila atas|
 
-### Approval Dialog
+### Dialog Persetujuan
 
-| Behavior | Mobile | Tablet | Desktop |
+|Perilaku|Seluler|Tablet|Desktop|
 |----------|--------|--------|---------|
-| Position | Bottom sheet | Center modal | Center modal |
-| Button layout | Stacked | Side by side | Side by side |
-| Risk indicator | Colored bar | Colored badge | Colored badge |
+|Posisi|Lembaran bawah|Modal tengah|Modal tengah|
+|Tata letak tombol|Ditumpuk|Berdampingan|Berdampingan|
+|Indikator risiko|Bila berwarna|Lencana berwarna|Lencana berwarna|
 
-### Execution History
+### Sejarah Eksekusi
 
-| Behavior | Mobile | Tablet | Desktop |
+|Perilaku|Seluler|Tablet|Desktop|
 |----------|--------|--------|---------|
-| List | Full width cards | Compact list | Compact list |
-| Detail | Full screen slide | Slide panel | Inline expand |
-| Timeline | Vertical | Vertical | Horizontal or vertical |
+|Daftar|Kartu lebar penuh|Daftar ringkas|Daftar ringkas|
+|Detil|Geser layar penuh|Panel geser|Perluasan sebaris|
+|Garis Waktu|Vertikal|Vertikal|Horisontal atau vertikal|
 
 ---
 
-## Touch Targets
+## Sentuh Target
 
-All interactive elements must have minimum touch target of 44x44px on mobile.
-> Terjemahan Indonesia: All interactive elements must memiliki minimum touch target dari 44x44px pada mobile.
+Semua elemen interaktif harus memiliki target sentuhan minimum 44x44px di seluler.
 
-| Element | Size |
+|Elemen|Ukuran|
 |---------|------|
-| Send button | 44x44px |
-| Approval buttons | 44px height, full width |
-| Artifact cards | Full width tap target |
-| Tab bar | Fixed bottom, 48px height |
-| Sidebar toggle | 44x44px |
+|Tombol kirim|44x44 piksel|
+|Tombol persetujuan|Tinggi 44px, lebar penuh|
+|Kartu artefak|Target ketuk lebar penuh|
+|tab online|Memperbaiki bagian bawah, tinggi 48px|
+|Pengalih sisi online|44x44 piksel|
 
 ---
 
-## Typography Scaling
+## Penskalaan Tipografi
 
-| Token | Mobile | Tablet | Desktop |
+|Token|Seluler|Tablet|Desktop|
 |-------|--------|--------|---------|
-| `--font-size-md` | 14px | 15px | 16px |
-| `--font-size-lg` | 16px | 18px | 20px |
-| `--font-size-xl` | 20px | 22px | 24px |
+|`--font-size-md`|14 piksel|15 piksel|16 piksel|
+|`--font-size-lg`|16 piksel|18 piksel|20 piksel|
+|`--font-size-xl`|20 piksel|22 piksel|24 piksel|
 
 ---
 
-## Performance
+## Pertunjukan
 
-| Metric | Target |
+|Metrik|Target|
 |--------|--------|
-| First Contentful Paint | < 1.5s on 3G |
-| Time to Interactive | < 3s on 3G |
-| Bundle size | < 200KB gzipped |
-| Images | Lazy load, WebP, responsive srcset |
+|Kucing Puas Pertama|< 1,5 detik pada 3G|
+|Saatnya Interaktif|< 3s di 3G|
+|Ukuran bundel|< 200KB di-gzip|
+|Gambar|Pemuatan lambat, WebP, srcset responsif|
 
 ---
 
-## Offline Behavior
+## Perilaku Offline
 
-| State | UI Behavior |
+|Negara|Perilaku UI|
 |-------|-------------|
-| Offline | Show offline banner. Queue messages for retry. |
-| Reconnecting | Show "Reconnecting..." banner. |
-| Sync failed | Show error with retry button. |
+|Memikat|Tampilkan spanduk secara offline. Antrean pesan untuk dicoba lagi.|
+|memikat kembali|Tampilkan spanduk "Menghubungkan kembali...".|
+|Sinkronisasi gagal|Tampilkan kesalahan dengan tombol coba lagi.|

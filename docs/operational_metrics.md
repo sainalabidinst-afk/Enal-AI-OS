@@ -1,57 +1,38 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/operational_metrics.md`
-- Judul: Operational Metrics
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# ECP Network Engineer â€” Operational Metrics
+﻿# ECP Network Engineer — Metrik Operasional
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for operational_metrics
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk operasional_metrik
 <!-- DOCUMENT_METADATA_END -->
 
-**Focus:** Time Saved, Operational Reliability, Learning Velocity
+**Fokus:** Waktu yang Dihemat, Keandalan Operasional, Kecepatan Belajar
 
 ---
 
-## Primary Metric: Time Saved
+## Metrik Primer: Waktu yang Dihemat
 
-This is the single most important metric for Network Engineer.
-> Terjemahan Indonesia: Ini adalah single most important metric untuk Network Engineer.
+Ini adalah metrik terpenting untuk Network Engineer.
 
-### How to Measure
+### Cara Mengukur
 
-| Task | Manual Time | With ECP | Time Saved |
+|Tugas|Panduan Waktu|Dengan ECP|Waktu Dihemat|
 |------|-------------|----------|------------|
-| Audit router config | 45 min | 6 min | 87% |
-| Generate config from requirements | 30 min | 5 min | 83% |
-| Create deployment documentation | 60 min | 2 min | 97% |
-| Compare two configs | 20 min | 1 min | 95% |
-| Compliance audit | 90 min | 5 min | 94% |
-| Health check | 30 min | 1 min | 97% |
+|Audit konfigurasi router|45 menit|6 mnt|87%|
+|Hasilkan konfigurasi dari kebutuhan|30 menit|5 menit|83%|
+|Buat penyebaran dokumentasi|60 menit|2 mnt|97%|
+|Bandingkan dua konfigurasi|20 menit|1 mnt|95%|
+|Audit kehadiran|90 menit|5 menit|94%|
+|Pemeriksaan kesehatan|30 menit|1 mnt|97%|
 
-**Target:** Average time saved â‰¥ 80%
+**Target:** Rata-rata waktu dihemat ≥ 80%
 
-### How to Track
+### Cara Melacak
 
-During dogfooding, log each task:
-> Terjemahan Indonesia: Selama dogfood, catat setiap tugas:
+Selama dogfood, catat setiap tugas:
 
 ```markdown
 ## Task: Audit Sun Clint Router
@@ -65,41 +46,39 @@ During dogfooding, log each task:
 
 ---
 
-## Secondary Metric: Operational Reliability
+## Metrik Sekunder: Keandalan Operasional
 
-How often does ECP help prevent problems?
-> Terjemahan Indonesia: Seberapa sering ECP membantu mencegah masalah?
+Bagaimana seringnya ECP membantu mencegah masalah?
 
-| Metric | Target |
+|Metrik|Target|
 |--------|--------|
-| Deployment verification pass rate | â‰¥95% |
-| Rollback success rate | 100% |
-| False negative rate (missed issues) | â‰¤5% |
-| False positive rate (false alarms) | â‰¤10% |
+|Tingkat pemberian verifikasi penerapan|≥95%|
+|Tingkat keberhasilan rollback|100%|
+|Tingkat false negative (masalah yang terlewatkan)|≤5%|
+|Tingkat positif palsu (alarm palsu)|≤10%|
 
 ---
 
-## Tertiary Metric: Learning Velocity
+## Metrik Tersier: Kecepatan Belajar
 
-How fast can a junior engineer become productive?
-> Terjemahan Indonesia: How fast dapat sebuah junior engineer become productive?
+Seberapa cepat seorang junior engineer menjadi produktif?
 
-| Metric | Target |
+|Metrik|Target|
 |--------|--------|
-| Time to first successful analysis | <30 min |
-| Time to understand a finding | <2 min (with Explain Like Engineer) |
-| Time to run first deployment | <1 hour |
-| Confidence in ECP recommendation | â‰¥4/5 |
+|Waktu ke analisis sukses pertama|<30 menit|
+|Waktu untuk memahami sebuah temuan|<2 mnt (dengan Penjelasan Seperti Insinyur)|
+|Waktu untuk menjalankan penerapan pertama|<1 jam|
+|Confidence pada rekomendasi ECP|≥4/5|
 
 ---
 
-## Dashboard View
+## Tampilan Dasbor
 
 ```
-ECP Network Engineer â€” Operational Dashboard
+ECP Network Engineer — Operational Dashboard
 =============================================
 
-Time Saved This Week:    87% (target: â‰¥80%)
+Time Saved This Week:    87% (target: ≥80%)
 Deployments Verified:    12/12 (100%)
 Rollbacks Triggered:     0/12 (0%)
 False Negatives:         2 (5%)
@@ -114,22 +93,18 @@ Next Review:             2026-07-16
 
 ---
 
-## What We Do NOT Measure
+## Yang TIDAK Kami Ukur
 
-These technical metrics are NOT the focus:
-> Terjemahan Indonesia: These technical metrics adalah NOT focus:
+Metrik teknis berikut BUKAN fokus:
 
-- âŒ Number of files
-- âŒ Number of rules
-- âŒ Parser coverage %
-- âŒ Benchmark latency (unless it affects usability)
-- âŒ Code coverage %
+- ❌ Jumlah file
+- ❌ Aturan jumlah
+- ❌ Persentase mencakup parser
+- ❌ Latensi Benchmark (kecuali mempengaruhi kegunaan)
+- ❌ Cakupan kode persentase
 
-These are means, not ends.
-> Terjemahan Indonesia: These adalah means, not ends.
+Ini adalah sarana, bukan tujuan.
 
-The only metric that matters is: **"Can a network engineer do their job faster and safer with ECP than without it?"**
-> Terjemahan Indonesia: Only metric itu matters adalah: "dapat sebuah network engineer do their job faster dan safer dengan ECP than without it?"
+Satu-satunya metrik yang penting adalah: **"Dapatkah seorang network engineer melakukan pekerjaannya lebih cepat dan lebih aman dengan ECP dibandingkan tanpa ECP?"**
 
-If the answer is yes, everything else is noise.
-> Terjemahan Indonesia: If answer adalah yes, everything else adalah noise.
+Jika penjelasannya ya, yang lainnya hanyalah gangguan.

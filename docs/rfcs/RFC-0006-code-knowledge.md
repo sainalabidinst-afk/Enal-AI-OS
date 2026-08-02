@@ -1,54 +1,36 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0006-code-knowledge.md`
-- Judul: Rfc 0006 Code Knowledge
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC: Code Knowledge Expansion
+﻿# RFC: Perluasan Pengetahuan Code
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** RFC for RFC-0006-code-knowledge
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** RFC untuk RFC-0006-code-knowledge
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Planned
-**Target:** Capability Excellence phase
+**Status:** Direncanakan
+**Target:** Fase Capability Excellence
 **Capability Pack:** Code Engineer
 
-## Summary
+## Ringkasan
 
-Expand Code Engineer knowledge depth across software design principles, architecture patterns, and secure coding practices.
-> Terjemahan Indonesia: Expand Code Engineer knowledge depth across software design principles, arsitektur patterns, dan secure coding practices.
+Memperluas kedalaman pengetahuan Code Engineer di seluruh prinsip desain perangkat lunak, pola arsitektur, dan praktik secure coding.
 
-## Knowledge Domains
+## Domain Pengetahuan
 
 ### Clean Architecture
-- Layers: entities, use cases, interface adapters, frameworks
+- Layer: entities, use cases, interface adapters, frameworks
 - Dependency rule
-- Boundaries and interfaces
-- Testing isolation through architecture
-- When to apply vs over-engineering
+- Boundaries dan interfaces
+- Isolasi testing melalui arsitektur
+- Kapan diterapkan vs over-engineering
 
 ### DDD (Domain-Driven Design)
 - Bounded contexts
 - Entities, Value Objects, Aggregates
 - Domain events
-- Repository and specification patterns
+- Pola repository dan specification
 - Anti-corruption layers
 - Ubiquitous language
 
@@ -58,41 +40,41 @@ Expand Code Engineer knowledge depth across software design principles, architec
 - Liskov Substitution
 - Interface Segregation
 - Dependency Inversion
-- Practical examples in Python/TypeScript
+- Contoh praktis di Python/TypeScript
 
 ### CQRS
-- Command vs Query separation
-- Write model and read model
-- Event sourcing integration
-- Consistency models
-- When to use CQRS
+- Pemisahan Command vs Query
+- Write model dan read model
+- Integrasi event sourcing
+- Model konsistensi
+- Kapan menggunakan CQRS
 
 ### Event Sourcing
-- Event store concepts
-- Event schema design
-- Replay and projection
+- Konsep event store
+- Desain event schema
+- Replay dan projection
 - Snapshotting
-- Integration with CQRS
+- Integrasi dengan CQRS
 
 ### Secure Coding
-- OWASP Top 10 mapping
-- Injection prevention
-- Authentication and authorization patterns
-- Secrets management
-- Secure dependency handling
+- Pemetaan OWASP Top 10
+- Pencegahan injection
+- Pola authentication dan authorization
+- Manajemen secrets
+- Penanganan dependensi yang aman
 
-## Implementation Approach
+## Pendekatan Implementasi
 
-All knowledge is added to the Code Capability Pack domain engine. No Core changes are required.
-> Terjemahan Indonesia: All knowledge adalah added untuk Code kapabilitas Pack domain engine. No Core changes adalah required.
+Semua pengetahuan ditambahkan ke domain engine Code Capability Pack. Tidak ada perubahan Core yang diperlukan.
 
-## Success Criteria
+## Kriteria Keberhasilan
 
-- Each knowledge domain is represented in code generation, review, and refactoring logic
-- Golden tests cover new patterns
-- Benchmark scores for code quality and explainability improve
+- Setiap domain pengetahuan terwakili dalam logika generasi kode, review, dan refactoring
+- Golden test mencakup pola baru
+- Skor benchmark untuk kualitas kode dan explainability meningkat
 
-## References
+## Referensi
 
 - RFC-0006: Code Knowledge Base
-- CAPABILITY_GUIDE.md â€” Code Engineer section
+- CAPABILITY_GUIDE.md — bagian Code Engineer
+

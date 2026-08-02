@@ -1,168 +1,151 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/DEPENDENCY_AUDIT.md`
-- Judul: Dependency Audit
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿# Laporan Audit Dependency
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
 <!-- DOCUMENT_METADATA_END -->
 
-# Dependency Audit Report
-
-**Date:** 2026-08-02
-**Scope:** Backend packaging + dependency consistency + CI/Makefile/Dockerfile alignment
+**Tanggal:** 2026-08-02
+**Cakupan:** Packaging backend + konsistensi dependency + penyelarasan CI/Makefile/Dockerfile
 
 ---
 
-## 1. Backend Packaging
+## 1. Packaging Backend
 
 | Item | Status |
 |------|--------|
-| `backend/pyproject.toml` | âœ… Created |
-| `backend/__init__.py` | âœ… Created |
-| Build backend | hatchling |
-| Dev dependencies | pytest, pytest-asyncio, ruff, black, mypy |
-| Runtime dependencies | fastapi, uvicorn, sqlalchemy, qdrant-client, redis, pydantic, pydantic-settings, litellm, langchain-openai, langchain-core, httpx, pyyaml, aiohttp, python-multipart, psycopg2-binary |
+| `backend/pyproject.toml` | ✅ Dibuat |
+| `backend/__init__.py` | ✅ Dibuat |
+| Build backend | Pip |
+| Dependency development | pytest, pytest-asyncio, ruff, black, mypy |
+| Dependency runtime | FastAPI, uvicorn, sqlalchemy, qdrant-client, redis, pydantic, pydantic-settings, litellm, langchain-openai, langchain-core, httpx, pyyaml, aiohttp, python-multipart, psycopg2-binary |
 
 ---
 
-## 2. Module Usage vs Declaration
+## 2. Penggunaan Modul vs Deklarasi
 
-| Module | Status | Action |
+| Modul | Status | Tindakan |
 |--------|--------|--------|
-| `fastapi` | âœ… OK | Used in `main.py`, `api/*` |
-| `uvicorn` | âœ… OK | Used in Dockerfile, Makefile |
-| `sqlalchemy` | âœ… OK | Used in `db/session.py` |
-| `qdrant-client` | âœ… OK | Used in `core/vector_store.py` |
-| `redis` | âœ… OK | Used in `core/memory.py`, `core/memory_layer.py`, `core/event_bus.py` |
-| `pydantic` | âœ… OK | Used in `models/schemas.py` |
-| `pydantic-settings` | âœ… OK | Used in `core/config.py` |
-| `litellm` | âœ… OK | Used in `core/model_router.py` |
-| `langchain-openai` | âœ… OK | Used in `agents/core/executor_agent.py` |
-| `langchain-core` | âœ… OK | Used in `agents/core/*` |
-| `httpx` | âœ… OK | Used in `core/benchmark/runner.py` |
-| `pyyaml` | âœ… OK | Used in `core/skill_registry.py` |
-| `python-multipart` | âš ï¸ Indirect | Required by FastAPI for `UploadFile`/`File`/`Form`; no direct `import multipart` found |
-| `aiohttp` | âš ï¸ Unused | Declared but no direct import found |
-| `psycopg2-binary` | âš ï¸ Unused | Declared but no direct import found (SQLAlchemy abstracts driver) |
+| `fastapi` | ✅ Oke | Digunakan di `main.py`, `api/*` |
+| `uvicorn` | ✅ Oke | Digunakan di Dockerfile, Makefile |
+| `sqlalchemy` | ✅ Oke | Digunakan di `db/session.py` |
+| `qdrant-client` | ✅ Oke | Digunakan di `core/vector_store.py` |
+| `redis` | ✅ Oke | Digunakan di `core/memory.py`, `core/memory_layer.py`, `core/event_bus.py` |
+| `pydantic` | ✅ Oke | Digunakan di `models/schemas.py` |
+| `pydantic-settings` | ✅ Oke | Digunakan di `core/config.py` |
+| `litellm` | ✅ Oke | Digunakan di `core/model_router.py` |
+| `langchain-openai` | ✅ Oke | Digunakan di `agents/core/executor_agent.py` |
+| `langchain-core` | ✅ Oke | Digunakan di `agents/core/*` |
+| `httpx` | ✅ Oke | Digunakan di `core/benchmark/runner.py` |
+| `pyyaml` | ✅ Oke | Digunakan di `core/skill_registry.py` |
+| `python-multipart` | ⚠️ Tidak langsung | Diperlukan oleh FastAPI untuk `UploadFile`/`File`/`Form`; tidak ada `import multipart` langsung yang ditemukan |
+| `aiohttp` | ⚠️ Belum terpakai | Dideklarasikan tetapi tidak ditemukan import langsung |
+| `psycopg2-binary` | ⚠️ Belum terpakai | Dideklarasikan tetapi tidak ditemukan import langsung (driver abstrak SQLAlchemy) |
 
-### Unused Declared Dependencies
+### Dependency yang Dideklarasikan Tidak Digunakan
 
-| Dependency | Action |
+| Dependency | Tindakan |
 |------------|--------|
-| `aiohttp` | Remove from `backend/pyproject.toml` |
-| `psycopg2-binary` | Keep or remove â€” SQLAlchemy does not require direct psycopg2 import, but PostgreSQL driver is still needed at runtime. Recommended: keep for explicit Postgres support. |
+| `aiohttp` | Hapus dari `backend/pyproject.toml` |
+| `psycopg2-binary` | Simpan atau hapus — SQLAlchemy tidak memerlukan import psycopg2 langsung, tetapi driver PostgreSQL tetap diperlukan di Runtime. Direkomendasikan: simpan untuk dukungan Postgres yang eksplisit. |
 
 ---
 
-## 3. Circular Import Check
+## 3. Pemeriksaan Import Circular
 
-| Pattern | Status |
+| Pola | Status |
 |---------|--------|
-| `cognitive/__init__.py` â†’ `adaptive_runtime.py` â†’ `cognitive_kernel.py` â†’ `cognitive/world_model.py` | âœ… Linear chain, not circular |
-| `meta_cognition.py` â†’ `adaptive_runtime.py` â†’ `cognitive_kernel.py` | âœ… Linear chain, not circular |
-| `core/__init__.py` | âœ… Empty â€” no import side effects |
-| Top-level `backend.app.*` imports | âœ… No circular dependencies detected |
+| `cognitive/__init__.py` → `adaptive_runtime.py` → `cognitive_kernel.py` → `cognitive/world_model.py` | ✅ Rantai linier, bukan lingkaran |
+| `meta_cognition.py` → `adaptive_runtime.py` → `cognitive_kernel.py` | ✅ Rantai linier, bukan lingkaran |
+| `core/__init__.py` | ✅ Kosong — tidak ada efek samping import |
+| Import `backend.app.*` tingkat atas | ✅ Tidak ada dependency circular yang terdeteksi |
 
-**Verdict:** No circular imports detected among top-level module imports.
+**Kesimpulan:** Tidak ada import circular yang terdeteksi di antara import modul tingkat atas.
 
 ---
 
-## 4. Package Structure
+## 4. Struktur Paket
 
 | Path | Status |
 |------|--------|
-| `backend/__init__.py` | âœ… Present |
-| `backend/app/__init__.py` | âœ… Present |
-| `backend/app/core/__init__.py` | âœ… Present |
-| `backend/app/api/__init__.py` | âœ… Present |
-| `backend/app/agents/__init__.py` | âœ… Present |
-| `backend/app/models/__init__.py` | âœ… Present |
-| `backend/app/db/__init__.py` | âœ… Present |
-| `backend/tests/__init__.py` | âœ… Present |
+| `backend/__init__.py` | ✅ Ada |
+| `backend/app/__init__.py` | ✅ Ada |
+| `backend/app/core/__init__.py` | ✅ Ada |
+| `backend/app/api/__init__.py` | ✅ Ada |
+| `backend/app/agents/__init__.py` | ✅ Ada |
+| `backend/app/models/__init__.py` | ✅ Ada |
+| `backend/app/db/__init__.py` | ✅ Ada |
+| `backend/tests/__init__.py` | ✅ Ada |
 
 ---
 
-## 5. CI / Makefile / Dockerfile Alignment
+## 5. Penyelarasan CI/Makefile/Dockerfile
 
-| File | Issue | Action |
+| File | Masalah | Tindakan |
 |------|-------|--------|
-| `.github/workflows/ci.yml` | Installed only root `.[dev]` but ran backend tests/mypy | âœ… Fixed â€” added `pip install -e backend/` |
-| `Makefile` | Used `poetry install` but backend has no `pyproject.toml` | âœ… Fixed â€” replaced with `pip install -e ".[dev]"` |
-| `backend/Dockerfile` | Used `poetry install` with hatchling build backend | âœ… Fixed â€” replaced with `pip install -e ".[dev]"` |
-| `docker-compose.yml` | No `build` context for backend service | âš ï¸ Acceptable â€” services run prebuilt images or local dev servers |
-| Root `pyproject.toml` | Defined `enal-cognitive-platform` package with no actual code | âœ… Fixed â€” converted to workspace-only metadata |
+| `.github/workflows/ci.yml` | Hanya menginstal root `.[dev]` tetapi menjalankan test backend/mypy | ✅ Diperbaiki — ditambahkan `pip install -e backend/` |
+| `Makefile` | Menggunakan `poetry install` tetapi backend tidak memiliki `pyproject.toml` | ✅ Diperbaiki — diganti dengan `pip install -e ".[dev]"` |
+| `backend/Dockerfile` | Menggunakan `poetry install` dengan backend hatchling build | ✅ Diperbaiki — diganti dengan `pip install -e ".[dev]"` |
+| `docker-compose.yml` | Tidak ada konteks `build` untuk service backend | ⚠️ Dapat diterima — service menjalankan image bawaan atau dev server lokal |
+| Root `pyproject.toml` | Paket `enal-cognitive-platform` didefinisikan tanpa kode yang sebenarnya | ✅ Diperbaiki — diubah menjadi metadata khusus workspace |
 
 ---
 
-## 6. Cleaned Dependency Graph
+## 6. Dependency Graph yang Dibersihkan
 
 ```
 core
-â”œâ”€â”€ fastapi
-â”œâ”€â”€ uvicorn[standard]
-â”œâ”€â”€ pydantic
-â”œâ”€â”€ pydantic-settings
-â””â”€â”€ python-multipart
+├── fastapi
+├── uvicorn[standard]
+├── pydantic
+├── pydantic-settings
+└── python-multipart
 
 ai
-â”œâ”€â”€ litellm
-â”œâ”€â”€ langchain-openai
-â””â”€â”€ langchain-core
+├── litellm
+├── langchain-openai
+└── langchain-core
 
 database
-â”œâ”€â”€ sqlalchemy
-â””â”€â”€ psycopg2-binary
+├── sqlalchemy
+└── psycopg2-binary
 
 queue
-â””â”€â”€ redis
+└── redis
 
 vector
-â””â”€â”€ qdrant-client
+└── qdrant-client
 
 telemetry
-â””â”€â”€ httpx
+└── httpx
 
 config
-â””â”€â”€ pyyaml
+└── pyyaml
 
 dev
-â”œâ”€â”€ pytest
-â”œâ”€â”€ pytest-asyncio
-â”œâ”€â”€ ruff
-â”œâ”€â”€ black
-â””â”€â”€ mypy
+├── pytest
+├── pytest-asyncio
+├── ruff
+├── black
+└── mypy
 ```
 
 ---
 
-## 7. Recommended Actions
+## 7. Tindakan yang Direkomendasikan
 
-1. **Remove `aiohttp` from `backend/pyproject.toml`** â€” no direct usage found.
-2. **Re-evaluate `psycopg2-binary`** â€” keep if PostgreSQL direct driver access is planned; otherwise remove to reduce image size.
-3. **Run `pip install -e backend/` in all CI jobs that import backend code** â€” already fixed.
-4. **Verify Docker build** â€” run `docker build backend` after changes.
-5. **Add `python-multipart` direct import verification** â€” ensure FastAPI file upload endpoints are covered by tests.
+1. **Hapus `aiohttp` dari `backend/pyproject.toml`** — tidak ditemukan penggunaan langsung.
+2. **Evaluasi ulang `psycopg2-binary`** — simpan jika akses driver PostgreSQL langsung direncanakan; jika tidak, hapus untuk mengurangi ukuran image.
+3. **Jalankan `pip install -e backend/` di semua task CI yang mengimpor kode backend** — sudah diperbaiki.
+4. **Verifikasi Docker build** — jalankan `docker build backend` setelah perubahan.
+5. **Tambahkan verifikasi import langsung `python-multipart`** — pastikan endpoint upload file FastAPI tercakup dalam pengujian.
 
 ---
 
-## 8. Next Sprint
+## 8. Sprint Berikutnya
 
-Proceed to **Frontend MVP completion** with a stable, audited backend dependency graph.
-> Terjemahan Indonesia: Proceed untuk Frontend MVP completion dengan sebuah stable, audited backend dependency graph.
+Lanjutkan ke **Penyelesaian MVP Frontend** dengan dependency graph backend yang stabil dan telah diaudit.
+

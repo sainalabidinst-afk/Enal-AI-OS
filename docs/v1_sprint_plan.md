@@ -1,122 +1,105 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/v1_sprint_plan.md`
-- Judul: V1 Sprint Plan
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# ECP v1.0-dev Milestone Plan
+﻿# Rencana Milestone ECP v1.0-dev
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for v1_sprint_plan
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk v1_sprint_plan
 <!-- DOCUMENT_METADATA_END -->
 
-**Methodology:** Product milestone-based, not feature-based.
-**Definition of Done:** Milestone meets all delivery criteria and gates are satisfied.
+**Metodologi:** Berbasis milestone produk, bukan berbasis fitur.
+**Definition of Done:** Milestone memenuhi semua kriteria pengiriman dan gate terpenuhi.
 
 ---
 
-## Milestone 1 â€” Network Engineer MVP
+## Milestone 1 — Network Engineer MVP
 
-**Status:** âœ… Accepted
+**Status:** ✅ Accepted
 **Baseline:** `v1.0.0-dev+network-sprint2`
 
-**Goal:** Prove ECP can analyze, generate, simulate, and document network configurations.
+**Tujuan:** Membuktikan ECP dapat menganalisis, menghasilkan, mensimulasikan, dan mendokumentasikan konfigurasi jaringan.
 
-**Duration:** 2â€“3 weeks
+**Durasi:** 2–3 minggu
 
 **Definition of Done:**
-- [x] Upload `.rsc` file
-- [x] Parse RouterOS configuration
-- [x] Build internal topology
-- [x] Detect configuration problems
-- [x] Generate recommendations
-- [x] Generate improved configuration
-- [x] Produce deployment documentation
-- [x] Pass all Golden Tests for networking domain (31/31 scenarios)
+- [x] Mengunggah file `.rsc`
+- [x] Mem-parsing konfigurasi RouterOS
+- [x] Membangun topologi internal
+- [x] Mendeteksi masalah konfigurasi
+- [x] Menghasilkan rekomendasi
+- [x] Menghasilkan konfigurasi yang diperbaiki
+- [x] Menghasilkan dokumentasi deployment
+- [x] Lolos semua Golden Test untuk domain networking (31/31 skenario)
 
 **Deliverables:**
-- RouterOS parser (v6/v7)
+- Parser RouterOS (v6/v7)
 - Network graph builder
 - 45 analysis rules
-- Recommendation engine (P0â€“P3)
+- Recommendation engine (P0–P3)
 - Documentation generator (Markdown)
 
 ---
 
-## Milestone 1.5 â€” Hardening
+## Milestone 1.5 — Hardening
 
-**Status:** âœ… Accepted
+**Status:** ✅ Accepted
 
-**Goal:** Strengthen Milestone 1 with regression suite, benchmarks, and coverage tracking.
+**Tujuan:** Memperkuat Milestone 1 dengan regression suite, benchmarks, dan pelacakan coverage.
 
-**Duration:** 3â€“5 days
+**Durasi:** 3–5 hari
 
 **Definition of Done:**
-- [x] 31 golden test scenarios (7 original + 24 new)
-- [x] Regression dataset (broken, invalid, partial, v6, v7)
+- [x] 31 skenario golden test (7 original + 24 baru)
+- [x] Dataset regresi (broken, invalid, partial, v6, v7)
 - [x] Rule coverage tracker (hit count, precision, recall, F1)
-- [x] Performance benchmarks (500/5k/50k lines)
-- [x] Confidence calibration from evidence
-- [x] All tests passing
+- [x] Benchmark kinerja (500/5k/50k baris)
+- [x] Kalibrasi confidence dari evidence
+- [x] Semua test lulus
 
 ---
 
-## Milestone 2 â€” Controlled Deployment
+## Milestone 2 — Controlled Deployment
 
-**Status:** âœ… Accepted
+**Status:** ✅ Accepted
 
-**Goal:** Build deployment pipeline with safety, audit, and human approval.
+**Tujuan:** Membangun pipeline deployment dengan keamanan, audit, dan persetujuan manusia.
 
-**Duration:** 2â€“3 weeks
+**Durasi:** 2–3 minggu
 
 **Definition of Done:**
 - [x] Semantic Configuration Diff Engine
-- [x] Backup Manager (export â†’ hash â†’ timestamp â†’ artifact store)
+- [x] Backup Manager (export → hash → timestamp → artifact store)
 - [x] Risk Scoring Engine (config/rollback/security/downtime)
 - [x] Verification Engine (interface, gateway, DNS, DHCP, routes)
-- [x] Audit Trail (all steps recorded as artifacts)
+- [x] Audit Trail (semua langkah dicatat sebagai artifacts)
 - [x] Controlled Deployment Orchestrator
 - [x] Deployment Runbook UX (Changes/Risk/Pre-Deployment/Deployment/Post-Deployment/Recovery)
-- [x] Deployment Timeline (visual step progress)
-- [x] Explain Before Deploy (process-oriented language)
+- [x] Deployment Timeline (visual progres langkah)
+- [x] Explain Before Deploy (bahasa berorientasi proses)
 - [x] Rollback Status: Pending / Ready / Unavailable / Completed
-- [x] Human approval required in v1.0-dev
-- [x] All Milestone 2 tests pass (7/7)
+- [x] Persetujuan manusia diperlukan di v1.0-dev
+- [x] Semua test Milestone 2 lulus (7/7)
 
 ---
 
-## Milestone 3 â€” Network Operations
+## Milestone 3 — Network Operations
 
-**Status:** ðŸ“‹ Planned
+**Status:** 📋 Planned
 
-**Goal:** Operational workflows that network engineers use every day.
+**Tujuan:** Workflow operasional yang digunakan network engineer setiap hari.
 
-**Duration:** 2â€“3 weeks
+**Durasi:** 2–3 minggu
 
 **Definition of Done:**
-- [ ] Configuration Compare (backup-to-backup semantic diff + impact)
-- [ ] Compliance Audit (policy-based Pass/Fail)
-- [ ] Health Report (health/security/performance/maintainability scores)
-- [ ] Change Impact Analysis (predict impact before deployment)
-- [ ] Explain Like Engineer (plain-language explanations for onboarding)
-- [ ] All Milestone 3 tests pass (â‰¥95%)
-- [ ] Dogfooding feedback incorporated
+- [ ] Configuration Compare (semantic diff backup-to-backup + dampak)
+- [ ] Compliance Audit (Pass/Fail berbasis kebijakan)
+- [ ] Health Report (skor health/security/performance/maintainability)
+- [ ] Change Impact Analysis (memprediksi dampak sebelum deployment)
+- [ ] Explain Like Engineer (penjelasan bahasa sederhana untuk onboarding)
+- [ ] Semua test Milestone 3 lulus (≥95%)
+- [ ] Feedback dogfooding diintegrasikan
 
 **Deliverables:**
 - `apps/network_engineer/compare.py`
@@ -125,357 +108,352 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 - `apps/network_engineer/impact_analyzer.py`
 - `apps/network_engineer/explainer.py`
 
-**What We Will NOT Build:**
-- BGP automation
-- MPLS automation
-- CAPsMAN automation
-- WireGuard automation
-- Multi-router orchestration
+**Apa yang TIDAK Akan Dibangun:**
+- Otomatisasi BGP
+- Otomatisasi MPLS
+- Otomatisasi CAPsMAN
+- Otomatisasi WireGuard
+- Orkestrasi multi-router
 
 ---
 
-## Dogfooding Phase
+## Fase Dogfooding
 
-**Status:** ðŸ§ª In Progress (1â€“2 weeks)
+**Status:** 🧪 In Progress (1–2 minggu)
 
-**Goal:** Use Network Engineer on real configs before building new features.
+**Tujuan:** Menggunakan Network Engineer pada config nyata sebelum membangun fitur baru.
 
-**Activities:**
-- Audit real MikroTik configs (Sun Clint, lab, production)
-- Compare ECP findings with expert judgment
-- Log false positives, false negatives, UX issues
-- Collect Time Saved data
+**Aktivitas:**
+- Mengaudit config MikroTik nyata (Sun Clint, lab, production)
+- Membandingkan findings ECP dengan penilaian ahli
+- Mencatat false positives, false negatives, isu UX
+- Mengumpulkan data Time Saved
 
 **Output:**
 - `dogfooding/feedback_YYYY-MM-DD.md`
-- Updated golden test scenarios
-- Top 5 priorities for Milestone 3
+- Skenario golden test yang diperbarui
+- 5 prioritas teratas untuk Milestone 3
 
-**See:** `docs/dogfooding_guide.md`
-
----
-
-## Milestone 4 â€” Reasoning Excellence
-
-**Status:** ðŸŽ¯ Target: v1.0-dev Release
-
-**Goal:** Improve reasoning quality across all Capability Packs without changing Core.
-
-**Duration:** Ongoing
-
-**Focus areas:**
-- Deeper domain reasoning in Capability Packs
-- Better explanation generation
-- Improved risk and impact analysis
-- Context-aware recommendations
-
-**Success Criteria:**
-- Network: detects not just open ports, but likely purpose and associated firewall gaps
-- Trading: explains BUY/SELL with alternatives, risk, and failure scenarios
-- Research: identifies contradictions between sources with confidence estimates
-- Code: recommends architecture patterns with rationale
-- All Capability Packs maintain Consistency score â‰¥85%
+**Lihat:** `docs/dogfooding_guide.md`
 
 ---
 
-## Milestone 5 â€” Developer Preview
+## Milestone 4 — Reasoning Excellence
 
-**Status:** ðŸŽ¯ Target: v1.0.0 Release
+**Status:** 🎯 Target: Rilis v1.0-dev
 
-**Goal:** Product-ready release with all certification, documentation, and tooling complete.
+**Tujuan:** Meningkatkan kualitas reasoning di semua Capability Pack tanpa mengubah Core.
+
+**Durasi:** Berkelanjutan
+
+**Area fokus:**
+- Reasoning domain yang lebih dalam di Capability Packs
+- Generasi penjelasan yang lebih baik
+- Analisis risiko dan dampak yang lebih baik
+- Rekomendasi yang sadar konteks
+
+**Kriteria Keberhasilan:**
+- Network: mendeteksi bukan hanya port terbuka, tetapi kemungkinan tujuan dan gap firewall terkait
+- Trading: menjelaskan BUY/SELL dengan alternatif, risiko, dan skenario kegagalan
+- Research: mengidentifikasi kontradiksi antar sumber dengan estimasi confidence
+- Code: merekomendasikan pola arsitektur dengan rationale
+- Semua Capability Pack mempertahankan skor Consistency ≥85%
+
+---
+
+## Milestone 5 — Developer Preview
+
+**Status:** 🎯 Target: Rilis v1.0.0
+
+**Tujuan:** Rilis siap produk dengan semua sertifikasi, dokumentasi, dan tooling lengkap.
 
 **Definition of Done:**
-- [ ] All Capability Packs meet quality targets
-- [ ] Trading Analyst Certification passed
-- [ ] Artifact Store v1 implemented
-- [ ] Developer website launched
-- [ ] SDK documentation complete
-- [ ] Tutorial and Quick Start video published
-- [ ] Marketplace functional
-- [ ] Capability Discovery API public
-- [ ] Capability Benchmark Dashboard operational
-- [ ] Studio trace viewer functional
+- [ ] Semua Capability Pack memenuhi quality target
+- [ ] Trading Analyst Certification lulus
+- [ ] Artifact Store v1 diimplementasikan
+- [ ] Website developer diluncurkan
+- [ ] Dokumentasi SDK lengkap
+- [ ] Video Tutorial dan Quick Start diterbitkan
+- [ ] Marketplace berfungsi
+- [ ] Capability Discovery API publik
+- [ ] Capability Benchmark Dashboard operasional
+- [ ] Studio trace viewer berfungsi
 
 **Release Checklist:**
-- [ ] Release notes drafted
-- [ ] Migration guide for capability pack authors
-- [ ] SDK examples published
-- [ ] Quick Start video/tutorial prepared
-- [ ] Public Developer Preview announcement
+- [ ] Release notes disusun
+- [ ] Panduan migrasi untuk penulis capability pack
+- [ ] Contoh SDK diterbitkan
+- [ ] Video/tutorial Quick Start disiapkan
+- [ ] Pengumuman Public Developer Preview
 
 ---
 
-## Weekly Development Rhythm
+## Ritme Pengembangan Mingguan
 
-| Day | Focus |
+| Hari | Fokus |
 |-----|-------|
-| Monday | Knowledge expansion |
-| Tuesday | Benchmark improvement |
-| Wednesday | Reasoning improvement |
-| Thursday | Explainability improvement |
-| Friday | Benchmark score increase |
+| Senin | Ekspansi pengetahuan |
+| Selasa | Peningkatan benchmark |
+| Rabu | Peningkatan reasoning |
+| Kamis | Peningkatan explainability |
+| Jumat | Peningkatan skor benchmark |
 
-All work happens inside Capability Packs. Core remains untouched.
-> Terjemahan Indonesia: All work happens inside kapabilitas Packs. Core remains untouched.
-
----
-
-## Do Not List
-
-The following are no longer acceptable as regular development activities:
-> Terjemahan Indonesia: Following adalah no longer acceptable as regular development activities:
-
-- âŒ Add new Runtime
-- âŒ Add new Planner
-- âŒ Add new Kernel
-- âŒ Add new Layer
-- âŒ Modify Core for a single Capability Pack
-
-Any exception requires an approved ADR with cross-capability proof.
-> Terjemahan Indonesia: Any exception requires sebuah approved ADR dengan cross-kapabilitas proof.
+Semua pekerjaan terjadi di dalam Capability Packs. Core tetap tidak tersentuh.
 
 ---
 
-## Target Capability Quality â€” v1.0 Developer Preview
+## Daftar "Jangan"
 
-| Capability | Target Score | Measurement |
+Berikut tidak lagi dapat diterima sebagai aktivitas pengembangan reguler:
+
+- ❌ Menambahkan Runtime baru
+- ❌ Menambahkan Planner baru
+- ❌ Menambahkan Kernel baru
+- ❌ Menambahkan Layer baru
+- ❌ Memodifikasi Core untuk satu Capability Pack
+
+Setiap pengecualian memerlukan ADR yang disetujui dengan bukti lintas capability.
+
+---
+
+## Target Capability Quality — v1.0 Developer Preview
+
+| Capability | Target Score | Pengukuran |
 |------------|--------------|-------------|
-| Network | A (â‰¥90) | benchmarks/capability_benchmark.py |
-| Code | A- (â‰¥85) | benchmarks/capability_benchmark.py |
-| Research | A- (â‰¥85) | benchmarks/capability_benchmark.py |
-| DevOps | B+ (â‰¥80) | benchmarks/capability_benchmark.py |
-| Trading | B+ (â‰¥80, lulus Certification) | benchmarks/capability_benchmark.py |
-| Self Development | A (â‰¥90) | benchmarks/capability_benchmark.py |
+| Network | A (≥90) | benchmarks/capability_benchmark.py |
+| Code | A- (≥85) | benchmarks/capability_benchmark.py |
+| Research | A- (≥85) | benchmarks/capability_benchmark.py |
+| DevOps | B+ (≥80) | benchmarks/capability_benchmark.py |
+| Trading | B+ (≥80, lulus Certification) | benchmarks/capability_benchmark.py |
+| Self Development | A (≥90) | benchmarks/capability_benchmark.py |
 
-Scores must come from the 6-dimension benchmark, not subjective assessment.
-> Terjemahan Indonesia: Scores must come dari 6-dimension benchmark, not subjective assessment.
+Skor harus berasal dari benchmark 6 dimensi, bukan penilaian subjektif.
 
 ---
 
-## Post Developer Preview Roadmap
+## Peta Jalan Pasca Developer Preview
 
-### v1.1 â€” Capability Excellence
+### v1.1 — Capability Excellence
 - Network A+
 - Trading B+
 - Research A-
 - Code A
-- All packs improve one grade through knowledge and benchmark work
+- Semua pack naik satu grade melalui pengetahuan dan kerja benchmark
 
-### v1.2 â€” Community Ecosystem
-- Marketplace launch
-- Community Capability Packs supported
-- Capability Pack SDK templates
-- Third-party pack certification process
+### v1.2 — Community Ecosystem
+- Peluncuran Marketplace
+- Mendukung Community Capability Packs
+- Template SDK Capability Pack
+- Proses sertifikasi pack pihak ketiga
 
-### v1.3 â€” Enterprise
+### v1.3 — Enterprise
 - Enterprise Capability Roadmap
-- Advanced governance and audit features
-- Multi-tenant support
-- SLA and compliance tooling
+- Fitur governance dan audit lanjutan
+- Dukungan multi-tenant
+- Tooling SLA dan compliance
 
 ---
 
-## Capability-Specific Roadmaps
+## Peta Jalan Spesifik Capability
 
-### Network Capability Roadmap
+### Peta Jalan Capability Network
 
-| Phase | Focus | Grade Target |
+| Fase | Fokus | Target Grade |
 |-------|-------|--------------|
-| Audit | Configuration analysis, security, compliance | A |
+| Audit | Analisis konfigurasi, keamanan, kepatuhan | A |
 | Optimization | Performance tuning, best practices | A |
-| Migration | Version upgrades, vendor migration | A |
-| Design | Greenfield network design | A+ |
+| Migration | Upgrade versi, migrasi vendor | A |
+| Design | Desain jaringan greenfield | A+ |
 | Automation | Controlled deployment, rollback | A+ |
 
-### Code Capability Roadmap
+### Peta Jalan Capability Code
 
-| Phase | Focus | Grade Target |
+| Fase | Fokus | Target Grade |
 |-------|-------|--------------|
-| Review | Code quality, security, maintainability | A- |
-| Refactor | Improve structure without changing behavior | A- |
-| Generate | Full-stack from requirements | A |
+| Review | Kualitas kode, keamanan, maintainability | A- |
+| Refactor | Memperbaiki struktur tanpa mengubah perilaku | A- |
+| Generate | Full-stack dari requirements | A |
 | Architecture | Clean Architecture, DDD, Hexagonal, CQRS | A |
-| Modernization | Legacy migration, tech debt reduction | A |
+| Modernization | Migrasi legacy, pengurangan tech debt | A |
 
-### Trading Capability Roadmap
+### Peta Jalan Capability Trading
 
-| Phase | Focus | Grade Target |
+| Fase | Fokus | Target Grade |
 |-------|-------|--------------|
-| Analysis | Market data, trends, indicators | B+ |
-| Strategy | Strategy design and backtesting | A- |
-| Portfolio | Portfolio construction and rebalancing | A- |
-| Risk | Risk models, VaR, drawdown, correlation | A |
-| Execution Planning | Trade planning with risk and alternatives | A |
+| Analysis | Data pasar, tren, indikator | B+ |
+| Strategy | Desain strategi dan backtesting | A- |
+| Portfolio | Konstruksi portfolio dan rebalancing | A- |
+| Risk | Model risiko, VaR, drawdown, korelasi | A |
+| Execution Planning | Perencanaan trading dengan risiko dan alternatif | A |
 
-### Research Capability Roadmap
+### Peta Jalan Capability Research
 
-| Phase | Focus | Grade Target |
+| Fase | Fokus | Target Grade |
 |-------|-------|--------------|
-| Retrieval | Multi-source RAG with citations | B |
-| Evidence | Evidence ranking, contradiction detection | A- |
-| Synthesis | Multi-paper synthesis with confidence | A- |
-| Experiment | Experiment design advisory | A |
-| Peer Review | Simulated peer review quality check | A |
+| Retrieval | RAG multi-sumber dengan sitasi | B |
+| Evidence | Peringkat evidence, deteksi kontradiksi | A- |
+| Synthesis | Sintesis multi-paper dengan confidence | A- |
+| Experiment | Advisory desain eksperimen | A |
+| Peer Review | Simulasi pengecekan kualitas peer review | A |
 
-### DevOps Capability Roadmap
+### Peta Jalan Capability DevOps
 
-| Phase | Focus | Grade Target |
+| Fase | Fokus | Target Grade |
 |-------|-------|--------------|
 | Generate | Dockerfiles, CI/CD, Kubernetes manifests | B+ |
-| Verify | Deployment health, configuration correctness | A- |
-| Multi-cloud | AWS, Azure, GCP patterns | A |
+| Verify | Kesehatan deployment, kebenaran konfigurasi | A- |
+| Multi-cloud | Pola AWS, Azure, GCP | A |
 | Platform | Observability, GitOps, policy-as-code | A |
-| Resilience | Chaos engineering, incident prep | A |
+| Resilience | Chaos engineering, persiapan insiden | A |
 
-### Self Development Capability Roadmap
+### Peta Jalan Capability Self Development
 
-| Phase | Focus | Grade Target |
+| Fase | Fokus | Target Grade |
 |-------|-------|--------------|
-| Analyze | Project structure, bottleneck detection | A- |
-| Propose | Refactoring, improvement proposals | A |
-| Patch | Patch generation with test coverage | A |
-| Learn | Cross-project pattern learning | A |
-| Predict | Impact prediction before changes | A+ |
+| Analyze | Struktur proyek, deteksi bottleneck | A- |
+| Propose | Refactoring, proposal perbaikan | A |
+| Patch | Generasi patch dengan test coverage | A |
+| Learn | Pembelajaran pola lintas proyek | A |
+| Predict | Prediksi dampak sebelum perubahan | A+ |
 
 ---
 
-## Roadmap Summary
+## Ringkasan Peta Jalan
 
 ```
 v1.0-dev
-  â”œâ”€â”€ Milestone 1: Core Stable âœ…
-  â”œâ”€â”€ Milestone 2: Conversation Ready âœ…
-  â”œâ”€â”€ Milestone 3: Capability Platform âœ…
-  â”œâ”€â”€ Milestone 4: Reasoning Excellence ðŸŽ¯ Target
-  â”œâ”€â”€ Network Engineer Capability Pack âœ… Certified
-  â”‚   â”œâ”€â”€ Milestone 3.1: Network Engineer MVP âœ… Accepted
-  â”‚   â”œâ”€â”€ Milestone 3.2: Hardening âœ… Accepted
-  â”‚   â”œâ”€â”€ Milestone 3.3: Controlled Deployment âœ… Accepted
-  â”‚   â”œâ”€â”€ Milestone 3.4: Dogfooding ðŸ§ª In Progress
-  â”‚   â””â”€â”€ Milestone 3.5: Network Operations ðŸ“‹ Planned
-  â”œâ”€â”€ Milestone 5: Developer Preview ðŸŽ¯ Target
-  â”‚   â”œâ”€â”€ Code Engineer Capability Pack
-  â”‚   â”œâ”€â”€ Research Assistant Capability Pack
-  â”‚   â”œâ”€â”€ DevOps Assistant Capability Pack
-  â”‚   â””â”€â”€ Trading Analyst Capability Pack (final certification gate)
-  â””â”€â”€ Post Developer Preview
-      â”œâ”€â”€ v1.1: Capability Excellence
-      â”œâ”€â”€ v1.2: Community Ecosystem
-      â””â”€â”€ v1.3: Enterprise
+  ├── Milestone 1: Core Stable ✅
+  ├── Milestone 2: Conversation Ready ✅
+  ├── Milestone 3: Capability Platform ✅
+  ├── Milestone 4: Reasoning Excellence 🎯 Target
+  ├── Network Engineer Capability Pack ✅ Certified
+  │   ├── Milestone 3.1: Network Engineer MVP ✅ Accepted
+  │   ├── Milestone 3.2: Hardening ✅ Accepted
+  │   ├── Milestone 3.3: Controlled Deployment ✅ Accepted
+  │   ├── Milestone 3.4: Dogfooding 🧪 In Progress
+  │   └── Milestone 3.5: Network Operations 📋 Planned
+  ├── Milestone 5: Developer Preview 🎯 Target
+  │   ├── Code Engineer Capability Pack
+  │   ├── Research Assistant Capability Pack
+  │   ├── DevOps Assistant Capability Pack
+  │   └── Trading Analyst Capability Pack (final certification gate)
+  └── Post Developer Preview
+      ├── v1.1: Capability Excellence
+      ├── v1.2: Community Ecosystem
+      └── v1.3: Enterprise
 ```
 
 ---
 
-## 8-Week Sprint Plan â€” First Product Release
+## Rencana Sprint 8 Minggu — Rilis Produk Pertama
 
-This sprint plan assumes vibe coding discipline: AI generates, AI reviews, AI tests, AI benchmarks, humans approve.
-> Terjemahan Indonesia: Ini sprint plan assumes vibe coding discipline: AI generates, AI reviews, AI tests, AI benchmarks, humans approve.
+Rencana sprint ini mengasumsikan disiplin vibe coding: AI menghasilkan, AI me-review, AI menguji, AI melakukan benchmark, manusia menyetujui.
 
-### Week 1 â€” Chat UX
+### Minggu 1 — Chat UX
 
-**Focus:** Single conversation interface like Kimi/ChatGPT.
-- Chat UI with streaming
-- Markdown rendering
-- File upload
+**Fokus:** Interface percakapan tunggal seperti Kimi/ChatGPT.
+- Chat UI dengan streaming
+- Rendering Markdown
+- Upload file
 - Workspace switcher
-- Progress indication
+- Indikasi progress
 - Artifact viewer
 
-**Gate:** User can upload a MikroTik config and see streaming analysis.
+**Gate:** Pengguna dapat mengunggah config MikroTik dan melihat analisis streaming.
 
 ---
 
-### Week 2 â€” Workspace
+### Minggu 2 — Workspace
 
-**Focus:** Project isolation and memory.
+**Fokus:** Isolasi proyek dan memory.
 - Workspace CRUD
-- Conversation history per workspace
-- Artifact storage and retrieval
-- Memory scoping per workspace
+- Riwayat percakapan per workspace
+- Penyimpanan dan pengambilan artifact
+- Pembatasan memory per workspace
 
-**Gate:** User can switch between two workspaces and history is isolated.
+**Gate:** Pengguna dapat berpindah antara dua workspace dan riwayat terisolasi.
 
 ---
 
-### Week 3 â€” Streaming & Long Context
+### Minggu 3 — Streaming & Long Context
 
-**Focus:** Real-time execution feedback.
-- Event streaming from Execution Runtime
-- Subtask progress updates
+**Fokus:** Umpan balik eksekusi real-time.
+- Event streaming dari Execution Runtime
+- Pembaruan progress subtask
 - Artifact streaming
-- Error recovery messaging
+- Pesan pemulihan error
 
-**Gate:** User sees real-time progress during a 5+ step task.
+**Gate:** Pengguna melihat progress real-time selama tugas 5+ langkah.
 
 ---
 
-### Week 4 â€” Capability Excellence: Network
+### Minggu 4 — Capability Excellence: Network
 
-**Focus:** Make Network Engineer genuinely expert.
-- Add 20 real cases to `real_cases/network/`
-- Improve analyzer depth
-- Enhance explainability
+**Fokus:** Membuat Network Engineer benar-benar ahli.
+- Menambahkan 20 real cases ke `real_cases/network/`
+- Meningkatkan kedalaman analyzer
+- Meningkatkan explainability
 - Benchmark: 92%+
 
-**Gate:** Network benchmark score â‰¥92%.
+**Gate:** Skor benchmark Network ≥92%.
 
 ---
 
-### Week 5 â€” Capability Excellence: Code, Research, DevOps
+### Minggu 5 — Capability Excellence: Code, Research, DevOps
 
-**Focus:** Bring remaining packs to minimum viable quality.
+**Fokus:** Membawa pack lainnya ke kualitas minimum yang layak.
 - Code: Review + Patch end-to-end
-- Research: Evidence ranking + citations
-- DevOps: Docker + CI/CD generation
+- Research: Peringkat evidence + sitasi
+- DevOps: Generasi Docker + CI/CD
 
-**Gate:** All three packs pass â‰¥80% benchmark.
-
----
-
-### Week 6 â€” Dogfooding
-
-**Focus:** Use ECP to build ECP.
-- Audit ECP docs with Self Development
-- Review ECP code with Code Capability
-- Document findings in `real_cases/`
-
-**Gate:** 50+ real cases collected, all fed back into capability packs.
+**Gate:** Ketiga pack lulus benchmark ≥80%.
 
 ---
 
-### Week 7 â€” Benchmark & Polish
+### Minggu 6 — Dogfooding
 
-**Focus:** Measure and improve.
-- Run all capability benchmarks
-- Fix regressions
-- Polish UX flows against USER_JOURNEYS.md
-- Performance optimization
+**Fokus:** Menggunakan ECP untuk membangun ECP.
+- Mengaudit dokumen ECP dengan Self Development
+- Me-review kode ECP dengan Code Capability
+- Mendokumentasikan findings di `real_cases/`
 
-**Gate:** All 6 packs meet Developer Preview quality targets.
+**Gate:** 50+ real cases dikumpulkan, semuanya diumpankan kembali ke capability packs.
 
 ---
 
-### Week 8 â€” Developer Preview
+### Minggu 7 — Benchmark & Polish
 
-**Focus:** Product release.
+**Fokus:** Mengukur dan meningkatkan.
+- Menjalankan semua capability benchmarks
+- Memperbaiki regresi
+- Polish alur UX terhadap USER_JOURNEYS.md
+- Optimasi kinerja
+
+**Gate:** Semua 6 pack memenuhi target kualitas Developer Preview.
+
+---
+
+### Minggu 8 — Developer Preview
+
+**Fokus:** Rilis produk.
 - Release notes
-- SDK documentation
+- Dokumentasi SDK
 - Quick Start
-- Public announcement
+- Pengumuman publik
 
-**Gate:** ECP v1.0.0 released with certified capability packs.
+**Gate:** ECP v1.0.0 dirilis dengan capability packs bersertifikat.
 
 ---
 
-## Development Rhythm
+## Ritme Pengembangan
 
-| Day | Focus |
+| Hari | Fokus |
 |-----|-------|
-| Monday | Knowledge expansion |
-| Tuesday | Benchmark improvement |
-| Wednesday | Reasoning improvement |
-| Thursday | Explainability |
-| Friday | Benchmark score increase |
+| Senin | Ekspansi pengetahuan |
+| Selasa | Peningkatan benchmark |
+| Rabu | Peningkatan reasoning |
+| Kamis | Explainability |
+| Jumat | Peningkatan skor benchmark |
 
-All changes happen inside Capability Packs. Core remains untouched.
-> Terjemahan Indonesia: All changes happen inside kapabilitas Packs. Core remains untouched.
+Semua perubahan terjadi di dalam Capability Packs. Core tetap tidak tersentuh.
+

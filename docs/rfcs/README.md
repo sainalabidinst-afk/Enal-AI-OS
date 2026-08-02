@@ -1,122 +1,102 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/README.md`
-- Judul: RFC Process
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+# Proses RFC
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** RFC process, RFC index, and RFC lifecycle
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Proses RFC, indeks RFC, dan lifecycle RFC
 <!-- DOCUMENT_METADATA_END -->
 
-# RFC Process
+Dokumen ini menjelaskan proses Request for Comments (RFC) untuk ECP.
 
-This document describes the Request for Comments (RFC) process for ECP.
-> Terjemahan Indonesia: Ini dokumen describes Request untuk Comments (RFC) process untuk ECP.
+## Tujuan
 
-## Purpose
+Proses RFC memastikan bahwa perubahan signifikan pada ECP dirancang dengan baik, direview, dan didokumentasikan sebelum implementasi.
 
-The RFC process ensures that significant changes to ECP are well-designed, reviewed, and documented before implementation.
-> Terjemahan Indonesia: RFC process ensures itu significant changes untuk ECP adalah well-dirancang, reviewed, dan documented before implementation.
+## Kapan Menulis RFC
 
-## When to Write an RFC
+Tulis RFC untuk:
+- Fitur baru atau fungsionalitas utama
+- Perubahan pada kontrak/API yang ada
+- Perubahan arsitektur
+- Perubahan yang bersifat breaking
+- Plugin atau tool baru yang memengaruhi perilaku Core
 
-Write an RFC for:
-> Terjemahan Indonesia: Write sebuah RFC untuk:
-- New features or major functionality
-- Changes to existing contracts/APIs
-- Architectural changes
-- Breaking changes
-- New plugins or tools that affect Core behavior
-
-## RFC Template
+## Template RFC
 
 ```markdown
-# RFC-XXXX: Title
+# RFC-XXXX: Judul
 
-## Summary
-One-paragraph summary of the proposal.
+## Ringkasan
+Ringkasan proposal dalam satu paragraf.
 
-## Motivation
-Why should we do this? What problem does it solve?
+## Motivasi
+Mengapa kita perlu melakukan ini? Masalah apa yang diselesaikannya?
 
-## Detailed Design
-Technical details of the proposal.
+## Desain Terperinci
+Detail teknis dari proposal.
 
-## Alternatives Considered
-What other approaches were considered?
+## Alternatif yang Dipertimbangkan
+Pendekatan lain apa yang dipertimbangkan?
 
-## Compatibility
-How does this affect backward compatibility?
+## Kompatibilitas
+Bagaimana ini memengaruhi kompatibilitas ke belakang?
 
-## Security Considerations
-Any security implications?
+## Pertimbangan Keamanan
+Apakah ada implikasi keamanan?
 
-## Testing Strategy
-How will this be tested?
+## Strategi Testing
+Bagaimana ini akan diuji?
 
-## Timeline
-Proposed timeline for implementation.
+## Linimasa
+Linimasa yang diusulkan untuk implementasi.
 
-## References
-Related RFCs, documentation, etc.
+## Referensi
+RFC terkait, dokumentasi, dll.
 ```
 
-## RFC Process
+## Proses RFC
 
-1. **Draft:** Author creates RFC in `docs/rfcs/`
-2. **Review:** Community reviews for 7 days
-3. **Revision:** Author addresses feedback
-4. **Acceptance:** Core team accepts or rejects
-5. **Implementation:** Author implements with guidance
-6. **Integration:** Merged into main branch
+1. **Draft:** Penulis membuat RFC di `docs/rfcs/`
+2. **Review:** Komunitas mereview selama 7 hari
+3. **Revisi:** Penulis menindaklanjuti masukan
+4. **Penerimaan:** Tim inti menerima atau menolak
+5. **Implementasi:** Penulis mengimplementasikan dengan panduan
+6. **Integrasi:** Digabungkan ke branch utama
 
-## Current RFCs
+## RFC Saat Ini
 
-- RFC-0001: Stable Contracts (Accepted)
-- RFC-0002: Plugin Manifest Format (Accepted)
-- RFC-0003: SDK Decorators (Accepted)
-- RFC-0004: Event Bus Protocol (Accepted)
-- RFC-0005: Memory Interface (Accepted)
-- RFC-0006: Capability Pack Registry (Accepted)
-- RFC-0007: Decision Intelligence (Accepted)
-- RFC-0008: Security Engineer (Implemented)
-- RFC-0009: Data Engineer (Implemented)
-- RFC-0010: Database Engineer (Implemented)
-- RFC-0011: System Architect (Implemented)
-- RFC-0012: QA Engineer (Implemented)
-- RFC-0013: Business Analyst (Implemented)
+- RFC-0001: Stable Contracts (Diterima)
+- RFC-0002: Plugin Manifest Format (Diterima)
+- RFC-0003: SDK Decorators (Diterima)
+- RFC-0004: Event Bus Protocol (Diterima)
+- RFC-0005: Memory Interface (Diterima)
+- RFC-0006: Capability Pack Registry (Diterima)
+- RFC-0007: Decision Intelligence (Diterima)
+- RFC-0008: Security Engineer (Diimplementasikan)
+- RFC-0009: Data Engineer (Diimplementasikan)
+- RFC-0010: Database Engineer (Diimplementasikan)
+- RFC-0011: System Architect (Diimplementasikan)
+- RFC-0012: QA Engineer (Diimplementasikan)
+- RFC-0013: Business Analyst (Diimplementasikan)
 
-## RFC Index
+## Indeks RFC
 
-| RFC ID | Title | Status | Capability Pack |
+| RFC ID | Judul | Status | Capability Pack |
 |--------|-------|--------|-----------------|
-| RFC-0001 | Stable Contracts | Accepted | Core |
-| RFC-0002 | Plugin Manifest Format | Accepted | Core |
-| RFC-0003 | SDK Decorators | Accepted | Core |
-| RFC-0004 | Event Bus Protocol | Accepted | Core |
-| RFC-0005 | Memory Interface | Accepted | Core |
-| RFC-0006 | Capability Pack Registry | Accepted | Core |
-| RFC-0007 | Decision Intelligence | Accepted | Decision Intelligence |
-| RFC-0008 | Security Engineer | Implemented | Security Engineer |
-| RFC-0009 | Data Engineer | Implemented | Data Engineer |
-| RFC-0010 | Database Engineer | Implemented | Database Engineer |
-| RFC-0011 | System Architect | Implemented | System Architect |
-| RFC-0012 | QA Engineer | Implemented | QA Engineer |
-| RFC-0013 | Business Analyst | Implemented | Business Analyst |
+| RFC-0001 | Stable Contracts | Diterima | Core |
+| RFC-0002 | Plugin Manifest Format | Diterima | Core |
+| RFC-0003 | SDK Decorators | Diterima | Core |
+| RFC-0004 | Event Bus Protocol | Diterima | Core |
+| RFC-0005 | Memory Interface | Diterima | Core |
+| RFC-0006 | Capability Pack Registry | Diterima | Core |
+| RFC-0007 | Decision Intelligence | Diterima | Decision Intelligence |
+| RFC-0008 | Security Engineer | Diimplementasikan | Security Engineer |
+| RFC-0009 | Data Engineer | Diimplementasikan | Data Engineer |
+| RFC-0010 | Database Engineer | Diimplementasikan | Database Engineer |
+| RFC-0011 | System Architect | Diimplementasikan | System Architect |
+| RFC-0012 | QA Engineer | Diimplementasikan | QA Engineer |
+| RFC-0013 | Business Analyst | Diimplementasikan | Business Analyst |
+

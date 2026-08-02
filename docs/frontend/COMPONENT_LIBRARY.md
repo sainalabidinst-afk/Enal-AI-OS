@@ -1,127 +1,109 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/COMPONENT_LIBRARY.md`
-- Judul: Component Library
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Component Library
+﻿# Perpustakaan Komponen
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for COMPONENT_LIBRARY
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk COMPONENT_LIBRARY
 <!-- DOCUMENT_METADATA_END -->
 
-This document defines the allowed v1 component inventory. No other components may be created without a Product Review.
-> Terjemahan Indonesia: Ini dokumen defines allowed v1 component inventory. No other components may menjadi created without sebuah Product Review.
+Dokumen ini mendefinisikan inventaris komponen v1 yang diizinkan. Tidak ada komponen lain yang dapat dibuat tanpa Product Review.
 
 ---
 
-## 1. ChatWindow
+## 1. Jendela Obrolan
 
-**Purpose:** Main conversation container.  
-**Props:**
+**Tujuan:** Wadah percakapan utama.
+**Alat Peraga:**
 - `conversationId: string`
 - `messages: Message[]`
 - `onSend: (message: string) => void`
 - `streaming: boolean`
 
-**Behavior:**
-- Shows conversation history.
-- Auto-scrolls to bottom on new message.
-- Shows streaming cursor when `streaming=true`.
-- Contains PromptBox at bottom.
+**Perilaku:**
+- Menampilkan riwayat percakapan.
+- Gulir otomatis ke bawah pada pesan baru.
+- Menampilkan kursor streaming saat `streaming=true`.
+- Berisi PromptBox di bagian bawah.
 
 ---
 
-## 2. ChatBubble
+## 2. membujuk Obrolan
 
-**Purpose:** Single message bubble.  
-**Props:**
+**Tujuan:** Membujuk pesan tunggal.
+**Alat Peraga:**
 - `role: 'user' | 'assistant' | 'system'`
 - `content: string`
 - `timestamp: string`
 - `artifacts?: Artifact[]`
 
-**Behavior:**
-- User messages aligned right.
-- Assistant messages aligned left.
-- Shows timestamp on hover.
-- Renders artifacts as ArtifactCards if present.
+**Perilaku:**
+- Pesan pengguna disejajarkan dengan benar.
+- Pesan Asisten rata kiri.
+- Menampilkan batang waktu saat mengarahkan kursor.
+- Merender artefak menjadi ArtifactCards jika ada.
 
 ---
 
-## 3. PromptBox
+## 3. Kotak Prompt
 
-**Purpose:** Text input for user goals.  
-**Props:**
+**Tujuan:** Masukkan teks untuk tujuan pengguna.
+**Alat Peraga:**
 - `onSubmit: (message: string) => void`
 - `disabled: boolean`
 - `placeholder: string`
 
-**Behavior:**
-- Expands up to 3 lines.
-- Submit on Enter (Shift+Enter for newline).
-- Disabled during submission.
-- Shows send button.
+**Perilaku:**
+- Memperluas hingga 3 baris.
+- Kirim saat Enter (Shift+Enter untuk baris baru).
+- Diaktifkan selama pengiriman.
+- Menampilkan tombol kirim.
 
 ---
 
-## 4. ProgressCard
+## 4. Kartu Kemajuan
 
-**Purpose:** Real-time execution progress.  
-**Props:**
+**Tujuan:** Kemajuan eksekusi secara real-time.
+**Alat Peraga:**
 - `executionId: string`
 - `status: ExecutionStatus`
 - `progress: number`
 - `phases: ExecutionPhase[]`
 - `currentPhase: string`
 
-**Behavior:**
-- Shows progress bar.
-- Shows current phase name.
-- Shows completed phases as checkmarks.
-- Shows pending phases as empty.
-- Collapses to compact bar on mobile.
+**Perilaku:**
+- Menampilkan barbar kemajuan.
+- Menampilkan nama fase saat ini.
+- Menampilkan fase yang telah selesai sebagai tanda centang.
+- Menampilkan fase yang tertunda sebagai kosong.
+- Runtuh menjadi formulir ringkas di perangkat seluler.
 
 ---
 
-## 5. ArtifactCard
+## 5. Kartu Artefak
 
-**Purpose:** Single artifact preview.  
-**Props:**
+**Tujuan:** Pratinjau artefak tunggal.
+**Alat Peraga:**
 - `artifactId: string`
 - `name: string`
 - `type: string`
 - `version: number`
 - `onClick: () => void`
 
-**Behavior:**
-- Shows artifact type icon.
-- Shows name and version.
-- Click opens Artifact Viewer.
-- Hover shows metadata.
+**Perilaku:**
+- Menampilkan ikon jenis artefak.
+- Menampilkan nama dan versi.
+- Klik membuka Penampil Artefak.
+- Arahkan kursor menunjukkan metadata.
 
 ---
 
-## 6. ApprovalDialog
+## 6. Dialog Persetujuan
 
-**Purpose:** Confirm or reject irreversible actions.  
-**Props:**
+**Tujuan:** Mengonfirmasi atau menolak tindakan yang tidak dapat diubah.
+**Alat Peraga:**
 - `open: boolean`
 - `title: string`
 - `description: string`
@@ -131,89 +113,89 @@ This document defines the allowed v1 component inventory. No other components ma
 - `onApprove: () => void`
 - `onReject: () => void`
 
-**Behavior:**
-- Modal overlay.
-- Shows risk level with color.
-- Shows rollback status.
-- Shows test results if available.
-- Approve/Reject buttons are always visible.
-- Focus moves to Approve button on open.
+**Perilaku:**
+- Modal hamparan.
+- Menunjukkan tingkat risiko dengan warna.
+- Menampilkan status pengembalian.
+- Menampilkan hasil tes jika tersedia.
+- Tombol Setujui/Tolak selalu terlihat.
+- Fokus berpindah ke tombol Setuju saat terbuka.
 
 ---
 
-## 7. ExecutionTimeline
+## 7. Garis Waktu Eksekusi
 
-**Purpose:** Visual timeline of execution phases.  
-**Props:**
+**Tujuan:** Garis waktu visual fase eksekusi.
+**Alat Peraga:**
 - `phases: ExecutionPhase[]`
 - `currentPhaseId?: string`
 
-**Behavior:**
-- Shows phases in order.
-- Completed phases: green checkmark.
-- Running phase: animated progress.
-- Pending phases: gray.
-- Failed phase: red with error.
-- Click phase to see details.
+**Perilaku:**
+- Menampilkan fase secara berurutan.
+- Fase yang selesai: tanda centang hijau.
+- Fase berjalan: kemajuan animasi.
+- Fase yang tertunda: abu-abu.
+- Fase gagal: merah dengan kesalahan.
+- Klik fase untuk melihat detailnya.
 
 ---
 
-## 8. WorkspaceSidebar
+## 8. Bilah Sisi Ruang Kerja
 
-**Purpose:** Workspace switcher and navigation.  
-**Props:**
+**Tujuan:** Pengalih dan navigasi ruang kerja.
+**Alat Peraga:**
 - `workspaces: Workspace[]`
 - `currentWorkspaceId: string`
 - `onSelectWorkspace: (id: string) => void`
 - `onNewWorkspace: () => void`
 
-**Behavior:**
-- Desktop: fixed left sidebar.
-- Mobile: bottom sheet triggered by hamburger.
-- Shows workspace name and artifact count.
-- Shows "New Workspace" button.
-- Shows Execution History link.
-- Shows Settings link.
+**Perilaku:**
+- Desktop: memperbaiki sidebar kiri.
+- Seluler: lembaran bawah dipicu oleh hamburger.
+- Menampilkan nama ruang kerja dan jumlah artefak.
+- Menampilkan tombol "Ruang Kerja Baru".
+- Menampilkan Riwayat tautan Eksekusi.
+- Menampilkan pengaturan.
 
 ---
 
-## 9. LoadingIndicator
+## 9. Indikator Pemuatan
 
-**Purpose:** Loading state.  
-**Props:**
+**Tujuan:** Status sedang memuat.
+**Alat Peraga:**
 - `size?: 'sm' | 'md' | 'lg'`
 - `label?: string`
 
-**Behavior:**
-- Uses spinner animation.
-- Shows label if provided.
-- Does NOT cover entire screen unless explicitly requested.
-- Accessible: `aria-label="Loading"`.
+**Perilaku:**
+- Menggunakan animasi spinner.
+- Menampilkan label jika disediakan.
+- TIDAK mencakup seluruh layar kecuali diminta secara eksplisit.
+- Dapat diakses: `aria-label="Loading"`.
 
 ---
 
-## 10. NotificationToast
+## 10. NotifikasiToast
 
-**Purpose:** Non-blocking notification.  
-**Props:**
+**Tujuan:** Notifikasi non-pemblokiran.
+**Alat Peraga:**
 - `message: string`
 - `type: 'info' | 'success' | 'warning' | 'error'`
 - `duration?: number`
 - `onDismiss: () => void`
 
-**Behavior:**
-- Appears top-right (desktop) or top-center (mobile).
-- Auto-dismisses after `duration` (default 5s).
-- Slide-in animation.
-- Dismiss button always visible.
-- Stackable.
+**Perilaku:**
+- Muncul di kanan atas (desktop) atau tengah atas (seluler).
+- Menutup otomatis setelah `duration` (default 5 detik).
+- Animasi slide-in.
+- Tombol tutup selalu terlihat.
+- Dapat ditumpuk.
 
 ---
 
-## Component Rules
+## Aturan Komponen
 
-1. Components receive data via props. They do not call APIs directly.
-2. Components emit events via callbacks. They do not modify state directly.
-3. Components are styled with design tokens only.
-4. Components are accessible (keyboard navigation, ARIA labels).
-5. Components are responsive by default.
+1. Komponen menerima data melalui alat peran. Mereka tidak memanggil API secara langsung.
+2. Komponen memancarkan peristiwa melalui panggilan balik. Mereka tidak mengubah keadaan secara langsung.
+3. Komponen ditata hanya dengan desain token.
+4. Komponen dapat diakses (keyboard navigasi, label ARIA).
+5. Komponen secara responsif default.

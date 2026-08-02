@@ -1,53 +1,45 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `backend/app/core/CANONICAL_OWNER_model_router.md`
-- Judul: Canonical Owner Model Router
-- Status: bilingual header added
+### Informasi Dokumen / Info Dokumen
+- Berkas: `backend/app/core/CANONICAL_OWNER_model_router.md`
+- Judul: Router Model Pemilik Canonical
+- Status: editor bilingual ditambahkan
 
-<!-- BILINGUAL_DOCS_END -->
 
-# CANONICAL_OWNER
+# KANONIK_PEMILIK
 
-## Service: Model Router
+## Layanan: Model Router
 
-**Canonical:** `backend/app/core/model_router.py`  
-**Auxiliary:** `backend/app/core/model_gateway.py` (health/status API — NOT a duplicate)  
-**Legacy (Dead):** N/A — deleted  
-**Status:** canonical / auxiliary / legacy-purged
+**Kanonik:** `backend/app/core/model_router.py`
+**Auxiliary:** `backend/app/core/model_gateway.py` (kesehatan/status API — BUKAN duplikat)
+**Warisan (Mati):** T/A — dihapus
+**Status:** kanonikal / tambahan / pembersihan lama
 
 ---
 
-## Migration History
+## Sejarah Migrasi
 
-| Date | Action | By |
+|Tanggal|Tindakan|Oleh|
 |------|--------|----|
-| 2026-07-11 | Removed 6 dead imports of `model_router` in cognitive_kernel, cost_optimizer, evaluation, meta_cognition, modules/rag, modules/tools | Canonical Consolidation Epic 1 |
-| 2026-07-11 | Deleted `apps/society/model_router.py` (0 importers, 189 lines dead code) | Canonical Consolidation Epic 2 |
+|07-11-2026|Menghapus 6 impor mati `model_router` di kognitif_kernel, pengoptimal_biaya, evaluasi, meta_kognisi, modul/kain, modul/alat|Epik Konsolidasi Kanonik 1|
+|07-11-2026|Menghapus `apps/society/model_router.py` (0 importir, 189 baris kode mati)|Epik Konsolidasi Kanonik 2|
 
-## Canonical Consumers
+## Konsumen Kanonis
 
-21 files import `model_router`. 15 active callers invoke `.complete()`.
-> Terjemahan Indonesia: 21 file mengimpor model_router. 15 penelepon aktif memanggil .complete().
+21 file diimpor `model_router`. 15 penelepon aktif memanggil `.complete()`.
 
-## Important Distinction
+## Perbedaan Penting
 
-`model_gateway.py` is NOT a duplicate of `model_router.py`. It serves a different purpose:
-> Terjemahan Indonesia: Model_gateway.py adalah NOT sebuah duplicate dari model_router.py. It serves sebuah different purpose:
+`model_gateway.py` BUKAN duplikat dari `model_router.py`. Ini memiliki tujuan yang berbeda:
 
-| File | Purpose | Endpoint |
+|Mengajukan|Tujuan|Titik akhir|
 |------|---------|----------|
-| `model_router.py` | LLM execution (`.complete()`) | N/A (internal) |
-| `model_gateway.py` | Health/status API | `/api/v1/models/health`, `/api/v1/models/providers` |
+|`model_router.py`|Eksekusi LLM (`.complete()`)|T/A (internal)|
+|`model_gateway.py`|Kesehatan/status API|`/api/v1/models/health`, `/api/v1/models/providers`|
 
-Keep `model_gateway.py`.
-> Terjemahan Indonesia: Pertahankan model_gateway.py.
+Simpan `model_gateway.py`.

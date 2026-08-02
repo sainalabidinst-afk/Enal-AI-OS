@@ -1,61 +1,39 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Data Engineer — Spesifikasi Capability
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/data-engineer.md`
-- Judul: Data Engineer
-- Status: bilingual content applied
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Data Engineer Capability Specification
-
-## Version: 1.0.0
-## Status: Production Ready (RFC-0009)
-## Quality Target: A- (≥85)
+**Versi:** 1.0.0
+**Status:** Production Ready (RFC-0009)
+**Target Kualitas:** A- (≥85)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-Data Engineer adalah **otoritas rekayasa data** untuk ECP — Capability Pack yang
-menangani ETL/ELT, pembersihan data, validasi, evolusi skema, rekayasa fitur,
-penanganan deret waktu, dan jaminan kualitas data.
-> Terjemahan Indonesia: Data Engineer adalah otoritas rekayasa data untuk ECP — kapabilitas Pack yang menangani ETL/ELT, pembersihan data, validasi, evolusi skema, rekayasa fitur, penanganan deret waktu, dan jaminan kualitas data.
+Data Engineer adalah **otoritas rekayasa data** untuk ECP — Capability Pack yang menangani ETL/ELT, pembersihan data, validasi, schema evolution, feature engineering, penanganan time-series, dan data quality assurance.
 
-Capability Pack ini mengekstrak data dari berbagai sumber, menerapkan transformasi,
-memvalidasi kualitas, dan menghasilkan dataset yang siap konsumsi — **tanpa memodifikasi Core**.
-> Terjemahan Indonesia: Kapabilitas Pack ini mengekstrak data dari berbagai sumber, menerapkan transformasi, memvalidasi kualitas, dan menghasilkan dataset yang siap konsumsi — tanpa memodifikasi Core.
+Capability Pack ini mengekstrak data dari berbagai sumber, menerapkan transformasi, memvalidasi kualitas, dan menghasilkan dataset yang siap dikonsumsi — **tanpa memodifikasi Core**.
 
 ---
 
-## 2. Scope
+## 2. Ruang Lingkup
 
-### In Scope
-- **ETL/ELT Pipeline** — Extract, Transform, Load dari berbagai sumber (CSV, JSON, API, DB)
-- **Data Cleaning** — Deteksi dan perbaikan nilai hilang, duplikat, outlier, format issues
-- **Dataset Validation** — Validasi schema, integritas, dan kualitas data
-- **Schema Evolution** — Deteksi drift skema dan rencana migrasi
+### Dalam Ruang Lingkup
+- **ETL/ELT Pipeline** — Ekstraksi, transformasi, dan loading dari berbagai sumber (CSV, JSON, API, DB)
+- **Data Cleaning** — Deteksi dan perbaikan nilai hilang, duplikat, outlier, masalah format
+- **Dataset Validation** — Validasi skema, integritas, dan kualitas data
+- **Schema Evolution** — Deteksi schema drift dan rencana migrasi
 - **Feature Engineering** — Generasi fitur turunan dengan lineage
-- **Time Series Handling** — Alignment, interpolasi, resampling data deret waktu
-- **Data Quality Assurance** — Ukur metrik kelengkapan, keunikan, validitas, freshness, konsistensi
-- **Experience Memory** — Perekaman hasil ke history
+- **Time-series Handling** — Penyelarasan, interpolasi, dan resampling data dari waktu ke waktu
+- **Data Quality Assurance** — Mengukur metrik completeness, uniqueness, validity, freshness, consistency
+- **Experience Memory** — Merekam hasil ke riwayat
 
-### Out of Scope
+### Di Luar Cakupan
 - Eksekusi pipeline di production
-- Modifikasi Core contracts
-- Direct import dari Capability Pack lain (ADR-002 compliance)
+- Modifikasi kontrak Core
+- Import langsung dari Capability Pack lain (kepatuhan ADR-002)
 
 ---
 
-## 3. Contract
+## 3. Kontrak
 
 ### Input: DataEngineeringRequest
 ```json
@@ -86,7 +64,7 @@ memvalidasi kualitas, dan menghasilkan dataset yang siap konsumsi — **tanpa me
 }
 ```
 
-### Output: DataEngineeringReport
+### Output: Laporan Data Engineering
 ```json
 {
   "request_id": "uuid",
@@ -133,37 +111,37 @@ memvalidasi kualitas, dan menghasilkan dataset yang siap konsumsi — **tanpa me
 
 ---
 
-## 4. Operations
+## 4. Operasi
 
-| Operation | Description | Inputs | Outputs |
+| Operasi | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| etl | Extract, Transform, Load pipeline | source, operations, target_schema | Cleaned dataset |
-| elt | Extract, Load, Transform pipeline | source, operations | Transformed dataset |
-| clean | Data cleaning and remediation | source, operations | Cleaned dataset + issues |
-| validate | Dataset validation | source, schema, quality_rules | QualityReport |
-| schema_evolve | Schema drift detection | source, old_schema, new_schema | SchemaDriftReport |
-| feature_engineer | Feature engineering | source, feature_definitions | Generated features |
-| time_series | Time series processing | source, time_series_config | TimeSeriesReport |
+| `etl` | Pipeline Extract, Transform, Load | source, operations, target_schema | Dataset bersih |
+| `elt` | Pipeline Extract, Load, Transform | source, operations | Dataset ter-transformasi |
+| `clean` | Pembersihan dan remediasi data | source, operations | Dataset + issues bersih |
+| `validate` | Validasi dataset | source, schema, quality_rules | Quality Report |
+| `schema_evolve` | Deteksi schema drift | source, old_schema, new_schema | SchemaDrift Report |
+| `feature_engineer` | Feature engineering | source, feature_definitions | Generated Features |
+| `time_series` | Pemrosesan time-series | source, time_series_config | Time Series Report |
 
 ---
 
-## 5. Analyzer Modules
+## 5. Modul Analyzer
 
-| Module | Responsibility |
+| Modul | Tanggung Jawab |
 |--------|----------------|
-| etl_pipeline.py | Extract from CSV/JSON/API/DB, transform, load |
-| cleaner.py | Detect and remediate missing values, duplicates, outliers |
-| validator.py | Validate dataset against schema and quality rules |
-| schema_evolver.py | Detect schema drift and generate migration plans |
-| feature_store.py | Generate derived features with lineage |
-| time_series.py | Align, interpolate, resample time-series data |
-| quality_assurance.py | Measure and report data quality metrics |
+| `etl_pipeline.py` | Mengekstrak dari CSV/JSON/API/DB, transformasi, loading |
+| `cleaner.py` | Mendeteksi dan memperbaiki nilai hilang, duplikat, outlier |
+| `validator.py` | Memvalidasi dataset terhadap skema dan aturan kualitas |
+| `schema_evolver.py` | Mendeteksi schema drift dan membuat rencana migrasi |
+| `feature_store.py` | Menghasilkan fitur turunan dengan lineage |
+| `time_series.py` | Menyelaraskan, menginterpolasi, me-resample data time-series |
+| `quality_assurance.py` | Mengukur dan melaporkan metrik kualitas data |
 
 ---
 
-## 6. Benchmark Dimensions
+## 6. Dimensi Benchmark
 
-| Dimension | Target | Grade |
+| Dimensi | Target | Grade |
 |-----------|--------|-------|
 | Data Cleaning Accuracy | ≥95% | A |
 | Dataset Validation Rate | ≥98% | A |
@@ -176,16 +154,16 @@ memvalidasi kualitas, dan menghasilkan dataset yang siap konsumsi — **tanpa me
 
 ---
 
-## 7. Dependencies
+## 7. Dependensi
 
-- **apps/base.py** — Base model definitions
-- **apps/data_engineer/schemas.py** — Public contracts
-- **apps/data_engineer/engine.py** — Domain Engine
-- **apps/data_engineer/worker.py** — Thin adapter (ADR-003)
+- **apps/base.py** — Definisi model dasar
+- **apps/data_engineer/schemas.py** — Kontrak publik
+- **apps/data_engineer/engine.py** — Domain engine
+- **apps/data_engineer/worker.py** — Adaptor tipis (ADR-003)
 
 ---
 
-## 8. Usage Example
+## 8. Contoh Penggunaan
 
 ```python
 from apps.data_engineer.engine import DataEngineerEngine
@@ -200,3 +178,4 @@ request = DataEngineeringRequest(
 report = engine.process(request)
 print(f"Quality score: {report.quality_report.overall_score:.0%}")
 ```
+

@@ -1,125 +1,103 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/GOVERNANCE.md`
-- Judul: Governance
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-<!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Operational rules, ADR process, Capability First Rule, Architecture Freeze
+﻿<!-- DOCUMENT_METADATA_START -->
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Aturan operasional, proses ADR, Aturan Kapabilitas Pertama, Pembekuan Arsitektur
 <!-- DOCUMENT_METADATA_END -->
 
-# ECP Governance â€” Operational Rules
+# Tata Kelola ECP — Aturan Operasional
 
-**Version:** 1.0.0
-**Status:** Ratified
-**Effective:** 2026-08-01
-**Authority:** Chief Architect
-**Parent:** `GOVERNANCE_CHARTER.md`
-**Purpose:** Operational rules that all RFCs, ADRs, Capability Packs, and releases must satisfy.
-
----
-
-## 1. Capability First Rule
-
-> **No Core change is allowed to improve a single Capability Pack.**
-
-- If one Capability Pack needs a different behavior, the change must stay inside that Capability Pack.
-- If 2 or more Capability Packs need the same behavior, an ADR may be submitted with proof from both packs.
-- Core changes require ADR approval and cross-capability proof.
+**Versi:** 1.0.0
+**Status:** Diratifikasi
+**Berlaku:** 08-01-2026
+**Otoritas:** Kepala Arsitek
+**Induk:** `GOVERNANCE_CHARTER.md`
+**Tujuan:** Aturan operasional yang harus dipenuhi oleh semua RFC, ADR, Capability Pack, dan rilis.
 
 ---
 
-## 2. No New Engines Without Use Case
+## 1. Aturan Pertama Kemampuan
 
-Any new engine, module, or abstraction must:
-> Terjemahan Indonesia: Setiap mesin, modul, atau abstraksi baru harus:
+> **Tidak ada perubahan Core yang diizinkan hanya untuk meningkatkan satu Capability Pack.**
 
-1. Be required by at least two Capability Packs.
-2. Have a golden test case.
-3. Be documented in architecture docs.
-
-If no Capability Pack improves, no benchmark increases, and no journey becomes better â€” **do not build**.
-> Terjemahan Indonesia: If no kapabilitas Pack improves, no benchmark increases, dan no journey becomes better â€” do not membangun.
+- Jika satu Capability Pack membutuhkan perilaku yang berbeda, perubahan harus tetap berada di dalam Capability Pack tersebut.
+- Jika 2 atau lebih Capability Pack membutuhkan perilaku yang sama, sebuah ADR dapat dikeluarkan dengan bukti dari kedua paket.
+- Perubahan Core memerlukan persetujuan ADR dan bukti lintas-capability.
 
 ---
 
-## 3. Architecture Freeze Policy
+## 2. Tidak Ada Mesin Baru Tanpa Use Case
 
-> **Core may only change if all of the following are satisfied:**
+Setiap mesin, modul, atau abstraksi baru harus:
 
-| # | Condition | Evidence |
+1. Dipilih setidaknya dua Capability Pack.
+2. Memiliki Golden Test kasus.
+3. Didokumentasikan dalam dokumentasi arsitektur.
+
+Jika tidak ada Capability Pack yang membaik, tidak ada Benchmark yang meningkat, dan tidak ada perjalanan yang menjadi lebih baik — **jangan dibangun**.
+
+---
+
+## 3. Kebijakan Pembekuan Arsitektur
+
+> **Core hanya dapat berubah jika semua hal berikut terpenuhi:**
+
+| # |Kondisi|Bukti|
 |---|-----------|----------|
-| 1 | Used by at least two Capability Packs | Cross-capability proof document |
-| 2 | Has an approved ADR | ADR in `docs/adr/` + entry in `ARCHITECTURE_DECISIONS.md` |
-| 3 | Passes benchmark | Benchmark result persisted in `benchmarks/` |
-| 4 | Passes regression tests | Full test suite green (CI/CD) |
+|1|Digunakan oleh setidaknya dua Capability Pack|Dokumen bukti kemampuan lintas|
+|2|Memiliki ADR yang disetujui|ADR di `docs/adr/` + entri di `ARCHITECTURE_DECISIONS.md`|
+|3|Lulus Benchmark|Hasil Benchmark disimpan di `benchmarks/`|
+|4|Uji regresi Lulus|Seluruh test suite hijau (CI/CD)|
 
-**Process for a Core change:**
+**Proses perubahan Inti:**
 
-1. Identify the Core change needed.
-2. Document which Capability Packs require it.
-3. If fewer than 2 packs require it â†’ the change belongs in the Capability Pack, not Core.
-4. If 2+ packs require it â†’ submit an RFC with test cases from both packs.
-5. RFC accepted â†’ submit ADR with impact analysis.
-6. ADR approved â†’ implement with benchmark + regression proof.
-7. Merge only after all four Architecture Freeze conditions pass.
+1. Identifikasi perubahan Core yang dibutuhkan.
+2. Dokumentasikan Capability Pack mana saja yang mendesak.
+3. Jika kurang dari 2 paket yang mendesak → perubahan tersebut milik Capability Pack, bukan Core.
+4. Jika 2+ paket memenuhi → ajukan RFC dengan test case dari kedua paket.
+5. RFC diterima → ajukan ADR dengan analisis dampak.
+6. ADR disetujui → diimplementasikan dengan bukti Benchmark + regresi.
+7. Gabungkan hanya setelah kondisi keempat Architecture Freeze terpenuhi.
 
-**Explicitly forbidden without the above process:**
+**Secara eksplisit dilarang tanpa proses di atas:**
 
-- Adding a new Runtime, Planner, Kernel, or architectural Layer.
-- Modifying Core to improve a single Capability Pack.
-- Breaking Core contracts without a 2-release grace period and migration guide.
-
----
-
-## 4. Kernel Stability
-
-The kernel (`backend/app/core/`) must:
-> Terjemahan Indonesia: Kernel (backend/app/core/) must:
-
-- Remain under 5,000 lines of code.
-- Have zero external dependencies beyond stdlib + pydantic.
-- Maintain backward-compatible contracts.
-- Pass all tests on every commit.
+- Menambahkan Runtime, Planner, Kernel, atau Layer arsitektur baru.
+- Memodifikasi Core untuk meningkatkan satu Capability Pack.
+- Melanggar kontrak Core tanpa masa tenggang 2 rilis dan panduan migrasi.
 
 ---
 
-## 5. Capability Pack Independence
+## 4. Stabilitas Kernel
 
-Capability Packs must **not** import other Capability Pack engines directly.
-> Terjemahan Indonesia: Kapabilitas Packs must not import other kapabilitas Pack engines directly.
+Kernel (`backend/app/core/`) harus:
 
-All cross-pack communication flows through **Execution Runtime and shared contracts only**.
-> Terjemahan Indonesia: All cross-pack communication flows through Execution Runtime dan shared contracts only.
+- Tetap di bawah 5.000 baris kode.
+- Tidak memiliki ketergantungan eksternal selain stdlib + pydantic.
+- Mempertahankan kontrak yang kompatibel ke belakang.
+- Lulus semua tes pada setiap commit.
 
-**Forbidden:**
+---
+
+## 5. Kemerdekaan Capability Pack
+
+Capability Pack **tidak boleh mengimpor mesin Capability Pack lain secara langsung.
+
+Semua komunikasi lintas-pack mengalir melalui **Execution Runtime dan kontrak bersama saja**.
+
+**Dilarang:**
 
 ```python
-# FORBIDDEN
+# DILARANG
 from apps.trading_analyst import engine as trading_engine
 trading_engine.analyze(...)
 ```
 
-**Allowed:**
+**Diizinkan:**
 
 ```python
-# ALLOWED
+# DIIZINKAN
 task = {
     "domain": "research",
     "intent": "Analyze market sentiment for AAPL",
@@ -129,50 +107,46 @@ result = await execution_runtime.execute(task)
 
 ---
 
-## 6. Architecture Decision Records (ADR)
+## 6. Catatan Keputusan Arsitektur (ADR)
 
-- All significant architecture decisions require an ADR.
-- ADRs live in `docs/adr/` and are aggregated in `ARCHITECTURE_DECISIONS.md`.
-- Changes to frozen ADRs require:
-  - RFC process with extended review period
-  - Migration plan for all affected components
-  - Approval by project architecture authority
-> Terjemahan Indonesia: RFC process dengan extended review period Migration plan untuk all affected components Approval oleh proyek arsitektur authority
+- Semua keputusan arsitektur yang signifikan memerlukan ADR.
+- ADR berada di `docs/adr/` dan dirangkum dalam `ARCHITECTURE_DECISIONS.md`.
+- Perubahan pada ADR yang memerlukan:
+  - Proses RFC dengan periode peninjauan yang diperpanjang
+  - Rencana migrasi untuk semua komponen yang terdampak
+  - Persetujuan oleh otoritas arsitektur proyek
 
-### What Requires an ADR
+### Apa yang Membutuhkan ADR
 
-- Adding a new Runtime
-- Adding a new Planner
-- Adding a new Kernel
-- Adding a new architectural Layer
-- Modifying Core for any reason
+- Menambahkan Runtime baru
+- Menambahkan Planner baru
+- Menambahkan Kernel baru
+- Menambahkan Layer arsitektur baru
+- Memodifikasi Core untuk alasan apa pun
 
-All require: cross-capability proof (â‰¥2 packs), RFC with impact analysis, and architecture authority approval.
-> Terjemahan Indonesia: All require: cross-kapabilitas proof (â‰¥2 packs), RFC dengan impact analysis, dan arsitektur authority approval.
+Semuanya memerlukan: bukti lintas-capability (≥2 pack), RFC dengan analisis dampak, dan persetujuan otoritas arsitektur.
 
 ---
 
-## 7. CI/CD Enforcement of Governance
+## 7. Penegakan Tata Kelola di CI/CD
 
-CI/CD must block merges that violate governance:
-> Terjemahan Indonesia: CI/CD must block merges itu violate tata kelola:
+CI/CD harus memblokir penggabungan yang melanggar tata kelola:
 
-| Check | Fails When |
+|Pemeriksaan|Gagal Ketika|
 |-------|------------|
-| Architecture Test | Package boundary violated (pack imports pack engine directly) |
-| Core Change Guard | Core modified without a referenced approved ADR |
-| ADR Reference Check | Change impacting multiple packs lacks ADR |
-| Benchmark Gate | Benchmark score below pack threshold |
-| Golden Tests | Golden test suite below pass threshold |
+|Tes Arsitektur|Batas paket (paket mengimpor paket mesin lain secara langsung)|
+|Penjaga Perubahan Inti|Core dimodifikasi tanpa ADR yang disetujui dan dirujuk|
+|Pemeriksaan Referensi ADR|Perubahan yang berdampak pada banyak paket yang tidak memiliki ADR|
+|Benchmark Gerbang|Skor Benchmark di bawah ambang batas paket|
+|Ujian Emas|Golden Test suite di bawah ambang lulus|
 
-**Merge Policy:** All checks must pass. No exceptions.
+**Kebijakan Penggabungan:** Semua pemeriksaan harus lulus. Tanpa mengungkapkan.
 
 ---
 
-## 8. Capability Changelog
+## 8.Kemampuan Changelog
 
-Each Capability Pack maintains its own changelog. The changelog records knowledge additions, benchmark improvements, and reasoning enhancements. It does **not** record Core changes.
-> Terjemahan Indonesia: Each kapabilitas Pack maintains its own changelog. changelog records knowledge additions, benchmark improvements, dan reasoning enhancements. It does not record Core changes.
+Setiap Capability Pack memelihara changelog-nya sendiri. Changelog mencatat penambahan pengetahuan, peningkatan Benchmark, dan peningkatan penalaran. Changelog **tidak** mencatat perubahan Core.
 
 ### Format
 
@@ -183,16 +157,16 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 - <knowledge/topic>
 
 ### Improved
-- <aspect>
+- <aspek>
 
 ### Fixed
-- <issue>
+- <masalah>
 
 ### Benchmark
-- <dimension>: <before> â†’ <after>
+- <dimensi>: <sebelum> → <sesudah>
 ```
 
-### Example
+### Contoh
 
 ```markdown
 ## Network v1.1
@@ -203,28 +177,27 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 - IPv6 dual-stack patterns
 
 ### Improved
-- Firewall explanation depth
-- Risk scoring accuracy: 85% â†’ 92%
+- Kedalaman penjelasan firewall
+- Akurasi risk scoring: 85% → 92%
 
 ### Fixed
-- VLAN false positive on trunk interfaces
+- VLAN false positive pada trunk interface
 
 ### Benchmark
-- Accuracy: 89% â†’ 92%
-- Explainability: B â†’ A-
+- Accuracy: 89% → 92%
+- Explainability: B → A-
 ```
 
 ---
 
-## 9. Exception Handling
+## 9. Penanganan Pengecualian
 
-Any exception to the rules in this document must be proposed as an RFC, reviewed, and approved by the architecture authority. Exceptions are recorded in the ADR log and this document is updated accordingly.
-> Terjemahan Indonesia: Any exception untuk rules dalam ini dokumen must menjadi proposed as sebuah RFC, reviewed, dan approved oleh arsitektur authority. Exceptions adalah recorded dalam ADR log dan ini dokumen adalah updated accordingly.
+Setiap aturan yang disampaikan dalam dokumen ini harus dikirimkan sebagai RFC, ditinjau, dan disetujui oleh otoritas arsitektur. Pengecualian dicatat dalam log ADR dan dokumen ini diperbarui sesuai.
 
 ---
 
-## 10. Approval
+## 10. Persetujuan
 
-| Role | Status | Date |
+|Peran|Status|Tanggal|
 |------|--------|------|
-| Chief Architect | Approved | 2026-08-01 |
+|Kepala Arsitek|Disetujui|01-08-2026|

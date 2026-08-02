@@ -1,348 +1,322 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/RELEASE_CRITERIA.md`
-- Judul: Release Criteria
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Release conditions, quality gates, Definition of Done, and benchmark targets
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 02-08-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Kondisi rilis, gerbang kualitas, Definisi Selesai, dan target Benchmark
 <!-- DOCUMENT_METADATA_END -->
 
-# ECP Release Criteria
+# Kriteria Rilis ECP
 
-**Version:** 1.0.0
-**Effective:** 2026-08-02
-**Parent:** `GOVERNANCE_CHARTER.md`
-**Purpose:** Defines release conditions, quality gates, and Definition of Done for ECP releases and Capability Packs.
+**Versi:** 1.0.0
+**Berlaku:** 02-08-2026
+**Induk:** `GOVERNANCE_CHARTER.md`
+**Tujuan:** Mendefinisikan kondisi rilis, quality gate, dan Definition of Done untuk rilis ECP dan Capability Pack.
 
 ---
 
-## 1. Success Criteria — v1.0.0-dev
+## 1. Kriteria Keberhasilan — v1.0.0-dev
 
-ECP v1.0.0-dev is successful if and only if:
-> Terjemahan Indonesia: ECP v1.0.0-dev adalah successful if dan only if:
+ECP v1.0.0-dev dinyatakan berhasil jika dan hanya jika:
 
-1. ✅ **13 Capability Packs** exist and are registered in Capability Graph
-2. ✅ **Golden Test Suite** passes with ≥80% pass rate
-3. ✅ **CI/CD Pipeline** blocks merges on any failure
-4. ✅ **Documentation** covers getting started, SDK, contracts, and Architecture
-5. ✅ **No Framework Trap** — Core remains stable while Capability Packs evolve
-6. ✅ **Architecture Governance** active: Core is frozen, Capability First Rule enforced, all changes require ADR when impacting multiple packs
+1. ✅ **13 Capability Pack** ada dan terdaftar di Capability Graph
+2. ✅ **Golden Test Suite** lulus dengan tingkat kelulusan ≥80%
+3. ✅ **CI/CD Pipeline** memblokir penggabungan pada setiap kegagalan
+4. ✅ **Dokumentasi** mencakup permulaan, SDK, kontrak, dan Arsitektur
+5. ✅ **Tanpa Kerangka Perangkap** — Inti tetap stabil sementara Capability Pack berevolusi
+6. ✅ **Architecture Governance** aktif: Core terhenti, Capability First Rule ditegakkan, semua perubahan memerlukan ADR ketika berdampak pada banyak paket
 
 ---
 
 ## 2. Golden Test Set
 
-The Golden Test Suite (`benchmarks/golden_test_set.py`) contains:
-> Terjemahan Indonesia: Golden Test Suite (benchmarks/golden_test_set.py) contains:
+Golden Test Suite (`benchmarks/golden_test_set.py`) berisi:
 
-- 50 simple tasks (basic reasoning, coding, explanation)
-- 50 medium tasks (API design, database schema, configuration)
-- 50 complex tasks (full-stack apps, distributed systems)
-- 50 domain-specific tasks (networking, trading, DevOps, research, self-development)
+- 50 tugas sederhana (penalaran dasar, coding, penjelasan)
+- 50 tugas menengah (desain API, skema database, konfigurasi)
+- 50 tugas kompleks (aplikasi full-stack, sistem terdistribusi)
+- 50 tugas spesifik-domain (jaringan, perdagangan, DevOps, penelitian, pengembangan diri)
 
-**Pass Threshold:** ≥80% (160/200 tests)
-
----
-
-## 3. CI/CD Pipeline
-
-Every PR must pass:
-> Terjemahan Indonesia: Setiap PR harus lulus:
-
-1. **Lint & Format** — ruff + black
-2. **Type Check** — mypy with strict mode
-3. **Unit Tests** — pytest with ≥80% coverage
-4. **Architecture Test** — package boundary enforcement
-5. **Benchmarks** — performance and quality benchmarks
-6. **SDK Compatibility** — imports and basic functionality
-7. **Plugin Compatibility** — all plugins load correctly
-8. **Golden Tests** — full Golden Test Suite
-9. **Governance Checks** — Core change guard, ADR reference, Capability First (see `GOVERNANCE.md`)
-
-**Merge Policy:** All checks must pass. No exceptions.
+**Ambang Lulus:** ≥80% (tes 160/200)
 
 ---
 
-## 4. Metrics to Track
+## 3. Pipa CI/CD
 
-| Metric | Target | Measurement |
+Setiap PR harus lulus:
+
+1. **Serat & Format** — ruff + hitam
+2. **Type Check** — mypy dengan mode ketat
+3. **Unit Tests** — pytest dengan cakupan ≥80%
+4. **Uji Arsitektur** — penegakan batasan paket
+5. **Benchmark** — Benchmark kinerja dan kualitas
+6. **SDK Kompatibilitas** — impor dan fungsionalitas dasar
+7. **Plugin Kompatibilitas** — semua Plugin dimuat dengan benar
+8. **Tes Emas** — Golden Test Suite lengkap
+9. **Pemeriksaan Tata Kelola** — Penjaga perubahan inti, referensi ADR, Capability First (lihat `GOVERNANCE.md`)
+
+**Kebijakan Penggabungan:** Semua pemeriksaan harus lulus. Tanpa mengungkapkan.
+
+---
+
+## 4. Metrik yang Dilacak
+
+|Metrik|Target|pengukuran|
 |--------|--------|-------------|
-| Golden Test Pass Rate | ≥80% | benchmarks/golden_test_set.py |
-| Test Coverage | ≥80% | pytest-cov |
-| Type Safety | 0 errors | mypy --strict |
-| Architecture Violations | 0 | benchmarks/package_boundaries.py |
-| SDK Import Time | <100ms | sdk/benchmarks |
-| Capability Quality Score | ≥85% | benchmarks/capability_benchmark.py |
-| Improvement Velocity | >0 real cases/week per pack | real_cases/<capability_id>/ |
-| Documentation Coverage | 100% | docs/ |
+|Golden Test Tingkat Kelulusan|≥80%|benchmark/golden_test_set.py|
+|Cakupan Tes|≥80%|pytest-cov|
+|Ketik Keamanan|0 kesalahan|mypy --ketat|
+|Pelanggaran Arsitektur|0|benchmark/package_boundaries.py|
+|SDK Waktu Impor|<100 md|SDK/tolok ukur|
+|Angka Mutu Kemampuan|≥85%|benchmark/capability_benchmark.py|
+|Kecepatan Peningkatan|>0 kasus nyata/minggu per bungkus|kasus_nyata/<capability_id>/|
+|Cakupan Dokumentasi|100%|dokumen/|
 
 ---
 
-## 5. Developer Preview Quality Targets
+## 5. Pratinjau Pengembang Target Kualitas
 
-Certification requires each Capability Pack to meet or exceed the following benchmark scores:
-> Terjemahan Indonesia: Certification requires each kapabilitas Pack untuk meet or exceed following benchmark scores:
+Sertifikasi mewajibkan setiap Capability Pack mencapai atau melampaui skor Benchmark berikut:
 
-| Capability | Target Score | Grade |
+|Kemampuan|Skor Sasaran|Nilai|
 |------------|--------------|-------|
-| Network Engineer | ≥90 | A |
-| Code Engineer | ≥85 | A- |
-| Research Assistant | ≥85 | A- |
-| DevOps Assistant | ≥80 | B+ |
-| Trading Analyst | ≥80 | B+ (must also pass Certification) |
-| Self Development | ≥90 | A |
-| Decision Intelligence | ≥90 | A (91.25% benchmark — RFC-0007) |
-| System Architect | ≥90 | A (RFC-0011) |
-| Security Engineer | ≥85 | A- (RFC-0008) |
-| Data Engineer | ≥85 | A- (RFC-0009) |
-| Database Engineer | ≥85 | A- (RFC-0010) |
-| QA Engineer | ≥90 | A (RFC-0012) |
-| Business Analyst | ≥85 | A- (RFC-0013) |
+|Insinyur Jaringan|≥90|A|
+|Insinyur Kode|≥85|A-|
+|Asisten Peneliti|≥85|A-|
+|Asisten DevOps|≥80|B+|
+|Analis Perdagangan|≥80|B+ (harus juga Sertifikasi lulus)|
+|Pengembangan Diri|≥90|A|
+|Decision Intelligence|≥90|A (Benchmark 91,25% — RFC-0007)|
+|Arsitek Sistem|≥90|A (RFC-0011)|
+|Security Engineer|≥85|SEBUAH- (RFC-0008)|
+|Data Engineer|≥85|SEBUAH- (RFC-0009)|
+|Database Engineer|≥85|SEBUAH- (RFC-0010)|
+|QA Engineer|≥90|A (RFC-0012)|
+|Business Analyst|≥85|SEBUAH- (RFC-0013)|
 
-All scores are measured by the 6-dimension Capability Benchmark framework (Accuracy, Completeness, Explainability, Safety, Efficiency, Consistency).
-> Terjemahan Indonesia: All scores adalah measured oleh 6-dimension kapabilitas Benchmark kerangka kerja (Accuracy, Completeness, Explainability, Safety, Efficiency, Consistency).
+Semua skor diukur oleh kerangka Capability Benchmark 6 dimensi (Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi).
 
 ---
 
-## 6. Definition of Done — Standard Template
+## 6. Definisi Selesai — Standar Templat
 
-Each Capability Pack's Definition of Done uses this standard template. A pack fills in its specific values.
-> Terjemahan Indonesia: Each kapabilitas Pack's Definition dari Done uses ini standard template. sebuah pack fills dalam its specific values.
+Definisi Selesai setiap Capability Pack menggunakan template standar ini. Sebuah paket berisi nilai spesifiknya.
 
 ```text
 Definition of Done
 
 Functional
-- [ ] <functional requirement>
+- [ ] <persyaratan fungsional>
 
 Benchmark
-- [ ] Benchmark score ≥ <threshold> (grade <grade>)
+- [ ] Skor benchmark ≥ <ambang> (grade <grade>)
 
 Golden Tests
-- [ ] All pack Golden Test scenarios pass (100%)
+- [ ] Semua skenario Golden Test pack lulus (100%)
 
 Real Cases
-- [ ] ≥ <N> real cases logged in real_cases/<capability_id>/
-- [ ] Evaluation notes recorded for each case
+- [ ] ≥ <N> kasus nyata dicatat di real_cases/<capability_id>/
+- [ ] Catatan evaluasi direkam untuk setiap kasus
 
 Documentation
-- [ ] Capability Guide updated
-- [ ] API reference / contract updated
+- [ ] Capability Guide diperbarui
+- [ ] Referensi API / kontrak diperbarui
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
+- [ ] Pack dapat diakses melalui SDK tanpa perubahan Core
 
 Performance
-- [ ] Response within target latency budget
+- [ ] Respons dalam anggaran latensi target
 
 Security
-- [ ] No known P0/P1 security issues
+- [ ] Tidak ada masalah keamanan P0/P1 yang diketahui
 
 Regression
-- [ ] No regression in existing benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [ ] Tidak ada regresi pada dimensi benchmark yang ada
+- [ ] Benchmark reproducible (perintah terdokumentasi + hasil tersimpan)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [ ] Capability Changelog diperbarui
 ```
 
 ---
 
-## 7. Definition of Done per Capability Pack
+## 7. Definisi Selesai per Capability Pack
 
-### 7.1 Network Engineer
+### 7.1 Insinyur Jaringan
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥95% accuracy (grade A) |
-| Real Cases | ≥100 real cases in `real_cases/network/` |
-| Regression | No regression across all 6 benchmark dimensions |
-| Documentation | `CAPABILITY_GUIDE.md` and contract updated |
-| Reproducibility | Benchmark reproducible via documented command; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|akurasi ≥95% (kelas A)|
+|Kasus Nyata|≥100 kasus nyata di `real_cases/network/`|
+|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui perintah terdokumentasi; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
-### 7.2 Code Engineer
+### 7.2 Insinyur Kode
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥90% code quality score |
-| Real Cases | ≥100 real repositories in `real_cases/code/` |
-| Regression | No regression across all 6 benchmark dimensions |
-| Documentation | `CAPABILITY_GUIDE.md` and contract updated |
-| Reproducibility | Benchmark reproducible; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥90% skor kualitas kode|
+|Kasus Nyata|≥100 repositori nyata di `real_cases/code/`|
+|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
-### 7.3 Research Assistant
+### 7.3 Asisten Peneliti
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥85% citation accuracy |
-| Real Cases | ≥100 research questions in `real_cases/research/` |
-| Regression | No regression across all 6 benchmark dimensions |
-| Documentation | `CAPABILITY_GUIDE.md` and contract updated |
-| Reproducibility | Benchmark reproducible; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥85% akurasi sitasi|
+|Kasus Nyata|≥100 pertanyaan penelitian di `real_cases/research/`|
+|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
-### 7.4 DevOps Assistant
+### 7.4 Asisten DevOps
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥85% correctness on generated configs |
-| Real Cases | ≥100 infrastructure scenarios in `real_cases/devops/` |
-| Regression | No regression across all 6 benchmark dimensions |
-| Documentation | `CAPABILITY_GUIDE.md` and contract updated |
-| Reproducibility | Benchmark reproducible; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥85% kebenaran pada konfigurasi yang dihasilkan|
+|Kasus Nyata|≥100 skenario infrastruktur di `real_cases/devops/`|
+|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
-### 7.5 Trading Analyst
+### 7.5 Analis Perdagangan
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥80% (grade B+) and Certification passed |
-| Real Cases | ≥100 market scenarios in `real_cases/trading/` |
-| Regression | No regression across all 6 benchmark dimensions |
-| Documentation | `CAPABILITY_GUIDE.md` and contract updated |
-| Reproducibility | Benchmark reproducible; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥80% (kelas B+) dan Sertifikasi lulus|
+|Kasus Nyata|≥100 skenario pasar di `real_cases/trading/`|
+|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
-### 7.6 Self Development
+### 7.6 Pengembangan Diri
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥90% (grade A) |
-| Real Cases | ≥10 real projects in `real_cases/self_development/` |
-| Regression | No regression across all 6 benchmark dimensions |
-| Documentation | `CAPABILITY_GUIDE.md` and contract updated |
-| Reproducibility | Benchmark reproducible; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥90% (kelas A)|
+|Kasus Nyata|≥10 proyek nyata di `real_cases/self_development/`|
+|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.7 Decision Intelligence
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥90% (grade A — benchmark overall 91.25%) |
-| Real Cases | (Shared reasoning layer — real cases tracked per consuming pack) |
-| Regression | No regression across all 8 benchmark dimensions |
-| Documentation | `docs/capabilities/decision-intelligence.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/decision_intelligence_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥90% (kelas A — Benchmark keseluruhan 91,25%)|
+|Kasus Nyata|(Lapisan pemikiran bersama — kasus nyata dilacak per bungkus konsumen)|
+|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/decision-intelligence.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/decision_intelligence_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
-### 7.8 System Architect
+### 7.8 Arsitek Sistem
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥90% (grade A) |
-| Real Cases | Real cases tracked via architecture review history in `real_cases/system_architect/` |
-| Regression | No regression across all 8 benchmark dimensions |
-| Documentation | `docs/capabilities/system-architect.md` and `docs/CAPABILITY_GUIDE.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/system_architect_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥90% (kelas A)|
+|Kasus Nyata|Kasus nyata dilacak melalui riwayat arsitektur review di `real_cases/system_architect/`|
+|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/system-architect.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/system_architect_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.9 Security Engineer
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥85% (grade A-) |
-| Real Cases | ≥20 security analysis cases in `real_cases/security_engineer/` |
-| Regression | No regression across all 9 benchmark dimensions |
-| Documentation | `docs/capabilities/security-engineer.md` and `docs/CAPABILITY_GUIDE.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/security_engineer_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥85% (kelas A-)|
+|Kasus Nyata|≥20 kasus analisis keamanan di `real_cases/security_engineer/`|
+|Regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/security-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/security_engineer_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.10 Data Engineer
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥85% (grade A-) |
-| Real Cases | ≥20 data pipeline cases in `real_cases/data_engineer/` |
-| Regression | No regression across all 8 benchmark dimensions |
-| Documentation | `docs/capabilities/data-engineer.md` and `docs/CAPABILITY_GUIDE.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/data_engineer_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥85% (kelas A-)|
+|Kasus Nyata|≥20 kasus pipa data di `real_cases/data_engineer/`|
+|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/data-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/data_engineer_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.11 Database Engineer
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥85% (grade A-) |
-| Real Cases | ≥20 database analysis cases in `real_cases/database_engineer/` |
-| Regression | No regression across all 8 benchmark dimensions |
-| Documentation | `docs/capabilities/database-engineer.md` and `docs/CAPABILITY_GUIDE.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/database_engineer_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥85% (kelas A-)|
+|Kasus Nyata|≥20 analisis database kasus di `real_cases/database_engineer/`|
+|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/database-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/database_engineer_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.12 QA Engineer
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥90% (grade A) |
-| Real Cases | ≥20 QA analysis cases in `real_cases/qa_engineer/` |
-| Regression | No regression across all 9 benchmark dimensions |
-| Documentation | `docs/capabilities/qa-engineer.md` and `docs/CAPABILITY_GUIDE.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/qa_engineer_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥90% (kelas A)|
+|Kasus Nyata|≥20 kasus analisis QA di `real_cases/qa_engineer/`|
+|Regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/qa-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/qa_engineer_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.13 Business Analyst
 
-| DoD Item | Criterion |
+|Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-| Golden Benchmark | ≥85% (grade A-) |
-| Real Cases | ≥20 business analysis cases in `real_cases/business_analyst/` |
-| Regression | No regression across all 9 benchmark dimensions |
-| Documentation | `docs/capabilities/business-analyst.md` and `docs/CAPABILITY_GUIDE.md` updated |
-| Reproducibility | Benchmark reproducible via `benchmarks/business_analyst_benchmark.py`; results persisted |
-| Changelog | Capability Changelog updated |
+|Emas Benchmark|≥85% (kelas A-)|
+|Kasus Nyata|≥20 analisis kasus bisnis di `real_cases/business_analyst/`|
+|Regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
+|Dokumentasi|`docs/capabilities/business-analyst.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
+|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/business_analyst_benchmark.py`; hasil tersimpan|
+|log perubahan|Kemampuan Changelog diperbarui|
 
 ---
 
-## 8. Release Definition of Done
+## 8. Pengertian Selesai Rilis
 
-A release is complete when:
-> Terjemahan Indonesia: Sebuah rilis adalah complete when:
+Sebuah rilis dinyatakan selesai ketika:
 
-- [ ] All target Capability Packs meet their Definition of Done (Section 7)
+- [ ] Semua Capability Pack target memenuhi Definisi Selesai mereka (Bagian 7)
 - [ ] Golden Test Suite ≥80% (160/200)
-- [ ] Test coverage ≥80%
-- [ ] mypy --strict: 0 errors
-- [ ] Architecture violations: 0
-- [ ] All governance checks pass (Core change guard, ADR reference)
-- [ ] Release notes and changelog updated
-- [ ] Metrics recorded and benchmark results persisted
+- [ ] Tes Cakupan ≥80%
+- [ ] mypy --strict: 0 kesalahan
+- [ ] Pelanggaran arsitektur: 0
+- [ ] Semua pemeriksaan tata kelola lulus (Core change guard, referensi ADR)
+- [ ] Catatan rilis dan changelog diperbarui
+- [ ] Metrik dicatat dan hasil Benchmark disimpan
 
 ---
 
-## 9. Post-Release Review
+## 9. Tinjauan Pasca-Rilis
 
-After each release:
-> Terjemahan Indonesia: After each rilis:
+Setelah setiap rilis:
 
-1. Compare actual benchmark scores vs targets.
-2. Log lessons learned into the Continuous Learning cycle.
-3. Update `CAPABILITY_STRATEGY.md` grade table.
-4. Update `ROADMAP.md` based on actual velocity.
+1. Bandingkan skor Benchmark aktual vs target.
+2. Katat pembelajaran ke dalam siklus Pembelajaran Berkelanjutan.
+3. memperbarui tabel nilai `CAPABILITY_STRATEGY.md`.
+4. perbarui `ROADMAP.md` berdasarkan kecepatan aktual.
 
 ---
 
-## 10. Approval
+## 10. Persetujuan
 
-| Role | Status | Date |
+|Peran|Status|Tanggal|
 |------|--------|------|
-| Chief Product Officer | Approved | 2026-08-02 |
+|Kepala Bagian Produk|Disetujui|02-08-2026|

@@ -1,69 +1,48 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/decision-intelligence.md`
-- Judul: Decision Intelligence
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Decision Intelligence Capability Specification
+﻿# Spesifikasi Capability Pack Decision Intelligence
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Capability Pack specification for decision-intelligence
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Spesifikasi Capability Pack untuk Decision Intelligence
 <!-- DOCUMENT_METADATA_END -->
 
-## Version: 1.0.0
+## Versi: 1.0.0
 ## Status: Production Ready (RFC-0007)
-## Quality Target: A (â‰¥90)
+## Quality Target: A (≥90)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-Decision Intelligence adalah **shared reasoning layer** untuk ECP â€” Capability Pack
-yang menyediakan pengambilan keputusan berbasis bukti (evidence-based), explainable,
-dan auditable untuk semua Capability Pack lain.
-> Terjemahan Indonesia: Decision Intelligence adalah shared reasoning layer untuk ECP â€” kapabilitas Pack yang menyediakan pengambilan keputusan berbasis bukti (evidence-based), explainable, dan auditable untuk semua kapabilitas Pack lain.
+Decision Intelligence adalah **lapisan penalaran bersama (shared reasoning layer)** untuk ECP — Capability Pack yang menyediakan pengambilan keputusan berbasis bukti, dapat dijelaskan, dan dapat diaudit untuk semua Capability Pack lainnya.
 
-Acting as a cross-cutting cognitive service **tanpa memodifikasi Core**.
-> Terjemahan Indonesia: Acting as sebuah cross-cutting kognitif layanan tanpa memodifikasi Core.
+Bertindak sebagai layanan lintas-capability **tanpa memodifikasi Core**.
 
 ---
 
-## 2. Scope
+## 2. Ruang Lingkup
 
-### In Scope
-- Evidence collection dari multiple sources (analysis, recommendation, data, benchmark, historical)
-- Alternative generation dengan constraint filtering
-- Risk analysis (probability Ã— impact)
-- Trade-off analysis (multi-objective weighted scoring, Pareto frontier)
-- Decision scoring dan ranking
-- Confidence estimation (0â€“100%, uncertainty bounds, calibration)
-- Explainable decision (full chain: evidence â†’ reasoning â†’ alternatives â†’ risk â†’ decision â†’ rationale)
-- Decision history (record ke Experience Memory, audit trail)
+### Dalam Ruang Lingkup
+- Pengumpulan bukti dari berbagai sumber (analisis, rekomendasi, data, Benchmark, riwayat)
+- Generasi alternatif dengan pemfilteran constraint
+- Analisis risiko (probabilitas × dampak)
+- Analisis trade-off (skor tertimbang multi-objektif, batas Pareto)
+- Skoring keputusan dan pemeringkatan
+- Estimasi confidence (0–100%, lower bound, kalibrasi)
+- Keputusan yang dapat dijelaskan (rantai lengkap: bukti → reasoning → alternatif → risiko → keputusan → rationale)
+- Riwayat keputusan (pencatatan ke Experience Memory, audit trail)
 
-### Out of Scope
-- Eksekusi keputusan otomatis (rekomendasi saja â€” ADR-005 compliance)
-- Modifikasi Core contracts
-- Direct import dari Capability Pack lain (ADR-002 compliance)
+### Di Luar Ruang Lingkup
+- Eksekusi keputusan otomatis (hanya rekomendasi — memenuhi ADR-005)
+- Modifikasi kontrak Core
+- Impor langsung dari Capability Pack lain (kepatuhan ADR-002)
 
 ---
 
-## 3. Contract
+## 3. Kontrak
 
 ### Input: DecisionRequest
 ```json
@@ -126,31 +105,31 @@ Acting as a cross-cutting cognitive service **tanpa memodifikasi Core**.
 
 ```
 DecisionRequest
-    â†“
+    ↓
 EvidenceCollection (collect, validate, weight)
-    â†“
+    ↓
 AlternativeGeneration (enumerate, filter constraints)
-    â†“
-RiskAnalysis (probability Ã— impact)
-    â†“
+    ↓
+RiskAnalysis (probability × impact)
+    ↓
 TradeoffAnalysis (multi-objective, weighted, Pareto)
-    â†“
+    ↓
 DecisionScoring (composite score, rank)
-    â†“
+    ↓
 ConfidenceEstimation (0-100%, calibration)
-    â†“
+    ↓
 ExplanationGeneration (full explainability chain)
-    â†“
+    ↓
 DecisionHistory (Experience Memory, audit trail)
-    â†“
+    ↓
 DecisionResult
 ```
 
 ---
 
-## 5. Benchmark Results (RFC-0007)
+## 5. Hasil Benchmark (RFC-0007)
 
-| Dimension | Score |
+| Dimensi | Skor |
 |-----------|-------|
 | Accuracy | 90% |
 | Completeness | 90% |
@@ -160,57 +139,54 @@ DecisionResult
 | Consistency | 90% |
 | Confidence Calibration | 90% |
 | Risk Detection | 90% |
-| **Overall** | **91.25%** |
+| **Overall** | **91,25%** |
 | **Pass Rate** | **100%** |
 
 Benchmark: `benchmarks/decision_intelligence_benchmark.py`
-> Terjemahan Indonesia: Tolok ukur: benchmarks/decision_intelligence_benchmark.py
 
 ---
 
-## 6. Consumer Integration (First: Trading Analyst)
+## 6. Integrasi Konsumen (Pertama: Trading Analyst)
 
-Decision Intelligence menerima evidence dari:
-> Terjemahan Indonesia: Decision Intelligence menerima bukti dari:
-- **Trading Analyst** â€” market analysis, bias, confidence, risk assessment
-- **Network Engineer** â€” config analysis, risk score, recommendations
-- **Code Engineer** â€” architecture analysis, code quality, security findings
-- **Research Assistant** â€” evidence quality, citation confidence
-- **DevOps Assistant** â€” deployment risk, verification results
-- **Self Development** â€” change impact, risk assessment
+Decision Intelligence menerima bukti dari:
+- **Trading Analyst** — analisis pasar, bias, confidence, penilaian risiko
+- **Network Engineer** — analisis konfigurasi, risk score, rekomendasi
+- **Code Engineer** — analisis arsitektur, kualitas kode, security findings
+- **Research Assistant** — kualitas bukti, confidence kutipan
+- **DevOps Assistant** — risiko deployment, hasil verifikasi
+- **Self Development** — dampak perubahan, penilaian risiko
 
-The `DecisionIntelligenceWorker` is a thin adapter (ADR-003) that routes
-task dicts to `DecisionIntelligenceEngine.evaluate()`.
-> Terjemahan Indonesia: DecisionIntelligenceWorker adalah sebuah thin adapter (ADR-003) itu routes task dicts untuk DecisionIntelligenceEngine.evaluate().
+`DecisionIntelligenceWorker` adalah adaptor tipis (ADR-003) yang merutekan tugas yang ditentukan ke `DecisionIntelligenceEngine.evaluate()`.
 
 ---
 
-## 7. Architecture Compliance
+## 7. Kepatuhan Arsitektur
 
-| Principle | Compliance |
+| Prinsip | Kepatuhan |
 |-----------|------------|
-| ADR-001 Core Pipeline Freeze | âœ… Zero Core changes |
-| ADR-002 Capability Pack Independence | âœ… No direct imports |
-| ADR-003 Worker = Adapter Only | âœ… Worker delegates to Engine |
-| ADR-004 Domain Engine Owns Business Logic | âœ… Engine owns pipeline |
-| ADR-005 Human Approval Required | âœ… Recommend only, no auto-execute |
-| Kernel Stability | âœ… Not in Core |
+| ADR-001 Core Pipeline Freeze | ✅ Zero Core Change |
+| ADR-002 Capability Pack Independence | ✅ Tidak ada impor langsung |
+| ADR-003 Worker = Hanya Adaptor | ✅ Worker mendelegasikan ke Engine |
+| ADR-004 Domain Engine Memiliki Business Logic | ✅ Engine memiliki pipeline |
+| ADR-005 Persetujuan Manusia Diperlukan | ✅ Rekomendasi saja, tanpa eksekusi otomatis |
+| Kernel Stability | ✅ Tidak di Core |
 
 ---
 
-## 8. Files
+## 8. File
 
-| File | Purpose |
+| File | Tujuan |
 |------|---------|
-| `apps/decision_intelligence/schemas.py` | Pydantic models |
-| `apps/decision_intelligence/evidence_collector.py` | Evidence collection |
-| `apps/decision_intelligence/alternative_generator.py` | Alternative generation |
-| `apps/decision_intelligence/risk_analyzer.py` | Risk analysis |
-| `apps/decision_intelligence/tradeoff_analyzer.py` | Trade-off analysis |
-| `apps/decision_intelligence/scoring_engine.py` | Decision scoring |
-| `apps/decision_intelligence/confidence_estimator.py` | Confidence estimation |
-| `apps/decision_intelligence/explanation_generator.py` | Explainability |
-| `apps/decision_intelligence/decision_history.py` | Decision history |
-| `apps/decision_intelligence/engine.py` | Domain engine orchestrator |
-| `apps/decision_intelligence/worker.py` | Thin worker adapter |
-| `benchmarks/decision_intelligence_benchmark.py` | Benchmark (8 dimensions) |
+| `apps/decision_intelligence/schemas.py` | Model Pydantic |
+| `apps/decision_intelligence/evidence_collector.py` | Pengumpulan bukti |
+| `apps/decision_intelligence/alternative_generator.py` | Generasi alternatif |
+| `apps/decision_intelligence/risk_analyzer.py` | Analisis risiko |
+| `apps/decision_intelligence/tradeoff_analyzer.py` | Analisis trade-off |
+| `apps/decision_intelligence/scoring_engine.py` | Skoring keputusan |
+| `apps/decision_intelligence/confidence_estimator.py` | Estimasi confidence |
+| `apps/decision_intelligence/explanation_generator.py` | Generasi penjelasan |
+| `apps/decision_intelligence/decision_history.py` | Riwayat keputusan |
+| `apps/decision_intelligence/engine.py` | Orchestrator domain engine |
+| `apps/decision_intelligence/worker.py` | Adaptor worker tipis |
+| `benchmarks/decision_intelligence_benchmark.py` | Benchmark (8 dimensi) |
+

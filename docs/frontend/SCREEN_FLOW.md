@@ -1,276 +1,254 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/SCREEN_FLOW.md`
-- Judul: Screen Flow
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Screen Flow
+﻿# Alur Layar
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for SCREEN_FLOW
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk SCREEN_FLOW
 <!-- DOCUMENT_METADATA_END -->
 
-This document defines the user flow across all v1 screens. It is the reference for navigation, routing, and screen transitions.
-> Terjemahan Indonesia: Ini dokumen defines user flow across all v1 screens. It adalah reference untuk navigation, routing, dan screen transitions.
+Dokumen ini mendefinisikan alur pengguna di semua layar v1. Ini adalah referensi untuk navigasi, routing, dan transisi layar.
 
 ---
 
-## Screen Map
+## Peta Layar
 
 ```
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  WorkspaceSidebar (collapsible)         â”‚
-â”‚  - Workspace list                       â”‚
-â”‚  - Execution history link               â”‚
-â”‚  - Settings link                        â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                    â”‚
-                    â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  Main Layout                            â”‚
-â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
-â”‚  â”‚                                  â”‚    â”‚
-â”‚  â”‚  Screen Content                  â”‚    â”‚
-â”‚  â”‚                                  â”‚    â”‚
-â”‚  â”‚                                  â”‚    â”‚
-â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
-â”‚                                          â”‚
-â”‚  [persistent: NotificationToast]       â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌────────────────────────────────────────────────────────┐
+│  WorkspaceSidebar (collapsible)                       │
+│  - Workspace list                                     │
+│  - Execution history link                             │
+│  - Settings link                                      │
+└────────────────────────────────────────────────────────┘
+                    │
+                    ▼
+┌────────────────────────────────────────────────────────┐
+│  Main Layout                                          │
+│  ┌──────────────────────────────────────┐    │
+│  │                                    │    │
+│  │  Screen Content                    │    │
+│  │                                    │    │
+│  │                                    │    │
+│  └──────────────────────────────────────┘    │
+│                                          │
+│  [persistent: NotificationToast]        │
+└────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Screen 1: Chat
+## Layar 1: Obrolan
 
-**Route:** `/chat`  
-**Purpose:** Primary interface. User types goals, sees AI responses, progress, and artifacts.
+**Rute:** `/chat`
+**Tujuan:** antarmuka utama. Pengguna mengetik tujuan, melihat respon AI, kemajuan, dan artefak.
 
-**Entry points:**
-- Default route on app open.
-- User clicks "New Chat" or selects a Workspace.
+**Titik masuk:**
+- Rute default saat aplikasi dibuka.
+- Pengguna mengklik "Obrolan Baru" atau memilih Workspace.
 
-**Flow:**
-1. User sees ChatWindow with conversation history (if any).
-2. User types goal in PromptBox.
-3. User presses Send or Enter.
-4. User message appears as ChatBubble.
-5. AI response streams in as ChatBubble.
-6. If execution starts, ProgressCard appears inline.
-7. Artifacts appear as ArtifactCards inline.
-8. Approval dialog appears if action requires approval.
-9. User approves or rejects.
-10. Execution continues or stops.
+**Alur:**
+1. Pengguna melihat ChatWindow dengan riwayat percakapan (jika ada).
+2. Pengguna mengetik tujuan di PromptBox.
+3. Pengguna menekan Kirim atau Enter.
+4. Pesan pengguna muncul sebagai ChatBubble.
+5. Respons AI mengalir sebagai ChatBubble.
+6. Jika eksekusi dimulai, ProgressCard muncul inline.
+7. Artifact muncul sebagai ArtifactCards inline.
+8. Dialog persetujuan muncul jika tindakan memerlukan persetujuan.
+9. Pengguna menyetujui atau menolak.
+10. Eksekusi berlanjut atau berhenti.
 
-**Exit points:**
-- User switches Workspace â†’ Workspace screen.
-- User clicks Execution History â†’ Execution History screen.
-- User clicks Settings â†’ Settings screen.
-
----
-
-## Screen 2: Workspace
-
-**Route:** `/workspace/:workspaceId`  
-**Purpose:** Project overview with conversation, files, memory, artifacts, timeline.
-
-**Entry points:**
-- User clicks Workspace in sidebar.
-- User clicks artifact link from Chat.
-- Workspace is auto-created when Chat opens.
-
-**Flow:**
-1. User sees Workspace header with name.
-2. Tabs: Conversation, Files, Artifacts, Execution, Timeline.
-3. Conversation tab shows chat history for this workspace.
-4. Files tab shows uploaded files.
-5. Artifacts tab shows all artifacts in this workspace.
-6. Execution tab shows execution history for this workspace.
-7. Timeline tab shows chronological project events.
-
-**Exit points:**
-- User clicks artifact â†’ Artifact Viewer.
-- User clicks execution â†’ Execution History detail.
-- User clicks back â†’ Chat.
+**Titik keluar:**
+- Pengguna berpindah Workspace → layar Workspace.
+- Pengguna mengklik Riwayat Eksekusi → layar Riwayat Eksekusi.
+- Pengguna mengklik Pengaturan → Pengaturan layar.
 
 ---
 
-## Screen 3: Artifact Viewer
+## Layar 2: Ruang Kerja
 
-**Route:** `/artifact/:artifactId`  
-**Purpose:** View, compare, and restore artifact versions.
+**Rute:** `/workspace/:workspaceId`
+**Tujuan:** Ikhtisar proyek dengan percakapan, file, memori, artefak, linimasa.
 
-**Entry points:**
-- User clicks ArtifactCard in Chat.
-- User clicks artifact in Workspace.
-- User clicks artifact in Execution History.
+**Titik masuk:**
+- Pengguna mengklik Workspace di sidebar.
+- Pengguna mengklik tautan artefak dari Chat.
+- Ruang kerja dibuat otomatis saat Obrolan dibuka.
 
-**Flow:**
-1. User sees artifact content.
-2. Version selector shows available versions.
-3. User can compare two versions.
-4. User can restore a previous version.
-5. User can download/export artifact.
+**Alur:**
+1. Pengguna melihat header Workspace dengan nama.
+2. Tab: Percakapan, File, Artefak, Eksekusi, Timeline.
+3. Tab Percakapan menampilkan riwayat dialog untuk ruang kerja ini.
+4. Tab Files menampilkan file yang diunggah.
+5. Tab Artefak menampilkan semua artefak di ruang kerja ini.
+6. Tab Execution menampilkan riwayat eksekusi untuk workspace ini.
+7. Tab Timeline menampilkan acara proyek secara kronologis.
 
-**Exit points:**
-- User clicks back â†’ previous screen.
-- User closes viewer â†’ back to Chat or Workspace.
-
----
-
-## Screen 4: Approval Dialog
-
-**Route:** Modal overlay (no route)  
-**Purpose:** Confirm or reject irreversible actions.
-
-**Trigger:**
-- Execution reaches an approval point.
-- AI presents proposed changes with risk assessment.
-
-**Flow:**
-1. Modal appears over current screen.
-2. User sees:
-   - What will change.
-   - Risk level.
-   - Rollback availability.
-   - Test results (if applicable).
-> Terjemahan Indonesia: What akan change. Risk level. Rollback availability. Test results (if applicable).
-3. User clicks Approve or Reject.
-4. If approved, execution continues.
-5. If rejected, execution stops or asks for refinement.
-
-**Exit points:**
-- Approve â†’ execution continues.
-- Reject â†’ execution stops, returns to Chat.
+**Titik keluar:**
+- Pengguna mengklik artefak → Penampil Artefak.
+- Pengguna mengklik eksekusi → detail Riwayat Eksekusi.
+- Pengguna mengklik kembali → Obrolan.
 
 ---
 
-## Screen 5: Settings
+## Layar 3 : Penampil Artefak
 
-**Route:** `/settings`  
-**Purpose:** Configure model, theme, notifications, API keys.
+**Rute:** `/artifact/:artifactId`
+**Tujuan:** Melihat, membandingkan, dan memulihkan versi artefak.
 
-**Entry points:**
-- User clicks Settings in sidebar.
-- User asks AI "Open settings".
+**Titik masuk:**
+- Pengguna mengklik ArtifactCard di Chat.
+- Pengguna mengklik artefak di Workspace.
+- Pengguna mengklik artefak di Riwayat Eksekusi.
 
-**Flow:**
-1. User sees settings form.
-2. Sections: Model, Theme, Notifications, API Keys.
-3. User changes settings.
-4. Settings are saved immediately or on "Save" button.
-5. Changes take effect immediately.
+**Alur:**
+1. Pengguna melihat konten artefak.
+2. Pemilih versi menampilkan versi yang tersedia.
+3. Pengguna dapat membandingkan dua versi.
+4. Pengguna dapat memulihkan versi sebelumnya.
+5. Pengguna dapat mengunduh/mengekspor artefak.
 
-**Exit points:**
-- User clicks back or close â†’ returns to previous screen.
-
----
-
-## Screen 6: Capability Discovery
-
-**Route:** Accessible via `/capabilities` or triggered by user question in Chat.  
-**Purpose:** Show user what ECP can do.
-
-**Entry points:**
-- User asks "Apa yang bisa kamu lakukan?" in Chat.
-- User clicks "Discover" in sidebar.
-
-**Flow:**
-1. User sees list of Capability Packs.
-2. User clicks a capability.
-3. AI shows subtasks and examples for that capability.
-4. User can click "Try it" to start a conversation with that capability.
-
-**Exit points:**
-- User clicks back â†’ Chat.
-- User starts conversation â†’ Chat.
+**Titik keluar:**
+- Pengguna mengklik kembali → layar sebelumnya.
+- Pengguna menutup viewer → kembali ke Chat atau Workspace.
 
 ---
 
-## Screen 7: Execution History
+## Layar 4 : Dialog Persetujuan
 
-**Route:** `/executions`  
-**Purpose:** List all executions with status, progress, and artifacts.
+**Rute:** Modal overlay (tanpa rute)
+**Tujuan:** Mengonfirmasi atau menolak tindakan yang tidak dapat dibatalkan.
 
-**Entry points:**
-- User clicks Execution History in sidebar.
-- User sees execution history in Workspace.
+**Pemicu:**
+- Eksekusi mencapai titik kesepakatan.
+- AI menyajikan perubahan yang diusulkan dengan penilaian risiko.
 
-**Flow:**
-1. User sees list of executions.
-2. Each execution shows:
-   - Goal
+**Alur:**
+1. Modal muncul di atas layar saat ini.
+2. Pengguna melihat:
+   - Apa yang akan berubah.
+   - Tingkat risiko.
+   - Kembalikan ketersediaan.
+   - Hasil tes (jika relevan).
+3. Pengguna mengklik Setuju atau Tolak.
+4. Jika selesai, eksekusi dilanjutkan.
+5. Jika ditolak, eksekusi dihentikan atau meminta penyempurnaan.
+
+**Titik keluar:**
+- Setuju → eksekusi dilanjutkan.
+- Tolak → eksekusi berhenti, kembali ke Chat.
+
+---
+
+## Layar 5: Pengaturan
+
+**Rute:** `/settings`
+**Tujuan:** Mengonfigurasi model, tema, notifikasi, kunci API.
+
+**Titik masuk:**
+- Pengguna mengklik Pengaturan di sidebar.
+- Pengguna meminta AI "Buka pengaturan".
+
+**Alur:**
+1. Pengguna melihat pengaturan.
+2. Bagian: Model, Tema, Notifikasi, API Kunci.
+3. Pengguna mengubah pengaturan.
+4. Pengaturan disimpan langsung atau saat tombol "Simpan".
+5. Perubahan segera terjadi.
+
+**Titik keluar:**
+- Pengguna mengklik kembali atau menutup → kembali ke layar sebelumnya.
+
+---
+
+## Layar 6: Penemuan Kemampuan
+
+**Rute:** Dapat diakses melalui `/capabilities` atau dipicu oleh pertanyaan pengguna di Chat.
+**Tujuan:** Menunjukkan apa yang dapat dilakukan ECP.
+
+**Titik masuk:**
+- Pengguna bertanya "Apa yang bisa kamu lakukan?" di Obrolan.
+- Pengguna mengklik "Temukan" di sidebar.
+
+**Alur:**
+1. Pengguna melihat daftar Capability Packs.
+2. Pengguna mengklik suatu kemampuan.
+3. AI menunjukkan subtugas dan contoh untuk kemampuan tersebut.
+4. Pengguna dapat mengklik "Try it" untuk memulai percakapan dengan kemampuan tersebut.
+
+**Titik keluar:**
+- Pengguna mengklik kembali → Obrolan.
+- Pengguna memulai percakapan → Obrolan.
+
+---
+
+## Layar 7: Riwayat Eksekusi
+
+**Rute:** `/executions`
+**Tujuan:** Mendaftar semua eksekusi dengan status, kemajuan, dan artefak.
+
+**Titik masuk:**
+- Pengguna Riwayat mengklik Eksekusi di sidebar.
+- Pengguna melihat riwayat eksekusi di Workspace.
+
+**Alur:**
+1. Pengguna melihat daftar eksekusi.
+2. Setiap eksekusi menampilkan:
+   - Tujuan
    - Status
-   - Progress
-   - Duration
-   - Artifact count
-> Terjemahan Indonesia: Goal status Progress Duration Artifact count
-3. User clicks execution â†’ detail view.
-4. Detail view shows:
-   - Full execution timeline
-   - Phase breakdown
-   - Logs
-   - Artifacts
-   - Retry/re-run option
-> Terjemahan Indonesia: Timeline eksekusi penuh Perincian fase Log Artefak Opsi coba lagi/jalankan ulang
+   - Kemajuan
+   - Durasi
+   - Jumlah artefak
+3. Pengguna mengklik eksekusi → tampilan detail.
+4. Tampilan detailnya menunjukkan:
+   - Linimasa eksekusi penuh
+   - Rincian fase
+   - Catatan
+   - Artefak
+   - Opsi coba lagi/jalankan ulang
 
-**Exit points:**
-- User clicks back â†’ previous screen.
-- User clicks execution â†’ Execution detail.
+**Titik keluar:**
+- Pengguna mengklik kembali → layar sebelumnya.
+- Pengguna mengklik eksekusi → detail Eksekusi.
 
 ---
 
-## Navigation Rules
+## Aturan Navigasi
 
-1. **Primary navigation:** WorkspaceSidebar (desktop) / Bottom nav (mobile).
-2. **Secondary navigation:** Breadcrumbs and back buttons.
-3. **No deep linking to internal state:** URLs contain identifiers only (workspaceId, executionId, artifactId), not internal state.
-4. **No browser back button traps:** Back button always returns to previous logical screen.
-5. **No popup windows:** All navigation stays within the single-page app.
+1. **Navigasi primer:** WorkspaceSidebar (desktop) / Navigasi bawah (seluler).
+2. **Navigasi sekunder:** Breadcrumbs dan tombol kembali.
+3. **Tidak ada tautan dalam ke internal negara:** URL hanya berisi pengidentifikasi (workspaceId, eksekusiId, artefakId), bukan internal negara.
+4. **Tidak ada jebakan tombol kembali browser:** Tombol kembali selalu kembali ke layar logistik sebelumnya.
+5. **Tidak ada jendela popup:** Semua navigasi tetap di dalam aplikasi satu halaman.
 
 ---
 
-## Routing Table
+## Tabel Perutean
 
-| Route | Screen | Requires Auth | Requires Workspace |
+|Rute|Layar|Membutuhkan Auth|Membutuhkan Ruang Kerja|
 |-------|--------|---------------|-------------------|
-| `/` | Chat (redirect to `/chat`) | No | No |
-| `/chat` | Chat | No | Auto-create |
-| `/workspace/:workspaceId` | Workspace | No | Yes |
-| `/artifact/:artifactId` | Artifact Viewer | No | No |
-| `/executions` | Execution History | No | No |
-| `/executions/:executionId` | Execution Detail | No | No |
-| `/capabilities` | Capability Discovery | No | No |
-| `/settings` | Settings | No | No |
+|`/`|Obrolan (alihkan ke `/chat`)|Tidak|Tidak|
+|`/chat`|Mengobrol|Tidak|Buat otomatis|
+|`/workspace/:workspaceId`|Ruang kerja|Tidak|Ya|
+|`/artifact/:artifactId`|Penampil Artefak|Tidak|Tidak|
+|`/executions`|Sejarah Eksekusi|Tidak|Tidak|
+|`/executions/:executionId`|Detil Eksekusi|Tidak|Tidak|
+|`/capabilities`|Penemuan Kemampuan|Tidak|Tidak|
+|`/settings`|Pengaturan|Tidak|Tidak|
 
 ---
 
-## Transition Rules
+## Aturan Transisi
 
-| Transition | Trigger | Animation |
+|Transisi|Pemicu|Animasi|
 |------------|---------|-----------|
-| Chat â†’ Workspace | User clicks workspace | Slide |
-| Chat â†’ Execution History | User clicks history | Slide |
-| Chat â†’ Artifact Viewer | User clicks artifact | Slide |
-| Any â†’ Approval Dialog | Execution needs approval | Fade |
-| Any â†’ Settings | User clicks settings | Slide |
-| Any â†’ Chat | User clicks back | Slide reverse |
+|Obrolan → Ruang Kerja|Pengguna mengklik ruang kerja|Menggeser|
+|Obrolan → Riwayat Eksekusi|Pengguna mengklik riwayat|Menggeser|
+|Obrolan → Penampil Artefak|Pengguna mengklik artefak|Menggeser|
+|Apa saja → Dialog Persetujuan|Eksekusi memerlukan persetujuan|Memudar|
+|Apa saja → Pengaturan|Pengguna mengklik pengaturan|Menggeser|
+|Apa saja → Obrolan|Pengguna mengklik kembali|Geser mundur|
 
-Animations must be subtle and fast (150-200ms). No elaborate transitions.
-> Terjemahan Indonesia: Animations must menjadi subtle dan fast (150-200ms). No elaborate transitions.
+Animasi harus halus dan cepat (150-200ms). Tidak ada transisi yang rumit.

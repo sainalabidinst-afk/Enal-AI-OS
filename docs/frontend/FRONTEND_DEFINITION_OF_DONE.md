@@ -1,278 +1,259 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/FRONTEND_DEFINITION_OF_DONE.md`
-- Judul: Frontend Definition Of Done
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Frontend Definition of Done
+﻿# Definisi Frontend Selesai
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for FRONTEND_DEFINITION_OF_DONE
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk FRONTEND_DEFINITION_OF_DONE
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Frozen  
-**Effective:** 2026-07-11  
-**Owner:** Chief Product Officer  
-**Purpose:** Feature-level checklist to verify frontend work is complete. A feature is not done until every checkbox is checked.
+**Status:** Beku
+**Efektif:** 07-11-2026
+**Pemilik:** Kepala Bagian Produk
+**Tujuan:** Daftar periksa tingkat fitur untuk memverifikasi pekerjaan frontend telah selesai. Sebuah fitur tidak akan selesai sampai setiap kotak centang dicentang.
 
 ---
 
-## Global Requirements (apply to all features)
+## Persyaratan Global (berlaku untuk semua fitur)
 
-- [ ] All UI uses design tokens (`--color-*`, `--font-size-*`, `--space-*`, `--radius-*`, `--shadow-*`). No hardcoded colors, sizes, or typography.
-- [ ] No `switch(capability)`, `switch(domain)`, or `switch(capabilityId)` anywhere in the diff.
-- [ ] No `if (message.includes(...))` or similar intent detection in the diff.
-- [ ] No mock data files imported by production components.
-- [ ] No component imports from `services/`.
-- [ ] All API calls go through `src/services/`.
-- [ ] All state mutations go through explicit store actions.
-- [ ] Component max 300 lines (with justification comment if exceeded).
-- [ ] Error states are actionable (no "Something went wrong" without recovery action).
-- [ ] Mobile layout tested at 320px width.
-- [ ] Accessibility: keyboard navigable, focus rings, ARIA labels.
-- [ ] Unit test for each component (snapshot or interaction test).
-- [ ] Integration test for each feature (at least one happy path).
-- [ ] Lint passes (`npm run lint`).
-- [ ] Typecheck passes (`npm run typecheck`).
-- [ ] No console.error, console.warn, or console.log in committed code.
-
----
-
-## Chat Feature
-
-### Message Display
-- [ ] Messages render from backend state only.
-- [ ] User messages and AI messages are visually distinct.
-- [ ] Markdown is rendered (headings, lists, bold, italic, links).
-- [ ] Code blocks render with syntax highlighting.
-- [ ] Code blocks have a copy button.
-- [ ] Images render inline when the backend returns them.
-- [ ] File attachments display as cards with filename and size.
-- [ ] Timestamps display in conversation order.
-- [ ] Empty state shows a prompt before the first message.
-
-### Sending Messages
-- [ ] User types a goal in the prompt box.
-- [ ] Enter or Send button dispatches the message to backend (POST `/api/v1/chat`).
-- [ ] Sending a message clears the prompt box.
-- [ ] Sending is disabled during streaming.
-- [ ] Network errors show an inline error message with retry action.
-- [ ] 429 errors show a countdown and auto-retry.
-
-### Streaming
-- [ ] SSE/WebSocket connection opens on `POST /api/v1/chat/stream`.
-- [ ] Tokens stream into the message bubble progressively.
-- [ ] Streaming indicator (pulsing animation) is visible during stream.
-- [ ] Stream events update the store via a single stream handler.
-- [ ] No component subscribes to the raw stream.
-- [ ] Connection drops trigger a "Reconnecting..." indicator.
-- [ ] Stream completion triggers a final `addMessage()` action.
-- [ ] Stream errors trigger `setError()` state.
-
-### Execution Visualization
-- [ ] `execution_started` event renders a ProgressCard immediately.
-- [ ] `phase` events update the ProgressCard with current phase name.
-- [ ] `progress` events update the progress bar (0-100).
-- [ ] `log` events render inline in the ProgressCard (collapsible).
-- [ ] `artifact` events render ArtifactCards inline in the conversation.
-- [ ] `execution_complete` event marks the ProgressCard as completed.
-- [ ] `error` event shows an error state with retry action.
-
-### Retry and Actions
-- [ ] Failed messages show a retry button.
-- [ ] Retry re-sends the same message via the API.
-- [ ] Approval-required actions show an ApprovalDialog before execution.
-- [ ] Approved/rejected state is sent to backend.
+- [ ] Semua UI menggunakan desain token (`--color-*`, `--font-size-*`, `--space-*`, `--radius-*`, `--shadow-*`). Tidak ada warna, ukuran, atau tipografi hardcode.
+- [ ] Tidak ada `switch(capability)`, `switch(domain)`, atau `switch(capabilityId)` di mana pun dalam perbedaan.
+- [ ] Tidak ada `if (message.includes(...))` atau deteksi niat serupa diff.
+- [ ] Tidak ada file data tiruan yang diimpor oleh komponen produksi.
+- [ ] Tidak ada impor komponen dari `services/`.
+- [ ] Semua panggilan API melalui `src/services/`.
+- [ ] Semua mutasi negara melalui tindakan penyimpanan eksplisit.
+- [ ] Komponen maksimal 300 baris (dengan komentar pembenaran jika terlampaui).
+- [ ] Status kesalahan dapat ditindaklanjuti (tidak ada "Ada yang tidak beres" tanpa tindakan pemulihan).
+- [ ] Tata letak seluler diuji pada lebar 320 piksel.
+- [ ] Aksesibilitas: keyboard navigasi, cincin fokus, label ARIA.
+- [ ] Unit pengujian untuk setiap komponen (uji snapshot atau interaksi).
+- [ ] Uji integrasi untuk setiap fitur (setidaknya satu jalur bahagia).
+- [ ] Serat lolos (`npm run lint`).
+- [ ] Pemeriksaan pengetikan lolos (`npm run typecheck`).
+- [ ] Tidak ada console.error, console.warn, atau console.log dalam kode yang ditentukan.
 
 ---
 
-## Workspace Feature
+## Fitur Obrolan
 
-### Auto Creation
-- [ ] First chat interaction automatically creates a workspace (POST `/api/v1/workspaces`).
-- [ ] Workspace is created before the stream starts.
-- [ ] Workspace ID is sent with every chat message and execution request.
+### Tampilan Pesan
+- [ ] Pesan dirender hanya dari status backend.
+- [ ] Pesan pengguna dan pesan AI berbeda secara visual.
+- [ ] Penurunan harga yang diberikan (judul, daftar, tebal, miring, tautan).
+- [ ] Blok kode dirender dengan penyorotan sintaksis.
+- [ ] Blok kode memiliki tombol salin.
+- [ ] Gambar dirender sebaris saat backend mengembalikannya.
+- [ ] Lampiran file ditampilkan sebagai kartu dengan nama file dan ukuran.
+- [ ] Stempel waktu ditampilkan dalam urutan percakapan.
+- [ ] Keadaan kosong menunjukkan prompt sebelum pesan pertama.
 
-### Workspace Sidebar
-- [ ] Sidebar shows list of workspaces (GET `/api/v1/workspaces`).
-- [ ] Sidebar shows current workspace highlighted.
-- [ ] Switching workspaces persists conversation state.
-- [ ] Sidebar has a "New Workspace" button (POST `/api/v1/workspaces`).
+### Mengirim Pesan
+- [ ] Pengguna mengetikkan tujuan di kotak prompt.
+- [ ] Tombol Enter atau Kirim mengirimkan pesan ke backend (POST `/api/v1/chat`).
+- [ ] Mengirim pesan akan mengosongkan kotak prompt.
+- [ ] Pengiriman dihentikan selama streaming.
+- [ ] Kesalahan jaringan menampilkan pesan kesalahan sebaris dengan tindakan coba lagi.
+- [ ] 429 kesalahan menunjukkan hitungan mundur dan coba lagi secara otomatis.
 
-### Workspace Detail
-- [ ] Workspace page shows files (from backend, not local computation).
-- [ ] Workspace page shows memory keys (from backend).
-- [ ] Files can be uploaded via POST `/api/v1/workspaces/{id}/files`.
-- [ ] Memory can be set via POST `/api/v1/workspaces/{id}/memory`.
-- [ ] Workspace can be renamed (PATCH `/api/v1/workspaces/{id}`).
-- [ ] Workspace can be deleted (DELETE `/api/v1/workspaces/{id}`).
+### Mengalir
+- [ ] Koneksi SSE/WebSocket terbuka pada `POST /api/v1/chat/stream`.
+- [ ] Token dialirkan ke dalam gelembung pesan secara progresif.
+- [ ] Indikator streaming (animasi berdenyut) terlihat selama streaming.
+- [ ] Peristiwa aliran memperbarui penyimpanan melalui satu pengontrol aliran.
+- [ ] Tidak ada komponen yang berlangganan aliran mentah.
+- [ ] Koneksi terputus memicu indikator "Menyambungkan kembali...".
+- [ ] Penyelesaian streaming memicu tindakan `addMessage()` terakhir.
+- [ ] Kesalahan aliran memicu status `setError()`.
 
-### Workspace History
-- [ ] Workspace shows conversation history (GET `/api/v1/conversations/{id}`).
-- [ ] Workspace shows execution history (GET `/api/v1/executions?workspaceId={id}`).
-- [ ] Workspace shows artifact list (GET `/api/v1/artifacts?workspaceId={id}`).
+### Visualisasi Eksekusi
+- [ ] Acara `execution_started` segera merender ProgressCard.
+- [ ] Acara `phase` memperbarui ProgressCard dengan nama fase saat ini.
+- [ ] Acara `progress` memperbarui bilah teknologi (0-100).
+- [ ] `log` acara dirender sebaris di ProgressCard (dapat dilipat).
+- [ ] Acara `artifact` menampilkan ArtifactCards sebaris dalam percakapan.
+- [ ] Acara `execution_complete` menandai ProgressCard telah selesai.
+- [ ] Acara `error`menunjukkan status kesalahan dengan tindakan coba lagi.
 
----
-
-## Execution Feature
-
-### Execution List
-- [ ] Executions display in Execution History screen (GET `/api/v1/executions`).
-- [ ] Each execution shows status, goal, start time, and artifact count.
-- [ ] Status badge color maps to execution status (idle, running, paused, completed, failed).
-- [ ] Empty state shows when no executions exist.
-
-### Execution Progress
-- [ ] Running execution shows a real-time progress bar.
-- [ ] Progress bar percentage comes from backend (field `progress`).
-- [ ] Current phase name is displayed (field `phase`).
-- [ ] ETA is shown when provided (`etaSeconds`).
-- [ ] Logs are collapsible and colored by level (info, warning, error).
-
-### Execution Actions
-- [ ] Cancel button is visible for running executions.
-- [ ] Cancel calls POST `/api/v1/executions/{id}/cancel`.
-- [ ] Cancel triggers a confirmation dialog (irreversible action).
-- [ ] Execution resumes automatically after page refresh (hydrated from backend).
-
-### Execution Detail
-- [ ] Execution detail view shows complete phase timeline.
-- [ ] Execution artifacts are linked from the execution view.
-- [ ] Execution errors show with stack trace (if backend provides it).
+### Coba Lagi dan Tindakan
+- [ ] Pesan yang gagal menampilkan tombol coba lagi.
+- [ ] Coba lagi mengirim ulang pesan yang sama melalui API.
+- [ ] Tindakan yang memerlukan persetujuan menunjukkan ApprovalDialog sebelum dieksekusi.
+- [ ] Status disetujui/ditolak dikirim ke backend.
 
 ---
 
-## Artifact Feature
+## Fitur Ruang Kerja
 
-### Artifact List
-- [ ] Artifacts display in Artifact Viewer (GET `/api/v1/artifacts`).
-- [ ] Each artifact shows name, type, description, and creation date.
-- [ ] Artifacts are grouped by workspace.
-- [ ] Empty state shows when no artifacts exist.
+### Pembuatan Otomatis
+- [ ] Interaksi dialog pertama secara otomatis membuat ruang kerja (POST `/api/v1/workspaces`).
+- [ ] Ruang kerja dibuat sebelum streaming dimulai.
+- [ ] ID Ruang Kerja dikirim bersama setiap pesan dialog dan permintaan eksekusi.
 
-### Artifact Preview
-- [ ] Artifact content renders based on type (code, config, document, image).
-- [ ] Code artifacts render with syntax highlighting.
-- [ ] Binary artifacts (images, PDFs) render in an appropriate viewer.
-- [ ] Large artifacts show a warning or truncated view with "View full" option.
+### Bilah Sisi Ruang Kerja
+- [ ] Sidebar menampilkan daftar ruang kerja (GET `/api/v1/workspaces`).
+- [ ] Sidebar menunjukkan ruang kerja saat ini yang dikumpulkan.
+- [ ] Peralihan ruang kerja mempertahankan status percakapan.
+- [ ] Sidebar memiliki tombol "Ruang Kerja Baru" (POST `/api/v1/workspaces`).
 
-### Artifact Actions
-- [ ] Download button triggers GET artifact blob.
-- [ ] Compare button opens a diff view between the current and previous version.
-- [ ] Restore button (revert to previous version) calls POST `/api/v1/artifacts/{id}/restore/{version}`.
-- [ ] Restore triggers ApprovalDialog before applying.
+### Detail Ruang Kerja
+- [ ] Halaman ruang kerja menampilkan file (dari backend, bukan komputasi lokal).
+- [ ] Halaman ruang kerja menampilkan kunci memori (dari backend).
+- [ ] File dapat diunggah melalui POST `/api/v1/workspaces/{id}/files`.
+- [ ] Memori dapat diatur melalui POST `/api/v1/workspaces/{id}/memory`.
+- [ ] Ruang kerja dapat diganti namanya (PATCH `/api/v1/workspaces/{id}`).
+- [ ] Ruang kerja dapat dihapus (HAPUS `/api/v1/workspaces/{id}`).
 
-### Artifact Versions
-- [ ] Version selector allows browsing artifact history.
-- [ ] Each version shows author, timestamp, and description.
-- [ ] Version diff highlights changes.
-
----
-
-## Approval Dialog
-
-- [ ] ApprovalDialog component renders for all irreversible actions.
-- [ ] Irreversible actions: workspace delete, artifact restore, execution cancel.
-- [ ] Dialog shows what will happen.
-- [ ] Cancel button dismisses dialog without side effects.
-- [ ] Approve button sends the actual API call (not a mock).
-- [ ] Rejected actions are logged (not executed).
-- [ ] Loading state while approval is pending (if API is slow).
-- [ ] Error state if API call fails after approval.
+### Sejarah Ruang Kerja
+- [ ] Ruang kerja menampilkan riwayat percakapan (GET `/api/v1/conversations/{id}`).
+- [ ] Ruang kerja menampilkan riwayat eksekusi (GET `/api/v1/executions?workspaceId={id}`).
+- [ ] Ruang kerja menampilkan daftar artefak (GET `/api/v1/artifacts?workspaceId={id}`).
 
 ---
 
-## Settings Feature
+## Fitur Eksekusi
 
-### Model Selection
-- [ ] Model providers load from GET `/api/v1/models/providers`.
-- [ ] Model preference updates via PATCH `/api/v1/models/route`.
-- [ ] Model selection is saved to backend, not localStorage alone.
-- [ ] Model preference is respected in subsequent chat requests.
+### Daftar Eksekusi
+- [ ] Eksekusi ditampilkan di layar Riwayat Eksekusi (GET `/api/v1/executions`).
+- [ ] Setiap eksekusi menunjukkan status, sasaran, waktu mulai, dan jumlah artefak.
+- [ ] Warna lencana status dipetakan ke status eksekusi (idle, berjalan, dijeda, selesai, gagal).
+- [ ] Keadaan kosong muncul ketika tidak ada eksekusi.
 
-### Theme
-- [ ] Theme toggle switches between light, dark, and system preference.
-- [ ] Theme persists to localStorage.
-- [ ] Theme applies instantly without page reload.
+### Kemajuan Eksekusi
+- [ ] Eksekusi yang berjalan menunjukkan kemajuan internet waktu nyata.
+- [ ] Persentase bisnis online berasal dari backend (bidang `progress`).
+- [ ] Nama fase saat ini ditampilkan (bidang `phase`).
+- [ ] ETA ditampilkan saat disediakan (`etaSeconds`).
+- [ ] Log dapat dilipat dan diperbesar berdasarkan level (info, peringatan, kesalahan).
 
-### Notifications
-- [ ] Notification settings (enable/disable) persist to backend.
-- [ ] Notifications load from GET `/api/v1/notifications/{recipient}`.
-- [ ] Notifications render as toasts in the UI.
+### Tindakan Eksekusi
+- [ ] Tombol Batal terlihat untuk melakukan eksekusi.
+- [ ] Batalkan panggilan POST `/api/v1/executions/{id}/cancel`.
+- [ ] Batal memicu konfirmasi dialog (tindakan yang tidak dapat diubah).
+- [ ] Eksekusi dilanjutkan secara otomatis setelah penyegaran halaman (dihidrasi dari backend).
 
-### API Keys
-- [ ] API key fields are masked.
-- [ ] API keys are saved to backend via POST `/api/v1/models/route` (or appropriate endpoint).
-- [ ] API key errors surface as actionable messages.
-
----
-
-## Capability Discovery Feature
-
-- [ ] Capability list loads from GET `/api/v1/capabilities`.
-- [ ] Backend returns available capabilities and domains.
-- [ ] Frontend renders capabilities as a list only.
-- [ ] Frontend never filters or reorders based on domain logic.
-- [ ] Capability detail loads from GET `/api/v1/capabilities/{id}`.
-- [ ] Selection of a capability sends a goal to the chat (not a direct execution).
+### Detil Eksekusi
+- [ ] Tampilan detail eksekusi menunjukkan garis waktu fase lengkap.
+- [ ] Eksekusi Artefak ditautkan dari tampilan eksekusi.
+- [ ] Kesalahan eksekusi ditampilkan dengan pelacakan tumpukan (jika backend menyediakannya).
 
 ---
 
-## Error Handling (Global)
+## Fitur Artefak
 
-- [ ] Network error: "Connection lost. Retrying..." with auto-retry.
-- [ ] 400: inline validation error near the field.
-- [ ] 401: redirect to Settings or login flow.
-- [ ] 403: "Permission denied" message.
-- [ ] 404: "Not found" message with recovery action.
-- [ ] 429: "Too many requests. Retrying in Xs" with countdown.
-- [ ] 500: "Something went wrong. Please try again." with retry button.
-- [ ] Execution failed: error message with retry option.
-- [ ] Workspace not found: offer to create new workspace.
-- [ ] Artifact not found: show placeholder "Artifact no longer available."
+### Daftar Artefak
+- [ ] Artefak ditampilkan di Penampil Artefak (GET `/api/v1/artifacts`).
+- [ ] Setiap artefak menunjukkan nama, jenis, deskripsi, dan tanggal pembuatan.
+- [ ] Artefak mengumpulkan berdasarkan ruang kerja.
+- [ ] Status kosong muncul ketika tidak ada artefak.
+
+### Pratinjau Artefak
+- [ ] Konten artefak dirender berdasarkan jenis (kode, konfigurasi, dokumen, gambar).
+- [ ] Artefak kode dirender dengan penyorotan sintaksis.
+- [ ] Artefak biner (gambar, PDF) ditampilkan pada penampil yang sesuai.
+- [ ] Artefak besar menampilkan peringatan atau tampilan terpotong dengan opsi "Lihat penuh".
+
+### Tindakan Artefak
+- [ ] Tombol unduh memicu gumpalan artefak GET.
+- [ ] Tombol Bandingkan membuka tampilan perbedaan antara versi saat ini dan sebelumnya.
+- [ ] Tombol Pulihan (kembali ke versi sebelumnya) memanggil POST `/api/v1/artifacts/{id}/restore/{version}`.
+- [ ] Pulihkan pemicu ApprovalDialog sebelum menerapkan.
+
+### Versi Artefak
+- [ ] Pemilih versi memungkinkan penelusuran riwayat artefak.
+- [ ] Setiap versi menampilkan penulis, batang waktu, dan deskripsi.
+- [ ] Perbedaan versi menyoroti perubahan.
 
 ---
 
-## Non-Functional Requirements
+## Dialog Persetujuan
 
-- [ ] First meaningful paint < 3s on 3G.
-- [ ] Chat message render < 100ms after stream token.
-- [ ] Stream reconnection < 2s after network recovery.
-- [ ] No jank during scroll in conversation with 1000+ messages.
-- [ ] Workspace switch < 500ms.
-- [ ] No console errors in production build.
-- [ ] Lighthouse accessibility score > 90.
-- [ ] E2E tests cover: send message, workspace switch, artifact download, approval flow.
+- [ ] Komponen ApprovalDialog dirender untuk semua tindakan yang tidak dapat diubah.
+- [ ] Tindakan yang tidak dapat diubah: penghapusan ruang kerja, pemulihan artefak, pembatalan eksekusi.
+- [ ] Dialog menunjukkan apa yang akan terjadi.
+- [ ] Tombol Batal menutup dialog tanpa efek samping.
+- [ ] Tombol Setujui mengirimkan panggilan API yang sebenarnya (bukan tiruan).
+- [ ] Tindakan yang ditolak dicatat (tidak dijalankan).
+- [ ] Memuat status saat pesanan ditunda (jika API lambat).
+- [ ] Status kesalahan jika panggilan API gagal setelah disetujui.
 
 ---
 
-## Definition of Done Summary
+## Pengaturan Fitur
 
-A feature is DONE when:
-> Terjemahan Indonesia: Sebuah feature adalah DONE when:
-1. All checkboxes in this document are checked.
-2. The feature runs against real backend APIs.
-3. No mock data is used in production code.
-4. Lint and typecheck pass.
-5. No prohibited patterns are found in the diff.
-6. The feature works on mobile (320px).
-7. A reviewer from the frontend team has signed off.
+### Model Pemilihan
+- [ ] Penyedia model memuat dari GET `/api/v1/models/providers`.
+- [ ] Pembaruan preferensi model melalui PATCH `/api/v1/models/route`.
+- [ ] Pemilihan model disimpan ke backend, bukan Penyimpanan lokal saja.
+- [ ] Model preferensi dihormati dalam dialog permintaan berikutnya.
 
-All checkboxes unchecked at start of sprint. All checkboxes checked at PR merge.
-> Terjemahan Indonesia: All checkboxes unchecked at start dari sprint. All checkboxes checked at PR merge.
+### Tema
+- [ ] Pengalih tema beralih antara terang, gelap, dan sistem preferensi.
+- [ ] Tema tetap ada di Penyimpanan lokal.
+- [ ] Tema diterapkan secara instan tanpa memuat ulang halaman.
+
+### Pemberitahuan
+- [ ] Pengaturan notifikasi (aktifkan/ aktifkan) tetap ada di backend.
+- [ ] Notifikasi dimuat dari GET `/api/v1/notifications/{recipient}`.
+- [ ] Notifikasi ditampilkan sebagai toast di UI.
+
+### API Kunci
+- [ ] Bidang kunci API ditutupi.
+- [ ] Kunci API disimpan ke backend melalui POST `/api/v1/models/route` (atau titik akhir yang sesuai).
+- [ ] API kesalahan utama muncul sebagai pesan yang dapat dilanjutkan.
+
+---
+
+## Fitur Penemuan Kemampuan
+
+- [ ] Daftar kemampuan dimuat dari GET `/api/v1/capabilities`.
+- [ ] Backend mengembalikan kemampuan dan domain yang tersedia.
+- [ ] Frontend menjadikan kemampuan sebagai daftar saja.
+- [ ] Frontend tidak pernah memfilter atau menyusun ulang berdasarkan logika domain.
+- [ ] Detail kemampuan dimuat dari GET `/api/v1/capabilities/{id}`.
+- [ ] Pemilihan kemampuan mengirimkan tujuan ke wawancara (bukan eksekusi langsung).
+
+---
+
+## Penanganan Kesalahan (Global)
+
+- [ ] Kesalahan jaringan: "Koneksi terputus. Mencoba lagi..." dengan coba lagi otomatis.
+- [ ] 400: kesalahan validasi sebaris di dekat bidang.
+- [ ] 401: alihkan ke Pengaturan atau alur login.
+- [ ] 403: Pesan "Izin ditolak".
+- [ ] 404: Pesan "Tidak ditemukan" dengan tindakan pemulihan.
+- [ ] 429: "Terlalu banyak permintaan. Mencoba lagi dalam Xs" dengan hitung mundur.
+- [ ] 500: "Ada yang tidak beres. Silakan coba lagi." dengan tombol coba lagi.
+- [ ] Eksekusi gagal: pesan kesalahan dengan opsi coba lagi.
+- [ ] Ruang kerja tidak ditemukan: tawaran untuk membuat ruang kerja baru.
+- [ ] Artefak tidak ditemukan: tampilkan placeholder "Artefak tidak lagi tersedia."
+
+---
+
+## Persyaratan Non-Fungsional
+
+- [ ] Cat bermakna pertama <3 detik di 3G.
+- [ ] Pesan dialog ditampilkan <100 md setelah token streaming.
+- [ ] Sambungan ulang streaming < 2 detik setelah pemulihan jaringan.
+- [ ] Tidak ada jank saat menggulir percakapan dengan 1000+ pesan.
+- [ ] Peralihan ruang kerja <500ms.
+- [ ] Tidak ada kesalahan konsol dalam pembuatan produksi.
+- [ ] Skor aksesibilitas mercusuar > 90.
+- [ ] Tes E2E mencakup: mengirim pesan, menyimpan ruang kerja, mengunduh artefak, alur persetujuan.
+
+---
+
+## Definisi Ringkas Selesai
+
+Sebuah fitur dinyatakan DONE ketika:
+1. Semua kotak centang di dokumen ini tercentang.
+2. Fitur ini berjalan pada API backend sebenarnya.
+3. Tidak ada data tiruan yang digunakan dalam kode produksi.
+4. Lint dan pass pemeriksaan ketik.
+5. Tidak ada pola terlarang yang ditemukan di diff.
+6. Fitur ini berfungsi di perangkat seluler (320 piksel).
+7. Peninjauan dari tim frontend telah menandatangani.
+
+Semua checkbox tidak tercentang di awal sprint. Semua kotak centang tercentang saat PR mengeras.

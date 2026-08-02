@@ -1,134 +1,112 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# RFC-0010: Capability Pack Database Engineer
 
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/rfcs/RFC-0010-database-engineer.md`
-- Judul: Rfc 0010 Database Engineer
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# RFC-0010: Database Engineer Capability Pack
-
-| Field | Value |
+| Field | Nilai |
 |-------|-------|
 | **RFC ID** | RFC-0010 |
 | **Status** | Draft |
-| **Version** | 0.1.0 |
-| **Author** | Enal AI OS Core Team |
-| **Target Release** | v1.2.0 (Capability Excellence phase) |
+| **Versi** | 0.1.0 |
+| **Penulis** | Enal AI OS Core Team |
+| **Target Rilis** | v1.2.0 (fase Capability Excellence) |
 | **Capability Pack** | Database Engineer |
 | **Capability ID** | `database-engineer` |
-| **Category** | Database |
-| **Quality Target** | A- (≥85) |
-| **Maturity Target** | Level 3 — Production Ready |
-| **Reference RFC** | RFC-0010 |
+| **Kategori** | Database |
+| **Target Kualitas** | A- (≥85) |
+| **Target Maturity** | Level 3 — Production Ready |
+| **RFC Referensi** | RFC-0010 |
 
 ---
 
-## Motivation
+## Motivasi
 
-ECP's Code Engineer generates database schemas, DevOps Assistant deploys database containers, and Data Engineer processes datasets. However, none of these packs provide deep database expertise—query optimization, index recommendation, migration planning, or performance analysis.
-> Terjemahan Indonesia: ECP's Code Engineer generates database schemas, DevOps Assistant deploys database containers, dan Data Engineer processes datasets. However, none dari these packs menyediakan deep database expertise—query optimization, index recommendation, migration planning, or performance analysis.
+Code Engineer di ECP menghasilkan skema database, DevOps Assistant men-deploy container database, dan Data Engineer memproses dataset. Namun, tidak satu pun dari pack ini menyediakan keahlian database yang mendalam — query optimization, index recommendation, migration planning, atau performance analysis.
 
-Currently:
-> Terjemahan Indonesia: Saat ini:
+Saat ini:
 
-1. **Schema design is basic** — generated schemas lack optimization for query patterns, data type choices, and normalization levels.
-2. **No query optimization** — generated SQL is syntactically correct but often poorly optimized.
-3. **Migrations are manual** — no automated migration script generation, rollback planning, or conflict resolution.
-4. **No index recommendation** — schemas lack indexes for common query patterns, leading to slow queries.
-5. **Performance analysis is absent** — no detection of deadlocks, slow queries, or resource contention.
-6. **No replication strategy** — no guidance on replication setup, backup strategies, or high availability.
+1. **Desain skema dasar** — skema yang dihasilkan kurang optimasi untuk pola query, pilihan tipe data, dan tingkat normalisasi.
+2. **Tidak ada query optimization** — SQL yang dihasilkan benar secara sintaks tetapi sering kali kurang optimasi.
+3. **Migrasi manual** — tidak ada generasi skrip migrasi otomatis, perencanaan rollback, atau resolusi konflik.
+4. **Tidak ada index recommendation** — skema kekurangan index untuk pola query umum, menyebabkan query lambat.
+5. **Analisis performa tidak ada** — tidak ada deteksi deadlock, query lambat, atau persaingan sumber daya.
+6. **Tidak ada strategi replikasi** — tidak ada panduan penyiapan replikasi, strategi backup, atau high availability.
 
-The Database Engineer Capability Pack becomes the database expert layer, providing schema design, query optimization, migration management, replication planning, backup/recovery, and performance analysis for ECP's database operations.
-> Terjemahan Indonesia: Database Engineer kapabilitas Pack becomes database expert layer, providing schema design, query optimization, migration management, replication planning, backup/recovery, dan performance analysis untuk ECP's database operations.
+Capability Pack Database Engineer menjadi layer pakar database, menyediakan desain skema, query optimization, manajemen migrasi, perencanaan replikasi, backup/recovery, dan analisis performa untuk operasi database ECP.
 
 ---
 
-## Problem Statement
+## Pernyataan Masalah
 
-Without a dedicated Database Engineer Capability Pack:
-> Terjemahan Indonesia: Without sebuah dedicated Database Engineer kapabilitas Pack:
+Tanpa Capability Pack Database Engineer yang khusus:
 
-- **No schema optimization** — generated schemas are functional but not performance-optimized for real-world query patterns.
-- **No query performance analysis** — slow queries, missing indexes, and inefficient joins are not detected in generated SQL.
-- **Migrations are error-prone** — no automated rollback planning, no conflict detection between migration branches.
-- **No index recommendation** — missing indexes cause performance degradation that goes undetected.
-- **Deadlock and performance issues are not anticipated** — no analysis of locking patterns or resource contention.
-- **No backup and recovery strategy** — generated database deployments lack backup planning or disaster recovery.
-- **Replication is not designed** — no guidance on read replicas, failover, or multi-region setups.
+- **Tidak ada optimasi skema** — skema yang dihasilkan fungsional tetapi tidak dioptimasi performa untuk pola query dunia nyata.
+- **Tidak ada analisis performa query** — query lambat, index hilang, dan join tidak efisien tidak terdeteksi dalam SQL yang dihasilkan.
+- **Migrasi rawan kesalahan** — tidak ada perencanaan rollback otomatis, tidak ada deteksi konflik antar cabang migrasi.
+- **Tidak ada index recommendation** — index yang hilang menyebabkan degradasi performa yang tidak terdeteksi.
+- **Deadlock dan masalah performa tidak diantisipasi** — tidak ada analisis pola locking atau persaingan sumber daya.
+- **Tidak ada strategi backup dan recovery** — deployment database yang dihasilkan kurang perencanaan backup atau disaster recovery.
+- **Replikasi tidak dirancang** — tidak ada panduan read replica, failover, atau penyiapan multi-region.
 
 ---
 
-## Goals
+## Tujuan
 
-1. **Schema Design** — Design optimized database schemas with appropriate data types, normalization, and constraints.
-2. **Query Optimization** — Analyze and optimize SQL queries for performance.
-3. **Migration Management** — Generate migration scripts with rollback planning and conflict resolution.
-4. **Index Recommendation** — Recommend indexes based on query patterns and data access patterns.
-5. **Replication Planning** — Design replication strategies for availability and performance.
-6. **Backup and Recovery** — Plan backup strategies and recovery procedures.
-7. **Performance Analysis** — Detect slow queries, deadlocks, and resource contention patterns.
+1. **Schema Design** — Mendesain skema database yang dioptimasi dengan tipe data, normalisasi, dan batasan yang tepat.
+2. **Query Optimization** — Menganalisis dan mengoptimasi query SQL untuk performa.
+3. **Migration Management** — Menghasilkan skrip migrasi dengan perencanaan rollback dan resolusi konflik.
+4. **Index Recommendation** — Merekomendasikan index berdasarkan pola query dan pola akses data.
+5. **Replication Planning** — Mendesain strategi replikasi untuk ketersediaan dan performa.
+6. **Backup and Recovery** — Merencanakan strategi backup dan prosedur recovery.
+7. **Performance Analysis** — Mendeteksi query lambat, deadlock, dan pola persaingan sumber daya.
 
-### Success Criteria
+### Kriteria Keberhasilan
 
-| Metric | Target | Grade |
+| Metrik | Target | Grade |
 |--------|--------|-------|
-| Schema Quality | ≥90% (schemas follow best practices) | A |
-| Query Optimization | ≥85% (slow queries identified and improved) | A |
-| Migration Safety | ≥95% (rollback plans present and correct) | A |
-| Index Recommendation | ≥90% (missing indexes identified) | A |
-| Performance Detection | ≥90% (slow queries, deadlocks detected) | A |
-| Backup Coverage | ≥95% (backup strategies recommended) | A |
-| Explainability | ≥90% (findings explained with remediation) | A |
-| Consistency | ≥90% (same input produces same analysis) | A |
+| Kualitas Skema | ≥90% (skema mengikuti best practice) | A |
+| Query Optimization | ≥85% (query lambat teridentifikasi dan ditingkatkan) | A |
+| Keamanan Migrasi | ≥95% (rencana rollback ada dan benar) | A |
+| Index Recommendation | ≥90% (index yang hilang teridentifikasi) | A |
+| Deteksi Performa | ≥90% (query lambat, deadlock terdeteksi) | A |
+| Cakupan Backup | ≥95% (strategi backup direkomendasikan) | A |
+| Explainability | ≥90% (temuan dijelaskan dengan remediasi) | A |
+| Konsistensi | ≥90% (input yang sama menghasilkan analisis yang sama) | A |
 
 ---
 
-## Non-Goals
+## Non-Tujuan
 
-1. **Live database administration** — Database Engineer analyzes and recommends; it does not execute against live databases.
-2. **Database-as-a-Service provisioning** — Focus is on design and optimization, not infrastructure provisioning.
-3. **Replacing dedicated DBA tools** — Tools like pt-query-digest, SQL Server Profiler, or pg_stat_statements remain the source of truth.
-4. **Database engine development** — Not building or modifying database engines.
-5. **Core modification** — All implementation resides within the Database Engineer Capability Pack.
+1. **Administrasi database langsung** — Database Engineer menganalisis dan merekomendasikan; ia tidak mengeksekusi terhadap database langsung.
+2. **Provisioning Database-as-a-Service** — Fokus pada desain dan optimasi, bukan provisioning infrastruktur.
+3. **Menggantikan alat DBA khusus** — Alat seperti pt-query-digest, SQL Server Profiler, atau pg_stat_statements tetap menjadi sumber kebenaran.
+4. **Pengembangan database engine** — Tidak membangun atau memodifikasi database engine.
+5. **Modifikasi Core** — Semua implementasi berada di dalam Capability Pack Database Engineer.
 
 ---
 
-## Capability Scope
+## Scope Kapabilitas
 
-### Core Capabilities
+### Kapabilitas Inti
 
-| Capability | Description | Inputs | Outputs |
+| Kapabilitas | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| Schema Design | Design optimized schemas with proper data types, normalization, constraints | Requirements, entity-relationship model | Schema DDL + design recommendations |
-| Query Optimization | Analyze and fix slow or inefficient SQL queries | SQL queries, execution plans, query statistics | Optimized queries + performance recommendations |
-| Migration Management | Generate forward and rollback migration scripts | Schema changes, current schema version | Migration script + rollback script + conflict analysis |
-| Replication Planning | Design replication strategies for HA and performance | Topology requirements, workload profile | Replication design + setup steps |
-| Backup and Recovery | Plan backup strategies and recovery procedures | Database type, RTO/RPO requirements | Backup plan + recovery runbook |
-| Index Recommendation | Recommend indexes based on query patterns | Query logs, schema, access patterns | Index recommendations + priority ranking |
-| Performance Analysis | Detect slow queries, deadlocks, and contention | Query logs, execution stats, lock waits | Performance report + remediation guidance |
+| Schema Design | Mendesain skema yang dioptimasi dengan tipe data, normalisasi, batasan yang tepat | Persyaratan, model entity-relationship | DDL skema + rekomendasi desain |
+| Query Optimization | Menganalisis dan memperbaiki query SQL lambat atau tidak efisien | Query SQL, execution plan, statistik query | Query teroptimasi + rekomendasi performa |
+| Migration Management | Menghasilkan skrip migrasi forward dan rollback | Perubahan skema, versi skema saat ini | Skrip migrasi + skrip rollback + analisis konflik |
+| Replication Planning | Mendesain strategi replikasi untuk HA dan performa | Persyaratan topologi, profil workload | Desain replikasi + langkah penyiapan |
+| Backup and Recovery | Merencanakan strategi backup dan prosedur recovery | Tipe database, persyaratan RTO/RPO | Rencana backup + runbook recovery |
+| Index Recommendation | Merekomendasikan index berdasarkan pola query | Log query, skema, pola akses | Rekomendasi index + peringkat prioritas |
+| Performance Analysis | Mendeteksi query lambat, deadlock, dan persaingan | Log query, statistik eksekusi, lock waits | Laporan performa + panduan remediasi |
 
 ### Out of Scope
 
-- Live database administration or monitoring
-- Database server provisioning or maintenance
-- SQL query execution against production databases
-- Database engine-specific tuning beyond configuration recommendations
-- Cloud database service configuration (AWS RDS, Cloud SQL settings)
+- Administrasi atau monitoring database langsung
+- Provisioning atau pemeliharaan server database
+- Eksekusi query SQL terhadap database produksi
+- Tuning khusus database engine di luar rekomendasi konfigurasi
+- Konfigurasi layanan database cloud (AWS RDS, pengaturan Cloud SQL)
 
 ---
 
-## Public Contracts
+## Kontrak Publik
 
 ### Input Contract: Database Engineering Request
 
@@ -245,7 +223,7 @@ Without a dedicated Database Engineer Capability Pack:
 }
 ```
 
-### Database Analysis Record (Experience Memory)
+### Catatan Analisis Database (Experience Memory)
 
 ```json
 {
@@ -265,7 +243,7 @@ Without a dedicated Database Engineer Capability Pack:
 
 ---
 
-## Integration Points (Capability Graph)
+## Titik Integrasi (Capability Graph)
 
 ```
 Consumer Capability Pack (Code Engineer, Data Engineer, DevOps Assistant)
@@ -298,44 +276,43 @@ Consumer Capability Pack
 User / Human Approval Loop
 ```
 
-### Task Template
+### Template Tugas
 
-| Task | Subtasks |
+| Tugas | Subtugas |
 |------|----------|
 | Database Analysis | Schema analysis → Query analysis → Index recommendation → Migration planning → Replication design → Backup planning → Performance analysis → Report |
 
 ---
 
-## Consumer Capability Packs
+## Capability Pack Konsumen
 
-| Consumer Capability Pack | Use Case |
+| Capability Pack Konsumen | Use Case |
 |--------------------------|----------|
-| **Code Engineer** | Review generated schema DDL, optimize queries, recommend indexes |
-| **Data Engineer** | Optimize ETL/ELT query performance, recommend partitioning |
-| **DevOps Assistant** | Review database deployment configurations, backup/restore planning |
+| **Code Engineer** | Review DDL skema yang dihasilkan, mengoptimasi query, merekomendasikan index |
+| **Data Engineer** | Mengoptimasi performa query ETL/ELT, merekomendasikan partitioning |
+| **DevOps Assistant** | Review konfigurasi deployment database, perencanaan backup/restore |
 
 ---
 
-## Dependencies
+## Dependensi
 
-### Internal Dependencies (Shared Contracts)
+### Dependensi Internal (Shared Contracts)
 
-1. **Execution Runtime** — Task routing and orchestration (per ADR-002)
-2. **Experience Memory** — Database analysis records persistence (per ADR-011)
-3. **Shared Contracts** — Task/Intent definition and result schema (per ADR-006)
+1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+2. **Experience Memory** — Persistensi catatan analisis database (sesuai ADR-011)
+3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
 
-### Database Engines Supported
+### Database Engine yang Didukung
 
-1. **PostgreSQL** — Primary support: pg_catalog, explain plans, indexing strategies
-2. **MySQL** — MySQL-specific query optimization and indexing
-3. **SQLite** — Lightweight schema and query analysis
-4. **MongoDB** — NoSQL schema design and query optimization
-5. **SQL Server** — SQL Server-specific optimization (future)
+1. **PostgreSQL** — Dukungan utama: pg_catalog, explain plans, strategi indexing
+2. **MySQL** — Query optimization dan indexing khusus MySQL
+3. **SQLite** — Analisis skema dan query ringan
+4. **MongoDB** — Desain skema NoSQL dan query optimization
+5. **SQL Server** — Optimasi khusus SQL Server (masa depan)
 
-### No Core Changes Required
+### Tidak Ada Perubahan Core yang Diperlukan
 
-All implementation resides within the Database Engineer Capability Pack:
-> Terjemahan Indonesia: All implementation resides within Database Engineer kapabilitas Pack:
+Semua implementasi berada di dalam Capability Pack Database Engineer:
 
 ```
 apps/
@@ -356,87 +333,85 @@ apps/
         └── sqlite.py
 ```
 
-**ADR Impact:** None. No Core, Runtime, Kernel, or shared contract modification required.
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract.
 
 ---
 
-## Benchmark Specification
+## Spesifikasi Benchmark
 
-### Benchmark Framework
+### Kerangka Benchmark
 
-| Dimension | Definition | Measurement | Target |
+| Dimensi | Definisi | Pengukuran | Target |
 |-----------|------------|-------------|--------|
-| **Schema Quality** | % of schemas following best practices | % of schemas with correct data types, constraints | ≥90% |
-| **Query Optimization** | % of slow queries identified and improved | % of queries with performance improvement | ≥85% |
-| **Migration Safety** | % of migrations with correct rollback plans | % of migrations with valid rollback | ≥95% |
-| **Index Recommendation** | % of missing indexes identified | % of queries that would benefit from recommended indexes | ≥90% |
-| **Performance Detection** | % of slow queries, deadlocks detected | % of ground truth issues found | ≥90% |
-| **Backup Coverage** | % of databases with backup strategy | % of scenarios with backup plan | ≥95% |
-| **Explainability** | Clarity of findings and recommendations | Human evaluation score | ≥90% |
-| **Consistency** | Same input produces same output | Variance across 10 runs < 5% | ≥90% |
+| **Schema Quality** | % skema yang mengikuti best practice | % skema dengan tipe data, batasan yang benar | ≥90% |
+| **Query Optimization** | % query lambat teridentifikasi dan ditingkatkan | % query dengan peningkatan performa | ≥85% |
+| **Migration Safety** | % migrasi dengan rencana rollback yang benar | % migrasi dengan rollback valid | ≥95% |
+| **Index Recommendation** | % index yang hilang teridentifikasi | % query yang mendapat manfaat dari index yang direkomendasikan | ≥90% |
+| **Performance Detection** | % query lambat, deadlock terdeteksi | % masalah ground truth ditemukan | ≥90% |
+| **Backup Coverage** | % database dengan strategi backup | % skenario dengan rencana backup | ≥95% |
+| **Explainability** | Kejelasan temuan dan rekomendasi | Skor evaluasi manusia | ≥90% |
+| **Consistency** | Input yang sama menghasilkan output yang sama | Varian di 10 run < 5% | ≥90% |
 
-### Benchmark Dataset
+### Dataset Benchmark
 
-- **100 database projects** covering:
+- **100 proyek database** yang mencakup:
   - PostgreSQL: e-commerce, analytics, SaaS multi-tenant
   - MySQL: web applications, CMS, OLTP systems
   - SQLite: embedded applications, mobile apps
   - MongoDB: document stores, content management
-> Terjemahan Indonesia: PostgreSQL: e-commerce, analytics, SaaS multi-tenant MySQL: web applications, CMS, OLTP systems SQLite: embedded applications, mobile apps MongoDB: dokumen stores, konten management
 
-### Benchmark Dimensions Detail
+### Detail Dimensi Benchmark
 
-| Scenario Type | Description | Ground Truth |
+| Tipe Skenario | Deskripsi | Ground Truth |
 |---------------|-------------|-------------|
-| Slow Query | Unoptimized query with missing indexes | Expert-optimized query |
-| Deadlock | Concurrent transactions with lock contention | Deadlock detection logs |
-| Migration | Schema change requiring forward + rollback scripts | Expert-reviewed migration |
-| Rollback | Safe rollback from a migration | Manual rollback procedures |
-| Index Recommendation | Query with missing beneficial index | Expert-identified indexes |
+| Slow Query | Query tidak teroptimasi dengan index hilang | Query yang dioptimasi ahli |
+| Deadlock | Transaksi konkuren dengan lock contention | Log deteksi deadlock |
+| Migration | Perubahan skema memerlukan skrip forward + rollback | Migrasi yang direview ahli |
+| Rollback | Rollback aman dari sebuah migrasi | Prosedur rollback manual |
+| Index Recommendation | Query dengan index bermanfaat yang hilang | Index yang diidentifikasi ahli |
 
 ---
 
-## Golden Test Specification
+## Spesifikasi Golden Test
 
-| # | Scenario | Expected Outcome | Acceptance Criteria |
+| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
 |---|----------|-----------------|---------------------|
-| 1 | Slow query without index | Index recommended, query optimized | ≥90% query improvement |
-| 2 | Migration with conflict | Rollback script + conflict analysis | ≥95% migration safety |
-| 3 | Deadlock-prone transactions | Deadlock detected, lock order recommended | ≥90% detection |
-| 4 | Schema with wrong data types | Data type recommendations provided | ≥90% correctness |
-| 5 | Missing index on foreign key | Index recommended | ≥90% detection |
-| 6 | Backup planning for PostgreSQL | Backup strategy with RTO/RPO | ≥95% coverage |
-| 7 | Replication design for HA | Master-slave with failover plan | ≥90% completeness |
-| 8 | Query with N+1 problem | N+1 detected, JOIN/Eager loading suggested | ≥90% detection |
-| 9 | Index recommendation for aggregation | Index for GROUP BY suggested | ≥90% detection |
-| 10 | Rollback script validation | Rollback produces correct schema | ≥95% correctness |
+| 1 | Query lambat tanpa index | Index direkomendasikan, query dioptimasi | ≥90% peningkatan query |
+| 2 | Migrasi dengan konflik | Skrip rollback + analisis konflik | ≥95% keamanan migrasi |
+| 3 | Transaksi rawan deadlock | Deadlock terdeteksi, urutan lock direkomendasikan | ≥90% deteksi |
+| 4 | Skema dengan tipe data salah | Rekomendasi tipe data disediakan | ≥90% kebenaran |
+| 5 | Index hilang pada foreign key | Index direkomendasikan | ≥90% deteksi |
+| 6 | Perencanaan backup untuk PostgreSQL | Strategi backup dengan RTO/RPO | ≥95% cakupan |
+| 7 | Desain replikasi untuk HA | Master-slave dengan rencana failover | ≥90% kelengkapan |
+| 8 | Query dengan masalah N+1 | N+1 terdeteksi, JOIN/Eager loading disarankan | ≥90% deteksi |
+| 9 | Index recommendation untuk agregasi | Index untuk GROUP BY disarankan | ≥90% deteksi |
+| 10 | Validasi skrip rollback | Rollback menghasilkan skema yang benar | ≥95% kebenaran |
 
-### Golden Test Acceptance Criteria
+### Kriteria Penerimaan Golden Test
 
-- All 10 golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
-- Overall Database Engineer golden test pass rate ≥90%
-- All migration plans include rollback scripts
-- No harmful recommendations in generated DDL
+- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu (100% pass)
+- Tingkat kelulusan golden test Database Engineer keseluruhan ≥90%
+- Semua rencana migrasi menyertakan skrip rollback
+- Tidak ada rekomendasi berbahaya dalam DDL yang dihasilkan
 
 ---
 
-## Real Case Requirements
+## Persyaratan Real Case
 
-### The Directory
+### Direktori
 
-`real_cases/database_engineer/` must contain:
-> Terjemahan Indonesia: Real_cases/database_engineer/ must contain:
+`real_cases/database_engineer/` harus berisi:
 
-| Requirement | Minimum Count |
+| Persyaratan | Jumlah Minimum |
 |-------------|---------------|
-| Real database projects from actual usage | 20 |
-| Cases with slow query optimization | 5 |
-| Cases with migration and rollback planning | 5 |
-| Cases with deadlock analysis | 3 |
-| Cases with index recommendations | 5 |
-| Cases with expert review/validation | 15 |
+| Proyek database nyata dari penggunaan aktual | 20 |
+| Kasus dengan optimasi query lambat | 5 |
+| Kasus dengan perencanaan migrasi dan rollback | 5 |
+| Kasus dengan analisis deadlock | 3 |
+| Kasus dengan index recommendations | 5 |
+| Kasus dengan review/validasi ahli | 15 |
 
-### Real Case Structure
+### Struktur Real Case
 
 ```
 real_cases/database_engineer/<case_id>/
@@ -450,13 +425,13 @@ real_cases/database_engineer/<case_id>/
 └── evaluation.md            # Ground truth, expert review, lessons learned
 ```
 
-### Real Case Targets
+### Target Real Case
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Real cases logged | ≥20 (Level 3) → ≥100 (Level 4) |
-| Real case quality score (expert review) | ≥90% |
-| Query performance improvement (avg) | ≥40% reduction in execution time |
+| Kasus nyata yang dicatat | ≥20 (Level 3) → ≥100 (Level 4) |
+| Skor kualitas kasus nyata (review ahli) | ≥90% |
+| Peningkatan performa query (rata-rata) | ≥40% pengurangan waktu eksekusi |
 
 ---
 
@@ -522,106 +497,106 @@ Release Notes
 
 ---
 
-## Risks
+## Risiko
 
-| Risk | Impact | Likelihood | Mitigation |
+| Risiko | Dampak | Kemungkinan | Mitigasi |
 |------|--------|------------|------------|
-| Query optimization recommendations are incorrect | Medium — performance degradation | Medium | Conservative recommendations with confidence scores; user review required |
-| Migration rollback scripts fail in production | Critical — data loss | Low | Extensive validation on test schemas; automated rollback simulation |
-| Index recommendations cause write performance degradation | Medium — slower writes | Medium | Cost-benefit analysis; consider read/write ratio |
-| Deadlock analysis misses complex patterns | Medium — undetected contention | Medium | Pattern-based + heuristic analysis; regular update cycle |
-| Schema design recommendations conflict with existing apps | Medium — migration complexity | High | Schema version tracking; backward compatibility checks |
-| Replication plan doesn't account for network latency | Medium — failover delays | Low | Latency-aware design; multi-region considerations |
-| Backup plan doesn't meet actual RPO | Medium — data loss window | Low | RPO validation checks; retention policy alignment |
+| Rekomendasi query optimization salah | Sedang — degradasi performa | Sedang | Rekomendasi konservatif dengan skor confidence; review pengguna diperlukan |
+| Skrip rollback migrasi gagal di produksi | Kritis — kehilangan data | Rendah | Validasi ekstensif pada skema test; simulasi rollback otomatis |
+| Index recommendations menyebabkan degradasi performa write | Sedang — write lebih lambat | Sedang | Analisis cost-benefit; pertimbangkan rasio read/write |
+| Analisis deadlock melewatkan pola kompleks | Sedang — persaingan tidak terdeteksi | Sedang | Analisis berbasis pola + heuristik; siklus pembaruan rutin |
+| Rekomendasi desain skema bertentangan dengan aplikasi yang ada | Sedang — kompleksitas migrasi | Tinggi | Pelacakan versi skema; pemeriksaan kompatibilitas mundur |
+| Rencana replikasi tidak memperhitungkan latensi jaringan | Sedang — penundaan failover | Rendah | Desain sadar-latensi; pertimbangan multi-region |
+| Rencana backup tidak memenuhi RPO aktual | Sedang — jendela kehilangan data | Rendah | Pemeriksaan validasi RPO; penyelarasan kebijakan retensi |
 
 ---
 
-## ADR Impact
+## Dampak ADR
 
-**Does this require Core changes?** No.
+**Apakah ini memerlukan perubahan Core?** Tidak.
 
-Database Engineer is a **new Capability Pack** that follows the established patterns:
-> Terjemahan Indonesia: Database Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
+Database Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
-- **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/database_engineer/`.
-- **ADR-002 (Capability Pack Independence):** Database Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
-- **ADR-003 (Worker = Adapter Only):** A thin Worker routes tasks to the Domain Engine.
-- **ADR-004 (Domain Engine Owns Business Logic):** All database analysis logic resides in `apps/database_engineer/engine.py`.
-- **ADR-005 (Human Approval Required):** All DDL/script generation is recommendation; execution requires explicit user approval.
-- **ADR-006 (Capability Contract v1 Frozen):** Uses the existing Capability Contract for node and subtask template registration. No contract changes.
-- **ADR-007 (Conversation Boundary):** Database Engineer is invoked through Execution Runtime, not directly by Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Not applicable — no Core changes.
+- **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/database_engineer/`.
+- **ADR-002 (Capability Pack Independence):** Database Engineer berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
+- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-004 (Domain Engine Owns Business Logic):** Semua logika analisis database berada di `apps/database_engineer/engine.py`.
+- **ADR-005 (Human Approval Required):** Semua generasi DDL/skrip adalah rekomendasi; eksekusi memerlukan persetujuan eksplisit pengguna.
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Conversation Boundary):** Database Engineer dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR Required:** None. This is a new Capability Pack, not a Core modification.
-
----
-
-## Rollout Plan
-
-### Phase 1: Prototype (RFC → Experimental)
-
-**Duration:** 5 weeks
-
-- [ ] Create `apps/database_engineer/` package structure
-- [ ] Implement basic schema analysis for PostgreSQL
-- [ ] Implement query optimization (missing index detection)
-- [ ] Implement basic index recommendation
-- [ ] Define public contracts (Database Request, Report)
-- [ ] Implement thin Worker adapter
-- [ ] Create 10 golden test scenarios
-- [ ] Integration: Code Engineer → Database Engineer (schema review)
-- [ ] Integration: Data Engineer → Database Engineer (ETL query optimization)
-- **Gate:** 10 golden tests pass at ≥80%
-
-### Phase 2: Full Capabilities (Experimental → Stable)
-
-**Duration:** 7 weeks
-
-- [ ] Implement migration management with rollback planning
-- [ ] Implement replication planning (master-slave patterns)
-- [ ] Implement backup and recovery planning
-- [ ] Implement performance analysis (slow queries, deadlocks)
-- [ ] Add MySQL and SQLite dialect support
-- [ ] Expand golden tests to 10 full scenarios
-- [ ] Log ≥20 real cases from Code Engineer and DevOps usage
-- [ ] **Benchmark:** 100 projects, ≥90% schema quality, ≥95% migration safety
-- [ ] **Integration:** DevOps Assistant starts using Database Engineer for deployment review
-- **Gate:** All 10 golden tests pass at ≥90%; benchmark ≥90%
-
-### Phase 3: Ecosystem (Stable → Certified)
-
-**Duration:** 6 weeks
-
-- [ ] All 3 consumer packs fully integrated
-- [ ] Add MongoDB schema design support
-- [ ] Deadlock analysis validated on real workloads
-- [ ] Independent audit of migration safety and index recommendations
-- [ ] Public benchmark dashboard available
-- [ ] **Benchmark:** ≥90% across all dimensions sustained
-- [ ] **Real Cases:** ≥100 cases with ≥80% expert validation
-- **Gate:** Independent audit passed; benchmark ≥90% sustained
+**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Future Enhancements
+## Rencana Rollout
 
-### Fase 2 (Post-v1.0.0 Release)
+### Fase 1: Prototipe (RFC → Experimental)
 
-1. **Database Migration Orchestration** — Automated migration sequencing across environments
-2. **Query Plan Visualization** — Interactive visualization of execution plans and bottlenecks
-3. **Partition Strategy Advisor** — Recommend partitioning schemes for large tables
-4. **Capacity Planning** — Predict storage and compute requirements based on growth projections
+**Durasi:** 5 minggu
+
+- [ ] Membuat struktur paket `apps/database_engineer/`
+- [ ] Mengimplementasikan analisis skema dasar untuk PostgreSQL
+- [ ] Mengimplementasikan query optimization (deteksi index hilang)
+- [ ] Mengimplementasikan index recommendation dasar
+- [ ] Mendefinisikan kontrak publik (Database Request, Report)
+- [ ] Mengimplementasikan adapter Worker tipis
+- [ ] Membuat 10 skenario golden test
+- [ ] Integrasi: Code Engineer → Database Engineer (review skema)
+- [ ] Integrasi: Data Engineer → Database Engineer (optimasi query ETL)
+- **Gate:** 10 golden test lulus pada ≥80%
+
+### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+
+**Durasi:** 7 minggu
+
+- [ ] Mengimplementasikan migration management dengan perencanaan rollback
+- [ ] Mengimplementasikan replication planning (pola master-slave)
+- [ ] Mengimplementasikan perencanaan backup dan recovery
+- [ ] Mengimplementasikan performance analysis (query lambat, deadlock)
+- [ ] Menambahkan dukungan dialek MySQL dan SQLite
+- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan DevOps
+- [ ] **Benchmark:** 100 proyek, ≥90% kualitas skema, ≥95% keamanan migrasi
+- [ ] **Integrasi:** DevOps Assistant mulai menggunakan Database Engineer untuk review deployment
+- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥90%
+
+### Fase 3: Ekosistem (Stable → Certified)
+
+**Durasi:** 6 minggu
+
+- [ ] Ketiga pack konsumen terintegrasi penuh
+- [ ] Menambahkan dukungan desain skema MongoDB
+- [ ] Analisis deadlock divalidasi pada workload nyata
+- [ ] Audit independen terhadap keamanan migrasi dan index recommendations
+- [ ] Dashboard benchmark publik tersedia
+- [ ] **Benchmark:** ≥90% di semua dimensi berkelanjutan
+- [ ] **Real Cases:** ≥100 kasus dengan ≥80% validasi ahli
+- **Gate:** Audit independen lulus; benchmark ≥90% berkelanjutan
+
+---
+
+## Peningkatan di Masa Depan
+
+### Fase 2 (Pasca-Rilis v1.0.0)
+
+1. **Database Migration Orchestration** — Urutan migrasi otomatis antar lingkungan
+2. **Query Plan Visualization** — Visualisasi interaktif execution plan dan bottleneck
+3. **Partition Strategy Advisor** — Merekomendasikan skema partitioning untuk tabel besar
+4. **Capacity Planning** — Memprediksi kebutuhan penyimpanan dan komputasi berdasarkan proyeksi pertumbuhan
 
 ### Fase 3 (Enterprise)
 
-1. **Multi-Database Orchestration** — Manage schemas and migrations across PostgreSQL, MySQL, MongoDB, SQL Server
-2. **Database Security Assessment** — Privilege analysis, data masking recommendations, encryption at rest
-3. **Cross-Workspace Database Governance** — Central policy management and compliance reporting
-4. **Database Performance Observability** — Continuous monitoring and alerting for production databases
+1. **Multi-Database Orchestration** — Mengelola skema dan migrasi di seluruh PostgreSQL, MySQL, MongoDB, SQL Server
+2. **Database Security Assessment** — Analisis privilege, rekomendasi data masking, enkripsi saat penyimpanan
+3. **Cross-Workspace Database Governance** — Manajemen kebijakan terpusat dan pelaporan kepatuhan
+4. **Database Performance Observability** — Pemantauan dan alerting berkelanjutan untuk database produksi
 
-### Long-term
+### Jangka Panjang
 
-1. **Automated Database Tuning** — ML-based parameter tuning and index optimization
-2. **Database Failure Prediction** — Predict failures based on performance metrics and query patterns
-3. **Database Cost Optimization** — Recommend cost-optimal database configurations and instance types
-4. **Database Architecture Advisor** — Recommend database topology, sharding, and caching strategies
+1. **Automated Database Tuning** — Tuning parameter dan optimasi index berbasis ML
+2. **Database Failure Prediction** — Memprediksi kegagalan berdasarkan metrik performa dan pola query
+3. **Database Cost Optimization** — Merekomendasikan konfigurasi database dan tipe instance yang optimal biaya
+4. **Database Architecture Advisor** — Merekomendasikan topologi database, sharding, dan strategi caching
+

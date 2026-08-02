@@ -1,63 +1,54 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `CONTRIBUTING.md`
-- Judul: Contributing
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Contributing to Enal Cognitive Platform
 
 
-Thank you for your interest in contributing to ECP!
-> Terjemahan Indonesia: Thank you untuk your interest dalam contributing untuk ECP!
+### Informasi Dokumen / Info Dokumen
+- Berkas: `CONTRIBUTING.md`
+- Judul: Berkontribusi
+- Status: editor bilingual ditambahkan
 
-## Code of Conduct
 
-This project adheres to a Code of Conduct. By participating, you are expected to uphold this code.
-> Terjemahan Indonesia: Ini proyek adheres untuk sebuah Code dari Conduct. oleh participating, you adalah expected untuk uphold ini code.
+# Berkontribusi pada Platform Kognitif Enal
 
-## How to Contribute
 
-### Reporting Bugs
+Terima kasih atas minat Anda untuk berkontribusi pada ECP!
 
-Before creating bug reports, please check existing issues. When creating a bug report, include:
-> Terjemahan Indonesia: Before creating bug reports, please check existing issues. When creating sebuah bug report, include:
-- Steps to reproduce
-- Expected behavior
-- Actual behavior
-- Environment (OS, Python version, etc.)
+## Kode Etik
 
-### Suggesting Features
+Proyek ini mematuhi Kode Etik. Dengan berpartisipasi, Anda diharapkan menjunjung tinggi kode ini.
 
-Feature requests are welcome! Please:
-> Terjemahan Indonesia: Feature requests adalah welcome! Please:
-- Check if the feature has already been requested
-- Clearly describe the problem and solution
-- Explain why this feature would be useful
+## Bagaimana Berkontribusi
 
-### Pull Requests
+### Melaporkan Bug
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests (`pytest`)
-5. Run benchmarks (`python -m benchmarks`)
-6. Commit your changes (`git commit -m 'Add amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request
+Sebelum membuat laporan bug, harap periksa masalah yang ada. Saat membuat laporan bug, sertakan:
+- Langkah-langkah untuk mereproduksi
+- Perilaku yang diharapkan
+- Perilaku sebenarnya
+- Lingkungan (OS, versi Python, dll.)
 
-## Development Setup
+### Fitur yang Disarankan
+
+Permintaan fitur dipersilakan! Silakan:
+- Periksa apakah fitur tersebut sudah diminta
+- Uraikan masalah dan solusinya dengan jelas
+- Menjelaskan mengapa fitur ini berguna
+
+### Tarik Permintaan
+
+1. Cabangkan repositori
+2. Buat fitur cabang (`git checkout -b feature/amazing-feature`)
+3. Buat perubahan pada Anda
+4. Jalankan pengujian (`pytest`)
+5. Jalankan tolok ukur (`python -m benchmarks`)
+6. Komit perubahan Anda (`git commit -m 'Add amazing feature'`)
+7. Dorong ke cabang (`git push origin feature/amazing-feature`)
+8. Buka Permintaan Tarik
+
+## Pengaturan Pengembangan
 
 ```bash
 # Clone repository
@@ -81,30 +72,27 @@ cd backend
 pytest
 ```
 
-## Coding Standards
+## Standar Pengkodean
 
-- Python: Follow PEP 8, use `black` for formatting, `ruff` for linting
-- Type hints required for all public APIs
-- Docstrings required for all public classes and methods
-- Tests required for all new features
+- Python: Ikuti PEP 8, gunakan `black` untuk memformat, `ruff` untuk linting
+- Ketik petunjuk yang diperlukan untuk semua API publik
+- Dokumen diperlukan untuk semua kelas dan metode publik
+- Pengujian diperlukan untuk semua fitur baru
 
-## RFC Process
+## Proses RFC
 
-For significant changes, please submit an RFC:
-> Terjemahan Indonesia: Untuk significant changes, please submit sebuah RFC:
-1. Create a new file in `docs/rfcs/RFC-XXXX-title.md`
-2. Follow the RFC template in `docs/rfcs/README.md`
-3. Submit a PR for review
+Untuk perubahan signifikan, harap kirimkan RFC:
+1. Buat file baru di `docs/rfcs/RFC-XXXX-title.md`
+2. Ikuti templat RFC di `docs/rfcs/README.md`
+3. Kirim PR untuk ditinjau
 
-## Package Boundaries
+## Batasan Paket
 
-Respect the package boundaries defined in `benchmarks/package_boundaries.py`:
-> Terjemahan Indonesia: Respect package boundaries defined dalam benchmarks/package_boundaries.py:
-- `kernel` must not depend on `runtime`, `sdk`, or `apps`
-- `runtime` must not depend on `apps` or `sdk`
-- `sdk` must not depend on `runtime`
+Batasan hormati paket yang ditentukan di `benchmarks/package_boundaries.py`:
+- `kernel` tidak boleh bergantung pada `runtime`, `sdk`, atau `apps`
+- `runtime` tidak boleh bergantung pada `apps` atau `sdk`
+- `sdk` tidak boleh bergantung pada `runtime`
 
-## License
+## Lisensi
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
-> Terjemahan Indonesia: Oleh contributing, you agree itu your contributions akan menjadi licensed under MIT License.
+Dengan berkontribusi, Anda setuju bahwa kontribusi Anda akan dilisensikan berdasarkan Lisensi MIT.

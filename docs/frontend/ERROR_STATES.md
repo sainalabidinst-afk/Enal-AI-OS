@@ -1,108 +1,90 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/ERROR_STATES.md`
-- Judul: Error States
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Error States
+﻿# Status Kesalahan
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for ERROR_STATES
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk ERROR_STATES
 <!-- DOCUMENT_METADATA_END -->
 
-This document defines every error state the user can encounter in v1, and how the UI must respond.
-> Terjemahan Indonesia: Ini dokumen defines every error state user dapat encounter dalam v1, dan how UI must respond.
+Dokumen ini mendefinisikan setiap kesalahan status yang dapat ditemui pengguna di v1, dan bagaimana UI harus merespons.
 
 ---
 
-## Network Errors
+## Kesalahan Jaringan
 
-| Error | Cause | UI Behavior |
+|Salah|Menyebabkan|Perilaku UI|
 |-------|-------|-------------|
-| Connection lost | Backend unreachable | Show banner: "Connection lost. Reconnecting..." |
-| Request timeout | Backend slow | Show inline retry: "Request timed out. Retry?" |
-| Aborted request | User navigated away | Silent abort. No error shown. |
+|Koneksi terputus|Bagian belakang tidak dapat dijangkau|Tampilkan spanduk: "Koneksi terputus. Menyambungkan kembali..."|
+|Minta batas waktu|Bagian belakang lambat|Tampilkan percobaan ulang sebaris: "Waktu permintaan habis. Coba lagi?"|
+|permintaan dibatalkan|Pengguna menavigasi keluar|Batalkan diam-diam. Tidak ada kesalahan yang ditampilkan.|
 
 ---
 
-## API Errors
+## API Kesalahan
 
-| HTTP Status | Cause | UI Behavior |
+|Status HTTP|Menyebabkan|Perilaku UI|
 |-------------|-------|-------------|
-| 400 | Bad request (invalid input) | Show inline error near input field. |
-| 401 | Unauthorized (missing/invalid API key) | Redirect to Settings â†’ API Keys. |
-| 403 | Forbidden (insufficient permissions) | Show: "Permission denied. Contact admin." |
-| 404 | Not found (deleted/missing resource) | Show: "Not found. It may have been deleted." with recovery action. |
-| 429 | Rate limited | Show: "Too many requests. Retrying in X seconds." |
-| 500 | Internal server error | Show: "Something went wrong. Please try again." with retry button. |
-| 503 | Service unavailable | Show: "Service temporarily unavailable. Please try again later." |
+|400|permintaan buruk (input tidak valid)|Tampilkan kesalahan sebaris di dekat kolom masukan.|
+|401|Tidak sah (kunci API hilang/tidak valid)|Arahkan ulang ke Pengaturan â†’ API Kunci.|
+|403|Dilarang (izin tidak mencukupi)|Tampilkan: "Izin ditolak. Hubungi admin."|
+|404|Tidak ditemukan (sumber daya terhapus/hilang)|Tampilkan: "Tidak ditemukan. Mungkin sudah dihapus." dengan tindakan pemulihan.|
+|429|Tarif terbatas|Tampilkan: "Terlalu banyak permintaan. Mencoba lagi dalam X detik."|
+|500|Kesalahan server internal|Tampilkan: "Terjadi masalah. Silakan coba lagi." dengan tombol coba lagi.|
+|503|Layanan tidak tersedia|Tampilkan: "Layanan untuk sementara tidak tersedia. Silakan coba lagi nanti."|
 
 ---
 
-## Execution Errors
+## Salah Eksekusi
 
-| State | Cause | UI Behavior |
+|Negara|Menyebabkan|Perilaku UI|
 |-------|-------|-------------|
-| Execution failed | Unhandled exception in execution | Show error in ProgressCard. Offer retry. |
-| Execution cancelled | User cancelled | Show "Execution cancelled." in ProgressCard. |
-| Phase failed | One phase failed | Show failed phase in red. Stop execution. |
-| Workspace not found | Workspace missing | Create new workspace automatically or prompt user to select. |
-| Artifact not found | Artifact deleted | Show placeholder: "Artifact no longer available." |
-| Approval rejected | User rejected changes | Show "Changes rejected." Resume previous state. |
+|Eksekusi gagal|Pengecualian yang tidak tertangani dalam eksekusi|Tampilkan kesalahan di ProgressCard. Tawarkan percobaan ulang.|
+|Eksekusi dibatalkan|Dibatalkan|Tampilkan "Eksekusi dibatalkan." di ProgressCard.|
+|Fase gagal|Satu fase gagal|Tampilkan fase gagal dengan warna merah. Hentikan eksekusi.|
+|Ruang kerja tidak ditemukan|Ruang kerja hilang|Buat ruang kerja baru secara otomatis atau minta pengguna untuk memilih.|
+|Artefak tidak ditemukan|Artefak dihapus|Tampilkan placeholder: "Artefak tidak lagi tersedia."|
+|Persetujuan ditolak|Pengguna menolak perubahan|Tampilkan "Perubahan ditolak". Lanjutkan keadaan sebelumnya.|
 
 ---
 
-## Input Validation
+## Validasi Masukan
 
-| Input | Validation | UI Behavior |
+|Masukan|Validasi|Perilaku UI|
 |-------|-----------|-------------|
-| Goal input | Empty | Disable Send button. Show hint: "Describe your goal." |
-| Workspace name | Empty | Disable Create button. Show hint: "Name is required." |
-| API key | Invalid format | Show inline error: "Invalid API key format." |
+|Masukan tujuan|Kosong|Nonaktifkan tombol Kirim. Penemuan petunjuk: "Jelaskan tujuan Anda."|
+|Nama ruang kerja|Kosong|Nonaktifkan tombol Buat. Tampilkan petunjuk: "Nama wajib diisi."|
+|Kunci API|Formatnya tidak valid|Tampilkan kesalahan sebaris: "Format kunci API tidak valid."|
 
 ---
 
-## Fallback States
+## Negara Bagian Pengganti
 
-| Scenario | UI Behavior |
+|Skenario|Perilaku UI|
 |----------|-------------|
-| No conversations yet | Show welcome message with examples. |
-| No workspaces yet | Show empty state with "Create your first workspace" CTA. |
-| No artifacts yet | Show empty state: "No artifacts yet. Start a conversation to create some." |
-| No executions yet | Show empty state: "No executions yet." |
-| Capabilities loading | Show skeleton loaders. |
-| Stream interrupted | Show reconnection spinner. Resume from last message. |
+|Belum ada percakapan|Tampilkan pesan selamat datang dengan contoh.|
+|Belum ada ruang kerja|Tampilkan status kosong dengan CTA "Buat ruang kerja pertama Anda".|
+|Belum ada artefak|Tampilkan status kosong: "Belum ada artefak. Mulai percakapan untuk membuatnya."|
+|Belum ada eksekusi|Tampilkan status kosong: "Belum ada eksekusi."|
+|Pemuatan kemampuan|Tidak adanya pemuat kerangka.|
+|Streaming dihentikan|Tampilkan pemintal koneksi ulang. Lanjutkan dari pesan terakhir.|
 
 ---
 
-## Error Message Rules
+## Aturan Pesan Kesalahan
 
-1. **Actionable:** Every error must include a recovery action (retry, go back, try again).
-2. **Human-readable:** No stack traces, no internal codes.
-3. **Specific:** "Network config invalid" is better than "Something went wrong."
-4. **Contextual:** Show error near the relevant UI element, not as a global banner.
-5. **Non-blocking:** Errors must not trap the user. Always provide an exit.
+1. **Dapat ditindaklanjuti:** Setiap kesalahan harus mencakup tindakan pemulihan (coba lagi, kembali, coba lagi).
+2. **Dapat dibaca manusia:** Tidak ada jejak tumpukan, tidak ada kode internal.
+3. **Khusus:** "Konfigurasi jaringan tidak valid" lebih baik daripada "Ada yang tidak beres".
+4. **Kontekstual:** Tampilkan kesalahan di dekat elemen UI yang relevan, bukan sebagai spanduk global.
+5. **Non-pemblokiran:** Kesalahan tidak dapat memanggil pengguna. Selalu berikan jalan keluar.
 
 ---
 
-## Error Logging
+## Pencatatan Kesalahan
 
-- All errors are logged to backend with `conversationId`, `workspaceId`, `executionId`, `userId`.
-- Errors are shown to user in simplified form.
-- Errors are stored in execution logs for debugging.
+- Semua kesalahan dicatat ke backend dengan `conversationId`, `workspaceId`, `executionId`, `userId`.
+- Kesalahan ditampilkan kepada pengguna dalam bentuk yang kokoh.
+- Kesalahan disimpan dalam log eksekusi untuk debugging.

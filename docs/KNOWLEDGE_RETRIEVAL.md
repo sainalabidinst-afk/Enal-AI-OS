@@ -1,65 +1,42 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/KNOWLEDGE_RETRIEVAL.md`
-- Judul: Knowledge Retrieval
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Knowledge K2 â€” Hybrid Retrieval & Context Builder
+﻿# Pengetahuan K2 — Pengambilan Hibrid & Pembuat Konteks
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for KNOWLEDGE_RETRIEVAL
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk KNOWLEDGE_RETRIEVAL
 <!-- DOCUMENT_METADATA_END -->
 
-## Status: Implemented
+## Status: Diimplementasikan
 
-## Overview
+## Ikhtisar
 
-K2 builds on K1 (Knowledge Graph + Registry + Evidence) to provide hybrid retrieval
-that combines graph similarity, registry search, and evidence lookup into a unified
-context for the AI.
-> Terjemahan Indonesia: K2 membangun pada K1 (Knowledge Graph + Registry + Evidence) untuk menyediakan hybrid retrieval itu combines graph similarity, registry search, dan evidence lookup into sebuah unified context untuk AI.
+K2 dibangun di atas K1 (Knowledge Graph + Registry + Evidence) untuk menyediakan hybrid retrieval yang menggabungkan kesamaan grafik, registri pencarian, dan pencarian bukti ke dalam satu konteks terintegrasi untuk AI.
 
-## Components
+## Komponen
 
-### HybridRetrieval
+### Pengambilan Hibrid
 
-Combines three retrieval strategies:
-> Terjemahan Indonesia: Menggabungkan tiga strategi pengambilan:
-- **Graph similarity** via `KnowledgeGraph.similarity()`
-- **Registry search** via `KnowledgeRegistry.find_by_name()` and `find_by_domain()`
-- **Evidence lookup** via `EvidenceStore.get()`
+Menggabungkan tiga strategi pengambilan:
+- **Kesamaan grafik** melalui `KnowledgeGraph.similarity()`
+- **Pencarian registrasi** melalui `KnowledgeRegistry.find_by_name()` dan `find_by_domain()`
+- **Pencarian bukti** melalui `EvidenceStore.get()`
 
-### ContextBuilder
+### Pembuat Konteks
 
-Constructs structured `KnowledgeContext` from retrieval results:
-> Terjemahan Indonesia: Constructs structured KnowledgeContext dari retrieval results:
-- Primary concepts
-- Related concepts (via graph traversal)
-- Supporting evidence
-- Contradicting evidence
-- Aggregate confidence
-- Source tracking
+Menyusun `KnowledgeContext` terstruktur dari hasil pengambilan:
+- Konsep primer
+- Konsep terkait (melalui traversal grafik)
+- Bukti pendukung
+- Bukti yang berbeda
+- Agregat kepercayaan diri
+- Pelacakan sumber
 
-### KnowledgeContext
+### Konteks Pengetahuan
 
-Standardized output contract:
-> Terjemahan Indonesia: Kontrak keluaran standar:
+Kontrak keluaran standar:
 ```json
 {
   "query": "string",
@@ -73,7 +50,7 @@ Standardized output contract:
 }
 ```
 
-## Usage
+## Penggunaan
 
 ```python
 from apps.organization.knowledge_retrieval import create_context_builder
@@ -83,9 +60,9 @@ context = builder.build("Clean Architecture", domain="code")
 print(context.to_dict())
 ```
 
-## Integration
+## Integrasi
 
-- Used by reasoning engine to enrich prompts with relevant knowledge
-- Used by capability workers to augment execution context
-- Feeds into K3 Evidence Intelligence for conflict detection
-- Feeds into K4 Experience Memory for lesson extraction
+- Digunakan oleh mesin penalaran untuk memperkaya prompt dengan pengetahuan yang relevan
+- Digunakan oleh kemampuan pekerja untuk menambah konteks eksekusi
+- Memberikan masukan ke K3 Evidence Intelligence untuk mendeteksi konflik
+- Memberikan masukan ke K4 Experience Memory untuk ekstraksi pelajaran

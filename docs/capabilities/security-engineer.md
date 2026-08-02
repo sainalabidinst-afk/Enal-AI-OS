@@ -1,63 +1,40 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Security Engineer — Spesifikasi Capability
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/security-engineer.md`
-- Judul: Security Engineer
-- Status: bilingual content applied
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Security Engineer Capability Specification
-
-## Version: 1.0.0
-## Status: Production Ready (RFC-0008)
-## Quality Target: A- (≥85)
+**Versi:** 1.0.0
+**Status:** Production Ready (RFC-0008)
+**Target Kualitas:** A- (≥85)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-Security Engineer adalah **otoritas keamanan siber** untuk ECP — Capability Pack yang
-menganalisis kode, dependensi, dan konfigurasi untuk mendeteksi kerentanan,
-membuat model ancaman, dan memastikan kepatuhan standar keamanan.
-> Terjemahan Indonesia: Keamanan Engineer adalah otoritas keamanan siber untuk ECP — kapabilitas Pack yang menganalisis kode, dependensi, dan konfigurasi untuk mendeteksi kerentanan, membuat model ancaman, dan memastikan kepatuhan standar keamanan.
+Security Engineer adalah **otoritas keamanan siber** untuk ECP — Capability Pack yang menganalisis code, dependencies, dan configuration untuk mendeteksi kerentanan, membuat threat model, dan memastikan kepatuhan terhadap standar keamanan.
 
-Capability Pack ini menganalisis kode sumber untuk OWASP Top 10, deteksi rahasia,
-audit dependensi (CVE), pemindaian kerentanan, model ancaman, review hardening,
-dan pemetaan kepatuhan — **tanpa memodifikasi Core**.
-> Terjemahan Indonesia: Kapabilitas Pack ini menganalisis kode sumber untuk OWASP Top 10, deteksi rahasia, audit dependensi (CVE), pemindaian kerentanan, model ancaman, review hardening, dan pemetaan kepatuhan — tanpa memodifikasi Core.
+Capability Pack ini menganalisis source code untuk OWASP Top 10, secret detection, dependency audit (CVE), vulnerability scan, threat modeling, hardening review, dan compliance mapping — **tanpa memodifikasi Core**.
 
 ---
 
-## 2. Scope
+## 2. Ruang Lingkup
 
-### In Scope
-- **OWASP Analysis** — Deteksi kerentanan OWASP Top 10 di kode sumber
-- **Secret Detection** — Deteksi API key, token, password, dan rahasia lain
-- **Dependency Audit** — Audit CVE pada dependensi
-- **Vulnerability Scanning** — Pindai kerentanan umum (SQLi, XSS, CSRF, dll.)
-- **Threat Modeling** — Buat model ancaman STRIDE untuk arsitektur
-- **Hardening Review** — Review konfigurasi dan praktik keamanan
-- **Compliance Mapping** — Pemetaan ke standar (OWASP, PCI-DSS, GDPR)
-- **False Positive Reduction** — Deduplikasi dan filtering temuan
-- **Experience Memory** — Perekaman hasil ke history
+### Dalam Ruang Lingkup
+- **OWASP Analysis** — Mendeteksi kerentanan OWASP Top 10 di source code
+- **Secret Detection** — Mendeteksi API key, token, password, dan secret lainnya
+- **Dependency Audit** — Audit CVE pada dependencies
+- **Vulnerability Scan** — Memindai kerentanan umum (SQLi, XSS, CSRF, dll.)
+- **Threat Modeling** — Membuat STRIDE threat model untuk arsitektur
+- **Hardening Review** — Meninjau konfigurasi dan praktik keamanan
+- **Compliance Mapping** — Memetakan kepatuhan ke standar (OWASP, PCI-DSS, GDPR)
+- **False Positive Reduction** — Deduplikasi dan penyaringan findings
+- **Experience Memory** — Merekam hasil ke riwayat
 
-### Out of Scope
-- Eksekusi patch atau perbaikan keamanan langsung
-- Modifikasi Core contracts
-- Direct import dari Capability Pack lain (ADR-002 compliance)
+### Di Luar Cakupan
+- Eksekusi patch atau perbaikan keamanan secara langsung
+- Modifikasi kontrak Core
+- Import langsung dari Capability Pack lain (kepatuhan ADR-002)
 
 ---
 
-## 3. Contract
+## 3. Kontrak
 
 ### Input: SecurityReviewRequest
 ```json
@@ -75,7 +52,7 @@ dan pemetaan kepatuhan — **tanpa memodifikasi Core**.
 }
 ```
 
-### Output: SecurityReviewReport
+### Output: Laporan Security Review
 ```json
 {
   "request_id": "uuid",
@@ -107,37 +84,37 @@ dan pemetaan kepatuhan — **tanpa memodifikasi Core**.
 
 ---
 
-## 4. Operations
+## 4. Operasi
 
-| Operation | Description | Inputs | Outputs |
+| Operasi | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| owasp_analysis | Analyze source for OWASP Top 10 | source_code, language | SecurityFindings |
-| secret_detection | Detect exposed secrets | source_code | SecurityFindings |
-| dependency_audit | Audit dependencies for CVEs | dependencies | CVEList |
-| vulnerability_scan | Scan for common vulnerabilities | source_code, language | SecurityFindings |
-| threat_model | Generate STRIDE threat model | architecture_context | ThreatModel |
-| hardening_review | Review security configuration | source_code, language | SecurityFindings |
-| compliance_mapping | Map to compliance standards | findings, standards | ComplianceReport |
+| `owasp_analysis` | Menganalisis source untuk OWASP Top 10 | source_code, language | Security Findings |
+| `secret_detection` | Mendeteksi secret yang ter-expose | source_code | Security Findings |
+| `dependency_audit` | Audit dependencies terhadap CVE | dependencies | CVE List |
+| `vulnerability_scan` | Memindai kerentanan umum | source_code, language | Security Findings |
+| `threat_model` | Menghasilkan STRIDE threat model | architecture_context | Threat Model |
+| `hardening_review` | Meninjau konfigurasi keamanan | source_code, language | Security Findings |
+| `compliance_mapping` | Memetakan ke standar kepatuhan | findings, standards | Compliance Report |
 
 ---
 
-## 5. Analyzer Modules
+## 5. Modul Analyzer
 
-| Module | Responsibility |
+| Modul | Tanggung Jawab |
 |--------|----------------|
-| owasp_analyzer.py | Detect OWASP Top 10 vulnerabilities |
-| secret_detector.py | Detect exposed secrets and credentials |
-| dependency_auditor.py | Audit dependencies for known CVEs |
-| vulnerability_scanner.py | Scan for common vulnerability patterns |
-| threat_modeler.py | Generate STRIDE threat models |
-| hardening_reviewer.py | Review security hardening practices |
-| compliance_mapper.py | Map findings to compliance standards |
+| `owasp_analyzer.py` | Mendeteksi 10 kerentanan teratas OWASP |
+| `secret_detector.py` | Mendeteksi secret dan kredensial yang ter-expose |
+| `dependency_auditor.py` | Audit dependencies terhadap CVE yang diketahui |
+| `vulnerability_scanner.py` | Memindai pola kerentanan umum |
+| `threat_modeler.py` | Membuat STRIDE threat model |
+| `hardening_reviewer.py` | Meninjau praktik security hardening |
+| `compliance_mapper.py` | Memetakan findings ke standar kepatuhan |
 
 ---
 
-## 6. Benchmark Dimensions
+## 6. Dimensi Benchmark
 
-| Dimension | Target | Grade |
+| Dimensi | Target | Grade |
 |-----------|--------|-------|
 | OWASP Detection | ≥90% | A |
 | Secret Detection | ≥90% | A |
@@ -151,16 +128,16 @@ dan pemetaan kepatuhan — **tanpa memodifikasi Core**.
 
 ---
 
-## 7. Dependencies
+## 7. Dependensi
 
-- **apps/base.py** — Base model definitions
-- **apps/security_engineer/schemas.py** — Public contracts
-- **apps/security_engineer/engine.py** — Domain Engine
-- **apps/security_engineer/worker.py** — Thin adapter (ADR-003)
+- **apps/base.py** — Definisi model dasar
+- **apps/security_engineer/schemas.py** — Kontrak publik
+- **apps/security_engineer/engine.py** — Domain engine
+- **apps/security_engineer/worker.py** — Adaptor tipis (ADR-003)
 
 ---
 
-## 8. Usage Example
+## 8. Contoh Penggunaan
 
 ```python
 from apps.security_engineer.engine import SecurityEngineerEngine
@@ -175,3 +152,4 @@ request = SecurityReviewRequest(
 report = engine.review(request)
 print(f"Found {len(report.findings)} security issues")
 ```
+

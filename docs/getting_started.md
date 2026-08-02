@@ -1,67 +1,50 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/getting_started.md`
-- Judul: Getting Started
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Getting Started with Enal Cognitive Platform
+﻿# memulai dengan Enal Cognitive Platform
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for getting_started
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk memulai
 <!-- DOCUMENT_METADATA_END -->
 
-## Prerequisites
+## Prasyarat
 
 - Python 3.11+
-- Docker & Docker Compose
+- Docker & Docker Menulis
 - pip
 
-## Installation
+## Instalasi
 
-### 1. Clone Repository
+### 1. Gudang Klon
 
 ```bash
 git clone https://github.com/sainalabidinst-afk/Enal-AI-OS.git
 cd Enal-AI-OS
 ```
 
-### 2. Install Core
+### 2. Instal Inti
 
 ```bash
 pip install -e .
 ```
 
-### 3. Install SDK (Optional)
+### 3. Instal SDK (Opsional)
 
 ```bash
 cd sdk
 pip install -e .
 ```
 
-### 4. Run Tests
+### 4. Tes Jalankan
 
 ```bash
 pytest tests/ -v
 # 426 tests passing
 ```
 
-## Your First Agent
+## Agen Pertama Anda
 
 ```python
 from enal_ai import Agent
@@ -78,46 +61,46 @@ result = await agent.run("Your task here")
 print(result)
 ```
 
-## Your First Workflow (with Checkpoint/Resume)
+## Alur Kerja Pertama Anda (dengan Checkpoint/Resume)
 
 ```python
 from apps.organization.workflow_executor import WorkflowExecutor
 
-# Create executor with checkpoint support
+# Buat executor dengan dukungan checkpoint
 executor = WorkflowExecutor()
 
-# Execute workflow
+# Eksekusi workflow
 result = await executor.execute({"goal": "Configure network"})
 
-# Checkpoint for later resume
+# Checkpoint untuk dilanjutkan nanti
 checkpoint = await executor.create_checkpoint("work-001")
 
-# Resume from checkpoint
+# Lanjutkan dari checkpoint
 await executor.resume_from_checkpoint("work-001")
 ```
 
-## Cognitive Pipeline
+## Saluran Kognitif
 
 ```python
-# Full pipeline available via orchestrator
+# Pipeline lengkap tersedia melalui orchestrator
 from backend.app.agents.orchestrator_v2 import AIOrchestrator
 
 orchestrator = AIOrchestrator()
 result = await orchestrator.orchestrate_goal("Configure BGP on Cisco router")
 ```
 
-## Capability Examples
+## Contoh kemampuan
 
-| Capability | Usage |
+|Kemampuan|Penggunaan|
 |------------|-------|
-| Network Engineer | `apps/network_engineer/config_generator.py` |
-| Code Engineer | `apps/code_engineer/__init__.py` |
-| Research Assistant | `apps/research/rag.py` |
-| DevOps Assistant | `apps/devops/docker_manager.py` |
+|Insinyur Jaringan|`apps/network_engineer/config_generator.py`|
+|Kode Insinyur|`apps/code_engineer/__init__.py`|
+|Asisten Peneliti|`apps/research/rag.py`|
+|Asisten DevOps|`apps/devops/docker_manager.py`|
 
-## Next Steps
+## Langkah Berikutnya
 
-1. [Agent Development Guide](agent_guide.md)
-2. [Architecture Overview](architecture.md)
-3. [API Reference](api_reference.md)
-4. Run: `pytest tests/reference/ -v` (reference tests suite)
+1. [Panduan Pengembangan Agent](agent_guide.md)
+2. [Ringkasan Arsitektur](architecture.md)
+3. [Referensi API](api_reference.md)
+4. Jalankan: `pytest tests/reference/ -v` (referensi test suite)

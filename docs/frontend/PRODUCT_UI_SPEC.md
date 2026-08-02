@@ -1,163 +1,125 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/PRODUCT_UI_SPEC.md`
-- Judul: Product Ui Spec
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Product UI Specification
+﻿# Spesifikasi UI Produk
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for PRODUCT_UI_SPEC
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk PRODUCT_UI_SPEC
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Frozen  
-**Effective:** 2026-07-11  
-**Owner:** Chief Product Officer  
-**Purpose:** Single source of truth for all frontend work. No UI code may be written before this document is approved.
+**Status:** Beku
+**Efektif:** 07-11-2026
+**Pemilik:** Kepala Bagian Produk
+**Tujuan:** Sumber kebenaran tunggal untuk semua pekerjaan frontend. Tidak ada kode UI yang boleh ditulis sebelum dokumen ini disetujui.
 
 ---
 
-## 1. Product Positioning
+## 1. Posisi Produk
 
-Enal AI OS is an **AI Execution Platform**.
-> Terjemahan Indonesia: Enal AI OS adalah sebuah AI Execution platform.
+AI OS terakhir adalah **Platform Eksekusi AI**.
 
-Users describe the outcome they want. ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcomeâ€”all through a single conversation.
-> Terjemahan Indonesia: Users describe outcome they want. ECP understands goal, plans execution, coordinates tasks, verifies results, dan delivers sebuah complete outcomeâ€”all through sebuah single conversation.
+Pengguna mendeskripsikan hasil yang mereka inginkan. ECP memahami tujuan, merencanakan eksekusi, mengoordinasikan tugas, memverifikasi hasil, dan memberikan hasil lengkap—semua melalui satu percakapan.
 
-The user sees one AI. The user never sees the machinery underneath.
-> Terjemahan Indonesia: User sees one AI. user never sees machinery underneath.
+Pengguna melihat satu AI. Pengguna tidak pernah melihat mesin di baliknya.
 
-**Motto:** A stable core. Expert capabilities. One conversation.
+**Motto:** Inti yang stabil. Kapabilitas ahli. Satu percakapan.
 
 ---
 
-## 2. Design Principles
+## 2. Prinsip Desain
 
-These principles are non-negotiable. Any UI element that violates them is a defect.
-> Terjemahan Indonesia: These principles adalah non-negotiable. Any UI element itu violates them adalah sebuah defect.
+Prinsip-prinsip ini tidak dapat dinegosiasikan. Setiap elemen UI yang melanggarnya adalah cacat.
 
-### Principle 1: One Conversation
+### Prinsip 1: Satu Percakapan
 
-The user interface is a single conversation. There is no menu for selecting Capability Pack. There is no dropdown for selecting a Worker. There is no configuration panel for choosing a Model.
-> Terjemahan Indonesia: User interface adalah sebuah single conversation. There adalah no menu untuk selecting kapabilitas Pack. There adalah no dropdown untuk selecting sebuah Worker. There adalah no konfigurasi panel untuk choosing sebuah Model.
+antarmuka pengguna adalah satu percakapan. Tidak ada menu untuk memilih Capability Pack. Tidak ada dropdown untuk memilih Worker. Tidak ada panel konfigurasi untuk memilih Model.
 
-The AI does that internally.
-> Terjemahan Indonesia: AI does itu internally.
+AI melakukannya secara internal.
 
-### Principle 2: Outcome Over Mechanism
+### Prinsip 2: Hasil di atas Mekanisme
 
-Users describe outcomes, not mechanisms.
-> Terjemahan Indonesia: Pengguna menggambarkan hasil, bukan mekanisme.
+Pengguna mendeskripsikan hasil, bukan mekanisme.
 
-User says: "Audit jaringan kantor saya."
-User does NOT say: "Jalankan Network Capability."
-> Terjemahan Indonesia: User says: "Audit jaringan kantor saya." User does NOT say: "Jalankan Network kapabilitas."
+Pengguna berkata: "Audit jaringan kantor saya."
+Pengguna TIDAK berkata: "Jalankan Network Capability."
 
-The UI must never expose internal concepts such as Capability Pack, Worker, Execution Runtime, Task Planner, or Execution Graph to the user.
-> Terjemahan Indonesia: UI must never expose internal concepts such as kapabilitas Pack, Worker, Execution Runtime, Task Planner, or Execution Graph untuk user.
+UI tidak boleh mengekspos konsep internal seperti Capability Pack, Worker, Execution Runtime, Task Planner, atau Execution Graph kepada pengguna.
 
-### Principle 3: Progress Transparency
+### Prinsip 3: Transparansi Kemajuan
 
-During long-running tasks, the system must show progress. Progress indication must be coarse-grained and human-readable.
-> Terjemahan Indonesia: During long-running tasks, sistem must show progress. Progress indication must menjadi coarse-grained dan human-readable.
+Selama tugas berjalan lama, sistem harus menampilkan kemajuan. Indikasi kemajuan harus berskala kasar dan mudah dibaca manusia.
 
-Acceptable:
-> Terjemahan Indonesia: Dapat diterima:
-- "Analyzing configuration..."
-- "Generating documentation..."
-- "Running tests..."
+Dapat diterima:
+- "Menganalisis konfigurasi..."
+- "Menghasilkan dokumentasi..."
+- "Menjalankan tes..."
 
-Not acceptable:
-> Terjemahan Indonesia: Tidak dapat diterima:
-- Generic "Loading..."
-- Internal step names like "Stage 3: Execute Subtask 7"
+Tidak dapat diterima:
+- "Memuat..." yang umum
+- Nama langkah internal seperti "Stage 3: Execute Subtask 7"
 
-### Principle 4: Approval Before Action
+### Prinsip 4: Persetujuan Sebelum Tindakan
 
-For irreversible actions, the UI must show an explicit approval dialog. AI never applies changes without user approval.
-> Terjemahan Indonesia: Untuk irreversible actions, UI must show sebuah explicit approval dialog. AI never applies changes without user approval.
+Untuk tindakan yang tidak dapat dibatalkan, UI harus menampilkan dialog persetujuan eksplisit. AI tidak pernah menerapkan perubahan tanpa persetujuan pengguna.
 
-### Principle 5: Artifact First
+### Prinsip 5: Artefak Didahulukan
 
-Every significant output is an Artifact. Artifacts are always visible, versioned, and retrievable.
-> Terjemahan Indonesia: Every significant output adalah sebuah Artifact. Artifacts adalah always visible, versioned, dan retrievable.
+Setiap keluaran penting adalah Artefak. Artefak selalu terlihat, berversi, dan dapat diambil kembali.
 
-### Principle 6: Workspace Isolation
+### Prinsip 6: Isolasi Ruang Kerja
 
-Each project is isolated in a Workspace. Conversation, files, memory, tasks, artifacts, and execution history are scoped per Workspace.
-> Terjemahan Indonesia: Each proyek adalah isolated dalam sebuah Workspace. Conversation, files, memory, tasks, artifacts, dan execution history adalah scoped per Workspace.
+Setiap proyek diisolasi dalam Ruang Kerja. Percakapan, file, memori, tugas, artefak, dan riwayat eksekusi dibatasi per Ruang Kerja.
 
-### Principle 7: No Mock Data
+### Prinsip 7: Tanpa Data Palsu
 
-The frontend must consume backend APIs. Mock data is not allowed in any production screen.
-> Terjemahan Indonesia: Frontend must consume backend APIs. Mock data adalah not allowed dalam any production screen.
+Frontend harus menggunakan API backend. Data palsu tidak diizinkan di layar produksi mana pun.
 
 ---
 
-## 3. Screen Inventory
+## 3. Inventaris Layar
 
-The v1 frontend has exactly 7 screens.
-> Terjemahan Indonesia: V1 frontend memiliki exactly 7 screens.
+Frontend v1 memiliki tepat 7 layar.
 
-| # | Screen | Purpose |
+| # |Layar|Tujuan|
 |---|--------|---------|
-| 1 | Chat | Primary interface. User types goals, sees AI responses, progress, and artifacts. |
-| 2 | Workspace | Project overview: conversation, files, memory, tasks, artifacts, timeline. |
-| 3 | Artifact Viewer | View, compare, and restore artifact versions. |
-| 4 | Approval Dialog | Confirm or reject irreversible actions. |
-| 5 | Settings | Model selection, theme, notifications, API keys. |
-| 6 | Capability Discovery | Dynamic list of capabilities from backend. |
-| 7 | Execution History | List of executions with status, progress, and artifacts. |
+|1|Mengobrol|antarmuka utama. Pengguna mengetik tujuan, melihat respon AI, kemajuan, dan artefak.|
+|2|Ruang kerja|Ikhtisar proyek: percakapan, file, memori, tugas, artefak, linimasa.|
+|3|Penampil Artefak|Melihat, membandingkan, dan memulihkan versi artefak.|
+|4|Dialog Persetujuan|Mengonfirmasi atau menolak tindakan yang tidak dapat dibatalkan.|
+|5|Pengaturan|Model pemilihan, tema, notifikasi, API kunci.|
+|6|Penemuan Kemampuan|Daftar kapabilitas dinamis dari backend.|
+|7|Sejarah Eksekusi|Daftar eksekusi dengan status, kemajuan, dan artefak.|
 
-No other screens are allowed in v1.
-> Terjemahan Indonesia: No other screens adalah allowed dalam v1.
+Tidak ada layar lain yang diizinkan di v1.
 
 ---
 
-## 4. Component Inventory
+## 4. Komponen Inventarisasi
 
-These are the only allowed UI components in v1.
-> Terjemahan Indonesia: These adalah only allowed UI components dalam v1.
+Ini adalah satu-satunya komponen UI yang diizinkan di v1.
 
-| Component | Purpose | Screen(s) |
+|Komponen|Tujuan|Layar|
 |-----------|---------|-----------|
-| ChatWindow | Main conversation container | Chat |
-| ChatBubble | User or AI message bubble | Chat |
-| PromptBox | Text input for user goals | Chat |
-| ProgressCard | Real-time execution progress | Chat, Workspace |
-| ArtifactCard | Single artifact preview | Chat, Workspace, Artifact Viewer |
-| ApprovalDialog | Approve/reject action | Chat, Workspace |
-| ExecutionTimeline | Visual timeline of execution phases | Workspace, Execution History |
-| WorkspaceSidebar | Workspace switcher and navigation | All |
-| LoadingIndicator | Loading state | All |
-| NotificationToast | Non-blocking notifications | All |
+|Jendela Obrolan|Wadah percakapan utama|Mengobrol|
+|menghasilkan Obrolan|Mengirim pesan pengguna atau AI|Mengobrol|
+|Kotak Prompt|Masukkan teks untuk tujuan pengguna|Mengobrol|
+|Kartu Kemajuan|Kemajuan eksekusi secara real-time|Obrolan, Ruang Kerja|
+|Kartu Artefak|Artefak Pratinjau tunggal|Obrolan, Ruang Kerja, Penampil Artefak|
+|Dialog Persetujuan|Menyetujui/menolak tindakan|Obrolan, Ruang Kerja|
+|Garis Waktu Eksekusi|Linimasa visual fase eksekusi|Ruang Kerja, Riwayat Eksekusi|
+|Bilah Sisi Ruang Kerja|Pengalih ruang kerja dan navigasi|Semua|
+|Memuat Indikator|Negara sedang mencari|Semua|
+|NotifikasiToast|Notifikasi non-blokir|Semua|
 
-No other components are allowed in v1.
-> Terjemahan Indonesia: No other components adalah allowed dalam v1.
+Tidak ada komponen lain yang diizinkan di v1.
 
 ---
 
-## 5. State Management
+## 5. Manajemen Negara
 
-All application state must flow through these slices:
-> Terjemahan Indonesia: Semua status aplikasi harus mengalir melalui irisan berikut:
+Semua state aplikasi harus mengalir melalui irisan berikut:
 
 ```
 Conversation
@@ -195,283 +157,269 @@ Settings
   - apiKeys{}
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- State is normalized.
-- No derived state stored.
-- All state mutations go through defined actions.
-- State persists to backend via APIs.
-- State survives browser refresh via backend + localStorage for UI preferences only.
+Aturan:
+- Keadaan dinormalisasi.
+- Tidak ada status turunan yang disimpan.
+- Semua penyembuhan keadaan melalui aksi yang terdefinisi.
+- Status disimpan ke backend melalui API.
+- Status bertahan setelah refresh browser melalui backend + localStorage hanya untuk preferensi UI.
 
 ---
 
-## 6. API Mapping
+## 6. Pemetaan API
 
-Every screen and component must consume these backend APIs.
-> Terjemahan Indonesia: Every screen dan component must consume these backend APIs.
+Setiap layar dan komponen harus menggunakan API backend ini.
 
-| Screen | API | Method | Purpose |
+|Layar|API|Metode|Tujuan|
 |--------|-----|--------|---------|
-| Chat | POST /api/v1/chat | POST | Send message, get response |
-| Chat | POST /api/v1/chat/stream | POST | Stream conversation events |
-| Workspace | GET /api/v1/workspaces | GET | List workspaces |
-| Workspace | POST /api/v1/workspaces | POST | Create workspace |
-| Workspace | GET /api/v1/workspaces/{id} | GET | Get workspace detail |
-| Workspace | POST /api/v1/workspaces/{id}/files | POST | Upload file |
-| Workspace | POST /api/v1/workspaces/{id}/memory | POST | Set memory |
-| Workspace | GET /api/v1/workspaces/{id}/memory/{key} | GET | Get memory |
-| Artifact | GET /api/v1/artifacts | GET | List artifacts |
-| Artifact | POST /api/v1/artifacts | POST | Create artifact |
-| Artifact | GET /api/v1/artifacts/{id} | GET | Get artifact |
-| Artifact | GET /api/v1/artifacts/{id}/versions/{version} | GET | Get artifact version |
-| Artifact | POST /api/v1/artifacts/{id}/restore/{version} | POST | Restore artifact version |
-| Execution | POST /api/v1/executions | POST | Create execution |
-| Execution | GET /api/v1/executions/{id} | GET | Get execution |
-| Execution | POST /api/v1/executions/{id}/progress | POST | Update progress |
-| Execution | POST /api/v1/executions/{id}/cancel | POST | Cancel execution |
-| Execution | POST /api/v1/executions/run | POST | Run execution end-to-end |
-| Execution | GET /api/v1/executions/{id}/logs | GET | Get execution logs |
-| Execution | GET /api/v1/executions/{id}/artifacts | GET | Get execution artifacts |
-| Settings | GET /api/v1/models/providers | GET | List model providers |
-| Settings | POST /api/v1/models/route | POST | Route model |
-| Notifications | GET /api/v1/notifications/{recipient} | GET | Get notifications |
-| Capability | GET /api/v1/capabilities | GET | List capabilities |
-| Capability | GET /api/v1/capabilities/{id} | GET | Get capability detail |
+|Mengobrol|POSTING /API/v1/chat|POS|Kirim pesan, dapatkan tanggapan|
+|Mengobrol|POST /API/v1/chat/stream|POS|Streaming acara percakapan|
+|Ruang kerja|DAPATKAN /API/v1/workspaces|MENDAPATKAN|Daftar ruang kerja|
+|Ruang kerja|POST /API/v1/workspaces|POS|Buat ruang kerja|
+|Ruang kerja|DAPATKAN /API/v1/workspaces/{id}|MENDAPATKAN|Ambil detail ruang kerja|
+|Ruang kerja|POST /API/v1/workspaces/{id}/files|POS|Unggah file|
+|Ruang kerja|POST /API/v1/workspaces/{id}/memory|POS|Atur memori|
+|Ruang kerja|DAPATKAN /API/v1/workspaces/{id}/memory/{key}|MENDAPATKAN|Ambil kenangan|
+|Artefak|DAPATKAN /API/v1/artifacts|MENDAPATKAN|Daftar artefak|
+|Artefak|POST /API/v1/artefak|POS|Buat artefak|
+|Artefak|DAPATKAN /API/v1/artifacts/{id}|MENDAPATKAN|Ambil artefak|
+|Artefak|DAPATKAN /API/v1/artifacts/{id}/versions/{version}|MENDAPATKAN|Ambil versi artefak|
+|Artefak|POST /API/v1/artifacts/{id}/restore/{version}|POS|Artefak versi Pulikan|
+|Eksekusi|POST /API/v1/executions|POS|Buat eksekusi|
+|Eksekusi|DAPATKAN /API/v1/executions/{id}|MENDAPATKAN|Ambil eksekusi|
+|Eksekusi|POST /API/v1/executions/{id}/progress|POS|memperbarui kemajuan|
+|Eksekusi|POST /API/v1/executions/{id}/batal|POS|Eksekusi Batalkan|
+|Eksekusi|POST /API/v1/executions/run|POS|Eksekusi dijalankan secara end-to-end|
+|Eksekusi|DAPATKAN /API/v1/executions/{id}/logs|MENDAPATKAN|Ambil log eksekusi|
+|Eksekusi|DAPATKAN /API/v1/executions/{id}/artifacts|MENDAPATKAN|Ambil eksekusi artefak|
+|Pengaturan|DAPATKAN /API/v1/models/providers|MENDAPATKAN|Daftar penyedia model|
+|Pengaturan|POST /API/v1/models/route|POS|Rute model|
+|Pemberitahuan|DAPATKAN /API/v1/notifications/{penerima}|MENDAPATKAN|Ambil notifikasi|
+|Kemampuan|DAPATKAN /API/v1/capability|MENDAPATKAN|Kemampuan mendaftar|
+|Kemampuan|DAPATKAN /API/v1/capabilities/{id}|MENDAPATKAN|Ambil detail kemampuan|
 
-No other API calls are allowed in v1.
-> Terjemahan Indonesia: No other API calls adalah allowed dalam v1.
+Tidak ada panggilan API lain yang diizinkan di v1.
 
 ---
 
-## 7. Error States
+## 7. Kesalahan Negara
 
-Every API call must handle these error states.
-> Terjemahan Indonesia: Setiap panggilan API harus menangani status kesalahan ini.
+Setiap panggilan API harus menangani state error ini.
 
-| Error | HTTP Status | UI Behavior |
+|Salah|Status HTTP|Perilaku UI|
 |-------|-------------|-------------|
-| Network error | N/A | Show "Connection lost. Retrying..." |
-| 400 Bad Request | 400 | Show inline validation error |
-| 401 Unauthorized | 401 | Redirect to settings |
-| 403 Forbidden | 403 | Show "Permission denied" |
-| 404 Not Found | 404 | Show "Not found" with recovery action |
-| 429 Rate Limited | 429 | Show "Too many requests. Retrying in..." |
-| 500 Internal Error | 500 | Show "Something went wrong. Please try again." |
-| Execution failed | N/A | Show error with retry option |
-| Workspace not found | 404 | Create new workspace or allow user to pick existing |
-| Artifact not found | 404 | Show placeholder with "Artifact no longer available" |
+|jaringan salah|T/A|Tampilkan "Koneksi terputus. Mencoba lagi..."|
+|400 Permintaan Buruk|400|Tampilkan kesalahan validasi sebaris|
+|401 Tidak Sah|401|Arahkan ke pengaturan|
+|403 Dilarang|403|Tampilkan "Izin ditolak"|
+|404 Tidak Ditemukan|404|Tampilkan "Tidak ditemukan" dengan tindakan pemulihan|
+|429 Tarif Terbatas|429|Tampilkan "Terlalu banyak permintaan. Mencoba lagi di..."|
+|500 Kesalahan Internal|500|Tampilkan "Ada yang tidak beres. Silakan coba lagi."|
+|Eksekusi gagal|T/A|Tampilkan kesalahan dengan opsi coba lagi|
+|Ruang kerja tidak ditemukan|404|Buat ruang kerja baru atau izinkan pengguna memilih yang ada|
+|Artefak tidak ditemukan|404|Tampilkan placeholder dengan "Artefak tidak lagi tersedia"|
 
-All errors must be actionable. No generic "Error occurred" messages.
-> Terjemahan Indonesia: All errors must menjadi actionable. No generic "Error occurred" messages.
+Semua error harus dapat ditindaklanjuti. Tidak ada pesan "Terjadi kesalahan" yang umum.
 
 ---
 
-## 8. Mobile Layout
+## 8. Tata Letak Ponsel
 
-The UI must be responsive and work on mobile devices (320px width minimum).
-> Terjemahan Indonesia: UI must menjadi responsive dan work pada mobile devices (320px width minimum).
+UI harus responsif dan bekerja di perangkat seluler (lebar minimal 320px).
 
-| Breakpoint | Layout |
+|Titik putus|Tata Letak|
 |------------|--------|
-| Desktop (>1024px) | Sidebar + main content + optional artifact panel |
-| Tablet (768-1024px) | Collapsible sidebar + main content |
-| Mobile (<768px) | Full-screen chat, bottom navigation, slide-out panels |
+|Desktop (>1024 piksel)|Sidebar + konten utama + panel artefak opsional|
+|Tablet (768-1024 piksel)|Sidebar dapat dilipat + konten utama|
+|Seluler (<768 piksel)|Obrolan layar penuh, navigasi bawah, panel geser keluar|
 
-Mobile rules:
-> Terjemahan Indonesia: Aturan seluler:
-- Chat is always full-screen on mobile.
-- Workspace sidebar is a bottom sheet.
-- Artifact viewer is a full-screen overlay.
-- Approval dialog is a bottom sheet.
-- Progress card collapses to a compact bar on mobile.
+Aturan seluler:
+- Chat selalu layar penuh di ponsel.
+- Ruang kerja sidebar adalah lembar paling bawah.
+- Artifact viewer adalah overlay layar penuh.
+- Dialog persetujuan ada di lembar paling bawah.
+- Kartu kemajuan menciut menjadi bar kompak di ponsel.
 
 ---
 
-## 9. Design Tokens
+## 9. Desain Token
 
-All visual values must use these tokens. No hardcoded colors, spacing, or typography.
-> Terjemahan Indonesia: Semua nilai visual harus menggunakan token ini. Tidak ada warna, spasi, atau tipografi hardcode.
+Semua nilai visual harus menggunakan token ini. Tidak ada warna, spasi, atau tipografi yang di-hardcode.
 
-### Colors
+### Warna
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--color-bg-primary` | #0f1117 | Main background |
-| `--color-bg-secondary` | #1a1d27 | Cards, panels |
-| `--color-bg-tertiary` | #252830 | Elevated surfaces |
-| `--color-text-primary` | #e4e6eb | Primary text |
-| `--color-text-secondary` | #9ca3af | Secondary text |
-| `--color-accent` | #3b82f6 | Primary action |
-| `--color-success` | #22c55e | Success state |
-| `--color-warning` | #f59e0b | Warning state |
-| `--color-danger` | #ef4444 | Error/danger state |
-| `--color-border` | #374151 | Borders |
+|`--color-bg-primary`|#0f1117|Latar belakang utama|
+|`--color-bg-secondary`|#1a1d27|Kartu, panel|
+|`--color-bg-tertiary`|#252830|Permukaannya terangkat|
+|`--color-text-primary`|#e4e6eb|Teks utama|
+|`--color-text-secondary`|#9ca3af|Teks sekunder|
+|`--color-accent`|#3b82f6|Aksi utama|
+|`--color-success`|#22c55e|sukses negara|
+|`--color-warning`|#f59e0b|peringatan|
+|`--color-danger`|#ef4444|Kesalahan menyatakan/bahaya|
+|`--color-border`|#374151|Batas|
 
-### Typography
+### Tipografi
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--font-family` | Inter, system-ui, sans-serif | All text |
-| `--font-size-xs` | 0.75rem | Labels, hints |
-| `--font-size-sm` | 0.875rem | Secondary text |
-| `--font-size-md` | 1rem | Body text |
-| `--font-size-lg` | 1.125rem | Emphasized text |
-| `--font-size-xl` | 1.25rem | Headings |
-| `--font-size-2xl` | 1.5rem | Page titles |
+|`--font-family`|Antar, sistem-ui, sans-serif|Semua teks|
+|`--font-size-xs`|0,75rem|Label, petunjuk|
+|`--font-size-sm`|0,875rem|Teks sekunder|
+|`--font-size-md`|1rem|Teks isi|
+|`--font-size-lg`|1.125rem|Teks ditekankan|
+|`--font-size-xl`|1,25rem|Menuju|
+|`--font-size-2xl`|1,5rem|halaman judul|
 
-### Spacing
+### Spasi
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--space-1` | 4px | Tight spacing |
-| `--space-2` | 8px | Compact spacing |
-| `--space-3` | 12px | Default spacing |
-| `--space-4` | 16px | Comfortable spacing |
-| `--space-5` | 24px | Section spacing |
-| `--space-6` | 32px | Page spacing |
+|`--space-1`|4 piksel|Spasi rapat|
+|`--space-2`|8 piksel|Spasi kompak|
+|`--space-3`|12 piksel|Spasi bawaan|
+|`--space-4`|16 piksel|Spasi nyaman|
+|`--space-5`|24 piksel|Spasi bagian|
+|`--space-6`|32 piksel|Spasi halaman|
 
 ### Radius
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--radius-sm` | 4px | Small elements |
-| `--radius-md` | 8px | Cards, buttons |
-| `--radius-lg` | 12px | Panels, modals |
+|`--radius-sm`|4 piksel|Elemen kecil|
+|`--radius-md`|8 piksel|Kartu, tombol|
+|`--radius-lg`|12 piksel|Panel, modal|
 
-### Shadows
+### Bayangan
 
-| Token | Value | Usage |
+|Token|Nilai|Penggunaan|
 |-------|-------|-------|
-| `--shadow-sm` | 0 1px 2px rgba(0,0,0,0.3) | Subtle elevation |
-| `--shadow-md` | 0 4px 6px rgba(0,0,0,0.4) | Cards |
-| `--shadow-lg` | 0 10px 15px rgba(0,0,0,0.5) | Modals, dialogs |
+|`--shadow-sm`|0 1px 2px rgba(0,0,0,0.3)|Ketinggian halus|
+|`--shadow-md`|0 4px 6px rgba(0,0,0,0.4)|Kartu|
+|`--shadow-lg`|0 10px 15px rgba(0,0,0,0.5)|Modal, dialog|
 
 ---
 
-## 10. Frontend Architecture
+## 10. Arsitektur Frontend
 
 ```
 frontend/
 src/
-â”œâ”€â”€ app/
-â”‚   â”œâ”€â”€ providers/
-â”‚   â””â”€â”€ router/
-â”œâ”€â”€ pages/
-â”‚   â”œâ”€â”€ Chat/
-â”‚   â”œâ”€â”€ Workspace/
-â”‚   â”œâ”€â”€ ArtifactViewer/
-â”‚   â”œâ”€â”€ ApprovalDialog/
-â”‚   â”œâ”€â”€ Settings/
-â”‚   â”œâ”€â”€ CapabilityDiscovery/
-â”‚   â””â”€â”€ ExecutionHistory/
-â”œâ”€â”€ features/
-â”‚   â”œâ”€â”€ chat/
-â”‚   â”œâ”€â”€ workspace/
-â”‚   â”œâ”€â”€ execution/
-â”‚   â”œâ”€â”€ artifact/
-â”‚   â”œâ”€â”€ settings/
-â”‚   â””â”€â”€ notifications/
-â”œâ”€â”€ components/
-â”‚   â”œâ”€â”€ ChatWindow/
-â”‚   â”œâ”€â”€ ChatBubble/
-â”‚   â”œâ”€â”€ PromptBox/
-â”‚   â”œâ”€â”€ ProgressCard/
-â”‚   â”œâ”€â”€ ArtifactCard/
-â”‚   â”œâ”€â”€ ApprovalDialog/
-â”‚   â”œâ”€â”€ ExecutionTimeline/
-â”‚   â”œâ”€â”€ WorkspaceSidebar/
-â”‚   â”œâ”€â”€ LoadingIndicator/
-â”‚   â””â”€â”€ NotificationToast/
-â”œâ”€â”€ layouts/
-â”‚   â”œâ”€â”€ MainLayout/
-â”‚   â””â”€â”€ MobileLayout/
-â”œâ”€â”€ hooks/
-â”œâ”€â”€ services/
-â”‚   â”œâ”€â”€ api.ts
-â”‚   â”œâ”€â”€ chat.ts
-â”‚   â”œâ”€â”€ execution.ts
-â”‚   â”œâ”€â”€ workspace.ts
-â”‚   â”œâ”€â”€ artifact.ts
-â”‚   â””â”€â”€ notification.ts
-â”œâ”€â”€ store/
-â”‚   â”œâ”€â”€ conversationSlice.ts
-â”‚   â”œâ”€â”€ workspaceSlice.ts
-â”‚   â”œâ”€â”€ executionSlice.ts
-â”‚   â”œâ”€â”€ artifactSlice.ts
-â”‚   â”œâ”€â”€ notificationSlice.ts
-â”‚   â””â”€â”€ settingsSlice.ts
-â”œâ”€â”€ types/
-â”‚   â”œâ”€â”€ chat.ts
-â”‚   â”œâ”€â”€ execution.ts
-â”‚   â”œâ”€â”€ workspace.ts
-â”‚   â”œâ”€â”€ artifact.ts
-â”‚   â””â”€â”€ api.ts
-â””â”€â”€ utils/
+├── app/
+│   ├── providers/
+│   └── router/
+├── pages/
+│   ├── Chat/
+│   ├── Workspace/
+│   ├── ArtifactViewer/
+│   ├── ApprovalDialog/
+│   ├── Settings/
+│   ├── CapabilityDiscovery/
+│   └── ExecutionHistory/
+├── features/
+│   ├── chat/
+│   ├── workspace/
+│   ├── execution/
+│   ├── artifact/
+│   ├── settings/
+│   └── notifications/
+├── components/
+│   ├── ChatWindow/
+│   ├── ChatBubble/
+│   ├── PromptBox/
+│   ├── ProgressCard/
+│   ├── ArtifactCard/
+│   ├── ApprovalDialog/
+│   ├── ExecutionTimeline/
+│   ├── WorkspaceSidebar/
+│   ├── LoadingIndicator/
+│   └── NotificationToast/
+├── layouts/
+│   ├── MainLayout/
+│   └── MobileLayout/
+├── hooks/
+├── services/
+│   ├── api.ts
+│   ├── chat.ts
+│   ├── execution.ts
+│   ├── workspace.ts
+│   ├── artifact.ts
+│   └── notification.ts
+├── store/
+│   ├── conversationSlice.ts
+│   ├── workspaceSlice.ts
+│   ├── executionSlice.ts
+│   ├── artifactSlice.ts
+│   ├── notificationSlice.ts
+│   └── settingsSlice.ts
+├── types/
+│   ├── chat.ts
+│   ├── execution.ts
+│   ├── workspace.ts
+│   ├── artifact.ts
+│   └── api.ts
+└── utils/
 ```
 
-Principles:
-> Terjemahan Indonesia: Prinsip:
-- Feature-based organization, not type-based.
-- All API calls go through `services/`.
-- All state lives in `store/`.
-- Components are dumb. Features own logic.
-- No business logic in components.
+Prinsip:
+- Organisasi berbasis fitur, bukan berbasis tipe.
+- Semua panggilan API melalui `services/`.
+- Semua negara bagian berada di `store/`.
+- Komponen bersifat bodoh. Fitur memiliki logika.
+- Tidak ada logika bisnis di komponen.
 
 ---
 
-## 11. Definition of Done
+## 11. Pemahaman Selesai
 
-Frontend v1 is complete when:
-> Terjemahan Indonesia: Frontend v1 adalah complete when:
+Frontend v1 selesai ketika:
 
-- [ ] User opens app and sees a single chat window.
-- [ ] User types a goal and gets a response.
-- [ ] Progress is visible during long-running tasks.
-- [ ] Artifacts appear automatically.
-- [ ] Approval dialog works for irreversible actions.
-- [ ] Workspace is created automatically.
-- [ ] Execution history is available.
-- [ ] Capability Discovery works from the chat.
-- [ ] All screens consume real backend APIs.
-- [ ] No mock data in production screens.
-- [ ] Mobile layout works at 320px width.
-- [ ] All components use design tokens.
-- [ ] Errors are actionable and user-friendly.
-- [ ] No internal architecture terms exposed to user.
-
----
-
-## 12. What Is Out of Scope
-
-The following are explicitly out of scope for v1 frontend:
-> Terjemahan Indonesia: Following adalah explicitly out dari scope untuk v1 frontend:
-
-- Agent selection UI
-- Capability Pack configuration
-- Worker configuration
-- Model selection UI (except in Settings)
-- Execution Graph visualization
-- Admin dashboard
-- Analytics dashboard
-- Plugin management UI
-- Advanced theming
-
-These may be added in future versions if validated by real user needs.
-> Terjemahan Indonesia: These may menjadi added dalam future versions if validated oleh real user needs.
+- [ ] Pengguna membuka aplikasi dan melihat satu jendela dialog.
+- [ ] Pengguna mengetik tujuan dan mendapatkan respons.
+- [ ] Kemajuan terlihat selama tugas berjalan lama.
+- [ ] Artefak muncul otomatis.
+- [ ] Dialog persetujuan berfungsi untuk tindakan yang tidak dapat dibatalkan.
+- [ ] Ruang kerja dibuat otomatis.
+- [ ] Riwayat eksekusi tersedia.
+- [ ] Capability Discovery bekerja dari dialog.
+- [ ] Semua layar menggunakan API backend nyata.
+- [ ] Tidak ada data tiruan di layar produksi.
+- [ ] Tata letak seluler bekerja pada lebar 320px.
+- [ ] Semua komponen menggunakan desain token.
+- [ ] Error dapat ditindaklanjuti dan ramah pengguna.
+- [ ] Tidak ada istilah arsitektur internal yang diekspos ke pengguna.
 
 ---
 
-## 13. Success Criteria
+## 12. Ruang Lingkup Luar
 
-The frontend is successful when a new user can:
-> Terjemahan Indonesia: Frontend adalah successful when sebuah new user dapat:
+Hal-hal berikut secara eksplisit di luar scope untuk frontend v1:
 
-1. Open the app and understand what to do without reading documentation.
-2. Type a goal in plain language and get a result.
-3. See progress while waiting.
-4. Find artifacts after execution completes.
-5. Approve or reject changes when asked.
-6. Return to a previous workspace and continue where they left off.
+- Agen pemilihan UI
+- Konfigurasi Capability Pack
+- Konfigurasi Pekerja
+- Pemilihan Model UI (kecuali di Pengaturan)
+- Visualisasi Grafik Eksekusi
+- Admin berlari
+- Analitik dasbor
+- Manajemen UI Plugin
+- Tema lanjutan
 
-If any of these fail, the frontend is not ready for Developer Preview.
-> Terjemahan Indonesia: If any dari these fail, frontend adalah not ready untuk Developer Preview.
+Ini dapat ditambahkan di versi mendatang jika tervalidasi oleh kebutuhan pengguna nyata.
+
+---
+
+## 13. Kriteria Keberhasilan
+
+Frontend berhasil ketika pengguna baru dapat:
+
+1. Membuka aplikasi dan memahami apa yang harus dilakukan tanpa membaca dokumentasi.
+2. Mengetik tujuan dalam bahasa sehari-hari dan mendapatkan hasil.
+3. Melihat kemajuan sambil menunggu.
+4. Menemukan artefak setelah eksekusi selesai.
+5. Menyetujui atau menolak perubahan saat diminta.
+6. Kembali ke ruang kerja sebelumnya dan melanjutkan dari posisi terakhir.
+
+Jika salah satu dari ini gagal, frontend belum siap untuk Pratinjau Pengembang.

@@ -1,97 +1,80 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/FRONTEND_GAP_ANALYSIS.md`
-- Judul: Frontend Gap Analysis
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Frontend Gap Analysis â€” Sprint 5.2
+﻿# Analisis Gap Frontend — Sprint 5.2
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for FRONTEND_GAP_ANALYSIS
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk FRONTEND_GAP_ANALYSIS
 <!-- DOCUMENT_METADATA_END -->
 
-## Current State (Post Sprint 5.1 + 5.2)
+## Saat Ini (Pasca Sprint Keadaan 5.1 + 5.2)
 
-### âœ… Completed â€” Sprint 5.1 (Frontend Foundation)
+### ✅ Selesai — Sprint 5.1 (Frontend Foundation)
 
-| Item | Status | Deliverable |
+|Barang|Status|Dapat dikirim|
 |---|---|---|
-| **Login page with JWT** | âœ… **DONE** | `app/login/page.tsx` + `components/auth/login-form.tsx` |
-| **Auth store** | âœ… **DONE** | `store/auth-store.ts` â€” Zustand with localStorage persistence |
-| **Auth API service** | âœ… **DONE** | `services/auth.ts` â€” login, logout, refreshToken |
-| **Auth header in API calls** | âœ… **DONE** | `services/api.ts` â€” auto-inject Bearer token, auto-redirect on 401 |
-| **Protected routes** | âœ… **DONE** | `components/layouts/main-layout.tsx` â€” auth guard redirect |
-| **Dashboard page** | âœ… **DONE** | `app/dashboard/page.tsx` + `components/dashboard/` (stats, recent, layout) |
-| **Loading skeletons** | âœ… **DONE** | `components/ui/loading-skeleton.tsx` â€” Card, List, Page, Table variants |
-| **Error boundary** | âœ… **DONE** | `components/ui/error-boundary.tsx` â€” ErrorBoundary + withErrorBoundary HOC |
-| **Toast notification system** | âœ… **DONE** | `components/ui/toast.tsx` â€” success, error, warning, info |
-| **User menu + logout** | âœ… **DONE** | `components/layouts/main-layout.tsx` â€” sidebar user section |
-| **Root redirect** | âœ… **DONE** | `app/page.tsx` â€” redirects to /dashboard or /login |
-| **Login page route** | âœ… **DONE** | `app/login/page.tsx` |
-| **Dashboard route** | âœ… **DONE** | `app/dashboard/page.tsx` |
-| **Auth types** | âœ… **DONE** | `types/auth.ts` |  
-| **API types** | âœ… **DONE** | `types/api.ts` |
+|**Halaman Login dengan JWT**|✅ **SELESAI**|`app/login/page.tsx` + `components/auth/login-form.tsx`|
+|**Toko autentik**|✅ **SELESAI**|`store/auth-store.ts` — Zustand dengan persistensi localStorage|
+|**Layanan autentikasi API**|✅ **SELESAI**|`services/auth.ts` — masuk, keluar, refreshToken|
+|**Judul autentikasi pada panggilan API**|✅ **SELESAI**|`services/api.ts` — menambahkan token Pembawa secara otomatis, kecerahan otomatis saat 401|
+|**Jalur yang dilindungi**|✅ **SELESAI**|`components/layouts/main-layout.tsx` — pertahanan autentikasi|
+|**Halaman Dasbor**|✅ **SELESAI**|`app/dashboard/page.tsx` + `components/dashboard/` (statistik, terkini, tata letak)|
+|**Memuat kerangka**|✅ **SELESAI**|`components/ui/loading-skeleton.tsx` — varian Kartu, Daftar, Halaman, Tabel|
+|**Batas kesalahan**|✅ **SELESAI**|`components/ui/error-boundary.tsx` — ErrorBoundary + denganErrorBoundary HOC|
+|**Sistem notifikasi berulang**|✅ **SELESAI**|`components/ui/toast.tsx` — sukses, kesalahan, peringatan, info|
+|**Menu pengguna + logout**|✅ **SELESAI**|`components/layouts/main-layout.tsx` — bagian bilah pisau di sisi pengguna|
+|**Pengalihan akar**|✅ **SELESAI**|`app/page.tsx` — alihkan ke /dashboard atau /login|
+|**Rutekan halaman login**|✅ **SELESAI**|`app/login/page.tsx`|
+|**Jalur Dasbor**|✅ **SELESAI**|`app/dashboard/page.tsx`|
+|**Autentikasi Jenis**|✅ **SELESAI**|`types/auth.ts`|
+|**API jenis**|✅ **SELESAI**|`types/api.ts`|
 
-### âœ… Completed â€” Sprint 5.2 (Capability Explorer & Execution Flow)
+### ✅ Selesai — Sprint 5.2 (Penjelajahan Kemampuan & Alur Eksekusi)
 
-| Item | Status | Deliverable |
+|Barang|Status|Dapat dikirim|
 |---|---|---|
-| **Capability Explorer page** | âœ… **RENEWED** | `components/capabilities/capability-browser.tsx` â€” full rewrite with domain filter, detail panel, related caps, icon mapping |
-| **Capability route** | âœ… **DONE** | `app/capabilities/page.tsx` |
-| **Execution form modal** | âœ… **NEW** | `components/execution/execution-form.tsx` â€” goal input, workspace selector, capability context, submit with redirect |
-| **Executions page rewrite** | âœ… **RENEWED** | `app/executions/page.tsx` â€” full rewrite: split view, ?selected= param, auto-refresh, retry, cancel, artifacts |
-| **Execution timeline** | âœ… **DONE** | `components/execution/execution-timeline.tsx` â€” phases, progress bar, cancel with approval, retry, error display |
-| **Execution history** | âœ… **DONE** | `components/execution/execution-history.tsx` â€” list, detail panel, logs viewer |
-| **Workspace store** | âœ… **DONE** | `store/workspace-store.ts` â€” CRUD, file management, memory |
-| **Execution store** | âœ… **DONE** | `store/execution-store.ts` â€” start, cancel, delete, phases, logs, artifacts, polling |
-| **Capability service** | âœ… **DONE** | `services/capability.ts` â€” listCapabilities, getCapability |
-| **Execution service** | âœ… **DONE** | `services/execution.ts` â€” full CRUD + phases + logs + artifacts |
+|**Penjelajahan Kemampuan Halaman**|✅ **DIPERBARUI**|`components/capabilities/capability-browser.tsx` — menulis ulang penuh dengan filter domain, panel detail, batas terkait, pemetaan ikon|
+|**Kemampuan Rute**|✅ **SELESAI**|`app/capabilities/page.tsx`|
+|**Modal bentuk eksekusi**|✅ **BARU**|`components/execution/execution-form.tsx` — sasaran masukan, pemilih ruang kerja, konteks kemampuan, kirim dengan aktivasi|
+|**Tulis ulang halaman Eksekusi**|✅ **DIPERBARUI**|`app/executions/page.tsx` — tulis ulang penuh: tampilan terpisah, ?selected= param, penyegaran otomatis, coba lagi, batal, artefak|
+|**Jalur waktu eksekusi**|✅ **SELESAI**|`components/execution/execution-timeline.tsx` — fase, bilah perintah, pembatalan dengan persetujuan, coba lagi, tampilan kesalahan|
+|**Riwayat Eksekusi**|✅ **SELESAI**|`components/execution/execution-history.tsx` — daftar, detail panel, log penampil|
+|**Toko ruang kerja**|✅ **SELESAI**|`store/workspace-store.ts` — CRUD, manajemen file, memori|
+|**Toko eksekusi**|✅ **SELESAI**|`store/execution-store.ts` — memulai, membatalkan, menghapus, fase, log, artefak, polling|
+|**Layanan kemampuan**|✅ **SELESAI**|`services/capability.ts` — kemampuan daftar, kemampuan dapatkan|
+|**Layanan Eksekusi**|✅ **SELESAI**|`services/execution.ts` — CRUD penuh + fase + log + artefak|
 
-### âœ… Completed â€” Sprint 5.3 (Artifact Viewer, Metrics & Real-Time)
+### ✅ Selesai — Sprint 5.3 (Penampil Artefak, Metrik & Real-Time)
 
-| Item | Status | Deliverable |
+|Barang|Status|Dapat dikirim|
 |---|---|---|
-| **Artifact viewer page** | âœ… **RENEWED** | `app/artifacts/page.tsx` â€” auto-load, type filter, skeleton, empty state, ErrorBoundary |
-| **Artifact viewer modal** | âœ… **DONE** | `components/artifact/artifact-viewer.tsx` â€” version selector, content preview, download, restore, delete |
-| **Artifact card** | âœ… **DONE** | `components/artifact/artifact-card.tsx` â€” type badge, version indicator, expandable viewer |
-| **Artifact store** | âœ… **DONE** | `store/artifact-store.ts` â€” CRUD, version management, restore |
-| **Metrics page** | âœ… **RENEWED** | `app/metrics/page.tsx` â€” full rewrite: skeleton, ErrorBoundary, auto-refresh toggle, distribution charts, summary cards |
-| **Execution auto-refresh** | âœ… **DONE** | `app/executions/page.tsx` â€” 3s polling for running executions |
-| **Error state recovery** | âœ… **DONE** | Retry buttons, ErrorBoundary on all pages, toast notifications |
-| **Stream service** | âœ… **DONE** | `services/stream.ts` â€” SSE-based chat stream |
+|**Penampil Artefak Halaman**|✅ **DIPERBARUI**|`app/artifacts/page.tsx` — memuat otomatis, tipe filter, kerangka, status kosong, ErrorBoundary|
+|**Penampil Artefak Modal**|✅ **SELESAI**|`components/artifact/artifact-viewer.tsx` — pemilih versi, puas dengan konten, unduh, pulihkan, hapus|
+|**Kartu artefak**|✅ **SELESAI**|`components/artifact/artifact-card.tsx` — jenis lencana, indikator versi, penampil yang dapat bertentangan|
+|**Toko artefak**|✅ **SELESAI**|`store/artifact-store.ts` — CRUD, versi manajemen, pemulihan|
+|**Metrik Halaman**|✅ **DIPERBARUI**|`app/metrics/page.tsx` — menulis ulang penuh: skeleton, ErrorBoundary, mengaktifkan penyegaran otomatis, bagan distribusi, kartu ringkasan|
+|**Segarkan eksekusi otomatis**|✅ **SELESAI**|`app/executions/page.tsx` — polling 3 detik untuk eksekusi berjalan|
+|**Kesalahan status pemulihan**|✅ **SELESAI**|Tombol coba lagi, ErrorBoundary di semua halaman, notifikasi berulang|
+|**Layanan streaming**|✅ **SELESAI**|`services/stream.ts` — aliran diskusi berbasis SSE|
 
-### âš ï¸ Remaining (Backlog)
+### ⚠️ Sisa (Backlog)
 
-| Item | Priority | Notes |
+|Barang|Prioritas|Catatan|
 |---|---|---|
-| **WebSocket reconnection** | P2 | Fallback to SSE currently works |
-| **Responsive mobile nav** | P2 | Sidebar hidden on mobile, hamburger menu needed |
-| **Theme toggle provider** | P2 | Sidebar has dropdown, needs CSS variable switching |
-| **TanStack Query / Axios** | P3 | Not installed â€” current fetch works |
-| **Chart library** | P3 | For advanced metrics visualization |
-| **Session replay / undo** | P3 | Advanced UX |
+|**Koneksi ulang WebSocket**|hal2|Fallback ke SSE saat ini berfungsi|
+|**Navigasi seluler responsif**|hal2|Sidebar tersembunyi di ponsel, perlu menu hamburger|
+|**Penyedia pengalih tema**|hal2|Sidebar memiliki dropdown, perlu mengalihkan variabel CSS|
+|**Kueri/Aksi TanStack**|hal3|Belum terpasang — ambil saat ini berfungsi|
+|**Perpustakaan bagan**|hal3|Untuk visualisasi metrik lanjutan|
+|**Sesi diputar ulang/dibatalkan**|hal3|UX lanjutan|
 
 ---
 
-## File Inventory Summary
+## File Ringkas Inventaris
 
-### Sprint 5.1 â€” 12 New Files + 3 Modified (1,281 lines)
+### Sprint 5.1 — 12 File Baru + 3 Dimodifikasi (1.281 baris)
 ```
 NEW  types/auth.ts                   26 lines
 NEW  services/auth.ts                72 lines
@@ -110,7 +93,7 @@ MOD  components/layouts/main-layout.tsx  161 lines
 MOD  app/page.tsx                    34 lines
 ```
 
-### Sprint 5.2 â€” 4 New Files + 3 Modified (~1,100 lines)
+### Sprint 5.2 — 4 File Baru + 3 Dimodifikasi (~1.100 baris)
 ```
 NEW  types/api.ts                    12 lines
 NEW  components/execution/execution-form.tsx  175 lines
@@ -118,15 +101,15 @@ MOD  components/capabilities/capability-browser.tsx  370 lines
 MOD  app/executions/page.tsx         290 lines
 ```
 
-### Total Frontend: ~3,700 lines across 30+ components
+### Total Frontend: ~3.700 baris di 30+ komponen
 
 ---
 
-## Architectural Notes
+## Catatan Arsitektural
 
-- **All components use CSS variables** (`--color-*`) for theming â€” compatible with dark/light mode
-- **API client** (`services/api.ts`) is the single entry point for all HTTP â€” auth header injection, 401 handling
-- **Zustand stores** are used over Redux for simplicity and TypeScript inference
-- **Components are stateless** where possible â€” data flows from stores/services via hooks
-- **Error boundaries** wrap major sections â€” prevents LLM/tool errors from crashing the UI
-- **Suspense boundaries** used for `useSearchParams()` in Next.js App Router
+- **Semua komponen menggunakan variabel CSS** (`--color-*`) untuk tema — kompatibel dengan mode gelap/terang
+- **API client** (`services/api.ts`) adalah titik masuk tunggal untuk semua HTTP — injeksi auth header, penanganan 401
+- **Toko Zustand** digunakan daripada Redux untuk kemudahan dan inferensi TypeScript
+- **Komponen bersifat stateless** di mana memungkinkan — data mengalir dari toko/layanan melalui hook
+- **Batas kesalahan** membungkus bagian utama — mencegah kesalahan LLM/alat merusak UI
+- **Batas ketegangan** digunakan untuk `useSearchParams()` di Router Aplikasi Next.js

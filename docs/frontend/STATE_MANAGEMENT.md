@@ -1,39 +1,21 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/STATE_MANAGEMENT.md`
-- Judul: State Management
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# State Management
+﻿# Manajemen Negara
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for STATE_MANAGEMENT
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk STATE_MANAGEMENT
 <!-- DOCUMENT_METADATA_END -->
 
-This document defines the v1 frontend state architecture. No other state management patterns are allowed.
-> Terjemahan Indonesia: Ini dokumen defines v1 frontend state arsitektur. No other state management patterns adalah allowed.
+Dokumen ini mendefinisikan arsitektur state frontend v1. Tidak ada pola manajemen negara bagian lain yang diizinkan.
 
 ---
 
-## State Slices
+## Irisan Negara
 
-### 1. Conversation Slice
+### 1. Sepotong Percakapan
 
 ```typescript
 interface ConversationState {
@@ -51,7 +33,7 @@ interface ConversationState {
 - clearConversation()
 ```
 
-### 2. Workspace Slice
+### 2. Irisan Ruang Kerja
 
 ```typescript
 interface WorkspaceState {
@@ -69,7 +51,7 @@ interface WorkspaceState {
 - removeMemory(key: string)
 ```
 
-### 3. Execution Slice
+### 3. Irisan Eksekusi
 
 ```typescript
 type ExecutionStatus = 'idle' | 'running' | 'paused' | 'completed' | 'failed';
@@ -94,7 +76,7 @@ interface ExecutionState {
 - clearExecution()
 ```
 
-### 4. Artifact Slice
+### 4. Artefak Irisan
 
 ```typescript
 interface ArtifactState {
@@ -109,7 +91,7 @@ interface ArtifactState {
 - setVersions(versions: ArtifactVersion[])
 ```
 
-### 5. Notification Slice
+### 5. Pemberitahuan Irisan
 
 ```typescript
 interface NotificationState {
@@ -123,7 +105,7 @@ interface NotificationState {
 - clearNotifications()
 ```
 
-### 6. Settings Slice
+### 6. Pengaturan Irisan
 
 ```typescript
 interface SettingsState {
@@ -142,19 +124,19 @@ interface SettingsState {
 
 ---
 
-## State Rules
+## Negara Bagian Aturan
 
-1. All state slices are normalized. No nested arrays of objects by ID.
-2. All state mutations go through defined actions.
-3. No derived state is stored. Derive data in selectors.
-4. State persists to backend via API calls on every mutation.
-5. State survives browser refresh by hydrating from backend APIs.
-6. UI preferences (theme, model) may persist to localStorage.
-7. No local component state for shared data. Use Zustand/Context.
+1. Semua keadaan irisan dinormalisasi. Tidak ada susunan objek penempatannya berdasarkan ID.
+2. Semua penyembuhan keadaan melalui aksi yang terdefinisi.
+3. Tidak ada status turunan yang disimpan. Turunkan data di penyeleksi.
+4. Status disimpan ke backend melalui panggilan API pada setiap pengobatan.
+5. State bertahan setelah refresh browser dengan hydrating dari API backend.
+6. Preferensi UI (tema, model) dapat disimpan ke localStorage.
+7. Tidak ada komponen lokal untuk data bersama. Gunakan Zustand/Konteks.
 
 ---
 
-## Selectors
+## Penyeleksian
 
 ```typescript
 // Conversation

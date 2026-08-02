@@ -1,63 +1,41 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+# Database Engineer — Spesifikasi Capability
 
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/database-engineer.md`
-- Judul: Database Engineer
-- Status: bilingual content applied
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Database Engineer Capability Specification
-
-## Version: 1.0.0
-## Status: Production Ready (RFC-0010)
-## Quality Target: A- (≥85)
+**Versi:** 1.0.0
+**Status:** Production Ready (RFC-0010)
+**Target Kualitas:** A- (≥85)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-Database Engineer adalah **otoritas rekayasa basis data** untuk ECP — Capability Pack yang
-menangani desain skema, optimasi query, manajemen migrasi, rekomendasi indeks,
-perencanaan replikasi, rencana backup, dan analisis performa database.
-> Terjemahan Indonesia: Database Engineer adalah otoritas rekayasa basis data untuk ECP — kapabilitas Pack yang menangani desain skema, optimasi query, manajemen migrasi, rekomendasi indeks, perencanaan replikasi, rencana backup, dan analisis performa database.
+Database Engineer adalah **otoritas rekayasa database** untuk ECP — Capability Pack yang menangani schema design, query optimization, migration management, index recommendation, replication planning, backup/recovery planning, dan performance analysis database.
 
-Capability Pack ini menganalisis skema database, query SQL, dan profil beban untuk
-memberikan rekomendasi desain dan optimasi — **tanpa memodifikasi Core**.
-> Terjemahan Indonesia: Kapabilitas Pack ini menganalisis skema database, query SQL, dan profil beban untuk memberikan rekomendasi desain dan optimasi — tanpa memodifikasi Core.
+Capability Pack ini menganalisis skema database, query SQL, dan workload profile untuk memberikan rekomendasi desain dan optimasi — **tanpa memodifikasi Core**.
 
 ---
 
-## 2. Scope
+## 2. Ruang Lingkup
 
-### In Scope
+### Dalam Ruang Lingkup
 - **Schema Design** — Desain skema teroptimasi dengan tipe data, normalisasi, constraint
-- **Query Optimization** — Analisa dan perbaiki SQL lambat atau tidak efisien
-- **Migration Management** — Generate script migrasi forward dan rollback
+- **Query Optimization** — Analisis dan perbaikan SQL yang lambat atau tidak efisien
+- **Migration Management** — Menghasilkan migration script maju dan rollback
 - **Index Recommendation** — Rekomendasi indeks berdasarkan pola query
-- **Replication Planning** — Desain strategi replikasi untuk HA dan performa
-- **Backup and Recovery** — Rencana strategi backup dan prosedur pemulihan
-- **Performance Analysis** — Deteksi slow query, deadlock, contention
-- **Experience Memory** — Perekaman hasil ke history
+- **Replication Planning** — Merancang strategi replikasi untuk HA dan kinerja
+- **Backup & Recovery** — Rencana strategi backup dan prosedur pemulihan
+- **Performance Analysis** — Mendeteksi slow query, deadlock, contention
+- **Experience Memory** — Merekam hasil ke riwayat
 
-### Out of Scope
-- Administrasi database live
-- Provisioning infrastruktur database
+### Di Luar Cakupan
+- Administrasi database langsung
+- Penyediaan infrastruktur database
 - Eksekusi SQL ke database produksi
-- Konfigurasi cloud database service
-- Modifikasi Core contracts
+- Konfigurasi layanan database berbasis cloud
+- Modifikasi kontrak Core
 
 ---
 
-## 3. Contract
+## 3. Kontrak
 
 ### Input: DatabaseRequest
 ```json
@@ -89,7 +67,7 @@ memberikan rekomendasi desain dan optimasi — **tanpa memodifikasi Core**.
 }
 ```
 
-### Output: DatabaseReport
+### Output: Laporan Database
 ```json
 {
   "request_id": "uuid",
@@ -132,7 +110,7 @@ memberikan rekomendasi desain dan optimasi — **tanpa memodifikasi Core**.
     "retention_days": 30,
     "rto_hours": 4.0,
     "rpo_minutes": 60,
-    "steps": ["Verify backup integrity", "Restore backup", ...]
+    "steps": ["Verify backup integrity", "Restore backup", "..."]
   },
   "performance_stats": {
     "slow_queries": 5,
@@ -147,37 +125,37 @@ memberikan rekomendasi desain dan optimasi — **tanpa memodifikasi Core**.
 
 ---
 
-## 4. Operations
+## 4. Operasi
 
-| Operation | Description | Inputs | Outputs |
+| Operasi | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| schema_design | Analyze and optimize schema | schema, database_type | SchemaRecommendations |
-| query_optimization | Optimize SQL queries | queries, database_type | Findings + OptimizedQueries |
-| migration | Generate migration scripts | from_version, to_version, schema | MigrationPlan |
-| index_recommendation | Recommend indexes | queries, schema, workload | IndexRecommendations |
-| replication_plan | Design replication topology | workload, database_type | ReplicationDesign |
-| backup_plan | Plan backup strategy | database_type, rto, rpo | BackupPlan |
-| performance_analysis | Analyze performance | queries, schema, workload | Findings + PerformanceStats |
+| `schema_design` | Menganalisis dan mengoptimalkan skema | schema, database_type | Schema Recommendations |
+| `query_optimization` | Mengoptimalkan query SQL | queries, database_type | Findings + Optimized Queries |
+| `migration` | Menghasilkan migration script | from_version, to_version, schema | Migration Plan |
+| `index_recommendation` | Merekomendasikan indeks | queries, schema, workload_profile | Index Recommendations |
+| `replication_plan` | Mendesain topologi replikasi | workload_profile, database_type | Replication Design |
+| `backup_plan` | Merencanakan strategi backup | database_type, rto, rpo | Backup Plan |
+| `performance_analysis` | Menganalisis performa | queries, schema, workload_profile | Findings + Performance Stats |
 
 ---
 
-## 5. Analyzer Modules
+## 5. Modul Analyzer
 
-| Module | Responsibility |
+| Modul | Tanggung Jawab |
 |--------|----------------|
-| schema_designer.py | Analyze and recommend schema optimizations |
-| query_optimizer.py | Analyze and optimize SQL queries |
-| migration_manager.py | Generate migration and rollback scripts |
-| index_advisor.py | Recommend indexes based on query patterns |
-| replication_planner.py | Design replication strategies |
-| backup_planner.py | Plan backup and recovery strategies |
-| performance_analyzer.py | Detect slow queries, deadlocks, contention |
+| `schema_designer.py` | Menganalisis dan merekomendasikan perbaikan skema |
+| `query_optimizer.py` | Menganalisis dan mengoptimalkan query SQL |
+| `migration_manager.py` | Menghasilkan migration script dan rollback |
+| `index_advisor.py` | Merekomendasikan indeks berdasarkan pola query |
+| `replication_planner.py` | Merancang strategi replikasi |
+| `backup_planner.py` | Merencanakan strategi backup dan pemulihan |
+| `performance_analyzer.py` | Mendeteksi slow query, deadlock, contention |
 
 ---
 
-## 6. Benchmark Dimensions
+## 6. Dimensi Benchmark
 
-| Dimension | Target | Grade |
+| Dimensi | Target | Grade |
 |-----------|--------|-------|
 | Schema Quality | ≥90% | A |
 | Query Optimization | ≥85% | A |
@@ -190,16 +168,16 @@ memberikan rekomendasi desain dan optimasi — **tanpa memodifikasi Core**.
 
 ---
 
-## 7. Dependencies
+## 7. Dependensi
 
-- **apps/base.py** — Base model definitions
-- **apps/database_engineer/schemas.py** — Public contracts
-- **apps/database_engineer/engine.py** — Domain Engine
-- **apps/database_engineer/worker.py** — Thin adapter (ADR-003)
+- **apps/base.py** — Definisi model dasar
+- **apps/database_engineer/schemas.py** — Kontrak publik
+- **apps/database_engineer/engine.py** — Domain engine
+- **apps/database_engineer/worker.py** — Adaptor tipis (ADR-003)
 
 ---
 
-## 8. Usage Example
+## 8. Contoh Penggunaan
 
 ```python
 from apps.database_engineer.engine import DatabaseEngineerEngine
@@ -214,3 +192,4 @@ request = DatabaseRequest(
 report = engine.analyze(request)
 print(f"Found {len(report.findings)} optimization opportunities")
 ```
+

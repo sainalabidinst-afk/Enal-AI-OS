@@ -1,153 +1,143 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `CHANGELOG.md`
+### Informasi Dokumen / Info Dokumen
+- Berkas: `CHANGELOG.md`
 - Judul: Changelog
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Changelog
-
-All notable changes to Enal Cognitive Platform (ECP) will be documented in this file.
-> Terjemahan Indonesia: All notable changes untuk Enal kognitif platform (ECP) akan menjadi documented dalam ini file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-> Terjemahan Indonesia: Format adalah based pada Keep sebuah Changelog, dan ini proyek adheres untuk Semantic Versioning.
-
-## [1.0.0-engineering-baseline] - 2024
+- Status: editor bilingual ditambahkan
 
 
-### Engineering Baseline — Frozen 🧊
+# mencatat perubahan
+
+Semua perubahan penting pada Enal Cognitive Platform (ECP) akan didokumentasikan dalam file ini.
+
+Formatnya didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+dan proyek ini menganut [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.0-dasar-rekayasa] - 2024
 
 
-This tag marks the official **Engineering Baseline** of the Enal Cognitive Platform.
-> Terjemahan Indonesia: Ini tag marks official rekayasa dasar dari Enal kognitif platform.
-
-**Status:** 🟢 Engineering Baseline Stable
-
-#### What was accomplished
+### Dasar Teknik - Dibekukan 🧊
 
 
-- **Type Safety (MyPy):** 0 errors across entire codebase (27+ files fixed)
-- **Python 3.11 Compatibility:** Verified with `compile()` — 0 issues in production code
-- **Pylance Severity 8:** 0 remaining diagnostics
-- **VS Code Problems:** 0 remaining issues
-- **Test Suite:** 426 tests passing
-- **Architecture Consistency:** All structural contracts validated
-- **API Contract Consistency:** All signatures verified
+Tag ini menandai **Dasar Teknik** resmi dari Platform Kognitif Enal.
 
-#### Housekeeping
+**Status:** 🟢 Dasar Teknik Stabil
 
-- Utility scripts (`_audit_hygiene.py`, `_fix_*.py`, `_run_*.py`) moved to `tools/audit/`
-- Root repository cleaned of helper/tooling files
-- `tools/audit/__init__.py` created with clear purpose documentation
-
-#### Post-Baseline Rules
-
-- No new large-scale refactoring without documented cross-domain need
-- No architecture redesigns
-- Focus shifts to:
-  1. Documentation (architecture, module dependency, runtime flow, API, quality gates)
-  2. Product development on stable foundation
-> Terjemahan Indonesia: Dokumentasi (arsitektur, module dependency, runtime flow, API, kualitas gates) Product development pada stable foundation
-
-#### Engineering Final Assessment
+#### Apa yang telah dicapai
 
 
-| Area | Status |
+- **Keamanan Tipe (MyPy):** 0 kesalahan di seluruh basis kode (27+ file diperbaiki)
+- **Kompatibilitas Python 3.11:** Diverifikasi dengan `compile()` — 0 masalah dalam kode produksi
+- **Pylance Severity 8:** 0 diagnostik tersisa
+- **Masalah Kode VS:** 0 masalah tersisa
+- **Rangkaian Tes:** 426 tes lulus
+- **Konsistensi Arsitektur:** Semua kontrak struktural divalidasi
+- **API Konsistensi Kontrak:** Semua tanda tangan penambangan
+
+#### Rumah tangga
+
+- Skrip utilitas (`_audit_hygiene.py`, `_fix_*.py`, `_run_*.py`) dipindahkan ke `tools/audit/`
+- Repositori root dibersihkan dari file pembantu/perkakas
+- `tools/audit/__init__.py` dibuat dengan dokumentasi tujuan yang jelas
+
+#### Aturan Pasca-Dasar
+
+- Tidak ada pemfaktoran ulang skala besar baru tanpa kebutuhan lintas domain yang terdokumentasi
+- Tidak ada desain ulang arsitektur
+- Fokus beralih ke:
+  1. Dokumentasi (arsitektur, independen modul, aliran Runtime, API, gerbang kualitas)
+  2. Pengembangan produk dengan landasan yang stabil
+
+#### Penilaian Akhir Teknik
+
+
+|Daerah|Status|
 |------|--------|
-| Architecture Consistency | ✅ |
-| API Contract Consistency | ✅ |
-| Type Safety (MyPy) | ✅ 0 Error |
-| Python 3.11 Compatibility | ✅ |
-| Pylance Severity 8 | ✅ 0 |
-| VS Code Problems | ✅ 0 |
-| Test Suite | ✅ 426 Passed |
-| Engineering Hardening | ✅ Complete |
-| Engineering Baseline | ✅ **Stable** |
+|Konsistensi Arsitektur| ✅ |
+|API Konsistensi Kontrak| ✅ |
+|Jenis Keamanan (MyPy)|✅ 0 Kesalahan|
+|Kompatibilitas Python 3.11| ✅ |
+|Pilance Keparahan 8|✅ 0|
+|Masalah Kode VS|✅ 0|
+|Rangkaian Tes|✅ 426 Lulus|
+|Pengerasan Teknik|✅ Lengkap|
+|Dasar Teknik|✅ **Stabil**|
 
 ---
 
-## [1.0.0-release-candidate] - 2026-07-27
+## [kandidat rilis 1.0.0] - 27-07-2026
 
 
-### Added
-- Engineering Hardening Phase complete - All Severity 8+ type issues resolved
-- Cognitive pipeline fully integrated (Perception → Planner → Memory → Executor)
-- Checkpoint/Resume/Retry support in WorkflowExecutor
-- SessionMemory and ProjectMemory for cross-execution context
+### Ditambahkan
+- Fase Pengerasan Rekayasa selesai - Semua masalah tipe Severity 8+ terselesaikan
+- Saluran kognitif terintegrasi penuh (Persepsi → Perencana → Memori → Pelaksana)
+- Dukungan Pos Pemeriksaan/Lanjutkan/Coba lagi di WorkflowExecutor
+- SessionMemory dan ProjectMemory untuk konteks lintas eksekusi
 
-### Fixed
-- Circular imports: `knowledge/__init__.py`, `task_planner.py`, `meeting.py`
-- Missing vendor model imports: `UniversalBGP`, `UniversalMPLS`, `UniversalCAPsMAN`, `UniversalWireGuard` in cisco_ios.py, mikrotik.py
-- `Team` dataclass missing `team_id` field
-- `create_checkpoint`, `resume_from_checkpoint`, `execute_with_retry` moved inside `WorkflowExecutor` class
-- Duplicate `PerceptionInput` removed, now imports from `perception_engine.py`
-- CodeEngineerApp `generate_patch()` rewritten with correct signature
-- IntentRouter `max()` key function corrected
-- API optional access patterns hardened with `_safe_get` helpers
+### Tetap
+- Impor melingkar: `knowledge/__init__.py`, `task_planner.py`, `meeting.py`
+- Vendor model impor tidak ada: `UniversalBGP`, `UniversalMPLS`, `UniversalCAPsMAN`, `UniversalWireGuard` di cisco_ios.py, mikrotik.py
+- `Team` kelas data tidak memiliki kolom `team_id`
+- `create_checkpoint`, `resume_from_checkpoint`, `execute_with_retry` dipindahkan ke dalam kelas `WorkflowExecutor`
+- Duplikat `PerceptionInput` dihapus, sekarang diimpor dari `perception_engine.py`
+- CodeEngineerApp `generate_patch()` ditulis ulang dengan tanda tangan yang benar
+- Fungsi kunci IntentRouter `max()` diperbaiki
+- API pola akses diperkuat dengan pembantu `_safe_get`
 
 ### Status
-- Runtime tests: 426 passing
-- Static analysis: 0 Severity 8+ issues (down from 366)
-- Architecture: 92/100 - Platform Release Candidate
+- Runtime tes: 426 pelamar
+- Analisis statistik: 0 masalah Tingkat Keparahan 8+ (turun dari 366)
+- Arsitektur: 92/100 - Kandidat Rilis Platform
 
 ---
 
-## [1.0.0-dev] - 2026-07-08
+## [1.0.0-dev] - 07-08-2026
 
 
-### Added
-- Strategic rebrand from "Enal AI OS" to "Enal Cognitive Platform (ECP)"
-- v1.0.0-dev roadmap with 6 Official Capability Packs
-- CI/CD pipeline with 8 automated checks (lint, type check, unit tests, architecture, benchmarks, SDK compatibility, plugin compatibility, golden tests)
-- Golden Test Suite with 200 test cases across 4 categories
-- 13 Capability Packs scaffolded:
-  - Network Engineer
-  - Code Engineer
-  - Research Assistant
-  - DevOps Assistant
-  - Trading Analyst
-  - Self Development
-> Terjemahan Indonesia: Insinyur Jaringan, Insinyur Kode, Asisten Peneliti, Asisten DevOps, Analis Perdagangan, Pengembangan Diri
-- Version management (VERSION file, pyproject.toml updated to 1.0.0-dev)
-- v1 roadmap document with success criteria and metrics
+### Ditambahkan
+- Perubahan merek yang strategi dari "Enal AI OS" menjadi "Enal Cognitive Platform (ECP)"
+- peta jalan v1.0.0-dev dengan 6 Paket Kemampuan Resmi
+- Pipeline CI/CD dengan 8 pemeriksaan otomatis (lint, pemeriksaan tipe, unit pengujian, arsitektur, tolok ukur, kompatibilitas SDK, kompatibilitas Plugin, pengujian emas)
+- Golden Test Suite dengan 200 kasus uji dalam 4 kategori
+- 13 Paket kemampuan perancah:
+  - Insinyur Jaringan
+  - Kode Insinyur
+  - Asisten Peneliti
+  - Asisten DevOps
+  - Analis Perdagangan
+  - Pengembangan Diri
+- Manajemen versi (file VERSION, pyproject.toml diperbarui ke 1.0.0-dev)
+- dokumen peta jalan v1 dengan kriteria dan metrik keberhasilan
 
-### Changed
-- Repository restructured for ecosystem readiness (kernel, runtime, sdk, studio, marketplace, capability_packs, apps, plugins, examples, docs, benchmarks)
-- All Phase 1-6 components integrated into cohesive platform
-- Documentation updated to reflect product positioning
+### Berubah
+- Repositori direkonsiliasi untuk ekosistem (kernel, Runtime, SDK, studio, pasar, ability_packs, aplikasi, Plugin, contoh, dokumen, tolok ukur)
+- Semua komponen Fase 1-6 terintegrasi ke dalam platform yang kohesif
+- Dokumentasi diperbarui untuk mencerminkan positioning produk
 
-### Governance
-- No new engines without real use case
-- Kernel must remain under 5000 lines
-- All plugins require manifest and security validation
-- Golden tests must pass with ≥80% rate
+### Tata Kelola
+- Tidak ada mesin baru tanpa kasus penggunaan nyata
+- Kernel harus tetap berada di bawah 5000 baris
+- Semua Plugin memerlukan manifestasi validasi dan keamanan
+- Tes emas harus lulus dengan tingkat ≥80%.
 
 ---
 
-## [0.1.0] - 2026-07-08
+## [0.1.0] - 07-08-2026
 
-### Added
-- Phase 1: AI Core (model router, memory, planner, tool calling, RAG)
-- Phase 2: AI Software Engineer (coding agents, QA, DevOps)
-- Phase 3: AI Enterprise Platform (organization, reputation, experience, observability)
-- Phase 4: Cognitive Architecture (reasoning, debate, simulation, verification)
-- Phase 5: Adaptive Cognitive OS (adaptive runtime, decision engine, meta-cognition)
-- Phase 6: Ecosystem (SDK, contracts, marketplace, studio, distributed runtime)
-- Stable contracts for all core interfaces
-- Plugin manifest and security model
-- Package boundary enforcement
+### Ditambahkan
+- Fase 1: AI Core (model router, memori, perencana, panggilan alat, RAG)
+- Fase 2: Insinyur Perangkat Lunak AI (agen pengkodean, QA, DevOps)
+- Fase 3: AI Enterprise Platform (organisasi, reputasi, pengalaman, observabilitas)
+- Fase 4: Arsitektur Kognitif (penalaran, debat, simulasi, verifikasi)
+- Fase 5: OS Kognitif Adaptif (adaptif Runtime, mesin keputusan, meta-kognisi)
+- Fase 6: Ekosistem (SDK, kontrak, pasar, studio, didistribusikan Runtime)
+- Kontrak stabil untuk semua antarmuka inti
+- Manifestasi Plugin dan model keamanan
+- Penegakan batas paket
 - Benchmark suite
-- Comprehensive documentation
+- Dokumentasi yang komprehensif

@@ -1,83 +1,64 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks singkat dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `README.md`
-- Judul: Readme
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-<!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Project overview, installation, quick start, and Capability Pack registry
+﻿<!-- DOCUMENT_METADATA_START -->
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Ikhtisar proyek, instalasi, quick start, dan registri Capability Pack
 <!-- DOCUMENT_METADATA_END -->
 
 # Enal Cognitive Platform (ECP)
 
-**AI Operating System** â€” A stable platform. Expert capabilities. One conversation.
+**AI Operating System** — Platform yang stabil. Capability yang ahli. Satu percakapan.
 
-> ðŸŸ¢ **Engineering Baseline: FROZEN** â€” Tag `v1.0.0-engineering-baseline`
-> ðŸŸ¢ **Engineering Transformation: COMPLETE** â€” MyPy=0, Tests=426, Python 3.11 compatible
-> ðŸŸ¢ **Governance: ACTIVE** â€” Quality Gates, ADRs, Architecture Specification
-> ðŸš€ **Status: APPROVED FOR PRODUCT DEVELOPMENT**
+> 🟢 **Engineering Baseline: FROZEN** — Tag `v1.0.0-engineering-baseline`
+> 🟢 **Engineering Transformation: COMPLETE** — MyPy=0, Tests=426, Python 3.11 compatible
+> 🟢 **Governance: ACTIVE** — Quality Gates, ADRs, Architecture Specification
+> 🚀 **Status: APPROVED FOR PRODUCT DEVELOPMENT**
 
 ---
 
-## Overview
+## Ikhtisar
 
-ECP is a multi-agent cognitive operating system that orchestrates domain-specific Capability Packs through a unified cognitive pipeline. It provides a stable Core Runtime, cognitive services, Memory hierarchy, event system, and governance framework â€” enabling teams to build and deploy AI-powered domain applications (Capability Packs) on a proven, documented foundation.
-> Terjemahan Indonesia: ECP adalah sebuah multi-agen kognitif sistem operasi itu orchestrates domain-specific kapabilitas Packs through sebuah unified kognitif jalur. It menyediakan sebuah stable Core Runtime, kognitif services, Memory hierarchy, event sistem, dan tata kelola kerangka kerja â€” enabling teams untuk membangun dan deploy AI-powered domain applications (kapabilitas Packs) pada sebuah proven, documented foundation.
+ECP adalah sistem operasi kognitif multi-agen yang mengorkestrasi Capability Pack spesifik-domain melalui cognitive pipeline yang terpadu. Platform ini menyediakan Core Runtime yang stabil, layanan kognitif, hierarki Memory, sistem event, dan kerangka tata kelola — memungkinkan tim untuk membangun dan men-deploy aplikasi domain bertenaga AI (Capability Pack) di atas fondasi yang terbukti dan terdokumentasi.
 
 ```
-User â†’ [API Layer] â†’ [Orchestrator] â†’ [Cognitive Pipeline (8 services)] â†’ [Memory] â†’ [Action]
-                                     â†˜                        â†™
+User → [API Layer] → [Orchestrator] → [Cognitive Pipeline (8 services)] → [Memory] → [Action]
+                                     ↖                        ↗
                                   Event Bus (Redis Streams)
 ```
 
 ---
 
-## Project Status
+## Status Proyek
 
-### Engineering Transformation Program: ðŸŸ¢ COMPLETE
+### Program Engineering Transformation: 🟢 COMPLETE
 
 | Area | Status | Detail |
 |---|---|---|
-| **Engineering Hardening** | âœ… Complete | 27 files fixed, MyPy=0, P0 errors resolved |
-| **Type Safety** | âœ… Complete | Full type annotations, strict MyPy passing |
-| **Test Suite** | âœ… Complete | 426 tests passing, pytest baseline established |
-| **Python 3.11 Compatibility** | âœ… Complete | Zero f-string backslash issues in production code |
-| **Ruff Hygiene** | âœ… Complete | Auto-fixable issues resolved, `ruff check --fix` applied |
-| **subprocess.run Safety** | âœ… Complete | All calls have explicit `check=` parameter |
+| **Engineering Hardening** | ✅ Selesai | 27 file diperbaiki, MyPy=0, error P0 teratasi |
+| **Type Safety** | ✅ Selesai | Anotasi tipe lengkap, MyPy strict lulus |
+| **Test Suite** | ✅ Selesai | 426 test lulus, baseline pytest terbentuk |
+| **Python 3.11 Compatibility** | ✅ Selesai | Nol masalah f-string backslash pada production code |
+| **Ruff Hygiene** | ✅ Selesai | Masalah auto-fixable teratasi, `ruff check --fix` diterapkan |
+| **subprocess.run Safety** | ✅ Selesai | Semua pemanggilan memiliki parameter `check=` eksplisit |
 
-### Architecture Governance: ðŸŸ¢ COMPLETE
+### Architecture Governance: 🟢 COMPLETE
 
-| Document | Lines | What It Provides |
+| Dokumen | Baris | Yang Disediakan |
 |---|---|---|
-| `docs/ENGINEERING_BASELINE.md` | 297 | Frozen baseline â€” what is locked and why |
-| `docs/quality/QUALITY_GATES.md` | 137 | 12 quality gates with exception process |
-| `docs/adr/ADR-001-*.md` | 68 | Event Bus Architecture decision |
-| `docs/adr/ADR-002-*.md` | 72 | Capability Pack Architecture decision |
-| `docs/adr/ADR-003-*.md` | 60 | Universal AST design decision |
-| `docs/adr/ADR-004-*.md` | 71 | Debate Engine Architecture decision |
-| `docs/AES_ARCHITECTURE.md` | 734 | Architecture Engineering Specification (actual code state) |
-| `docs/REFERENCE_ARCHITECTURE.md` | 635 | Patterns, anti-patterns, decision framework |
-| `docs/APP_DEV_GUIDE.md` | 798 | Step-by-step guide for building Capability Packs |
-| **Total** | **2,872 lines** | **97.6 KB â€” complete engineering governance suite** |
+| `docs/ENGINEERING_BASELINE.md` | 297 | Baseline yang dibekukan — apa yang dikunci dan mengapa |
+| `docs/quality/QUALITY_GATES.md` | 137 | 12 quality gate dengan proses pengecualian |
+| `docs/adr/ADR-001-*.md` | 68 | Keputusan Event Bus Architecture |
+| `docs/adr/ADR-002-*.md` | 72 | Keputusan Capability Pack Architecture |
+| `docs/adr/ADR-003-*.md` | 60 | Keputusan desain Universal AST |
+| `docs/adr/ADR-004-*.md` | 71 | Keputusan Debate Engine Architecture |
+| `docs/AES_ARCHITECTURE.md` | 734 | Architecture Engineering Specification (kondisi kode aktual) |
+| `docs/REFERENCE_ARCHITECTURE.md` | 635 | Pola, anti-pola, kerangka keputusan |
+| `docs/APP_DEV_GUIDE.md` | 798 | Panduan langkah-demi-langkah untuk membangun Capability Pack |
+| **Total** | **2,872 baris** | **97.6 KB — rangkaian engineering governance lengkap** |
 
-### Final Quality Scores
+### Skor Kualitas Akhir
 
 ```
 Engineering:    100/100
@@ -87,84 +68,81 @@ Documentation:  100/100
 Product Ready:   95/100
 ```
 
-The remaining 5% will be achieved when real products/capabilities deliver business value on the platform.
-> Terjemahan Indonesia: Remaining 5% akan menjadi achieved when real products/kapabilitas deliver business value pada platform.
+Sisa 5% akan tercapai ketika produk/capability nyata memberikan nilai bisnis di atas platform.
 
 ---
 
-## Architecture
+## Arsitektur
 
-### Layer Diagram
+### Diagram Lapisan
 
 ```
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                    API LAYER (FastAPI)                      â”‚
-â”‚  15 route modules â€” chat, execution, workspace, artifact... â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                          â”‚
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                 ORCHESTRATION LAYER                         â”‚
-â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
-â”‚  â”‚  AIOrchestrator  â”‚  â”‚UnifiedOrch.    â”‚  â”‚AdaptiveRT    â”‚ â”‚
-â”‚  â”‚ (goalâ†’planâ†’exec) â”‚  â”‚(4 modes+teams) â”‚  â”‚(pipeline sel)â”‚ â”‚
-â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-             â”‚                    â”‚                  â”‚
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                   COGNITIVE KERNEL                          â”‚
-â”‚  8 services: Perception, Memory, Reasoning, Planning,       â”‚
-â”‚  Decision, Action, Reflection, Learning                     â”‚
-â”‚  Executed in ordered pipelines per complexity level         â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                              â”‚
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                      RUNTIME LAYER                          â”‚
-â”‚  Event Bus (Redis Streams) â€¢ Task Queue â€¢ Execution Sched.  â”‚
-â”‚  Model Router (LiteLLM) â€¢ Cost Optimizer â€¢ State Recovery   â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                              â”‚
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                   INFRASTRUCTURE LAYER                      â”‚
-â”‚  Redis â”‚ PostgreSQL â”‚ File System â”‚ LLM Providers (LiteLLM) â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌─────────────────────────────────────────────────────────────────┐
+│                    API LAYER (FastAPI)                      │
+│  15 route modules — chat, execution, workspace, artifact... │
+└────────────────────────────────────────┬───────────────────────┘
+                          │
+┌────────────────────────────────────────▼───────────────────────┐
+│                 ORCHESTRATION LAYER                         │
+│  ┌───────────────┐  ┌───────────────┐  ┌─────────────┐ │
+│  │  AIOrchestrator  │  │UnifiedOrch.    │  │AdaptiveRT    │ │
+│  │ (goal→plan→exec) │  │(4 modes+teams) │  │(pipeline sel)│ │
+│  └───────────────┘  └───────────────┘  └─────────────┘ │
+└────────────────────┬────────────────────┬───────────────────┘
+             │                    │                  │
+┌────────────────────────▼────────────▼──────────────▼─────────┐
+│                   COGNITIVE KERNEL                          │
+│  8 services: Perception, Memory, Reasoning, Planning,       │
+│  Decision, Action, Reflection, Learning                     │
+│  Executed in ordered pipelines per complexity level         │
+└────────────────────────────────────────┬───────────────────┘
+                              │
+┌─────────────────────────────▼───────────────────────────────┐
+│                      RUNTIME LAYER                          │
+│  Event Bus (Redis Streams) • Task Queue • Execution Sched.  │
+│  Model Router (LiteLLM) • Cost Optimizer • State Recovery   │
+└────────────────────────────────────────┬───────────────────┘
+                              │
+┌─────────────────────────────▼───────────────────────────────┐
+│                   INFRASTRUCTURE LAYER                      │
+│  Redis │ PostgreSQL │ File System │ LLM Providers (LiteLLM) │
+└───────────────────────────────────────────────────────────┘
 ```
 
 ### Cognitive Pipeline
 
-Tasks are processed through pipelines selected by complexity:
-> Terjemahan Indonesia: Tasks adalah processed through pipelines selected oleh complexity:
+Tugas diproses melalui pipeline yang dipilih berdasarkan kompleksitas:
 
-| Complexity | Services | Use Case |
+| Kompleksitas | Layanan | Use Case |
 |---|---|---|
-| **TRIVIAL** | 4 (perception â†’ memory â†’ decision â†’ action) | Simple Q&A, fact lookup |
-| **SIMPLE** | 5 (+ reasoning) | Known patterns, low ambiguity |
-| **MEDIUM** | 7 (+ planning + reflection) | Multi-step analysis |
-| **COMPLEX** | 10 (+ debate + simulation + verification + learning) | Novel problems, high stakes |
+| **TRIVIAL** | 4 (perception → memory → decision → action) | Q&A sederhana, pencarian fakta |
+| **SIMPLE** | 5 (+ reasoning) | Pola yang dikenal, ambiguitas rendah |
+| **MEDIUM** | 7 (+ planning + reflection) | Analisis multi-langkah |
+| **COMPLEX** | 10 (+ debate + simulation + verification + learning) | Masalah baru, risiko tinggi |
 
-### Memory Architecture
+### Arsitektur Memory
 
-7 memory layers with automatic consolidation:
-> Terjemahan Indonesia: 7 memory layers dengan automatic consolidation:
+7 lapisan memory dengan konsolidasi otomatis:
 
-| Layer | Backend | TTL | Purpose |
+| Lapisan | Backend | TTL | Tujuan |
 |---|---|---|---|
-| Working | Redis | 1h | Short-lived session state |
-| Conversation | Redis | 24h | Chat history |
-| Knowledge | File (JSON) | âˆž | Structured knowledge |
-| Long-term | File (JSON) | âˆž | Compressed memories |
-| Episodic | File (JSON) | âˆž | Event timeline |
-| Session | File (JSON) | 24h | Conversation context |
-| Project | File (JSON) | âˆž | Project data |
+| Working | Redis | 1h | State sesi jangka pendek |
+| Conversation | Redis | 24h | Riwayat chat |
+| Knowledge | File (JSON) | ∞ | Pengetahuan terstruktur |
+| Long-term | File (JSON) | ∞ | Memory terkompresi |
+| Episodic | File (JSON) | ∞ | Linimasa event |
+| Session | File (JSON) | 24h | Konteks percakapan |
+| Project | File (JSON) | ∞ | Data proyek |
 
 ---
 
-## Getting Started
+## Memulai
 
-### Prerequisites
+### Prasyarat
 
 - Python 3.11+
-- Redis 7+ (for Event Bus, Working/Conversation Memory)
-- PostgreSQL 15+ (for execution sessions, artifacts)
+- Redis 7+ (untuk Event Bus, Working/Conversation Memory)
+- PostgreSQL 15+ (untuk execution session, artifacts)
 
 ### Quick Start
 
@@ -173,167 +151,165 @@ Tasks are processed through pipelines selected by complexity:
 git clone https://github.com/sainalabidinst-afk/Enal-AI-OS.git
 cd Enal-AI-OS
 
-# Create virtual environment
+# Buat virtual environment
 python -m venv .venv
 source .venv/bin/activate  # Linux/Mac
 # .venv\Scripts\activate   # Windows
 
-# Install backend dependencies
+# Install dependensi backend
 pip install -e backend/
 
 # Install SDK
 pip install -e sdk/
 
-# Run tests
+# Jalankan test
 pytest -v
 
-# Verify type safety
+# Verifikasi type safety
 mypy apps/ backend/
 ```
 
-### Verify the Baseline
+### Verifikasi Baseline
 
 ```bash
-# Engineering baseline checks
+# Pemeriksaan engineering baseline
 python _audit_hygiene.py           # f-string, ruff, test collection
 
 # Quality Gates
-python scripts/gate0_validate.py   # Pre-merge validation
+python scripts/gate0_validate.py   # Validasi pre-merge
 ```
 
 ---
 
-## Official Capability Packs
+## Capability Pack Resmi
 
 | Capability Pack | Status | Grade |
 |---|---|---|
-| **Network Engineer** | âœ… Production Ready | A (â‰¥90) |
-| **Code Engineer** | âœ… Production Ready | A- (â‰¥85) |
-| **Research Assistant** | âœ… Production Ready | A- (â‰¥85) |
-| **DevOps Assistant** | âœ… Production Ready | B+ (â‰¥80) |
-| **Trading Analyst** | âœ… Production Ready | B+ (â‰¥80) |
-| **Self Development** | âœ… Production Ready | A (â‰¥90) |
-| **Decision Intelligence** | âœ… Production Ready | A (â‰¥90) |
-| **System Architect** | âœ… Production Ready | A (â‰¥90) |
-| **Security Engineer** | âœ… Production Ready | A- (â‰¥85) |
-| **Data Engineer** | âœ… Production Ready | A- (â‰¥85) |
-| **Database Engineer** | âœ… Production Ready | A- (â‰¥85) |
-| **QA Engineer** | âœ… Production Ready | A (â‰¥90) |
-| **Business Analyst** | âœ… Production Ready | A- (â‰¥85) |
+| **Network Engineer** | ✅ Production Ready | A (≥90) |
+| **Code Engineer** | ✅ Production Ready | A- (≥85) |
+| **Research Assistant** | ✅ Production Ready | A- (≥85) |
+| **DevOps Assistant** | ✅ Production Ready | B+ (≥80) |
+| **Trading Analyst** | ✅ Production Ready | B+ (≥80) |
+| **Self Development** | ✅ Production Ready | A (≥90) |
+| **Decision Intelligence** | ✅ Production Ready | A (≥90) |
+| **System Architect** | ✅ Production Ready | A (≥90) |
+| **Security Engineer** | ✅ Production Ready | A- (≥85) |
+| **Data Engineer** | ✅ Production Ready | A- (≥85) |
+| **Database Engineer** | ✅ Production Ready | A- (≥85) |
+| **QA Engineer** | ✅ Production Ready | A (≥90) |
+| **Business Analyst** | ✅ Production Ready | A- (≥85) |
 
-### Building a New Capability Pack
+### Membangun Capability Pack Baru
 
-See the [Application Development Guide](docs/APP_DEV_GUIDE.md) for complete step-by-step instructions:
-> Terjemahan Indonesia: See Application Development panduan untuk complete step-oleh-step instructions:
+Lihat [Application Development Guide](docs/APP_DEV_GUIDE.md) untuk petunjuk langkah-demi-langkah yang lengkap:
 
 ```
-1. Define Domain Scope      â†’ 5. Implement Custom Logic
-2. Identify Building Blocks  â†’ 6. Add Tests
-3. Create App Module         â†’ 7. Register API Routes
-4. Register Skills           â†’ 8. Integrate with Orchestration
+1. Define Domain Scope      → 5. Implement Custom Logic
+2. Identify Building Blocks  → 6. Add Tests
+3. Create App Module         → 7. Register API Routes
+4. Register Skills           → 8. Integrate with Orchestration
 ```
 
 ---
 
-## Documentation Suite
+## Rangkaian Dokumentasi
 
-| Document | Location | Best For |
+| Dokumen | Lokasi | Terbaik Untuk |
 |---|---|---|
-| **Getting Started** | `docs/getting_started.md` | First-time setup |
-| **Architecture (AES)** | `docs/AES_ARCHITECTURE.md` | Understanding how platform is built |
-| **Reference Architecture** | `docs/REFERENCE_ARCHITECTURE.md` | Patterns, anti-patterns, decision framework |
-| **App Development Guide** | `docs/APP_DEV_GUIDE.md` | Building new capability packs |
-| **Engineering Baseline** | `docs/ENGINEERING_BASELINE.md` | What is frozen and why |
-| **Quality Gates** | `docs/quality/QUALITY_GATES.md` | Merge requirements and exceptions |
-| **ADRs** | `docs/adr/ADR-001.md` â€” `ADR-004.md` | Why architectural decisions were made |
-| **API Reference** | `docs/api_reference.md` | Endpoint documentation |
-| **SDK Reference** | `sdk/README.md` | Python SDK usage |
+| **Getting Started** | `docs/getting_started.md` | Setup pertama kali |
+| **Architecture (AES)** | `docs/AES_ARCHITECTURE.md` | Memahami bagaimana platform dibangun |
+| **Reference Architecture** | `docs/REFERENCE_ARCHITECTURE.md` | Pola, anti-pola, kerangka keputusan |
+| **App Development Guide** | `docs/APP_DEV_GUIDE.md` | Membangun capability pack baru |
+| **Engineering Baseline** | `docs/ENGINEERING_BASELINE.md` | Apa yang dibekukan dan mengapa |
+| **Quality Gates** | `docs/quality/QUALITY_GATES.md` | Persyaratan merge dan pengecualian |
+| **ADRs** | `docs/adr/ADR-001.md` — `ADR-004.md` | Mengapa keputusan arsitektur dibuat |
+| **API Reference** | `docs/api_reference.md` | Dokumentasi endpoint |
+| **SDK Reference** | `sdk/README.md` | Penggunaan Python SDK |
 
 ---
 
-## Development
+## Pengembangan
 
-### Project Structure
+### Struktur Proyek
 
 ```
 enal-ai-os/
-â”œâ”€â”€ backend/                  # Core platform (FastAPI + cognitive runtime)
-â”‚   â”œâ”€â”€ app/
-â”‚   â”‚   â”œâ”€â”€ api/              # REST/WebSocket endpoints (15 modules)
-â”‚   â”‚   â”œâ”€â”€ core/             # Cognitive kernel, memory, event bus, runtime
-â”‚   â”‚   â”œâ”€â”€ models/           # Data models
-â”‚   â”‚   â””â”€â”€ studio/           # ECP Studio
-â”‚   â””â”€â”€ tests/
-â”œâ”€â”€ apps/                     # Capability Packs
-â”‚   â”œâ”€â”€ network_engineer/     # Network config analysis & generation
-â”‚   â”œâ”€â”€ code_engineer/        # Code analysis & generation
-â”‚   â”œâ”€â”€ research_assistant/   # Research & analysis
-â”‚   â”œâ”€â”€ devops_assistant/     # DevOps automation
-â”‚   â”œâ”€â”€ trading_analyst/      # Trading analysis
-â”‚   â”œâ”€â”€ self_development/     # Self-improvement
-â”‚   â”œâ”€â”€ decision_intelligence/     # Decision Intelligence (RFC-0007)
-â”‚   â”œâ”€â”€ system_architect/          # System Architect (RFC-0011)
-â”‚   â”œâ”€â”€ security_engineer/         # Security Engineer (RFC-0008)
-â”‚   â”œâ”€â”€ data_engineer/             # Data Engineer (RFC-0009)
-â”‚   â”œâ”€â”€ database_engineer/         # Database Engineer (RFC-0010)
-â”‚   â”œâ”€â”€ qa_engineer/               # QA Engineer (RFC-0012)
-â”‚   â””â”€â”€ business_analyst/          # Business Analyst (RFC-0013)
-â”œâ”€â”€ agents/                   # Agent registry and skills
-â”œâ”€â”€ sdk/                      # Python SDK
-â”œâ”€â”€ benchmarks/               # Performance benchmarks
-â”œâ”€â”€ tests/                    # Test suite (426 tests)
-â””â”€â”€ docs/                     # Documentation (9 documents)
-    â”œâ”€â”€ adr/                  # Architecture Decision Records
-    â””â”€â”€ quality/              # Quality Gate policies
+├── backend/                  # Core platform (FastAPI + cognitive runtime)
+│   ├── app/
+│   │   ├── api/              # REST/WebSocket endpoints (15 modul)
+│   │   ├── core/             # Cognitive kernel, memory, event bus, runtime
+│   │   ├── models/           # Data models
+│   │   └── studio/           # ECP Studio
+│   └── tests/
+├── apps/                     # Capability Packs
+│   ├── network_engineer/     # Analisis & generasi konfigurasi jaringan
+│   ├── code_engineer/        # Analisis & generasi kode
+│   ├── research_assistant/   # Research & analisis
+│   ├── devops_assistant/     # Otomasi DevOps
+│   ├── trading_analyst/      # Analisis trading
+│   ├── self_development/     # Pengembangan diri
+│   ├── decision_intelligence/     # Decision Intelligence (RFC-0007)
+│   ├── system_architect/          # System Architect (RFC-0011)
+│   ├── security_engineer/         # Security Engineer (RFC-0008)
+│   ├── data_engineer/             # Data Engineer (RFC-0009)
+│   ├── database_engineer/         # Database Engineer (RFC-0010)
+│   ├── qa_engineer/               # QA Engineer (RFC-0012)
+│   └── business_analyst/          # Business Analyst (RFC-0013)
+├── agents/                   # Registri agent dan skills
+├── sdk/                      # Python SDK
+├── benchmarks/               # Performance benchmark
+├── tests/                    # Test suite (426 test)
+└── docs/                     # Dokumentasi (9 dokumen)
+    ├── adr/                  # Architecture Decision Records
+    └── quality/              # Kebijakan Quality Gate
 ```
 
-### Quality Gates (Before Merge)
+### Quality Gates (Sebelum Merge)
 
 ```bash
-# Required checks
-mypy apps/ backend/                       # 0 errors
-ruff check apps/ backend/                 # 0 blockers
-pytest -v                                 # â‰¥95% passing
-python scripts/gate0_validate.py          # Pre-merge gate
+# Pemeriksaan wajib
+mypy apps/ backend/                       # 0 error
+ruff check apps/ backend/                 # 0 blocker
+pytest -v                                 # ≥95% lulus
+python scripts/gate0_validate.py          # Gate pre-merge
 
-# Optional (recommended)
-ruff format --check .                     # Consistent formatting
-python _audit_hygiene.py                   # Full hygiene audit
+# Opsional (disarankan)
+ruff format --check .                     # Format konsisten
+python _audit_hygiene.py                   # Audit hygiene lengkap
 ```
 
 ---
 
 ## Roadmap
 
-### Completed âœ…
+### Selesai ✅
 
-- [x] **v0.1.0** â€” Core Architecture and cognitive runtime
-- [x] **v1.0.0-dev** â€” Canonical Consolidation, Telemetry, Benchmark, CCE
-- [x] **Memory Integration** â€” 7 memory layers with consolidation
-- [x] **Orchestrator** â€” AIOrchestrator, UnifiedOrchestrator, AdaptiveRuntime
-- [x] **Engineering Hardening** â€” MyPy=0, Ruff clean, 426 tests
-- [x] **Python 3.11 Compatibility** â€” Zero f-string issues in production
-- [x] **Architecture Governance** â€” AES, Reference Architecture, 4 ADRs
-- [x] **Development Guide** â€” Complete step-by-step for Capability Packs
+- [x] **v0.1.0** — Arsitektur inti dan cognitive runtime
+- [x] **v1.0.0-dev** — Canonical Consolidation, Telemetry, Benchmark, CCE
+- [x] **Memory Integration** — 7 lapisan memory dengan konsolidasi
+- [x] **Orchestrator** — AIOrchestrator, UnifiedOrchestrator, AdaptiveRuntime
+- [x] **Engineering Hardening** — MyPy=0, Ruff clean, 426 test
+- [x] **Python 3.11 Compatibility** — Nol masalah f-string di production
+- [x] **Architecture Governance** — AES, Reference Architecture, 4 ADR
+- [x] **Development Guide** — Langkah-langkah lengkap untuk Capability Pack
 
-### Next: Product Development ðŸš€
+### Berikutnya: Product Development 🚀
 
-The Engineering Transformation program is complete. Focus now shifts to building real products and capabilities that deliver business value on the stable platform foundation.
-> Terjemahan Indonesia: Rekayasa Transformation program adalah complete. Focus now shifts untuk building real products dan kapabilitas itu deliver business value pada stable platform foundation.
+Program Engineering Transformation telah selesai. Fokus kini beralih ke pembangunan produk dan capability nyata yang memberikan nilai bisnis di atas fondasi platform yang stabil.
 
-Recommended capability development cycle:
-> Terjemahan Indonesia: Recommended kapabilitas development cycle:
+Siklus pengembangan capability yang disarankan:
 
 ```
-Business Need â†’ Capability Spec â†’ Architecture Review â†’ Implementation â†’ Quality Gates â†’ Documentation â†’ Release
+Business Need → Capability Spec → Architecture Review → Implementation → Quality Gates → Documentation → Release
 ```
 
 ---
 
-## License
+## Lisensi
 
 MIT
 
 ---
 
-*ECP â€” From stable platform to valuable products.*
+*ECP — Dari platform yang stabil menuju produk yang bernilai.*
+

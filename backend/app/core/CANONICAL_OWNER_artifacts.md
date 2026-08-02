@@ -1,46 +1,40 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
+## Bahasa Indonesia/Bahasa Inggris
 
 
-### Ringkasan / Summary
+### Ringkas / Ringkas
 Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
 
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
 
-### Informasi Dokumen / Document Info
-- File: `backend/app/core/CANONICAL_OWNER_artifacts.md`
-- Judul: Canonical Owner Artifacts
-- Status: bilingual header added
+### Informasi Dokumen / Info Dokumen
+- Berkas: `backend/app/core/CANONICAL_OWNER_artifacts.md`
+- Judul: Artefak Pemilik Canonical
+- Status: editor bilingual ditambahkan
 
-<!-- BILINGUAL_DOCS_END -->
 
-# CANONICAL_OWNER
+# KANONIK_PEMILIK
 
-## Service: Artifact
+## Layanan: Artefak
 
-**Canonical:** `backend/app/core/artifact_service.py`  
-**Legacy:** `backend/app/core/artifact_system.py`  
-**Status:** canonical / deleted
+**Kanonik:** `backend/app/core/artifact_service.py`
+**Warisan:** `backend/app/core/artifact_system.py`
+**Status:** kanonis / dihapus
 
 ---
 
-## Migration History
+## Sejarah Migrasi
 
-| Date | Action | By |
+|Tanggal|Tindakan|Oleh|
 |------|--------|----|
-| 2026-07-11 | Migrated `phase3.py` to `artifact_service.create_artifact()` | Canonical Consolidation Epic 2 |
-| 2026-07-11 | Migrated `ai_studio.py` to `artifact_service.list_artifacts()` | Canonical Consolidation Epic 2 |
-| 2026-07-11 | Deleted `artifact_system.py` (broken on import) | Canonical Consolidation Epic 2 |
+|07-11-2026|Migrasi `phase3.py` ke `artifact_service.create_artifact()`|Epik Konsolidasi Kanonik 2|
+|07-11-2026|Migrasi `ai_studio.py` ke `artifact_service.list_artifacts()`|Epik Konsolidasi Kanonik 2|
+|07-11-2026|Menghapus `artifact_system.py` (rusak saat diimpor)|Epik Konsolidasi Kanonik 2|
 
-## Canonical Consumers
+## Konsumen Kanonis
 
 - `backend/app/api/artifact.py`
 - `backend/app/api/execution.py`
-- `backend/app/api/chat.py` (dynamic)
+- `backend/app/api/chat.py` (dinamis)
 
-## Migration Notes
+## Catatan Migrasi
 
-`artifact_system.py` used integer semver string `project_id` domain keys and was broken on import (missing `dataclass`/`field` imports). Both consumers (`phase3.py`, `ai_studio.py`) have been migrated to `artifact_service` which uses integer versioning and `workspace_id`.
-> Terjemahan Indonesia: Artifact_system.py used integer semver string project_id domain keys dan was broken pada import (missing dataclass/field imports). Both consumers (phase3.py, ai_studio.py) memiliki been migrated untuk artifact_service which uses integer versioning dan workspace_id.
+`artifact_system.py` menggunakan kunci domain string semver integer `project_id` dan rusak saat impor (impor `dataclass`/`field` tidak ada). Kedua konsumen (`phase3.py`, `ai_studio.py`) telah dimigrasi ke `artifact_service` yang menggunakan versi integer dan `workspace_id`.

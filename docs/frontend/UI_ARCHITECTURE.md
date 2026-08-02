@@ -1,88 +1,63 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/frontend/UI_ARCHITECTURE.md`
-- Judul: Ui Architecture
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Frontend UI Architecture
+﻿# Arsitektur UI Frontend
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Frontend documentation for UI_ARCHITECTURE
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Diverifikasi Terakhir:** 08-02-2026
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi frontend untuk UI_ARCHITECTURE
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Frozen  
-**Effective:** 2026-07-11  
-**Owner:** Chief Product Officer  
-**Purpose:** Defines the non-negotiable architectural rules and flows for frontend implementation. No React code may be written before this document is approved.
+**Status:** Beku
+**Efektif:** 07-11-2026
+**Pemilik:** Kepala Bagian Produk
+**Tujuan:** Mendefinisikan aturan dan alur arsitektur yang tidak dapat dinegosiasikan untuk implementasi frontend. Tidak ada kode React yang boleh ditulis sebelum dokumen ini disetujui.
 
 ---
 
-## 1. Frontend Architecture Rules
+## 1. Aturan Arsitektur Frontend
 
-These rules are non-negotiable. Any code that violates them is a defect.
-> Terjemahan Indonesia: These rules adalah non-negotiable. Any code itu violates them adalah sebuah defect.
+Aturan-aturan ini tidak dapat dinegosiasikan. Kode apa pun yang melanggarnya adalah cacat.
 
-### Rule 1 â€” Frontend Never Thinks
+### Aturan 1 — Frontend Tidak Pernah Berpikir
 
-The frontend must never make a decision that belongs to the backend.
-> Terjemahan Indonesia: Frontend must never make sebuah decision itu belongs untuk backend.
+Frontend tidak boleh membuat keputusan yang menjadi tanggung jawab backend.
 
-**Wrong:**
+**Salah:**
 ```typescript
 if (message.includes("mikrotik")) {
   capability = "network";
 }
 ```
 
-**Right:**
+**Benar:**
 ```typescript
 POST /api/v1/chat
-// Backend determines everything
-Frontend only renders.
+// Backend menentukan segalanya
+Frontend hanya merender.
 ```
 
-The frontend is a rendering layer. It does not interpret, classify, or route.
-> Terjemahan Indonesia: Frontend adalah sebuah rendering layer. It does not interpret, classify, or route.
+Frontend adalah lapisan rendering. Frontend tidak menginterpretasi, mengklasifikasi, atau melakukan routing.
 
-### Rule 2 â€” Frontend Never Plans
+### Aturan 2 — Frontend Tidak Pernah Merencanakan
 
-The frontend must never create:
-> Terjemahan Indonesia: Frontend must never membuat:
-- tasks
-- execution graphs
-- schedulers
-- capability assignments
-- plans of any kind
+Frontend tidak boleh membuat:
+- tugas
+- grafik eksekusi
+- penjadwalan
+- pengugasan kemampuan
+- rencana dalam bentuk apa pun
 
-All of these originate from the backend.
-> Terjemahan Indonesia: All dari these originate dari backend.
+Semua itu berasal dari backend.
 
-### Rule 3 â€” Backend is Source of Truth
+### Aturan 3 — Backend adalah Sumber Kebenaran
 
-For every piece of application state, there is one source of truth â€” the backend.
-> Terjemahan Indonesia: Untuk every piece dari application state, there adalah one source dari truth â€” backend.
+Untuk setiap bagian aplikasi, hanya ada satu sumber kebenaran — backend.
 
-The frontend must never compute derived state that the backend already sends.
-> Terjemahan Indonesia: Frontend must never compute derived state itu backend already sends.
+Frontend tidak boleh menghitung state turunan yang sudah dikirim backend.
 
-Example â€” progress:
-> Terjemahan Indonesia: Contoh - kemajuan:
+Contoh — kemajuan:
 ```json
 {
   "phase": "Security Analysis",
@@ -90,63 +65,54 @@ Example â€” progress:
 }
 ```
 
-Backend sends this. Frontend displays this. No local computation.
-> Terjemahan Indonesia: Backend sends ini. Frontend displays ini. No local computation.
+Backend mengirim ini. Frontend menampilkan ini. Tanpa komputasi lokal.
 
-### Rule 4 â€” UI = Projection
+### Aturan 4 — UI = Proyeksi
 
-The frontend is a projection of backend state. All state originates from backend mutations.
-> Terjemahan Indonesia: Frontend adalah sebuah projection dari backend state. All state originates dari backend mutations.
+Frontend adalah proyeksi dari state backend. Semua state berasal dari mutasi backend.
 
-| State Concept | Source |
+|Konsep Negara|Sumber|
 |---------------|--------|
-| Workspace | Backend |
-| Conversation | Backend |
-| Execution | Backend |
-| Artifacts | Backend |
-| Progress | Backend |
-| Notifications | Backend |
-| Theme | Frontend |
-| Sidebar | Frontend |
+|Ruang kerja|Bagian belakang|
+|Percakapan|Bagian belakang|
+|Eksekusi|Bagian belakang|
+|Artefak|Bagian belakang|
+|Kemajuan|Bagian belakang|
+|Pemberitahuan|Bagian belakang|
+|Tema|Bagian depan|
+|Bila samping|Bagian depan|
 
-The frontend is permitted to cache temporarily for UX performance, but never as a source of truth.
-> Terjemahan Indonesia: Frontend adalah permitted untuk cache temporarily untuk UX performance, but never as sebuah source dari truth.
+Frontend diizinkan melakukan cache sementara untuk menjalankan UX, tetapi tidak pernah menjadi sumber kebenaran.
 
-### Rule 5 â€” Zero Mock Logic
+### Aturan 5 — Nol Logika Mock
 
-Mock data is not allowed in any production screen once the backend is connected.
-> Terjemahan Indonesia: Mock data adalah not allowed dalam any production screen once backend adalah connected.
+Data palsu tidak diizinkan di layar produksi mana pun setelah backend terhubung.
 
-Forbidden:
-> Terjemahan Indonesia: Terlarang:
+Terlarang:
 - `fakeExecution()`
 - `fakeArtifact()`
 - `dummyHistory()`
-- Any hardcoded fixtures in screens or features
+- Fixture hardcode apa pun di layar atau fitur
 
-The Developer Preview must use real backend APIs. Mock data is only acceptable in isolated local development contexts that are never shipped.
-> Terjemahan Indonesia: Developer Preview must use real backend APIs. Mock data adalah only acceptable dalam isolated local development contexts itu adalah never shipped.
+Pratinjau Pengembang harus menggunakan API backend nyata. Data tiruan hanya dapat diterima dalam konteks pengembangan lokal yang dilindungi dan tidak pernah dirilis.
 
-### Rule 6 â€” Stateless Components
+### Aturan 6 — Komponen Stateless
 
-Components should be as stateless as possible.
-> Terjemahan Indonesia: Components should menjadi as stateless as possible.
+Komponen harus se-stateless mungkin.
 
 ```typescript
-// Correct
+// Benar
 <ProgressCard phase="Security Analysis" progress={65} />
 
-// Incorrect (contains business logic)
+// Salah (mengandung logika bisnis)
 <ProgressCard data={execution} onPhaseUpdate={...} />
 ```
 
-Components receive data via props and emit events via callbacks. They do not own business logic.
-> Terjemahan Indonesia: Components receive data via props dan emit events via callbacks. They do not own business logic.
+Komponen menerima data melalui props dan memancarkan event melalui callback. Mereka tidak memiliki logika bisnis.
 
-### Rule 7 â€” UI Does Not Know Capability
+### Aturan 7 — UI Tidak Mengenal Kapabilitas
 
-The frontend must not have domain-specific logic such as:
-> Terjemahan Indonesia: Frontend must not memiliki domain-specific logic such as:
+Frontend tidak boleh memiliki logika khusus domain seperti:
 
 ```typescript
 switch (domain) {
@@ -156,149 +122,137 @@ switch (domain) {
 }
 ```
 
-The frontend only knows these concepts:
-> Terjemahan Indonesia: Frontend only knows these concepts:
-- Execution
-- Artifact
-- Conversation
-- Notification
+Frontend hanya mengenal konsep-konsep ini:
+- Eksekusi
+- Artefak
+- Percakapan
+- Pemberitahuan
 
-Domains and Capability Packs are backend concepts and are never exposed to the UI layer.
-> Terjemahan Indonesia: Domains dan kapabilitas Packs adalah backend concepts dan adalah never exposed untuk UI layer.
+Domain dan Capability Packs adalah konsep backend dan tidak pernah diekspos ke lapisan UI.
 
 ---
 
-## 2. Data Flow
+## 2. Data Alur
 
-The canonical path for all data in the frontend:
-> Terjemahan Indonesia: Canonical path untuk all data dalam frontend:
+Jalur kanonik untuk semua data di frontend:
 
 ```
 Backend
-  â†“
+  ↓
 API (REST / WebSocket / SSE)
-  â†“
+  ↓
 Service Layer (services/)
-  â†“
+  ↓
 Store (Zustand slices)
-  â†“
+  ↓
 Selector (derive UI data)
-  â†“
+  ↓
 Component (dumb, props-only)
-  â†“
+  ↓
 User
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- Components never call the API directly.
-- Components never call services directly.
-- Components subscribe to store selectors only.
-- Services normalize and validate API responses before storing.
-- The store is the single gateway between services and components.
+Aturan:
+- Components tidak pernah memanggil API secara langsung.
+- Komponen tidak pernah memanggil layanan secara langsung.
+- Komponen hanya berlangganan penyeleksi toko.
+- Layanan menormalkan dan memvalidasi respons API sebelum disimpan.
+- Store adalah satu-satunya gerbang antara layanan dan komponen.
 
 ---
 
-## 3. Event Flow
+## 3. Acara Alur
 
-The canonical path for all user-triggered events:
-> Terjemahan Indonesia: Canonical path untuk all user-triggered events:
+Jalur kanonik untuk semua acara yang dipicu pengguna:
 
 ```
 User
-  â†“
+  ↓
 UI (click, input, gesture)
-  â†“
+  ↓
 API call (via service)
-  â†“
+  ↓
 Backend
-  â†“
+  ↓
 Streaming response (SSE / WebSocket)
-  â†“
+  ↓
 Store update (via stream handler)
-  â†“
+  ↓
 UI re-render
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- API calls happen immediately â€” no intermediate "waiting" states before the first API call.
-- Streaming updates go directly to the store.
-- The store emits changes; components re-render automatically.
-- No local setTimeout polling.
+Aturan:
+- Panggilan API terjadi segera — tidak ada status "waiting" perantara sebelum panggilan API pertama.
+- Update streaming langsung menuju toko.
+- Toko memancarkan perubahan; komponen me-render ulang secara otomatis.
+- Tidak ada polling `setTimeout` lokal.
 
 ---
 
-## 4. State Ownership
+## 4. Kepemilikan Negara
 
-| State | Owner | Persists | Notes |
+|Negara|Pemilik|Bertahan|Catatan|
 |-------|-------|----------|-------|
-| Conversation | Backend | Yes | Messages, streaming state |
-| Workspace | Backend | Yes | Files, memory, context |
-| Execution | Backend | Yes | Status, phases, logs, progress |
-| Artifact | Backend | Yes | Versions, content |
-| Notification | Backend | Yes | Unread count, history |
-| Model Selection | Backend | Yes | Route via `/api/v1/models/route` |
-| Theme | Frontend | localStorage | UI preference only |
-| Sidebar state | Frontend | localStorage | Open/closed, width |
-| Draft message | Frontend | Memory only | Cleared on send |
+|Percakapan|Bagian belakang|Ya|Pesan, streaming status|
+|Ruang kerja|Bagian belakang|Ya|File, memori, konteks|
+|Eksekusi|Bagian belakang|Ya|Status, fase, log, kemajuan|
+|Artefak|Bagian belakang|Ya|Versi, konten|
+|Pemberitahuan|Bagian belakang|Ya|Hitungan yang belum dibaca, sejarah|
+|Model Pemilihan|Bagian belakang|Ya|Rute melalui `/api/v1/models/route`|
+|Tema|Bagian depan|Penyimpanan lokal|Hanya preferensi UI|
+|Status online sisi|Bagian depan|Penyimpanan lokal|Buka/tutup, lebar|
+|Draf pesan|Bagian depan|Hanya kenangan|Dihapus saat dikirim|
 
-No state slice may exist in multiple places. If the backend owns it, the frontend never stores a copy as the source of truth.
-> Terjemahan Indonesia: No state slice may exist dalam multiple places. If backend owns it, frontend never stores sebuah copy as source dari truth.
+Tidak ada potongan negara yang boleh ada di banyak tempat. Jika backend memilikinya, frontend tidak pernah menyimpan salinannya sebagai sumber kebenaran.
 
 ---
 
-## 5. Streaming Contract
+## 5. Kontrak Streaming
 
-Backend uses Server-Sent Events (SSE) or WebSocket for all real-time updates.
-> Terjemahan Indonesia: Backend uses Server-Sent Events (SSE) or WebSocket untuk all real-time updates.
+Backend menggunakan Server-Sent Events (SSE) atau WebSocket untuk semua pembaruan secara real-time.
 
-All stream events must be handled by a single stream middleware that updates the store.
-> Terjemahan Indonesia: All stream events must menjadi handled oleh sebuah single stream middleware itu updates store.
+Semua event stream harus ditangani oleh satu stream middleware yang memperbarui store.
 
-| Event Type | Store Action |
+|Tipe Acara|Toko Aksi|
 |------------|--------------|
-| `final` | `addMessage()` |
-| `execution_started` | `addExecution()` |
-| `phase` | `updatePhase()` / `addPhase()` |
-| `task` | `addTask()` (if applicable slice) |
-| `log` | `addLog()` |
-| `artifact` | `addArtifact()` |
-| `progress` | `setProgress()` |
-| `execution_complete` | `setExecutionStatus('completed')` |
-| `error` | `setError()` |
+|`final`|`addMessage()`|
+|`execution_started`|`addExecution()`|
+|`phase`|`updatePhase()` / `addPhase()`|
+|`task`|`addTask()` (jika potongan berlaku)|
+|`log`|`addLog()`|
+|`artifact`|`addArtifact()`|
+|`progress`|`setProgress()`|
+|`execution_complete`|`setExecutionStatus('completed')`|
+|`error`|`setError()`|
 
-No component may consume the stream directly. Components use store selectors only.
-> Terjemahan Indonesia: No component may consume stream directly. Components use store selectors only.
+Tidak ada komponen yang boleh mengonsumsi stream secara langsung. Komponen hanya menggunakan penyeleksi toko.
 
 ---
 
-## 6. Service Layer Contract
+## 6. Lapisan Layanan Kontrak
 
-All backend communication happens through `src/services/`.
-> Terjemahan Indonesia: Semua komunikasi backend terjadi melalui src/services/.
+Semua komunikasi backend terjadi melalui `src/services/`.
 
 ```typescript
-// services/api.ts â€” all HTTP calls
-// services/chat.ts â€” chat-specific API functions
-// services/execution.ts â€” execution-specific API functions
-// services/workspace.ts â€” workspace-specific API functions
-// services/artifact.ts â€” artifact-specific API functions
-// services/notification.ts â€” notification-specific API functions
-// services/stream.ts â€” WebSocket/SSE stream handler
+// services/api.ts — semua panggilan HTTP
+// services/chat.ts — fungsi API khusus chat
+// services/execution.ts — fungsi API khusus execution
+// services/workspace.ts — fungsi API khusus workspace
+// services/artifact.ts — fungsi API khusus artifact
+// services/notification.ts — fungsi API khusus notification
+// services/stream.ts — WebSocket/SSE stream handler
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- Services return promises or observables (for streams).
-- Services never modify store directly. They dispatch actions.
-- Services never contain UI logic.
-- Services never mock. They call real APIs.
-- Services normalize all API responses to match store types.
+Aturan:
+- Layanan mengembalikan janji atau yang dapat diamati (untuk streaming).
+- Layanan tidak pernah mengubah toko secara langsung. Mereka memancarkan aksi.
+- Layanan tidak pernah mengandung logika UI.
+- Layanan tidak pernah mengejek. Mereka memanggil API nyata.
+- Layanan menormalkan semua respons API agar cocok dengan tipe toko.
 
 ---
 
-## 7. Store Contract
+## 7. Toko Kontrak
 
 ```typescript
 // store/conversationSlice.ts
@@ -309,19 +263,18 @@ Rules:
 // store/settingsSlice.ts
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- Each slice is a single Zustand store.
-- State is normalized by ID.
-- No nested arrays of full objects.
-- No derived state stored.
-- All mutations must have explicit actions.
-- Selectors are the only public read interface.
-- Slice state is hydrates from backend on app load.
+Aturan:
+- Setiap irisan adalah satu toko Zustand.
+- Keadaan dinormalisasi berdasarkan ID.
+- Tidak ada array yang berisi objek lengkap.
+- Tidak ada status turunan yang disimpan.
+- Semua pengobatan harus memiliki aksi eksplisit.
+- Selectors adalah satu-satunya antarmuka baca publik.
+- Statuskan irisan dihidrat dari backend saat aplikasi dimuat.
 
 ---
 
-## 8. Component Contract
+## 8. Kontrak Komponen
 
 ```typescript
 // components/ChatBubble/
@@ -331,19 +284,18 @@ Rules:
 // components/ExecutionTimeline/
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- Components receive data via props.
-- Components emit events via callbacks (void return).
-- Components never import services.
-- Components never import other components' internal state.
-- Components never contain business logic.
-- Components never decide what to render based on domain type.
-- Components use design tokens for all visual values.
+Aturan:
+- Komponen menerima data melalui alat peraga.
+- Komponen memancarkan acara melalui panggilan balik (void return).
+- Komponen tidak pernah mengimpor layanan.
+- Komponen tidak pernah mengimpor keadaan internal komponen lain.
+- Komponen tidak pernah mengandung logika bisnis.
+- Components tidak pernah memutuskan apa yang dirender berdasarkan tipe domain.
+- Komponen menggunakan desain token untuk semua nilai visual.
 
 ---
 
-## 9. Feature Layer Contract
+## 9. Lapisan Fitur Kontrak
 
 ```typescript
 // features/chat/
@@ -354,45 +306,41 @@ Rules:
 // features/notifications/
 ```
 
-Rules:
-> Terjemahan Indonesia: Aturan:
-- Features own the logic for their domain.
-- Features compose components.
-- Features call services.
-- Features dispatch store actions.
-- Features may contain orchestration logic but never backend decision logic.
+Aturan:
+- Fitur memiliki logika untuk domain mereka.
+- Fitur menyusun komponen.
+- Fitur memanggil layanan.
+- Fitur mencerminkan tindakan toko.
+- Fiturnya dapat mengandung logika orkestrasi tetapi tidak pernah logika keputusan backend.
 
 ---
 
-## 10. What Is Prohibited
+## 10. Yang Dilarang
 
-The following patterns are explicitly prohibited:
-> Terjemahan Indonesia: Following patterns adalah explicitly prohibited:
+Pola-pola berikut secara eksplisit dilarang:
 
-- Switches on `domain`, `capability`, or `capabilityId` in frontend code
-- Inline `if (message.includes(...))` for intent detection
-- Local computation of progress, status, or phase
-- `setTimeout` / polling for state updates
-- Any `mock` or `fake` directory in production source
-- Components that import from services
-- Store slices that bypass service normalization
-- Hardcoded API URLs or env-variable leakage in components
-- Any React component larger than 300 lines without a justification comment
+- Beralih pada `domain`, `capability`, atau `capabilityId` ke kode frontend
+- `if (message.includes(...))` sebaris untuk mendeteksi maksud
+- Komputasi lokal untuk kemajuan, status, atau fase
+- `setTimeout` / polling untuk memperbarui status
+- Direktori `mock` atau `fake` apa pun di sumber produksi
+- Komponen yang mengimpor dari layanan
+- Simpan irisan yang melewati layanan normalisasi
+- URL API hardcode atau kebocoran env-variable di komponen
+- Komponen React apa pun lebih dari 300 baris tanpa komentar justifikasi
 
 ---
 
-## 11. Enforcement
+## 11. Penegakan
 
-Files violating these rules are blocked from merge.
-> Terjemahan Indonesia: Files violating these rules adalah blocked dari merge.
+File yang melanggar aturan ini diblokir dari penggabungan.
 
-Checklist for PR review:
-> Terjemahan Indonesia: Checklist untuk PR review:
-- [ ] No `switch(capability)` or `switch(domain)` in diff
-- [ ] No `if (message.includes(...))` in diff
-- [ ] No mock imports in production files
-- [ ] No component imports from `services/`
-- [ ] No progress calculation outside backend data
-- [ ] All API calls go through `services/`
-- [ ] All state mutations go through explicit store actions
-- [ ] All new components are under 300 lines
+Daftar periksa untuk melihat PR:
+- [ ] Tidak ada `switch(capability)` atau `switch(domain)` di diff
+- [ ] Tidak ada `if (message.includes(...))` berbeda
+- [ ] Tidak ada mock imports di file produksi
+- [ ] Tidak ada komponen yang diimpor dari `services/`
+- [ ] Tidak ada perhitungan keuangan di luar data backend
+- [ ] Semua panggilan API melalui `services/`
+- [ ] Semua status penyembuhan melalui aksi store eksplisit
+- [ ] Semua komponen baru di bawah 300 baris

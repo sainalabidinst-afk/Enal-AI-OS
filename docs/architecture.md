@@ -1,33 +1,15 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/architecture.md`
-- Judul: Architecture
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+# Tinjauan Arsitektur ECP — Platform RC (2026-08-02)
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** System architecture overview and component interactions
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Ikhtisar arsitektur sistem dan interaksi komponen
 <!-- DOCUMENT_METADATA_END -->
 
-# ECP Architecture Overview — Platform RC (2026-08-02)
-
-## System Architecture (Live)
+## Arsitektur Sistem (Langsung)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -54,7 +36,7 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 │  ┌─────────┬─────────┬─────────┬─────────┬──────────────┐  │
 │  │ Action  │Reflection│ Learning │ Debate │ Simulation  │  │
 │  └─────────┴─────────┴─────────┴─────────┴──────────────┘  │
-└────────────────────────────┬────────────────────────────────┘
+└────────────────────────────────────────────┬────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
@@ -73,38 +55,36 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Cognitive Pipeline (Active)
+## Saluran Kognitif (Aktif)
 
 ```
 Input → Perception → Planner → Memory → Executor → Learning → Governance
 ```
 
-Each layer is implemented and tested:
-> Terjemahan Indonesia: Each layer adalah implemented dan tested:
-- **Perception** (`backend/app/core/perception_engine.py`) - Input processing, entity/intent extraction
-- **Planner** (`apps/organization/ai_planner.py`) - Goal decomposition, cost/risk estimation
-- **Memory** (`backend/app/core/memory_layer.py`) - 7 memory layers with consolidation
-- **Executor** (`apps/organization/workflow_executor.py`) - Workflow execution, checkpoint, retry
-- **Learning** (`backend/app/core/cognitive/continuous_learning.py`) - RL, human feedback
-- **Governance** (`backend/app/core/governance.py`) - Approval workflow, tenant isolation
+Setiap lapisan yang diimplementasikan dan diuji:
+- **Perception** (`backend/app/core/perception_engine.py`) — Pemrosesan masukan, ekstraksi entitas/intensi
+- **Planner** (`apps/organization/ai_planner.py`) — Dekomposisi tujuan, estimasi biaya/risiko
+- **Memory** (`backend/app/core/memory_layer.py`) — 7 lapisan memori dengan konsolidasi
+- **Executor** (`apps/organization/workflow_executor.py`) — Eksekusi alur kerja, checkpoint, retry
+- **Learning** (`backend/app/core/cognitive/continuous_learning.py`) — RL, masukan manusia
+- **Governance** (`backend/app/core/governance.py`) — Alur kerja persetujuan, isolasi tenant
 
-Orchestrated by `backend/app/agents/orchestrator_v2.py`.
-> Terjemahan Indonesia: Orchestrated oleh backend/app/agen/orchestrator_v2.py.
+Diatur oleh `backend/app/agents/orchestrator_v2.py`.
 
 ---
 
-## Architecture Rule (2026-08-02)
+## Aturan Arsitektur (2026-08-02)
 
-> **Core Cognitive Services Decoupling Rule:**
-> No Core Cognitive Service may call another directly without going through service interface or orchestration layer.
+> **Aturan Pemisahan Layanan Kognitif Inti:**
+> Tidak ada Layanan Kognitif Inti yang dapat memanggil Layanan lain secara langsung tanpa melalui antarmuka layanan atau lapisan orkestrasi.
 
-**Enforce:** Memory ↔ Planner ↔ Executor ↔ Learning communicate through contracts only.
+**Penerapan:** Memory ↔ Planner ↔ Executor ↔ Learning berkomunikasi melalui kontrak saja.
 
 ---
 
-## Package Structure
+## Struktur Paket
 
-```
+```text
 backend/
 └── app/
     ├── main.py                 # FastAPI application entry point
@@ -117,7 +97,7 @@ backend/
     │   ├── capability_discovery.py  # Capability registry lookup
     │   └── ...                 # Other route modules
     ├── core/                   # Canonical services (source of truth)
-    │   ├── perception_engine.py # NEW: Input processing + NLP
+    │   ├── perception_engine.py # Input processing + NLP
     │   ├── memory_layer.py    # Memory layers (working, conversation, knowledge, long-term, session, project)
     │   ├── cognitive_kernel.py # Cognitive service orchestration
     │   ├── cognitive/        # Cognitive primitives
@@ -144,10 +124,10 @@ apps/
     │   └── intent_router.py   # Intent routing + domain hints
     ├── network_engineer/      # Network reference app
     ├── code_engineer/         # Code reference app
-    ├── research/             # Research reference app
-    ├── devops/               # DevOps reference app
-    ├── trading/              # Trading reference app
-    ├── self_development/     # Self-development reference app
+    ├── research_assistant/    # Research reference app
+    ├── devops_assistant/      # DevOps reference app
+    ├── trading_analyst/       # Trading reference app
+    ├── self_development/      # Self-development reference app
     ├── decision_intelligence/     # Decision Intelligence (RFC-0007)
     ├── system_architect/          # System Architect (RFC-0011)
     ├── security_engineer/         # Security Engineer (RFC-0008)
@@ -160,20 +140,20 @@ benchmarks/                   # Performance + quality benchmarks
 
 ---
 
-## Status: Platform Release Candidate (92/100)
+## Status: Platform Kandidat Rilis (92/100)
 
-| Layer | Status | Notes |
-|-------|--------|-------|
-| Core Platform | ✅ Complete | 90 |
-| Cognitive Services | ✅ Integrated | 91 |
-| Capability Packs | ✅ Production Ready | 90 |
-| Operational Layer | ✅ Implemented | 90 |
-| Security | ✅ RBAC + Isolation | 89 |
-| Testing | ✅ 426 tests pass | 92 |
+| Lapisan | Status | Catatan |
+|---------|--------|---------|
+| Platform Inti | ✅ Lengkap | 90 |
+| Layanan Kognitif | ✅ Terintegrasi | 91 |
+| Capability Pack | ✅ Produksi Siap | 90 |
+| Lapisan Operasional | ✅ Diimplementasikan | 90 |
+| Keamanan | ✅ RBAC + Isolasi | 89 |
+| Pengujian | ✅ 426 test lulus | 92 |
 
 ---
 
-## Dependency Rules
+## Aturan Ketergantungan
 
 ```
 apps → sdk → kernel
@@ -183,46 +163,46 @@ marketplace → runtime → kernel
 plugins → kernel
 ```
 
-**Forbidden:**
-- kernel → runtime, sdk, apps, capability_packs
-- runtime → apps, sdk, capability_packs
+**Dilarang:**
+- kernel → Runtime, SDK, aplikasi, Capability Pack
+- Runtime → aplikasi, SDK, Capability Pack
 
 ---
 
-## Contract Versioning
+## Versi Kontrak
 
-All contracts are versioned and backward-compatible within major versions.
-> Terjemahan Indonesia: All contracts adalah versioned dan backward-compatible within major versions.
+Semua kontrak memiliki versi dan kompatibel dengan versi utama.
 
 ```
 Contract v1.x → Stable, backward-compatible
 Contract v2.x → Breaking changes, migration guide provided
 ```
 
-> **Policy Change (2026-08-02):** All public API contracts are frozen. Internal changes allowed; public signature changes require review.
+> **Perubahan Kebijakan (2026-08-02):** Semua kontrak publik API dihentikan. Perubahan internal diperbolehkan; perubahan tanda tangan publik memerlukan review.
 
 ---
 
-## Next Sprints (Revised Priority)
+## Sprint Berikutnya (Revisi Prioritas)
 
-### Sprint A — Engineering Hardening
-- 0 Pylance Severity 8
-- 100% Public API Typed
-- Async consistency
+### Sprint A — Pengerasan Teknis
+- 0 Keparahan Pylance 8
+- 100% API Publik Diketik
+- Konsistensi asinkron
 
-### Sprint B — AES Documentation
-- Architecture Specification
-- Engineering Specification
-- Behavioral contracts
+### Sprint B — Dokumentasi AES
+- Spesifikasi Arsitektur
+- Spesifikasi Teknis
+- Kontrak perilaku
 
-### Sprint C — Reflection + Evaluation
+### Sprint C — Refleksi + Evaluasi
 ```
 Generate → Evaluate → Reflect → Improve → Verify
 ```
 
-### Sprint D — Evidence Layer
+### Sprint D — Lapisan Bukti
 ```
 Search → Retrieve → Extract → Normalize → Rank → Evidence → Citation
 ```
 
-### Sprint E — Debate Engine
+### Sprint E — Mesin Debat
+

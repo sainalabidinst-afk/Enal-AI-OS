@@ -1,64 +1,46 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/capabilities/full-stack-engineer.md`
-- Judul: Full Stack Engineer
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Full Stack Engineer Capability Specification
+﻿# Spesifikasi Capability Pack Full Stack Engineer
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Capability Pack specification for full-stack-engineer
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Spesifikasi Capability Pack untuk full-stack-engineer
 <!-- DOCUMENT_METADATA_END -->
 
-## Version: 1.0.0
-## Status: Draft (v1.0 ready for implementation)
+## Versi: 1.0.0
+## Status: Draf (v1.0 siap diterapkan)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan
 
-Deliver full-stack engineering intelligence for:
-> Terjemahan Indonesia: Deliver full-stack rekayasa intelligence untuk:
-- Architecture review and scoring
-- Code review beyond linting
-- Refactoring planning without auto-apply
-- Test engineering (unit, integration, contract, performance, regression)
-- Performance engineering (database, frontend, algorithm)
-- Release engineering (readiness validation)
-
----
-
-## 2. Scope
-
-### In Scope
-- Language: Python (primary), JS/TS patterns (planned)
-- Analysis types: Architecture, Code Review, Refactoring, Testing, Performance, Release
-- Output: Scores, Graded Reports, Findings, Plans, Test Plans, Release Readiness
-
-### Out of Scope
-- Auto-fixing code without approval
-- Frontend bundle analysis from compiled assets
-- Cloud-native deployment execution
+Menyediakan rekayasa full-stack capabilities untuk:
+- Architecture review dan penilaian
+- Code review melampaui linting
+- Perencanaan refactoring tanpa penerapan otomatis
+- Rekayasa testing (unit, integration, contract, performance, regression)
+- Rekayasa performance (database, frontend, algoritma)
+- Rekayasa release (validasi kesiapan)
 
 ---
 
-## 3. Contract
+## 2. Ruang Lingkup
+
+### Dalam Ruang Lingkup
+- Bahasa: Python (utama), pola JS/TS (direncanakan)
+- Jenis analisis: Architecture, Code Review, Refactoring, Testing, Performance, Release
+- Output: Skor, Actionable Reports, Findings, Plan, Test Plans, Release Checklist
+
+### Di Luar Ruang Lingkup
+- Perbaikan kode otomatis tanpa persetujuan
+- Analisis bundle frontend dari aset terkompilasi
+- Eksekusi deployment cloud-native
+
+---
+
+## 3. Kontrak
 
 ### Input
 ```json
@@ -104,78 +86,79 @@ Deliver full-stack engineering intelligence for:
 
 ---
 
-## 4. Capability Details
+## 4. Kemampuan Detail
 
-### F1 â€” Architecture Review
-- Reads repository using ArchitectureReader
-- Checks layering violations, dependency density, modularity, technical debt
-- Produces graded scores (Aâ€“F) and Architecture Score (0â€“100)
+### F1 - Architecture Review
+- Membaca repositori menggunakan ArchitectureReader
+- Memeriksa layer violations, density, dependencies, modularity, tech debt
+- Menghasilkan skor bertingkat (A–F) dan Architecture Score (0–100)
 
-### F2 â€” Code Review
-- Parses AST and scans raw text for security, concurrency, resource, maintainability, and API surface issues
-- Each finding includes evidence, line number, CWE, confidence, and priority
-- Categories: Security, Concurrency, Reliability, Maintainability
+### F2 - Code Review
+- Mem-parsing AST dan menganalisis teks code untuk masalah security, concurrency, resource, maintainability, dan API
+- Setiap finding mencakup evidence, line number, CWE, confidence, dan prioritas
+- Kategori: Security, Concurrency, Reliability, Maintainability
 
-### F3 â€” Refactoring Planner
-- Does NOT modify code
-- Produces structured plan: Problem â†’ Cause â†’ Proposal â†’ Expected Benefit â†’ Risk â†’ Migration Steps
-- Detects mutable defaults, long functions, high import density
+### F3 - Refactoring Planner
+- TIDAK mengubah kode
+- Plan disusun: Problem → Cause → Proposal → Expected Benefit → Risk → Migration Steps
+- Mendeteksi mutable defaults, fungsi panjang, import density tinggi
 
-### F4 â€” Test Engineer
-- Analyzes source and test directories
-- Estimates coverage
-- Generates test plans for unit, integration, contract, performance, and regression testing
+### F4 - Test Engineer
+- Menganalisis direktori source dan test
+- Memperkirakan coverage
+- Menghasilkan test plans untuk unit, integration, contract, performance, dan regression testing
 
-### F5 â€” Performance Engineer
-- Detects N+1 queries, nested loops, blocking I/O, memory issues
-- Focus areas: database, algorithm, memory, I/O
+### F5 - Performance Engineer
+- Mendeteksi N+1 queries, loop penempatan, blocking I/O, masalah memori
+- Area fokus: database, algoritma, memori, I/O
 
-### F6 â€” Release Engineer
-- Validates changelog, semantic version, migration, rollback plan, deployment checklist, post-deployment verification
-- Produces boolean `ready` and detailed check results
+### F6 - Release Engineer
+- Memvalidasi changelog, semantic versioning, migrasi, rollback plan, deployment checklist, post-deployment verification
+- Menghasilkan boolean `ready` dan hasil pemeriksaan terperinci
 
 ---
 
-## 5. Benchmark Requirements
+## 5. Persyaratan Benchmark
 
-| Metric | Target | Pass Criteria |
+| Metrik | Target | Kriteria Lulus |
 |--------|--------|---------------|
-| Architecture Review Accuracy | â‰¥90% | Correct layering/debt detection |
-| Code Review Precision | â‰¥95% | False positive â‰¤5% |
-| Refactoring Plan Usefulness | â‰¥85% | Actionable plans with steps |
-| Test Coverage Estimate Accuracy | Â±10% | Within 10% of actual coverage |
-| Performance Detection Recall | â‰¥90% | True positive â‰¥90% |
-| Release Readiness Precision | â‰¥95% | Correct ready/fail assessment |
+| Architecture Review Accuracy | ≥90% | Deteksi Layering/Tech Debt yang benar |
+| Code Review Precision | ≥95% | False positive ≤5% |
+| Refactoring Plan Usability | ≥85% | Plan yang dapat ditindaklanjuti dengan langkah-langkah |
+| Test Coverage Estimation Accuracy | ±10% | Dalam 10% dari coverage sebenarnya |
+| Performance Detection Recall | ≥90% | True positive ≥90% |
+| Release Readiness Precision | ≥95% | Penilaian ready/fail yang benar |
 
 ---
 
-## 6. Integration
+## 6. Integrasi
 
-- Registered as `full-stack-engineer` in `apps/__init__.py`
-- Worker: `FullStackWorker` in `apps/society/workers/full_stack_worker.py`
-- Capability graph entries in `apps/organization/capability_graph.py` under `full-stack` domain
-- Subtask templates defined for each F1â€“F6 capability
-- Reuses `apps.code_engineer` primitives (ArchitectureReader, DependencyGraphBuilder, ImpactAnalyzer, RefactoringEngine, PatchGenerator, RegressionAnalyzer, TestGenerator)
+- Terdaftar sebagai `full-stack-engineer` di `apps/__init__.py`
+- Worker: `FullStackWorker` di `apps/society/workers/full_stack_worker.py`
+- Entri capability graph di `apps/organization/capability_graph.py` pada domain `full-stack`
+- Template subtask ditentukan untuk setiap capability F1–F6
+- Menggunakan kembali primitif `apps.code_engineer` (ArchitectureReader, DependencyGraphBuilder, ImpactAnalyzer, RefactoringEngine, PatchGenerator, RegressionAnalyzer, TestGenerator)
 
 ---
 
-## 7. Roadmap
+## 7. Peta Jalan
 
 | Capability | Status |
 |------------|--------|
-| F1 â€” Architecture Review | âœ… Implemented |
-| F2 â€” Code Review | âœ… Implemented |
-| F3 â€” Refactoring Planner | âœ… Implemented |
-| F4 â€” Test Engineer | âœ… Implemented |
-| F5 â€” Performance Engineer | âœ… Implemented |
-| F6 â€” Release Engineer | âœ… Implemented |
+| F1 - Architecture Review | ✅ Implemented |
+| F2 - Code Review | ✅ Implemented |
+| F3 - Refactoring Planner | ✅ Implemented |
+| F4 - Test Engineer | ✅ Implemented |
+| F5 - Performance Engineer | ✅ Implemented |
+| F6 - Release Engineer | ✅ Implemented |
 
 ---
 
-## 8. Future Enhancements
+## 8. Peningkatan di Masa Depan
 
-- JS/TS AST parsing via `tree-sitter` or `esprima`
-- Bundle analysis via webpack/rollup stats
-- Database query plan analysis via EXPLAIN
-- Diff-aware review for PR/MR changes
-- Integration with CI/CD for automated release checks
+- Parsing AST JS/TS melalui `tree-sitter` atau `esprima`
+- Analisis bundle melalui statistik webpack/rollup
+- Analisis query plan berbasis data melalui EXPLAIN
+- Review yang sadar diff untuk perubahan PR/MR
+- Integrasi dengan CI/CD untuk pemeriksaan rilis otomatis
+

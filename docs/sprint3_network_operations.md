@@ -1,33 +1,16 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `docs/sprint3_network_operations.md`
-- Judul: Sprint3 Network Operations
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# ECP Network Engineer â€” Milestone 3: Network Operations
+﻿# ECP Network Engineer — Milestone 3: Network Operations
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for sprint3_network_operations
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk sprint3_network_operations
 <!-- DOCUMENT_METADATA_END -->
 
-**Status:** Planned
-**Focus:** Operational workflows, not protocol automation
+**Status:** Direncanakan
+**Fokus:** Workflow operasional, bukan otomatisasi protokol
 
 ---
 
@@ -35,40 +18,40 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ### 1. Configuration Compare
 
-**Goal:** Compare two configuration backups and show semantic diff + impact analysis.
+**Tujuan:** Membandingkan dua backup konfigurasi dan menampilkan semantic diff + analisis dampak.
 
 **User Story:**
-> "As a network engineer, I want to compare backup A with backup B so I can see exactly what changed and whether it's safe."
+> "Sebagai network engineer, saya ingin membandingkan backup A dengan backup B sehingga saya dapat melihat persis apa yang berubah dan apakah aman."
 
-**Features:**
-- Load two backup files
-- Semantic diff (same engine as Milestone 2, but applied to backups)
-- Impact analysis: what services/interfaces are affected
-- Markdown report
+**Fitur:**
+- Memuat dua file backup
+- Semantic diff (engine yang sama seperti Milestone 2, diterapkan pada backup)
+- Analisis dampak: service/interface mana yang terpengaruh
+- Laporan Markdown
 
 **Acceptance Criteria:**
-- Can load any two golden test configs
-- Shows added/removed/modified rules by category
-- Identifies potentially risky changes (firewall, NAT, routes)
-- Generates Markdown report
+- Dapat memuat dua golden test config apa pun
+- Menampilkan rule yang ditambahkan/dihapus/dimodifikasi per kategori
+- Mengidentifikasi perubahan yang berpotensi berisiko (firewall, NAT, routes)
+- Menghasilkan laporan Markdown
 
 ---
 
 ### 2. Compliance Audit
 
-**Goal:** Check configuration against a policy and show Pass/Fail.
+**Tujuan:** Memeriksa konfigurasi terhadap kebijakan dan menampilkan Pass/Fail.
 
 **User Story:**
-> "As a network engineer, I want to run a compliance audit so I can prove the router meets company policy."
+> "Sebagai network engineer, saya ingin menjalankan compliance audit sehingga saya dapat membuktikan router memenuhi kebijakan perusahaan."
 
-**Features:**
-- Define policy as simple rules (JSON/YAML)
-- Check config against policy
+**Fitur:**
+- Mendefinisikan kebijakan sebagai rule sederhana (JSON/YAML)
+- Memeriksa config terhadap kebijakan
 - Pass/Fail per rule
-- Overall compliance score
-- Markdown report
+- Skor kepatuhan keseluruhan
+- Laporan Markdown
 
-**Sample Policy:**
+**Contoh Kebijakan:**
 ```yaml
 rules:
   - id: SSH-RESTRICTED
@@ -86,93 +69,90 @@ rules:
 ```
 
 **Acceptance Criteria:**
-- Can define custom policy
-- Checks config against each rule
-- Shows Pass/Fail with evidence
-- Generates compliance score
+- Dapat mendefinisikan kebijakan kustom
+- Memeriksa config terhadap setiap rule
+- Menampilkan Pass/Fail dengan evidence
+- Menghasilkan skor kepatuhan
 
 ---
 
 ### 3. Health Report
 
-**Goal:** One-click health score for a router.
+**Tujuan:** Skor kesehatan satu-klik untuk sebuah router.
 
 **User Story:**
-> "As a network engineer, I want a health score so I can quickly assess router condition."
+> "Sebagai network engineer, saya ingin skor kesehatan sehingga saya dapat menilai kondisi router dengan cepat."
 
-**Features:**
-- Health Score (0â€“100)
-- Security Score (0â€“100)
-- Performance Score (0â€“100)
-- Maintainability Score (0â€“100)
-- Overall Score
-- Breakdown by category
-- Markdown report
+**Fitur:**
+- Health Score (0–100)
+- Security Score (0–100)
+- Performance Score (0–100)
+- Maintainability Score (0–100)
+- Skor Keseluruhan
+- Perincian per kategori
+- Laporan Markdown
 
-**Scoring Logic:**
-- Start at 100
-- Subtract points for each finding by severity:
+**Logika Skoring:**
+- Mulai dari 100
+- Kurangi poin untuk setiap finding berdasarkan severity:
   - Critical: -20
   - Warning: -10
   - Info: -5
   - Suggestion: -2
-> Terjemahan Indonesia: Kritis: -20 Peringatan: -10 Info: -5 Saran: -2
-- Floor at 0
+- Batas bawah di 0
 
 **Acceptance Criteria:**
-- Generates scores for any golden test config
-- Scores are consistent (same config = same score)
-- Breakdown shows which issues affect each score
-- Markdown report with visual indicators
+- Menghasilkan skor untuk golden test config apa pun
+- Skor konsisten (config yang sama = skor yang sama)
+- Perincian menunjukkan isu mana yang memengaruhi setiap skor
+- Laporan Markdown dengan indikator visual
 
 ---
 
 ### 4. Change Impact Analysis
 
-**Goal:** Before deployment, predict what will be affected by the change.
+**Tujuan:** Sebelum deployment, memprediksi apa yang akan terpengaruh oleh perubahan.
 
 **User Story:**
-> "As a network engineer, I want to know what will break before I deploy, so I can prepare."
+> "Sebagai network engineer, saya ingin tahu apa yang akan rusak sebelum saya deploy, sehingga saya dapat bersiap."
 
-**Features:**
-- Analyze current config + proposed diff
-- Identify affected services:
-  - Firewall changes â†’ connectivity impact
-  - NAT changes â†’ internet access impact
-  - Route changes â†’ traffic blackhole risk
-  - DHCP changes â†’ lease impact
-  - Interface changes â†’ device isolation
-> Terjemahan Indonesia: Perubahan firewall â†’ dampak konektivitas Perubahan NAT â†’ dampak akses internet Perubahan rute â†’ risiko lubang hitam lalu lintas Perubahan DHCP â†’ dampak sewa Perubahan antarmuka â†’ isolasi perangkat
-- Predict impact level (Low/Medium/High/Critical)
-- Suggest mitigation steps
+**Fitur:**
+- Menganalisis config saat ini + diff yang diusulkan
+- Mengidentifikasi service yang terpengaruh:
+  - Perubahan firewall → dampak konektivitas
+  - Perubahan NAT → dampak akses internet
+  - Perubahan rute → risiko lalu lintas blackhole
+  - Perubahan DHCP → dampak lease
+  - Perubahan interface → isolasi perangkat
+- Memprediksi level dampak (Low/Medium/High/Critical)
+- Menyarankan langkah mitigasi
 
 **Acceptance Criteria:**
-- Can analyze any golden test diff
-- Identifies at least: firewall, NAT, route, interface, DHCP impacts
-- Predicts impact level correctly for known scenarios
-- Suggests actionable mitigations
+- Dapat menganalisis diff golden test apa pun
+- Mengidentifikasi setidaknya: dampak firewall, NAT, route, interface, DHCP
+- Memprediksi level dampak dengan benar untuk skenario yang diketahui
+- Menyarankan mitigasi yang dapat ditindaklanjuti
 
 ---
 
 ### 5. Explain Like Engineer
 
-**Goal:** Explain configuration rules in plain language for onboarding.
+**Tujuan:** Menjelaskan aturan konfigurasi dalam bahasa sederhana untuk onboarding.
 
 **User Story:**
-> "As a junior network engineer, I want to understand what each rule does so I can learn."
+> "Sebagai network engineer junior, saya ingin memahami apa yang dilakukan setiap rule sehingga saya dapat belajar."
 
-**Features:**
-- Click on any finding/rule
-- Get explanation:
-  - What this rule does
-  - Why it was created
-  - What happens if removed
-  - Dependencies (what else depends on this)
-  - Common mistakes
-> Terjemahan Indonesia: What ini rule does Why it was created What happens if removed Dependencies (what else depends pada ini) Common mistakes
-- Plain language, not jargon-heavy
+**Fitur:**
+- Klik pada finding/rule apa pun
+- Mendapatkan penjelasan:
+  - Apa yang dilakukan rule ini
+  - Mengapa rule ini dibuat
+  - Apa yang terjadi jika dihapus
+  - Dependensi (apa lagi yang bergantung pada ini)
+  - Kesalahan umum
+- Bahasa sederhana, tidak sarat jargon
 
-**Example Output:**
+**Contoh Output:**
 ```
 Rule: masquerade on WAN
 ------------------------
@@ -201,59 +181,59 @@ Common mistakes:
 ```
 
 **Acceptance Criteria:**
-- Can explain all 45 analysis rules
-- Explanations are accurate and actionable
-- Dependencies are correctly identified
-- Plain language suitable for junior engineers
+- Dapat menjelaskan semua 45 analysis rules
+- Penjelasan akurat dan dapat ditindaklanjuti
+- Dependensi diidentifikasi dengan benar
+- Bahasa sederhana yang cocok untuk engineer junior
 
 ---
 
-## What We Will NOT Build in Milestone 3
+## Apa yang TIDAK Akan Dibangun di Milestone 3
 
-- BGP automation
-- MPLS automation
-- CAPsMAN automation
-- WireGuard automation
-- Multi-router orchestration
-- Live MikroTik API integration
+- Otomatisasi BGP
+- Otomatisasi MPLS
+- Otomatisasi CAPsMAN
+- Otomatisasi WireGuard
+- Orkestrasi multi-router
+- Integrasi API MikroTik live
 
-These are consequences of good operational understanding, not prerequisites.
-> Terjemahan Indonesia: These adalah consequences dari good operational understanding, not prerequisites.
+Ini adalah konsekuensi dari pemahaman operasional yang baik, bukan prasyarat.
 
 ---
 
-## Success Metrics
+## Metrik Keberhasilan
 
-| Metric | Target |
+| Metrik | Target |
 |--------|--------|
-| Configuration Compare Accuracy | â‰¥95% |
-| Compliance Audit Coverage | â‰¥90% of common policies |
-| Health Score Correlation | â‰¥0.8 with expert judgment |
-| Change Impact Accuracy | â‰¥80% for known scenarios |
-| Explanation Completeness | 100% of 45 rules explained |
-| Golden Test Pass | â‰¥95% |
-| Dogfooding Feedback Items | â‰¥20 items logged |
-| Time Saved (dogfooding) | â‰¥50% vs manual analysis |
+| Akurasi Configuration Compare | ≥95% |
+| Cakupan Compliance Audit | ≥90% dari kebijakan umum |
+| Korelasi Health Score | ≥0.8 dengan penilaian ahli |
+| Akurasi Change Impact | ≥80% untuk skenario yang diketahui |
+| Kelengkapan Penjelasan | 100% dari 45 rule dijelaskan |
+| Golden Test Pass | ≥95% |
+| Item Feedback Dogfooding | ≥20 item dicatat |
+| Waktu yang Dihemat (dogfooding) | ≥50% dibanding analisis manual |
 
 ---
 
-## Prerequisites
+## Prasyarat
 
-- Milestone 2 baseline frozen (`v1.0.0-dev+network-sprint2`)
-- Dogfooding completed (1â€“2 weeks)
-- Feedback from at least 10 real configs reviewed
-- Top 5 priorities from dogfooding documented
+- Milestone 2 baseline difreeze (`v1.0.0-dev+network-sprint2`)
+- Dogfooding selesai (1–2 minggu)
+- Feedback dari setidaknya 10 config nyata yang direview
+- 5 prioritas teratas dari dogfooding didokumentasikan
 
 ---
 
 ## Definition of Done
 
-- [ ] Configuration Compare works on all golden test scenarios
-- [ ] Compliance Audit passes all policy test cases
-- [ ] Health Report generates consistent scores
-- [ ] Change Impact Analysis predicts impacts correctly
-- [ ] Explain Like Engineer covers all 45 rules
-- [ ] All Milestone 3 tests pass (â‰¥95%)
-- [ ] Dogfooding feedback incorporated
-- [ ] Documentation updated
-- [ ] Demo ready
+- [ ] Configuration Compare berfungsi di semua skenario golden test
+- [ ] Compliance Audit lolos semua test case kebijakan
+- [ ] Health Report menghasilkan skor yang konsisten
+- [ ] Change Impact Analysis memprediksi dampak dengan benar
+- [ ] Explain Like Engineer mencakup semua 45 rule
+- [ ] Semua test Milestone 3 lulus (≥95%)
+- [ ] Feedback dogfooding diintegrasikan
+- [ ] Dokumentasi diperbarui
+- [ ] Demo siap
+
