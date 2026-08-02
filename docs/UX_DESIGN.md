@@ -1,9 +1,9 @@
-﻿# Spesifikasi UX Design
+﻿# Spesifikasi Desain UX
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 02-08-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 <!-- DOCUMENT_METADATA_END -->
@@ -17,30 +17,30 @@ Dokumen ini mendefinisikan pengalaman yang dilihat pengguna (user-facing experie
 Satu percakapan. Satu AI. Satu tujuan. Banyak tugas. Satu hasil.
 
 Pengguna tidak perlu tahu tentang Capability Packs, Workers, Execution Runtime, Task Planners, Execution Graphs, atau mekanisme internal lainnya.
-Semua itu disembunyikan di balik antarmuka percakapan yang alami.
+Semua itu diungkapkan di balik percakapan antar muka yang alami.
 
 ---
 
-## Positioning
+## Penentuan posisi
 
-Enal AI OS adalah **AI Execution Platform**.
+Terakhir AI OS adalah **Platform Eksekusi AI**.
 
-Pengguna mendeskripsikan outcome yang mereka inginkan.
-ECP memahami tujuan, merencanakan eksekusi, mengoordinasikan tugas, memverifikasi hasil, dan mengirimkan outcome yang lengkap — semuanya melalui satu percakapan.
+Pengguna mendeskripsikan hasil yang mereka inginkan.
+ECP memahami tujuan, merencanakan eksekusi, mengoordinasikan tugas, memverifikasi hasil, dan mengirimkan hasil yang lengkap — semuanya melalui satu percakapan.
 
 Bukan:
-- "AI dengan 300 micro-agents"
-- "AI Workforce"
-- "Multi-Agent Framework"
+- "AI dengan 300 agen mikro"
+- "Tenaga Kerja AI"
+- "Kerangka Kerja Multi-Agen"
 
 Tetapi:
 - "Satu AI yang menyelesaikan pekerjaan"
 
 ---
 
-## Interface
+## Antarmuka
 
-User interface adalah satu window percakapan:
+Antarmuka pengguna adalah satu jendela percakapan:
 
 ```
 ┌─────────────────────────────────────┐
@@ -57,7 +57,7 @@ User interface adalah satu window percakapan:
 ```
 
 Tidak ada menu untuk memilih Capability Packs.
-Tidak ada panel konfigurasi untuk memilih Workers.
+Tidak ada panel konfigurasi untuk memilih Pekerja.
 Tidak ada dropdown untuk memilih Execution Runtime.
 Tidak ada indikator "Agent Swarm".
 
@@ -91,10 +91,10 @@ One Conversation
    One Result
 ```
 
-Pengguna melihat: One Conversation → One Goal → One Result.
-Secara internal: Goal Understanding → Execution Planning → Task DAG → Scheduler → Workers → Verification → Artifacts.
+Pengguna melihat: Satu Percakapan → Satu Tujuan → Satu Hasil.
+Secara internal: Pemahaman Sasaran → Perencanaan Eksekusi → DAG Tugas → Penjadwal → Pekerja → Verifikasi → Artefak.
 
-Goal Understanding adalah langkah paling kritis. AI harus memahami intent, konteks, batasan, dan outcome yang diinginkan sebelum mengeksekusi apa pun.
+Goal Understanding adalah langkah paling kritis. AI harus memahami maksud, konteks, batasan, dan hasil yang diinginkan sebelum mengeksekusi apa pun.
 
 ---
 
@@ -102,25 +102,25 @@ Goal Understanding adalah langkah paling kritis. AI harus memahami intent, konte
 
 ### 1. Pengguna Menyatakan Tujuan
 
-Pengguna mendeskripsikan outcome yang diinginkan dalam bahasa alami atau mengunggah file.
+Pengguna mendeskripsikan hasil yang diinginkan dalam bahasa alami atau mengunggah file.
 
 Contoh:
-- "Bangun aplikasi Inventory."
+- "Bangun aplikasi Inventaris."
 - "Analisa konfigurasi MikroTik ini."
-- "Audit project FastAPI saya."
+- "Audit proyek FastAPI saya."
 - "Saya ingin membuat ISP."
 
 ### 2. AI Memahami Tujuan
 
 Di balik layar, ECP:
 1. Memahami tujuan secara mendalam
-2. Mengidentifikasi capability yang dibutuhkan
-3. Memecah tujuan menjadi phase dan task
+2. Mengidentifikasi kemampuan yang dibutuhkan
+3. Memecah tujuan menjadi fase dan tugas
 4. Mengidentifikasi dependensi dan paralelisme
-5. Memperkirakan effort, artifacts, dan risiko
-6. Membangun Execution Graph
+5. Memperkirakan usaha, artefak, dan risiko
+6. Membangun Grafik Eksekusi
 
-Ini adalah **Goal Understanding**. Ini adalah bagian yang paling sulit dan paling penting.
+Ini adalah **Pemahaman Tujuan**. Ini adalah bagian yang paling sulit dan paling penting.
 
 ### 3. AI Menyajikan Rencana
 
@@ -146,11 +146,11 @@ Mulai?
 
 - Pengguna dapat menyetujui, menyempurnakan, atau membatalkan
 - Tidak diperlukan konfigurasi tersembunyi
-- Pengguna melihat satu rencana yang koheren, bukan daftar task internal
+- Pengguna melihat satu rencana yang koheren, bukan daftar tugas internal
 
 ### 5. AI Mengeksekusi
 
-AI menampilkan progress real-time:
+AI menampilkan kemajuan secara real-time:
 
 ```
 ✓ Tujuan dipahami
@@ -161,7 +161,7 @@ AI menampilkan progress real-time:
 
 ### 6. AI Mengirimkan Hasil
 
-AI menyajikan outcome akhir:
+AI menyajikan hasil akhir:
 
 ```
 Selesai.
@@ -180,13 +180,13 @@ Apakah ada yang perlu diperbaiki?
 
 ---
 
-## Workspace
+## Ruang kerja
 
-Setiap proyek memiliki Workspace sendiri.
+Setiap proyek memiliki Ruang Kerja sendiri.
 
-- Riwayat bertahan antar session
-- Memory dibatasi per Workspace
-- Artifacts diorganisasi per Workspace
+- Kisah bertahan antar session
+- Memori dibatasi per Ruang Kerja
+- Artefak diorganisasi per Workspace
 - Pengguna dapat berpindah antar Workspace
 
 Contoh:
@@ -202,9 +202,9 @@ Workspace: Inventory System
 
 ---
 
-## Transparansi Progress
+## Kemajuan Transparansi
 
-Selama eksekusi, AI menampilkan progress yang dapat dibaca manusia:
+Selama eksekusi, AI menampilkan kemajuan yang dapat dibaca manusia:
 
 ```
 ✓ Memahami permintaan
@@ -215,34 +215,34 @@ Selama eksekusi, AI menampilkan progress yang dapat dibaca manusia:
 ```
 
 Bukan:
-- "Stage 3: Execute Subtask 7"
-- Nama state internal
-- Worker ID atau Execution Graph node ID
+- "Tahap 3: Jalankan Subtugas 7"
+- Nama keadaan internal
+- ID Pekerja atau ID node Grafik Eksekusi
 
 ---
 
-## Explainability
+## Penjelasan
 
 Pengguna dapat bertanya "mengapa" kapan saja:
 
-> "Why did you choose that approach?"
+> “Mengapa kamu memilih pendekatan itu?”
 
 AI merespons dengan:
 - Ringkasan pemahaman tujuan
-- Capability yang digunakan
-- Reasoning di balik pilihan
-- Tingkat confidence
+- Kemampuan yang digunakan
+- Alasan di balik pilihan
+- Tingkat kepercayaan diri
 - Langkah yang diambil
 
 Tanpa istilah arsitektur internal. Hanya penjelasan yang ramah pengguna.
 
 ---
 
-## Skill Discovery
+## Penemuan Keterampilan
 
 Pengguna dapat bertanya:
 - "Apa yang bisa kamu lakukan?"
-- "What can you do?"
+- "Apa yang bisa kamu lakukan?"
 
 AI merespons dari Capability Graph secara dinamis:
 
@@ -266,28 +266,28 @@ Mau mulai dari mana?
 
 ---
 
-## Artifacts
+## Artefak
 
-Semua output signifikan dipersist sebagai Artifacts:
-- Laporan analisis
+Semua keluaran signifikan dipertahankan sebagai Artefak:
+- Analisis laporan
 - Rekomendasi
 - Patch dan diff
-- Laporan test
-- Rencana deployment
+- Laporan tes
+- Rencana penerapan
 - Dokumentasi
 
-Artifacts bersifat:
-- Versioned
-- Dibatasi per Workspace
+Artefak bersifat:
+- Berversi
+- Dibatasi per Ruang Kerja
 - Dapat diambil kembali
 - Dapat dibandingkan
-- Dapat dipulihkan
+- Dapat dijanjikan
 
 ---
 
 ## Persetujuan Manusia
 
-Untuk tindakan ireversibel, AI memerlukan persetujuan eksplisit:
+Untuk tindakan yang tidak dapat diubah, AI memerlukan persetujuan eksplisit:
 
 ```
 Saya akan menerapkan patch ini.
@@ -306,8 +306,8 @@ Tests: 43/43 passed
 ## Ekosistem Plugin
 
 Capability Pack baru yang diinstal melalui Marketplace secara otomatis terintegrasi:
-- Muncul di skill discovery
-- Mengikuti workflow yang sama
+- Muncul di penemuan keterampilan
+- alur kerja berikutnya yang sama
 - Tidak diperlukan konfigurasi pengguna
 
 ---
@@ -315,11 +315,11 @@ Capability Pack baru yang diinstal melalui Marketplace secara otomatis terintegr
 ## Apa yang Tidak Pernah Dilihat Pengguna
 
 - Menu pemilihan Capability Pack
-- Panel konfigurasi Worker
+- Panel konfigurasi Pekerja
 - Pengaturan Execution Runtime
-- Output Task Planner
-- Internal Execution Graph
-- Worker ID atau nama
+- Perencana Tugas Keluaran
+- Grafik Eksekusi Internal
+- ID Pekerja atau nama
 - Struktur data internal
 - Pesan error dari modul internal
 
@@ -335,7 +335,7 @@ Jika pengguna melihat salah satu dari ini, desain UX telah gagal.
 - AI menjelaskan saat diminta
 - AI tidak pernah bertindak tanpa persetujuan
 - AI mengingat konteks antar percakapan
-- AI semakin baik seiring waktu
+- AI semakin baik seiring berjalannya waktu
 - "Saya dapat mempercayai Enal AI OS untuk menyelesaikan pekerjaan"
 - "AI ini memahami apa yang saya inginkan, bukan hanya apa yang saya ketik"
 
@@ -345,10 +345,9 @@ Jika pengguna melihat salah satu dari ini, desain UX telah gagal.
 
 UX dianggap berhasil ketika:
 1. Pengguna baru dapat menyelesaikan tugas nyata tanpa membaca dokumentasi
-2. Pengguna tidak pernah perlu memilih Capability Pack secara manual
-3. Pengguna tidak pernah perlu mengonfigurasi Workers, Runtimes, atau Planners
-4. Semua alur explainability, progress, dan persetujuan terasa alami
-5. Sistem terasa seperti satu AI, bukan kumpulan tool
-6. Pengguna mendeskripsikan ECP sebagai "AI yang menyelesaikan pekerjaan" daripada "framework dengan banyak agent"
+2. Pengguna tidak perlu memilih Capability Pack secara manual
+3. Pengguna tidak perlu mengonfigurasi Workers, Runtimes, atau Planners
+4. Semua alur penjelasan, kemajuan, dan persetujuan terasa alami
+5. Sistem terasa seperti satu AI, bukan kumpulan alat
+6. Pengguna mendeskripsikan ECP sebagai "AI yang menyelesaikan pekerjaan" daripada "framework dengan banyak agen"
 7. Pengguna dapat mendeskripsikan tujuannya dalam bahasa sederhana dan mendapatkan hasil yang lengkap dan terverifikasi
-

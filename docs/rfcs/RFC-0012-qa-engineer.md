@@ -1,36 +1,36 @@
 # RFC-0012: Capability Pack QA Engineer
 
-| Field | Nilai |
+|Bidang|Nilai|
 |-------|-------|
-| **RFC ID** | RFC-0012 |
-| **Status** | Draft |
-| **Versi** | 0.1.0 |
-| **Penulis** | Enal AI OS Core Team |
-| **Target Rilis** | v1.3.0 (fase Enterprise) |
-| **Capability Pack** | QA Engineer |
-| **Capability ID** | `qa-engineer` |
-| **Kategori** | Quality Assurance |
-| **Target Kualitas** | A (≥90) |
-| **Target Maturity** | Level 3 — Production Ready |
-| **RFC Referensi** | RFC-0012 |
+|**ID RFC**|RFC-0012|
+|**Status**|Draf|
+|**Versi**|0.1.0|
+|**Penulis**|Tim Inti AI OS Akhir|
+|**Target Rilis**|v1.3.0 (fase Perusahaan)|
+|**Capability Pack**|QA Engineer|
+|**ID Kemampuan**|`qa-engineer`|
+|**Kategori**|Jaminan Kualitas|
+|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kematangan**|Level 3 — Siap Produksi|
+|**Referensi RFC**|RFC-0012|
 
 ---
 
 ## Motivasi
 
-Capability Pack ECP yang ada menghasilkan kode, konfigurasi, dan sistem, tetapi tidak ada layer quality assurance khusus yang secara sistematis memvalidasi output, menghasilkan test, dan memastikan kualitas di semua artefak.
+Capability Pack ECP yang menghasilkan kode, konfigurasi, dan sistem, tetapi tidak ada jaminan kualitas lapisan khusus yang secara sistematis memvalidasi keluaran, menghasilkan pengujian, dan memastikan kualitas di semua artefak.
 
 Saat ini:
 
-1. **Generasi test tertanam di Code Engineer** — hanya test unit Python yang dihasilkan; tidak ada test integrasi, regresi, atau mutasi.
-2. **Tidak ada otomasi regression test** — perubahan tidak diuji secara sistematis untuk regresi.
-3. **Tidak ada mutation testing** — kualitas test suite tidak diukur dengan mutation score.
+1. **Generasi test tertanam di Code Engineer** — hanya test unit Python yang dihasilkan; tidak ada uji integrasi, regresi, atau pengobatan.
+2. **Tidak ada uji regresi otomasi** — perubahan tidak diuji secara sistematis untuk regresi sistematis.
+3. **Tidak ada pengujian mutasi** — kualitas rangkaian pengujian tidak diukur dengan skor mutasi.
 4. **Tidak ada deteksi flaky test** — kegagalan test yang terputus-putus tidak terdeteksi dan merusak kepercayaan.
-5. **Tidak ada generator golden test** — tidak ada generasi sistematis kasus golden test untuk Capability Pack lain.
-6. **Tidak ada generasi benchmark test** — tidak ada pengujian performa atau load dari sistem yang dihasilkan.
-7. **Tidak ada analisis test coverage di seluruh platform** — kesenjangan coverage tidak dilacak secara holistik.
+5. **Tidak ada generator Golden Test** — tidak ada generasi sistematis kasus Golden Test untuk Capability Pack lain.
+6. **Tidak ada tes generasi Benchmark** — tidak ada pengujian kinerja atau beban dari sistem yang dihasilkan.
+7. **Tidak ada cakupan pengujian analisis di seluruh platform** — cakupan cakupan tidak dilacak secara holistik.
 
-Capability Pack QA Engineer menjadi layer quality assurance, menyediakan test generation, regression testing, mutation testing, flaky test detection, golden test generation untuk pack lain, benchmark testing, coverage analysis, dan performance validation untuk semua sistem ECP.
+Capability Pack QA Engineer menjadi jaminan kualitas lapisan, menyediakan pembuatan pengujian, pengujian regresi, pengujian mutasi, deteksi pengujian tidak stabil, pembuatan Golden Test untuk paket lain, pengujian Benchmark, analisis cakupan, dan validasi kinerja untuk semua sistem ECP.
 
 ---
 
@@ -38,84 +38,84 @@ Capability Pack QA Engineer menjadi layer quality assurance, menyediakan test ge
 
 Tanpa Capability Pack QA Engineer yang khusus:
 
-- **Kualitas test tidak diukur** — tidak ada mutation score, analisis coverage, atau deteksi flakiness.
-- **Regresi terdeteksi terlambat** — tidak ada generasi atau eksekusi regression test yang sistematis.
-- **Golden test tidak dihasilkan** — Capability Pack lain kekurangan generasi kasus test yang sistematis.
-- **Tidak ada performance validation** — sistem yang dihasilkan tidak di-benchmark untuk performa.
-- **Flaky test mengikis kepercayaan** — kegagalan yang terputus-putus tidak terdeteksi atau diselidiki.
-- **Coverage test tidak lengkap** — kesenjangan coverage di semua output Capability Pack tidak dilacak.
+- **Uji kualitas tidak diukur** — tidak ada skor mutasi, cakupan analisis, atau deteksi kelemahan.
+- **Regresi terlambat terdeteksi** — tidak ada uji regresi generasi atau eksekusi yang sistematis.
+- **Golden Test tidak dihasilkan** — Capability Pack lain kekurangan generasi kasus test yang sistematis.
+- **Tidak ada validasi kinerja** — sistem yang dihasilkan tidak di-Benchmark untuk kinerja.
+- **Flaky test mengikis kepercayaan** — kegagalan yang terputus-putus tidak terdeteksi atau disimpan.
+- **Tes cakupan tidak lengkap** — cakupan cakupan di semua output Capability Pack tidak dilacak.
 
-Tidak adanya QA Engineer berarti test yang baik — jaring pengaman semua perangkat lunak yang baik — tidak dijamin secara sistematis, menyebabkan pengerjaan ulang yang mahal dan hasil yang buruk.
+Tidak adanya QA Engineer berarti pengujian yang baik — jaring pengaman semua perangkat lunak yang baik — tidak dijamin secara sistematis, menyebabkan pengerjaan ulang yang mahal dan hasil yang buruk.
 
 ---
 
 ## Tujuan
 
-1. **Unit Test Generation** — Menghasilkan test unit untuk semua output kode dari Code Engineer.
-2. **Integration Test Generation** — Menghasilkan test integrasi yang mencakup interaksi komponen.
-3. **Regression Test Automation** — Menghasilkan dan memelihara regression test suite untuk sistem yang berkembang.
-4. **Mutation Testing** — Mengukur kualitas test suite melalui mutation score.
-5. **Golden Test Generation** — Menghasilkan kasus golden test untuk Capability Pack lain (Code, Network, Trading, DevOps).
-6. **Benchmark Test Generation** — Menghasilkan test performa dan load untuk sistem.
-7. **Flaky Test Detection** — Mendeteksi, mengklasifikasi, dan melaporkan kegagalan test yang terputus-putus.
-8. **Test Coverage Analysis** — Mengukur dan melaporkan coverage di semua output Capability Pack.
-9. **Performance Validation** — Memvalidasi persyaratan performa terhadap benchmark.
+1. **Unit Test Generation** — Menghasilkan unit pengujian untuk semua output kode dari Code Engineer.
+2. **Integration Test Generation** — Menghasilkan pengujian interaksi yang mencakup interaksi komponen.
+3. **Otomasi Uji Regresi** — Menghasilkan dan memelihara rangkaian pengujian regresi untuk sistem yang berkembang.
+4. **Mutation Testing** — Mengukur kualitas test suite melalui skor mutasi.
+5. **Golden Test Generation** — Menghasilkan kasus Golden Test untuk Capability Pack lain (Code, Network, Trading, DevOps).
+6. **Benchmark Test Generation** — Menghasilkan performa dan beban pengujian untuk sistem.
+7. **Flaky Test Detection** — Mendeteksi, mengklasifikasi, dan melaporkan kegagalan pengujian yang terputus-putus.
+8. **Analisis Cakupan Tes** — Mengukur dan melaporkan cakupan di semua output Capability Pack.
+9. **Validasi Kinerja** — Memvalidasi persyaratan kinerja terhadap Benchmark.
 
 ### Kriteria Keberhasilan
 
-| Metrik | Target | Grade |
+|Metrik|Target|Nilai|
 |--------|--------|-------|
-| Cakupan Generasi Test | ≥95% (semua kode tercakup oleh test yang dihasilkan) | A |
-| Mutation Score | ≥80% (kualitas test suite) | A |
-| Deteksi Regresi | ≥95% (regresi tertangkap sebelum deployment) | A |
-| Generasi Golden Test | ≥90% (kasus test untuk pack lain dihasilkan) | A |
-| Deteksi Flaky Test | ≥90% (flaky test teridentifikasi) | A |
-| Analisis Coverage | ≥85% (coverage diukur di semua pack) | A |
-| Performance Validation | ≥90% (benchmark divalidasi) | A |
-| Explainability | ≥90% (temuan test dijelaskan) | A |
+|Tes Cakupan Generasi|≥95% (semua kode tercakup oleh tes yang dihasilkan)|A|
+|Skor Mutasi|≥80% (uji kualitas rangkaian)|A|
+|Deteksi Regresi|≥95% (regresi ditangkap sebelum penerapan)|A|
+|Generasi Golden Test|≥90% (uji kasus untuk paket lain dihasilkan)|A|
+|Deteksi Tes Terkelupas|≥90% (uji teridentifikasi flaky)|A|
+|Cakupan Analisis|≥85% (cakupan diukur di semua paket)|A|
+|Validasi Kinerja|≥90% (Benchmark divalidasi)|A|
+|Penjelasan|≥90% (uji temuan dijelaskan)|A|
 
 ---
 
 ## Non-Tujuan
 
-1. **Menggantikan infrastruktur test produksi** — QA Engineer menghasilkan test; eksekusi terjadi di CI/CD.
-2. **Eksekusi test langsung terhadap sistem produksi** — Fokus pada generasi dan analisis test, bukan eksekusi.
-3. **Menggantikan alat testing khusus** — Alat seperti pytest, Jest, k6 tetap dipakai; QA Engineer menyediakan orkestrasi dan generasi.
-4. **Desain manual test case** — Fokus pada generasi test otomatis.
+1. **Mengganti infrastruktur uji produksi** — QA Engineer menghasilkan uji; eksekusi terjadi di CI/CD.
+2. **Uji eksekusi langsung terhadap sistem produksi** — Fokus pada uji generasi dan analisis, bukan eksekusi.
+3. **Mengganti alat pengujian khusus** — Alat seperti pytest, Jest, k6 tetap dipakai; QA Engineer menyediakan orkestrasi dan generasi.
+4. **Desain test case manual** — Fokus pada generasi test otomatis.
 5. **Modifikasi Core** — Semua implementasi berada di dalam Capability Pack QA Engineer.
 
 ---
 
-## Scope Kapabilitas
+## Ruang Lingkup Kapabilitas
 
 ### Kapabilitas Inti
 
-| Kapabilitas | Deskripsi | Input | Output |
+|Kapabilitas|Deskripsi|Masukan|Keluaran|
 |-----------|-------------|--------|---------|
-| Unit Test Generation | Menghasilkan test unit untuk source code | Source code, spesifikasi bahasa | File test unit dengan ekspektasi pass/fail |
-| Integration Test Generation | Menghasilkan test yang mencakup interaksi komponen | API spec, skema database, definisi layanan | File test integrasi |
-| Regression Test Automation | Menghasilkan dan memelihara regression test suite | Codebase, riwayat perubahan, hasil test | Regression test suite + rencana pemeliharaan |
-| Mutation Testing | Mengukur kualitas test suite melalui mutation score | Source code, test suite | Laporan mutation score dengan kematian/kelangsungan mutant |
-| Golden Test Generation | Menghasilkan kasus golden test untuk Capability Pack lain | Spesifikasi output pack, hasil yang diharapkan | Kasus golden test untuk Code, Network, Trading, DevOps |
-| Benchmark Test Generation | Menghasilkan test performa/load | Spesifikasi sistem, persyaratan performa | Skrip benchmark test + metrik yang diharapkan |
-| Flaky Test Detection | Mendeteksi dan mengklasifikasi kegagalan test yang terputus-putus | Riwayat hasil test, log CI/CD | Laporan flaky test dengan klasifikasi |
-| Test Coverage Analysis | Mengukur coverage di semua output Capability Pack | Source code, test suite | Laporan coverage dengan kesenjangan teridentifikasi |
-| Performance Validation | Memvalidasi performa terhadap benchmark | Hasil benchmark, metrik performa | Laporan validasi performa |
+|Pembuatan Uji Unit|Hasilkan unit pengujian untuk kode sumber|Kode sumber, spesifikasi bahasa|Ajukan unit pengujian dengan ekspektasi lulus/gagal|
+|Generasi Uji Integrasi|Hasilnya tes yang mencakup interaksi komponen|API spesifikasi, skema database, resolusi layanan|Integrasi pengujian file|
+|Otomatisasi Uji Regresi|Rangkaian uji regresi hasil dan pemeliharaan|Basis kode, riwayat perubahan, hasil pengujian|Rangkaian uji regresi + rencana pemeliharaan|
+|Pengujian Mutasi|Mengukur kualitas test suite melalui skor mutasi|Kode sumber, rangkaian pengujian|Laporan skor mutasi dengan kematian/kelangsungan mutan|
+|Golden Test Generasi|Menghasilkan kasus Golden Test untuk Capability Pack lain|Spesifikasi paket keluaran, hasil yang diharapkan|Kasus Golden Test untuk Kode, Jaringan, Perdagangan, DevOps|
+|Benchmark Pembuatan Tes|Hasilnya tes performa/beban|Spesifikasi sistem, persyaratan kinerja|Skrip Benchmark tes + metrik yang diharapkan|
+|Deteksi Uji Terkelupas|Mendeteksi dan mengklasifikasi kegagalan tes yang terputus-putus|Riwayat hasil tes, log CI/CD|Laporan flaky test dengan klasifikasi|
+|Analisis Cakupan Tes|Mengukur cakupan di semua output Capability Pack|Kode sumber, rangkaian pengujian|Laporan liputan dengan keselarasan teridentifikasi|
+|Validasi Kinerja|Memvalidasi kinerja terhadap Benchmark|Hasil Benchmark, metrik kinerja|Laporan validasi kinerja|
 
-### Out of Scope
+### Di Luar Cakupan
 
-- Eksekusi test langsung terhadap sistem produksi
-- Infrastruktur test runner (pytest, Jest, dll.)
+- Eksekusi uji langsung terhadap sistem produksi
+- Pelari pengujian infrastruktur (pytest, Jest, dll.)
 - Eksekusi pipeline CI/CD
-- Desain manual test case
-- Generasi test data database (di luar fixtures)
-- Security testing (ditangani Security Engineer)
+- Desain kasus uji manual
+- Database data tes Generasi (perlengkapan di luar)
+- Pengujian keamanan (ditangani Security Engineer)
 
 ---
 
 ## Kontrak Publik
 
-### Input Contract: QA Test Request
+### Kontrak Masukan: Permintaan Tes QA
 
 ```json
 {
@@ -139,7 +139,7 @@ Tidak adanya QA Engineer berarti test yang baik — jaring pengaman semua perang
 }
 ```
 
-### Output Contract: QA Test Report
+### Kontrak Keluaran: Laporan Uji QA
 
 ```json
 {
@@ -225,7 +225,7 @@ Tidak adanya QA Engineer berarti test yang baik — jaring pengaman semua perang
 
 ---
 
-## Titik Integrasi (Capability Graph)
+## Titik Integrasi (Grafik Kapabilitas)
 
 ```
 Consumer Capability Pack (Code Engineer, System Architect, QA-dependent apps)
@@ -259,43 +259,43 @@ Consumer Capability Pack
 User / Human Approval Loop (tests added to CI/CD by user)
 ```
 
-### Template Tugas
+### Templat Tugas
 
-| Tugas | Subtugas |
+|Tugas|Subtugas|
 |------|----------|
-| Test Suite Generation | Project scan → Test plan → Unit tests → Integration tests → Coverage analysis → Mutation test → Flaky detection → Performance validation → Report |
+|Pembuatan Test Suite|Pemindaian proyek → Rencana pengujian → Pengujian unit → Pengujian integrasi → Analisis cakupan → Uji mutasi → Deteksi tidak stabil → Validasi kinerja → Laporan|
 
 ---
 
 ## Capability Pack Konsumen
 
-| Capability Pack Konsumen | Use Case |
+|Capability Pack Konsumen|Kasus Penggunaan|
 |--------------------------|----------|
-| **Code Engineer** | Menghasilkan dan menganalisis test untuk kode yang dihasilkan |
-| **System Architect** | Strategi test berbasis arsitektur, analisis coverage |
-| **DevOps Assistant** | Desain pipeline test CI/CD, deteksi flaky test |
-| **Self Development** | Coverage test untuk proposal perbaikan |
+|**Insinyur Kode**|Menghasilkan dan menganalisis tes untuk kode yang dihasilkan|
+|**Arsitek Sistem**|Uji strategi berbasis arsitektur, cakupan analisis|
+|**Asisten DevOps**|Desain pipeline test CI/CD, deteksi flaky test|
+|**Pengembangan Diri**|Uji cakupan untuk proposal perbaikan|
 
 ---
 
-## Dependensi
+## Ketergantungan
 
-### Dependensi Internal (Shared Contracts)
+### Dependensi Internal (Kontrak Bersama)
 
-1. **Execution Runtime** — Routing dan orkestrasi tugas (sesuai ADR-002)
+1. **Execution Runtime** — Tugas perutean dan orkestrasi (sesuai ADR-002)
 2. **Experience Memory** — Persistensi catatan kualitas test (sesuai ADR-011)
-3. **Shared Contracts** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
+3. **Kontrak Bersama** — Definisi Task/Intent dan skema hasil (sesuai ADR-006)
 
-### Alat Testing Eksternal (untuk referensi validasi golden test)
+### Alat Testing Eksternal (untuk referensi validasi Golden Test)
 
 1. **pytest** — Framework test Python (referensi untuk pola test yang dihasilkan)
-2. **Jest** — Testing JavaScript/TypeScript
-3. **JUnit** — Testing Java
-4. **mut.py / mutmut** — Alat mutation testing
-5. **coverage.py** — Analisis coverage
-6. **k6 / locust** — Pengujian load dan performa
+2. **Jest** — Menguji JavaScript/TypeScript
+3. **JUnit** — Menguji Java
+4. **mut.py / mutmut** — Alat pengujian mutasi
+5. **coverage.py** — Analisis cakupan
+6. **k6 / belalang** — Pengujian beban dan kinerja
 
-### Tidak Ada Perubahan Core yang Diperlukan
+### Tidak Ada Perubahan Inti yang Diperlukan
 
 Semua implementasi berada di dalam Capability Pack QA Engineer:
 
@@ -315,7 +315,7 @@ apps/
     └── performance_validator.py # Performance validation
 ```
 
-**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau shared contract.
+**Dampak ADR:** Tidak ada. Tidak diperlukan modifikasi Core, Runtime, Kernel, atau kontrak bersama.
 
 ---
 
@@ -323,79 +323,79 @@ apps/
 
 ### Kerangka Benchmark
 
-| Dimensi | Definisi | Pengukuran | Target |
+|Dimensi|Definisi|pengukuran|Target|
 |-----------|------------|-------------|--------|
-| **Test Generation Coverage** | % kode tercakup oleh test yang dihasilkan | Analisis coverage pada test yang dihasilkan | ≥95% |
-| **Mutation Score** | Kualitas test suite yang dihasilkan | Mutant yang dibunuh / total mutant | ≥80% |
-| **Regression Detection** | % regresi tertangkap oleh test yang dihasilkan | Regresi tertangkap dalam pengujian | ≥95% |
-| **Golden Test Generation** | % kasus golden test dihasilkan untuk pack lain | Golden test dihasilkan / yang diharapkan | ≥90% |
-| **Flaky Test Detection** | % flaky test teridentifikasi | Flaky terdeteksi / ground truth flaky | ≥90% |
-| **Coverage Analysis Accuracy** | Kebenaran laporan coverage | Coverage divalidasi ahli | ≥85% |
-| **Performance Validation** | % persyaratan performa divalidasi | Benchmark divalidasi | ≥90% |
-| **Explainability** | Kejelasan temuan dan kesenjangan test | Skor evaluasi manusia | ≥90% |
-| **Consistency** | Input yang sama menghasilkan test yang sama | Varian di 10 run < 5% | ≥90% |
+|**Cakupan Pembuatan Tes**|% kode tercakup oleh tes yang dihasilkan|Cakupan analisis pada tes yang dihasilkan|≥95%|
+|**Skor Mutasi**|Kualitas test suite yang dihasilkan|Mutan yang dibunuh / mutan total|≥80%|
+|**Deteksi Regresi**|% regresi tertangkap oleh tes yang dihasilkan|Regresi tertangkap dalam pengujian|≥95%|
+|**Golden Test Generasi**|% kasus Golden Test Dihasilkan untuk paket lain|Golden Test Dihasilkan / yang diharapkan|≥90%|
+|**Deteksi Uji Bermasalah**|% uji serpihan teridentifikasi|Flaky terdeteksi / ground truth flaky|≥90%|
+|**Akurasi Analisis Cakupan**|Kebenaran laporan liputan|Cakupan divalidasi ahli|≥85%|
+|**Validasi Kinerja**|% persyaratan kinerja divalidasi|Benchmark divalidasi|≥90%|
+|** Penjelasan **|Kejelasan temuan dan uji kekejangan|Skor evaluasi manusia|≥90%|
+|**Konsistensi**|Input yang menghasilkan sama tes yang sama|Varian di 10 run < 5%|≥90%|
 
-### Dataset Benchmark
+### Kumpulan data Benchmark
 
-- **100 audit repositori** yang mencakup:
-  - Repositori Python (API, data pipelines, web apps)
+- **100 repositori audit** yang mencakup:
+  - Repositori Python (API, saluran data, aplikasi web)
   - Proyek JavaScript/TypeScript (frontend, backend, full-stack)
-  - Layanan Go (microservices, CLI tools)
-  - Aplikasi Java (Spring Boot, enterprise)
-  - Tumpukan teknologi campuran
+  - Layanan Go (layanan mikro, alat CLI)
+  - Aplikasi Java (Spring Boot, perusahaan)
+  - Tumpukan campuran teknologi
 
 ### Detail Dimensi Benchmark
 
-| Tipe Skenario | Deskripsi | Ground Truth |
+|Tipe Skenario|Deskripsi|Kebenaran Dasar|
 |---------------|-------------|-------------|
-| Regression | Test suite gagal pada regresi yang diketahui | Suntikkan bug yang diketahui, verifikasi deteksi |
-| Mutation | Mutant dibunuh oleh test yang dihasilkan | Output alat analisis mutant |
-| Flaky Tests | Kegagalan test yang terputus-putus terdeteksi | Database flaky test |
-| Coverage | Kesenjangan coverage teridentifikasi | Output alat coverage |
-| Benchmark | Benchmark performa dihasilkan dan divalidasi | Eksekusi test performa |
+|Regresi|Test suite gagal pada regresi yang diketahui|Suntikkan bug yang diketahui, verifikasi deteksi|
+|Mutasi|Mutan dibunuh oleh tes yang dihasilkan|Keluaran alat analisis mutan|
+|Tes Tidak Stabil|Tes kegagalan yang terputus-putus terdeteksi|Tes database tidak stabil|
+|Cakupan|Kesenjangan cakupan teridentifikasi|Cakupan alat keluaran|
+|Benchmark|Benchmark performa yang dihasilkan dan divalidasi|Eksekusi tes performa|
 
 ---
 
 ## Spesifikasi Golden Test
 
-| # | Skenario | Hasil yang Diharapkan | Kriteria Penerimaan |
+| # |Skenario|Hasil yang diharapkan|Kriteria Penerimaan|
 |---|----------|-----------------|---------------------|
-| 1 | Test unit untuk fungsi Python | Test dihasilkan, mencakup semua cabang | ≥95% coverage |
-| 2 | Test integrasi untuk REST API | Test dihasilkan untuk semua endpoint | ≥90% cakupan endpoint |
-| 3 | Regression test untuk bug yang diketahui | Test menangkap regresi | ≥95% deteksi |
-| 4 | Mutation testing pada kode | Mutant dibunuh | ≥80% mutation score |
-| 5 | Deteksi flaky test | Flaky test teridentifikasi dan diklasifikasi | ≥90% deteksi |
-| 6 | Identifikasi kesenjangan coverage | Kode tidak tercakup teridentifikasi | ≥85% akurasi |
-| 7 | Golden test untuk Code Engineer | Kasus golden test dihasilkan | ≥90% kelengkapan |
-| 8 | Golden test untuk Network Engineer | Kasus golden test dihasilkan | ≥90% kelengkapan |
-| 9 | Generasi benchmark test | Skrip load test dihasilkan dengan metrik | ≥90% kelengkapan |
-| 10 | Performance validation | Latensi/throughput divalidasi terhadap target | ≥90% tingkat kelulusan |
+|1|Unit uji untuk fungsi Python|Tes yang dihasilkan mencakup semua cabang|Cakupan ≥95%.|
+|2|Uji integrasi untuk REST API|Tes dihasilkan untuk semua titik akhir|≥90% cakupan titik akhir|
+|3|Uji regresi untuk bug yang diketahui|Uji menangkap regresi|≥95% deteksi|
+|4|Pengujian mutasi pada kode|Mutan dibunuh|≥80% skor mutasi|
+|5|Deteksi tes terkelupas|Flaky test teridentifikasi dan diklasifikasi|≥90% deteksi|
+|6|Penciptaan cakupan cakupan|Kode tidak tercakup teridentifikasi|akurasi ≥85%.|
+|7|Golden Test untuk Insinyur Kode|Kasus Golden Test dihasilkan|≥90% kelengkapan|
+|8|Golden Test untuk Insinyur Jaringan|Kasus Golden Test dihasilkan|≥90% kelengkapan|
+|9|Tes generasi Benchmark|Skrip load test dihasilkan dengan metrik|≥90% kelengkapan|
+|10|Validasi kinerja|Latensi/throughput divalidasi terhadap target|≥90% tingkat kelulusan|
 
 ### Kriteria Penerimaan Golden Test
 
-- Semua 10 skenario golden test lulus pada ≥90% dari kriteria penerimaan individu (100% pass)
-- Tingkat kelulusan golden test QA Engineer keseluruhan ≥90%
-- Semua test yang dihasilkan valid secara sintaks untuk framework target
-- Mutation score ≥80% pada semua proyek benchmark
+- Semua 10 skenario Golden Test lulus pada ≥90% dari kriteria penerimaan individu (100% lulus)
+- Tingkat kelulusan Golden Test QA Engineer keseluruhan ≥90%
+- Semua tes yang dihasilkan valid secara sintaks untuk framework target
+- Skor mutasi ≥80% pada semua proyek Benchmark
 
 ---
 
-## Persyaratan Real Case
+## Persyaratan Kasus Nyata
 
-### Direktori Real Case
+### Direktori Kasus Nyata
 
 `real_cases/qa_engineer/` harus berisi:
 
-| Persyaratan | Jumlah Minimum |
+|Urutannya|Jumlah Minimal|
 |-------------|---------------|
-| Audit repositori nyata dari penggunaan aktual | 20 |
-| Kasus dengan mutation testing | 10 |
-| Kasus dengan deteksi flaky test | 5 |
-| Kasus dengan analisis coverage | 15 |
-| Kasus dengan generasi golden test untuk pack lain | 10 |
-| Kasus dengan review/validasi ahli | 15 |
+|Audit repositori nyata dari penggunaan aktual|20|
+|Kasus dengan pengujian mutasi|10|
+|Kasus dengan deteksi flaky test|5|
+|Kasus dengan cakupan analisis|15|
+|Kasus dengan generasi Golden Test untuk paket lain|10|
+|Kasus dengan review/validasi ahli|15|
 
-### Struktur Real Case
+### Struktur Kasus Nyata
 
 ```
 real_cases/qa_engineer/<case_id>/
@@ -410,17 +410,17 @@ real_cases/qa_engineer/<case_id>/
 └── evaluation.md            # Ground truth, expert review, lessons learned
 ```
 
-### Target Real Case
+### Targetkan Kasus Nyata
 
-| Metrik | Target |
+|Metrik|Target|
 |--------|--------|
-| Kasus nyata yang dicatat | ≥20 (Level 3) → ≥100 (Level 4) |
-| Skor kualitas kasus nyata (review ahli) | ≥90% |
-| Tingkat deteksi regresi (pasca-deployment) | ≥95% |
+|Kasus nyata yang dicatat|≥20 (Tingkat 3) → ≥100 (Tingkat 4)|
+|Skor kasus kualitas nyata (review ahli)|≥90%|
+|Tingkat deteksi regresi (pasca-deployment)|≥95%|
 
 ---
 
-## Definition of Done
+## Definisi Selesai
 
 ```text
 Definition of Done — QA Engineer Capability Pack
@@ -487,15 +487,15 @@ Release Notes
 
 ## Risiko
 
-| Risiko | Dampak | Kemungkinan | Mitigasi |
+|Risiko|Dampak|kemungkinan|Mitigasi|
 |------|--------|------------|------------|
-| Test yang dihasilkan berkualitas buruk (mutation score rendah) | Tinggi — rasa percaya diri palsu | Sedang | Loop perbaikan berbasis mutasi; quality gates |
-| Deteksi flaky test menghasilkan false positive | Sedang — membuang waktu debugging | Tinggi | Analisis historis dengan >10 run; confidence scoring |
-| Analisis coverage melewatkan code path | Sedang — coverage tidak lengkap | Sedang | Coverage multi-alat; path coverage jika memungkinkan |
-| Generasi golden test terlalu generik | Sedang — tidak berguna untuk edge case | Tinggi | Berbasis template dengan hook kustomisasi; loop umpan balik |
-| Performance validation mengasumsikan baseline salah | Sedang — pass/fail yang salah | Sedang | Tangkap baseline sebelum testing; perbandingan historis |
-| Mutation testing mahal secara komputasi | Rendah — generasi test lambat | Tinggi | Batas mutant dapat dikonfigurasi; eksekusi paralel; sampling |
-| Test yang dihasilkan rusak pada perubahan kode yang valid | Sedang — beban pemeliharaan | Tinggi | Rencana pemeliharaan regression test; pembaruan otomatis |
+|Tes yang dihasilkan berkualitas buruk (skor mutasi rendah)|Tinggi — rasa percaya diri palsu|Sedang|Loop perbaikan berbasis pengobatan; gerbang berkualitas|
+|Deteksi tes terkelupas menghasilkan positif palsu|Sedang — membuang waktu debugging|Tinggi|Analisis historis dengan >10 run; penilaian kepercayaan diri|
+|Cakupan analisis melewatkan jalur kode|Sedang — liputan tidak lengkap|Sedang|Cakupan multi-alat; cakupan jalur jika memungkinkan|
+|Generasi Golden Test terlalu umum|Sedang — tidak berguna untuk edge case|Tinggi|Template berbasis dengan kait kustomisasi; putaran umpan balik|
+|Validasi kinerja mengasumsikan kesalahan dasar|Sedang — lulus/gagal yang salah|Sedang|Tangkap baseline sebelum pengujian; perbandingan historis|
+|Pengujian mutasi mahal secara komputasi|Rendah — pengujian generasi lambat|Tinggi|Batas mutan dapat dikonfigurasi; eksekusi paralel; contoh|
+|Test yang dihasilkan rusak pada perubahan kode yang valid|Sedang — beban pemeliharaan|Tinggi|uji regresi rencana pemeliharaan; pembaruan otomatis|
 
 ---
 
@@ -506,64 +506,64 @@ Release Notes
 QA Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
 - **ADR-001 (Core Pipeline Freeze):** Tidak ada perubahan Core. Semua logika di `apps/qa_engineer/`.
-- **ADR-002 (Capability Pack Independence):** QA Engineer berkomunikasi dengan pack lain melalui tugas Execution Runtime dan shared contract saja. Tanpa import langsung.
-- **ADR-003 (Worker = Adapter Only):** Worker tipis merutekan tugas ke Domain Engine.
+- **ADR-002 (Capability Pack Independence):** QA Engineer berkomunikasi dengan paket lain melalui tugas Execution Runtime dan kontrak bersama saja. Tanpa import langsung.
+- **ADR-003 (Pekerja = Hanya Adaptor):** Pekerja tipis merutekan tugas ke Mesin Domain.
 - **ADR-004 (Domain Engine Owns Business Logic):** Semua logika generasi test dan QA berada di `apps/qa_engineer/engine.py`.
-- **ADR-005 (Human Approval Required):** Test yang dihasilkan memerlukan review manusia sebelum integrasi; tidak ada modifikasi CI/CD otomatis (sesuai ADR-005).
-- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada untuk pendaftaran node dan subtask template. Tidak ada perubahan kontrak.
-- **ADR-007 (Conversation Boundary):** QA Engineer dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
-- **ADR-008 (Core Change Requires Cross-Capability Proof):** Tidak berlaku — tidak ada perubahan Core.
+- **ADR-005 (Perlu Persetujuan Manusia):** Tes yang dihasilkan memerlukan peninjauan manusia sebelum integrasi; tidak ada modifikasi CI/CD otomatis (sesuai ADR-005).
+- **ADR-006 (Capability Contract v1 Frozen):** Menggunakan Capability Contract yang ada pendaftaran untuk node dan subtask template. Tidak ada perubahan kontrak.
+- **ADR-007 (Batas Percakapan):** QA Engineer dipanggil melalui Execution Runtime, bukan langsung oleh Conversation Manager.
+- **ADR-008 (Perubahan Inti Memerlukan Bukti Lintas Kemampuan):** Tidak berlaku — tidak ada perubahan Core.
 
-**ADR yang Diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
+**ADR yang diperlukan:** Tidak ada. Ini adalah Capability Pack baru, bukan modifikasi Core.
 
 ---
 
-## Rencana Rollout
+## Peluncuran Rencana
 
-### Fase 1: Prototipe (RFC → Experimental)
+### Fase 1: Prototipe (RFC → Eksperimental)
 
 **Durasi:** 5 minggu
 
 - [ ] Membuat struktur paket `apps/qa_engineer/`
-- [ ] Mengimplementasikan generasi test unit Python
-- [ ] Mengimplementasikan analisis coverage (line/branch)
+- [ ] Mengimplementasikan unit uji generasi Python
+- [ ] Mengimplementasikan cakupan analisis (lini/cabang)
 - [ ] Mendefinisikan kontrak publik (QA Request, QA Report)
-- [ ] Mengimplementasikan adapter Worker tipis
-- [ ] Membuat 10 skenario golden test
-- [ ] Integrasi: Code Engineer → QA Engineer (generasi test untuk kode yang dihasilkan)
-- [ ] Integrasi: System Architect → QA Engineer (analisis coverage)
-- **Gate:** 10 golden test lulus pada ≥80%
+- [ ] Mengimplementasikan adaptor Worker tipis
+- [ ] Membuat 10 skenario Golden Test
+- [ ] Integrasi: Code Engineer → QA Engineer (uji pembangkitan untuk kode yang dihasilkan)
+- [ ] Integrasi: Arsitek Sistem → QA Engineer (cakupan analisis)
+- **Gerbang:** 10 Golden Test lulus pada ≥80%
 
-### Fase 2: Kapabilitas Lengkap (Experimental → Stable)
+### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 8 minggu
 
-- [ ] Mengimplementasikan generasi integration test
-- [ ] Mengimplementasikan mutation testing
+- [ ] Mengimplementasikan uji integrasi generasi
+- [ ] Mengimplementasikan pengujian mutasi
 - [ ] Mengimplementasikan deteksi flaky test
-- [ ] Mengimplementasikan golden test generation untuk Code Engineer, Network Engineer, Trading Analyst
-- [ ] Mengimplementasikan generasi benchmark test
-- [ ] Mengimplementasikan performance validation
+- [ ] Mengimplementasikan generasi Golden Test untuk Code Engineer, Network Engineer, Trading Analyst
+- [ ] Mengimplementasikan uji generasi Benchmark
+- [ ] Mengimplementasikan validasi kinerja
 - [ ] Menambahkan dukungan JavaScript/TypeScript, Go, Java
-- [ ] Memperluas golden test menjadi 10 skenario penuh
+- [ ] Memperluas Golden Test menjadi 10 skenario penuh
 - [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer
-- [ ] **Benchmark:** 100 repositori, ≥95% coverage, ≥80% mutation score
+- [ ] **Benchmark:** 100 repositori, cakupan ≥95%, skor mutasi ≥80%
 - [ ] **Integrasi:** DevOps Assistant mulai menggunakan QA Engineer untuk desain test CI/CD
-- **Gate:** Semua 10 golden test lulus pada ≥90%; benchmark ≥95% coverage
+- **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥95% cakupan
 
-### Fase 3: Ekosistem (Stable → Certified)
+### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Keempat pack konsumen terintegrasi
-- [ ] Golden test generation divalidasi untuk semua pack konsumen
-- [ ] Mutation testing dikalibrasi pada 100 repositori
-- [ ] Deteksi flaky test divalidasi di pipeline CI/CD
-- [ ] Audit independen terhadap kualitas dan coverage test
-- [ ] Dashboard benchmark publik tersedia
+- [ ] Keempat paket konsumen terintegrasi
+- [ ] Generasi Golden Test divalidasi untuk semua paket konsumen
+- [ ] Pengujian mutasi dikalibrasi pada 100 repositori
+- [ ] Deteksi flaky test divalidasi pada pipeline CI/CD
+- [ ] Audit independen terhadap kualitas dan cakupan uji
+- [ ] Dasbor Benchmark publik tersedia
 - [ ] **Benchmark:** ≥95% di semua dimensi berkelanjutan
-- [ ] **Real Cases:** ≥100 kasus dengan ≥80% validasi ahli
-- **Gate:** Audit independen lulus; benchmark ≥95% berkelanjutan
+- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
+- **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---
 
@@ -571,22 +571,21 @@ QA Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
 ### Fase 2 (Pasca-Rilis v1.0.0)
 
-1. **AI-Powered Test Optimization** — Memprioritaskan urutan eksekusi test berdasarkan pola kegagalan historis
-2. **Property-Based Testing Generation** — Menghasilkan test berbasis properti (Hypothesis, fast-check) dari kontrak kode
-3. **Test Suite Evolution** — Memperbarui test secara otomatis ketika kode berubah (test repair sadar-diff)
-4. **Cross-Project Test Intelligence** — Berbagi insight test dan pola flakiness lintas proyek
+1. **Pengoptimalan Uji Bertenaga AI** — Memprioritaskan urutan pengujian eksekusi berdasarkan pola kegagalan historis
+2. **Generasi Pengujian Berbasis Properti** — Menghasilkan tes berbasis properti (Hipotesis, pemeriksaan cepat) dari kontrak kode
+3. **Test Suite Evolution** — Memperbarui pengujian secara otomatis ketika kode berubah (test perbaikan sadar-diff)
+4. **Cross-Project Test Intelligence** — Berbagi tes wawasan dan pola kelemahan lintas proyek
 
-### Fase 3 (Enterprise)
+### Fase 3 (Perusahaan)
 
-1. **Test Environment Orchestration** — Menyediakan dan mengelola lingkungan test terisolasi
-2. **Test Data Generation** — Pembuatan test data sintetis dengan kontrol privasi
-3. **Continuous Test Quality Monitoring** — Melacak mutation score dan coverage drift dari waktu ke waktu
-4. **Test Impact Analysis** — Memprediksi test mana yang perlu dijalankan berdasarkan perubahan kode
+1. **Orkestrasi Lingkungan Uji** — Menyediakan dan mengelola lingkungan uji yang dilindungi
+2. **Pembuatan Data Uji** — Pembuatan data pengujian sintetis dengan kontrol privasi
+3. **Pemantauan Kualitas Tes Berkelanjutan** - Melacak skor mutasi dan penyimpangan cakupan dari waktu ke waktu
+4. **Test Impact Analysis** — Memprediksi tes mana yang perlu dijalankan berdasarkan perubahan kode
 
 ### Jangka Panjang
 
-1. **Self-Healing Tests** — Memperbaiki test rapuh secara otomatis ketika kode berubah
-2. **Test Suite Architecture Governance** — Menegakkan pola arsitektur test dan deteksi anti-pattern
+1. **Tes Penyembuhan Mandiri** — memperbaiki tes rapuh secara otomatis ketika kode berubah
+2. **Test Suite Architecture Governance** — Menegakkan pola pengujian arsitektur dan deteksi anti-pola
 3. **Test Flakiness Root Cause Analysis** — Diagnosis otomatis dan saran perbaikan untuk flaky test
-4. **Cross-Platform Test Generation** — Menghasilkan test untuk mobile, web, API, dan contract testing dalam satu alur kerja
-
+4. **Pembuatan Uji Lintas Platform** — Menghasilkan pengujian untuk seluler, web, API, dan pengujian kontrak dalam satu alur kerja

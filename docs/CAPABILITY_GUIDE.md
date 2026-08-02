@@ -546,3 +546,103 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Tujuan:** Penerjemahan bisnis-ke-teknis: pengumpulan kebutuhan, pemodelan proses bisnis, pembuatan user story, pemodelan use case, pembuatan BRD, spesifikasi fungsional, analisis gap, analisis ROI, dan proses optimasi.
 
 **Konsumen:** Insinyur Kode, Arsitek Sistem, Pengembangan Diri
+
+---
+
+## Capability Pack Masa Depan (Peta Jalan Berbasis Domain)
+
+> **Prinsip:** ECP tidak lagi menambah Capability Pack berdasarkan profesi, tetapi berdasarkan **domain keahlian yang benar-benar reusable** oleh Capability Pack lain. Seluruh pack di bawah adalah **calon** — hanya dikembangkan setelah 13 pack inti mencapai target grade A/A- dan memenuhi aturan Governance.
+
+### Tier A — Sangat Direkomendasikan (⭐⭐⭐⭐⭐)
+
+Pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack lain.
+
+#### Infrastructure Engineer
+
+**Kemampuan ID (calon):** `infrastructure-engineer`
+**Kategori:** Infrastruktur
+**Fokus Domain:**
+- Kubernetes, Docker Swarm
+- Proxmox, VMware
+- Ceph, HA Cluster
+- Load Balancer, Storage
+- Disaster Recovery
+
+**Dipakai Oleh:** DevOps, Network, System Architect
+**Catatan:** Berbeda dengan DevOps — fokus pada operasi infrastruktur fisik/virtual dan keandalan.
+
+#### AI Engineer
+
+**Kemampuan ID (calon):** `ai-engineer`
+**Kategori:** AI/ML
+**Fokus Domain:**
+- RAG (Retrieval-Augmented Generation)
+- Agent Design
+- Prompt Optimization
+- Model Router
+- LoRA, Fine-tuning
+- Evaluation, Guardrails
+
+**Dipakai Oleh:** Trading, Research, Code, Self Development
+
+#### Documentation Engineer
+
+**Kemampuan ID (calon):** `documentation-engineer`
+**Kategori:** Dokumentasi
+**Fokus Domain:**
+- API Documentation, OpenAPI
+- SDK Docs
+- ADR, RFC
+- Changelog, Release Notes
+- Architecture Documentation
+
+**Dipakai Oleh:** Semua pack — menjaga dokumentasi selalu sinkron dengan kode.
+
+### Tier B — Platform Professional (⭐⭐⭐⭐)
+
+Melengkapi siklus pengembangan produk end-to-end.
+
+#### Product Manager
+
+**Kemampuan ID (calon):** `product-manager`
+**Kategori:** Produk
+**Fokus Domain:** Product Vision, Backlog, Roadmap, Prioritas, Sprint, Release Planning
+
+#### UI/UX Designer
+
+**Kemampuan ID (calon):** `ui-ux-designer`
+**Kategori:** Desain
+**Fokus Domain:** Wireframe, UX Review, Accessibility, Design System, Component Library
+
+#### Full Stack Engineer
+
+**Kemampuan ID:** `full-stack-engineer` (sudah ada di `apps/`)
+**Kategori:** Pengembangan
+**Fokus Domain:** Integrasi Frontend–Backend, End-to-end Feature Delivery, API Mapping, State Management, Deployment Readiness
+**Catatan:** **Bukan pengganti Code Engineer** — fokus pada integrasi dan delivery end-to-end, bukan generasi kode.
+
+### Tier C — Platform Enterprise (⭐⭐⭐)
+
+Melayani kebutuhan enterprise: skala, keandalan, kepatuhan, dan pengetahuan terstruktur.
+
+|Capability Pack|Fokus Domain|
+|-----------------|-------------|
+|**Cloud Architect**|AWS, Azure, GCP, Hybrid Cloud, Multi Cloud, Cost Optimization|
+|**SRE (Site Reliability Engineer)**|Observability, Monitoring, Alerting, Incident Response, SLI, SLO, SLA|
+|**Compliance Officer**|ISO 27001, NIST, PCI-DSS, GDPR, Audit, Governance|
+|**Knowledge Engineer**|Ontology, Knowledge Graph, Semantic Search, Entity Resolution, Taxonomy, Knowledge Curation|
+
+### Tier D — Vertical Industry (Kondisional)
+
+Ditambahkan **hanya ketika ada kebutuhan proyek nyata** dan memenuhi aturan Governance: Finance Analyst, HSE Specialist, Legal Advisor, HR Specialist, Procurement Specialist, Manufacturing Engineer, Mining Engineer, Oil & Gas Engineer, Healthcare Assistant, Education Assistant.
+
+### Target Jumlah Pack
+
+|Tahap|Jumlah|Keterangan|
+|-------|------|-----------|
+|**Platform Core**|13|Fokus Capability Excellence|
+|**Platform Professional**|+5|Target aktif: **18 pack**|
+|**Platform Enterprise**|+5|Proposed: 23 pack|
+|**Vertical Industry**|Kondisional|Berdasarkan kebutuhan proyek nyata|
+
+> **Rekomendasi:** 15–20 Capability Pack, masing-masing benar-benar setara spesialis berpengalaman di bidangnya. Platform dengan 18 pack berkualitas tinggi lebih bernilai daripada 50 pack dengan kemampuan dasar.

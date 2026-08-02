@@ -71,9 +71,9 @@ RFC terkait, dokumentasi, dll.
 - RFC-0001: Kontrak Stabil (Diterima)
 - RFC-0002: Plugin Format Manifes (Diterima)
 - RFC-0003: SDK Dekorator (Diterima)
-- RFC-0004: Protokol Bus Acara (Diterima)
-- RFC-0005: Antarmuka Memori (Diterima)
-- RFC-0006: Capability Pack Registri (Diterima)
+- RFC-0004: Perluasan Pengetahuan Jaringan (Diterima)
+- RFC-0005: Perluasan Pengetahuan Trading (Diterima)
+- RFC-0006: Perluasan Pengetahuan Kode (Diterima)
 - RFC-0007: Decision Intelligence (Diterima)
 - RFC-0008: Security Engineer (Diimplementasikan)
 - RFC-0009: Data Engineer (Diimplementasikan)
@@ -89,9 +89,9 @@ RFC terkait, dokumentasi, dll.
 |RFC-0001|Kontrak Stabil|Diterima|Inti|
 |RFC-0002|Plugin Format Manifes|Diterima|Inti|
 |RFC-0003|SDK Dekorator|Diterima|Inti|
-|RFC-0004|Protokol Bus Acara|Diterima|Inti|
-|RFC-0005|Antarmuka Memori|Diterima|Inti|
-|RFC-0006|Capability Pack Registrasi|Diterima|Inti|
+|RFC-0004|Perluasan Pengetahuan Jaringan|Diterima|Insinyur Jaringan|
+|RFC-0005|Perluasan Pengetahuan Trading|Diterima|Analis Perdagangan|
+|RFC-0006|Perluasan Pengetahuan Kode|Diterima|Insinyur Kode|
 |RFC-0007|Decision Intelligence|Diterima|Decision Intelligence|
 |RFC-0008|Security Engineer|Diimplementasikan|Security Engineer|
 |RFC-0009|Data Engineer|Diimplementasikan|Data Engineer|

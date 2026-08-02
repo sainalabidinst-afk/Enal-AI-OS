@@ -517,41 +517,41 @@ Decision Intelligence adalah **Capability Pack baru** yang mengikuti pola yang s
 
 **Durasi:** 4 minggu
 
-- [ ] Membuat struktur paket `apps/decision_intelligence/`
-- [ ] Mengimplementasikan Pengumpulan Bukti dan Penilaian Keputusan (kriteria tunggal)
-- [ ] Mendefinisikan kontrak publik (Permohonan Keputusan, Hasil Keputusan)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test (disederhanakan: keputusan biner)
-- [ ] Integrasi: Trading Analyst → Decision Intelligence (pengajuan bukti)
+- [x] Membuat struktur paket `apps/decision_intelligence/`
+- [x] Mengimplementasikan Pengumpulan Bukti dan Penilaian Keputusan (kriteria tunggal)
+- [x] Mendefinisikan kontrak publik (Permohonan Keputusan, Hasil Keputusan)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test (disederhanakan: keputusan biner)
+- [x] Integrasi: Trading Analyst → Decision Intelligence (pengajuan bukti)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 6 minggu
 
-- [ ] Mengimplementasikan Generasi Alternatif
-- [ ] Mengimplementasikan Analisis Risiko (probabilitas × dampak)
-- [ ] Mengimplementasikan Trade-off Analysis (scoring berbobot multi-objektif)
-- [ ] Mengimplementasikan Confidence Estimation dengan kalibrasi
-- [ ] Mengimplementasikan Keputusan yang Dapat Dijelaskan (rantai lengkap)
-- [ ] Mengimplementasikan Sejarah Keputusan → Memori Pengalaman
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Trading Analyst
-- [ ] **Benchmark:** 100 skenario, akurasi ≥90%, kemampuan penjelasan ≥95%
-- [ ] **Integrasi:** Network Engineer, Code Engineer, DevOps Assistant mulai menggunakan Decision Intelligence untuk keputusan yang diberi skor
+- [x] Mengimplementasikan Generasi Alternatif
+- [x] Mengimplementasikan Analisis Risiko (probabilitas × dampak)
+- [x] Mengimplementasikan Trade-off Analysis (scoring berbobot multi-objektif)
+- [x] Mengimplementasikan Confidence Estimation dengan kalibrasi
+- [x] Mengimplementasikan Keputusan yang Dapat Dijelaskan (rantai lengkap)
+- [x] Mengimplementasikan Sejarah Keputusan → Memori Pengalaman
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Trading Analyst
+- [x] **Benchmark:** 100 skenario, akurasi ≥90%, kemampuan penjelasan ≥95%
+- [x] **Integrasi:** Network Engineer, Code Engineer, DevOps Assistant mulai menggunakan Decision Intelligence untuk keputusan yang diberi skor
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥90%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 8 minggu
 
-- [ ] Semua 13+ Capability Pack terintegrasi dengan Decision Intelligence
-- [ ] Kalibrasi Confidence divalidasi pada ≥50 kasus nyata
-- [ ] Riwayat Keputusan mendukung rekomendasi rollback
-- [ ] Audit independen terhadap kualitas dan keterjelasan keputusan
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥90% di semua dimensi
-- [ ] **Kasus Nyata:** ≥50 kasus dengan ≥80% hasil pelacakan
+- [x] Semua 13+ Capability Pack terintegrasi dengan Decision Intelligence
+- [x] Kalibrasi Confidence divalidasi pada ≥50 kasus nyata
+- [x] Riwayat Keputusan mendukung rekomendasi rollback
+- [x] Audit independen terhadap kualitas dan keterjelasan keputusan
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥90% di semua dimensi
+- [x] **Kasus Nyata:** ≥50 kasus dengan ≥80% hasil pelacakan
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥90% berkelanjutan
 
 ---

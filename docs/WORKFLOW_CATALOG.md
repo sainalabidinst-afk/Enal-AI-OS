@@ -1,9 +1,9 @@
-﻿# Workflow Catalog & Intent Resolver
+﻿# Katalog Alur Kerja & Penyelesai Niat
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 02-08-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Dokumentasi untuk WORKFLOW_CATALOG
@@ -57,64 +57,64 @@ User Intent / Task Name
             Execution Result
 ```
 
-## Catalog
+## Katalog
 
-### WorkflowCatalogEntry
+### Entri Katalog Alur Kerja
 
-Setiap workflow dalam catalog memiliki atribut berikut:
+Setiap alur kerja dalam katalog memiliki atribut berikut:
 
-| Field | Type | Required | Deskripsi |
+|Bidang|Jenis|Diperlukan|Deskripsi|
 |-------|------|----------|-------------|
-| `workflow_id` | str | Ya | Pengidentifikasi unik untuk workflow |
-| `display_name` | str | Ya | Nama yang dapat dibaca manusia |
-| `description` | str | Tidak | Deskripsi workflow |
-| `supported_intents` | list[str] | Ya | Daftar identifier intent yang memicu workflow ini |
-| `tags` | list[str] | Tidak | Tag untuk kategorisasi dan discovery |
-| `category` | str | Tidak | Kategori untuk pengelompokan (misalnya, "network", "code") |
-| `metadata` | dict | Tidak | Metadata tambahan (version, author, dll.) |
+|`workflow_id`|str|Ya|Pengidentifikasi unik untuk alur kerja|
+|`display_name`|str|Ya|Nama yang dapat dibaca manusia|
+|`description`|str|Tidak|Deskripsi alur kerja|
+|`supported_intents`|daftar[str]|Ya|Daftar identifier maksud yang memicu alur kerja ini|
+|`tags`|daftar[str]|Tidak|Tag untuk kategorisasi dan penemuan|
+|`category`|str|Tidak|Kategori untuk pengelompokan (misalnya, "jaringan", "kode")|
+|`metadata`|dikte|Tidak|Metadata tambahan (versi, penulis, dll.)|
 
 ### Operasi
 
-| Method | Deskripsi |
+|Metode|Deskripsi|
 |--------|-------------|
-| `register(entry)` | Mendaftarkan entri workflow (memvalidasi duplikat) |
-| `register_from_dict(data)` | Mendaftarkan dari dictionary |
-| `register_from_json(json_str)` | Mendaftarkan dari string JSON |
-| `register_from_file(filepath)` | Mendaftarkan dari file JSON |
-| `unregister(workflow_id)` | Menghapus workflow beserta intent-nya |
-| `resolve(intent)` | Menemukan workflow yang cocok dengan intent |
-| `resolve_or_raise(intent)` | Resolve atau memunculkan ResolveError |
-| `get_entry(workflow_id)` | Mendapatkan entri berdasarkan workflow_id |
-| `get_workflow_id(intent)` | Pencarian cepat: intent → workflow_id |
-| `find_by_tag(tag)` | Menemukan semua entri dengan tag |
-| `list_entries()` | Mendaftar semua entri (ringkasan) |
-| `list_intents()` | Mendaftar semua pemetaan intent→workflow |
-| `entry_count()` | Jumlah entri yang terdaftar |
-| `intent_count()` | Jumlah intent yang terdaftar |
-| `clear()` | Menghapus semua entri |
+|`register(entry)`|Mendaftarkan alur kerja entri (memvalidasi duplikat)|
+|`register_from_dict(data)`|Mendaftarkan dari kamus|
+|`register_from_json(json_str)`|Mendaftarkan dari string JSON|
+|`register_from_file(filepath)`|Mendaftarkan dari file JSON|
+|`unregister(workflow_id)`|Menghapus alur kerja beserta maksud-nya|
+|`resolve(intent)`|Menemukan alur kerja yang cocok dengan niat|
+|`resolve_or_raise(intent)`|Resolve atau memunculkan ResolveError|
+|`get_entry(workflow_id)`|Mendapatkan entri berdasarkan workflow_id|
+|`get_workflow_id(intent)`|Pencarian cepat: niat → workflow_id|
+|`find_by_tag(tag)`|Menemukan semua entri dengan tag|
+|`list_entries()`|Mendaftar semua entri (ringkasan)|
+|`list_intents()`|Mendaftar semua maksud peta→alur kerja|
+|`entry_count()`|Jumlah entri yang terdaftar|
+|`intent_count()`|Jumlah niat yang terdaftar|
+|`clear()`|Menghapus semua entri|
 
 ### Validasi
 
-Catalog melakukan validasi saat registrasi:
+Katalog melakukan validasi saat registrasi:
 
 - `workflow_id` wajib diisi
 - Minimal satu `supported_intent`
-- **Duplicate workflow**: Terdaftar secara independen (tidak ada duplikasi ID)
-- **Duplicate intent**: Intent yang sama tidak boleh menjadi milik workflow berbeda
+- **Alur kerja duplikat**: Terdaftar secara independen (tidak ada duplikasi ID)
+- **Niat duplikat**: Niat yang sama tidak boleh menjadi milik alur kerja yang berbeda
 
-## Resolver
+## Penyelesai
 
-### IntentResolver
+### Penyelesai Niat
 
-Resolver menggunakan aturan deterministik untuk mencocokkan intent ke workflow:
+Resolver menggunakan aturan deterministik untuk mencocokkan maksud ke alur kerja:
 
-| Strategy | Precedence | Confidence | Kriteria |
+|Strategi|Hak lebih tinggi|Kepercayaan diri|Kriteria|
 |----------|-----------|------------|----------|
-| **Exact Match** | 1 (tertinggi) | 1.0 | Intent ID cocok persis dengan `supported_intents` di catalog |
-| **Alias Match** | 2 | 0.9 | Intent cocok dengan alias yang terdaftar |
-| **Task Name Exact** | 3 | 1.0 | Task name cocok persis |
-| **Task Name Prefix** | 4 | 0.8 | Intent diawali dengan task name yang terdaftar |
-| **Tag Fallback** | 5 (terendah) | 0.7 | Intent cocok dengan tag workflow |
+|**Pencocokan Tepat**|1 (tertinggi)|1.0|Intent ID cocok bertahan dengan `supported_intents` di katalog|
+|**Pertandingan Alias**|2|0,9|Intent cocok dengan alias yang terdaftar|
+|**Nama Tugas Tepat**|3|1.0|Nama tugas cocok bertahan|
+|**Awalan Nama Tugas**|4|0,8|Niat diawali dengan nama tugas yang terdaftar|
+|**Tag Penggantian**|5 (terendah)|0,7|Intent cocok dengan tag workflow|
 
 ### Manajemen Alias
 
@@ -129,7 +129,7 @@ aliases = resolver.get_aliases()
 aliases_for_intent = resolver.get_alias_for_intent("audit-network")
 ```
 
-### Registrasi Task Name
+### Nama Tugas Registrasi
 
 ```python
 resolver.register_task_name("run security audit on network", "audit-network")
@@ -138,7 +138,7 @@ resolver.register_task_names({
 })
 ```
 
-## Response Contract
+## Kontrak Respons
 
 ### ResolveResult (Ditemukan)
 
@@ -176,9 +176,9 @@ resolver.register_task_names({
 }
 ```
 
-## Execution Flow
+## Alur Eksekusi
 
-Alur end-to-end dari intent ke hasil eksekusi:
+Alur end-to-end dari niat ke hasil eksekusi:
 
 ```
 1. Intent: "audit network security"
@@ -204,7 +204,7 @@ Alur end-to-end dari intent ke hasil eksekusi:
 10. WorkflowResponse(status="completed", steps=[...])
 ```
 
-### Integration Helper
+### Pembantu Integrasi
 
 ```python
 # resolve_and_execute() menghubungkan seluruh alur:
@@ -215,20 +215,20 @@ response = await resolver.resolve_and_execute(
 )
 ```
 
-## Telemetry Events
+## Peristiwa Telemetri
 
-| Event | Saat | Data |
+|Peristiwa|Saat|Data|
 |-------|------|------|
-| `IntentResolved` | Intent berhasil di-resolve | `resolved`, `workflow_id`, `matched_intent`, `confidence`, `reason` |
-| `IntentNotFound` | Intent tidak ditemukan | `resolved=false`, `intent_id`, `error` |
-| `WorkflowSelected` | Workflow dipilih untuk eksekusi | `workflow_id`, `matched_intent`, `confidence` |
-| `WorkflowExecutionStarted` | Eksekusi workflow dimulai | `workflow_id`, `matched_intent`, `has_input_data` |
+|`IntentResolved`|Maksudnya berhasil di-resolve|`resolved`, `workflow_id`, `matched_intent`, `confidence`, `reason`|
+|`IntentNotFound`|Niat tidak ditemukan|`resolved=false`, `intent_id`, `error`|
+|`WorkflowSelected`|Alur kerja dipilih untuk eksekusi|`workflow_id`, `matched_intent`, `confidence`|
+|`WorkflowExecutionStarted`|Alur kerja eksekusi dimulai|`workflow_id`, `matched_intent`, `has_input_data`|
 
-Event dikirim melalui `EventBus` dari `apps.organization.communication`.
+Acara dikirim melalui `EventBus` dari `apps.organization.communication`.
 
 ## Contoh Penggunaan
 
-### Basic Setup
+### Pengaturan Dasar
 
 ```python
 from apps.organization.workflow_catalog import (
@@ -258,7 +258,7 @@ print(result.workflow_id)  # "network-audit-flow"
 print(result.confidence)   # 0.9
 ```
 
-### Full Execution
+### Eksekusi Penuh
 
 ```python
 from apps.organization.workflow_executor import (
@@ -298,7 +298,7 @@ print(response.status)  # ExecutionStatus.COMPLETED
 print(response.summarize(response))
 ```
 
-### Penanganan Error
+### Kesalahan Penanganan
 
 ```python
 # Intent tidak dikenal
@@ -313,12 +313,11 @@ except ResolveError as e:
     print(f"Resolution failed: {e}")
 ```
 
-## Lokasi File
+## File Lokasi
 
-| File | Deskripsi |
+|Mengajukan|Deskripsi|
 |------|-------------|
-| `apps/organization/workflow_catalog.py` | WorkflowCatalog dan ResolveResult |
-| `apps/organization/intent_resolver.py` | IntentResolver dengan resolusi alias, task name, tag |
-| `tests/test_workflow_catalog.py` | Integration test untuk catalog |
-| `tests/test_intent_resolver.py` | Integration test untuk resolver |
-
+|`apps/organization/workflow_catalog.py`|Katalog Alur Kerja dan ResolveResult|
+|`apps/organization/intent_resolver.py`|IntentResolver dengan resolusi alias, nama tugas, tag|
+|`tests/test_workflow_catalog.py`|Tes integrasi ke katalog|
+|`tests/test_intent_resolver.py`|Tes integrasi untuk penyelesai|

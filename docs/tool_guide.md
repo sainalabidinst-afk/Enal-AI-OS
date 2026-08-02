@@ -1,15 +1,15 @@
-﻿# Panduan Pengembangan Tool
+﻿# Panduan Pengembangan Alat
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 02-08-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Dokumentasi untuk tool_guide
 <!-- DOCUMENT_METADATA_END -->
 
-## Membuat Tool
+## Alat Pembuatan
 
 ```python
 from enal_ai import Tool, EnalAI
@@ -35,33 +35,32 @@ async def my_tool(param1: str, param2: int = 0):
     return {"result": f"Processed {param1}"}
 ```
 
-## Kontrak Tool
+## Alat Kontrak
 
-Semua tool harus mengimplementasikan:
-- `invoke(parameters)` — Mengeksekusi tool dengan parameter
+Semua alat harus mengimplementasikan:
+- `invoke(parameters)` — Mengeksekusi alat dengan parameter
 - `get_schema()` — Mengembalikan skema yang kompatibel dengan OpenAI
 
-## Sandboxing
+## Kotak pasir
 
-Tool yang ditandai dengan `sandbox=True` berjalan di lingkungan terisolasi:
-- Tidak ada akses filesystem langsung
-- Tidak ada akses jaringan (kecuali diizinkan secara eksplisit)
-- Batasan resource ditegakkan
+Alat yang ditandai dengan `sandbox=True` berjalan di lingkungan terlindungi:
+- Tidak ada akses filesystem secara langsung
+- Tidak ada akses jaringan (kecuali secara eksplisit)
+- Batasan sumber daya yang ditegakkan
 
-## Permissions
+## Izin
 
-Tool memerlukan permission eksplisit:
+Alat memerlukan izin eksplisit:
 - `read` — Membaca data
 - `write` — Menulis data
-- `execute` — Mengeksekusi kode/command
-- `deploy` — Melakukan deployment ke produksi
+- `execute` — Mengeksekusi kode/perintah
+- `deploy` — Melakukan penerapan ke produksi
 - `admin` — Operasi administratif
 
-## Best Practices
+## Praktik Terbaik
 
-- Jaga tool agar bersifat single-purpose
-- Validasi semua input
-- Kembalikan output terstruktur
+- Jaga tool agar bersifat tujuan tunggal
+- Validasi semua masukan
+- Kembalikan keluaran yang terstruktur
 - Dokumentasikan parameter secara menyeluruh
-- Gunakan permission yang sesuai
-
+- Gunakan izin yang sesuai

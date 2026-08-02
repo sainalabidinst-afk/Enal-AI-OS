@@ -3,105 +3,105 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 02-08-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Dokumentasi untuk v1_sprint_plan
 <!-- DOCUMENT_METADATA_END -->
 
-**Metodologi:** Berbasis milestone produk, bukan berbasis fitur.
-**Definition of Done:** Milestone memenuhi semua kriteria pengiriman dan gate terpenuhi.
+**Metodologi:** Berbasis produk tonggak sejarah, bukan berbasis fitur.
+**Definisi Selesai:** Milestone memenuhi semua kriteria pengiriman dan gerbang terpenuhi.
 
 ---
 
-## Milestone 1 — Network Engineer MVP
+## Tonggak Pencapaian 1 — MVP Insinyur Jaringan
 
-**Status:** ✅ Accepted
-**Baseline:** `v1.0.0-dev+network-sprint2`
+**Status:** ✅ Diterima
+**Dasar:** `v1.0.0-dev+network-sprint2`
 
-**Tujuan:** Membuktikan ECP dapat menganalisis, menghasilkan, mensimulasikan, dan mendokumentasikan konfigurasi jaringan.
+**Tujuan:** Membuktikan ECP dapat menganalisis, menghasilkan, mendokumentasikan, dan mendokumentasikan konfigurasi jaringan.
 
 **Durasi:** 2–3 minggu
 
-**Definition of Done:**
+**Definisi Selesai:**
 - [x] Mengunggah file `.rsc`
 - [x] Mem-parsing konfigurasi RouterOS
 - [x] Membangun topologi internal
 - [x] Mendeteksi masalah konfigurasi
 - [x] Menghasilkan rekomendasi
 - [x] Menghasilkan konfigurasi yang diperbaiki
-- [x] Menghasilkan dokumentasi deployment
-- [x] Lolos semua Golden Test untuk domain networking (31/31 skenario)
+- [x] Penyebaran dokumentasi yang baik
+- [x] Lolos semua Golden Test untuk jaringan domain (31/31 skenario)
 
-**Deliverables:**
-- Parser RouterOS (v6/v7)
-- Network graph builder
-- 45 analysis rules
-- Recommendation engine (P0–P3)
-- Documentation generator (Markdown)
+**Hasil Pengiriman:**
+- Pengurai RouterOS (v6/v7)
+- Pembuat grafik jaringan
+- 45 aturan analisis
+- Mesin rekomendasi (P0–P3)
+- Generator dokumentasi (Penurunan harga)
 
 ---
 
-## Milestone 1.5 — Hardening
+## Tonggak Pencapaian 1.5 — Pengerasan
 
-**Status:** ✅ Accepted
+**Status:** ✅ Diterima
 
-**Tujuan:** Memperkuat Milestone 1 dengan regression suite, benchmarks, dan pelacakan coverage.
+**Tujuan:** Memperkuat Milestone 1 dengan rangkaian regresi, benchmark, dan cakupan pelacakan.
 
 **Durasi:** 3–5 hari
 
-**Definition of Done:**
-- [x] 31 skenario golden test (7 original + 24 baru)
-- [x] Dataset regresi (broken, invalid, partial, v6, v7)
-- [x] Rule coverage tracker (hit count, precision, recall, F1)
+**Definisi Selesai:**
+- [x] 31 skenario Golden Test (7 asli + 24 baru)
+- [x] Dataset regresi (rusak, tidak valid, parsial, v6, v7)
+- [x] Pelacak cakupan aturan (jumlah hit, presisi, penarikan kembali, F1)
 - [x] Benchmark kinerja (500/5k/50k baris)
-- [x] Kalibrasi confidence dari evidence
-- [x] Semua test lulus
+- [x] Kalibrasi keyakinan dari bukti
+- [x] Semua tes lulus
 
 ---
 
-## Milestone 2 — Controlled Deployment
+## Tonggak Pencapaian 2 — Penerapan Terkendali
 
-**Status:** ✅ Accepted
+**Status:** ✅ Diterima
 
-**Tujuan:** Membangun pipeline deployment dengan keamanan, audit, dan persetujuan manusia.
+**Tujuan:** Membangun penerapan saluran pipa dengan keamanan, audit, dan persetujuan manusia.
 
 **Durasi:** 2–3 minggu
 
-**Definition of Done:**
-- [x] Semantic Configuration Diff Engine
-- [x] Backup Manager (export → hash → timestamp → artifact store)
-- [x] Risk Scoring Engine (config/rollback/security/downtime)
-- [x] Verification Engine (interface, gateway, DNS, DHCP, routes)
-- [x] Audit Trail (semua langkah dicatat sebagai artifacts)
-- [x] Controlled Deployment Orchestrator
-- [x] Deployment Runbook UX (Changes/Risk/Pre-Deployment/Deployment/Post-Deployment/Recovery)
-- [x] Deployment Timeline (visual progres langkah)
-- [x] Explain Before Deploy (bahasa berorientasi proses)
-- [x] Rollback Status: Pending / Ready / Unavailable / Completed
+**Definisi Selesai:**
+- [x] Mesin Diff Konfigurasi Semantik
+- [x] Manajer Cadangan (ekspor → hash → stempel waktu → penyimpanan artefak)
+- [x] Mesin Penilaian Risiko (konfigurasi/kembalikan/keamanan/waktu henti)
+- [x] Mesin Verifikasi (antarmuka, gateway, DNS, DHCP, rute)
+- [x] Jejak Audit (semua langkah dicatat sebagai artefak)
+- [x] Orkestrator Penerapan Terkendali
+- [x] UX Runbook Penerapan (Perubahan/Risiko/Pra-Penerapan/Penerapan/Pasca-Penerapan/Pemulihan)
+- [x] Garis Waktu Penerapan (langkah kemajuan visual)
+- [x] Jelaskan Sebelum Deploy (bahasa berorientasi proses)
+- [x] Status Rollback: Tertunda / Siap / Tidak Tersedia / Selesai
 - [x] Persetujuan manusia diperlukan di v1.0-dev
 - [x] Semua test Milestone 2 lulus (7/7)
 
 ---
 
-## Milestone 3 — Network Operations
+## Tonggak Pencapaian 3 — Operasi Jaringan
 
-**Status:** 📋 Planned
+**Status:** 📋 Direncanakan
 
-**Tujuan:** Workflow operasional yang digunakan network engineer setiap hari.
+**Tujuan:** Alur kerja operasional yang digunakan network engineer setiap hari.
 
 **Durasi:** 2–3 minggu
 
-**Definition of Done:**
-- [ ] Configuration Compare (semantic diff backup-to-backup + dampak)
-- [ ] Compliance Audit (Pass/Fail berbasis kebijakan)
-- [ ] Health Report (skor health/security/performance/maintainability)
-- [ ] Change Impact Analysis (memprediksi dampak sebelum deployment)
-- [ ] Explain Like Engineer (penjelasan bahasa sederhana untuk onboarding)
+**Definisi Selesai:**
+- [ ] Perbandingan Konfigurasi (perbedaan semantik backup-to-backup + dampak)
+- [ ] Audit Kepatuhan (Lulus/Gagal berbasis kebijakan)
+- [ ] Laporan Kesehatan (skor kesehatan/keamanan/kinerja/kemampuan pemeliharaan)
+- [ ] Analisis Dampak Perubahan (memprediksi dampak sebelum penerapan)
+- [ ] Jelaskan Like Engineer (penjelasan bahasa sederhana untuk onboarding)
 - [ ] Semua test Milestone 3 lulus (≥95%)
-- [ ] Feedback dogfooding diintegrasikan
+- [ ] Umpan balik dogfooding terintegrasi
 
-**Deliverables:**
+**Hasil Pengiriman:**
 - `apps/network_engineer/compare.py`
 - `apps/network_engineer/compliance.py`
 - `apps/network_engineer/health.py`
@@ -113,92 +113,92 @@
 - Otomatisasi MPLS
 - Otomatisasi CAPsMAN
 - Otomatisasi WireGuard
-- Orkestrasi multi-router
+- Orkestra multi-router
 
 ---
 
-## Fase Dogfooding
+## Fase Dogfood
 
-**Status:** 🧪 In Progress (1–2 minggu)
+**Status:** 🧪 Sedang Berlangsung (1–2 minggu)
 
 **Tujuan:** Menggunakan Network Engineer pada config nyata sebelum membangun fitur baru.
 
 **Aktivitas:**
-- Mengaudit config MikroTik nyata (Sun Clint, lab, production)
-- Membandingkan findings ECP dengan penilaian ahli
-- Mencatat false positives, false negatives, isu UX
-- Mengumpulkan data Time Saved
+- Mengaudit config MikroTik nyata (Sun Clint, lab, produksi)
+- Membandingkan temuan ECP dengan penilaian ahli
+- Mencatat positif palsu, negatif palsu, isu UX
+- Mengumpulkan data Waktu Terhemat
 
-**Output:**
+**Keluaran:**
 - `dogfooding/feedback_YYYY-MM-DD.md`
-- Skenario golden test yang diperbarui
+- Skenario Golden Test yang diperbarui
 - 5 prioritas teratas untuk Milestone 3
 
 **Lihat:** `docs/dogfooding_guide.md`
 
 ---
 
-## Milestone 4 — Reasoning Excellence
+## Tonggak Pencapaian 4 — Keunggulan Penalaran
 
 **Status:** 🎯 Target: Rilis v1.0-dev
 
-**Tujuan:** Meningkatkan kualitas reasoning di semua Capability Pack tanpa mengubah Core.
+**Tujuan:** Meningkatkan kualitas penalaran di semua Capability Pack tanpa mengubah Core.
 
 **Durasi:** Berkelanjutan
 
-**Area fokus:**
+**Fokus Area:**
 - Reasoning domain yang lebih dalam di Capability Packs
 - Generasi penjelasan yang lebih baik
 - Analisis risiko dan dampak yang lebih baik
 - Rekomendasi yang sadar konteks
 
 **Kriteria Keberhasilan:**
-- Network: mendeteksi bukan hanya port terbuka, tetapi kemungkinan tujuan dan gap firewall terkait
+- Jaringan: mendeteksi bukan hanya port terbuka, tetapi kemungkinan tujuan dan celah firewall terkait
 - Trading: menjelaskan BUY/SELL dengan alternatif, risiko, dan skenario kegagalan
-- Research: mengidentifikasi kontradiksi antar sumber dengan estimasi confidence
-- Code: merekomendasikan pola arsitektur dengan rationale
-- Semua Capability Pack mempertahankan skor Consistency ≥85%
+- Penelitian: identifikasi evolusi antar sumber dengan estimasi keyakinan
+- Kode: merekomendasikan pola arsitektur dengan alasan
+- Semua Capability Pack mempertahankan skor Konsistensi ≥85%
 
 ---
 
-## Milestone 5 — Developer Preview
+## Tonggak Pencapaian 5 — Pratinjau Pengembang
 
 **Status:** 🎯 Target: Rilis v1.0.0
 
-**Tujuan:** Rilis siap produk dengan semua sertifikasi, dokumentasi, dan tooling lengkap.
+**Tujuan:** Rilis produk siap dengan semua sertifikasi, dokumentasi, dan perkakas lengkap.
 
-**Definition of Done:**
-- [ ] Semua Capability Pack memenuhi quality target
-- [ ] Trading Analyst Certification lulus
+**Definisi Selesai:**
+- [ ] Semua Capability Pack memenuhi target mutu
+- [ ] Sertifikasi Analis Perdagangan lulus
 - [ ] Artifact Store v1 diimplementasikan
-- [ ] Website developer diluncurkan
+- [ ] Pengembang situs web diluncurkan
 - [ ] Dokumentasi SDK lengkap
 - [ ] Video Tutorial dan Quick Start diterbitkan
-- [ ] Marketplace berfungsi
-- [ ] Capability Discovery API publik
-- [ ] Capability Benchmark Dashboard operasional
-- [ ] Studio trace viewer berfungsi
+- [ ] Pasar berfungsi
+- [ ] Penemuan Kemampuan API publik
+- [ ] Kemampuan Benchmark Dashboard operasional
+- [ ] Penampil jejak studio berfungsi
 
-**Release Checklist:**
-- [ ] Release notes disusun
-- [ ] Panduan migrasi untuk penulis capability pack
+**Daftar Periksa Rilis:**
+- [ ] Catatan rilis disusun
+- [ ] Panduan migrasi untuk penulis Capability Pack
 - [ ] Contoh SDK diterbitkan
-- [ ] Video/tutorial Quick Start disiapkan
-- [ ] Pengumuman Public Developer Preview
+- [ ] Video/tutorial Mulai Cepat disiapkan
+- [ ] Pengumuman Pratinjau Pengembang Publik
 
 ---
 
 ## Ritme Pengembangan Mingguan
 
-| Hari | Fokus |
+|Hari|Fokus|
 |-----|-------|
-| Senin | Ekspansi pengetahuan |
-| Selasa | Peningkatan benchmark |
-| Rabu | Peningkatan reasoning |
-| Kamis | Peningkatan explainability |
-| Jumat | Peningkatan skor benchmark |
+|Senin|Ekspansi pengetahuan|
+|Selasa|Peningkatan Benchmark|
+|Rabu|Peningkatan penalaran|
+|Kamis|Meningkatkan kemampuan menjelaskan|
+|Jumat|Peningkatan skor Benchmark|
 
-Semua pekerjaan terjadi di dalam Capability Packs. Core tetap tidak tersentuh.
+Semua pekerjaan terjadi di dalam Capability Packs. Inti tetap tidak tersentuh.
 
 ---
 
@@ -207,114 +207,114 @@ Semua pekerjaan terjadi di dalam Capability Packs. Core tetap tidak tersentuh.
 Berikut tidak lagi dapat diterima sebagai aktivitas pengembangan reguler:
 
 - ❌ Menambahkan Runtime baru
-- ❌ Menambahkan Planner baru
+- ❌Tambahkan Planner baru
 - ❌ Menambahkan Kernel baru
 - ❌ Menambahkan Layer baru
 - ❌ Memodifikasi Core untuk satu Capability Pack
 
-Setiap pengecualian memerlukan ADR yang disetujui dengan bukti lintas capability.
+Setiap pengiriman memerlukan ADR yang disetujui dengan bukti kemampuan lintas.
 
 ---
 
-## Target Capability Quality — v1.0 Developer Preview
+## Kualitas Kemampuan Target — Pratinjau Pengembang v1.0
 
-| Capability | Target Score | Pengukuran |
+|Kemampuan|Skor Sasaran|pengukuran|
 |------------|--------------|-------------|
-| Network | A (≥90) | benchmarks/capability_benchmark.py |
-| Code | A- (≥85) | benchmarks/capability_benchmark.py |
-| Research | A- (≥85) | benchmarks/capability_benchmark.py |
-| DevOps | B+ (≥80) | benchmarks/capability_benchmark.py |
-| Trading | B+ (≥80, lulus Certification) | benchmarks/capability_benchmark.py |
-| Self Development | A (≥90) | benchmarks/capability_benchmark.py |
+|Jaringan|SEBUAH (≥90)|benchmark/capability_benchmark.py|
+|Kode|SEBUAH- (≥85)|benchmark/capability_benchmark.py|
+|Riset|SEBUAH- (≥85)|benchmark/capability_benchmark.py|
+|DevOps|B+ (≥80)|benchmark/capability_benchmark.py|
+|Jual beli|B+ (≥80, lulus Sertifikasi)|benchmark/capability_benchmark.py|
+|Pengembangan Diri|SEBUAH (≥90)|benchmark/capability_benchmark.py|
 
-Skor harus berasal dari benchmark 6 dimensi, bukan penilaian subjektif.
-
----
-
-## Peta Jalan Pasca Developer Preview
-
-### v1.1 — Capability Excellence
-- Network A+
-- Trading B+
-- Research A-
-- Code A
-- Semua pack naik satu grade melalui pengetahuan dan kerja benchmark
-
-### v1.2 — Community Ecosystem
-- Peluncuran Marketplace
-- Mendukung Community Capability Packs
-- Template SDK Capability Pack
-- Proses sertifikasi pack pihak ketiga
-
-### v1.3 — Enterprise
-- Enterprise Capability Roadmap
-- Fitur governance dan audit lanjutan
-- Dukungan multi-tenant
-- Tooling SLA dan compliance
+Skor harus berasal dari Benchmark 6 dimensi, bukan penilaian subjektif.
 
 ---
 
-## Peta Jalan Spesifik Capability
+## Pratinjau Pengembang Peta Jalan Pasca
 
-### Peta Jalan Capability Network
+### v1.1 — Keunggulan Kemampuan
+- Jaringan A+
+- Perdagangan B+
+- Penelitian A-
+- Kode A
+- Semua paket naik satu tingkat melalui pengetahuan dan kerja Benchmark
 
-| Fase | Fokus | Target Grade |
+### v1.2 — Ekosistem Komunitas
+- Peluncuran Pasar
+- Mendukung Paket Kemampuan Komunitas
+- Templat SDK Capability Pack
+- Proses sertifikasi paket pihak ketiga
+
+### v1.3 — Perusahaan
+- Peta Jalan Kapabilitas Perusahaan
+- Fitur tata kelola dan audit lanjutan
+- Dukungan multi-penyewa
+- Peralatan SLA dan kepatuhan
+
+---
+
+## Kemampuan Peta Jalan Spesifik
+
+### Jaringan Kapabilitas Peta Jalan
+
+|Fase|Fokus|Nilai Sasaran|
 |-------|-------|--------------|
-| Audit | Analisis konfigurasi, keamanan, kepatuhan | A |
-| Optimization | Performance tuning, best practices | A |
-| Migration | Upgrade versi, migrasi vendor | A |
-| Design | Desain jaringan greenfield | A+ |
-| Automation | Controlled deployment, rollback | A+ |
+|Audit|Analisis konfigurasi, keamanan, kepatuhan|A|
+|Optimasi|Penyetelan kinerja, praktik terbaik|A|
+|Migrasi|Tingkatkan versi, vendor migrasi|A|
+|Desain|Desain jaringan greenfield|SEBUAH+|
+|Otomatisasi|Penerapan terkendali, kembalikan|SEBUAH+|
 
-### Peta Jalan Capability Code
+### Kode Kemampuan Peta Jalan
 
-| Fase | Fokus | Target Grade |
+|Fase|Fokus|Nilai Sasaran|
 |-------|-------|--------------|
-| Review | Kualitas kode, keamanan, maintainability | A- |
-| Refactor | Memperbaiki struktur tanpa mengubah perilaku | A- |
-| Generate | Full-stack dari requirements | A |
-| Architecture | Clean Architecture, DDD, Hexagonal, CQRS | A |
-| Modernization | Migrasi legacy, pengurangan tech debt | A |
+|Tinjauan|Kualitas kode, keamanan, pemeliharaan|A-|
+|Refaktorisasi|Memperbaiki struktur tanpa mengubah perilaku|A-|
+|Menghasilkan|Full-stack dari persyaratan|A|
+|Arsitektur|Arsitektur Bersih, DDD, Heksagonal, CQRS|A|
+|Modernisasi|Warisan migrasi, pengurangan utang teknologi|A|
 
-### Peta Jalan Capability Trading
+### Perdagangan Kemampuan Peta Jalan
 
-| Fase | Fokus | Target Grade |
+|Fase|Fokus|Nilai Sasaran|
 |-------|-------|--------------|
-| Analysis | Data pasar, tren, indikator | B+ |
-| Strategy | Desain strategi dan backtesting | A- |
-| Portfolio | Konstruksi portfolio dan rebalancing | A- |
-| Risk | Model risiko, VaR, drawdown, korelasi | A |
-| Execution Planning | Perencanaan trading dengan risiko dan alternatif | A |
+|Analisa|Data pasar, tren, indikator|B+|
+|Strategi|Desain strategi dan backtesting|A-|
+|Portofolio|Konstruksi portofolio dan penyeimbangan kembali|A-|
+|Mempertaruhkan|Model risiko, VaR, drawdown, korelasi|A|
+|Perencanaan Eksekusi|Perencanaan perdagangan dengan risiko dan alternatif|A|
 
-### Peta Jalan Capability Research
+### Penelitian Kemampuan Peta Jalan
 
-| Fase | Fokus | Target Grade |
+|Fase|Fokus|Nilai Sasaran|
 |-------|-------|--------------|
-| Retrieval | RAG multi-sumber dengan sitasi | B |
-| Evidence | Peringkat evidence, deteksi kontradiksi | A- |
-| Synthesis | Sintesis multi-paper dengan confidence | A- |
-| Experiment | Advisory desain eksperimen | A |
-| Peer Review | Simulasi pengecekan kualitas peer review | A |
+|Pengambilan|RAG multi-sumber dengan sitasi|B|
+|Bukti|Peringkat bukti, deteksi fosil|A-|
+|Sintesis|Sintesis multi-kertas dengan percaya diri|A-|
+|Percobaan|Eksperimen desain penasehat|A|
+|Tinjauan Sejawat|Simulasi pengecekan kualitas peer review|A|
 
-### Peta Jalan Capability DevOps
+### DevOps Kemampuan Peta Jalan
 
-| Fase | Fokus | Target Grade |
+|Fase|Fokus|Nilai Sasaran|
 |-------|-------|--------------|
-| Generate | Dockerfiles, CI/CD, Kubernetes manifests | B+ |
-| Verify | Kesehatan deployment, kebenaran konfigurasi | A- |
-| Multi-cloud | Pola AWS, Azure, GCP | A |
-| Platform | Observability, GitOps, policy-as-code | A |
-| Resilience | Chaos engineering, persiapan insiden | A |
+|Menghasilkan|Dockerfiles, CI/CD, manifes Kubernetes|B+|
+|Memeriksa|Penyebaran kesehatan, kebenaran konfigurasi|A-|
+|Multi-cloud|Pola AWS, Azure, GCP|A|
+|Platform|Observabilitas, GitOps, kebijakan sebagai kode|A|
+|Ketangguhan|Rekayasa kekacauan, persiapan kejadian|A|
 
-### Peta Jalan Capability Self Development
+### Pengembangan Diri Kemampuan Peta Jalan
 
-| Fase | Fokus | Target Grade |
+|Fase|Fokus|Nilai Sasaran|
 |-------|-------|--------------|
-| Analyze | Struktur proyek, deteksi bottleneck | A- |
-| Propose | Refactoring, proposal perbaikan | A |
-| Patch | Generasi patch dengan test coverage | A |
-| Learn | Pembelajaran pola lintas proyek | A |
-| Predict | Prediksi dampak sebelum perubahan | A+ |
+|Menganalisa|Struktur proyek, deteksi kemacetan|A-|
+|Mengusulkan|Refactoring, usulan perbaikan|A|
+|Tambalan|Generasi patch dengan cakupan tes|A|
+|Mempelajari|Pembelajaran pola lintas proyek|A|
+|Meramalkan|Prediksi dampak sebelum perubahan|SEBUAH+|
 
 ---
 
@@ -347,113 +347,112 @@ v1.0-dev
 
 ## Rencana Sprint 8 Minggu — Rilis Produk Pertama
 
-Rencana sprint ini mengasumsikan disiplin vibe coding: AI menghasilkan, AI me-review, AI menguji, AI melakukan benchmark, manusia menyetujui.
+Rencana sprint ini menerapkan disiplin pengkodean getaran: AI menghasilkan, AI me-review, AI menguji, AI melakukan Benchmark, manusia menyetujui.
 
-### Minggu 1 — Chat UX
+### Minggu 1 — Obrolan UX
 
-**Fokus:** Interface percakapan tunggal seperti Kimi/ChatGPT.
-- Chat UI dengan streaming
-- Rendering Markdown
-- Upload file
-- Workspace switcher
-- Indikasi progress
-- Artifact viewer
+**Fokus:** Antarmuka percakapan tunggal seperti Kimi/ChatGPT.
+- Obrolan UI dengan streaming
+- Merender Penurunan Harga
+- Unggah berkas
+- Pengalih ruang kerja
+- Indikasi kemajuan
+- Penampil artefak
 
 **Gate:** Pengguna dapat mengunggah config MikroTik dan melihat analisis streaming.
 
 ---
 
-### Minggu 2 — Workspace
+### Minggu 2 — Ruang Kerja
 
-**Fokus:** Isolasi proyek dan memory.
-- Workspace CRUD
-- Riwayat percakapan per workspace
-- Penyimpanan dan pengambilan artifact
-- Pembatasan memory per workspace
+**Fokus:** Isolasi proyek dan memori.
+- CRUD Ruang Kerja
+- Riwayat percakapan per ruang kerja
+- Penyimpanan dan pengambilan artefak
+- Pembatasan memori per ruang kerja
 
-**Gate:** Pengguna dapat berpindah antara dua workspace dan riwayat terisolasi.
+**Gerbang:** Pengguna dapat berpindah antara dua ruang kerja dan riwayat terlindungi.
 
 ---
 
-### Minggu 3 — Streaming & Long Context
+### Minggu 3 — Streaming & Konteks Panjang
 
 **Fokus:** Umpan balik eksekusi real-time.
-- Event streaming dari Execution Runtime
-- Pembaruan progress subtask
-- Artifact streaming
-- Pesan pemulihan error
+- Streaming acara dari Execution Runtime
+- Subtugas kemajuan pembaruan
+- Streaming artefak
+- Kesalahan pesan pemulihan
 
-**Gate:** Pengguna melihat progress real-time selama tugas 5+ langkah.
+**Gerbang:** Pengguna melihat kemajuan secara real-time selama tugas 5+ langkah.
 
 ---
 
-### Minggu 4 — Capability Excellence: Network
+### Minggu 4 — Keunggulan Kapabilitas: Jaringan
 
 **Fokus:** Membuat Network Engineer benar-benar ahli.
-- Menambahkan 20 real cases ke `real_cases/network/`
-- Meningkatkan kedalaman analyzer
-- Meningkatkan explainability
+- Menambahkan 20 kasus nyata ke `real_cases/network/`
+- Meningkatkan penganalisis kedalaman
+- Meningkatkan kemampuan menjelaskan
 - Benchmark: 92%+
 
-**Gate:** Skor benchmark Network ≥92%.
+**Gerbang:** Skor Benchmark Jaringan ≥92%.
 
 ---
 
-### Minggu 5 — Capability Excellence: Code, Research, DevOps
+### Minggu 5 - Keunggulan Kemampuan: Kode, Riset, DevOps
 
-**Fokus:** Membawa pack lainnya ke kualitas minimum yang layak.
-- Code: Review + Patch end-to-end
-- Research: Peringkat evidence + sitasi
+**Fokus:** Membawa paket lainnya ke kualitas minimum yang layak.
+- Kode: Review + Patch end-to-end
+- Penelitian : Peringkat bukti + sitasi
 - DevOps: Generasi Docker + CI/CD
 
-**Gate:** Ketiga pack lulus benchmark ≥80%.
+**Gerbang:** Paket ketiga lulus Benchmark ≥80%.
 
 ---
 
-### Minggu 6 — Dogfooding
+### Minggu 6 — Dogfood
 
 **Fokus:** Menggunakan ECP untuk membangun ECP.
 - Mengaudit dokumen ECP dengan Self Development
-- Me-review kode ECP dengan Code Capability
-- Mendokumentasikan findings di `real_cases/`
+- Saya meninjau kode ECP dengan Code Capability
+- Mendokumentasikan temuan di `real_cases/`
 
-**Gate:** 50+ real cases dikumpulkan, semuanya diumpankan kembali ke capability packs.
+**Gerbang:** 50+ kasus nyata dikumpulkan, semuanya diumpankan kembali ke paket kemampuan.
 
 ---
 
-### Minggu 7 — Benchmark & Polish
+### Minggu 7 — Benchmark & Polandia
 
 **Fokus:** Mengukur dan meningkatkan.
-- Menjalankan semua capability benchmarks
+- Jangkauan semua tolak ukur kemampuan
 - Memperbaiki regresi
-- Polish alur UX terhadap USER_JOURNEYS.md
+- Polandia alur UX terhadap USER_JOURNEYS.md
 - Optimasi kinerja
 
-**Gate:** Semua 6 pack memenuhi target kualitas Developer Preview.
+**Gate:** Semua 6 paket memenuhi target kualitas Developer Preview.
 
 ---
 
-### Minggu 8 — Developer Preview
+### Minggu 8 — Pratinjau Pengembang
 
 **Fokus:** Rilis produk.
-- Release notes
+- Catatan rilis
 - Dokumentasi SDK
-- Quick Start
+- Mulai Cepat
 - Pengumuman publik
 
-**Gate:** ECP v1.0.0 dirilis dengan capability packs bersertifikat.
+**Gate:** ECP v1.0.0 dirilis dengan paket kemampuan bersertifikat.
 
 ---
 
 ## Ritme Pengembangan
 
-| Hari | Fokus |
+|Hari|Fokus|
 |-----|-------|
-| Senin | Ekspansi pengetahuan |
-| Selasa | Peningkatan benchmark |
-| Rabu | Peningkatan reasoning |
-| Kamis | Explainability |
-| Jumat | Peningkatan skor benchmark |
+|Senin|Ekspansi pengetahuan|
+|Selasa|Peningkatan Benchmark|
+|Rabu|Peningkatan penalaran|
+|Kamis|Penjelasan|
+|Jumat|Peningkatan skor Benchmark|
 
-Semua perubahan terjadi di dalam Capability Packs. Core tetap tidak tersentuh.
-
+Semua perubahan terjadi di dalam Capability Packs. Inti tetap tidak tersentuh.

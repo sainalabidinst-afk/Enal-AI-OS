@@ -1,57 +1,57 @@
-﻿# ECP Network Engineer — Milestone 3: Network Operations
+﻿# Insinyur Jaringan ECP — Tonggak Pencapaian 3: Operasi Jaringan
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 02-08-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Dokumentasi untuk sprint3_network_operations
 <!-- DOCUMENT_METADATA_END -->
 
 **Status:** Direncanakan
-**Fokus:** Workflow operasional, bukan otomatisasi protokol
+**Fokus:** Alur kerja operasional, bukan otomatisasi protokol
 
 ---
 
-## Deliverables
+## Hasil kerja
 
-### 1. Configuration Compare
+### 1. Perbandingan Konfigurasi
 
-**Tujuan:** Membandingkan dua backup konfigurasi dan menampilkan semantic diff + analisis dampak.
+**Tujuan:** Membandingkan dua konfigurasi cadangan dan menampilkan perbedaan semantik + analisis dampak.
 
-**User Story:**
-> "Sebagai network engineer, saya ingin membandingkan backup A dengan backup B sehingga saya dapat melihat persis apa yang berubah dan apakah aman."
+**Kisah Pengguna:**
+> "Sebagai teknisi jaringan, saya ingin membandingkan cadangan A dengan cadangan B sehingga saya dapat melihat apa yang tetap berubah dan apakah aman."
 
 **Fitur:**
-- Memuat dua file backup
-- Semantic diff (engine yang sama seperti Milestone 2, diterapkan pada backup)
-- Analisis dampak: service/interface mana yang terpengaruh
-- Laporan Markdown
+- Memuat dua file cadangan
+- Perbedaan semantik (mesin yang sama seperti Milestone 2, diterapkan pada cadangan)
+- Analisis dampak: mana layanan/antarmuka yang mempengaruhi
+- Laporan Penurunan Harga
 
-**Acceptance Criteria:**
-- Dapat memuat dua golden test config apa pun
+**Kriteria Penerimaan:**
+- Dapat memuat dua Golden Test config apa pun
 - Menampilkan rule yang ditambahkan/dihapus/dimodifikasi per kategori
-- Mengidentifikasi perubahan yang berpotensi berisiko (firewall, NAT, routes)
-- Menghasilkan laporan Markdown
+- Mengidentifikasi perubahan yang berpotensi berisiko (firewall, NAT, rute)
+- Menghasilkan laporan Penurunan harga
 
 ---
 
-### 2. Compliance Audit
+### 2. Audit Kepatuhan
 
-**Tujuan:** Memeriksa konfigurasi terhadap kebijakan dan menampilkan Pass/Fail.
+**Tujuan:** Memeriksa konfigurasi terhadap kebijakan dan menampilkan Lulus/Gagal.
 
-**User Story:**
-> "Sebagai network engineer, saya ingin menjalankan compliance audit sehingga saya dapat membuktikan router memenuhi kebijakan perusahaan."
+**Kisah Pengguna:**
+> "Sebagai network engineer, saya ingin melakukan audit kepatuhan sehingga saya dapat membuktikan router memenuhi kebijakan perusahaan."
 
 **Fitur:**
-- Mendefinisikan kebijakan sebagai rule sederhana (JSON/YAML)
-- Memeriksa config terhadap kebijakan
-- Pass/Fail per rule
-- Skor kepatuhan keseluruhan
-- Laporan Markdown
+- Mendefinisikan kebijakan sebagai aturan sederhana (JSON/YAML)
+- Memeriksa konfigurasi terhadap kebijakan
+- Lulus/Gagal per aturan
+- Skor penayangan keseluruhan
+- Laporan Penurunan Harga
 
-**Contoh Kebijakan:**
+**Kontoh Kebijakan:**
 ```yaml
 rules:
   - id: SSH-RESTRICTED
@@ -68,91 +68,91 @@ rules:
     severity: info
 ```
 
-**Acceptance Criteria:**
+**Kriteria Penerimaan:**
 - Dapat mendefinisikan kebijakan kustom
 - Memeriksa config terhadap setiap rule
-- Menampilkan Pass/Fail dengan evidence
-- Menghasilkan skor kepatuhan
+- Menampilkan Lulus/Gagal dengan bukti
+- Akhirnya skor tercapai
 
 ---
 
-### 3. Health Report
+### 3. Laporan Kesehatan
 
 **Tujuan:** Skor kesehatan satu-klik untuk sebuah router.
 
-**User Story:**
+**Kisah Pengguna:**
 > "Sebagai network engineer, saya ingin skor kesehatan sehingga saya dapat menilai kondisi router dengan cepat."
 
 **Fitur:**
-- Health Score (0–100)
-- Security Score (0–100)
-- Performance Score (0–100)
-- Maintainability Score (0–100)
+- Skor Kesehatan (0–100)
+- Skor Keamanan (0–100)
+- Skor Kinerja (0–100)
+- Skor Pemeliharaan (0–100)
 - Skor Keseluruhan
 - Perincian per kategori
-- Laporan Markdown
+- Laporan Penurunan Harga
 
-**Logika Skoring:**
+**Skor Logika:**
 - Mulai dari 100
-- Kurangi poin untuk setiap finding berdasarkan severity:
-  - Critical: -20
-  - Warning: -10
-  - Info: -5
-  - Suggestion: -2
+- Kurangi poin untuk setiap temuan berdasarkan tingkat keparahan:
+  - Kritis: -20
+  - Peringatan: -10
+  - Informasi: -5
+  - Saran: -2
 - Batas bawah di 0
 
-**Acceptance Criteria:**
-- Menghasilkan skor untuk golden test config apa pun
+**Kriteria Penerimaan:**
+- Hasilnya skor untuk Golden Test config apa pun
 - Skor konsisten (config yang sama = skor yang sama)
-- Perincian menunjukkan isu mana yang memengaruhi setiap skor
+- Perincian menunjukkan isu mana yang mempengaruhi setiap skor
 - Laporan Markdown dengan indikator visual
 
 ---
 
-### 4. Change Impact Analysis
+### 4. Analisis Dampak Perubahan
 
-**Tujuan:** Sebelum deployment, memprediksi apa yang akan terpengaruh oleh perubahan.
+**Tujuan:** Sebelum penerapan, prediksi apa yang akan dipengaruhi oleh perubahan.
 
-**User Story:**
-> "Sebagai network engineer, saya ingin tahu apa yang akan rusak sebelum saya deploy, sehingga saya dapat bersiap."
+**Kisah Pengguna:**
+> "Sebagai teknisi jaringan, saya ingin mengetahui apa yang akan rusak sebelum saya menerapkannya, sehingga saya dapat bersiap."
 
 **Fitur:**
-- Menganalisis config saat ini + diff yang diusulkan
-- Mengidentifikasi service yang terpengaruh:
+- Menganalisis konfigurasi saat ini + diff yang diusulkan
+- Mengidentifikasi layanan yang mempengaruhi:
   - Perubahan firewall → dampak konektivitas
   - Perubahan NAT → dampak akses internet
   - Perubahan rute → risiko lalu lintas blackhole
-  - Perubahan DHCP → dampak lease
-  - Perubahan interface → isolasi perangkat
-- Memprediksi level dampak (Low/Medium/High/Critical)
+  - Perubahan DHCP → dampak sewa
+  - Perubahan antarmuka → isolasi perangkat
+- Memprediksi tingkat dampak (Rendah/Sedang/Tinggi/Kritis)
 - Menyarankan langkah mitigasi
 
-**Acceptance Criteria:**
-- Dapat menganalisis diff golden test apa pun
-- Mengidentifikasi setidaknya: dampak firewall, NAT, route, interface, DHCP
-- Memprediksi level dampak dengan benar untuk skenario yang diketahui
+**Kriteria Penerimaan:**
+- Dapat menganalisis perbedaan Golden Test apa pun
+- Mengidentifikasi setidaknya: dampak firewall, NAT, rute, antarmuka, DHCP
+- Memprediksi tingkat dampak dengan benar untuk skenario yang diketahui
 - Menyarankan mitigasi yang dapat ditindaklanjuti
 
 ---
 
-### 5. Explain Like Engineer
+### 5. Jelaskan Seperti Insinyur
 
 **Tujuan:** Menjelaskan aturan konfigurasi dalam bahasa sederhana untuk onboarding.
 
-**User Story:**
-> "Sebagai network engineer junior, saya ingin memahami apa yang dilakukan setiap rule sehingga saya dapat belajar."
+**Kisah Pengguna:**
+> "Sebagai network engineer junior, saya ingin memahami apa yang dilakukan setiap aturan sehingga saya dapat belajar."
 
 **Fitur:**
-- Klik pada finding/rule apa pun
+- Klik pada find/rule apa pun
 - Mendapatkan penjelasan:
   - Apa yang dilakukan rule ini
-  - Mengapa rule ini dibuat
+  - Mengapa aturan ini dibuat
   - Apa yang terjadi jika dihapus
   - Dependensi (apa lagi yang bergantung pada ini)
   - Kesalahan umum
-- Bahasa sederhana, tidak sarat jargon
+- Bahasa sederhana, tanpa jargon sarat
 
-**Contoh Output:**
+**Keluaran Kontoh:**
 ```
 Rule: masquerade on WAN
 ------------------------
@@ -180,8 +180,8 @@ Common mistakes:
   - Not setting default route
 ```
 
-**Acceptance Criteria:**
-- Dapat menjelaskan semua 45 analysis rules
+**Kriteria Penerimaan:**
+- Dapat menjelaskan seluruh 45 aturan analisis
 - Penjelasan akurat dan dapat ditindaklanjuti
 - Dependensi diidentifikasi dengan benar
 - Bahasa sederhana yang cocok untuk engineer junior
@@ -194,46 +194,45 @@ Common mistakes:
 - Otomatisasi MPLS
 - Otomatisasi CAPsMAN
 - Otomatisasi WireGuard
-- Orkestrasi multi-router
-- Integrasi API MikroTik live
+- Orkestra multi-router
+- Integrasi API MikroTik langsung
 
-Ini adalah konsekuensi dari pemahaman operasional yang baik, bukan prasyarat.
+Ini adalah konsekuensi dari pemahaman operasional yang baik, bukan perenang.
 
 ---
 
 ## Metrik Keberhasilan
 
-| Metrik | Target |
+|Metrik|Target|
 |--------|--------|
-| Akurasi Configuration Compare | ≥95% |
-| Cakupan Compliance Audit | ≥90% dari kebijakan umum |
-| Korelasi Health Score | ≥0.8 dengan penilaian ahli |
-| Akurasi Change Impact | ≥80% untuk skenario yang diketahui |
-| Kelengkapan Penjelasan | 100% dari 45 rule dijelaskan |
-| Golden Test Pass | ≥95% |
-| Item Feedback Dogfooding | ≥20 item dicatat |
-| Waktu yang Dihemat (dogfooding) | ≥50% dibanding analisis manual |
+|Bandingkan Konfigurasi Akurasi|≥95%|
+|Audit Kepatuhan Cakupan|≥90% dari kebijakan umum|
+|Skor Kesehatan Korelasi|≥0.8 dengan penilaian ahli|
+|Dampak Perubahan Akurasi|≥80% untuk skenario yang|
+|Kelengkapan Penjelasan|100% dari 45 aturan dijelaskan|
+|Golden Test Lulus|≥95%|
+|Umpan Balik Item Dogfood|≥20 item dicatat|
+|Waktu yang Dihemat (dogfood)|≥50% dibandingkan analisis manual|
 
 ---
 
 ## Prasyarat
 
-- Milestone 2 baseline difreeze (`v1.0.0-dev+network-sprint2`)
+- Pencapaian 2 difreeze dasar (`v1.0.0-dev+network-sprint2`)
 - Dogfooding selesai (1–2 minggu)
 - Feedback dari setidaknya 10 config nyata yang direview
 - 5 prioritas teratas dari dogfooding didokumentasikan
 
 ---
 
-## Definition of Done
+## Definisi Selesai
 
-- [ ] Configuration Compare berfungsi di semua skenario golden test
-- [ ] Compliance Audit lolos semua test case kebijakan
-- [ ] Health Report menghasilkan skor yang konsisten
-- [ ] Change Impact Analysis memprediksi dampak dengan benar
-- [ ] Explain Like Engineer mencakup semua 45 rule
+- [ ] Konfigurasi Bandingkan berfungsi di semua skenario Golden Test
+- [ ] Audit Kepatuhan lolos semua uji kasus kebijakan
+- [ ] Laporan Kesehatan menghasilkan skor yang konsisten
+- [ ] Analisis Dampak Perubahan memperkirakan dampak yang benar
+- [ ] Jelaskan Seperti Insinyur mencakup semua 45 aturan
 - [ ] Semua test Milestone 3 lulus (≥95%)
-- [ ] Feedback dogfooding diintegrasikan
+- [ ] Umpan balik dogfooding terintegrasi
 - [ ] Dokumentasi diperbarui
 - [ ] Demo siap
-

@@ -36,6 +36,8 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 > **Platform adalah enabler. Tujuan akhirnya adalah AI Trading yang membuat keputusan investasi cerdas secara otonom.**
 
+> **Prinsip Perluasan:** ECP **tidak lagi menambah Capability Pack berdasarkan profesi**, tetapi berdasarkan **domain keahlian yang benar-benar reusable** oleh Capability Pack lain. Setiap pack baru harus reusable (≥2 konsumen), tidak memaksa perubahan Core, lulus Governance (Benchmark + Golden Test), dan ditambahkan saat ada kebutuhan nyata.
+
 ## Fase Pengembangan
 
 | Fase | Waktu | Total Pack | Fokus |
@@ -43,7 +45,8 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 | **Fase 1** — Capability Excellence | 0–12 bulan | 13 | Naikkan kualitas 13 pack ke A/A- |
 | **Fase 2** — Decision Intelligence + Security + Data | 12–18 bulan | 9 | Tambah 3 pack baru |
 | **Fase 3** — Enterprise | 18–24 bulan | 13 | Database, System Architect, QA, Business Analyst |
-| **Fase 4** — Jangka Panjang | 24–36 bulan | 18 (Target) | Product, Docs, UI/UX, AI Engineer, Infra |
+| **Fase 4** — Platform Professional | 24–36 bulan | 18 (Target) | Infrastructure, AI Engineer, Documentation, Product, UI/UX |
+| **Fase 5** — Platform Enterprise | 36–42 bulan (kondisional) | 23 (Proposed) | Cloud Architect, SRE, Compliance, Knowledge, Full Stack |
 
 ---
 
@@ -381,27 +384,72 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ---
 
-## FASE 4: Jangka Panjang (Roadmap Target: 18 packs)
+## FASE 4: Platform Professional (Roadmap Target: 18 packs)
 
-### ☐ 4.1 Product Manager
-**Timeline:** 24–36 bulan
-- Roadmap, prioritization, ROI, sprint planning
+> **Tier A/B — hanya dikembangkan setelah 13 pack inti mencapai target grade A/A- dan memenuhi aturan Governance.**
 
-### ☐ 4.2 Documentation Engineer
+### ☐ 4.1 Infrastructure Engineer (Tier A ⭐⭐⭐⭐⭐)
 **Timeline:** 24–36 bulan
-- Sync documentation, OpenAPI, ADR, changelog, release notes
+- Kubernetes, Docker Swarm, Proxmox, VMware, Ceph, HA Cluster, Load Balancer, Storage, Disaster Recovery
+- **Dipakai oleh:** DevOps, Network, System Architect
+- **Catatan:** Berbeda dengan DevOps — fokus operasi infrastruktur dan keandalan
 
-### ☐ 4.3 UI/UX Designer
+### ☐ 4.2 AI Engineer (Tier A ⭐⭐⭐⭐⭐)
 **Timeline:** 24–36 bulan
-- Design system, wireframe, accessibility, UX audit
+- RAG, agent design, prompt optimization, model router, LoRA, fine-tuning, evaluation, guardrails
+- **Dipakai oleh:** Trading, Research, Code, Self Development
 
-### ☐ 4.4 AI Engineer
+### ☐ 4.3 Documentation Engineer (Tier A ⭐⭐⭐⭐⭐)
 **Timeline:** 24–36 bulan
-- RAG, fine-tuning, prompt engineering, agent design, evaluation
+- API documentation, OpenAPI, SDK docs, ADR, RFC, changelog, release notes, architecture documentation
+- **Dipakai oleh:** Semua pack — menjaga dokumentasi sinkron dengan kode
 
-### ☐ 4.5 Infrastructure Engineer
+### ☐ 4.4 Product Manager (Tier B ⭐⭐⭐⭐)
 **Timeline:** 24–36 bulan
-- Kubernetes, Docker, storage, monitoring, observability, HA cluster
+- Product vision, backlog, roadmap, prioritas, sprint, release planning
+
+### ☐ 4.5 UI/UX Designer (Tier B ⭐⭐⭐⭐)
+**Timeline:** 24–36 bulan
+- Wireframe, UX review, accessibility, design system, component library
+
+### ☐ 4.6 Full Stack Engineer (Tier B ⭐⭐⭐⭐ — sudah ada di `apps/`)
+**Timeline:** 24–36 bulan (promosi ke Capability Pack resmi)
+- Integrasi frontend–backend, end-to-end feature delivery, API mapping, state management, deployment readiness
+- **Catatan:** **Bukan pengganti Code Engineer** — fokus integrasi dan delivery end-to-end
+
+---
+
+## FASE 5: Platform Enterprise (Proposed: 23 packs — Kondisional)
+
+> **Ditambahkan setelah Platform Professional stabil. Seluruh pack Tier C.**
+
+### ☐ 5.1 Cloud Architect
+**Timeline:** 36–42 bulan
+- AWS, Azure, GCP, hybrid cloud, multi cloud, cost optimization
+
+### ☐ 5.2 SRE (Site Reliability Engineer)
+**Timeline:** 36–42 bulan
+- Observability, monitoring, alerting, incident response, SLI, SLO, SLA
+
+### ☐ 5.3 Compliance Officer
+**Timeline:** 36–42 bulan
+- ISO 27001, NIST, PCI-DSS, GDPR, audit, governance
+
+### ☐ 5.4 Knowledge Engineer
+**Timeline:** 36–42 bulan
+- Ontology, knowledge graph, semantic search, entity resolution, taxonomy, knowledge curation
+- **Memperkuat:** Research Assistant dan Decision Intelligence
+
+---
+
+## FASE 6: Vertical Industry (Kondisional)
+
+> **Hanya ditambahkan ketika ada kebutuhan proyek nyata** dan memenuhi aturan Governance. Tidak disarankan menambahkan semuanya sekaligus.
+
+- Finance Analyst, HSE Specialist, Legal Advisor, HR Specialist, Procurement Specialist
+- Manufacturing Engineer, Mining Engineer, Oil & Gas Engineer, Healthcare Assistant, Education Assistant
+
+> **Rekomendasi:** 15–20 Capability Pack, masing-masing setara spesialis berpengalaman. Platform dengan 18 pack berkualitas tinggi jauh lebih bernilai daripada 50 pack dengan kemampuan dasar.
 
 ---
 
@@ -449,7 +497,8 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | v1.2.0 | Q2 2027 | Decision Intelligence + Security + Data |
 | v1.3.0 | Q3 2027 | Database Engineer + System Architect |
 | v1.4.0 | Q4 2027 | QA Engineer + Business Analyst |
-| v2.0.0 | 2028 | Jangka panjang (5 pack tambahan) |
+| v2.0.0 | 2028 | Platform Professional (Infrastructure, AI Engineer, Documentation, Product, UI/UX) |
+| v2.1.0 | 2029 | Platform Enterprise (Cloud Architect, SRE, Compliance, Knowledge, Full Stack) |
 
 ---
 

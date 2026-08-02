@@ -439,7 +439,31 @@ Semua penambahan pengetahuan yang direncanakan dilacak melalui RFC dan diimpleme
 
 ## 8. Capability Pack Masa Depan (Peta Jalan)
 
-Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pack hanya akan dikembangkan setelah 13 pack yang ada mencapai target grade A/A-.
+Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pack hanya akan dikembangkan setelah 13 pack yang ada mencapai target grade A/A- dan memenuhi aturan Governance.
+
+> **Prinsip Perluasan Berbasis Domain:** ECP **tidak lagi menambah Capability Pack berdasarkan profesi**, tetapi berdasarkan **domain keahlian yang benar-benar reusable** oleh Capability Pack lain. Setiap calon pack baru harus:
+>
+> 1. **Reusable** — dipakai minimal 2 Capability Pack konsumen
+> 2. **Domain Expertise, bukan Role** — mewakili keahlian yang dapat dieksekusi, bukan jabatan
+> 3. **Tidak memaksa perubahan Core** — seluruh penambahan terjadi di dalam Capability Pack
+> 4. **Lulus Governance** — use case lintas sistem, Benchmark, Golden Test
+> 5. **Kebutuhan nyata** — ditambahkan saat ada kebutuhan proyek aktual
+>
+> **Target: 15–20 Capability Pack, masing-masing benar-benar setara spesialis berpengalaman. Platform dengan 18 pack berkualitas tinggi jauh lebih bernilai daripada 50 pack dengan kemampuan dasar.**
+
+### 8.0 Prinsip Perluasan Berbasis Domain
+
+> **ECP tidak lagi menambah Capability Pack berdasarkan profesi, tetapi berdasarkan domain keahlian yang benar-benar reusable oleh Capability Pack lain.**
+
+Setiap calon Capability Pack baru harus memenuhi kriteria berikut sebelum dimasukkan ke roadmap:
+
+1. **Reusable** — kemampuannya dipakai oleh minimal 2 Capability Pack konsumen.
+2. **Domain Expertise, bukan Role** — paket mewakili keahlian yang dapat dieksekusi, bukan jabatan/judul.
+3. **Tidak memaksa perubahan Core** — seluruh penambahan terjadi di dalam Capability Pack.
+4. **Lulus Governance** — memiliki use case lintas sistem, Benchmark, Golden Test, dan tidak memaksa perubahan Core.
+5. **Kebutuhan nyata** — ditambahkan ketika ada kebutuhan proyek aktual, bukan sekadar melengkapi daftar.
+
+Roadmap perluasan dibagi dalam **4 Tier** berdasarkan nilai dampak dan reusability:
 
 ### 8.1 Security Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
@@ -478,17 +502,67 @@ Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pa
 |**QA Engineer**|Uji generasi, regresi, uji mutasi, pembangun Golden Test, generator Benchmark|Kode, DevOps, Pengembangan Diri|
 |**Business Analyst**|Persyaratan analisis, cerita pengguna, BRD, use case, alur kerja|Semua paket|
 
-### 8.4 Paket Jangka Panjang (Fase 4)
+### 8.4 Platform Professional (Tier A — Sangat Direkomendasikan ⭐⭐⭐⭐⭐)
 
-|Capability Pack|Fungsi|
-|-----------------|--------|
-|**Manajer Produk**|Peta jalan, prioritas, ROI, perencanaan sprint|
-|**Insinyur Dokumentasi**|Sinkronisasi dokumentasi, OpenAPI, ADR, changelog, catatan rilis|
-|**Desainer UI/UX**|Sistem desain, wireframe, aksesibilitas, audit UX|
-|**Insinyur AI**|RAG, penyempurnaan, rekayasa cepat, desain agen, evaluasi|
-|**Insinyur Infrastruktur**|Kubernetes, Docker, penyimpanan, pemantauan, observabilitas, cluster HA|
+Tier ini berisi pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack lain.
 
-### 8.5 Komponen yang Tidak Akan Menjadi Capability Pack
+|Prioritas|Capability Pack|Fokus Domain|Dipakai Oleh|
+|-----------|----------------|-------------|--------------|
+|⭐⭐⭐⭐⭐|**Infrastructure Engineer**|Kubernetes, Docker Swarm, Proxmox, VMware, Ceph, HA Cluster, Load Balancer, Storage, Disaster Recovery|DevOps, Network, System Architect|
+|⭐⭐⭐⭐⭐|**AI Engineer**|RAG, Agent Design, Prompt Optimization, Model Router, LoRA, Fine-tuning, Evaluation, Guardrails|Trading, Research, Code, Self Development|
+|⭐⭐⭐⭐⭐|**Documentation Engineer**|API Documentation, OpenAPI, SDK Docs, ADR, RFC, Changelog, Release Notes, Architecture Documentation|Semua pack (menjaga dokumentasi sinkron dengan kode)|
+
+### 8.5 Platform Professional (Tier B)
+
+Tier B melengkapi siklus pengembangan produk end-to-end.
+
+|Prioritas|Capability Pack|Fokus Domain|Catatan|
+|-----------|----------------|-------------|--------|
+|⭐⭐⭐⭐|**Product Manager**|Product Vision, Backlog, Roadmap, Prioritas, Sprint, Release Planning|Orientasi produk|
+|⭐⭐⭐⭐|**UI/UX Designer**|Wireframe, UX Review, Accessibility, Design System, Component Library|Orientasi pengalaman pengguna|
+|⭐⭐⭐⭐|**Full Stack Engineer**|Integrasi Frontend–Backend, End-to-end Feature Delivery, API Mapping, State Management, Deployment Readiness|**Bukan pengganti Code Engineer** — fokus integrasi dan delivery end-to-end|
+
+### 8.6 Platform Enterprise (Tier C)
+
+Tier C melayani kebutuhan enterprise: skala, keandalan, kepatuhan, dan pengetahuan terstruktur.
+
+|Prioritas|Capability Pack|Fokus Domain|
+|-----------|----------------|-------------|
+|⭐⭐⭐|**Cloud Architect**|AWS, Azure, GCP, Hybrid Cloud, Multi Cloud, Cost Optimization|
+|⭐⭐⭐|**SRE (Site Reliability Engineer)**|Observability, Monitoring, Alerting, Incident Response, SLI, SLO, SLA|
+|⭐⭐⭐|**Compliance Officer**|ISO 27001, NIST, PCI-DSS, GDPR, Audit, Governance|
+|⭐⭐⭐|**Knowledge Engineer**|Ontology, Knowledge Graph, Semantic Search, Entity Resolution, Taxonomy, Knowledge Curation|
+|⭐⭐⭐|**Full Stack Engineer**|Integrasi Frontend–Backend, End-to-end Feature Delivery|
+
+> **Catatan:** Full Stack Engineer dituliskan di Tier B dan Tier C sebagai opsi penempatan. Jika sudah masuk Tier B, Tier C cukup berisi 4 pack baru.
+
+### 8.7 Vertical Industry (Tier D — Kondisional)
+
+Ditambahkan **hanya ketika ada kebutuhan proyek nyata** dan memenuhi aturan Governance. Tidak disarankan ditambahkan semuanya sekaligus.
+
+- Finance Analyst
+- HSE Specialist
+- Legal Advisor
+- HR Specialist
+- Procurement Specialist
+- Manufacturing Engineer
+- Mining Engineer
+- Oil & Gas Engineer
+- Healthcare Assistant
+- Education Assistant
+
+### 8.8 Target Jumlah Pack
+
+|Tahap|Jumlah Pack|Keterangan|
+|-------|------------|------------|
+|**Platform Core**|13|Fokus menyelesaikan kualitas (Capability Excellence)|
+|**Platform Professional**|+5|Infrastructure Engineer, AI Engineer, Documentation Engineer, Product Manager, UI/UX Designer|
+|**Platform Enterprise**|+5|Cloud Architect, SRE, Compliance Officer, Knowledge Engineer, Full Stack Engineer|
+|**Target Aktif**|**18**|13 Core + 5 Professional — masing-masing setara spesialis berpengalaman|
+|**Proposed**|23|18 + 5 Enterprise|
+|**Vertical Industry**|Kondisional|Berdasarkan kebutuhan proyek nyata|
+
+### 8.9 Komponen yang Tidak Akan Menjadi Capability Pack
 
 Komponen berikut akan diposisikan sebagai **Plugin**, **Layanan**, atau **platform infrastruktur**, bukan Capability Pack:
 
