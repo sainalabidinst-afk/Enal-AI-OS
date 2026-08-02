@@ -3,7 +3,7 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 02-08-2026
+**Diverifikasi Terakhir:** 08-02-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Dokumentasi untuk REFERENCE_ARCHITECTURE
@@ -83,7 +83,7 @@ ECP menyediakan blok bangunan yang dapat digunakan ulang untuk aplikasi apa pun:
 |**Persepsi**|`CognitiveKernel.perception`|Masukkan masukan pengguna, dapatkan entitas/niat yang dikumpulkan|
 |**Ingatan**|`MemoryManager` (7 lapisan)|Simpan/ambil/cari di hirarki memory|
 |**Pemikiran**|`ReasoningEngine`|Hasilkan hipotesis, rantai langkah penalaran|
-|**Perencanaan**|`StrategicPlanner` / `AIPlanner`|Uraikan tujuan menjadi rencana yang dapat dilaksanakan|
+|**Perencanaan**|`StrategicPlanner` / `AIPlanner`|Uraikan tujuan rencana menjadi yang dapat dilaksanakan|
 |**Keputusan**|`DecisionEngine`|Evaluasi opsi, pilih dengan percaya diri|
 |**Cerminan**|`ReflectionService`|Tinjau ulang keluaran untuk kualitas|
 |**Sedang belajar**|`ContinuousLearning`|Ekstrak sinyal pembelajaran dari hasil|
@@ -91,13 +91,13 @@ ECP menyediakan blok bangunan yang dapat digunakan ulang untuk aplikasi apa pun:
 |**Simulasi**|`SimulationEngine`|Analisis bagaimana-jika sebelum eksekusi|
 |**Verifikasi**|`SelfVerification`|Pemeriksaan kebenaran pasca-eksekusi|
 
-### 3.2 Blok Infrastruktur (Platform Disediakan)
+### 3.2 Blok Infrastruktur (Platform yang Disediakan)
 
 |Blok|Komponen|Abstraksi|
 |---|---|---|
-|**Bus Acara**|`EventBus`|Redis Streams — pub/sub + bertahan|
-|**Antrian Tugas**|`TaskQueue`|Antrean asinkron dalam memori|
-|**Eksekusi**|`ExecutionIntegration`|Sesi + penjadwal + kemajuan|
+|**Acara Bus**|`EventBus`|Redis Streams — pub/sub + bertahan|
+|**Tugas Antrian**|`TaskQueue`|Antrean asinkron dalam memori|
+|**Eksekusi**|`ExecutionIntegration`|Sesi + penjadwalan + kemajuan|
 |**Model Router**|`ModelRouter`|LiteLLM — akses multi-penyedia LLM|
 |**Pemulihan Negara**|`StateRecovery`|Pos pemeriksaan/pemulihan untuk tugas panjang|
 |**Tata Kelola**|`Governance`|Alur kerja persetujuan, isolasi penyewa|
@@ -108,11 +108,11 @@ ECP menyediakan blok bangunan yang dapat digunakan ulang untuk aplikasi apa pun:
 |Titik Ekstensi|Yang Diimplementasikan|Contoh|
 |---|---|---|
 |**Capability Pack**|Subkelas `BaseApp` + pabrik `get_app()`|`NetworkEngineerApp`|
-|**Pengurai Vendor**|Parsing konfigurasi → model Universal AST|`mikrotik.py` → `UniversalFirewallRule`|
-|**Pekerja Kustom**|Pengendali tugas untuk masyarakat Runtime|`network_worker.py`|
-|**Plugin**|Plugin manifes + pengendali|MikroTik Plugin|
+|**Penjual Pengurai**|Mengurai konfigurasi → model Universal AST|`mikrotik.py` → `UniversalFirewallRule`|
+|**Pekerjaan Kustom**|Tugas Pengendalian untuk Masyarakat Runtime|`network_worker.py`|
+|**Plugin**|Plugin manifes + pengontrol|MikroTik Plugin|
 |**API Rute**|Modul router FastAPI|`api/chat.py`|
-|** Pengendali Peristiwa **|Tipe acara berlangganan|`task.completed` → notifikasi|
+|**Pengendalian Peristiwa**|Tipe acara berlangganan|`task.completed` → notifikasi|
 
 ---
 
@@ -122,7 +122,7 @@ Berdasarkan ability packs yang ada, ECP mendukung archetype aplikasi berikut:
 
 ### 4.1 Aplikasi Analisis (Aplikasi Analisis)
 
-**Deskripsi:** Menganalisis masukan data, menghasilkan wawasan dan rekomendasi.
+**Deskripsi:** Menganalisis data masukan, menghasilkan wawasan dan rekomendasi.
 
 **Contoh:** Network Engineer (analisis konfigurasi), Code Engineer (peninjauan kode)
 
@@ -205,7 +205,7 @@ Langkah 8: Integrasikan dengan Orchestration
 
 ### 5.2 Detil Langkah
 
-#### Langkah 1: Tentukan Cakupan Domain
+#### Langkah 1: Tentukan Domain Cakupan
 
 ```markdown
 Domain: Network Engineering
@@ -341,7 +341,7 @@ Perlu mengubah ECP?
             └── Mengganti (swap komponen)? → ✅ ADR diperlukan
 ```
 
-### 6.3 Pengorbanan Evaluasi Templat
+### 6.3 Templat Evaluasi Pengorbanan
 
 ```markdown
 ## Keputusan: [Judul]
@@ -458,7 +458,7 @@ event_bus.subscribe("task.completed", handle_task_completed)
 
 ### Pola 5: Konsolidasi Memori
 
-**Konteks:** Membantu pertumbuhan memori tak terbatas sambil mempertahankan informasi penting.
+**Konteks:**Membantu pertumbuhan memori tak terbatas sambil mempertahankan informasi penting.
 
 **Solusi:**
 
@@ -531,7 +531,7 @@ from backend.app.core.memory_layer import memory_manager
 await memory_manager.store("working", key, value)
 ```
 
-### Anti-Pola 4: Pipa Melewati
+### Anti Pola 4: Pipa Melewati
 
 ```python
 # ❌ ANTI-POLAR: Panggilan layanan langsung melewati pipeline
@@ -571,7 +571,7 @@ await memory_manager.store("episodic", key, value)
 |**Keandalan**|Pemulihan Negara untuk tugas panjang; persistensi Event Bus|Penyimpanan tambahan untuk pos pemeriksaan data|
 |**Keamanan**|RBAC melalui SecurityModel; isolasi penyewa melalui Tata Kelola|Latensi tambahan pada pemeriksaan autentikasi|
 |**Kemampuan Pemeliharaan**|Kopling longgar melalui Bus Acara; aturan ketergantungan jelas|Alur acara implisit — membutuhkan dokumentasi|
-|**Kemampuan untuk diuji**|426 unit uji; lapisan memori dapat di-mock|Tes integrasi membutuhkan Redis/PostgreSQL|
+|**Kemampuan untuk diuji**|426 unit uji; lapisan memori dapat di-mock|Tes ini membutuhkan integrasi Redis/PostgreSQL|
 |**Kemungkinan diperpanjang**|Pola Capability Pack; sistem Plugin|Paket baru harus mengimplementasikan kontrak BaseApp|
 |**Kemampuan observasi**|Telemetri peristiwa di semua operasi|Bus acara lalu lintas tambahan|
 
@@ -579,10 +579,10 @@ await memory_manager.store("episodic", key, value)
 
 |Atribut|Metrik|Target|pengukuran|
 |---|---|---|---|
-|Pertunjukan|Waktu respons P95|< 30 detik untuk saluran pipa MEDIUM|Benchmark pelari|
+|Pertunjukan|Waktu respon P95|< 30 detik untuk saluran pipa MEDIUM|Benchmark pelari|
 |Keandalan|Tingkat keberhasilan tugas|> 99%|Log sesi eksekusi|
-|Kualitas Kode|Kesalahan MyPy|0|`mypy apps/ backend/`|
-|Kualitas Tes|Tingkat kelulusan tes|> 95%|`pytest`|
+|Kode Kualitas|Kesalahan MyPy|0|`mypy apps/ backend/`|
+|Tes Kualitas|Tingkat kelulusan tes|> 95%|`pytest`|
 |Cakupan|Cakupan garis|> 80%|`pytest --cov`|
 |Ingatan|Ukuran lapisan memori|< 50 entri sebelum konsolidasi|`memory_manager.count()`|
 
@@ -606,14 +606,14 @@ await memory_manager.store("episodic", key, value)
 |**Penerapan multi-wilayah**|Skala produksi|Bus Acara → kompatibel Kafka/RabbitMQ|
 |**Capability Pack baru**|Aplikasi domain baru|Ikuti Arsitektur Referensi, tanpa perubahan core|
 |**Ekosistem Plugin**|Ekstensi pihak ketiga|Perluas `PluginManifest`, tambahkan marketplace|
-|**Kolaborasi real-time**|Kebutuhan multi-pengguna|Tambahkan WebSocket ke Event Bus, resolusi konflik|
+|**Kolaborasi real-time**|Kebutuhan multi-pengguna|Tambahkan WebSocket ke Event Bus, penyelesaian konflik|
 
 ### 10.3 Penghentian Kebijakan
 
 1. Tandai sebagai tidak digunakan lagi di CHANGELOG.md + komentar dokumen
 2. Mempertahankan kompatibilitas mundur selama 2 versi minor
 3. Hapus di versi mayor berikutnya
-4. Panduan migrasi sediakan
+4. Panduan migrasi disediakan
 
 ---
 

@@ -3,84 +3,83 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 08-02-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** RFC untuk RFC-0004-network-knowledge
 <!-- DOCUMENT_METADATA_END -->
 
 **Status:** Direncanakan
-**Target:** Fase Capability Excellence
-**Capability Pack:** Network Engineer
+**Target:** Keunggulan Kemampuan Fase
+**Capability Pack:** Insinyur Jaringan
 
-## Ringkasan
+## Ringkasnya
 
-Memperluas kedalaman pengetahuan Network Engineer di seluruh networking enterprise, security hardening, dan protokol lanjutan.
+Memperluas kedalaman pengetahuan Network Engineer di seluruh jaringan perusahaan, security hardening, dan protokol lanjutan.
 
 ## Domain Pengetahuan
 
-### Cisco Design Guide
-- Desain campus enterprise
-- Data center fabric
-- Arsitektur jaringan borderless
+### Panduan Desain Cisco
+- Desain perusahaan kampus
+- Struktur pusat data
+- Arsitektur jaringan tanpa batas
 - Prinsip desain SD-WAN
-- Pola high availability
+- Pola ketersediaan tinggi
 
-### MikroTik Best Practice
+### Praktik Terbaik MikroTik
 - Pola ISP edge dan PPPoE
-- Hotspot dan traffic shaping
-- Optimasi FastTrack
-- Deployment IPv6 di RouterOS
+- Hotspot dan pembentukan trafik
+- Optimasi Jalur Cepat
+- Penerapan IPv6 di RouterOS
 - Akses administrasi aman
 
-### Fortinet Hardening
-- Best practice keamanan FortiOS
-- Optimasi policy
+### Pengerasan Fortinet
+- Praktik terbaik keamanan FortiOS
+- Optimalisasi kebijakan
 - Desain VPN (IPsec, SSL)
-- Integrasi threat protection
+- Perlindungan ancaman integrasi
 - Logging dan analitik
 
 ### BGP
-- BGP path selection
-- Route filtering dan manipulasi
-- BGP communities
+- Pemilihan jalur BGP
+- Penyaringan rute dan manipulasi
+- komunitas BGP
 - Pola desain RR/CE
-- Monitoring dan troubleshooting BGP
+- Pemantauan dan pemecahan masalah BGP
 
 ### MPLS
-- MPLS forwarding dan label
-- Dasar LDP, RSVP-TE
-- VRF dan route leaking
-- Ikhtisar MPLS traffic engineering
-- Pola service provider edge
+- Penerusan dan label MPLS
+- LDP Dasar, RSVP-TE
+- VRF dan rutenya bocor
+- Ikhtisar Rekayasa Lalu Lintas MPLS
+- Tepi penyedia layanan Pola
 
 ### IPv6
 - Desain dual-stack
 - SLAAC vs DHCPv6
 - Pertimbangan keamanan IPv6
 - Ikhtisar mekanisme transisi
-- Pola deployment IPv6 ISP
+- Pola penerapan ISP IPv6
 
-### Zero Trust
+### Nol Kepercayaan
 - Prinsip arsitektur Zero Trust
-- Konsep micro-segmentation
+- Konsep mikro-segmentasi
 - Pola akses berbasis identitas
 - Konsep verifikasi berkelanjutan
-- Zero Trust network access (ZTNA)
+- Akses jaringan Zero Trust (ZTNA)
 
 ## Pendekatan Implementasi
 
-Semua pengetahuan ditambahkan ke domain engine Network Capability Pack. Tidak ada perubahan Core yang diperlukan.
+Semua penemuan ditambahkan ke mesin domain Jaringan Capability Pack. Tidak ada perubahan Core yang diperlukan.
 
 ## Kriteria Keberhasilan
 
-- Setiap domain pengetahuan terwakili di analyzer/recommender
-- Golden test diperbarui untuk area pengetahuan baru
-- Skor benchmark dipertahankan atau ditingkatkan
+- Setiap domain pengetahuan diulas di penganalisa/pemberi rekomendasi
+- Golden Test diperbarui untuk pengetahuan baru
+- Skor Benchmark dipertahankan atau ditingkatkan
 
 ## Referensi
 
-- RFC-0004: Network Knowledge Base
-- RFC-0005: Security Hardening Patterns
-- CAPABILITY_GUIDE.md — bagian Network Engineer
-
+- RFC-0004: Dasar Pengetahuan Jaringan
+- RFC-0005: Pola Pengerasan Keamanan
+- CAPABILITY_GUIDE.md — bagian Insinyur Jaringan

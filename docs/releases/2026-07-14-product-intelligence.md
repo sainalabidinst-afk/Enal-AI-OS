@@ -3,7 +3,7 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 02-08-2026
+**Diverifikasi Terakhir:** 08-02-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Dokumentasi rilis
@@ -11,20 +11,20 @@
 
 **Tanggal Rilis:** 14-07-2026
 **Tonggak Pencapaian:** Kecerdasan Produk
-**Nama Kode:** Kemampuan Benchmark + Kecerdasan Berkualitas
+**Kode Nama:** Kemampuan Benchmark + Kecerdasan Berkualitas
 
 ## Ringkasnya
 
-Rilis ini mengubah Enal AI OS dari platform analisis konfigurasi menjadi platform AI Quality Engineering. Sistem kini mengukur kualitas kemampuan-nya sendiri melalui telemetri, benchmarking, penilaian kemampuan, deteksi regresi, dan kalibrasi kepercayaan.
+Rilis ini mengubah Enal AI OS dari platform analisis konfigurasi menjadi platform AI Quality Engineering. Sistem kini mengukur kualitas kemampuannya sendiri melalui telemetri, benchmarking, penilaian kemampuan, deteksi regresi, dan kalibrasi kepercayaan.
 
 ## Yang Berubah
 
 ### Bagian belakang
 
-- **Kerangka Telemetri**: Kumpulan peristiwa berbasis JSONL untuk analisis peristiwa, obrolan, parser, dan penalaran. Layanan agregasi KPI menghitung tingkat kelulusan, cakupan bukti, cakupan kepatuhan, tingkat positif palsu, dan lainnya.
+- **Kerangka Telemetri**: Kumpulan peristiwa berbasis JSONL untuk analisis peristiwa, dialog, parser, dan penalaran. Layanan agregasi KPI menghitung tingkat izin, cakupan bukti, cakupan, tingkat positif palsu, dan lainnya.
 - **Benchmark Framework**: `BenchmarkRunner` async dengan koneksi pool `httpx.AsyncClient`, kontrol konkurensi `asyncio.Semaphore` (default 5), dan protokol `ProgressCallback` untuk kemajuan real-time.
-- **Capability Scoring**: Kemampuan perincian per kasus dalam 5 dimensi: parser, Reasoning, Evidence, Compliance, dan Executive Report. Setiap dimensi diberi skor 0-100, dirata-rata menjadi total skor kemampuan.
-- **Golden Expected Results**: Kasus Benchmark kini mendukung `expected.json` dengan temuan yang diharapkan yang terstruktur, ambang batas risiko/keyakinan, dan kepatuhan target. Direktori kasus mengikuti pola `sample_hotspot/` dengan `config.rsc`, `expected.json`, `report.md`, dan `metadata.yaml`.
+- **Capability Scoring**: kemampuan perincian per kasus dalam 5 dimensi: parser, Reasoning, Evidence, Compliance, dan Executive Report. Setiap dimensi diberi skor 0-100, dirata-rata menjadi total skor kemampuan.
+- **Hasil Emas yang Diharapkan**: Kasus Benchmark kini mendukung `expected.json` dengan temuan yang diharapkan yang terstruktur, ambang batas risiko/keyakinan, dan memenuhi target. Direktori kasus mengikuti pola `sample_hotspot/` dengan `config.rsc`, `expected.json`, `report.md`, dan `metadata.yaml`.
 - **CCE API**: `POST /api/v1/benchmark/run` kini mengembalikan `capability_score` dan `capability_breakdown` per hasil. `GET /api/v1/benchmark/capability-scores` mengagregasi per vendor. `GET /api/v1/benchmark/cce/status` menampilkan status CCE terbaru dengan peringatan regresi dan kalibrasi data.
 
 ### Modul Baru
@@ -32,7 +32,7 @@ Rilis ini mengubah Enal AI OS dari platform analisis konfigurasi menjadi platfor
 - `benchmarks/cce.py` — Pelari Evaluasi Kemampuan Berkelanjutan. Mengeksekusi rangkaian Benchmark lengkap, menghitung skor kemampuan, mendeteksi regresi terhadap run/baseline sebelumnya, menjalankan kalibrasi kepercayaan, menyimpan riwayat, dan menghasilkan laporan HTML.
 - `benchmarks/trend_analyzer.py` — Analisis tren dan deteksi regresi. Menghitung arah tren per-vendor (`up`/`down`/`stable`) dan menandai regresi ketika skor kemampuan turun ≥5 poin.
 - `benchmarks/calibration.py` — Penganalisis kalibrasi kepercayaan. Mengelompokkan hasil berdasarkan skor kepercayaan dan menghitung akurasi empiris per bin, mendeteksi overconfident dan underconfident.
-- `benchmarks/report_generator.py` — HTML dasbor pembuat. Menghasilkan laporan visual dengan tabel kemampuan perincian, peringatan regresi, tabel kalibrasi keyakinan, dan indikator tren bergaya CSS.
+- `benchmarks/report_generator.py` — Pembuat dasbor HTML. Menghasilkan laporan visual dengan tabel kemampuan kinerja, peringatan regresi, tabel kalibrasi keyakinan, dan indikator tren bergaya CSS.
 
 ### CI/CD
 

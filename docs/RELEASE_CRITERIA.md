@@ -1,7 +1,7 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 02-08-2026
+**Diverifikasi Terakhir:** 08-02-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** Kondisi rilis, gerbang kualitas, Definisi Selesai, dan target Benchmark
@@ -22,7 +22,7 @@ ECP v1.0.0-dev dinyatakan berhasil jika dan hanya jika:
 
 1. ✅ **13 Capability Pack** ada dan terdaftar di Capability Graph
 2. ✅ **Golden Test Suite** lulus dengan tingkat kelulusan ≥80%
-3. ✅ **CI/CD Pipeline** memblokir penggabungan pada setiap kegagalan
+3. ✅ **CI/CD Pipeline** penyumbatan pada setiap kegagalan
 4. ✅ **Dokumentasi** mencakup permulaan, SDK, kontrak, dan Arsitektur
 5. ✅ **Tanpa Kerangka Perangkap** — Inti tetap stabil sementara Capability Pack berevolusi
 6. ✅ **Architecture Governance** aktif: Core terhenti, Capability First Rule ditegakkan, semua perubahan memerlukan ADR ketika berdampak pada banyak paket
@@ -64,12 +64,12 @@ Setiap PR harus lulus:
 
 |Metrik|Target|pengukuran|
 |--------|--------|-------------|
-|Golden Test Tingkat Kelulusan|≥80%|benchmark/golden_test_set.py|
+|Golden Test Tingkat Kelulusan|≥80%|Benchmark/golden_test_set.py|
 |Cakupan Tes|≥80%|pytest-cov|
 |Ketik Keamanan|0 kesalahan|mypy --ketat|
-|Pelanggaran Arsitektur|0|benchmark/package_boundaries.py|
+|Pelanggaran Arsitektur|0|Benchmark/package_boundaries.py|
 |SDK Waktu Impor|<100 md|SDK/tolok ukur|
-|Angka Mutu Kemampuan|≥85%|benchmark/capability_benchmark.py|
+|Angka Mutu kemampuan|≥85%|Benchmark/capability_benchmark.py|
 |Kecepatan Peningkatan|>0 kasus nyata/minggu per bungkus|kasus_nyata/<capability_id>/|
 |Cakupan Dokumentasi|100%|dokumen/|
 
@@ -82,24 +82,24 @@ Sertifikasi mewajibkan setiap Capability Pack mencapai atau melampaui skor Bench
 |Kemampuan|Skor Sasaran|Nilai|
 |------------|--------------|-------|
 |Insinyur Jaringan|≥90|A|
-|Insinyur Kode|≥85|A-|
+|Kode Insinyur|≥85|A-|
 |Asisten Peneliti|≥85|A-|
 |Asisten DevOps|≥80|B+|
 |Analis Perdagangan|≥80|B+ (harus juga Sertifikasi lulus)|
 |Pengembangan Diri|≥90|A|
 |Decision Intelligence|≥90|A (Benchmark 91,25% — RFC-0007)|
-|Arsitek Sistem|≥90|A (RFC-0011)|
+|Sistem Arsitek|≥90|A (RFC-0011)|
 |Security Engineer|≥85|SEBUAH- (RFC-0008)|
 |Data Engineer|≥85|SEBUAH- (RFC-0009)|
 |Database Engineer|≥85|SEBUAH- (RFC-0010)|
 |QA Engineer|≥90|A (RFC-0012)|
 |Business Analyst|≥85|SEBUAH- (RFC-0013)|
 
-Semua skor diukur oleh kerangka Capability Benchmark 6 dimensi (Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi).
+Semua skor diukur oleh kerangka Kapabilitas Benchmark 6 dimensi (Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi).
 
 ---
 
-## 6. Definisi Selesai — Standar Templat
+## 6. Definisi Selesai — Templat Standar
 
 Definisi Selesai setiap Capability Pack menggunakan template standar ini. Sebuah paket berisi nilai spesifiknya.
 
@@ -150,21 +150,21 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|akurasi ≥95% (kelas A)|
 |Kasus Nyata|≥100 kasus nyata di `real_cases/network/`|
-|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
 |Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui perintah terdokumentasi; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui perintah terdokumentasi; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
-### 7.2 Insinyur Kode
+### 7.2 Kode Insinyur
 
 |Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
 |Emas Benchmark|≥90% skor kualitas kode|
 |Kasus Nyata|≥100 repositori nyata di `real_cases/code/`|
-|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
 |Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.3 Asisten Peneliti
 
@@ -172,10 +172,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥85% akurasi sitasi|
 |Kasus Nyata|≥100 pertanyaan penelitian di `real_cases/research/`|
-|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
 |Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.4 Asisten DevOps
 
@@ -183,10 +183,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥85% kebenaran pada konfigurasi yang dihasilkan|
 |Kasus Nyata|≥100 skenario infrastruktur di `real_cases/devops/`|
-|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
 |Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.5 Analis Perdagangan
 
@@ -194,10 +194,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥80% (kelas B+) dan Sertifikasi lulus|
 |Kasus Nyata|≥100 skenario pasar di `real_cases/trading/`|
-|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
 |Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.6 Pengembangan Diri
 
@@ -205,32 +205,32 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥90% (kelas A)|
 |Kasus Nyata|≥10 proyek nyata di `real_cases/self_development/`|
-|Regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 6 dimensi Benchmark|
 |Dokumentasi|`CAPABILITY_GUIDE.md` dan kontrak diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.7 Decision Intelligence
 
 |Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
-|Emas Benchmark|≥90% (kelas A — Benchmark keseluruhan 91,25%)|
+|Emas Benchmark|≥90% (kelas A — Benchmark total 91,25%)|
 |Kasus Nyata|(Lapisan pemikiran bersama — kasus nyata dilacak per bungkus konsumen)|
-|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/decision-intelligence.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/decision_intelligence_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/decision_intelligence_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
-### 7.8 Arsitek Sistem
+### 7.8 Sistem Arsitek
 
 |Barang Departemen Pertahanan|Kriteria|
 |----------|-----------|
 |Emas Benchmark|≥90% (kelas A)|
 |Kasus Nyata|Kasus nyata dilacak melalui riwayat arsitektur review di `real_cases/system_architect/`|
-|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/system-architect.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/system_architect_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/system_architect_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.9 Security Engineer
 
@@ -238,10 +238,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥85% (kelas A-)|
 |Kasus Nyata|≥20 kasus analisis keamanan di `real_cases/security_engineer/`|
-|Regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/security-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/security_engineer_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/security_engineer_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.10 Data Engineer
 
@@ -249,10 +249,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥85% (kelas A-)|
 |Kasus Nyata|≥20 kasus pipa data di `real_cases/data_engineer/`|
-|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/data-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/data_engineer_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/data_engineer_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.11 Database Engineer
 
@@ -260,10 +260,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥85% (kelas A-)|
 |Kasus Nyata|≥20 analisis database kasus di `real_cases/database_engineer/`|
-|Regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 8 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/database-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/database_engineer_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/database_engineer_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.12 QA Engineer
 
@@ -271,10 +271,10 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥90% (kelas A)|
 |Kasus Nyata|≥20 kasus analisis QA di `real_cases/qa_engineer/`|
-|Regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/qa-engineer.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/qa_engineer_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/qa_engineer_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ### 7.13 Business Analyst
 
@@ -282,14 +282,14 @@ Release Notes
 |----------|-----------|
 |Emas Benchmark|≥85% (kelas A-)|
 |Kasus Nyata|≥20 analisis kasus bisnis di `real_cases/business_analyst/`|
-|Regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
+|regresi|Tidak ada regresi di seluruh 9 dimensi Benchmark|
 |Dokumentasi|`docs/capabilities/business-analyst.md` dan `docs/CAPABILITY_GUIDE.md` diperbarui|
-|Reproduksibilitas|Benchmark dapat direproduksi melalui `benchmarks/business_analyst_benchmark.py`; hasil tersimpan|
-|log perubahan|Kemampuan Changelog diperbarui|
+|Reproduksibilitas|Benchmark dapat diproduksi melalui `benchmarks/business_analyst_benchmark.py`; hasil tersimpan|
+|mencatat perubahan|Kemampuan Changelog diperbarui|
 
 ---
 
-## 8. Pengertian Selesai Rilis
+## 8. Pemahaman Selesai Rilis
 
 Sebuah rilis dinyatakan selesai ketika:
 
@@ -319,4 +319,4 @@ Setelah setiap rilis:
 
 |Peran|Status|Tanggal|
 |------|--------|------|
-|Kepala Bagian Produk|Disetujui|02-08-2026|
+|Kepala Bagian Produk|Disetujui|08-02-2026|

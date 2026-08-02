@@ -3,79 +3,79 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 08-02-2026
 **Versi:** 1.0.0
 **Status:** Aktif
 **SSOT:** RFC untuk RFC-0005-trading-knowledge
 <!-- DOCUMENT_METADATA_END -->
 
 **Status:** Direncanakan
-**Target:** Fase Capability Excellence
-**Capability Pack:** Trading Analyst
+**Target:** Keunggulan Kemampuan Fase
+**Capability Pack:** Analis Perdagangan
 
-## Ringkasan
+## Ringkasnya
 
-Memperluas kedalaman pengetahuan Trading Analyst di seluruh analisis teknikal, manajemen risiko, dan psikologi trading.
+Memperluas kedalaman pengetahuan Trading Analyst di seluruh analisis teknikal, risiko manajemen, dan psikologi trading.
 
 ## Domain Pengetahuan
 
 ### Wyckoff
-- Fase Wyckoff: Accumulation, Markup, Distribution, Markdown
-- Perilaku Composite Operator
-- Analisis supply dan demand
+- Fase Wyckoff: Akumulasi, Markup, Distribusi, Penurunan Harga
+- Operator Perilaku Gabungan
+- Analisis penawaran dan permintaan
 - Hubungan harga dan volume Wyckoff
 
-### ICT (Inner Circle Trader)
+### ICT (Pedagang Lingkaran Dalam)
 - Konsep struktur pasar ICT
-- Fair Value Gaps (FVG)
-- Order blocks dan mitigation blocks
+- Kesenjangan Nilai Wajar (FVG)
+- Blok pemesanan dan blok mitigasi
 - Model likuiditas
-- Konsep analisis berbasis waktu
+- Konsep berbasis analisis waktu
 
-### SMC (Smart Money Concepts)
-- Institutional order flow
-- Liquidity sweeps
-- Model market maker
-- Interpretasi order block
-- Zona premium dan discount
+### SMC (Konsep Uang Cerdas)
+- Aliran tatanan kelembagaan
+- Likuiditas melanda
+- Model pembuat pasar
+- Blok perintah interpretasi
+- Zona premium dan diskon
 
-### Elliott Wave
+### Gelombang Elliot
 - Dasar teori Elliott Wave
-- Pola impulse dan corrective
+- Pola impuls dan korektif
 - Hubungan Fibonacci
-- Derajat wave dan sifat fractal
+- Derajat gelombang dan sifat fraktal
 - Aturan validasi dan invalidasi
 
-### Volume Profile
-- Volume profile vs volume by price
-- Point of Control (POC)
-- Value Area serta Value Area High/Low
-- Pola volume profile
-- Integrasi dengan price action
+### Volume Profil
+- Volume profil vs volume berdasarkan harga
+- Titik Kendali (POC)
+- Area Nilai serta Area Nilai Tinggi/Rendah
+- Pola volume profil
+- Integrasi dengan aksi harga
 
-### Macro
+### Makro
 - Interpretasi indikator makro
 - Dampak kebijakan Fed dan suku bunga
 - Signifikansi kalender ekonomi
-- Hubungan lintas pasar
-- Regime risk-on vs risk-off
+- Hubungan pasar lintas
+- Rezim risk-on vs risk-off
 
-### Options
-- Option Greeks: Delta, Gamma, Theta, Vega
-- Ikhtisar strategi opsi
-- Implied volatility dan skew
-- Interpretasi put/call ratio
-- Unusual options activity
+### Pilihan
+- Opsi Yunani: Delta, Gamma, Theta, Vega
+- Ikhtisar opsi strategi
+- Volatilitas dan kemiringan yang tersirat
+- Interpretasi rasio put/call
+- Opsi aktivitas yang tidak biasa
 
-### Futures
-- Dasar kontrak futures
-- Contango vs backwardation
-- Basis dan biaya roll
-- Position limits dan commitments (COT)
-- Futures sebagai instrumen hedging
+### Masa depan
+- Kontrak dasar berjangka
+- Contango vs keterbelakangan
+- Dasar dan biaya bergulir
+- Batasan jabatan dan komitmen (COT)
+- Kontrak berjangka sebagai instrumen melindungi nilai
 
-### Psychology
-- Dasar psikologi trading
+### Psikologi
+- Dasar psikologi perdagangan
 - Bias kognitif dalam trading
 - Toleransi risiko dan psikologi position sizing
 - Manajemen emosi
@@ -83,16 +83,15 @@ Memperluas kedalaman pengetahuan Trading Analyst di seluruh analisis teknikal, m
 
 ## Pendekatan Implementasi
 
-Semua pengetahuan ditambahkan ke domain engine Trading Capability Pack. Tidak ada perubahan Core yang diperlukan.
+Semua penemuan ditambahkan ke mesin domain Trading Capability Pack. Tidak ada perubahan Core yang diperlukan.
 
 ## Kriteria Keberhasilan
 
-- Setiap domain pengetahuan terwakili dalam logika analisis dan rekomendasi
-- Output penalaran menyertakan penjelasan domain
-- Skor benchmark untuk penalaran dan explainability meningkat
+- Setiap domain pengetahuan ditampilkan dalam logika dan rekomendasi analisis
+- Penalaran keluaran mencakup domain penjelasan
+- Skor Benchmark untuk penalaran dan kemampuan menjelaskan meningkat
 
 ## Referensi
 
-- RFC-0006: Trading Knowledge Base
-- CAPABILITY_GUIDE.md — bagian Trading Analyst
-
+- RFC-0006: Dasar Pengetahuan Perdagangan
+- CAPABILITY_GUIDE.md — bagian Analis Perdagangan

@@ -1,80 +1,79 @@
-﻿# RFC: Perluasan Pengetahuan Code
+﻿# RFC: Perluasan Pengetahuan Kode
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-08-02
+**Diverifikasi Terakhir:** 08-02-2026
 **Versi:** 1.0.0
 **Status:** Aktif
-**SSOT:** RFC untuk RFC-0006-code-knowledge
+**SSOT:** RFC untuk pengetahuan kode RFC-0006
 <!-- DOCUMENT_METADATA_END -->
 
 **Status:** Direncanakan
-**Target:** Fase Capability Excellence
-**Capability Pack:** Code Engineer
+**Target:** Keunggulan Kemampuan Fase
+**Capability Pack:** Kode Insinyur
 
-## Ringkasan
+## Ringkasnya
 
-Memperluas kedalaman pengetahuan Code Engineer di seluruh prinsip desain perangkat lunak, pola arsitektur, dan praktik secure coding.
+Memperluas kedalaman pengetahuan Code Engineer di seluruh prinsip desain perangkat lunak, pola arsitektur, dan melakukan praktik pengkodean aman.
 
 ## Domain Pengetahuan
 
-### Clean Architecture
-- Layer: entities, use cases, interface adapters, frameworks
-- Dependency rule
-- Boundaries dan interfaces
-- Isolasi testing melalui arsitektur
-- Kapan diterapkan vs over-engineering
+### Arsitektur Bersih
+- Lapisan: entitas, kasus penggunaan, adaptor antarmuka, kerangka kerja
+- Aturan ketergantungan
+- Batasan dan antarmuka
+- Pengujian isolasi melalui arsitektur
+- Kapan diterapkan vs rekayasa berlebihan
 
-### DDD (Domain-Driven Design)
-- Bounded contexts
-- Entities, Value Objects, Aggregates
-- Domain events
-- Pola repository dan specification
-- Anti-corruption layers
-- Ubiquitous language
+### DDD (Domain Desain Berbasis)
+- Konteks yang dibatasi
+- Entitas, Objek Nilai, Agregat
+- Domain peristiwa
+- Pola repositori dan spesifikasi
+- Lapisan anti korupsi
+- Bahasa yang ada di mana-mana
 
-### SOLID
-- Single Responsibility
-- Open/Closed
-- Liskov Substitution
-- Interface Segregation
-- Dependency Inversion
+### PADAT
+- Tanggung Jawab Tunggal
+- Terbuka/Tertutup
+- Liskov Pergantian
+- Pemisahan antarmuka
+- Inversi Ketergantungan
 - Contoh praktis di Python/TypeScript
 
 ### CQRS
-- Pemisahan Command vs Query
-- Write model dan read model
-- Integrasi event sourcing
-- Model konsistensi
+- Pemisahan Perintah vs Permintaan
+- Model tulis dan model baca
+- Sumber acara Integrasi
+- Model Konsistensi
 - Kapan menggunakan CQRS
 
-### Event Sourcing
-- Konsep event store
-- Desain event schema
-- Replay dan projection
-- Snapshotting
+### Sumber Acara
+- Konsep toko acara
+- Desain skema acara
+- Putar ulang dan proyeksi
+- Memotret
 - Integrasi dengan CQRS
 
-### Secure Coding
+### Pengodean Aman
 - Pemetaan OWASP Top 10
-- Pencegahan injection
-- Pola authentication dan authorization
-- Manajemen secrets
-- Penanganan dependensi yang aman
+- Injeksi pencegahan
+- Pola otorisasi dan otorisasi
+- Rahasia manajemen
+- Penanganan ketergantungan yang aman
 
 ## Pendekatan Implementasi
 
-Semua pengetahuan ditambahkan ke domain engine Code Capability Pack. Tidak ada perubahan Core yang diperlukan.
+Semua penemuan ditambahkan ke mesin domain Kode Capability Pack. Tidak ada perubahan Core yang diperlukan.
 
 ## Kriteria Keberhasilan
 
-- Setiap domain pengetahuan terwakili dalam logika generasi kode, review, dan refactoring
-- Golden test mencakup pola baru
-- Skor benchmark untuk kualitas kode dan explainability meningkat
+- Setiap domain pengetahuan menampilkan logika generasi kode, review, dan refactoring
+- Golden Test mencakup pola baru
+- Skor Benchmark untuk kualitas kode dan kemampuan penjelasan meningkat
 
 ## Referensi
 
-- RFC-0006: Code Knowledge Base
-- CAPABILITY_GUIDE.md — bagian Code Engineer
-
+- RFC-0006: Dasar Pengetahuan Kode
+- CAPABILITY_GUIDE.md — bagian Insinyur Kode
