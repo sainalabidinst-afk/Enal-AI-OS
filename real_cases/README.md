@@ -1,21 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/README.md`
-- Judul: Readme
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Real-world Cases
+﻿# Real-world Cases
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -26,54 +9,49 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 **SSOT:** Real case study documentation
 <!-- DOCUMENT_METADATA_END -->
 
-This directory contains real-world cases collected while using ECP in actual work.
-These are not golden tests. These are daily usage artifacts that drive Capability Pack improvement.
-> Terjemahan Indonesia: Ini directory contains real-world cases collected while using ECP dalam actual work. These adalah not golden tests. These adalah daily usage artifacts itu drive kapabilitas Pack improvement.
+Direktori ini berisi kasus-kasus dunia nyata yang dikumpulkan selama penggunaan ECP dalam pekerjaan aktual.
+Ini bukan golden test. Ini adalah artefak penggunaan harian yang mendorong peningkatan Capability Pack.
 
-## Structure
+## Struktur
 
-Each Capability Pack has its own folder:
-> Terjemahan Indonesia: Each kapabilitas Pack memiliki its own folder:
+Setiap Capability Pack memiliki folder tersendiri:
 
 ```
 real_cases/
-â”œâ”€â”€ network/           # Real network configurations and audits
-â”œâ”€â”€ code/              # Real codebases reviewed or generated
-â”œâ”€â”€ research/          # Real research questions and sources
-â”œâ”€â”€ trading/           # Real market analysis scenarios
-â”œâ”€â”€ devops/            # Real infrastructure scenarios
-â””â”€â”€ self_development/  # Real project improvement cases
+├── network/           # Konfigurasi jaringan dan audit nyata
+├── code/              # Basis kode yang ditinjau atau dibuat
+├── research/          # Pertanyaan penelitian dan sumber nyata
+├── trading/           # Skenario analisis pasar nyata
+├── devops/            # Skenario infrastruktur nyata
+└── self_development/  # Kasus perbaikan proyek nyata
 ```
 
-## What to Store
+## Apa yang Harus Disimpan
 
-For each real-world case, create a folder with:
-> Terjemahan Indonesia: Untuk each real-world case, membuat sebuah folder dengan:
+Untuk setiap kasus dunia nyata, buat folder dengan:
 
-1. **Input**: What the user provided
-2. **Output**: What ECP produced
-3. **Evaluation**: What was good, what was wrong, what was missing
-4. **Benchmark ID**: Link to associated benchmark if updated
+1. **Input**: Apa yang diberikan pengguna
+2. **Output**: Apa yang dihasilkan ECP
+3. **Evaluation**: Apa yang baik, apa yang salah, apa yang kurang
+4. **Benchmark ID**: Tautan ke benchmark terkait jika diperbarui
 
-Example:
-> Terjemahan Indonesia: Contoh:
+Contoh:
 
 ```
 network/isp_dual_wan_failover/
-â”œâ”€â”€ input/
-â”‚   â””â”€â”€ config.rsc
-â”œâ”€â”€ output/
-â”‚   â”œâ”€â”€ analysis.md
-â”‚   â””â”€â”€ recommendations.md
-â””â”€â”€ evaluation.md
+├── input/
+│   └── config.rsc
+├── output/
+│   ├── analysis.md
+│   └── recommendations.md
+└── evaluation.md
 ```
 
-## How to Use
+## Cara Menggunakan
 
-1. Run ECP against a real case
-2. Save input, output, and evaluation
-3. If improvements are needed, update the Capability Pack
-4. Reference this case in the Capability Benchmark
+1. Jalankan ECP terhadap kasus nyata
+2. Simpan input, output, dan evaluation
+3. Jika diperlukan perbaikan, perbarui Capability Pack
+4. Referensikan kasus ini dalam Capability Benchmark
 
-This is how Capability Packs become genuinely expert: through real-world iteration, not synthetic tests alone.
-> Terjemahan Indonesia: Ini adalah how kapabilitas Packs become genuinely expert: through real-world iteration, not synthetic tests alone.
+Inilah cara Capability Pack menjadi benar-benar ahli: melalui iterasi dunia nyata, bukan hanya tes sintetis.

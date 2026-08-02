@@ -1,35 +1,17 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `RELEASE/SBOM.md`
-- Judul: Sbom
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Enal AI OS â€” SBOM v1.0.0-rc1
+﻿# Enal AI OS — SBOM v1.0.0-rc1
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
-**SSOT:** Documentation for SBOM
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
+**SSOT:** Dokumentasi untuk SBOM
 <!-- DOCUMENT_METADATA_END -->
 
 Generated: 2026-07-31
 Commit: 22f581c927454f4577a37af2f5be9beb93b04904
 Tag: v1.0.0-rc1
-> Terjemahan Indonesia: Dihasilkan: 31-07-2026 Komit: 22f581c927454f4577a37af2f5be9beb93b04904 Tag: v1.0.0-rc1
 
 ## Backend Dependencies
 

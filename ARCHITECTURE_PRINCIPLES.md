@@ -1,18 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia/Bahasa Inggris
-
-
-### Ringkas / Ringkas
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-
-### Informasi Dokumen / Info Dokumen
-- Berkas: `ARCHITECTURE_PRINCIPLES.md`
-- Judul: Prinsip Arsitektur
-- Status: editor bilingual ditambahkan
-
-
-# Prinsip Arsitektur ECP
+﻿# Prinsip Arsitektur ECP
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi

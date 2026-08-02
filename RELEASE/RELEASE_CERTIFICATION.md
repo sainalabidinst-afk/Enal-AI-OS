@@ -1,177 +1,160 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `RELEASE/RELEASE_CERTIFICATION.md`
-- Judul: Release Certification
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-<!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
-**Version:** 1.0.0
-**Status:** Active
+﻿<!-- DOCUMENT_METADATA_START -->
+**Pemilik:** Tim Dokumentasi
+**Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
+**Terakhir Diverifikasi:** 2026-08-02
+**Versi:** 1.0.0
+**Status:** Aktif
 <!-- DOCUMENT_METADATA_END -->
 
-# Enal AI OS â€” Release Certification Report
+# Enal AI OS — Laporan Sertifikasi Rilis
 
-**Release:** v1.0.0-rc1
-**Date:** 2026-08-02
-**Certified By:** Automated Validation + Manual Review
+**Rilis:** v1.0.0-rc1
+**Tanggal:** 2026-08-02
+**Disertifikasi Oleh:** Validasi Otomatis + Tinjauan Manual
 **Commit:** 22f581c927454f4577a37af2f5be9beb93b04904
 **Branch:** main
 
 ---
 
-## Certification Checklist
+## Daftar Periksa Sertifikasi
 
-### 1. Tag Release from Verified Commit
-- [x] Commit `22f581c` verified as stable baseline
-- [x] All tests passing (426/426)
-- [x] All validation gates passing (Gate 0-4)
-- [x] Tag `v1.0.0-rc1` created from commit `22f581c`
+### 1. Rilis Tag dari Komit Terverifikasi
+- [x] Komit `22f581c` diverifikasi sebagai baseline stabil
+- [x] Semua pengujian berhasil (426/426)
+- [x] Semua gate validasi berhasil (Gate 0-4)
+- [x] Tag `v1.0.0-rc1` dibuat dari komit `22f581c`
 
-### 2. Build Artifacts from Commit
-- [x] Backend Dockerfile: multi-stage, non-root user
-- [x] Frontend Dockerfile: multi-stage, standalone output
-- [x] docker-compose.yml: hardened with security profiles
-- [x] Python package: `backend/pyproject.toml` defines prod/dev deps
-- [x] Node package: `frontend/package.json` defines prod/dev deps
-- [x] Backend Docker image built successfully
-- [ ] Frontend Docker image built (failed: npm network ECONNRESET)
-- [x] Backend image digest recorded
-- [ ] Frontend image digest recorded
+### 2. Bangun Artefak dari Komit
+- [x] Dockerfile Backend: multi-stage, pengguna non-root
+- [x] Dockerfile Frontend: multi-stage, output standalone
+- [x] docker-compose.yml: diperkuat dengan profil keamanan
+- [x] Paket Python: `backend/pyproject.toml` mendefinisikan dependensi prod/dev
+- [x] Paket Node: `frontend/package.json` mendefinisikan dependensi prod/dev
+- [x] Gambar Docker Backend berhasil dibangun
+- [ ] Gambar Docker Frontend dibangun (gagal: npm network ECONNRESET)
+- [x] Digest gambar Backend dicatat
+- [ ] Digest gambar Frontend dicatat
 
-### 3. Verify Checksum / Image Digest
-- [x] Backend image SHA256 digest: `sha256:8a8b9367cba80724bf2905cbead4c989701d3b2ddc1e7d61c8f18d34a340d80f`
-- [ ] Frontend image SHA256 digest
-- [x] SBOM generated: `RELEASE/SBOM.md`
-- [ ] CycloneDX SBOM exported (requires `cyclonedx-bom` tool)
-- [ ] SPDX SBOM exported (requires `spdxx` tool)
+### 3. Verifikasi Checksum / Digest Gambar
+- [x] Digest SHA256 gambar Backend: `sha256:8a8b9367cba80724bf2905cbead4c989701d3b2ddc1e7d61c8f18d34a340d80f`
+- [ ] Digest SHA256 gambar Frontend
+- [x] SBOM dihasilkan: `RELEASE/SBOM.md`
+- [ ] SBOM CycloneDX diekspor (memerlukan tool `cyclonedx-bom`)
+- [ ] SBOM SPDX diekspor (memerlukan tool `spdxx`)
 
-### 4. Smoke Test on Built Artifacts
-- [x] Smoke test script created: `RELEASE/smoke_test.py`
-- [ ] Smoke test executed against built containers
-- [ ] All core endpoints verified
-- **Note:** Backend image built; frontend image build blocked by npm network error
+### 4. Smoke Test pada Artefak yang Dibangun
+- [x] Skrip smoke test dibuat: `RELEASE/smoke_test.py`
+- [ ] Smoke test dijalankan terhadap container yang dibangun
+- [ ] Semua endpoint inti diverifikasi
+- **Catatan:** Gambar Backend dibangun; build gambar Frontend diblokir oleh error jaringan npm
 
-### 5. SBOM and Release Notes
-- [x] SBOM created: `RELEASE/SBOM.md`
-- [x] Release notes created: `RELEASE/RELEASE_NOTES_v1.0.0-rc1.md`
-- [ ] CycloneDX SBOM exported (requires `cyclonedx-bom` tool)
-- [ ] SPDX SBOM exported (requires `spdx` tool)
+### 5. SBOM dan Catatan Rilis
+- [x] SBOM dibuat: `RELEASE/SBOM.md`
+- [x] Catatan rilis dibuat: `RELEASE/RELEASE_NOTES_v1.0.0-rc1.md`
+- [ ] SBOM CycloneDX diekspor (memerlukan tool `cyclonedx-bom`)
+- [ ] SBOM SPDX diekspor (memerlukan tool `spdx`)
 
-### 6. Sign Image / Artifacts
-- [ ] Image signing with Cosign / Sigstore
-- [ ] Artifact signing with GPG
-- **Note:** Requires signing keys and tooling setup
+### 6. Tanda Tangani Gambar / Artefak
+- [ ] Penandatanganan gambar dengan Cosign / Sigstore
+- [ ] Penandatanganan artefak dengan GPG
+- **Catatan:** Memerlukan setup kunci penandatanganan dan tooling
 
-### 7. Tested Rollback Procedure
-- [x] Rollback procedure documented: `RELEASE/ROLLBACK_PROCEDURE.md`
-- [ ] Rollback tested in staging environment
-- [ ] Rollback time measured and documented
-
----
-
-## Validation Summary
-
-| Component | Status | Evidence |
-|-----------|--------|----------|
-| Tests | PASS | 426 passed, 0 failed |
-| Gate 0 â€” Baseline | PASS | Stable baseline confirmed |
-| Gate 1 â€” Security | PASS | All P0 security issues resolved |
-| Gate 2 â€” Architecture | PASS | No circular deps, boundary clean |
-| Gate 3 â€” Capabilities | PASS | All capabilities wired |
-| Gate 4 â€” Cognitive | PASS | All cognitive components present |
-| Import Check | PASS | `import backend.app.main` succeeds |
-| Type Check | PASS | Core modules: 0 mypy errors |
-| Lint | PASS | Ruff checks passed |
+### 7. Prosedur Rollback yang Diuji
+- [x] Prosedur rollback didokumentasikan: `RELEASE/ROLLBACK_PROCEDURE.md`
+- [ ] Rollback diuji di lingkungan staging
+- [ ] Waktu rollback diukur dan didokumentasikan
 
 ---
 
-## Security Posture
+## Ringkasan Validasi
 
-| Control | Status |
+| Komponen | Status | Bukti |
+|----------|--------|------|
+| Pengujian | PASS | 426 berhasil, 0 gagal |
+| Gate 0 — Baseline | PASS | Baseline stabil terkonfirmasi |
+| Gate 1 — Keamanan | PASS | Semua masalah keamanan P0 terselesaikan |
+| Gate 2 — Arsitektur | PASS | Tidak ada dependensi melingkar, batasan bersih |
+| Gate 3 — Kapabilitas | PASS | Semua kapabilitas terhubung |
+| Gate 4 — Kognitif | PASS | Semua komponen kognitif hadir |
+| Pemeriksaan Import | PASS | `import backend.app.main` berhasil |
+| Pemeriksaan Tipe | PASS | Modul inti: 0 error mypy |
+| Lint | PASS | Pemeriksaan Ruff berhasil |
+
+---
+
+## Postur Keamanan
+
+| Kendali | Status |
 |---------|--------|
 | Command Injection | FIXED |
 | SSRF | FIXED |
 | Hardcoded Secrets | FIXED |
-| Security Headers | IMPLEMENTED |
-| Rate Limiting | IMPLEMENTED |
-| Authentication | IMPLEMENTED (fail-closed) |
-| Authorization (RBAC) | IMPLEMENTED |
-| Audit Logging | IMPLEMENTED |
-| Docker Hardening | IMPLEMENTED |
-| Non-root Containers | IMPLEMENTED |
-| Read-only Filesystem | IMPLEMENTED |
-| Capability Drop | IMPLEMENTED |
+| Security Headers | DITERAPKAN |
+| Rate Limiting | DITERAPKAN |
+| Authentication | DITERAPKAN (fail-closed) |
+| Authorization (RBAC) | DITERAPKAN |
+| Audit Logging | DITERAPKAN |
+| Docker Hardening | DITERAPKAN |
+| Non-root Containers | DITERAPKAN |
+| Read-only Filesystem | DITERAPKAN |
+| Capability Drop | DITERAPKAN |
 
 ---
 
-## Known Limitations
+## Keterbatasan yang Diketahui
 
-1. **Frontend Docker build failed** due to npm network connectivity error (`ECONNRESET`). Backend image built successfully.
-2. **Image signing** not performed; requires GPG/Cosign setup
-3. **SBOM export** in CycloneDX/SPDX format pending tooling
-4. **Rollback drill** not executed; procedure documented but untested in staging
-5. **Load testing** not performed; recommended before production traffic
-
----
-
-## Certification Decision
-
-| Criterion | Result |
-|-----------|--------|
-| Source code quality | PASS |
-| Security hardening | PASS |
-| Architecture convergence | PASS |
-| Test coverage | PASS |
-| Validation gates | PASS |
-| Docker hardening | PASS |
-| Documentation | PASS |
-| Backend container build | PASS |
-| Frontend container build | FAIL â€” npm network error |
-| **Overall** | **CONDITIONAL PASS** |
-
-**Condition:** Frontend Docker image build must succeed in CI environment with stable network. All other criteria passed.
+1. **Build Docker Frontend gagal** karena error konektivitas jaringan npm (`ECONNRESET`). Gambar Backend berhasil dibangun.
+2. **Penandatanganan gambar** tidak dilakukan; memerlukan setup GPG/Cosign
+3. **Ekspor SBOM** dalam format CycloneDX/SPDX tertunda tooling
+4. **Drill rollback** tidak dieksekusi; prosedur didokumentasikan tetapi belum diuji di staging
+5. **Pengujian beban** tidak dilakukan; disarankan sebelum lalu lintas produksi
 
 ---
 
-## Actual Build Evidence
+## Keputusan Sertifikasi
 
-### Backend Image
+| Kriteria | Hasil |
+|----------|-------|
+| Kualitas kode sumber | PASS |
+| Penguatan keamanan | PASS |
+| Konvergensi arsitektur | PASS |
+| Cakupan pengujian | PASS |
+| Gate validasi | PASS |
+| Penguatan Docker | PASS |
+| Dokumentasi | PASS |
+| Build container backend | PASS |
+| Build container frontend | FAIL — error jaringan npm |
+| **Keseluruhan** | **PASS BERSYARAT** |
+
+**Kondisi:** Build gambar Docker Frontend harus berhasil di lingkungan CI dengan jaringan stabil. Semua kriteria lainnya telah lulus.
+
+---
+
+## Bukti Build Aktual
+
+### Gambar Backend
 - **Tag:** `enal-ai-os-backend:latest`
 - **Digest:** `sha256:8a8b9367cba80724bf2905cbead4c989701d3b2ddc1e7d61c8f18d34a340d80f`
-- **Status:** Built successfully
-- **User:** non-root `appuser`
-- **Layers:** Multi-stage build completed
+- **Status:** Berhasil dibangun
+- **Pengguna:** non-root `appuser`
+- **Lapisan:** Build multi-stage selesai
 
-### Frontend Image
-- **Status:** Build failed
-- **Error:** npm network `ECONNRESET` during `npm install`
-- **Action:** Retry in CI environment with network stabilization
-
----
-
-## Next Steps
-
-1. Retry frontend Docker build in CI environment
-2. Run `RELEASE/smoke_test.py` against deployed containers
-3. Generate and attach SBOM (CycloneDX format)
-4. Sign images with Cosign
-5. Execute rollback drill in staging
-6. Obtain final sign-off from Security and DevOps leads
+### Gambar Frontend
+- **Status:** Build gagal
+- **Error:** jaringan npm `ECONNRESET` selama `npm install`
+- **Tindakan:** Coba lagi di lingkungan CI dengan stabilisasi jaringan
 
 ---
 
-**Certification Status:** CONDITIONAL PASS â€” Ready for production deployment pending completion of CI/CD pipeline execution.
+## Langkah Berikutnya
+
+1. Coba lagi build Docker Frontend di lingkungan CI
+2. Jalankan `RELEASE/smoke_test.py` terhadap container yang di-deploy
+3. Hasilkan dan lampirkan SBOM (format CycloneDX)
+4. Tanda tangani gambar dengan Cosign
+5. Jalankan drill rollback di staging
+6. Dapatkan persetujuan akhir dari Security dan DevOps lead
+
+---
+
+**Status Sertifikasi:** PASS BERSYARAT — Siap untuk deployment produksi menunggu penyelesaian eksekusi pipeline CI/CD.

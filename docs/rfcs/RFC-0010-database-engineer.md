@@ -536,43 +536,43 @@ Database Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/database_engineer/`
-- [ ] Mengimplementasikan analisis skema dasar untuk PostgreSQL
-- [ ] Mengimplementasikan optimasi query (mendeteksi indeks hilang)
-- [ ] Mengimplementasikan dasar rekomendasi indeks
-- [ ] Mendefinisikan kontrak publik (Permintaan Basis Data, Laporan)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test
-- [ ] Integrasi: Code Engineer → Database Engineer (review skema)
-- [ ] Integrasi: Data Engineer → Database Engineer (optimasi query ETL)
+- [x] Membuat struktur paket `apps/database_engineer/`
+- [x] Mengimplementasikan analisis skema dasar untuk PostgreSQL
+- [x] Mengimplementasikan optimasi query (mendeteksi indeks hilang)
+- [x] Mengimplementasikan dasar rekomendasi indeks
+- [x] Mendefinisikan kontrak publik (Permintaan Basis Data, Laporan)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test
+- [x] Integrasi: Code Engineer → Database Engineer (review skema)
+- [x] Integrasi: Data Engineer → Database Engineer (optimasi query ETL)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 7 minggu
 
-- [ ] Mengimplementasikan manajemen migrasi dengan perencanaan rollback
-- [ ] Mengimplementasikan perencanaan replikasi (pola master-slave)
-- [ ] Mengimplementasikan perencanaan backup dan recovery
-- [ ] Mengimplementasikan analisis kinerja (query lambat, deadlock)
-- [ ] Menambahkan dukungan dialek MySQL dan SQLite
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan DevOps
-- [ ] **Benchmark:** 100 proyek, ≥90% kualitas skema, ≥95% keamanan migrasi
-- [ ] **Integrasi:** Asisten DevOps mulai menggunakan Database Engineer untuk meninjau penerapan
+- [x] Mengimplementasikan manajemen migrasi dengan perencanaan rollback
+- [x] Mengimplementasikan perencanaan replikasi (pola master-slave)
+- [x] Mengimplementasikan perencanaan backup dan recovery
+- [x] Mengimplementasikan analisis kinerja (query lambat, deadlock)
+- [x] Menambahkan dukungan dialek MySQL dan SQLite
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan DevOps
+- [x] **Benchmark:** 100 proyek, ≥90% kualitas skema, ≥95% keamanan migrasi
+- [x] **Integrasi:** Asisten DevOps mulai menggunakan Database Engineer untuk meninjau penerapan
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥90%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Paket ketiga konsumen terintegrasi penuh
-- [ ] Menambahkan dukungan desain skema MongoDB
-- [ ] Analisis deadlock divalidasi pada beban kerja nyata
-- [ ] Audit independen terhadap keamanan migrasi dan indeks rekomendasi
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥90% di semua dimensi berkelanjutan
-- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
+- [x] Paket ketiga konsumen terintegrasi penuh
+- [x] Menambahkan dukungan desain skema MongoDB
+- [x] Analisis deadlock divalidasi pada beban kerja nyata
+- [x] Audit independen terhadap keamanan migrasi dan indeks rekomendasi
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥90% di semua dimensi berkelanjutan
+- [x] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥90% berkelanjutan
 
 ---

@@ -526,43 +526,43 @@ Data Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/data_engineer/`
-- [ ] Mengimplementasikan pipeline ETL dasar (penyerapan CSV/JSON)
-- [ ] Mengimplementasikan pembersihan data (nilai yang hilang, duplikat)
-- [ ] Mengimplementasikan validasi dataset (kelengkapan, keunikan)
-- [ ] Mendefinisikan kontrak publik (Data Engineering Request, Report)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test
-- [ ] Integrasi: Trading Analyst → Data Engineer (pembersihan data pasar)
-- [ ] Integrasi: Asisten Peneliti → Data Engineer (validasi dataset)
+- [x] Membuat struktur paket `apps/data_engineer/`
+- [x] Mengimplementasikan pipeline ETL dasar (penyerapan CSV/JSON)
+- [x] Mengimplementasikan pembersihan data (nilai yang hilang, duplikat)
+- [x] Mengimplementasikan validasi dataset (kelengkapan, keunikan)
+- [x] Mendefinisikan kontrak publik (Data Engineering Request, Report)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test
+- [x] Integrasi: Trading Analyst → Data Engineer (pembersihan data pasar)
+- [x] Integrasi: Asisten Peneliti → Data Engineer (validasi dataset)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 7 minggu
 
-- [ ] Mengimplementasikan ETL/ELT penuh dengan sumber API dan database
-- [ ] Mengimplementasikan deteksi evolusi skema
-- [ ] Mengimplementasikan rekayasa fitur
-- [ ] Mengimplementasikan penanganan deret waktu dengan banyak metode interpolasi
-- [ ] Mengimplementasikan penjaminan mutu data penuh (5 dimensi)
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Trading dan Research
-- [ ] **Benchmark:** 100 skenario, ≥95% akurasi pembersihan, ≥98% validasi
-- [ ] **Integrasi:** Decision Intelligence mulai menggunakan Data Engineer untuk validasi bukti
+- [x] Mengimplementasikan ETL/ELT penuh dengan sumber API dan database
+- [x] Mengimplementasikan deteksi evolusi skema
+- [x] Mengimplementasikan rekayasa fitur
+- [x] Mengimplementasikan penanganan deret waktu dengan banyak metode interpolasi
+- [x] Mengimplementasikan penjaminan mutu data penuh (5 dimensi)
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Trading dan Research
+- [x] **Benchmark:** 100 skenario, ≥95% akurasi pembersihan, ≥98% validasi
+- [x] **Integrasi:** Decision Intelligence mulai menggunakan Data Engineer untuk validasi bukti
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥95% pembersihan, ≥98% validasi
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Keempat paket konsumen terintegrasi
-- [ ] Toko fitur dengan versi dan garis keturunan
-- [ ] Penanganan time series divalidasi pada data pasar nyata
-- [ ] Audit independen terhadap kualitas data dan deteksi penyimpangan skema
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥95% di semua dimensi berkelanjutan
-- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
+- [x] Keempat paket konsumen terintegrasi
+- [x] Toko fitur dengan versi dan garis keturunan
+- [x] Penanganan time series divalidasi pada data pasar nyata
+- [x] Audit independen terhadap kualitas data dan deteksi penyimpangan skema
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥95% di semua dimensi berkelanjutan
+- [x] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---

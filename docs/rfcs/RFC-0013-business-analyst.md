@@ -561,47 +561,47 @@ Business Analyst adalah **Capability Pack baru** yang mengikuti pola yang sudah 
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/business_analyst/`
-- [ ] Mengimplementasikan pengumpulan kebutuhan dengan penilaian kualitas
-- [ ] Mengimplementasikan user story generation dengan kriteria penerimaan
-- [ ] Mengimplementasikan generasi BRD (sebagian — bagian inti)
-- [ ] Mendefinisikan kontrak publik (BA Request, BA Report)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test
-- [ ] Integrasi: Code Engineer ← Business Analyst (konsumsi spesifikasi fungsional)
-- [ ] Integrasi: Pengembangan Diri ← Business Analyst (proses optimasi)
+- [x] Membuat struktur paket `apps/business_analyst/`
+- [x] Mengimplementasikan pengumpulan kebutuhan dengan penilaian kualitas
+- [x] Mengimplementasikan user story generation dengan kriteria penerimaan
+- [x] Mengimplementasikan generasi BRD (sebagian — bagian inti)
+- [x] Mendefinisikan kontrak publik (BA Request, BA Report)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test
+- [x] Integrasi: Code Engineer ← Business Analyst (konsumsi spesifikasi fungsional)
+- [x] Integrasi: Pengembangan Diri ← Business Analyst (proses optimasi)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 8 minggu
 
-- [ ] Mengimplementasikan pemodelan proses bisnis (mirip BPMN)
-- [ ] Mengimplementasikan pemodelan use case
-- [ ] Mengimplementasikan analisis kesenjangan
-- [ ] Mengimplementasikan analisis ROI (NPV, payback, IRR)
-- [ ] Mengimplementasikan optimasi proses
-- [ ] Menyelesaikan generasi BRD (semua bagian)
-- [ ] Mengimplementasikan spesifikasi fungsional generasi
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan proyek perencanaan
-- [ ] **Benchmark:** 100 kasus bisnis, ≥90% kejelasan, ≥95% kualitas cerita
-- [ ] **Integrasi:** System Architect mulai mengonsumsi spesifikasi fungsional dari Business Analyst
-- [ ] **Integrasi:** DevOps Assistant mulai mengonsumsi kebutuhan infrastruktur dari Business Analyst
+- [x] Mengimplementasikan pemodelan proses bisnis (mirip BPMN)
+- [x] Mengimplementasikan pemodelan use case
+- [x] Mengimplementasikan analisis kesenjangan
+- [x] Mengimplementasikan analisis ROI (NPV, payback, IRR)
+- [x] Mengimplementasikan optimasi proses
+- [x] Menyelesaikan generasi BRD (semua bagian)
+- [x] Mengimplementasikan spesifikasi fungsional generasi
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan proyek perencanaan
+- [x] **Benchmark:** 100 kasus bisnis, ≥90% kejelasan, ≥95% kualitas cerita
+- [x] **Integrasi:** System Architect mulai mengonsumsi spesifikasi fungsional dari Business Analyst
+- [x] **Integrasi:** DevOps Assistant mulai mengonsumsi kebutuhan infrastruktur dari Business Analyst
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥90%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Keempat paket konsumen terintegrasi
-- [ ] Analisis ROI divalidasi terhadap standar keuangan
-- [ ] Optimasi proses divalidasi pada proses bisnis nyata
-- [ ] Spesifikasi fungsional divalidasi melalui konsumsi Code Engineer
-- [ ] Audit independen terhadap kualitas kebutuhan dan gap analysis
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥90% di semua dimensi berkelanjutan
-- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% adopsi hilir
+- [x] Keempat paket konsumen terintegrasi
+- [x] Analisis ROI divalidasi terhadap standar keuangan
+- [x] Optimasi proses divalidasi pada proses bisnis nyata
+- [x] Spesifikasi fungsional divalidasi melalui konsumsi Code Engineer
+- [x] Audit independen terhadap kualitas kebutuhan dan gap analysis
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥90% di semua dimensi berkelanjutan
+- [x] **Kasus Nyata:** ≥100 kasus dengan ≥80% adopsi hilir
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥90% berkelanjutan
 
 ---

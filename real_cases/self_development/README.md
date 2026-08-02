@@ -1,21 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/self_development/README.md`
-- Judul: Readme
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Self Development Real Cases
+﻿# Self Development Real Cases
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -26,34 +9,32 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 **SSOT:** Real case study documentation
 <!-- DOCUMENT_METADATA_END -->
 
-Real project improvement scenarios encountered while using ECP.
-> Terjemahan Indonesia: Real proyek improvement scenarios encountered while using ECP.
+Skenario perbaikan proyek nyata yang ditemui saat menggunakan ECP.
 
-## Case Template
+## Template Kasus
 
-Create a folder for each case:
-> Terjemahan Indonesia: Membuat sebuah folder untuk each case:
+Buat folder untuk setiap kasus:
 
 ```
 <case_name>/
-â”œâ”€â”€ input/
-â”‚   â”œâ”€â”€ project_snapshot/
-â”‚   â””â”€â”€ problem_description.md
-â”œâ”€â”€ output/
-â”‚   â”œâ”€â”€ analysis.md
-â”‚   â”œâ”€â”€ proposal.md
-â”‚   â””â”€â”€ patch.diff
-â””â”€â”€ evaluation.md
+├── input/
+│   ├── project_snapshot/
+│   └── problem_description.md
+├── output/
+│   ├── analysis.md
+│   ├── proposal.md
+│   └── patch.diff
+└── evaluation.md
 ```
 
-## Example Cases
+## Contoh Kasus
 
-- `dead_code_removal/` â€” Dead code detection and removal
-- `architecture_improvement/` â€” Architecture refactoring proposal
-- `test_coverage/` â€” Test coverage improvement
-- `performance_bottleneck/` â€” Performance bottleneck analysis
+- `dead_code_removal/` — Deteksi dan penghapusan kode mati
+- `architecture_improvement/` — Proposal refactoring arsitektur
+- `test_coverage/` — Peningkatan cakupan pengujian
+- `performance_bottleneck/` — Analisis bottleneck performa
 
-## Evaluation Template
+## Template Evaluasi
 
 ```markdown
 # Evaluation: <case_name>
@@ -61,24 +42,24 @@ Create a folder for each case:
 Date: YYYY-MM-DD
 
 ## Summary
-Brief description of the project and problem.
+Deskripsi singkat proyek dan masalahnya.
 
 ## What ECP Got Right
-- Finding 1
-- Finding 2
+- Temuan 1
+- Temuan 2
 
 ## What ECP Got Wrong
-- Finding 1
-- Finding 2
+- Temuan 1
+- Temuan 2
 
 ## What ECP Missed
-- Missing problem 1
-- Missing solution 2
+- Masalah yang kurang 1
+- Solusi yang kurang 2
 
 ## Improvement Actions
-- [ ] Improve detection for X
-- [ ] Better proposal quality for Y
-- [ ] Enhance impact prediction for Z
+- [ ] Tingkatkan deteksi untuk X
+- [ ] Kualitas proposal yang lebih baik untuk Y
+- [ ] Tingkatkan prediksi dampak untuk Z
 
 Benchmark Reference: ________
 ```

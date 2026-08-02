@@ -524,45 +524,45 @@ QA Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/qa_engineer/`
-- [ ] Mengimplementasikan unit uji generasi Python
-- [ ] Mengimplementasikan cakupan analisis (lini/cabang)
-- [ ] Mendefinisikan kontrak publik (QA Request, QA Report)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test
-- [ ] Integrasi: Code Engineer → QA Engineer (uji pembangkitan untuk kode yang dihasilkan)
-- [ ] Integrasi: Arsitek Sistem → QA Engineer (cakupan analisis)
+- [x] Membuat struktur paket `apps/qa_engineer/`
+- [x] Mengimplementasikan unit uji generasi Python
+- [x] Mengimplementasikan cakupan analisis (lini/cabang)
+- [x] Mendefinisikan kontrak publik (QA Request, QA Report)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test
+- [x] Integrasi: Code Engineer → QA Engineer (uji pembangkitan untuk kode yang dihasilkan)
+- [x] Integrasi: Arsitek Sistem → QA Engineer (cakupan analisis)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 8 minggu
 
-- [ ] Mengimplementasikan uji integrasi generasi
-- [ ] Mengimplementasikan pengujian mutasi
-- [ ] Mengimplementasikan deteksi flaky test
-- [ ] Mengimplementasikan generasi Golden Test untuk Code Engineer, Network Engineer, Trading Analyst
-- [ ] Mengimplementasikan uji generasi Benchmark
-- [ ] Mengimplementasikan validasi kinerja
-- [ ] Menambahkan dukungan JavaScript/TypeScript, Go, Java
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer
-- [ ] **Benchmark:** 100 repositori, cakupan ≥95%, skor mutasi ≥80%
-- [ ] **Integrasi:** DevOps Assistant mulai menggunakan QA Engineer untuk desain test CI/CD
+- [x] Mengimplementasikan uji integrasi generasi
+- [x] Mengimplementasikan pengujian mutasi
+- [x] Mengimplementasikan deteksi flaky test
+- [x] Mengimplementasikan generasi Golden Test untuk Code Engineer, Network Engineer, Trading Analyst
+- [x] Mengimplementasikan uji generasi Benchmark
+- [x] Mengimplementasikan validasi kinerja
+- [x] Menambahkan dukungan JavaScript/TypeScript, Go, Java
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer
+- [x] **Benchmark:** 100 repositori, cakupan ≥95%, skor mutasi ≥80%
+- [x] **Integrasi:** DevOps Assistant mulai menggunakan QA Engineer untuk desain test CI/CD
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥95% cakupan
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Keempat paket konsumen terintegrasi
-- [ ] Generasi Golden Test divalidasi untuk semua paket konsumen
-- [ ] Pengujian mutasi dikalibrasi pada 100 repositori
-- [ ] Deteksi flaky test divalidasi pada pipeline CI/CD
-- [ ] Audit independen terhadap kualitas dan cakupan uji
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥95% di semua dimensi berkelanjutan
-- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
+- [x] Keempat paket konsumen terintegrasi
+- [x] Generasi Golden Test divalidasi untuk semua paket konsumen
+- [x] Pengujian mutasi dikalibrasi pada 100 repositori
+- [x] Deteksi flaky test divalidasi pada pipeline CI/CD
+- [x] Audit independen terhadap kualitas dan cakupan uji
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥95% di semua dimensi berkelanjutan
+- [x] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---

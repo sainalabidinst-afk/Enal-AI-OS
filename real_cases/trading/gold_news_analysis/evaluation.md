@@ -1,21 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/trading/gold_news_analysis/evaluation.md`
-- Judul: Evaluation
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
-# Evaluation: Gold News Analysis
+﻿# Evaluation: Gold News Analysis
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -27,34 +10,31 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 <!-- DOCUMENT_METADATA_END -->
 
 Date: 2026-07-28
-> Terjemahan Indonesia: Tanggal: 28-07-2026
 
 ## Summary
-Gold in consolidation before Fed Chair Powell speech.
-Need to assess technical setup and prepare for event-driven scenarios.
-> Terjemahan Indonesia: Gold dalam consolidation before Fed Chair Powell speech. Need untuk assess technical setup dan prepare untuk event-driven scenarios.
+Emas dalam konsolidasi sebelum pidato Ketua Fed Powell.
+Perlu menilai setup teknis dan menyiapkan skenario berbasis event.
 
 ## What ECP Got Right
-- Correct consolidation range identification
-- Accurate support/resistance levels
-- Proper RSI and volume assessment
+- Identifikasi yang benar rentang konsolidasi
+- Level support/resistance yang akurat
+- Penilaian RSI dan volume yang tepat
 
 ## What ECP Got Wrong
-- Did not quantify impact of different Fed scenarios
-- Over-relied on technicals without news sentiment analysis
+- Tidak mengkuantifikasi dampak skenario Fed yang berbeda
+- Terlalu bergantung pada teknikal tanpa analisis sentimen berita
 
 ## What ECP Missed
-- COT data showing commercial hedgers positioning
-- Options market (gamma levels, max pain)
-- Correlation with DXY and real yields
-- Session timing impact (Asian vs London vs NY)
+- Data COT menunjukkan posisi commercial hedgers
+- Pasar opsi (level gamma, max pain)
+- Korelasi dengan DXY dan yield riil
+- Dampak waktu sesi (Asia vs London vs NY)
 
 ## Improvement Actions
-- [ ] Add COT data analysis capability
-- [ ] Implement options market analysis (Open Interest, Gamma levels)
-- [ ] Add macro correlation analysis (DXY, yields, DXY)
-- [ ] Implement session-based volume analysis
-- [ ] Add scenario-based outcome probability
+- [ ] Tambahkan kapabilitas analisis data COT
+- [ ] Implementasi analisis pasar opsi (Open Interest, level Gamma)
+- [ ] Tambahkan analisis korelasi makro (DXY, yield, DXY)
+- [ ] Implementasi analisis volume berbasis sesi
+- [ ] Tambahkan probabilitas hasil berbasis skenario
 
 Benchmark Reference: trading_benchmark_002
-> Terjemahan Indonesia: Referensi Tolok Ukur: trading_benchmark_002

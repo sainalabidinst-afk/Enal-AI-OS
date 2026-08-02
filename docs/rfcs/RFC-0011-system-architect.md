@@ -511,44 +511,44 @@ System Architect adalah **Capability Pack baru** yang mengikuti pola yang sudah 
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/system_architect/`
-- [ ] Mengimplementasikan pembuat grafik ketergantungan (analisis import Python)
-- [ ] Mengimplementasikan analisis lapisan dasar dan deteksi batas paket
-- [ ] Mengimplementasikan deteksi pelanggaran Clean Architecture
-- [ ] Mendefinisikan kontrak publik (Review Request, Review Report)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test
-- [ ] Integrasi: Code Engineer → System Architect (review arsitektur)
-- [ ] Integrasi: Pengembangan Diri → Arsitek Sistem (penegakan batas)
+- [x] Membuat struktur paket `apps/system_architect/`
+- [x] Mengimplementasikan pembuat grafik ketergantungan (analisis import Python)
+- [x] Mengimplementasikan analisis lapisan dasar dan deteksi batas paket
+- [x] Mengimplementasikan deteksi pelanggaran Clean Architecture
+- [x] Mendefinisikan kontrak publik (Review Request, Review Report)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test
+- [x] Integrasi: Code Engineer → System Architect (review arsitektur)
+- [x] Integrasi: Pengembangan Diri → Arsitek Sistem (penegakan batas)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 8 minggu
 
-- [ ] Mengimplementasikan analisis DDD (konteks terikat, agregat)
-- [ ] Mengimplementasikan desain review event-driven
-- [ ] Mengimplementasikan evaluasi CQRS
-- [ ] Mengimplementasikan review microservices/monolith
-- [ ] Mengimplementasikan generasi ADR dengan standar template
-- [ ] Menambahkan dukungan JavaScript/TypeScript dan Java
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan Self Development
-- [ ] **Benchmark:** 100 proyek, ≥95% tinjauan kelengkapan, ≥95% deteksi pelanggaran
-- [ ] **Integrasi:** QA Engineer mulai menggunakan System Architect untuk perencanaan pengujian berbasis arsitektur
+- [x] Mengimplementasikan analisis DDD (konteks terikat, agregat)
+- [x] Mengimplementasikan desain review event-driven
+- [x] Mengimplementasikan evaluasi CQRS
+- [x] Mengimplementasikan review microservices/monolith
+- [x] Mengimplementasikan generasi ADR dengan standar template
+- [x] Menambahkan dukungan JavaScript/TypeScript dan Java
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan Self Development
+- [x] **Benchmark:** 100 proyek, ≥95% tinjauan kelengkapan, ≥95% deteksi pelanggaran
+- [x] **Integrasi:** QA Engineer mulai menggunakan System Architect untuk perencanaan pengujian berbasis arsitektur
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥95%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Semua 5+ paket konsumen terintegrasi
-- [ ] Generasi ADR divalidasi oleh review ahli
-- [ ] Dukungan multi-bahasa (Python, JS/TS, Java, Go)
-- [ ] Audit independen terhadap akurasi deteksi pelanggaran
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥95% di semua dimensi berkelanjutan
-- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
+- [x] Semua 5+ paket konsumen terintegrasi
+- [x] Generasi ADR divalidasi oleh review ahli
+- [x] Dukungan multi-bahasa (Python, JS/TS, Java, Go)
+- [x] Audit independen terhadap akurasi deteksi pelanggaran
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥95% di semua dimensi berkelanjutan
+- [x] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---

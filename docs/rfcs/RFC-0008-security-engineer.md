@@ -517,42 +517,42 @@ Security Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/security_engineer/`
-- [ ] Mengimplementasikan analisa OWASP Top 10 (pola SQLi, XSS)
-- [ ] Mengimplementasikan deteksi rahasia dasar
-- [ ] Mendefinisikan kontrak publik (Permintaan Penilaian, Laporan)
-- [ ] Mengimplementasikan adaptor Worker tipis
-- [ ] Membuat 10 skenario Golden Test (tipe serangan inti)
-- [ ] Integrasi: Code Engineer → Security Engineer (pemindaian kode)
-- [ ] Integrasi: Network Engineer → Security Engineer (audit konfigurasi)
+- [x] Membuat struktur paket `apps/security_engineer/`
+- [x] Mengimplementasikan analisa OWASP Top 10 (pola SQLi, XSS)
+- [x] Mengimplementasikan deteksi rahasia dasar
+- [x] Mendefinisikan kontrak publik (Permintaan Penilaian, Laporan)
+- [x] Mengimplementasikan adaptor Worker tipis
+- [x] Membuat 10 skenario Golden Test (tipe serangan inti)
+- [x] Integrasi: Code Engineer → Security Engineer (pemindaian kode)
+- [x] Integrasi: Network Engineer → Security Engineer (audit konfigurasi)
 - **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 8 minggu
 
-- [ ] Mengimplementasikan Threat Modeling (analisis STRIDE)
-- [ ] Mengimplementasikan Audit Ketergantungan (pip, npm, Go, Maven)
-- [ ] Mengimplementasikan Analisis Kerentanan (korelasi CVE)
-- [ ] Mengimplementasikan Configuration Hardening (baseline CIS)
-- [ ] Mengimplementasikan Pemetaan Kepatuhan (SOC 2, ISO 27001)
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan Network Engineer
-- [ ] **Benchmark:** 100 penilaian, ≥95% deteksi, <5% FP
-- [ ] **Integrasi:** Asisten DevOps mulai menggunakan Security Engineer untuk keamanan CI/CD
+- [x] Mengimplementasikan Threat Modeling (analisis STRIDE)
+- [x] Mengimplementasikan Audit Ketergantungan (pip, npm, Go, Maven)
+- [x] Mengimplementasikan Analisis Kerentanan (korelasi CVE)
+- [x] Mengimplementasikan Configuration Hardening (baseline CIS)
+- [x] Mengimplementasikan Pemetaan Kepatuhan (SOC 2, ISO 27001)
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥20 kasus nyata dari penggunaan Code Engineer dan Network Engineer
+- [x] **Benchmark:** 100 penilaian, ≥95% deteksi, <5% FP
+- [x] **Integrasi:** Asisten DevOps mulai menggunakan Security Engineer untuk keamanan CI/CD
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥90%; Benchmark ≥95% deteksi
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 6 minggu
 
-- [ ] Paket ketiga konsumen terintegrasi penuh
-- [ ] Pemetaan kepatuhan divalidasi oleh review ahli
-- [ ] Audit ketergantungan terintegrasi dengan database CVE nyata
-- [ ] Audit independen terhadap akurasi deteksi dan tingkat FP
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] **Benchmark:** ≥95% deteksi, <5% FP berkelanjutan
-- [ ] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
+- [x] Paket ketiga konsumen terintegrasi penuh
+- [x] Pemetaan kepatuhan divalidasi oleh review ahli
+- [x] Audit ketergantungan terintegrasi dengan database CVE nyata
+- [x] Audit independen terhadap akurasi deteksi dan tingkat FP
+- [x] Dasbor Benchmark publik tersedia
+- [x] **Benchmark:** ≥95% deteksi, <5% FP berkelanjutan
+- [x] **Kasus Nyata:** ≥100 kasus dengan ≥80% validasi ahli
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---

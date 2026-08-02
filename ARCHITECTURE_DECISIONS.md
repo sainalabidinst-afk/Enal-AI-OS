@@ -1,16 +1,3 @@
-## Bahasa Indonesia/Bahasa Inggris
-
-### Ringkas / Ringkas
-
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-
-### Informasi Dokumen / Info Dokumen
-- Berkas: `ARCHITECTURE_DECISIONS.md`
-- Judul: Keputusan Arsitektur
-- Status: editor bilingual ditambahkan
-
-
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi

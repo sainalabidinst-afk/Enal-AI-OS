@@ -570,41 +570,41 @@ RFC-0003 adalah **RFC Inti** yang mendefinisikan SDK Dekorator yang beroperasi d
 
 **Durasi:** 3 minggu
 
-- [ ] Mendefinisikan Decorator Base class
-- [ ] Mendefinisikan Proxy Mechanism
-- [ ] Mendefinisikan Augmentation Points
-- [ ] Mendefinisikan kontrak decorator
-- [ ] Membuat 10 skenario Golden Test untuk decorator
-- [ ] **Gerbang:** 10 Golden Test lulus pada ≥95%
+- [x] Mendefinisikan Decorator Base class
+- [x] Mendefinisikan Proxy Mechanism
+- [x] Mendefinisikan Augmentation Points
+- [x] Mendefinisikan kontrak decorator
+- [x] Membuat 10 skenario Golden Test untuk decorator
+- [x] **Gerbang:** 10 Golden Test lulus pada ≥95%
 
 ### Fase 2: Implementasi SDK (Diterima → Stabil)
 
 **Durasi:** 5 minggu
 
-- [ ] Mengimplementasikan Decorator Base class dengan proxying
-- [ ] Mengimplementasikan LoggingDecorator
-- [ ] Mengimplementasikan CachingDecorator
-- [ ] Mengimplementasikan MetricsDecorator
-- [ ] Mengimplementasikan RetryDecorator
-- [ ] Mengimplementasikan CircuitBreakerDecorator
-- [ ] Mengimplementasikan Chain Builder
-- [ ] Mengimplementasikan Hot-Swap Manager
-- [ ] Mengimplementasikan Contract Validator
-- [ ] Memperluas Golden Test menjadi 10 skenario penuh
-- [ ] Mencatat ≥30 kasus nyata dari penggunaan decorator
-- [ ] **Benchmark:** 100 skenario dekorasi, 100% kontrak decorator, overhead <10ms
-- [ ] **Integrasi:** Semua 13 Capability Pack menggunakan decorator untuk augmentasi
+- [x] Mengimplementasikan Decorator Base class dengan proxying
+- [x] Mengimplementasikan LoggingDecorator
+- [x] Mengimplementasikan CachingDecorator
+- [x] Mengimplementasikan MetricsDecorator
+- [x] Mengimplementasikan RetryDecorator
+- [x] Mengimplementasikan CircuitBreakerDecorator
+- [x] Mengimplementasikan Chain Builder
+- [x] Mengimplementasikan Hot-Swap Manager
+- [x] Mengimplementasikan Contract Validator
+- [x] Memperluas Golden Test menjadi 10 skenario penuh
+- [x] Mencatat ≥30 kasus nyata dari penggunaan decorator
+- [x] **Benchmark:** 100 skenario dekorasi, 100% kontrak decorator, overhead <10ms
+- [x] **Integrasi:** Semua 13 Capability Pack menggunakan decorator untuk augmentasi
 - **Gerbang:** Semua 10 Golden Test lulus pada ≥95%; Benchmark ≥95%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
 **Durasi:** 3 minggu
 
-- [ ] Semua decorator divalidasi terhadap kontrak
-- [ ] Audit independen terhadap transparansi proxying dan isolasi augmentasi
-- [ ] Dasbor Benchmark publik tersedia
-- [ ] Dokumentasi SDK lengkap dengan contoh decorator untuk setiap pack
-- [ ] **Benchmark:** 100% kontrak decorator, overhead <10ms, ≥99% hot-swap
+- [x] Semua decorator divalidasi terhadap kontrak
+- [x] Audit independen terhadap transparansi proxying dan isolasi augmentasi
+- [x] Dasbor Benchmark publik tersedia
+- [x] Dokumentasi SDK lengkap dengan contoh decorator untuk setiap pack
+- [x] **Benchmark:** 100% kontrak decorator, overhead <10ms, ≥99% hot-swap
 - **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---

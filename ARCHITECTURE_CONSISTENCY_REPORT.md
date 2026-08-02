@@ -1,18 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia/Bahasa Inggris
-
-
-### Ringka / Ringka
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-
-### Informasi Dokumen / Info Dokumen
-- Berkas: `ARCHITECTURE_CONSISTENCY_REPORT.md`
-- Judul: Laporan Konsistensi Arsitektur
-- Status: editor bilingual ditambahkan
-
-
-# LAPORAN KONSISTENSI ARSITEKTUR
+﻿# LAPORAN KONSISTENSI ARSITEKTUR
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
