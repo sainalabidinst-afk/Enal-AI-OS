@@ -91,7 +91,7 @@ class TestGenerator:
             tree = ast.parse(source_code)
             for node in ast.walk(tree):
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                    if self._is_risky_function(node):
+                    if self._is_risky_function(node, source_code):
                         regression_info["risky_changes"].append(
                             f"Function '{node.name}' at line {node.lineno}"
                         )
@@ -311,13 +311,16 @@ class TestGenerator:
                 found.add(match.group(1))
         return list(found)
 
-    def _is_risky_function(self, node: ast.FunctionDef | ast.AsyncFunctionDef) -> bool:
+    def _is_risky_function(self, node: ast.FunctionDef | ast.AsyncFunctionDef, source_code: str = "") -> bool:
         """Heuristic: functions touching DB, network, files, or with side effects."""
         risky_keywords = {"database", "db", "sql", "connect", "send", "write", "delete", "update", "save", "cache", "redis", "http", "request"}
         name_lower = node.name.lower()
         if any(k in name_lower for k in risky_keywords):
             return True
-        source = ast.get_source_segment("", node) or ""
+        try:
+            source = ast.get_source_segment(source_code or getattr(self, "_source_cache", ""), node) or ""
+        except Exception:
+            source = ""
         if any(k in source.lower() for k in risky_keywords):
             return True
         return False

@@ -1,6 +1,33 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/frontend/DESIGN_TOKENS.md`
+- Judul: Design Tokens
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Design Tokens
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Frontend documentation for DESIGN_TOKENS
+<!-- DOCUMENT_METADATA_END -->
+
 This document defines the complete design token set for ECP v1. All frontend code must use these tokens. No hardcoded values are allowed.
+> Terjemahan Indonesia: Ini dokumen defines complete design token set untuk ECP v1. All frontend code must use these tokens. No hardcoded values adalah allowed.
 
 ---
 
@@ -150,8 +177,10 @@ This document defines the complete design token set for ECP v1. All frontend cod
 ## Dark Mode / Light Mode
 
 All colors above are defined for dark mode (default).
+> Terjemahan Indonesia: All colors above adalah defined untuk dark mode (default).
 
 Light mode overrides:
+> Terjemahan Indonesia: Penggantian mode cahaya:
 
 | Token | Light Mode Value |
 |-------|------------------|
@@ -166,3 +195,4 @@ Light mode overrides:
 | `--color-border-light` | #e5e7eb |
 
 Theme switching must use CSS custom properties and transition smoothly.
+> Terjemahan Indonesia: Theme switching must use CSS custom properties dan transition smoothly.

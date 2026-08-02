@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `real_cases/CODE_AUDIT.md`
+- Judul: Code Audit
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Code Audit Report - Sprint 5A.4
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Real case study documentation
+<!-- DOCUMENT_METADATA_END -->
 
 ## Audit Date: 2026-07-24
 
@@ -8,15 +34,18 @@
 
 ### TODO/FIXME found
 None found in attachments codebase.
+> Terjemahan Indonesia: None found dalam attachments codebase.
 
 ### Dead code found
 None found.
+> Terjemahan Indonesia: Tidak ada yang ditemukan.
 
 ### Duplicate logic found
 - `_text_contains_any` and `_find_evidence` exist in `compliance.py` and could be extracted to shared utility
 
 ### Unreachable code found
 None found.
+> Terjemahan Indonesia: Tidak ada yang ditemukan.
 
 ### Inconsistent error handling
 - Fixed: `registry.py` - added logging to exception handlers (was bare except blocks)
@@ -27,6 +56,7 @@ None found.
 
 ### Resource leak
 None found.
+> Terjemahan Indonesia: Tidak ada yang ditemukan.
 
 ---
 
@@ -37,6 +67,7 @@ None found.
 
 ### Exception with clear messages
 All explicit exceptions have clear messages.
+> Terjemahan Indonesia: All explicit exceptions memiliki clear messages.
 
 ---
 
@@ -48,6 +79,7 @@ All explicit exceptions have clear messages.
 
 ### Index error risks
 None found - all index access properly bounds-checked.
+> Terjemahan Indonesia: Tidak ada yang ditemukan - semua akses indeks diperiksa dengan benar.
 
 ### Key error risks
 - `compliance.py:131-134` - `ast.system` access assumes dict structure exists
@@ -76,12 +108,14 @@ None found - all index access properly bounds-checked.
 ## STEP 6: Test Stabilization
 
 Cannot execute tests due to environment limitations (no Python runtime).
+> Terjemahan Indonesia: Cannot execute tests due untuk environment limitations (no Python runtime).
 
 ---
 
 ## STEP 7: Documentation
 
 No behavior changes required for documentation.
+> Terjemahan Indonesia: No behavior changes required untuk dokumentasi.
 
 ---
 

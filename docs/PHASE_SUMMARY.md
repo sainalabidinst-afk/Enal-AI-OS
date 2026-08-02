@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/PHASE_SUMMARY.md`
+- Judul: Phase Summary
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Phase Summary - Platform Release Candidate (2026-07-27)
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for PHASE_SUMMARY
+<!-- DOCUMENT_METADATA_END -->
 
 ## What Is Done
 
@@ -48,25 +74,25 @@
 
 ## What Is Next (Post-v1.0)
 
-### Sprint A — Engineering Hardening
+### Sprint A â€” Engineering Hardening
 - [ ] Clean remaining Severity 8 Pylance issues
 - [ ] MyPy strict compliance
 - [ ] Optional access pattern audit
 - [ ] Public API contract stabilization
 
-### Sprint B — Browser & Evidence Engine
+### Sprint B â€” Browser & Evidence Engine
 - [ ] Search abstraction layer
 - [ ] Evidence collector with source ranking
 - [ ] Citation model and trust scoring
-- [ ] Evidence → Confidence pipeline
+- [ ] Evidence â†’ Confidence pipeline
 
-### Sprint C — Reflection Engine
+### Sprint C â€” Reflection Engine
 - [ ] Self-critique mechanism
 - [ ] Verification loop
 - [ ] Improvement iteration
 - [ ] Confidence estimation
 
-### Sprint D — Evaluation v2
+### Sprint D â€” Evaluation v2
 - [ ] Confidence Score
 - [ ] Hallucination Risk detection
 - [ ] Evidence Coverage metrics
@@ -78,26 +104,28 @@
 
 | Layer | Status | Score |
 |-------|--------|-------|
-| Core Platform | ✅ Complete | 90 |
-| Cognitive Services | ✅ Integrated | 91 |
-| Capability Packs | ✅ Excellence | 90 |
-| Operational Layer | ✅ Implemented | 90 |
-| UX Contract | ✅ Frozen | 90 |
-| Architecture Governance | ✅ Active | 90 |
-| Documentation | ✅ Synchronized | 90 |
-| Product Readiness | ✅ **Release Candidate** | **92/100** |
+| Core Platform | âœ… Complete | 90 |
+| Cognitive Services | âœ… Integrated | 91 |
+| Capability Packs | âœ… Excellence | 90 |
+| Operational Layer | âœ… Implemented | 90 |
+| UX Contract | âœ… Frozen | 90 |
+| Architecture Governance | âœ… Active | 90 |
+| Documentation | âœ… Synchronized | 90 |
+| Product Readiness | âœ… **Release Candidate** | **92/100** |
 
 ---
 
 ## Positioning
 
 Enal AI OS is an **AI Execution Platform**.
+> Terjemahan Indonesia: Enal AI OS adalah sebuah AI Execution platform.
 
 Users describe the outcome they want.
-ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcome—all through a single conversation.
+ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcomeâ€”all through a single conversation.
+> Terjemahan Indonesia: Users describe outcome they want. ECP understands goal, plans execution, coordinates tasks, verifies results, dan delivers sebuah complete outcomeâ€”all through sebuah single conversation.
 
 ```
-Input → Perception → Planner → Memory → Executor → Learning → Governance
+Input â†’ Perception â†’ Planner â†’ Memory â†’ Executor â†’ Learning â†’ Governance
 ```
 
 **Motto: A stable core. Expert capabilities. One conversation.**

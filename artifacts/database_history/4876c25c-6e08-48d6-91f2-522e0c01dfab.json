@@ -1,0 +1,13 @@
+{
+  "record_id": "4876c25c-6e08-48d6-91f2-522e0c01dfab",
+  "request_id": "e1d0cb13-3f15-4ae2-bae6-e5fe009e5648",
+  "timestamp": "2026-08-02T00:20:19.739349+00:00",
+  "operation": "migration",
+  "database_type": "postgresql",
+  "findings_count": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "migration_planned": true,
+  "backup_configured": false,
+  "outcome": "success"
+}

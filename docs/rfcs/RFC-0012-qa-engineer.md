@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0012-qa-engineer.md`
+- Judul: Rfc 0012 Qa Engineer
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC-0012: QA Engineer Capability Pack
 
 | Field | Value |
@@ -19,8 +37,10 @@
 ## Motivation
 
 ECP's existing Capability Packs generate code, configurations, and systems, but there is no dedicated quality assurance layer that systematically validates outputs, generates tests, and ensures quality across all artifacts.
+> Terjemahan Indonesia: ECP's existing kapabilitas Packs generate code, configurations, dan systems, but there adalah no dedicated kualitas assurance layer itu systematically validates outputs, generates tests, dan ensures kualitas across all artifacts.
 
 Currently:
+> Terjemahan Indonesia: Saat ini:
 
 1. **Test generation is embedded in Code Engineer** — only Python unit tests are generated; no integration, regression, or mutation testing.
 2. **No regression test automation** — changes are not systematically tested for regressions.
@@ -31,12 +51,14 @@ Currently:
 7. **No test coverage analysis across the platform** — coverage gaps are not tracked holistically.
 
 The QA Engineer Capability Pack becomes the quality assurance layer, providing test generation, regression testing, mutation testing, flaky test detection, golden test generation for other packs, benchmark testing, coverage analysis, and performance validation for all ECP systems.
+> Terjemahan Indonesia: QA Engineer kapabilitas Pack becomes kualitas assurance layer, providing test generation, regression testing, mutation testing, flaky test detection, golden test generation untuk other packs, benchmark testing, coverage analysis, dan performance validation untuk all ECP systems.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated QA Engineer Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated QA Engineer kapabilitas Pack:
 
 - **Test quality is not measured** — no mutation score, no coverage analysis, no flakiness detection.
 - **Regression is detected late** — no systematic regression test generation or execution.
@@ -44,9 +66,9 @@ Without a dedicated QA Engineer Capability Pack:
 - **No performance validation** — generated systems are not benchmarked for performance.
 - **Flaky tests erode trust** — intermittent failures are not detected or investigated.
 - **Test coverage is incomplete** — coverage gaps across all Capability Pack outputs are not tracked.
-- **No benchmark test generation** — no automated performance/load test creation for generated systems.
 
-The absence of QA Engineer means that quality assurance is reactive rather than proactive, and that test quality itself is never measured or improved.
+The absence of QA Engineer means that good tests—the safety net of all good software—are not systematically ensured, leading to expensive rework and poor outcomes.
+> Terjemahan Indonesia: Absence dari QA Engineer means itu good tests— safety net dari all good software—adalah not systematically ensured, leading untuk expensive rework dan poor outcomes.
 
 ---
 
@@ -299,6 +321,7 @@ User / Human Approval Loop (tests added to CI/CD by user)
 ### No Core Changes Required
 
 All implementation resides within the QA Engineer Capability Pack:
+> Terjemahan Indonesia: All implementation resides within QA Engineer kapabilitas Pack:
 
 ```
 apps/
@@ -344,6 +367,7 @@ apps/
   - Go services (microservices, CLI tools)
   - Java applications (Spring Boot, enterprise)
   - Mixed technology stacks
+> Terjemahan Indonesia: Python repositories (APIs, data pipelines, web apps) JavaScript/TypeScript projects (frontend, backend, full-stack) Go services (microservices, CLI alat) Java applications (Spring Boot, enterprise) Mixed technology stacks
 
 ### Benchmark Dimensions Detail
 
@@ -386,6 +410,7 @@ apps/
 ### Real Case Directory
 
 `real_cases/qa_engineer/` must contain:
+> Terjemahan Indonesia: Real_cases/qa_engineer/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -505,6 +530,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 QA Engineer is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: QA Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/qa_engineer/`.
 - **ADR-002 (Capability Pack Independence):** QA Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.

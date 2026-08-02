@@ -1,19 +1,43 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `CHANGELOG.md`
+- Judul: Changelog
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Changelog
 
 All notable changes to Enal Cognitive Platform (ECP) will be documented in this file.
+> Terjemahan Indonesia: All notable changes untuk Enal kognitif platform (ECP) akan menjadi documented dalam ini file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+> Terjemahan Indonesia: Format adalah based pada Keep sebuah Changelog, dan ini proyek adheres untuk Semantic Versioning.
 
 ## [1.0.0-engineering-baseline] - 2024
 
+
 ### Engineering Baseline — Frozen 🧊
 
+
 This tag marks the official **Engineering Baseline** of the Enal Cognitive Platform.
+> Terjemahan Indonesia: Ini tag marks official rekayasa dasar dari Enal kognitif platform.
 
 **Status:** 🟢 Engineering Baseline Stable
 
 #### What was accomplished
+
 
 - **Type Safety (MyPy):** 0 errors across entire codebase (27+ files fixed)
 - **Python 3.11 Compatibility:** Verified with `compile()` — 0 issues in production code
@@ -36,8 +60,10 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 - Focus shifts to:
   1. Documentation (architecture, module dependency, runtime flow, API, quality gates)
   2. Product development on stable foundation
+> Terjemahan Indonesia: Dokumentasi (arsitektur, module dependency, runtime flow, API, kualitas gates) Product development pada stable foundation
 
 #### Engineering Final Assessment
+
 
 | Area | Status |
 |------|--------|
@@ -54,6 +80,7 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 ---
 
 ## [1.0.0-release-candidate] - 2026-07-27
+
 
 ### Added
 - Engineering Hardening Phase complete - All Severity 8+ type issues resolved
@@ -80,18 +107,20 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 
 ## [1.0.0-dev] - 2026-07-08
 
+
 ### Added
 - Strategic rebrand from "Enal AI OS" to "Enal Cognitive Platform (ECP)"
 - v1.0.0-dev roadmap with 6 Official Capability Packs
 - CI/CD pipeline with 8 automated checks (lint, type check, unit tests, architecture, benchmarks, SDK compatibility, plugin compatibility, golden tests)
 - Golden Test Suite with 200 test cases across 4 categories
-- 6 Capability Packs scaffolded:
+- 13 Capability Packs scaffolded:
   - Network Engineer
   - Code Engineer
   - Research Assistant
   - DevOps Assistant
   - Trading Analyst
   - Self Development
+> Terjemahan Indonesia: Insinyur Jaringan, Insinyur Kode, Asisten Peneliti, Asisten DevOps, Analis Perdagangan, Pengembangan Diri
 - Version management (VERSION file, pyproject.toml updated to 1.0.0-dev)
 - v1 roadmap document with success criteria and metrics
 
@@ -122,4 +151,3 @@ This tag marks the official **Engineering Baseline** of the Enal Cognitive Platf
 - Package boundary enforcement
 - Benchmark suite
 - Comprehensive documentation
-

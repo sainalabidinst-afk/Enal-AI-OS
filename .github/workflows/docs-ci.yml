@@ -1,0 +1,25 @@
+name: Documentation CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '**/*.md'
+      - 'scripts/docs_ci_check.py'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - '**/*.md'
+      - 'scripts/docs_ci_check.py'
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run Documentation CI Check
+        run: python scripts/docs_ci_check.py
+        continue-on-error: false

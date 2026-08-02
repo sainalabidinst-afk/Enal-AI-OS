@@ -1,0 +1,13 @@
+{
+  "record_id": "b5d9e6e5-8724-4fc7-b78d-f1974b5de82b",
+  "job_id": "23c3fba3-a1e7-4d16-9d95-de376940fa63",
+  "timestamp": "2026-08-02T03:55:31.113770+00:00",
+  "job_type": "clean",
+  "quality_score": 0.4,
+  "issues_found": 8,
+  "issues_resolved": 3,
+  "schema_drift_detected": false,
+  "features_created": 1,
+  "time_series_gaps_filled": 0,
+  "outcome": "partial"
+}

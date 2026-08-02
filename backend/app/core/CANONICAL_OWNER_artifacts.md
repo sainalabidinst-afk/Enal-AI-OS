@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `backend/app/core/CANONICAL_OWNER_artifacts.md`
+- Judul: Canonical Owner Artifacts
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # CANONICAL_OWNER
 
 ## Service: Artifact
@@ -25,3 +43,4 @@
 ## Migration Notes
 
 `artifact_system.py` used integer semver string `project_id` domain keys and was broken on import (missing `dataclass`/`field` imports). Both consumers (`phase3.py`, `ai_studio.py`) have been migrated to `artifact_service` which uses integer versioning and `workspace_id`.
+> Terjemahan Indonesia: Artifact_system.py used integer semver string project_id domain keys dan was broken pada import (missing dataclass/field imports). Both consumers (phase3.py, ai_studio.py) memiliki been migrated untuk artifact_service which uses integer versioning dan workspace_id.

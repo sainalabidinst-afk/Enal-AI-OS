@@ -1,7 +1,26 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `TODO.md`
+- Judul: Todo
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # TODO — Restrukturisasi v1_roadmap → Governance Charter + Dokumen Fokus
 
 ## Tujuan
 Memisahkan `docs/v1_roadmap.md` yang mencampur roadmap, governance, release criteria, dan capability strategy menjadi dokumen-dokumen terfokus dengan tanggung jawab jelas, serta menjadikan ECP memiliki governance charter eksplisit.
+> Terjemahan Indonesia: Memisahkan docs/v1_roadmap.MD yang mencampur roadmap, tata kelola, rilis criteria, dan kapabilitas strategy menjadi dokumen-dokumen terfokus dengan tanggung jawab jelas, serta menjadikan ECP memiliki tata kelola charter eksplisit.
 
 ## Struktur Target
 ```
@@ -28,13 +47,14 @@ docs/
 - [x] 9. Validasi tautan antar dokumen dan konsistensi data (angka benchmark, grade, tanggal)
   - ✓ Grade konsisten: A (≥90), A- (≥85), B+ (≥80)
   - ✓ Timeline konsisten: v1.0.0-dev Q3 2026
-  - ✓ 6 Capability Packs konsisten di semua dokumen
+  - ✓ 13 Capability Packs konsisten di semua dokumen
   - ✓ Maturity Model 6 level konsisten
   - ✓ Quality Grades 6 level konsisten
   - ✓ Capability Lifecycle konsisten
   - ✓ Architecture Freeze Policy di GOVERNANCE.md
   - ✓ Definition of Done per pack di RELEASE_CRITERIA.md
   - ✓ Semua dokumen baru dirujuk dari v1_roadmap.md
+> Terjemahan Indonesia: ✓ Grade konsisten: sebuah (≥90), sebuah- (≥85), B+ (≥80) ✓ Timeline konsisten: v1.0.0-dev Q3 2026 ✓ 13 kapabilitas Packs konsisten di semua dokumen ✓ Maturity Model 6 level konsisten ✓ kualitas Grades 6 level konsisten ✓ kapabilitas Lifecycle konsisten ✓ arsitektur Freeze Policy di tata kelola.MD ✓ Definition dari Done per pack di RELEASE_CRITERIA.MD ✓ Semua dokumen baru dirujuk dari v1_roadmap.MD
 
 ## Implementasi RFC-0006 (Code Knowledge Expansion)
 

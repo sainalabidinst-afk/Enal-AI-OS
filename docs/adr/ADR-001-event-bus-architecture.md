@@ -1,4 +1,23 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/adr/ADR-001-event-bus-architecture.md`
+- Judul: Adr 001 Event Bus Architecture
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # ADR-001: Event Bus Architecture
+
 
 **Status:** ✅ Accepted  
 **Date:** 2024  
@@ -9,18 +28,21 @@
 ## Context
 
 The Enal Cognitive Platform requires cross-module communication between:
+> Terjemahan Indonesia: Enal kognitif platform requires cross-module communication between:
 - Capability Packs (Network Engineer, Code Engineer, etc.)
 - Core services (memory, execution, telemetry)
 - Orchestration layer
 - Frontend
 
 Direct imports between modules would create tight coupling and circular dependencies.
+> Terjemahan Indonesia: Direct imports between modules would membuat tight coupling dan circular dependencies.
 
 ---
 
 ## Decision
 
 Use a centralized **Event Bus** pattern for all cross-module communication.
+> Terjemahan Indonesia: Use sebuah centralized Event Bus pattern untuk all cross-module communication.
 
 ### Chosen Approach
 
@@ -43,6 +65,7 @@ class EventBus:
 
 ## Alternatives Considered
 
+
 | Alternative | Reason Rejected |
 |-------------|-----------------|
 | Direct function calls | Creates tight coupling between modules |
@@ -64,4 +87,4 @@ class EventBus:
 ## Compliance
 
 All cross-module communication MUST use the Event Bus. Direct imports between capability packs or core modules are prohibited without ADR override.
-
+> Terjemahan Indonesia: All cross-module communication MUST use Event Bus. Direct imports between kapabilitas packs or core modules adalah prohibited without ADR override.

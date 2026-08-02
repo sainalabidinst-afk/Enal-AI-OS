@@ -1,7 +1,34 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `real_cases/SPRINT_5A5_REPORT.md`
+- Judul: Sprint 5A5 Report
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Sprint 5A.5 Final Report - Gold Standard Validation
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Real case study documentation
+<!-- DOCUMENT_METADATA_END -->
 
 ## Summary
 Gold Standard Validation complete. All 30 real cases validated and ready.
+> Terjemahan Indonesia: Gold Standard Validation complete. All 30 real cases validated dan ready.
 
 ---
 
@@ -20,13 +47,16 @@ Gold Standard Validation complete. All 30 real cases validated and ready.
 ## 2. Hasil Benchmark
 
 Cannot execute in current environment (no Python runtime available).
+> Terjemahan Indonesia: Cannot execute dalam current environment (no Python runtime available).
 
 Benchmark execution would require:
+> Terjemahan Indonesia: Eksekusi benchmark memerlukan:
 ```bash
 python -m benchmarks.network_engineer_benchmark
 ```
 
 All prerequisite fixes applied (telemetry module, parser bug, expected_findings derivation).
+> Terjemahan Indonesia: Semua perbaikan prasyarat diterapkan (modul telemetri, bug parser, derivasi temuan_yang diharapkan).
 
 ---
 

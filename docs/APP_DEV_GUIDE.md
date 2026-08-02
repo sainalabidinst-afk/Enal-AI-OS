@@ -1,4 +1,23 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/APP_DEV_GUIDE.md`
+- Judul: App Dev Guide
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Application Development Guide — Enal Cognitive Platform
+
 
 **Version:** 1.0.0  
 **Based on:** `docs/REFERENCE_ARCHITECTURE.md`  
@@ -26,6 +45,7 @@
 ## 1. Introduction
 
 This guide provides **step-by-step instructions** for developers building applications on the Enal Cognitive Platform (ECP). It covers the entire lifecycle from project setup through deployment.
+> Terjemahan Indonesia: Ini panduan menyediakan step-oleh-step instructions untuk developers building applications pada Enal kognitif platform (ECP). It covers entire lifecycle dari proyek setup through penyebaran.
 
 ### Prerequisites
 
@@ -57,7 +77,9 @@ mypy apps/ backend/ benchmarks/ tests/
 
 ## 2. Development Environment Setup
 
+
 ### 2.1 Python Environment
+
 
 ```bash
 # Create virtual environment
@@ -84,6 +106,7 @@ redis-cli ping  # Should return PONG
 ```
 
 ### 2.3 Environment Variables
+
 
 ```bash
 # .env file (create in project root)
@@ -118,15 +141,18 @@ asyncio.run(verify())
 
 ## 3. Creating a New Capability Pack
 
+
 ### 3.1 Step-by-Step
 
 #### Step 1: Create the App Module
+
 
 ```bash
 mkdir -p apps/my_app
 ```
 
 #### Step 2: Create `__init__.py` with App Class
+
 
 ```python
 # apps/my_app/__init__.py
@@ -177,6 +203,7 @@ def get_app() -> BaseApp:
 
 #### Step 3: Implement Domain Logic
 
+
 ```python
 # apps/my_app/analyzer.py
 """Domain-specific analysis logic."""
@@ -205,6 +232,7 @@ class MyDomainAnalyzer:
 
 #### Step 4: Create Data Models
 
+
 ```python
 # apps/my_app/models.py
 from dataclasses import dataclass, field
@@ -228,6 +256,7 @@ class MyDomainResult:
 
 #### Step 5: Register Skills
 
+
 ```yaml
 # agents/skills.yaml — add your app's skills
 skills:
@@ -242,6 +271,7 @@ skills:
 ```
 
 #### Step 6: Add Orchestration Integration
+
 
 ```python
 # In backend/app/core/unified_orchestrator.py
@@ -261,7 +291,9 @@ def _extract_skills(self, task: str, context: dict) -> list[str]:
 
 ## 4. Adding Custom Cognitive Logic
 
+
 ### 4.1 Extending a Service
+
 
 ```python
 # backend/app/core/cognitive/my_service.py
@@ -292,6 +324,7 @@ class MyCustomService(CognitiveService):
 
 ### 4.2 Creating a Custom Pipeline
 
+
 ```python
 # In your app or orchestrator
 from backend.app.core.cognitive_kernel import cognitive_kernel
@@ -316,7 +349,9 @@ async def execute_custom(task: str) -> dict:
 
 ## 5. Registering API Routes
 
+
 ### 5.1 Create Router Module
+
 
 ```python
 # backend/app/api/my_app.py
@@ -355,6 +390,7 @@ async def generate(spec: dict):
 
 ### 5.2 Register in Main Router
 
+
 ```python
 # backend/app/main.py
 from backend.app.api.my_app import router as my_app_router
@@ -368,6 +404,7 @@ app.include_router(my_app_router)
 ## 6. Using Memory
 
 ### 6.1 Basic Memory Operations
+
 
 ```python
 from backend.app.core.memory_layer import memory_manager
@@ -404,6 +441,7 @@ await memory_manager.delete(
 
 ### 6.2 Memory Layer Selection Guide
 
+
 | Use Case | Layer | TTL | Example |
 |---|---|---|---|
 | Short-term session state | `working` | 1 hour | Current analysis context |
@@ -415,6 +453,7 @@ await memory_manager.delete(
 | Project data | `project` | ∞ | Project configurations |
 
 ### 6.3 Cross-Session Search
+
 
 ```python
 # Search across ALL memory layers
@@ -428,7 +467,9 @@ all_results = await memory_manager.cross_session_search(
 
 ## 7. Publishing and Subscribing to Events
 
+
 ### 7.1 Publishing Events
+
 
 ```python
 from backend.app.core.event_bus import event_bus
@@ -450,6 +491,7 @@ async def report_progress(task_id: str, progress: float):
 
 ### 7.2 Subscribing to Events
 
+
 ```python
 from backend.app.core.event_bus import event_bus
 from backend.app.core.events import Event
@@ -466,6 +508,7 @@ event_bus.subscribe("task.completed", handle_completion)
 
 ### 7.3 Custom Event Types
 
+
 ```python
 # Define your event types as constants
 class MyAppEvents:
@@ -479,7 +522,9 @@ class MyAppEvents:
 
 ## 8. Testing Your Application
 
+
 ### 8.1 Unit Test Template
+
 
 ```python
 # tests/test_my_app.py
@@ -534,6 +579,7 @@ async def test_analyze_with_mock(mock_pipeline, app):
 
 ### 8.2 Integration Test Template
 
+
 ```python
 # tests/test_my_app_integration.py
 """
@@ -586,6 +632,7 @@ async def test_memory_store_retrieve():
 
 ## 9. Debugging and Observability
 
+
 ### 9.1 Logging
 
 ```python
@@ -600,6 +647,7 @@ logger.error("Analysis failed", exc_info=True)
 ```
 
 ### 9.2 Recording Execution Events
+
 
 ```python
 from backend.app.core.observability import record_execution_event
@@ -617,6 +665,7 @@ await record_execution_event(
 ```
 
 ### 9.3 Debugging Pipeline Execution
+
 
 ```python
 from backend.app.core.cognitive_kernel import cognitive_kernel
@@ -642,6 +691,7 @@ for stage in ["perception_result", "memory_result", "decision_result"]:
 ## 10. Deployment
 
 ### 10.1 Docker Deployment
+
 
 ```dockerfile
 # Dockerfile for your app
@@ -693,6 +743,7 @@ services:
 
 ### 10.3 Production Checklist
 
+
 - [ ] Redis configured with persistence and replication
 - [ ] PostgreSQL configured with connection pooling
 - [ ] API keys/secrets in environment variables or secret manager
@@ -707,6 +758,7 @@ services:
 ---
 
 ## 11. Checklist: Before Merge
+
 
 ### Code Quality
 
@@ -753,6 +805,7 @@ services:
 
 ### 12.2 Debugging Commands
 
+
 ```bash
 # Check import order
 python -X importtime -c "from backend.app.main import app" 2>&1 | head -20
@@ -787,6 +840,7 @@ print(response.choices[0].message.content)
 
 ## Document Version History
 
+
 | Version | Date | Changes |
 |---|---|---|
 | 1.0.0 | 2024 | Initial Application Development Guide |
@@ -794,4 +848,3 @@ print(response.choices[0].message.content)
 ---
 
 *End of Application Development Guide*
-

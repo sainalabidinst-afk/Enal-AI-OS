@@ -1,3 +1,30 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/ROADMAP.md`
+- Judul: Roadmap
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Release timeline, milestones, and delivery schedule
+<!-- DOCUMENT_METADATA_END -->
+
 # ECP Roadmap
 
 **Status:** Active
@@ -11,14 +38,15 @@
 > **Platform adalah enabler. Tujuan akhirnya adalah AI Trading yang membuat keputusan investasi cerdas secara otonom.**
 
 ECP dibangun sebagai platform AI eksekusi yang stabil, tetapi **Trading Analyst** adalah Capability Pack utama yang menjadi tujuan akhir. Semua kemampuan lain (Network, Code, Research, DevOps, Self Development, dan yang akan datang) adalah enabler yang memperkuat ekosistem menuju visi tersebut.
+> Terjemahan Indonesia: ECP dibangun sebagai platform AI eksekusi yang stabil, tetapi Trading Analyst adalah kapabilitas Pack utama yang menjadi tujuan akhir. Semua kemampuan lain (Network, Code, Research, DevOps, Self Development, dan yang akan datang) adalah enabler yang memperkuat ekosistem menuju visi tersebut.
 
 ---
 
 ## Fase Pengembangan
 
-### Fase 1 — Capability Excellence (Sekarang — 6 Pack)
+### Fase 1 — Capability Excellence (Sekarang — 13 Pack)
 
-**Fokus:** Menaikkan kualitas keenam pack menjadi A/A-.
+**Fokus:** Menaikkan kualitas enam pack menjadi A/A-.
 
 | Capability Pack | Grade Saat Ini | Target Grade | Target Maturity |
 |-----------------|----------------|--------------|-----------------|
@@ -28,18 +56,26 @@ ECP dibangun sebagai platform AI eksekusi yang stabil, tetapi **Trading Analyst*
 | DevOps Assistant | B+ | A- | Domain Expert (L4) |
 | Trading Analyst | B+ (Certification Pending) | A- | Production Ready (L3) |
 | Self Development | A | A | Domain Expert (L4) |
+| Decision Intelligence | B+ | A | Domain Expert (L4) |
+| System Architect | B+ | A- | Production Ready (L3) |
+| Security Engineer | B+ | A- | Production Ready (L3) |
+| Data Engineer | B+ | A- | Production Ready (L3) |
+| Database Engineer | B+ | A- | Production Ready (L3) |
+| QA Engineer | B+ | A | Domain Expert (L4) |
+| Business Analyst | B+ | A- | Production Ready (L3) |
 
 **Key Results:**
 - 1,000+ real cases across all packs
 - All packs at grade A- or higher
 - Trading Analyst Certification complete
-- Benchmark dashboards for all 6 packs
+- Benchmark dashboards for all 13 packs
 
 ---
 
 ### Fase 2 — Decision Intelligence + Security + Data (+3 Pack)
 
-Setelah 6 pack mencapai A-/A, tambahkan 3 Capability Pack baru:
+Setelah 13 pack mencapai A-/A, tambahkan 3 Capability Pack baru:
+> Terjemahan Indonesia: Setelah 13 pack mencapai sebuah-/sebuah, tambahkan 3 kapabilitas Pack baru:
 
 | Prioritas | Capability Pack | Fungsi | Dependent Packs |
 |-----------|-----------------|--------|-----------------|
@@ -51,13 +87,14 @@ Setelah 6 pack mencapai A-/A, tambahkan 3 Capability Pack baru:
 
 ### Fase 3 — Enterprise (+4 Pack)
 
-Setelah 9 pack stabil, tambahkan 4 Capability Pack untuk melayani kebutuhan enterprise:
+Setelah 13 pack stabil, tambahkan 4 Capability Pack untuk melayani kebutuhan enterprise:
+> Terjemahan Indonesia: Setelah 13 pack stabil, tambahkan 4 kapabilitas Pack untuk melayani kebutuhan enterprise:
 
 | Prioritas | Capability Pack | Fungsi |
 |-----------|-----------------|--------|
 | 4 | **Database Engineer** | SQL optimization, schema design, migration, index recommendation, performance analysis |
 | 5 | **System Architect** | DDD, microservices, event driven, ADR generator, architecture review, refactoring recommendation |
-| 6 | **QA Engineer** | Test generation, regression, mutation testing, golden test builder, benchmark generator |
+| 6 | **QA Engineer** | Test generation, regression, mutation testing, Golden Test builder, benchmark generator |
 | 7 | **Business Analyst** | Requirement analysis, user story, BRD, use case, workflow |
 
 ---
@@ -65,6 +102,7 @@ Setelah 9 pack stabil, tambahkan 4 Capability Pack untuk melayani kebutuhan ente
 ### Fase 4 — Jangka Panjang (+5 Pack)
 
 Setelah fondasi enterprise kuat, tambahkan Capability Pack untuk produktivitas dan kualitas tim:
+> Terjemahan Indonesia: Setelah fondasi enterprise kuat, tambahkan kapabilitas Pack untuk produktivitas dan kualitas tim:
 
 | Prioritas | Capability Pack | Fungsi |
 |-----------|-----------------|--------|
@@ -81,7 +119,7 @@ Setelah fondasi enterprise kuat, tambahkan Capability Pack untuk produktivitas d
 | Release | Target Date | Focus |
 |---------|-------------|-------|
 | v1.0.0-dev | Q3 2026 | Platform complete, Architecture Governance active |
-| v1.0.0 | Q4 2026 | Developer Preview: 6 packs certified, documentation, SDK, Studio |
+| v1.0.0 | Q4 2026 | Developer Preview: 13 packs certified, documentation, SDK, Studio |
 | v1.1.0 | Q1 2027 | Capability Excellence: all packs A-/A, Trading Certification |
 | v1.2.0 | Q2 2027 | Decision Intelligence + Security Engineer + Data Engineer |
 | v1.3.0 | Q3 2027 | Enterprise: Database Engineer + System Architect |
@@ -111,7 +149,7 @@ Setelah fondasi enterprise kuat, tambahkan Capability Pack untuk produktivitas d
 - RFC and prototype for Decision Intelligence
 - Security Engineer RFC
 - Data Engineer RFC
-- Continue quality improvement on all 6 packs
+- Continue quality improvement on all 13 packs
 
 ### Q4 — Enterprise Foundation
 - Decision Intelligence Stable
@@ -128,7 +166,7 @@ Setelah fondasi enterprise kuat, tambahkan Capability Pack untuk produktivitas d
 - Cost: Free
 
 ### Phase 1 — Capability Excellence (0–12 months)
-- 6 existing packs: Network, Code, Research, DevOps, Trading, Self Development
+- 13 existing packs: Network, Code, Research, DevOps, Trading, Self Development, Decision Intelligence, System Architect, Security Engineer, Data Engineer, Database Engineer, QA Engineer, Business Analyst
 - Target: all packs grade A-/A, 1,000 real cases
 - Core remains frozen
 
@@ -149,7 +187,7 @@ Setelah fondasi enterprise kuat, tambahkan Capability Pack untuk produktivitas d
 
 ### Phase 5 — Productivity Pack (30–36 months)
 - Product Manager, Documentation Engineer, UI/UX Designer, AI Engineer, Infrastructure Engineer
-- Target: 14 packs total, 5,000+ real cases
+- Target: 18 packs total, 5,000+ real cases
 
 ### Phase 6 — Enal Models (36–48 months)
 - EnalCoder: fine-tuned Qwen/DeepSeek for coding
@@ -171,7 +209,8 @@ Setelah fondasi enterprise kuat, tambahkan Capability Pack untuk produktivitas d
 
 ## Yang Tidak Akan Menjadi Capability Pack
 
-Berikut adalah komponen yang **tidak akan dijadikan Capability Pack** sendiri. Mereka akan diposisikan sebagai **plugin**, **service**, atau **infrastruktur platform**:
+Berikut adalah komponen yang **tidak akan dijadikan Capability Pack** sendiri. Mereka akan diposisikan sebagai **Plugin**, **service**, atau **infrastruktur platform**:
+> Terjemahan Indonesia: Berikut adalah komponen yang tidak akan dijadikan kapabilitas Pack sendiri. Mereka akan diposisikan sebagai Plugin, layanan, atau infrastruktur platform:
 
 - Authentication / Authorization
 - PostgreSQL / Redis / MinIO / Kafka
@@ -180,6 +219,7 @@ Berikut adalah komponen yang **tidak akan dijadikan Capability Pack** sendiri. M
 - Infrastruktur murni (load balancer, DNS, container runtime)
 
 Keputusan ini menjaga ECP tetap fokus pada **domain expertise** dan mencegah platform melebar ke infrastruktur yang sudah ada solusinya.
+> Terjemahan Indonesia: Keputusan ini menjaga ECP tetap fokus pada keahlian domain dan mencegah perluasan platform ke infrastruktur yang sudah ada solusinya.
 
 ---
 
@@ -192,12 +232,14 @@ Keputusan ini menjaga ECP tetap fokus pada **domain expertise** dan mencegah pla
 
 The Model Router makes this transparent to users and Capability Packs.
 All Capability Packs continue to work without changes regardless of model source.
+> Terjemahan Indonesia: Model Router makes ini transparent untuk users dan kapabilitas Packs. All kapabilitas Packs continue untuk work without changes regardless dari model source.
 
 ---
 
 ## Knowledge Expansion Plan
 
 All planned knowledge additions are tracked via RFCs and implemented inside Capability Packs only. Core remains unchanged.
+> Terjemahan Indonesia: All planned knowledge additions adalah tracked via RFCs dan implemented inside kapabilitas Packs only. Core remains unchanged.
 
 ### Knowledge Additions by Capability Pack
 
@@ -211,6 +253,7 @@ All planned knowledge additions are tracked via RFCs and implemented inside Capa
 | Self Development | Cross-project pattern learning, Impact prediction, Architecture smell taxonomy | — |
 
 For detailed topic breakdown, see `docs/CAPABILITY_STRATEGY.md` (Knowledge Expansion section).
+> Terjemahan Indonesia: Untuk detailed topic breakdown, see docs/CAPABILITY_STRATEGY.MD (Knowledge Expansion section).
 
 ---
 
@@ -218,7 +261,7 @@ For detailed topic breakdown, see `docs/CAPABILITY_STRATEGY.md` (Knowledge Expan
 
 | Document | Purpose |
 |----------|---------|
-| `docs/GOVERNANCE_CHARTER.md` | Dokumen induk — visi, prinsip inti, filosofi, aturan konstitusional |
+| `docs/GOVERNANCE_CHARTER.md` | Visi, prinsip inti, filosofi, aturan konstitusional |
 | `docs/GOVERNANCE.md` | Aturan operasional — ADR, Capability First, Architecture Freeze, enforcement |
 | `docs/RELEASE_CRITERIA.md` | Syarat rilis — quality gates, Definition of Done, benchmark targets |
 | `docs/CAPABILITY_STRATEGY.md` | Strategi Capability Pack — maturity model, lifecycle, profil pack |

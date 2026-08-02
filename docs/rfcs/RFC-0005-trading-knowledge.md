@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0005-trading-knowledge.md`
+- Judul: Rfc 0005 Trading Knowledge
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC: Trading Knowledge Expansion
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** RFC for RFC-0005-trading-knowledge
+<!-- DOCUMENT_METADATA_END -->
 
 **Status:** Planned
 **Target:** Capability Excellence phase
@@ -7,6 +33,7 @@
 ## Summary
 
 Expand Trading Analyst knowledge depth across technical analysis, risk management, and trading psychology.
+> Terjemahan Indonesia: Expand Trading Analyst knowledge depth across technical analysis, risk management, dan trading psychology.
 
 ## Knowledge Domains
 
@@ -75,6 +102,7 @@ Expand Trading Analyst knowledge depth across technical analysis, risk managemen
 ## Implementation Approach
 
 All knowledge is added to the Trading Capability Pack domain engine. No Core changes are required.
+> Terjemahan Indonesia: All knowledge adalah added untuk Trading kapabilitas Pack domain engine. No Core changes adalah required.
 
 ## Success Criteria
 
@@ -85,4 +113,4 @@ All knowledge is added to the Trading Capability Pack domain engine. No Core cha
 ## References
 
 - RFC-0006: Trading Knowledge Base
-- CAPABILITY_GUIDE.md — Trading Analyst section
+- CAPABILITY_GUIDE.md â€” Trading Analyst section

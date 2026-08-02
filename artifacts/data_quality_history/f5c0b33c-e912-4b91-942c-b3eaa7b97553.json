@@ -1,0 +1,13 @@
+{
+  "record_id": "f5c0b33c-e912-4b91-942c-b3eaa7b97553",
+  "job_id": "f592c42c-0ff6-428b-be11-5f20d12c0133",
+  "timestamp": "2026-08-02T00:14:16.327253+00:00",
+  "job_type": "feature_engineer",
+  "quality_score": 0.4,
+  "issues_found": 8,
+  "issues_resolved": 3,
+  "schema_drift_detected": false,
+  "features_created": 1,
+  "time_series_gaps_filled": 0,
+  "outcome": "partial"
+}

@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0009-data-engineer.md`
+- Judul: Rfc 0009 Data Engineer
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC-0009: Data Engineer Capability Pack
 
 | Field | Value |
@@ -19,8 +37,10 @@
 ## Motivation
 
 ECP's existing Capability Packs rely on high-quality data as input or produce data as output. Trading Analyst needs clean market data; Research Assistant needs validated datasets; Decision Intelligence needs reliable evidence. However, there is no dedicated data engineering layer that manages the entire data lifecycle—from ingestion to quality assurance.
+> Terjemahan Indonesia: ECP's existing kapabilitas Packs rely pada high-kualitas data as input or produce data as output. Trading Analyst needs clean market data; Research Assistant needs validated datasets; Decision Intelligence needs reliable evidence. However, there adalah no dedicated data rekayasa layer itu manages entire data lifecycle—dari ingestion untuk kualitas assurance.
 
 Currently:
+> Terjemahan Indonesia: Saat ini:
 
 1. **Data quality is assumed, not verified** — packs trust that input data is clean, but often it is not.
 2. **ETL/ELT is ad hoc per pack** — each pack builds its own data ingestion without standardized pipelines.
@@ -30,12 +50,14 @@ Currently:
 6. **No dataset validation framework** — datasets are consumed without quality gates.
 
 The Data Engineer Capability Pack becomes the data foundation layer, providing ETL/ELT, data cleaning, dataset validation, schema evolution, feature engineering, and time-series handling for all downstream Capability Packs.
+> Terjemahan Indonesia: Data Engineer kapabilitas Pack becomes data foundation layer, providing ETL/ELT, data cleaning, dataset validation, schema evolution, feature rekayasa, dan time-series handling untuk all downstream kapabilitas Packs.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated Data Engineer Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated Data Engineer kapabilitas Pack:
 
 - **No data quality framework** — bad data silently degrades output quality across Trading, Research, and Decision Intelligence.
 - **ETL pipelines are fragmented** — each pack builds its own ingestion logic, creating inconsistency and duplication.
@@ -305,6 +327,7 @@ User / Human Approval Loop
 ### No Core Changes Required
 
 All implementation resides within the Data Engineer Capability Pack:
+> Terjemahan Indonesia: All implementation resides within Data Engineer kapabilitas Pack:
 
 ```
 apps/
@@ -347,6 +370,7 @@ apps/
   - Research: academic datasets (CSV, JSON, XML)
   - DevOps: log data, metrics, configuration data
   - Self-Development: code metrics, project data
+> Terjemahan Indonesia: Trading: market data (OHLCV, order books, volume) Research: academic datasets (CSV, JSON, XML) DevOps: log data, metrics, konfigurasi data Self-Development: code metrics, proyek data
 
 ### Benchmark Dimensions Detail
 
@@ -389,6 +413,7 @@ apps/
 ### Real Case Directory
 
 `real_cases/data_engineer/` must contain:
+> Terjemahan Indonesia: Real_cases/data_engineer/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -506,6 +531,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 Data Engineer is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: Data Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/data_engineer/`.
 - **ADR-002 (Capability Pack Independence):** Data Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.

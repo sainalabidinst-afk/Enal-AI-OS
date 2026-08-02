@@ -1,0 +1,13 @@
+{
+  "record_id": "b38dde6d-b357-453d-986c-48e0ad61d169",
+  "request_id": "09f41ea7-fd15-4533-8c14-1aa1f723702f",
+  "timestamp": "2026-08-02T00:14:14.826341+00:00",
+  "target_capability_pack": "",
+  "tests_generated": 1,
+  "mutation_score": 0.0,
+  "coverage_before": 0.0,
+  "coverage_after": 0.8889,
+  "flaky_tests_found": 0,
+  "performance_validated": false,
+  "outcome": "pending"
+}

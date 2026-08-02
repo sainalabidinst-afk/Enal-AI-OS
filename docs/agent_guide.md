@@ -1,9 +1,30 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/agent_guide.md`
+- Judul: Agent Guide
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Agent Development Guide
+
 
 ## Status
 Platform RC (2026-07-27) - 426 tests passing
+> Terjemahan Indonesia: Platform RC (27-07-2026) - 426 tes lulus
 
 ## Creating an Agent (Worker)
+
 
 ```python
 from enal_ai import Agent

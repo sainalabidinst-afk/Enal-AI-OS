@@ -1,52 +1,84 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/REASONING_ENGINE.md`
+- Judul: Reasoning Engine
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Reasoning Engine
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for REASONING_ENGINE
+<!-- DOCUMENT_METADATA_END -->
 
 ## Overview
 
 Reasoning Engine adalah symbolic/rule-based reasoning engine untuk multi-step reasoning, decision making, dan constraint validation. Engine menggunakan aturan deterministik (BUKAN LLM) untuk menghasilkan kesimpulan dan keputusan yang dapat dijelaskan.
+> Terjemahan Indonesia: Reasoning Engine adalah mesin penalaran simbolik/berbasis aturan untuk penalaran multi-langkah, pengambilan keputusan, dan validasi batasan. Mesin menggunakan aturan deterministik (BUKAN LLM) untuk menghasilkan kesimpulan dan keputusan yang dapat dijelaskan.
 
 ## Methods
 
 ### 1. Forward Chaining
 Mulai dari fakta yang diketahui, aplikasikan rules untuk mencapai kesimpulan.
+> Terjemahan Indonesia: Mulai dari fakta yang diketahui, terapkan aturan untuk mencapai kesimpulan.
 
 ```
-Known Facts → Apply Rules → New Facts → Apply Rules → ... → Conclusions
+Known Facts â†’ Apply Rules â†’ New Facts â†’ Apply Rules â†’ ... â†’ Conclusions
 ```
 
 **Use case**: Goal decomposition, capability identification
 
 ### 2. Backward Chaining
 Mulai dari outcome yang diinginkan, cari prerequisites yang diperlukan.
+> Terjemahan Indonesia: Mulai dari hasil yang diinginkan, cari prasyarat yang diperlukan.
 
 ```
-Desired Outcome ← Find Prerequisites ← Find Sub-prerequisites ← ...
+Desired Outcome â† Find Prerequisites â† Find Sub-prerequisites â† ...
 ```
 
 **Use case**: Finding what's needed to achieve a goal
 
 ### 3. Decision Tree
 Evaluasi opsi-opsi terhadap kriteria yang ditentukan.
+> Terjemahan Indonesia: Evaluasi opsi-opsi terhadap kriteria yang ditentukan.
 
 ```
-Options × Criteria → Scoring → Best Option Selected
+Options Ã— Criteria â†’ Scoring â†’ Best Option Selected
 ```
 
 **Use case**: Technology selection, resource allocation decisions
 
 ### 4. Constraint Propagation
 Verifikasi bahwa semua constraint terpenuhi.
+> Terjemahan Indonesia: Verifikasi bahwa semua kendala terpenuhi.
 
 ```
-Variables × Constraints → Satisfied/Violated → Proceed/Block
+Variables Ã— Constraints â†’ Satisfied/Violated â†’ Proceed/Block
 ```
 
 **Use case**: Budget validation, timeline checking
 
 ### 5. Causal Reasoning
 Analisis cause-effect relationships.
+> Terjemahan Indonesia: Analisis hubungan sebab-akibat.
 
 ```
-Event → Find Causes → Identify Effects → Generate Recommendations
+Event â†’ Find Causes â†’ Identify Effects â†’ Generate Recommendations
 ```
 
 **Use case**: Failure analysis, impact assessment
@@ -159,11 +191,10 @@ engine.register_rule(ReasoningRule(
 
 ## Default Rules
 
-1. **Goal Decomposition** (priority 1): Complex goals → sub-goals
-2. **Capability Requirement** (priority 2): Goal domain → required capabilities
-3. **Dependency Resolution** (priority 3): Steps → ordered execution
-4. **Constraint Validation** (priority 4): Constraints → validated/blocked
-5. **Resource Planning** (priority 5): Requirements → resource allocation
-6. **Risk Assessment** (priority 6): Complexity + dependencies → risk level
-7. **Quality Gate** (priority 7): Completed steps → quality verification
-
+1. **Goal Decomposition** (priority 1): Complex goals â†’ sub-goals
+2. **Capability Requirement** (priority 2): Goal domain â†’ required capabilities
+3. **Dependency Resolution** (priority 3): Steps â†’ ordered execution
+4. **Constraint Validation** (priority 4): Constraints â†’ validated/blocked
+5. **Resource Planning** (priority 5): Requirements â†’ resource allocation
+6. **Risk Assessment** (priority 6): Complexity + dependencies â†’ risk level
+7. **Quality Gate** (priority 7): Completed steps â†’ quality verification

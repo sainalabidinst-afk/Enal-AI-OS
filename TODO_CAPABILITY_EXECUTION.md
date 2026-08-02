@@ -1,7 +1,35 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `TODO_CAPABILITY_EXECUTION.md`
+- Judul: Todo Capability Execution
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack execution plan and rollout milestones
+<!-- DOCUMENT_METADATA_END -->
+
 # TODO — Eksekusi Capability Pack Roadmap
 
-> **Status: LOCKED** ✅ — 2026-08-01
+> **Status: LOCKED** ✅ — 2026-08-02
+
 > Rencana ini telah disetujui dan dikunci. Eksekusi dimulai dari Fase 1.
+
 > Lihat progress terkini di bagian bawah dokumen.
 
 ## Visi
@@ -12,14 +40,14 @@
 
 | Fase | Waktu | Total Pack | Fokus |
 |------|-------|------------|-------|
-| **Fase 1** — Capability Excellence | 0–12 bulan | 6 | Naikkan kualitas 6 pack ke A/A- |
+| **Fase 1** — Capability Excellence | 0–12 bulan | 13 | Naikkan kualitas 13 pack ke A/A- |
 | **Fase 2** — Decision Intelligence + Security + Data | 12–18 bulan | 9 | Tambah 3 pack baru |
 | **Fase 3** — Enterprise | 18–24 bulan | 13 | Database, System Architect, QA, Business Analyst |
-| **Fase 4** — Jangka Panjang | 24–36 bulan | 18 | Product, Docs, UI/UX, AI Engineer, Infra |
+| **Fase 4** — Jangka Panjang | 24–36 bulan | 18 (Target) | Product, Docs, UI/UX, AI Engineer, Infra |
 
 ---
 
-## FASE 1: Capability Excellence (6 Pack Existing)
+## FASE 1: Capability Excellence (13 Pack Existing)
 
 ### ☐ 1.1 Network Engineer (A → A+)
 
@@ -181,10 +209,10 @@
 
 ### ☐ 1.7 Cross-Cutting Deliverables (Fase 1)
 
-- [ ] 1,000+ real cases across all 6 packs
+- [ ] 1,000+ real cases across all 13 packs
 - [ ] All packs at grade A- or higher
 - [ ] Trading Analyst Certification complete
-- [ ] Benchmark dashboards for all 6 packs
+- [ ] Benchmark dashboards for all 13 packs
 - [ ] v1.0.0 Developer Preview release
 - [ ] Documentation complete (SDK, API, architecture)
 
@@ -353,7 +381,7 @@
 
 ---
 
-## FASE 4: Jangka Panjang (+5 Pack)
+## FASE 4: Jangka Panjang (Roadmap Target: 18 packs)
 
 ### ☐ 4.1 Product Manager
 **Timeline:** 24–36 bulan
@@ -380,6 +408,7 @@
 ## INFRASTRUKTUR & PLATFORM (Bukan Capability Pack)
 
 Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur platform**:
+> Terjemahan Indonesia: Komponen berikut akan dikelola sebagai plugin, layanan, atau infrastruktur platform:
 
 - [ ] Authentication / Authorization service
 - [ ] PostgreSQL / Redis / MinIO / Kafka — sebagai service infrastruktur
@@ -415,7 +444,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | Release | Target | Isi |
 |---------|--------|-----|
 | v1.0.0-dev | Q3 2026 | Platform complete ✅ |
-| v1.0.0 | Q4 2026 | 6 packs certified, documentation, SDK, Studio |
+| v1.0.0 | Q4 2026 | 13 packs certified, documentation, SDK, Studio |
 | v1.1.0 | Q1 2027 | All packs A-/A, Trading Certification |
 | v1.2.0 | Q2 2027 | Decision Intelligence + Security + Data |
 | v1.3.0 | Q3 2027 | Database Engineer + System Architect |
@@ -428,7 +457,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 
 | Metric | Fase 1 Target | Fase 2 Target | Fase 3 Target |
 |--------|---------------|---------------|---------------|
-| Total Capability Packs | 6 | 9 | 13 |
+| Total Capability Packs | 13 | 16 | 13 (Target: 18 packs — Phase 4 roadmap) |
 | Real Cases | 1,000+ | 2,000+ | 3,000+ |
 | Pack Grade | Semua A-/A | Semua A-/A | Semua A-/A |
 | Golden Test Pass Rate | ≥80% | ≥85% | ≥90% |
@@ -441,14 +470,14 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 
 | Date | Action | Status |
 |------|--------|--------|
-| 2026-08-01 | TODO_CAPABILITY_EXECUTION.md locked | ✅ |
-| 2026-08-01 | Mulai eksekusi Fase 1 — Capability Excellence | 🚧 |
-| 2026-08-01 | Trading Analyst: 4 real cases created (btc_breakout, gold_news, eth_defi, portfolio_rebalance, sol_breakdown) | ✅ |
-| 2026-08-01 | Trading Analyst: Wyckoff analyzer implemented (accumulation, distribution, composite operator) | ✅ |
-| 2026-08-01 | Trading Analyst: SMC/ICT analyzer implemented (FVG, order blocks, liquidity sweeps, premium/discount) | ✅ |
-| 2026-08-01 | Trading Analyst: Elliott Wave analyzer implemented (impulse, corrective, ending diagonal) | ✅ |
-| 2026-08-01 | Trading Analyst: Volume Profile analyzer implemented (POC, VA, HVN/LVN, shape) | ✅ |
-| 2026-08-01 | Trading Analyst: Macro analyzer implemented (policy rate, inflation, economic health, risk sentiment) | ✅ |
-| 2026-08-01 | Trading Analyst: Psychology analyzer implemented (FOMO, capitulation, sentiment extremes, volume psychology) | ✅ |
-| 2026-08-01 | Trading Analyst: Options & Futures analyzer implemented (IV, put/call, skew, basis, COT, max pain) | ✅ |
-| 2026-08-01 | GOVERNANCE_CHARTER.md: Fixed duplicate numbering (sections 2-8) | ✅ |
+| 2026-08-02 | TODO_CAPABILITY_EXECUTION.md locked | ✅ |
+| 2026-08-02 | Mulai eksekusi Fase 1 — Capability Excellence | 🚧 |
+| 2026-08-02 | Trading Analyst: 4 real cases created (btc_breakout, gold_news, eth_defi, portfolio_rebalance, sol_breakdown) | ✅ |
+| 2026-08-02 | Trading Analyst: Wyckoff analyzer implemented (accumulation, distribution, composite operator) | ✅ |
+| 2026-08-02 | Trading Analyst: SMC/ICT analyzer implemented (FVG, order blocks, liquidity sweeps, premium/discount) | ✅ |
+| 2026-08-02 | Trading Analyst: Elliott Wave analyzer implemented (impulse, corrective, ending diagonal) | ✅ |
+| 2026-08-02 | Trading Analyst: Volume Profile analyzer implemented (POC, VA, HVN/LVN, shape) | ✅ |
+| 2026-08-02 | Trading Analyst: Macro analyzer implemented (policy rate, inflation, economic health, risk sentiment) | ✅ |
+| 2026-08-02 | Trading Analyst: Psychology analyzer implemented (FOMO, capitulation, sentiment extremes, volume psychology) | ✅ |
+| 2026-08-02 | Trading Analyst: Options & Futures analyzer implemented (IV, put/call, skew, basis, COT, max pain) | ✅ |
+| 2026-08-02 | GOVERNANCE_CHARTER.md: Fixed duplicate numbering (sections 2-8) | ✅ |

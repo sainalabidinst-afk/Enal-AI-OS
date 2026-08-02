@@ -1,4 +1,30 @@
-# Enal AI OS — Release Notes v1.0.0-rc1
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `RELEASE/RELEASE_NOTES_v1.0.0-rc1.md`
+- Judul: Release Notes V1.0.0 Rc1
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+# Enal AI OS â€” Release Notes v1.0.0-rc1
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for RELEASE_NOTES_v1.0.0-rc1
+<!-- DOCUMENT_METADATA_END -->
 
 **Release Date:** 2026-07-31
 **Tag:** v1.0.0-rc1
@@ -31,7 +57,7 @@
 ## Architecture Improvements
 
 ### Circular Import Resolution
-- Fixed circular dependency: `cognitive/__init__.py` → `adaptive_runtime.py` → `cognitive_kernel.py` → `cognitive/__init__.py`
+- Fixed circular dependency: `cognitive/__init__.py` â†’ `adaptive_runtime.py` â†’ `cognitive_kernel.py` â†’ `cognitive/__init__.py`
 - Deferred module-level imports to `__init__` methods where necessary
 
 ### Backend/Apps Boundary
@@ -64,6 +90,7 @@
   - Resource limits (memory, CPU) per service
   - Healthcheck conditions for `depends_on`
   - Removed hardcoded database password; uses `${POSTGRES_PASSWORD}`
+> Terjemahan Indonesia: Read-only filesystem untuk all services tmpfs untuk /tmp where applicable cap_drop: [ALL] + no-new-privileges:true Resource limits (memory, CPU) per layanan Healthcheck conditions untuk depends_on Removed hardcoded database password; uses ${POSTGRES_PASSWORD}
 
 ### CI/CD
 - Validation gate scripts added (`scripts/validate_*.py`)
@@ -79,6 +106,7 @@
   - `GET /`
   - `GET /health`
   - `/docs`, `/openapi.json`, `/redoc`
+> Terjemahan Indonesia: DAPATKAN / DAPATKAN /kesehatan /docs, /openapi.json, /redoc
 
 ### Migration Notes
 - Set `SECRET_KEY` environment variable to enable authentication
@@ -115,11 +143,11 @@
 
 | Gate | Status |
 |------|--------|
-| Gate 0 — Baseline Freeze | PASS |
-| Gate 1 — Security Hardening | PASS |
-| Gate 2 — Architecture Convergence | PASS |
-| Gate 3 — Capability Wiring | PASS |
-| Gate 4 — Cognitive Validation | PASS |
+| Gate 0 â€” Baseline Freeze | PASS |
+| Gate 1 â€” Security Hardening | PASS |
+| Gate 2 â€” Architecture Convergence | PASS |
+| Gate 3 â€” Capability Wiring | PASS |
+| Gate 4 â€” Cognitive Validation | PASS |
 
 **Test Results:** 426 passed, 0 failed
 **Build Status:** Ready for containerization

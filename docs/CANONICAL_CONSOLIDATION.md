@@ -1,3 +1,20 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/CANONICAL_CONSOLIDATION.md`
+- Judul: Canonical Consolidation
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Milestone: Canonical Consolidation
 
 **Status:** Frozen  
@@ -10,6 +27,7 @@
 ## Non-Negotiable Rules
 
 These rules apply during this milestone. They are enforced at PR review.
+> Terjemahan Indonesia: These rules apply during ini milestone. They adalah enforced at PR review.
 
 1. **No new features.** Only cleanup, deletion, and migration.
 2. **No architecture changes.** Only consolidation within existing architecture.
@@ -23,6 +41,7 @@ These rules apply during this milestone. They are enforced at PR review.
 ## Demo Policy
 
 Each Epic must end with a live demonstration, not just green tests.
+> Terjemahan Indonesia: Each Epic must end dengan sebuah live demonstration, not just green tests.
 
 | Epic | Demo |
 |------|------|
@@ -45,12 +64,14 @@ Epic 5: Runtime Validation     (Day 7)
 ```
 
 Total estimate: **4–7 working days** with vibe coding + AI assistance. Risk-adjusted: **7 days** (buffer for Epic 3 regression testing and Epic 5 end-to-end validation).
+> Terjemahan Indonesia: Total estimate: 4–7 working days dengan vibe coding + AI assistance. Risk-adjusted: 7 days (buffer untuk Epic 3 regression testing dan Epic 5 end-untuk-end validation).
 
 ---
 
 ## Epic 1: P0 Bugfixes (Unblockers)
 
 These bugs prevent other work. Fix before anything else.
+> Terjemahan Indonesia: Bug ini menghalangi pekerjaan lain. Perbaiki sebelum melakukan hal lain.
 
 | # | Task | Effort | Risk | Notes |
 |---|------|--------|------|-------|
@@ -69,6 +90,7 @@ These bugs prevent other work. Fix before anything else.
 ## Epic 2: Canonical Cleanup
 
 Choose one implementation per service. Migrate all consumers. Delete legacy.
+> Terjemahan Indonesia: Choose one implementation per layanan. Migrate all consumers. Delete legacy.
 
 ### 2.1 Artifact Service
 
@@ -79,10 +101,12 @@ Choose one implementation per service. Migrate all consumers. Delete legacy.
 | Status | **CANONICAL** | **BROKEN** — missing `dataclass`/`field` |
 
 Migrate legacy consumers:
+> Terjemahan Indonesia: Migrasi konsumen lama:
 - `phase3.py` — Replace `artifact_system.create()` → `artifact_service.create_artifact()`
 - `ai_studio.py` — Replace `artifact_system.get_by_project()` → `artifact_service.list_artifacts(workspace_id=...)`
 
 Then delete `artifact_system.py`.
+> Terjemahan Indonesia: Kemudian hapus artifak_system.py.
 
 ### 2.2 Workspace Service
 
@@ -93,24 +117,29 @@ Then delete `artifact_system.py`.
 | Status | **CANONICAL** | **LEGACY** |
 
 Migrate legacy consumer:
+> Terjemahan Indonesia: Migrasikan konsumen lama:
 - `orchestrator_v2.py` — Replace `workspace_manager.get()` → `workspace_service.get_workspace()`
 
 Then delete `workspace.py`.
+> Terjemahan Indonesia: Kemudian hapus workspace.py.
 
 ### 2.3 Model Gateway (Not a Duplicate — Keep)
 
 `model_gateway.py` serves a **different purpose** from `model_router.py`:
+> Terjemahan Indonesia: Model_gateway.py serves sebuah different purpose dari model_router.py:
 - `model_router.py` = LLM execution (15 active callers, 21 imports)
 - `model_gateway.py` = Health/status API (1 API endpoint)
 
 **Action:** Keep `model_gateway.py`. Document this in `CANONICAL_OWNER.md`.
 
 Delete dead code:
+> Terjemahan Indonesia: Hapus kode mati:
 - `apps/society/model_router.py` (189 lines, 0 importers)
 
 ### 2.4 Dead Entry-Point Files
 
 These top-level `.py` files are shadowed by their package directories. Delete them.
+> Terjemahan Indonesia: These top-level .py files adalah shadowed oleh their package directories. Delete them.
 
 | File | Shadowed by | Importers |
 |------|-------------|-----------|
@@ -138,6 +167,7 @@ These top-level `.py` files are shadowed by their package directories. Delete th
 ## Epic 2: Import Hygiene
 
 Fix broken imports, circular dependencies, missing `__init__.py`.
+> Terjemahan Indonesia: Perbaiki impor yang rusak, ketergantungan melingkar, init.py yang hilang.
 
 ### 2.1 Circular Dependencies
 
@@ -156,14 +186,17 @@ pylint --disable=all --enable=cyclic-import backend/app
 ```
 
 If any circular dependency is found, break it by extracting the shared dependency into a new module or reordering imports.
+> Terjemahan Indonesia: If any circular dependency adalah found, break it oleh extracting shared dependency into sebuah new module or reordering imports.
 
 ### 2.2 Missing `__init__.py` Files
 
 Add missing `__init__.py` to 6 packages.
+> Terjemahan Indonesia: Add missing init.py untuk 6 packages.
 
 ### 2.3 Dead Import Cleanup
 
 Already partially done in Epic 0. Complete any remaining dead imports.
+> Terjemahan Indonesia: Already partially done dalam Epic 0. Complete any remaining dead imports.
 
 ---
 
@@ -174,6 +207,7 @@ Already partially done in Epic 0. Complete any remaining dead imports.
 ### The Problem
 
 `core/memory_layer.py` imports from `modules/rag.py`. Core depends on modules. This is backwards. The correct dependency should be:
+> Terjemahan Indonesia: Core/memory_layer.py imports dari modules/rag.py. Core depends pada modules. ini adalah backwards. correct dependency should menjadi:
 
 ```
 modules (legacy) → core (canonical)
@@ -182,6 +216,7 @@ modules (legacy) → core (canonical)
 ### Prerequisite — Verify `modules/rag.py` Contents
 
 Before extracting anything, read `backend/app/modules/rag.py` and confirm:
+> Terjemahan Indonesia: Before extracting anything, read backend/app/modules/rag.py dan confirm:
 
 1. Does it contain **only** vector-store logic (embedding, retrieval), or does it also contain business logic (ranking, reasoning)?
 2. What is the exact interface that `core/memory_layer.py` uses?
@@ -194,22 +229,27 @@ Before extracting anything, read `backend/app/modules/rag.py` and confirm:
 **Step 1: Break the inversion.**
 
 Create `core/vector_store.py` containing only the vector-store logic extracted from `modules/rag.py`. The new file must expose the same interface that `core/memory_layer.py` expects.
+> Terjemahan Indonesia: Membuat core/vector_store.py containing only vector-store logic extracted dari modules/rag.py. new file must expose same interface itu core/memory_layer.py expects.
 
 **Step 2: Migrate `modules/memory.py` consumers.**
 
 Migrate `conversation_manager.py` (and any other imports of `modules/memory`) to use `core/memory_layer.py`.
+> Terjemahan Indonesia: Migrate conversation_manager.py (dan any other imports dari modules/memory) untuk use core/memory_layer.py.
 
 **Step 3: Migrate `modules/planner.py` consumers.**
 
 Migrate `planner_agent.py` and `reviewer_agent.py` (and any other imports) to use `core/cognitive_kernel.py` + `core/cognitive/strategic_planner.py`.
+> Terjemahan Indonesia: Migrate planner_agent.py dan reviewer_agent.py (dan any other imports) untuk use core/cognitive_kernel.py + core/kognitif/strategic_planner.py.
 
 **Step 4: Migrate `modules/tools.py` consumers.**
 
 Migrate `executor_agent.py` (and any other imports) to use `core/tool_registry.py`.
+> Terjemahan Indonesia: Migrate executor_agent.py (dan any other imports) untuk use core/tool_registry.py.
 
 **Step 5: Delete `modules/` directory.**
 
 `backend/app/modules/` → DELETE. All contents migrated.
+> Terjemahan Indonesia: Backend/app/modules/ → DELETE. All contents migrated.
 
 ### Migration Tasks
 
@@ -236,6 +276,7 @@ Migrate `executor_agent.py` (and any other imports) to use `core/tool_registry.p
 ## Epic 4: Documentation & Golden Tests
 
 All documentation must match actual code after Epic 2 and Epic 3.
+> Terjemahan Indonesia: All dokumentasi must match actual code after Epic 2 dan Epic 3.
 
 ### 4.1 Documentation Sync
 
@@ -248,6 +289,7 @@ All documentation must match actual code after Epic 2 and Epic 3.
 ### 4.2 Golden Test Gaps
 
 Fill 110 test cases currently missing.
+> Terjemahan Indonesia: Isi 110 kasus uji yang saat ini hilang.
 
 | Priority | Area | Gap |
 |----------|------|-----|
@@ -266,8 +308,10 @@ Fill 110 test cases currently missing.
 ## CANONICAL_OWNER.md Rule
 
 Setiap service/folder yang memiliki implementasi canonical harus memiliki file `CANONICAL_OWNER.md` di direktori yang sama.
+> Terjemahan Indonesia: Setiap layanan/folder yang memiliki implementasi canonical harus memiliki file CANONICAL_OWNER.MD di direktori yang sama.
 
 Format:
+> Terjemahan Indonesia: Format:
 
 ```markdown
 # CANONICAL_OWNER
@@ -304,6 +348,7 @@ Format:
 ## Definition of Done — Developer Preview
 
 Developer Preview is NOT ready until:
+> Terjemahan Indonesia: Developer Preview adalah NOT ready until:
 
 ### Code
 - [ ] One canonical implementation per service
@@ -332,8 +377,10 @@ Developer Preview is NOT ready until:
 ## Epic 5: Runtime Validation (Gate for Developer Preview)
 
 This is the final gate before Developer Preview. No code changes. Only testing.
+> Terjemahan Indonesia: Ini adalah final gate before Developer Preview. No code changes. Only testing.
 
 This epic validates the real user flows end-to-end, against the live backend. If any flow fails, the epic is not done.
+> Terjemahan Indonesia: Ini epic validates real user flows end-untuk-end, against live backend. If any flow fails, epic adalah not done.
 
 ### Validation Checklist
 
@@ -353,6 +400,7 @@ This epic validates the real user flows end-to-end, against the live backend. If
 ### Regression Gates
 
 Before a flow is marked passing:
+> Terjemahan Indonesia: Before sebuah flow adalah marked passing:
 - [ ] Manual tester confirms the flow works end-to-end
 - [ ] No console errors in browser DevTools
 - [ ] No 500s or unexpected 4xxs in server logs
@@ -362,6 +410,7 @@ Before a flow is marked passing:
 ### Exit Criteria
 
 Epic 5 is complete only when all of the following flows are verified green:
+> Terjemahan Indonesia: Epic 5 adalah complete only when all dari following flows adalah verified green:
 
 - [x] Chat → Execution succeeds
 - [x] Execution → Artifact succeeds
@@ -373,6 +422,7 @@ Epic 5 is complete only when all of the following flows are verified green:
 - [x] History remains consistent across reloads
 
 All checkboxes must be checked. If any flow fails, the epic is not done and blockers must be resolved before proceeding.
+> Terjemahan Indonesia: All checkboxes must menjadi checked. If any flow fails, epic adalah not done dan blockers must menjadi resolved before proceeding.
 
 ---
 
@@ -395,6 +445,7 @@ All checkboxes must be checked. If any flow fails, the epic is not done and bloc
 ## Canonical Coverage KPI
 
 Target: **100%**
+> Terjemahan Indonesia: Sasaran: 100%
 
 | Service | Canonical File | Status | Coverage |
 |---------|---------------|--------|----------|
@@ -409,14 +460,17 @@ Target: **100%**
 **Formula:** Canonical Services / Total Services = Coverage
 
 This KPI is tracked after Epic 2 and must reach 100% before Epic 3 begins. Any service not at 100% blocks the milestone.
+> Terjemahan Indonesia: Ini KPI adalah tracked after Epic 2 dan must reach 100% before Epic 3 begins. Any layanan not at 100% blocks milestone.
 
 ---
 
 ## Backend Baseline v1
 
 After Epic 5 passes, the backend enters **Backend Baseline v1** status.
+> Terjemahan Indonesia: After Epic 5 passes, backend enters Backend dasar v1 status.
 
 This is a project milestone, not a branch name. It marks the transition from development to stabilization.
+> Terjemahan Indonesia: Ini adalah sebuah proyek milestone, not sebuah branch name. It marks transition dari development untuk stabilization.
 
 ### What Backend Baseline v1 Means
 
@@ -465,6 +519,7 @@ This is a project milestone, not a branch name. It marks the transition from dev
   - `planner_agent.py` → `core/cognitive/planner`
   - `reviewer_agent.py` → `core/cognitive/planner`
   - `executor_agent.py` → `core/tool_registry`
+> Terjemahan Indonesia: Conversation_manager.py → core/memory core/memory_layer.py → core/vector_store planner_agent.py → core/kognitif/planner reviewer_agent.py → core/kognitif/planner executor_agent.py → core/tool_registry
 - Deleted `backend/app/modules/` directory (after all consumers migrated)
 - `pydeps` verified: no edge from `core/` → `modules/`
 
@@ -499,6 +554,7 @@ This is a project milestone, not a branch name. It marks the transition from dev
 ### Post-Baseline v1 Rules
 
 After Backend Baseline v1, the following are **prohibited** without a signed ADR:
+> Terjemahan Indonesia: After Backend dasar v1, following adalah prohibited without sebuah signed ADR:
 
 - `Runtime v2`
 - `Planner v2`
@@ -509,6 +565,7 @@ After Backend Baseline v1, the following are **prohibited** without a signed ADR
 - Any new top-level `v2` directory or module
 
 All engineering energy shifts to:
+> Terjemahan Indonesia: All rekayasa energy shifts untuk:
 - Frontend development
 - Capability excellence (Network, Trading, Research)
 - Real cases and benchmarks
@@ -528,12 +585,14 @@ All engineering energy shifts to:
 | **Total** | **4–7 days** | **7 days buffered** |
 
 The 4–7 day estimate assumes:
+> Terjemahan Indonesia: 4–7 day estimate assumes:
 - No new bugs are introduced
 - Each task commits cleanly
 - AI assistance handles most code migration
 - Regression testing is automated or fast
 
 The 10–14 day audit estimate assumed full manual migration with slower iteration. With structured AI-assisted refactoring, the actual effort is lower.
+> Terjemahan Indonesia: 10–14 day audit estimate assumed full manual migration dengan slower iteration. dengan structured AI-assisted refactoring, actual effort adalah lower.
 
 ## Project Status
 

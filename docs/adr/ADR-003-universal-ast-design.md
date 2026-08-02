@@ -1,4 +1,23 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/adr/ADR-003-universal-ast-design.md`
+- Judul: Adr 003 Universal Ast Design
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # ADR-003: Universal AST Design
+
 
 **Status:** ✅ Accepted  
 **Date:** 2024  
@@ -9,14 +28,17 @@
 ## Context
 
 Network configuration analysis must support multiple vendors (Cisco, MikroTik, Fortinet, Juniper, etc.). Each vendor has different configuration syntax, data models, and semantics.
+> Terjemahan Indonesia: Network konfigurasi analysis must dukungan multiple vendors (Cisco, MikroTik, Fortinet, Juniper, etc.). Each vendor memiliki different konfigurasi syntax, data models, dan semantics.
 
 Without a common representation, every analysis feature (validation, refactoring, security audit) must be implemented separately for each vendor.
+> Terjemahan Indonesia: Without sebuah common representation, every analysis feature (validation, refactoring, keamanan audit) must menjadi implemented separately untuk each vendor.
 
 ---
 
 ## Decision
 
 Design a **Universal AST (Abstract Syntax Tree)** that models network configuration in a vendor-agnostic way.
+> Terjemahan Indonesia: Design sebuah Universal AST (Abstract Syntax Tree) itu models network konfigurasi dalam sebuah vendor-agnostic way.
 
 ### Key Components
 
@@ -29,10 +51,12 @@ Design a **Universal AST (Abstract Syntax Tree)** that models network configurat
 ### Design Principle
 
 Each vendor parser translates vendor-specific syntax into Universal AST models. Downstream consumers (analyzer, enricher, security audit) operate only on Universal AST, never on vendor-specific formats.
+> Terjemahan Indonesia: Each vendor parser translates vendor-specific syntax into Universal AST models. Downstream consumers (analyzer, enricher, keamanan audit) operate only pada Universal AST, never pada vendor-specific formats.
 
 ---
 
 ## Alternatives Considered
+
 
 | Alternative | Reason Rejected |
 |-------------|-----------------|
@@ -56,4 +80,4 @@ Each vendor parser translates vendor-specific syntax into Universal AST models. 
 ## Compliance
 
 All network configuration analysis MUST use Universal AST models. Direct access to vendor-specific structures by analysis code is prohibited.
-
+> Terjemahan Indonesia: All network konfigurasi analysis MUST use Universal AST models. Direct access untuk vendor-specific structures oleh analysis code adalah prohibited.

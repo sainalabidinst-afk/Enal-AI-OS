@@ -1,6 +1,33 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `sdk/README.md`
+- Judul: Readme
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Enal Cognitive Platform (ECP) SDK
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Project overview
+<!-- DOCUMENT_METADATA_END -->
+
 Developer SDK for building agents, tools, and workflows on ECP.
+> Terjemahan Indonesia: Developer SDK untuk building agen, alat, dan workflows pada ECP.
 
 ## Installation
 
@@ -120,24 +147,27 @@ enal.list_workflows()
 ## Contracts
 
 All components implement stable contracts:
+> Terjemahan Indonesia: Semua komponen menerapkan kontrak yang stabil:
 
-- `CapabilityContract` — Agent capabilities
-- `ToolContract` — Tool invocation
-- `ArtifactContract` — Artifact management
-- `MemoryContract` — Memory operations
-- `WorkflowContract` — Workflow execution
-- `WorldModelContract` — World model queries
-- `LearningContract` — Learning operations
+- `CapabilityContract` â€” Agent capabilities
+- `ToolContract` â€” Tool invocation
+- `ArtifactContract` â€” Artifact management
+- `MemoryContract` â€” Memory operations
+- `WorkflowContract` â€” Workflow execution
+- `WorldModelContract` â€” World model queries
+- `LearningContract` â€” Learning operations
 
 ## Examples
 
 See `examples/` directory:
-- `custom_agent.py` — Creating custom agents
-- `custom_workflow.py` — Building workflows
+> Terjemahan Indonesia: Lihat contoh/direktori:
+- `custom_agent.py` â€” Creating custom agents
+- `custom_workflow.py` â€” Building workflows
 
 ## Documentation
 
 See `docs/` directory for:
+> Terjemahan Indonesia: See docs/ directory untuk:
 - Getting Started Guide
 - Agent Development Guide
 - Tool Development Guide

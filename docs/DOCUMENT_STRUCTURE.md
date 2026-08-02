@@ -1,4 +1,30 @@
-# Document Structure — ECP Strategic Documentation
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/DOCUMENT_STRUCTURE.md`
+- Judul: Document Structure
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+# Document Structure â€” ECP Strategic Documentation
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for DOCUMENT_STRUCTURE
+<!-- DOCUMENT_METADATA_END -->
 
 **Purpose:** Maps the function, ownership, and stability level of each strategic document. Helps contributors know where to find information and where to make updates.
 
@@ -6,9 +32,9 @@
 
 ## Principles
 
-1. **Single Source of Truth (SSOT)** — Each piece of information lives in exactly one document. Other documents may reference it but must not duplicate it.
-2. **Stability Levels** — Documents are classified as `Frozen`, `Stable`, `Active`, or `Ephemeral` to indicate how frequently they change.
-3. **Clear Ownership** — Each document has an owner responsible for keeping it accurate.
+1. **Single Source of Truth (SSOT)** â€” Each piece of information lives in exactly one document. Other documents may reference it but must not duplicate it.
+2. **Stability Levels** â€” Documents are classified as `Frozen`, `Stable`, `Active`, or `Ephemeral` to indicate how frequently they change.
+3. **Clear Ownership** â€” Each document has an owner responsible for keeping it accurate.
 
 ---
 
@@ -21,8 +47,8 @@
 | `RELEASE_CRITERIA.md` | Release conditions, Definition of Done, quality gates | **Stable** | Release Manager | Per release cycle |
 | `CAPABILITY_STRATEGY.md` | Capability Pack profiles, maturity model, lifecycle, knowledge expansion | **Active** | Capability Lead | Per capability improvement cycle |
 | `ROADMAP.md` | Timeline, release targets, long-term vision | **Active** | Chief Product Officer | Per quarter or when roadmap shifts |
-| `DOCUMENT_STRUCTURE.md` | This table — document mapping | **Stable** | Chief Architect | When new strategic docs are added |
-| `v1_roadmap.md` | (Legacy landing page) | **Frozen** | — | No longer updated; redirects to new docs |
+| `DOCUMENT_STRUCTURE.md` | This table â€” document mapping | **Stable** | Chief Architect | When new strategic docs are added |
+| `v1_roadmap.md` | (Legacy landing page) | **Frozen** | â€” | No longer updated; redirects to new docs |
 | `ARCHITECTURE_DECISIONS.md` | ADR records | **Frozen** | Chief Architect | Only when new ADR is approved |
 | `PRODUCT_CONTRACT.md` | Product definition, UI/API contracts | **Frozen** | Chief Product Officer | Product Change Request only |
 | `CAPABILITY_GUIDE.md` | Detailed capability specs (complementary to CAPABILITY_STRATEGY) | **Active** | Capability Lead | Per pack improvement |

@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> > Bahasa Indonesia:  Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `WORKFLOW_CATALOG_REPORT.md`
+- Judul: Workflow Catalog Report
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # WORKFLOW CATALOG & INTENT RESOLVER — FINAL REPORT
 
 **Version**: 1.0.0-dev  
@@ -137,12 +155,16 @@ py -m ruff check apps/organization/workflow_catalog.py apps/organization/intent_
 ```
 
 Result: ✅ No issues found.
+> Terjemahan Indonesia: Hasil: ✅ Tidak ditemukan masalah.
+> > Bahasa Indonesia:  Hasil: ✅ Tidak ditemukan masalah.
 
 ```bash
 py -m mypy apps/organization/workflow_catalog.py apps/organization/intent_resolver.py
 ```
 
 Result: ✅ Type checking passed.
+> Terjemahan Indonesia: Hasil: ✅ Pengecekan tipe berhasil.
+> > Bahasa Indonesia:  Hasil: ✅ Pengecekan tipe berhasil.
 
 ---
 
@@ -166,6 +188,8 @@ Result: ✅ Type checking passed.
 | `WorkflowExecutionStarted` | When execution begins |
 
 All events use the existing `EventBus` from `apps.organization.communication`.
+> Terjemahan Indonesia: All events use existing EventBus dari apps.organization.communication.
+> > Bahasa Indonesia:  Semua acara menggunakan EventBus yang ada dari apps.organization.communication.
 
 ## 7. Readiness Score
 
@@ -185,4 +209,5 @@ All events use the existing `EventBus` from `apps.organization.communication`.
 ## 8. STOP Condition
 
 ✅ **Completed**. All deliverables created. No AI Planner, Multi-Agent, or reasoning engine created.
-
+> Terjemahan Indonesia: ✅ Completed. All deliverables created. No AI Planner, Multi-agen, or reasoning engine created.
+> > Bahasa Indonesia:  ✅ Selesai. Semua kiriman dibuat. Tidak ada AI Planner, Multi-agen, atau mesin penalaran yang dibuat.

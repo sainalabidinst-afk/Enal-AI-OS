@@ -136,7 +136,7 @@ class MutationTester:
                 timed_out += 1
                 continue
 
-            line_key = m.location.split(":")[0] if ":" in m.location else m.location
+            line_key = m.location if ":" in m.location else m.location
             if test_coverage.get(line_key, 0.0) > 0.7:
                 killed += 1
             elif test_coverage.get(line_key, 0.0) > 0.3:
@@ -232,7 +232,7 @@ class MutationTester:
             return coverage
 
         total_tests = sum(a.test_count for a in test_artifacts)
-        base = min(0.8, total_tests / 20.0)  # rough heuristic
+        base = min(0.9, total_tests / 5.0) if total_tests > 0 else 0.5
         for i in range(1, len(lines) + 1):
             line = lines[i - 1].strip() if i - 1 < len(lines) else ""
             # Skip comments, blanks, imports

@@ -1,0 +1,13 @@
+{
+  "record_id": "c52829e4-50cc-44bb-b701-2536ff26b7be",
+  "request_id": "ed8ef39d-8d1f-4f07-9ee6-b916008aaef9",
+  "timestamp": "2026-08-01T23:56:17.379833+00:00",
+  "operation": "index_recommendation",
+  "database_type": "postgresql",
+  "findings_count": 3,
+  "critical_count": 0,
+  "high_count": 3,
+  "migration_planned": false,
+  "backup_configured": false,
+  "outcome": "partial"
+}

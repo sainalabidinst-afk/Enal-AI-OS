@@ -1,6 +1,25 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `benchmarks/README.md`
+- Judul: Readme
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # ECP Benchmark Suite
 
 This directory contains benchmarks for measuring ECP performance and quality.
+> Terjemahan Indonesia: Ini directory contains benchmarks untuk measuring ECP performance dan kualitas.
 
 ## Running Benchmarks
 
@@ -16,6 +35,7 @@ python -m benchmarks.agent_quality
 
 ### Performance Benchmarks
 
+
 - `performance_benchmark.py` — Latency, token efficiency, determinism, success rate
 - `package_boundaries.py` — Package dependency enforcement
 
@@ -30,6 +50,7 @@ python -m benchmarks.agent_quality
 ### Synthetic Benchmark
 
 Structured scenarios with known expected outputs, defined in `benchmarks/`.
+> Terjemahan Indonesia: Structured scenarios dengan known expected outputs, defined dalam benchmarks/.
 
 ### Real-world Benchmark
 
@@ -37,6 +58,7 @@ Cases from actual usage stored in `real_cases/<capability_id>/`.
 Each case contains input, output, and evaluation.
 Real-world cases are the primary source of Capability Pack improvement.
 Synthetic benchmarks validate improvements; real-world cases drive them.
+> Terjemahan Indonesia: Cases dari actual usage stored dalam real_cases//. Each case contains input, output, dan evaluation. Real-world cases adalah primary source dari kapabilitas Pack improvement. Synthetic benchmarks validate improvements; real-world cases drive them.
 
 ## Adding New Benchmarks
 
@@ -47,6 +69,7 @@ Synthetic benchmarks validate improvements; real-world cases drive them.
 ## CI Integration
 
 Benchmarks run automatically on every PR:
+> Terjemahan Indonesia: Benchmarks run automatically pada every PR:
 - Performance benchmarks must not degrade > 10%
 - Quality benchmarks must maintain > 80% pass rate
 - Package boundaries must have zero violations

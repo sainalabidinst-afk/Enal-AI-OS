@@ -1,8 +1,34 @@
-# Reference Architecture — Enal Cognitive Platform (ECP)
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/REFERENCE_ARCHITECTURE.md`
+- Judul: Reference Architecture
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+# Reference Architecture â€” Enal Cognitive Platform (ECP)
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for REFERENCE_ARCHITECTURE
+<!-- DOCUMENT_METADATA_END -->
 
 **Version:** 1.0.0  
 **Based on:** `docs/AES_ARCHITECTURE.md`  
-**Status:** 🟢 Active  
+**Status:** ðŸŸ¢ Active  
 
 ---
 
@@ -25,6 +51,7 @@
 ## 1. Purpose
 
 This Reference Architecture extends the AES (Architecture Engineering Specification) by providing:
+> Terjemahan Indonesia: Ini Reference arsitektur extends AES (arsitektur rekayasa Specification) oleh providing:
 
 - **Reusable patterns** for building applications on ECP
 - **Decision framework** for architects building new capability packs or applications
@@ -38,6 +65,7 @@ This Reference Architecture extends the AES (Architecture Engineering Specificat
 ## 2. What is a Reference Architecture
 
 A Reference Architecture is a **template architecture** that:
+> Terjemahan Indonesia: Sebuah Reference arsitektur adalah sebuah template arsitektur itu:
 
 1. Identifies the key **architectural building blocks**
 2. Defines **how blocks interact** (contracts, protocols, data flow)
@@ -45,19 +73,20 @@ A Reference Architecture is a **template architecture** that:
 4. Provides **decision criteria** for choosing approaches
 
 It is NOT a rigid blueprint. It is a **starting point** that application teams adapt to their specific domain requirements while maintaining platform compatibility.
+> Terjemahan Indonesia: It adalah NOT sebuah rigid blueprint. It adalah sebuah starting point itu application teams adapt untuk their specific domain requirements while maintaining platform compatibility.
 
 ### Relationship to Other Documents
 
 ```
 Engineering Baseline (what is frozen)
-        │
-        ▼
+        â”‚
+        â–¼
 AES Architecture (how the platform is built)
-        │
-        ▼
-Reference Architecture (how to build ON the platform) ← ANDA DISINI
-        │
-        ▼
+        â”‚
+        â–¼
+Reference Architecture (how to build ON the platform) â† ANDA DISINI
+        â”‚
+        â–¼
 Application Development Guide (step-by-step for app teams)
 ```
 
@@ -66,6 +95,7 @@ Application Development Guide (step-by-step for app teams)
 ## 3. Architecture Building Blocks
 
 ECP provides these reusable building blocks for any application:
+> Terjemahan Indonesia: ECP menyediakan these reusable building blocks untuk any application:
 
 ### 3.1 Core Blocks (Provided by Platform)
 
@@ -86,10 +116,10 @@ ECP provides these reusable building blocks for any application:
 
 | Block | Component | Abstraction |
 |---|---|---|
-| **Event Bus** | `EventBus` | Redis Streams — pub/sub + persistent |
+| **Event Bus** | `EventBus` | Redis Streams â€” pub/sub + persistent |
 | **Task Queue** | `TaskQueue` | In-memory async queue |
 | **Execution** | `ExecutionIntegration` | Session + scheduler + progress |
-| **Model Router** | `ModelRouter` | LiteLLM — multi-provider LLM access |
+| **Model Router** | `ModelRouter` | LiteLLM â€” multi-provider LLM access |
 | **State Recovery** | `StateRecovery` | Checkpoint/restore for long tasks |
 | **Governance** | `Governance` | Approval workflows, tenant isolation |
 | **Security** | `SecurityModel` | RBAC, audit logging |
@@ -99,17 +129,18 @@ ECP provides these reusable building blocks for any application:
 | Extension Point | What to Implement | Example |
 |---|---|---|
 | **Capability Pack** | `BaseApp` subclass + `get_app()` factory | `NetworkEngineerApp` |
-| **Vendor Parser** | Parse config → Universal AST models | `mikrotik.py` → `UniversalFirewallRule` |
+| **Vendor Parser** | Parse config â†’ Universal AST models | `mikrotik.py` â†’ `UniversalFirewallRule` |
 | **Custom Worker** | Task handler for society runtime | `network_worker.py` |
 | **Plugin** | Plugin manifest + handler | MikroTik plugin |
 | **API Route** | FastAPI router module | `api/chat.py` |
-| **Event Handler** | Subscribe to event type | `task.completed` → notify |
+| **Event Handler** | Subscribe to event type | `task.completed` â†’ notify |
 
 ---
 
 ## 4. Application Types on ECP
 
 Based on the existing capability packs, ECP supports these application archetypes:
+> Terjemahan Indonesia: Based pada existing kapabilitas packs, ECP mendukung these application archetypes:
 
 ### 4.1 Analysis Applications
 
@@ -119,7 +150,7 @@ Based on the existing capability packs, ECP supports these application archetype
 
 **Common Pipeline:**
 ```
-Perception → Memory → Reasoning → Decision → Reflection
+Perception â†’ Memory â†’ Reasoning â†’ Decision â†’ Reflection
 ```
 
 **Key Blocks:** Perception, Memory, Reasoning, Knowledge Graph
@@ -132,7 +163,7 @@ Perception → Memory → Reasoning → Decision → Reflection
 
 **Common Pipeline:**
 ```
-Perception → Planning → Reasoning → Decision → Action → Reflection
+Perception â†’ Planning â†’ Reasoning â†’ Decision â†’ Action â†’ Reflection
 ```
 
 **Key Blocks:** Planning, Action, Verification, Debate
@@ -145,7 +176,7 @@ Perception → Planning → Reasoning → Decision → Action → Reflection
 
 **Common Pipeline:**
 ```
-Perception → Memory → Reasoning → Decision → Reflection → Learning
+Perception â†’ Memory â†’ Reasoning â†’ Decision â†’ Reflection â†’ Learning
 ```
 
 **Key Blocks:** Memory (conversation + session), Continuous Learning
@@ -158,7 +189,7 @@ Perception → Memory → Reasoning → Decision → Reflection → Learning
 
 **Common Pipeline:**
 ```
-Perception → Planning → Execution → Verification → Reflection
+Perception â†’ Planning â†’ Execution â†’ Verification â†’ Reflection
 ```
 
 **Key Blocks:** Execution Integration, State Recovery, Governance
@@ -171,26 +202,26 @@ Perception → Planning → Execution → Verification → Reflection
 
 ```
 Step 1: Define Domain Scope
-        │
-        ▼
+        â”‚
+        â–¼
 Step 2: Identify Required Building Blocks
-        │
-        ▼
+        â”‚
+        â–¼
 Step 3: Implement Capability Pack
-        │
-        ▼
+        â”‚
+        â–¼
 Step 4: Register Skills
-        │
-        ▼
+        â”‚
+        â–¼
 Step 5: Implement Custom Logic
-        │
-        ▼
+        â”‚
+        â–¼
 Step 6: Add Tests
-        │
-        ▼
+        â”‚
+        â–¼
 Step 7: Register API Routes (if needed)
-        │
-        ▼
+        â”‚
+        â–¼
 Step 8: Integrate with Orchestration
 ```
 
@@ -251,13 +282,14 @@ skills:
 #### Step 5: Implement Custom Logic
 
 Place domain-specific logic in the app module. Keep core cognitive services generic.
+> Terjemahan Indonesia: Place domain-specific logic dalam app module. Keep core kognitif services generic.
 
 ```
 apps/my_app/
-├── __init__.py           # App class + factory
-├── analyzer.py           # Domain analysis logic
-├── generator.py          # Output generation
-└── models.py             # Domain data models
+â”œâ”€â”€ __init__.py           # App class + factory
+â”œâ”€â”€ analyzer.py           # Domain analysis logic
+â”œâ”€â”€ generator.py          # Output generation
+â””â”€â”€ models.py             # Domain data models
 ```
 
 #### Step 6: Add Tests
@@ -305,31 +337,31 @@ if "my-keyword" in task_lower:
 
 | Category | When to Use | Requires ADR |
 |---|---|---|
-| **Core Platform Change** | Modifying Event Bus, Memory Manager, Cognitive Kernel | ✅ Yes |
-| **New Capability Pack** | Adding a new domain application | ❌ No (unless it breaks existing contracts) |
-| **New Infrastructure** | Adding PostgreSQL, new LLM provider, new queue | ✅ Yes (if it changes data flow) |
-| **API Contract Change** | Modifying public endpoint signatures | ✅ Yes (backward compatibility required) |
-| **Internal Refactor** | Restructuring within a module | ❌ No |
-| **New Pattern** | First use of a new architectural pattern | ✅ Yes |
+| **Core Platform Change** | Modifying Event Bus, Memory Manager, Cognitive Kernel | âœ… Yes |
+| **New Capability Pack** | Adding a new domain application | âŒ No (unless it breaks existing contracts) |
+| **New Infrastructure** | Adding PostgreSQL, new LLM provider, new queue | âœ… Yes (if it changes data flow) |
+| **API Contract Change** | Modifying public endpoint signatures | âœ… Yes (backward compatibility required) |
+| **Internal Refactor** | Restructuring within a module | âŒ No |
+| **New Pattern** | First use of a new architectural pattern | âœ… Yes |
 
 ### 6.2 Decision Flowchart
 
 ```
 Do you need to change ECP?
-        │
-        ├── Modify core (Event Bus, Kernel, Memory)?
-        │   └── ✅ ADR required + Baseline freeze review
-        │
-        ├── Add new capability pack?
-        │   └── ❌ No ADR needed. Follow Reference Architecture
-        │
-        ├── Change public API?
-        │   ├── Backward compatible? → ❌ No ADR
-        │   └── Breaking change? → ✅ ADR + deprecation period
-        │
-        └── Change infrastructure?
-            ├── Additive (new feature)? → ❌ No ADR
-            └── Replacing (swap component)? → ✅ ADR required
+        â”‚
+        â”œâ”€â”€ Modify core (Event Bus, Kernel, Memory)?
+        â”‚   â””â”€â”€ âœ… ADR required + Baseline freeze review
+        â”‚
+        â”œâ”€â”€ Add new capability pack?
+        â”‚   â””â”€â”€ âŒ No ADR needed. Follow Reference Architecture
+        â”‚
+        â”œâ”€â”€ Change public API?
+        â”‚   â”œâ”€â”€ Backward compatible? â†’ âŒ No ADR
+        â”‚   â””â”€â”€ Breaking change? â†’ âœ… ADR + deprecation period
+        â”‚
+        â””â”€â”€ Change infrastructure?
+            â”œâ”€â”€ Additive (new feature)? â†’ âŒ No ADR
+            â””â”€â”€ Replacing (swap component)? â†’ âœ… ADR required
 ```
 
 ### 6.3 Tradeoff Evaluation Template
@@ -370,7 +402,7 @@ Option A: [rationale]
 
 ```python
 # Instead of module-level instantiation:
-event_bus = EventBus()  # ❌ May cause circular imports
+event_bus = EventBus()  # âŒ May cause circular imports
 
 # Use lazy initialization:
 _event_bus = None
@@ -408,17 +440,17 @@ async def execute_pipeline(pipeline: list[str], context: dict) -> dict:
 
 ### Pattern 3: Universal AST
 
-**Context:** Support multiple vendor formats without N×M complexity.
+**Context:** Support multiple vendor formats without NÃ—M complexity.
 
 **Solution:**
 
 ```
-vendor_config → [Vendor Parser] → UniversalAST → [Analysis/Gemeration]
-                                      │
-                                      ├── UniversalFirewallRule
-                                      ├── UniversalNATRule
-                                      ├── UniversalBGP
-                                      └── UniversalInterface
+vendor_config â†’ [Vendor Parser] â†’ UniversalAST â†’ [Analysis/Gemeration]
+                                      â”‚
+                                      â”œâ”€â”€ UniversalFirewallRule
+                                      â”œâ”€â”€ UniversalNATRule
+                                      â”œâ”€â”€ UniversalBGP
+                                      â””â”€â”€ UniversalInterface
 ```
 
 **Used in:** `apps/network_engineer/`, `attachments/parsers/network/`
@@ -443,7 +475,7 @@ await event_bus.publish(Event(
 event_bus.subscribe("task.completed", handle_task_completed)
 ```
 
-**Used in:** `event_bus.py` — cross-module communication
+**Used in:** `event_bus.py` â€” cross-module communication
 
 ---
 
@@ -454,7 +486,7 @@ event_bus.subscribe("task.completed", handle_task_completed)
 **Solution:**
 
 ```
-threshold exceeded → collect entries → LLM summary → consolidate → store in long-term → delete originals
+threshold exceeded â†’ collect entries â†’ LLM summary â†’ consolidate â†’ store in long-term â†’ delete originals
 ```
 
 **Trigger:** Automatic when any memory layer exceeds 50 entries.
@@ -472,8 +504,8 @@ threshold exceeded → collect entries → LLM summary → consolidate → store
 ```python
 complexity = cognitive_budget.estimate(task)
 pipeline = PIPELINE_PRESETS[complexity]
-# TRIVIAL → 4 services (fast, cheap)
-# COMPLEX → 10 services (thorough, expensive)
+# TRIVIAL â†’ 4 services (fast, cheap)
+# COMPLEX â†’ 10 services (thorough, expensive)
 ```
 
 **Used in:** `adaptive_runtime.py`
@@ -485,12 +517,12 @@ pipeline = PIPELINE_PRESETS[complexity]
 ### Anti-Pattern 1: Direct Cross-Module Call
 
 ```python
-# ❌ ANTI-PATTERN: Direct import between capability packs
+# âŒ ANTI-PATTERN: Direct import between capability packs
 from apps.code_engineer import CodeEngineerApp
 network_app = NetworkEngineerApp()
 network_app._code_engineer = CodeEngineerApp()  # Tight coupling!
 
-# ✅ CORRECT: Use Event Bus
+# âœ… CORRECT: Use Event Bus
 await event_bus.publish(Event(
     event_type="code:analyze",
     payload={"code": config_script},
@@ -502,22 +534,22 @@ await event_bus.publish(Event(
 ### Anti-Pattern 2: Core Importing Apps
 
 ```python
-# ❌ ANTI-PATTERN: Core module imports app
+# âŒ ANTI-PATTERN: Core module imports app
 from apps.network_engineer import NetworkEngineerApp
-# This creates a circular dependency: apps → core → apps
+# This creates a circular dependency: apps â†’ core â†’ apps
 
-# ✅ CORRECT: Apps import core, not the other way
+# âœ… CORRECT: Apps import core, not the other way
 from backend.app.core.adaptive_runtime import adaptive_runtime
 ```
 
 ### Anti-Pattern 3: Direct Infrastructure Access from Apps
 
 ```python
-# ❌ ANTI-PATTERN: App accesses infrastructure directly
+# âŒ ANTI-PATTERN: App accesses infrastructure directly
 import redis.asyncio as aioredis
 redis = aioredis.from_url("redis://localhost")
 
-# ✅ CORRECT: Use platform abstractions
+# âœ… CORRECT: Use platform abstractions
 from backend.app.core.memory_layer import memory_manager
 await memory_manager.store("working", key, value)
 ```
@@ -525,12 +557,12 @@ await memory_manager.store("working", key, value)
 ### Anti-Pattern 4: Bypassing Pipeline
 
 ```python
-# ❌ ANTI-PATTERN: Direct service call bypassing pipeline
+# âŒ ANTI-PATTERN: Direct service call bypassing pipeline
 from backend.app.core.decision_engine import decision_engine
 result = await decision_engine.decide(options, context)
 # Bypasses perception, memory, reasoning, planning
 
-# ✅ CORRECT: Use pipeline
+# âœ… CORRECT: Use pipeline
 from backend.app.core.cognitive_kernel import cognitive_kernel
 result = await cognitive_kernel.execute_pipeline(
     ["perception", "memory", "reasoning", "decision"],
@@ -541,11 +573,11 @@ result = await cognitive_kernel.execute_pipeline(
 ### Anti-Pattern 5: Unbounded Memory Growth
 
 ```python
-# ❌ ANTI-PATTERN: Store without consolidation plan
+# âŒ ANTI-PATTERN: Store without consolidation plan
 await memory_manager.store("episodic", key, value)
 # Never called: await memory_manager.compress_memory("episodic")
 
-# ✅ CORRECT: Automatic consolidation via threshold
+# âœ… CORRECT: Automatic consolidation via threshold
 # MemoryManager enforces compression at threshold=50
 ```
 
@@ -561,7 +593,7 @@ await memory_manager.store("episodic", key, value)
 | **Scalability** | Event Bus enables horizontal scaling; memory consolidation bounds growth | Redis dependency adds operational complexity |
 | **Reliability** | State Recovery for long tasks; Event Bus persistence | Additional storage for checkpoint data |
 | **Security** | RBAC via SecurityModel; tenant isolation via Governance | Additional latency on auth checks |
-| **Maintainability** | Loose coupling via Event Bus; clear dependency rules | Event flow is implicit — requires documentation |
+| **Maintainability** | Loose coupling via Event Bus; clear dependency rules | Event flow is implicit â€” requires documentation |
 | **Testability** | 426 unit tests; memory layers are mockable | Integration tests require Redis/PostgreSQL |
 | **Extensibility** | Capability Pack pattern; plugin system | New packs must implement BaseApp contract |
 | **Observability** | Telemetry events across all operations | Additional event bus traffic |
@@ -594,7 +626,7 @@ await memory_manager.store("episodic", key, value)
 |---|---|---|
 | **New LLM provider** | Better model available | Add to `ModelRouter`, no architecture change |
 | **New memory backend** | Qdrant/vector search for knowledge | Add new `MemoryLayer` subclass, register in `MemoryManager` |
-| **Multi-region deployment** | Production scaling | Event Bus → Kafka/RabbitMQ compatible |
+| **Multi-region deployment** | Production scaling | Event Bus â†’ Kafka/RabbitMQ compatible |
 | **New capability pack** | New domain application | Follow Reference Architecture, no core change |
 | **Plugin ecosystem** | Third-party extensions | Extend `PluginManifest`, add marketplace |
 | **Real-time collaboration** | Multi-user requirement | Add WebSocket to Event Bus, conflict resolution |
@@ -631,4 +663,3 @@ await memory_manager.store("episodic", key, value)
 ---
 
 *End of Reference Architecture*
-

@@ -1,12 +1,40 @@
-## Component Versions - Platform RC (2026-07-27)
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `VERSION_MATRIX.md`
+- Judul: Version Matrix
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Version history and Capability Pack version matrix
+<!-- DOCUMENT_METADATA_END -->
+
+## Component Versions — Platform RC (2026-08-02)
 
 | Component | Version | Status | Notes |
 |-----------|---------|--------|-------|
 | Backend Baseline | v1.0.0-rc | **Release Candidate** | Core Cognitive Services integrated |
 | Product Intelligence | v1.0.0-dev | Active | Engineering Hardening phase |
-| Product Contract | v1 | Locked | Effective 2026-07-11 |
+| Product Contract | v1 | Locked | Effective 2026-08-02 |
 | Frontend MVP | v1.0.0-dev | Active | Product MVP phase |
-| Capability Packs | v1.0.0-rc | Production Ready | 6 packs certified |
+| Capability Packs | v1.0.0-rc | Production Ready | 13 packs certified |
 | API Contracts | v1 | Stable | Public APIs frozen |
 | Benchmark Framework | v1.0.0-dev | Active | 426 tests passing |
 | Telemetry | v1.0.0-dev | Active | JSONL metrics + KPI |

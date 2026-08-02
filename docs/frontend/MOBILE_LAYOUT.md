@@ -1,6 +1,33 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/frontend/MOBILE_LAYOUT.md`
+- Judul: Mobile Layout
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Mobile Layout
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Frontend documentation for MOBILE_LAYOUT
+<!-- DOCUMENT_METADATA_END -->
+
 This document defines responsive behavior for v1 screens. Mobile is a first-class target, not an afterthought.
+> Terjemahan Indonesia: Ini dokumen defines responsive behavior untuk v1 screens. Mobile adalah sebuah first-class target, not sebuah afterthought.
 
 ---
 
@@ -64,6 +91,7 @@ This document defines responsive behavior for v1 screens. Mobile is a first-clas
 ## Touch Targets
 
 All interactive elements must have minimum touch target of 44x44px on mobile.
+> Terjemahan Indonesia: All interactive elements must memiliki minimum touch target dari 44x44px pada mobile.
 
 | Element | Size |
 |---------|------|

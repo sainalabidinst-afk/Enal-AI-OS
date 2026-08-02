@@ -1,0 +1,13 @@
+{
+  "record_id": "ffabe711-9b94-4e0f-a687-e04d6e887e22",
+  "request_id": "31e06ef8-92a9-47a5-9b24-3f0d9287f49c",
+  "timestamp": "2026-08-02T00:20:19.739349+00:00",
+  "operation": "backup_plan",
+  "database_type": "postgresql",
+  "findings_count": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "migration_planned": false,
+  "backup_configured": true,
+  "outcome": "success"
+}

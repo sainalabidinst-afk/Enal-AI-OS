@@ -1,4 +1,30 @@
-# ECP Network Engineer — Milestone 3: Network Operations
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/sprint3_network_operations.md`
+- Judul: Sprint3 Network Operations
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+# ECP Network Engineer â€” Milestone 3: Network Operations
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for sprint3_network_operations
+<!-- DOCUMENT_METADATA_END -->
 
 **Status:** Planned
 **Focus:** Operational workflows, not protocol automation
@@ -75,10 +101,10 @@ rules:
 > "As a network engineer, I want a health score so I can quickly assess router condition."
 
 **Features:**
-- Health Score (0–100)
-- Security Score (0–100)
-- Performance Score (0–100)
-- Maintainability Score (0–100)
+- Health Score (0â€“100)
+- Security Score (0â€“100)
+- Performance Score (0â€“100)
+- Maintainability Score (0â€“100)
 - Overall Score
 - Breakdown by category
 - Markdown report
@@ -90,6 +116,7 @@ rules:
   - Warning: -10
   - Info: -5
   - Suggestion: -2
+> Terjemahan Indonesia: Kritis: -20 Peringatan: -10 Info: -5 Saran: -2
 - Floor at 0
 
 **Acceptance Criteria:**
@@ -110,11 +137,12 @@ rules:
 **Features:**
 - Analyze current config + proposed diff
 - Identify affected services:
-  - Firewall changes → connectivity impact
-  - NAT changes → internet access impact
-  - Route changes → traffic blackhole risk
-  - DHCP changes → lease impact
-  - Interface changes → device isolation
+  - Firewall changes â†’ connectivity impact
+  - NAT changes â†’ internet access impact
+  - Route changes â†’ traffic blackhole risk
+  - DHCP changes â†’ lease impact
+  - Interface changes â†’ device isolation
+> Terjemahan Indonesia: Perubahan firewall â†’ dampak konektivitas Perubahan NAT â†’ dampak akses internet Perubahan rute â†’ risiko lubang hitam lalu lintas Perubahan DHCP â†’ dampak sewa Perubahan antarmuka â†’ isolasi perangkat
 - Predict impact level (Low/Medium/High/Critical)
 - Suggest mitigation steps
 
@@ -141,6 +169,7 @@ rules:
   - What happens if removed
   - Dependencies (what else depends on this)
   - Common mistakes
+> Terjemahan Indonesia: What ini rule does Why it was created What happens if removed Dependencies (what else depends pada ini) Common mistakes
 - Plain language, not jargon-heavy
 
 **Example Output:**
@@ -189,6 +218,7 @@ Common mistakes:
 - Live MikroTik API integration
 
 These are consequences of good operational understanding, not prerequisites.
+> Terjemahan Indonesia: These adalah consequences dari good operational understanding, not prerequisites.
 
 ---
 
@@ -196,21 +226,21 @@ These are consequences of good operational understanding, not prerequisites.
 
 | Metric | Target |
 |--------|--------|
-| Configuration Compare Accuracy | ≥95% |
-| Compliance Audit Coverage | ≥90% of common policies |
-| Health Score Correlation | ≥0.8 with expert judgment |
-| Change Impact Accuracy | ≥80% for known scenarios |
+| Configuration Compare Accuracy | â‰¥95% |
+| Compliance Audit Coverage | â‰¥90% of common policies |
+| Health Score Correlation | â‰¥0.8 with expert judgment |
+| Change Impact Accuracy | â‰¥80% for known scenarios |
 | Explanation Completeness | 100% of 45 rules explained |
-| Golden Test Pass | ≥95% |
-| Dogfooding Feedback Items | ≥20 items logged |
-| Time Saved (dogfooding) | ≥50% vs manual analysis |
+| Golden Test Pass | â‰¥95% |
+| Dogfooding Feedback Items | â‰¥20 items logged |
+| Time Saved (dogfooding) | â‰¥50% vs manual analysis |
 
 ---
 
 ## Prerequisites
 
 - Milestone 2 baseline frozen (`v1.0.0-dev+network-sprint2`)
-- Dogfooding completed (1–2 weeks)
+- Dogfooding completed (1â€“2 weeks)
 - Feedback from at least 10 real configs reviewed
 - Top 5 priorities from dogfooding documented
 
@@ -223,7 +253,7 @@ These are consequences of good operational understanding, not prerequisites.
 - [ ] Health Report generates consistent scores
 - [ ] Change Impact Analysis predicts impacts correctly
 - [ ] Explain Like Engineer covers all 45 rules
-- [ ] All Milestone 3 tests pass (≥95%)
+- [ ] All Milestone 3 tests pass (â‰¥95%)
 - [ ] Dogfooding feedback incorporated
 - [ ] Documentation updated
 - [ ] Demo ready

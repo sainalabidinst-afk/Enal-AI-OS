@@ -1,31 +1,58 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/frontend/SCREEN_FLOW.md`
+- Judul: Screen Flow
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Screen Flow
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Frontend documentation for SCREEN_FLOW
+<!-- DOCUMENT_METADATA_END -->
+
 This document defines the user flow across all v1 screens. It is the reference for navigation, routing, and screen transitions.
+> Terjemahan Indonesia: Ini dokumen defines user flow across all v1 screens. It adalah reference untuk navigation, routing, dan screen transitions.
 
 ---
 
 ## Screen Map
 
 ```
-┌─────────────────────────────────────────┐
-│  WorkspaceSidebar (collapsible)         │
-│  - Workspace list                       │
-│  - Execution history link               │
-│  - Settings link                        │
-└─────────────────────────────────────────┘
-                    │
-                    ▼
-┌─────────────────────────────────────────┐
-│  Main Layout                            │
-│  ┌─────────────────────────────────┐    │
-│  │                                  │    │
-│  │  Screen Content                  │    │
-│  │                                  │    │
-│  │                                  │    │
-│  └─────────────────────────────────┘    │
-│                                          │
-│  [persistent: NotificationToast]       │
-└─────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  WorkspaceSidebar (collapsible)         â”‚
+â”‚  - Workspace list                       â”‚
+â”‚  - Execution history link               â”‚
+â”‚  - Settings link                        â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Main Layout                            â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚                                  â”‚    â”‚
+â”‚  â”‚  Screen Content                  â”‚    â”‚
+â”‚  â”‚                                  â”‚    â”‚
+â”‚  â”‚                                  â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                          â”‚
+â”‚  [persistent: NotificationToast]       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -52,9 +79,9 @@ This document defines the user flow across all v1 screens. It is the reference f
 10. Execution continues or stops.
 
 **Exit points:**
-- User switches Workspace → Workspace screen.
-- User clicks Execution History → Execution History screen.
-- User clicks Settings → Settings screen.
+- User switches Workspace â†’ Workspace screen.
+- User clicks Execution History â†’ Execution History screen.
+- User clicks Settings â†’ Settings screen.
 
 ---
 
@@ -78,9 +105,9 @@ This document defines the user flow across all v1 screens. It is the reference f
 7. Timeline tab shows chronological project events.
 
 **Exit points:**
-- User clicks artifact → Artifact Viewer.
-- User clicks execution → Execution History detail.
-- User clicks back → Chat.
+- User clicks artifact â†’ Artifact Viewer.
+- User clicks execution â†’ Execution History detail.
+- User clicks back â†’ Chat.
 
 ---
 
@@ -102,8 +129,8 @@ This document defines the user flow across all v1 screens. It is the reference f
 5. User can download/export artifact.
 
 **Exit points:**
-- User clicks back → previous screen.
-- User closes viewer → back to Chat or Workspace.
+- User clicks back â†’ previous screen.
+- User closes viewer â†’ back to Chat or Workspace.
 
 ---
 
@@ -123,13 +150,14 @@ This document defines the user flow across all v1 screens. It is the reference f
    - Risk level.
    - Rollback availability.
    - Test results (if applicable).
+> Terjemahan Indonesia: What akan change. Risk level. Rollback availability. Test results (if applicable).
 3. User clicks Approve or Reject.
 4. If approved, execution continues.
 5. If rejected, execution stops or asks for refinement.
 
 **Exit points:**
-- Approve → execution continues.
-- Reject → execution stops, returns to Chat.
+- Approve â†’ execution continues.
+- Reject â†’ execution stops, returns to Chat.
 
 ---
 
@@ -150,7 +178,7 @@ This document defines the user flow across all v1 screens. It is the reference f
 5. Changes take effect immediately.
 
 **Exit points:**
-- User clicks back or close → returns to previous screen.
+- User clicks back or close â†’ returns to previous screen.
 
 ---
 
@@ -170,8 +198,8 @@ This document defines the user flow across all v1 screens. It is the reference f
 4. User can click "Try it" to start a conversation with that capability.
 
 **Exit points:**
-- User clicks back → Chat.
-- User starts conversation → Chat.
+- User clicks back â†’ Chat.
+- User starts conversation â†’ Chat.
 
 ---
 
@@ -192,17 +220,19 @@ This document defines the user flow across all v1 screens. It is the reference f
    - Progress
    - Duration
    - Artifact count
-3. User clicks execution → detail view.
+> Terjemahan Indonesia: Goal status Progress Duration Artifact count
+3. User clicks execution â†’ detail view.
 4. Detail view shows:
    - Full execution timeline
    - Phase breakdown
    - Logs
    - Artifacts
    - Retry/re-run option
+> Terjemahan Indonesia: Timeline eksekusi penuh Perincian fase Log Artefak Opsi coba lagi/jalankan ulang
 
 **Exit points:**
-- User clicks back → previous screen.
-- User clicks execution → Execution detail.
+- User clicks back â†’ previous screen.
+- User clicks execution â†’ Execution detail.
 
 ---
 
@@ -235,11 +265,12 @@ This document defines the user flow across all v1 screens. It is the reference f
 
 | Transition | Trigger | Animation |
 |------------|---------|-----------|
-| Chat → Workspace | User clicks workspace | Slide |
-| Chat → Execution History | User clicks history | Slide |
-| Chat → Artifact Viewer | User clicks artifact | Slide |
-| Any → Approval Dialog | Execution needs approval | Fade |
-| Any → Settings | User clicks settings | Slide |
-| Any → Chat | User clicks back | Slide reverse |
+| Chat â†’ Workspace | User clicks workspace | Slide |
+| Chat â†’ Execution History | User clicks history | Slide |
+| Chat â†’ Artifact Viewer | User clicks artifact | Slide |
+| Any â†’ Approval Dialog | Execution needs approval | Fade |
+| Any â†’ Settings | User clicks settings | Slide |
+| Any â†’ Chat | User clicks back | Slide reverse |
 
 Animations must be subtle and fast (150-200ms). No elaborate transitions.
+> Terjemahan Indonesia: Animations must menjadi subtle dan fast (150-200ms). No elaborate transitions.

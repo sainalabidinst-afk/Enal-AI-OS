@@ -1,11 +1,39 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/CAPABILITY_GUIDE.md`
+- Judul: Capability Guide
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack specifications, scope, benchmark targets, and quality grades
+<!-- DOCUMENT_METADATA_END -->
+
 # Capability Guide
 
 This document describes each official Capability Pack, including its scope, knowledge focus, benchmark targets, and explicit out-of-scope boundaries.
 Use this as the source of truth for what each Capability Pack is expected to know and not know.
+> Terjemahan Indonesia: Ini dokumen describes each official kapabilitas Pack, including its scope, knowledge focus, benchmark targets, dan explicit out-dari-scope boundaries. Use ini as source dari truth untuk what each kapabilitas Pack adalah expected untuk know dan not know.
 
 ---
 
-## Capability Engineer Status (2026-07-27)
+## Capability Engineer Status (2026-08-02)
 **Platform Release Candidate**
 
 | Capability Pack | Grade | Notes |
@@ -16,6 +44,13 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 | DevOps Assistant | B+ (≥80) | Production Ready |
 | Trading Analyst | B+ (≥80) | Certification Pending |
 | Self Development | A (≥90) | Production Ready |
+| Decision Intelligence | A (≥90) | Production Ready |
+| System Architect | A (≥90) | Production Ready |
+| Security Engineer | A- (≥85) | Production Ready |
+| Data Engineer | A- (≥85) | Production Ready |
+| Database Engineer | A- (≥85) | Production Ready |
+| QA Engineer | A (≥90) | Production Ready |
+| Business Analyst | A- (≥85) | Production Ready |
 
 ---
 
@@ -189,7 +224,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 - Risk assessment and position sizing
 - Portfolio exposure analysis
 - Strategy backtesting
-- Multi-strategy comparison via debate engine
+- Multi-strategy comparison via Debate Engine
 - Decision recording and experience memory
 
 ### Knowledge Focus
@@ -259,6 +294,7 @@ Use this as the source of truth for what each Capability Pack is expected to kno
 
 Each Capability Pack defines standard task templates.
 Templates represent common execution paths and are used by Execution Runtime to plan and parallelize work.
+> Terjemahan Indonesia: Each kapabilitas Pack defines standard task templates. Templates represent common execution paths dan adalah used oleh Execution Runtime untuk plan dan parallelize work.
 
 ### Network Engineer
 
@@ -325,6 +361,7 @@ Templates represent common execution paths and are used by Execution Runtime to 
 ## Knowledge Expansion Roadmap
 
 This section documents planned knowledge expansions for each Capability Pack during the Capability Excellence phase. All additions happen inside Capability Packs. Core remains unchanged.
+> Terjemahan Indonesia: Ini section documents planned knowledge expansions untuk each kapabilitas Pack during kapabilitas Excellence phase. All additions happen inside kapabilitas Packs. Core remains unchanged.
 
 ### Network Engineer
 
@@ -461,15 +498,17 @@ This section documents planned knowledge expansions for each Capability Pack dur
 
 ---
 
-## Future Capability Packs (Roadmap)
+## Implemented Capability Packs (Completed)
 
-The following Capability Packs are planned for Fase 2 and beyond. They will be developed once all 6 existing packs reach target grade A/A-.
+The following Capability Packs have been fully implemented and are production ready:
+> Terjemahan Indonesia: Following kapabilitas Packs memiliki been fully implemented dan adalah production ready:
 
 ### Security Engineer
 
-**Fase:** Fase 2 — Setelah Capability Excellence
+**Phase:** Phase 2 — Capability Excellence (Completed)
 **Capability ID:** `security-engineer`
 **Reference RFC:** RFC-0008
+**Grade:** A- (≥85)
 
 **Purpose:** Enterprise security capabilities across OWASP Top 10, threat modeling, secret detection, vulnerability analysis, dependency audit, configuration hardening, and compliance mapping.
 
@@ -477,19 +516,21 @@ The following Capability Packs are planned for Fase 2 and beyond. They will be d
 
 ### Data Engineer
 
-**Fase:** Fase 2 — Setelah Capability Excellence
+**Phase:** Phase 2 — Capability Excellence (Completed)
 **Capability ID:** `data-engineer`
 **Reference RFC:** RFC-0009
+**Grade:** A- (≥85)
 
-**Purpose:** Full data lifecycle management: ETL/ELT, data cleaning, dataset validation, schema evolution, feature engineering, time series handling, and data quality assurance.
+**Purpose:** Full data lifecycle management: ETL/ELT, data cleaning, dataset validation, schema evolution, feature engineering, time-series handling, and data quality assurance.
 
 **Consumers:** Trading Analyst, Research Assistant, Decision Intelligence, System Architect
 
 ### Database Engineer
 
-**Fase:** Fase 2 — Setelah Capability Excellence
+**Phase:** Phase 2 — Capability Excellence (Completed)
 **Capability ID:** `database-engineer`
 **Reference RFC:** RFC-0010
+**Grade:** A- (≥85)
 
 **Purpose:** Enterprise database capabilities: schema design, query optimization, migration management, replication planning, backup/recovery, index recommendation, and performance analysis.
 
@@ -497,9 +538,10 @@ The following Capability Packs are planned for Fase 2 and beyond. They will be d
 
 ### Decision Intelligence
 
-**Fase:** Fase 2 — Setelah Capability Excellence
+**Phase:** Phase 2 — Capability Excellence (Completed)
 **Capability ID:** `decision-intelligence`
 **Reference RFC:** RFC-0007
+**Grade:** A (≥90)
 
 **Purpose:** Cross-domain reasoning layer for evidence-based decision-making: evidence collection, alternative generation, risk analysis, trade-off analysis, decision scoring, confidence estimation, explainable decisions, and decision history.
 
@@ -507,19 +549,21 @@ The following Capability Packs are planned for Fase 2 and beyond. They will be d
 
 ### QA Engineer
 
-**Fase:** Fase 3 — Enterprise
+**Phase:** Phase 3 — Enterprise (Completed)
 **Capability ID:** `qa-engineer`
 **Reference RFC:** RFC-0012
+**Grade:** A (≥90)
 
-**Purpose:** Automated quality assurance: unit/integration test generation, regression test automation, mutation testing, golden test generation for other packs, benchmark test generation, flaky test detection, coverage analysis, and performance validation.
+**Purpose:** Automated quality assurance: unit/integration test generation, regression test automation, mutation testing, Golden Test generation for other packs, benchmark test generation, flaky test detection, coverage analysis, and performance validation.
 
 **Consumers:** All Capability Packs
 
 ### Business Analyst
 
-**Fase:** Fase 3 — Enterprise
+**Phase:** Phase 3 — Enterprise (Completed)
 **Capability ID:** `business-analyst`
 **Reference RFC:** RFC-0013
+**Grade:** A- (≥85)
 
 **Purpose:** Business-to-technical translation: requirement gathering, business process modeling, user story generation, use case modeling, BRD generation, functional specification, gap analysis, ROI analysis, and process optimization.
 

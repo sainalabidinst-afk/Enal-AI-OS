@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0008-security-engineer.md`
+- Judul: Rfc 0008 Security Engineer
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC-0008: Security Engineer Capability Pack
 
 | Field | Value |
@@ -19,8 +37,10 @@
 ## Motivation
 
 ECP's existing Capability Packs generate code, configurations, and deployments. Each produces outputs that carry security risk, but there is no dedicated security reasoning layer that systematically evaluates, detects, and remediates vulnerabilities across all artifacts.
+> Terjemahan Indonesia: ECP's existing kapabilitas Packs generate code, configurations, dan deployments. Each produces outputs itu carry keamanan risk, but there adalah no dedicated keamanan reasoning layer itu systematically evaluates, detects, dan remediates vulnerabilities across all artifacts.
 
 Currently:
+> Terjemahan Indonesia: Saat ini:
 
 1. **Security checks are embedded** — Code Engineer has basic OWASP awareness, Network Engineer has firewall auditing, but there is no unified security framework.
 2. **Threat modeling is absent** — No systematic analysis of attack surface, trust boundaries, or threat actors before deployment.
@@ -29,12 +49,14 @@ Currently:
 5. **Compliance is not mapped** — Security findings are not tied to compliance frameworks (SOC 2, ISO 27001, HIPAA, PCI-DSS).
 
 The Security Engineer Capability Pack becomes the dedicated security layer that analyzes all ECP-generated artifacts against industry standards, detects threats and vulnerabilities, and provides remediation guidance with compliance mapping.
+> Terjemahan Indonesia: Keamanan Engineer kapabilitas Pack becomes dedicated keamanan layer itu analyzes all ECP-generated artifacts against industry standards, detects threats dan vulnerabilities, dan menyediakan remediation guidance dengan compliance mapping.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated Security Engineer Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated keamanan Engineer kapabilitas Pack:
 
 - **No unified vulnerability detection** — security findings are pack-specific; SQL injection is checked by Code Engineer, firewall misconfigurations by Network Engineer, but no single view exists.
 - **OWASP Top 10 coverage is incomplete** — only a subset of issues is detected, and detection quality varies by pack.
@@ -293,6 +315,7 @@ User / Human Approval Loop
 ### No Core Changes Required
 
 All implementation resides within the Security Engineer Capability Pack:
+> Terjemahan Indonesia: All implementation resides within keamanan Engineer kapabilitas Pack:
 
 ```
 apps/
@@ -336,6 +359,7 @@ apps/
   - Configurations: Docker, Kubernetes, cloud IaC (Terraform), network configs
   - Dependencies: Python/pip, Node/npm, Go modules, Java/Maven
   - Architecture: microservices, monolith, serverless, hybrid
+> Terjemahan Indonesia: Code: Python, JavaScript/TypeScript, SQL, Go, Java applications Configurations: Docker, Kubernetes, cloud IaC (Terraform), network configs Dependencies: Python/pip, Node/npm, Go modules, Java/Maven arsitektur: microservices, monolith, serverless, hybrid
 
 ### Benchmark Dimensions Detail
 
@@ -381,6 +405,7 @@ apps/
 ### Real Case Directory
 
 `real_cases/security_engineer/` must contain:
+> Terjemahan Indonesia: Real_cases/security_engineer/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -497,6 +522,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 Security Engineer is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: Keamanan Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/security_engineer/`.
 - **ADR-002 (Capability Pack Independence):** Security Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
@@ -587,6 +613,7 @@ Security Engineer is a **new Capability Pack** that follows the established patt
 *(See [Real Case Requirements](#real-case-requirements) section above for full specification)*
 
 Security Engineer real cases are sourced from:
+> Terjemahan Indonesia: Keamanan Engineer real cases adalah sourced dari:
 
 1. **Code Engineer** — Generated code security reviews with post-fix validation
 2. **Network Engineer** — Configuration audits with compliance verification

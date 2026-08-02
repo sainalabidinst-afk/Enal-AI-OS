@@ -1,4 +1,30 @@
-# ECP Governance — Operational Rules
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/GOVERNANCE.md`
+- Judul: Governance
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Operational rules, ADR process, Capability First Rule, Architecture Freeze
+<!-- DOCUMENT_METADATA_END -->
+
+# ECP Governance â€” Operational Rules
 
 **Version:** 1.0.0
 **Status:** Ratified
@@ -22,12 +48,14 @@
 ## 2. No New Engines Without Use Case
 
 Any new engine, module, or abstraction must:
+> Terjemahan Indonesia: Setiap mesin, modul, atau abstraksi baru harus:
 
 1. Be required by at least two Capability Packs.
 2. Have a golden test case.
 3. Be documented in architecture docs.
 
-If no Capability Pack improves, no benchmark increases, and no journey becomes better — **do not build**.
+If no Capability Pack improves, no benchmark increases, and no journey becomes better â€” **do not build**.
+> Terjemahan Indonesia: If no kapabilitas Pack improves, no benchmark increases, dan no journey becomes better â€” do not membangun.
 
 ---
 
@@ -46,10 +74,10 @@ If no Capability Pack improves, no benchmark increases, and no journey becomes b
 
 1. Identify the Core change needed.
 2. Document which Capability Packs require it.
-3. If fewer than 2 packs require it → the change belongs in the Capability Pack, not Core.
-4. If 2+ packs require it → submit an RFC with test cases from both packs.
-5. RFC accepted → submit ADR with impact analysis.
-6. ADR approved → implement with benchmark + regression proof.
+3. If fewer than 2 packs require it â†’ the change belongs in the Capability Pack, not Core.
+4. If 2+ packs require it â†’ submit an RFC with test cases from both packs.
+5. RFC accepted â†’ submit ADR with impact analysis.
+6. ADR approved â†’ implement with benchmark + regression proof.
 7. Merge only after all four Architecture Freeze conditions pass.
 
 **Explicitly forbidden without the above process:**
@@ -63,6 +91,7 @@ If no Capability Pack improves, no benchmark increases, and no journey becomes b
 ## 4. Kernel Stability
 
 The kernel (`backend/app/core/`) must:
+> Terjemahan Indonesia: Kernel (backend/app/core/) must:
 
 - Remain under 5,000 lines of code.
 - Have zero external dependencies beyond stdlib + pydantic.
@@ -74,8 +103,10 @@ The kernel (`backend/app/core/`) must:
 ## 5. Capability Pack Independence
 
 Capability Packs must **not** import other Capability Pack engines directly.
+> Terjemahan Indonesia: Kapabilitas Packs must not import other kapabilitas Pack engines directly.
 
 All cross-pack communication flows through **Execution Runtime and shared contracts only**.
+> Terjemahan Indonesia: All cross-pack communication flows through Execution Runtime dan shared contracts only.
 
 **Forbidden:**
 
@@ -106,6 +137,7 @@ result = await execution_runtime.execute(task)
   - RFC process with extended review period
   - Migration plan for all affected components
   - Approval by project architecture authority
+> Terjemahan Indonesia: RFC process dengan extended review period Migration plan untuk all affected components Approval oleh proyek arsitektur authority
 
 ### What Requires an ADR
 
@@ -115,13 +147,15 @@ result = await execution_runtime.execute(task)
 - Adding a new architectural Layer
 - Modifying Core for any reason
 
-All require: cross-capability proof (≥2 packs), RFC with impact analysis, and architecture authority approval.
+All require: cross-capability proof (â‰¥2 packs), RFC with impact analysis, and architecture authority approval.
+> Terjemahan Indonesia: All require: cross-kapabilitas proof (â‰¥2 packs), RFC dengan impact analysis, dan arsitektur authority approval.
 
 ---
 
 ## 7. CI/CD Enforcement of Governance
 
 CI/CD must block merges that violate governance:
+> Terjemahan Indonesia: CI/CD must block merges itu violate tata kelola:
 
 | Check | Fails When |
 |-------|------------|
@@ -138,6 +172,7 @@ CI/CD must block merges that violate governance:
 ## 8. Capability Changelog
 
 Each Capability Pack maintains its own changelog. The changelog records knowledge additions, benchmark improvements, and reasoning enhancements. It does **not** record Core changes.
+> Terjemahan Indonesia: Each kapabilitas Pack maintains its own changelog. changelog records knowledge additions, benchmark improvements, dan reasoning enhancements. It does not record Core changes.
 
 ### Format
 
@@ -154,7 +189,7 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 - <issue>
 
 ### Benchmark
-- <dimension>: <before> → <after>
+- <dimension>: <before> â†’ <after>
 ```
 
 ### Example
@@ -169,14 +204,14 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 
 ### Improved
 - Firewall explanation depth
-- Risk scoring accuracy: 85% → 92%
+- Risk scoring accuracy: 85% â†’ 92%
 
 ### Fixed
 - VLAN false positive on trunk interfaces
 
 ### Benchmark
-- Accuracy: 89% → 92%
-- Explainability: B → A-
+- Accuracy: 89% â†’ 92%
+- Explainability: B â†’ A-
 ```
 
 ---
@@ -184,6 +219,7 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 ## 9. Exception Handling
 
 Any exception to the rules in this document must be proposed as an RFC, reviewed, and approved by the architecture authority. Exceptions are recorded in the ADR log and this document is updated accordingly.
+> Terjemahan Indonesia: Any exception untuk rules dalam ini dokumen must menjadi proposed as sebuah RFC, reviewed, dan approved oleh arsitektur authority. Exceptions adalah recorded dalam ADR log dan ini dokumen adalah updated accordingly.
 
 ---
 
@@ -192,4 +228,3 @@ Any exception to the rules in this document must be proposed as an RFC, reviewed
 | Role | Status | Date |
 |------|--------|------|
 | Chief Architect | Approved | 2026-08-01 |
-

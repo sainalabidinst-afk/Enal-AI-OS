@@ -1,0 +1,13 @@
+{
+  "record_id": "94595f68-8e2a-4671-8725-6940c054fe3f",
+  "job_id": "04b8b777-1494-4bb1-a867-8f89a02002c7",
+  "timestamp": "2026-08-02T00:20:19.139309+00:00",
+  "job_type": "etl",
+  "quality_score": 0.4,
+  "issues_found": 8,
+  "issues_resolved": 3,
+  "schema_drift_detected": false,
+  "features_created": 1,
+  "time_series_gaps_filled": 0,
+  "outcome": "partial"
+}

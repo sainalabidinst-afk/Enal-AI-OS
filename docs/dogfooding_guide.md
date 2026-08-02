@@ -1,13 +1,41 @@
-# Dogfooding Guide — Network Engineer
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
 
-**Duration:** 1–2 weeks
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/dogfooding_guide.md`
+- Judul: Dogfooding Guide
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+# Dogfooding Guide â€” Network Engineer
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for dogfooding_guide
+<!-- DOCUMENT_METADATA_END -->
+
+**Duration:** 1â€“2 weeks
 **Goal:** Use Network Engineer on real-world configurations to collect feedback before building new features.
 
 ## What is Dogfooding?
 
 Dogfooding = using your own product on real work, not just synthetic tests.
+> Terjemahan Indonesia: Dogfooding = using your own product pada real work, not just synthetic tests.
 
 For ECP, this means:
+> Terjemahan Indonesia: Untuk ECP, ini means:
 1. Take real MikroTik configurations from production or lab
 2. Run them through Network Engineer
 3. Compare ECP's output with your expert judgment
@@ -17,6 +45,7 @@ For ECP, this means:
 
 ### A. False Positives
 ECP flagged something that is actually correct or acceptable.
+> Terjemahan Indonesia: ECP flagged something itu adalah actually correct or acceptable.
 
 **Template:**
 ```
@@ -30,6 +59,7 @@ Suggested fix: [adjust rule threshold, add exception, or ignore context]
 
 ### B. False Negatives
 ECP missed something that is actually a problem.
+> Terjemahan Indonesia: ECP missed something itu adalah actually sebuah problem.
 
 **Template:**
 ```
@@ -42,6 +72,7 @@ Suggested rule: [new rule or enhancement]
 
 ### C. Bad Recommendations
 ECP flagged something correctly, but the fix is wrong or impractical.
+> Terjemahan Indonesia: ECP flagged something correctly, but fix adalah wrong or impractical.
 
 **Template:**
 ```
@@ -55,6 +86,7 @@ Better recommendation: [what should be suggested]
 
 ### D. Parser Failures
 Config didn't parse correctly.
+> Terjemahan Indonesia: Konfigurasi tidak diuraikan dengan benar.
 
 **Template:**
 ```
@@ -66,6 +98,7 @@ Expected: [what should have been parsed]
 
 ### E. UX Confusion
 Something was confusing, misleading, or hard to understand.
+> Terjemahan Indonesia: Something was confusing, misleading, or hard untuk understand.
 
 **Template:**
 ```
@@ -78,13 +111,14 @@ Suggestion: [how to improve]
 
 ### Step 1: Gather Configs
 Use real MikroTik configs from:
+> Terjemahan Indonesia: Use real MikroTik configs dari:
 - Production routers (sanitized)
 - Lab/routers in the field
 - Backup exports from clients
 - Sun Clint project configs
 
 **Minimum:** 10 different configs
-**Target:** 20–30 configs
+**Target:** 20â€“30 configs
 
 ### Step 2: Run Analysis
 ```python
@@ -102,12 +136,14 @@ for issue in result["issues"]:
 
 ### Step 3: Review Findings
 For each finding, ask:
+> Terjemahan Indonesia: Untuk each finding, ask:
 1. Is this real? (True Positive / False Positive)
 2. Is the severity correct? (too high / too low / correct)
 3. Is the recommendation actionable? (yes / no / needs work)
 
 ### Step 4: Compare with Expert Judgment
 Write down what YOU would flag vs what ECP flagged.
+> Terjemahan Indonesia: Tuliskan apa yang akan ANDA tandai vs apa yang ditandai oleh ECP.
 
 | # | ECP Finding | Your Judgment | Match? | Notes |
 |---|-------------|---------------|--------|-------|
@@ -116,6 +152,7 @@ Write down what YOU would flag vs what ECP flagged.
 
 ### Step 5: Test Controlled Deployment
 If you have a lab MikroTik:
+> Terjemahan Indonesia: If you memiliki sebuah lab MikroTik:
 1. Run full controlled deployment pipeline
 2. Try approved = True
 3. Try approved = False
@@ -123,18 +160,20 @@ If you have a lab MikroTik:
 5. Review audit trail
 
 If no lab device, simulate with golden test configs.
+> Terjemahan Indonesia: If no lab device, simulate dengan golden test configs.
 
 ## Feedback Log Format
 
 Create a file: `dogfooding/feedback_YYYY-MM-DD.md`
+> Terjemahan Indonesia: Membuat sebuah file: dogfooding/feedback_YYYY-MM-DD.MD
 
 ```markdown
-# Dogfooding Session — 2026-07-09
+# Dogfooding Session â€” 2026-07-09
 
 ## Configs Reviewed
-- `golden/mikrotik/home/config.rsc` — 11 findings
-- `golden/mikrotik/office/config.rsc` — 13 findings
-- [real config from Sun Clint] — X findings
+- `golden/mikrotik/home/config.rsc` â€” 11 findings
+- `golden/mikrotik/office/config.rsc` â€” 13 findings
+- [real config from Sun Clint] â€” X findings
 
 ## False Positives
 ### FP-001: [title]
@@ -181,6 +220,7 @@ Create a file: `dogfooding/feedback_YYYY-MM-DD.md`
 ## Success Criteria
 
 Dogfooding is successful when:
+> Terjemahan Indonesia: Dogfooding adalah successful when:
 1. At least 10 real configs reviewed
 2. At least 5 false positives identified
 3. At least 5 false negatives identified
@@ -190,7 +230,8 @@ Dogfooding is successful when:
 ## Output
 
 After dogfooding, you should have:
-1. `dogfooding/feedback_YYYY-MM-DD.md` — structured feedback
+> Terjemahan Indonesia: After dogfooding, you should memiliki:
+1. `dogfooding/feedback_YYYY-MM-DD.md` â€” structured feedback
 2. Updated golden test scenarios based on real findings
 3. Clear priorities for Milestone 3 (Network Operations)
 
@@ -202,3 +243,4 @@ After dogfooding, you should have:
 4. **Focus on quality, not quantity.** 10 configs reviewed deeply > 100 configs skimmed.
 
 Dogfooding is about learning, not building.
+> Terjemahan Indonesia: Dogfooding adalah about learning, not building.

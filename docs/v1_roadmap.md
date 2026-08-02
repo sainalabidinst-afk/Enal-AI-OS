@@ -1,3 +1,30 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/v1_roadmap.md`
+- Judul: V1 Roadmap
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Strategic roadmap, Capability Pack lifecycle, and release timeline
+<!-- DOCUMENT_METADATA_END -->
+
 # ECP Governance Charter — v1.0.0-dev
 
 > **Status:** This document has been restructured into focused strategic documents.
@@ -14,6 +41,7 @@
 > **Core tidak lagi menjadi tempat berkembangnya fitur; Core menjadi platform yang stabil, sedangkan Capability Pack menjadi tempat inovasi.**
 
 Prinsip ini adalah fondasi arsitektur ECP:
+> Terjemahan Indonesia: Prinsip ini adalah fondasi arsitektur ECP:
 
 - **Core** dibekukan — stabil, backward-compatible, zero external dependencies selain stdlib + pydantic
 - **Capability Pack** berevolusi — tempat inovasi, knowledge expansion, dan domain expertise
@@ -24,6 +52,7 @@ Prinsip ini adalah fondasi arsitektur ECP:
 ## Governance Charter
 
 Dokumen ini adalah **dokumen konstitusi (governance charter)** proyek ECP. Artinya:
+> Terjemahan Indonesia: Dokumen ini adalah dokumen konstitusi (tata kelola charter) proyek ECP. Artinya:
 
 - Semua RFC harus konsisten dengan dokumen ini.
 - Semua ADR harus merujuk dokumen ini.
@@ -34,15 +63,16 @@ Dokumen ini adalah **dokumen konstitusi (governance charter)** proyek ECP. Artin
 
 ## Document Index
 
-Dokumen `v1_roadmap.md` telah dipecah menjadi 5 dokumen strategis berikut:
+Dokumen ini telah dipecah menjadi 5 dokumen strategis berikut:
+> Terjemahan Indonesia: Dokumen ini telah terpecah menjadi 5 dokumen strategi berikut:
 
 | Document | Purpose | SSOT For |
 |----------|---------|----------|
-| `docs/GOVERNANCE_CHARTER.md` | Dokumen induk — visi, prinsip inti, filosofi, aturan konstitusional | Vision, philosophy, constitutional rules |
-| `docs/GOVERNANCE.md` | Aturan operasional — ADR, Capability First, Architecture Freeze, enforcement | Operational rules |
-| `docs/RELEASE_CRITERIA.md` | Syarat rilis — quality gates, Definition of Done, benchmark targets | Release conditions, DoD, quality gates |
-| `docs/CAPABILITY_STRATEGY.md` | Strategi Capability Pack — maturity model, lifecycle, profil pack, knowledge expansion | Capability Pack profiles, maturity, lifecycle |
-| `docs/ROADMAP.md` | Timeline dan target versi — jadwal rilis, 5-year roadmap, model strategy | Timeline, release targets, long-term vision |
+| `docs/GOVERNANCE_CHARTER.md` | Vision, philosophy, constitutional rules | Visi, filosofi, aturan konstitusional |
+| `docs/GOVERNANCE.md` | Operational rules — ADR, Capability First, Architecture Freeze, enforcement | Aturan operasional |
+| `docs/RELEASE_CRITERIA.md` | Release conditions, DoD, quality gates | Syarat rilis, DoD, quality gates |
+| `docs/CAPABILITY_STRATEGY.md` | Capability Pack profiles, maturity, lifecycle | Profil, kematangan, siklus hidup Capability Pack |
+| `docs/ROADMAP.md` | Timeline, release targets, long-term vision | Timeline, target rilis, visi jangka panjang |
 | `docs/DOCUMENT_STRUCTURE.md` | Fungsi dan SSOT setiap dokumen strategis | Document mapping |
 
 ---
@@ -51,10 +81,10 @@ Dokumen `v1_roadmap.md` telah dipecah menjadi 5 dokumen strategis berikut:
 
 ### Success Criteria (v1.0.0-dev)
 
-1. ✅ **7 Capability Packs** exist and are registered in Capability Graph
+1. ✅ **13 Capability Packs** exist and are registered in Capability Graph
 2. ✅ **Golden Test Suite** passes with ≥80% pass rate
 3. ✅ **CI/CD Pipeline** blocks merges on any failure
-4. ✅ **Documentation** covers getting started, SDK, contracts, and architecture
+4. ✅ **Documentation** covers getting started, SDK, contracts, and Architecture
 5. ✅ **No Framework Trap** — Core remains stable while Capability Packs evolve
 6. ✅ **Architecture Governance** active: Core is frozen, Capability First Rule enforced, all changes require ADR when impacting multiple packs
 
@@ -69,6 +99,12 @@ Dokumen `v1_roadmap.md` telah dipecah menjadi 5 dokumen strategis berikut:
 | Trading Analyst | Finance | B+ (≥80) — Certification Pending |
 | Self Development | Platform | A (≥90) |
 | Decision Intelligence | Platform — Shared Reasoning | A (91.25%) — RFC-0007 |
+| System Architect | Architecture | A (≥90) — RFC-0011 |
+| Security Engineer | Security | A- (≥85) — RFC-0008 |
+| Data Engineer | Data | A- (≥85) — RFC-0009 |
+| Database Engineer | Database | A- (≥85) — RFC-0010 |
+| QA Engineer | Quality Assurance | A (≥90) — RFC-0012 |
+| Business Analyst | Business Analysis | A- (≥85) — RFC-0013 |
 
 ### Capability Maturity Model
 

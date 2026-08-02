@@ -1,18 +1,46 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/capabilities/decision-intelligence.md`
+- Judul: Decision Intelligence
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Decision Intelligence Capability Specification
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack specification for decision-intelligence
+<!-- DOCUMENT_METADATA_END -->
 
 ## Version: 1.0.0
 ## Status: Production Ready (RFC-0007)
-## Quality Target: A (≥90)
+## Quality Target: A (â‰¥90)
 
 ---
 
 ## 1. Purpose
 
-Decision Intelligence adalah **shared reasoning layer** untuk ECP — Capability Pack
+Decision Intelligence adalah **shared reasoning layer** untuk ECP â€” Capability Pack
 yang menyediakan pengambilan keputusan berbasis bukti (evidence-based), explainable,
 dan auditable untuk semua Capability Pack lain.
+> Terjemahan Indonesia: Decision Intelligence adalah shared reasoning layer untuk ECP â€” kapabilitas Pack yang menyediakan pengambilan keputusan berbasis bukti (evidence-based), explainable, dan auditable untuk semua kapabilitas Pack lain.
 
 Acting as a cross-cutting cognitive service **tanpa memodifikasi Core**.
+> Terjemahan Indonesia: Acting as sebuah cross-cutting kognitif layanan tanpa memodifikasi Core.
 
 ---
 
@@ -21,15 +49,15 @@ Acting as a cross-cutting cognitive service **tanpa memodifikasi Core**.
 ### In Scope
 - Evidence collection dari multiple sources (analysis, recommendation, data, benchmark, historical)
 - Alternative generation dengan constraint filtering
-- Risk analysis (probability × impact)
+- Risk analysis (probability Ã— impact)
 - Trade-off analysis (multi-objective weighted scoring, Pareto frontier)
 - Decision scoring dan ranking
-- Confidence estimation (0–100%, uncertainty bounds, calibration)
-- Explainable decision (full chain: evidence → reasoning → alternatives → risk → decision → rationale)
+- Confidence estimation (0â€“100%, uncertainty bounds, calibration)
+- Explainable decision (full chain: evidence â†’ reasoning â†’ alternatives â†’ risk â†’ decision â†’ rationale)
 - Decision history (record ke Experience Memory, audit trail)
 
 ### Out of Scope
-- Eksekusi keputusan otomatis (rekomendasi saja — ADR-005 compliance)
+- Eksekusi keputusan otomatis (rekomendasi saja â€” ADR-005 compliance)
 - Modifikasi Core contracts
 - Direct import dari Capability Pack lain (ADR-002 compliance)
 
@@ -98,23 +126,23 @@ Acting as a cross-cutting cognitive service **tanpa memodifikasi Core**.
 
 ```
 DecisionRequest
-    ↓
+    â†“
 EvidenceCollection (collect, validate, weight)
-    ↓
+    â†“
 AlternativeGeneration (enumerate, filter constraints)
-    ↓
-RiskAnalysis (probability × impact)
-    ↓
+    â†“
+RiskAnalysis (probability Ã— impact)
+    â†“
 TradeoffAnalysis (multi-objective, weighted, Pareto)
-    ↓
+    â†“
 DecisionScoring (composite score, rank)
-    ↓
+    â†“
 ConfidenceEstimation (0-100%, calibration)
-    ↓
+    â†“
 ExplanationGeneration (full explainability chain)
-    ↓
+    â†“
 DecisionHistory (Experience Memory, audit trail)
-    ↓
+    â†“
 DecisionResult
 ```
 
@@ -136,21 +164,24 @@ DecisionResult
 | **Pass Rate** | **100%** |
 
 Benchmark: `benchmarks/decision_intelligence_benchmark.py`
+> Terjemahan Indonesia: Tolok ukur: benchmarks/decision_intelligence_benchmark.py
 
 ---
 
 ## 6. Consumer Integration (First: Trading Analyst)
 
 Decision Intelligence menerima evidence dari:
-- **Trading Analyst** — market analysis, bias, confidence, risk assessment
-- **Network Engineer** — config analysis, risk score, recommendations
-- **Code Engineer** — architecture analysis, code quality, security findings
-- **Research Assistant** — evidence quality, citation confidence
-- **DevOps Assistant** — deployment risk, verification results
-- **Self Development** — change impact, risk assessment
+> Terjemahan Indonesia: Decision Intelligence menerima bukti dari:
+- **Trading Analyst** â€” market analysis, bias, confidence, risk assessment
+- **Network Engineer** â€” config analysis, risk score, recommendations
+- **Code Engineer** â€” architecture analysis, code quality, security findings
+- **Research Assistant** â€” evidence quality, citation confidence
+- **DevOps Assistant** â€” deployment risk, verification results
+- **Self Development** â€” change impact, risk assessment
 
 The `DecisionIntelligenceWorker` is a thin adapter (ADR-003) that routes
 task dicts to `DecisionIntelligenceEngine.evaluate()`.
+> Terjemahan Indonesia: DecisionIntelligenceWorker adalah sebuah thin adapter (ADR-003) itu routes task dicts untuk DecisionIntelligenceEngine.evaluate().
 
 ---
 
@@ -158,12 +189,12 @@ task dicts to `DecisionIntelligenceEngine.evaluate()`.
 
 | Principle | Compliance |
 |-----------|------------|
-| ADR-001 Core Pipeline Freeze | ✅ Zero Core changes |
-| ADR-002 Capability Pack Independence | ✅ No direct imports |
-| ADR-003 Worker = Adapter Only | ✅ Worker delegates to Engine |
-| ADR-004 Domain Engine Owns Business Logic | ✅ Engine owns pipeline |
-| ADR-005 Human Approval Required | ✅ Recommend only, no auto-execute |
-| Kernel Stability | ✅ Not in Core |
+| ADR-001 Core Pipeline Freeze | âœ… Zero Core changes |
+| ADR-002 Capability Pack Independence | âœ… No direct imports |
+| ADR-003 Worker = Adapter Only | âœ… Worker delegates to Engine |
+| ADR-004 Domain Engine Owns Business Logic | âœ… Engine owns pipeline |
+| ADR-005 Human Approval Required | âœ… Recommend only, no auto-execute |
+| Kernel Stability | âœ… Not in Core |
 
 ---
 
@@ -183,4 +214,3 @@ task dicts to `DecisionIntelligenceEngine.evaluate()`.
 | `apps/decision_intelligence/engine.py` | Domain engine orchestrator |
 | `apps/decision_intelligence/worker.py` | Thin worker adapter |
 | `benchmarks/decision_intelligence_benchmark.py` | Benchmark (8 dimensions) |
-

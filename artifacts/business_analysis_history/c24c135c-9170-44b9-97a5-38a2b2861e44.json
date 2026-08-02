@@ -1,0 +1,12 @@
+{
+  "record_id": "c24c135c-9170-44b9-97a5-38a2b2861e44",
+  "request_id": "044b8d1e-d607-4336-890c-1ba35112ef65",
+  "timestamp": "2026-08-02T00:02:38.471685+00:00",
+  "operation": "brd_generation",
+  "domain": "e-commerce",
+  "requirements_count": 18,
+  "user_stories_count": 18,
+  "gaps_identified": 0,
+  "roi_analyzed": false,
+  "outcome": "success"
+}

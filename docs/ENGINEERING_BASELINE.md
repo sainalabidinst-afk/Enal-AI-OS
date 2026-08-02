@@ -1,20 +1,48 @@
-# Engineering Baseline — v1.0.0-engineering-baseline
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
 
-**Status:** 🟢 **Frozen**  
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/ENGINEERING_BASELINE.md`
+- Judul: Engineering Baseline
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Engineering baseline, architecture constraints, and dependency rules
+<!-- DOCUMENT_METADATA_END -->
+
+# Engineering Baseline â€” v1.0.0-engineering-baseline
+
+**Status:** ðŸŸ¢ **Frozen**  
 **Tag:** `v1.0.0-engineering-baseline`  
-**Date:** 2024
+**Date:** 2026-08-02
 
 ---
 
 ## Purpose
 
 This document records the exact engineering state of the Enal Cognitive Platform at the point the engineering baseline was frozen. After this point:
+> Terjemahan Indonesia: Ini dokumen records exact rekayasa state dari Enal kognitif platform at point rekayasa dasar was frozen. After ini point:
 
 - **No new architecture changes or large refactors** without documented cross-domain need
 - **No redesigns** of core components
 - Focus shifts to:
   1. Documentation of actual code state
   2. Product development on stable foundation
+> Terjemahan Indonesia: Dokumentasi dari actual code state Product development pada stable foundation
 
 ---
 
@@ -22,17 +50,17 @@ This document records the exact engineering state of the Enal Cognitive Platform
 
 | Check | Result | Evidence |
 |-------|--------|----------|
-| MyPy strict | ✅ **0 errors** | All 27+ files fixed across sprints |
-| Pylance Severity 8 | ✅ **0** | Clean type resolution |
-| VS Code Problems | ✅ **0** | No remaining diagnostics |
-| Test Suite | ✅ **426 passing** | All tests pass |
-| Python 3.11 f-string | ✅ **0 issues in production** | Verified via `compile()` scan |
-| Ruff hygiene | ⚠️ Residual warnings | `ruff check --fix` and `ruff format` pending (auto-fixable) |
-| Architecture consistency | ✅ Validated | AR-001 through AR-017 pass |
-| API contract consistency | ✅ Validated | All signatures match |
-| No circular imports | ✅ Resolved | knowledge, task_planner, meeting |
-| No mutable defaults | ✅ Addressed | RUF012 fixed across codebase |
-| No blind exceptions | ⚠️ 45 locations | Accepted tech debt — review per case in future sprint |
+| MyPy strict | âœ… **0 errors** | All 27+ files fixed across sprints |
+| Pylance Severity 8 | âœ… **0** | Clean type resolution |
+| VS Code Problems | âœ… **0** | No remaining diagnostics |
+| Test Suite | âœ… **426 passing** | All tests pass |
+| Python 3.11 f-string | âœ… **0 issues in production** | Verified via `compile()` scan |
+| Ruff hygiene | âš ï¸ Residual warnings | `ruff check --fix` and `ruff format` pending (auto-fixable) |
+| Architecture consistency | âœ… Validated | AR-001 through AR-017 pass |
+| API contract consistency | âœ… Validated | All signatures match |
+| No circular imports | âœ… Resolved | knowledge, task_planner, meeting |
+| No mutable defaults | âœ… Addressed | RUF012 fixed across codebase |
+| No blind exceptions | âš ï¸ 45 locations | Accepted tech debt â€” review per case in future sprint |
 
 ---
 
@@ -40,23 +68,23 @@ This document records the exact engineering state of the Enal Cognitive Platform
 
 ```
 enal-ai-os/
-├── apps/               # 6 Capability Packs (network, code, research, devops, trading, self)
-├── backend/            # API, core, studio, models
-├── benchmarks/         # Performance, capability, golden test benchmarks
-├── docs/               # Architecture, API, quality gates, roadmap
-│   ├── adr/            # Architecture Decision Records
-│   └── quality/        # Quality Gate Policy
-├── examples/           # Custom agent, custom workflow
-├── frontend/           # Next.js frontend
-├── golden/             # Cisco, Fortinet, MikroTik golden configs
-├── plugins/            # MikroTik plugin
-├── real_cases/         # Real-world test datasets
-├── scripts/            # CI/CD, gate validation, release readiness
-├── sdk/                # Python SDK
-├── tests/              # Unit tests (426 passing)
-├── tools/
-│   └── audit/          # Utility scripts (hygiene, mypy fixing, f-string scanning)
-└── workspace/          # Runtime workspace
+â”œâ”€â”€ apps/               # 13 Capability Packs (network, code, research, devops, trading, self, decision, system, security, data, database, qa, business)
+â”œâ”€â”€ backend/            # API, core, studio, models
+â”œâ”€â”€ benchmarks/         # Performance, capability, golden test benchmarks
+â”œâ”€â”€ docs/               # Architecture, API, quality gates, roadmap
+â”‚   â”œâ”€â”€ adr/            # Architecture Decision Records
+â”‚   â””â”€â”€ quality/        # Quality Gate Policy
+â”œâ”€â”€ examples/           # Custom agent, custom workflow
+â”œâ”€â”€ frontend/           # Next.js frontend
+â”œâ”€â”€ golden/             # Cisco, Fortinet, MikroTik golden configs
+â”œâ”€â”€ plugins/            # MikroTik plugin
+â”œâ”€â”€ real_cases/         # Real-world test datasets
+â”œâ”€â”€ scripts/            # CI/CD, gate validation, release readiness
+â”œâ”€â”€ sdk/                # Python SDK
+â”œâ”€â”€ tests/              # Unit tests (426 passing)
+â”œâ”€â”€ tools/
+â”‚   â””â”€â”€ audit/          # Utility scripts (hygiene, mypy fixing, f-string scanning)
+â””â”€â”€ workspace/          # Runtime workspace
 ```
 
 ---
@@ -99,37 +127,38 @@ enal-ai-os/
 
 ```
 tools/audit/
-├── __init__.py
-├── audit_hygiene.py
-├── find_fstring_backslash.py
-├── fix_6_remaining.py
-├── fix_all_remaining.py
-├── fix_final_batch.py
-├── fix_final_mypy.py
-├── fix_mypy_errors.py
-├── fix_remaining_4.py
-├── fix_remaining_mypy.py
-├── fix_self_verification.py
-├── run_ruff.py
-├── run_scans.py
-├── run_scans_and_mypy.py
-└── apply_mypy_fixes.py
+â”œâ”€â”€ __init__.py
+â”œâ”€â”€ audit_hygiene.py
+â”œâ”€â”€ find_fstring_backslash.py
+â”œâ”€â”€ fix_6_remaining.py
+â”œâ”€â”€ fix_all_remaining.py
+â”œâ”€â”€ fix_final_batch.py
+â”œâ”€â”€ fix_final_mypy.py
+â”œâ”€â”€ fix_mypy_errors.py
+â”œâ”€â”€ fix_remaining_4.py
+â”œâ”€â”€ fix_remaining_mypy.py
+â”œâ”€â”€ fix_self_verification.py
+â”œâ”€â”€ run_ruff.py
+â”œâ”€â”€ run_scans.py
+â”œâ”€â”€ run_scans_and_mypy.py
+â””â”€â”€ apply_mypy_fixes.py
 ```
 
 ---
 
-## Python 3.11 Compatibility — Verification Detail
+## Python 3.11 Compatibility â€” Verification Detail
 
 - **Method:** `compile(content, path, 'exec', flags=0)` for every `.py` file in the repository
 - **Result:** 0 f-string backslash issues in `apps/`, `backend/`, `benchmarks/`, `tests/`
-- **One exception:** `_fix_final_mypy.py:93` — utility script, NOT production code
+- **One exception:** `_fix_final_mypy.py:93` â€” utility script, NOT production code
 
 Pattern verified as non-existent:
+> Terjemahan Indonesia: Pola diverifikasi sebagai tidak ada:
 ```python
-# ❌ This pattern does NOT exist in production code:
+# âŒ This pattern does NOT exist in production code:
 f"{expr_with_backslash}"
 
-# ✅ All f-strings use pre-computed variables:
+# âœ… All f-strings use pre-computed variables:
 fixed = value.replace('\\n', '')
 f"{fixed}"
 ```
@@ -196,12 +225,14 @@ f"{fixed}"
 ### SDK (`sdk/pyproject.toml`)
 
 See `sdk/` directory for SDK-specific dependencies.
+> Terjemahan Indonesia: See sdk/ directory untuk SDK-specific dependencies.
 
 ---
 
 ## Baseline Engineering Principles
 
 These principles form the "constitution" of engineering for this project. Every architectural decision, code review, and implementation must align with these principles.
+> Terjemahan Indonesia: These principles form "constitution" dari rekayasa untuk ini proyek. Every architectural decision, code review, dan implementation must align dengan these principles.
 
 | # | Principle | Description |
 |---|-----------|-------------|
@@ -219,6 +250,7 @@ These principles form the "constitution" of engineering for this project. Every 
 ## Architecture Decision Records (ADR)
 
 ADRs are stored in `docs/adr/`. Each ADR records a significant architectural decision, its context, alternatives considered, and the rationale for the chosen approach.
+> Terjemahan Indonesia: ADRs adalah stored dalam docs/adr/. Each ADR records sebuah significant architectural decision, its context, alternatives considered, dan rationale untuk chosen approach.
 
 | ADR | Title | Description |
 |-----|-------|-------------|
@@ -228,26 +260,30 @@ ADRs are stored in `docs/adr/`. Each ADR records a significant architectural dec
 | ADR-004 | Debate Engine Architecture | Why debate-based reasoning was chosen for self-verification |
 
 See `docs/adr/` for full decision records.
+> Terjemahan Indonesia: See docs/adr/ untuk full decision records.
 
 ---
 
 ## Quality Gate Policy
 
 See `docs/quality/QUALITY_GATES.md` for the complete Quality Gate Policy.
+> Terjemahan Indonesia: See docs/kualitas/QUALITY_GATES.MD untuk complete kualitas Gate Policy.
 
 Every pull request targeting `main` or `release/*` must pass:
+> Terjemahan Indonesia: Every pull request targeting utama or rilis/* must pass:
 
 | Gate | Requirement | Severity |
 |------|-------------|----------|
-| MyPy | 0 errors | 🔴 BLOCKER |
-| Tests | ≥95% pass (baseline: 426) | 🔴 BLOCKER |
-| API Contract | Backward compatible | 🔴 BLOCKER |
-| ADR | Required for architecture changes | 🔴 BLOCKER |
-| Ruff Lint | No blockers | 🟡 WARNING |
-| Ruff Format | 0 files reformatted | 🟡 WARNING |
-| No Blind Exceptions | New ones justified | 🟡 WARNING |
+| MyPy | 0 errors | ðŸ”´ BLOCKER |
+| Tests | â‰¥95% pass (baseline: 426) | ðŸ”´ BLOCKER |
+| API Contract | Backward compatible | ðŸ”´ BLOCKER |
+| ADR | Required for architecture changes | ðŸ”´ BLOCKER |
+| Ruff Lint | No blockers | ðŸŸ¡ WARNING |
+| Ruff Format | 0 files reformatted | ðŸŸ¡ WARNING |
+| No Blind Exceptions | New ones justified | ðŸŸ¡ WARNING |
 
 Exceptions require documented approval. See full policy for exception process.
+> Terjemahan Indonesia: Exceptions require documented approval. See full policy untuk exception process.
 
 ---
 
@@ -264,7 +300,7 @@ Exceptions require documented approval. See full policy for exception process.
 
 ## Next Steps
 
-1. **Phase 2: AES Documentation** — Document actual code state:
+1. **Phase 2: AES Documentation** â€” Document actual code state:
    - Architecture overview
    - Module dependency graph
    - Runtime flow
@@ -273,10 +309,11 @@ Exceptions require documented approval. See full policy for exception process.
    - Quality gates
    - Testing strategy
    - Coding standards
+> Terjemahan Indonesia: Arsitektur Ikhtisar Module dependency graph Runtime flow Event flow Public API kualitas gates Testing strategy Coding standards
 
-2. **Phase 3: Reference Architecture** — Elevate AES to reference architecture for all applications built on ECP
-3. **Phase 4: Application Development Guide** — Coding standards, capability pack development guide
-4. **Phase 5: Product Development** — Feature development on stable foundation
+2. **Phase 3: Reference Architecture** â€” Elevate AES to reference architecture for all applications built on ECP
+3. **Phase 4: Application Development Guide** â€” Coding standards, capability pack development guide
+4. **Phase 5: Product Development** â€” Feature development on stable foundation
 
 ---
 
@@ -293,4 +330,3 @@ Exceptions require documented approval. See full policy for exception process.
 | Architecture Overview | `docs/architecture.md` |
 | Quality Gate | `docs/QUALITY_GATE.md` |
 | Sprint Hardening Summary | `SPRINT_HARDENING_SUMMARY.md` |
-

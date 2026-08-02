@@ -1,8 +1,27 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/AI_PLANNER.md`
+- Judul: Ai Planner
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # AI Planner
 
 ## Overview
 
 AI Planner adalah layer strategis yang membuat rencana eksekusi multi-langkah dari goal/vision tingkat tinggi. Planner menggunakan WorkflowCatalog, IntentResolver, TaskPlanner, dan CapabilityGraph untuk menyusun rencana yang optimal.
+> Terjemahan Indonesia: AI Planner adalah lapisan strategi yang membuat rencana eksekusi multi-langkah dari tujuan/visi tingkat tinggi. Planner menggunakan WorkflowCatalog, IntentResolver, TaskPlanner, dan CapabilityGraph untuk menyusun rencana yang optimal.
 
 ## Flow
 
@@ -79,4 +98,3 @@ ai_planner.cancel_plan(plan.plan_id)
 - `PlanExecutionStarted`: When plan execution begins
 - `PlanCompleted`: When all steps complete
 - `PlanFailed`: When a step fails
-

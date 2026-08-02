@@ -1,0 +1,13 @@
+{
+  "record_id": "b54a6d76-2ecd-408f-9b09-61278d950e9b",
+  "request_id": "0724ed2d-2632-46f0-8215-cd6824a2497f",
+  "timestamp": "2026-08-02T00:02:38.818037+00:00",
+  "operation": "schema_design",
+  "database_type": "postgresql",
+  "findings_count": 3,
+  "critical_count": 0,
+  "high_count": 1,
+  "migration_planned": false,
+  "backup_configured": false,
+  "outcome": "partial"
+}

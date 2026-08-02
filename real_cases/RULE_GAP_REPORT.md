@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `real_cases/RULE_GAP_REPORT.md`
+- Judul: Rule Gap Report
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RULE GAP REPORT
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Real case study documentation
+<!-- DOCUMENT_METADATA_END -->
 # Network Engineer Analyzer vs Real Cases
 
 ## Case Analysis Summary
@@ -11,6 +37,7 @@
 
 ### A. Cases Without Rule Coverage
 All Cisco and Fortinet cases have NO rule coverage - analyzer only detects MikroTik patterns.
+> Terjemahan Indonesia: All Cisco dan Fortinet cases memiliki NO rule coverage - analyzer only detects MikroTik patterns.
 
 | Case | Category | Vendor | Status |
 |------|----------|--------|--------|
@@ -37,11 +64,13 @@ All Cisco and Fortinet cases have NO rule coverage - analyzer only detects Mikro
 
 ### B. Rule Overlap Analysis
 Rules that detect overlapping patterns:
+> Terjemahan Indonesia: Rules itu detect overlapping patterns:
 - _check_firewall_without_stateful overlaps with _check_missing_connection_tracking (both check connection-state)
 - _check_missing_fasttrack could be considered part of Performance not NAT
 
 ### C. Missing Vendor Patterns
 Cisco patterns needed:
+> Terjemahan Indonesia: Pola Cisco yang dibutuhkan:
 - `telnet disabled=no` - should trigger unencrypted protocols (same as MikroTik telnet)
 - `ip ssh version 2` - should indicate secure SSH configuration
 - `standby` - HSRP/VRRP detection
@@ -52,6 +81,7 @@ Cisco patterns needed:
 - `dot11` / `ssid` - wireless detection
 
 Fortinet patterns needed:
+> Terjemahan Indonesia: Pola fortinet yang dibutuhkan:
 - `config firewall` - Fortinet firewall base
 - `config vpn ipsec` - IPSec
 - `config system ha` - HA
@@ -59,6 +89,7 @@ Fortinet patterns needed:
 
 ### D. Duplicate Rule Detection
 NO duplicate rule IDs found. Rules are uniquely named by function.
+> Terjemahan Indonesia: NO duplicate rule IDs found. Rules adalah uniquely named oleh function.
 
 ### E. Summary
 | Metric | Count |

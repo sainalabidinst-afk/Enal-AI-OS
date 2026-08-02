@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/capabilities/network-engineer.md`
+- Judul: Network Engineer
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Network Engineer Capability Specification
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack specification for network-engineer
+<!-- DOCUMENT_METADATA_END -->
 
 ## Version: 2.0.0
 ## Status: Draft (v2.0 expanding to network consultant)
@@ -8,12 +34,13 @@
 ## 1. Purpose
 
 Deliver vendor-agnostic network intelligence untuk:
+> Terjemahan Indonesia: Memberikan kecerdasan jaringan vendor-agnostic untuk:
 - Configuration parsing & validation
 - Security compliance auditing
 - Risk analysis & recommendations
 - Configuration generation & simulation
 - Design review (topology-level analysis and scoring)
-- Troubleshooting (structured evidence → hypothesis → root cause)
+- Troubleshooting (structured evidence â†’ hypothesis â†’ root cause)
 - Migration planning (cross-vendor with risk, rollback, downtime)
 - Network advisory (high-level design questions with explainable designs)
 
@@ -123,11 +150,11 @@ Deliver vendor-agnostic network intelligence untuk:
 ### Target Metrics
 | Metric | Target | Pass Criteria |
 |--------|--------|---------------|
-| Accuracy | ≥95% | Correct findings ≥95% |
-| Precision | ≥95% | False positive ≤5% |
-| Recall | ≥95% | True positive ≥95% |
+| Accuracy | â‰¥95% | Correct findings â‰¥95% |
+| Precision | â‰¥95% | False positive â‰¤5% |
+| Recall | â‰¥95% | True positive â‰¥95% |
 | Latency | <2s | Avg response <2 seconds |
-| Coverage | ≥90% | Code path coverage ≥90% |
+| Coverage | â‰¥90% | Code path coverage â‰¥90% |
 
 ---
 
@@ -135,9 +162,9 @@ Deliver vendor-agnostic network intelligence untuk:
 
 | Vendor | Format | Parser Status | Analyzer Status |
 |--------|--------|---------------|----------------|
-| MikroTik | .rsc, .conf | ✅ | ⏳ |
-| Cisco IOS | .conf, .txt | ✅ | ⏳ |
-| Fortinet | .conf | ✅ | ⏳ |
+| MikroTik | .rsc, .conf | âœ… | â³ |
+| Cisco IOS | .conf, .txt | âœ… | â³ |
+| Fortinet | .conf | âœ… | â³ |
 
 ---
 
@@ -153,26 +180,26 @@ Deliver vendor-agnostic network intelligence untuk:
 
 ## 8. Network Engineer 2.0 Roadmap
 
-### N1 — Deep Network Knowledge
+### N1 â€” Deep Network Knowledge
 - Expanded ontology: TCP/IP, Routing, Switching, MPLS, BGP, OSPF, IS-IS, VXLAN, EVPN, SD-WAN, WiFi, IPv6, DNS, DHCP, QoS, Multicast, NAT, Firewall, Zero Trust
 - Concept-level explanations with RFC references
 - Cross-vendor concept mapping
 
-### N2 — Design Review
+### N2 â€” Design Review
 - Topology-level analysis for SPOF, bottleneck, routing loop, asymmetric routing, VLAN leak, security gap, scalability
 - Graded scoring: Network Score (0-100), Availability, Security, Scalability, Performance
 
-### N3 — Troubleshooting Engine
-- Structured workflow: symptom → collect evidence → hypothesis → counter hypothesis → verification → root cause
+### N3 â€” Troubleshooting Engine
+- Structured workflow: symptom â†’ collect evidence â†’ hypothesis â†’ counter hypothesis â†’ verification â†’ root cause
 - Pattern matching for common network symptoms
 - Confidence-weighted hypothesis ranking
 
-### N4 — Migration Planner
+### N4 â€” Migration Planner
 - Cross-vendor migration plans with phased execution
 - Risk assessment, rollback steps, downtime estimation, validation checkpoints
-- Vendor alignment mapping (Cisco ↔ MikroTik ↔ Fortinet)
+- Vendor alignment mapping (Cisco â†” MikroTik â†” Fortinet)
 
-### N5 — Network Advisor
+### N5 â€” Network Advisor
 - Natural language design queries: "500 branches", "HA datacenter", "Zero Trust", "SD-WAN"
 - Explainable design proposals with architecture summary, components, recommendations, and risks
 
@@ -184,14 +211,14 @@ Deliver vendor-agnostic network intelligence untuk:
 |-----------|-------|-----------------|-----------------|
 | 5A.1 | 25 | MikroTik: 10, Cisco: 10, Fortinet: 5 | Security: 15, Best Practice: 10 |
 | 5A.2 | 50 | Balanced distribution | Security: 25, HA: 10, QoS: 5, Wireless: 5, Monitoring: 5 |
-| 5A.3 | 100 | All 3 vendors × 25+ cases | Full coverage |
+| 5A.3 | 100 | All 3 vendors Ã— 25+ cases | Full coverage |
 
 ---
 
 ## 10. Evaluation Metrics
 
 ### Golden Tests
-- ✅ Must pass 100% before merge
+- âœ… Must pass 100% before merge
 - Test cases stored in `benchmarks/golden/`
 
 ### Real Cases

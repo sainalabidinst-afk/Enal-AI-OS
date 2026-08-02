@@ -1,0 +1,14 @@
+{
+  "record_id": "daf22630-13a7-4a58-9a31-7164027826ee",
+  "assessment_id": "e40497e1-a3ab-47c5-959a-603ea44a60b0",
+  "timestamp": "2026-08-02T00:20:18.506252+00:00",
+  "target_type": "config",
+  "total_findings": 4,
+  "critical_count": 3,
+  "high_count": 0,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}

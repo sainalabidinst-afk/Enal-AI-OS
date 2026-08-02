@@ -1,36 +1,63 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `PLAN_RFC-0007.md`
+- Judul: Plan Rfc 0007
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Plan: Implementasi RFC-0007 (Decision Intelligence)
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for PLAN_RFC-0007
+<!-- DOCUMENT_METADATA_END -->
 
 ## Informasi yang Dikumpulkan
 
-RFC-0007 mendefinisikan **Decision Intelligence** — Capability Pack yang menjadi shared reasoning layer untuk semua Capability Pack lainnya. Ini adalah "otak" kedua setelah Core, tetapi tetap di level Capability Pack (tidak melanggar Core Freeze).
+RFC-0007 mendefinisikan **Decision Intelligence** â€” Capability Pack yang menjadi shared reasoning layer untuk semua Capability Pack lainnya. Ini adalah "otak" kedua setelah Core, tetapi tetap di level Capability Pack (tidak melanggar Core Freeze).
+> Terjemahan Indonesia: RFC-0007 mendefinisikan Decision Intelligence â€” kapabilitas Pack yang menjadi shared reasoning layer untuk semua kapabilitas Pack lainnya. Ini adalah "otak" kedua setelah Core, tetapi tetap di level kapabilitas Pack (tidak melanggar Core Freeze).
 
 ### Core Capabilities (8 sub-modul)
-1. **Evidence Collection** — Kumpulkan evidence dari berbagai sumber
-2. **Alternative Generation** — Generate alternatif keputusan
-3. **Risk Analysis** — Analisis risiko (probability × impact)
-4. **Trade-off Analysis** — Multi-objective optimization
-5. **Decision Scoring** — Score dan ranking alternatif
-6. **Confidence Estimation** — Quantifikasi uncertainty
-7. **Explainable Decision** — Rantai explainability
-8. **Decision History** — Record ke Experience Memory
+1. **Evidence Collection** â€” Kumpulkan evidence dari berbagai sumber
+2. **Alternative Generation** â€” Generate alternatif keputusan
+3. **Risk Analysis** â€” Analisis risiko (probability Ã— impact)
+4. **Trade-off Analysis** â€” Multi-objective optimization
+5. **Decision Scoring** â€” Score dan ranking alternatif
+6. **Confidence Estimation** â€” Quantifikasi uncertainty
+7. **Explainable Decision** â€” Rantai explainability
+8. **Decision History** â€” Record ke Experience Memory
 
-### Target Quality: A (≥90)
-- Decision Accuracy ≥90%
-- Explainability ≥95%
-- Consistency ≥90%
-- Confidence Calibration ≥85%
+### Target Quality: A (â‰¥90)
+- Decision Accuracy â‰¥90%
+- Explainability â‰¥95%
+- Consistency â‰¥90%
+- Confidence Calibration â‰¥85%
 
 ### Prinsip Arsitektur
-- **Zero Core changes** — semua di `apps/decision_intelligence/`
-- **ADR-002 compliance** — komunikasi via Execution Runtime, bukan direct import
-- **ADR-004 compliance** — Domain Engine owns business logic
-- **ADR-005 compliance** — rekomendasi, bukan eksekusi otomatis
+- **Zero Core changes** â€” semua di `apps/decision_intelligence/`
+- **ADR-002 compliance** â€” komunikasi via Execution Runtime, bukan direct import
+- **ADR-004 compliance** â€” Domain Engine owns business logic
+- **ADR-005 compliance** â€” rekomendasi, bukan eksekusi otomatis
 
 ## Plan Implementasi
 
 ### Step 1: Buat package structure + schemas
 - `apps/decision_intelligence/__init__.py`
-- `apps/decision_intelligence/schemas.py` — DecisionRequest, DecisionResult, EvidenceItem, Alternative, RiskProfile, TradeOff, ConfidenceScore, DecisionRecord (Pydantic models)
+- `apps/decision_intelligence/schemas.py` â€” DecisionRequest, DecisionResult, EvidenceItem, Alternative, RiskProfile, TradeOff, ConfidenceScore, DecisionRecord (Pydantic models)
 
 ### Step 2: Implementasi Evidence Collection
 - `apps/decision_intelligence/evidence_collector.py`
@@ -40,12 +67,12 @@ RFC-0007 mendefinisikan **Decision Intelligence** — Capability Pack yang menja
 
 ### Step 3: Implementasi Alternative Generation
 - `apps/decision_intelligence/alternative_generator.py`
-- Generate ≥2 alternatif viable dari decision context
+- Generate â‰¥2 alternatif viable dari decision context
 - Feasibility filtering berdasarkan constraints
 
 ### Step 4: Implementasi Risk Analysis
 - `apps/decision_intelligence/risk_analyzer.py`
-- Probability × impact scoring
+- Probability Ã— impact scoring
 - Multiple risk factor categories
 - Risk tolerance parameter
 
@@ -53,36 +80,36 @@ RFC-0007 mendefinisikan **Decision Intelligence** — Capability Pack yang menja
 - `apps/decision_intelligence/tradeoff_analyzer.py`
 - Weighted multi-objective scoring
 - Pareto frontier identification
-- Mendukung ≥3 simultaneous objectives
+- Mendukung â‰¥3 simultaneous objectives
 
 ### Step 6: Implementasi Decision Scoring + Confidence
-- `apps/decision_intelligence/scoring_engine.py` — Composite scoring, ranking
-- `apps/decision_intelligence/confidence_estimator.py` — Confidence 0-100%, uncertainty bounds, calibration
+- `apps/decision_intelligence/scoring_engine.py` â€” Composite scoring, ranking
+- `apps/decision_intelligence/confidence_estimator.py` â€” Confidence 0-100%, uncertainty bounds, calibration
 
 ### Step 7: Implementasi Explanation + History
-- `apps/decision_intelligence/explanation_generator.py` — Full chain: evidence → reasoning → alternatives → risk → decision → rationale
-- `apps/decision_intelligence/decision_history.py` — Record ke Experience Memory format
+- `apps/decision_intelligence/explanation_generator.py` â€” Full chain: evidence â†’ reasoning â†’ alternatives â†’ risk â†’ decision â†’ rationale
+- `apps/decision_intelligence/decision_history.py` â€” Record ke Experience Memory format
 
 ### Step 8: Implementasi Engine + Worker
-- `apps/decision_intelligence/engine.py` — DecisionIntelligenceEngine orchestrator
-- `apps/decision_intelligence/worker.py` — Thin adapter (per ADR-003)
+- `apps/decision_intelligence/engine.py` â€” DecisionIntelligenceEngine orchestrator
+- `apps/decision_intelligence/worker.py` â€” Thin adapter (per ADR-003)
 - Integrasi semua sub-modul dalam pipeline
 
 ### Step 9: Benchmark
-- `benchmarks/decision_intelligence_benchmark.py` — 100 decision scenarios
+- `benchmarks/decision_intelligence_benchmark.py` â€” 100 decision scenarios
 - Metrics: accuracy, completeness, explainability, safety, efficiency, consistency, confidence calibration, risk detection
 
 ### Step 10: Update dokumentasi
-- `docs/CAPABILITY_STRATEGY.md` — tambah Decision Intelligence
-- `docs/capabilities/` — profile Decision Intelligence
-- `TODO.md` — update status
+- `docs/CAPABILITY_STRATEGY.md` â€” tambah Decision Intelligence
+- `docs/capabilities/` â€” profile Decision Intelligence
+- `TODO.md` â€” update status
 
 ## Dependent Files
-- `apps/decision_intelligence/` — seluruh package baru
-- `benchmarks/decision_intelligence_benchmark.py` — benchmark baru
-- `docs/CAPABILITY_STRATEGY.md` — update profil pack
-- `docs/capabilities/` — file baru
-- `TODO.md` — track progress
+- `apps/decision_intelligence/` â€” seluruh package baru
+- `benchmarks/decision_intelligence_benchmark.py` â€” benchmark baru
+- `docs/CAPABILITY_STRATEGY.md` â€” update profil pack
+- `docs/capabilities/` â€” file baru
+- `TODO.md` â€” track progress
 
 ## Follow-up Steps
 - Smoke test pipeline (import verification + sample decision scenario)

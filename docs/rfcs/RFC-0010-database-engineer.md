@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0010-database-engineer.md`
+- Judul: Rfc 0010 Database Engineer
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC-0010: Database Engineer Capability Pack
 
 | Field | Value |
@@ -19,8 +37,10 @@
 ## Motivation
 
 ECP's Code Engineer generates database schemas, DevOps Assistant deploys database containers, and Data Engineer processes datasets. However, none of these packs provide deep database expertise—query optimization, index recommendation, migration planning, or performance analysis.
+> Terjemahan Indonesia: ECP's Code Engineer generates database schemas, DevOps Assistant deploys database containers, dan Data Engineer processes datasets. However, none dari these packs menyediakan deep database expertise—query optimization, index recommendation, migration planning, or performance analysis.
 
 Currently:
+> Terjemahan Indonesia: Saat ini:
 
 1. **Schema design is basic** — generated schemas lack optimization for query patterns, data type choices, and normalization levels.
 2. **No query optimization** — generated SQL is syntactically correct but often poorly optimized.
@@ -30,12 +50,14 @@ Currently:
 6. **No replication strategy** — no guidance on replication setup, backup strategies, or high availability.
 
 The Database Engineer Capability Pack becomes the database expert layer, providing schema design, query optimization, migration management, replication planning, backup/recovery, and performance analysis for ECP's database operations.
+> Terjemahan Indonesia: Database Engineer kapabilitas Pack becomes database expert layer, providing schema design, query optimization, migration management, replication planning, backup/recovery, dan performance analysis untuk ECP's database operations.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated Database Engineer Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated Database Engineer kapabilitas Pack:
 
 - **No schema optimization** — generated schemas are functional but not performance-optimized for real-world query patterns.
 - **No query performance analysis** — slow queries, missing indexes, and inefficient joins are not detected in generated SQL.
@@ -313,6 +335,7 @@ User / Human Approval Loop
 ### No Core Changes Required
 
 All implementation resides within the Database Engineer Capability Pack:
+> Terjemahan Indonesia: All implementation resides within Database Engineer kapabilitas Pack:
 
 ```
 apps/
@@ -359,6 +382,7 @@ apps/
   - MySQL: web applications, CMS, OLTP systems
   - SQLite: embedded applications, mobile apps
   - MongoDB: document stores, content management
+> Terjemahan Indonesia: PostgreSQL: e-commerce, analytics, SaaS multi-tenant MySQL: web applications, CMS, OLTP systems SQLite: embedded applications, mobile apps MongoDB: dokumen stores, konten management
 
 ### Benchmark Dimensions Detail
 
@@ -401,6 +425,7 @@ apps/
 ### The Directory
 
 `real_cases/database_engineer/` must contain:
+> Terjemahan Indonesia: Real_cases/database_engineer/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -516,6 +541,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 Database Engineer is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: Database Engineer adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/database_engineer/`.
 - **ADR-002 (Capability Pack Independence):** Database Engineer communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.

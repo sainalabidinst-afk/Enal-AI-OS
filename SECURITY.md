@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `SECURITY.md`
+- Judul: Security
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Security Policy
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for SECURITY
+<!-- DOCUMENT_METADATA_END -->
 
 ## Supported Versions
 
@@ -9,14 +35,17 @@
 ## Reporting a Vulnerability
 
 Please report security vulnerabilities to sainal.abidin.st@gmail.com
+> Terjemahan Indonesia: Please report keamanan vulnerabilities untuk sainal.abidin.st@gmail.com
 
 Do not report security vulnerabilities through public GitHub issues.
+> Terjemahan Indonesia: Do not report keamanan vulnerabilities through public GitHub issues.
 
 ## Security Model
 
 ### Plugin Security
 
 Plugins are sandboxed and require explicit permissions:
+> Terjemahan Indonesia: Plugins adalah sandboxed dan require explicit permissions:
 
 1. **Capability Declaration**: Plugins must declare required permissions
 2. **Policy Check**: Platform validates plugin against security policies
@@ -25,13 +54,13 @@ Plugins are sandboxed and require explicit permissions:
 
 ### Permission Levels
 
-- `read` — Read data
-- `write` — Write data
-- `execute` — Execute code/commands
-- `deploy` — Deploy to production
-- `admin` — Administrative operations
-- `network` — Network access
-- `system` — System-level access
+- `read` â€” Read data
+- `write` â€” Write data
+- `execute` â€” Execute code/commands
+- `deploy` â€” Deploy to production
+- `admin` â€” Administrative operations
+- `network` â€” Network access
+- `system` â€” System-level access
 
 ### Security Best Practices
 

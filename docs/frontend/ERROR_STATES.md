@@ -1,6 +1,33 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/frontend/ERROR_STATES.md`
+- Judul: Error States
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Error States
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Frontend documentation for ERROR_STATES
+<!-- DOCUMENT_METADATA_END -->
+
 This document defines every error state the user can encounter in v1, and how the UI must respond.
+> Terjemahan Indonesia: Ini dokumen defines every error state user dapat encounter dalam v1, dan how UI must respond.
 
 ---
 
@@ -19,7 +46,7 @@ This document defines every error state the user can encounter in v1, and how th
 | HTTP Status | Cause | UI Behavior |
 |-------------|-------|-------------|
 | 400 | Bad request (invalid input) | Show inline error near input field. |
-| 401 | Unauthorized (missing/invalid API key) | Redirect to Settings → API Keys. |
+| 401 | Unauthorized (missing/invalid API key) | Redirect to Settings â†’ API Keys. |
 | 403 | Forbidden (insufficient permissions) | Show: "Permission denied. Contact admin." |
 | 404 | Not found (deleted/missing resource) | Show: "Not found. It may have been deleted." with recovery action. |
 | 429 | Rate limited | Show: "Too many requests. Retrying in X seconds." |

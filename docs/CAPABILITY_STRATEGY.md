@@ -1,7 +1,34 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/CAPABILITY_STRATEGY.md`
+- Judul: Capability Strategy
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack maturity model, profiles, and lifecycle strategy
+<!-- DOCUMENT_METADATA_END -->
+
 # ECP Capability Strategy
 
 **Version:** 1.0.0
-**Effective:** 2026-08-01
+**Effective:** 2026-08-02
 **Parent:** `GOVERNANCE_CHARTER.md`
 **Purpose:** Defines the strategy for Capability Pack evolution, maturity, quality grading, lifecycle, and knowledge expansion.
 
@@ -12,8 +39,10 @@
 > **Core is the stable platform. Capability Packs are the place where innovation happens.**
 
 All knowledge expansion, feature growth, and domain evolution happens **inside Capability Packs**. Core remains unchanged.
+> Terjemahan Indonesia: All knowledge expansion, feature growth, dan domain evolution happens inside kapabilitas Packs. Core remains unchanged.
 
 The development cycle is:
+> Terjemahan Indonesia: Development cycle adalah:
 
 ```
 Real Usage → Measurement → Capability Improvement → Benchmark → Release
@@ -28,6 +57,7 @@ Real Usage → Measurement → Capability Improvement → Benchmark → Release
 ## 2. Capability Maturity Model
 
 Maturity describes the **lifecycle stage** of a Capability Pack — not its quality grade. A pack must progress through these levels to reach production readiness.
+> Terjemahan Indonesia: Maturity describes lifecycle stage dari sebuah kapabilitas Pack — not its kualitas grade. sebuah pack must progress through these levels untuk reach production readiness.
 
 | Level | Label | Description | Requirements |
 |-------|-------|-------------|--------------|
@@ -38,7 +68,7 @@ Maturity describes the **lifecycle stage** of a Capability Pack — not its qual
 | 5 | **Certified** | Audited, benchmarked, reference-quality | Independent audit, public benchmark dashboard, ≥500 real cases |
 | 6 | **Reference Capability** | Industry benchmark for the domain | Cross-project validation, published methodology, community adoption |
 
-**Current Status (2026-08-01):**
+**Current Status (2026-08-02):**
 
 | Capability Pack | Maturity Level | Target Level |
 |-----------------|----------------|--------------|
@@ -50,12 +80,18 @@ Maturity describes the **lifecycle stage** of a Capability Pack — not its qual
 | Self Development | 3 — Production Ready | 4 — Domain Expert |
 | Decision Intelligence | 3 — Production Ready | 4 — Domain Expert |
 | System Architect | 3 — Production Ready | 4 — Domain Expert |
+| Security Engineer | 3 — Production Ready | 4 — Domain Expert |
+| Data Engineer | 3 — Production Ready | 4 — Domain Expert |
+| Database Engineer | 3 — Production Ready | 4 — Domain Expert |
+| QA Engineer | 3 — Production Ready | 4 — Domain Expert |
+| Business Analyst | 3 — Production Ready | 4 — Domain Expert |
 
 ---
 
 ## 3. Quality Grades
 
 Quality Grades describe the **current benchmark result** of a Capability Pack. They are outcomes of evaluation, not maturity levels.
+> Terjemahan Indonesia: Kualitas Grades describe current benchmark result dari sebuah kapabilitas Pack. They adalah outcomes dari evaluation, not maturity levels.
 
 | Grade | Meaning | Benchmark Score |
 |-------|---------|-----------------|
@@ -66,7 +102,7 @@ Quality Grades describe the **current benchmark result** of a Capability Pack. T
 | A | **Expert** — comprehensive domain mastery | ≥90% |
 | A+ | **Reference implementation** — industry benchmark | ≥95% |
 
-**Current Quality Grades (2026-08-01):**
+**Current Quality Grades (2026-08-02):**
 
 | Capability Pack | Grade | Score | Status |
 |-----------------|-------|-------|--------|
@@ -78,21 +114,29 @@ Quality Grades describe the **current benchmark result** of a Capability Pack. T
 | Self Development | A | ≥90 | Production Ready |
 | Decision Intelligence | A | 91.25% | Production Ready (RFC-0007) |
 | System Architect | A | 97.50% | Production Ready (RFC-0011) |
+| Security Engineer | A- | ≥85 | Production Ready (RFC-0008) |
+| Data Engineer | A- | ≥85 | Production Ready (RFC-0009) |
+| Database Engineer | A- | ≥85 | Production Ready (RFC-0010) |
+| QA Engineer | A | ≥90 | Production Ready (RFC-0012) |
+| Business Analyst | A- | ≥85 | Production Ready (RFC-0013) |
 
 ### Quality Grade vs Maturity Level
 
 These two concepts are independent:
+> Terjemahan Indonesia: These two concepts adalah independent:
 
 - **Maturity Level** = Where the pack is in its lifecycle (e.g., Production Ready)
 - **Quality Grade** = How well the pack performs in benchmarks (e.g., A)
 
 A pack at Level 3 (Production Ready) may be working toward A+ grade. A pack at Level 4 (Domain Expert) may have a lower grade if its domain scope has expanded faster than benchmark scores.
+> Terjemahan Indonesia: Sebuah pack at Level 3 (Production Ready) may menjadi working toward sebuah+ grade. sebuah pack at Level 4 (Domain Expert) may memiliki sebuah lower grade if its domain scope memiliki expanded faster than benchmark scores.
 
 ---
 
 ## 4. Capability Lifecycle
 
 Each Capability Pack follows a defined lifecycle from proposal to deprecation:
+> Terjemahan Indonesia: Each kapabilitas Pack follows sebuah defined lifecycle dari proposal untuk deprecation:
 
 ```
 Proposal
@@ -137,6 +181,11 @@ Deprecated
 | Self Development | Stable | Progressing toward Certified |
 | Decision Intelligence | Stable | Shared reasoning layer (RFC-0007) |
 | System Architect | Stable | Architecture authority (RFC-0011) |
+| Security Engineer | Stable | Production Ready (RFC-0008) |
+| Data Engineer | Stable | Production Ready (RFC-0009) |
+| Database Engineer | Stable | Production Ready (RFC-0010) |
+| QA Engineer | Stable | Production Ready (RFC-0012) |
+| Business Analyst | Stable | Production Ready (RFC-0013) |
 
 ---
 
@@ -147,10 +196,10 @@ Deprecated
 **Category:** Networking
 **Capabilities:** Configuration generation, validation, deployment
 **Success Criteria:**
-- Configures Mikrotik routers via plugin
+- Configures MikroTik routers via Plugin
 - Validates configurations before deployment
 - Generates rollback scripts
-- Uses knowledge graph for network topology
+- Uses Knowledge Graph for network topology
 **Quality Target:** A — 100 real configs, ≥95% accuracy
 **Maturity Target:** Level 4 — Domain Expert
 
@@ -170,7 +219,7 @@ Deprecated
 ### 5.3 Research Assistant
 
 **Category:** Research
-**Capabilities:** RAG, knowledge graphs, citation, learning
+**Capabilities:** RAG, Knowledge Graphs, citation, learning
 **Success Criteria:**
 - Retrieves relevant documents from knowledge base
 - Synthesizes information from multiple sources
@@ -243,6 +292,69 @@ Deprecated
 **Benchmark:** `benchmarks/system_architect_benchmark.py` (8 dimensions)
 **Maturity Target:** Level 4 — Domain Expert
 
+### 5.9 Security Engineer
+
+**Category:** Security
+**Capabilities:** OWASP Top 10 analysis, security audit, penetration test, threat modeling, secret detection, vulnerability analysis, dependency audit, configuration hardening, compliance mapping
+**Success Criteria (RFC-0008):**
+- Enterprise security capabilities across OWASP Top 10
+- Threat modeling and secret detection
+- Vulnerability analysis and dependency audit
+- Configuration hardening and compliance mapping
+**Quality Target:** A- (≥85)
+**Benchmark:** `benchmarks/security_engineer_benchmark.py` (9 dimensions)
+**Maturity Target:** Level 3 — Production Ready
+
+### 5.10 Data Engineer
+
+**Category:** Data
+**Capabilities:** ETL/ELT pipeline, data cleaning, dataset validation, schema evolution, feature engineering, time-series handling, data quality assurance
+**Success Criteria (RFC-0009):**
+- Full data lifecycle management: ETL/ELT, data cleaning, dataset validation
+- Schema evolution and feature engineering
+- Time-series handling and data quality assurance
+**Quality Target:** A- (≥85)
+**Benchmark:** `benchmarks/data_engineer_benchmark.py` (8 dimensions)
+**Maturity Target:** Level 3 — Production Ready
+
+### 5.11 Database Engineer
+
+**Category:** Database
+**Capabilities:** Schema design, query optimization, migration management, replication planning, backup/recovery, index recommendation, performance analysis
+**Success Criteria (RFC-0010):**
+- Enterprise database capabilities: schema design, query optimization
+- Migration management, replication planning, backup/recovery
+- Index recommendation and performance analysis
+**Quality Target:** A- (≥85)
+**Benchmark:** `benchmarks/database_engineer_benchmark.py` (8 dimensions)
+**Maturity Target:** Level 3 — Production Ready
+
+### 5.12 QA Engineer
+
+**Category:** Quality Assurance
+**Capabilities:** Unit/integration test generation, regression test automation, mutation testing, Golden Test generation for other packs, benchmark test generation, flaky test detection, coverage analysis, performance validation
+**Success Criteria (RFC-0012):**
+- Automated quality assurance: unit/integration test generation
+- Regression test automation and mutation testing
+- Golden Test generation for other packs
+- Benchmark test generation and coverage analysis
+**Quality Target:** A (≥90)
+**Benchmark:** `benchmarks/qa_engineer_benchmark.py` (9 dimensions)
+**Maturity Target:** Level 3 — Production Ready
+
+### 5.13 Business Analyst
+
+**Category:** Business Analysis
+**Capabilities:** Requirement gathering, business process modeling, user story generation, use case modeling, BRD generation, functional specification, gap analysis, ROI analysis, process optimization
+**Success Criteria (RFC-0013):**
+- Business-to-technical translation: requirement gathering
+- Business process modeling and user story generation
+- Use case modeling, BRD generation, functional specification
+- Gap analysis, ROI analysis, and process optimization
+**Quality Target:** A- (≥85)
+**Benchmark:** `benchmarks/business_analyst_benchmark.py` (9 dimensions)
+**Maturity Target:** Level 3 — Production Ready
+
 ---
 
 ## 6. Benchmark Requirements
@@ -250,6 +362,7 @@ Deprecated
 ### 6.1 Capability Benchmark
 
 Each Capability Pack must define and maintain a benchmark:
+> Terjemahan Indonesia: Each kapabilitas Pack must define dan maintain sebuah benchmark:
 
 - Minimum **100 scenarios** for A/B grade targets
 - Minimum **10 projects** for A-/B+ grade targets
@@ -259,6 +372,7 @@ Each Capability Pack must define and maintain a benchmark:
 ### 6.2 Real-world Benchmark
 
 Each Capability Pack must maintain a `real_cases/<capability_id>/` directory containing:
+> Terjemahan Indonesia: Each kapabilitas Pack must maintain sebuah real_cases// directory containing:
 
 - Real input/output pairs from actual usage
 - Evaluation notes for each case
@@ -280,6 +394,7 @@ Each Capability Pack must maintain a `real_cases/<capability_id>/` directory con
 ## 7. Knowledge Expansion
 
 All planned knowledge additions are tracked via RFCs and implemented inside Capability Packs only. Core remains unchanged.
+> Terjemahan Indonesia: All planned knowledge additions adalah tracked via RFCs dan implemented inside kapabilitas Packs only. Core remains unchanged.
 
 ### 7.1 Network Engineer
 
@@ -352,11 +467,13 @@ All planned knowledge additions are tracked via RFCs and implemented inside Capa
 
 ## 8. Future Capability Packs (Roadmap)
 
-Capability Pack baru hanya akan dikembangkan setelah 8 pack existing mencapai target grade A/A-. Berikut adalah rencana pengembangan berdasarkan prioritas:
+All Capability Packs listed below have been implemented. Future packs will only be developed after the 13 existing packs reach target grade A/A-.
+> Terjemahan Indonesia: All kapabilitas Packs listed below memiliki been implemented. Future packs akan only menjadi developed after 13 existing packs reach target grade sebuah/sebuah-.
 
 ### 8.1 Security Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
 **Fase:** Fase 2 — Setelah Capability Excellence
+**Status:** ✅ Implemented (RFC-0008)
 **Fungsi:** Keamanan aplikasi dan infrastruktur
 **Kemampuan:**
 - OWASP Top 10 analysis
@@ -364,12 +481,13 @@ Capability Pack baru hanya akan dikembangkan setelah 8 pack existing mencapai ta
 - Threat modeling
 - Secret detection dan vulnerability assessment
 **Dependent Packs:** Code, DevOps, Network
-**RFC Status:** Belum dimulai
+**RFC Status:** RFC-0008 — Diimplementasikan
 **Target Maturity:** Level 3 — Production Ready
 
-### 8.3 Data Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
+### 8.2 Data Engineer (Prioritas Tinggi — ⭐⭐⭐⭐)
 
 **Fase:** Fase 2 — Setelah Capability Excellence
+**Status:** ✅ Implemented (RFC-0009)
 **Fungsi:** Fondasi data untuk meningkatkan Trading, Research, dan analitik
 **Kemampuan:**
 - ETL pipeline
@@ -378,19 +496,19 @@ Capability Pack baru hanya akan dikembangkan setelah 8 pack existing mencapai ta
 - Feature engineering
 - Time-series pipeline
 **Dependent Packs:** Trading, Research, DevOps
-**RFC Status:** Belum dimulai
+**RFC Status:** RFC-0009 — Diimplementasikan
 **Target Maturity:** Level 3 — Production Ready
 
-### 8.4 Enterprise Packs (Fase 3)
+### 8.3 Enterprise Packs (Fase 3)
 
 | Capability Pack | Fungsi | Dependent Packs |
 |-----------------|--------|-----------------|
 | **Database Engineer** | SQL optimization, schema design, migration, index recommendation, performance analysis | Code, DevOps |
 | **System Architect** | DDD, microservices, event driven, ADR generator, architecture review, refactoring recommendation | Code, Self Development |
-| **QA Engineer** | Test generation, regression, mutation testing, golden test builder, benchmark generator | Code, DevOps, Self Development |
+| **QA Engineer** | Test generation, regression, mutation testing, Golden Test builder, benchmark generator | Code, DevOps, Self Development |
 | **Business Analyst** | Requirement analysis, user story, BRD, use case, workflow | Semua pack |
 
-### 8.5 Long-term Packs (Fase 4)
+### 8.4 Long-term Packs (Fase 4)
 
 | Capability Pack | Fungsi |
 |-----------------|--------|
@@ -400,9 +518,10 @@ Capability Pack baru hanya akan dikembangkan setelah 8 pack existing mencapai ta
 | **AI Engineer** | RAG, fine-tuning, prompt engineering, agent design, evaluation |
 | **Infrastructure Engineer** | Kubernetes, Docker, storage, monitoring, observability, HA cluster |
 
-### 8.6 Yang Tidak Akan Menjadi Capability Pack
+### 8.5 Yang Tidak Akan Menjadi Capability Pack
 
-Komponen berikut akan diposisikan sebagai **plugin**, **service**, atau **infrastruktur platform**, bukan Capability Pack:
+Komponen berikut akan diposisikan sebagai **Plugin**, **Service**, atau **infrastruktur platform**, bukan Capability Pack:
+> Terjemahan Indonesia: Komponen berikut akan diposisikan sebagai Plugin, layanan, atau infrastruktur platform, bukan kapabilitas Pack:
 
 - Authentication / Authorization
 - PostgreSQL / Redis / MinIO / Kafka
@@ -415,6 +534,7 @@ Komponen berikut akan diposisikan sebagai **plugin**, **service**, atau **infras
 ## 9. Capability Changelog Template
 
 Each Capability Pack maintains its own changelog. The changelog records knowledge additions, benchmark improvements, and reasoning enhancements. It does not record Core changes.
+> Terjemahan Indonesia: Each kapabilitas Pack maintains its own changelog. changelog records knowledge additions, benchmark improvements, dan reasoning enhancements. It does not record Core changes.
 
 ### Format
 
@@ -458,9 +578,9 @@ Each Capability Pack maintains its own changelog. The changelog records knowledg
 
 ---
 
-## 9. Approval
+## 10. Approval
 
 | Role | Status | Date |
 |------|--------|------|
-| Chief Product Officer | Approved | 2026-08-01 |
-| Chief Architect | Approved | 2026-08-01 |
+| Chief Product Officer | Approved | 2026-08-02 |
+| Chief Architect | Approved | 2026-08-02 |

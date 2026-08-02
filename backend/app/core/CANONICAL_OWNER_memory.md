@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `backend/app/core/CANONICAL_OWNER_memory.md`
+- Judul: Canonical Owner Memory
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # CANONICAL_OWNER
 
 ## Service: Memory
@@ -22,3 +40,4 @@
 ## Notes
 
 `core/memory.py` exposes `conversation_store` with `get_conversation()`, `append_message()`, and `clear_conversation()` methods, all backed by Redis with the key prefix `conversation:`. This matches the interface that `conversation_manager.py` requires.
+> Terjemahan Indonesia: Core/memory.py exposes conversation_store dengan get_conversation(), append_message(), dan clear_conversation() methods, all backed oleh Redis dengan key prefix conversation:. ini matches interface itu conversation_manager.py requires.

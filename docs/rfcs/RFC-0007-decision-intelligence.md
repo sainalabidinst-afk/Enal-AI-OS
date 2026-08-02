@@ -1,3 +1,29 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0007-decision-intelligence.md`
+- Judul: Rfc 0007 Decision Intelligence
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+<!-- DOCUMENT_METADATA_END -->
+
 # RFC-0007: Decision Intelligence Capability Pack
 
 | Field | Value |
@@ -18,9 +44,11 @@
 
 ## Motivation
 
-The 6 existing Capability Packs cover code, network, research, DevOps, trading, and self-development. Each produces outputs—code, configurations, research reports, trading signals—that involve decisions requiring evidence-based reasoning.
+The 13 existing Capability Packs cover code, network, research, DevOps, trading, and self-development. Each produces outputs—code, configurations, research reports, trading signals—that involve decisions requiring evidence-based reasoning.
+> Terjemahan Indonesia: 13 existing kapabilitas Packs cover code, network, research, DevOps, trading, dan self-development. Each produces outputs—code, configurations, research reports, trading signals—itu involve decisions requiring evidence-based reasoning.
 
 Currently, these decisions are made in an embedded, pack-specific way. There is no shared reasoning layer that applies a consistent, auditable, and explainable decision framework across domains. This leads to:
+> Terjemahan Indonesia: Currently, these decisions adalah made dalam sebuah embedded, pack-specific way. There adalah no shared reasoning layer itu applies sebuah consistent, auditable, dan explainable decision kerangka kerja across domains. ini leads untuk:
 
 1. **Inconsistent decision quality** — each pack reinvents evidence collection, risk scoring, and confidence estimation.
 2. **No cross-domain decision reuse** — Trading Analyst's risk analysis cannot inform Code Engineer's refactoring choices, even though both involve risk vs. reward trade-offs.
@@ -28,12 +56,14 @@ Currently, these decisions are made in an embedded, pack-specific way. There is 
 4. **No decision audit trail** — decisions are produced but never recorded in a structured, queryable experience memory for learning and rollback.
 
 Decision Intelligence becomes the **reasoning layer** that sits between evidence producers (all Capability Packs) and decision consumers (all Capability Packs), providing a unified framework for evidence-based, explainable, and auditable decision-making.
+> Terjemahan Indonesia: Decision Intelligence becomes reasoning layer itu sits between evidence producers (all kapabilitas Packs) dan decision consumers (all kapabilitas Packs), providing sebuah unified kerangka kerja untuk evidence-based, explainable, dan auditable decision-making.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated Decision Intelligence Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated Decision Intelligence kapabilitas Pack:
 
 - **Evidence is siloed per pack** — no mechanism exists to collect, rank, and synthesize evidence from multiple Capability Packs before reaching a decision.
 - **Alternatives are rarely explored** — most packs produce a single recommendation without generating or comparing alternatives.
@@ -43,6 +73,7 @@ Without a dedicated Decision Intelligence Capability Pack:
 - **Trade-off analysis is missing** — multi-objective optimization (accuracy vs. latency, cost vs. reliability) is handled per-pack, not through a unified framework.
 
 The absence of Decision Intelligence means that as ECP grows to include more Capability Packs, the quality and consistency of decisions will not scale—instead, they will fragment further.
+> Terjemahan Indonesia: Absence dari Decision Intelligence means itu as ECP grows untuk include more kapabilitas Packs, kualitas dan consistency dari decisions akan not scale—instead, they akan fragment further.
 
 ---
 
@@ -215,6 +246,7 @@ The absence of Decision Intelligence means that as ECP grows to include more Cap
 ## Integration Points (Capability Graph)
 
 The Decision Intelligence Capability Pack integrates with all existing and future Capability Packs through the **Execution Runtime** and **shared contracts only** (per ADR-002). It does not import other Capability Pack engines directly.
+> Terjemahan Indonesia: Decision Intelligence kapabilitas Pack integrates dengan all existing dan future kapabilitas Packs through Execution Runtime dan shared contracts only (per ADR-002). It does not import other kapabilitas Pack engines directly.
 
 ### Integration Pipeline
 
@@ -260,6 +292,7 @@ User / Human Approval Loop
 ## Consumer Capability Packs
 
 Decision Intelligence serves all existing Capability Packs as a cross-cutting reasoning layer:
+> Terjemahan Indonesia: Decision Intelligence serves all existing kapabilitas Packs as sebuah cross-cutting reasoning layer:
 
 | Consumer Capability Pack | Use Case |
 |--------------------------|----------|
@@ -284,6 +317,7 @@ Decision Intelligence serves all existing Capability Packs as a cross-cutting re
 ### No Core Changes Required
 
 All implementation resides within the Decision Intelligence Capability Pack:
+> Terjemahan Indonesia: All implementation resides within Decision Intelligence kapabilitas Pack:
 
 ```
 apps/
@@ -329,6 +363,7 @@ apps/
   - Research (evidence synthesis, conclusion confidence)
   - Self-Development (architecture improvement scoring)
   - Cross-domain (multi-pack trade-off decisions)
+> Terjemahan Indonesia: Trading (risk-adjusted trade selection, position sizing) Code (refactoring vs. rewrite, library selection) Network (konfigurasi migration, firewall policy changes) DevOps (penyebaran strategy, rollback planning) Research (evidence synthesis, conclusion confidence) Self-Development (arsitektur improvement scoring) Cross-domain (multi-pack trade-off decisions)
 
 ### Benchmark Dimensions Detail
 
@@ -347,6 +382,7 @@ apps/
 ## Golden Test Specification
 
 The golden test suite (`benchmarks/golden_test_set.py`) must include Decision Intelligence scenarios:
+> Terjemahan Indonesia: Golden test suite (benchmarks/golden_test_set.py) must include Decision Intelligence scenarios:
 
 | # | Scenario | Expected Outcome | Acceptance Criteria |
 |---|----------|-----------------|---------------------|
@@ -375,6 +411,7 @@ The golden test suite (`benchmarks/golden_test_set.py`) must include Decision In
 ### Real Case Directory
 
 `real_cases/decision_intelligence/` must contain:
+> Terjemahan Indonesia: Real_cases/decision_intelligence/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -387,6 +424,7 @@ The golden test suite (`benchmarks/golden_test_set.py`) must include Decision In
 ### Real Case Structure
 
 Each real case must include:
+> Terjemahan Indonesia: Setiap kasus nyata harus mencakup:
 
 ```
 real_cases/decision_intelligence/<case_id>/
@@ -428,7 +466,7 @@ Functional
 - [ ] Decision History records every decision to Experience Memory
 
 Benchmark
-- [ ] Benchmark score ≥ 90% (grade A) across all 6 standard dimensions + confidence calibration
+- [ ] Benchmark score ≥ 90% (grade A) across all 13 standard dimensions + confidence calibration
 - [ ] Decision accuracy ≥ 90%
 - [ ] Explainability ≥ 95%
 - [ ] Consistency ≥ 90%
@@ -489,6 +527,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 Decision Intelligence is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: Decision Intelligence adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/decision_intelligence/`.
 - **ADR-002 (Capability Pack Independence):** Decision Intelligence communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.
@@ -537,7 +576,7 @@ Decision Intelligence is a **new Capability Pack** that follows the established 
 
 **Duration:** 8 weeks
 
-- [ ] All 6+ Capability Packs integrated with Decision Intelligence
+- [ ] All 13+ Capability Packs integrated with Decision Intelligence
 - [ ] Confidence calibration validated on ≥50 real cases
 - [ ] Decision History supports rollback recommendations
 - [ ] Independent audit of decision quality and explainability
@@ -578,6 +617,7 @@ Decision Intelligence is a **new Capability Pack** that follows the established 
 *(See [Real Case Requirements](#real-case-requirements) section above for full specification)*
 
 Decision Intelligence real cases are sourced from:
+> Terjemahan Indonesia: Decision Intelligence real cases adalah sourced dari:
 
 1. **Trading Analyst** — Trade recommendation decisions with post-market outcome
 2. **Code Engineer** — Refactoring vs. rewrite decisions with code quality metrics

@@ -1,4 +1,23 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/adr/ADR-002-capability-pack-architecture.md`
+- Judul: Adr 002 Capability Pack Architecture
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # ADR-002: Capability Pack Architecture
+
 
 **Status:** ✅ Accepted  
 **Date:** 2024  
@@ -9,6 +28,7 @@
 ## Context
 
 The platform needs to support multiple domain-specific capabilities (networking, coding, research, etc.) while maintaining a stable core. These capabilities must be:
+> Terjemahan Indonesia: Platform needs untuk dukungan multiple domain-specific kapabilitas (networking, coding, research, etc.) while maintaining sebuah stable core. These kapabilitas must menjadi:
 
 - Independently developable
 - Independently testable
@@ -20,6 +40,7 @@ The platform needs to support multiple domain-specific capabilities (networking,
 ## Decision
 
 Organize domain-specific functionality into **Capability Packs** under `apps/`.
+> Terjemahan Indonesia: Organize domain-specific functionality into kapabilitas Packs under apps/.
 
 ### Structure
 
@@ -37,7 +58,9 @@ apps/
 
 ### Capability Pack Contract
 
+
 Each pack must expose:
+> Terjemahan Indonesia: Setiap paket harus memaparkan:
 1. A class inheriting from `BaseApp`
 2. A module-level `get_app()` factory function
 3. A `pipeline` list defining the cognitive pipeline stages
@@ -46,6 +69,7 @@ Each pack must expose:
 ---
 
 ## Alternatives Considered
+
 
 | Alternative | Reason Rejected |
 |-------------|-----------------|
@@ -68,4 +92,4 @@ Each pack must expose:
 ## Compliance
 
 All new domain capabilities MUST be implemented as a Capability Pack under `apps/`. No domain logic in core modules.
-
+> Terjemahan Indonesia: All new domain kapabilitas MUST menjadi implemented as sebuah kapabilitas Pack under apps/. No domain logic dalam core modules.

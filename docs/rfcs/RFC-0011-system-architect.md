@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0011-system-architect.md`
+- Judul: Rfc 0011 System Architect
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC-0011: System Architect Capability Pack
 
 | Field | Value |
@@ -19,8 +37,10 @@
 ## Motivation
 
 ECP's existing Capability Packs generate code, design systems, and propose improvements. However, there is no dedicated architectural authority that reviews, validates, and guides the overall system design across all components.
+> Terjemahan Indonesia: ECP's existing kapabilitas Packs generate code, design systems, dan propose improvements. However, there adalah no dedicated architectural authority itu reviews, validates, dan guides overall sistem design across all components.
 
 Currently:
+> Terjemahan Indonesia: Saat ini:
 
 1. **Architecture decisions are decentralized** — each pack designs its own components without a unified architectural vision.
 2. **No architecture governance** — there is no systematic enforcement of architectural principles, dependency rules, or design patterns.
@@ -30,12 +50,14 @@ Currently:
 6. **Event-driven and CQRS patterns are not evaluated** — modern architectural patterns are not systematically applied or validated.
 
 The System Architect Capability Pack becomes the architectural authority layer, providing architecture review, Clean Architecture/DDD guidance, event-driven design, CQRS evaluation, microservices/monolith analysis, and ADR generation for all ECP projects and Capability Packs.
+> Terjemahan Indonesia: Sistem Architect kapabilitas Pack becomes architectural authority layer, providing arsitektur review, Clean arsitektur/DDD guidance, event-driven design, CQRS evaluation, microservices/monolith analysis, dan ADR generation untuk all ECP projects dan kapabilitas Packs.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated System Architect Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated sistem Architect kapabilitas Pack:
 
 - **No centralized architecture governance** — architectural violations (dependency cycles, layer violations, package boundary breaches) go undetected.
 - **ADR generation is not automated** — architectural decisions are not systematically documented and tracked.
@@ -288,6 +310,7 @@ User / Human Approval Loop
 ### No Core Changes Required
 
 All implementation resides within the System Architect Capability Pack:
+> Terjemahan Indonesia: All implementation resides within sistem Architect kapabilitas Pack:
 
 ```
 apps/
@@ -334,6 +357,7 @@ apps/
   - Go hexagonal architectures
   - TypeScript frontend/backend applications
   - Mixed technology stacks
+> Terjemahan Indonesia: Monolit Python Layanan mikro Node.js Aplikasi berlapis Java/Spring Gunakan arsitektur heksagonal Aplikasi frontend/backend TypeScript Tumpukan teknologi campuran
 
 ### Benchmark Dimensions Detail
 
@@ -376,6 +400,7 @@ apps/
 ### Real Case Directory
 
 `real_cases/system_architect/` must contain:
+> Terjemahan Indonesia: Real_cases/system_architect/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -491,6 +516,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 System Architect is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: Sistem Architect adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/system_architect/`.
 - **ADR-002 (Capability Pack Independence):** System Architect communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.

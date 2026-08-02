@@ -1,8 +1,38 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `ARCHITECTURE_PRINCIPLES.md`
+- Judul: Architecture Principles
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # ECP Architecture Principles
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Documentation for ARCHITECTURE_PRINCIPLES
+<!-- DOCUMENT_METADATA_END -->
+
+
 These are the foundational principles that govern all design and implementation decisions in Enal Cognitive Platform (ECP).
+> Terjemahan Indonesia: These adalah foundational principles itu govern all design dan implementation decisions dalam Enal kognitif platform (ECP).
 
 ## 1. Platform Exists to Serve Applications
+
 
 > **Every change to Kernel, Runtime, SDK, Studio, or Marketplace must be justified by a real application need.**
 
@@ -12,11 +42,13 @@ These are the foundational principles that govern all design and implementation 
 
 ## 2. No Shortcuts in Integration
 
+
 > **Reference applications must use the full platform stack.**
 
-If a reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, that is a platform defect—not an app workaround.
+If a reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, that is a platform defectâ€”not an app workaround.
+> Terjemahan Indonesia: If sebuah reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, itu adalah sebuah platform defectâ€”not sebuah app workaround.
 
-- SDK Agent → Adaptive Runtime → Cognitive Pipeline → Plugins → Artifact System → Studio Trace
+- SDK Agent â†’ Adaptive Runtime â†’ Cognitive Pipeline â†’ Plugins â†’ Artifact System â†’ Studio Trace
 - Every component must be exercised by at least one reference application.
 
 ## 3. Kernel Stability
@@ -30,6 +62,7 @@ If a reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, tha
 
 ## 4. Contract-First Development
 
+
 > **All public interfaces are contracts.**
 
 - Every module boundary is defined by a typed contract.
@@ -37,6 +70,7 @@ If a reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, tha
 - SDK, plugins, and external tools depend on contracts, not implementation details.
 
 ## 5. Observable by Default
+
 
 > **Every execution leaves a trace.**
 
@@ -56,6 +90,7 @@ If a reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, tha
 
 ## 7. Developer Experience is Product
 
+
 > **If a developer cannot build an app in under 1 hour, the platform is not ready.**
 
 - SDK must be pip-installable with clear decorators.
@@ -65,9 +100,11 @@ If a reference app bypasses SDK, Runtime, Contracts, Marketplace, or Studio, tha
 
 ## 8. Testing is Quality Gate
 
+
 > **No PR merges without passing the full quality gate.**
 
 Quality gate includes:
+> Terjemahan Indonesia: Kualitas gate includes:
 1. Lint & format
 2. Type check
 3. Unit tests
@@ -78,24 +115,29 @@ Quality gate includes:
 8. Golden test suite
 
 Any failure blocks merge.
+> Terjemahan Indonesia: Setiap blok kegagalan digabungkan.
 
 ## 9. Measure by Outcomes, Not Artifacts
+
 
 > **Progress is measured by what users can accomplish, not by how many files exist.**
 
 Bad metrics:
+> Terjemahan Indonesia: Metrik yang buruk:
 - Number of files
 - Number of agents
 - Number of plugins
 - Number of commits
 
 Good metrics:
+> Terjemahan Indonesia: Metrik yang bagus:
 - Reference apps that run end-to-end
 - Golden test pass rate
 - Developer onboarding time
 - Production deployment success rate
 
 ## 10. Human Governance Principle
+
 
 > **No code, configuration, or architecture changes may be applied without explicit user approval.**
 
@@ -105,6 +147,7 @@ Good metrics:
 - The platform never modifies itself without a human decision in the loop.
 
 ## 11. Continuous Learning
+
 
 > **The platform improves from every execution.**
 
@@ -118,29 +161,30 @@ Good metrics:
 ## Decision Filter
 
 Use this filter for every significant decision:
+> Terjemahan Indonesia: Use ini filter untuk every significant decision:
 
 ```
 1. Does a reference application need this?
-   → No: reject.
-   → Yes: continue.
+   â†’ No: reject.
+   â†’ Yes: continue.
 
 2. Does it require kernel changes?
-   → Yes: propose an RFC.
-   → No: implement in runtime/plugin/apps.
+   â†’ Yes: propose an RFC.
+   â†’ No: implement in runtime/plugin/apps.
 
 3. Does it break any existing contract?
-   → Yes: deprecate first, migrate, then remove.
-   → No: proceed.
+   â†’ Yes: deprecate first, migrate, then remove.
+   â†’ No: proceed.
 
 4. Does it respect Human Governance Principle?
-   → No: reject.
-   → Yes: continue.
+   â†’ No: reject.
+   â†’ Yes: continue.
 
 5. Is it testable?
-   → No: refine until it is.
-   → Yes: add to golden test suite.
+   â†’ No: refine until it is.
+   â†’ Yes: add to golden test suite.
 
 6. Can a developer discover and use it in <1 hour?
-   → No: improve DX before merging.
-   → Yes: merge.
+   â†’ No: improve DX before merging.
+   â†’ Yes: merge.
 ```

@@ -1,3 +1,29 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/PRODUCT_CONTRACT.md`
+- Judul: Product Contract
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Product contract, user promises, and capability commitments
+<!-- DOCUMENT_METADATA_END -->
+
 # Product Contract v1.0
 
 **Status:** Frozen  
@@ -10,22 +36,26 @@
 ## 1. Product Positioning
 
 Enal AI OS is an **AI Execution Platform**.
+> Terjemahan Indonesia: Enal AI OS adalah sebuah AI Execution platform.
 
-Users describe the outcome they want. ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcome—all through a single conversation.
+Users describe the outcome they want. ECP understands the goal, plans execution, coordinates tasks, verifies results, and delivers a complete outcomeâ€”all through a single conversation.
+> Terjemahan Indonesia: Users describe outcome they want. ECP understands goal, plans execution, coordinates tasks, verifies results, dan delivers sebuah complete outcomeâ€”all through sebuah single conversation.
 
 The user sees one AI. The user never sees the machinery underneath.
+> Terjemahan Indonesia: User sees one AI. user never sees machinery underneath.
 
 **Motto:** A stable core. Expert capabilities. One conversation.
 
 **Target user:** Developers, operators, and knowledge workers who need AI assistance for complex, multi-step tasks.
 
-**Core value proposition:** One conversation → complete outcome.
+**Core value proposition:** One conversation â†’ complete outcome.
 
 ---
 
 ## 2. Product Contract Lock
 
 This document locks the product definition for the Product MVP phase.
+> Terjemahan Indonesia: Ini dokumen locks product definition untuk Product MVP phase.
 
 ### Locked Artifacts
 
@@ -43,6 +73,7 @@ This document locks the product definition for the Product MVP phase.
 | `docs/frontend/FRONTEND_DEFINITION_OF_DONE.md` | Frozen | 2026-07-11 |
 
 No further changes to these documents are allowed during Product MVP implementation without a Product Change Request.
+> Terjemahan Indonesia: No further changes untuk these documents adalah allowed during Product MVP implementation without sebuah Product Change Request.
 
 ---
 
@@ -77,58 +108,73 @@ No further changes to these documents are allowed during Product MVP implementat
 ## 4. Non-Negotiable Product Principles
 
 These principles are locked. Any UI element that violates them is a defect.
+> Terjemahan Indonesia: These principles adalah locked. Any UI element itu violates them adalah sebuah defect.
 
 ### Principle 1: One Conversation
 
 The user interface is a single conversation. There is no menu for selecting Capability Pack. There is no dropdown for selecting a Worker. There is no configuration panel for choosing a Model.
+> Terjemahan Indonesia: User interface adalah sebuah single conversation. There adalah no menu untuk selecting kapabilitas Pack. There adalah no dropdown untuk selecting sebuah Worker. There adalah no konfigurasi panel untuk choosing sebuah Model.
 
 The AI does that internally.
+> Terjemahan Indonesia: AI does itu internally.
 
 ### Principle 2: Outcome Over Mechanism
 
 Users describe outcomes, not mechanisms.
+> Terjemahan Indonesia: Pengguna menggambarkan hasil, bukan mekanisme.
 
 User says: "Audit jaringan kantor saya."
 User does NOT say: "Jalankan Network Capability."
+> Terjemahan Indonesia: User says: "Audit jaringan kantor saya." User does NOT say: "Jalankan Network kapabilitas."
 
 The UI must never expose internal concepts such as Capability Pack, Worker, Execution Runtime, Task Planner, or Execution Graph to the user.
+> Terjemahan Indonesia: UI must never expose internal concepts such as kapabilitas Pack, Worker, Execution Runtime, Task Planner, or Execution Graph untuk user.
 
 ### Principle 3: Progress Transparency
 
 During long-running tasks, the system must show progress. Progress indication must be coarse-grained and human-readable.
+> Terjemahan Indonesia: During long-running tasks, sistem must show progress. Progress indication must menjadi coarse-grained dan human-readable.
 
 Acceptable:
+> Terjemahan Indonesia: Dapat diterima:
 - "Analyzing configuration..."
 - "Generating documentation..."
 - "Running tests..."
 
 Not acceptable:
+> Terjemahan Indonesia: Tidak dapat diterima:
 - Generic "Loading..."
 - Internal step names like "Stage 3: Execute Subtask 7"
 
 ### Principle 4: Approval Before Action
 
 For irreversible actions, the UI must show an explicit approval dialog. AI never applies changes without user approval.
+> Terjemahan Indonesia: Untuk irreversible actions, UI must show sebuah explicit approval dialog. AI never applies changes without user approval.
 
 ### Principle 5: Artifact First
 
 Every significant output is an Artifact. Artifacts are always visible, versioned, and retrievable.
+> Terjemahan Indonesia: Every significant output adalah sebuah Artifact. Artifacts adalah always visible, versioned, dan retrievable.
 
 ### Principle 6: Workspace Isolation
 
 Each project is isolated in a Workspace. Conversation, files, memory, tasks, artifacts, and execution history are scoped per Workspace.
+> Terjemahan Indonesia: Each proyek adalah isolated dalam sebuah Workspace. Conversation, files, memory, tasks, artifacts, dan execution history adalah scoped per Workspace.
 
 ### Principle 7: No Mock Data
 
 The frontend must consume backend APIs. Mock data is not allowed in any production screen.
+> Terjemahan Indonesia: Frontend must consume backend APIs. Mock data adalah not allowed dalam any production screen.
 
 ---
 
 ## 5. Backend Dependency Lock
 
 The frontend is locked to **Backend Baseline v1.0.0-dev** (2026-07-11).
+> Terjemahan Indonesia: Frontend adalah locked untuk Backend dasar v1.0.0-dev (2026-07-11).
 
 The baseline is stable. The following changes are allowed without a Product Change Request:
+> Terjemahan Indonesia: Dasar adalah stable. following changes adalah allowed without sebuah Product Change Request:
 
 - Bug fix
 - Security fix
@@ -137,6 +183,7 @@ The baseline is stable. The following changes are allowed without a Product Chan
 - ADR-approved cross-capability changes
 
 The following changes require a Product Change Request:
+> Terjemahan Indonesia: Following changes require sebuah Product Change Request:
 
 - Runtime v2
 - Planner v2
@@ -150,6 +197,7 @@ The following changes require a Product Change Request:
 ### Required Backend APIs for MVP
 
 The following backend APIs must be stable and available before frontend development begins:
+> Terjemahan Indonesia: Following backend APIs must menjadi stable dan available before frontend development begins:
 
 #### Chat
 - [x] POST `/api/v1/chat`
@@ -210,6 +258,7 @@ The following backend APIs must be stable and available before frontend developm
 ## 6. Design Token Lock
 
 All visual values must use these tokens. No hardcoded colors, spacing, or typography.
+> Terjemahan Indonesia: Semua nilai visual harus menggunakan token ini. Tidak ada warna, spasi, atau tipografi hardcode.
 
 ### Colors
 
@@ -270,6 +319,7 @@ All visual values must use these tokens. No hardcoded colors, spacing, or typogr
 ## 7. API Contract Rule
 
 This rule is non-negotiable during the Product MVP phase.
+> Terjemahan Indonesia: Ini rule adalah non-negotiable during Product MVP phase.
 
 - Frontend **must not** define new backend endpoints.
 - Frontend **must not** call any endpoint not listed in `docs/frontend/API_MAPPING.md`.
@@ -278,12 +328,14 @@ This rule is non-negotiable during the Product MVP phase.
 - `API_MAPPING.md` is the single source of truth for all API contracts.
 
 This prevents frontend/backend drift and ensures the Product Contract remains the executable contract between the two layers.
+> Terjemahan Indonesia: Ini prevents frontend/backend drift dan ensures Product Contract remains executable contract between two layers.
 
 ---
 
 ## 8. Product Gate Checklist
 
 All items must be checked before frontend coding begins.
+> Terjemahan Indonesia: All items must menjadi checked before frontend coding begins.
 
 ### Documentation Gate
 - [x] PRODUCT_UI_SPEC.md exists and is frozen
@@ -358,11 +410,13 @@ All items must be checked before frontend coding begins.
 
 ## 8. Frontend Implementation Plan
 
-### Phase 1: Foundation (3–5 days)
+### Phase 1: Foundation (3â€“5 days)
 
 Scaffold the project structure. Wire up all services to real backend APIs. Zero mock data.
+> Terjemahan Indonesia: Scaffold proyek structure. Wire up all services untuk real backend APIs. Zero mock data.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - Project structure matches `docs/frontend/PRODUCT_UI_SPEC.md` Section 10
 - All services in `services/` call real backend APIs
 - All types in `types/` match backend schemas
@@ -372,8 +426,10 @@ Deliverables:
 ### Phase 2: Chat MVP (1 week)
 
 Build the single conversation interface. This is the heart of the product.
+> Terjemahan Indonesia: Membangun single conversation interface. ini adalah heart dari product.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - User can type a goal and send it
 - AI response streams in via SSE
 - Progress events render in real-time
@@ -384,8 +440,10 @@ Deliverables:
 ### Phase 3: Workspace (3 days)
 
 Build the workspace screen.
+> Terjemahan Indonesia: Membangun workspace screen.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - List workspaces
 - Create new workspace
 - Switch between workspaces
@@ -397,8 +455,10 @@ Deliverables:
 ### Phase 4: Streaming UX (2 days)
 
 Polish the streaming experience.
+> Terjemahan Indonesia: Polish streaming experience.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - Human-readable progress messages
 - Phase transitions are smooth
 - Logs are collapsible
@@ -408,8 +468,10 @@ Deliverables:
 ### Phase 5: Approval UX (1 day)
 
 Build the approval dialog.
+> Terjemahan Indonesia: Membangun approval dialog.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - Approval dialog renders for irreversible actions
 - Cancel dismisses without side effects
 - Approve sends the actual API call
@@ -419,8 +481,10 @@ Deliverables:
 ### Phase 6: Artifact Viewer (2 days)
 
 Build the artifact viewer.
+> Terjemahan Indonesia: Membangun artifact viewer.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - View artifact content
 - Compare versions
 - Restore previous version
@@ -430,8 +494,10 @@ Deliverables:
 ### Phase 7: Polish & Mobile (2 days)
 
 Final polish before dogfooding.
+> Terjemahan Indonesia: Poles terakhir sebelum dogfood.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - Mobile layout at 320px
 - Navigation works on mobile
 - All screens responsive
@@ -441,8 +507,10 @@ Deliverables:
 ### Phase 8: Dogfooding (30 days)
 
 Use Enal AI OS to build and improve Enal AI OS.
+> Terjemahan Indonesia: Use Enal AI OS untuk membangun dan improve Enal AI OS.
 
 Deliverables:
+> Terjemahan Indonesia: Kiriman:
 - Daily usage by team
 - Real cases logged in `real_cases/`
 - Bugs and UX issues tracked
@@ -450,12 +518,13 @@ Deliverables:
 
 ---
 
-## 9. Definition of Done — Product MVP
+## 9. Definition of Done â€” Product MVP
 
 Product MVP is complete when:
+> Terjemahan Indonesia: Product MVP adalah complete when:
 
 - [ ] All 7 screens are implemented and functional
-- [ ] Chat works end-to-end: send message → receive response → see progress → see artifacts
+- [ ] Chat works end-to-end: send message â†’ receive response â†’ see progress â†’ see artifacts
 - [ ] Streaming renders real-time progress events
 - [ ] Workspace is created automatically on first chat
 - [ ] Approval dialog works for all irreversible actions
@@ -467,20 +536,21 @@ Product MVP is complete when:
 - [ ] All design tokens are used
 - [ ] No internal architecture terms exposed to user
 - [ ] 30-day dogfooding completed
-- [ ] ≥100 real cases logged
-- [ ] Capability benchmark score ≥85%
+- [ ] â‰¥100 real cases logged
+- [ ] Capability benchmark score â‰¥85%
 
 ---
 
 ## 10. Post-MVP Roadmap
 
 After Product MVP is complete:
+> Terjemahan Indonesia: After Product MVP adalah complete:
 
-1. **Dogfooding Insights** → Capability improvements
-2. **Real Cases** → Benchmark-driven capability excellence
-3. **User Feedback** → UX refinements
-4. **Performance** → Optimization based on real usage
-5. **v1.0.0 Stable** → Production readiness
+1. **Dogfooding Insights** â†’ Capability improvements
+2. **Real Cases** â†’ Benchmark-driven capability excellence
+3. **User Feedback** â†’ UX refinements
+4. **Performance** â†’ Optimization based on real usage
+5. **v1.0.0 Stable** â†’ Production readiness
 
 ---
 
@@ -493,3 +563,4 @@ After Product MVP is complete:
 | Frontend Lead | | Pending | |
 
 This document is locked. No further changes to product scope, design principles, or backend dependencies are allowed without a Product Change Request signed by the Chief Product Officer and Chief Architect.
+> Terjemahan Indonesia: Ini dokumen adalah locked. No further changes untuk product scope, design principles, or backend dependencies adalah allowed without sebuah Product Change Request signed oleh Chief Product Officer dan Chief Architect.

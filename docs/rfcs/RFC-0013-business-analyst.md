@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/rfcs/RFC-0013-business-analyst.md`
+- Judul: Rfc 0013 Business Analyst
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # RFC-0013: Business Analyst Capability Pack
 
 | Field | Value |
@@ -19,8 +37,10 @@
 ## Motivation
 
 ECP's existing Capability Packs build systems, but there is no dedicated business analysis layer that translates business needs into technical specifications that can be executed by other packs.
+> Terjemahan Indonesia: ECP's existing kapabilitas Packs membangun systems, but there adalah no dedicated business analysis layer itu translates business needs into technical specifications itu dapat menjadi executed oleh other packs.
 
 Currently:
+> Terjemahan Indonesia: Saat ini:
 
 1. **Requirements are gathered manually** — business needs are passed as natural language, often with ambiguity, gaps, and conflicting stakeholder priorities.
 2. **No business process modeling** — workflows and processes are not formally modeled before being translated to technical implementations.
@@ -31,12 +51,14 @@ Currently:
 7. **No requirement quality scoring** — ambiguous, incomplete, or conflicting requirements are not flagged before they cause downstream rework.
 
 The Business Analyst Capability Pack becomes the requirements translation layer, converting business needs into clear, unambiguous, executable specifications that Code Engineer, System Architect, and all other packs can consume.
+> Terjemahan Indonesia: Business Analyst kapabilitas Pack becomes requirements translation layer, converting business needs into clear, unambiguous, executable specifications itu Code Engineer, sistem Architect, dan all other packs dapat consume.
 
 ---
 
 ## Problem Statement
 
 Without a dedicated Business Analyst Capability Pack:
+> Terjemahan Indonesia: Without sebuah dedicated Business Analyst kapabilitas Pack:
 
 - **Ambiguous requirements reach development** — unclear, vague, or contradictory requirements cause rework downstream.
 - **No business process modeling** — complex workflows are not visualized or analyzed before implementation.
@@ -48,6 +70,7 @@ Without a dedicated Business Analyst Capability Pack:
 - **No process optimization** — business processes are not analyzed for inefficiencies before implementation.
 
 The absence of Business Analyst means that good requirements—the foundation of all good software—are not systematically ensured, leading to expensive rework and poor outcomes.
+> Terjemahan Indonesia: Absence dari Business Analyst means itu good requirements— foundation dari all good software—adalah not systematically ensured, leading untuk expensive rework dan poor outcomes.
 
 ---
 
@@ -332,6 +355,7 @@ User / Human Approval Loop
 ### No Core Changes Required
 
 All implementation resides within the Business Analyst Capability Pack:
+> Terjemahan Indonesia: All implementation resides within Business Analyst kapabilitas Pack:
 
 ```
 apps/
@@ -378,6 +402,7 @@ apps/
   - Healthcare (patient management, appointment scheduling)
   - SaaS (multi-tenant platform, billing, analytics)
   - Enterprise (workflow automation, reporting, integration)
+> Terjemahan Indonesia: E-commerce (inventory, checkout, recommendation) Fintech (trading platform, risk assessment, compliance) Healthcare (patient management, appointment scheduling) SaaS (multi-tenant platform, billing, analytics) Enterprise (alur kerja automation, reporting, integrasi)
 
 ### Benchmark Dimensions Detail
 
@@ -419,6 +444,7 @@ apps/
 ### Real Case Directory
 
 `real_cases/business_analyst/` must contain:
+> Terjemahan Indonesia: Real_cases/business_analyst/ must contain:
 
 | Requirement | Minimum Count |
 |-------------|---------------|
@@ -541,6 +567,7 @@ Release Notes
 **Does this require Core changes?** No.
 
 Business Analyst is a **new Capability Pack** that follows the established patterns:
+> Terjemahan Indonesia: Business Analyst adalah sebuah new kapabilitas Pack itu follows established patterns:
 
 - **ADR-001 (Core Pipeline Freeze):** No Core changes. All logic in `apps/business_analyst/`.
 - **ADR-002 (Capability Pack Independence):** Business Analyst communicates with other packs via Execution Runtime tasks and shared contracts only. No direct imports.

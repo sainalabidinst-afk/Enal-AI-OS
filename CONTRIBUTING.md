@@ -1,16 +1,38 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `CONTRIBUTING.md`
+- Judul: Contributing
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Contributing to Enal Cognitive Platform
 
+
 Thank you for your interest in contributing to ECP!
+> Terjemahan Indonesia: Thank you untuk your interest dalam contributing untuk ECP!
 
 ## Code of Conduct
 
 This project adheres to a Code of Conduct. By participating, you are expected to uphold this code.
+> Terjemahan Indonesia: Ini proyek adheres untuk sebuah Code dari Conduct. oleh participating, you adalah expected untuk uphold ini code.
 
 ## How to Contribute
 
 ### Reporting Bugs
 
 Before creating bug reports, please check existing issues. When creating a bug report, include:
+> Terjemahan Indonesia: Before creating bug reports, please check existing issues. When creating sebuah bug report, include:
 - Steps to reproduce
 - Expected behavior
 - Actual behavior
@@ -19,6 +41,7 @@ Before creating bug reports, please check existing issues. When creating a bug r
 ### Suggesting Features
 
 Feature requests are welcome! Please:
+> Terjemahan Indonesia: Feature requests adalah welcome! Please:
 - Check if the feature has already been requested
 - Clearly describe the problem and solution
 - Explain why this feature would be useful
@@ -68,6 +91,7 @@ pytest
 ## RFC Process
 
 For significant changes, please submit an RFC:
+> Terjemahan Indonesia: Untuk significant changes, please submit sebuah RFC:
 1. Create a new file in `docs/rfcs/RFC-XXXX-title.md`
 2. Follow the RFC template in `docs/rfcs/README.md`
 3. Submit a PR for review
@@ -75,6 +99,7 @@ For significant changes, please submit an RFC:
 ## Package Boundaries
 
 Respect the package boundaries defined in `benchmarks/package_boundaries.py`:
+> Terjemahan Indonesia: Respect package boundaries defined dalam benchmarks/package_boundaries.py:
 - `kernel` must not depend on `runtime`, `sdk`, or `apps`
 - `runtime` must not depend on `apps` or `sdk`
 - `sdk` must not depend on `runtime`
@@ -82,3 +107,4 @@ Respect the package boundaries defined in `benchmarks/package_boundaries.py`:
 ## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
+> Terjemahan Indonesia: Oleh contributing, you agree itu your contributions akan menjadi licensed under MIT License.

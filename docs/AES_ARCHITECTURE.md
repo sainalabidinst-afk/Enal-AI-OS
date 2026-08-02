@@ -1,4 +1,23 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/AES_ARCHITECTURE.md`
+- Judul: Aes Architecture
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # AES — Architecture Engineering Specification
+
 
 **Document Version:** 1.0.0  
 **Baseline Tag:** `v1.0.0-engineering-baseline`  
@@ -26,8 +45,10 @@
 ## 1. System Overview
 
 ECP (Enal Cognitive Platform) is a multi-agent cognitive operating system that orchestrates domain-specific capability packs through a unified cognitive pipeline. The architecture follows an event-driven, layered design with strict dependency rules.
+> Terjemahan Indonesia: ECP (Enal kognitif platform) adalah sebuah multi-agen kognitif sistem operasi itu orchestrates domain-specific kapabilitas packs through sebuah unified kognitif jalur. arsitektur follows sebuah event-driven, layered design dengan strict dependency rules.
 
 ### Architectural Principles
+
 
 - **Layered isolation:** Each layer communicates only with adjacent layers
 - **Event-driven:** Cross-module communication via Event Bus
@@ -36,6 +57,7 @@ ECP (Enal Cognitive Platform) is a multi-agent cognitive operating system that o
 - **Memory hierarchy:** 7 memory layers with automatic consolidation
 
 ### High-Level Architecture Diagram
+
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -97,6 +119,7 @@ ECP (Enal Cognitive Platform) is a multi-agent cognitive operating system that o
 
 ### 2.1 API Layer — `backend/app/api/`
 
+
 **Purpose:** HTTP/REST interface for external consumers. No business logic.
 
 | Module | Endpoints | Auth |
@@ -116,7 +139,9 @@ ECP (Enal Cognitive Platform) is a multi-agent cognitive operating system that o
 
 ### 2.2 Orchestration Layer
 
+
 Three orchestrators exist with distinct responsibilities:
+> Terjemahan Indonesia: Three orchestrators exist dengan distinct responsibilities:
 
 | Orchestrator | File | Responsibility |
 |---|---|---|
@@ -128,7 +153,9 @@ Three orchestrators exist with distinct responsibilities:
 
 ### 2.3 Cognitive Kernel — `backend/app/core/cognitive_kernel.py`
 
+
 8 cognitive services executed in ordered pipelines:
+> Terjemahan Indonesia: 8 kognitif services executed dalam ordered pipelines:
 
 | Service | Class | Responsibility |
 |---|---|---|
@@ -154,6 +181,7 @@ Three orchestrators exist with distinct responsibilities:
 
 ### 2.5 Infrastructure Layer
 
+
 | Component | Purpose | Access Pattern |
 |---|---|---|
 | Redis | Event Bus streams, cache, working memory | `redis.asyncio` |
@@ -166,7 +194,9 @@ Three orchestrators exist with distinct responsibilities:
 
 ## 3. Module Dependency Graph
 
+
 ### 3.1 Dependency Rules (Enforced)
+
 
 ```
 apps/ ──────────► backend/app/core/ ──────────► infrastructure
@@ -185,6 +215,7 @@ apps/ ──────────► backend/app/core/ ───────�
 7. All cross-module communication: must use Event Bus
 
 ### 3.2 Actual Dependency Map
+
 
 ```
 main.py
@@ -221,7 +252,9 @@ main.py
 
 ### 3.3 Lazy Singleton Pattern
 
+
 To prevent circular imports at module load time, core components use lazy singletons:
+> Terjemahan Indonesia: Untuk prevent circular imports at module load time, core components use lazy singletons:
 
 ```python
 # Pattern used in: unified_orchestrator.py, event_bus.py
@@ -235,6 +268,7 @@ def get_unified_orchestrator() -> UnifiedOrchestrator:
 ```
 
 Components using this pattern:
+> Terjemahan Indonesia: Components using ini pattern:
 - `UnifiedOrchestrator` (lazy)
 - `EventBus` (module-level instance)
 - `CognitiveKernel` (module-level `cognitive_kernel`)
@@ -246,6 +280,7 @@ Components using this pattern:
 ## 4. Runtime Flow
 
 ### 4.1 Request Lifecycle
+
 
 ```
 1. HTTP Request ──► FastAPI Router
@@ -287,6 +322,7 @@ Components using this pattern:
 
 ### 4.2 Pipeline Selection Logic
 
+
 ```python
 PIPELINE_PRESETS = {
     TRIVIAL:    ["perception", "memory", "decision", "action"],
@@ -303,6 +339,7 @@ PIPELINE_PRESETS = {
 ```
 
 Each pipeline service consumes the previous service's output (`context`) and produces enriched output. The chain is:
+> Terjemahan Indonesia: Each jalur layanan consumes previous layanan's output (context) dan produces enriched output. chain adalah:
 
 ```
 context = {"input": user_input}
@@ -317,6 +354,7 @@ context = {"input": user_input}
 ```
 
 ### 4.3 Execution Session Flow
+
 
 ```
 POST /execute ──► ExecutionIntegration.execute()
@@ -361,6 +399,7 @@ POST /execute ──► ExecutionIntegration.execute()
 
 ### 5.1 Event System Architecture
 
+
 ```
 ┌─────────────────────────────────────────────┐
 │                 EventBus                      │
@@ -400,6 +439,7 @@ class EventEnvelope:
 
 ### 5.3 Known Event Types
 
+
 | Event Type | Publisher | Consumer(s) | Payload |
 |---|---|---|---|
 | `task.created` | ExecutionScheduler | NotificationService, Telemetry | `{task_id, name, session_id}` |
@@ -410,6 +450,7 @@ class EventEnvelope:
 | `notification.sent` | NotificationService | Telemetry | `{recipient, channel, message}` |
 
 ### 5.4 Publish-Subscribe Pattern
+
 
 ```python
 # Publishing
@@ -428,7 +469,9 @@ event_bus.subscribe("task.completed", my_handler)
 
 ## 6. Public API Contracts
 
+
 ### 6.1 REST API Endpoints
+
 
 | Method | Path | Request | Response | Status |
 |---|---|---|---|---|
@@ -449,6 +492,7 @@ event_bus.subscribe("task.completed", my_handler)
 
 ### 6.2 WebSocket Endpoints
 
+
 | Path | Direction | Message Format |
 |---|---|---|
 | `/ws/chat/{session_id}` | Bidirectional | JSON `{type, content, metadata}` |
@@ -456,6 +500,7 @@ event_bus.subscribe("task.completed", my_handler)
 | `/ws/notifications/{user_id}` | Server → Client | JSON `{type, message, timestamp, metadata}` |
 
 ### 6.3 Internal Interfaces
+
 
 | Interface | Provider | Consumer | Method |
 |---|---|---|---|
@@ -467,6 +512,7 @@ event_bus.subscribe("task.completed", my_handler)
 ---
 
 ## 7. Memory Architecture
+
 
 ### 7.1 Memory Layers
 
@@ -481,6 +527,7 @@ event_bus.subscribe("task.completed", my_handler)
 | **Project** | `ProjectMemory` | File (JSON) | ∞ | Project-focused data |
 
 ### 7.2 Memory Architecture Diagram
+
 
 ```
                    MemoryManager
@@ -499,7 +546,9 @@ event_bus.subscribe("task.completed", my_handler)
 
 ### 7.3 Memory Consolidation
 
+
 When a memory layer exceeds threshold (default: 50 entries), the `MemoryManager.compress_memory()` method:
+> Terjemahan Indonesia: When sebuah memory layer exceeds threshold (default: 50 entries), MemoryManager.compress_memory() method:
 
 1. Collects entries from the source layer
 2. Generates a summary via LLM (`model_router.complete()`)
@@ -524,7 +573,9 @@ async def compress_memory(self, layer: str, threshold: int = 50):
 
 ### 8.1 Pipeline Services
 
+
 Each cognitive service implements:
+> Terjemahan Indonesia: Each kognitif layanan implements:
 
 ```python
 class CognitiveService(ABC):
@@ -534,6 +585,7 @@ class CognitiveService(ABC):
 ```
 
 ### 8.2 Service Input/Output Contracts
+
 
 | Service | Input (from context) | Output (added to context) |
 |---|---|---|
@@ -548,6 +600,7 @@ class CognitiveService(ABC):
 
 ### 8.3 Pipeline Complexity Levels
 
+
 | Complexity | Criteria | Pipeline Length | Estimated Duration |
 |---|---|---|---|
 | **TRIVIAL** | Single fact lookup, simple Q&A | 4 services | < 2s |
@@ -559,6 +612,7 @@ class CognitiveService(ABC):
 ---
 
 ## 9. Capability Pack Architecture
+
 
 ### 9.1 Pack Structure
 
@@ -591,6 +645,7 @@ apps/
 ### 9.2 Pack Contract
 
 Each pack must provide:
+> Terjemahan Indonesia: Each pack must menyediakan:
 
 ```python
 # 1. Class inheriting from BaseApp
@@ -605,13 +660,16 @@ def get_app() -> BaseApp:
 
 ### 9.3 Skill Registration
 
+
 Packs register their capabilities in `agents/skills.yaml`. The `SkillRegistry` loads these at runtime to enable capability discovery.
+> Terjemahan Indonesia: Packs register their kapabilitas dalam agen/skills.yaml. SkillRegistry loads these at runtime untuk memungkinkan kapabilitas discovery.
 
 ---
 
 ## 10. Quality Gates
 
 See `docs/quality/QUALITY_GATES.md` for complete policy.
+> Terjemahan Indonesia: See docs/kualitas/QUALITY_GATES.MD untuk complete policy.
 
 **Summary:**
 
@@ -639,6 +697,7 @@ See `docs/quality/QUALITY_GATES.md` for complete policy.
 | Real cases | `real_cases/` | 20+ | Dataset-driven validation |
 
 ### 11.2 Test Coverage Areas
+
 
 | Area | Tests | Status |
 |---|---|---|
@@ -676,6 +735,7 @@ pytest tests/test_memory_layer.py -v
 
 ### 12.1 Python Standards
 
+
 | Rule | Standard |
 |---|---|
 | Python version | 3.11+ |
@@ -689,6 +749,7 @@ pytest tests/test_memory_layer.py -v
 
 ### 12.2 Naming Conventions
 
+
 | Element | Convention | Example |
 |---|---|---|
 | Files | `snake_case.py` | `memory_layer.py` |
@@ -701,6 +762,7 @@ pytest tests/test_memory_layer.py -v
 
 ### 12.3 MyPy Configuration
 
+
 ```toml
 [tool.mypy]
 python_version = "3.11"
@@ -711,6 +773,7 @@ namespace_packages = true
 ```
 
 ### 12.4 Ruff Configuration
+
 
 ```toml
 [tool.ruff]
@@ -723,6 +786,7 @@ select = ["E", "F", "I", "N", "W", "UP"]
 
 ## Document Version History
 
+
 | Version | Date | Changes |
 |---|---|---|
 | 1.0.0 | 2024 | Initial AES document post-engineering baseline |
@@ -730,4 +794,3 @@ select = ["E", "F", "I", "N", "W", "UP"]
 ---
 
 *End of AES Architecture Specification*
-

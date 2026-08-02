@@ -2,15 +2,24 @@
 ECP Reference Applications
 ============================
 
-These 5 reference applications demonstrate ECP's capabilities
+These 13 reference applications demonstrate ECP's capabilities
 and serve as golden tests for the platform.
 
 Apps:
-1. Trading Analyst - Market analysis and trading insights
-2. Network Engineer - Network configuration and management
-3. DevOps Assistant - CI/CD and infrastructure automation
-4. Code Engineer - Full-stack application generation
-5. Research Assistant - AI-powered research with RAG
+ 1. Trading Analyst - Market analysis and trading insights
+ 2. Network Engineer - Network configuration and management
+ 3. DevOps Assistant - CI/CD and infrastructure automation
+ 4. Code Engineer - Full-stack application generation
+ 5. Research Assistant - AI-powered research with RAG
+ 6. Full Stack Engineer - Full-stack development
+ 7. Self Development - Personal improvement and learning
+ 8. Decision Intelligence - Cross-domain reasoning layer
+ 9. System Architect - Architecture review and governance
+10. Security Engineer - Security analysis and hardening
+11. Data Engineer - Data lifecycle management
+12. Database Engineer - Database design and optimization
+13. QA Engineer - Quality assurance and testing
+14. Business Analyst - Business-to-technical translation
 
 Each app uses:
 - SDK for agent/tool/workflow definitions
@@ -40,6 +49,13 @@ APPS = {
     "research-assistant": _load_app("research_assistant"),
     "full-stack-engineer": _load_app("full_stack_engineer"),
     "self-development": _load_app("self_development"),
+    "decision-intelligence": _load_app("decision_intelligence"),
+    "system-architect": _load_app("system_architect"),
+    "security-engineer": _load_app("security_engineer"),
+    "data-engineer": _load_app("data_engineer"),
+    "database-engineer": _load_app("database_engineer"),
+    "qa-engineer": _load_app("qa_engineer"),
+    "business-analyst": _load_app("business_analyst"),
 }
 
 

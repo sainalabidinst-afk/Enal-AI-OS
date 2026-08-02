@@ -1,32 +1,60 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `real_cases/DOCUMENT_CONSISTENCY_REPORT.md`
+- Judul: Document Consistency Report
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Document Consistency Report
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Real case study documentation
+<!-- DOCUMENT_METADATA_END -->
 
 ## Sprint Report Status
 
 | Sprint | Report File | Status | Consistent |
 |--------|-------------|--------|------------|
-| 5A.1 | SPRINT_5A1_REPORT.md | Present | ✓ |
-| 5A.2 | SPRINT_5A2_REPORT.md | Present | ✓ |
-| 5A.3 | SPRINT_5A3_REPORT.md | Present | ✓ |
-| 5A.4 | SPRINT_5A4_REPORT.md | Present | ✓ |
-| 5A.5 | SPRINT_5A5_REPORT.md | Present | ✓ |
-| Release | RELEASE_VERIFICATION_REPORT.md | Present | ✓ |
+| 5A.1 | SPRINT_5A1_REPORT.md | Present | âœ“ |
+| 5A.2 | SPRINT_5A2_REPORT.md | Present | âœ“ |
+| 5A.3 | SPRINT_5A3_REPORT.md | Present | âœ“ |
+| 5A.4 | SPRINT_5A4_REPORT.md | Present | âœ“ |
+| 5A.5 | SPRINT_5A5_REPORT.md | Present | âœ“ |
+| Release | RELEASE_VERIFICATION_REPORT.md | Present | âœ“ |
 
 ## Key Metrics Consistency
 
 | Metric | 5A.1 | 5A.2 | 5A.3 | 5A.4 | 5A.5 | Status |
 |--------|------|------|------|------|------|--------|
-| Total Cases | N/A | N/A | 30 | 30 | 30 | ✓ Consistent |
-| Total Rules | N/A | 40 | 47 | 47 | 47 | ✓ Consistent |
-| MikroTik Cases | N/A | N/A | 10 | 10 | 10 | ✓ Consistent |
-| Cisco Cases | N/A | N/A | 10 | 10 | 10 | ✓ Consistent |
-| Fortinet Cases | N/A | N/A | 10 | 10 | 10 | ✓ Consistent |
+| Total Cases | N/A | N/A | 30 | 30 | 30 | âœ“ Consistent |
+| Total Rules | N/A | 40 | 47 | 47 | 47 | âœ“ Consistent |
+| MikroTik Cases | N/A | N/A | 10 | 10 | 10 | âœ“ Consistent |
+| Cisco Cases | N/A | N/A | 10 | 10 | 10 | âœ“ Consistent |
+| Fortinet Cases | N/A | N/A | 10 | 10 | 10 | âœ“ Consistent |
 
 ## File References Consistency
 
 All reports reference valid files:
+> Terjemahan Indonesia: Semua laporan merujuk pada file yang valid:
 - `backend/app/core/telemetry/*.py` - Created in 5A.3
 - `real_cases/benchmark.py` - Has `_derive_expected_findings()`
 - `real_cases/*/expected.json` - 30 files present
 
 ## Status
 All documentation consistent and cross-referenced correctly.
+> Terjemahan Indonesia: All dokumentasi consistent dan cross-referenced correctly.

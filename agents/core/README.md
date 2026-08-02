@@ -1,6 +1,25 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `agents/core/README.md`
+- Judul: Readme
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Core Agents (Phase 1)
 
 These are the 10 core agents implemented in Phase 1:
+> Terjemahan Indonesia: These adalah 10 core agen implemented dalam Phase 1:
 
 1. **Planner** - Analyzes requests and creates structured plans
 2. **Coding Agent** - Writes and reviews code in multiple languages

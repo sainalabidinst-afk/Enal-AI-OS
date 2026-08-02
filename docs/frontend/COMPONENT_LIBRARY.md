@@ -1,6 +1,33 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/frontend/COMPONENT_LIBRARY.md`
+- Judul: Component Library
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Component Library
 
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Frontend documentation for COMPONENT_LIBRARY
+<!-- DOCUMENT_METADATA_END -->
+
 This document defines the allowed v1 component inventory. No other components may be created without a Product Review.
+> Terjemahan Indonesia: Ini dokumen defines allowed v1 component inventory. No other components may menjadi created without sebuah Product Review.
 
 ---
 

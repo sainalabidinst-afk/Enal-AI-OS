@@ -1,38 +1,66 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/capabilities/system-architect.md`
+- Judul: System Architect
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # System Architect Capability Specification
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack specification for system-architect
+<!-- DOCUMENT_METADATA_END -->
 
 ## Version: 1.0.0
 ## Status: Production Ready (RFC-0011)
-## Quality Target: A (≥90)
+## Quality Target: A (â‰¥90)
 
 ---
 
 ## 1. Purpose
 
-System Architect adalah **arsitek arsitektur** untuk ECP — Capability Pack yang
+System Architect adalah **arsitek arsitektur** untuk ECP â€” Capability Pack yang
 menjadi otoritas arsitektur untuk me-review, memvalidasi, dan memandu desain
 sistem secara keseluruhan.
+> Terjemahan Indonesia: Sistem Architect adalah arsitek arsitektur untuk ECP â€” kapabilitas Pack yang menjadi otoritas arsitektur untuk me-review, memvalidasi, dan memandu desain sistem secara keseluruhan.
 
 Capability Pack ini menganalisis struktur proyek, Clean Architecture compliance,
 DDD patterns, event-driven design, CQRS suitability, microservices/monolith
 decomposition, package boundaries, dan menghasilkan Architecture Decision Records
-(ADR) — **tanpa memodifikasi Core**.
+(ADR) â€” **tanpa memodifikasi Core**.
+> Terjemahan Indonesia: Kapabilitas Pack ini menganalisis struktur proyek, Clean arsitektur compliance, DDD patterns, event-driven design, CQRS suitability, microservices/monolith decomposition, package boundaries, dan menghasilkan arsitektur Decision Records (ADR) â€” tanpa memodifikasi Core.
 
 ---
 
 ## 2. Scope
 
 ### In Scope
-- **Clean Architecture Review** — Evaluasi layers, dependency rule, boundaries
-- **DDD Analysis** — Evaluasi bounded contexts, aggregates, domain events, anti-corruption
-- **Event-Driven Design** — Evaluasi event schemas, event flow, saga patterns
-- **CQRS Evaluation** — Evaluasi command/query separation appropriateness
-- **Microservices/Monolith Review** — Evaluasi service decomposition strategies
-- **Architecture Governance** — Enforce architectural rules, dependency constraints, Core change guard
-- **ADR Generation** — Generate dan track Architecture Decision Records
-- **Package Boundary Enforcement** — Deteksi dependency violations dan layer inversions
+- **Clean Architecture Review** â€” Evaluasi layers, dependency rule, boundaries
+- **DDD Analysis** â€” Evaluasi bounded contexts, aggregates, domain events, anti-corruption
+- **Event-Driven Design** â€” Evaluasi event schemas, event flow, saga patterns
+- **CQRS Evaluation** â€” Evaluasi command/query separation appropriateness
+- **Microservices/Monolith Review** â€” Evaluasi service decomposition strategies
+- **Architecture Governance** â€” Enforce architectural rules, dependency constraints, Core change guard
+- **ADR Generation** â€” Generate dan track Architecture Decision Records
+- **Package Boundary Enforcement** â€” Deteksi dependency violations dan layer inversions
 
 ### Out of Scope
-- Eksekusi refactoring otomatis (rekomendasi saja — ADR-005 compliance)
+- Eksekusi refactoring otomatis (rekomendasi saja â€” ADR-005 compliance)
 - Modifikasi Core contracts
 - Direct import dari Capability Pack lain (ADR-002 compliance)
 
@@ -110,25 +138,25 @@ decomposition, package boundaries, dan menghasilkan Architecture Decision Record
 
 ```
 ArchitectureReviewRequest
-    ↓
+    â†“
 DependencyGraph (import graph, circular deps, layer classification)
-    ↓
+    â†“
 LayerAnalysis (Clean Architecture violations)
-    ↓
+    â†“
 DDDAnalysis (bounded contexts, aggregates, anti-corruption)
-    ↓
+    â†“
 EventAnalysis (event schema, saga patterns)
-    ↓
+    â†“
 CQRSEvaluation (command/query separation)
-    ↓
+    â†“
 MicroservicesReview (decomposition, migration)
-    ↓
+    â†“
 BoundaryEnforcement (package boundary violations)
-    ↓
+    â†“
 Governance (Core change guard, Capability First Rule)
-    ↓
+    â†“
 ADRGeneration (structured ADR drafts)
-    ↓
+    â†“
 ArchitectureReviewReport
 ```
 
@@ -138,16 +166,17 @@ ArchitectureReviewReport
 
 | Dimension | Target |
 |-----------|--------|
-| Architecture Review Completeness | ≥95% |
-| Dependency Violation Detection | ≥95% |
-| Package Boundary Enforcement | ≥90% |
-| ADR Coverage | ≥90% |
-| Design Pattern Application | ≥85% |
-| Scalability Assessment | ≥90% |
-| Maintainability | ≥90% |
-| Explainability | ≥95% |
+| Architecture Review Completeness | â‰¥95% |
+| Dependency Violation Detection | â‰¥95% |
+| Package Boundary Enforcement | â‰¥90% |
+| ADR Coverage | â‰¥90% |
+| Design Pattern Application | â‰¥85% |
+| Scalability Assessment | â‰¥90% |
+| Maintainability | â‰¥90% |
+| Explainability | â‰¥95% |
 
 Benchmark: `benchmarks/system_architect_benchmark.py`
+> Terjemahan Indonesia: Tolok ukur: benchmarks/system_architect_benchmark.py
 
 ---
 
@@ -171,13 +200,15 @@ Benchmark: `benchmarks/system_architect_benchmark.py`
 ## 7. Consumer Integration
 
 System Architect menjadi **otoritas arsitektur** untuk:
-- **Code Engineer** — review arsitektur pada repository yang dihasilkan
-- **Self Development** — analisis arsitektur dan rekomendasi refactoring
-- **Decision Intelligence** — evidence sumber untuk keputusan arsitektur
-- **Semua Capability Pack** — validasi kepatuhan ADR-001/002/003/004/005
+> Terjemahan Indonesia: Sistem Architect menjadi otoritas arsitektur untuk:
+- **Code Engineer** â€” review arsitektur pada repository yang dihasilkan
+- **Self Development** â€” analisis arsitektur dan rekomendasi refactoring
+- **Decision Intelligence** â€” evidence sumber untuk keputusan arsitektur
+- **Semua Capability Pack** â€” validasi kepatuhan ADR-001/002/003/004/005
 
 The `SystemArchitectWorker` is a thin adapter (ADR-003) that routes
 task dicts to `SystemArchitectEngine.review()`.
+> Terjemahan Indonesia: SystemArchitectWorker adalah sebuah thin adapter (ADR-003) itu routes task dicts untuk SystemArchitectEngine.review().
 
 ---
 
@@ -185,12 +216,12 @@ task dicts to `SystemArchitectEngine.review()`.
 
 | Principle | Compliance |
 |-----------|------------|
-| ADR-001 Core Pipeline Freeze | ✅ Zero Core changes |
-| ADR-002 Capability Pack Independence | ✅ No direct imports |
-| ADR-003 Worker = Adapter Only | ✅ Worker delegates to Engine |
-| ADR-004 Domain Engine Owns Business Logic | ✅ Engine owns pipeline |
-| ADR-005 Human Approval Required | ✅ Recommend only, no auto-execute |
-| Kernel Stability | ✅ Not in Core |
+| ADR-001 Core Pipeline Freeze | âœ… Zero Core changes |
+| ADR-002 Capability Pack Independence | âœ… No direct imports |
+| ADR-003 Worker = Adapter Only | âœ… Worker delegates to Engine |
+| ADR-004 Domain Engine Owns Business Logic | âœ… Engine owns pipeline |
+| ADR-005 Human Approval Required | âœ… Recommend only, no auto-execute |
+| Kernel Stability | âœ… Not in Core |
 
 ---
 
@@ -211,4 +242,3 @@ task dicts to `SystemArchitectEngine.review()`.
 | `apps/system_architect/engine.py` | Domain engine orchestrator |
 | `apps/system_architect/worker.py` | Thin worker adapter |
 | `benchmarks/system_architect_benchmark.py` | Benchmark (8 dimensions) |
-

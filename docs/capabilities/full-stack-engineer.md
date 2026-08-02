@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `docs/capabilities/full-stack-engineer.md`
+- Judul: Full Stack Engineer
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # Full Stack Engineer Capability Specification
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Capability Pack specification for full-stack-engineer
+<!-- DOCUMENT_METADATA_END -->
 
 ## Version: 1.0.0
 ## Status: Draft (v1.0 ready for implementation)
@@ -8,6 +34,7 @@
 ## 1. Purpose
 
 Deliver full-stack engineering intelligence for:
+> Terjemahan Indonesia: Deliver full-stack rekayasa intelligence untuk:
 - Architecture review and scoring
 - Code review beyond linting
 - Refactoring planning without auto-apply
@@ -79,31 +106,31 @@ Deliver full-stack engineering intelligence for:
 
 ## 4. Capability Details
 
-### F1 — Architecture Review
+### F1 â€” Architecture Review
 - Reads repository using ArchitectureReader
 - Checks layering violations, dependency density, modularity, technical debt
-- Produces graded scores (A–F) and Architecture Score (0–100)
+- Produces graded scores (Aâ€“F) and Architecture Score (0â€“100)
 
-### F2 — Code Review
+### F2 â€” Code Review
 - Parses AST and scans raw text for security, concurrency, resource, maintainability, and API surface issues
 - Each finding includes evidence, line number, CWE, confidence, and priority
 - Categories: Security, Concurrency, Reliability, Maintainability
 
-### F3 — Refactoring Planner
+### F3 â€” Refactoring Planner
 - Does NOT modify code
-- Produces structured plan: Problem → Cause → Proposal → Expected Benefit → Risk → Migration Steps
+- Produces structured plan: Problem â†’ Cause â†’ Proposal â†’ Expected Benefit â†’ Risk â†’ Migration Steps
 - Detects mutable defaults, long functions, high import density
 
-### F4 — Test Engineer
+### F4 â€” Test Engineer
 - Analyzes source and test directories
 - Estimates coverage
 - Generates test plans for unit, integration, contract, performance, and regression testing
 
-### F5 — Performance Engineer
+### F5 â€” Performance Engineer
 - Detects N+1 queries, nested loops, blocking I/O, memory issues
 - Focus areas: database, algorithm, memory, I/O
 
-### F6 — Release Engineer
+### F6 â€” Release Engineer
 - Validates changelog, semantic version, migration, rollback plan, deployment checklist, post-deployment verification
 - Produces boolean `ready` and detailed check results
 
@@ -113,12 +140,12 @@ Deliver full-stack engineering intelligence for:
 
 | Metric | Target | Pass Criteria |
 |--------|--------|---------------|
-| Architecture Review Accuracy | ≥90% | Correct layering/debt detection |
-| Code Review Precision | ≥95% | False positive ≤5% |
-| Refactoring Plan Usefulness | ≥85% | Actionable plans with steps |
-| Test Coverage Estimate Accuracy | ±10% | Within 10% of actual coverage |
-| Performance Detection Recall | ≥90% | True positive ≥90% |
-| Release Readiness Precision | ≥95% | Correct ready/fail assessment |
+| Architecture Review Accuracy | â‰¥90% | Correct layering/debt detection |
+| Code Review Precision | â‰¥95% | False positive â‰¤5% |
+| Refactoring Plan Usefulness | â‰¥85% | Actionable plans with steps |
+| Test Coverage Estimate Accuracy | Â±10% | Within 10% of actual coverage |
+| Performance Detection Recall | â‰¥90% | True positive â‰¥90% |
+| Release Readiness Precision | â‰¥95% | Correct ready/fail assessment |
 
 ---
 
@@ -127,7 +154,7 @@ Deliver full-stack engineering intelligence for:
 - Registered as `full-stack-engineer` in `apps/__init__.py`
 - Worker: `FullStackWorker` in `apps/society/workers/full_stack_worker.py`
 - Capability graph entries in `apps/organization/capability_graph.py` under `full-stack` domain
-- Subtask templates defined for each F1–F6 capability
+- Subtask templates defined for each F1â€“F6 capability
 - Reuses `apps.code_engineer` primitives (ArchitectureReader, DependencyGraphBuilder, ImpactAnalyzer, RefactoringEngine, PatchGenerator, RegressionAnalyzer, TestGenerator)
 
 ---
@@ -136,12 +163,12 @@ Deliver full-stack engineering intelligence for:
 
 | Capability | Status |
 |------------|--------|
-| F1 — Architecture Review | ✅ Implemented |
-| F2 — Code Review | ✅ Implemented |
-| F3 — Refactoring Planner | ✅ Implemented |
-| F4 — Test Engineer | ✅ Implemented |
-| F5 — Performance Engineer | ✅ Implemented |
-| F6 — Release Engineer | ✅ Implemented |
+| F1 â€” Architecture Review | âœ… Implemented |
+| F2 â€” Code Review | âœ… Implemented |
+| F3 â€” Refactoring Planner | âœ… Implemented |
+| F4 â€” Test Engineer | âœ… Implemented |
+| F5 â€” Performance Engineer | âœ… Implemented |
+| F6 â€” Release Engineer | âœ… Implemented |
 
 ---
 

@@ -1,4 +1,30 @@
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `real_cases/CAPABILITY_INVENTORY.md`
+- Judul: Capability Inventory
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # CAPABILITY INVENTORY
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+**SSOT:** Real case study documentation
+<!-- DOCUMENT_METADATA_END -->
 
 ## Available Capabilities
 
@@ -54,8 +80,8 @@ context: dict | None  # Optional context with workspace_id, project_id
 ## Orchestration Layer
 
 ### Execution Flow
-1. User Request → adaptive_runtime.execute()
-2. Pipeline: perception → memory → reasoning → decision → action
+1. User Request â†’ adaptive_runtime.execute()
+2. Pipeline: perception â†’ memory â†’ reasoning â†’ decision â†’ action
 3. Each app wraps its domain logic
 4. ExecutionIntegration orchestrates multi-step workflows
 5. Telemetry records all events

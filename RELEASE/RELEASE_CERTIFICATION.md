@@ -1,7 +1,32 @@
-# Enal AI OS — Release Certification Report
+﻿<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `RELEASE/RELEASE_CERTIFICATION.md`
+- Judul: Release Certification
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
+<!-- DOCUMENT_METADATA_START -->
+**Owner:** Documentation Team
+**Canonical Owner:** Documentation Governance Lead
+**Last Verified:** 2026-08-02
+**Version:** 1.0.0
+**Status:** Active
+<!-- DOCUMENT_METADATA_END -->
+
+# Enal AI OS â€” Release Certification Report
 
 **Release:** v1.0.0-rc1
-**Date:** 2026-07-31
+**Date:** 2026-08-02
 **Certified By:** Automated Validation + Manual Review
 **Commit:** 22f581c927454f4577a37af2f5be9beb93b04904
 **Branch:** main
@@ -63,11 +88,11 @@
 | Component | Status | Evidence |
 |-----------|--------|----------|
 | Tests | PASS | 426 passed, 0 failed |
-| Gate 0 — Baseline | PASS | Stable baseline confirmed |
-| Gate 1 — Security | PASS | All P0 security issues resolved |
-| Gate 2 — Architecture | PASS | No circular deps, boundary clean |
-| Gate 3 — Capabilities | PASS | All capabilities wired |
-| Gate 4 — Cognitive | PASS | All cognitive components present |
+| Gate 0 â€” Baseline | PASS | Stable baseline confirmed |
+| Gate 1 â€” Security | PASS | All P0 security issues resolved |
+| Gate 2 â€” Architecture | PASS | No circular deps, boundary clean |
+| Gate 3 â€” Capabilities | PASS | All capabilities wired |
+| Gate 4 â€” Cognitive | PASS | All cognitive components present |
 | Import Check | PASS | `import backend.app.main` succeeds |
 | Type Check | PASS | Core modules: 0 mypy errors |
 | Lint | PASS | Ruff checks passed |
@@ -115,7 +140,7 @@
 | Docker hardening | PASS |
 | Documentation | PASS |
 | Backend container build | PASS |
-| Frontend container build | FAIL — npm network error |
+| Frontend container build | FAIL â€” npm network error |
 | **Overall** | **CONDITIONAL PASS** |
 
 **Condition:** Frontend Docker image build must succeed in CI environment with stable network. All other criteria passed.
@@ -149,4 +174,4 @@
 
 ---
 
-**Certification Status:** CONDITIONAL PASS — Ready for production deployment pending completion of CI/CD pipeline execution.
+**Certification Status:** CONDITIONAL PASS â€” Ready for production deployment pending completion of CI/CD pipeline execution.

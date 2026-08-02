@@ -1,3 +1,21 @@
+<!-- BILINGUAL_DOCS_START -->
+## Bahasa Indonesia / English
+
+
+### Ringkasan / Summary
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+
+- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
+- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
+
+### Informasi Dokumen / Document Info
+- File: `backend/app/core/CANONICAL_OWNER_model_router.md`
+- Judul: Canonical Owner Model Router
+- Status: bilingual header added
+
+<!-- BILINGUAL_DOCS_END -->
+
 # CANONICAL_OWNER
 
 ## Service: Model Router
@@ -19,10 +37,12 @@
 ## Canonical Consumers
 
 21 files import `model_router`. 15 active callers invoke `.complete()`.
+> Terjemahan Indonesia: 21 file mengimpor model_router. 15 penelepon aktif memanggil .complete().
 
 ## Important Distinction
 
 `model_gateway.py` is NOT a duplicate of `model_router.py`. It serves a different purpose:
+> Terjemahan Indonesia: Model_gateway.py adalah NOT sebuah duplicate dari model_router.py. It serves sebuah different purpose:
 
 | File | Purpose | Endpoint |
 |------|---------|----------|
@@ -30,3 +50,4 @@
 | `model_gateway.py` | Health/status API | `/api/v1/models/health`, `/api/v1/models/providers` |
 
 Keep `model_gateway.py`.
+> Terjemahan Indonesia: Pertahankan model_gateway.py.
