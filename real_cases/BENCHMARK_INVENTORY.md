@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/BENCHMARK_INVENTORY.md`
-- Judul: Benchmark Inventory
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Benchmark Inventory
 
@@ -87,3 +72,4 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 | fortinet:qos_traffic_shaping | config.rsc | tags: qos |
 | fortinet:nat_virtual_ip_nat | config.rsc | tags: nat |
 | fortinet:high_availability_active_passive | config.rsc | tags: ha |
+

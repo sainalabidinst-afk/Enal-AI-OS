@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/BENCHMARK_REPORT.md`
-- Judul: Benchmark Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Benchmark Report
 
@@ -66,7 +51,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Expected Findings Matching
 
 Expected findings are derived from `expected.json` tags:
-> Terjemahan Indonesia: Expected findings adalah derived dari expected.json tags:
 
 | Tag | Derived Findings |
 |-----|-----------------|
@@ -97,3 +81,4 @@ curl -X POST http://localhost:8000/api/v1/benchmark/run
 - All 30 real cases have valid config files and expected.json
 - Benchmark runner is functional after bug fixes
 - Expected findings are now derived from tags in expected.json files
+

@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/trading/btc_breakout_2026/input/context.md`
-- Judul: Context
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # BTC Breakout Analysis â€” August 2026
 
@@ -49,4 +34,4 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ## Request
 Analyze whether the breakout above $67,000 is valid and what the next targets might be.
-> Terjemahan Indonesia: Analyze whether breakout above $67,000 adalah valid dan what next targets might menjadi.
+

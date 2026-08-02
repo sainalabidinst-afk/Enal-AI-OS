@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/DOCUMENT_CONSISTENCY_REPORT.md`
-- Judul: Document Consistency Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Document Consistency Report
 
@@ -50,11 +35,10 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## File References Consistency
 
 All reports reference valid files:
-> Terjemahan Indonesia: Semua laporan merujuk pada file yang valid:
 - `backend/app/core/telemetry/*.py` - Created in 5A.3
 - `real_cases/benchmark.py` - Has `_derive_expected_findings()`
 - `real_cases/*/expected.json` - 30 files present
 
 ## Status
 All documentation consistent and cross-referenced correctly.
-> Terjemahan Indonesia: All dokumentasi consistent dan cross-referenced correctly.
+

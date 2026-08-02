@@ -1,24 +1,7 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `TODO_CAPABILITY_EXECUTION.md`
-- Judul: Todo Capability Execution
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
+**Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Terakhir Diverifikasi:** 2026-08-02
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Capability Pack execution plan and rollout milestones
@@ -456,7 +439,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## INFRASTRUKTUR & PLATFORM (Bukan Capability Pack)
 
 Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur platform**:
-> Terjemahan Indonesia: Komponen berikut akan dikelola sebagai plugin, layanan, atau infrastruktur platform:
 
 - [ ] Authentication / Authorization service
 - [ ] PostgreSQL / Redis / MinIO / Kafka — sebagai service infrastruktur

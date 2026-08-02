@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/RULE_COVERAGE.md`
-- Judul: Rule Coverage
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # RULE COVERAGE
 
@@ -67,4 +52,4 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ## Coverage by Dataset
 All 30 real cases can be analyzed (raw_lines based rules work on all vendors).
-> Terjemahan Indonesia: All 30 real cases dapat menjadi analyzed (raw_lines based rules work pada all vendors).
+

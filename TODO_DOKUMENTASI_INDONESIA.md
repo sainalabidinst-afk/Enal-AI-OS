@@ -71,36 +71,38 @@
 
 ## Fase 4 — Dokumentasi Pendukung
 
-- [ ] docs/capabilities/* (9 file)
-- [ ] docs/releases/2026-07-14-product-intelligence.md
-- [ ] docs/baseline_freeze.md
-- [ ] docs/PHASE_SUMMARY.md
-- [ ] docs/PRODUCT_CONTRACT.md
-- [ ] docs/USER_JOURNEYS.md
-- [ ] docs/UX_DESIGN.md
-- [ ] docs/WORKFLOW_CATALOG.md
-- [ ] docs/workforce_constitution.md
-- [ ] docs/SPRINT_5A_PLAN.md
-- [ ] docs/SPRINT_T1_PLAN.md
-- [ ] docs/sprint3_network_operations.md
-- [ ] docs/v1_roadmap.md
-- [ ] docs/v1_sprint_plan.md
-- [ ] docs/CANONICAL_CONSOLIDATION.md
-- [ ] docs/DEPENDENCY_AUDIT.md
-- [ ] docs/getting_started.md
-- [ ] docs/GOVERNANCE.md (pendukung)
-- [ ] docs/AI_PLANNER.md
-- [ ] Root-level: ARCHITECTURE_*, RELEASE_*, dll.
-- [ ] real_cases/* (kecuali output benchmark)
-- [ ] RELEASE/* (kecuali SBOM teknis)
-- [ ] CONVERT: docs/BILINGUAL_DOCUMENTATION.md → panduan Bahasa Indonesia
-- [ ] CONVERT: docs/BILINGUAL_STYLE_GUIDE.md → panduan gaya Bahasa Indonesia
+- [x] docs/capabilities/* (9 file)
+- [x] docs/releases/2026-07-14-product-intelligence.md
+- [x] docs/baseline_freeze.md
+- [x] docs/PHASE_SUMMARY.md
+- [x] docs/PRODUCT_CONTRACT.md
+- [x] docs/USER_JOURNEYS.md
+- [x] docs/UX_DESIGN.md
+- [x] docs/WORKFLOW_CATALOG.md
+- [x] docs/workforce_constitution.md
+- [x] docs/SPRINT_5A_PLAN.md
+- [x] docs/SPRINT_T1_PLAN.md
+- [x] docs/sprint3_network_operations.md
+- [x] docs/v1_roadmap.md
+- [x] docs/v1_sprint_plan.md
+- [x] docs/CANONICAL_CONSOLIDATION.md
+- [x] docs/DEPENDENCY_AUDIT.md
+- [x] docs/getting_started.md
+- [x] docs/GOVERNANCE.md (pendukung)
+- [x] docs/AI_PLANNER.md
+- [x] Root-level: ARCHITECTURE_*, RELEASE_*, dll.
+- [x] real_cases/* (kecuali output benchmark — bersih bilingual)
+- [x] RELEASE/* (kecuali SBOM teknis — bersih bilingual, terjemahkan konten)
+- [x] CONVERT: docs/BILINGUAL_DOCUMENTATION.md → panduan Bahasa Indonesia
+- [x] CONVERT: docs/BILINGUAL_STYLE_GUIDE.md → panduan gaya Bahasa Indonesia
+
+**Fase 4 SELESAI.**
 
 ## Audit Akhir
 
-- [ ] Tidak ada format bilingual tersisa (findstr BILINGUAL_DOCS / Terjemahan Indonesia)
-- [ ] Tidak ada tautan internal rusak
-- [ ] Tidak ada inkonsistensi istilah
-- [ ] Tidak ada perubahan contoh kode/kontrak API
-- [ ] Jumlah Capability Pack = 13, versi & roadmap konsisten
+- [x] Tidak ada format bilingual tersisa (kecuali referensi historis di TODO_DOKUMENTASI_INDONESIA.md, DOCUMENTATION_CONSISTENCY_AUDIT_REPORT.md, docs/BILINGUAL_STYLE_GUIDE.md, docs/BILINGUAL_DOCUMENTATION.md)
+- [x] Tidak ada tautan internal rusak
+- [x] Tidak ada inkonsistensi istilah
+- [x] Tidak ada perubahan contoh kode/kontrak API
+- [x] Jumlah Capability Pack = 13, versi & roadmap konsisten
 

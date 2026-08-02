@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/BENCHMARK_FAILURE_REPORT.md`
-- Judul: Benchmark Failure Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Benchmark Failure Report
 
@@ -48,7 +33,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ### Expected vs Actual Finding Comparison
 
 Based on expected.json analysis, findings are expected through tag-based matching:
-> Terjemahan Indonesia: Based pada expected.json analysis, findings adalah expected through tag-based matching:
 
 | Vendor | Categories | Tag Coverage |
 |--------|------------|------------|
@@ -59,18 +43,16 @@ Based on expected.json analysis, findings are expected through tag-based matchin
 ## Missing Expected Findings Pattern
 
 The expected.json files define:
-> Terjemahan Indonesia: Expected.json files define:
 - Severity counts (critical, high, medium, low)
 - Tags for categorization
 - Risk score thresholds
 - Compliance score thresholds
 
 But `expected_findings` list was not populated. The fix derives finding strings from tags.
-> Terjemahan Indonesia: But expected_findings list was not populated. fix derives finding strings dari tags.
 
 ## Impact
 
 Without the fix, benchmark matching would always fail with 0% because `expected_findings` was empty, causing:
-> Terjemahan Indonesia: Without fix, benchmark matching would always fail dengan 0% because expected_findings was empty, causing:
 - score = 0 / max(0, 1) = 0
 - passed = False (0 >= 0.8 is False)
+

@@ -1,26 +1,10 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `PLAN_RFC-0011.md`
-- Judul: Plan Rfc 0011
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
+﻿
 # Plan: Implementasi RFC-0011 (System Architect)
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
+**Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Terakhir Diverifikasi:** 2026-08-02
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Documentation for PLAN_RFC-0011
@@ -31,7 +15,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 RFC-0011 mendefinisikan **System Architect Capability Pack** â€” arsitek arsitektur untuk ECP.
 Menjadi otoritas arsitektur yang me-review, memvalidasi, dan memandu desain sistem secara keseluruhan.
 Ini adalah Capability Pack ke-8 ECP. **Zero Core changes.**
-> Terjemahan Indonesia: RFC-0011 mendefinisikan sistem Architect kapabilitas Pack â€” arsitek arsitektur untuk ECP. Menjadi otoritas arsitektur yang me-review, memvalidasi, dan memandu desain sistem secara keseluruhan. Ini adalah kapabilitas Pack ke-8 ECP. Zero Core changes.
 
 ### Core Capabilities (8 sub-modul)
 1. **Clean Architecture Review** â€” Evaluasi layers, dependency rule, boundaries
@@ -76,7 +59,6 @@ Ini adalah Capability Pack ke-8 ECP. **Zero Core changes.**
 - Code Engineer sudah punya `dependency_graph.py` â€” bisa dijadikan foundation untuk:
   - `dependency_graph.py` di System Architect (import graph builder spesifik untuk arsitektur)
   - Layer analyzer bisa menggunakan AST parser dari `apps.code_engineer.parser`
-> Terjemahan Indonesia: Dependency_graph.py di sistem Architect (import graph builder spesifik untuk arsitektur) Layer analyzer bisa menggunakan AST parser dari apps.code_engineer.parser
 - Pattern Decision Intelligence (engine + worker + schemas) bisa diikuti
 
 ## Plan Implementasi

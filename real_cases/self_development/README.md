@@ -1,4 +1,4 @@
-﻿# Self Development Real Cases
+﻿# Kasus Nyata Pengembangan Diri
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -41,25 +41,25 @@ Buat folder untuk setiap kasus:
 
 Date: YYYY-MM-DD
 
-## Summary
+## Ringkasan
 Deskripsi singkat proyek dan masalahnya.
 
-## What ECP Got Right
+## Apa yang Dijawab Benar oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Got Wrong
+## Apa yang Dijawab Salah oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Missed
+## Apa yang Dilewatkan oleh ECP
 - Masalah yang kurang 1
 - Solusi yang kurang 2
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Tingkatkan deteksi untuk X
 - [ ] Kualitas proposal yang lebih baik untuk Y
 - [ ] Tingkatkan prediksi dampak untuk Z
 
-Benchmark Reference: ________
+Referensi Benchmark: ________
 ```

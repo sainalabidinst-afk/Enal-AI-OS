@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/RELEASE_READINESS_CHECKLIST.md`
-- Judul: Release Readiness Checklist
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Release Readiness Checklist
 
@@ -69,3 +54,4 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 - [DEFERRED] All checklist items verified
 - [DEFERRED] Benchmark results documented
 - [DEFERRED] GOLD STANDARD CERTIFIED status determined
+

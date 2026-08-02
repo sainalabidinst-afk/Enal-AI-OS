@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/SPRINT_5A3_REPORT.md`
-- Judul: Sprint 5A3 Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Sprint 5A.3 Report - Network Engineer Benchmark Stabilization
 
@@ -28,7 +13,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ## Summary
 Sprint 5A.3 complete. All identified bugs fixed.
-> Terjemahan Indonesia: Sprint 5A.3 selesai. Semua bug yang teridentifikasi diperbaiki.
 
 ## Files Created
 | File | Purpose |
@@ -60,3 +44,4 @@ Sprint 5A.3 complete. All identified bugs fixed.
 1. Add explicit expected finding strings to expected.json files
 2. Implement fuzzy matching with configurable thresholds
 3. Create CI pipeline for automated benchmark runs
+

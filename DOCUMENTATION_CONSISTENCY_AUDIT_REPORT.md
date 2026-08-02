@@ -1,20 +1,3 @@
-<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
-
-### Informasi Dokumen / Document Info
-- File: `DOCUMENTATION_CONSISTENCY_AUDIT_REPORT.md`
-- Judul: Documentation Consistency Audit Report
-- Status: natural bilingual content applied
-
-<!-- BILINGUAL_DOCS_END -->
-
 {
   "total_md_files": 162,
   "bilingual_header_count": 161,
@@ -517,4 +500,3 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
     "phase_5_standardize_dates": "Ensure all 'Platform RC (2026-07-27)' references are consistent, or update to actual release date (2026-07-31) where appropriate."
   }
 }
-> Terjemahan Indonesia: { "total_md_files": 162, "bilingual_header_count": 161, "non_bilingual_files": [ "E:\\Enal\\Enal-AI-OS\\docs\\BILINGUAL_DOCUMENTATION.MD" ], "files_inventory_sample": [ { "path": "README.MD", "language": "bilingual", "has_bilingual_header": true, "word_count_approx": 1200, "references_to_other_docs": [ "docs/APP_DEV_GUIDE.MD", "docs/ENGINEERING_BASELINE.MD", "docs/AES_ARCHITECTURE.MD", "docs/REFERENCE_ARCHITECTURE.MD", "docs/ROADMAP.MD", "docs/CAPABILITY_STRATEGY.MD", "docs/v1_roadmap.MD", "docs/RELEASE_CRITERIA.MD", "sdk/README.MD", "docs/arsitektur.MD", "docs/kualitas/QUALITY_GATES.MD" ] }, { "path": "docs/RELEASE_CRITERIA.MD", "language": "bilingual",...

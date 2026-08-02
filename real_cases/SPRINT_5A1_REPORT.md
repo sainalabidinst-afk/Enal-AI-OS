@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/SPRINT_5A1_REPORT.md`
-- Judul: Sprint 5A1 Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # SPRINT 5A.1 - Network Engineer Dataset Foundation
 
@@ -65,7 +50,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 | High Availability | 2 | high_availability (3 cases) |
 
 Total rules: 36 rules across 8 domains
-> Terjemahan Indonesia: Total aturan: 36 aturan di 8 domain
 
 ### 5. Gap Analysis
 - **Missing Rules**: No Cisco or Fortinet specific rules - analyzer only supports MikroTik
@@ -78,4 +62,4 @@ Total rules: 36 rules across 8 domains
   - Fortinet FortiOS parser
   - Juniper/JunOS support
   - Palo Alto, Arista, HPE additions
-> Terjemahan Indonesia: Cisco ASA, IOS, NX-OS parsers Fortinet FortiOS parser Juniper/JunOS dukungan Palo Alto, Arista, HPE additions
+

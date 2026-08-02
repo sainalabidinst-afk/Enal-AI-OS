@@ -1,26 +1,11 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `QUALITY_REMEDIATION_REPORT.md`
-- Judul: Quality Remediation Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # QUALITY REMEDIATION REPORT
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
+**Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Terakhir Diverifikasi:** 2026-08-02
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Audit and report documentation
@@ -115,14 +100,12 @@ apps\network_engineer\__init__.py:329: error: Name "NetworkSegment" is not defin
 (no output)
 ```
 All mypy errors resolved.
-> Terjemahan Indonesia: Semua kesalahan mypy teratasi.
 
 ### Ruff DTZ003
 ```
 (no output)
 ```
 All DTZ003 issues resolved.
-> Terjemahan Indonesia: Semua masalah DTZ003 teratasi.
 
 ## 6. Test Result
 
@@ -131,7 +114,6 @@ All DTZ003 issues resolved.
 ```
 
 All 386 tests pass with no failures.
-> Terjemahan Indonesia: All 386 tests pass dengan no failures.
 
 ## 7. Remaining Warnings
 
@@ -143,7 +125,6 @@ All 386 tests pass with no failures.
 
 ### Justification
 These notes do not affect runtime behavior, type safety, or test outcomes. They are suggestions to enable `--check-untyped-defs` for stricter checking, which is a separate effort from fixing actual errors.
-> Terjemahan Indonesia: These notes do not affect runtime behavior, type safety, or test outcomes. They adalah suggestions untuk memungkinkan --check-untyped-defs untuk stricter checking, which adalah sebuah separate effort dari fixing actual errors.
 
 ## 8. Summary
 
@@ -155,4 +136,4 @@ These notes do not affect runtime behavior, type safety, or test outcomes. They 
 | Tests Passed | 376 | 386 |
 
 All mandatory quality remediation completed successfully.
-> Terjemahan Indonesia: All mandatory kualitas remediation completed successfully.
+

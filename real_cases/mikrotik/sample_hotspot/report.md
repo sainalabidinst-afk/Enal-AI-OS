@@ -1,4 +1,4 @@
-﻿# Sample Hotspot Configuration
+﻿# Konfigurasi Sample Hotspot
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -9,34 +9,34 @@
 **SSOT:** Real case study documentation
 <!-- DOCUMENT_METADATA_END -->
 
-## Summary
+## Ringkasan
 Ini adalah konfigurasi sederhana MikroTik RouterOS untuk deployment hotspot.
 Konfigurasi mencakup setup bridge, DHCP client, dan filtering firewall dasar.
 
-## Expected Findings
+## Temuan yang Diharapkan
 
-### High Priority
+### Prioritas Tinggi
 1. Firewall input chain drops semua paket secara default - praktik keamanan yang baik
 2. Koneksi established/related diterima - praktik firewall stateful yang baik
 
-### Medium Priority
+### Prioritas Medium
 1. Tidak ada logging eksplisit yang dikonfigurasi untuk aturan firewall
 2. Tidak ada aturan NAT/masquerade yang terlihat untuk akses internet
 3. Tidak ada konfigurasi DNS yang terlihat untuk klien hotspot
 4. Interface bridge dibuat tetapi tidak ada pengaturan port security
 5. DHCP server tidak dikonfigurasi untuk jaringan bridge
 
-### Low Priority
+### Prioritas Rendah
 1. Tidak ada password admin yang terlihat dalam snippet konfigurasi
 2. Tidak ada komentar deskripsi interface eksplisit
 3. Tidak ada konfigurasi pembatasan bandwidth atau queue
 
-## Compliance Notes
+## Catatan Kepatuhan
 - Praktik terbaik firewall dasar ditaati (drop all, accept established)
 - Kehilangan security hardening (password, logging, monitoring)
 - Fungsionalitas hotspot tidak lengkap (tidak ada DHCP server, tidak ada NAT)
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Tambahkan konfigurasi DHCP server untuk klien hotspot
 - [ ] Tambahkan aturan NAT masquerade untuk akses internet
 - [ ] Tambahkan konfigurasi DNS

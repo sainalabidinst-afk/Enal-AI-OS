@@ -1,4 +1,4 @@
-﻿# Code Real Cases
+﻿# Kasus Nyata Kode
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -39,25 +39,25 @@ Buat folder untuk setiap kasus:
 
 Date: YYYY-MM-DD
 
-## Summary
+## Ringkasan
 Deskripsi singkat kasus.
 
-## What ECP Got Right
+## Apa yang Dijawab Benar oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Got Wrong
+## Apa yang Dijawab Salah oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Missed
+## Apa yang Dilewatkan oleh ECP
 - Temuan yang kurang 1
 - Temuan yang kurang 2
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Perbarui pengetahuan arsitektur untuk X
 - [ ] Tingkatkan pembuatan kode untuk Y
 - [ ] Tambahkan deteksi pola baru untuk Z
 
-Benchmark Reference: ________
+Referensi Benchmark: ________
 ```

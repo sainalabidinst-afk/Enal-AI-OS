@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/PHASE5_COORDINATION_REPORT.md`
-- Judul: Phase5 Coordination Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # PHASE5_COORDINATION_REPORT
 
@@ -29,7 +14,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Coordination Scenarios
 
 3 scenarios documented:
-> Terjemahan Indonesia: 3 skenario didokumentasikan:
 1. Network Configuration Audit (4-step internal)
 2. Code Development Workflow (cross-capability)
 3. Trading Risk Assessment (cross-capability)
@@ -37,19 +21,16 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Handoff Validation
 
 Standard contract exists with:
-> Terjemahan Indonesia: Standard contract exists dengan:
 - input/output
 - metadata
 - status
 - error
 
 All capabilities follow this pattern.
-> Terjemahan Indonesia: All kapabilitas follow ini pattern.
 
 ## Execution Sequencing
 
 Defined by `ExecutionGraph`:
-> Terjemahan Indonesia: Defined oleh ExecutionGraph:
 - Topological ordering
 - Dependency tracking
 - Sequential execution
@@ -77,3 +58,4 @@ Defined by `ExecutionGraph`:
 | Telemetry | 8/10 |
 
 **Overall: 8.5/10**
+

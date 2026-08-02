@@ -1,4 +1,4 @@
-﻿# Trading Real Cases
+﻿# Kasus Nyata Trading
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -42,25 +42,25 @@ Buat folder untuk setiap kasus:
 
 Date: YYYY-MM-DD
 
-## Summary
+## Ringkasan
 Deskripsi singkat skenario pasar.
 
-## What ECP Got Right
+## Apa yang Dijawab Benar oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Got Wrong
+## Apa yang Dijawab Salah oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Missed
+## Apa yang Dilewatkan oleh ECP
 - Faktor yang kurang 1
 - Faktor risiko yang kurang 2
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Tingkatkan penalaran untuk X
 - [ ] Penjelasan risiko yang lebih baik untuk Y
 - [ ] Tambahkan pola pengetahuan untuk Z
 
-Benchmark Reference: ________
+Referensi Benchmark: ________
 ```

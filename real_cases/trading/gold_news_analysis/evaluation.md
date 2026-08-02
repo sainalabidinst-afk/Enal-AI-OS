@@ -11,30 +11,30 @@
 
 Date: 2026-07-28
 
-## Summary
+## Ringkasan
 Emas dalam konsolidasi sebelum pidato Ketua Fed Powell.
 Perlu menilai setup teknis dan menyiapkan skenario berbasis event.
 
-## What ECP Got Right
+## Apa yang Dijawab Benar oleh ECP
 - Identifikasi yang benar rentang konsolidasi
 - Level support/resistance yang akurat
 - Penilaian RSI dan volume yang tepat
 
-## What ECP Got Wrong
+## Apa yang Dijawab Salah oleh ECP
 - Tidak mengkuantifikasi dampak skenario Fed yang berbeda
 - Terlalu bergantung pada teknikal tanpa analisis sentimen berita
 
-## What ECP Missed
+## Apa yang Dilewatkan oleh ECP
 - Data COT menunjukkan posisi commercial hedgers
 - Pasar opsi (level gamma, max pain)
 - Korelasi dengan DXY dan yield riil
 - Dampak waktu sesi (Asia vs London vs NY)
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Tambahkan kapabilitas analisis data COT
 - [ ] Implementasi analisis pasar opsi (Open Interest, level Gamma)
 - [ ] Tambahkan analisis korelasi makro (DXY, yield, DXY)
 - [ ] Implementasi analisis volume berbasis sesi
 - [ ] Tambahkan probabilitas hasil berbasis skenario
 
-Benchmark Reference: trading_benchmark_002
+Referensi Benchmark: trading_benchmark_002

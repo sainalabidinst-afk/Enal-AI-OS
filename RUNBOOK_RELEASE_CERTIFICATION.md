@@ -1,26 +1,10 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `RUNBOOK_RELEASE_CERTIFICATION.md`
-- Judul: Runbook Release Certification
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
+﻿
 # RUNBOOK - Release Certification
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
+**Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Terakhir Diverifikasi:** 2026-08-02
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Documentation for RUNBOOK_RELEASE_CERTIFICATION
@@ -44,7 +28,6 @@ E:\Enal\Enal-AI-OS/
 
 ### Environment Variables
 Create `.env` file in project root:
-> Terjemahan Indonesia: Membuat .env file dalam proyek root:
 ```
 DATABASE_URL=postgresql://...
 REDIS_URL=redis://...
@@ -109,7 +92,6 @@ curl -X POST http://localhost:8000/api/v1/benchmark/run
 ## Certification Artifacts
 
 Save these files as certification evidence:
-> Terjemahan Indonesia: Simpan file berikut sebagai bukti sertifikasi:
 1. `real_cases/SPRINT_5A1_REPORT.md`
 2. `real_cases/SPRINT_5A2_REPORT.md`
 3. `real_cases/SPRINT_5A3_REPORT.md`

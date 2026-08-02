@@ -1,4 +1,4 @@
-﻿# DevOps Real Cases
+﻿# Kasus Nyata DevOps
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -40,25 +40,25 @@ Buat folder untuk setiap kasus:
 
 Date: YYYY-MM-DD
 
-## Summary
+## Ringkasan
 Deskripsi singkat skenario infrastruktur.
 
-## What ECP Got Right
+## Apa yang Dijawab Benar oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Got Wrong
+## Apa yang Dijawab Salah oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Missed
+## Apa yang Dilewatkan oleh ECP
 - Konfigurasi yang kurang 1
 - Best practice yang kurang 2
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Perbarui basis pengetahuan untuk X
 - [ ] Tingkatkan pembuatan konfigurasi untuk Y
 - [ ] Tambahkan pola multi-cloud untuk Z
 
-Benchmark Reference: ________
+Referensi Benchmark: ________
 ```

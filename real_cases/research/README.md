@@ -1,4 +1,4 @@
-﻿# Research Real Cases
+﻿# Kasus Nyata Penelitian
 
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
@@ -40,25 +40,25 @@ Buat folder untuk setiap kasus:
 
 Date: YYYY-MM-DD
 
-## Summary
+## Ringkasan
 Deskripsi singkat pertanyaan penelitian.
 
-## What ECP Got Right
+## Apa yang Dijawab Benar oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Got Wrong
+## Apa yang Dijawab Salah oleh ECP
 - Temuan 1
 - Temuan 2
 
-## What ECP Missed
+## Apa yang Dilewatkan oleh ECP
 - Sumber yang kurang 1
 - Kontradiksi yang kurang 2
 
-## Improvement Actions
+## Aksi Perbaikan
 - [ ] Tingkatkan peringkat bukti untuk X
 - [ ] Deteksi kontradiksi yang lebih baik untuk Y
 - [ ] Tingkatkan kualitas sitasi untuk Z
 
-Benchmark Reference: ________
+Referensi Benchmark: ________
 ```

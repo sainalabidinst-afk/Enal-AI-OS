@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/MULTI_CAPABILITY_COORDINATION.md`
-- Judul: Multi Capability Coordination
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # MULTI_CAPABILITY_COORDINATION
 
@@ -29,7 +14,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Handoff Contract
 
 Standard format between capabilities:
-> Terjemahan Indonesia: Standard format between kapabilitas:
 ```json
 {
     "input": {...},
@@ -49,7 +33,6 @@ Standard format between capabilities:
 ## Execution Sequencing
 
 Rules:
-> Terjemahan Indonesia: Aturan:
 1. Tasks defined in `ExecutionGraph`
 2. Dependencies declared in `dependencies` array
 3. Run sequentially in topological order
@@ -61,7 +44,6 @@ Rules:
 ## Failure Propagation
 
 If any task fails:
-> Terjemahan Indonesia: Jika ada tugas yang gagal:
 - Session status â†’ `failed`
 - Downstream tasks not executed
 - Error logged to telemetry
@@ -75,3 +57,4 @@ If any task fails:
 - Any task failed
 - Explicit cancellation called
 - Timeout exceeded (future)
+

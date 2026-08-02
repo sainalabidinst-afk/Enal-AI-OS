@@ -1,26 +1,10 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `PLAN_DOKUMENTASI_CONSISTENCY.md`
-- Judul: Plan Dokumentasi Consistency
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
+﻿
 # Rencana Komprehensif: Sinkronisasi Dokumentasi dengan Kondisi Aktual Proyek
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
+**Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Terakhir Diverifikasi:** 2026-08-02
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Documentation for PLAN_DOKUMENTASI_CONSISTENCY
@@ -29,7 +13,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Informasi Terkumpul
 
 Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfigurasi, dan laporan), ditemukan **18+ ketidaksesuaian** antara dokumentasi dan kondisi aktual kode. Proyek telah melalui restrukturisasi monorepo, peningkatan test count, perubahan API, dan perubahan arsitektur yang belum tercermin dalam dokumentasi.
-> Terjemahan Indonesia: Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfigurasi, dan laporan), ditemukan 18+ ketidaksesuaian antara dokumentasi dan kondisi aktual kode. Proyek telah melalui rekonstruksi monorepo, peningkatan jumlah pengujian, perubahan API, dan perubahan arsitektur yang belum didokumentasikan.
 
 ## Rencana Perbaikan
 
@@ -44,7 +27,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   - `docs/architecture.md` â€” test count
   - `sdk/README.md` â€” "368 tests passing"
   - `docs/REFERENCE_ARCHITECTURE.md` â€” jika ada referensi
-> Terjemahan Indonesia: README.MD â€” baris "368 tests passing" â†’ "426 tests passing" docs/ENGINEERING_BASELINE.MD â€” dasar test count docs/kualitas/QUALITY_GATES.MD â€” Gate 4 dasar docs/AES_ARCHITECTURE.MD â€” test count references docs/arsitektur.MD â€” test count sdk/README.MD â€” "368 tests passing" docs/REFERENCE_ARCHITECTURE.MD â€” jika ada referensi
 - **Aktual:** 426 test passing (diverifikasi dari `_test_output.txt`)
 
 #### 1.2 Update Versi & Status Proyek
@@ -68,7 +50,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   9. **Endpoint /longtasks** ada di `phase3.py`
   10. **Endpoint /evaluation/benchmarks** ada di `phase3.py`
   11. **WebSocket endpoints** tidak diverifikasi keberadaannya
-> Terjemahan Indonesia: Auth header: Dokumen bilang X-API-Key, backend aktual pakai Authorization: Bearer GET /chat route tidak ada di backend (utama.py) â€” hanya ada POST /API/v1/chat Endpoint /conversations/{conversation_id} tidak ada di backend Endpoint /kognitif/process ada di phase3.py prefix /API/v1, bukan /kognitif/process Endpoint /organization ada di phase3.py prefix /API/v1 Endpoint /marketplace/publish dll ada di ecosystem.py prefix /API/v1 Endpoint /studio/traces dll ada di ecosystem.py prefix /API/v1 Endpoint /kognitif/decide ada di phase3.py Endpoint /longtasks ada di phase3.py Endpoint /evaluation/benchmarks ada di phase3.py WebSocket endpoints tidak diverifikasi keberadaannya
 - **Tindakan:** Cocokkan setiap endpoint dengan kode aktual di `backend/app/api/` dan `main.py`
 
 #### 2.2 Update Route Prefix Documentation
@@ -84,7 +65,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   1. **MinIO** disebut di diagram arsitektur `docs/architecture.md` tapi **tidak ada** di `docker-compose.yml`
   2. **Qdrant** ada di docker-compose tapi tidak semua diagram menyertakannya
   3. Opsi: Hapus MinIO dari diagram arsitektur, atau tambahkan issue untuk implementasi MinIO
-> Terjemahan Indonesia: MinIO disebut di diagram arsitektur docs/arsitektur.MD tapi tidak ada di Docker-compose.yml Qdrant ada di Docker-compose tapi tidak semua diagram menyertakannya Opsi: Hapus MinIO dari diagram arsitektur, atau tambahkan issue untuk implementasi MinIO
 
 #### 3.2 Update Docker Configuration Docs
 - **File:** `frontend/Dockerfile`
@@ -108,7 +88,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   4. **LoadingIndicator** â€” tidak ditemukan, yang ada adalah `loading-skeleton.tsx`
   5. **NotificationToast** â€” tidak ditemukan, yang ada adalah `toast.tsx`
   6. **ApprovalDialog** â€” ada `approval-dialog.tsx` di `ui/`
-> Terjemahan Indonesia: ProgressCard â€” komponen ini tidak ditemukan di frontend/components/ WorkspaceSidebar â€” tidak ditemukan, yang ada adalah utama-layout.tsx ChatWindow â€” tidak ditemukan, yang ada adalah chat-window.tsx LoadingIndicator â€” tidak ditemukan, yang ada adalah loading-skeleton.tsx NotifikasiToast â€” tidak ditemukan, yang ada adalah toast.tsx ApprovalDialog â€” ada persetujuan-dialog.tsx di ui/
 - **Tindakan:** Update COMPONENT_LIBRARY.md sesuai komponen yang benar-benar ada
 
 #### 4.2 Update UI Architecture
@@ -118,7 +97,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   2. **Aktual:** Yang ditemukan di `frontend/store/` hanya `auth-store.ts`, `execution-store.ts`, `workspace-store.ts`
   3. Screen flow: dokumen bilang `/chat` route, tapi aktual root `/` redirect ke `/dashboard` atau `/login`
   4. **Route `/chat`** tidak ada di routing frontend â€” halaman utama adalah `/dashboard`
-> Terjemahan Indonesia: Store Slice: dokumen bilang ConversationSlice, WorkspaceSlice, ExecutionSlice, ArtefakSlice, NotifikasiSlice, SettingSlice Aktual: Yang ditemukan di frontend/store/ hanya auth-store.ts, Execution-store.ts, Workspace-store.ts Screen flow: Dokumen bilang /Chat Route, tapi sebenarnya root / Redirect ke /dashboard atau /Login Route /Chat tidak ada di Routing Frontend â€” halaman utama adalah /dashboard
 - **Tindakan:** Update UI_ARCHITECTURE.md dan SCREEN_FLOW.md sesuai routing aktual
 
 #### 4.3 Update Screen Flow
@@ -129,7 +107,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   3. Screen `/executions/:executionId` â€” tidak ada di routing aktual (pakai query param `?selected=`)
   4. Screen `/artifact/:artifactId` â€” tidak ada di routing aktual
   5. Entry point "User clicks 'New Chat'" tidak relevan karena tidak ada route `/chat`
-> Terjemahan Indonesia: Routing table mengatakan / â†’ Chat, tapi aktual / â†’ redirect ke /dashboard atau /login Screen /chat tidak ada di routing aktual Screen /executions/:executionId â€” tidak ada di routing aktual (pakai query param ?selected=) Screen /artifact/:artifactId â€” tidak ada di routing aktual Entry point "User clicks 'New Chat'" tidak relevan karena tidak ada rute /chat
 - **Tindakan:** Update SCREEN_FLOW.md sesuai routing aktual frontend
 
 ### Fase 5: Perbaikan Release & Capability Documentation (MINOR)
@@ -140,7 +117,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   1. Hanya menyebut Network Engineer, padahal ada 6 capability packs
   2. Tidak menyebut frontend, SDK, benchmarks
   3. Versi perlu disinkronkan
-> Terjemahan Indonesia: Hanya menyebut Network Engineer, padahal ada 6 kapabilitas packs Tidak menyebut frontend, SDK, benchmarks Versi perlu disinkronkan
 - **Tindakan:** Update dengan semua capability packs, frontend, SDK
 
 #### 5.2 Update Capability Pack Status
@@ -149,7 +125,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   1. Dokumen bilang "5 reference applications" tapi `apps/__init__.py` punya 7 apps
   2. Status capability packs: Network Engineer disebut "Production Ready", Trading "Certification Pending"
   3. RELEASE_MANIFEST.md hanya menyebut Network Engineer dengan 30 cases
-> Terjemahan Indonesia: Dokumen bilang "5 reference applications" tapi apps/init.py punya 7 apps status kapabilitas packs: Network Engineer disebut "Production Ready", Trading "Certification Pending" RELEASE_MANIFEST.MD hanya menyebut Network Engineer dengan 30 cases
 - **Tindakan:** Sinkronkan jumlah apps dan status capability packs
 
 #### 5.3 Update CI/CD Documentation
@@ -158,7 +133,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   1. Dokumen klaim CI/CD pipeline aktif, tapi tidak ada konfigurasi CI/CD ditemukan (no `.github/`, no `.gitlab-ci.yml`)
   2. `scripts/gate0_validate.py` ada tapi hanya untuk validasi pre-merge lokal
   3. Quality Gates bilang enforcement di CI/CD tapi CI/CD tidak ada
-> Terjemahan Indonesia: Dokumen klaim CI/CD jalur aktif, tapi tidak ada konfigurasi CI/CD ditemukan (no .github/, no .gitlab-ci.yml) scripts/gate0_validate.py ada tapi hanya untuk validasi pre-merge lokal kualitas Gates bilang enforcement di CI/CD tapi CI/CD tidak ada
 - **Tindakan:** Klarifikasi bahwa quality gates adalah pre-merge manual, bukan CI/CD otomatis
 
 ### Fase 6: Perbaikan Dokumentasi Getting Started
@@ -170,7 +144,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   2. Command untuk backend: `pip install -e backend/`
   3. Contoh agen `enal_ai` â€” SDK mungkin tidak terinstal dengan cara itu
   4. Path impor `backend.app.agents.orchestrator_v2` â€” perlu diverifikasi
-> Terjemahan Indonesia: Contoh kode pip install -e . tidak akan work karena pyproject.toml ada di backend/ Command untuk backend: pip install -e backend/ Contoh agen enal_ai â€” SDK mungkin tidak terinstal dengan cara itu Path impor backend.app.agen.orchestrator_v2 â€” perlu diverifikasi
 - **Tindakan:** Update contoh kode sesuai struktur monorepo aktual
 
 #### 6.2 Update Agent Guide
@@ -185,7 +158,6 @@ Setelah membaca 50+ file proyek (dokumentasi, kode backend, frontend, konfiguras
   1. Bilang "368 tests passing" â†’ perlu update ke 426
   2. Contoh kode pakai `enal_ai` â€” perlu diverifikasi apakah SDK benar-benar punya `Agent`, `EnalAI`, `Tool`, `Workflow`
   3. "Platform RC (2026-07-27)" â€” tanggal perlu diverifikasi
-> Terjemahan Indonesia: Bilang "368 tests passing" â†’ perlu update ke 426 Contoh kode pakai enal_ai â€” perlu diverifikasi apakah SDK benar-benar punya agen, EnalAI, alat, alur kerja "platform RC (2026-07-27)" â€” tanggal perlu diverifikasi
 - **Tindakan:** Update test count dan verifikasi contoh kode
 
 ### Fase 8: Validasi & Testing

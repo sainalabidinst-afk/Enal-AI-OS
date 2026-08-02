@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/trading/portfolio_rebalance_2026/input/context.md`
-- Judul: Context
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Portfolio Rebalancing Analysis â€” July 2026
 
@@ -34,7 +19,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
   - SOL: 15% ($37,500)
   - AVAX: 10% ($25,000)
   - Stablecoins: 10% ($25,000)
-> Terjemahan Indonesia: BTC: 40% ($100,000) ETH: 25% ($62,500) SOL: 15% ($37,500) AVAX: 10% ($25,000) Stablecoin: 10% ($25,000)
 - Target Allocation: BTC 35%, ETH 25%, SOL 15%, AVAX 5%, Stablecoins 20%
 - Risk Profile: Moderate
 
@@ -47,4 +31,4 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 
 ## Request
 Should I rebalance to target? What are the tax implications and optimal execution strategy?
-> Terjemahan Indonesia: Should I rebalance untuk target? What adalah tax implications dan optimal execution strategy?
+

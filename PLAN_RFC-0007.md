@@ -1,26 +1,10 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `PLAN_RFC-0007.md`
-- Judul: Plan Rfc 0007
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
-
+﻿
 # Plan: Implementasi RFC-0007 (Decision Intelligence)
 
 <!-- DOCUMENT_METADATA_START -->
-**Owner:** Documentation Team
+**Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Terakhir Diverifikasi:** 2026-08-02
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Documentation for PLAN_RFC-0007
@@ -29,7 +13,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Informasi yang Dikumpulkan
 
 RFC-0007 mendefinisikan **Decision Intelligence** â€” Capability Pack yang menjadi shared reasoning layer untuk semua Capability Pack lainnya. Ini adalah "otak" kedua setelah Core, tetapi tetap di level Capability Pack (tidak melanggar Core Freeze).
-> Terjemahan Indonesia: RFC-0007 mendefinisikan Decision Intelligence â€” kapabilitas Pack yang menjadi shared reasoning layer untuk semua kapabilitas Pack lainnya. Ini adalah "otak" kedua setelah Core, tetapi tetap di level kapabilitas Pack (tidak melanggar Core Freeze).
 
 ### Core Capabilities (8 sub-modul)
 1. **Evidence Collection** â€” Kumpulkan evidence dari berbagai sumber

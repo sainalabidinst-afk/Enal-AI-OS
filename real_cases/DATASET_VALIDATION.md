@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/DATASET_VALIDATION.md`
-- Judul: Dataset Validation
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Dataset Validation Report
 
@@ -85,7 +70,6 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Format Validation
 
 All config files are readable text files. All expected.json files are valid JSON with required fields:
-> Terjemahan Indonesia: All config files adalah readable text files. All expected.json files adalah valid JSON dengan required fields:
 - vendor
 - expected (with critical, high, medium, low counts)
 - metadata (with description, tags)
@@ -93,4 +77,4 @@ All config files are readable text files. All expected.json files are valid JSON
 ## Missing Items
 
 None. All 30 real cases have complete required files.
-> Terjemahan Indonesia: None. All 30 real cases memiliki complete required files.
+

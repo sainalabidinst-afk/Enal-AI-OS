@@ -1,19 +1,4 @@
-﻿<!-- BILINGUAL_DOCS_START -->
-## Bahasa Indonesia / English
-
-### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-> Terjemahan Indonesia: Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
-
-- Bahasa Indonesia: konten utama tetap dipertahankan dalam dokumen asli, dan bagian ini memberi konteks ringkas dalam bahasa Indonesia.
-- English: the main content remains in the original document, and this section provides a concise bilingual context for international readers.
-
-### Informasi Dokumen / Document Info
-- File: `real_cases/RELEASE_VERIFICATION_REPORT.md`
-- Judul: Release Verification Report
-- Status: bilingual header added
-
-<!-- BILINGUAL_DOCS_END -->
+﻿
 
 # Release Verification Report - Gold Standard Certification
 
@@ -43,10 +28,8 @@ Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh penggu
 ## Benchmark Results
 
 Cannot execute - Python runtime unavailable.
-> Terjemahan Indonesia: Tidak dapat dijalankan - runtime Python tidak tersedia.
 
 Required commands (when Python available):
-> Terjemahan Indonesia: Perintah yang diperlukan (jika Python tersedia):
 ```bash
 # Local execution
 python -m benchmarks.network_engineer_benchmark
@@ -60,7 +43,6 @@ curl -X POST http://localhost:8000/api/v1/benchmark/run
 ## Quality Metrics
 
 Based on code analysis (not runtime execution):
-> Terjemahan Indonesia: Based pada code analysis (not runtime execution):
 
 | Metric | Value |
 |--------|-------|
@@ -76,14 +58,12 @@ Based on code analysis (not runtime execution):
 ## Bug Found
 
 None during code analysis phase.
-> Terjemahan Indonesia: Tidak ada selama tahap analisis kode.
 
 ---
 
 ## Bug Fixed
 
 All previously identified bugs fixed in Sprints 5A.3 and 5A.4.
-> Terjemahan Indonesia: All previously identified bugs fixed dalam Sprints 5A.3 dan 5A.4.
 
 ---
 
@@ -106,3 +86,4 @@ All previously identified bugs fixed in Sprints 5A.3 and 5A.4.
 - All source code bugs fixed
 - Dataset complete and validated
 - Once Python runtime available, run: `python -m benchmarks.network_engineer_benchmark`
+
