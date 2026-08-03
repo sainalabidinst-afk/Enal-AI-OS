@@ -56,7 +56,7 @@ Kematangan menggambarkan **tahap lifecycle** dari sebuah Capability Pack — buk
 |Asisten Peneliti|3 — Siap Produksi|4 — Ahli Domain|
 |Asisten DevOps|3 — Siap Produksi|4 — Ahli Domain|
 |Analis Perdagangan|3 — Siap Produksi|4 — Ahli Domain|
-|Pengembangan Diri|3 — Siap Produksi|4 — Ahli Domain|
+|Pengembangan Diri|4 — Ahli Domain|4 — Ahli Domain|
 |Decision Intelligence|3 — Siap Produksi|4 — Ahli Domain|
 |Sistem Arsitek|3 — Siap Produksi|4 — Ahli Domain|
 |Security Engineer|3 — Siap Produksi|4 — Ahli Domain|
@@ -87,9 +87,9 @@ Quality Grades menggambarkan **hasil Benchmark terkini** dari sebuah Capability 
 |Insinyur Jaringan|A|≥90|Siap Produksi|
 |Kode Insinyur|A-|≥85|Siap Produksi|
 |Asisten Peneliti|A-|≥85|Siap Produksi|
-|Asisten DevOps|B+|≥80|Siap Produksi|
+|Asisten DevOps|A+|≥90|Bersertifikat|
 |Analis Perdagangan|A|≥90|Bersertifikat|
-|Pengembangan Diri|A|≥90|Siap Produksi|
+|Pengembangan Diri|A+|≥95|Bersertifikat|
 |Decision Intelligence|A|91,25%|Siap Produksi (RFC-0007)|
 |Sistem Arsitek|A|97,50%|Siap Produksi (RFC-0011)|
 |Security Engineer|A-|≥85|Siap Produksi (RFC-0008)|
@@ -153,7 +153,7 @@ Deprecated
 |Asisten Peneliti|Stabil|Berkembang menuju Bersertifikat|
 |Asisten DevOps|Stabil|Berkembang menuju Bersertifikat|
 |Analis Perdagangan|Stabil → Bersertifikat|Selesai|
-|Pengembangan Diri|Stabil|Berkembang menuju Bersertifikat|
+|Pengembangan Diri|Stabil → Bersertifikat|Selesai|
 |Decision Intelligence|Stabil|Lapisan penalaran bersama (RFC-0007)|
 |Sistem Arsitek|Stabil|Otoritas arsitektur (RFC-0011)|
 |Security Engineer|Stabil|Siap Produksi (RFC-0008)|
@@ -212,8 +212,8 @@ Deprecated
 - Membuat alur kerja GitHub Actions
 - Penerapan ke registri kontainer
 - Memverifikasi penyebaran kesehatan
-**Target Kualitas:** B+ (≥80) — 100 skenario infrastruktur, ≥85% kebenaran
-**Target Kematangan:** Level 4 — Domain Ahli
+**Target Kualitas:** A+ (≥90) — 100 skenario infrastruktur, ≥90% kebenaran
+**Target Kematangan:** Level 4 — Pakar Domain
 
 ### 5.5 Analis Perdagangan
 
@@ -236,8 +236,8 @@ Deprecated
 - Akhirnya usulan perbaikan dengan penilaian risiko
 - Hasil patch dan laporan pengujian
 - Memerlukan persetujuan eksplisit pengguna sebelum menerapkan perubahan
-**Target Kualitas:** A (≥90) — 10 proyek nyata, ≥80% penerimaan perbaikan
-**Target Kematangan:** Level 4 — Domain Ahli
+**Target Kualitas:** A+ (≥95) — 200 kasus nyata, ≥95% penerimaan perbaikan
+**Target Kematangan:** Level 4 — Pakar Domain
 
 ### 5.7 Decision Intelligence
 

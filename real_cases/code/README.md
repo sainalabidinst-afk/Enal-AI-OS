@@ -27,8 +27,10 @@ Buat folder untuk setiap kasus:
 
 ## Contoh Kasus
 
+- `fastapi_microservice/` — Pembuatan dan review microservice FastAPI
+- `ddd_order_management/` — Implementasi DDD untuk manajemen pesanan
+- `security_audit/` — Audit keamanan kode dengan berbagai kerentanan
 - `legacy_php/` — Tinjauan basis kode PHP legacy
-- `fastapi_microservice/` — Pembuatan microservice FastAPI
 - `react_dashboard/` — Dashboard React dari kebutuhan
 - `database_refactor/` — Refactoring skema basis data
 

@@ -279,14 +279,14 @@ class IntegrationEngine:
         reasoning_output: dict[str, Any] = {}
         if self._reasoning_engine and hasattr(self._reasoning_engine, "forward_chaining"):
             try:
-                facts = [e.to_dict() for e in context.evidences[:20]]
+                facts = list(context.evidences[:20])
                 goal = (
                     f"Analyze market condition for {context.get_input('symbol')}"
                     if context.get_input("symbol")
                     else "Evaluate design against best practices"
                 )
                 reasoning_result = self._reasoning_engine.forward_chaining(
-                    facts=facts,
+                    initial_evidence=facts,  # type: ignore[arg-type]
                     goal=goal,
                 )
                 reasoning_output = {

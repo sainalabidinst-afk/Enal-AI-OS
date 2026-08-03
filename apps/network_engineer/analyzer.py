@@ -149,6 +149,21 @@ class NetworkAnalyzer:
                 rule(config, report)
             except Exception as e:
                 logger.error(f"Analysis rule failed: {e}")
+        try:
+            from apps.network_engineer.enterprise_knowledge import enterprise_knowledge_engine
+            findings = enterprise_knowledge_engine.analyze(config)
+            for finding in findings:
+                severity = Severity(finding.severity) if finding.severity in Severity._value2member_map_ else Severity.INFO
+                report.add_issue(
+                    severity=severity,
+                    category=f"{finding.domain}.{finding.category}",
+                    description=finding.description,
+                    recommendation=finding.recommendation,
+                    confidence=finding.confidence,
+                    references=finding.references,
+                )
+        except Exception as e:
+            logger.error(f"Enterprise knowledge analysis failed: {e}")
         report.summary = report.get_summary()
         parser_errors = getattr(config, "errors", [])
         report.metadata["total_rules"] = len(self._rules)
@@ -217,7 +232,10 @@ class NetworkAnalyzer:
         for iface in config.interfaces:
             has_ip = iface.name in interfaces_with_ips
             is_bridge_member = any(iface.name in bridge.ports for bridge in config.bridge_configs)
-            if not has_ip and not is_bridge_member and not iface.disabled:
+            disabled = getattr(iface, "disabled", None)
+            if disabled is None:
+                disabled = getattr(iface, "status", "enabled") == "disabled"
+            if not has_ip and not is_bridge_member and not disabled:
                 report.add_issue(Severity.INFO, "Interfaces", f"Interface {iface.name or '<unnamed>'} has no IP and is enabled", "Consider disabling unused interfaces", confidence=0.8)
 
     def _check_duplicate_nat(self, config: Any, report: NetworkAnalysisReport):

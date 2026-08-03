@@ -229,7 +229,7 @@ class ETLPipeline:
         result = data
 
         for col in columns:
-            values = [row.get(col) for row in data if isinstance(row.get(col), (int, float))]
+            values = [float(v) for v in (row.get(col) for row in data) if isinstance(v, (int, float))]
             if not values:
                 continue
             q1, q3 = self._quartiles(values)
@@ -299,7 +299,8 @@ class ETLPipeline:
             for g, v in zip(group_by, key):
                 agg_row[g] = v
             for col, agg_func in aggregations.items():
-                values = [r.get(col) for r in rows if isinstance(r.get(col), (int, float))]
+                raw_values = [r.get(col) for r in rows if isinstance(r.get(col), (int, float))]
+                values: list[float] = [float(v) for v in raw_values if v is not None]
                 if agg_func == "sum":
                     agg_row[col] = sum(values) if values else 0
                 elif agg_func == "avg":
@@ -331,11 +332,11 @@ class ETLPipeline:
         return result
 
     def _compute_mean(self, data: list[dict[str, Any]], col: str) -> float:
-        values = [row[col] for row in data if isinstance(row.get(col), (int, float))]
+        values: list[float] = [row[col] for row in data if isinstance(row.get(col), (int, float))]
         return sum(values) / len(values) if values else 0
 
     def _compute_median(self, data: list[dict[str, Any]], col: str) -> float:
-        values = sorted([row[col] for row in data if isinstance(row.get(col), (int, float))])
+        values: list[float] = sorted([row[col] for row in data if isinstance(row.get(col), (int, float))])
         if not values:
             return 0
         mid = len(values) // 2
@@ -343,7 +344,7 @@ class ETLPipeline:
 
     def _compute_mode(self, data: list[dict[str, Any]], col: str) -> Any:
         from collections import Counter
-        values = [row[col] for row in data if row.get(col) is not None]
+        values: list[Any] = [row[col] for row in data if row.get(col) is not None]
         if not values:
             return 0
         counts = Counter(values)
@@ -357,7 +358,7 @@ class ETLPipeline:
         return q1, q3
 
     def _col_min_max(self, data: list[dict[str, Any]], col: str) -> tuple[float, float]:
-        values = [row[col] for row in data if isinstance(row.get(col), (int, float))]
+        values: list[float] = [row[col] for row in data if isinstance(row.get(col), (int, float))]
         if not values:
             return 0.0, 1.0
         return min(values), max(values)

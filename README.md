@@ -186,11 +186,11 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | Capability Pack | Status | Grade |
 |---|---|---|
 | **Network Engineer** | ✅ Production Ready | A (≥90) |
-| **Code Engineer** | ✅ Production Ready | A- (≥85) |
+| **Code Engineer** | ✅ Production Ready | A+ (≥95) |
 | **Research Assistant** | ✅ Production Ready | A- (≥85) |
-| **DevOps Assistant** | ✅ Production Ready | B+ (≥80) |
+| **DevOps Assistant** | ✅ Production Ready | A+ (≥90) |
 | **Trading Analyst** | ✅ Production Ready | A (≥90) |
-| **Self Development** | ✅ Production Ready | A (≥90) |
+| **Self Development** | ✅ Production Ready | A+ (≥95) |
 | **Decision Intelligence** | ✅ Production Ready | A (≥90) |
 | **System Architect** | ✅ Production Ready | A (≥90) |
 | **Security Engineer** | ✅ Production Ready | A- (≥85) |

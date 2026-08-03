@@ -84,8 +84,8 @@ Sertifikasi mewajibkan setiap Capability Pack mencapai atau melampaui skor Bench
 |Insinyur Jaringan|≥90|A|
 |Kode Insinyur|≥85|A-|
 |Asisten Peneliti|≥85|A-|
-|Asisten DevOps|≥80|B+|
-|Analis Perdagangan|≥80|B+ (harus juga Sertifikasi lulus)|
+|Asisten DevOps|≥90|A+|
+|Analis Perdagangan|≥90|A (Bersertifikat)|
 |Pengembangan Diri|≥90|A|
 |Decision Intelligence|≥90|A (Benchmark 91,25% — RFC-0007)|
 |Sistem Arsitek|≥90|A (RFC-0011)|

@@ -40,7 +40,7 @@ class Operation(str, Enum):
     fill_missing = "fill_missing"
     remove_outliers = "remove_outliers"
     normalize = "normalize"
-    encode = "encode"
+    encode = "encode"  # type: ignore[assignment]
     aggregate = "aggregate"
     interpolate = "interpolate"
 

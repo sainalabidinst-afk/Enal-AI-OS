@@ -87,7 +87,7 @@ class DatabaseEngineerEngine:
         op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)
 
         if op == "schema_design":
-            schema_recs = self.schema_designer.design(request.schema, request.database_type)
+            schema_recs = self.schema_designer.design(request.database_schema, request.database_type)
             all_findings.extend(self._schema_to_findings(schema_recs))
             explanation_parts.append(f"Schema design analysis: {len(schema_recs)} recommendations")
 
@@ -100,7 +100,7 @@ class DatabaseEngineerEngine:
             migration_plan = self.migration_manager.plan(
                 request.current_schema_version,
                 request.target_schema_version,
-                request.schema,
+                request.database_schema,
             )
             explanation_parts.append(
                 f"Migration plan: {len(migration_plan.steps)} steps from "
@@ -109,7 +109,7 @@ class DatabaseEngineerEngine:
 
         elif op == "index_recommendation":
             index_recs = self.index_advisor.recommend(
-                request.queries, request.schema, request.workload_profile
+                request.queries, request.database_schema, request.workload_profile
             )
             all_findings.extend(self._index_to_findings(index_recs))
             explanation_parts.append(f"Index recommendations: {len(index_recs)} indexes suggested")
@@ -128,7 +128,7 @@ class DatabaseEngineerEngine:
 
         elif op == "performance_analysis":
             perf_result = self.performance_analyzer.analyze(
-                request.queries, request.schema, request.workload_profile
+                request.queries, request.database_schema, request.workload_profile
             )
             all_findings.extend(perf_result.get("findings", []))
             perf_stats = perf_result.get("stats", PerformanceStats())

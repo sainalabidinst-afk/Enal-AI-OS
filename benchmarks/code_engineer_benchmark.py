@@ -272,7 +272,7 @@ def run_code_engineer_benchmark() -> CodeEngineerBenchmarkReport:
     # Overall score (weighted average)
     report.overall_score = (report.architecture_pattern_score * 0.5 +
                             report.secure_coding_score * 0.5)
-    report.passed = report.overall_score >= 80.0
+    report.passed = report.overall_score >= 90.0
 
     return report
 

@@ -20,11 +20,11 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 |Capability Pack|Nilai|Catatan|
 |-----------------|-------|-------|
 |Insinyur Jaringan|SEBUAH (≥90)|Siap Produksi|
-|Kode Insinyur|SEBUAH- (≥85)|Siap Produksi|
+|Kode Insinyur|A+ (≥95)|Siap Produksi|Domain Expert (L4)|
 |Asisten Peneliti|SEBUAH- (≥85)|Siap Produksi|
-|Asisten DevOps|B+ (≥80)|Siap Produksi|
+|Asisten DevOps|SEBUAH+ (≥90)|Bersertifikat|
 |Analis Perdagangan|A (≥90)|Bersertifikat|
-|Pengembangan Diri|SEBUAH (≥90)|Siap Produksi|
+|Pengembangan Diri|A+ (≥95)|Bersertifikat|
 |Decision Intelligence|SEBUAH (≥90)|Siap Produksi|
 |Sistem Arsitek|SEBUAH (≥90)|Siap Produksi|
 |Security Engineer|SEBUAH- (≥85)|Siap Produksi|
@@ -79,7 +79,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `code`
 **Kategori:** Pengembangan
-**Target Kualitas:** A- (≥85) - Siap Produksi
+**Target Kualitas:** A+ (≥95) - Siap Produksi - Domain Expert (L4)
 
 ### Cakupan
 
@@ -89,15 +89,19 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 - Unit tes generasi, integrasi, dan E2E
 - Dokumentasi generasi (API, README, runbook)
 - Tinjauan kode untuk kebenaran, keamanan, dan pemeliharaan
+- Arsitektur Bersih, DDD, CQRS, Event Soring
+- Deteksi pola arsitektur dan pelanggaran prinsip
+- Analisis keamanan kode (OWASP Top 10)
 
 ### Fokus Pengetahuan
 
 - Python, JavaScript/Skrip Ketik, SQL
-- Arsitektur Bersih, DDD, Heksagonal, CQRS
+- Arsitektur Bersih, DDD, Heksagonal, CQRS, Event Soring
 - Desain API REST dan GraphQL
 - Pengindeksan database, optimasi kueri
 - Strategi pemeliharaan dan perlindungan pola
-- Keamanan: injeksi, autentikasi, penanganan rahasia
+- Keamanan: injeksi, autentikasi, penanganan rahasia, OWASP Top 10
+- SOLID principles, Clean Code, Refactoring patterns
 
 ### Di Luar Cakupan
 
@@ -110,8 +114,8 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 ### Target Benchmark
 
 - 100 repositori nyata
-- ≥90% skor kualitas kode
-- ≥85% kegunaan generasi test
+- ≥95% skor kualitas kode
+- ≥90% kegunaan generasi test
 
 ---
 
@@ -158,7 +162,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `devops`
 **Kategori:** DevOps
-**Target Kualitas:** B+ (≥80) - Siap Produksi
+**Target Kualitas:** A+ (≥90) - Bersertifikat
 
 ### Cakupan
 
@@ -168,6 +172,9 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 - Konfigurasi pemantauan dan peringatan
 - Verifikasi penyebaran kesehatan
 - Diagram infrastruktur dan dokumentasi
+- Deteksi masalah DevOps dan rekomendasi perbaikan
+- Penilaian risiko kuantitatif
+- GitOps, Kebijakan sebagai kode, Chaos engineering
 
 ### Fokus Pengetahuan
 
@@ -188,8 +195,10 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 ### Target Benchmark
 
 - 100 skenario infrastruktur
-- ≥85% kebenaran pada konfigurasi yang dihasilkan
-- ≥80% memperoleh verifikasi penerapan
+- ≥90% kebenaran pada konfigurasi yang dihasilkan
+- ≥90% memperoleh verifikasi penerapan
+- Deteksi masalah: 10 tipe masalah DevOps
+- Rekomendasi perbaikan: cakupan penuh
 
 ---
 
@@ -238,7 +247,8 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `self-development`
 **Kategori:** Platform
-**Target Kualitas:** A (≥90) - Siap Produksi
+**Target Kualitas:** A+ (≥95) - Bersertifikat
+**Target Kematangan:** Level 4 — Pakar Domain
 
 ### Cakupan
 

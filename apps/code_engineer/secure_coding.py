@@ -104,10 +104,14 @@ class OWASPDetector:
 
     # SSRF patterns
     SSRF_PATTERNS = [
-        (r"requests\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*url\s*[=:]", "Potential SSRF via user-controlled URL"),
-        (r"urllib\.request\.urlopen\s*\(", "Potential SSRF via urllib"),
-        (r"httpx\.(?:get|post|put|delete|head|options)\s*\(", "Potential SSRF via httpx"),
-        (r"aiohttp\.ClientSession.*\.(?:get|post|put|delete)\s*\(", "Potential SSRF via aiohttp"),
+        (r"requests\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*\burl\b",
+         "Potential SSRF via requests with user-controlled URL"),
+        (r"httpx\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*\burl\b",
+         "Potential SSRF via httpx with user-controlled URL"),
+        (r"urllib\.request\.urlopen\s*\(\s*[^)]*\burl\b",
+         "Potential SSRF via urllib with user-controlled URL"),
+        (r"aiohttp\.ClientSession.*\.(?:get|post|put|delete)\s*\(\s*[^)]*\burl\b",
+         "Potential SSRF via aiohttp with user-controlled URL"),
     ]
 
     def analyze(self, code_ast: CodeAST) -> list[SecurityFinding]:

@@ -74,7 +74,7 @@ Dokumen ini telah terpecah menjadi 5 dokumen strategi berikut:
 |Insinyur Jaringan|Jaringan|SEBUAH (≥90)|
 |Insinyur Kode|Perkembangan|SEBUAH- (≥85)|
 |Asisten Peneliti|Riset|SEBUAH- (≥85)|
-|Asisten DevOps|DevOps|B+ (≥80)|
+|Asisten DevOps|DevOps|A+ (≥90) — Bersertifikat|
 |Analis Perdagangan|Keuangan|A (≥90) — Bersertifikat|
 |Pengembangan Diri|Platform|SEBUAH (≥90)|
 |Decision Intelligence|Platform — Penalaran Bersama|A (91,25%) — RFC-0007|

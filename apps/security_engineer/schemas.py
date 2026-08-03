@@ -110,6 +110,7 @@ class SecretFinding(BaseModel):
     severity: Severity = Field(default=Severity.high)
     remediation: str = Field(default="", description="Rotation guidance")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    evidence: dict[str, Any] = Field(default_factory=dict, description="Supporting evidence for the finding")
 
 
 class DependencyFinding(BaseModel):

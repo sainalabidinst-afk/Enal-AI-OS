@@ -123,10 +123,24 @@ DOMAIN_TASKS = [
     {"id": "domain-010", "input": "Configure BGP routing on Cisco router", "expected_keywords": ["BGP", "router", "AS", "neighbor"], "category": "domain"},
 ]
 
+# Category 5: Research Assistant Tasks (20 tests)
+RESEARCH_TASKS = [
+    {"id": "research-001", "input": "Literature review on AI software engineering productivity", "expected_keywords": ["evidence", "finding", "confidence"], "category": "research"},
+    {"id": "research-002", "input": "Evidence gathering on machine learning requirements engineering", "expected_keywords": ["evidence", "source", "ranking"], "category": "research"},
+    {"id": "research-003", "input": "Contradiction analysis of AI code generation studies", "expected_keywords": ["contradiction", "conflicting", "methodology"], "category": "research"},
+    {"id": "research-004", "input": "Citation assessment for software engineering papers", "expected_keywords": ["citation", "format", "quality"], "category": "research"},
+    {"id": "research-005", "input": "Confidence estimation for AI debugging tools", "expected_keywords": ["confidence", "uncertainty", "evidence"], "category": "research"},
+    {"id": "research-006", "input": "Synthesis of human-AI collaboration research", "expected_keywords": ["synthesis", "finding", "gap"], "category": "research"},
+    {"id": "research-007", "input": "Report generation on neural code generation", "expected_keywords": ["report", "finding", "confidence"], "category": "research"},
+    {"id": "research-008", "input": "What is the impact of AI on software testing?", "expected_keywords": ["evidence", "finding", "citation"], "category": "research"},
+    {"id": "research-009", "input": "How does AI affect developer productivity?", "expected_keywords": ["confidence", "evidence", "synthesis"], "category": "research"},
+    {"id": "research-010", "input": "Ethical implications of AI-generated code", "expected_keywords": ["finding", "evidence", "report"], "category": "research"},
+]
+
 
 def create_golden_benchmark() -> Benchmark:
     """Create the golden benchmark with all test cases."""
-    all_tests = SIMPLE_TASKS + MEDIUM_TASKS + COMPLEX_TASKS + DOMAIN_TASKS
+    all_tests = SIMPLE_TASKS + MEDIUM_TASKS + COMPLEX_TASKS + DOMAIN_TASKS + RESEARCH_TASKS
     return Benchmark(
         id="golden-test-set-v1",
         name="ECP Golden Test Set v1",

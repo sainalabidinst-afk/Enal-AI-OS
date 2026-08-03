@@ -245,6 +245,7 @@ async def _run_scenario(engine: TradingEngine, symbol: str,
         symbol=symbol,
         timeframes=timeframes,
         exchange="benchmark",
+        use_live_data=False,
         macro_data=macro_data,
         derivatives_data=derivatives_data,
     )

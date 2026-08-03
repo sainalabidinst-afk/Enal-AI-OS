@@ -17,6 +17,7 @@ from apps.business_analyst.schemas import (
     StakeholderInput,
     Persona,
     QualityAttributes,
+    OutputFormat,
 )
 
 

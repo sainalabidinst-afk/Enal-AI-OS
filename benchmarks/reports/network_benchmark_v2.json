@@ -1,0 +1,364 @@
+{
+  "generated_at": "2026-08-03T03:19:10.210210",
+  "total_cases": 30,
+  "passed_cases": 9,
+  "failed_cases": 21,
+  "pass_rate": 0.3,
+  "avg_score": 0.5737,
+  "avg_latency_ms": 2.4,
+  "vendor_breakdown": {
+    "cisco": {
+      "total": 10,
+      "passed": 4,
+      "failed": 6,
+      "pass_rate": 0.4,
+      "avg_score": 0.7481
+    },
+    "fortinet": {
+      "total": 10,
+      "passed": 3,
+      "failed": 7,
+      "pass_rate": 0.3,
+      "avg_score": 0.5123
+    },
+    "mikrotik": {
+      "total": 10,
+      "passed": 2,
+      "failed": 8,
+      "pass_rate": 0.2,
+      "avg_score": 0.4606
+    }
+  },
+  "results": [
+    {
+      "case_id": "cisco:firewall_asa_acl_strict",
+      "title": "firewall_asa_acl_strict",
+      "vendor": "cisco",
+      "passed": true,
+      "score": 0.9,
+      "findings_matched": 9,
+      "expected_findings": 10,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:high_availability_hsrp_router",
+      "title": "high_availability_hsrp_router",
+      "vendor": "cisco",
+      "passed": true,
+      "score": 0.8947,
+      "findings_matched": 17,
+      "expected_findings": 19,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:nat_pat_dmz",
+      "title": "nat_pat_dmz",
+      "vendor": "cisco",
+      "passed": false,
+      "score": 0.6,
+      "findings_matched": 9,
+      "expected_findings": 15,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:qos_voice_priority",
+      "title": "qos_voice_priority",
+      "vendor": "cisco",
+      "passed": false,
+      "score": 0.4375,
+      "findings_matched": 7,
+      "expected_findings": 16,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:routing_ospf_enterprise",
+      "title": "routing_ospf_enterprise",
+      "vendor": "cisco",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 13,
+      "expected_findings": 13,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:security_ssh_hardened",
+      "title": "security_ssh_hardened",
+      "vendor": "cisco",
+      "passed": false,
+      "score": 0.625,
+      "findings_matched": 5,
+      "expected_findings": 8,
+      "execution_time_ms": 5,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:services_dns_ntp_snmp",
+      "title": "services_dns_ntp_snmp",
+      "vendor": "cisco",
+      "passed": false,
+      "score": 0.6429,
+      "findings_matched": 9,
+      "expected_findings": 14,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:switching_vlan_trunking",
+      "title": "switching_vlan_trunking",
+      "vendor": "cisco",
+      "passed": false,
+      "score": 0.7143,
+      "findings_matched": 10,
+      "expected_findings": 14,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:vpn_site_to_site_ipsec",
+      "title": "vpn_site_to_site_ipsec",
+      "vendor": "cisco",
+      "passed": false,
+      "score": 0.7333,
+      "findings_matched": 11,
+      "expected_findings": 15,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "cisco:wireless_corporate_ssid",
+      "title": "wireless_corporate_ssid",
+      "vendor": "cisco",
+      "passed": true,
+      "score": 0.9333,
+      "findings_matched": 14,
+      "expected_findings": 15,
+      "execution_time_ms": 4,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:firewall_policy_dmz",
+      "title": "firewall_policy_dmz",
+      "vendor": "fortinet",
+      "passed": true,
+      "score": 0.9091,
+      "findings_matched": 10,
+      "expected_findings": 11,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:high_availability_active_passive",
+      "title": "high_availability_active_passive",
+      "vendor": "fortinet",
+      "passed": true,
+      "score": 0.9412,
+      "findings_matched": 16,
+      "expected_findings": 17,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:nat_virtual_ip_nat",
+      "title": "nat_virtual_ip_nat",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.6667,
+      "findings_matched": 10,
+      "expected_findings": 15,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:qos_traffic_shaping",
+      "title": "qos_traffic_shaping",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.2,
+      "findings_matched": 3,
+      "expected_findings": 15,
+      "execution_time_ms": 9,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:routing_static_bgp_ha",
+      "title": "routing_static_bgp_ha",
+      "vendor": "fortinet",
+      "passed": true,
+      "score": 0.8571,
+      "findings_matched": 12,
+      "expected_findings": 14,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:security_admin_exposed",
+      "title": "security_admin_exposed",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.3846,
+      "findings_matched": 5,
+      "expected_findings": 13,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:services_dns_ntp_mgmt",
+      "title": "services_dns_ntp_mgmt",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.25,
+      "findings_matched": 4,
+      "expected_findings": 16,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:switching_managed_vlan",
+      "title": "switching_managed_vlan",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.2,
+      "findings_matched": 3,
+      "expected_findings": 15,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:vpn_ipsec_site_to_site",
+      "title": "vpn_ipsec_site_to_site",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.7143,
+      "findings_matched": 10,
+      "expected_findings": 14,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "fortinet:wireless_employee_wifi",
+      "title": "wireless_employee_wifi",
+      "vendor": "fortinet",
+      "passed": false,
+      "score": 0.0,
+      "findings_matched": 0,
+      "expected_findings": 15,
+      "execution_time_ms": 5,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:firewall_input_filter_strict",
+      "title": "firewall_input_filter_strict",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.4545,
+      "findings_matched": 5,
+      "expected_findings": 11,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:high_availability_bgpi_peer_tracking",
+      "title": "high_availability_bgpi_peer_tracking",
+      "vendor": "mikrotik",
+      "passed": true,
+      "score": 0.9167,
+      "findings_matched": 11,
+      "expected_findings": 12,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:qos_traffic_shaping_enterprise",
+      "title": "qos_traffic_shaping_enterprise",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.1875,
+      "findings_matched": 3,
+      "expected_findings": 16,
+      "execution_time_ms": 8,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:routing_static_route_default",
+      "title": "routing_static_route_default",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.7143,
+      "findings_matched": 10,
+      "expected_findings": 14,
+      "execution_time_ms": 4,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:sample_hotspot",
+      "title": "sample_hotspot",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.125,
+      "findings_matched": 1,
+      "expected_findings": 8,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:security_insecure_defaults",
+      "title": "security_insecure_defaults",
+      "vendor": "mikrotik",
+      "passed": true,
+      "score": 0.8462,
+      "findings_matched": 11,
+      "expected_findings": 13,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:services_dhcp_dns_server",
+      "title": "services_dhcp_dns_server",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.7,
+      "findings_matched": 7,
+      "expected_findings": 10,
+      "execution_time_ms": 9,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:switching_vlan_switch",
+      "title": "switching_vlan_switch",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.3125,
+      "findings_matched": 5,
+      "expected_findings": 16,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:vpn_pptp_remote_access",
+      "title": "vpn_pptp_remote_access",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.2727,
+      "findings_matched": 3,
+      "expected_findings": 11,
+      "execution_time_ms": 4,
+      "errors": []
+    },
+    {
+      "case_id": "mikrotik:wireless_wlan_corporate",
+      "title": "wireless_wlan_corporate",
+      "vendor": "mikrotik",
+      "passed": false,
+      "score": 0.0769,
+      "findings_matched": 1,
+      "expected_findings": 13,
+      "execution_time_ms": 3,
+      "errors": []
+    }
+  ]
+}

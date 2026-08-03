@@ -23,7 +23,7 @@ class TestFunction:
     name: str
     signature: str
     body_lines: list[str]
-    node: ast.FunctionDef | ast.AsyncFunctionDef
+    node: ast.AST
     lineno: int
 
 

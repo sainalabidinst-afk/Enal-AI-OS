@@ -56,32 +56,35 @@ class SchemaEvolver:
         changes: list[SchemaChange] = []
 
         # Detect added columns.
-        for col in new_cols - old_cols:
-            if col in current_cols:
-                changes.append(SchemaChange(
-                    column=col,
-                    change_type=ChangeType.added,
-                    new_type=new_schema.get(col, "unknown"),
-                ))
+        if new_schema:
+            for col in new_cols - old_cols:
+                if col in current_cols:
+                    changes.append(SchemaChange(
+                        column=col,
+                        change_type=ChangeType.added,
+                        new_type=new_schema.get(col, "unknown"),
+                    ))
 
         # Detect removed columns.
-        for col in old_cols - new_cols:
-            if col in current_cols:
-                changes.append(SchemaChange(
-                    column=col,
-                    change_type=ChangeType.removed,
-                    old_type=old_schema.get(col, "unknown"),
-                ))
+        if old_schema:
+            for col in old_cols - new_cols:
+                if col in current_cols:
+                    changes.append(SchemaChange(
+                        column=col,
+                        change_type=ChangeType.removed,
+                        old_type=old_schema.get(col, "unknown"),
+                    ))
 
         # Detect type changes.
-        for col in old_cols & new_cols:
-            if old_schema.get(col) != new_schema.get(col):
-                changes.append(SchemaChange(
-                    column=col,
-                    change_type=ChangeType.type_changed,
-                    old_type=old_schema.get(col, "unknown"),
-                    new_type=new_schema.get(col, "unknown"),
-                ))
+        if old_schema and new_schema:
+            for col in old_cols & new_cols:
+                if old_schema.get(col) != new_schema.get(col):
+                    changes.append(SchemaChange(
+                        column=col,
+                        change_type=ChangeType.type_changed,
+                        old_type=old_schema.get(col, "unknown"),
+                        new_type=new_schema.get(col, "unknown"),
+                    ))
 
         # Detect renamed columns (heuristic: similar values).
         if old_schema and new_schema:

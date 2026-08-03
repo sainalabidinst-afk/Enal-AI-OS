@@ -131,10 +131,11 @@ class SecretDetector:
         for pattern, label, secret_type, severity in _SECRET_ASSIGNMENT_PATTERNS:
             for match in re.finditer(pattern, source_code, re.IGNORECASE):
                 # Extract the secret value (group 2 if present, else full match).
-                if match.lastindex and match.lastindex >= 2:
+                last_index = match.lastindex or 0
+                if last_index >= 2:
                     secret_value = match.group(2)
                 else:
-                    secret_value = match.group(1) if match.lastindex >= 1 else match.group(0)
+                    secret_value = match.group(1) if last_index >= 1 else match.group(0)
 
                 # Filter false positives.
                 if self._is_false_positive(secret_value, match.group(0)):

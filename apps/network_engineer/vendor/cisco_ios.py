@@ -158,7 +158,7 @@ class CiscoIOSAdapter(VendorAdapter):
                 current_iface = stripped.split(" ", 1)[1]
             elif stripped.startswith("ip address ") and current_iface:
                 parts = stripped.split()
-                if len(parts) >= 3:
+                if len(parts) >= 4:
                     ip = parts[2]
                     mask = parts[3]
                     ast.ip_addresses.append(UniversalIPAddress(

@@ -45,7 +45,7 @@ class Severity(str, Enum):
 class FindingCategory(str, Enum):
     schema = "schema"
     query_performance = "query_performance"
-    index = "index"
+    index = "index"  # type: ignore[assignment]
     migration = "migration"
     replication = "replication"
     backup = "backup"
@@ -159,7 +159,7 @@ class DatabaseRequest(BaseModel):
     request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     operation: OperationType = Field(..., description="Type of database operation")
     database_type: DatabaseType = Field(..., description="Target database type")
-    schema: SchemaDefinition | None = Field(default=None, description="Database schema")
+    database_schema: SchemaDefinition | None = Field(default=None, description="Database schema")
     queries: list[str] = Field(default_factory=list, description="SQL queries to analyze")
     workload_profile: WorkloadProfile | None = Field(default=None)
     current_schema_version: str = Field(default="v1")

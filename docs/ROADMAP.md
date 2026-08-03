@@ -34,9 +34,9 @@ ECP dibangun sebagai platform eksekusi AI yang stabil, tetapi **Trading Analyst*
 |Insinyur Jaringan|A|SEBUAH+|Pakar Domain (L4)|
 |Insinyur Kode|A-|A|Pakar Domain (L4)|
 |Asisten Peneliti|A-|A|Pakar Domain (L4)|
-|Asisten DevOps|B+|A-|Pakar Domain (L4)|
+|Asisten DevOps|A+|SEBUAH+|Pakar Domain (L4)|
 |Analis Perdagangan|A (Bersertifikat)|A|Pakar Domain (L4)|
-|Pengembangan Diri|A|A|Pakar Domain (L4)|
+|Pengembangan Diri|A+ (Bersertifikat)|A+|Pakar Domain (L4)|
 |Decision Intelligence|SEBUAH (91,25%)|A|Pakar Domain (L4)|
 |Arsitek Sistem|SEBUAH (97,50%)|A|Pakar Domain (L4)|
 |Security Engineer|A-|A-|Siap Produksi (L3)|

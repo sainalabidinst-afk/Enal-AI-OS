@@ -50,7 +50,7 @@ class CodeEngineerApp(BaseReferenceApp):
         self.impact_analyzer_cls = ImpactAnalyzer
         self.refactoring_engine_cls = RefactoringEngine
         self._repo_path = tempfile.mkdtemp()
-        self.patch_generator_cls = lambda: PatchGenerator(self._repo_path)
+        self.patch_generator_cls = lambda: PatchGenerator(self._repo_path)  # type: ignore[arg-type]
         self.regression_analyzer_cls = RegressionAnalyzer
         self.test_generator_cls = TestGenerator
         self.architecture_pattern_analyzer = architecture_pattern_analyzer

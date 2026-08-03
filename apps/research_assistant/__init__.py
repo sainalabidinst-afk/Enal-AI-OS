@@ -20,6 +20,8 @@ from typing import Any
 
 from apps.base import BaseReferenceApp
 from apps.research_assistant.engine import research_engine
+from apps.research_assistant.schemas import ResearchRequest
+from apps.research_assistant.worker import ResearchAssistantWorker
 
 
 class ResearchAssistantApp(BaseReferenceApp):
@@ -31,25 +33,29 @@ class ResearchAssistantApp(BaseReferenceApp):
 
     def __init__(self):
         self.engine = research_engine
+        self.worker = ResearchAssistantWorker()
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         context = context or {}
-        context.get("project_id", "research-assistant-default")
+        project_id = context.get("project_id", "research-assistant-default")
 
-        evidence = await self.engine.search_evidence(user_input)
-        analysis = await self.engine.analyze_findings(user_input, evidence)
-        report = await self.engine.generate_report(user_input, analysis)
+        request = ResearchRequest(
+            query=user_input,
+            operation="literature_review",
+            max_sources=20,
+            min_confidence=0.5,
+            include_contradictions=True,
+            include_citations=True,
+            context=context,
+        )
+        report = await self.engine.analyze(request)
 
         return {
             "app": self.name,
             "version": self.version,
             "input": user_input,
             "pipeline": self.pipeline,
-            "result": {
-                "evidence": evidence,
-                "analysis": analysis,
-                "report": report,
-            },
+            "result": report.to_dict() if hasattr(report, "to_dict") else report,
             "metadata": {
                 "category": self.category,
                 "capabilities_used": [

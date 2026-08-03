@@ -36,7 +36,9 @@ async def get_current_user(
     }
 
 
-def require_permission(permission: Permission):
+def require_permission(permission: Permission | str):
+    if isinstance(permission, str):
+        permission = Permission(permission)
     async def checker(current_user: dict[str, Any] = Depends(get_current_user)) -> dict[str, Any]:
         plugin_id = current_user["user_id"]
         allowed = security_model.check_permission(

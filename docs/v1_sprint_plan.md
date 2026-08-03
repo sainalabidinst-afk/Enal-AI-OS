@@ -223,7 +223,7 @@ Setiap pengiriman memerlukan ADR yang disetujui dengan bukti kemampuan lintas.
 |Jaringan|SEBUAH (≥90)|benchmark/capability_benchmark.py|
 |Kode|SEBUAH- (≥85)|benchmark/capability_benchmark.py|
 |Riset|SEBUAH- (≥85)|benchmark/capability_benchmark.py|
-|DevOps|B+ (≥80)|benchmark/capability_benchmark.py|
+|DevOps|SEBUAH+ (≥90)|benchmark/devops_assistant_benchmark.py|
 |Jual beli|B+ (≥80, lulus Sertifikasi)|benchmark/capability_benchmark.py|
 |Pengembangan Diri|SEBUAH (≥90)|benchmark/capability_benchmark.py|
 
