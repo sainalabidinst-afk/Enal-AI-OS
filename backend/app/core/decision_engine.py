@@ -79,7 +79,7 @@ class DecisionEngine:
             f"Alternative: {alternative}\n\n"
             "Output JSON with scores 0-1: {\"utility\": float, \"risk\": float, \"cost\": float, \"confidence\": float}"
         )
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=256)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=256)
         import json
         try:
             return json.loads(response.choices[0].message.content)

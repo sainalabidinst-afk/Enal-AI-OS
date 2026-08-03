@@ -86,27 +86,27 @@
 
 ---
 
-### ☐ 1.3 Research Assistant (A- → A)
+### ☑️ 1.3 Research Assistant (A- → A+)
 
-**Target:** A (≥90), Domain Expert (L4)
+**Target:** A+ (≥90), Domain Expert (L4) — **SELESAI**
 
 #### Knowledge Expansion
-- [ ] Implementasi Evidence ranking: source quality, recency, methodology
-- [ ] Implementasi Contradiction detection: identify conflicting claims
-- [ ] Implementasi Citation quality: completeness, format, provenance
-- [ ] Implementasi Confidence estimation: uncertainty quantification
-- [ ] Implementasi Synthesis patterns: multi-paper integration
+- [x] Implementasi Evidence ranking: source quality, recency, methodology
+- [x] Implementasi Contradiction detection: identify conflicting claims
+- [x] Implementasi Citation quality: completeness, format, provenance
+- [x] Implementasi Confidence estimation: uncertainty quantification
+- [x] Implementasi Synthesis patterns: multi-paper integration
 
 #### Benchmark & Quality
-- [ ] Expand real cases to 100+ research questions in `real_cases/research/`
-- [ ] Achieve ≥90% citation accuracy
-- [ ] No regression across all 6 benchmark dimensions
-- [ ] Create benchmark dashboard
+- [x] Expand real cases to 100+ research questions in `real_cases/research/`
+- [x] Achieve ≥90% citation accuracy
+- [x] No regression across all 6 benchmark dimensions
+- [x] Create benchmark dashboard
 
 #### Documentation
-- [ ] Update `docs/CAPABILITY_GUIDE.md`
-- [ ] Update contract documentation
-- [ ] Capability Changelog updated
+- [x] Update `docs/CAPABILITY_GUIDE.md`
+- [x] Update contract documentation
+- [x] Capability Changelog updated
 
 ---
 

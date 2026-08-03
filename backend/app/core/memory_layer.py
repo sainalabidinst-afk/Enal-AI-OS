@@ -91,9 +91,11 @@ class WorkingMemory(MemoryLayer):
         return json.loads(data) if data else None
 
     async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:
-        keys = await self.redis.keys("wm:*")
         results: list[dict] = []
-        for k in keys[:limit * 3]:
+        count = 0
+        async for k in self.redis.scan_iter("wm:*"):
+            if count >= limit * 3:
+                break
             data = await self.redis.get(k)
             if data:
                 val = json.loads(data)
@@ -101,14 +103,17 @@ class WorkingMemory(MemoryLayer):
                     results.append({"key": k, "value": val})
                     if len(results) >= limit:
                         break
+            count += 1
         return results
 
     async def delete(self, key: str) -> bool:
         return bool(await self.redis.delete(f"wm:{key}"))
 
     async def list_keys(self, pattern: str = "*") -> list[str]:
-        keys = await self.redis.keys(f"wm:{pattern}")
-        return [k[3:] for k in keys]  # Remove wm: prefix
+        keys = []
+        async for k in self.redis.scan_iter(f"wm:{pattern}"):
+            keys.append(k[3:])
+        return keys
 
 
 # ---------------------------------------------------------------------------
@@ -128,9 +133,11 @@ class ConversationMemory(MemoryLayer):
         return json.loads(data) if data else None
 
     async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:
-        keys = await self.redis.keys("conv:*")
         results: list[dict] = []
-        for k in keys[:limit * 3]:
+        count = 0
+        async for k in self.redis.scan_iter("conv:*"):
+            if count >= limit * 3:
+                break
             data = await self.redis.get(k)
             if data:
                 val = json.loads(data)
@@ -138,14 +145,17 @@ class ConversationMemory(MemoryLayer):
                     results.append({"key": k, "value": val})
                     if len(results) >= limit:
                         break
+            count += 1
         return results
 
     async def delete(self, key: str) -> bool:
         return bool(await self.redis.delete(f"conv:{key}"))
 
     async def list_keys(self, pattern: str = "*") -> list[str]:
-        keys = await self.redis.keys(f"conv:{pattern}")
-        return [k[5:] for k in keys]  # Remove conv: prefix
+        keys = []
+        async for k in self.redis.scan_iter(f"conv:{pattern}"):
+            keys.append(k[5:])
+        return keys
 
 
 # ---------------------------------------------------------------------------
@@ -532,7 +542,7 @@ class MemoryManager:
 
         # Generate summary via LLM
         prompt = f"Summarize the key points from these {len(entries)} memory entries: {json.dumps(entries[:20])}"
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             temperature=0.3,
             max_tokens=1024,

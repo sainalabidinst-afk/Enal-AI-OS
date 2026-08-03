@@ -32,7 +32,7 @@ class MikroTikBestPracticeAnalyzer:
         raw = "\n".join(getattr(config, "raw_lines", [])).lower()
 
         vendor = getattr(config, "vendor", "") or ""
-        if vendor not in ("mikrotik", "") and vendor != "all":
+        if vendor != "mikrotik":
             return findings
 
         findings.extend(self._check_isp_edge(raw, config))

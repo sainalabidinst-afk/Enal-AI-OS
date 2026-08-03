@@ -22,5 +22,19 @@
     "complexity": "simple"
   },
   "category": "services",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "snmp",
+    "high",
+    "configured",
+    "control",
+    "ntp",
+    "zero"
+  ]
 }

@@ -48,6 +48,13 @@ class MikroTikAdapter(VendorAdapter):
             "/ip dhcp-server",
             "/system identity",
             "/ip pool",
+            "/queue ",
+            "/ip hotspot",
+            "/routing ",
+            "/ip service",
+            "/user ",
+            "/system ntp",
+            "/system logging",
         ]
         return any(indicator in config_text for indicator in indicators)
 

@@ -27,21 +27,54 @@ from apps.research_assistant.engine import ResearchEngine
 from apps.research_assistant.schemas import (
     CitationStyle,
     ConfidenceLevel,
+    Evidence,
     ResearchOperation,
     ResearchRequest,
 )
 
 
 def _make_request(query: str, operation: str = "literature_review", **kwargs: object) -> ResearchRequest:
+    max_sources = 10
+    min_confidence = 0.5
+    include_contradictions = True
+    include_citations = True
+    citation_style = CitationStyle.apa
+    sources: list[Evidence] = []
+
+    if "max_sources" in kwargs:
+        value = kwargs["max_sources"]
+        if isinstance(value, int):
+            max_sources = value
+    if "min_confidence" in kwargs:
+        value = kwargs["min_confidence"]
+        if isinstance(value, float):
+            min_confidence = value
+    if "include_contradictions" in kwargs:
+        value = kwargs["include_contradictions"]
+        if isinstance(value, bool):
+            include_contradictions = value
+    if "include_citations" in kwargs:
+        value = kwargs["include_citations"]
+        if isinstance(value, bool):
+            include_citations = value
+    if "citation_style" in kwargs:
+        value = kwargs["citation_style"]
+        if isinstance(value, CitationStyle):
+            citation_style = value
+    if "sources" in kwargs:
+        value = kwargs["sources"]
+        if isinstance(value, list):
+            sources = value
+
     return ResearchRequest(
         query=query,
         operation=ResearchOperation(operation),
-        max_sources=kwargs.get("max_sources", 10),
-        min_confidence=kwargs.get("min_confidence", 0.5),
-        include_contradictions=kwargs.get("include_contradictions", True),
-        include_citations=kwargs.get("include_citations", True),
-        citation_style=kwargs.get("citation_style", CitationStyle.apa),
-        sources=kwargs.get("sources", []),
+        max_sources=max_sources,
+        min_confidence=min_confidence,
+        include_contradictions=include_contradictions,
+        include_citations=include_citations,
+        citation_style=citation_style,
+        sources=sources,
     )
 
 

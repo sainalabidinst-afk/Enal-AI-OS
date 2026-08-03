@@ -84,7 +84,7 @@ class AutonomousGoalEngine:
             f"Result: {result}\n\n"
             "Return JSON: {\"success\": bool, \"progress\": float(0-100), \"reasoning\": str}"
         )
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)
         try:
             return json.loads(response.choices[0].message.content)
         except json.JSONDecodeError:

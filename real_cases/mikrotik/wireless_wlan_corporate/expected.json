@@ -23,5 +23,22 @@
   },
   "category": "wireless",
   "subcategory": "wireless",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "interface",
+    "<unnamed>",
+    "hotspot",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "authentication",
+    "service",
+    "zero"
+  ]
 }

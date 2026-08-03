@@ -23,5 +23,22 @@
   },
   "category": "vpn",
   "subcategory": "vpn",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "fasttrack",
+    "backup",
+    "input",
+    "icmp",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "connection",
+    "default",
+    "authentication",
+    "service"
+  ]
 }

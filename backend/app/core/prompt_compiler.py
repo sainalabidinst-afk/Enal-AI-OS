@@ -42,7 +42,7 @@ class PromptCompiler:
             'Return JSON: {"primary_intent": str, "secondary_intents": [str], "entities": [str], "complexity": str}\n\n'
             f"User input: {user_input}\n"
         )
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):

@@ -115,6 +115,8 @@ class NetworkEngineerApp(BaseReferenceApp):
             return parse_config(config_content, vendor="cisco")
         elif vendor == "fortinet":
             return parse_config(config_content, vendor="fortinet")
+        elif vendor == "mikrotik":
+            return parse_config(config_content, vendor="mikrotik")
         return self.parser.parse(config_content)
 
     def _detect_vendor(self, config_content: str) -> str | None:

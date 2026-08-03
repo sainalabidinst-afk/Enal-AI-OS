@@ -74,7 +74,7 @@ class ContinuousLearning:
         for failure in cycle.failures[:5]:
             prompt += f"- {json.dumps(failure)}\n"
         prompt += "\nOutput JSON array of improvement strings."
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512)
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):

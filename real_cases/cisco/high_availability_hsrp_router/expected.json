@@ -22,5 +22,20 @@
     "complexity": "advanced"
   },
   "category": "high_availability",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "ha",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "hsrp",
+    "redundancy",
+    "cisco",
+    "control",
+    "zero"
+  ]
 }

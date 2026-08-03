@@ -57,7 +57,7 @@ class DebateEngine:
             for arg in existing_args:
                 prompt += f"- {arg.agent}: {arg.proposal}\n"
             prompt += "\nProvide a strong argument considering other proposals. Output JSON: {\"proposal\": str, \"reasoning\": str, \"strengths\": [str], \"weaknesses\": [str], \"confidence\": float}"
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_MODEL,
             temperature=0.7,
@@ -88,7 +88,7 @@ class DebateEngine:
             "\nSelect the best proposal and provide a synthesis.\n"
             "Output JSON: {\"winner\": str, \"synthesis\": str, \"confidence\": float}"
         )
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_REASONING_MODEL,
             temperature=0.3,

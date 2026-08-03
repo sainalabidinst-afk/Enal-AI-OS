@@ -22,5 +22,22 @@
     "complexity": "advanced"
   },
   "category": "routing",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "bgp",
+    "synchronization",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "(intrusion",
+    "antivirus",
+    "fortisandbox"
+  ]
 }

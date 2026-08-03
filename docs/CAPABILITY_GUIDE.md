@@ -21,7 +21,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 |-----------------|-------|-------|
 |Insinyur Jaringan|SEBUAH (≥90)|Siap Produksi|
 |Kode Insinyur|A+ (≥95)|Siap Produksi|Domain Expert (L4)|
-|Asisten Peneliti|SEBUAH- (≥85)|Siap Produksi|
+|Asisten Peneliti|SEBUAH+ (≥90)|Bersertifikat|
 |Asisten DevOps|SEBUAH+ (≥90)|Bersertifikat|
 |Analis Perdagangan|A (≥90)|Bersertifikat|
 |Pengembangan Diri|A+ (≥95)|Bersertifikat|
@@ -123,14 +123,16 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `research`
 **Kategori:** Penelitian
-**Target Kualitas:** A- (≥85) - Siap Produksi
+**Target Kualitas:** A+ (≥90) - Bersertifikat
 
 ### Cakupan
 
 - Survei literatur dan sintesis
 - Pengambilan RAG multi-sumber
-- Peringkat bukti dan penemuan fosil
-- Sitasi dengan asal
+- Peringkat bukti (kualitas sumber, kebaruan, metodologi)
+- Deteksi kontradiksi
+- Sitasi dengan asal dan penilaian kualitas
+- Estimasi keyakinan dan kuantifikasi ketidakpastian
 - Generasi laporan terstruktur
 - Eksperimen desain penasehat
 
@@ -138,9 +140,12 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 - Pola penulisan ilmiah dan teknis
 - Evaluasi kualitas bukti
+- Peringkat bukti: kualitas sumber, kebaruan, metodologi
+- Deteksi kontradiksi: konflik metodologis, hasil, interpretasi
 - Format sitasi dan pelacakan asal
+- Estimasi keyakinan dan ketidakpastian
+- Sintesis multi-paper
 - Signifikansi statistik dan desain eksperimen
-- penampakan penelitian penemuan
 
 ### Di Luar Cakupan
 
@@ -152,9 +157,10 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 ### Target Benchmark
 
-- 100 pertanyaan penelitian
-- ≥85% akurasi sitasi
-- ≥80% kualitas peringkat bukti
+- 100+ pertanyaan penelitian
+- ≥90% akurasi sitasi
+- ≥90% kualitas peringkat bukti
+- 6 dimensi benchmark: akurasi, kelengkapan, penjelasan, keselamatan, efisiensi, konsistensi
 
 ---
 

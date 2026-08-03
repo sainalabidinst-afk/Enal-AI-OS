@@ -22,5 +22,20 @@
     "complexity": "moderate"
   },
   "category": "qos",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "qos",
+    "high",
+    "cisco",
+    "control",
+    "zero"
+  ]
 }

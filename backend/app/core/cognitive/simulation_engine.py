@@ -76,7 +76,7 @@ class SimulationEngine:
             f"Expected: {step.expected_result}\n\n"
             "Output JSON: {\"passed\": bool, \"reason\": str}"
         )
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=256)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=256)
         import json
         try:
             result = json.loads(response.choices[0].message.content)
@@ -102,7 +102,7 @@ class SimulationEngine:
         for step in failed_steps:
             prompt += f"- {step.description}: {step.error}\n"
         prompt += "\nOutput JSON array of improvement suggestions."
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512)
         import json
         try:
             return json.loads(response.choices[0].message.content)

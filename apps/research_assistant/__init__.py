@@ -20,7 +20,7 @@ from typing import Any
 
 from apps.base import BaseReferenceApp
 from apps.research_assistant.engine import research_engine
-from apps.research_assistant.schemas import ResearchRequest
+from apps.research_assistant.schemas import ResearchOperation, ResearchRequest
 from apps.research_assistant.worker import ResearchAssistantWorker
 
 
@@ -41,7 +41,7 @@ class ResearchAssistantApp(BaseReferenceApp):
 
         request = ResearchRequest(
             query=user_input,
-            operation="literature_review",
+            operation=ResearchOperation.literature_review,
             max_sources=20,
             min_confidence=0.5,
             include_contradictions=True,

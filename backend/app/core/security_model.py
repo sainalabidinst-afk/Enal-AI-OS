@@ -84,6 +84,8 @@ class SecurityModel:
         self._pending_approval: dict[str, SecurityPolicy] = {}
         self._evaluator = PolicyEvaluator()
         self._audit_log: list[dict[str, Any]] = []
+        self._max_audit_log_size = 10000
+        self._max_pending_approval_size = 100
 
     def _log_audit(self, action: str, plugin_id: str, permission: Permission | None = None, allowed: bool | None = None):
         self._audit_log.append({
@@ -93,9 +95,14 @@ class SecurityModel:
             "permission": permission.value if permission else None,
             "allowed": allowed,
         })
+        if len(self._audit_log) > self._max_audit_log_size:
+            self._audit_log = self._audit_log[-self._max_audit_log_size:]
 
     def register_policy(self, policy: SecurityPolicy) -> bool:
         if policy.security_level == SecurityLevel.PRIVILEGED and not policy.approved:
+            if len(self._pending_approval) >= self._max_pending_approval_size:
+                oldest = next(iter(self._pending_approval))
+                del self._pending_approval[oldest]
             self._pending_approval[policy.plugin_id] = policy
             logger.warning(f"Plugin {policy.plugin_id} requires approval (privileged)")
             return False

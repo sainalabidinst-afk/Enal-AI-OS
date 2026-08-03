@@ -23,5 +23,21 @@
     "complexity": "moderate"
   },
   "subcategory": "routing",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "masquerade",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "192.168.10.1/24",
+    "10.0.0.1/30",
+    "authentication",
+    "service",
+    "zero"
+  ]
 }

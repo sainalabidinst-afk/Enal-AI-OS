@@ -75,7 +75,7 @@ services:
           cpus: '0.5'
 
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:0.1.26
     ports:
       - "11440:11434"
     volumes:
@@ -119,6 +119,8 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+    volumes:
+      - backend_workspace:/workspace
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -175,3 +177,4 @@ volumes:
   redis_data:
   qdrant_data:
   ollama_data:
+  backend_workspace:

@@ -23,5 +23,22 @@
   },
   "category": "firewall",
   "subcategory": "firewall",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "fasttrack",
+    "backup",
+    "input chain",
+    "icmp",
+    "configured",
+    "logging",
+    "configuration",
+    "password",
+    "stateful",
+    "loopback",
+    "connection",
+    "default",
+    "ssh",
+    "access",
+    "zero"
+  ]
 }

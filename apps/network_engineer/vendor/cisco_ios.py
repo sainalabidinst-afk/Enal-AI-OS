@@ -38,12 +38,23 @@ class CiscoIOSAdapter(VendorAdapter):
             "interface GigabitEthernet",
             "interface FastEthernet",
             "interface TenGigabitEthernet",
+            "interface Dot11Radio",
+            "interface BVI",
             "access-list ",
             "ip nat inside source",
             "line vty",
             "enable password",
             "router bgp ",
             "ip route ",
+            "dot11 ssid",
+            "ssid ",
+            "switchport mode",
+            "vlan ",
+            "policy-map",
+            "class-map",
+            "router ospf",
+            "snmp-server",
+            "hostname ",
         ]
         return any(indicator in config_text for indicator in indicators)
 

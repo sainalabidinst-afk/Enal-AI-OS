@@ -22,5 +22,21 @@
     "complexity": "moderate"
   },
   "category": "nat",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "nat",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "default",
+    "high",
+    "cisco",
+    "control",
+    "zero"
+  ]
 }

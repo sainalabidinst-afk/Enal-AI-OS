@@ -22,5 +22,22 @@
     "complexity": "moderate"
   },
   "category": "wireless",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "(intrusion",
+    "antivirus",
+    "fortisandbox"
+  ]
 }

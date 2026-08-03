@@ -40,7 +40,7 @@ class Planner:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"Create a plan for: {user_request}"},
         ]
-        response = model_router.complete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
+        response = await model_router.acomplete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
         content = response.choices[0].message.content
         try:
             plan = json.loads(content)
@@ -53,7 +53,7 @@ class Planner:
             {"role": "system", "content": "You are a critical reviewer. Evaluate if the result adequately addresses the task. Output 'PASS' or 'FAIL' with brief reasoning."},
             {"role": "user", "content": f"Task: {task_description}\n\nResult:\n{result}"},
         ]
-        response = model_router.complete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
+        response = await model_router.acomplete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
         return response.choices[0].message.content
 
 

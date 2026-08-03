@@ -23,5 +23,19 @@
   },
   "category": "qos",
   "subcategory": "qos",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "authentication",
+    "service",
+    "zero"
+  ]
 }

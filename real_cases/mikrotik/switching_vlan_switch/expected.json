@@ -23,5 +23,21 @@
   },
   "category": "switching",
   "subcategory": "switching",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "interface",
+    "<unnamed>",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "authentication",
+    "service",
+    "zero"
+  ]
 }

@@ -22,5 +22,22 @@
     "complexity": "advanced"
   },
   "category": "vpn",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "vpn",
+    "ipsec",
+    "fortinet",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "ikev1"
+  ]
 }

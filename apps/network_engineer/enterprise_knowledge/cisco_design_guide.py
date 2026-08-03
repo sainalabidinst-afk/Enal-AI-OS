@@ -38,7 +38,7 @@ class CiscoDesignAnalyzer:
         raw = "\n".join(getattr(config, "raw_lines", [])).lower()
 
         vendor = getattr(config, "vendor", "") or ""
-        if vendor != "cisco" and vendor and vendor != "all":
+        if vendor != "cisco":
             return findings
 
         findings.extend(self._check_campus_design(raw, config))

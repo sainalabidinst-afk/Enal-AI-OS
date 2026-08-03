@@ -54,7 +54,7 @@ class ReasoningEngine:
             "- Confidence level (0-1)\n\n"
             "Output as JSON array of objects."
         )
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_REASONING_MODEL,
             temperature=0.7,
@@ -90,7 +90,7 @@ class ReasoningEngine:
             "select the best one, and state a conclusion.\n"
             "Output JSON: {\"reasoning_steps\": [str], \"selected_id\": str, \"conclusion\": str, \"confidence\": float}"
         )
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_REASONING_MODEL,
             temperature=0.3,

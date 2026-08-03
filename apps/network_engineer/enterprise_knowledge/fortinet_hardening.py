@@ -31,7 +31,7 @@ class FortinetHardeningAnalyzer:
         raw = "\n".join(getattr(config, "raw_lines", [])).lower()
 
         vendor = getattr(config, "vendor", "") or ""
-        if vendor not in ("fortinet", "") and vendor != "all":
+        if vendor != "fortinet":
             return findings
 
         findings.extend(self._check_fortios_security(raw, config))

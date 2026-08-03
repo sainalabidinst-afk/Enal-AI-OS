@@ -20,7 +20,7 @@ class SelfReflection:
             "Output JSON: {\"passed\": bool, \"score\": int(1-10), \"issues\": [str], \"suggestions\": [str]}"
         )
         try:
-            response = model_router.complete(
+            response = await model_router.acomplete(
                 [{"role": "user", "content": prompt}],
                 model=settings.DEFAULT_REASONING_MODEL,
                 temperature=0.3,
@@ -42,7 +42,7 @@ class SelfReflection:
             "Output the improved result."
         )
         try:
-            response = model_router.complete(
+            response = await model_router.acomplete(
                 [{"role": "user", "content": prompt}],
                 model=settings.DEFAULT_REASONING_MODEL,
                 temperature=0.5,

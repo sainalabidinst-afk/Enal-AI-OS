@@ -46,7 +46,7 @@ class StrategicPlanner:
             '  "estimated_duration": str\n'
             "}"
         )
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_REASONING_MODEL,
             temperature=0.3,

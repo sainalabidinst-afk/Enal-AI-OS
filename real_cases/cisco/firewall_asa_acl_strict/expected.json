@@ -22,5 +22,19 @@
     "complexity": "moderate"
   },
   "category": "firewall",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "configured",
+    "configuration",
+    "password",
+    "stateful",
+    "loopback",
+    "default",
+    "high",
+    "aaa",
+    "copp",
+    "zero"
+  ]
 }

@@ -23,5 +23,20 @@
     "complexity": "advanced"
   },
   "subcategory": "high_availability",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "ha",
+    "icmp",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "authentication",
+    "service",
+    "zero"
+  ]
 }

@@ -13,11 +13,10 @@ This module produces structured findings about code security.
 It does NOT modify code. It only analyzes and reports.
 """
 
-import ast
 import logging
 import re
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 from apps.code_engineer.parser import CodeAST
 

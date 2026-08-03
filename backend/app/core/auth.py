@@ -21,18 +21,18 @@ async def get_current_user(
         raise HTTPException(status_code=401, detail="Missing or invalid authorization header")
 
     token = credentials.credentials
-    user_id = f"user:{token}"
-
-    if not settings.SECRET_KEY:
-        raise HTTPException(
-            status_code=401,
-            detail="SECRET_KEY is not configured. Set SECRET_KEY to enable authentication.",
-        )
+    try:
+        from backend.app.api.auth import _decode_token
+        token_data = _decode_token(token)
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=401, detail="Invalid or expired token") from exc
 
     return {
-        "user_id": user_id,
+        "user_id": token_data.username,
         "token": token,
-        "scopes": ["default"],
+        "scopes": token_data.permissions or ["default"],
     }
 
 

@@ -73,7 +73,7 @@ class WorldModelEngine:
             "Available entities: " + ", ".join(self._model.entities.keys())[:500] + "\n\n"
             "Output JSON: {\"relevant_entities\": [str], \"suggested_actions\": [str], \"confidence\": float}"
         )
-        response = model_router.complete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=512)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=512)
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):

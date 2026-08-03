@@ -22,5 +22,22 @@
     "complexity": "advanced"
   },
   "category": "vpn",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "default",
+    "vpn",
+    "switchover",
+    "high",
+    "cisco",
+    "control",
+    "zero"
+  ]
 }

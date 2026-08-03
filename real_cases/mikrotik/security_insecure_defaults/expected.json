@@ -24,5 +24,22 @@
   },
   "category": "security",
   "subcategory": "security",
-  "expected_severity": "warning"
+  "expected_severity": "warning",
+  "expected_findings": [
+    "password",
+    "ssh",
+    "backup",
+    "input",
+    "icmp",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "service",
+    "loopback",
+    "telnet",
+    "default",
+    "authentication",
+    "access"
+  ]
 }

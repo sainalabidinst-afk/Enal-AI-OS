@@ -5,6 +5,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from .api import (
     artifact,
     attachments,
+    auth,
     benchmark,
     capability_discovery,
     chat,
@@ -68,20 +69,28 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
 class AuthenticationMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        if request.url.path in ("/", "/docs", "/openapi.json", "/redoc", "/health"):
+        if request.url.path in (
+            "/",
+            "/docs",
+            "/openapi.json",
+            "/redoc",
+            "/health",
+            "/api/v1/auth/login",
+        ):
             return await call_next(request)
-
-        if not settings.SECRET_KEY:
-            from fastapi.responses import JSONResponse
-            return JSONResponse(
-                status_code=401,
-                content={"detail": "SECRET_KEY is not configured. Set SECRET_KEY to enable authentication."},
-            )
 
         auth = request.headers.get("Authorization")
         if not auth or not auth.startswith("Bearer "):
             from fastapi.responses import JSONResponse
             return JSONResponse(status_code=401, content={"detail": "Missing or invalid authorization header"})
+
+        token = auth.split(" ", 1)[1]
+        try:
+            from backend.app.api.auth import _decode_token
+            _decode_token(token)
+        except HTTPException:
+            from fastapi.responses import JSONResponse
+            return JSONResponse(status_code=401, content={"detail": "Invalid or expired token"})
         return await call_next(request)
 
 
@@ -118,6 +127,7 @@ app.add_middleware(
 )
 
 app.include_router(health.router, tags=["health"])
+app.include_router(auth.router, prefix=settings.API_V1_STR, tags=["auth"])
 app.include_router(chat.router, prefix=settings.API_V1_STR, tags=["chat"])
 app.include_router(orchestrator_v2.router, prefix=settings.API_V1_STR, tags=["orchestrator-v2"])
 app.include_router(phase3.router, prefix=settings.API_V1_STR, tags=["phase3"])

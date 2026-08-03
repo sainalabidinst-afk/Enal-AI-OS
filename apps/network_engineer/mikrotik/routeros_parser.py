@@ -146,6 +146,7 @@ class RouterOSConfig:
     raw_lines: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
     errors: list[str] = field(default_factory=list)
+    vendor: str = "mikrotik"
 
 
 class RouterOSParser:
