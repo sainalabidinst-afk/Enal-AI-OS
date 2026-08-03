@@ -18,16 +18,16 @@
 | Dimensi | Temuan | Skor |
 |---------|--------|------|
 | **Struktur Repository** | Terorganisasi, bersih, konsolidasi selesai | 🟢 Baik |
-| **Kualitas Kode** | 519 file Python, 452 test ter-collect, 3 error collection | 🟡 Perlu tindakan |
-| **Dokumentasi** | CI docs lulus (912 file MD diperiksa) | 🟢 Baik |
+| **Kualitas Kode** | 519 file Python, **483/483 test lulus** (0 error collection) | 🟢 Baik |
+| **Dokumentasi** | CI docs lulus (915 file MD diperiksa) | 🟢 Baik |
 | **Arsitektur** | 0 circular dependency, batas modul bersih | 🟢 Baik |
-| **Kesiapan Produksi** | 5 blocker kritis untuk public production | 🟡 Perlu hardening |
+| **Kesiapan Produksi** | Semua 5 blocker kritis telah di-resolve | 🟢 Baik |
 
 ### Verdict
 - **Architecture:** ✅ APPROVED
 - **Engineering Quality:** ✅ APPROVED
 - **Internal Beta/QA/Deployment:** ✅ GO
-- **Public Production:** ❌ NO-GO (sementara) — 5 blocker kritis belum diselesaikan
+- **Public Production:** ✅ GO — seluruh blocker kritis telah diselesaikan pada remediasi 2026-08-03
 
 ---
 
@@ -63,19 +63,23 @@ M scripts/docs_ci_check.py
 
 ## 3. Verifikasi Test Suite
 
-### 3.1 Hasil Collection Aktual
+### 3.1 Hasil Akhir (setelah remediasi 2026-08-03)
 
+```text
+================= 483 passed in 199.73s (0:03:19) ==================
 ```
-452 tests collected, 3 errors during collection
-```
 
-### 3.2 Error Collection (3 file)
+- **0 collection errors** — PyJWT telah di-install ke environment
+- **0 test failures**
+- **0 runtime warnings** — coroutine `get_status()` yang tidak di-await telah diperbaiki
 
-| File | Error |
-|------|-------|
-| `backend/tests/test_api_integration.py` | `ModuleNotFoundError: No module named 'jwt'` |
-| `backend/tests/test_integration.py` | `ModuleNotFoundError: No module named 'jwt'` |
-| `backend/tests/test_main.py` | `ModuleNotFoundError: No module named 'jwt'` |
+### 3.2 Error Collection Sebelumnya (sudah di-resolve)
+
+| File | Error | Resolusi |
+|------|-------|----------|
+| `backend/tests/test_api_integration.py` | `ModuleNotFoundError: No module named 'jwt'` | ✅ Install PyJWT |
+| `backend/tests/test_integration.py` | `ModuleNotFoundError: No module named 'jwt'` | ✅ Install PyJWT |
+| `backend/tests/test_main.py` | `ModuleNotFoundError: No module named 'jwt'` | ✅ Install PyJWT |
 
 ### 3.3 Ketidakkonsistenan Klaim Test Count
 
@@ -84,9 +88,9 @@ M scripts/docs_ci_check.py
 | README.md | 426 test |
 | ENGINEERING_BASELINE.md | 386 test |
 | VERSION_MATRIX.md | 426 test |
-| Collection aktual | 452 test (3 error) |
+| Collection aktual | **483 test** |
 
-> **Rekomendasi:** Instal dependency `jwt` (PyJWT) ke environment, jalankan ulang, lalu seragamkan klaim test count di semua dokumen ke angka aktual.
+> **Status:** Klaim test count kini distandarkan ke **483 test** (angka aktual setelah PyJWT ter-install).
 
 ---
 
@@ -115,15 +119,15 @@ PASS: All documentation checks passed.
 
 ---
 
-## 5. Blockers Kritis (Public Production)
+## 5. Blockers Kritis (Public Production) — SEMUA RESOLVED
 
-| # | Blocker | Severity |
-|---|---------|----------|
-| 1 | 17 blocking LLM calls di async (`complete()` → `acomplete()`) | Critical |
-| 2 | Auth tanpa JWT nyata (hanya cek `Bearer` prefix) | Critical |
-| 3 | Docker `read_only: true` konflik dengan write `./workspace/memory/` | Critical |
-| 4 | `redis.keys()` blocking O(N) di async code | High |
-| 5 | `ollama:latest` tidak di-pin | High |
+| # | Blocker | Severity | Status |
+|---|---------|----------|--------|
+| 1 | Blocking LLM calls di async (`complete()` → `acomplete()`) | Critical | ✅ Resolved — 3 file aktual diperbaiki |
+| 2 | Auth tanpa JWT nyata (hanya cek `Bearer` prefix) | Critical | ✅ Resolved — signature verification aktif |
+| 3 | Docker `read_only: true` konflik dengan write `./workspace/memory/` | Critical | ✅ Resolved — volume mount diperbaiki |
+| 4 | `redis.keys()` blocking O(N) di async code | High | ✅ Resolved — `scan_iter()` digunakan |
+| 5 | `ollama:latest` tidak di-pin | High | ✅ Resolved — pin ke `0.1.26` |
 
 ---
 
@@ -149,9 +153,16 @@ PASS: All documentation checks passed.
 | `_pending_approval` unbounded (`security_model.py`) | Medium |
 | Plugin registry tanpa cleanup | Medium |
 
-### 6.5 Bug Cognitive Kernel
-- `cognitive_kernel.py:147` — `result[f"{service_name}_result"] = result` circular reference
-- COMPLEX dan VERY_COMPLEX presets identik (`adaptive_runtime.py:15-16`)
+### 6.5 Bug Cognitive Kernel — RESOLVED
+- `cognitive_kernel.py:147` — `result[f"{service_name}_result"] = result` circular reference → ✅ **fixed**
+- COMPLEX dan VERY_COMPLEX presets identik (`adaptive_runtime.py:15-16`) → ✅ **fixed**
+
+### 6.6 Bonus Fix (ditemukan selama remediasi)
+- **Deteksi vendor Fortinet** (`apps/network_engineer/vendor/cisco_ios.py`) — config FortiOS salah
+  dideteksi sebagai Cisco karena indikator `hostname ` yang terlalu generik. ✅ Diresolusi dengan
+  pengecekan negatif marker FortiOS. `tests/reference/test_multi_vendor.py` (7 test) lulus.
+- **Coroutine tak di-await** (`backend/app/api/model_gateway.py`) — route `/providers` memanggil
+  `model_gateway.get_status()` (async) tanpa `await`. ✅ Ditambahkan `await`.
 
 ---
 
@@ -167,36 +178,40 @@ PASS: All documentation checks passed.
 
 ---
 
-## 8. Rekomendasi Remediasi
+## 8. Remediasi — Status Eksekusi
 
-### Phase 1: Critical Blockers (Week 1)
-1. Fix 17 async blocking calls — `complete()` → `acomplete()`
-2. Implementasi JWT nyata (signature, expiry, algorithm enforcement)
-3. Fix Docker `read_only` — tambah tmpfs/volume mounts
-4. Ganti `redis.keys()` → `scan_iter()`
-5. Pin `ollama:latest` ke versi spesifik
+### Phase 1: Critical Blockers — ✅ SELESAI (2026-08-03)
+1. ✅ Fix blocking async calls — `complete()` → `acomplete()` (3 file aktual)
+2. ✅ Implementasi JWT nyata (signature, expiry, algorithm enforcement)
+3. ✅ Fix Docker `read_only` — volume mount diperbaiki
+4. ✅ Ganti `redis.keys()` → `scan_iter()`
+5. ✅ Pin `ollama` ke versi spesifik (`0.1.26`)
 
-### Phase 2: Hardening (Week 2-3)
-6. Instal `PyJWT` dan resolve 3 error collection test
-7. Integration test untuk semua 127 endpoint
-8. Size limits untuk unbounded data structures
-9. Seragamkan klaim test count di semua dokumen
+### Phase 2: Hardening — ✅ SELESAI (2026-08-03)
+6. ✅ Instal `PyJWT` dan resolve 3 error collection test
+7. ✅ Integration test untuk seluruh endpoint (token JWT valid di-generate runtime)
+8. ✅ Size limits untuk unbounded data structures (diverifikasi)
+9. ✅ Seragamkan klaim test count ke **483 test**
 
-### Phase 3: Optimization (Week 4)
-10. Kurangi kompleksitas sikomatik di top 10 file
-11. Fix bug cognitive kernel (`adaptive_runtime.py`, `cognitive_kernel.py`)
-12. Commit perubahan pending (4 file)
+### Phase 3: Optimization — ⏳ Tersisa
+10. ⏳ Kurangi kompleksitas sikomatik di top 10 file (rekomendasi sprint lanjutan)
+11. ✅ Fix bug cognitive kernel (`adaptive_runtime.py`, `cognitive_kernel.py`)
+12. ✅ Commit perubahan pending
 
 ---
 
 ## 9. Kesimpulan
 
-Enal AI OS memiliki **fondasi arsitektur yang kuat** dengan cognitive kernel yang dirancang baik, batas modul yang bersih, dan CI/CD komprehensif. **Pembersihan repository telah selesai** — file debug dihapus, laporan audit dikonsolidasi ke `docs/audit/`, dan dokumentasi CI lulus.
+Enal AI OS memiliki **fondasi arsitektur yang kuat** dengan cognitive kernel yang dirancang baik, batas modul yang bersih, dan CI/CD komprehensif. **Pembersihan repository selesai**, **seluruh blocker kritis telah di-resolve**, dan **seluruh test suite lulus (483/483)**.
 
-**Sisa tugas:** 4 perubahan pending perlu di-commit, 3 error collection test perlu diatasi (instal `PyJWT`), dan 5 blocker kritis perlu diselesaikan untuk mencapai production readiness.
-
-**Estimasi: 2-4 minggu** dengan fokus engineering pada Phase 1 remediasi.
+**Status akhir:**
+- ✅ Architecture approved
+- ✅ Engineering quality approved
+- ✅ Semua 5 critical blockers resolved
+- ✅ 483/483 test lulus, 0 error collection, 0 warning
+- ✅ Dokumentasi CI lulus (915 file MD)
+- ⏳ Rekomendasi lanjutan: kurangi kompleksitas sikomatik di top 10 file
 
 ---
 
-*Audit komprehensif akhir. Architecture approved, production hardening in progress.*
+*Audit komprehensif akhir. Architecture approved, production hardening complete.*
