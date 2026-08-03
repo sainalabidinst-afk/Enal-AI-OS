@@ -18,6 +18,7 @@
 | Capability Packs | v1.0.0-rc | Production Ready | 13 packs certified |
 | API Contracts | v1 | Stable | Public APIs frozen |
 | Benchmark Framework | v1.0.0-dev | Active | 426 tests passing |
+| CI/CD | Active | `.github/workflows/` | ci.yml, cce.yml, docs-ci.yml |
 | Telemetry | v1.0.0-dev | Active | JSONL metrics + KPI |
 
 ## Status Summary

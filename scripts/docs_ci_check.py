@@ -196,15 +196,10 @@ def main() -> int:
 
         # Skip audit/report files (they document historical state)
         skip_files = {
-            "DOCUMENTATION_CONSISTENCY_AUDIT_REPORT.md",
-            "ARCHITECTURE_CONSISTENCY_REPORT.md",
-            "FINAL_REPOSITORY_AUDIT.md",
-            "QUALITY_REMEDIATION_REPORT.md",
-            "TYPE_FIX_REPORT.md",
-            "WORKFLOW_CATALOG_REPORT.md",
-            "PLAN_DOKUMENTASI_CONSISTENCY.md",
-            "PLAN_RFC-0007.md",
-            "PLAN_RFC-0011.md",
+            "AUDIT_REPORT.md",
+            "QUALITY_REPORTS.md",
+            "SPRINT_REPORTS.md",
+            "CONSISTENCY_REPORTS.md",
         }
         if md_file.name in skip_files:
             continue

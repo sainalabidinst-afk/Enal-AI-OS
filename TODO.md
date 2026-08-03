@@ -22,8 +22,8 @@
 - [x] Hapus `scan_results.txt`, `docs_ci_report.txt`
 
 ### 4. Sinkronisasi dokumen
-- [ ] Update `VERSION_MATRIX.md` (test count 426, pack 13)
-- [ ] Update `README.md` (test count, status CI)
+- [x] Update `VERSION_MATRIX.md` (test count 426, pack 13)
+- [x] Update `README.md` (test count, status CI, audit script path)
 - [x] Update `docs/audit/README.md` (indeks)
 
 ### 5. Validasi

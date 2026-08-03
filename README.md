@@ -37,7 +37,7 @@ User → [API Layer] → [Orchestrator] → [Cognitive Pipeline (8 services)] �
 | Area | Status | Detail |
 |---|---|---|
 | **Engineering Hardening** | ✅ Selesai | 27 file diperbaiki, MyPy=0, error P0 teratasi |
-| **Type Safety** | ✅ Selesai | Anotasi tipe lengkap, MyPy strict lulus |
+| **Type Safety** | ✅ Selesai | Anotasi tipe lengkap, MyPy 0 error (mode non-strict) |
 | **Test Suite** | ✅ Selesai | 426 test lulus, baseline pytest terbentuk |
 | **Python 3.11 Compatibility** | ✅ Selesai | Nol masalah f-string backslash pada production code |
 | **Ruff Hygiene** | ✅ Selesai | Masalah auto-fixable teratasi, `ruff check --fix` diterapkan |
@@ -172,8 +172,9 @@ mypy apps/ backend/
 ### Verifikasi Baseline
 
 ```bash
-# Pemeriksaan engineering baseline
-python _audit_hygiene.py           # f-string, ruff, test collection
+# Pemeriksaan engineering baseline - lihat tools/audit/ untuk utility audit
+python -m ruff check apps/ backend/   # lint check
+pytest -v                             # test collection
 
 # Quality Gates
 python scripts/gate0_validate.py   # Validasi pre-merge
@@ -275,7 +276,7 @@ python scripts/gate0_validate.py          # Gate pre-merge
 
 # Opsional (disarankan)
 ruff format --check .                     # Format konsisten
-python _audit_hygiene.py                   # Audit hygiene lengkap
+python -m tools.audit.code_analysis        # Audit hygiene lengkap
 ```
 
 ---
