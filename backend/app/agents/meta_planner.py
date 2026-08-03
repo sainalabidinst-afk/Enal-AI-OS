@@ -47,7 +47,7 @@ class MetaPlanner:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"Create an organization for: {project_description}"},
         ]
-        response = model_router.complete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
+        response = await model_router.acomplete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
         content = response.choices[0].message.content
         try:
             return json.loads(content)
@@ -56,7 +56,7 @@ class MetaPlanner:
 
     async def assign_agents(self, task_description: str) -> list[dict[str, Any]]:
         from backend.app.core.capability_graph import capability_graph
-        skills = capability_graph.get_execution_plan(task_description)
+        skills = await capability_graph.get_execution_plan(task_description)
         assignments = []
         for skill in skills:
             best_agent = agent_reputation.get_best_agent(skill.agent, [skill.agent])

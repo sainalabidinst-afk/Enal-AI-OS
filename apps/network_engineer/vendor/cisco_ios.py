@@ -34,24 +34,31 @@ class CiscoIOSAdapter(VendorAdapter):
 
     def detect(self, config_text: str) -> bool:
         """Detect Cisco IOS config."""
+        # Fortinet FortiOS configs use a block structure (config ... / edit /
+        # set ... / next / end) and should never be classified as Cisco.
+        fortios_markers = [
+            "config system global",
+            "config firewall policy",
+            "config system interface",
+            "config vpn ipsec",
+            "set hostname ",
+        ]
+        if any(marker in config_text for marker in fortios_markers):
+            return False
+
         indicators = [
             "interface GigabitEthernet",
             "interface FastEthernet",
             "interface TenGigabitEthernet",
             "interface Dot11Radio",
             "interface BVI",
-            "access-list ",
+            "ip access-list ",
             "ip nat inside source",
             "line vty",
             "enable password",
             "router bgp ",
             "ip route ",
             "dot11 ssid",
-            "ssid ",
-            "switchport mode",
-            "vlan ",
-            "policy-map",
-            "class-map",
             "router ospf",
             "snmp-server",
             "hostname ",

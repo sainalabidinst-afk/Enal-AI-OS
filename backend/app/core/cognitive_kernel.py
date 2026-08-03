@@ -139,12 +139,17 @@ class CognitiveKernel:
         return list(self.services.keys())
 
     async def execute_pipeline(self, pipeline: list[str], context: dict[str, Any]) -> dict[str, Any]:
-        result = context
+        result = dict(context)
+        pipeline_results: dict[str, Any] = {}
         for service_name in pipeline:
             if service_name not in self.services:
                 continue
-            result = await self.execute_service(service_name, result)
-            result[f"{service_name}_result"] = result
+            service_output = await self.execute_service(service_name, result)
+            # Store a shallow copy under a namespaced key to avoid
+            # circular references and key overwriting.
+            pipeline_results[service_name] = dict(service_output)
+            result.update(service_output)
+        result["_pipeline_results"] = pipeline_results
         return result
 
 

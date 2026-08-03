@@ -17,7 +17,7 @@ async def model_health(provider: str | None = None):
 
 @router.get("/providers")
 async def list_providers():
-    return model_gateway.get_status()
+    return await model_gateway.get_status()
 
 
 @router.post("/route")

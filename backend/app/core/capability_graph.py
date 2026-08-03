@@ -17,14 +17,14 @@ class CapabilityGraph:
             for cap in skill.capabilities:
                 self.graph[cap].add(skill.name)
 
-    def get_required_capabilities(self, task_description: str) -> list[str]:
+    async def get_required_capabilities(self, task_description: str) -> list[str]:
         from backend.app.core.model_router import model_router
         prompt = (
             "Given the following task description, list the capabilities required to complete it.\n"
             "Return only a comma-separated list of capability names.\n\n"
             f"Task: {task_description}\n"
         )
-        response = model_router.complete(
+        response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             temperature=0.3,
             max_tokens=200,
@@ -41,8 +41,8 @@ class CapabilityGraph:
                     skills[skill_name] = skill
         return list(skills.values())
 
-    def get_execution_plan(self, task_description: str) -> list[Skill]:
-        capabilities = self.get_required_capabilities(task_description)
+    async def get_execution_plan(self, task_description: str) -> list[Skill]:
+        capabilities = await self.get_required_capabilities(task_description)
         skills = self.get_skills_for_capabilities(capabilities)
         return sorted(skills, key=lambda s: s.cost_weight)
 

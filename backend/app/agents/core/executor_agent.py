@@ -15,7 +15,7 @@ async def executor_node(state: dict) -> dict:
         from langchain_core.messages import HumanMessage
         messages = state.get("messages", [])
         last_msg = messages[-1].content if messages else ""
-        response = model_router.complete(messages + [HumanMessage(content=f"Execute: {last_msg}")])
+        response = await model_router.acomplete(messages + [HumanMessage(content=f"Execute: {last_msg}")])
         return {
             "messages": [response.choices[0].message],
             "final_result": response.choices[0].message.content,

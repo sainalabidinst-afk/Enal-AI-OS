@@ -119,8 +119,9 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+      - /app/workspace
     volumes:
-      - backend_workspace:/workspace
+      - backend_workspace:/app/workspace
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -172,7 +173,7 @@ services:
       timeout: 5s
       retries: 3
 
-volumes:
+    volumes:
   postgres_data:
   redis_data:
   qdrant_data:

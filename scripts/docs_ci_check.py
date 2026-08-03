@@ -53,6 +53,18 @@ def check_pack_count(file_path: Path) -> list[str]:
     roadmap_indicators = ["roadmap", "v1_roadmap", "ROADMAP", "TODO_CAPABILITY"]
     is_roadmap = any(indicator in file_path.name for indicator in roadmap_indicators)
 
+    # Skip historical changelog (records past state by design)
+    if file_path.name == "CHANGELOG.md":
+        return issues
+
+    # Context words indicating the count is a recommendation/condition/range,
+    # not a claim about current project state.
+    contextual_markers = (
+        "rekomendasi", "recommend", "target", "minimal", "minimum",
+        "masing-masing", "jika", "when", "butuh", "kebutuhan", "future",
+        "diinginkan", "idealnya", "sekitar", "hingga", "sampai",
+    )
+
     if not is_roadmap:
         for pattern, desc in patterns:
             for match in re.finditer(pattern, content, re.IGNORECASE):
@@ -64,6 +76,9 @@ def check_pack_count(file_path: Path) -> list[str]:
                 line_start = content.rfind('\n', 0, match.start()) + 1
                 line_text = content[line_start:content.find('\n', match.start())]
                 if re.search(r'ADR[\s-]?\d+\s+Capability Pack', line_text, re.IGNORECASE):
+                    continue
+                # Skip counts in recommendation/condition/range context
+                if any(marker.lower() in line_text.lower() for marker in contextual_markers):
                     continue
                 count = int(match.group(1))
                 if count != CURRENT_PACK_COUNT:

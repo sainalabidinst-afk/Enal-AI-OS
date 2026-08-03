@@ -12,16 +12,16 @@ PIPELINE_PRESETS = {
     TaskComplexity.TRIVIAL: ["perception", "memory", "decision", "action"],
     TaskComplexity.SIMPLE: ["perception", "memory", "reasoning", "decision", "action"],
     TaskComplexity.MEDIUM: ["perception", "memory", "planning", "reasoning", "decision", "reflection", "action"],
-    TaskComplexity.COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "decision", "verification", "reflection", "learning"],
-    TaskComplexity.VERY_COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "decision", "verification", "reflection", "learning"],
+    TaskComplexity.COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
+    TaskComplexity.VERY_COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
 }
 
 PIPELINE_DESCRIPTIONS = {
     TaskComplexity.TRIVIAL: "Quick perception → memory lookup → decision → action",
     TaskComplexity.SIMPLE: "Perception → memory → reasoning → decision → action",
     TaskComplexity.MEDIUM: "Perception → memory → planning → reasoning → decision → reflection → action",
-    TaskComplexity.COMPLEX: "Full cognitive pipeline with debate, simulation, verification, and learning",
-    TaskComplexity.VERY_COMPLEX: "Full cognitive pipeline with debate, simulation, verification, and learning",
+    TaskComplexity.COMPLEX: "Full cognitive pipeline with single debate/simulation pass, verification, reflection, and learning",
+    TaskComplexity.VERY_COMPLEX: "Full cognitive pipeline with double debate/simulation passes, verification, reflection, and learning for high-risk novel problems",
 }
 
 
