@@ -27,7 +27,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 |Pengembangan Diri|A+ (≥95)|Bersertifikat|
 |Decision Intelligence|A+ (≥95)|Bersertifikat|
 |Sistem Arsitek|A (≥90)|Siap Produksi|
-|Security Engineer|A (≥90)|Siap Produksi|
+|Security Engineer|A+ (≥95)|Siap Produksi|103 real cases, 95% benchmark avg score, 52 golden tests|
 |Data Engineer|A (≥90)|Siap Produksi|
 |Database Engineer|A- (≥85)|Siap Produksi|
 |QA Engineer|A (≥90)|Siap Produksi|

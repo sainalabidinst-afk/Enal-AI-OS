@@ -577,4 +577,11 @@ class TestSecurityEngineerEngine:
             target_type=AssessmentType.dependency,
             target={
                 "manifest_content": "django==1.11.0\nrequests==2.6.0",
-                "manifest_type": "re
+                "manifest_type": "requirements.txt",
+            },
+            standards=["owasp_top10"],
+            check_secrets=False,
+            check_dependencies=True,
+        )
+        report = engine.review(request)
+        assert len(report.dependency_findings) >= 1

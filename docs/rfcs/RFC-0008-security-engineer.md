@@ -3,8 +3,8 @@
 |Bidang|Nilai|
 |-------|-------|
 |**ID RFC**|RFC-0008|
-|**Status**|Draf|
-|**Versi**|0.1.0|
+|**Status**|Production Ready|
+|**Versi**|1.0.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v1.2.0 (fase Keunggulan Kemampuan)|
 |**Capability Pack**|Security Engineer|

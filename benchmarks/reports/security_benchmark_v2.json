@@ -1,10 +1,10 @@
 {
-  "generated": "2026-08-04T07:09:44.031296",
+  "generated": "2026-08-04T07:20:43.904937",
   "total_cases": 103,
   "passed_cases": 103,
   "failed_cases": 0,
   "pass_rate": 1.0,
-  "avg_score": 0.9459,
+  "avg_score": 0.9966,
   "avg_latency_ms": 6.9,
   "results": [
     {
@@ -19,7 +19,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 40,
+      "execution_time_ms": 83,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -36,7 +36,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 7,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -53,7 +53,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -70,7 +70,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 15,
+      "execution_time_ms": 20,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -82,7 +82,7 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 3,
+      "findings_matched": 5,
       "expected_findings": [
         "logging",
         "secret",
@@ -90,8 +90,8 @@
         "sql_injection",
         "vulnerability"
       ],
-      "expected_detectable_findings": 3,
-      "execution_time_ms": 0,
+      "expected_detectable_findings": 5,
+      "execution_time_ms": 21,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 1
@@ -108,7 +108,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 6,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -119,14 +119,14 @@
       "category": "anomaly",
       "vendor": "generic",
       "passed": true,
-      "score": 0.5,
-      "findings_matched": 1,
+      "score": 1.0,
+      "findings_matched": 2,
       "expected_findings": [
         "deserialization",
         "sql_injection"
       ],
       "expected_detectable_findings": 2,
-      "execution_time_ms": 15,
+      "execution_time_ms": 35,
       "errors": [],
       "findings_count": 3,
       "secrets_count": 0
@@ -138,13 +138,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 2
@@ -156,14 +156,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 0,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 5,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -180,7 +180,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 7,
       "errors": [],
       "findings_count": 3,
       "secrets_count": 0
@@ -197,7 +197,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 17,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -216,7 +216,7 @@
         "vulnerability"
       ],
       "expected_detectable_findings": 3,
-      "execution_time_ms": 4,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 1
@@ -233,7 +233,7 @@
         "sql_injection"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 6,
+      "execution_time_ms": 1,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -245,14 +245,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "encryption",
         "insecure_ssl",
         "ssrf"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 11,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 6,
       "secrets_count": 0
@@ -264,13 +264,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "encryption",
         "insecure_ssl"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 4,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 16,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -282,14 +282,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -301,13 +301,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
+      "expected_detectable_findings": 3,
       "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
@@ -320,14 +320,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 11,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -339,13 +339,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 4,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 18,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 2
@@ -363,7 +363,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 4,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -374,8 +374,8 @@
       "category": "code",
       "vendor": "generic",
       "passed": true,
-      "score": 0.5,
-      "findings_matched": 1,
+      "score": 1.0,
+      "findings_matched": 2,
       "expected_findings": [
         "deserialization",
         "sql_injection"
@@ -417,7 +417,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 11,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -435,7 +435,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 11,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -453,7 +453,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 18,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -470,7 +470,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 15,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -488,7 +488,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -505,7 +505,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -523,7 +523,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 15,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -553,13 +553,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 16,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 1
@@ -571,14 +571,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 4
@@ -595,7 +595,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 16,
       "errors": [],
       "findings_count": 4,
       "secrets_count": 0
@@ -630,7 +630,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 15,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -666,7 +666,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 7,
+      "execution_time_ms": 16,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -684,7 +684,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 9,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -714,14 +714,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 0,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 9,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -739,7 +739,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 15,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -751,13 +751,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 3,
       "expected_findings": [
         "logging",
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
+      "expected_detectable_findings": 3,
       "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
@@ -775,7 +775,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 15,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -787,14 +787,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 3,
       "expected_findings": [
         "logging",
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 6,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 11,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 1
@@ -806,13 +806,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
+      "expected_detectable_findings": 3,
       "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
@@ -825,13 +825,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 6,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 1
@@ -843,14 +843,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 3,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -862,13 +862,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 1,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 1
@@ -880,14 +880,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 10,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 2
@@ -899,15 +899,15 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 3,
+      "findings_matched": 4,
       "expected_findings": [
         "privilege_escalation",
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 3,
-      "execution_time_ms": 3,
+      "expected_detectable_findings": 4,
+      "execution_time_ms": 5,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -925,7 +925,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 6,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -937,14 +937,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 7,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 6,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 2
@@ -962,7 +962,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -980,7 +980,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 6,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -998,7 +998,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 1,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1010,13 +1010,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 3,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 6,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 2
@@ -1027,15 +1027,15 @@
       "category": "lateral",
       "vendor": "generic",
       "passed": true,
-      "score": 0.5,
-      "findings_matched": 1,
+      "score": 1.0,
+      "findings_matched": 3,
       "expected_findings": [
         "privilege_escalation",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 6,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 7,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -1052,7 +1052,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 7,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -1063,14 +1063,14 @@
       "category": "lateral",
       "vendor": "generic",
       "passed": true,
-      "score": 0.5,
-      "findings_matched": 1,
+      "score": 1.0,
+      "findings_matched": 2,
       "expected_findings": [
         "privilege_escalation",
         "vulnerability"
       ],
       "expected_detectable_findings": 2,
-      "execution_time_ms": 10,
+      "execution_time_ms": 9,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -1088,7 +1088,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 5,
+      "execution_time_ms": 6,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1106,7 +1106,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1118,14 +1118,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 3,
       "expected_findings": [
         "logging",
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 3,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 2,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1137,14 +1137,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "encryption",
         "insecure_ssl",
         "ssrf"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 7,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 20,
       "errors": [],
       "findings_count": 5,
       "secrets_count": 0
@@ -1155,16 +1155,16 @@
       "category": "network",
       "vendor": "generic",
       "passed": true,
-      "score": 0.6667,
-      "findings_matched": 2,
+      "score": 1.0,
+      "findings_matched": 4,
       "expected_findings": [
         "privilege_escalation",
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 3,
-      "execution_time_ms": 0,
+      "expected_detectable_findings": 4,
+      "execution_time_ms": 36,
       "errors": [],
       "findings_count": 2,
       "secrets_count": 0
@@ -1182,7 +1182,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 15,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1194,14 +1194,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 16,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1219,7 +1219,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 5,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1240,7 +1240,7 @@
         "vulnerability"
       ],
       "expected_detectable_findings": 5,
-      "execution_time_ms": 16,
+      "execution_time_ms": 22,
       "errors": [],
       "findings_count": 6,
       "secrets_count": 3
@@ -1252,14 +1252,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 8,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 7,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1278,7 +1278,7 @@
         "command_injection"
       ],
       "expected_detectable_findings": 3,
-      "execution_time_ms": 22,
+      "execution_time_ms": 7,
       "errors": [],
       "findings_count": 10,
       "secrets_count": 1
@@ -1297,7 +1297,7 @@
         "command_injection"
       ],
       "expected_detectable_findings": 3,
-      "execution_time_ms": 4,
+      "execution_time_ms": 16,
       "errors": [],
       "findings_count": 9,
       "secrets_count": 0
@@ -1316,7 +1316,7 @@
         "command_injection"
       ],
       "expected_detectable_findings": 3,
-      "execution_time_ms": 3,
+      "execution_time_ms": 1,
       "errors": [],
       "findings_count": 9,
       "secrets_count": 0
@@ -1328,14 +1328,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "vulnerability",
         "security"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 4,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1347,14 +1347,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 2,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1365,14 +1365,14 @@
       "category": "runtime",
       "vendor": "generic",
       "passed": true,
-      "score": 0.5,
-      "findings_matched": 1,
+      "score": 1.0,
+      "findings_matched": 2,
       "expected_findings": [
         "deserialization",
         "sql_injection"
       ],
       "expected_detectable_findings": 2,
-      "execution_time_ms": 0,
+      "execution_time_ms": 13,
       "errors": [],
       "findings_count": 6,
       "secrets_count": 0
@@ -1383,8 +1383,8 @@
       "category": "runtime",
       "vendor": "generic",
       "passed": true,
-      "score": 0.5,
-      "findings_matched": 1,
+      "score": 1.0,
+      "findings_matched": 2,
       "expected_findings": [
         "deserialization",
         "sql_injection"
@@ -1401,15 +1401,15 @@
       "category": "sase",
       "vendor": "generic",
       "passed": true,
-      "score": 0.6667,
-      "findings_matched": 2,
+      "score": 1.0,
+      "findings_matched": 4,
       "expected_findings": [
         "deserialization",
         "secret",
         "security",
         "ssrf"
       ],
-      "expected_detectable_findings": 3,
+      "expected_detectable_findings": 4,
       "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
@@ -1428,7 +1428,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 30,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1440,18 +1440,18 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 4,
       "expected_findings": [
         "logging",
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 0,
+      "expected_detectable_findings": 4,
+      "execution_time_ms": 20,
       "errors": [],
       "findings_count": 2,
-      "secrets_count": 13
+      "secrets_count": 14
     },
     {
       "case_id": "security:secrets_audit_0001",
@@ -1460,15 +1460,15 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 4,
       "expected_findings": [
         "logging",
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 26,
+      "expected_detectable_findings": 4,
+      "execution_time_ms": 2,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 3
@@ -1480,15 +1480,15 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 4,
       "expected_findings": [
         "logging",
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 5,
+      "expected_detectable_findings": 4,
+      "execution_time_ms": 11,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 2
@@ -1500,15 +1500,15 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 3,
+      "findings_matched": 4,
       "expected_findings": [
         "secret",
         "security",
         "ssrf",
         "vulnerability"
       ],
-      "expected_detectable_findings": 3,
-      "execution_time_ms": 19,
+      "expected_detectable_findings": 4,
+      "execution_time_ms": 6,
       "errors": [],
       "findings_count": 4,
       "secrets_count": 6
@@ -1520,14 +1520,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 5,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 3
@@ -1539,13 +1539,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 2,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 8,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 2
@@ -1557,14 +1557,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 13,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1584,7 +1584,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 17,
+      "execution_time_ms": 8,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1596,13 +1596,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 3
@@ -1622,7 +1622,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 16,
+      "execution_time_ms": 11,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1658,7 +1658,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1669,15 +1669,15 @@
       "category": "supply",
       "vendor": "generic",
       "passed": true,
-      "score": 0.6667,
-      "findings_matched": 2,
+      "score": 0.75,
+      "findings_matched": 3,
       "expected_findings": [
         "encryption",
         "insecure_ssl",
         "ssrf",
         "weak_crypto"
       ],
-      "expected_detectable_findings": 3,
+      "expected_detectable_findings": 4,
       "execution_time_ms": 0,
       "errors": [],
       "findings_count": 2,
@@ -1695,7 +1695,7 @@
         "ssrf"
       ],
       "expected_detectable_findings": 1,
-      "execution_time_ms": 0,
+      "execution_time_ms": 12,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 0
@@ -1707,14 +1707,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 2
@@ -1732,7 +1732,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 15,
+      "execution_time_ms": 0,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1744,13 +1744,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
+      "expected_detectable_findings": 3,
       "execution_time_ms": 0,
       "errors": [],
       "findings_count": 1,
@@ -1770,7 +1770,7 @@
         "secret"
       ],
       "expected_detectable_findings": 3,
-      "execution_time_ms": 15,
+      "execution_time_ms": 14,
       "errors": [],
       "findings_count": 7,
       "secrets_count": 2
@@ -1839,14 +1839,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 15,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 18,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1858,14 +1858,14 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 2,
+      "findings_matched": 3,
       "expected_findings": [
         "secret",
         "security",
         "vulnerability"
       ],
-      "expected_detectable_findings": 2,
-      "execution_time_ms": 0,
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 4,
       "errors": [],
       "findings_count": 1,
       "secrets_count": 1
@@ -1877,13 +1877,13 @@
       "vendor": "generic",
       "passed": true,
       "score": 1.0,
-      "findings_matched": 1,
+      "findings_matched": 2,
       "expected_findings": [
         "secret",
         "security"
       ],
-      "expected_detectable_findings": 1,
-      "execution_time_ms": 17,
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 2
@@ -1901,7 +1901,7 @@
         "insecure configuration"
       ],
       "expected_detectable_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 3,
       "errors": [],
       "findings_count": 0,
       "secrets_count": 0
@@ -1912,6 +1912,6 @@
     "passed": 103,
     "failed": 0,
     "pass_rate": 1.0,
-    "avg_score": 0.9612
+    "avg_score": 0.9976
   }
 }

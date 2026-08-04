@@ -1,0 +1,14 @@
+{
+  "record_id": "97cc508c-f6a2-497e-a006-a14fb7035206",
+  "assessment_id": "22a3447d-8e06-45e6-9671-6e30f91ea4c2",
+  "timestamp": "2026-08-04T07:20:59.049235+00:00",
+  "target_type": "dependency",
+  "total_findings": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}

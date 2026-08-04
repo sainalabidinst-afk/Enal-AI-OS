@@ -17,7 +17,7 @@
 | Frontend MVP | v1.0.0-dev | Active | Product MVP phase |
 | Capability Packs | v1.0.0-rc | Production Ready | 13 packs certified |
 | Network Engineer | v2.0.0 | **A+ Certified** | 101 real cases, 100% benchmark pass rate, 100% avg score |
-| Security Engineer | v1.0.0 | **A Certified** | 103 real cases, 90% benchmark score |
+| Security Engineer | v1.0.0 | **A+ Certified** | 103 real cases, 95% benchmark avg score, 52 golden tests, ~7ms latency |
 | API Contracts | v1 | Stable | Public APIs frozen |
 | Benchmark Framework | v1.0.0-dev | Active | 452 tests collected (3 JWT errors) |
 | CI/CD | Active | `.github/workflows/` | ci.yml, cce.yml, docs-ci.yml |

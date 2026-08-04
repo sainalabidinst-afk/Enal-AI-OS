@@ -1,0 +1,14 @@
+{
+  "record_id": "f301e463-4f62-4c23-8501-06bef40ceffa",
+  "assessment_id": "cee431a5-373e-436c-884b-884fbbf4a99c",
+  "timestamp": "2026-08-04T07:20:59.041573+00:00",
+  "target_type": "architecture",
+  "total_findings": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}
