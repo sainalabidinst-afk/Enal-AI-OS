@@ -114,6 +114,12 @@ Tag ini menandai **Dasar Teknik** resmi dari Platform Kognitif Enal.
 - Debug scripts dipindah ke `tools/debug/`
 - SWC minify diaktifkan kembali di frontend
 - Makefile dimodernisasi ke `docker compose` v2 syntax
+- Security Engineer Capability Pack (RFC-0008): OWASP Top 10 analyzer, secret detection, vulnerability scanner, threat modeler, hardening reviewer, compliance mapper
+- Security Engineer benchmark: 9 dimensi, 90% overall score, 100% pass rate
+- 103 security real cases di `real_cases/security/`
+- Security Engineer benchmark dashboard: `benchmarks/dashboards/security_engineer_dashboard.html`
+- Security Engineer capability guide: `docs/CAPABILITY_GUIDE.md`
+- Security Engineer contract schemas: `apps/security_engineer/schemas.py`
 
 ### Diperbaiki
 - Test count inkonsisten: standarkan ke 166 collected tests

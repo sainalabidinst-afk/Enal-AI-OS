@@ -10,7 +10,7 @@
 |**Capability Pack**|Arsitek Sistem|
 |**ID Kemampuan**|`system-architect`|
 |**Kategori**|Arsitektur|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 3 — Siap Produksi|
 |**Referensi RFC**|RFC-0011|
 
@@ -69,7 +69,7 @@ Tanpa Capability Pack Arsitek Sistem yang khusus:
 |Penerapan Pola Desain|≥85% (pola dievaluasi dengan benar)|A|
 |Penilaian Skalabilitas|≥90% (masalah skalabilitas teridentifikasi)|A|
 |Skor Pemeliharaan|≥90% (masalah pemeliharaan terdeteksi)|A|
-|Penjelasan|≥95% (temuan dijelaskan dengan alasan)|SEBUAH+|
+|Penjelasan|≥95% (temuan dijelaskan dengan alasan)|A+|
 
 ---
 

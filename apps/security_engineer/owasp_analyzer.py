@@ -36,8 +36,8 @@ _SQL_INJECTION_PATTERNS = [
     (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*%s.*%', "format string in SQL"),
     (r'execute\s*\(\s*["\'].*\{.*\}.*["\']', "f-string in SQL execute"),
     (r'execute\s*\(\s*["\'].*%s.*["\']', "%s formatting in SQL execute"),
-    (r'f["\'].*SELECT.*\{.*\}.*["\']', "f-string SQL query"),
-    (r'\+\s*["\'<]\s*SELECT', "string concatenation with SELECT"),
+    (r'f["\'].*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION).*\{.*\}.*["\']', "f-string SQL query"),
+    (r'\+\s*["\'<]\s*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)', "string concatenation with SQL keyword"),
     (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*"[^"]*"\s*\+\s*', "string + variable in SQL context"),
 ]
 
@@ -65,6 +65,11 @@ _SSRF_PATTERNS = [
     (r'requests\.(get|post|put|delete)\s*\(.*\+', "unsanitized URL in HTTP request"),
     (r'urllib\.request\.urlopen\s*\(.*\+', "unsanitized URL in urlopen"),
     (r'fetch\s*\(.*\+', "unsanitized URL in fetch"),
+    (r'requests\.(get|post|put|delete)\s*\(\s*\w+\s*\)', "unsanitized URL in HTTP request"),
+    (r'urllib\.request\.urlopen\s*\(\s*\w+\s*\)', "unsanitized URL in urlopen"),
+    (r'requests\.post\s*\(\s*["\']https?://', "unsanitized URL in HTTP POST request"),
+    (r'urllib\.request\.urlretrieve\s*\(', "unsanitized URL in urlretrieve"),
+    (r'requests\.(get|post|put|delete)\s*\(\s*["\']http', "unsanitized URL in HTTP request"),
 ]
 
 # CSRF patterns — missing CSRF token.
@@ -94,6 +99,14 @@ _INSECURE_CRYPTO_PATTERNS = [
 # Open redirect patterns (A01:2021).
 _OPEN_REDIRECT_PATTERNS = [
     (r'(?i)\bredirect\s*\(\s*\w+\)', "unvalidated redirect"),
+]
+
+# Insecure SSL/TLS patterns.
+_INSECURE_SSL_PATTERNS = [
+    (r'(?i)\bverify_mode\s*=\s*ssl\.CERT_NONE', "SSL verification disabled"),
+    (r'(?i)\bverify\s*=\s*False', "SSL verification disabled"),
+    (r'(?i)\bcheck_hostname\s*=\s*False', "SSL hostname verification disabled"),
+    (r'(?i)\bdisable_warnings\s*\(\s*\)', "SSL warnings disabled"),
 ]
 
 # SQLi in Python AST.
@@ -154,6 +167,23 @@ class OWASPAnalyzer:
                 if func_name in ("execute", "executemany", "raw"):
                     findings.extend(self._check_sql_injection_call(node, source_code, file_path))
 
+        # AST-based f-string SQL injection detection in assignments.
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and isinstance(node.value, ast.JoinedStr):
+                        if self._is_fstring_sql_injection(node.value):
+                            findings.append(Finding(
+                                category="A03:2021-Injection",
+                                severity=Severity.high,
+                                title="SQL injection via f-string in assignment",
+                                description="SQL query constructed using f-string interpolation in variable assignment.",
+                                evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},
+                                remediation="Use parameterized queries with placeholders.",
+                                owasp_mapping="A03:2021-Injection",
+                                confidence=0.85,
+                            ))
+
         # AST-based eval/exec detection.
         for node in ast.walk(tree):
             if isinstance(node, ast.Call):
@@ -201,6 +231,7 @@ class OWASPAnalyzer:
         findings.extend(self._regex_patterns(source_code, file_path, _DESERIALIZATION_PATTERNS, "A08:2021-Software and Data Integrity Failures", Severity.high))
         findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_CRYPTO_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))
         findings.extend(self._regex_patterns(source_code, file_path, _OPEN_REDIRECT_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))
+        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_SSL_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))
 
         return findings
 
@@ -277,6 +308,14 @@ class OWASPAnalyzer:
         for child in ast.walk(node):
             if isinstance(child, ast.Constant) and isinstance(child.value, str):
                 if any(kw in child.value.upper() for kw in _SQLI_KEYWORDS):
+                    return True
+        return False
+
+    def _is_fstring_sql_injection(self, node: ast.JoinedStr) -> bool:
+        """Check if a JoinedStr (f-string) involves SQL keywords."""
+        for value in node.values:
+            if isinstance(value, ast.Constant) and isinstance(value.value, str):
+                if any(kw in value.value.upper() for kw in _SQLI_KEYWORDS):
                     return True
         return False
 

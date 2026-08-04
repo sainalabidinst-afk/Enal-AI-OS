@@ -89,11 +89,10 @@ Sertifikasi mewajibkan setiap Capability Pack mencapai atau melampaui skor Bench
 |Pengembangan Diri|≥90|A|
 |Decision Intelligence|≥90|A (Benchmark 91,25% — RFC-0007)|
 |Sistem Arsitek|≥90|A (RFC-0011)|
-|Security Engineer|≥85|SEBUAH- (RFC-0008)|
-|Data Engineer|≥85|SEBUAH- (RFC-0009)|
-|Database Engineer|≥85|SEBUAH- (RFC-0010)|
-|QA Engineer|≥90|A (RFC-0012)|
-|Business Analyst|≥85|SEBUAH- (RFC-0013)|
+|Security Engineer|≥85|A- (RFC-0008)|
+|Data Engineer|≥85|A- (RFC-0009)|
+|Database Engineer|≥85|A- (RFC-0010)|
+|Business Analyst|≥85|A- (RFC-0013)|
 
 Semua skor diukur oleh kerangka Kapabilitas Benchmark 6 dimensi (Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi).
 

@@ -16,7 +16,7 @@
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v1.0.0 (Fase Inti)|
 |**Kategori**|Inti|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 4 — Pakar Domain|
 |**Referensi RFC**|RFC-0001|
 
@@ -66,8 +66,8 @@ Tidak adanya Kontrak Stabil berarti ketika ECP berkembang ke 13+ Capability Pack
 
 |Metrik|Target|Nilai|
 |--------|--------|-------|
-|Kompatibilitas Kontrak|100% (perubahan kontrak melanggar ADR)|SEBUAH+|
-|Deteksi Impor Melingkar|100% (tidak ada impor melingkar yang lolos)|SEBUAH+|
+|Kompatibilitas Kontrak|100% (perubahan kontrak melanggar ADR)|A+|
+|Deteksi Impor Melingkar|100% (tidak ada impor melingkar yang lolos)|A+|
 |Pemuatan Dinamis|≥99% (pack dimuat tanpa impor statis)|A|
 |Keseragaman Antarmuka|≥95% (pack mengimplementasikan kontrak yang sama)|A|
 |Ketahanan Kegagalan|≥90% (kegagalan satu pack tidak mematikan inti)|A|

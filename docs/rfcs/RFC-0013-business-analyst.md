@@ -10,7 +10,7 @@
 |**Capability Pack**|Business Analyst|
 |**ID Kemampuan**|`business-analyst`|
 |**Kategori**|Analisis Bisnis|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 3 — Siap Produksi|
 |**Referensi RFC**|RFC-0013|
 
@@ -74,7 +74,7 @@ Tidak adanya Business Analyst berarti bahwa kebutuhan yang baik — fondasi semu
 |Proses Optimasi|≥80% (inefisiensi teridentifikasi dan ditangani)|A|
 |Kelengkapan BRD|≥95% (semua bagian yang diperlukan ada)|A|
 |Konsistensi Pemangku Kepentingan|≥90% (konflik teridentifikasi dan terselesaikan)|A|
-|Penjelasan|≥95% (alasan untuk semua rekomendasi)|SEBUAH+|
+|Penjelasan|≥95% (alasan untuk semua rekomendasi)|A+|
 
 ---
 

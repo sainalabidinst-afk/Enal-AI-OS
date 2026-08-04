@@ -1,0 +1,26 @@
+{
+  "vendor": "generic",
+  "device_type": "application",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "metadata": {
+    "description": "Security scenario: encryption in transit audit 0002.",
+    "source": "production",
+    "tags": [
+      "security",
+      "encryption"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "encryption",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "logging",
+    "secret",
+    "security"
+  ]
+}

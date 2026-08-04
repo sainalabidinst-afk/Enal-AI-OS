@@ -1,22 +1,28 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
+import { useEulaStore } from "@/store/eula-store";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const router = useRouter();
   const login = useAuthStore((s) => s.login);
   const isLoading = useAuthStore((s) => s.isLoading);
   const error = useAuthStore((s) => s.error);
+  const hasAccepted = useEulaStore((s) => s.hasAccepted);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!username.trim() || !password.trim()) return;
     try {
       await login({ username: username.trim(), password });
+      // After successful login, route to EULA if not yet accepted, else dashboard
+      router.push(hasAccepted() ? "/dashboard" : "/eula");
     } catch {
       // Error is already set in store
     }

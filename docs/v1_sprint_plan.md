@@ -220,12 +220,12 @@ Setiap pengiriman memerlukan ADR yang disetujui dengan bukti kemampuan lintas.
 
 |Kemampuan|Skor Sasaran|pengukuran|
 |------------|--------------|-------------|
-|Jaringan|SEBUAH (≥90)|benchmark/capability_benchmark.py|
-|Kode|SEBUAH- (≥85)|benchmark/capability_benchmark.py|
-|Riset|SEBUAH- (≥85)|benchmark/capability_benchmark.py|
-|DevOps|SEBUAH+ (≥90)|benchmark/devops_assistant_benchmark.py|
+|Jaringan|A (≥90)|benchmark/capability_benchmark.py|
+|Kode|A- (≥85)|benchmark/capability_benchmark.py|
+|Riset|A- (≥85)|benchmark/capability_benchmark.py|
+|DevOps|A+ (≥90)|benchmark/devops_assistant_benchmark.py|
 |Jual beli|B+ (≥80, lulus Sertifikasi)|benchmark/capability_benchmark.py|
-|Pengembangan Diri|SEBUAH (≥90)|benchmark/capability_benchmark.py|
+|Pengembangan Diri|A+ (≥90)|benchmark/capability_benchmark.py|
 
 Skor harus berasal dari Benchmark 6 dimensi, bukan penilaian subjektif.
 
@@ -263,8 +263,8 @@ Skor harus berasal dari Benchmark 6 dimensi, bukan penilaian subjektif.
 |Audit|Analisis konfigurasi, keamanan, kepatuhan|A|
 |Optimasi|Penyetelan kinerja, praktik terbaik|A|
 |Migrasi|Tingkatkan versi, vendor migrasi|A|
-|Desain|Desain jaringan greenfield|SEBUAH+|
-|Otomatisasi|Penerapan terkendali, kembalikan|SEBUAH+|
+|Desain|Desain jaringan greenfield|A+|
+|Otomatisasi|Penerapan terkendali, kembalikan|A+|
 
 ### Kode Kemampuan Peta Jalan
 
@@ -314,7 +314,7 @@ Skor harus berasal dari Benchmark 6 dimensi, bukan penilaian subjektif.
 |Mengusulkan|Refactoring, usulan perbaikan|A|
 |Tambalan|Generasi patch dengan cakupan tes|A|
 |Mempelajari|Pembelajaran pola lintas proyek|A|
-|Meramalkan|Prediksi dampak sebelum perubahan|SEBUAH+|
+|Meramalkan|Prediksi dampak sebelum perubahan|A+|
 
 ---
 

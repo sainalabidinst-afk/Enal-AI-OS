@@ -10,7 +10,7 @@
 |**Capability Pack**|Database Engineer|
 |**ID Kemampuan**|`database-engineer`|
 |**Kategori**|Basis data|
-|**Target Kualitas**|SEBUAH- (≥85)|
+|**Target Kualitas**|A- (≥85)|
 |**Target Kematangan**|Level 3 — Siap Produksi|
 |**Referensi RFC**|RFC-0010|
 

@@ -1,0 +1,1917 @@
+{
+  "generated": "2026-08-04T07:09:44.031296",
+  "total_cases": 103,
+  "passed_cases": 103,
+  "failed_cases": 0,
+  "pass_rate": 1.0,
+  "avg_score": 0.9459,
+  "avg_latency_ms": 6.9,
+  "results": [
+    {
+      "case_id": "security:access_control_audit_0001",
+      "title": "access_control_audit_0001",
+      "category": "access",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 40,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:access_control_audit_0002",
+      "title": "access_control_audit_0002",
+      "category": "access",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:access_control_audit_0003",
+      "title": "access_control_audit_0003",
+      "category": "access",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:access_control_audit_0004",
+      "title": "access_control_audit_0004",
+      "category": "access",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:access_control_audit_0005",
+      "title": "access_control_audit_0005",
+      "category": "access",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security",
+        "sql_injection",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:access_control_audit_0006",
+      "title": "access_control_audit_0006",
+      "category": "access",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:anomaly_detection_0001",
+      "title": "anomaly_detection_0001",
+      "category": "anomaly",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.5,
+      "findings_matched": 1,
+      "expected_findings": [
+        "deserialization",
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 3,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:anomaly_detection_0002",
+      "title": "anomaly_detection_0002",
+      "category": "anomaly",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:anomaly_detection_0003",
+      "title": "anomaly_detection_0003",
+      "category": "anomaly",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:attack_surface_analysis",
+      "title": "attack_surface_analysis",
+      "category": "attack",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 3,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:bot_detection_0001",
+      "title": "bot_detection_0001",
+      "category": "bot",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 17,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:bot_detection_0002",
+      "title": "bot_detection_0002",
+      "category": "bot",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "sql_injection",
+        "secret",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 4,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:bot_detection_0003",
+      "title": "bot_detection_0003",
+      "category": "bot",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 6,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:certificate_lifecycle_0001",
+      "title": "certificate_lifecycle_0001",
+      "category": "certificate",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "encryption",
+        "insecure_ssl",
+        "ssrf"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 11,
+      "errors": [],
+      "findings_count": 6,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:certificate_lifecycle_0002",
+      "title": "certificate_lifecycle_0002",
+      "category": "certificate",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "encryption",
+        "insecure_ssl"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 4,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:certificate_lifecycle_0003",
+      "title": "certificate_lifecycle_0003",
+      "category": "certificate",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:cloud_security_posture",
+      "title": "cloud_security_posture",
+      "category": "cloud",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 3
+    },
+    {
+      "case_id": "security:cloud_security_posture_0001",
+      "title": "cloud_security_posture_0001",
+      "category": "cloud",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 11,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:cloud_security_posture_0002",
+      "title": "cloud_security_posture_0002",
+      "category": "cloud",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 4,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:cloud_security_posture_0003",
+      "title": "cloud_security_posture_0003",
+      "category": "cloud",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 4,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:code_signing_verification_0001",
+      "title": "code_signing_verification_0001",
+      "category": "code",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.5,
+      "findings_matched": 1,
+      "expected_findings": [
+        "deserialization",
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 3,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:code_signing_verification_0002",
+      "title": "code_signing_verification_0002",
+      "category": "code",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_gdpr_0001",
+      "title": "compliance_audit_gdpr_0001",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_gdpr_0002",
+      "title": "compliance_audit_gdpr_0002",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 11,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_hipaa_0001",
+      "title": "compliance_audit_hipaa_0001",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_hipaa_0002",
+      "title": "compliance_audit_hipaa_0002",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_pci_dss_0001",
+      "title": "compliance_audit_pci_dss_0001",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_pci_dss_0002",
+      "title": "compliance_audit_pci_dss_0002",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_soc2_0001",
+      "title": "compliance_audit_soc2_0001",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:compliance_audit_soc2_0002",
+      "title": "compliance_audit_soc2_0002",
+      "category": "compliance",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:configuration_drift_0001",
+      "title": "configuration_drift_0001",
+      "category": "configuration",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 16,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:container_security_scan",
+      "title": "container_security_scan",
+      "category": "container",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 4
+    },
+    {
+      "case_id": "security:data_exfiltration_risk",
+      "title": "data_exfiltration_risk",
+      "category": "data",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 4,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:data_exfiltration_risk_0001",
+      "title": "data_exfiltration_risk_0001",
+      "category": "data",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:data_exfiltration_risk_0002",
+      "title": "data_exfiltration_risk_0002",
+      "category": "data",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:data_exfiltration_risk_0003",
+      "title": "data_exfiltration_risk_0003",
+      "category": "data",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:ddos_mitigation_0001",
+      "title": "ddos_mitigation_0001",
+      "category": "ddos",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 7,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:ddos_mitigation_0002",
+      "title": "ddos_mitigation_0002",
+      "category": "ddos",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:dependency_vulnerability_check",
+      "title": "dependency_vulnerability_check",
+      "category": "dependency",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:disaster_recovery_test_0001",
+      "title": "disaster_recovery_test_0001",
+      "category": "disaster",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:encryption_at_rest_audit_0001",
+      "title": "encryption_at_rest_audit_0001",
+      "category": "encryption",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:encryption_at_rest_audit_0002",
+      "title": "encryption_at_rest_audit_0002",
+      "category": "encryption",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:encryption_in_transit_audit_0001",
+      "title": "encryption_in_transit_audit_0001",
+      "category": "encryption",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:encryption_in_transit_audit_0002",
+      "title": "encryption_in_transit_audit_0002",
+      "category": "encryption",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 6,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:iac_security_review",
+      "title": "iac_security_review",
+      "category": "iac",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:iac_security_review_0001",
+      "title": "iac_security_review_0001",
+      "category": "iac",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 6,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:iac_security_review_0002",
+      "title": "iac_security_review_0002",
+      "category": "iac",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 3,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:iac_security_review_0003",
+      "title": "iac_security_review_0003",
+      "category": "iac",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 1,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:identity_security_review",
+      "title": "identity_security_review",
+      "category": "identity",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 10,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:identity_security_review_0001",
+      "title": "identity_security_review_0001",
+      "category": "identity",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "privilege_escalation",
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 3,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:identity_security_review_0002",
+      "title": "identity_security_review_0002",
+      "category": "identity",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 6,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:incident_response_plan",
+      "title": "incident_response_plan",
+      "category": "incident",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 7,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:incident_response_plan_0001",
+      "title": "incident_response_plan_0001",
+      "category": "incident",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 3,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:key_management",
+      "title": "key_management",
+      "category": "key",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 6,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:key_management_0001",
+      "title": "key_management_0001",
+      "category": "key",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 2,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:key_management_0002",
+      "title": "key_management_0002",
+      "category": "key",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 3,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:lateral_movement_assessment",
+      "title": "lateral_movement_assessment",
+      "category": "lateral",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.5,
+      "findings_matched": 1,
+      "expected_findings": [
+        "privilege_escalation",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 6,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:lateral_movement_assessment_0001",
+      "title": "lateral_movement_assessment_0001",
+      "category": "lateral",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 7,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:lateral_movement_assessment_0002",
+      "title": "lateral_movement_assessment_0002",
+      "category": "lateral",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.5,
+      "findings_matched": 1,
+      "expected_findings": [
+        "privilege_escalation",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 10,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:logging_and_monitoring_review",
+      "title": "logging_and_monitoring_review",
+      "category": "logging",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 5,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:logging_and_monitoring_review_0001",
+      "title": "logging_and_monitoring_review_0001",
+      "category": "logging",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 2,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:logging_and_monitoring_review_0002",
+      "title": "logging_and_monitoring_review_0002",
+      "category": "logging",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 3,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:network_security_assessment",
+      "title": "network_security_assessment",
+      "category": "network",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "encryption",
+        "insecure_ssl",
+        "ssrf"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 7,
+      "errors": [],
+      "findings_count": 5,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:network_security_assessment_0001",
+      "title": "network_security_assessment_0001",
+      "category": "network",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.6667,
+      "findings_matched": 2,
+      "expected_findings": [
+        "privilege_escalation",
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:patch_management",
+      "title": "patch_management",
+      "category": "patch",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:patch_management_0001",
+      "title": "patch_management_0001",
+      "category": "patch",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:patch_management_0002",
+      "title": "patch_management_0002",
+      "category": "patch",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:penetration_test_webapp",
+      "title": "penetration_test_webapp",
+      "category": "penetration",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 5,
+      "expected_findings": [
+        "sql_injection",
+        "secret",
+        "deserialization",
+        "ssrf",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 5,
+      "execution_time_ms": 16,
+      "errors": [],
+      "findings_count": 6,
+      "secrets_count": 3
+    },
+    {
+      "case_id": "security:phishing_simulation",
+      "title": "phishing_simulation",
+      "category": "phishing",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 8,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:privilege_escalation_review",
+      "title": "privilege_escalation_review",
+      "category": "privilege",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "privilege_escalation",
+        "secret",
+        "command_injection"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 22,
+      "errors": [],
+      "findings_count": 10,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:privilege_escalation_review_0001",
+      "title": "privilege_escalation_review_0001",
+      "category": "privilege",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "privilege_escalation",
+        "secret",
+        "command_injection"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 4,
+      "errors": [],
+      "findings_count": 9,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:privilege_escalation_review_0002",
+      "title": "privilege_escalation_review_0002",
+      "category": "privilege",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "privilege_escalation",
+        "secret",
+        "command_injection"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 3,
+      "errors": [],
+      "findings_count": 9,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:red_team_exercise",
+      "title": "red_team_exercise",
+      "category": "red",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "vulnerability",
+        "security"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 4,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:red_team_exercise_0001",
+      "title": "red_team_exercise_0001",
+      "category": "red",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 2,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:runtime_protection_review_0001",
+      "title": "runtime_protection_review_0001",
+      "category": "runtime",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.5,
+      "findings_matched": 1,
+      "expected_findings": [
+        "deserialization",
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 6,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:runtime_protection_review_0002",
+      "title": "runtime_protection_review_0002",
+      "category": "runtime",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.5,
+      "findings_matched": 1,
+      "expected_findings": [
+        "deserialization",
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 3,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:sase_evaluation",
+      "title": "sase_evaluation",
+      "category": "sase",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.6667,
+      "findings_matched": 2,
+      "expected_findings": [
+        "deserialization",
+        "secret",
+        "security",
+        "ssrf"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:sase_evaluation_0001",
+      "title": "sase_evaluation_0001",
+      "category": "sase",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 30,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:secrets_audit",
+      "title": "secrets_audit",
+      "category": "secrets",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 13
+    },
+    {
+      "case_id": "security:secrets_audit_0001",
+      "title": "secrets_audit_0001",
+      "category": "secrets",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 26,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 3
+    },
+    {
+      "case_id": "security:secrets_audit_0002",
+      "title": "secrets_audit_0002",
+      "category": "secrets",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "logging",
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 5,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:secrets_rotation",
+      "title": "secrets_rotation",
+      "category": "secrets",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "secret",
+        "security",
+        "ssrf",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 19,
+      "errors": [],
+      "findings_count": 4,
+      "secrets_count": 6
+    },
+    {
+      "case_id": "security:secrets_rotation_0001",
+      "title": "secrets_rotation_0001",
+      "category": "secrets",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 5,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 3
+    },
+    {
+      "case_id": "security:secrets_rotation_0002",
+      "title": "secrets_rotation_0002",
+      "category": "secrets",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 2,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:security_awareness_review",
+      "title": "security_awareness_review",
+      "category": "security",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 13,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:security_awareness_review_0001",
+      "title": "security_awareness_review_0001",
+      "category": "security",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration",
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 17,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:security_orchestration",
+      "title": "security_orchestration",
+      "category": "security",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 3
+    },
+    {
+      "case_id": "security:security_orchestration_0001",
+      "title": "security_orchestration_0001",
+      "category": "security",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration",
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 16,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:software_bill_of_materials",
+      "title": "software_bill_of_materials",
+      "category": "software",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:software_bill_of_materials_0001",
+      "title": "software_bill_of_materials_0001",
+      "category": "software",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 1,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:supply_chain_security",
+      "title": "supply_chain_security",
+      "category": "supply",
+      "vendor": "generic",
+      "passed": true,
+      "score": 0.6667,
+      "findings_matched": 2,
+      "expected_findings": [
+        "encryption",
+        "insecure_ssl",
+        "ssrf",
+        "weak_crypto"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 2,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:supply_chain_security_0001",
+      "title": "supply_chain_security_0001",
+      "category": "supply",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "ssrf"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:threat_modeling_session",
+      "title": "threat_modeling_session",
+      "category": "threat",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:threat_modeling_session_0001",
+      "title": "threat_modeling_session_0001",
+      "category": "threat",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:threat_modeling_session_0002",
+      "title": "threat_modeling_session_0002",
+      "category": "threat",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:vulnerability_remediation",
+      "title": "vulnerability_remediation",
+      "category": "vulnerability",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "sql_injection",
+        "deserialization",
+        "secret"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 7,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:vulnerability_scan_api",
+      "title": "vulnerability_scan_api",
+      "category": "vulnerability",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 5,
+      "expected_findings": [
+        "sql_injection",
+        "secret",
+        "command_injection",
+        "deserialization",
+        "ssrf"
+      ],
+      "expected_detectable_findings": 5,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 9,
+      "secrets_count": 3
+    },
+    {
+      "case_id": "security:vulnerability_scan_api_0001",
+      "title": "vulnerability_scan_api_0001",
+      "category": "vulnerability",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "sql_injection"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 0
+    },
+    {
+      "case_id": "security:vulnerability_scan_api_0002",
+      "title": "vulnerability_scan_api_0002",
+      "category": "vulnerability",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 3,
+      "expected_findings": [
+        "deserialization",
+        "secret",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 3,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 3,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:waf_configuration",
+      "title": "waf_configuration",
+      "category": "waf",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 15,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:waf_configuration_0001",
+      "title": "waf_configuration_0001",
+      "category": "waf",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 2,
+      "expected_findings": [
+        "secret",
+        "security",
+        "vulnerability"
+      ],
+      "expected_detectable_findings": 2,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 1,
+      "secrets_count": 1
+    },
+    {
+      "case_id": "security:zero_trust_architecture",
+      "title": "zero_trust_architecture",
+      "category": "zero",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 1,
+      "expected_findings": [
+        "secret",
+        "security"
+      ],
+      "expected_detectable_findings": 1,
+      "execution_time_ms": 17,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 2
+    },
+    {
+      "case_id": "security:zero_trust_architecture_0001",
+      "title": "zero_trust_architecture_0001",
+      "category": "zero",
+      "vendor": "generic",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": [
+        "security issue detected",
+        "insecure configuration"
+      ],
+      "expected_detectable_findings": 0,
+      "execution_time_ms": 0,
+      "errors": [],
+      "findings_count": 0,
+      "secrets_count": 0
+    }
+  ],
+  "vendor_generic": {
+    "total": 103,
+    "passed": 103,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "avg_score": 0.9612
+  }
+}

@@ -36,49 +36,75 @@ Capability Pack ini menganalisis source code untuk OWASP Top 10, secret detectio
 
 ## 3. Kontrak
 
-### Input: SecurityReviewRequest
+### Input: SecurityAssessmentRequest
 ```json
 {
-  "request_id": "uuid",
-  "operation": "owasp_analysis | secret_detection | dependency_audit | vulnerability_scan | threat_model | hardening_review | compliance_mapping",
-  "source_code": "string",
-  "language": "python | javascript | go | java",
-  "dependencies": ["package==1.0.0"],
-  "architecture_context": {
+  "assessment_id": "uuid",
+  "target_type": "code | config | dependency | architecture | full_review",
+  "target": {
+    "source_code": "string",
+    "language": "python | javascript | go | java",
+    "manifest_content": "string",
+    "config_content": "string",
+    "architecture_description": "string",
     "components": ["web", "api", "database"],
     "data_flows": [{"from": "web", "to": "api"}]
   },
-  "compliance_standards": ["OWASP", "PCI-DSS", "GDPR"]
+  "standards": ["owasp_top10", "cis", "pci_dss", "gdpr", "hipaa", "iso27001", "soc2", "nist_csf"],
+  "include_remediation": true,
+  "include_compliance_mapping": true,
+  "check_secrets": true,
+  "check_dependencies": true,
+  "scan_depth": "quick | thorough"
 }
 ```
 
-### Output: Laporan Security Review
+### Output: SecurityAssessmentReport
 ```json
 {
-  "request_id": "uuid",
-  "operation": "string",
+  "assessment_id": "uuid",
+  "target_type": "string",
   "findings": [
     {
       "id": "uuid",
-      "type": "owasp | secret | cve | vulnerability | threat | hardening | compliance",
+      "category": "A03:2021-Injection | vulnerability_detection | ...",
       "severity": "critical | high | medium | low",
-      "title": "SQL Injection in user input",
-      "description": "User input is concatenated into SQL query",
-      "location": "file.py:42",
-      "remediation": "Use parameterized queries",
+      "title": "SQL injection via f-string in execute()",
+      "description": "SQL query constructed using f-string interpolation.",
+      "evidence": {"file": "app.py", "line": 10, "pattern": "..."},
+      "remediation": "Use parameterized queries with placeholders.",
+      "owasp_mapping": "A03:2021-Injection",
+      "compliance_mapping": ["pci_dss", "owasp_top10"],
+      "confidence": 0.95
+    }
+  ],
+  "secrets": [
+    {
+      "id": "uuid",
+      "type": "api_key | password | token | certificate | private_key",
+      "location": "config.py:14",
+      "severity": "critical | high | medium | low",
+      "remediation": "Rotate the API key and store in a secrets manager.",
       "confidence": 0.9,
-      "false_positive": false
+      "evidence": {"type": "api_key", "redacted_value": "sk-...abcd", "line": 14}
     }
   ],
   "summary": {
     "total_findings": 15,
-    "critical": 2,
-    "high": 5,
-    "medium": 6,
-    "low": 2,
-    "compliance_score": 0.85
+    "critical_count": 2,
+    "high_count": 5,
+    "medium_count": 6,
+    "low_count": 2,
+    "overall_risk": "critical | high | medium | low",
+    "compliance_score": 0.85,
+    "recommendations_count": 3
   },
-  "explanation": "string — human-readable analysis summary"
+  "compliance_report": {
+    "standards": ["owasp_top10", "pci_dss"],
+    "mapped_findings": 10,
+    "compliance_percentage": {"owasp_top10": 0.7, "pci_dss": 0.65},
+    "gaps": ["Missing WAF", "No rate limiting"]
+  }
 }
 ```
 
@@ -88,13 +114,11 @@ Capability Pack ini menganalisis source code untuk OWASP Top 10, secret detectio
 
 | Operasi | Deskripsi | Input | Output |
 |-----------|-------------|--------|---------|
-| `owasp_analysis` | Menganalisis source untuk OWASP Top 10 | source_code, language | Security Findings |
-| `secret_detection` | Mendeteksi secret yang ter-expose | source_code | Security Findings |
-| `dependency_audit` | Audit dependencies terhadap CVE | dependencies | CVE List |
-| `vulnerability_scan` | Memindai kerentanan umum | source_code, language | Security Findings |
-| `threat_model` | Menghasilkan STRIDE threat model | architecture_context | Threat Model |
-| `hardening_review` | Meninjau konfigurasi keamanan | source_code, language | Security Findings |
-| `compliance_mapping` | Memetakan ke standar kepatuhan | findings, standards | Compliance Report |
+| `full_review` | Full security assessment (OWASP + secrets + vulns + threat model + hardening + compliance) | target, standards, options | SecurityAssessmentReport |
+| `code` | OWASP analysis + secret detection + vulnerability scan on source code | source_code, language | Security Findings |
+| `config` | Hardening review on configuration files | config_content, config_type | Security Findings |
+| `dependency` | Dependency audit against CVE databases | manifest_content, manifest_type | Dependency Findings |
+| `architecture` | Threat modeling (STRIDE) for architecture description | architecture_description, components, data_flows | Threat Model |
 
 ---
 
@@ -141,13 +165,18 @@ Capability Pack ini menganalisis source code untuk OWASP Top 10, secret detectio
 
 ```python
 from apps.security_engineer.engine import SecurityEngineerEngine
-from apps.security_engineer.schemas import SecurityReviewRequest
+from apps.security_engineer.schemas import SecurityAssessmentRequest, AssessmentType
 
 engine = SecurityEngineerEngine()
-request = SecurityReviewRequest(
-    operation="owasp_analysis",
-    source_code="query = f\"SELECT * FROM users WHERE id = {user_id}\"",
-    language="python",
+request = SecurityAssessmentRequest(
+    target_type=AssessmentType.full_review,
+    target={
+        "source_code": "query = f\"SELECT * FROM users WHERE id = {user_id}\"",
+        "language": "python",
+    },
+    standards=["owasp_top10", "cis"],
+    check_secrets=True,
+    include_remediation=True,
 )
 report = engine.review(request)
 print(f"Found {len(report.findings)} security issues")

@@ -19,19 +19,19 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 |Capability Pack|Nilai|Catatan|
 |-----------------|-------|-------|
-|Insinyur Jaringan|SEBUAH (≥90)|Siap Produksi|
+|Insinyur Jaringan|A (≥90)|Siap Produksi|
 |Kode Insinyur|A+ (≥95)|Siap Produksi|Domain Expert (L4)|
-|Asisten Peneliti|SEBUAH+ (≥90)|Bersertifikat|
-|Asisten DevOps|SEBUAH+ (≥90)|Bersertifikat|
+|Asisten Peneliti|A+ (≥90)|Bersertifikat|
+|Asisten DevOps|A+ (≥90)|Bersertifikat|
 |Analis Perdagangan|A (≥90)|Bersertifikat|
 |Pengembangan Diri|A+ (≥95)|Bersertifikat|
-|Decision Intelligence|SEBUAH+ (≥95)|Bersertifikat|
-|Sistem Arsitek|SEBUAH (≥90)|Siap Produksi|
-|Security Engineer|SEBUAH- (≥85)|Siap Produksi|
-|Data Engineer|SEBUAH- (≥85)|Siap Produksi|
-|Database Engineer|SEBUAH- (≥85)|Siap Produksi|
-|QA Engineer|SEBUAH (≥90)|Siap Produksi|
-|Business Analyst|SEBUAH- (≥85)|Siap Produksi|
+|Decision Intelligence|A+ (≥95)|Bersertifikat|
+|Sistem Arsitek|A (≥90)|Siap Produksi|
+|Security Engineer|A (≥90)|Siap Produksi|
+|Data Engineer|A (≥90)|Siap Produksi|
+|Database Engineer|A- (≥85)|Siap Produksi|
+|QA Engineer|A (≥90)|Siap Produksi|
+|Business Analyst|A- (≥85)|Siap Produksi|
 
 ---
 
@@ -503,7 +503,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
 **Kemampuan ID:** `security-engineer`
 **Referensi RFC:** RFC-0008
-**Nilai:** A- (≥85)
+**Nilai:** A (≥90)
 
 **Tujuan:** Kapabilitas keamanan perusahaan di seluruh OWASP Top 10, pemodelan ancaman, deteksi rahasia, analisis kerentanan, audit ketergantungan, pengerasan konfigurasi, dan pemetaan kepatuhan.
 
@@ -514,7 +514,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
 **Kemampuan ID:** `data-engineer`
 **Referensi RFC:** RFC-0009
-**Nilai:** A- (≥85)
+**Nilai:** A (≥90)
 
 **Tujuan:** Manajemen siklus hidup data lengkap: ETL/ELT, pembersihan data, validasi kumpulan data, evolusi skema, rekayasa fitur, penanganan deret waktu, dan jaminan kualitas data.
 

@@ -1,0 +1,2140 @@
+[
+  {
+    "case_id": "security:access_control_audit_0001",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "privilege_escalation"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 9. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 20. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:access_control_audit_0002",
+    "expected_findings": [
+      "sql_injection",
+      "access_control",
+      "vulnerability"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 4. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 11. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:access_control_audit_0003",
+    "expected_findings": [
+      "sql_injection",
+      "access_control",
+      "privilege_escalation"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 2. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 3. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:access_control_audit_0004",
+    "expected_findings": [
+      "sql_injection",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 9. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:access_control_audit_0005",
+    "expected_findings": [
+      "access_control",
+      "sql_injection",
+      "privilege_escalation"
+    ],
+    "findings_count": 2,
+    "secrets_count": 1,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 14. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 14. matched: password = '{new_password}' review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\access_control_audit_0005\\source.py:14 {'type': 'password', 'redacted_value': '{new...ord}', 'line': 14, 'file': 'real_cases\\\\security\\\\access_control_audit_0005\\\\source.py'}",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential",
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\access_control_audit_0005\\source.py:14"
+    ]
+  },
+  {
+    "case_id": "security:access_control_audit_0006",
+    "expected_findings": [
+      "sql_injection",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 14. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:anomaly_detection_0001",
+    "expected_findings": [
+      "deserialization",
+      "logging",
+      "security"
+    ],
+    "findings_count": 3,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection use of eval() detected eval() allows arbitrary code execution. replace eval() with ast.literal_eval() or a safe parser. a03:2021-injection a03:2021-injection \u2014 eval call (code injection) eval call (code injection) at line 10. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity failures a08:2021-software and data integrity failures \u2014 eval call (code injection) eval call (code injection) at line 10. review owasp top 10 guidance for this category and apply mitigations.",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures"
+    ],
+    "actual_titles": [
+      "Use of eval() detected",
+      "A08:2021-Software and Data Integrity Failures \u2014 eval call (code injection)",
+      "A03:2021-Injection \u2014 eval call (code injection)"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:anomaly_detection_0002",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 0,
+    "secrets_count": 2,
+    "actual_text": " secrettype.api_key real_cases\\security\\anomaly_detection_0002\\source.py:14 {'type': 'api_key', 'redacted_value': 'anom...2345', 'line': 14, 'file': 'real_cases\\\\security\\\\anomaly_detection_0002\\\\source.py'} secrettype.token real_cases\\security\\anomaly_detection_0002\\source.py:14 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'anom...2345', 'entropy_score': 0.5914}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\anomaly_detection_0002\\source.py:14"
+    ]
+  },
+  {
+    "case_id": "security:anomaly_detection_0003",
+    "expected_findings": [
+      "secret",
+      "logging",
+      "security"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 14. matched: password = \"monitor123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\anomaly_detection_0003\\source.py:14 {'type': 'password', 'redacted_value': 'moni...r123', 'line': 14, 'file': 'real_cases\\\\security\\\\anomaly_detection_0003\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\anomaly_detection_0003\\source.py:14"
+    ]
+  },
+  {
+    "case_id": "security:attack_surface_analysis",
+    "expected_findings": [
+      "sql_injection",
+      "access_control",
+      "vulnerability"
+    ],
+    "findings_count": 3,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 4. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 11. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 15. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:bot_detection_0001",
+    "expected_findings": [
+      "ssrf",
+      "access_control",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 20. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:bot_detection_0002",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "vulnerability"
+    ],
+    "findings_count": 2,
+    "secrets_count": 1,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 5. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 5. matched: password='{password}' review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\bot_detection_0002\\source.py:5 {'type': 'password', 'redacted_value': '{pas...ord}', 'line': 5, 'file': 'real_cases\\\\security\\\\bot_detection_0002\\\\source.py'}",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential",
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\bot_detection_0002\\source.py:5"
+    ]
+  },
+  {
+    "case_id": "security:bot_detection_0003",
+    "expected_findings": [
+      "sql_injection",
+      "access_control"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 6. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:certificate_lifecycle_0001",
+    "expected_findings": [
+      "insecure_ssl",
+      "ssrf",
+      "vulnerability"
+    ],
+    "findings_count": 6,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 9. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 13. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl verification disabled ssl verification disabled at line 8. review owasp top 10 guidance for this category and apply mitigations. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl verification disable",
+    "actual_categories": [
+      "A02:2021-Cryptographic Failures",
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A02:2021-Cryptographic Failures \u2014 SSL verification disabled",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A02:2021-Cryptographic Failures \u2014 SSL hostname verification disabled"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:certificate_lifecycle_0002",
+    "expected_findings": [
+      "deserialization",
+      "insecure_ssl",
+      "vulnerability"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl verification disabled ssl verification disabled at line 12. review owasp top 10 guidance for this category and apply mitigations. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl hostname verification disabled ssl hostname verification disabled at line 11. review owasp top 10 guidance for this category and apply mitigations.",
+    "actual_categories": [
+      "A02:2021-Cryptographic Failures"
+    ],
+    "actual_titles": [
+      "A02:2021-Cryptographic Failures \u2014 SSL verification disabled",
+      "A02:2021-Cryptographic Failures \u2014 SSL hostname verification disabled"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:certificate_lifecycle_0003",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 11. matched: password = \"cert_password123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\certificate_lifecycle_0003\\source.py:11 {'type': 'password', 'redacted_value': 'cert...d123', 'line': 11, 'file': 'real_cases\\\\security\\\\certificate_lifecycle_0003\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\certificate_lifecycle_0003\\source.py:11"
+    ]
+  },
+  {
+    "case_id": "security:cloud_security_posture",
+    "expected_findings": [
+      "secret",
+      "open_exposure",
+      "encryption"
+    ],
+    "findings_count": 1,
+    "secrets_count": 3,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 12. matched: secret = \"wjalrxutnfemi/k7mdeng/bpxrficyexamplekey\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\cloud_security_posture\\source.py:11 {'type': 'aws access key id pattern', 'redacted_value': 'akia...mple', 'line': 11, 'file': 'real_cases\\\\security\\\\cloud_security_posture\\\\source.py'} secrettype.token real_cases\\security\\cloud_security_posture\\source.py:12 {'description': 'long base64 string (possible token/key)', 'redacted_value': 'wjal...ekey', 'entropy_score': 0.7174} secrettype.token real_cases\\security\\cloud_security_posture\\source.py:11 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'akia...mple",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\cloud_security_posture\\source.py:12",
+      "real_cases\\security\\cloud_security_posture\\source.py:11"
+    ]
+  },
+  {
+    "case_id": "security:cloud_security_posture_0001",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential in dict hardcoded credential in dict at line 4. matched: password\": \"myp@ssw0rd123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\cloud_security_posture_0001\\source.py:4 {'type': 'password_in_dict', 'redacted_value': 'myp@...d123', 'line': 4, 'file': 'real_cases\\\\security\\\\cloud_security_posture_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential in dict"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\cloud_security_posture_0001\\source.py:4"
+    ]
+  },
+  {
+    "case_id": "security:cloud_security_posture_0002",
+    "expected_findings": [
+      "secret",
+      "open_exposure",
+      "encryption"
+    ],
+    "findings_count": 0,
+    "secrets_count": 2,
+    "actual_text": " secrettype.api_key real_cases\\security\\cloud_security_posture_0002\\source.py:3 {'type': 'aws access key id pattern', 'redacted_value': 'akia...mple', 'line': 3, 'file': 'real_cases\\\\security\\\\cloud_security_posture_0002\\\\source.py'} secrettype.token real_cases\\security\\cloud_security_posture_0002\\source.py:3 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'akia...mple', 'entropy_score': 0.5668}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\cloud_security_posture_0002\\source.py:3"
+    ]
+  },
+  {
+    "case_id": "security:cloud_security_posture_0003",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:code_signing_verification_0001",
+    "expected_findings": [
+      "deserialization",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 3,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection use of exec() detected exec() allows arbitrary code execution. remove exec() or use safer alternatives. a03:2021-injection a03:2021-injection \u2014 exec call (code injection) exec call (code injection) at line 6. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity failures a08:2021-software and data integrity failures \u2014 exec call (code injection) exec call (code injection) at line 6. review owasp top 10 guidance for this category and apply mitigations.",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures"
+    ],
+    "actual_titles": [
+      "Use of exec() detected",
+      "A03:2021-Injection \u2014 exec call (code injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 exec call (code injection)"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:code_signing_verification_0002",
+    "expected_findings": [
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_gdpr_0001",
+    "expected_findings": [
+      "logging",
+      "compliance",
+      "access_control"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_gdpr_0002",
+    "expected_findings": [
+      "compliance",
+      "encryption",
+      "access_control"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_hipaa_0001",
+    "expected_findings": [
+      "compliance",
+      "encryption",
+      "logging"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_hipaa_0002",
+    "expected_findings": [
+      "compliance",
+      "encryption",
+      "logging"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http post request unsanitized url in http post request at line 11. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 11. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP POST request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_pci_dss_0001",
+    "expected_findings": [
+      "compliance",
+      "logging",
+      "encryption"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_pci_dss_0002",
+    "expected_findings": [
+      "compliance",
+      "insecure_ssl",
+      "logging"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http post request unsanitized url in http post request at line 4. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 4. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP POST request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_soc2_0001",
+    "expected_findings": [
+      "compliance",
+      "logging",
+      "encryption"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:compliance_audit_soc2_0002",
+    "expected_findings": [
+      "compliance",
+      "logging",
+      "security"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:configuration_drift_0001",
+    "expected_findings": [
+      "secret",
+      "debug_enabled",
+      "open_exposure"
+    ],
+    "findings_count": 0,
+    "secrets_count": 1,
+    "actual_text": " secrettype.api_key real_cases\\security\\configuration_drift_0001\\source.py:17 {'type': 'api_key', 'redacted_value': 'sk-1...cdef', 'line': 17, 'file': 'real_cases\\\\security\\\\configuration_drift_0001\\\\source.py'}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\configuration_drift_0001\\source.py:17"
+    ]
+  },
+  {
+    "case_id": "security:container_security_scan",
+    "expected_findings": [
+      "secret",
+      "privilege_escalation",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 1,
+    "secrets_count": 4,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 12. matched: password=\"container_db_password\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\container_security_scan\\source.py:11 {'type': 'api_key', 'redacted_value': 'cont...2345', 'line': 11, 'file': 'real_cases\\\\security\\\\container_security_scan\\\\source.py'} secrettype.password real_cases\\security\\container_security_scan\\source.py:12 {'type': 'password', 'redacted_value': 'cont...word', 'line': 12, 'file': 'real_cases\\\\security\\\\container_security_scan\\\\source.py'} secrettype.token real_cases\\security\\container_security_scan\\source.py:11 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'cont...2345', 'entropy_s",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\container_security_scan\\source.py:12",
+      "real_cases\\security\\container_security_scan\\source.py:11"
+    ]
+  },
+  {
+    "case_id": "security:data_exfiltration_risk",
+    "expected_findings": [
+      "ssrf",
+      "encryption",
+      "vulnerability"
+    ],
+    "findings_count": 4,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http post request unsanitized url in http post request at line 4. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http post request unsanitized url in http post request at line 12. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 4. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-serve",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP POST request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:data_exfiltration_risk_0001",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:data_exfiltration_risk_0002",
+    "expected_findings": [
+      "ssrf",
+      "encryption",
+      "vulnerability"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http post request unsanitized url in http post request at line 5. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 5. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP POST request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:data_exfiltration_risk_0003",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:ddos_mitigation_0001",
+    "expected_findings": [
+      "sql_injection",
+      "rate_limiting",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:ddos_mitigation_0002",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:dependency_vulnerability_check",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:disaster_recovery_test_0001",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 22. matched: password = \"backup_password123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\disaster_recovery_test_0001\\source.py:22 {'type': 'password', 'redacted_value': 'back...d123', 'line': 22, 'file': 'real_cases\\\\security\\\\disaster_recovery_test_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\disaster_recovery_test_0001\\source.py:22"
+    ]
+  },
+  {
+    "case_id": "security:encryption_at_rest_audit_0001",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "encryption"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:encryption_at_rest_audit_0002",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 1,
+    "actual_text": " secrettype.token real_cases\\security\\encryption_at_rest_audit_0002\\source.py:5 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'encr...2345', 'entropy_score': 0.6034}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\encryption_at_rest_audit_0002\\source.py:5"
+    ]
+  },
+  {
+    "case_id": "security:encryption_in_transit_audit_0001",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "ssrf",
+      "encryption"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 5. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 16. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:encryption_in_transit_audit_0002",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 1,
+    "actual_text": " secrettype.token real_cases\\security\\encryption_in_transit_audit_0002\\source.py:4 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'encr...2345', 'entropy_score': 0.6034}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\encryption_in_transit_audit_0002\\source.py:4"
+    ]
+  },
+  {
+    "case_id": "security:iac_security_review",
+    "expected_findings": [
+      "open_exposure",
+      "secret",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 2,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 23. matched: password             = \"myp@ssw0rd123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\iac_security_review\\source.py:23 {'type': 'password', 'redacted_value': 'myp@...d123', 'line': 23, 'file': 'real_cases\\\\security\\\\iac_security_review\\\\source.py'} secrettype.token real_cases\\security\\iac_security_review\\source.py:2 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'ami-...e1f0', 'entropy_score': 0.5328}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\iac_security_review\\source.py:23",
+      "real_cases\\security\\iac_security_review\\source.py:2"
+    ]
+  },
+  {
+    "case_id": "security:iac_security_review_0001",
+    "expected_findings": [
+      "open_exposure",
+      "vulnerability"
+    ],
+    "findings_count": 0,
+    "secrets_count": 1,
+    "actual_text": " secrettype.token real_cases\\security\\iac_security_review_0001\\source.py:2 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'ami-...e1f0', 'entropy_score': 0.5328}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\iac_security_review_0001\\source.py:2"
+    ]
+  },
+  {
+    "case_id": "security:iac_security_review_0002",
+    "expected_findings": [
+      "secret",
+      "open_exposure",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 5. matched: password             = \"myp@ssw0rd123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\iac_security_review_0002\\source.py:5 {'type': 'password', 'redacted_value': 'myp@...d123', 'line': 5, 'file': 'real_cases\\\\security\\\\iac_security_review_0002\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\iac_security_review_0002\\source.py:5"
+    ]
+  },
+  {
+    "case_id": "security:iac_security_review_0003",
+    "expected_findings": [
+      "vulnerability",
+      "hardening"
+    ],
+    "findings_count": 0,
+    "secrets_count": 1,
+    "actual_text": " secrettype.token real_cases\\security\\iac_security_review_0003\\source.py:1 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'goog...ance', 'entropy_score': 0.5654}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\iac_security_review_0003\\source.py:1"
+    ]
+  },
+  {
+    "case_id": "security:identity_security_review",
+    "expected_findings": [
+      "secret",
+      "access_control",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 2,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 23. matched: secret = \"super_secret_key\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\identity_security_review\\source.py:5 {'type': 'secret_key', 'redacted_value': 'hard...2345', 'line': 5, 'file': 'real_cases\\\\security\\\\identity_security_review\\\\source.py'} secrettype.token real_cases\\security\\identity_security_review\\source.py:5 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'hard...2345', 'entropy_score': 0.5776}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\identity_security_review\\source.py:5"
+    ]
+  },
+  {
+    "case_id": "security:identity_security_review_0001",
+    "expected_findings": [
+      "secret",
+      "access_control",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 10. matched: password = \"admin123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\identity_security_review_0001\\source.py:10 {'type': 'password', 'redacted_value': '********', 'line': 10, 'file': 'real_cases\\\\security\\\\identity_security_review_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\identity_security_review_0001\\source.py:10"
+    ]
+  },
+  {
+    "case_id": "security:identity_security_review_0002",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:incident_response_plan",
+    "expected_findings": [
+      "secret",
+      "logging",
+      "security"
+    ],
+    "findings_count": 1,
+    "secrets_count": 2,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 17. matched: password = \"incident_response_password\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\incident_response_plan\\source.py:17 {'type': 'password', 'redacted_value': 'inci...word', 'line': 17, 'file': 'real_cases\\\\security\\\\incident_response_plan\\\\source.py'} secrettype.token real_cases\\security\\incident_response_plan\\source.py:17 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'inci...word', 'entropy_score': 0.5485}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\incident_response_plan\\source.py:17"
+    ]
+  },
+  {
+    "case_id": "security:incident_response_plan_0001",
+    "expected_findings": [
+      "logging",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:key_management",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:key_management_0001",
+    "expected_findings": [
+      "secret",
+      "encryption",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:key_management_0002",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 0,
+    "secrets_count": 2,
+    "actual_text": " secrettype.api_key real_cases\\security\\key_management_0002\\source.py:7 {'type': 'api_key', 'redacted_value': 'key_...2345', 'line': 7, 'file': 'real_cases\\\\security\\\\key_management_0002\\\\source.py'} secrettype.api_key real_cases\\security\\key_management_0002\\source.py:8 {'type': 'secret_key', 'redacted_value': 'secr...7890', 'line': 8, 'file': 'real_cases\\\\security\\\\key_management_0002\\\\source.py'}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\key_management_0002\\source.py:8",
+      "real_cases\\security\\key_management_0002\\source.py:7"
+    ]
+  },
+  {
+    "case_id": "security:lateral_movement_assessment",
+    "expected_findings": [
+      "privilege_escalation",
+      "vulnerability",
+      "access_control"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "vulnerability_detection vulnerability: ssh client without host key verification ssh client without host key verification at line 6. matched: paramiko.sshclient() review security best practices and apply appropriate mitigations.",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: SSH client without host key verification"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:lateral_movement_assessment_0001",
+    "expected_findings": [
+      "secret",
+      "ssrf",
+      "privilege_escalation"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 3. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 9. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:lateral_movement_assessment_0002",
+    "expected_findings": [
+      "privilege_escalation",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "vulnerability_detection vulnerability: ssh client without host key verification ssh client without host key verification at line 5. matched: paramiko.sshclient() review security best practices and apply appropriate mitigations.",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: SSH client without host key verification"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:logging_and_monitoring_review",
+    "expected_findings": [
+      "secret",
+      "ssrf",
+      "logging"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:logging_and_monitoring_review_0001",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "privilege_escalation",
+      "logging"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:logging_and_monitoring_review_0002",
+    "expected_findings": [
+      "logging",
+      "secret",
+      "security"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 9. matched: password = \"log_password123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\logging_and_monitoring_review_0002\\source.py:9 {'type': 'password', 'redacted_value': 'log_...d123', 'line': 9, 'file': 'real_cases\\\\security\\\\logging_and_monitoring_review_0002\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\logging_and_monitoring_review_0002\\source.py:9"
+    ]
+  },
+  {
+    "case_id": "security:network_security_assessment",
+    "expected_findings": [
+      "insecure_ssl",
+      "ssrf",
+      "vulnerability"
+    ],
+    "findings_count": 5,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 18. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl verification disabled ssl verification disabled at line 13. review owasp top 10 guidance for this category and apply mitigations. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl verification disabled ssl verification disabled at line 18. review owasp top 10 guidance for this category and apply mitigations. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 ssl hostname verification disabled ssl hostname verification disabled at line ",
+    "actual_categories": [
+      "A02:2021-Cryptographic Failures",
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A02:2021-Cryptographic Failures \u2014 SSL verification disabled",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A02:2021-Cryptographic Failures \u2014 SSL warnings disabled",
+      "A02:2021-Cryptographic Failures \u2014 SSL hostname verification disabled"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:network_security_assessment_0001",
+    "expected_findings": [
+      "insecure_ssl",
+      "privilege_escalation",
+      "vulnerability"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 9. matched: password=\"pass\" review security best practices and apply appropriate mitigations. vulnerability_detection vulnerability: ssh client without host key verification ssh client without host key verification at line 7. matched: paramiko.sshclient() review security best practices and apply appropriate mitigations.",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential",
+      "Vulnerability: SSH client without host key verification"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:patch_management",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:patch_management_0001",
+    "expected_findings": [
+      "vulnerability",
+      "secret",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 9. matched: password = \"update123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\patch_management_0001\\source.py:9 {'type': 'password', 'redacted_value': 'upda...e123', 'line': 9, 'file': 'real_cases\\\\security\\\\patch_management_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\patch_management_0001\\source.py:9"
+    ]
+  },
+  {
+    "case_id": "security:patch_management_0002",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:penetration_test_webapp",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "deserialization",
+      "ssrf",
+      "vulnerability"
+    ],
+    "findings_count": 6,
+    "secrets_count": 3,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 string concatenation with variable in sql string concatenation with variable in sql at line 9. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 28. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 28. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a08:2021-software and data in",
+    "actual_categories": [
+      "vulnerability_detection",
+      "A01:2021-Broken Access Control",
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures",
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 string concatenation with variable in SQL",
+      "A01:2021-Broken Access Control \u2014 unvalidated redirect",
+      "Vulnerability: pickle deserialization (arbitrary code execution)",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A08:2021-Software and Data Integrity Failures \u2014 pickle deserialization (arbitrary code execution)"
+    ],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\penetration_test_webapp\\source.py:6",
+      "real_cases\\security\\penetration_test_webapp\\source.py:28"
+    ]
+  },
+  {
+    "case_id": "security:phishing_simulation",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 18. matched: password = \"phishing123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\phishing_simulation\\source.py:18 {'type': 'password', 'redacted_value': 'phis...g123', 'line': 18, 'file': 'real_cases\\\\security\\\\phishing_simulation\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\phishing_simulation\\source.py:18"
+    ]
+  },
+  {
+    "case_id": "security:privilege_escalation_review",
+    "expected_findings": [
+      "privilege_escalation",
+      "secret",
+      "command_injection"
+    ],
+    "findings_count": 10,
+    "secrets_count": 1,
+    "actual_text": "a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 5. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 12. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "os.system() call detected",
+      "Vulnerability: Hardcoded credential",
+      "A03:2021-Injection \u2014 subprocess with shell=True",
+      "A03:2021-Injection \u2014 os.system call (command injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 os.system call (command injection)",
+      "os.system() with potential user input"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\privilege_escalation_review\\source.py:21"
+    ]
+  },
+  {
+    "case_id": "security:privilege_escalation_review_0001",
+    "expected_findings": [
+      "privilege_escalation",
+      "secret",
+      "command_injection"
+    ],
+    "findings_count": 9,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 3. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 6. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity fai",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "os.system() call detected",
+      "Vulnerability: Hardcoded credential",
+      "A03:2021-Injection \u2014 os.system call (command injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 os.system call (command injection)",
+      "os.system() with potential user input"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:privilege_escalation_review_0002",
+    "expected_findings": [
+      "privilege_escalation",
+      "secret",
+      "command_injection"
+    ],
+    "findings_count": 9,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 4. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 5. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity fai",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "os.system() call detected",
+      "Vulnerability: Hardcoded credential",
+      "A03:2021-Injection \u2014 os.system call (command injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 os.system call (command injection)",
+      "os.system() with potential user input"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:red_team_exercise",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "security"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 11. matched: password = \"redteam123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\red_team_exercise\\source.py:11 {'type': 'password', 'redacted_value': 'redt...m123', 'line': 11, 'file': 'real_cases\\\\security\\\\red_team_exercise\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\red_team_exercise\\source.py:11"
+    ]
+  },
+  {
+    "case_id": "security:red_team_exercise_0001",
+    "expected_findings": [
+      "secret",
+      "security",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 7. matched: password = \"redteam456\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\red_team_exercise_0001\\source.py:7 {'type': 'password', 'redacted_value': 'redt...m456', 'line': 7, 'file': 'real_cases\\\\security\\\\red_team_exercise_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\red_team_exercise_0001\\source.py:7"
+    ]
+  },
+  {
+    "case_id": "security:runtime_protection_review_0001",
+    "expected_findings": [
+      "deserialization",
+      "vulnerability",
+      "security"
+    ],
+    "findings_count": 6,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection use of exec() detected exec() allows arbitrary code execution. remove exec() or use safer alternatives. a03:2021-injection use of eval() detected eval() allows arbitrary code execution. replace eval() with ast.literal_eval() or a safe parser. a03:2021-injection a03:2021-injection \u2014 eval call (code injection) eval call (code injection) at line 11. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 exec call (code injection) exec call (code injection) at line 6. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity failures a08:2021-software and data integr",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures"
+    ],
+    "actual_titles": [
+      "A08:2021-Software and Data Integrity Failures \u2014 exec call (code injection)",
+      "Use of exec() detected",
+      "Use of eval() detected",
+      "A03:2021-Injection \u2014 exec call (code injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 eval call (code injection)",
+      "A03:2021-Injection \u2014 eval call (code injection)"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:runtime_protection_review_0002",
+    "expected_findings": [
+      "vulnerability",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 3,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection use of exec() detected exec() allows arbitrary code execution. remove exec() or use safer alternatives. a03:2021-injection a03:2021-injection \u2014 exec call (code injection) exec call (code injection) at line 5. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity failures a08:2021-software and data integrity failures \u2014 exec call (code injection) exec call (code injection) at line 5. review owasp top 10 guidance for this category and apply mitigations.",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures"
+    ],
+    "actual_titles": [
+      "Use of exec() detected",
+      "A03:2021-Injection \u2014 exec call (code injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 exec call (code injection)"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:sase_evaluation",
+    "expected_findings": [
+      "ssrf",
+      "secret",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 12. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. secrettype.api_key real_cases\\security\\sase_evaluation\\source.py:17 {'type': 'api_key', 'redacted_value': 'sase...2345', 'line': 17, 'file': 'real_cases\\\\security\\\\sase_evaluation\\\\source.py'}",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request"
+    ],
+    "actual_secret_types": [
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\sase_evaluation\\source.py:17"
+    ]
+  },
+  {
+    "case_id": "security:sase_evaluation_0001",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:secrets_audit",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "compliance"
+    ],
+    "findings_count": 2,
+    "secrets_count": 13,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 5. matched: password = \"supersecret123!\" review security best practices and apply appropriate mitigations. vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 12. matched: password = \"myp@ssw0rd!\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\secrets_audit\\source.py:6 {'type': 'api_key', 'redacted_value': 'sk-1...ghij', 'line': 6, 'file': 'real_cases\\\\security\\\\secrets_audit\\\\source.py'} secrettype.api_key real_cases\\security\\secrets_audit\\source.py:4 {'type': 'access_key', 'redacted_value': 'wjal...ekey', 'line': 4, 'file': 'real_cases\\\\security\\\\secrets_audit\\\\source.py'} secrettype.api_key real_cases\\secu",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\secrets_audit\\source.py:4",
+      "real_cases\\security\\secrets_audit\\source.py:16",
+      "real_cases\\security\\secrets_audit\\source.py:6",
+      "real_cases\\security\\secrets_audit\\source.py:3",
+      "real_cases\\security\\secrets_audit\\source.py:5",
+      "real_cases\\security\\secrets_audit\\source.py:12"
+    ]
+  },
+  {
+    "case_id": "security:secrets_audit_0001",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 3,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 4. matched: password = \"db_password\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\secrets_audit_0001\\source.py:2 {'type': 'api_key', 'redacted_value': 'api_...2345', 'line': 2, 'file': 'real_cases\\\\security\\\\secrets_audit_0001\\\\source.py'} secrettype.api_key real_cases\\security\\secrets_audit_0001\\source.py:3 {'type': 'secret_key', 'redacted_value': 'secr...7890', 'line': 3, 'file': 'real_cases\\\\security\\\\secrets_audit_0001\\\\source.py'} secrettype.password real_cases\\security\\secrets_audit_0001\\source.py:4 {'type': 'password', 'redacted_value': 'db_p...word', 'line': 4, 'file': 'real_cases\\\\security\\\\secrets_audit_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\secrets_audit_0001\\source.py:4",
+      "real_cases\\security\\secrets_audit_0001\\source.py:3",
+      "real_cases\\security\\secrets_audit_0001\\source.py:2"
+    ]
+  },
+  {
+    "case_id": "security:secrets_audit_0002",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 2,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 2. matched: password = \"secret123\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\secrets_audit_0002\\source.py:4 {'type': 'api_key', 'redacted_value': 'secr...t123', 'line': 4, 'file': 'real_cases\\\\security\\\\secrets_audit_0002\\\\source.py'} secrettype.password real_cases\\security\\secrets_audit_0002\\source.py:2 {'type': 'password', 'redacted_value': 'secr...t123', 'line': 2, 'file': 'real_cases\\\\security\\\\secrets_audit_0002\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\secrets_audit_0002\\source.py:2",
+      "real_cases\\security\\secrets_audit_0002\\source.py:4"
+    ]
+  },
+  {
+    "case_id": "security:secrets_rotation",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "hardening"
+    ],
+    "findings_count": 4,
+    "secrets_count": 6,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 5. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 8. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 12. matched: password = \"p@ssword1\" review security best practices and apply appropriate mitigations. vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 15. matche",
+    "actual_categories": [
+      "vulnerability_detection",
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\secrets_rotation\\source.py:1",
+      "real_cases\\security\\secrets_rotation\\source.py:2",
+      "real_cases\\security\\secrets_rotation\\source.py:12",
+      "real_cases\\security\\secrets_rotation\\source.py:14",
+      "real_cases\\security\\secrets_rotation\\source.py:15"
+    ]
+  },
+  {
+    "case_id": "security:secrets_rotation_0001",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "compliance"
+    ],
+    "findings_count": 1,
+    "secrets_count": 3,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 3. matched: secret = \"wjalrxutnfemi/k7mdeng/bpxrficyexamplekey\" review security best practices and apply appropriate mitigations. secrettype.api_key real_cases\\security\\secrets_rotation_0001\\source.py:2 {'type': 'aws access key id pattern', 'redacted_value': 'akia...mple', 'line': 2, 'file': 'real_cases\\\\security\\\\secrets_rotation_0001\\\\source.py'} secrettype.token real_cases\\security\\secrets_rotation_0001\\source.py:3 {'description': 'long base64 string (possible token/key)', 'redacted_value': 'wjal...ekey', 'entropy_score': 0.7174} secrettype.token real_cases\\security\\secrets_rotation_0001\\source.py:2 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'akia...mple', 'entro",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\secrets_rotation_0001\\source.py:3",
+      "real_cases\\security\\secrets_rotation_0001\\source.py:2"
+    ]
+  },
+  {
+    "case_id": "security:secrets_rotation_0002",
+    "expected_findings": [
+      "secret",
+      "vulnerability",
+      "hardening"
+    ],
+    "findings_count": 0,
+    "secrets_count": 2,
+    "actual_text": " secrettype.api_key real_cases\\security\\secrets_rotation_0002\\source.py:2 {'type': 'api_key', 'redacted_value': 'old_...2345', 'line': 2, 'file': 'real_cases\\\\security\\\\secrets_rotation_0002\\\\source.py'} secrettype.api_key real_cases\\security\\secrets_rotation_0002\\source.py:3 {'type': 'api_key', 'redacted_value': 'new_...7890', 'line': 3, 'file': 'real_cases\\\\security\\\\secrets_rotation_0002\\\\source.py'}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\secrets_rotation_0002\\source.py:3",
+      "real_cases\\security\\secrets_rotation_0002\\source.py:2"
+    ]
+  },
+  {
+    "case_id": "security:security_awareness_review",
+    "expected_findings": [
+      "logging",
+      "secret",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 21. matched: password = \"security123\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\security_awareness_review\\source.py:21 {'type': 'password', 'redacted_value': 'secu...y123', 'line': 21, 'file': 'real_cases\\\\security\\\\security_awareness_review\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\security_awareness_review\\source.py:21"
+    ]
+  },
+  {
+    "case_id": "security:security_awareness_review_0001",
+    "expected_findings": [
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:security_orchestration",
+    "expected_findings": [
+      "secret",
+      "logging",
+      "vulnerability"
+    ],
+    "findings_count": 0,
+    "secrets_count": 3,
+    "actual_text": " secrettype.token real_cases\\security\\security_orchestration\\source.py:17 {'type': 'token', 'redacted_value': 'xoxb...mnop', 'line': 17, 'file': 'real_cases\\\\security\\\\security_orchestration\\\\source.py'} secrettype.token real_cases\\security\\security_orchestration\\source.py:17 {'type': 'slack api token', 'redacted_value': 'xoxb...mnop', 'line': 17, 'file': 'real_cases\\\\security\\\\security_orchestration\\\\source.py'} secrettype.token real_cases\\security\\security_orchestration\\source.py:17 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'xoxb...mnop', 'entropy_score': 0.7308}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\security_orchestration\\source.py:17"
+    ]
+  },
+  {
+    "case_id": "security:security_orchestration_0001",
+    "expected_findings": [
+      "logging",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:software_bill_of_materials",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "command_injection",
+      "vulnerability"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:software_bill_of_materials_0001",
+    "expected_findings": [
+      "secret",
+      "command_injection",
+      "vulnerability"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:supply_chain_security",
+    "expected_findings": [
+      "vulnerability",
+      "weak_crypto",
+      "security"
+    ],
+    "findings_count": 2,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in urlretrieve unsanitized url in urlretrieve at line 9. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes. a02:2021-cryptographic failures a02:2021-cryptographic failures \u2014 md5 hash usage (cryptographically broken) md5 hash usage (cryptographically broken) at line 21. review owasp top 10 guidance for this category and apply mitigations.",
+    "actual_categories": [
+      "A02:2021-Cryptographic Failures",
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A02:2021-Cryptographic Failures \u2014 MD5 hash usage (cryptographically broken)",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in urlretrieve"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:supply_chain_security_0001",
+    "expected_findings": [
+      "vulnerability",
+      "security",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in urlretrieve unsanitized url in urlretrieve at line 4. validate and sanitize url inputs, use allowlists for target hosts, and disable unnecessary url schemes.",
+    "actual_categories": [
+      "A10:2021-Server-Side Request Forgery"
+    ],
+    "actual_titles": [
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in urlretrieve"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:threat_modeling_session",
+    "expected_findings": [
+      "secret",
+      "security",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 2,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 19. matched: password = \"threat_model_password\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\threat_modeling_session\\source.py:19 {'type': 'password', 'redacted_value': 'thre...word', 'line': 19, 'file': 'real_cases\\\\security\\\\threat_modeling_session\\\\source.py'} secrettype.token real_cases\\security\\threat_modeling_session\\source.py:19 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'thre...word', 'entropy_score': 0.5585}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\threat_modeling_session\\source.py:19"
+    ]
+  },
+  {
+    "case_id": "security:threat_modeling_session_0001",
+    "expected_findings": [
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:threat_modeling_session_0002",
+    "expected_findings": [
+      "secret",
+      "security",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 8. matched: password = \"threat_password\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\threat_modeling_session_0002\\source.py:8 {'type': 'password', 'redacted_value': 'thre...word', 'line': 8, 'file': 'real_cases\\\\security\\\\threat_modeling_session_0002\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\threat_modeling_session_0002\\source.py:8"
+    ]
+  },
+  {
+    "case_id": "security:vulnerability_remediation",
+    "expected_findings": [
+      "sql_injection",
+      "deserialization",
+      "secret"
+    ],
+    "findings_count": 7,
+    "secrets_count": 2,
+    "actual_text": "a03:2021-injection use of eval() detected eval() allows arbitrary code execution. replace eval() with ast.literal_eval() or a safe parser. a03:2021-injection a03:2021-injection \u2014 eval call (code injection) eval call (code injection) at line 17. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 string concatenation with variable in sql string concatenation with variable in sql at line 2. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a08:2021-software and data integrity failures a08:2021-software and data integrity failures \u2014 pickle deserialization (arbitrary code execution) pickle deserialization (arbi",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential",
+      "A03:2021-Injection \u2014 string concatenation with variable in SQL",
+      "Use of eval() detected",
+      "Vulnerability: pickle deserialization (arbitrary code execution)",
+      "A08:2021-Software and Data Integrity Failures \u2014 eval call (code injection)",
+      "A03:2021-Injection \u2014 eval call (code injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 pickle deserialization (arbitrary code execution)"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\vulnerability_remediation\\source.py:13",
+      "real_cases\\security\\vulnerability_remediation\\source.py:12"
+    ]
+  },
+  {
+    "case_id": "security:vulnerability_scan_api",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "command_injection",
+      "deserialization",
+      "ssrf"
+    ],
+    "findings_count": 9,
+    "secrets_count": 3,
+    "actual_text": "a03:2021-injection os.system() call detected os.system() enables command injection. use subprocess with shell=false and argument list. a03:2021-injection a03:2021-injection \u2014 os.system call (command injection) os.system call (command injection) at line 23. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 12. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html. a10:2021-server-side request forgery a10:2021-server-side request forgery \u2014 unsanitized url in http request unsanitized url in http request at line 34. validate and sanitize url inputs, use allowlists for ",
+    "actual_categories": [
+      "A03:2021-Injection",
+      "A08:2021-Software and Data Integrity Failures",
+      "A10:2021-Server-Side Request Forgery",
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "os.system() call detected",
+      "Vulnerability: Hardcoded credential",
+      "Vulnerability: pickle deserialization (arbitrary code execution)",
+      "A03:2021-Injection \u2014 os.system call (command injection)",
+      "A08:2021-Software and Data Integrity Failures \u2014 os.system call (command injection)",
+      "os.system() with potential user input",
+      "A03:2021-Injection \u2014 f-string SQL query",
+      "A10:2021-Server-Side Request Forgery \u2014 unsanitized URL in HTTP request",
+      "A08:2021-Software and Data Integrity Failures \u2014 pickle deserialization (arbitrary code execution)"
+    ],
+    "actual_secret_types": [
+      "password",
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\vulnerability_scan_api\\source.py:12",
+      "real_cases\\security\\vulnerability_scan_api\\source.py:6"
+    ]
+  },
+  {
+    "case_id": "security:vulnerability_scan_api_0001",
+    "expected_findings": [
+      "sql_injection",
+      "vulnerability"
+    ],
+    "findings_count": 1,
+    "secrets_count": 0,
+    "actual_text": "a03:2021-injection a03:2021-injection \u2014 f-string sql query f-string sql query at line 9. use parameterized queries, input validation, and output encoding. never concatenate user input into sql, commands, or html.",
+    "actual_categories": [
+      "A03:2021-Injection"
+    ],
+    "actual_titles": [
+      "A03:2021-Injection \u2014 f-string SQL query"
+    ],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  },
+  {
+    "case_id": "security:vulnerability_scan_api_0002",
+    "expected_findings": [
+      "deserialization",
+      "secret",
+      "vulnerability"
+    ],
+    "findings_count": 3,
+    "secrets_count": 1,
+    "actual_text": "a08:2021-software and data integrity failures a08:2021-software and data integrity failures \u2014 pickle deserialization (arbitrary code execution) pickle deserialization (arbitrary code execution) at line 3. review owasp top 10 guidance for this category and apply mitigations. vulnerability_detection vulnerability: pickle deserialization (arbitrary code execution) pickle deserialization (arbitrary code execution) at line 3. matched: pickle.loads replace pickle with json or use signed serialization. never deserialize untrusted data. vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 12. matched: password = \"config_password\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\vulnerability_scan_api_0002\\",
+    "actual_categories": [
+      "vulnerability_detection",
+      "A08:2021-Software and Data Integrity Failures"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential",
+      "Vulnerability: pickle deserialization (arbitrary code execution)",
+      "A08:2021-Software and Data Integrity Failures \u2014 pickle deserialization (arbitrary code execution)"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\vulnerability_scan_api_0002\\source.py:12"
+    ]
+  },
+  {
+    "case_id": "security:waf_configuration",
+    "expected_findings": [
+      "sql_injection",
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 25. matched: password = \"waf_password\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\waf_configuration\\source.py:25 {'type': 'password', 'redacted_value': 'waf_...word', 'line': 25, 'file': 'real_cases\\\\security\\\\waf_configuration\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\waf_configuration\\source.py:25"
+    ]
+  },
+  {
+    "case_id": "security:waf_configuration_0001",
+    "expected_findings": [
+      "vulnerability",
+      "secret",
+      "hardening"
+    ],
+    "findings_count": 1,
+    "secrets_count": 1,
+    "actual_text": "vulnerability_detection vulnerability: hardcoded credential hardcoded credential at line 10. matched: password = \"waf_password\" review security best practices and apply appropriate mitigations. secrettype.password real_cases\\security\\waf_configuration_0001\\source.py:10 {'type': 'password', 'redacted_value': 'waf_...word', 'line': 10, 'file': 'real_cases\\\\security\\\\waf_configuration_0001\\\\source.py'}",
+    "actual_categories": [
+      "vulnerability_detection"
+    ],
+    "actual_titles": [
+      "Vulnerability: Hardcoded credential"
+    ],
+    "actual_secret_types": [
+      "password"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\waf_configuration_0001\\source.py:10"
+    ]
+  },
+  {
+    "case_id": "security:zero_trust_architecture",
+    "expected_findings": [
+      "secret",
+      "access_control",
+      "vulnerability"
+    ],
+    "findings_count": 0,
+    "secrets_count": 2,
+    "actual_text": " secrettype.api_key real_cases\\security\\zero_trust_architecture\\source.py:24 {'type': 'api_key', 'redacted_value': 'ztna...2345', 'line': 24, 'file': 'real_cases\\\\security\\\\zero_trust_architecture\\\\source.py'} secrettype.token real_cases\\security\\zero_trust_architecture\\source.py:8 {'description': 'long url-safe base64 string (possible jwt)', 'redacted_value': 'sens...tion', 'entropy_score': 0.5237}",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [
+      "api_key",
+      "token"
+    ],
+    "actual_secret_locations": [
+      "real_cases\\security\\zero_trust_architecture\\source.py:24",
+      "real_cases\\security\\zero_trust_architecture\\source.py:8"
+    ]
+  },
+  {
+    "case_id": "security:zero_trust_architecture_0001",
+    "expected_findings": [
+      "secret",
+      "security",
+      "hardening",
+      "compliance"
+    ],
+    "findings_count": 0,
+    "secrets_count": 0,
+    "actual_text": "",
+    "actual_categories": [],
+    "actual_titles": [],
+    "actual_secret_types": [],
+    "actual_secret_locations": []
+  }
+]

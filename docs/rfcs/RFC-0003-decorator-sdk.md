@@ -16,7 +16,7 @@
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v1.0.0 (Fase Inti)|
 |**Kategori**|Inti|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 4 — Pakar Domain|
 |**Referensi RFC**|RFC-0003|
 
@@ -66,7 +66,7 @@ Tidak adanya SDK Dekorator berarti pertumbuhan ECP akan semakin mahal dan rapuh 
 
 |Metrik|Target|Nilai|
 |--------|--------|-------|
-|Kontrak Decorator|100% (decorator mempertahankan BaseApp contract)|SEBUAH+|
+|Kontrak Decorator|100% (decorator mempertahankan BaseApp contract)|A+|
 |Transparansi Proksi|100% (klien tidak tahu pack dibungkus)|A|
 |Komposisi Chain|≥95% (decorator dapat dirantai tanpa konflik)|A|
 |Validasi Kontrak|≥95% (pelanggaran kontrak decorator terdeteksi)|A|

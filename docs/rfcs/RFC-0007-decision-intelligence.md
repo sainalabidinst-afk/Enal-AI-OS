@@ -18,7 +18,7 @@
 |**Capability Pack**|Decision Intelligence|
 |**ID Kemampuan**|`decision-intelligence`|
 |**Kategori**|Pemikiran|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 3 — Siap Produksi|
 |**Referensi RFC**|RFC-0007|
 
@@ -70,7 +70,7 @@ Tidak adanya Decision Intelligence berarti ketika ECP berkembang mencakup lebih 
 |Metrik|Target|Nilai|
 |--------|--------|-------|
 |Akurasi Keputusan|≥90% (keputusan benar ketika ground truth tersedia)|A|
-|Penjelasan|≥95% (rantai bukti-ke-keputusan lengkap disajikan)|SEBUAH+|
+|Penjelasan|≥95% (rantai bukti-ke-keputusan lengkap disajikan)|A+|
 |Konsistensi|≥90% (input yang sama menghasilkan keputusan yang sama di setiap run)|A|
 |Keyakinan Kalibrasi|≥85% (skor keyakinan mencerminkan akurasi aktual ±5%)|A|
 |Deteksi Risiko|≥90% (risiko teridentifikasi sesuai kebenaran dasar)|A|

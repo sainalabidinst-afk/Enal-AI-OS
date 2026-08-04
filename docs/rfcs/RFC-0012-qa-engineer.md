@@ -10,7 +10,7 @@
 |**Capability Pack**|QA Engineer|
 |**ID Kemampuan**|`qa-engineer`|
 |**Kategori**|Jaminan Kualitas|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 3 — Siap Produksi|
 |**Referensi RFC**|RFC-0012|
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSettingsStore } from "@/store/settings-store";
 import { useAuthStore } from "@/store/auth-store";
+import { useEulaStore } from "@/store/eula-store";
 import { ToastContainer } from "@/components/ui/toast";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const initialize = useAuthStore((s) => s.initialize);
+  const eulaAccepted = useEulaStore((s) => s.hasAccepted());
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   // Initialize auth on mount
@@ -22,7 +24,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     initialize();
   }, [initialize]);
 
-  const isPublicRoute = pathname === "/login" || pathname === "/";
+  const isPublicRoute =
+    pathname === "/login" || pathname === "/" || pathname === "/eula";
 
   // Redirect to login if not authenticated (except public routes)
   useEffect(() => {
@@ -34,9 +37,20 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     }
   }, [isAuthenticated, isPublicRoute, router, pathname]);
 
+  // EULA guard: redirect to /eula if authenticated but EULA not accepted
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      !eulaAccepted &&
+      !isPublicRoute &&
+      typeof window !== "undefined"
+    ) {
+      router.push("/eula");
+    }
+  }, [isAuthenticated, eulaAccepted, isPublicRoute, router]);
+
   const nav = [
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/", label: "Chat" },
     { href: "/workspace", label: "Workspace" },
     { href: "/executions", label: "Executions" },
     { href: "/artifacts", label: "Artifacts" },
@@ -46,9 +60,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     { href: "/settings", label: "Settings" },
   ];
 
-  const isAuthPage = pathname === "/login";
+  const isAuthPage = pathname === "/login" || pathname === "/eula";
 
-  // Don't show sidebar on login page
+  // Don't show sidebar on login/eula pages
   if (isAuthPage) {
     return (
       <>
@@ -71,7 +85,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         {/* Navigation */}
         <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
           {nav.map((item) => {
-            const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+            const active =
+              pathname === item.href ||
+              (item.href !== "/" && pathname.startsWith(item.href));
             return (
               <Link
                 key={item.href}
@@ -138,7 +154,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2">
             <select
               value={theme}
-              onChange={(e) => useSettingsStore.getState().setTheme(e.target.value as "light" | "dark" | "system")}
+              onChange={(e) =>
+                useSettingsStore
+                  .getState()
+                  .setTheme(e.target.value as "light" | "dark" | "system")
+              }
               className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-2 py-1 text-xs"
             >
               <option value="system">System</option>

@@ -59,7 +59,7 @@ class DataEngineerWorker:
         source = DataSource(
             type=source_dict.get("type", "csv"),
             location=source_dict.get("location", ""),
-            schema=source_dict.get("schema"),
+            schema_definition=source_dict.get("schema_definition") or source_dict.get("schema"),
         )
 
         job_type_raw = task.get("job_type", "etl")

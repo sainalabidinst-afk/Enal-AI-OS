@@ -266,11 +266,21 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
     for vendor_dir in sorted(Path(base_dir).iterdir()):
         if not vendor_dir.is_dir():
             continue
-        for case_dir in sorted(vendor_dir.iterdir()):
+        # Detect structure: either vendor/case/ or flat case/
+        subdirs = [d for d in vendor_dir.iterdir() if d.is_dir()]
+        if subdirs and any((d / "expected.json").exists() or any((d / f).exists() for f in ("config.rsc", "config.txt", "sample_hotspot.txt", "source.py", "main.py", "app.py", "Dockerfile", "dockerfile", "k8s.yaml", "terraform.tf")) for d in subdirs):
+            # Nested: vendor_dir/case_dir/
+            case_dirs = subdirs
+        elif (vendor_dir / "expected.json").exists() or any((vendor_dir / f).exists() for f in ("config.rsc", "config.txt", "sample_hotspot.txt", "source.py", "main.py", "app.py", "Dockerfile", "dockerfile", "k8s.yaml", "terraform.tf")):
+            # Flat: vendor_dir is itself a case dir
+            case_dirs = [vendor_dir]
+        else:
+            continue
+        for case_dir in sorted(case_dirs):
             if not case_dir.is_dir():
                 continue
             config_file = None
-            for f in ("config.rsc", "config.txt", "sample_hotspot.txt"):
+            for f in ("config.rsc", "config.txt", "sample_hotspot.txt", "source.py", "main.py", "app.py", "Dockerfile", "dockerfile", "k8s.yaml", "terraform.tf"):
                 if (case_dir / f).exists():
                     config_file = f
                     break
@@ -290,10 +300,10 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
             else:
                 expected_findings = _derive_expected_findings(expected_inner, expected.get("metadata", {}).get("tags", []))
             case = RealCase(
-                id=f"{vendor_dir.name}:{case_dir.name}",
+                id=f"{vendor_dir.name}:{case_dir.name}" if case_dir != vendor_dir else f"security:{case_dir.name}",
                 title=expected.get("title", case_dir.name),
-                category=vendor_dir.name,
-                vendor=vendor_dir.name,
+                category=expected.get("category", vendor_dir.name),
+                vendor=expected.get("vendor", vendor_dir.name),
                 source_files=[str(case_dir / config_file)],
                 context=expected.get("metadata", {}).get("description", ""),
                 expected_findings=expected_findings,

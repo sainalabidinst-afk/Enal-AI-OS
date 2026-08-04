@@ -51,13 +51,14 @@ _SECRET_ASSIGNMENT_PATTERNS = [
     (r'github_pat_[A-Za-z0-9_]{22,}', "GitHub fine-grained PAT", SecretType.token, Severity.critical),
 
     # Private keys
-    (r'-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----', "Private key block", SecretType.private_key, Severity.critical),
+    (r'-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----', "Private key block", SecretType.private_key, Severity.critical),
     (r'-----BEGIN CERTIFICATE-----', "Certificate block", SecretType.certificate, Severity.high),
 
     # Passwords
     (r'(?i)(password\s*=\s*["\'])([^"\']{4,})(["\'])', "password", SecretType.password, Severity.high),
     (r'(?i)(passwd\s*=\s*["\'])([^"\']{4,})(["\'])', "passwd", SecretType.password, Severity.high),
     (r'(?i)(pwd\s*=\s*["\'])([^"\']{4,})(["\'])', "pwd", SecretType.password, Severity.high),
+    (r'(?i)(password|passwd|pwd)["\']\s*:\s*["\']([^"\']{4,})["\']', "password_in_dict", SecretType.password, Severity.high),
 
     # Database passwords
     (r'\bpostgres://[^:]+:([^@]+)@', "PostgreSQL connection string with password", SecretType.password, Severity.high),

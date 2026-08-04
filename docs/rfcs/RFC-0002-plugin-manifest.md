@@ -16,7 +16,7 @@
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v1.0.0 (Fase Inti)|
 |**Kategori**|Inti|
-|**Target Kualitas**|SEBUAH (≥90)|
+|**Target Kualitas**|A (≥90)|
 |**Target Kematangan**|Level 4 — Pakar Domain|
 |**Referensi RFC**|RFC-0002|
 
@@ -66,7 +66,7 @@ Tidak adanya Manifes Standar berarti pertumbuhan ECP akan semakin mahal dan rawa
 
 |Metrik|Target|Nilai|
 |--------|--------|-------|
-|Skema Validasi|100% (manifes divalidasi terhadap skema)|SEBUAH+|
+|Skema Validasi|100% (manifes divalidasi terhadap skema)|A+|
 |Pendaftaran Otomatis|≥99% (pack terdeteksi tanpa perubahan inti)|A|
 |Dependensi Terdeclared|100% (semua dependensi dinyatakan)|A|
 |Manajemen Versi|≥95% (versi pack dan dependensi ditangani)|A|

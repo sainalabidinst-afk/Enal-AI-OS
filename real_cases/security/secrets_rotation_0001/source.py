@@ -1,0 +1,6 @@
+# Unrotated keys
+AWS_KEY = "AKIAIOSFODNN7EXAMPLE"
+AWS_SECRET = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+
+# No rotation schedule
+# No secrets manager

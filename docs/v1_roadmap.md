@@ -71,19 +71,19 @@ Dokumen ini telah terpecah menjadi 5 dokumen strategi berikut:
 
 |Kemampuan|Kategori|Sasaran Mutu|
 |------------|----------|----------------|
-|Insinyur Jaringan|Jaringan|SEBUAH (≥90)|
-|Insinyur Kode|Perkembangan|SEBUAH- (≥85)|
-|Asisten Peneliti|Riset|SEBUAH- (≥85)|
+|Insinyur Jaringan|Jaringan|A (≥90)|
+|Insinyur Kode|Perkembangan|A- (≥85)|
+|Asisten Peneliti|Riset|A- (≥85)|
 |Asisten DevOps|DevOps|A+ (≥90) — Bersertifikat|
 |Analis Perdagangan|Keuangan|A (≥90) — Bersertifikat|
-|Pengembangan Diri|Platform|SEBUAH (≥90)|
+|Pengembangan Diri|Platform|A+ (≥90)|
 |Decision Intelligence|Platform — Penalaran Bersama|A (91,25%) — RFC-0007|
-|Arsitek Sistem|Arsitektur|SEBUAH (≥90) — RFC-0011|
-|Security Engineer|Keamanan|SEBUAH- (≥85) — RFC-0008|
+|Arsitek Sistem|Arsitektur|A (≥90) — RFC-0011|
+|Security Engineer|Keamanan|A- (≥85) — RFC-0008|
 |Data Engineer|Data|A- (≥85) — RFC-0009|
-|Database Engineer|Basis data|SEBUAH- (≥85) — RFC-0010|
-|QA Engineer|Jaminan Kualitas|SEBUAH (≥90) — RFC-0012|
-|Business Analyst|Analisis Bisnis|SEBUAH- (≥85) — RFC-0013|
+|Database Engineer|Basis data|A- (≥85) — RFC-0010|
+|QA Engineer|Jaminan Kualitas|A (≥90) — RFC-0012|
+|Business Analyst|Analisis Bisnis|A- (≥85) — RFC-0013|
 
 ### Model Kematangan Kemampuan
 

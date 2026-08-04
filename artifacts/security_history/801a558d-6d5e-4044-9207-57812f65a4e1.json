@@ -1,0 +1,14 @@
+{
+  "record_id": "801a558d-6d5e-4044-9207-57812f65a4e1",
+  "assessment_id": "c953a091-89cc-4de8-9139-a5eafd9e8ad9",
+  "timestamp": "2026-08-04T06:47:00.954619+00:00",
+  "target_type": "full_review",
+  "total_findings": 1,
+  "critical_count": 0,
+  "high_count": 1,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}

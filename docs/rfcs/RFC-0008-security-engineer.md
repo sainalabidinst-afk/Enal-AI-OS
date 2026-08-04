@@ -10,7 +10,7 @@
 |**Capability Pack**|Security Engineer|
 |**ID Kemampuan**|`security-engineer`|
 |**Kategori**|Keamanan|
-|**Target Kualitas**|SEBUAH- (≥85)|
+|**Target Kualitas**|A- (≥85)|
 |**Target Kematangan**|Level 3 — Siap Produksi|
 |**Referensi RFC**|RFC-0008|
 
