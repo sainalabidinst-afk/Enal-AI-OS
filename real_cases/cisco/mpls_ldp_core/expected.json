@@ -1,0 +1,38 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 7,
+    "low": 10
+  },
+  "metadata": {
+    "description": "cisco mpls ldp core configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "mpls"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "mpls",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "ospf",
+    "mpls",
+    "label",
+    "high",
+    "cisco",
+    "control",
+    "forwarding",
+    "without"
+  ]
+}

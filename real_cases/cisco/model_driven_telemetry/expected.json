@@ -1,0 +1,38 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 9,
+    "low": 13
+  },
+  "metadata": {
+    "description": "cisco model driven telemetry configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "model"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "model",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "without",
+    "synchronization",
+    "high",
+    "cisco",
+    "control",
+    "path",
+    "(multi-exit",
+    "as-path"
+  ]
+}

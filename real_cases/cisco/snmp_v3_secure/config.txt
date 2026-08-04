@@ -1,0 +1,8 @@
+hostname SNMP-SECURE-01
+!
+snmp-server group SNMP-GRP v3 priv
+snmp-server user SNMP-USER SNMP-GRP v3 auth sha MyAuthPass123 priv aes 128 MyPrivPass456
+snmp-server host 10.0.0.100 version 3 priv SNMP-USER
+!
+interface GigabitEthernet0/0
+  ip address 10.0.0.1 255.255.255.0

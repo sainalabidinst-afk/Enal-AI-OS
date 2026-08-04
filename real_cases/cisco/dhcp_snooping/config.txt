@@ -1,0 +1,19 @@
+hostname DHCP-SNOOP
+!
+ip dhcp snooping
+ip dhcp snooping vlan 10,20
+!
+interface GigabitEthernet1/1
+  description UPLINK
+  ip dhcp snooping trust
+!
+interface GigabitEthernet1/2
+  description ACCESS
+  switchport mode access
+  switchport access vlan 10
+!
+vlan 10
+  name USERS
+!
+vlan 20
+  name VOICE

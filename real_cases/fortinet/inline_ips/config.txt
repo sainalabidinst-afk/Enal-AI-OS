@@ -1,0 +1,19 @@
+config ips sensor
+    edit "INLINE-IPS"
+        set comment "Inline IPS for critical servers"
+        set signature-based enable
+        set anomaly-based enable
+        set protocol "ALL"
+    next
+end
+config firewall policy
+    edit 1
+        set name "DMZ-PROTECTED"
+        set srcintf "internal"
+        set dstintf "dmz"
+        set action accept
+        set service "SSH" "HTTPS"
+        set ips-sensor "INLINE-IPS"
+        set av-profile "default"
+    next
+end

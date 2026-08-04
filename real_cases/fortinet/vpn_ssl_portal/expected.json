@@ -1,0 +1,38 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 8,
+    "low": 10
+  },
+  "metadata": {
+    "description": "fortinet vpn ssl portal configuration.",
+    "source": "production",
+    "tags": [
+      "fortinet",
+      "vpn"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "vpn",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "(intrusion",
+    "antivirus",
+    "fortisandbox",
+    "fortianalyzer"
+  ]
+}

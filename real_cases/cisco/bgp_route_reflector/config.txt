@@ -1,0 +1,17 @@
+hostname BGP-RR-01
+!
+router bgp 65001
+  bgp cluster-id 1.1.1.1
+  neighbor 10.0.1.2 remote-as 65001
+  neighbor 10.0.1.2 route-reflector-client
+  neighbor 10.0.2.2 remote-as 65001
+  neighbor 10.0.2.2 route-reflector-client
+!
+interface Loopback0
+  ip address 1.1.1.1 255.255.255.255
+!
+interface GigabitEthernet0/0
+  ip address 10.0.1.1 255.255.255.0
+!
+interface GigabitEthernet0/1
+  ip address 10.0.2.1 255.255.255.0

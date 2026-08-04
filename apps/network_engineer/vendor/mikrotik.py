@@ -249,6 +249,8 @@ class MikroTikAdapter(VendorAdapter):
                     enabled=True,
                 ))
 
+        ast.raw_lines = config.raw_lines
+
         return ast
 
     def generate(self, ast: NetworkAST) -> str:

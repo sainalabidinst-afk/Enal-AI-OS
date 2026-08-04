@@ -1,0 +1,12 @@
+hostname BGP-EDGE-01
+!
+router bgp 65001
+  neighbor 203.0.113.2 remote-as 65002
+  neighbor 203.0.113.2 password MyBGPpass123
+  neighbor 203.0.113.2 timers 30 90
+  network 10.1.0.0 mask 255.255.0.0
+!
+interface GigabitEthernet0/0
+  ip address 203.0.113.1 255.255.255.0
+!
+ip route 0.0.0.0 0.0.0.0 203.0.113.254

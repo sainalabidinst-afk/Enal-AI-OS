@@ -1,0 +1,19 @@
+config zerotrust access-proxy
+    edit "ZTNA-PROXY"
+        set interface "internal"
+        set source-ip 10.0.0.1
+        set source-port 8443
+    next
+end
+config firewall policy
+    edit 1
+        set name "ZTNA-ALLOW"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set service "HTTPS"
+        set inspection-mode ztna
+    next
+end

@@ -1,0 +1,23 @@
+config iot replacemac enable
+config iot device-detection
+    set status enable
+    set enable-subnet 192.168.0.0/16
+    set classify enable
+    set quarantine enable
+end
+config iot classification rules
+    edit 1
+        set action accept
+        set description "Allow IoT devices"
+    next
+end
+config firewall policy
+    edit 1
+        set name "IOT-POLICY"
+        set srcintf "iot"
+        set dstintf "wan1"
+        set action accept
+        set service "ALL"
+        set schedule "always"
+    next
+end

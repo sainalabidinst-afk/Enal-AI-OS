@@ -1,0 +1,25 @@
+config webfilter profile
+    edit "STRICT-URL-FILTER"
+        set comment "URL filtering for corporate compliance"
+        config ftgd-wf
+            set category 85 "Malware"
+            set category 87 "Phishing"
+            set category 152 "Dynamic DNS"
+            set category 21 "Drugs"
+            set category 22 "Gambling"
+            set category 23 "Hacking"
+            set category 24 "Proxy Avoidance"
+            set category 25 "Weapons"
+        end
+    next
+end
+config firewall policy
+    edit 1
+        set name "URL-FILTER-POLICY"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set action accept
+        set service "HTTP" "HTTPS" "FTP"
+        set webfilter-profile "STRICT-URL-FILTER"
+    next
+end

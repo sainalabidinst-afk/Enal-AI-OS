@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 5,
+    "low": 11
+  },
+  "metadata": {
+    "description": "mikrotik l3 switch vlan routing configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "l3"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "l3",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "masquerade",
+    "interface",
+    "trunk2",
+    "access1",
+    "<unnamed>",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "authentication"
+  ]
+}

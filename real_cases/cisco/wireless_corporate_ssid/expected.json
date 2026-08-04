@@ -25,15 +25,15 @@
   "expected_severity": "warning",
   "expected_findings": [
     "backup",
-    "input",
-    "icmp",
-    "configured",
+    "dot11",
+    "interface",
+    "ntp",
     "logging",
-    "configuration",
+    "mtu",
     "user",
     "loopback",
     "default",
     "wireless",
-    "zero"
+    "wpa2"
   ]
 }

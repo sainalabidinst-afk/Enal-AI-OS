@@ -1,0 +1,25 @@
+config system fortiguard
+    set webfilter-cache enable
+    set antivirus-cache enable
+    set spam-cache enable
+end
+config system autoupdate push-update
+    set status enable
+end
+config endpoint-compliance
+    edit 1
+        set type windows
+        set av-define "FORTICLIENT_AV"
+        set reg-define "FORTICLIENT_REG"
+    next
+end
+config firewall policy
+    edit 1
+        set name "ON-DEMAND-POLICY"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set action accept
+        set service "ALL"
+        set profile-type apply-all
+    next
+end

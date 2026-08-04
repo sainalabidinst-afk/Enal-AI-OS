@@ -1,0 +1,21 @@
+config vpn ipsec phase1-interface
+    edit "VPN-TUNNEL"
+        set peertype any
+        set net-device enable
+        set proposal aes256-sha256
+        set dpd on-idle
+        set dhgrp 14
+        set remote-gw 203.0.113.2
+        set psksecret MyStrongPSK123!
+    next
+end
+config vpn ipsec phase2-interface
+    edit "VPN-PHASE2"
+        set phase1name "VPN-TUNNEL"
+        set proposal aes256-sha256
+        set src-addr-type subnet
+        set dst-addr-type subnet
+        set src-subnet 10.0.0.0 255.255.255.0
+        set dst-subnet 10.1.0.0 255.255.255.0
+    next
+end

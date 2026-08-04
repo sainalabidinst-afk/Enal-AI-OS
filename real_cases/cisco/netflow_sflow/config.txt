@@ -1,0 +1,20 @@
+hostname NETFLOW-01
+!
+sflow run
+!
+sflow destination 10.0.0.100
+sflow polling-interval 30
+sflow sampling-rate 1000
+!
+netflow exporter MY-EXPORTER
+  destination 10.0.0.100
+  source Loopback0
+  transport udp 2055
+!
+netflow monitor MY-MONITOR
+  exporter MY-EXPORTER
+  record netflow-original
+!
+interface GigabitEthernet0/0
+  ip flow monitor MY-MONITOR input
+  ip flow monitor MY-MONITOR output

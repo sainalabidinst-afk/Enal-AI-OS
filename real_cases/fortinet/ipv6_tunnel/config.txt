@@ -1,0 +1,16 @@
+config system interface
+    edit "ipv6-tunnel"
+        set type tunnel
+        set tunnel-mode ip6ip6
+        set local-ip 2001:db8::1
+        set remote-ip 2001:db8::2
+        set ipv6-addr 2001:db8:1::1/64
+    next
+end
+config router static6
+    edit 1
+        set dst 2001:db8:2::/64
+        set gateway 2001:db8:1::2
+        set device "ipv6-tunnel"
+    next
+end

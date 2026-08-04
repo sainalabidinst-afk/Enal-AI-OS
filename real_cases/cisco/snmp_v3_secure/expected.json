@@ -1,0 +1,35 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 5,
+    "low": 6
+  },
+  "metadata": {
+    "description": "cisco snmp v3 secure configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "snmp"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "snmp",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "snmp",
+    "high",
+    "cisco",
+    "control",
+    "zero"
+  ]
+}

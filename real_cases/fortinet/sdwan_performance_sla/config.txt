@@ -1,0 +1,34 @@
+config system sdwan
+    set status enable
+    config members
+        edit 1
+            set interface "wan1"
+            set gateway 203.0.113.1
+            set cost 10
+        next
+        edit 2
+            set interface "wan2"
+            set gateway 203.0.113.2
+            set cost 20
+        next
+    end
+    config health-check
+        edit "Primary-Path"
+            set server "8.8.8.8"
+            set sla-fail-log-period 10
+            set sla-pass-log-period 10
+        next
+    end
+end
+config firewall policy
+    edit 1
+        set name "SD-WAN-POLICY"
+        set srcintf "internal"
+        set dstintf "wan1" "wan2"
+        set action accept
+        set service "ALL"
+        set srcaddr "all"
+        set dstaddr "all"
+        set wanopt-profile "SD-WAN-Opt"
+    next
+end

@@ -79,7 +79,8 @@ class OWASPDetector:
     INJECTION_PATTERNS = [
         (r"(?:exec|eval|compile)\s*\(", "Code injection via exec/eval/compile"),
         (r"os\.system\s*\(", "OS command injection via os.system"),
-        (r"subprocess\.(?:call|Popen|run|check_output)\s*\(", "OS command injection via subprocess"),
+        (r"subprocess\.(?:call|Popen|run|check_output)\s*\(",
+         "OS command injection via subprocess"),
         (r"shlex\.quote", "Safe command construction (positive)"),
         (r"f\"[^\"]*\{[^}]*\}", "Potential f-string injection in dangerous contexts"),
     ]
@@ -94,11 +95,15 @@ class OWASPDetector:
 
     # Hardcoded secrets patterns
     SECRET_PATTERNS = [
-        (r"(?:api_key|apikey|secret|password|token|credential)\s*=\s*[\"'][^\"']{8,}[\"']", "Hardcoded secret detected"),
-        (r"(?:AWS_ACCESS_KEY|AWS_SECRET_KEY|AZURE_.*_KEY|GCP_.*_KEY)", "Cloud provider credential detected"),
+        (r"(?:api_key|apikey|secret|password|token|credential)\s*=\s*[\"'][^\"']{8,}[\"']",
+         "Hardcoded secret detected"),
+        (r"(?:AWS_ACCESS_KEY|AWS_SECRET_KEY|AZURE_.*_KEY|GCP_.*_KEY)",
+         "Cloud provider credential detected"),
         (r"(?:sk-[a-zA-Z0-9]{20,}|pk-[a-zA-Z0-9]{20,})", "API key pattern detected"),
-        (r"(?:-----BEGIN\s+(?:RSA|EC|DSA|OPENSSH)\s+PRIVATE\s+KEY-----)", "Private key detected"),
-        (r"(?:JWT|jwt)\s*=\s*[\"'][a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+[\"']", "JWT token detected"),
+        (r"(?:-----BEGIN\s+(?:RSA|EC|DSA|OPENSSH)\s+PRIVATE\s+KEY-----)",
+         "Private key detected"),
+        (r"(?:JWT|jwt)\s*=\s*[\"'][a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+[\"']",
+         "JWT token detected"),
     ]
 
     # SSRF patterns
@@ -348,7 +353,11 @@ class OWASPDetector:
             ))
 
         # Check for verbose error handling
-        if re.search(r"traceback\.print_exc|print\(.*error.*\)|return\s+.*error\s+.*message", raw, re.IGNORECASE):
+        if re.search(
+            r"traceback\.print_exc|print\(.*error.*\)|return\s+.*error\s+.*message",
+            raw,
+            re.IGNORECASE,
+        ):
             findings.append(SecurityFinding(
                 category="owasp_a05_misconfiguration",
                 severity=SecuritySeverity.MEDIUM,
@@ -495,8 +504,8 @@ class AuthAnalyzer:
                     severity=SecuritySeverity.MEDIUM,
                     description="Session management detected but no session configuration found",
                     recommendation=(
-                        "Configure session timeout, secure cookie flags (HttpOnly, Secure, SameSite), "
-                        "and session regeneration on login."
+                        "Configure session timeout, secure cookie flags "
+                        "(HttpOnly, Secure, SameSite), and session regeneration on login."
                     ),
                     line_number=1,
                     confidence=0.5,

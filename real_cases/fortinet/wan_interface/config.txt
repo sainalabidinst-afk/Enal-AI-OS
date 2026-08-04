@@ -1,0 +1,27 @@
+config system interface
+    edit "wan1"
+        set mode wan
+        set allowaccess ping
+        set snmp enable
+        set type physical
+    next
+    edit "wan2"
+        set mode wan
+        set allowaccess ping
+        set snmp enable
+        set type physical
+    next
+end
+config router static
+    edit 1
+        set dst 0.0.0.0 0.0.0.0
+        set gateway 203.0.113.1
+        set device "wan1"
+    next
+    edit 2
+        set dst 0.0.0.0 0.0.0.0
+        set gateway 203.0.113.2
+        set device "wan2"
+        set priority 10
+    next
+end

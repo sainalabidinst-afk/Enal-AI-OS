@@ -1,0 +1,14 @@
+hostname IPV6-RA-01
+!
+interface GigabitEthernet0/0
+  ipv6 address 2001:db8::1/64
+  ipv6 nd managed-config-flag
+  ipv6 nd other-config-flag
+  ipv6 nd prefix 2001:db8::/64 2592000 604800
+!
+ipv6 dhcp pool DHCPv6-POOL
+  address prefix 2001:db8:1::/64
+  dns-server 2001:db8::10
+!
+interface GigabitEthernet0/0
+  ipv6 dhcp server DHCPv6-POOL

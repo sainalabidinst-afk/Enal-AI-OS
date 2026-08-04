@@ -1,0 +1,20 @@
+config firewall shaper traffic-shaper
+    edit "VOIP-PRIORITY"
+        set priority high
+        set bandwidth-unit mbps
+        set bandwidth 50
+        set max-bandwidth 100
+    next
+    edit "VIDEO-MEDIUM"
+        set priority medium
+        set bandwidth-unit mbps
+        set bandwidth 20
+        set max-bandwidth 50
+    next
+    edit "GENERAL-LOW"
+        set priority low
+        set bandwidth-unit mbps
+        set bandwidth 10
+        set max-bandwidth 25
+    next
+end

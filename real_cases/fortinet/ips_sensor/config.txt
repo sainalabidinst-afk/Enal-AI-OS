@@ -1,0 +1,26 @@
+config ips sensor
+    edit "DEFAULT"
+        set signature-based enable
+        set anomaly-based enable
+        config entries
+            edit 1
+                set action block
+                set severity high
+                set log enable
+            next
+        end
+    next
+end
+config firewall policy
+    edit 1
+        set name "INTERNET-ACCESS"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set action accept
+        set schedule "always"
+        set service "HTTP" "HTTPS"
+        set ips-sensor "DEFAULT"
+        set av-profile "default"
+        set webfilter-profile "default"
+    next
+end

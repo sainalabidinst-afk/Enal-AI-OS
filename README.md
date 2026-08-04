@@ -38,7 +38,7 @@ User → [API Layer] → [Orchestrator] → [Cognitive Pipeline (8 services)] �
 |---|---|---|
 | **Engineering Hardening** | ✅ Selesai | 27 file diperbaiki, MyPy=0, error P0 teratasi |
 | **Type Safety** | ✅ Selesai | Anotasi tipe lengkap, MyPy 0 error (mode non-strict) |
-| **Test Suite** | ✅ Selesai | 426 test lulus, baseline pytest terbentuk |
+| **Test Suite** | ✅ Selesai | 349 test lulus, baseline pytest terbentuk |
 | **Python 3.11 Compatibility** | ✅ Selesai | Nol masalah f-string backslash pada production code |
 | **Ruff Hygiene** | ✅ Selesai | Masalah auto-fixable teratasi, `ruff check --fix` diterapkan |
 | **subprocess.run Safety** | ✅ Selesai | Semua pemanggilan memiliki parameter `check=` eksplisit |

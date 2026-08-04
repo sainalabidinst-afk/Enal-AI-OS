@@ -27,5 +27,6 @@
 - [x] Update `docs/audit/README.md` (indeks)
 
 ### 5. Validasi
-- [ ] Jalankan import check / pytest collection
-- [ ] Verifikasi tidak ada broken reference
+- [x] Jalankan import check (`tools.audit.code_analysis` OK)
+- [x] Verifikasi tidak ada broken reference ke file yang dihapus
+- [x] Update `scripts/docs_ci_check.py` skip_files ke file konsolidasi baru

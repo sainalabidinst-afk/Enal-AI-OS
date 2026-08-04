@@ -1,0 +1,11 @@
+hostname EIGRP-STUB
+!
+router eigrp 100
+  network 10.0.0.0 0.255.255.255
+  redistribute static metric 1000 100 255 1 1500
+  eigrp stub connected summary
+!
+interface GigabitEthernet0/0
+  ip address 10.0.1.1 255.255.255.0
+!
+ip route 0.0.0.0 0.0.0.0 10.0.1.254

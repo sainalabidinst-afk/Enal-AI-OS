@@ -1,15 +1,13 @@
-hostname BRANCH-RTR
+hostname NAT-DMZ-01
 !
 interface GigabitEthernet0/0
- ip address 192.168.10.1 255.255.255.0
- ip nat inside
+  ip address 203.0.113.1 255.255.255.0
 !
 interface GigabitEthernet0/1
- ip address dhcp
- ip nat outside
+  ip address 192.168.1.1 255.255.255.0
 !
-ip nat inside source list 1 interface GigabitEthernet0/1 overload
-ip nat inside source static tcp 192.168.10.100 80 interface GigabitEthernet0/1 80
-ip nat inside source static tcp 192.168.10.100 443 interface GigabitEthernet0/1 443
+ip nat inside source static tcp 192.168.1.10 80 203.0.113.1 80
+ip nat inside source static tcp 192.168.1.10 443 203.0.113.1 443
 !
-access-list 1 permit 192.168.10.0 0.0.0.255
+access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80
+access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 443

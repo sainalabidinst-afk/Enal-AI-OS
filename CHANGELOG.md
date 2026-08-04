@@ -114,6 +114,23 @@ Tag ini menandai **Dasar Teknik** resmi dari Platform Kognitif Enal.
 - Manajemen versi (file VERSION, pyproject.toml diperbarui ke 1.0.0-dev)
 - dokumen peta jalan v1 dengan kriteria dan metrik keberhasilan
 
+### Ditambahkan (Upgrade Kapabilitas)
+- Asisten DevOps ditingkatkan dari B+ (≥80) ke A+ (≥90), Level 4 — Pakar Domain
+  - Modul baru: `schemas.py`, `smell_taxonomy.py`, `risk_modeler.py`, `suggestion_generator.py`, `project_scanner.py`, `pipeline_generator.py`, `infrastructure_designer.py`, `deployment_planner.py`, `monitoring_configurator.py`, `worker.py`
+  - Benchmark: `benchmarks/devops_assistant_benchmark.py` dengan 10 skenario, hasil 100% (A+)
+  - Deteksi 10 tipe masalah DevOps dengan rekomendasi perbaikan
+- Pengembangan Diri ditingkatkan dari A (≥90) ke A+ (≥95), Level 4 — Pakar Domain
+  - Modul baru: `schemas.py`, `smell_taxonomy.py`, `risk_modeler.py`, `suggestion_generator.py`, `project_scanner.py`, `worker.py`
+  - Benchmark: `benchmarks/self_development_benchmark.py` dengan 10 skenario, hasil 100% (A+)
+- Analis Perdagangan ditingkatkan ke A+ (≥95), Level 4 — Pakar Domain
+  - 7 domain pengetahuan: Wyckoff, SMC/ICT, Elliott Wave, Volume Profile, Psychology, Macro, Derivatives
+  - Benchmark: `benchmarks/trading_analyst_benchmark.py` dengan 100 skenario, hasil 100% (A+)
+  - Konsistensi: 100% across repeated analysis
+  - Risk-adjusted return quality: verified via reasoning + coverage + safety scoring
+  - Real cases: 5+ scenarios in `real_cases/trading/`
+  - Contract documentation: `docs/capabilities/trading-analyst.md`
+  - Benchmark dashboard: `benchmarks/reports/trading_dashboard.html`
+
 ### Berubah
 - Repositori direkonsiliasi untuk ekosistem (kernel, Runtime, SDK, studio, pasar, ability_packs, aplikasi, Plugin, contoh, dokumen, tolok ukur)
 - Semua komponen Fase 1-6 terintegrasi ke dalam platform yang kohesif

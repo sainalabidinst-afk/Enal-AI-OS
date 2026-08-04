@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trading Analyst Benchmark Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  h1 { margin: 0 0 4px; font-size: 22px; }
+  .subtitle { color: #656d76; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+  .metric { font-size: 28px; font-weight: 700; }
+  .metric-label { color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .section { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }
+  th { color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .score-bar { width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+  .score-fill { height: 100%; background: #2da44e; border-radius: 999px; }
+  .score-text { font-weight: 600; font-size: 13px; }
+  .badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .badge-success { background: #dafbe1; color: #1a7f37; }
+  .badge-warning { background: #fff8c5; color: #9a6700; }
+  .badge-danger { background: #ffebe9; color: #cf222e; }
+  .pass { color: #1a7f37; font-weight: 700; }
+  .fail { color: #cf222e; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Trading Analyst Benchmark Dashboard</h1>
+  <div class="subtitle">Generated: 2026-08-03T23:15:51.923453 · 100 scenarios · 7/7 domains</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="metric">A+</div>
+      <div class="metric-label">Grade</div>
+    </div>
+    <div class="card">
+      <div class="metric">100.0%</div>
+      <div class="metric-label">Overall Score</div>
+    </div>
+    <div class="card">
+      <div class="metric pass">PASS</div>
+      <div class="metric-label">Status</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Dimension Scores</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Score</th><th>Grade</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reasoning</td><td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td><td><span class="badge badge-success">A+</span></td></tr>
+          <tr><td>Coverage</td><td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td><td><span class="badge badge-success">A+</span></td></tr>
+          <tr><td>Explainability</td><td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td><td><span class="badge badge-success">A+</span></td></tr>
+          <tr><td>Consistency</td><td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td><td><span class="badge badge-success">A+</span></td></tr>
+          <tr><td>Safety</td><td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td><td><span class="badge badge-success">A+</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Knowledge Domain Coverage</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Domain</th><th>Evidence Count</th><th>Detected</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>wyckoff</td>
+              <td>800</td>
+              <td>YES</td>
+            </tr>
+        
+            <tr>
+              <td>smc</td>
+              <td>5200</td>
+              <td>YES</td>
+            </tr>
+        
+            <tr>
+              <td>elliott_wave</td>
+              <td>700</td>
+              <td>YES</td>
+            </tr>
+        
+            <tr>
+              <td>volume_profile</td>
+              <td>800</td>
+              <td>YES</td>
+            </tr>
+        
+            <tr>
+              <td>psychology</td>
+              <td>100</td>
+              <td>YES</td>
+            </tr>
+        
+            <tr>
+              <td>macro</td>
+              <td>302</td>
+              <td>YES</td>
+            </tr>
+        
+            <tr>
+              <td>derivatives</td>
+              <td>100</td>
+              <td>YES</td>
+            </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Raw Report</h2>
+    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{
+  &quot;generated_at&quot;: &quot;2026-08-03T23:15:51.923453&quot;,
+  &quot;overall_score&quot;: 100.0,
+  &quot;grade&quot;: &quot;A+&quot;,
+  &quot;reasoning_score&quot;: 100.0,
+  &quot;coverage_score&quot;: 100.0,
+  &quot;explainability_score&quot;: 100.0,
+  &quot;consistency_score&quot;: 100.0,
+  &quot;safety_score&quot;: 100.0,
+  &quot;scenarios_run&quot;: 100,
+  &quot;evidence_total&quot;: 11202,
+  &quot;domains_detected&quot;: [
+    &quot;wyckoff&quot;,
+    &quot;smc&quot;,
+    &quot;elliott_wave&quot;,
+    &quot;volume_profile&quot;,
+    &quot;psychology&quot;,
+    &quot;macro&quot;,
+    &quot;derivatives&quot;
+  ],
+  &quot;domain_evidence_count&quot;: {
+    &quot;wyckoff&quot;: 800,
+    &quot;smc&quot;: 5200,
+    &quot;elliott_wave&quot;: 700,
+    &quot;volume_profile&quot;: 800,
+    &quot;psychology&quot;: 100,
+    &quot;macro&quot;: 302,
+    &quot;derivatives&quot;: 100
+  },
+  &quot;passed&quot;: true
+}</pre>
+  </div>
+</div>
+</body>
+</html>

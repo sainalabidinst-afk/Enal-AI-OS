@@ -1,0 +1,15 @@
+hostname VSS-CORE-01
+!
+interface Vsl1
+  switchport mode trunk
+!
+interface GigabitEthernet1/1
+  channel-group 1 mode active
+!
+interface GigabitEthernet1/2
+  channel-group 1 mode active
+!
+interface Port-channel1
+  switchport mode trunk
+!
+spanning-tree vlan 1-4094 root primary

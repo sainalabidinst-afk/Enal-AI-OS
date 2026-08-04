@@ -1,0 +1,13 @@
+config system ha
+    set mode a-a
+    set group-id 1
+    set group-name "DC-HA"
+    set password ENC XXXX
+    set hbdev "port3" "port4"
+    set session-sync-dev "port3" "port4"
+    set session-pickup enable
+    set session-pickup-delay 0
+    set override enable
+    set priority 200
+    set schedule-delay 0
+end

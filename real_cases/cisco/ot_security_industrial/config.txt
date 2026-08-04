@@ -1,0 +1,17 @@
+hostname OT-GATEWAY
+!
+interface GigabitEthernet0/0
+  description OT-NETWORK
+  ip address 192.168.100.1 255.255.255.0
+!
+interface GigabitEthernet0/1
+  description IT-NETWORK
+  ip address 192.168.1.1 255.255.255.0
+!
+ip access-list extended OT-TO-IT
+  permit icmp 192.168.100.0 0.0.0.255 192.168.1.0 0.0.0.255
+  deny ip 192.168.100.0 0.0.0.255 192.168.1.0 0.0.0.255
+  permit ip any any
+!
+interface GigabitEthernet0/0
+  ip access-group OT-TO-IT in

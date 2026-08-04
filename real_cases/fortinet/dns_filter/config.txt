@@ -1,0 +1,24 @@
+config system dns
+    set primary 8.8.8.8
+    set secondary 1.1.1.1
+end
+config webfilter profile
+    edit "BLOCK-MALWARE"
+        set comment "Block malware and phishing"
+        config ftgd-wf
+            set category 85 "Malware"
+            set category 86 "Phishing"
+            set category 152 "Dynamic DNS"
+        end
+    next
+end
+config firewall policy
+    edit 1
+        set name "WEB-FILTER-POLICY"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set action accept
+        set service "HTTP" "HTTPS"
+        set webfilter-profile "BLOCK-MALWARE"
+    next
+end

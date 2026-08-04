@@ -1,0 +1,38 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 6,
+    "low": 13
+  },
+  "metadata": {
+    "description": "cisco ipv6 nd ra configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "ipv6"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ipv6",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "gigabitethernet0/0",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "high",
+    "cisco",
+    "control",
+    "ipv6-only",
+    "dhcpv6",
+    "(unique"
+  ]
+}

@@ -34,7 +34,7 @@ Dokumen ini mencatat keadaan engineering yang tepat dari Enal Cognitive Platform
 |Ketat MyPy|✅ **0 kesalahan**|Semua 27+ file diperbaiki di berbagai sprint|
 |Pilance Keparahan 8|✅ **0**|Resolusi tipe bersih|
 |Masalah Kode VS|✅ **0**|Tidak ada diagnostik yang tersisa|
-|Rangkaian Tes|✅ **426 lulus**|Semua tes lulus|
+|Rangkaian Tes|✅ **349 lulus**|Semua tes lulus|
 |String-f Python 3.11|✅ **0 masalah dalam produksi**|Diverifikasi melalui pemindaian `compile()`|
 |Kebersihan ruff|⚠️ Peringatan sisa|`ruff check --fix` dan `ruff format` menunggu (dapat diperbaiki secara otomatis)|
 |Konsistensi arsitektur|✅ Tervalidasi|AR-001 hingga AR-017 lulus|
@@ -62,7 +62,7 @@ enal-ai-os/
 ├── real_cases/         # Real-world test datasets
 ├── scripts/            # CI/CD, gate validation, release readiness
 ├── sdk/                # Python SDK
-├── tests/              # Unit tests (426 passing)
+├── tests/              # Unit tests (349 passing)
 ├── tools/
 │   └── audit/          # Utility scripts (hygiene, mypy fixing, f-string scanning)
 └── workspace/          # Runtime workspace
@@ -218,7 +218,7 @@ Prinsip-prinsip ini membentuk rekayasa "konstitusi" untuk proyek ini. Setiap kep
 |2|**Kompatibilitas Mundur**|Semua API publik dan antarmuka harus mempertahankan kompatibilitas ke belakang. Perubahan yang memadukan kompatibilitas memerlukan ADR, periode izin, dan jalur migrasi|
 |3|**Mengetik Kuat**|Semua kode harus lulus pemeriksaan MyPy strict. Tidak ada tipe `Any` di antarmuka publik. Gunakan `X \|Tidak ada`, bukan `Opsional[X]`|
 |4|**Tidak Ada Ketergantungan Tertinggalnya**|Semua dependensi harus dideklarasikan secara eksplisit di `pyproject.toml` atau `package.json`. Tidak dapat mengandalkan paket transitif atau tingkat sistem|
-|5|**Tes Dulu**|Setiap perubahan harus menyertakan atau memperbarui test. Baseline: 426 tes lulus. Tidak ada regresi di bawah tingkat kelulusan 95%|
+|5|**Tes Dulu**|Setiap perubahan harus menyertakan atau memperbarui test. Baseline: 349 tes lulus. Tidak ada regresi di bawah tingkat kelulusan 95%|
 |6|**Observabilitas Pertama**|Semua operasi Runtime harus mengeluarkan telemetri acara. Setiap jalur eksekusi harus dapat dilacak melalui `record_execution_event`|
 |7|**Acara Didorong**|Komunikasi-lintasmodul harus menggunakan Event Bus. Tidak ada penggandengan langsung antara Capability Pack atau modul inti|
 |8|**Plugin Pertama**|Perluas fungsionalitas melalui Plugin, bukan dengan memodifikasi inti. Plugin memerlukan manifestasi dan validasi keamanan|
@@ -249,7 +249,7 @@ Setiap pull request yang menargetkan `main` atau `release/*` harus lulus:
 |Gerbang|Urutannya|Kerasnya|
 |------|-------------|----------|
 |MyPy|0 kesalahan|🔴 PEMBLOKIRAN|
-|Tes|≥95% lulus (dasar: 426)|🔴 PEMBLOKIRAN|
+|Tes|≥95% lulus (dasar: 349)|🔴 PEMBLOKIRAN|
 |API Kontrak|Kompatibel ke belakang|🔴 PEMBLOKIRAN|
 |ADR|Diperlukan untuk mengubah arsitektur|🔴 PEMBLOKIRAN|
 |Serat Ruff|Tidak ada pemblokiran|🟡 PERINGATAN|

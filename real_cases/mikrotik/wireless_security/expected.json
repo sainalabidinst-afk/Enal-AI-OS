@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 4,
+    "low": 11
+  },
+  "metadata": {
+    "description": "mikrotik wireless security configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "wireless"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "wireless",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "interface",
+    "corp-sec",
+    "<unnamed>",
+    "bridge-local",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "authentication",
+    "service"
+  ]
+}

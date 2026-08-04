@@ -55,6 +55,9 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next):
         import time
+        from backend.app.core.config import settings
+        if getattr(settings, "TESTING", False):
+            return await call_next(request)
         client_ip = request.client.host if request.client else "unknown"
         now = time.time()
         window_start = now - self.window_seconds

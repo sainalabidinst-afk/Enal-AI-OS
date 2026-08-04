@@ -1,0 +1,38 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 8,
+    "low": 9
+  },
+  "metadata": {
+    "description": "fortinet switch managed vlan configuration.",
+    "source": "production",
+    "tags": [
+      "fortinet",
+      "switch"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "switch",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "(intrusion",
+    "antivirus",
+    "fortisandbox",
+    "fortianalyzer"
+  ]
+}

@@ -1,0 +1,23 @@
+config user saml
+    edit "IDP-SAML"
+        set idp-entity-id "https://idp.example.com/metadata"
+        set idp-single-sign-on-url "https://idp.example.com/sso"
+        set idp-single-logout-url "https://idp.example.com/slo"
+        set cert "IDP-CERT"
+    next
+end
+config user group
+    edit "SAML-USERS"
+        set member "IDP-SAML"
+    next
+end
+config firewall policy
+    edit 1
+        set name "SAML-AUTH-POLICY"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set action accept
+        set service "HTTPS"
+        set groups "SAML-USERS"
+    next
+end

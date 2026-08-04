@@ -1,0 +1,15 @@
+hostname EEM-AUTO-01
+!
+event manager environment IF_NAME GigabitEthernet0/0
+event manager environment IF_IP 10.0.0.1
+!
+event manager applet AUTO-RECOVER
+  event interface name $IF_NAME parameter admin down
+  action 1.0 cli command "enable"
+  action 2.0 cli command "configure terminal"
+  action 3.0 cli command "interface $IF_NAME"
+  action 4.0 cli command "no shutdown"
+  action 5.0 syslog msg "Interface $IF_NAME recovered"
+!
+interface GigabitEthernet0/0
+  ip address 10.0.0.1 255.255.255.0

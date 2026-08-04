@@ -1,0 +1,23 @@
+config system sdwan
+    set status enable
+    config members
+        edit 1
+            set interface "wan1"
+            set cost 10
+            set priority 1
+        next
+        edit 2
+            set interface "wan2"
+            set cost 20
+            set priority 2
+        next
+    end
+    config health-check
+        edit "Google-DNS"
+            set server "8.8.8.8"
+            set interval 1000
+            set failtime 3
+            set recoverytime 3
+        next
+    end
+end

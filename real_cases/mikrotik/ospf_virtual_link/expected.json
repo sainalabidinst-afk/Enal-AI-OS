@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 6,
+    "low": 7
+  },
+  "metadata": {
+    "description": "mikrotik ospf virtual link configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "ospf"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ospf",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "masquerade",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "10.0.1.1/24",
+    "authentication",
+    "service",
+    "zero"
+  ]
+}

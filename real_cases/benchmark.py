@@ -284,7 +284,11 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
                 except Exception:
                     pass
             expected_inner = expected.get("expected", expected)
-            expected_findings = _derive_expected_findings(expected_inner, expected.get("metadata", {}).get("tags", []))
+            explicit_findings = expected.get("expected_findings")
+            if explicit_findings:
+                expected_findings = explicit_findings
+            else:
+                expected_findings = _derive_expected_findings(expected_inner, expected.get("metadata", {}).get("tags", []))
             case = RealCase(
                 id=f"{vendor_dir.name}:{case_dir.name}",
                 title=expected.get("title", case_dir.name),

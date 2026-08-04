@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 7,
+    "low": 13
+  },
+  "metadata": {
+    "description": "mikrotik ipv6 tunnel 6to4 configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "ipv6"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ipv6",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "interface",
+    "enabled",
+    "configured",
+    "logging",
+    "user",
+    "loopback",
+    "default",
+    "ipv6",
+    "authentication",
+    "service",
+    "ipv6-only",
+    "(unique"
+  ]
+}

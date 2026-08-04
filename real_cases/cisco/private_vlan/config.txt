@@ -1,0 +1,22 @@
+hostname PVLAN-SW
+!
+vlan 100
+  name PRIMARY
+!
+vlan 200
+  name ISOLATED
+!
+vlan 300
+  name COMMUNITY
+!
+interface GigabitEthernet1/1
+  switchport mode private-vlan promiscuous
+  switchport private-vlan mapping 100+200,300
+!
+interface GigabitEthernet1/2
+  switchport mode private-vlan host
+  switchport private-vlan host-association 100 200
+!
+interface GigabitEthernet1/3
+  switchport mode private-vlan host
+  switchport private-vlan host-association 100 300

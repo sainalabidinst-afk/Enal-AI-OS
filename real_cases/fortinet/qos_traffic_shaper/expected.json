@@ -1,0 +1,38 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 8,
+    "low": 9
+  },
+  "metadata": {
+    "description": "fortinet qos traffic shaper configuration.",
+    "source": "production",
+    "tags": [
+      "fortinet",
+      "qos"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "qos",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "(intrusion",
+    "antivirus",
+    "fortisandbox",
+    "fortianalyzer"
+  ]
+}

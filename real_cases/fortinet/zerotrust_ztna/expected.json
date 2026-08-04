@@ -1,0 +1,38 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 16,
+    "low": 11
+  },
+  "metadata": {
+    "description": "fortinet zerotrust ztna configuration.",
+    "source": "production",
+    "tags": [
+      "fortinet",
+      "zerotrust"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "zerotrust",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "default",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "application",
+    "inspection",
+    "identity-based"
+  ]
+}

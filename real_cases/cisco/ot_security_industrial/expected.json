@@ -1,0 +1,35 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 5,
+    "low": 6
+  },
+  "metadata": {
+    "description": "cisco ot security industrial configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "ot"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ot",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "default",
+    "high",
+    "cisco",
+    "control",
+    "zero"
+  ]
+}

@@ -1,0 +1,18 @@
+config emailfilter profile
+    edit "SPAM-FILTER"
+        set comment "Spam and malware filtering"
+        set spam-filtering enable
+        set virus-scanning enable
+        set phishing-scanning enable
+    next
+end
+config firewall policy
+    edit 1
+        set name "SMTP-POLICY"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set action accept
+        set service "SMTP"
+        set email-filter-profile "SPAM-FILTER"
+    next
+end

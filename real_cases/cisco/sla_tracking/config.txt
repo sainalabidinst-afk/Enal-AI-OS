@@ -1,0 +1,14 @@
+hostname SLA-TRACK-01
+!
+ip sla 10
+  icmp-echo 8.8.8.8 source-interface GigabitEthernet0/0
+  frequency 5
+  threshold 2
+!
+ip sla schedule 10 life forever start-time now
+!
+track 1 ip sla 10 reachability
+!
+interface GigabitEthernet0/0
+  ip address 203.0.113.1 255.255.255.0
+  ip route 0.0.0.0 0.0.0.0 203.0.113.254 track 1

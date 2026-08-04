@@ -1,0 +1,13 @@
+hostname SR-CORE-01
+!
+router ospf 1
+  segment-routing mpls
+  segment-routing mpls connected-prefix-sid-map advertise-local
+!
+interface Loopback0
+  ip address 1.1.1.1 255.255.255.255
+  ip router ospf 1 area 0
+!
+interface GigabitEthernet0/0
+  ip address 10.0.1.1 255.255.255.0
+  ip router ospf 1 area 0

@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 9,
+    "low": 12
+  },
+  "metadata": {
+    "description": "mikrotik hotspot with login configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "hotspot"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "hotspot",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "allows",
+    "input",
+    "icmp",
+    "interface",
+    "enabled",
+    "dhcp",
+    "hotspot",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "public"
+  ]
+}

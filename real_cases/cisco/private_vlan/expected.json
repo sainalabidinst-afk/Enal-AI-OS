@@ -1,0 +1,38 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 4,
+    "low": 11
+  },
+  "metadata": {
+    "description": "cisco private vlan configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "private"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "private",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "interface",
+    "gigabitethernet1/2",
+    "gigabitethernet1/3",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "vlan",
+    "collapsed",
+    "high",
+    "cisco",
+    "control"
+  ]
+}

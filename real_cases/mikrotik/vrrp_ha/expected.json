@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 9,
+    "low": 14
+  },
+  "metadata": {
+    "description": "mikrotik vrrp ha configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "vrrp"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "vrrp",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "fasttrack",
+    "backup",
+    "icmp",
+    "masquerade",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "connection",
+    "default",
+    "ipv6",
+    "dual-stack"
+  ]
+}

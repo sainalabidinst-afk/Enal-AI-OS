@@ -1,0 +1,17 @@
+config router bgp
+    set as 65001
+    set router-id 10.0.0.1
+    config neighbor
+        edit "10.0.1.2"
+            set remote-as 65002
+            set password MyBGPpass123
+            set weight 100
+        next
+    end
+    config network
+        edit 1
+            set prefix 192.168.1.0
+            set mask 255.255.255.0
+        next
+    end
+end

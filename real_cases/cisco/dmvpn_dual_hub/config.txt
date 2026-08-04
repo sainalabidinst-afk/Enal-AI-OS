@@ -1,0 +1,15 @@
+hostname DMVPN-HUB
+!
+interface Tunnel0
+  ip address 10.0.0.1 255.255.255.0
+  tunnel source GigabitEthernet0/0
+  tunnel mode gre multipoint
+  tunnel key 12345
+  ip nhrp authentication MyNHRPpass
+!
+interface GigabitEthernet0/0
+  ip address 203.0.113.1 255.255.255.0
+!
+router eigrp 100
+  network 10.0.0.0
+  no auto-summary

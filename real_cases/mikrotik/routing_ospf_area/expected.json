@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 7,
+    "low": 6
+  },
+  "metadata": {
+    "description": "mikrotik routing ospf area configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "routing"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "routing",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "masquerade",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "10.0.1.1/24",
+    "10.0.2.1/24",
+    "authentication",
+    "service",
+    "zero"
+  ]
+}

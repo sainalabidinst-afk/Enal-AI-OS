@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 7,
+    "low": 12
+  },
+  "metadata": {
+    "description": "mikrotik ipv6 dhcpv6 configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "ipv6"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ipv6",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "ipv6",
+    "enabled",
+    "authentication",
+    "service",
+    "ipv6-only",
+    "dhcpv6"
+  ]
+}

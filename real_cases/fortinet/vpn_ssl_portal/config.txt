@@ -1,0 +1,22 @@
+config vpn ssl settings
+    set serverport 443
+    set dtls-hello-timeout 10
+    set dns-mode auto
+    set source-ip 10.0.0.1
+end
+config vpn ssl portal
+    edit "EMPLOYEE-PORTAL"
+        set tunnel-mode enable
+        set ip-mode ipv4
+        set dns-server1 10.0.0.10
+        set dns-server2 10.0.0.11
+        set wins-server1 10.0.0.10
+        set route-mode split
+    next
+end
+config vpn ssl web portal
+    edit "EMPLOYEE-PORTAL"
+        set landing-page enable
+        set web-mode enable
+    next
+end

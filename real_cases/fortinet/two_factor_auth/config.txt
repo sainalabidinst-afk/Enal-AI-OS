@@ -1,0 +1,19 @@
+config system global
+    set gui-two-factor-auth enable
+    set two-factor-authentication fortitoken
+    set two-factor-forticloud enable
+end
+config user fortitoken
+    edit "FTK-USER1"
+        set status enable
+        set serial-number 12345678
+    next
+end
+config system admin
+    edit "admin2"
+        set accprofile "super_admin"
+        set password ENC XXXX
+        set two-factor enable
+        set fortitoken "FTK-USER1"
+    next
+end

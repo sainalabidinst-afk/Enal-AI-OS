@@ -14,9 +14,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
+from apps.code_engineer.architecture_patterns import architecture_pattern_analyzer
 from apps.code_engineer.parser import code_parser
-from apps.code_engineer.architecture_patterns import architecture_pattern_analyzer, ArchitectureFinding
-from apps.code_engineer.secure_coding import secure_coding_analyzer, SecurityFinding
+from apps.code_engineer.secure_coding import secure_coding_analyzer
 
 logger = logging.getLogger(__name__)
 

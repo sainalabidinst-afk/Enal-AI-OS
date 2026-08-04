@@ -16,13 +16,13 @@ help:
 	@echo "make clean             - Remove containers and volumes"
 
 up:
-	docker-compose up -d
+	docker compose up -d
 
 down:
-	docker-compose down
+	docker compose down
 
 logs:
-	docker-compose logs -f
+	docker compose logs -f
 
 backend:
 	pip install -e ".[dev]" && uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000
@@ -46,5 +46,5 @@ release-readiness:
 	cd scripts && python release_readiness.py
 
 clean:
-	docker-compose down -v
+	docker compose down -v
 	rm -rf backend/.venv frontend/node_modules

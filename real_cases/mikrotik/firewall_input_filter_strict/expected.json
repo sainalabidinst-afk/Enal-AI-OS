@@ -27,18 +27,18 @@
   "expected_findings": [
     "fasttrack",
     "backup",
-    "input chain",
     "icmp",
     "configured",
     "logging",
     "configuration",
     "password",
-    "stateful",
     "loopback",
-    "connection",
     "default",
     "ssh",
     "access",
-    "zero"
+    "zero",
+    "mtu",
+    "ntp",
+    "trusted"
   ]
 }

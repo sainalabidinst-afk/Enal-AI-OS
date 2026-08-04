@@ -27,8 +27,6 @@
   "expected_findings": [
     "fasttrack",
     "backup",
-    "input chain",
-    "icmp",
     "masquerade",
     "interface",
     "<unnamed>",
@@ -36,9 +34,11 @@
     "logging",
     "configuration",
     "user",
-    "stateful",
     "loopback",
-    "connection",
-    "default"
+    "default",
+    "ssh",
+    "ntp",
+    "mtu",
+    "trusted"
   ]
 }

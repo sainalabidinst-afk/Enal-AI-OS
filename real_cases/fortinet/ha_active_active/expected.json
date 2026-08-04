@@ -1,0 +1,38 @@
+{
+  "vendor": "fortinet",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 8,
+    "low": 10
+  },
+  "metadata": {
+    "description": "fortinet ha active active configuration.",
+    "source": "production",
+    "tags": [
+      "fortinet",
+      "ha"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ha",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "fortinet",
+    "fortios",
+    "admin",
+    "trusted",
+    "fortiguard",
+    "(intrusion",
+    "antivirus",
+    "fortisandbox"
+  ]
+}

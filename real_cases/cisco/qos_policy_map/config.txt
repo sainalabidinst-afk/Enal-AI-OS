@@ -1,0 +1,16 @@
+hostname QOS-CORE-01
+!
+class-map match-all VOICE
+  match ip dscp ef
+!
+policy-map QOS-POLICY
+  class VOICE
+    priority level 1
+  class class-default
+    fair-queue
+!
+interface GigabitEthernet0/0
+  service-policy output QOS-POLICY
+!
+interface GigabitEthernet0/1
+  service-policy input QOS-POLICY

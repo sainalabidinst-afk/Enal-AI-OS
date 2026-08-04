@@ -1,0 +1,17 @@
+hostname TELEMETRY-01
+!
+telemetry
+  sensor-group SENSOR-GRP
+    sensor path Cisco-IOS-XR-infra-rm-oper:infra-rm-statistics/rm-statistics/rm-statistics-interface
+    sensor path Cisco-IOS-XR-pfi-im-cmd-oper:interfaces/interface-summary
+!
+destination-group DEST-GRP
+  ip address 10.0.0.100 port 57001 protocol grpc-tcp
+!
+subscription SUB-GRP
+  sensor-group-id SENSOR-GRP
+  destination-id DEST-GRP
+  subscription-id 210101
+!
+interface GigabitEthernet0/0
+  ip address 10.0.0.1 255.255.255.0

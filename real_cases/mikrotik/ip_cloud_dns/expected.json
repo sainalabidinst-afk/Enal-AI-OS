@@ -1,0 +1,34 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 5,
+    "low": 4
+  },
+  "metadata": {
+    "description": "mikrotik ip cloud dns configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "ip"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "ip",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "configuration",
+    "user",
+    "servers",
+    "loopback",
+    "default",
+    "authentication",
+    "service",
+    "zero"
+  ]
+}

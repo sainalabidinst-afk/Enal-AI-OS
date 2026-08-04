@@ -1,0 +1,24 @@
+hostname SW-STACK-01
+!
+stack-power
+  stack Power-stack1
+!
+interface GigabitEthernet1/1
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+!
+interface GigabitEthernet1/2
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+!
+interface GigabitEthernet2/1
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+!
+vlan 10
+  name USERS
+!
+vlan 20
+  name VOICE
+!
+spanning-tree vlan 10,20 root primary

@@ -1,0 +1,36 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 4,
+    "low": 7
+  },
+  "metadata": {
+    "description": "mikrotik certificate enrollment configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "certificate"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "certificate",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "input",
+    "icmp",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "default",
+    "fasttrack",
+    "authentication",
+    "service",
+    "zero"
+  ]
+}

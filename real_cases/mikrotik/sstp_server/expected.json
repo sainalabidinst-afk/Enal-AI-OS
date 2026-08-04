@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 7,
+    "low": 9
+  },
+  "metadata": {
+    "description": "mikrotik sstp server configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "sstp"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "sstp",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "default",
+    "fasttrack",
+    "backup",
+    "icmp",
+    "interface",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "connection",
+    "route",
+    "pppoe",
+    "without"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "vendor": "mikrotik",
+  "device_type": "router",
+  "expected": {
+    "critical": 2,
+    "high": 0,
+    "medium": 6,
+    "low": 7
+  },
+  "metadata": {
+    "description": "mikrotik qos htb configuration.",
+    "source": "production",
+    "tags": [
+      "mikrotik",
+      "qos"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "qos",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "fasttrack",
+    "backup",
+    "input",
+    "icmp",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "stateful",
+    "loopback",
+    "connection",
+    "default",
+    "authentication",
+    "service",
+    "zero"
+  ]
+}

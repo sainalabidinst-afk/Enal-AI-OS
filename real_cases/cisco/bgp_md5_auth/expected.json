@@ -1,0 +1,38 @@
+{
+  "vendor": "cisco",
+  "device_type": "firewall",
+  "expected": {
+    "critical": 1,
+    "high": 0,
+    "medium": 7,
+    "low": 12
+  },
+  "metadata": {
+    "description": "cisco bgp md5 auth configuration.",
+    "source": "production",
+    "tags": [
+      "cisco",
+      "bgp"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "bgp",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "backup",
+    "configured",
+    "logging",
+    "configuration",
+    "user",
+    "loopback",
+    "synchronization",
+    "high",
+    "cisco",
+    "control",
+    "path",
+    "(multi-exit",
+    "as-path",
+    "prefix-list",
+    "maximum-prefix"
+  ]
+}

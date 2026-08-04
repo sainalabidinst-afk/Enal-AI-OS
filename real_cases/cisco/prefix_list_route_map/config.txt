@@ -1,0 +1,14 @@
+hostname PFX-RM-01
+!
+ip prefix-list BGP-IN seq 5 permit 10.0.0.0/8 le 24
+ip prefix-list BGP-IN seq 10 permit 172.16.0.0/12 le 24
+!
+route-map FILTER-IN permit 10
+  match ip address prefix-list BGP-IN
+!
+router bgp 65001
+  neighbor 203.0.113.2 remote-as 65002
+  neighbor 203.0.113.2 route-map FILTER-IN in
+!
+interface GigabitEthernet0/0
+  ip address 203.0.113.1 255.255.255.0

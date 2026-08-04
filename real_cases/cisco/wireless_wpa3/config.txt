@@ -1,0 +1,18 @@
+hostname WLAN-CTRL
+!
+dot11 ssid CORP-WPA3
+   authentication open
+   authentication key-management wpa3
+   wpa3-enterprise
+   guest-mode
+!
+interface Dot11Radio0
+  ssid CORP-WPA3
+  vlan 100
+!
+interface Dot11Radio1
+  ssid CORP-WPA3
+  vlan 100
+!
+interface BVI1
+  ip address 192.168.100.1 255.255.255.0
