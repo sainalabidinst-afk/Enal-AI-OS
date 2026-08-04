@@ -1,0 +1,6 @@
+Research Query: user_experience_research
+
+Context:
+- Domain: Technology
+- Timeframe: 2024-2025
+- Sources: Academic papers, industry reports

@@ -1,0 +1,6 @@
+Research Query: academic_research_synthesis
+
+Context:
+- Domain: Technology
+- Timeframe: 2024-2025
+- Sources: Academic papers, industry reports

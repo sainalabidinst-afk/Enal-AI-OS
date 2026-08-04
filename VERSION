@@ -2,12 +2,13 @@
 
 ## Current Version
 
-**v1.0.0-engineering-baseline** (Engineering Baseline — Frozen)
+**v1.0.0-developer-preview** (Developer Preview — Fase 1 Complete)
 
 ## Version History
 
 | Version | Status | Date | Description |
 |---------|--------|------|-------------|
+| v1.0.0-developer-preview | Developer Preview | 2026-08-04 | Capability Excellence complete. 13 packs at A- or higher, 1,350+ real cases, benchmark dashboards for all packs. |
 | v1.0.0-engineering-baseline | Frozen | 2024 | Engineering Baseline. MyPy 0 error, Pylance 0, Tests 368 passed, Python 3.11 verified, utility scripts moved to tools/audit/. |
 | Product Intelligence v1.0.0-dev | Active | 2026-07-14 | Telemetry, Benchmark Framework, Capability Scoring, Quality Intelligence, CCE, Confidence Calibration complete. |
 | Backend Baseline v1.0.0-dev | Baseline | 2026-07-11 | Canonical Consolidation complete. 47/47 validations passed. |
@@ -29,6 +30,6 @@ ECP follows Semantic Versioning.
 
 ## Current Stage
 
-**v1.0.0-engineering-baseline (Frozen)**
+**v1.0.0-developer-preview**
 
-Engineering foundation is stable and locked. No new architecture changes, large refactors, or redesigns without documented cross-domain need. Next: Documentation Phase -> Product Development.
+Capability Excellence complete. All 13 packs meet A- or higher. Ready for developer feedback and validation.

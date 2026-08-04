@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Network Engineer Benchmark Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  h1 { margin: 0 0 4px; font-size: 22px; }
+  .subtitle { color: #656d76; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+  .metric { font-size: 28px; font-weight: 700; }
+  .metric-label { color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .section { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }
+  th { color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .score-bar { width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+  .score-fill { height: 100%; background: #2da44e; border-radius: 999px; }
+  .score-text { font-weight: 600; font-size: 13px; }
+  .badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .badge-success { background: #dafbe1; color: #1a7f37; }
+  .badge-warning { background: #fff8c5; color: #9a6700; }
+  .badge-danger { background: #ffebe9; color: #cf222e; }
+  .pass { color: #1a7f37; font-weight: 700; }
+  .fail { color: #cf222e; font-weight: 700; }
+  .error { background: #ffebe9; border-color: #cf222e; }
+  .error .metric { color: #cf222e; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Network Engineer Benchmark Dashboard</h1>
+  <div class="subtitle">Generated: 2026-08-04T05:03:59.882899 · 1 dimensions</div>
+  <div class="grid">
+    <div class="card">
+      <div class="metric">F</div>
+      <div class="metric-label">Grade</div>
+    </div>
+    <div class="card">
+      <div class="metric">0.0%</div>
+      <div class="metric-label">Overall Score</div>
+    </div>
+    <div class="card">
+      <div class="metric fail">FAIL</div>
+      <div class="metric-label">Status</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Score Breakdown by Dimension</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Score</th><th>Grade</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>Avg Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:0.0%"></div></div><span class="score-text">0.0%</span></td>
+              <td><span class="badge badge-danger">F</span></td>
+            </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Scenario Results</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>case_id</th><th>errors</th><th>execution_time_ms</th><th>expected_findings</th><th>findings_matched</th><th>passed</th><th>score</th><th>title</th><th>vendor</th></tr></thead><tbody><tr><td>cisco:bgp_full_mesh</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>bgp_full_mesh</td><td>cisco</td></tr><tr><td>cisco:bgp_md5_auth</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>bgp_md5_auth</td><td>cisco</td></tr><tr><td>cisco:bgp_route_reflector</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>bgp_route_reflector</td><td>cisco</td></tr><tr><td>cisco:dhcp_snooping</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>dhcp_snooping</td><td>cisco</td></tr><tr><td>cisco:dmvpn_dual_hub</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>dmvpn_dual_hub</td><td>cisco</td></tr><tr><td>cisco:eem_automation</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>10</td><td>0</td><td>FAIL</td><td>0.0</td><td>eem_automation</td><td>cisco</td></tr><tr><td>cisco:eigrp_stub</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>eigrp_stub</td><td>cisco</td></tr><tr><td>cisco:firewall_asa_acl_strict</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>firewall_asa_acl_strict</td><td>cisco</td></tr><tr><td>cisco:ha_vss</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ha_vss</td><td>cisco</td></tr><tr><td>cisco:high_availability_hsrp_router</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>high_availability_hsrp_router</td><td>cisco</td></tr><tr><td>cisco:ipv6_dual_stack</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ipv6_dual_stack</td><td>cisco</td></tr><tr><td>cisco:ipv6_nd_ra</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ipv6_nd_ra</td><td>cisco</td></tr><tr><td>cisco:model_driven_telemetry</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>model_driven_telemetry</td><td>cisco</td></tr><tr><td>cisco:mpls_ldp_core</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>mpls_ldp_core</td><td>cisco</td></tr><tr><td>cisco:nat_pat_dmz</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>nat_pat_dmz</td><td>cisco</td></tr><tr><td>cisco:netflow_sflow</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>netflow_sflow</td><td>cisco</td></tr><tr><td>cisco:ot_security_industrial</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>ot_security_industrial</td><td>cisco</td></tr><tr><td>cisco:prefix_list_route_map</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>prefix_list_route_map</td><td>cisco</td></tr><tr><td>cisco:private_vlan</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>private_vlan</td><td>cisco</td></tr><tr><td>cisco:qos_policy_map</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>14</td><td>0</td><td>FAIL</td><td>0.0</td><td>qos_policy_map</td><td>cisco</td></tr><tr><td>cisco:qos_voice_priority</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>qos_voice_priority</td><td>cisco</td></tr><tr><td>cisco:routing_ospf_enterprise</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>routing_ospf_enterprise</td><td>cisco</td></tr><tr><td>cisco:security_ssh_hardened</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>10</td><td>0</td><td>FAIL</td><td>0.0</td><td>security_ssh_hardened</td><td>cisco</td></tr><tr><td>cisco:segment_routing</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>segment_routing</td><td>cisco</td></tr><tr><td>cisco:services_dns_ntp_snmp</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>services_dns_ntp_snmp</td><td>cisco</td></tr><tr><td>cisco:sla_tracking</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>10</td><td>0</td><td>FAIL</td><td>0.0</td><td>sla_tracking</td><td>cisco</td></tr><tr><td>cisco:snmp_v3_secure</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>snmp_v3_secure</td><td>cisco</td></tr><tr><td>cisco:stackpower_redundancy</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>stackpower_redundancy</td><td>cisco</td></tr><tr><td>cisco:switching_vlan_trunking</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>switching_vlan_trunking</td><td>cisco</td></tr><tr><td>cisco:telemetry_streaming</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>11</td><td>0</td><td>FAIL</td><td>0.0</td><td>telemetry_streaming</td><td>cisco</td></tr><tr><td>cisco:vpn_site_to_site_ipsec</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vpn_site_to_site_ipsec</td><td>cisco</td></tr><tr><td>cisco:wireless_corporate_ssid</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>11</td><td>0</td><td>FAIL</td><td>0.0</td><td>wireless_corporate_ssid</td><td>cisco</td></tr><tr><td>cisco:wireless_wpa3</td><td>[&quot;name &#x27;parse_nat&#x27; is not defined&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>wireless_wpa3</td><td>cisco</td></tr><tr><td>fortinet:anti_exploit</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>15</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>anti_exploit</td><td>fortinet</td></tr><tr><td>fortinet:app_signatures</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>app_signatures</td><td>fortinet</td></tr><tr><td>fortinet:bgp_peer_config</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>bgp_peer_config</td><td>fortinet</td></tr><tr><td>fortinet:cloud_ondemand</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>cloud_ondemand</td><td>fortinet</td></tr><tr><td>fortinet:dns_filter</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>dns_filter</td><td>fortinet</td></tr><tr><td>fortinet:email_filter</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>email_filter</td><td>fortinet</td></tr><tr><td>fortinet:firewall_policy_dmz</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>firewall_policy_dmz</td><td>fortinet</td></tr><tr><td>fortinet:ha_active_active</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ha_active_active</td><td>fortinet</td></tr><tr><td>fortinet:high_availability_active_passive</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>high_availability_active_passive</td><td>fortinet</td></tr><tr><td>fortinet:inline_ips</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>inline_ips</td><td>fortinet</td></tr><tr><td>fortinet:iot_detection</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>iot_detection</td><td>fortinet</td></tr><tr><td>fortinet:ips_sensor</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ips_sensor</td><td>fortinet</td></tr><tr><td>fortinet:ipv6_tunnel</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ipv6_tunnel</td><td>fortinet</td></tr><tr><td>fortinet:nat_virtual_ip_nat</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>nat_virtual_ip_nat</td><td>fortinet</td></tr><tr><td>fortinet:qos_traffic_shaper</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>qos_traffic_shaper</td><td>fortinet</td></tr><tr><td>fortinet:qos_traffic_shaping</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>15</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>qos_traffic_shaping</td><td>fortinet</td></tr><tr><td>fortinet:routing_static_bgp_ha</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>routing_static_bgp_ha</td><td>fortinet</td></tr><tr><td>fortinet:saml_idp</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>saml_idp</td><td>fortinet</td></tr><tr><td>fortinet:sdwan_performance_sla</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>sdwan_performance_sla</td><td>fortinet</td></tr><tr><td>fortinet:sdwan_wan_optimization</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>sdwan_wan_optimization</td><td>fortinet</td></tr><tr><td>fortinet:security_admin_exposed</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>security_admin_exposed</td><td>fortinet</td></tr><tr><td>fortinet:services_dns_ntp_mgmt</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>services_dns_ntp_mgmt</td><td>fortinet</td></tr><tr><td>fortinet:switch_managed_vlan</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>switch_managed_vlan</td><td>fortinet</td></tr><tr><td>fortinet:switching_managed_vlan</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>switching_managed_vlan</td><td>fortinet</td></tr><tr><td>fortinet:two_factor_auth</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>two_factor_auth</td><td>fortinet</td></tr><tr><td>fortinet:url_filter_categories</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>url_filter_categories</td><td>fortinet</td></tr><tr><td>fortinet:vpn_ipsec_phase1_phase2</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>15</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vpn_ipsec_phase1_phase2</td><td>fortinet</td></tr><tr><td>fortinet:vpn_ipsec_site_to_site</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vpn_ipsec_site_to_site</td><td>fortinet</td></tr><tr><td>fortinet:vpn_ssl_portal</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vpn_ssl_portal</td><td>fortinet</td></tr><tr><td>fortinet:wan_interface</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>wan_interface</td><td>fortinet</td></tr><tr><td>fortinet:wan_optimization</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>wan_optimization</td><td>fortinet</td></tr><tr><td>fortinet:wireless_employee_wifi</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>wireless_employee_wifi</td><td>fortinet</td></tr><tr><td>fortinet:zerotrust_ztna</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>2</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>zerotrust_ztna</td><td>fortinet</td></tr><tr><td>mikrotik:bgp_peer_tracking</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>2</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>bgp_peer_tracking</td><td>mikrotik</td></tr><tr><td>mikrotik:bgp_route_map</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>bgp_route_map</td><td>mikrotik</td></tr><tr><td>mikrotik:capsman_ap_control</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>1</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>capsman_ap_control</td><td>mikrotik</td></tr><tr><td>mikrotik:certificate_enrollment</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>certificate_enrollment</td><td>mikrotik</td></tr><tr><td>mikrotik:firewall_input_filter_strict</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>firewall_input_filter_strict</td><td>mikrotik</td></tr><tr><td>mikrotik:firewall_raw_table</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>firewall_raw_table</td><td>mikrotik</td></tr><tr><td>mikrotik:high_availability_bgpi_peer_tracking</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>13</td><td>0</td><td>FAIL</td><td>0.0</td><td>high_availability_bgpi_peer_tracking</td><td>mikrotik</td></tr><tr><td>mikrotik:hotspot_with_login</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>hotspot_with_login</td><td>mikrotik</td></tr><tr><td>mikrotik:ip_cloud_dns</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>11</td><td>0</td><td>FAIL</td><td>0.0</td><td>ip_cloud_dns</td><td>mikrotik</td></tr><tr><td>mikrotik:ipv6_dhcpv6</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ipv6_dhcpv6</td><td>mikrotik</td></tr><tr><td>mikrotik:ipv6_pool_dhcp</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ipv6_pool_dhcp</td><td>mikrotik</td></tr><tr><td>mikrotik:ipv6_tunnel_6to4</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ipv6_tunnel_6to4</td><td>mikrotik</td></tr><tr><td>mikrotik:l2tp_server</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>15</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>l2tp_server</td><td>mikrotik</td></tr><tr><td>mikrotik:l3_switch_vlan_routing</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>l3_switch_vlan_routing</td><td>mikrotik</td></tr><tr><td>mikrotik:mpls_ldp_enabled</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>mpls_ldp_enabled</td><td>mikrotik</td></tr><tr><td>mikrotik:nat_hairpin</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>nat_hairpin</td><td>mikrotik</td></tr><tr><td>mikrotik:ospf_virtual_link</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>ospf_virtual_link</td><td>mikrotik</td></tr><tr><td>mikrotik:pptp_remote_access</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>pptp_remote_access</td><td>mikrotik</td></tr><tr><td>mikrotik:qos_htb</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>qos_htb</td><td>mikrotik</td></tr><tr><td>mikrotik:qos_traffic_shaping_enterprise</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>12</td><td>0</td><td>FAIL</td><td>0.0</td><td>qos_traffic_shaping_enterprise</td><td>mikrotik</td></tr><tr><td>mikrotik:queue_tree_qos</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>queue_tree_qos</td><td>mikrotik</td></tr><tr><td>mikrotik:quickset_wan_dhcp</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>14</td><td>0</td><td>FAIL</td><td>0.0</td><td>quickset_wan_dhcp</td><td>mikrotik</td></tr><tr><td>mikrotik:routing_ospf_area</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>routing_ospf_area</td><td>mikrotik</td></tr><tr><td>mikrotik:routing_static_route_default</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>15</td><td>14</td><td>0</td><td>FAIL</td><td>0.0</td><td>routing_static_route_default</td><td>mikrotik</td></tr><tr><td>mikrotik:sample_hotspot</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>sample_hotspot</td><td>mikrotik</td></tr><tr><td>mikrotik:security_insecure_defaults</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>security_insecure_defaults</td><td>mikrotik</td></tr><tr><td>mikrotik:services_dhcp_dns_server</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>services_dhcp_dns_server</td><td>mikrotik</td></tr><tr><td>mikrotik:sstp_server</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>sstp_server</td><td>mikrotik</td></tr><tr><td>mikrotik:switching_vlan_switch</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>14</td><td>0</td><td>FAIL</td><td>0.0</td><td>switching_vlan_switch</td><td>mikrotik</td></tr><tr><td>mikrotik:vlan_aware_bridge</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vlan_aware_bridge</td><td>mikrotik</td></tr><tr><td>mikrotik:vpn_pptp_remote_access</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>15</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vpn_pptp_remote_access</td><td>mikrotik</td></tr><tr><td>mikrotik:vrrp_ha</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>vrrp_ha</td><td>mikrotik</td></tr><tr><td>mikrotik:wireguard_site_to_site</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>wireguard_site_to_site</td><td>mikrotik</td></tr><tr><td>mikrotik:wireless_security</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>wireless_security</td><td>mikrotik</td></tr><tr><td>mikrotik:wireless_wlan_corporate</td><td>[&quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;]</td><td>0</td><td>15</td><td>0</td><td>FAIL</td><td>0.0</td><td>wireless_wlan_corporate</td><td>mikrotik</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Raw Report</h2>
+    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{
+  &quot;generated_at&quot;: &quot;2026-08-04T05:03:59.882899&quot;,
+  &quot;total_cases&quot;: 101,
+  &quot;passed_cases&quot;: 0,
+  &quot;failed_cases&quot;: 101,
+  &quot;pass_rate&quot;: 0.0,
+  &quot;avg_score&quot;: 0.0,
+  &quot;avg_latency_ms&quot;: 1.0,
+  &quot;vendor_breakdown&quot;: {
+    &quot;cisco&quot;: {
+      &quot;total&quot;: 33,
+      &quot;passed&quot;: 0,
+      &quot;failed&quot;: 33,
+      &quot;pass_rate&quot;: 0.0,
+      &quot;avg_score&quot;: 0.0
+    },
+    &quot;fortinet&quot;: {
+      &quot;total&quot;: 33,
+      &quot;passed&quot;: 0,
+      &quot;failed&quot;: 33,
+      &quot;pass_rate&quot;: 0.0,
+      &quot;avg_score&quot;: 0.0
+    },
+    &quot;mikrotik&quot;: {
+      &quot;total&quot;: 35,
+      &quot;passed&quot;: 0,
+      &quot;failed&quot;: 35,
+      &quot;pass_rate&quot;: 0.0,
+      &quot;avg_score&quot;: 0.0
+    }
+  },
+  &quot;results&quot;: [
+    {
+      &quot;case_id&quot;: &quot;cisco:bgp_full_mesh&quot;,
+      &quot;title&quot;: &quot;bgp_full_mesh&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:bgp_md5_auth&quot;,
+      &quot;title&quot;: &quot;bgp_md5_auth&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:bgp_route_reflector&quot;,
+      &quot;title&quot;: &quot;bgp_route_reflector&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:dhcp_snooping&quot;,
+      &quot;title&quot;: &quot;dhcp_snooping&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:dmvpn_dual_hub&quot;,
+      &quot;title&quot;: &quot;dmvpn_dual_hub&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:eem_automation&quot;,
+      &quot;title&quot;: &quot;eem_automation&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 10,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:eigrp_stub&quot;,
+      &quot;title&quot;: &quot;eigrp_stub&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:firewall_asa_acl_strict&quot;,
+      &quot;title&quot;: &quot;firewall_asa_acl_strict&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:ha_vss&quot;,
+      &quot;title&quot;: &quot;ha_vss&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:high_availability_hsrp_router&quot;,
+      &quot;title&quot;: &quot;high_availability_hsrp_router&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:ipv6_dual_stack&quot;,
+      &quot;title&quot;: &quot;ipv6_dual_stack&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:ipv6_nd_ra&quot;,
+      &quot;title&quot;: &quot;ipv6_nd_ra&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:model_driven_telemetry&quot;,
+      &quot;title&quot;: &quot;model_driven_telemetry&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:mpls_ldp_core&quot;,
+      &quot;title&quot;: &quot;mpls_ldp_core&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:nat_pat_dmz&quot;,
+      &quot;title&quot;: &quot;nat_pat_dmz&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:netflow_sflow&quot;,
+      &quot;title&quot;: &quot;netflow_sflow&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:ot_security_industrial&quot;,
+      &quot;title&quot;: &quot;ot_security_industrial&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:prefix_list_route_map&quot;,
+      &quot;title&quot;: &quot;prefix_list_route_map&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:private_vlan&quot;,
+      &quot;title&quot;: &quot;private_vlan&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:qos_policy_map&quot;,
+      &quot;title&quot;: &quot;qos_policy_map&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 14,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:qos_voice_priority&quot;,
+      &quot;title&quot;: &quot;qos_voice_priority&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:routing_ospf_enterprise&quot;,
+      &quot;title&quot;: &quot;routing_ospf_enterprise&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:security_ssh_hardened&quot;,
+      &quot;title&quot;: &quot;security_ssh_hardened&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 10,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:segment_routing&quot;,
+      &quot;title&quot;: &quot;segment_routing&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:services_dns_ntp_snmp&quot;,
+      &quot;title&quot;: &quot;services_dns_ntp_snmp&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:sla_tracking&quot;,
+      &quot;title&quot;: &quot;sla_tracking&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 10,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:snmp_v3_secure&quot;,
+      &quot;title&quot;: &quot;snmp_v3_secure&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:stackpower_redundancy&quot;,
+      &quot;title&quot;: &quot;stackpower_redundancy&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:switching_vlan_trunking&quot;,
+      &quot;title&quot;: &quot;switching_vlan_trunking&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:telemetry_streaming&quot;,
+      &quot;title&quot;: &quot;telemetry_streaming&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 11,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:vpn_site_to_site_ipsec&quot;,
+      &quot;title&quot;: &quot;vpn_site_to_site_ipsec&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:wireless_corporate_ssid&quot;,
+      &quot;title&quot;: &quot;wireless_corporate_ssid&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 11,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;cisco:wireless_wpa3&quot;,
+      &quot;title&quot;: &quot;wireless_wpa3&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;name &#x27;parse_nat&#x27; is not defined&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:anti_exploit&quot;,
+      &quot;title&quot;: &quot;anti_exploit&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 15,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:app_signatures&quot;,
+      &quot;title&quot;: &quot;app_signatures&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:bgp_peer_config&quot;,
+      &quot;title&quot;: &quot;bgp_peer_config&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:cloud_ondemand&quot;,
+      &quot;title&quot;: &quot;cloud_ondemand&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:dns_filter&quot;,
+      &quot;title&quot;: &quot;dns_filter&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:email_filter&quot;,
+      &quot;title&quot;: &quot;email_filter&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:firewall_policy_dmz&quot;,
+      &quot;title&quot;: &quot;firewall_policy_dmz&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:ha_active_active&quot;,
+      &quot;title&quot;: &quot;ha_active_active&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:high_availability_active_passive&quot;,
+      &quot;title&quot;: &quot;high_availability_active_passive&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:inline_ips&quot;,
+      &quot;title&quot;: &quot;inline_ips&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:iot_detection&quot;,
+      &quot;title&quot;: &quot;iot_detection&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:ips_sensor&quot;,
+      &quot;title&quot;: &quot;ips_sensor&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:ipv6_tunnel&quot;,
+      &quot;title&quot;: &quot;ipv6_tunnel&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:nat_virtual_ip_nat&quot;,
+      &quot;title&quot;: &quot;nat_virtual_ip_nat&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:qos_traffic_shaper&quot;,
+      &quot;title&quot;: &quot;qos_traffic_shaper&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:qos_traffic_shaping&quot;,
+      &quot;title&quot;: &quot;qos_traffic_shaping&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 15,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:routing_static_bgp_ha&quot;,
+      &quot;title&quot;: &quot;routing_static_bgp_ha&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:saml_idp&quot;,
+      &quot;title&quot;: &quot;saml_idp&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:sdwan_performance_sla&quot;,
+      &quot;title&quot;: &quot;sdwan_performance_sla&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:sdwan_wan_optimization&quot;,
+      &quot;title&quot;: &quot;sdwan_wan_optimization&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:security_admin_exposed&quot;,
+      &quot;title&quot;: &quot;security_admin_exposed&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:services_dns_ntp_mgmt&quot;,
+      &quot;title&quot;: &quot;services_dns_ntp_mgmt&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:switch_managed_vlan&quot;,
+      &quot;title&quot;: &quot;switch_managed_vlan&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:switching_managed_vlan&quot;,
+      &quot;title&quot;: &quot;switching_managed_vlan&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:two_factor_auth&quot;,
+      &quot;title&quot;: &quot;two_factor_auth&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:url_filter_categories&quot;,
+      &quot;title&quot;: &quot;url_filter_categories&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:vpn_ipsec_phase1_phase2&quot;,
+      &quot;title&quot;: &quot;vpn_ipsec_phase1_phase2&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 15,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:vpn_ipsec_site_to_site&quot;,
+      &quot;title&quot;: &quot;vpn_ipsec_site_to_site&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:vpn_ssl_portal&quot;,
+      &quot;title&quot;: &quot;vpn_ssl_portal&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:wan_interface&quot;,
+      &quot;title&quot;: &quot;wan_interface&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:wan_optimization&quot;,
+      &quot;title&quot;: &quot;wan_optimization&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:wireless_employee_wifi&quot;,
+      &quot;title&quot;: &quot;wireless_employee_wifi&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;fortinet:zerotrust_ztna&quot;,
+      &quot;title&quot;: &quot;zerotrust_ztna&quot;,
+      &quot;vendor&quot;: &quot;fortinet&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 2,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:bgp_peer_tracking&quot;,
+      &quot;title&quot;: &quot;bgp_peer_tracking&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 2,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:bgp_route_map&quot;,
+      &quot;title&quot;: &quot;bgp_route_map&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:capsman_ap_control&quot;,
+      &quot;title&quot;: &quot;capsman_ap_control&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 1,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:certificate_enrollment&quot;,
+      &quot;title&quot;: &quot;certificate_enrollment&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:firewall_input_filter_strict&quot;,
+      &quot;title&quot;: &quot;firewall_input_filter_strict&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:firewall_raw_table&quot;,
+      &quot;title&quot;: &quot;firewall_raw_table&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:high_availability_bgpi_peer_tracking&quot;,
+      &quot;title&quot;: &quot;high_availability_bgpi_peer_tracking&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 13,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:hotspot_with_login&quot;,
+      &quot;title&quot;: &quot;hotspot_with_login&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:ip_cloud_dns&quot;,
+      &quot;title&quot;: &quot;ip_cloud_dns&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 11,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:ipv6_dhcpv6&quot;,
+      &quot;title&quot;: &quot;ipv6_dhcpv6&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:ipv6_pool_dhcp&quot;,
+      &quot;title&quot;: &quot;ipv6_pool_dhcp&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:ipv6_tunnel_6to4&quot;,
+      &quot;title&quot;: &quot;ipv6_tunnel_6to4&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:l2tp_server&quot;,
+      &quot;title&quot;: &quot;l2tp_server&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 15,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:l3_switch_vlan_routing&quot;,
+      &quot;title&quot;: &quot;l3_switch_vlan_routing&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:mpls_ldp_enabled&quot;,
+      &quot;title&quot;: &quot;mpls_ldp_enabled&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:nat_hairpin&quot;,
+      &quot;title&quot;: &quot;nat_hairpin&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:ospf_virtual_link&quot;,
+      &quot;title&quot;: &quot;ospf_virtual_link&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:pptp_remote_access&quot;,
+      &quot;title&quot;: &quot;pptp_remote_access&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:qos_htb&quot;,
+      &quot;title&quot;: &quot;qos_htb&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:qos_traffic_shaping_enterprise&quot;,
+      &quot;title&quot;: &quot;qos_traffic_shaping_enterprise&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 12,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:queue_tree_qos&quot;,
+      &quot;title&quot;: &quot;queue_tree_qos&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:quickset_wan_dhcp&quot;,
+      &quot;title&quot;: &quot;quickset_wan_dhcp&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 14,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:routing_ospf_area&quot;,
+      &quot;title&quot;: &quot;routing_ospf_area&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:routing_static_route_default&quot;,
+      &quot;title&quot;: &quot;routing_static_route_default&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 14,
+      &quot;execution_time_ms&quot;: 15,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:sample_hotspot&quot;,
+      &quot;title&quot;: &quot;sample_hotspot&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:security_insecure_defaults&quot;,
+      &quot;title&quot;: &quot;security_insecure_defaults&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:services_dhcp_dns_server&quot;,
+      &quot;title&quot;: &quot;services_dhcp_dns_server&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:sstp_server&quot;,
+      &quot;title&quot;: &quot;sstp_server&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:switching_vlan_switch&quot;,
+      &quot;title&quot;: &quot;switching_vlan_switch&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 14,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:vlan_aware_bridge&quot;,
+      &quot;title&quot;: &quot;vlan_aware_bridge&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:vpn_pptp_remote_access&quot;,
+      &quot;title&quot;: &quot;vpn_pptp_remote_access&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 15,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:vrrp_ha&quot;,
+      &quot;title&quot;: &quot;vrrp_ha&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:wireguard_site_to_site&quot;,
+      &quot;title&quot;: &quot;wireguard_site_to_site&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:wireless_security&quot;,
+      &quot;title&quot;: &quot;wireless_security&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    },
+    {
+      &quot;case_id&quot;: &quot;mikrotik:wireless_wlan_corporate&quot;,
+      &quot;title&quot;: &quot;wireless_wlan_corporate&quot;,
+      &quot;vendor&quot;: &quot;mikrotik&quot;,
+      &quot;passed&quot;: false,
+      &quot;score&quot;: 0.0,
+      &quot;findings_matched&quot;: 0,
+      &quot;expected_findings&quot;: 15,
+      &quot;execution_time_ms&quot;: 0,
+      &quot;errors&quot;: [
+        &quot;&#x27;str&#x27; object has no attribute &#x27;value&#x27;&quot;
+      ]
+    }
+  ]
+}</pre>
+  </div>
+</div>
+</body>
+</html>

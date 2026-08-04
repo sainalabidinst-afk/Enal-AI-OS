@@ -1,0 +1,15 @@
+{
+  "record_id": "a66efb44-5fe8-4229-b693-c5d3cde2b90c",
+  "decision_id": "b347f96f-b3e6-4a40-9a99-ce3eb9c91298",
+  "timestamp": "2026-08-04T05:04:01.550424+00:00",
+  "context": "Deploy the hotfix?",
+  "chosen_alternative": "Blue-green deployment with instant rollback",
+  "alternatives_count": 4,
+  "confidence_score": 0.6567,
+  "evidence_count": 2,
+  "risk_score": 0.25,
+  "explanation": "Recommendation: Blue-green deployment with instant rollback (score 59%). Confidence 66% with uncertainty \u00b117%. Evidence quality: 92%; Evidence agreement: 100%; Evidence coverage: 40%; Decision margin: 1%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

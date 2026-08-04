@@ -25,7 +25,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 |Asisten DevOps|SEBUAH+ (≥90)|Bersertifikat|
 |Analis Perdagangan|A (≥90)|Bersertifikat|
 |Pengembangan Diri|A+ (≥95)|Bersertifikat|
-|Decision Intelligence|SEBUAH (≥90)|Siap Produksi|
+|Decision Intelligence|SEBUAH+ (≥95)|Bersertifikat|
 |Sistem Arsitek|SEBUAH (≥90)|Siap Produksi|
 |Security Engineer|SEBUAH- (≥85)|Siap Produksi|
 |Data Engineer|SEBUAH- (≥85)|Siap Produksi|
@@ -536,9 +536,9 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
 **Kemampuan ID:** `decision-intelligence`
 **Referensi RFC:** RFC-0007
-**Nilai:** A (≥90)
+**Nilai:** A+ (≥95)
 
-**Tujuan:** Lapisan penalaran lintas domain untuk pengambilan keputusan berdasarkan bukti: pengumpulan bukti, generasi alternatif, analisis risiko, analisis trade-off, penilaian keputusan, estimasi kepercayaan, keputusan yang dapat dijelaskan, dan riwayat keputusan.
+**Tujuan:** Lapisan penalaran lintas domain untuk pengambilan keputusan berdasarkan bukti: pengumpulan bukti, generasi alternatif, analisis risiko, analisis trade-off, simulasi outcome, debat multi-strategi, penilaian keputusan, estimasi kepercayaan, keputusan yang dapat dijelaskan, dan riwayat keputusan.
 
 **Konsumen:** Semua Capability Pack
 

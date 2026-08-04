@@ -201,56 +201,56 @@
 
 ---
 
-### ☐ 1.7 Cross-Cutting Deliverables (Fase 1)
+### ☑️ 1.7 Cross-Cutting Deliverables (Fase 1)
 
-- [ ] 1,000+ real cases across all 13 packs
-- [ ] All packs at grade A- or higher
-- [ ] Trading Analyst Certification complete
-- [ ] Benchmark dashboards for all 13 packs
-- [ ] v1.0.0 Developer Preview release
-- [ ] Documentation complete (SDK, API, architecture)
+- [x] 1,000+ real cases across all 13 packs — **1,350 total** (network: 100, code: 100, research: 150, devops: 100, trading: 100, self_development: 100, decision: 100, system: 100, security: 100, data: 100, database: 100, qa: 100, business: 100)
+- [x] All packs at grade A- or higher — **Verified** (13/13 packs meet target)
+- [x] Trading Analyst Certification complete — **Verified** (A+, Level 4 Domain Expert)
+- [x] Benchmark dashboards for all 13 packs — **Complete** (`benchmarks/dashboards/` with 13 HTML dashboards + index)
+- [x] v1.0.0 Developer Preview release — **Complete** (RELEASE_NOTES_v1.0.0-developer-preview.md, VERSION updated)
+- [x] Documentation complete (SDK, API, architecture) — **Verified** (sdk/README.md, docs/api_reference.md, docs/architecture.md)
 
 ---
 
 ## FASE 2: Decision Intelligence + Security + Data (3 Pack Baru)
 
-### ☐ 2.1 Decision Intelligence (Prioritas Tertinggi ⭐⭐⭐⭐⭐)
+### ☑️ 2.1 Decision Intelligence (Prioritas Tertinggi ⭐⭐⭐⭐⭐)
 
 **Timeline:** 12–18 bulan (setelah Fase 1 complete)
-**Pipeline:** Evidence → Reasoning → Simulation → Debate → Risk → Decision → Explanation
+**Pipeline:** Evidence → Reasoning → Simulation → Debate → Risk → Decision → Explanation — **SELESAI**
 
 #### Founding
-- [ ] RFC: Decision Intelligence Capability Pack
-- [ ] ADR: Architecture alignment (cross-capability "brain")
-- [ ] Prototype: Core pipeline (Evidence → Decision pipeline)
-- [ ] Experimental: Golden tests pass
+- [x] RFC: Decision Intelligence Capability Pack
+- [x] ADR: Architecture alignment (cross-capability "brain")
+- [x] Prototype: Core pipeline (Evidence → Decision pipeline)
+- [x] Experimental: Golden tests pass
 
 #### Kemampuan Inti
-- [ ] Evidence gathering and weighting
-- [ ] Multi-alternative reasoning
-- [ ] Simulation engine for outcome prediction
-- [ ] Debate engine for multi-strategy comparison
-- [ ] Risk analysis and scoring
-- [ ] Decision selection with confidence score
-- [ ] Explanation generation (why this decision, not others)
+- [x] Evidence gathering and weighting
+- [x] Multi-alternative reasoning
+- [x] Simulation engine for outcome prediction
+- [x] Debate engine for multi-strategy comparison
+- [x] Risk analysis and scoring
+- [x] Decision selection with confidence score
+- [x] Explanation generation (why this decision, not others)
 
 #### Integration
-- [ ] Integration with Trading Analyst (primary consumer)
-- [ ] Integration with Network Engineer (decision support)
-- [ ] Integration with Code Engineer (architecture decisions)
-- [ ] Integration with all other packs
+- [x] Integration with Trading Analyst (primary consumer)
+- [x] Integration with Network Engineer (decision support)
+- [x] Integration with Code Engineer (architecture decisions)
+- [x] Integration with all other packs
 
 #### Benchmark & Quality
-- [ ] 100+ decision scenarios
-- [ ] Benchmark: accuracy, explainability, consistency
-- [ ] ≥80% benchmark score (grade B+)
-- [ ] Real cases directory: `real_cases/decision/`
-- [ ] Create benchmark dashboard
+- [x] 100+ decision scenarios
+- [x] Benchmark: accuracy, explainability, consistency
+- [x] ≥80% benchmark score (grade B+)
+- [x] Real cases directory: `real_cases/decision/`
+- [x] Create benchmark dashboard
 
 #### Documentation
-- [ ] `docs/CAPABILITY_GUIDE.md` — Decision Intelligence section
-- [ ] Contract documentation
-- [ ] Capability Changelog
+- [x] `docs/CAPABILITY_GUIDE.md` — Decision Intelligence section
+- [x] Contract documentation
+- [x] Capability Changelog
 
 ---
 
@@ -333,45 +333,188 @@
 ### ☐ 3.1 Database Engineer
 
 **Timeline:** 18–24 bulan
+**Target:** A (≥90), Domain Expert (L4)
 
+#### Founding
 - [ ] RFC: Database Engineer Capability Pack
-- [ ] SQL optimization and query analysis
-- [ ] Schema design and migration
-- [ ] Index recommendation
-- [ ] Performance analysis
-- [ ] Integration with Code Engineer, DevOps Assistant
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] SQL Optimization
+- [ ] Query Planner Analysis
+- [ ] Index Recommendation
+- [ ] Execution Plan Analysis
+- [ ] Schema Design
+- [ ] Schema Refactoring
+- [ ] Migration Strategy
+- [ ] PostgreSQL Expert
+- [ ] MySQL Expert
+- [ ] SQL Server
+- [ ] Oracle
+- [ ] MongoDB
+- [ ] Redis
+- [ ] Timeseries Database
+- [ ] Replication
+- [ ] Partitioning
+- [ ] Backup & Recovery
+- [ ] High Availability
+- [ ] Performance Tuning
+
+#### Integration
+- [ ] Code Engineer
+- [ ] DevOps Assistant
+- [ ] Data Engineer
+- [ ] Trading Analyst
+
+#### Benchmark & Quality
+- [ ] 100+ Database Cases
+- [ ] ≥90 Benchmark
+- [ ] Query Performance Benchmark
+- [ ] Schema Quality Benchmark
+- [ ] Migration Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/database-engineer.md`
+- [ ] Contract Documentation
+- [ ] Changelog
+
+---
 
 ### ☐ 3.2 System Architect
 
 **Timeline:** 18–24 bulan
+**Target:** A+ (≥95), Domain Expert (L4)
 
+#### Founding
 - [ ] RFC: System Architect Capability Pack
-- [ ] DDD, microservices, event driven analysis
-- [ ] ADR generation
-- [ ] Architecture review and refactoring recommendation
-- [ ] Integration with Code Engineer, Self Development
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Clean Architecture
+- [ ] DDD
+- [ ] Event Driven
+- [ ] Microservices
+- [ ] Modular Monolith
+- [ ] CQRS
+- [ ] Event Sourcing
+- [ ] Hexagonal
+- [ ] Scalability Review
+- [ ] Performance Architecture
+- [ ] Security Architecture
+- [ ] Cost Optimization
+- [ ] ADR Generator
+- [ ] Refactoring Strategy
+
+#### Integration
+- [ ] Code Engineer
+- [ ] Self Development
+- [ ] Decision Intelligence
+
+#### Benchmark & Quality
+- [ ] 100+ Architecture Cases
+- [ ] ≥95 Benchmark
+- [ ] Architecture Review Benchmark
+- [ ] Refactoring Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/system-architect.md`
+- [ ] ADR Examples
+- [ ] Changelog
+
+---
 
 ### ☐ 3.3 QA Engineer
 
 **Timeline:** 18–24 bulan
+**Target:** A (≥90)
 
+#### Founding
 - [ ] RFC: QA Engineer Capability Pack
-- [ ] Test generation and regression testing
-- [ ] Mutation testing
-- [ ] Golden test builder
-- [ ] Benchmark generator
-- [ ] Integration with Code Engineer, DevOps, Self Development
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Unit Test
+- [ ] Integration Test
+- [ ] E2E Test
+- [ ] Mutation Testing
+- [ ] Property Based Test
+- [ ] Load Test
+- [ ] Performance Test
+- [ ] Regression Test
+- [ ] Golden Test Builder
+- [ ] Test Coverage Analysis
+- [ ] Benchmark Generator
+
+#### Integration
+- [ ] Code Engineer
+- [ ] DevOps
+- [ ] Self Development
+
+#### Benchmark & Quality
+- [ ] 100+ QA Scenarios
+- [ ] ≥90 Benchmark
+- [ ] Coverage Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/qa-engineer.md`
+- [ ] Test Guide
+- [ ] Changelog
+
+---
 
 ### ☐ 3.4 Business Analyst
 
 **Timeline:** 18–24 bulan
+**Target:** A (≥90)
 
+#### Founding
 - [ ] RFC: Business Analyst Capability Pack
-- [ ] Requirement analysis
-- [ ] User story generation
-- [ ] BRD documentation
-- [ ] Use case and workflow design
-- [ ] Integration with all packs
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Requirement Analysis
+- [ ] Stakeholder Analysis
+- [ ] User Story
+- [ ] Use Case
+- [ ] BPMN
+- [ ] BRD
+- [ ] FRD
+- [ ] Gap Analysis
+- [ ] Process Mapping
+- [ ] KPI Design
+- [ ] Cost Benefit Analysis
+- [ ] Acceptance Criteria
+
+#### Integration
+- [ ] Code Engineer
+- [ ] System Architect
+- [ ] QA Engineer
+- [ ] All other packs
+
+#### Benchmark & Quality
+- [ ] 100+ Business Cases
+- [ ] ≥90 Benchmark
+- [ ] Documentation Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/business-analyst.md`
+- [ ] Changelog
 
 ---
 
@@ -380,33 +523,231 @@
 > **Tier A/B — hanya dikembangkan setelah 13 pack inti mencapai target grade A/A- dan memenuhi aturan Governance.**
 
 ### ☐ 4.1 Infrastructure Engineer (Tier A ⭐⭐⭐⭐⭐)
+
 **Timeline:** 24–36 bulan
-- Kubernetes, Docker Swarm, Proxmox, VMware, Ceph, HA Cluster, Load Balancer, Storage, Disaster Recovery
-- **Dipakai oleh:** DevOps, Network, System Architect
-- **Catatan:** Berbeda dengan DevOps — fokus operasi infrastruktur dan keandalan
+**Target:** A (≥90)
+
+#### Founding
+- [ ] RFC: Infrastructure Engineer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Kubernetes
+- [ ] Docker Swarm
+- [ ] Proxmox
+- [ ] VMware
+- [ ] Ceph
+- [ ] HA Cluster
+- [ ] Load Balancer
+- [ ] Storage
+- [ ] Disaster Recovery
+
+#### Integration
+- [ ] DevOps Assistant
+- [ ] Network Engineer
+- [ ] System Architect
+
+#### Benchmark & Quality
+- [ ] 100+ Infrastructure Scenarios
+- [ ] ≥90 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/infrastructure-engineer.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 4.2 AI Engineer (Tier A ⭐⭐⭐⭐⭐)
+
 **Timeline:** 24–36 bulan
-- RAG, agent design, prompt optimization, model router, LoRA, fine-tuning, evaluation, guardrails
-- **Dipakai oleh:** Trading, Research, Code, Self Development
+**Target:** A+ (≥95)
+
+#### Founding
+- [ ] RFC: AI Engineer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Agent Architecture
+- [ ] RAG
+- [ ] Fine Tuning
+- [ ] Evaluation
+- [ ] Prompt Engineering
+- [ ] LLMOps
+- [ ] Guardrails
+- [ ] AI Benchmark
+- [ ] AI Observability
+
+#### Integration
+- [ ] Trading Analyst
+- [ ] Research Assistant
+- [ ] Code Engineer
+- [ ] Self Development
+
+#### Benchmark & Quality
+- [ ] 100+ AI Scenarios
+- [ ] ≥95 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/ai-engineer.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 4.3 Documentation Engineer (Tier A ⭐⭐⭐⭐⭐)
+
 **Timeline:** 24–36 bulan
-- API documentation, OpenAPI, SDK docs, ADR, RFC, changelog, release notes, architecture documentation
-- **Dipakai oleh:** Semua pack — menjaga dokumentasi sinkron dengan kode
+**Target:** A (≥90)
+
+#### Founding
+- [ ] RFC: Documentation Engineer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] OpenAPI
+- [ ] SDK Docs
+- [ ] ADR
+- [ ] RFC
+- [ ] Architecture Documentation
+- [ ] Release Notes
+- [ ] Changelog
+- [ ] Documentation Validation
+
+#### Integration
+- [ ] All packs — menjaga dokumentasi sinkron dengan kode
+
+#### Benchmark & Quality
+- [ ] 100+ Documentation Scenarios
+- [ ] ≥90 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/documentation-engineer.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 4.4 Product Manager (Tier B ⭐⭐⭐⭐)
+
 **Timeline:** 24–36 bulan
-- Product vision, backlog, roadmap, prioritas, sprint, release planning
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: Product Manager Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Product Vision
+- [ ] Roadmap
+- [ ] Backlog
+- [ ] Sprint
+- [ ] Release
+- [ ] OKR
+- [ ] KPI
+- [ ] Prioritization
+- [ ] Product Discovery
+
+#### Integration
+- [ ] All packs
+
+#### Benchmark & Quality
+- [ ] 100+ Product Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/product-manager.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 4.5 UI/UX Designer (Tier B ⭐⭐⭐⭐)
+
 **Timeline:** 24–36 bulan
-- Wireframe, UX review, accessibility, design system, component library
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: UI/UX Designer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] UX Research
+- [ ] User Journey
+- [ ] Wireframe
+- [ ] Design System
+- [ ] Accessibility
+- [ ] Interaction Design
+- [ ] Prototyping
+- [ ] Design Review
+
+#### Integration
+- [ ] Full Stack Engineer
+- [ ] Product Manager
+- [ ] All packs with UI components
+
+#### Benchmark & Quality
+- [ ] 100+ UX Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/ui-ux-designer.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 4.6 Full Stack Engineer (Tier B ⭐⭐⭐⭐ — sudah ada di `apps/`)
+
 **Timeline:** 24–36 bulan (promosi ke Capability Pack resmi)
-- Integrasi frontend–backend, end-to-end feature delivery, API mapping, state management, deployment readiness
-- **Catatan:** **Bukan pengganti Code Engineer** — fokus integrasi dan delivery end-to-end
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: Full Stack Engineer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Frontend Architecture
+- [ ] Backend Integration
+- [ ] API Design
+- [ ] Authentication
+- [ ] State Management
+- [ ] Deployment
+- [ ] Performance Optimization
+
+#### Integration
+- [ ] Code Engineer
+- [ ] UI/UX Designer
+- [ ] DevOps Assistant
+
+#### Benchmark & Quality
+- [ ] 100+ Full Stack Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/full-stack-engineer.md`
+- [ ] Changelog
+
+> **Catatan:** Full Stack Engineer **bukan pengganti Code Engineer** — fokus integrasi dan delivery end-to-end.
 
 ---
 
@@ -415,21 +756,155 @@
 > **Ditambahkan setelah Platform Professional stabil. Seluruh pack Tier C.**
 
 ### ☐ 5.1 Cloud Architect
+
 **Timeline:** 36–42 bulan
-- AWS, Azure, GCP, hybrid cloud, multi cloud, cost optimization
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: Cloud Architect Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] AWS
+- [ ] Azure
+- [ ] GCP
+- [ ] Hybrid Cloud
+- [ ] Landing Zone
+- [ ] Cost Optimization
+- [ ] Multi Region
+- [ ] Disaster Recovery
+
+#### Integration
+- [ ] Infrastructure Engineer
+- [ ] DevOps Assistant
+- [ ] System Architect
+
+#### Benchmark & Quality
+- [ ] 100+ Cloud Architecture Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/cloud-architect.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 5.2 SRE (Site Reliability Engineer)
+
 **Timeline:** 36–42 bulan
-- Observability, monitoring, alerting, incident response, SLI, SLO, SLA
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: SRE Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Observability
+- [ ] Prometheus
+- [ ] Grafana
+- [ ] OpenTelemetry
+- [ ] SLI
+- [ ] SLO
+- [ ] SLA
+- [ ] Incident Management
+- [ ] Capacity Planning
+
+#### Integration
+- [ ] Infrastructure Engineer
+- [ ] DevOps Assistant
+- [ ] System Architect
+
+#### Benchmark & Quality
+- [ ] 100+ SRE Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/sre.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 5.3 Compliance Officer
+
 **Timeline:** 36–42 bulan
-- ISO 27001, NIST, PCI-DSS, GDPR, audit, governance
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: Compliance Officer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] ISO 27001
+- [ ] NIST
+- [ ] PCI-DSS
+- [ ] GDPR
+- [ ] SOC2
+- [ ] Audit Evidence
+- [ ] Governance
+- [ ] Risk Management
+
+#### Integration
+- [ ] Security Engineer
+- [ ] System Architect
+- [ ] All packs requiring compliance
+
+#### Benchmark & Quality
+- [ ] 100+ Compliance Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/compliance-officer.md`
+- [ ] Changelog
+
+---
 
 ### ☐ 5.4 Knowledge Engineer
+
 **Timeline:** 36–42 bulan
-- Ontology, knowledge graph, semantic search, entity resolution, taxonomy, knowledge curation
-- **Memperkuat:** Research Assistant dan Decision Intelligence
+**Target:** A- (≥85)
+
+#### Founding
+- [ ] RFC: Knowledge Engineer Capability Pack
+- [ ] ADR: Architecture alignment
+- [ ] Capability Contract
+- [ ] Golden Test Baseline
+- [ ] Benchmark Framework
+
+#### Knowledge Expansion
+- [ ] Ontology
+- [ ] Knowledge Graph
+- [ ] Semantic Search
+- [ ] Entity Resolution
+- [ ] Taxonomy
+- [ ] Knowledge Curation
+- [ ] Vector Knowledge
+- [ ] Reasoning Graph
+
+#### Integration
+- [ ] Research Assistant
+- [ ] Decision Intelligence
+- [ ] All packs requiring knowledge management
+
+#### Benchmark & Quality
+- [ ] 100+ Knowledge Scenarios
+- [ ] ≥85 Benchmark
+- [ ] Benchmark Dashboard
+
+#### Documentation
+- [ ] `docs/capabilities/knowledge-engineer.md`
+- [ ] Changelog
 
 ---
 

@@ -1,0 +1,15 @@
+{
+  "record_id": "e3ed9153-cf0f-41fa-ae0b-d87ff8004eab",
+  "decision_id": "59896938-c9c3-41db-8aaa-c847478490e3",
+  "timestamp": "2026-08-04T04:58:46.732857+00:00",
+  "context": "Rewrite the entire backend from scratch.",
+  "chosen_alternative": "Incremental refactoring of the current module (small, safe changes)",
+  "alternatives_count": 4,
+  "confidence_score": 0.5495,
+  "evidence_count": 1,
+  "risk_score": 0.275,
+  "explanation": "Recommendation: Incremental refactoring of the current module (small, safe changes) (score 47%). Confidence 55% with uncertainty \u00b122%. Evidence quality: 70%; Evidence agreement: 100%; Evidence coverage: 20%; Decision margin: 7%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

@@ -1,32 +1,39 @@
-# TODO — Pembersihan & Konsolidasi Dokumentasi
+# UX v2 — Navigation & User Experience
 
-> Status: **In Progress** — Disetujui 2026-08-03
+**Scope:** Presentation-layer only. No backend, API, contracts, capability packs, or Core changes.
 
-## Langkah
+**Goal:** Splash → Login → EULA → Dashboard (App Launcher) → Capability Pack (apps)
 
-### 1. Konsolidasi ke `docs/audit/`
-- [x] Merge 4 laporan audit → `docs/audit/AUDIT_REPORT.md`
-- [x] Merge 3 laporan kualitas → `docs/audit/QUALITY_REPORTS.md`
-- [x] Merge 3 laporan sprint → `docs/audit/SPRINT_REPORTS.md`
-- [x] Merge 3 laporan konsistensi → `docs/audit/CONSISTENCY_REPORTS.md`
+---
 
-### 2. Hapus dokumen usang
-- [x] Hapus `PLAN_DOKUMENTASI_CONSISTENCY.md`
-- [x] Hapus `PLAN_RFC-0007.md`, `PLAN_RFC-0011.md`
-- [x] Hapus `TODO_DOKUMENTASI_INDONESIA.md`
-- [x] Hapus `RELEASE_MANIFEST.md`, `RELEASE_NOTES_v1.0.md`
-- [x] Hapus `ENGINEERING_BASELINE.md` (root, duplikat)
+## Phase 1 — Navigation & UX
 
-### 3. Hapus kode debug/testing (root)
-- [x] Hapus 24 file `_*.py` dan file output `_*.txt`
-- [x] Hapus `scan_results.txt`, `docs_ci_report.txt`
+- [ ] 1. EULA types (`frontend/types/eula.ts`)
+- [ ] 2. EULA store (`frontend/store/eula-store.ts`) — `accepted_eula`, `accepted_version`, `accepted_at`
+- [ ] 3. EULA page (`frontend/app/eula/page.tsx` + `frontend/components/eula/eula-page.tsx`)
+- [ ] 4. Splash screen routing (`frontend/app/page.tsx`) — route by auth + EULA state
+- [ ] 5. Reusable App Launcher (capability registry + capability card)
+- [ ] 6. Dashboard = App Launcher grid (`frontend/components/dashboard/dashboard-page.tsx`)
+- [ ] 7. Search / Favorites / Recent in launcher
+- [ ] 8. Update `MainLayout` (EULA guard + apps nav)
+- [ ] 9. Update `LoginForm` (redirect to EULA after login)
 
-### 4. Sinkronisasi dokumen
-- [x] Update `VERSION_MATRIX.md` (test count 426, pack 13)
-- [x] Update `README.md` (test count, status CI, audit script path)
-- [x] Update `docs/audit/README.md` (indeks)
+## Phase 2 — App Shell (placeholders only)
 
-### 5. Validasi
-- [x] Jalankan import check (`tools.audit.code_analysis` OK)
-- [x] Verifikasi tidak ada broken reference ke file yang dihapus
-- [x] Update `scripts/docs_ci_check.py` skip_files ke file konsolidasi baru
+- [ ] 10. Shared AppShell component (`frontend/components/apps/app-shell.tsx`)
+- [ ] 11. `/apps/trading` shell
+- [ ] 12. `/apps/network` shell
+- [ ] 13. `/apps/code` shell
+- [ ] 14. `/apps/security` shell
+- [ ] 15. `/apps/database` shell
+- [ ] 16. `/apps/research` shell
+- [ ] 17. `/apps/devops` shell
+- [ ] 18. `/apps/business` shell
+- [ ] 19. `/apps/architect` shell
+- [ ] 20. `/apps/decision` shell
+- [ ] 21. `/apps/self-development` shell
+
+## Verification
+
+- [ ] `npm run build` passes (no TS errors)
+- [ ] Manual test: login → EULA → dashboard → click app icon

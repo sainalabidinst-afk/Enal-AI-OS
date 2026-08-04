@@ -198,7 +198,7 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | **DevOps Assistant** | ✅ Production Ready | A+ (≥90) |
 | **Trading Analyst** | ✅ Production Ready | A+ (≥95) |
 | **Self Development** | ✅ Production Ready | A+ (≥95) |
-| **Decision Intelligence** | ✅ Production Ready | A (≥90) |
+| **Decision Intelligence** | ✅ Production Ready | A+ (≥95) |
 | **System Architect** | ✅ Production Ready | A (≥90) |
 | **Security Engineer** | ✅ Production Ready | A- (≥85) |
 | **Data Engineer** | ✅ Production Ready | A- (≥85) |

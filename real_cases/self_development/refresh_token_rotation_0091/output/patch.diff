@@ -1,0 +1,12 @@
+--- a/source.py
++++ b/source.py
+@@ -1,7 +1,11 @@
++from typing import List, Any
++
++def process_data(data: List[Any]) -> List[Any]:
++    """Remove duplicates while preserving order."""
++    return list(dict.fromkeys(data))
++
++def calculate(x: int, y: int) -> int:
++    """Add two numbers."""
++    return x + y

@@ -1,0 +1,15 @@
+{
+  "record_id": "feaed3f7-e854-4545-9bcb-4d67d28574d8",
+  "decision_id": "b1bb7b9e-091f-4f3c-b1db-df7a5c2e2dcb",
+  "timestamp": "2026-08-04T05:32:56.585434+00:00",
+  "context": "test",
+  "chosen_alternative": "Proceed with a smaller-scope pilot first",
+  "alternatives_count": 5,
+  "confidence_score": 0.5784,
+  "evidence_count": 1,
+  "risk_score": 0.06,
+  "explanation": "Recommendation: Proceed with a smaller-scope pilot first (score 59%). Confidence 58% with uncertainty \u00b120%. Evidence quality: 80%; Evidence agreement: 100%; Evidence coverage: 20%; Decision margin: 4%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

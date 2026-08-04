@@ -137,10 +137,24 @@ RESEARCH_TASKS = [
     {"id": "research-010", "input": "Ethical implications of AI-generated code", "expected_keywords": ["finding", "evidence", "report"], "category": "research"},
 ]
 
+# Category 6: Decision Intelligence Tasks (20 tests)
+DECISION_TASKS = [
+    {"id": "decision-001", "input": "Should I deploy the new release to production?", "expected_keywords": ["decision", "confidence", "risk"], "category": "decision"},
+    {"id": "decision-002", "input": "Choose a cloud provider for the new service", "expected_keywords": ["alternative", "score", "risk"], "category": "decision"},
+    {"id": "decision-003", "input": "Upgrade the database or maintain current version?", "expected_keywords": ["decision", "evidence", "confidence"], "category": "decision"},
+    {"id": "decision-004", "input": "Select a monitoring stack for microservices", "expected_keywords": ["alternative", "trade-off", "risk"], "category": "decision"},
+    {"id": "decision-005", "input": "Refactor monolith or build new microservices?", "expected_keywords": ["decision", "simulation", "debate"], "category": "decision"},
+    {"id": "decision-006", "input": "Implement CI/CD pipeline or continue manual deployment?", "expected_keywords": ["decision", "risk", "confidence"], "category": "decision"},
+    {"id": "decision-007", "input": "Choose between SQL and NoSQL database", "expected_keywords": ["alternative", "evidence", "score"], "category": "decision"},
+    {"id": "decision-008", "input": "Should we adopt AI-assisted coding tools?", "expected_keywords": ["decision", "risk", "explanation"], "category": "decision"},
+    {"id": "decision-009", "input": "Select a load balancer for high-traffic service", "expected_keywords": ["alternative", "performance", "risk"], "category": "decision"},
+    {"id": "decision-010", "input": "Decide on microservices vs monolith architecture", "expected_keywords": ["decision", "trade-off", "confidence"], "category": "decision"},
+]
+
 
 def create_golden_benchmark() -> Benchmark:
     """Create the golden benchmark with all test cases."""
-    all_tests = SIMPLE_TASKS + MEDIUM_TASKS + COMPLEX_TASKS + DOMAIN_TASKS + RESEARCH_TASKS
+    all_tests = SIMPLE_TASKS + MEDIUM_TASKS + COMPLEX_TASKS + DOMAIN_TASKS + RESEARCH_TASKS + DECISION_TASKS
     return Benchmark(
         id="golden-test-set-v1",
         name="ECP Golden Test Set v1",

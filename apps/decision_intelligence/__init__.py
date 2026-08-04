@@ -45,6 +45,8 @@ from apps.decision_intelligence.schemas import (
     DecisionRecord,
     DecisionOutcome,
 )
+from apps.decision_intelligence.simulation_engine import SimulationEngine, SimulationOutcome
+from apps.decision_intelligence.debate_engine import DebateEngine, DebateResult, StrategyVote
 
 __all__ = [
     "DecisionIntelligenceEngine",

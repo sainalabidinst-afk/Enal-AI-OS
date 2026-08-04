@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Self Development Benchmark Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  h1 { margin: 0 0 4px; font-size: 22px; }
+  .subtitle { color: #656d76; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+  .metric { font-size: 28px; font-weight: 700; }
+  .metric-label { color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .section { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }
+  th { color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .score-bar { width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+  .score-fill { height: 100%; background: #2da44e; border-radius: 999px; }
+  .score-text { font-weight: 600; font-size: 13px; }
+  .badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .badge-success { background: #dafbe1; color: #1a7f37; }
+  .badge-warning { background: #fff8c5; color: #9a6700; }
+  .badge-danger { background: #ffebe9; color: #cf222e; }
+  .pass { color: #1a7f37; font-weight: 700; }
+  .fail { color: #cf222e; font-weight: 700; }
+  .error { background: #ffebe9; border-color: #cf222e; }
+  .error .metric { color: #cf222e; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Self Development Benchmark Dashboard</h1>
+  <div class="subtitle">Generated: 2026-08-04T05:04:01.534749 · 6 dimensions</div>
+  <div class="grid">
+    <div class="card">
+      <div class="metric">A+</div>
+      <div class="metric-label">Grade</div>
+    </div>
+    <div class="card">
+      <div class="metric">100.0%</div>
+      <div class="metric-label">Overall Score</div>
+    </div>
+    <div class="card">
+      <div class="metric pass">PASS</div>
+      <div class="metric-label">Status</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Score Breakdown by Dimension</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Score</th><th>Grade</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>Accuracy Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+        
+            <tr>
+              <td>Completeness Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+        
+            <tr>
+              <td>Explainability Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+        
+            <tr>
+              <td>Safety Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+        
+            <tr>
+              <td>Efficiency Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+        
+            <tr>
+              <td>Risk Modeling Score</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:100.0%"></div></div><span class="score-text">100.0%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Scenario Results</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>accuracy</th><th>completeness</th><th>detected_problems</th><th>efficiency</th><th>expected_problems</th><th>explainability</th><th>false_positives</th><th>missed_problems</th><th>problems_detected</th><th>problems_missed_count</th><th>risk_modeling</th><th>safety</th><th>scenario_id</th><th>scenario_name</th><th>true_positives</th></tr></thead><tbody><tr><td>1.0</td><td>1.0</td><td>[&quot;bottleneck&quot;, &quot;architecture_smell&quot;]</td><td>1.0</td><td>[&quot;bottleneck&quot;, &quot;architecture_smell&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>2</td><td>0</td><td>1.0</td><td>1.0</td><td>8</td><td>high_change_risk</td><td>[&quot;bottleneck&quot;, &quot;architecture_smell&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;architecture_smell&quot;]</td><td>1.0</td><td>[&quot;architecture_smell&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>1</td><td>0</td><td>1.0</td><td>1.0</td><td>4</td><td>architecture_smell</td><td>[&quot;architecture_smell&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;duplication&quot;]</td><td>1.0</td><td>[&quot;duplication&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>1</td><td>0</td><td>1.0</td><td>1.0</td><td>3</td><td>code_duplication</td><td>[&quot;duplication&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;architecture_smell&quot;, &quot;performance_issue&quot;]</td><td>1.0</td><td>[&quot;performance_issue&quot;, &quot;architecture_smell&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>2</td><td>0</td><td>1.0</td><td>1.0</td><td>9</td><td>impact_prediction</td><td>[&quot;architecture_smell&quot;, &quot;performance_issue&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;performance_issue&quot;]</td><td>1.0</td><td>[&quot;performance_issue&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>1</td><td>0</td><td>1.0</td><td>1.0</td><td>6</td><td>performance_issue</td><td>[&quot;performance_issue&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;dead_code&quot;, &quot;bottleneck&quot;, &quot;duplication&quot;]</td><td>1.0</td><td>[&quot;bottleneck&quot;, &quot;dead_code&quot;, &quot;duplication&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>3</td><td>0</td><td>1.0</td><td>1.0</td><td>7</td><td>multiple_issues</td><td>[&quot;dead_code&quot;, &quot;bottleneck&quot;, &quot;duplication&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;security_hole&quot;, &quot;duplication&quot;, &quot;performance_issue&quot;]</td><td>1.0</td><td>[&quot;duplication&quot;, &quot;security_hole&quot;, &quot;performance_issue&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>3</td><td>0</td><td>1.0</td><td>1.0</td><td>10</td><td>cross_project_pattern</td><td>[&quot;security_hole&quot;, &quot;duplication&quot;, &quot;performance_issue&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;security_hole&quot;]</td><td>1.0</td><td>[&quot;security_hole&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>1</td><td>0</td><td>1.0</td><td>1.0</td><td>5</td><td>security_hole</td><td>[&quot;security_hole&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;bottleneck&quot;]</td><td>1.0</td><td>[&quot;bottleneck&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>1</td><td>0</td><td>1.0</td><td>1.0</td><td>1</td><td>communication_bottleneck</td><td>[&quot;bottleneck&quot;]</td></tr><tr><td>1.0</td><td>1.0</td><td>[&quot;dead_code&quot;]</td><td>1.0</td><td>[&quot;dead_code&quot;]</td><td>1.0</td><td>[]</td><td>[]</td><td>1</td><td>0</td><td>1.0</td><td>1.0</td><td>2</td><td>dead_code</td><td>[&quot;dead_code&quot;]</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Raw Report</h2>
+    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{
+  &quot;generated_at&quot;: &quot;2026-08-04T05:04:01.534749&quot;,
+  &quot;overall_score&quot;: 100.0,
+  &quot;accuracy_score&quot;: 100.0,
+  &quot;completeness_score&quot;: 100.0,
+  &quot;explainability_score&quot;: 100.0,
+  &quot;safety_score&quot;: 100.0,
+  &quot;efficiency_score&quot;: 100.0,
+  &quot;risk_modeling_score&quot;: 100.0,
+  &quot;scenarios_run&quot;: 10,
+  &quot;problems_detected&quot;: 16,
+  &quot;problems_missed&quot;: 0,
+  &quot;false_positives&quot;: 0,
+  &quot;passed&quot;: true,
+  &quot;scenario_details&quot;: [
+    {
+      &quot;scenario_id&quot;: 8,
+      &quot;scenario_name&quot;: &quot;high_change_risk&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;bottleneck&quot;,
+        &quot;architecture_smell&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;bottleneck&quot;,
+        &quot;architecture_smell&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;bottleneck&quot;,
+        &quot;architecture_smell&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 2,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 4,
+      &quot;scenario_name&quot;: &quot;architecture_smell&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;architecture_smell&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;architecture_smell&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;architecture_smell&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 1,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 3,
+      &quot;scenario_name&quot;: &quot;code_duplication&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;duplication&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;duplication&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;duplication&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 1,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 9,
+      &quot;scenario_name&quot;: &quot;impact_prediction&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;performance_issue&quot;,
+        &quot;architecture_smell&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;architecture_smell&quot;,
+        &quot;performance_issue&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;architecture_smell&quot;,
+        &quot;performance_issue&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 2,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 6,
+      &quot;scenario_name&quot;: &quot;performance_issue&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;performance_issue&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;performance_issue&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;performance_issue&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 1,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 7,
+      &quot;scenario_name&quot;: &quot;multiple_issues&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;bottleneck&quot;,
+        &quot;dead_code&quot;,
+        &quot;duplication&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;dead_code&quot;,
+        &quot;bottleneck&quot;,
+        &quot;duplication&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;dead_code&quot;,
+        &quot;bottleneck&quot;,
+        &quot;duplication&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 3,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 10,
+      &quot;scenario_name&quot;: &quot;cross_project_pattern&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;duplication&quot;,
+        &quot;security_hole&quot;,
+        &quot;performance_issue&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;security_hole&quot;,
+        &quot;duplication&quot;,
+        &quot;performance_issue&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;security_hole&quot;,
+        &quot;duplication&quot;,
+        &quot;performance_issue&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 3,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 5,
+      &quot;scenario_name&quot;: &quot;security_hole&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;security_hole&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;security_hole&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;security_hole&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 1,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 1,
+      &quot;scenario_name&quot;: &quot;communication_bottleneck&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;bottleneck&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;bottleneck&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;bottleneck&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 1,
+      &quot;problems_missed_count&quot;: 0
+    },
+    {
+      &quot;scenario_id&quot;: 2,
+      &quot;scenario_name&quot;: &quot;dead_code&quot;,
+      &quot;expected_problems&quot;: [
+        &quot;dead_code&quot;
+      ],
+      &quot;detected_problems&quot;: [
+        &quot;dead_code&quot;
+      ],
+      &quot;true_positives&quot;: [
+        &quot;dead_code&quot;
+      ],
+      &quot;false_positives&quot;: [],
+      &quot;missed_problems&quot;: [],
+      &quot;accuracy&quot;: 1.0,
+      &quot;completeness&quot;: 1.0,
+      &quot;explainability&quot;: 1.0,
+      &quot;safety&quot;: 1.0,
+      &quot;efficiency&quot;: 1.0,
+      &quot;risk_modeling&quot;: 1.0,
+      &quot;problems_detected&quot;: 1,
+      &quot;problems_missed_count&quot;: 0
+    }
+  ]
+}</pre>
+  </div>
+</div>
+</body>
+</html>

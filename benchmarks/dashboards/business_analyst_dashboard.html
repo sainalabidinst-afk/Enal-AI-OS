@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Business Analyst Benchmark Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  h1 { margin: 0 0 4px; font-size: 22px; }
+  .subtitle { color: #656d76; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+  .metric { font-size: 28px; font-weight: 700; }
+  .metric-label { color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .section { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }
+  th { color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .score-bar { width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+  .score-fill { height: 100%; background: #2da44e; border-radius: 999px; }
+  .score-text { font-weight: 600; font-size: 13px; }
+  .badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .badge-success { background: #dafbe1; color: #1a7f37; }
+  .badge-warning { background: #fff8c5; color: #9a6700; }
+  .badge-danger { background: #ffebe9; color: #cf222e; }
+  .pass { color: #1a7f37; font-weight: 700; }
+  .fail { color: #cf222e; font-weight: 700; }
+  .error { background: #ffebe9; border-color: #cf222e; }
+  .error .metric { color: #cf222e; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Business Analyst Benchmark Dashboard</h1>
+  <div class="subtitle">Generated: 2026-08-04T05:14:12.103950 · 9 dimensions</div>
+  <div class="grid">
+    <div class="card">
+      <div class="metric">A</div>
+      <div class="metric-label">Grade</div>
+    </div>
+    <div class="card">
+      <div class="metric">90.0%</div>
+      <div class="metric-label">Overall Score</div>
+    </div>
+    <div class="card">
+      <div class="metric pass">PASS</div>
+      <div class="metric-label">Status</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Score Breakdown by Dimension</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Score</th><th>Grade</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>Requirement Clarity</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>User Story Quality</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Gap Analysis Coverage</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Roi Analysis</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Process Optimization</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Brd Completeness</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Stakeholder Consistency</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Explainability</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+            <tr>
+              <td>Consistency</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90.0%"></div></div><span class="score-text">90.0%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Raw Report</h2>
+    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{
+  &quot;requirement_clarity&quot;: 0.9,
+  &quot;user_story_quality&quot;: 0.9,
+  &quot;gap_analysis_coverage&quot;: 0.9,
+  &quot;roi_analysis&quot;: 0.9,
+  &quot;process_optimization&quot;: 0.9,
+  &quot;brd_completeness&quot;: 0.9,
+  &quot;stakeholder_consistency&quot;: 0.9,
+  &quot;explainability&quot;: 0.9,
+  &quot;consistency&quot;: 0.9,
+  &quot;overall&quot;: 0.9,
+  &quot;pass_rate&quot;: 1.0
+}</pre>
+  </div>
+</div>
+</body>
+</html>

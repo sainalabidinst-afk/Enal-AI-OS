@@ -1,0 +1,15 @@
+{
+  "record_id": "8d8c5757-ba63-450e-90f7-7dc7b0b1483f",
+  "decision_id": "cd40a9b4-8075-49d2-951d-1bf30d97428f",
+  "timestamp": "2026-08-04T04:58:46.709750+00:00",
+  "context": "Apply firewall changes to production.",
+  "chosen_alternative": "Apply configuration change to a low-risk subset first",
+  "alternatives_count": 4,
+  "confidence_score": 0.537,
+  "evidence_count": 1,
+  "risk_score": 0.06,
+  "explanation": "Recommendation: Apply configuration change to a low-risk subset first (score 65%). Confidence 54% with uncertainty \u00b122%. Evidence quality: 70%; Evidence agreement: 100%; Evidence coverage: 20%; Decision margin: 1%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

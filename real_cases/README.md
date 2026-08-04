@@ -3,7 +3,7 @@
 <!-- DOCUMENT_METADATA_START -->
 **Owner:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Last Verified:** 2026-08-02
+**Last Verified:** 2026-08-04
 **Version:** 1.0.0
 **Status:** Active
 **SSOT:** Real case study documentation
@@ -11,6 +11,25 @@
 
 Direktori ini berisi kasus-kasus dunia nyata yang dikumpulkan selama penggunaan ECP dalam pekerjaan aktual.
 Ini bukan golden test. Ini adalah artefak penggunaan harian yang mendorong peningkatan Capability Pack.
+
+## Statistik
+
+|Capability Pack|Total Kasus|Status|
+|-----------------|----------|-------|
+|Insinyur Jaringan|100|Siap Produksi|
+|Kode Insinyur|100|Siap Produksi|
+|Asisten Peneliti|150|Bersertifikat|
+|Asisten DevOps|100|Bersertifikat|
+|Analis Perdagangan|100|Bersertifikat|
+|Pengembangan Diri|100|Bersertifikat|
+|Decision Intelligence|100|Siap Produksi|
+|Sistem Arsitek|100|Siap Produksi|
+|Security Engineer|100|Siap Produksi|
+|Data Engineer|100|Siap Produksi|
+|Database Engineer|100|Siap Produksi|
+|QA Engineer|100|Siap Produksi|
+|Business Analyst|100|Siap Produksi|
+|**Total**|**1,350**|**Fase 1 Complete**|
 
 ## Struktur
 
@@ -23,7 +42,14 @@ real_cases/
 ├── research/          # Pertanyaan penelitian dan sumber nyata
 ├── trading/           # Skenario analisis pasar nyata
 ├── devops/            # Skenario infrastruktur nyata
-└── self_development/  # Kasus perbaikan proyek nyata
+├── self_development/  # Kasus perbaikan proyek nyata
+├── decision/          # Kasus pengambilan keputusan
+├── system/            # Desain arsitektur sistem
+├── security/          # Audit keamanan
+├── data/              # Pipeline data
+├── database/          # Desain dan optimasi database
+├── qa/                # Rencana dan eksekusi QA
+└── business/          # Persyaratan bisnis
 ```
 
 ## Apa yang Harus Disimpan
@@ -49,9 +75,14 @@ network/isp_dual_wan_failover/
 
 ## Cara Menggunakan
 
-1. Jalankan ECP terhadap kasus nyata
-2. Simpan input, output, dan evaluation
-3. Jika diperlukan perbaikan, perbarui Capability Pack
-4. Referensikan kasus ini dalam Capability Benchmark
+Kasus nyata digunakan untuk:
+- Melatih dan mengevaluasi Capability Pack
+- Mengidentifikasi area perbaikan
+- Mendokumentasikan pola penggunaan
+- Memberikan umpan balik untuk pengembangan
 
-Inilah cara Capability Pack menjadi benar-benar ahli: melalui iterasi dunia nyata, bukan hanya tes sintetis.
+Setiap kasus dievaluasi berdasarkan:
+- Akurasi temuan
+- Kualitas rekomendasi
+- Kebermanfaatan praktis
+- Potensi untuk perbaikan

@@ -6,10 +6,12 @@ Orchestrates the full decision pipeline:
     2. Alternative Generation
     3. Risk Analysis
     4. Trade-off Analysis
-    5. Decision Scoring
-    6. Confidence Estimation
-    7. Explanation Generation
-    8. Decision History
+    5. Simulation Engine (outcome prediction)
+    6. Debate Engine (multi-strategy comparison)
+    7. Decision Scoring
+    8. Confidence Estimation
+    9. Explanation Generation
+    10. Decision History
 
 All business logic resides here (per ADR-004). The Worker is a thin
 adapter (per ADR-003).
@@ -30,6 +32,8 @@ from apps.decision_intelligence.schemas import (
     RiskProfile,
     Explanation,
 )
+from apps.decision_intelligence.debate_engine import DebateEngine, DebateResult
+from apps.decision_intelligence.simulation_engine import SimulationEngine, SimulationOutcome
 from apps.decision_intelligence.evidence_collector import EvidenceCollector, EvidenceSet
 from apps.decision_intelligence.alternative_generator import AlternativeGenerator
 from apps.decision_intelligence.risk_analyzer import RiskAnalyzer
@@ -61,6 +65,8 @@ class DecisionIntelligenceEngine:
         self.confidence = ConfidenceEstimator()
         self.explainer = ExplanationGenerator()
         self.history = history_store or DecisionHistoryStore()
+        self.simulation = SimulationEngine()
+        self.debate = DebateEngine()
 
     # ------------------------------------------------------------------
     # Public API
@@ -111,7 +117,29 @@ class DecisionIntelligenceEngine:
             risk_tolerance=request.risk_tolerance,
         )
 
-        # 5. Confidence Estimation.
+        # 5. Simulation Engine.
+        simulation_outcomes: list[SimulationOutcome] = []
+        for alt in scored:
+            rp = alt.get("risk_profile")
+            risk_profile = rp if isinstance(rp, RiskProfile) else RiskProfile()
+            outcome = self.simulation.simulate(
+                description=alt["description"],
+                evidence_set=evidence_set,
+                objectives=request.objectives,
+                risk_profile=risk_profile,
+            )
+            simulation_outcomes.append(outcome)
+            alt["simulation_outcome"] = outcome
+
+        # 6. Debate Engine.
+        debate_results = self.debate.debate(
+            alternative_descriptions=[a["description"] for a in scored],
+            evidence_set=evidence_set,
+            objectives=request.objectives,
+            risk_profiles=[a.get("risk_profile", RiskProfile()) for a in scored],
+        )
+
+        # 7. Confidence Estimation.
         top_scores = [a.get("score", 0.0) for a in scored]
         conf = self.confidence.estimate(
             evidence_set=evidence_set,
@@ -119,7 +147,7 @@ class DecisionIntelligenceEngine:
             evidence_count=len(request.evidence_sources),
         )
 
-        # 6. Explanation Generation.
+        # 7. Explanation Generation.
         explanation = self.explainer.generate(
             decision_id=request.decision_id,
             context=request.context,
@@ -129,7 +157,7 @@ class DecisionIntelligenceEngine:
             constraints=request.constraints,
         )
 
-        # 7. Build output.
+        # 8. Build output.
         recommended = scored[0]["description"] if scored else "No feasible alternative"
         alternatives_schema = self._build_alternatives_schema(scored)
 
@@ -146,10 +174,28 @@ class DecisionIntelligenceEngine:
                 "alternatives_count": len(scored),
                 "evidence_quality": round(evidence_set.avg_quality, 4) if evidence_set else 0.0,
                 "dominant_sentiment": evidence_set.dominant_sentiment if evidence_set else "neutral",
+                "simulation_outcomes": [
+                    {
+                        "description": o.alternative_description,
+                        "expected_value": o.expected_value,
+                        "confidence_interval": o.confidence_interval,
+                        "probability_of_success": o.probability_of_success,
+                    }
+                    for o in simulation_outcomes
+                ],
+                "debate_results": [
+                    {
+                        "description": d.alternative_description,
+                        "consensus_score": d.consensus_score,
+                        "conflict_areas": d.conflict_areas,
+                        "winning_strategies": d.winning_strategies,
+                    }
+                    for d in debate_results
+                ],
             },
         )
 
-        # 8. Decision History.
+        # 9. Decision History.
         record = DecisionRecord(
             decision_id=request.decision_id,
             context=request.context,
@@ -159,6 +205,7 @@ class DecisionIntelligenceEngine:
             evidence_count=len(request.evidence_sources),
             risk_score=scored[0]["risk_profile"].overall_risk if scored and scored[0].get("risk_profile") else 0.0,
             explanation=explanation.final_rationale,
+            outcome=DecisionOutcome.pending,
         )
         ref = self.history.record(record)
         result.decision_history_ref = ref

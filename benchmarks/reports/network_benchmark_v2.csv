@@ -1,102 +1,102 @@
 case_id,title,vendor,passed,score,findings_matched,expected_findings,execution_time_ms,errors
-cisco:bgp_full_mesh,bgp_full_mesh,cisco,True,1.0,15,15,8,[]
-cisco:bgp_md5_auth,bgp_md5_auth,cisco,True,1.0,15,15,0,[]
-cisco:bgp_route_reflector,bgp_route_reflector,cisco,True,1.0,15,15,0,[]
-cisco:dhcp_snooping,dhcp_snooping,cisco,True,1.0,15,15,0,[]
-cisco:dmvpn_dual_hub,dmvpn_dual_hub,cisco,True,1.0,13,13,0,[]
-cisco:eem_automation,eem_automation,cisco,True,1.0,10,10,0,[]
-cisco:eigrp_stub,eigrp_stub,cisco,True,1.0,12,12,0,[]
-cisco:firewall_asa_acl_strict,firewall_asa_acl_strict,cisco,True,1.0,12,12,0,[]
-cisco:ha_vss,ha_vss,cisco,True,1.0,15,15,0,[]
-cisco:high_availability_hsrp_router,high_availability_hsrp_router,cisco,True,1.0,13,13,0,[]
-cisco:ipv6_dual_stack,ipv6_dual_stack,cisco,True,1.0,15,15,0,[]
-cisco:ipv6_nd_ra,ipv6_nd_ra,cisco,True,1.0,15,15,0,[]
-cisco:model_driven_telemetry,model_driven_telemetry,cisco,True,1.0,15,15,0,[]
-cisco:mpls_ldp_core,mpls_ldp_core,cisco,True,1.0,15,15,0,[]
-cisco:nat_pat_dmz,nat_pat_dmz,cisco,True,1.0,13,13,0,[]
-cisco:netflow_sflow,netflow_sflow,cisco,True,1.0,12,12,0,[]
-cisco:ot_security_industrial,ot_security_industrial,cisco,True,1.0,12,12,0,[]
-cisco:prefix_list_route_map,prefix_list_route_map,cisco,True,1.0,15,15,0,[]
-cisco:private_vlan,private_vlan,cisco,True,1.0,15,15,0,[]
-cisco:qos_policy_map,qos_policy_map,cisco,True,1.0,14,14,0,[]
-cisco:qos_voice_priority,qos_voice_priority,cisco,True,1.0,13,13,15,[]
-cisco:routing_ospf_enterprise,routing_ospf_enterprise,cisco,True,1.0,13,13,0,[]
-cisco:security_ssh_hardened,security_ssh_hardened,cisco,True,1.0,10,10,2,[]
-cisco:segment_routing,segment_routing,cisco,True,1.0,15,15,0,[]
-cisco:services_dns_ntp_snmp,services_dns_ntp_snmp,cisco,True,1.0,12,12,0,[]
-cisco:sla_tracking,sla_tracking,cisco,True,1.0,10,10,0,[]
-cisco:snmp_v3_secure,snmp_v3_secure,cisco,True,1.0,12,12,0,[]
-cisco:stackpower_redundancy,stackpower_redundancy,cisco,True,1.0,15,15,0,[]
-cisco:switching_vlan_trunking,switching_vlan_trunking,cisco,True,1.0,15,15,0,[]
-cisco:telemetry_streaming,telemetry_streaming,cisco,True,1.0,11,11,0,[]
-cisco:vpn_site_to_site_ipsec,vpn_site_to_site_ipsec,cisco,True,1.0,15,15,0,[]
-cisco:wireless_corporate_ssid,wireless_corporate_ssid,cisco,True,1.0,11,11,0,[]
-cisco:wireless_wpa3,wireless_wpa3,cisco,True,1.0,13,13,0,[]
-fortinet:anti_exploit,anti_exploit,fortinet,True,1.0,15,15,15,[]
-fortinet:app_signatures,app_signatures,fortinet,True,1.0,15,15,0,[]
-fortinet:bgp_peer_config,bgp_peer_config,fortinet,True,1.0,15,15,0,[]
-fortinet:cloud_ondemand,cloud_ondemand,fortinet,True,1.0,15,15,0,[]
-fortinet:dns_filter,dns_filter,fortinet,True,1.0,15,15,0,[]
-fortinet:email_filter,email_filter,fortinet,True,1.0,15,15,0,[]
-fortinet:firewall_policy_dmz,firewall_policy_dmz,fortinet,True,1.0,15,15,0,[]
-fortinet:ha_active_active,ha_active_active,fortinet,True,1.0,15,15,0,[]
-fortinet:high_availability_active_passive,high_availability_active_passive,fortinet,True,1.0,15,15,0,[]
-fortinet:inline_ips,inline_ips,fortinet,True,1.0,15,15,0,[]
-fortinet:iot_detection,iot_detection,fortinet,True,1.0,15,15,0,[]
-fortinet:ips_sensor,ips_sensor,fortinet,True,1.0,15,15,16,[]
-fortinet:ipv6_tunnel,ipv6_tunnel,fortinet,True,1.0,15,15,0,[]
-fortinet:nat_virtual_ip_nat,nat_virtual_ip_nat,fortinet,True,1.0,15,15,0,[]
-fortinet:qos_traffic_shaper,qos_traffic_shaper,fortinet,True,1.0,15,15,0,[]
-fortinet:qos_traffic_shaping,qos_traffic_shaping,fortinet,True,1.0,15,15,0,[]
-fortinet:routing_static_bgp_ha,routing_static_bgp_ha,fortinet,True,1.0,15,15,0,[]
-fortinet:saml_idp,saml_idp,fortinet,True,1.0,15,15,0,[]
-fortinet:sdwan_performance_sla,sdwan_performance_sla,fortinet,True,1.0,15,15,0,[]
-fortinet:sdwan_wan_optimization,sdwan_wan_optimization,fortinet,True,1.0,15,15,0,[]
-fortinet:security_admin_exposed,security_admin_exposed,fortinet,True,1.0,15,15,0,[]
-fortinet:services_dns_ntp_mgmt,services_dns_ntp_mgmt,fortinet,True,1.0,15,15,0,[]
-fortinet:switch_managed_vlan,switch_managed_vlan,fortinet,True,1.0,15,15,15,[]
-fortinet:switching_managed_vlan,switching_managed_vlan,fortinet,True,1.0,15,15,1,[]
-fortinet:two_factor_auth,two_factor_auth,fortinet,True,1.0,15,15,0,[]
-fortinet:url_filter_categories,url_filter_categories,fortinet,True,1.0,15,15,0,[]
-fortinet:vpn_ipsec_phase1_phase2,vpn_ipsec_phase1_phase2,fortinet,True,1.0,15,15,0,[]
-fortinet:vpn_ipsec_site_to_site,vpn_ipsec_site_to_site,fortinet,True,1.0,15,15,0,[]
-fortinet:vpn_ssl_portal,vpn_ssl_portal,fortinet,True,1.0,15,15,0,[]
-fortinet:wan_interface,wan_interface,fortinet,True,1.0,15,15,0,[]
-fortinet:wan_optimization,wan_optimization,fortinet,True,1.0,15,15,0,[]
-fortinet:wireless_employee_wifi,wireless_employee_wifi,fortinet,True,1.0,15,15,0,[]
-fortinet:zerotrust_ztna,zerotrust_ztna,fortinet,True,1.0,15,15,0,[]
-mikrotik:bgp_peer_tracking,bgp_peer_tracking,mikrotik,True,1.0,15,15,0,[]
-mikrotik:bgp_route_map,bgp_route_map,mikrotik,True,1.0,15,15,16,[]
-mikrotik:capsman_ap_control,capsman_ap_control,mikrotik,True,1.0,12,12,0,[]
-mikrotik:certificate_enrollment,certificate_enrollment,mikrotik,True,1.0,13,13,0,[]
-mikrotik:firewall_input_filter_strict,firewall_input_filter_strict,mikrotik,True,0.8667,13,15,0,[]
-mikrotik:firewall_raw_table,firewall_raw_table,mikrotik,True,1.0,13,13,0,[]
-mikrotik:high_availability_bgpi_peer_tracking,high_availability_bgpi_peer_tracking,mikrotik,True,1.0,13,13,0,[]
-mikrotik:hotspot_with_login,hotspot_with_login,mikrotik,True,1.0,15,15,0,[]
-mikrotik:ip_cloud_dns,ip_cloud_dns,mikrotik,True,1.0,11,11,0,[]
-mikrotik:ipv6_dhcpv6,ipv6_dhcpv6,mikrotik,True,1.0,15,15,0,[]
-mikrotik:ipv6_pool_dhcp,ipv6_pool_dhcp,mikrotik,True,1.0,15,15,0,[]
-mikrotik:ipv6_tunnel_6to4,ipv6_tunnel_6to4,mikrotik,True,1.0,15,15,0,[]
-mikrotik:l2tp_server,l2tp_server,mikrotik,True,1.0,15,15,15,[]
-mikrotik:l3_switch_vlan_routing,l3_switch_vlan_routing,mikrotik,True,1.0,15,15,0,[]
-mikrotik:mpls_ldp_enabled,mpls_ldp_enabled,mikrotik,True,1.0,15,15,0,[]
-mikrotik:nat_hairpin,nat_hairpin,mikrotik,True,1.0,15,15,0,[]
-mikrotik:ospf_virtual_link,ospf_virtual_link,mikrotik,True,1.0,15,15,0,[]
-mikrotik:pptp_remote_access,pptp_remote_access,mikrotik,True,1.0,15,15,0,[]
-mikrotik:qos_htb,qos_htb,mikrotik,True,1.0,15,15,0,[]
-mikrotik:qos_traffic_shaping_enterprise,qos_traffic_shaping_enterprise,mikrotik,True,1.0,12,12,0,[]
-mikrotik:queue_tree_qos,queue_tree_qos,mikrotik,True,1.0,15,15,0,[]
-mikrotik:quickset_wan_dhcp,quickset_wan_dhcp,mikrotik,True,1.0,14,14,0,[]
-mikrotik:routing_ospf_area,routing_ospf_area,mikrotik,True,1.0,15,15,0,[]
-mikrotik:routing_static_route_default,routing_static_route_default,mikrotik,True,1.0,14,14,15,[]
-mikrotik:sample_hotspot,sample_hotspot,mikrotik,True,0.9333,14,15,0,[]
-mikrotik:security_insecure_defaults,security_insecure_defaults,mikrotik,True,1.0,15,15,0,[]
-mikrotik:services_dhcp_dns_server,services_dhcp_dns_server,mikrotik,True,1.0,15,15,0,[]
-mikrotik:sstp_server,sstp_server,mikrotik,True,1.0,15,15,0,[]
-mikrotik:switching_vlan_switch,switching_vlan_switch,mikrotik,True,1.0,14,14,0,[]
-mikrotik:vlan_aware_bridge,vlan_aware_bridge,mikrotik,True,1.0,15,15,0,[]
-mikrotik:vpn_pptp_remote_access,vpn_pptp_remote_access,mikrotik,True,0.9333,14,15,0,[]
-mikrotik:vrrp_ha,vrrp_ha,mikrotik,True,1.0,15,15,15,[]
-mikrotik:wireguard_site_to_site,wireguard_site_to_site,mikrotik,True,1.0,15,15,0,[]
-mikrotik:wireless_security,wireless_security,mikrotik,True,1.0,15,15,0,[]
-mikrotik:wireless_wlan_corporate,wireless_wlan_corporate,mikrotik,True,1.0,15,15,0,[]
+cisco:bgp_full_mesh,bgp_full_mesh,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:bgp_md5_auth,bgp_md5_auth,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:bgp_route_reflector,bgp_route_reflector,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:dhcp_snooping,dhcp_snooping,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:dmvpn_dual_hub,dmvpn_dual_hub,cisco,False,0.0,0,13,0,"[""name 'parse_nat' is not defined""]"
+cisco:eem_automation,eem_automation,cisco,False,0.0,0,10,0,"[""name 'parse_nat' is not defined""]"
+cisco:eigrp_stub,eigrp_stub,cisco,False,0.0,0,12,0,"[""name 'parse_nat' is not defined""]"
+cisco:firewall_asa_acl_strict,firewall_asa_acl_strict,cisco,False,0.0,0,12,0,"[""name 'parse_nat' is not defined""]"
+cisco:ha_vss,ha_vss,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:high_availability_hsrp_router,high_availability_hsrp_router,cisco,False,0.0,0,13,0,"[""name 'parse_nat' is not defined""]"
+cisco:ipv6_dual_stack,ipv6_dual_stack,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:ipv6_nd_ra,ipv6_nd_ra,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:model_driven_telemetry,model_driven_telemetry,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:mpls_ldp_core,mpls_ldp_core,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:nat_pat_dmz,nat_pat_dmz,cisco,False,0.0,0,13,0,"[""name 'parse_nat' is not defined""]"
+cisco:netflow_sflow,netflow_sflow,cisco,False,0.0,0,12,0,"[""name 'parse_nat' is not defined""]"
+cisco:ot_security_industrial,ot_security_industrial,cisco,False,0.0,0,12,0,"[""name 'parse_nat' is not defined""]"
+cisco:prefix_list_route_map,prefix_list_route_map,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:private_vlan,private_vlan,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:qos_policy_map,qos_policy_map,cisco,False,0.0,0,14,0,"[""name 'parse_nat' is not defined""]"
+cisco:qos_voice_priority,qos_voice_priority,cisco,False,0.0,0,13,0,"[""name 'parse_nat' is not defined""]"
+cisco:routing_ospf_enterprise,routing_ospf_enterprise,cisco,False,0.0,0,13,0,"[""name 'parse_nat' is not defined""]"
+cisco:security_ssh_hardened,security_ssh_hardened,cisco,False,0.0,0,10,0,"[""name 'parse_nat' is not defined""]"
+cisco:segment_routing,segment_routing,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:services_dns_ntp_snmp,services_dns_ntp_snmp,cisco,False,0.0,0,12,0,"[""name 'parse_nat' is not defined""]"
+cisco:sla_tracking,sla_tracking,cisco,False,0.0,0,10,0,"[""name 'parse_nat' is not defined""]"
+cisco:snmp_v3_secure,snmp_v3_secure,cisco,False,0.0,0,12,0,"[""name 'parse_nat' is not defined""]"
+cisco:stackpower_redundancy,stackpower_redundancy,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:switching_vlan_trunking,switching_vlan_trunking,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:telemetry_streaming,telemetry_streaming,cisco,False,0.0,0,11,0,"[""name 'parse_nat' is not defined""]"
+cisco:vpn_site_to_site_ipsec,vpn_site_to_site_ipsec,cisco,False,0.0,0,15,0,"[""name 'parse_nat' is not defined""]"
+cisco:wireless_corporate_ssid,wireless_corporate_ssid,cisco,False,0.0,0,11,0,"[""name 'parse_nat' is not defined""]"
+cisco:wireless_wpa3,wireless_wpa3,cisco,False,0.0,0,13,0,"[""name 'parse_nat' is not defined""]"
+fortinet:anti_exploit,anti_exploit,fortinet,False,0.0,0,15,15,"[""'str' object has no attribute 'value'""]"
+fortinet:app_signatures,app_signatures,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:bgp_peer_config,bgp_peer_config,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:cloud_ondemand,cloud_ondemand,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:dns_filter,dns_filter,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:email_filter,email_filter,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:firewall_policy_dmz,firewall_policy_dmz,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:ha_active_active,ha_active_active,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:high_availability_active_passive,high_availability_active_passive,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:inline_ips,inline_ips,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:iot_detection,iot_detection,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:ips_sensor,ips_sensor,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:ipv6_tunnel,ipv6_tunnel,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:nat_virtual_ip_nat,nat_virtual_ip_nat,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:qos_traffic_shaper,qos_traffic_shaper,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:qos_traffic_shaping,qos_traffic_shaping,fortinet,False,0.0,0,15,15,"[""'str' object has no attribute 'value'""]"
+fortinet:routing_static_bgp_ha,routing_static_bgp_ha,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:saml_idp,saml_idp,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:sdwan_performance_sla,sdwan_performance_sla,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:sdwan_wan_optimization,sdwan_wan_optimization,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:security_admin_exposed,security_admin_exposed,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:services_dns_ntp_mgmt,services_dns_ntp_mgmt,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:switch_managed_vlan,switch_managed_vlan,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:switching_managed_vlan,switching_managed_vlan,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:two_factor_auth,two_factor_auth,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:url_filter_categories,url_filter_categories,fortinet,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+fortinet:vpn_ipsec_phase1_phase2,vpn_ipsec_phase1_phase2,fortinet,False,0.0,0,15,15,"[""'str' object has no attribute 'value'""]"
+fortinet:vpn_ipsec_site_to_site,vpn_ipsec_site_to_site,fortinet,False,0.0,0,15,1,"[""'str' object has no attribute 'value'""]"
+fortinet:vpn_ssl_portal,vpn_ssl_portal,fortinet,False,0.0,0,15,1,"[""'str' object has no attribute 'value'""]"
+fortinet:wan_interface,wan_interface,fortinet,False,0.0,0,15,1,"[""'str' object has no attribute 'value'""]"
+fortinet:wan_optimization,wan_optimization,fortinet,False,0.0,0,15,1,"[""'str' object has no attribute 'value'""]"
+fortinet:wireless_employee_wifi,wireless_employee_wifi,fortinet,False,0.0,0,15,1,"[""'str' object has no attribute 'value'""]"
+fortinet:zerotrust_ztna,zerotrust_ztna,fortinet,False,0.0,0,15,2,"[""'str' object has no attribute 'value'""]"
+mikrotik:bgp_peer_tracking,bgp_peer_tracking,mikrotik,False,0.0,0,15,2,"[""'str' object has no attribute 'value'""]"
+mikrotik:bgp_route_map,bgp_route_map,mikrotik,False,0.0,0,15,1,"[""'str' object has no attribute 'value'""]"
+mikrotik:capsman_ap_control,capsman_ap_control,mikrotik,False,0.0,0,12,1,"[""'str' object has no attribute 'value'""]"
+mikrotik:certificate_enrollment,certificate_enrollment,mikrotik,False,0.0,0,13,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:firewall_input_filter_strict,firewall_input_filter_strict,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:firewall_raw_table,firewall_raw_table,mikrotik,False,0.0,0,13,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:high_availability_bgpi_peer_tracking,high_availability_bgpi_peer_tracking,mikrotik,False,0.0,0,13,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:hotspot_with_login,hotspot_with_login,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:ip_cloud_dns,ip_cloud_dns,mikrotik,False,0.0,0,11,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:ipv6_dhcpv6,ipv6_dhcpv6,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:ipv6_pool_dhcp,ipv6_pool_dhcp,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:ipv6_tunnel_6to4,ipv6_tunnel_6to4,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:l2tp_server,l2tp_server,mikrotik,False,0.0,0,15,15,"[""'str' object has no attribute 'value'""]"
+mikrotik:l3_switch_vlan_routing,l3_switch_vlan_routing,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:mpls_ldp_enabled,mpls_ldp_enabled,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:nat_hairpin,nat_hairpin,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:ospf_virtual_link,ospf_virtual_link,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:pptp_remote_access,pptp_remote_access,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:qos_htb,qos_htb,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:qos_traffic_shaping_enterprise,qos_traffic_shaping_enterprise,mikrotik,False,0.0,0,12,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:queue_tree_qos,queue_tree_qos,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:quickset_wan_dhcp,quickset_wan_dhcp,mikrotik,False,0.0,0,14,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:routing_ospf_area,routing_ospf_area,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:routing_static_route_default,routing_static_route_default,mikrotik,False,0.0,0,14,15,"[""'str' object has no attribute 'value'""]"
+mikrotik:sample_hotspot,sample_hotspot,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:security_insecure_defaults,security_insecure_defaults,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:services_dhcp_dns_server,services_dhcp_dns_server,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:sstp_server,sstp_server,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:switching_vlan_switch,switching_vlan_switch,mikrotik,False,0.0,0,14,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:vlan_aware_bridge,vlan_aware_bridge,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:vpn_pptp_remote_access,vpn_pptp_remote_access,mikrotik,False,0.0,0,15,15,"[""'str' object has no attribute 'value'""]"
+mikrotik:vrrp_ha,vrrp_ha,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:wireguard_site_to_site,wireguard_site_to_site,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:wireless_security,wireless_security,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"
+mikrotik:wireless_wlan_corporate,wireless_wlan_corporate,mikrotik,False,0.0,0,15,0,"[""'str' object has no attribute 'value'""]"

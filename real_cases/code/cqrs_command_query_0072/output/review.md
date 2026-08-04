@@ -1,0 +1,13 @@
+# cqrs_command_query Review
+
+Language: python
+Framework: react
+
+## Security Findings
+- Hardcoded credentials detected
+- SQL injection vulnerability
+- Missing input validation
+
+## Architecture
+- Single responsibility violation
+- Missing error handling

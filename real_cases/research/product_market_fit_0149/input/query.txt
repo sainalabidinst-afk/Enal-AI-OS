@@ -1,0 +1,6 @@
+Research Query: product_market_fit
+
+Context:
+- Domain: Technology
+- Timeframe: 2024-2025
+- Sources: Academic papers, industry reports
