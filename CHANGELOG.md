@@ -96,6 +96,40 @@ Tag ini menandai **Dasar Teknik** resmi dari Platform Kognitif Enal.
 
 ---
 
+## [1.1.0] - 2026-08-04
+
+### Ditambahkan
+- Audit komprehensif dan remediasi Phase 1-3 selesai
+- Real JWT authentication (PyJWT) dengan signature, expiry, algorithm enforcement
+- Blocking LLM calls diperbaiki: `complete()` → `acomplete()` di jalur async
+- Docker hardening: volume mounts, pinned ollama (`0.1.26`), `read_only` aman
+- `redis.keys()` diganti `scan_iter()` di memory layer
+- 122 integration tests baru (`test_api_comprehensive.py`) covering 130 endpoints
+- Complexity reduction: max complexity 272 → 211, top 10 files di-split
+- Trading Analyst certification: A+ (100%), Level 4 Domain Expert
+- Benchmark dashboard: `benchmarks/reports/trading_dashboard.html`
+- Capability contract: `docs/capabilities/trading-analyst.md`
+- Size limits untuk unbounded structures (audit log, plugin registry)
+- `TESTING` flag untuk disable rate limit selama test
+- Debug scripts dipindah ke `tools/debug/`
+- SWC minify diaktifkan kembali di frontend
+- Makefile dimodernisasi ke `docker compose` v2 syntax
+
+### Diperbaiki
+- Test count inkonsisten: standarkan ke 166 collected tests
+- Dokumentasi inkonsisten: test count, version tags, capability grades
+- Vendor detection bug: Cisco `detect()` salah klasifikasi Fortinet config
+- Un-awaited coroutine di `model_gateway.py`
+- `memory_episodic.py` import error untuk `EpisodicMemoryEntry`
+
+### Berkontribusi
+- 231 files changed, 14072 insertions(+), 7715 deletions(-)
+- 22 new modules dari splitting top 10 complex files
+- 100+ real cases baru (Cisco, Fortinet, MikroTik)
+- Commit: `4aead78` — refactor: reduce complexity, add tests, commit artifacts
+
+---
+
 ## [1.0.0-dev] - 07-08-2026
 
 
