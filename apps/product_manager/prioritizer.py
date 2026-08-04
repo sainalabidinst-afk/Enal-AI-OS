@@ -29,7 +29,7 @@ class Prioritizer:
         Returns:
             Prioritized backlog as a dict.
         """
-        ranked = []
+        ranked: list[dict[str, Any]] = []
         for idx, item in enumerate(backlog_input.items):
             score = self._compute_score(item, framework)
             ranked.append({

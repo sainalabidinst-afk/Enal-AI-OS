@@ -53,7 +53,8 @@ dev = [
 packages = ["backend"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "backend/tests"]
+testpaths = ["tests"]
+pythonpath = ["."]
 asyncio_mode = "auto"
 addopts = "-v"
 

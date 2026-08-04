@@ -1,16 +1,16 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 08-02-2026
-**Versi:** 1.0.0
+**Diverifikasi Terakhir:** 08-04-2026
+**Versi:** 1.1.0
 **Status:** Aktif
 **SSOT:** Model kematangan Capability Pack, profil, dan siklus hidup strategis
 <!-- DOCUMENT_METADATA_END -->
 
 # Strategi Kemampuan ECP
 
-**Versi:** 1.0.0
-**Berlaku:** 02-08-2026
+**Versi:** 1.1.0
+**Berlaku:** 04-08-2026
 **Induk:** `GOVERNANCE_CHARTER.md`
 **Tujuan:** Mendefinisikan strategi evolusi Capability Pack, kematangan, kualitas grading, lifecycle, dan perluasan pengetahuan.
 
@@ -47,7 +47,7 @@ Kematangan menggambarkan **tahap lifecycle** dari sebuah Capability Pack — buk
 |5|**Bersertifikat**|Diaudit, dibenchmark, kualitas referensi|Audit independen, dashboard Benchmark publik, ≥500 kasus nyata|
 |6|**Referensi Kemampuan**|Tolok ukur industri untuk domain tersebut|Validasi lintas proyek, metodologi terpublikasi, adopsi komunitas|
 
-**Status Saat Ini (2026-08-02):**
+**Status Saat Ini (2026-08-04):**
 
 |Capability Pack|Tingkat Kematangan|Sasaran Tingkat|
 |-----------------|------------------|--------------|
@@ -64,6 +64,12 @@ Kematangan menggambarkan **tahap lifecycle** dari sebuah Capability Pack — buk
 |Database Engineer|3 — Siap Produksi|4 — Ahli Domain|
 |QA Engineer|3 — Siap Produksi|4 — Ahli Domain|
 |Business Analyst|3 — Siap Produksi|4 — Ahli Domain|
+|Infrastructure Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|AI Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|Documentation Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|Product Manager|3 — Siap Produksi|4 — Ahli Domain|
+|UI/UX Designer|3 — Siap Produksi|4 — Ahli Domain|
+|Full Stack Engineer|3 — Siap Produksi|4 — Ahli Domain|
 
 ---
 
@@ -80,7 +86,7 @@ Quality Grades menggambarkan **hasil Benchmark terkini** dari sebuah Capability 
 |A|**Ahli** — penguasaan domain yang komprehensif|≥90%|
 |A+|**Implementasi referensi** — tolok ukur industri|≥95%|
 
-**Nilai Kualitas Saat Ini (2026-08-02):**
+**Nilai Kualitas Saat Ini (2026-08-04):**
 
 |Capability Pack|Nilai|Skor|Status|
 |-----------------|-------|-------|--------|
@@ -97,6 +103,12 @@ Quality Grades menggambarkan **hasil Benchmark terkini** dari sebuah Capability 
 |Database Engineer|A-|≥85|Siap Produksi (RFC-0010)|
 |QA Engineer|A|≥90|Siap Produksi (RFC-0012)|
 |Business Analyst|A-|≥85|Siap Produksi (RFC-0013)|
+|Infrastructure Engineer|A|≥90|Siap Produksi (RFC-0014)|
+|AI Engineer|A+|≥95|Siap Produksi (RFC-0015)|
+|Documentation Engineer|A|≥90|Siap Produksi (RFC-0016)|
+|Product Manager|A-|≥85|Siap Produksi (RFC-0017)|
+|UI/UX Designer|A-|≥85|Siap Produksi (RFC-0018)|
+|Full Stack Engineer|A-|≥85|Siap Produksi (RFC-0019)|
 
 ### Mutu Kelas vs Tingkat Kematangan
 
@@ -161,6 +173,12 @@ Deprecated
 |Database Engineer|Stabil|Siap Produksi (RFC-0010)|
 |QA Engineer|Stabil|Siap Produksi (RFC-0012)|
 |Business Analyst|Stabil|Siap Produksi (RFC-0013)|
+|Infrastructure Engineer|Stabil|Siap Produksi (RFC-0014)|
+|AI Engineer|Stabil|Siap Produksi (RFC-0015)|
+|Documentation Engineer|Stabil|Siap Produksi (RFC-0016)|
+|Product Manager|Stabil|Siap Produksi (RFC-0017)|
+|UI/UX Designer|Stabil|Siap Produksi (RFC-0018)|
+|Full Stack Engineer|Stabil|Siap Produksi (RFC-0019)|
 
 ---
 
@@ -330,6 +348,84 @@ Deprecated
 **Benchmark:** `benchmarks/business_analyst_benchmark.py` (9 dimensi)
 **Target Kematangan:** Level 3 — Siap Produksi
 
+### 5.14 Infrastructure Engineer
+
+**Kategori:** Infrastruktur
+**Kemampuan:** Manajemen kluster, orkestrasi kontainer, virtualisasi, storage, jaringan tingkat tinggi, ketahanan, disaster recovery
+**Kriteria Keberhasilan (RFC-0014):**
+- Mengelola infrastruktur berbasis Kubernetes, Docker Swarm, Proxmox, VMware, Ceph
+- Mengonfigurasi kluster HA, load balancer, dan strategi penyimpanan
+- Merancang dan menguji skenario pemulihan bencana
+- Menjamin ketersediaan layanan infrastruktur melalui otomatisasi
+**Target Kualitas:** A (≥90) — 50 skenario infrastruktur, ≥90% ketersediaan
+**Benchmark:** `benchmarks/infrastructure_engineer_benchmark.py` (9 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### 5.15 AI Engineer
+
+**Kategori:** Kecerdasan Buatan
+**Kemampuan:** RAG, desain agent, optimasi prompt, model router, LoRA, fine-tuning, evaluasi, guardrails
+**Kriteria Keberhasilan (RFC-0015):**
+- Merancang pipeline RAG dengan retrieval, reranking, dan generasi
+- Membangun dan mengevaluasi agen otonom dengan guardrails keamanan
+- Melakukan fine-tuning dan evaluasi model LLM
+- Mengoptimalkan performa dan biaya inferensi melalui model routing
+**Target Kualitas:** A+ (≥95) — 100 skenario AI, ≥95% akurasi
+**Benchmark:** `benchmarks/ai_engineer_benchmark.py` (10 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### 5.16 Documentation Engineer
+
+**Kategori:** Dokumentasi
+**Kemampuan:** Dokumentasi API, OpenAPI, SDK Docs, ADR, RFC, Changelog, Release Notes, arsitektur dokumentasi
+**Kriteria Keberhasilan (RFC-0016):**
+- Menghasilkan dan memelihara dokumentasi API sesuai standar OpenAPI
+- Menyusun ADR, RFC, changelog, dan release notes yang konsisten
+- Menjaga sinkronisasi dokumentasi dengan perubahan kode
+- Menyediakan panduan penggunaan dan integrasi untuk konsumen
+**Target Kualitas:** A (≥90) — 100 skenario dokumentasi, kelengkapan ≥95%
+**Benchmark:** `benchmarks/documentation_engineer_benchmark.py` (7 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### 5.17 Product Manager
+
+**Kategori:** Produk
+**Kemampuan:** Visi produk, backlog, roadmap, prioritisasi, sprint, release planning, metrik produk
+**Kriteria Keberhasilan (RFC-0017):**
+- Menyusun visi produk dan roadmap jangka menengah
+- Mengelola backlog dan prioritisasi berdasarkan nilai bisnis
+- Merencanakan sprint dan koordinasi rilis
+- Mengukur metrik produk dan umpan balik pengguna
+**Target Kualitas:** A- (≥85) — 50 skenario produk, kepuasan stakeholder ≥85%
+**Benchmark:** `benchmarks/product_manager_benchmark.py` (8 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### 5.18 UI/UX Designer
+
+**Kategori:** Desain
+**Kemampuan:** Wireframe, UX review, aksesibilitas, design system, pustaka komponen, prototype, pengujian kegunaan
+**Kriteria Keberhasilan (RFC-0018):**
+- Merancang wireframe dan prototype sesuai kebutuhan pengguna
+- Meninjau UX dan merekomendasikan perbaikan berdasarkan data
+- Menyusun dan memelihara design system serta komponen UI
+- Memastikan kepatuhan standar aksesibilitas (WCAG)
+**Target Kualitas:** A- (≥85) — 50 skenario desain, kepatuhan aksesibilitas ≥90%
+**Benchmark:** `benchmarks/ui_ux_designer_benchmark.py` (8 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### 5.19 Full Stack Engineer
+
+**Kategori:** Pengembangan
+**Kemampuan:** Integrasi frontend-backend, pengiriman fitur end-to-end, pemetaan API, manajemen state, kesiapan penerapan
+**Kriteria Keberhasilan (RFC-0019):**
+- Mengintegrasikan frontend dan backend melalui API yang jelas
+- Menyelesaikan fitur secara end-to-end dari kebutuhan hingga deployment
+- Memetakan dan menjaga konsistensi API antar layanan
+- Menjamin kesiapan penerapan melalui pengujian dan konfigurasi
+**Target Kualitas:** A- (≥85) — 50 skenario pengembangan, cakupan pengujian ≥90%
+**Benchmark:** `benchmarks/full_stack_engineer_benchmark.py` (9 dimensi)
+**Target Kematangan:** Level 3 — Siap Produksi
+
 ---
 
 ## 6. Persyaratan Benchmark
@@ -435,6 +531,80 @@ Semua penambahan pengetahuan yang direncanakan dilacak melalui RFC dan diimpleme
 - Pemodelan risiko perubahan
 - Saran perbaikan otomatis
 
+### 7.7 Infrastructure Engineer
+
+**Referensi RFC:** RFC-0014
+
+**Penambahan yang direncanakan:**
+- Orkestrasi klaster: Kubernetes, Docker Swarm, Proxmox, VMware
+- Penyimpanan terdistribusi: Ceph, ZFS, konfigurasi HA
+- Jaringan tingkat tinggi: load balancer, reverse proxy, DNS, firewall
+- Virtualisasi dan kontainerisasi: QEMU/KVM, LXC, konfigurasi jaringan
+- Pemulihan bencana: replikasi, snapshot, failover, jadwal backup
+- Pengerasan sistem: CIS Benchmarks, kebijakan keamanan OS
+- Observasi infrastruktur: Prometheus, Grafana, logging terpusat
+
+### 7.8 AI Engineer
+
+**Referensi RFC:** RFC-0015
+
+**Penambahan yang direncanakan:**
+- RAG: chunking strategies, embedding models, reranking, hybrid search
+- Desain Agent: orkestrasi, manajemen memori, tool calling, evaluasi agen
+- Fine-tuning: LoRA, QLoRA, dataset persiapan, evaluasi model
+- Evaluasi LLM: benchmark kustom, red-teaming, guardrails
+- Model Router: perutean berdasarkan biaya, latensi, dan domain
+- Prompt Optimization: chain-of-thought, few-shot, prompt caching
+- AI Safety: mitigasi bias, keamanan output, audit model
+
+### 7.9 Documentation Engineer
+
+**Referensi RFC:** RFC-0016
+
+**Penambahan yang direncanakan:**
+- Dokumentasi API: OpenAPI 3.0+, AsyncAPI, SDK reference
+- Dokumentasi arsitektur: ADR, C4 model, diagram alur, arsitektur layanan
+- Dokumentasi pengguna: getting started, tutorial, FAQ, troubleshooting
+- Dokumentasi rilis: changelog, migration guide, breaking changes
+- Otomatisasi dokumentasi: generation dari kode, CI/CD integration
+- Aksesibilitas dokumentasi: WCAG, terjemahan, multi-format
+
+### 7.10 Product Manager
+
+**Referensi RFC:** RFC-0017
+
+**Penambahan yang direncanakan:**
+- Manajemen produk: discovery, delivery, OKR, KPI
+- Metodologi: Agile, Scrum, Kanban, Lean, dual-track Agile
+- Analisis pasar: kompetitor, ukuran pasar, TAM/SAM/SOM
+- Persona dan journey mapping: user persona, empati map, touchpoints
+- Strategi rilis: go-to-market, launch plan, feature rollout
+- Pengambilan keputusan berbasis data: A/B testing, funnel analysis, cohort analysis
+
+### 7.11 UI/UX Designer
+
+**Referensi RFC:** RFC-0018
+
+**Penambahan yang direncanakan:**
+- Desain UI: design system, komponen reusable, token, theming
+- Pengalaman pengguna: heuristik usability, cognitive walkthrough, A/B testing
+- Aksesibilitas: WCAG 2.1/2.2, screen reader, keyboard navigation, color contrast
+- Prototyping: Figma, interactive mockup, micro-interactions
+- Riset pengguna: wawancara, survei, card sorting, usability testing
+- Pola desain: layout, tipografi, motion design, responsive design
+
+### 7.12 Full Stack Engineer
+
+**Referensi RFC:** RFC-0019
+
+**Penambahan yang direncanakan:**
+- Arsitektur aplikasi: monolith vs microservices, modular monolith, hexagonal
+- Integrasi API: REST, GraphQL, gRPC, webhooks, versioning
+- Manajemen state: client state, server state, cache strategies, optimistic updates
+- Pengujian: unit, integration, e2e, contract testing, visual regression
+- Deployment: CI/CD, blue-green, canary, feature flags, rollback strategies
+- Observabilitas: logging, metrics, tracing, error tracking, performance monitoring
+
 ---
 
 ## 8. Capability Pack Masa Depan (Peta Jalan)
@@ -504,6 +674,8 @@ Roadmap perluasan dibagi dalam **4 Tier** berdasarkan nilai dampak dan reusabili
 
 ### 8.4 Platform Professional (Tier A — Sangat Direkomendasikan ⭐⭐⭐⭐⭐)
 
+> **Status: Semua pack Tier A telah diimplementasikan.**
+
 Tier ini berisi pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack lain.
 
 |Prioritas|Capability Pack|Fokus Domain|Dipakai Oleh|
@@ -513,6 +685,8 @@ Tier ini berisi pack dengan **reusability tertinggi** dan dampak langsung terhad
 |⭐⭐⭐⭐⭐|**Documentation Engineer**|API Documentation, OpenAPI, SDK Docs, ADR, RFC, Changelog, Release Notes, Architecture Documentation|Semua pack (menjaga dokumentasi sinkron dengan kode)|
 
 ### 8.5 Platform Professional (Tier B)
+
+> **Status: Semua pack Tier B telah diimplementasikan.**
 
 Tier B melengkapi siklus pengembangan produk end-to-end.
 
@@ -532,9 +706,6 @@ Tier C melayani kebutuhan enterprise: skala, keandalan, kepatuhan, dan pengetahu
 |⭐⭐⭐|**SRE (Site Reliability Engineer)**|Observability, Monitoring, Alerting, Incident Response, SLI, SLO, SLA|
 |⭐⭐⭐|**Compliance Officer**|ISO 27001, NIST, PCI-DSS, GDPR, Audit, Governance|
 |⭐⭐⭐|**Knowledge Engineer**|Ontology, Knowledge Graph, Semantic Search, Entity Resolution, Taxonomy, Knowledge Curation|
-|⭐⭐⭐|**Full Stack Engineer**|Integrasi Frontend–Backend, End-to-end Feature Delivery|
-
-> **Catatan:** Full Stack Engineer dituliskan di Tier B dan Tier C sebagai opsi penempatan. Jika sudah masuk Tier B, Tier C cukup berisi 4 pack baru.
 
 ### 8.7 Vertical Industry (Tier D — Kondisional)
 
@@ -556,10 +727,10 @@ Ditambahkan **hanya ketika ada kebutuhan proyek nyata** dan memenuhi aturan Gove
 |Tahap|Jumlah Pack|Keterangan|
 |-------|------------|------------|
 |**Platform Core**|13|Fokus menyelesaikan kualitas (Capability Excellence)|
-|**Platform Professional**|+5|Infrastructure Engineer, AI Engineer, Documentation Engineer, Product Manager, UI/UX Designer|
-|**Platform Enterprise**|+5|Cloud Architect, SRE, Compliance Officer, Knowledge Engineer, Full Stack Engineer|
-|**Target Aktif**|**18**|13 Core + 5 Professional — masing-masing setara spesialis berpengalaman|
-|**Proposed**|23|18 + 5 Enterprise|
+|**Platform Professional**|+6|Infrastructure Engineer, AI Engineer, Documentation Engineer, Product Manager, UI/UX Designer, Full Stack Engineer|
+|**Platform Enterprise**|+5|Cloud Architect, SRE, Compliance Officer, Knowledge Engineer|
+|**Target Aktif**|**19**|13 Core + 6 Professional — masing-masing setara spesialis berpengalaman|
+|**Proposed**|24|19 + 5 Enterprise|
 |**Vertical Industry**|Kondisional|Berdasarkan kebutuhan proyek nyata|
 
 ### 8.9 Komponen yang Tidak Akan Menjadi Capability Pack

@@ -3,8 +3,8 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 08-02-2026
-**Versi:** 1.0.0
+**Diverifikasi Terakhir:** 2026-08-04
+**Versi:** 1.1.0
 **Status:** Aktif
 **SSOT:** Spesifikasi Capability Pack, cakupan, target Benchmark, dan tingkat kualitas
 <!-- DOCUMENT_METADATA_END -->
@@ -14,7 +14,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 ---
 
-## Status Kemampuan (2026-08-02)
+## Status Kemampuan (2026-08-04)
 **Platform Kandidat Pelepasan**
 
 |Capability Pack|Nilai|Catatan|
@@ -32,6 +32,12 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 |Database Engineer|A- (≥85)|Siap Produksi|
 |QA Engineer|A (≥90)|Siap Produksi|
 |Business Analyst|A- (≥85)|Siap Produksi|
+|Infrastructure Engineer|A (≥90)|Production Ready|RFC-0014|
+|AI Engineer|A+ (≥95)|Production Ready|RFC-0015|
+|Documentation Engineer|A (≥90)|Production Ready|RFC-0016|
+|Product Manager|A- (≥85)|Production Ready|RFC-0017|
+|UI/UX Designer|A- (≥85)|Production Ready|RFC-0018|
+|Full Stack Engineer|A- (≥85)|Production Ready|RFC-0019|
 
 ---
 
@@ -353,6 +359,66 @@ Templat mewakili jalur eksekusi umum dan digunakan oleh Execution Runtime untuk 
 |Mempelajari|Pola → Analisis lintas proyek → Pembaruan pengetahuan → Rekomendasi|
 |Meramalkan|Perubahan → Model dampak → Perkiraan risiko → Mitigasi → Keyakinan|
 
+### Infrastructure Engineer
+
+|Tugas|Subtugas|
+|------|----------|
+|Provisioning|Persyaratan → Pemilihan platform → Konfigurasi → Validasi → Dokumentasi|
+|Konfigurasi|Persyaratan → Desain infrastruktur → Konfigurasi → Keamanan → Verifikasi|
+|Monitoring|Persyaratan → Setup monitoring → Alert → Dashboard → Runbook|
+|DR|Persyaratan → Analisis RPO/RTO → Desain DR → Implementasi → Uji coba|
+|Scaling|Analisis beban → Perencanaan scaling → Implementasi → Validasi|
+
+### AI Engineer
+
+|Tugas|Subtugas|
+|------|----------|
+|RAG|Persyaratan → Chunking strategy → Embedding → Vector DB → Evaluasi|
+|Agent|Persyaratan → Desain agent → Tool definition → Orchestration → Testing|
+|Fine-tuning|Dataset preparation → Model selection → Training → Evaluation → Deployment|
+|Evaluasi|Persyaratan → Benchmark selection → Test cases → Metrics → Report|
+|Guardrails|Persyaratan → Policy definition → Implementation → Testing → Monitoring|
+
+### Documentation Engineer
+
+|Tugas|Subtugas|
+|------|----------|
+|API Docs|Persyaratan → OpenAPI spec → Generasi → Review → Publikasi|
+|ADR/RFC|Masalah → Opsi → Keputusan → Dokumentasi → Review|
+|Release Notes|Perubahan → Ringkasan → Dokumentasi → Review → Publikasi|
+|Architecture Docs|Persyaratan → Diagram → Deskripsi → Review → Publikasi|
+|Audit|Pemindaian dokumen → Kesenjangan → Rekomendasi → Update|
+
+### Product Manager
+
+|Tugas|Subtugas|
+|------|----------|
+|Discovery|Masalah → Riset → Konsep → Validasi → Prioritas|
+|Roadmap|Visi → Tujuan → Inisiatif → Timeline → Komunikasi|
+|Sprint|Backlog → Planning → Tracking → Review → Retrospective|
+|Release|Persyaratan → Planning → Coordination → Deployment → Review|
+|Analytics|Metrics → Data → Insight → Action → Measurement|
+
+### UI/UX Designer
+
+|Tugas|Subtugas|
+|------|----------|
+|Wireframe|Persyaratan → Sketches → Wireframe → Review → Iterasi|
+|Prototype|Wireframe → High-fidelity → Interaksi → Testing → Refinement|
+|Design System|Audit → Token → Component → Dokumentasi → Adoption|
+|Review|Heuristic evaluation → Accessibility → Usability → Report → Action|
+|Research|Planning → Recruitment → Session → Synthesis → Recommendation|
+
+### Full Stack Engineer
+
+|Tugas|Subtugas|
+|------|----------|
+|Feature|Requirement → API design → Backend → Frontend → Integration → Test|
+|Integration|API mapping → Contract → Implementation → E2E test → Deployment|
+|Migration|Assessment → Planning → Implementation → Validation → Rollback|
+|Optimization|Profiling → Bottleneck → Fix → Measure → Validate|
+|Deployment|Build → Config → Deploy → Smoke test → Monitoring|
+
 ---
 
 ## Peta Jalan Perluasan Pengetahuan
@@ -435,6 +501,88 @@ Bagian ini mendokumentasikan perluasan pengetahuan yang direncanakan untuk setia
 - Bau arsitektur Taksonomi
 - Pemodelan risiko perubahan
 - Saran perbaikan otomatis
+
+### Infrastructure Engineer
+
+**Penambahan yang direncanakan:**
+- Kubernetes: operator, service mesh, policy enforcement
+- Proxmox: clustering, Ceph integration, backup
+- VMware: vSphere advanced, vSAN, NSX
+- Ceph: CRUSH map, pool design, erasure coding
+- Disaster Recovery: site failover, data replication strategies
+- Zero Trust: micro-segmentation, identity-based access
+
+**Referensi RFC:** RFC-0014
+
+---
+
+### AI Engineer
+
+**Penambahan yang direncanakan:**
+- RAG: advanced chunking, hybrid search, reranking
+- Agent: multi-agent orchestration, memory systems
+- LLM: fine-tuning strategies, quantization, deployment
+- Evaluation: automated benchmarks, LLM-as-judge
+- Guardrails: policy enforcement, PII detection, toxicity filtering
+- Prompt engineering: few-shot, CoT, structured output
+
+**Referensi RFC:** RFC-0015
+
+---
+
+### Documentation Engineer
+
+**Penambahan yang direncanakan:**
+- API Documentation: OpenAPI 3.1, async API, GraphQL schema
+- SDK Docs: multi-language, interactive examples
+- ADR/RFC: template standardization, tooling integration
+- Architecture Documentation: C4 model, system diagrams
+- Documentation testing: link validation, freshness checks
+- Automated doc generation from code comments
+
+**Referensi RFC:** RFC-0016
+
+---
+
+### Product Manager
+
+**Penambahan yang direncanakan:**
+- Product Strategy: market analysis, competitive intelligence
+- Roadmap: OKR alignment, stakeholder management
+- Agile: Scrum, Kanban, hybrid methodologies
+- Analytics: metrics definition, A/B testing, funnel analysis
+- Discovery: user research, MVP definition, validation
+- Release: coordination, communication, feedback loops
+
+**Referensi RFC:** RFC-0017
+
+---
+
+### UI/UX Designer
+
+**Penambahan yang direncanakan:**
+- UX Research: usability testing, user interviews, heatmaps
+- Design System: token architecture, component library
+- Accessibility: WCAG 2.2, ARIA patterns, screen reader testing
+- Responsive Design: mobile-first, adaptive layouts
+- Prototyping: interactive mockups, micro-interactions
+- Visual Design: typography, color theory, brand systems
+
+**Referensi RFC:** RFC-0018
+
+---
+
+### Full Stack Engineer
+
+**Penambahan yang direncanakan:**
+- Full-stack Frameworks: Next.js, Nuxt, Remix patterns
+- API Design: REST, GraphQL, tRPC, contract testing
+- State Management: client-side, server-side, caching
+- Deployment: containerization, CI/CD, cloud platforms
+- Performance: bundle optimization, lazy loading, caching
+- Testing: E2E, integration, contract testing
+
+**Referensi RFC:** RFC-0019
 
 ---
 
@@ -566,17 +714,310 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 
 ---
 
+## Infrastructure Engineer
+
+**Kemampuan ID:** `infrastructure-engineer`
+**Kategori:** Infrastruktur
+**Target Kualitas:** A (≥90)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Manajemen Kubernetes dan Docker Swarm
+- Virtualisasi Proxmox dan VMware
+- Penyimpanan terdistribusi Ceph dan HA Cluster
+- Konfigurasi Load Balancer dan Storage
+- Perencanaan dan implementasi Disaster Recovery
+- Orkestra infrastruktur fisik dan virtual
+- Keandalan sistem dan ketersediaan tinggi
+
+### Fokus Pengetahuan
+
+- Kubernetes: arsitektur, scheduler, networking, storage
+- Docker Swarm: layanan, jaringan
+- Proxmox VE: cluster, VM, kontainer, penyimpanan
+- VMware vSphere: ESXi, vCenter, vMotion, DRS
+- Ceph: RADOS, OSD, MDS, pool, crush map
+- Load Balancer: HAProxy, Nginx, L4/L7
+- Disaster Recovery: RPO, RTO, replikasi, backup
+
+### Di Luar Cakupan
+
+- Penyediaan akun cloud langsung
+- Operasi pusat data perangkat keras
+- Integrasi penyedia cloud kustom di luar registrasi
+- Biaya optimasi audit
+- Konfigurasi perangkat jaringan (ditangani Network Engineer)
+
+### Target Benchmark
+
+- 50 infrastruktur lingkungan
+- ≥90% akurasi konfigurasi yang dihasilkan
+- ≥90% kelangsungan hidup DR drill
+- ≥90% ketersediaan sistem
+
+### Konsumen
+
+- Asisten DevOps — panduan arsitektur infrastruktur
+- Insinyur Jaringan — integrasi topologi jaringan
+- Arsitek Sistem — evaluasi arsitektur infrastruktur
+
+---
+
+## AI Engineer
+
+**Kemampuan ID:** `ai-engineer`
+**Kategori:** AI/ML
+**Target Kualitas:** A+ (≥95)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Desain dan implementasi RAG (Retrieval-Augmented Generation)
+- Perancangan Agent dan orchestration
+- Optimasi prompt dan model router
+- Fine-tuning dan LoRA adapter
+- Evaluasi model dan guardrails
+- Integrasi LLM ke dalam alur kerja aplikasi
+- Deteksi dan mitigasi bias model
+
+### Fokus Pengetahuan
+
+- Arsitektur LLM dan API (OpenAI, Anthropic, Ollama)
+- RAG: chunking, embedding, vector DB, reranking
+- Agent: ReAct, tool use, memory, multi-agent
+- Prompt engineering: CoT, few-shot, structured output
+- Fine-tuning: LoRA, QLoRA, dataset preparation
+- Evaluasi: benchmark, automated eval, LLM-as-judge
+- Guardrails: input/output filtering, toxicity, PII redaction
+
+### Di Luar Cakupan
+
+- Pelatihan model dari awal (training from scratch)
+- Infrastruktur GPU cluster besar
+- Riset model arsitektur baru
+- Pengumpulan data primer untuk pelatihan
+
+### Target Benchmark
+
+- 50 sistem AI
+- ≥95% akurasi evaluasi
+- ≥90% guardrails efektivitas
+- ≥90% integrasi berhasil
+
+### Konsumen
+
+- Asisten Peneliti — augmentasi penelitian dengan AI
+- Analis Perdagangan — analisis pasar dengan AI
+- Kode Insinyur — integrasi AI ke dalam aplikasi
+- Pengembangan Diri — pembelajaran pola berbasis AI
+
+---
+
+## Documentation Engineer
+
+**Kemampuan ID:** `documentation-engineer`
+**Kategori:** Dokumentasi
+**Target Kualitas:** A (≥90)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Dokumentasi API dan OpenAPI specification
+- Dokumentasi SDK dan library
+- ADR (Architecture Decision Record) dan RFC
+- Changelog dan release notes
+- Dokumentasi arsitektur sistem
+- Generasi dokumentasi dari kode
+- Standarisasi dokumentasi lintas proyek
+
+### Fokus Pengetahuan
+
+- OpenAPI/Swagger: spesifikasi, validasi, tooling
+- Dokumentasi sebagai kode: MkDocs, Sphinx, Docusaurus
+- ADR dan RFC: format, standar, tooling
+- Pengembangan dokumentasi teknikal
+- Aksesibilitas dokumentasi
+- Generasi dokumentasi otomatis
+
+### Di Luar Cakupan
+
+- Penulisan konten marketing
+- Dokumentasi pengguna akhir non-teknis
+- Pelatihan penggunaan produk
+- Manajemen konten website
+
+### Target Benchmark
+
+- 100 dokumen
+- ≥90% kelengkapan dokumentasi
+- ≥90% kesesuaian dengan kode
+- ≥90% kepuasan pembaca
+
+### Konsumen
+
+- Semua Capability Pack — menjaga dokumentasi selalu sinkron dengan kode
+
+---
+
+## Product Manager
+
+**Kemampuan ID:** `product-manager`
+**Kategori:** Produk
+**Target Kualitas:** A- (≥85)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Product vision dan strategy
+- Backlog management dan prioritas
+- Roadmap planning
+- Sprint planning dan tracking
+- Release planning
+- Stakeholder communication
+- Analisis pasar dan kompetitor
+- Metrics dan OKR definition
+
+### Fokus Pengetahuan
+
+- Agile dan Scrum methodologies
+- Product discovery dan validation
+- User story mapping
+- OKR dan KPI definition
+- Market analysis dan competitive intelligence
+- Stakeholder management
+- Growth dan engagement metrics
+
+### Di Luar Cakupan
+
+- Eksekusi teknis pengembangan
+- Desain UI/UX detail
+- Operasi penjualan dan marketing
+- Manajemen keuangan perusahaan
+
+### Target Benchmark
+
+- 20 produk
+- ≥85% kesuksesan roadmap
+- ≥85% kepuasan stakeholder
+- ≥90% prediksi tepat delivery
+
+### Konsumen
+
+- Kode Insinyur — klarifikasi requirement
+- Arsitek Sistem — align arsitektur dengan visi produk
+- QA Engineer — define quality criteria
+- UI/UX Designer — align design dengan product vision
+
+---
+
+## UI/UX Designer
+
+**Kemampuan ID:** `ui-ux-designer`
+**Kategori:** Desain
+**Target Kualitas:** A- (≥85)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Wireframe dan prototype
+- UX review dan usability testing
+- Accessibility compliance
+- Design system dan component library
+- Visual design dan brand consistency
+- Responsive design
+- Interaction design
+
+### Fokus Pengetahuan
+
+- Prinsip UX: Nielsen, Norman, Gestalt
+- Aksesibilitas: WCAG 2.1, ARIA, screen reader
+- Design system: token, component, pattern library
+- Tools: Figma, Sketch, Adobe XD
+- Responsive design: mobile-first, breakpoints
+- Usability testing: A/B testing, heatmaps, user research
+
+### Di Luar Cakupan
+
+- Pengembangan frontend kode
+- Ilustrasi dan graphic design tingkat lanjut
+- Motion design kompleks
+- Brand identity creation
+
+### Target Benchmark
+
+- 30 proyek desain
+- ≥85% aksesibilitas skor
+- ≥90% konsistensi design system
+- ≥85% kepuasan pengguna
+
+### Konsumen
+
+- Kode Insinyur — panduan implementasi UI
+- Product Manager — align desain dengan visi produk
+- Full Stack Engineer — end-to-end feature design
+
+---
+
+## Full Stack Engineer
+
+**Kemampuan ID:** `full-stack-engineer`
+**Kategori:** Pengembangan
+**Target Kualitas:** A- (≥85)
+**Target Kematangan:** Level 3 — Siap Produksi
+
+### Cakupan
+
+- Integrasi frontend-backend
+- End-to-end feature delivery
+- API mapping dan contract design
+- State management
+- Deployment readiness
+- Cross-cutting concerns: auth, logging, error handling
+- Performance optimization lintas lapisan
+
+### Fokus Pengetahuan
+
+- Full-stack frameworks: Next.js, Nuxt, Remix
+- API design: REST, GraphQL, tRPC
+- State management: Redux, Zustand, Jotai
+- Authentication: OAuth, JWT, SSO
+- Deployment: Vercel, Netlify, Docker
+- Testing: E2E, integration, contract testing
+
+### Di Luar Cakupan
+
+- Arsitektur sistem kompleks (ditangani System Architect)
+- Generasi kode dari nol (ditangani Code Engineer)
+- Optimasi database query kompleks (ditangani Database Engineer)
+- Keamanan aplikasi enterprise (ditangani Security Engineer)
+
+### Target Benchmark
+
+- 40 proyek
+- ≥85% feature delivery success
+- ≥90% integrasi berhasil
+- ≥85% deployment readiness
+
+### Konsumen
+
+- Kode Insinyur — integrasi komponen menjadi fitur lengkap
+- Product Manager — delivery fitur sesuai requirement
+- QA Engineer — integrasi testing lintas lapisan
+
+---
+
 ## Capability Pack Masa Depan (Peta Jalan Berbasis Domain)
 
-> **Prinsip:** ECP tidak lagi menambah Capability Pack berdasarkan profesi, tetapi berdasarkan **domain keahlian yang benar-benar reusable** oleh Capability Pack lain. Seluruh pack di bawah adalah **calon** — hanya dikembangkan setelah 13 pack inti mencapai target grade A/A- dan memenuhi aturan Governance.
+> **Prinsip:** ECP tidak lagi menambah Capability Pack berdasarkan profesi, tetapi berdasarkan **domain keahlian yang benar-benar reusable** oleh Capability Pack lain. Tier A dan Tier B packs telah **diimplementasikan** dan aktif. Tier C dan Tier D packs tetap sebagai **calon** untuk pengembangan masa depan.
 
-### Tier A — Sangat Direkomendasikan (⭐⭐⭐⭐⭐)
+### Tier A — Active (⭐⭐⭐⭐⭐)
 
-Pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack lain.
+Pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack lain. Pack ini telah **diimplementasikan** dan siap produksi.
 
 #### Infrastructure Engineer
 
-**Kemampuan ID (calon):** `infrastructure-engineer`
+**Kemampuan ID (aktif):** `infrastructure-engineer`
 **Kategori:** Infrastruktur
 **Fokus Domain:**
 - Kubernetes, Docker Swarm
@@ -587,10 +1028,11 @@ Pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack
 
 **Dipakai Oleh:** DevOps, Network, System Architect
 **Catatan:** Berbeda dengan DevOps — fokus pada operasi infrastruktur fisik/virtual dan keandalan.
+**Status:** Production Ready — RFC-0014
 
 #### AI Engineer
 
-**Kemampuan ID (calon):** `ai-engineer`
+**Kemampuan ID (aktif):** `ai-engineer`
 **Kategori:** AI/ML
 **Fokus Domain:**
 - RAG (Retrieval-Augmented Generation)
@@ -601,10 +1043,11 @@ Pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack
 - Evaluation, Guardrails
 
 **Dipakai Oleh:** Trading, Research, Code, Self Development
+**Status:** Production Ready — RFC-0015
 
 #### Documentation Engineer
 
-**Kemampuan ID (calon):** `documentation-engineer`
+**Kemampuan ID (aktif):** `documentation-engineer`
 **Kategori:** Dokumentasi
 **Fokus Domain:**
 - API Documentation, OpenAPI
@@ -614,29 +1057,33 @@ Pack dengan **reusability tertinggi** dan dampak langsung terhadap kualitas pack
 - Architecture Documentation
 
 **Dipakai Oleh:** Semua pack — menjaga dokumentasi selalu sinkron dengan kode.
+**Status:** Production Ready — RFC-0016
 
-### Tier B — Platform Professional (⭐⭐⭐⭐)
+### Tier B — Active (⭐⭐⭐⭐)
 
-Melengkapi siklus pengembangan produk end-to-end.
+Melengkapi siklus pengembangan produk end-to-end. Pack ini telah **diimplementasikan** dan siap produksi.
 
 #### Product Manager
 
-**Kemampuan ID (calon):** `product-manager`
+**Kemampuan ID (aktif):** `product-manager`
 **Kategori:** Produk
 **Fokus Domain:** Product Vision, Backlog, Roadmap, Prioritas, Sprint, Release Planning
+**Status:** Production Ready — RFC-0017
 
 #### UI/UX Designer
 
-**Kemampuan ID (calon):** `ui-ux-designer`
+**Kemampuan ID (aktif):** `ui-ux-designer`
 **Kategori:** Desain
 **Fokus Domain:** Wireframe, UX Review, Accessibility, Design System, Component Library
+**Status:** Production Ready — RFC-0018
 
 #### Full Stack Engineer
 
-**Kemampuan ID:** `full-stack-engineer` (sudah ada di `apps/`)
+**Kemampuan ID (aktif):** `full-stack-engineer` (sudah ada di `apps/`)
 **Kategori:** Pengembangan
 **Fokus Domain:** Integrasi Frontend–Backend, End-to-end Feature Delivery, API Mapping, State Management, Deployment Readiness
 **Catatan:** **Bukan pengganti Code Engineer** — fokus pada integrasi dan delivery end-to-end, bukan generasi kode.
+**Status:** Production Ready — RFC-0019
 
 ### Tier C — Platform Enterprise (⭐⭐⭐)
 
@@ -658,8 +1105,8 @@ Ditambahkan **hanya ketika ada kebutuhan proyek nyata** dan memenuhi aturan Gove
 |Tahap|Jumlah|Keterangan|
 |-------|------|-----------|
 |**Platform Core**|13|Fokus Capability Excellence|
-|**Platform Professional**|+5|Target aktif: **18 pack**|
-|**Platform Enterprise**|+5|Proposed: 23 pack|
+|**Platform Professional**|+6|Target aktif: **19 pack**|
+|**Platform Enterprise**|+4|Proposed: 23 pack|
 |**Vertical Industry**|Kondisional|Berdasarkan kebutuhan proyek nyata|
 
-> **Rekomendasi:** 15–20 Capability Pack, masing-masing benar-benar setara spesialis berpengalaman di bidangnya. Platform dengan 18 pack berkualitas tinggi lebih bernilai daripada 50 pack dengan kemampuan dasar.
+> **Rekomendasi:** 15–20 Capability Pack, masing-masing benar-benar setara spesialis berpengalaman di bidangnya. Platform dengan 19 pack berkualitas tinggi lebih bernilai daripada 50 pack dengan kemampuan dasar.

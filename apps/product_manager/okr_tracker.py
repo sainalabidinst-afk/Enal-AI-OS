@@ -28,9 +28,9 @@ class OKRTracker:
         Returns:
             OKR tracking report as a dict.
         """
-        objectives = []
+        objectives: list[dict[str, Any]] = []
         for obj in okr_input.objectives:
-            key_results = []
+            key_results: list[dict[str, Any]] = []
             for kr in obj.key_results:
                 current_val = float(kr.current) if kr.current.replace('.', '', 1).isdigit() else 0.0
                 target_val = float(kr.target) if kr.target.replace('.', '', 1).isdigit() else 100.0
@@ -41,8 +41,9 @@ class OKRTracker:
                     "current": kr.current,
                     "progress": round(progress, 2),
                 })
+            progress_values = [float(kr["progress"]) for kr in key_results]
             overall = (
-                sum(float(kr["progress"]) for kr in key_results) / len(key_results)
+                sum(progress_values) / len(key_results)
                 if key_results
                 else 0.0
             )

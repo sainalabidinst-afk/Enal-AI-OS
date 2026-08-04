@@ -103,10 +103,14 @@ class DocumentationEngine:
             QualityMetrics,
         )
 
+        total = len(generated_files)
+        generated = sum(1 for f in generated_files if f.get("status") == "generated")
+        validated = sum(1 for f in generated_files if f.get("status") == "validated")
+
         summary = DocumentationSummary(
-            total_files=len(generated_files),
-            generated=total_generated,
-            validated=total_validated,
+            total_files=total,
+            generated=generated,
+            validated=validated,
             errors=total_errors,
             warnings=total_warnings,
         )
@@ -115,6 +119,10 @@ class DocumentationEngine:
             accuracy=validated / total if total else 0.0,
             consistency=0.9,
             freshness=0.95,
+        )
+
+        explanation = self._build_explanation(
+            op, generated_files, generated, validated
         )
 
         report = DocumentationReport(

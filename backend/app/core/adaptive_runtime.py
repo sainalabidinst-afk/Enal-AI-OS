@@ -13,7 +13,7 @@ PIPELINE_PRESETS = {
     TaskComplexity.SIMPLE: ["perception", "memory", "reasoning", "decision", "action"],
     TaskComplexity.MEDIUM: ["perception", "memory", "planning", "reasoning", "decision", "reflection", "action"],
     TaskComplexity.COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
-    TaskComplexity.VERY_COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
+    TaskComplexity.VERY_COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
 }
 
 PIPELINE_DESCRIPTIONS = {

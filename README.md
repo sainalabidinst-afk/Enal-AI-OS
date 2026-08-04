@@ -205,6 +205,12 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | **Database Engineer** | ✅ Production Ready | A- (≥85) |
 | **QA Engineer** | ✅ Production Ready | A (≥90) |
 | **Business Analyst** | ✅ Production Ready | A- (≥85) |
+| **Infrastructure Engineer** | ✅ Production Ready | A (≥90) |
+| **AI Engineer** | ✅ Production Ready | A+ (≥95) |
+| **Documentation Engineer** | ✅ Production Ready | A (≥90) |
+| **Product Manager** | ✅ Production Ready | A- (≥85) |
+| **UI/UX Designer** | ✅ Production Ready | A- (≥85) |
+| **Full Stack Engineer** | ✅ Production Ready | A- (≥85) |
 
 ### Membangun Capability Pack Baru
 
@@ -232,6 +238,12 @@ Lihat [Application Development Guide](docs/APP_DEV_GUIDE.md) untuk petunjuk lang
 | **ADRs** | `docs/adr/ADR-001.md` — `ADR-004.md` | Mengapa keputusan arsitektur dibuat |
 | **API Reference** | `docs/api_reference.md` | Dokumentasi endpoint |
 | **SDK Reference** | `sdk/README.md` | Penggunaan Python SDK |
+| **Infrastructure Engineer** | `docs/rfcs/RFC-0014.md` | Infrastructure design (K8s, HA, DR) |
+| **AI Engineer** | `docs/rfcs/RFC-0015.md` | AI/ML engineering (RAG, agents, LLMOps) |
+| **Documentation Engineer** | `docs/rfcs/RFC-0016.md` | Documentation generation (OpenAPI, SDK, ADR) |
+| **Product Manager** | `docs/rfcs/RFC-0017.md` | Product management (roadmap, OKR, backlog) |
+| **UI/UX Designer** | `docs/rfcs/RFC-0018.md` | UI/UX design (design system, accessibility) |
+| **Full Stack Engineer** | `docs/rfcs/RFC-0019.md` | Full stack engineering (code review, refactoring, release) |
 
 ---
 
@@ -261,12 +273,18 @@ enal-ai-os/
 │   ├── data_engineer/             # Data Engineer (RFC-0009)
 │   ├── database_engineer/         # Database Engineer (RFC-0010)
 │   ├── qa_engineer/               # QA Engineer (RFC-0012)
-│   └── business_analyst/          # Business Analyst (RFC-0013)
+│   ├── business_analyst/          # Business Analyst (RFC-0013)
+│   ├── infrastructure_engineer/   # Infrastructure design (K8s, HA, DR) (RFC-0014)
+│   ├── ai_engineer/               # AI/ML engineering (RAG, agents, LLMOps) (RFC-0015)
+│   ├── documentation_engineer/    # Documentation generation (OpenAPI, SDK, ADR) (RFC-0016)
+│   ├── product_manager/           # Product management (roadmap, OKR, backlog) (RFC-0017)
+│   ├── ui_ux_designer/            # UI/UX design (design system, accessibility) (RFC-0018)
+│   └── full_stack_engineer/       # Full stack engineering (code review, refactoring, release) (RFC-0019)
 ├── agents/                   # Registri agent dan skills
 ├── sdk/                      # Python SDK
 ├── benchmarks/               # Performance benchmark
-├── tests/                    # Test suite (426 test)
-└── docs/                     # Dokumentasi (9 dokumen)
+├── tests/                    # Test suite (666 test)
+└── docs/                     # Dokumentasi (15 dokumen)
     ├── adr/                  # Architecture Decision Records
     └── quality/              # Kebijakan Quality Gate
 ```

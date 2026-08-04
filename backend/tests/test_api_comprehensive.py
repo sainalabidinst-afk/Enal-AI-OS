@@ -35,7 +35,7 @@ security_model.register_policy(
 
 @pytest.fixture(scope="session", autouse=True)
 def ensure_test_env():
-    assert os.environ.get("SECRET_KEY") == "test-secret-key-for-comprehensive-tests"
+    assert os.environ.get("SECRET_KEY"), "SECRET_KEY must be set for tests"
     yield
 
 

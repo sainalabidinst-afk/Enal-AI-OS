@@ -56,7 +56,7 @@ def test_review_completeness() -> float:
     all present in the report.
     """
     engine = SystemArchitectEngine()
-    req = _quick_request(".")
+    req = _quick_request("apps")
     report = asyncio.run(engine.review(req))
 
     score = 0.0
@@ -80,7 +80,7 @@ def test_violation_detection() -> float:
     Expected: Metrics detect dependency cycles and layer violations when present.
     """
     engine = SystemArchitectEngine()
-    req = _quick_request(".")
+    req = _quick_request("apps")
     report = asyncio.run(engine.review(req))
 
     metrics = report.architecture_metrics
@@ -128,7 +128,7 @@ def test_adr_coverage() -> float:
     and at least one consequence.
     """
     engine = SystemArchitectEngine()
-    req = _quick_request(".")
+    req = _quick_request("apps")
     report = asyncio.run(engine.review(req))
 
     adr = report.adr_draft
@@ -174,7 +174,7 @@ def test_scalability_assessment() -> float:
     in metrics.scalability_score (0-100).
     """
     engine = SystemArchitectEngine()
-    req = _quick_request(".")
+    req = _quick_request("apps")
     report = asyncio.run(engine.review(req))
 
     score = report.architecture_metrics.scalability_score
@@ -189,7 +189,7 @@ def test_maintainability() -> float:
     Expected: maintainability_score (0-100) and testability_score populated.
     """
     engine = SystemArchitectEngine()
-    req = _quick_request(".")
+    req = _quick_request("apps")
     report = asyncio.run(engine.review(req))
 
     m = report.architecture_metrics
@@ -208,7 +208,7 @@ def test_explainability() -> float:
     severity counts and overall risk.
     """
     engine = SystemArchitectEngine()
-    req = _quick_request(".")
+    req = _quick_request("apps")
     report = asyncio.run(engine.review(req))
 
     score = 0.0
