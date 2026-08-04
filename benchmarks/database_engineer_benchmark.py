@@ -70,7 +70,7 @@ def _quick_request(operation: str) -> DatabaseRequest:
     return DatabaseRequest(
         operation=OperationType(operation),
         database_type=DatabaseType.postgresql,
-        schema=_make_schema(),
+        database_schema=_make_schema(),
         queries=[
             "SELECT * FROM users WHERE email = 'test@example.com'",
             "SELECT * FROM orders WHERE user_id = 1",
@@ -112,7 +112,7 @@ def test_migration_safety() -> float:
     req = DatabaseRequest(
         operation=OperationType.migration,
         database_type=DatabaseType.postgresql,
-        schema=_make_schema(),
+        database_schema=_make_schema(),
         current_schema_version="v1",
         target_schema_version="v2",
     )

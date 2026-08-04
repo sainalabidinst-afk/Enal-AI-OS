@@ -1,0 +1,37 @@
+{
+  "request_id": "case-uiux-001",
+  "operation": "full_design",
+  "business_context": {
+    "domain": "e-commerce",
+    "project_name": "TokoOnline",
+    "description": "Platform e-commerce untuk UKM"
+  },
+  "inputs": {
+    "user_research_data": [
+      "Pengguna kesulitan menemukan produk yang diinginkan",
+      "Checkout membutuhkan terlalu banyak langkah",
+      "Pengguna ingin melacak pesanan secara real-time"
+    ],
+    "product_requirements": [
+      "Pengguna dapat mencari produk dengan filter kategori dan harga",
+      "Checkout dalam 3 langkah maksimal",
+      "Tracking pesanan real-time dengan notifikasi"
+    ],
+    "technical_constraints": ["Mobile-first", "Aksesibilitas WCAG 2.1 AA"]
+  },
+  "personas": [
+    {
+      "name": "Rina",
+      "role": "Pelanggan UKM",
+      "goals": ["Menemukan produk cepat", "Checkout mudah"],
+      "pain_points": ["Antarmuka tidak intuitif", "Loading lama"],
+      "technical_proficiency": "medium"
+    }
+  ],
+  "quality_attributes": {
+    "accessibility_target": "WCAG 2.1 AA",
+    "performance_target": "< 100ms interaction",
+    "consistency_target": "100% design system compliance"
+  },
+  "target_platforms": ["web", "mobile"]
+}

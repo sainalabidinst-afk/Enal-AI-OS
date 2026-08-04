@@ -1,0 +1,13 @@
+{
+  "record_id": "a073bf2a-a9c2-47d8-9e0e-376a3201be15",
+  "request_id": "7755baba-e651-4fdb-bd1b-d653f0d89e6e",
+  "timestamp": "2026-08-04T07:37:33.873868+00:00",
+  "operation": "query_optimization",
+  "database_type": "postgresql",
+  "findings_count": 4,
+  "critical_count": 0,
+  "high_count": 0,
+  "migration_planned": false,
+  "backup_configured": false,
+  "outcome": "partial"
+}

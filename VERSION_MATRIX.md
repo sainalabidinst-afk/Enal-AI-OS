@@ -16,7 +16,7 @@
 | Product Contract | v1 | Locked | Effective 2026-08-02 |
 | Frontend MVP | v1.0.0-dev | Active | Product MVP phase |
 | Capability Packs | v1.0.0-rc | Production Ready | 13 packs certified |
-| Network Engineer | v2.0.0 | **A+ Certified** | 101 real cases, 100% benchmark pass rate, 100% avg score |
+| Network Engineer | v2.0.0 | **A+ Certified** | 100 real cases, 100% benchmark pass rate, 100% avg score, ~2ms latency |
 | Security Engineer | v1.0.0 | **A+ Certified** | 103 real cases, 95% benchmark avg score, 52 golden tests, ~7ms latency |
 | API Contracts | v1 | Stable | Public APIs frozen |
 | Benchmark Framework | v1.0.0-dev | Active | 452 tests collected (3 JWT errors) |
@@ -28,7 +28,7 @@
 | Layer | Score |
 |-------|-------|
 | Architecture | 92/100 |
-| Network Engineer | 100/100 (101 cases, 100% pass rate, ~2ms latency) |
+| Network Engineer | 100/100 (100 cases, 100% pass rate, ~2ms latency) |
 | Runtime Tests | 452 collected |
 | Type Safety | 0 Severity 8+ issues |
 

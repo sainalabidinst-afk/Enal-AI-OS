@@ -1,0 +1,22 @@
+{
+  "request_id": "case-fs-003",
+  "operation": "release_review",
+  "inputs": {
+    "changes": [
+      {"type": "feature", "content": "Add user authentication with JWT", "filename": "auth.py"},
+      {"type": "fix", "content": "Fix N+1 query in user list endpoint", "filename": "users.py"},
+      {"type": "refactor", "content": "Extract validation logic to separate module", "filename": "validators.py"}
+    ]
+  },
+  "context": {
+    "project_id": "release-v1.2",
+    "language": "python",
+    "framework": "fastapi"
+  },
+  "quality_attributes": {
+    "architecture_target": "clean_architecture",
+    "coverage_target": 0.85,
+    "performance_target": {"latency_p95_ms": 100, "throughput_rps": 1000}
+  },
+  "output_format": "json"
+}

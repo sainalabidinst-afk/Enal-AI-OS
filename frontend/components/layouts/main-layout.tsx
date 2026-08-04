@@ -104,6 +104,26 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
+        {/* Theme selector (desktop) */}
+        <div className="border-t border-[var(--color-border)] p-3">
+          <label className="block text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)] mb-1.5">
+            Theme
+          </label>
+          <select
+            value={theme}
+            onChange={(e) =>
+              useSettingsStore
+                .getState()
+                .setTheme(e.target.value as "light" | "dark" | "system")
+            }
+            className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-2 py-1.5 text-xs text-[var(--color-text-primary)] focus:border-[var(--color-accent)] focus:outline-none"
+          >
+            <option value="system">System</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+
         {/* User section at bottom */}
         <div className="border-t border-[var(--color-border)] p-3">
           <div className="relative">

@@ -1,0 +1,9 @@
+{
+  "scenario": "rag_chatbot",
+  "project_name": "docs-chatbot",
+  "domain": "enterprise-documentation",
+  "architecture": "single_agent",
+  "rag_strategy": "hybrid",
+  "accuracy_target": "92%",
+  "expected_components": ["rag_config", "agent_spec", "prompt_templates"]
+}

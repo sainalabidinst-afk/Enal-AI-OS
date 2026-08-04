@@ -46,7 +46,7 @@ class NetworkAnalysisReport:
 
     def add_issue(
         self,
-        severity: Severity,
+        severity: Severity | str,
         category: str,
         description: str,
         recommendation: str,
@@ -54,6 +54,8 @@ class NetworkAnalysisReport:
         confidence: float = 1.0,
         references: list[str] | None = None,
     ):
+        if isinstance(severity, str):
+            severity = Severity(severity.lower()) if severity.lower() in Severity._value2member_map_ else Severity.INFO
         self.issues.append(AnalysisIssue(
             severity=severity,
             category=category,

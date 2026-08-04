@@ -1,0 +1,10 @@
+{
+  "scenario": "k8s_microservice_deploy",
+  "project_name": "shop-api",
+  "domain": "e-commerce",
+  "availability_target": "99.9%",
+  "node_count": 3,
+  "instance_type": "t3.large",
+  "kubernetes_version": "1.28",
+  "expected_components": ["kubernetes_spec", "cost_estimate", "security_hardening"]
+}

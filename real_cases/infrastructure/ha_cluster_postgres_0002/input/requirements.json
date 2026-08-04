@@ -1,0 +1,10 @@
+{
+  "scenario": "ha_cluster_postgres",
+  "project_name": "inventory-db",
+  "domain": "e-commerce",
+  "availability_target": "99.99%",
+  "node_count": 3,
+  "instance_type": "t3.xlarge",
+  "shared_storage": "ceph",
+  "expected_components": ["cluster_spec", "failover_config", "cost_estimate"]
+}

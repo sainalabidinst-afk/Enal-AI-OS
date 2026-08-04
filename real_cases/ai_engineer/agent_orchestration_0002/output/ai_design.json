@@ -1,0 +1,34 @@
+# Agent Orchestration Design Output
+
+## Agent Spec
+- Name: market-analysis-swarm
+- Architecture: multi_agent
+- Orchestration: sequential
+- LLM: openai/gpt-4o
+- Tools: web_search, code_executor, data_analyzer
+- Context window: 64000 tokens per agent
+
+## Agents
+1. Data Collector Agent — gathers market data
+2. Analysis Agent — performs technical analysis
+3. Report Agent — generates structured report
+
+## Deployment Config
+- Environment: production
+- Scaling: min 3, max 20
+- Rate limit: 100 RPM
+- GPU: not required
+
+## Monitoring Config
+- Metrics: enabled
+- Tracing: enabled
+- Alert latency P95: 1000ms
+- Alert error rate: 1%
+
+## Evaluation
+- Accuracy: 95%
+- Faithfulness: 90%
+- Hallucination Rate: 4%
+
+## Cost Estimate
+- Total monthly: ~$320 USD

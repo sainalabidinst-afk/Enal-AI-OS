@@ -1,0 +1,38 @@
+{
+  "request_id": "case-uiux-003",
+  "operation": "full_design",
+  "business_context": {
+    "domain": "fintech",
+    "project_name": "BankMobile",
+    "description": "Aplikasi mobile banking dengan fitur lengkap"
+  },
+  "inputs": {
+    "user_research_data": [
+      "Pengguna butuh transfer cepat dengan biometric",
+      "Notifikasi transaksi harus jelas dan actionable",
+      "Dark mode diperlukan untuk kenyamanan mata"
+    ],
+    "product_requirements": [
+      "Login dengan fingerprint/face ID",
+      "Transfer dengan 2 tap",
+      "Notifikasi transaksi real-time",
+      "Dark mode"
+    ],
+    "technical_constraints": ["iOS dan Android", "Offline capability"]
+  },
+  "personas": [
+    {
+      "name": "Sari",
+      "role": "Pengguna Mobile Banking",
+      "goals": ["Transfer cepat", "Cek saldo kapan saja"],
+      "pain_points": ["Login ribet", "Tidak tahu status transaksi"],
+      "technical_proficiency": "low"
+    }
+  ],
+  "quality_attributes": {
+    "accessibility_target": "WCAG 2.1 AA",
+    "performance_target": "< 50ms interaction",
+    "consistency_target": "100% design system compliance"
+  },
+  "target_platforms": ["mobile"]
+}

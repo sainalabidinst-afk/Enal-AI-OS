@@ -192,8 +192,8 @@ async def _run_case(app: Any, case: Any) -> dict[str, Any]:
 
 async def run_network_benchmark_v2() -> NetworkBenchmarkV2Report:
     logger.info("Loading network real cases...")
-    all_cases = load_cases_from_disk()
-    cases = [c for c in all_cases if c.category in {"network", "mikrotik", "cisco", "fortinet"}]
+    all_cases = load_cases_from_disk("real_cases/network")
+    cases = all_cases
     if not cases:
         logger.warning("No network real cases found.")
     app = get_app()

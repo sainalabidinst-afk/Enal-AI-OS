@@ -41,7 +41,7 @@ export function AppShell({ app, children }: AppShellProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
+    <div className="flex min-h-screen flex-col bg-[var(--color-bg-primary)]">
       {/* App header */}
       <header className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-3">
         <div className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export function AppShell({ app, children }: AppShellProps) {
                 {app.name}
               </h1>
               <p className="text-xs text-[var(--color-text-secondary)]">
-                {app.description}
+                {app.description} · v{app.version}
               </p>
             </div>
           </div>

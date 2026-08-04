@@ -33,6 +33,7 @@ from apps.network_engineer.vendor.cisco_ios_parsers import (
     parse_interfaces,
     parse_ip_addresses,
     parse_logging,
+    parse_nat,
     parse_ntp,
     parse_ospf,
     parse_routes,

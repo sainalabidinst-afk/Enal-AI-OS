@@ -81,6 +81,12 @@ RFC terkait, dokumentasi, dll.
 - RFC-0011: Sistem Arsitek (Diimplementasikan)
 - RFC-0012: QA Engineer (Diimplementasikan)
 - RFC-0013: Business Analyst (Diimplementasikan)
+- RFC-0014: Infrastructure Engineer (Diterima)
+- RFC-0015: AI Engineer (Diterima)
+- RFC-0016: Documentation Engineer (Diterima)
+- RFC-0017: Product Manager (Diterima)
+- RFC-0018: UI/UX Designer (Draf)
+- RFC-0019: Full Stack Engineer (Draf)
 
 ## Indeks RFC
 
@@ -99,3 +105,9 @@ RFC terkait, dokumentasi, dll.
 |RFC-0011|Sistem Arsitek|Diimplementasikan|Sistem Arsitek|
 |RFC-0012|QA Engineer|Diimplementasikan|QA Engineer|
 |RFC-0013|Business Analyst|Diimplementasikan|Business Analyst|
+|RFC-0014|Infrastructure Engineer|Diterima|Infrastructure Engineer|
+|RFC-0015|AI Engineer|Diterima|AI Engineer|
+|RFC-0016|Documentation Engineer|Diterima|Documentation Engineer|
+|RFC-0017|Product Manager|Diterima|Product Manager|
+|RFC-0018|UI/UX Designer|Draf|UI/UX Designer|
+|RFC-0019|Full Stack Engineer|Draf|Full Stack Engineer|

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { Search, Settings } from "lucide-react";
 import {
   CAPABILITY_APPS,
   searchCapabilityApps,
@@ -9,6 +10,7 @@ import {
 } from "./capability-registry";
 import { CapabilityCard } from "./capability-card";
 import { useLauncherStore } from "@/store/launcher-store";
+import { useAuthStore } from "@/store/auth-store";
 
 interface AppLauncherProps {
   title?: string;
@@ -17,6 +19,7 @@ interface AppLauncherProps {
   showSearch?: boolean;
   showFavorites?: boolean;
   showRecent?: boolean;
+  showHeader?: boolean;
 }
 
 export function AppLauncher({
@@ -26,10 +29,12 @@ export function AppLauncher({
   showSearch = true,
   showFavorites = true,
   showRecent = true,
+  showHeader = true,
 }: AppLauncherProps) {
   const [query, setQuery] = useState("");
   const favorites = useLauncherStore((s) => s.favorites);
   const recent = useLauncherStore((s) => s.recent);
+  const user = useAuthStore((s) => s.user);
 
   const filtered = searchCapabilityApps(query).filter((app) =>
     apps.some((a) => a.id === app.id)
@@ -43,12 +48,35 @@ export function AppLauncher({
   return (
     <div className="mx-auto max-w-6xl p-6 space-y-8">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">
-          {title}
-        </h1>
-        <p className="text-sm text-[var(--color-text-secondary)]">{subtitle}</p>
-      </div>
+      {showHeader && (
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
+              {title}
+            </h1>
+            <p className="text-xs text-[var(--color-text-secondary)]">
+              Version 1.0.0
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-sm text-white font-medium">
+                {user?.username?.charAt(0).toUpperCase() || "U"}
+              </div>
+              <span className="hidden sm:block text-sm text-[var(--color-text-secondary)]">
+                {user?.username || "User"}
+              </span>
+            </div>
+            <Link
+              href="/settings"
+              className="rounded-lg p-2 text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)] transition-colors"
+              aria-label="Settings"
+            >
+              <Settings className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Search */}
       {showSearch && (
@@ -95,7 +123,7 @@ export function AppLauncher({
       {/* All capabilities */}
       <section className="space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-text-secondary)]">
-          🧩 AI Capabilities
+          🧩 Capabilities
         </h2>
         {filtered.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">

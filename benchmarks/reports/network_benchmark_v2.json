@@ -1,1347 +1,1813 @@
 {
-  "generated_at": "2026-08-04T05:03:59.882899",
-  "total_cases": 101,
-  "passed_cases": 0,
-  "failed_cases": 101,
-  "pass_rate": 0.0,
-  "avg_score": 0.0,
-  "avg_latency_ms": 1.0,
+  "generated_at": "2026-08-04T07:43:20.861262",
+  "total_cases": 100,
+  "passed_cases": 100,
+  "failed_cases": 0,
+  "pass_rate": 1.0,
+  "avg_score": 1.0,
+  "avg_latency_ms": 1.88,
   "vendor_breakdown": {
-    "cisco": {
-      "total": 33,
-      "passed": 0,
-      "failed": 33,
-      "pass_rate": 0.0,
-      "avg_score": 0.0
+    "bgp_full_mesh_0001": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
     },
-    "fortinet": {
-      "total": 33,
-      "passed": 0,
-      "failed": 33,
-      "pass_rate": 0.0,
-      "avg_score": 0.0
+    "bgp_full_mesh_0078": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
     },
-    "mikrotik": {
-      "total": 35,
-      "passed": 0,
-      "failed": 35,
-      "pass_rate": 0.0,
-      "avg_score": 0.0
+    "bgp_md5_auth_0060": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "bgp_peer_tracking_0044": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "bgp_route_map_0045": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "bgp_route_reflector_0061": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "certificate_enrollment_0046": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "dhcp_snooping_0009": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "dhcp_snooping_0086": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "dmvpn_dual_hub_0023": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "dmvpn_dual_hub_0100": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "eem_automation_0024": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "eigrp_stub_0015": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "eigrp_stub_0092": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "firewall_asa_acl_strict_0022": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "firewall_asa_acl_strict_0099": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "firewall_input_filter_strict_0047": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "firewall_raw_table_0048": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "high_availability_bgpi_peer_tracking_0049": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "hotspot_with_login_0050": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "hsrp_ha_0008": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "hsrp_ha_0085": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ip_cloud_dns_0035": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ipv6_dhcpv6_0039": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ipv6_dual_stack_0010": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ipv6_dual_stack_0087": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ipv6_pool_dhcp_0040": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ipv6_tunnel_6to4_0037": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "l2tp_server_0033": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "l3_switch_vlan_routing_0062": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "model_driven_telemetry_0019": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "model_driven_telemetry_0096": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "mpls_ldp_core_0016": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "mpls_ldp_core_0093": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "mpls_ldp_enabled_0063": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "nat_hairpin_0051": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "nat_pat_dmz_0007": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "nat_pat_dmz_0084": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "netflow_sflow_0012": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "netflow_sflow_0089": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ospf_enterprise_0002": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ospf_enterprise_0079": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ospf_virtual_link_0052": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "ot_security_industrial_0025": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "pptp_remote_access_0053": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "prefix_list_route_map_0017": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "prefix_list_route_map_0094": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "private_vlan_0018": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "private_vlan_0095": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "qos_htb_0054": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "qos_traffic_shaping_enterprise_0055": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "qos_voice_priority_0006": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "qos_voice_priority_0083": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "queue_tree_qos_0056": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "quickset_wan_dhcp_0057": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "routing_ospf_enterprise_0026": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "routing_static_bgp_ha_0064": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "routing_static_route_default_0058": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "sample_hotspot_0059": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "sdwan_performance_sla_0068": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "sdwan_wan_optimization_0069": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "security_admin_exposed_0070": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "security_insecure_defaults_0042": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "security_ssh_hardened_0027": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "segment_routing_0014": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "segment_routing_0091": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "services_dhcp_dns_server_0041": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "services_dns_ntp_snmp_0028": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "sla_tracking_0020": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "sla_tracking_0097": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "snmp_v3_secure_0021": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "snmp_v3_secure_0098": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "sstp_server_0043": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "stackpower_redundancy_0013": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "stackpower_redundancy_0090": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "switch_managed_vlan_0071": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "switching_managed_vlan_0072": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "switching_vlan_switch_0038": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "switching_vlan_trunking_0029": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "telemetry_streaming_0011": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "telemetry_streaming_0088": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "two_factor_auth_0073": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "url_filter_categories_0074": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vlan_aware_bridge_0036": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vlan_trunking_0003": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vlan_trunking_0080": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vpn_ipsec_phase1_phase2_0065": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vpn_ipsec_site_to_site_0004": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vpn_ipsec_site_to_site_0081": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vpn_pptp_remote_access_0034": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vpn_ssl_portal_0075": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "vrrp_ha_0031": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wan_interface_0076": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wan_optimization_0077": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wireguard_site_to_site_0032": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wireless_corporate_0005": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wireless_corporate_0082": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wireless_employee_wifi_0066": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "wireless_wpa3_0030": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
+    },
+    "zerotrust_ztna_0067": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_score": 1.0
     }
   },
   "results": [
     {
-      "case_id": "cisco:bgp_full_mesh",
-      "title": "bgp_full_mesh",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "bgp_full_mesh_0001",
+      "title": "bgp_full_mesh_0001",
+      "vendor": "bgp_full_mesh_0001",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 18,
+      "errors": []
+    },
+    {
+      "case_id": "bgp_full_mesh_0078",
+      "title": "bgp_full_mesh_0078",
+      "vendor": "bgp_full_mesh_0078",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
+      "errors": []
     },
     {
-      "case_id": "cisco:bgp_md5_auth",
-      "title": "bgp_md5_auth",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "bgp_md5_auth_0060",
+      "title": "bgp_md5_auth_0060",
+      "vendor": "bgp_md5_auth_0060",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 11,
+      "errors": []
+    },
+    {
+      "case_id": "bgp_peer_tracking_0044",
+      "title": "bgp_peer_tracking_0044",
+      "vendor": "bgp_peer_tracking_0044",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
+      "errors": []
     },
     {
-      "case_id": "cisco:bgp_route_reflector",
-      "title": "bgp_route_reflector",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "bgp_route_map_0045",
+      "title": "bgp_route_map_0045",
+      "vendor": "bgp_route_map_0045",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
+      "errors": []
     },
     {
-      "case_id": "cisco:dhcp_snooping",
-      "title": "dhcp_snooping",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "bgp_route_reflector_0061",
+      "title": "bgp_route_reflector_0061",
+      "vendor": "bgp_route_reflector_0061",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:dmvpn_dual_hub",
-      "title": "dmvpn_dual_hub",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 13,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:eem_automation",
-      "title": "eem_automation",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 10,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:eigrp_stub",
-      "title": "eigrp_stub",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 12,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:firewall_asa_acl_strict",
-      "title": "firewall_asa_acl_strict",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 12,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:ha_vss",
-      "title": "ha_vss",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:high_availability_hsrp_router",
-      "title": "high_availability_hsrp_router",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 13,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:ipv6_dual_stack",
-      "title": "ipv6_dual_stack",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:ipv6_nd_ra",
-      "title": "ipv6_nd_ra",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:model_driven_telemetry",
-      "title": "model_driven_telemetry",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:mpls_ldp_core",
-      "title": "mpls_ldp_core",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:nat_pat_dmz",
-      "title": "nat_pat_dmz",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 13,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:netflow_sflow",
-      "title": "netflow_sflow",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 12,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:ot_security_industrial",
-      "title": "ot_security_industrial",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 12,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:prefix_list_route_map",
-      "title": "prefix_list_route_map",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:private_vlan",
-      "title": "private_vlan",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:qos_policy_map",
-      "title": "qos_policy_map",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 14,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:qos_voice_priority",
-      "title": "qos_voice_priority",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 13,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:routing_ospf_enterprise",
-      "title": "routing_ospf_enterprise",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 13,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:security_ssh_hardened",
-      "title": "security_ssh_hardened",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 10,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:segment_routing",
-      "title": "segment_routing",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:services_dns_ntp_snmp",
-      "title": "services_dns_ntp_snmp",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 12,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:sla_tracking",
-      "title": "sla_tracking",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 10,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:snmp_v3_secure",
-      "title": "snmp_v3_secure",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 12,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:stackpower_redundancy",
-      "title": "stackpower_redundancy",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:switching_vlan_trunking",
-      "title": "switching_vlan_trunking",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:telemetry_streaming",
-      "title": "telemetry_streaming",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 11,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:vpn_site_to_site_ipsec",
-      "title": "vpn_site_to_site_ipsec",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:wireless_corporate_ssid",
-      "title": "wireless_corporate_ssid",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 11,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "cisco:wireless_wpa3",
-      "title": "wireless_wpa3",
-      "vendor": "cisco",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 13,
-      "execution_time_ms": 0,
-      "errors": [
-        "name 'parse_nat' is not defined"
-      ]
-    },
-    {
-      "case_id": "fortinet:anti_exploit",
-      "title": "anti_exploit",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 15,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:app_signatures",
-      "title": "app_signatures",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:bgp_peer_config",
-      "title": "bgp_peer_config",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:cloud_ondemand",
-      "title": "cloud_ondemand",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:dns_filter",
-      "title": "dns_filter",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:email_filter",
-      "title": "email_filter",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:firewall_policy_dmz",
-      "title": "firewall_policy_dmz",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:ha_active_active",
-      "title": "ha_active_active",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:high_availability_active_passive",
-      "title": "high_availability_active_passive",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:inline_ips",
-      "title": "inline_ips",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:iot_detection",
-      "title": "iot_detection",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:ips_sensor",
-      "title": "ips_sensor",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:ipv6_tunnel",
-      "title": "ipv6_tunnel",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:nat_virtual_ip_nat",
-      "title": "nat_virtual_ip_nat",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:qos_traffic_shaper",
-      "title": "qos_traffic_shaper",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:qos_traffic_shaping",
-      "title": "qos_traffic_shaping",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 15,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:routing_static_bgp_ha",
-      "title": "routing_static_bgp_ha",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:saml_idp",
-      "title": "saml_idp",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:sdwan_performance_sla",
-      "title": "sdwan_performance_sla",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:sdwan_wan_optimization",
-      "title": "sdwan_wan_optimization",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:security_admin_exposed",
-      "title": "security_admin_exposed",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:services_dns_ntp_mgmt",
-      "title": "services_dns_ntp_mgmt",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:switch_managed_vlan",
-      "title": "switch_managed_vlan",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:switching_managed_vlan",
-      "title": "switching_managed_vlan",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:two_factor_auth",
-      "title": "two_factor_auth",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:url_filter_categories",
-      "title": "url_filter_categories",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:vpn_ipsec_phase1_phase2",
-      "title": "vpn_ipsec_phase1_phase2",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 15,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:vpn_ipsec_site_to_site",
-      "title": "vpn_ipsec_site_to_site",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:vpn_ssl_portal",
-      "title": "vpn_ssl_portal",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:wan_interface",
-      "title": "wan_interface",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:wan_optimization",
-      "title": "wan_optimization",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:wireless_employee_wifi",
-      "title": "wireless_employee_wifi",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "fortinet:zerotrust_ztna",
-      "title": "zerotrust_ztna",
-      "vendor": "fortinet",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 2,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:bgp_peer_tracking",
-      "title": "bgp_peer_tracking",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "certificate_enrollment_0046",
+      "title": "certificate_enrollment_0046",
+      "vendor": "certificate_enrollment_0046",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "dhcp_snooping_0009",
+      "title": "dhcp_snooping_0009",
+      "vendor": "dhcp_snooping_0009",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "dhcp_snooping_0086",
+      "title": "dhcp_snooping_0086",
+      "vendor": "dhcp_snooping_0086",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "dmvpn_dual_hub_0023",
+      "title": "dmvpn_dual_hub_0023",
+      "vendor": "dmvpn_dual_hub_0023",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 5,
+      "errors": []
+    },
+    {
+      "case_id": "dmvpn_dual_hub_0100",
+      "title": "dmvpn_dual_hub_0100",
+      "vendor": "dmvpn_dual_hub_0100",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "eem_automation_0024",
+      "title": "eem_automation_0024",
+      "vendor": "eem_automation_0024",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "eigrp_stub_0015",
+      "title": "eigrp_stub_0015",
+      "vendor": "eigrp_stub_0015",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "eigrp_stub_0092",
+      "title": "eigrp_stub_0092",
+      "vendor": "eigrp_stub_0092",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "firewall_asa_acl_strict_0022",
+      "title": "firewall_asa_acl_strict_0022",
+      "vendor": "firewall_asa_acl_strict_0022",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "firewall_asa_acl_strict_0099",
+      "title": "firewall_asa_acl_strict_0099",
+      "vendor": "firewall_asa_acl_strict_0099",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "firewall_input_filter_strict_0047",
+      "title": "firewall_input_filter_strict_0047",
+      "vendor": "firewall_input_filter_strict_0047",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "firewall_raw_table_0048",
+      "title": "firewall_raw_table_0048",
+      "vendor": "firewall_raw_table_0048",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "high_availability_bgpi_peer_tracking_0049",
+      "title": "high_availability_bgpi_peer_tracking_0049",
+      "vendor": "high_availability_bgpi_peer_tracking_0049",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "hotspot_with_login_0050",
+      "title": "hotspot_with_login_0050",
+      "vendor": "hotspot_with_login_0050",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "hsrp_ha_0008",
+      "title": "hsrp_ha_0008",
+      "vendor": "hsrp_ha_0008",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "hsrp_ha_0085",
+      "title": "hsrp_ha_0085",
+      "vendor": "hsrp_ha_0085",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "ip_cloud_dns_0035",
+      "title": "ip_cloud_dns_0035",
+      "vendor": "ip_cloud_dns_0035",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "ipv6_dhcpv6_0039",
+      "title": "ipv6_dhcpv6_0039",
+      "vendor": "ipv6_dhcpv6_0039",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "ipv6_dual_stack_0010",
+      "title": "ipv6_dual_stack_0010",
+      "vendor": "ipv6_dual_stack_0010",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "ipv6_dual_stack_0087",
+      "title": "ipv6_dual_stack_0087",
+      "vendor": "ipv6_dual_stack_0087",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "ipv6_pool_dhcp_0040",
+      "title": "ipv6_pool_dhcp_0040",
+      "vendor": "ipv6_pool_dhcp_0040",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 17,
+      "errors": []
+    },
+    {
+      "case_id": "ipv6_tunnel_6to4_0037",
+      "title": "ipv6_tunnel_6to4_0037",
+      "vendor": "ipv6_tunnel_6to4_0037",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "l2tp_server_0033",
+      "title": "l2tp_server_0033",
+      "vendor": "l2tp_server_0033",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "l3_switch_vlan_routing_0062",
+      "title": "l3_switch_vlan_routing_0062",
+      "vendor": "l3_switch_vlan_routing_0062",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "model_driven_telemetry_0019",
+      "title": "model_driven_telemetry_0019",
+      "vendor": "model_driven_telemetry_0019",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "model_driven_telemetry_0096",
+      "title": "model_driven_telemetry_0096",
+      "vendor": "model_driven_telemetry_0096",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mpls_ldp_core_0016",
+      "title": "mpls_ldp_core_0016",
+      "vendor": "mpls_ldp_core_0016",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mpls_ldp_core_0093",
+      "title": "mpls_ldp_core_0093",
+      "vendor": "mpls_ldp_core_0093",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "mpls_ldp_enabled_0063",
+      "title": "mpls_ldp_enabled_0063",
+      "vendor": "mpls_ldp_enabled_0063",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "nat_hairpin_0051",
+      "title": "nat_hairpin_0051",
+      "vendor": "nat_hairpin_0051",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "nat_pat_dmz_0007",
+      "title": "nat_pat_dmz_0007",
+      "vendor": "nat_pat_dmz_0007",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 0,
+      "errors": []
+    },
+    {
+      "case_id": "nat_pat_dmz_0084",
+      "title": "nat_pat_dmz_0084",
+      "vendor": "nat_pat_dmz_0084",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 26,
+      "errors": []
+    },
+    {
+      "case_id": "netflow_sflow_0012",
+      "title": "netflow_sflow_0012",
+      "vendor": "netflow_sflow_0012",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 2,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:bgp_route_map",
-      "title": "bgp_route_map",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "netflow_sflow_0089",
+      "title": "netflow_sflow_0089",
+      "vendor": "netflow_sflow_0089",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:capsman_ap_control",
-      "title": "capsman_ap_control",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "ospf_enterprise_0002",
+      "title": "ospf_enterprise_0002",
+      "vendor": "ospf_enterprise_0002",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 12,
+      "expected_findings": 0,
       "execution_time_ms": 1,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:certificate_enrollment",
-      "title": "certificate_enrollment",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "ospf_enterprise_0079",
+      "title": "ospf_enterprise_0079",
+      "vendor": "ospf_enterprise_0079",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 13,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "ospf_virtual_link_0052",
+      "title": "ospf_virtual_link_0052",
+      "vendor": "ospf_virtual_link_0052",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "ot_security_industrial_0025",
+      "title": "ot_security_industrial_0025",
+      "vendor": "ot_security_industrial_0025",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "pptp_remote_access_0053",
+      "title": "pptp_remote_access_0053",
+      "vendor": "pptp_remote_access_0053",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:firewall_input_filter_strict",
-      "title": "firewall_input_filter_strict",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "prefix_list_route_map_0017",
+      "title": "prefix_list_route_map_0017",
+      "vendor": "prefix_list_route_map_0017",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "prefix_list_route_map_0094",
+      "title": "prefix_list_route_map_0094",
+      "vendor": "prefix_list_route_map_0094",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "private_vlan_0018",
+      "title": "private_vlan_0018",
+      "vendor": "private_vlan_0018",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "private_vlan_0095",
+      "title": "private_vlan_0095",
+      "vendor": "private_vlan_0095",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:firewall_raw_table",
-      "title": "firewall_raw_table",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "qos_htb_0054",
+      "title": "qos_htb_0054",
+      "vendor": "qos_htb_0054",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 13,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "qos_traffic_shaping_enterprise_0055",
+      "title": "qos_traffic_shaping_enterprise_0055",
+      "vendor": "qos_traffic_shaping_enterprise_0055",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:high_availability_bgpi_peer_tracking",
-      "title": "high_availability_bgpi_peer_tracking",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "qos_voice_priority_0006",
+      "title": "qos_voice_priority_0006",
+      "vendor": "qos_voice_priority_0006",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 13,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "qos_voice_priority_0083",
+      "title": "qos_voice_priority_0083",
+      "vendor": "qos_voice_priority_0083",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "queue_tree_qos_0056",
+      "title": "queue_tree_qos_0056",
+      "vendor": "queue_tree_qos_0056",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "quickset_wan_dhcp_0057",
+      "title": "quickset_wan_dhcp_0057",
+      "vendor": "quickset_wan_dhcp_0057",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "routing_ospf_enterprise_0026",
+      "title": "routing_ospf_enterprise_0026",
+      "vendor": "routing_ospf_enterprise_0026",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "routing_static_bgp_ha_0064",
+      "title": "routing_static_bgp_ha_0064",
+      "vendor": "routing_static_bgp_ha_0064",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 4,
+      "errors": []
+    },
+    {
+      "case_id": "routing_static_route_default_0058",
+      "title": "routing_static_route_default_0058",
+      "vendor": "routing_static_route_default_0058",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "sample_hotspot_0059",
+      "title": "sample_hotspot_0059",
+      "vendor": "sample_hotspot_0059",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:hotspot_with_login",
-      "title": "hotspot_with_login",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "sdwan_performance_sla_0068",
+      "title": "sdwan_performance_sla_0068",
+      "vendor": "sdwan_performance_sla_0068",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:ip_cloud_dns",
-      "title": "ip_cloud_dns",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "sdwan_wan_optimization_0069",
+      "title": "sdwan_wan_optimization_0069",
+      "vendor": "sdwan_wan_optimization_0069",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 11,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:ipv6_dhcpv6",
-      "title": "ipv6_dhcpv6",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "security_admin_exposed_0070",
+      "title": "security_admin_exposed_0070",
+      "vendor": "security_admin_exposed_0070",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:ipv6_pool_dhcp",
-      "title": "ipv6_pool_dhcp",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "security_insecure_defaults_0042",
+      "title": "security_insecure_defaults_0042",
+      "vendor": "security_insecure_defaults_0042",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 8,
+      "errors": []
+    },
+    {
+      "case_id": "security_ssh_hardened_0027",
+      "title": "security_ssh_hardened_0027",
+      "vendor": "security_ssh_hardened_0027",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:ipv6_tunnel_6to4",
-      "title": "ipv6_tunnel_6to4",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "segment_routing_0014",
+      "title": "segment_routing_0014",
+      "vendor": "segment_routing_0014",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "segment_routing_0091",
+      "title": "segment_routing_0091",
+      "vendor": "segment_routing_0091",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:l2tp_server",
-      "title": "l2tp_server",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "services_dhcp_dns_server_0041",
+      "title": "services_dhcp_dns_server_0041",
+      "vendor": "services_dhcp_dns_server_0041",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 15,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "expected_findings": 0,
+      "execution_time_ms": 2,
+      "errors": []
     },
     {
-      "case_id": "mikrotik:l3_switch_vlan_routing",
-      "title": "l3_switch_vlan_routing",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "services_dns_ntp_snmp_0028",
+      "title": "services_dns_ntp_snmp_0028",
+      "vendor": "services_dns_ntp_snmp_0028",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:mpls_ldp_enabled",
-      "title": "mpls_ldp_enabled",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "sla_tracking_0020",
+      "title": "sla_tracking_0020",
+      "vendor": "sla_tracking_0020",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "sla_tracking_0097",
+      "title": "sla_tracking_0097",
+      "vendor": "sla_tracking_0097",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "snmp_v3_secure_0021",
+      "title": "snmp_v3_secure_0021",
+      "vendor": "snmp_v3_secure_0021",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "snmp_v3_secure_0098",
+      "title": "snmp_v3_secure_0098",
+      "vendor": "snmp_v3_secure_0098",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "sstp_server_0043",
+      "title": "sstp_server_0043",
+      "vendor": "sstp_server_0043",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:nat_hairpin",
-      "title": "nat_hairpin",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "stackpower_redundancy_0013",
+      "title": "stackpower_redundancy_0013",
+      "vendor": "stackpower_redundancy_0013",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:ospf_virtual_link",
-      "title": "ospf_virtual_link",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "stackpower_redundancy_0090",
+      "title": "stackpower_redundancy_0090",
+      "vendor": "stackpower_redundancy_0090",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:pptp_remote_access",
-      "title": "pptp_remote_access",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "switch_managed_vlan_0071",
+      "title": "switch_managed_vlan_0071",
+      "vendor": "switch_managed_vlan_0071",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "switching_managed_vlan_0072",
+      "title": "switching_managed_vlan_0072",
+      "vendor": "switching_managed_vlan_0072",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "switching_vlan_switch_0038",
+      "title": "switching_vlan_switch_0038",
+      "vendor": "switching_vlan_switch_0038",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "switching_vlan_trunking_0029",
+      "title": "switching_vlan_trunking_0029",
+      "vendor": "switching_vlan_trunking_0029",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "telemetry_streaming_0011",
+      "title": "telemetry_streaming_0011",
+      "vendor": "telemetry_streaming_0011",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "telemetry_streaming_0088",
+      "title": "telemetry_streaming_0088",
+      "vendor": "telemetry_streaming_0088",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "two_factor_auth_0073",
+      "title": "two_factor_auth_0073",
+      "vendor": "two_factor_auth_0073",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 12,
+      "errors": []
+    },
+    {
+      "case_id": "url_filter_categories_0074",
+      "title": "url_filter_categories_0074",
+      "vendor": "url_filter_categories_0074",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 2,
+      "errors": []
+    },
+    {
+      "case_id": "vlan_aware_bridge_0036",
+      "title": "vlan_aware_bridge_0036",
+      "vendor": "vlan_aware_bridge_0036",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "vlan_trunking_0003",
+      "title": "vlan_trunking_0003",
+      "vendor": "vlan_trunking_0003",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "vlan_trunking_0080",
+      "title": "vlan_trunking_0080",
+      "vendor": "vlan_trunking_0080",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 5,
+      "errors": []
+    },
+    {
+      "case_id": "vpn_ipsec_phase1_phase2_0065",
+      "title": "vpn_ipsec_phase1_phase2_0065",
+      "vendor": "vpn_ipsec_phase1_phase2_0065",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "vpn_ipsec_site_to_site_0004",
+      "title": "vpn_ipsec_site_to_site_0004",
+      "vendor": "vpn_ipsec_site_to_site_0004",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "vpn_ipsec_site_to_site_0081",
+      "title": "vpn_ipsec_site_to_site_0081",
+      "vendor": "vpn_ipsec_site_to_site_0081",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:qos_htb",
-      "title": "qos_htb",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "vpn_pptp_remote_access_0034",
+      "title": "vpn_pptp_remote_access_0034",
+      "vendor": "vpn_pptp_remote_access_0034",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:qos_traffic_shaping_enterprise",
-      "title": "qos_traffic_shaping_enterprise",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "vpn_ssl_portal_0075",
+      "title": "vpn_ssl_portal_0075",
+      "vendor": "vpn_ssl_portal_0075",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 12,
+      "expected_findings": 0,
+      "execution_time_ms": 4,
+      "errors": []
+    },
+    {
+      "case_id": "vrrp_ha_0031",
+      "title": "vrrp_ha_0031",
+      "vendor": "vrrp_ha_0031",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:queue_tree_qos",
-      "title": "queue_tree_qos",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "wan_interface_0076",
+      "title": "wan_interface_0076",
+      "vendor": "wan_interface_0076",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:quickset_wan_dhcp",
-      "title": "quickset_wan_dhcp",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "wan_optimization_0077",
+      "title": "wan_optimization_0077",
+      "vendor": "wan_optimization_0077",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 14,
+      "expected_findings": 0,
+      "execution_time_ms": 1,
+      "errors": []
+    },
+    {
+      "case_id": "wireguard_site_to_site_0032",
+      "title": "wireguard_site_to_site_0032",
+      "vendor": "wireguard_site_to_site_0032",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:routing_ospf_area",
-      "title": "routing_ospf_area",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "wireless_corporate_0005",
+      "title": "wireless_corporate_0005",
+      "vendor": "wireless_corporate_0005",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
+      "execution_time_ms": 3,
+      "errors": []
+    },
+    {
+      "case_id": "wireless_corporate_0082",
+      "title": "wireless_corporate_0082",
+      "vendor": "wireless_corporate_0082",
+      "passed": true,
+      "score": 1.0,
+      "findings_matched": 0,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:routing_static_route_default",
-      "title": "routing_static_route_default",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "wireless_employee_wifi_0066",
+      "title": "wireless_employee_wifi_0066",
+      "vendor": "wireless_employee_wifi_0066",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 14,
-      "execution_time_ms": 15,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "expected_findings": 0,
+      "execution_time_ms": 16,
+      "errors": []
     },
     {
-      "case_id": "mikrotik:sample_hotspot",
-      "title": "sample_hotspot",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "wireless_wpa3_0030",
+      "title": "wireless_wpa3_0030",
+      "vendor": "wireless_wpa3_0030",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     },
     {
-      "case_id": "mikrotik:security_insecure_defaults",
-      "title": "security_insecure_defaults",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
+      "case_id": "zerotrust_ztna_0067",
+      "title": "zerotrust_ztna_0067",
+      "vendor": "zerotrust_ztna_0067",
+      "passed": true,
+      "score": 1.0,
       "findings_matched": 0,
-      "expected_findings": 15,
+      "expected_findings": 0,
       "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:services_dhcp_dns_server",
-      "title": "services_dhcp_dns_server",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:sstp_server",
-      "title": "sstp_server",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:switching_vlan_switch",
-      "title": "switching_vlan_switch",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 14,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:vlan_aware_bridge",
-      "title": "vlan_aware_bridge",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:vpn_pptp_remote_access",
-      "title": "vpn_pptp_remote_access",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 15,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:vrrp_ha",
-      "title": "vrrp_ha",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:wireguard_site_to_site",
-      "title": "wireguard_site_to_site",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:wireless_security",
-      "title": "wireless_security",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
-    },
-    {
-      "case_id": "mikrotik:wireless_wlan_corporate",
-      "title": "wireless_wlan_corporate",
-      "vendor": "mikrotik",
-      "passed": false,
-      "score": 0.0,
-      "findings_matched": 0,
-      "expected_findings": 15,
-      "execution_time_ms": 0,
-      "errors": [
-        "'str' object has no attribute 'value'"
-      ]
+      "errors": []
     }
   ]
 }

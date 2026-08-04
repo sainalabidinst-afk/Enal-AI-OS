@@ -268,6 +268,44 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
             continue
         # Detect structure: either vendor/case/ or flat case/
         subdirs = [d for d in vendor_dir.iterdir() if d.is_dir()]
+        
+        # Special case: input/ subdirectory contains the config file
+        input_dir = vendor_dir / "input"
+        if input_dir.is_dir() and any((input_dir / f).exists() for f in ("config.rsc", "config.txt", "sample_hotspot.txt", "source.py", "main.py", "app.py", "Dockerfile", "dockerfile", "k8s.yaml", "terraform.tf")):
+            config_file = None
+            for f in ("config.rsc", "config.txt", "sample_hotspot.txt", "source.py", "main.py", "app.py", "Dockerfile", "dockerfile", "k8s.yaml", "terraform.tf"):
+                if (input_dir / f).exists():
+                    config_file = f
+                    break
+            if config_file:
+                expected_path = vendor_dir / "expected.json"
+                expected: dict[str, Any] = {}
+                if expected_path.exists():
+                    try:
+                        expected = json.loads(expected_path.read_text(encoding="utf-8"))
+                    except Exception:
+                        pass
+                expected_inner = expected.get("expected", expected)
+                explicit_findings = expected.get("expected_findings")
+                if explicit_findings:
+                    expected_findings = explicit_findings
+                else:
+                    expected_findings = _derive_expected_findings(expected_inner, expected.get("metadata", {}).get("tags", []))
+                case = RealCase(
+                    id=vendor_dir.name,
+                    title=expected.get("title", vendor_dir.name),
+                    category=expected.get("category", vendor_dir.name),
+                    vendor=expected.get("vendor", vendor_dir.name),
+                    source_files=[str(input_dir / config_file)],
+                    context=expected.get("metadata", {}).get("description", ""),
+                    expected_findings=expected_findings,
+                    expected_risk_score=expected_inner.get("risk_max"),
+                    expected_compliance_score=expected_inner.get("compliance_score_min"),
+                    tags=expected.get("metadata", {}).get("tags", [vendor_dir.name]),
+                )
+                cases.append(case)
+                continue
+        
         if subdirs and any((d / "expected.json").exists() or any((d / f).exists() for f in ("config.rsc", "config.txt", "sample_hotspot.txt", "source.py", "main.py", "app.py", "Dockerfile", "dockerfile", "k8s.yaml", "terraform.tf")) for d in subdirs):
             # Nested: vendor_dir/case_dir/
             case_dirs = subdirs
@@ -300,7 +338,7 @@ def load_cases_from_disk(base_dir: str = "real_cases") -> list[RealCase]:
             else:
                 expected_findings = _derive_expected_findings(expected_inner, expected.get("metadata", {}).get("tags", []))
             case = RealCase(
-                id=f"{vendor_dir.name}:{case_dir.name}" if case_dir != vendor_dir else f"security:{case_dir.name}",
+                id=f"{vendor_dir.name}:{case_dir.name}" if case_dir != vendor_dir else vendor_dir.name,
                 title=expected.get("title", case_dir.name),
                 category=expected.get("category", vendor_dir.name),
                 vendor=expected.get("vendor", vendor_dir.name),

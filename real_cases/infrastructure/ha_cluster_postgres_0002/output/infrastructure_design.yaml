@@ -1,0 +1,22 @@
+# HA Cluster Design Output
+
+## Cluster Spec
+
+Cluster: inventory-db-ha-cluster
+HA Mode: active-standby
+Nodes: 3 (t3.xlarge)
+Shared Storage: ceph
+
+## Failover Config
+- Mode: active-standby
+- Heartbeat interval: 5s
+- Failover timeout: 30s
+- Quorum: required
+- Fencing: STONITH
+
+## Load Balancer: HAProxy
+
+## Cost Estimate
+- node_t3.xlarge: 450.00 USD/month
+- load_balancer: 30.00 USD/month
+- total_monthly: 480.00 USD/month

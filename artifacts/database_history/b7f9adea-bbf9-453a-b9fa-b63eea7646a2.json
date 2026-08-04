@@ -1,0 +1,13 @@
+{
+  "record_id": "b7f9adea-bbf9-453a-b9fa-b63eea7646a2",
+  "request_id": "0b285f49-e2f9-4066-82cd-2a45a3b03ccd",
+  "timestamp": "2026-08-04T07:39:38.470940+00:00",
+  "operation": "performance_analysis",
+  "database_type": "postgresql",
+  "findings_count": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "migration_planned": false,
+  "backup_configured": false,
+  "outcome": "success"
+}

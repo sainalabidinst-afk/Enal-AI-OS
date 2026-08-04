@@ -1,3 +1,5 @@
+export type CapabilityStatus = "Ready" | "Beta" | "Coming Soon" | "Installed";
+
 export interface CapabilityApp {
   id: string;
   name: string;
@@ -6,6 +8,9 @@ export interface CapabilityApp {
   color: string;
   route: string;
   domain: string;
+  category: string;
+  status: CapabilityStatus;
+  version: string;
   keywords: string[];
 }
 
@@ -13,17 +18,26 @@ export interface CapabilityApp {
  * Central registry of available capability "apps" shown in the App Launcher.
  * This is a pure data declaration — reusable by any Launcher / Marketplace UI.
  * Adding a new capability = adding a new entry here (no layout changes needed).
+ *
+ * `status` drives the badge shown on each card:
+ *   - "Ready"       → fully usable
+ *   - "Beta"        → available but experimental
+ *   - "Coming Soon" → shown but not yet built
+ *   - "Installed"   → already installed
  */
 export const CAPABILITY_APPS: CapabilityApp[] = [
   {
     id: "trading",
     name: "Trading Analyst",
-    description: "Analyze market",
+    description: "Analyze market data, trends, and indicators",
     icon: "📈",
     color: "#22c55e",
     route: "/apps/trading",
     domain: "trading",
-    keywords: ["trading", "market", "stock", "analisis", "saham", "investasi"],
+    category: "Finance",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["trading", "market", "stock", "analisis", "saham", "investasi", "crypto", "analysis"],
   },
   {
     id: "network",
@@ -33,7 +47,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#3b82f6",
     route: "/apps/network",
     domain: "network",
-    keywords: ["network", "jaringan", "router", "topology", "config"],
+    category: "Infrastructure",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["network", "jaringan", "router", "topology", "config", "firewall", "switch"],
   },
   {
     id: "code",
@@ -43,7 +60,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#8b5cf6",
     route: "/apps/code",
     domain: "code",
-    keywords: ["code", "coding", "program", "source", "kode"],
+    category: "Development",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["code", "coding", "program", "source", "kode", "developer", "engineering"],
   },
   {
     id: "security",
@@ -53,7 +73,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#ef4444",
     route: "/apps/security",
     domain: "security",
-    keywords: ["security", "keamanan", "vulnerability", "audit", "pentest"],
+    category: "Infrastructure",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["security", "keamanan", "vulnerability", "audit", "pentest", "firewall"],
   },
   {
     id: "database",
@@ -63,7 +86,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#f59e0b",
     route: "/apps/database",
     domain: "database",
-    keywords: ["database", "sql", "schema", "query", "db"],
+    category: "Data",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["database", "sql", "schema", "query", "db", "storage"],
   },
   {
     id: "research",
@@ -73,7 +99,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#06b6d4",
     route: "/apps/research",
     domain: "research",
-    keywords: ["research", "riset", "literature", "paper", "laporan"],
+    category: "Knowledge",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["research", "riset", "literature", "paper", "laporan", "study"],
   },
   {
     id: "business",
@@ -83,7 +112,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#10b981",
     route: "/apps/business",
     domain: "business",
-    keywords: ["business", "bisnis", "analisis", "kpi", "data"],
+    category: "Business",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["business", "bisnis", "analisis", "kpi", "revenue", "commerce"],
   },
   {
     id: "devops",
@@ -93,7 +125,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#6366f1",
     route: "/apps/devops",
     domain: "devops",
-    keywords: ["devops", "ci", "cd", "deploy", "infrastructure", "kubernetes"],
+    category: "Infrastructure",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["devops", "ci", "cd", "deploy", "infrastructure", "kubernetes", "automation"],
   },
   {
     id: "architect",
@@ -103,7 +138,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#a16207",
     route: "/apps/architect",
     domain: "architect",
-    keywords: ["architect", "arsitektur", "system", "design", "modular"],
+    category: "Development",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["architect", "arsitektur", "system", "design", "modular", "blueprint"],
   },
   {
     id: "decision",
@@ -113,7 +151,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#ec4899",
     route: "/apps/decision",
     domain: "decision",
-    keywords: ["decision", "keputusan", "intelligence", "strategi", "insight"],
+    category: "Intelligence",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["decision", "keputusan", "intelligence", "strategi", "insight", "analytics"],
   },
   {
     id: "self-development",
@@ -123,7 +164,10 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     color: "#14b8a6",
     route: "/apps/self-development",
     domain: "self-development",
-    keywords: ["self", "development", "improve", "refactor", "improve"],
+    category: "Development",
+    status: "Coming Soon",
+    version: "1.0.0",
+    keywords: ["self", "development", "improve", "refactor", "improve", "codebase"],
   },
 ];
 
@@ -139,6 +183,7 @@ export function searchCapabilityApps(query: string): CapabilityApp[] {
       app.name,
       app.description,
       app.domain,
+      app.category,
       ...app.keywords,
     ]
       .join(" ")

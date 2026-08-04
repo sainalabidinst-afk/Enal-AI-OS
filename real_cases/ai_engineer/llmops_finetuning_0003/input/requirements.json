@@ -1,0 +1,12 @@
+{
+  "scenario": "llmops_finetuning",
+  "project_name": "custom-llm-service",
+  "domain": "enterprise",
+  "fine_tuning_enabled": true,
+  "base_model": "gpt-4o-mini",
+  "training_data_path": "data/training.jsonl",
+  "validation_data_path": "data/validation.jsonl",
+  "epochs": 3,
+  "target_metric_threshold": 0.9,
+  "expected_components": ["fine_tuning_config", "deployment_config", "monitoring_config"]
+}

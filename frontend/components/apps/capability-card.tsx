@@ -2,13 +2,20 @@
 
 import Link from "next/link";
 import { Star } from "lucide-react";
-import type { CapabilityApp } from "./capability-registry";
+import type { CapabilityApp, CapabilityStatus } from "./capability-registry";
 import { useLauncherStore } from "@/store/launcher-store";
 
 interface CapabilityCardProps {
   app: CapabilityApp;
   onToggleFavorite?: (appId: string) => void;
 }
+
+const STATUS_STYLES: Record<CapabilityStatus, string> = {
+  Ready: "bg-[var(--color-success)]/15 text-[var(--color-success)]",
+  Beta: "bg-[var(--color-warning)]/15 text-[var(--color-warning)]",
+  "Coming Soon": "bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)]",
+  Installed: "bg-[var(--color-accent)]/15 text-[var(--color-accent)]",
+};
 
 export function CapabilityCard({ app, onToggleFavorite }: CapabilityCardProps) {
   const isFavorite = useLauncherStore((s) => s.isFavorite(app.id));
@@ -20,6 +27,8 @@ export function CapabilityCard({ app, onToggleFavorite }: CapabilityCardProps) {
     toggleFavorite(app.id);
     onToggleFavorite?.(app.id);
   };
+
+  const statusClass = STATUS_STYLES[app.status] || STATUS_STYLES["Coming Soon"];
 
   return (
     <Link
@@ -39,6 +48,13 @@ export function CapabilityCard({ app, onToggleFavorite }: CapabilityCardProps) {
         <Star className="h-4 w-4" fill={isFavorite ? "currentColor" : "none"} />
       </button>
 
+      {/* Status badge */}
+      <span
+        className={`absolute top-2 left-2 rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide ${statusClass}`}
+      >
+        {app.status}
+      </span>
+
       {/* Icon */}
       <div
         className="flex h-16 w-16 items-center justify-center rounded-2xl text-3xl"
@@ -50,6 +66,11 @@ export function CapabilityCard({ app, onToggleFavorite }: CapabilityCardProps) {
       {/* Name */}
       <p className="text-sm font-semibold text-[var(--color-text-primary)]">
         {app.name}
+      </p>
+
+      {/* Category + version */}
+      <p className="text-[10px] text-[var(--color-text-secondary)]">
+        {app.category} · v{app.version}
       </p>
 
       {/* Description */}

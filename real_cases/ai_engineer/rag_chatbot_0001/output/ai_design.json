@@ -1,0 +1,28 @@
+# RAG Chatbot Design Output
+
+## Agent Spec
+- Name: docs-chatbot
+- Architecture: single_agent
+- Orchestration: sequential
+- LLM: openai/gpt-4o
+- Context window: 128000 tokens
+
+## RAG Config
+- Strategy: hybrid
+- Chunk size: 512 tokens
+- Chunk overlap: 50 tokens
+- Embedding: text-embedding-3-small
+- Vector store: pinecone
+- Top K: 5
+- Rerank: enabled (cohere-rerank-v3)
+
+## Prompt Templates
+- rag_assistant: Template dengan context dan source attribution
+
+## Evaluation
+- Accuracy: 92%
+- Faithfulness: 92%
+- Hallucination Rate: 5%
+
+## Cost Estimate
+- Total monthly: ~$85 USD

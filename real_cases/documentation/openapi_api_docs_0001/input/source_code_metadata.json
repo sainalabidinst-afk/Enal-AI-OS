@@ -1,0 +1,10 @@
+# Input
+
+## Source Code
+Path: apps/devops_assistant/
+Files: engine.py, schemas.py, worker.py
+
+## Request
+Operation: openapi_generation
+App Name: devops-assistant
+Version: 2.0.0

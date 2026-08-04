@@ -1,0 +1,20 @@
+{
+  "request_id": "case-fs-002",
+  "operation": "full_stack_review",
+  "inputs": {
+    "repo_path": "apps/api_service",
+    "source_code": "def get_user(user_id):\n    query = f\"SELECT * FROM users WHERE id = {user_id}\"\n    return db.execute(query)\ndef render_page(user_input):\n    return f\"<html>{user_input}</html>\"",
+    "filename": "api.py"
+  },
+  "context": {
+    "project_id": "api-security-demo",
+    "language": "python",
+    "framework": "flask"
+  },
+  "quality_attributes": {
+    "architecture_target": "layered",
+    "coverage_target": 0.90,
+    "performance_target": {"latency_p95_ms": 50, "throughput_rps": 5000}
+  },
+  "output_format": "json"
+}
