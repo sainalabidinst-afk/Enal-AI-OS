@@ -68,5 +68,5 @@ class FullStackEngineerWorker:
             output_format=output_format,
         )
 
-        report = self._engine.review(request)
+        report = await self._engine.review(request)
         return report.to_dict()

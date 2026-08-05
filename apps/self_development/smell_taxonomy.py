@@ -15,7 +15,7 @@ import math
 import random
 from typing import Any
 
-from apps.self_development.schemas import Problem, ProblemType, Severity
+from apps.self_development.schemas import Problem, ProblemType, ProjectAnalysis, Severity
 
 logger = logging.getLogger(__name__)
 

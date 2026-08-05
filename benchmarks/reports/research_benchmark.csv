@@ -1,0 +1,8 @@
+dimension,score,passed
+accuracy,1.0,True
+completeness,1.0,True
+explainability,1.0,True
+safety,1.0,True
+efficiency,0.9,True
+consistency,0.9,True
+overall,0.9667,True

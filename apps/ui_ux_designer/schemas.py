@@ -108,7 +108,7 @@ class DesignSystem(BaseModel):
     typography_scale: dict[str, Any] = Field(default_factory=dict)
     spacing_scale: list[str] = Field(default_factory=list)
     motion_principles: list[str] = Field(default_factory=list)
-    accessibility_standards: list[str] = Field(default_factory=list, description=["WCAG 2.1 AA"])
+    accessibility_standards: list[str] = Field(default_factory=list, description="WCAG 2.1 AA standards")
     version: str = Field(default="1.0.0")
 
 

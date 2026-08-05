@@ -37,3 +37,16 @@
 
 - [x] `npm run build` / `tsc --noEmit` passes (no TS errors, EXIT_CODE=0)
 - [ ] Manual test: login → EULA → dashboard → click app icon
+
+## Post-Review Adjustments (before freeze)
+
+- [x] Splash: boot sequence loading states (Initializing → Checking Authentication → Loading Workspace → Capability Registry)
+- [x] Dashboard: 3 sections — Favorites, Recent, Capabilities
+- [x] Capability Card: status badge (Ready / Beta / Coming Soon / Installed)
+- [x] Search: searches name, description, keywords (e.g. "firewall" → Network Engineer)
+- [x] App Shell: empty workspace structure (Header / Sidebar / Workspace / Right Panel)
+- [x] Theme: Light / Dark / System selector added to desktop sidebar
+- [x] Capability Registry: expanded with `category`, `status`, `version`, `keywords`
+- [x] Dashboard Header: ENAL AI OS + Version 1.0.0 + User + Search + Settings
+
+## Milestone: UX v2.0 Foundation — FROZEN

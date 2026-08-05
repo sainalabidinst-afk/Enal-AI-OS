@@ -609,7 +609,7 @@ Semua penambahan pengetahuan yang direncanakan dilacak melalui RFC dan diimpleme
 
 ## 8. Capability Pack Masa Depan (Peta Jalan)
 
-Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pack hanya akan dikembangkan setelah 13 pack yang ada mencapai target grade A/A- dan memenuhi aturan Governance.
+Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pack hanya akan dikembangkan setelah 19 pack yang ada mencapai target grade A/A- dan memenuhi aturan Governance.
 
 > **Prinsip Perluasan Berbasis Domain:** ECP **tidak lagi menambah Capability Pack berdasarkan profesi**, tetapi berdasarkan **domain keahlian yang benar-benar reusable** oleh Capability Pack lain. Setiap calon pack baru harus:
 >
@@ -619,7 +619,7 @@ Semua Capability Pack yang tercantum di bawah telah diimplementasikan. Future pa
 > 4. **Lulus Governance** — use case lintas sistem, Benchmark, Golden Test
 > 5. **Kebutuhan nyata** — ditambahkan saat ada kebutuhan proyek aktual
 >
-> **Target: 15–20 Capability Pack, masing-masing benar-benar setara spesialis berpengalaman. Platform dengan 18 pack berkualitas tinggi jauh lebih bernilai daripada 50 pack dengan kemampuan dasar.**
+> **Target: 15–20 Capability Pack, masing-masing benar-benar setara spesialis berpengalaman. Platform dengan 19 pack berkualitas tinggi jauh lebih bernilai daripada 50 pack dengan kemampuan dasar.**
 
 ### 8.0 Prinsip Perluasan Berbasis Domain
 

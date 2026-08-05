@@ -41,6 +41,9 @@ from apps.database_engineer.index_advisor import IndexAdvisor
 from apps.database_engineer.replication_planner import ReplicationPlanner
 from apps.database_engineer.backup_planner import BackupPlanner
 from apps.database_engineer.performance_analyzer import PerformanceAnalyzer
+from apps.database_engineer.database_knowledge import DatabaseKnowledgeEngine
+from apps.database_engineer.partitioning_advisor import PartitioningAdvisor
+from apps.database_engineer.ha_designer import HADesigner
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +66,9 @@ class DatabaseEngineerEngine:
         self.replication_planner = ReplicationPlanner()
         self.backup_planner = BackupPlanner()
         self.performance_analyzer = PerformanceAnalyzer()
+        self.knowledge_engine = DatabaseKnowledgeEngine()
+        self.partitioning_advisor = PartitioningAdvisor()
+        self.ha_designer = HADesigner()
 
     def analyze(self, request: DatabaseRequest) -> DatabaseReport:
         """
@@ -133,6 +139,22 @@ class DatabaseEngineerEngine:
             all_findings.extend(perf_result.get("findings", []))
             perf_stats = perf_result.get("stats", PerformanceStats())
             explanation_parts.append(f"Performance analysis: {perf_stats.slow_queries} slow queries detected")
+
+        # Deeper knowledge expansion
+        if request.database_type and op in ("performance_analysis", "query_optimization", "replication_plan"):
+            vendor_findings = self.knowledge_engine.recommend_for_vendor(
+                request.database_type.value,
+                {"operation": op, "queries": request.queries, "schema": request.database_schema},
+            )
+            all_findings.extend(vendor_findings)
+
+        if request.database_schema and op in ("schema_design", "partitioning"):
+            part_recs = self.partitioning_advisor.recommend(request.database_schema, request.workload_profile)
+            all_findings.extend(self.partitioning_advisor.to_findings(part_recs))
+
+        if op == "replication_plan" and request.database_type:
+            ha_topology = self.ha_designer.design(request.database_type, request.workload_profile)
+            all_findings.extend(self.ha_designer.to_findings(ha_topology))
 
         # Build summary.
         severity_counts = {"critical": 0, "high": 0, "medium": 0, "low": 0}

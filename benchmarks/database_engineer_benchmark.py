@@ -19,20 +19,19 @@ Usage:
 from __future__ import annotations
 
 import sys
-import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from apps.database_engineer.engine import DatabaseEngineerEngine
 from apps.database_engineer.schemas import (
+    ColumnDefinition,
     DatabaseRequest,
     DatabaseType,
+    ForeignKey,
     OperationType,
     SchemaDefinition,
     TableDefinition,
-    ColumnDefinition,
-    ForeignKey,
     WorkloadProfile,
 )
 
@@ -74,7 +73,8 @@ def _quick_request(operation: str) -> DatabaseRequest:
         queries=[
             "SELECT * FROM users WHERE email = 'test@example.com'",
             "SELECT * FROM orders WHERE user_id = 1",
-            "SELECT u.name, COUNT(o.id) FROM users u JOIN orders o ON u.id = o.user_id GROUP BY u.name",
+            "SELECT u.name, COUNT(o.id) FROM users u "
+            "JOIN orders o ON u.id = o.user_id GROUP BY u.name",
             "SELECT * FROM orders WHERE status = 'pending' ORDER BY created_at",
         ],
         workload_profile=WorkloadProfile(

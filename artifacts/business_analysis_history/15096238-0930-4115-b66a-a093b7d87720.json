@@ -1,0 +1,12 @@
+{
+  "record_id": "15096238-0930-4115-b66a-a093b7d87720",
+  "request_id": "18d17857-e53d-48f9-a299-38895311eab5",
+  "timestamp": "2026-08-05T01:20:51.381990+00:00",
+  "operation": "requirement_gathering",
+  "domain": "e-commerce",
+  "requirements_count": 18,
+  "user_stories_count": 18,
+  "gaps_identified": 0,
+  "roi_analyzed": false,
+  "outcome": "success"
+}

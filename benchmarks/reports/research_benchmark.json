@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-08-05T00:07:41.539168",
+  "dimensions": {
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "explainability": 1.0,
+    "safety": 1.0,
+    "efficiency": 0.9,
+    "consistency": 0.9
+  },
+  "overall": 0.9667,
+  "pass_rate": 1.0,
+  "target": 0.9,
+  "passed": true
+}

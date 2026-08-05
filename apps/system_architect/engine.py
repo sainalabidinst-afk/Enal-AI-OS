@@ -46,6 +46,10 @@ from apps.system_architect.microservices_analyzer import MicroservicesAnalyzer
 from apps.system_architect.boundary_enforcer import BoundaryEnforcer
 from apps.system_architect.governance import ArchitectureGovernance
 from apps.system_architect.adr_generator import ADRGenerator
+from apps.system_architect.scalability_analyzer import ScalabilityAnalyzer
+from apps.system_architect.security_architect import SecurityArchitect
+from apps.system_architect.cost_optimizer import CostOptimizer
+from apps.system_architect.refactoring_strategy import RefactoringStrategy
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +72,10 @@ class SystemArchitectEngine:
         self._microservices_analyzer: MicroservicesAnalyzer | None = None
         self._boundary_enforcer: BoundaryEnforcer | None = None
         self._governance: ArchitectureGovernance | None = None
+        self._scalability_analyzer: ScalabilityAnalyzer | None = None
+        self._security_architect: SecurityArchitect | None = None
+        self._cost_optimizer: CostOptimizer | None = None
+        self._refactoring_strategy: RefactoringStrategy | None = None
 
     # ------------------------------------------------------------------
     # Public API
@@ -136,6 +144,20 @@ class SystemArchitectEngine:
             gov_findings, gov_recs = await self._get_governance(workspace_path).check()
             findings.extend(gov_findings)
             recommendations.extend(gov_recs)
+
+        # Deeper knowledge expansion
+        if ReviewType.full_review in review_types:
+            scalability = self._get_scalability_analyzer().assess(metrics)
+            findings.extend(self._get_scalability_analyzer().to_findings(scalability))
+
+            security_findings = self._get_security_architect().review(metrics)
+            findings.extend(security_findings)
+
+            cost_findings = self._get_cost_optimizer().analyze(metrics)
+            findings.extend(cost_findings)
+
+            refactor_recs = self._get_refactoring_strategy().recommend(findings, metrics)
+            recommendations.extend(refactor_recs)
 
         # 2. Compute consolidated metrics if not already set
         metrics = self._finalize_metrics(metrics, findings)
@@ -226,6 +248,22 @@ class SystemArchitectEngine:
         self._governance = self._governance or ArchitectureGovernance(workspace_path)
         self._governance.repo_path = workspace_path
         return self._governance
+
+    def _get_scalability_analyzer(self) -> ScalabilityAnalyzer:
+        self._scalability_analyzer = self._scalability_analyzer or ScalabilityAnalyzer()
+        return self._scalability_analyzer
+
+    def _get_security_architect(self) -> SecurityArchitect:
+        self._security_architect = self._security_architect or SecurityArchitect()
+        return self._security_architect
+
+    def _get_cost_optimizer(self) -> CostOptimizer:
+        self._cost_optimizer = self._cost_optimizer or CostOptimizer()
+        return self._cost_optimizer
+
+    def _get_refactoring_strategy(self) -> RefactoringStrategy:
+        self._refactoring_strategy = self._refactoring_strategy or RefactoringStrategy()
+        return self._refactoring_strategy
 
     # ------------------------------------------------------------------
     # Consolidation helpers

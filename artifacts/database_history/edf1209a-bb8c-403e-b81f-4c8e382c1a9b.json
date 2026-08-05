@@ -1,0 +1,13 @@
+{
+  "record_id": "edf1209a-bb8c-403e-b81f-4c8e382c1a9b",
+  "request_id": "99a73d62-dde3-48d9-9025-66ef34ebfc64",
+  "timestamp": "2026-08-04T23:49:49.804019+00:00",
+  "operation": "backup_plan",
+  "database_type": "postgresql",
+  "findings_count": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "migration_planned": false,
+  "backup_configured": true,
+  "outcome": "success"
+}

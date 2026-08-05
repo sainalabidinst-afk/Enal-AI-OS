@@ -25,7 +25,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, [theme]);
 
   useEffect(() => {
-    loadWorkspaces().catch(() => {});
+    const token = localStorage.getItem("enal-auth-token");
+    if (token) {
+      loadWorkspaces().catch(() => {});
+    }
   }, [loadWorkspaces]);
 
   return <>{children}</>;

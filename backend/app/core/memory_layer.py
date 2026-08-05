@@ -75,7 +75,7 @@ from backend.app.core.memory_project import ProjectMemory
 
 class MemoryManager:
     def __init__(self):
-        self._layers: dict[str, MemoryLayer] = {
+        self._layers: dict[str, Any] = {
             "working": WorkingMemory(),
             "conversation": ConversationMemory(),
             "knowledge": KnowledgeMemory(),

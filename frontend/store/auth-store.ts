@@ -38,27 +38,32 @@ export const useAuthStore = create<AuthState & AuthActions>()(
         }
       },
 
-      login: async (request: LoginRequest) => {
+login: async (request: LoginRequest) => {
         set({ isLoading: true, error: null });
         try {
           const response = await apiLogin(request);
           const token = response.access_token;
 
-          // Try to get user info
-          let user: AuthUser = { username: request.username };
+          // Persist the token to localStorage immediately so that any
+          // subsequent API calls (e.g. /me) carry the Authorization header.
+          // This prevents the 401 hard-redirect in services/api.ts from firing
+          // and causing a login loop.
+          const user: AuthUser = { username: request.username };
+          storeAuth(token, user);
+          set({ token, user });
+
+          // Try to enrich the user from the backend, but never fail the login
+          // if the backend is unreachable or /me is not available.
           try {
-            // Temporarily set token for API calls
-            const prevToken = get().token;
-            set({ token });
-            user = await getCurrentUser();
+            const currentUser = await getCurrentUser();
+            storeAuth(token, currentUser);
+            set({ user: currentUser });
           } catch {
-            // Fall back to basic user from login
+            // Fall back to basic user from login (already stored).
           }
 
-          storeAuth(token, user);
           set({
             token,
-            user,
             isAuthenticated: true,
             isLoading: false,
             error: null,

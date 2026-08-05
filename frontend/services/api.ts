@@ -30,7 +30,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     // Token expired or invalid — clear auth
     localStorage.removeItem("enal-auth-token");
     localStorage.removeItem("enal-auth-user");
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && window.location.pathname !== "/login") {
       window.location.href = "/login";
     }
     throw new ApiError(401, "Authentication expired. Please log in again.");

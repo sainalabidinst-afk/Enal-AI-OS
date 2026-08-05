@@ -1,0 +1,15 @@
+{
+  "record_id": "60e2c3f7-e82a-499b-b4ee-0fdd9ddeddc4",
+  "decision_id": "320db729-c28f-448c-8fc1-e0e3e0d94c37",
+  "timestamp": "2026-08-04T23:14:53.454336+00:00",
+  "context": "Should we upgrade the database?",
+  "chosen_alternative": "Proceed with a smaller-scope pilot first",
+  "alternatives_count": 5,
+  "confidence_score": 0.5858,
+  "evidence_count": 1,
+  "risk_score": 0.06,
+  "explanation": "Recommendation: Proceed with a smaller-scope pilot first (score 65%). Confidence 59% with uncertainty \u00b120%. Evidence quality: 80%; Evidence agreement: 100%; Evidence coverage: 20%; Decision margin: 8%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

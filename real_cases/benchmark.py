@@ -53,6 +53,8 @@ class BenchmarkHarness:
                 result.risk_score_actual = analysis.risk_score
                 result.compliance_score_actual = getattr(analysis, "compliance_score", None)
                 ast_dict = analysis.ast.to_dict() if hasattr(analysis.ast, "to_dict") else analysis.ast
+                if not isinstance(ast_dict, dict):
+                    ast_dict = {}
                 actual_findings = [finding.get("title", "") for finding in ast_dict.get("findings", [])]
                 matched = sum(
                     1

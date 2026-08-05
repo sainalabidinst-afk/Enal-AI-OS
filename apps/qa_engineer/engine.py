@@ -37,6 +37,7 @@ from apps.qa_engineer.flaky_detector import FlakyDetector
 from apps.qa_engineer.coverage_analyzer import CoverageAnalyzer
 from apps.qa_engineer.performance_validator import PerformanceValidator
 from apps.qa_engineer.golden_test_gen import GoldenTestGenerator
+from apps.qa_engineer.test_strategies import TestGenerationStrategies
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +59,7 @@ class QAEngineerEngine:
         self.coverage_analyzer = CoverageAnalyzer()
         self.performance_validator = PerformanceValidator()
         self.golden_gen = GoldenTestGenerator()
+        self.test_strategies = TestGenerationStrategies()
 
     def review(self, request: QATestRequestModel) -> QATestReport:
         """Run the QA pipeline based on the requested operation."""
@@ -133,6 +135,15 @@ class QAEngineerEngine:
                 source_code=source_code,
                 perf_reqs=request.performance_requirements or {},
             )
+
+        # Deeper knowledge expansion
+        strategy_findings = self.test_strategies.to_findings(
+            op.value if hasattr(op, "value") else str(op),
+            language,
+        )
+        findings.extend(strategy_findings)
+        if strategy_findings:
+            recommendations.extend([f.recommendation for f in strategy_findings])
 
         # Build summary.
         recommendations = self._build_recommendations(

@@ -1,0 +1,15 @@
+{
+  "record_id": "9400c250-6a89-4cc9-9044-d623bb90e434",
+  "decision_id": "a48dd7d2-3ef4-46c1-b243-e82430db8ab7",
+  "timestamp": "2026-08-04T23:14:53.463338+00:00",
+  "context": "Should I refactor the authentication module?",
+  "chosen_alternative": "Incremental refactoring of the current module (small, safe changes)",
+  "alternatives_count": 4,
+  "confidence_score": 0.5855,
+  "evidence_count": 1,
+  "risk_score": 0.12,
+  "explanation": "Recommendation: Incremental refactoring of the current module (small, safe changes) (score 64%). Confidence 59% with uncertainty \u00b120%. Evidence quality: 80%; Evidence agreement: 100%; Evidence coverage: 20%; Decision margin: 8%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

@@ -79,6 +79,8 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
             "/redoc",
             "/health",
             "/api/v1/auth/login",
+            "/api/v1/metrics",
+            "/api/v1/capabilities",
         ):
             return await call_next(request)
 

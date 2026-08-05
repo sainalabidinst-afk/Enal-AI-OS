@@ -23,6 +23,7 @@ from apps.ui_ux_designer.schemas import (
     StakeholderInput,
     DesignSystem,
     Prototype,
+    PrototypeScreen,
 )
 
 logger = logging.getLogger(__name__)

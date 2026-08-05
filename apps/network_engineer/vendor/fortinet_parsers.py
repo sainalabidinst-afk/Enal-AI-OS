@@ -15,6 +15,7 @@ from apps.network_engineer.vendor.models import (
     UniversalNATRule,
     UniversalRoute,
     UniversalUser,
+    UniversalVLAN,
     UniversalVPN,
 )
 

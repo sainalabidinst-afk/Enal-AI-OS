@@ -35,6 +35,13 @@ class Severity(str, Enum):
     info = "info"
 
 
+class OutputFormat(str, Enum):
+    json = "json"
+    markdown = "markdown"
+    html = "html"
+    text = "text"
+
+
 class RiskLevel(str, Enum):
     low = "low"
     medium = "medium"

@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from apps.devops_assistant.schemas import Problem, Solution
+from apps.devops_assistant.schemas import Problem, Solution, RiskScore
 from apps.devops_assistant.smell_taxonomy import DevOpsSmellTaxonomy
 from apps.devops_assistant.risk_modeler import DevOpsRiskModeler
 

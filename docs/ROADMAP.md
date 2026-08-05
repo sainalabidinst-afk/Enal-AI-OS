@@ -55,7 +55,7 @@ ECP dibangun sebagai platform eksekusi AI yang stabil, tetapi **Trading Analyst*
 
 ### Fase 2 — Decision Intelligence + Keamanan + Data (+3 Paket)
 
-Setelah 13 pack mencapai A-/A, tambahkan 3 Capability Pack baru:
+Setelah 13 pack inti mencapai A-/A, tambahkan 3 Capability Pack baru:
 
 |Prioritas|Capability Pack|Fungsi|Paket Tanggungan|
 |-----------|-----------------|--------|-----------------|
@@ -67,7 +67,7 @@ Setelah 13 pack mencapai A-/A, tambahkan 3 Capability Pack baru:
 
 ### Fase 3 — Perusahaan (+4 Paket)
 
-Setelah 13 pack stabil, tambahkan 4 Capability Pack untuk melayani kebutuhan perusahaan:
+Setelah 13 pack inti stabil, tambahkan 4 Capability Pack untuk melayani kebutuhan perusahaan:
 
 #### 3.1 Database Engineer
 

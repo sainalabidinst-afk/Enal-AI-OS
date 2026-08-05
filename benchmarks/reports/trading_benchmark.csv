@@ -1,0 +1,10 @@
+dimension,score,passed
+overall_score,100.0,True
+reasoning_score,100.0,True
+coverage_score,100.0,True
+explainability_score,100.0,True
+consistency_score,100.0,True
+safety_score,100.0,True
+scenarios_run,20,20
+evidence_total,2241,2241
+overall,100.0,True

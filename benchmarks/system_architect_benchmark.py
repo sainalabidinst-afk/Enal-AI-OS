@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import asyncio
 import sys
-import time
 from pathlib import Path
 from typing import Any
 
@@ -31,7 +30,6 @@ from apps.system_architect.engine import SystemArchitectEngine
 from apps.system_architect.schemas import (
     ArchitectureReviewRequest,
     ReviewType,
-    ReviewOutcome,
 )
 
 
@@ -271,9 +269,9 @@ def main():
     print(f"Pass rate: {results.get('pass_rate', 0.0):.2%}")
     target = 0.9
     if results.get("overall", 0.0) >= target:
-        print(f"\n✓ BENCHMARK PASSED (overall >= {target:.0%})")
+        print(f"\n[PASS] BENCHMARK PASSED (overall >= {target:.0%})")
     else:
-        print(f"\n✗ BENCHMARK FAILED (overall < {target:.0%})")
+        print(f"\n[FAIL] BENCHMARK FAILED (overall < {target:.0%})")
     return 0 if results.get("overall", 0.0) >= target else 1
 
 

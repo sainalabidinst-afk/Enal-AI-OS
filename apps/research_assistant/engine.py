@@ -254,6 +254,61 @@ class ResearchEngine:
 
         return await self._literature_review(request, query_terms, started)
 
+    async def search_evidence(self, query: str, max_sources: int = 10) -> list[dict[str, Any]]:
+        """Search evidence for a query. Compatibility shim for society workers."""
+        request = ResearchRequest(
+            query=query,
+            operation=ResearchOperation.evidence_gathering,
+            max_sources=max_sources,
+        )
+        report = await self.analyze(request)
+        return [
+            {
+                "id": e.id,
+                "title": e.title,
+                "content": e.content,
+                "confidence": e.confidence,
+                "source_type": e.source_type.value if hasattr(e.source_type, "value") else str(e.source_type),
+            }
+            for e in report.evidence
+        ]
+
+    async def analyze_findings(self, query: str, evidence: list[dict[str, Any]]) -> dict[str, Any]:
+        """Analyze findings from evidence. Compatibility shim for society workers."""
+        findings: list[dict[str, Any]] = []
+        for i, ev in enumerate(evidence[:5]):
+            findings.append({
+                "id": f"finding-{i+1}",
+                "title": f"Finding for {query}",
+                "description": (ev.get("content") or "")[:200],
+                "confidence": ev.get("confidence", 0.5),
+                "evidence_ids": [ev.get("id", "")],
+            })
+        return {
+            "query": query,
+            "findings_count": len(findings),
+            "confidence": sum(f["confidence"] for f in findings) / max(len(findings), 1),
+            "summary": f"Analyzed {len(evidence)} evidence items for query: {query}",
+            "findings": findings,
+        }
+
+    async def generate_report(self, query: str, analysis: dict[str, Any]) -> str:
+        """Generate a report string from analysis. Compatibility shim for society workers."""
+        lines = [
+            f"# Research Report: {query}",
+            "",
+            f"**Findings:** {analysis.get('findings_count', 0)}",
+            f"**Confidence:** {analysis.get('confidence', 0.0):.0%}",
+            "",
+            "## Summary",
+            analysis.get("summary", ""),
+            "",
+            "## Findings",
+        ]
+        for finding in analysis.get("findings", []):
+            lines.append(f"- {finding.get('title', '')}: {finding.get('description', '')}")
+        return "\n".join(lines)
+
     async def _literature_review(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:
         evidence = self._gather_evidence(request, query_terms)
         findings = self._generate_findings(evidence, request.query)

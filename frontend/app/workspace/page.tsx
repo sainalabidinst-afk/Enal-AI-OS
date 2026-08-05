@@ -1,8 +1,12 @@
 "use client";
 
-import { WorkspacePage } from "@/components/workspace/workspace-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function WorkspaceRoute() {
-  return <WorkspacePage />;
+export default function WorkspaceIndexPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/workspace/trading");
+  }, [router]);
+  return null;
 }
-

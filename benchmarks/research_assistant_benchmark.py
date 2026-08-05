@@ -17,8 +17,11 @@ Usage:
 from __future__ import annotations
 
 import asyncio
+import csv
+import json
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -31,6 +34,9 @@ from apps.research_assistant.schemas import (
     ResearchOperation,
     ResearchRequest,
 )
+
+REPORT_DIR = Path(__file__).resolve().parent.parent / "benchmarks" / "reports"
+REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _make_request(query: str, operation: str = "literature_review", **kwargs: object) -> ResearchRequest:
@@ -224,9 +230,31 @@ def main() -> int:
     target = 0.9
     if results.get("overall", 0.0) >= target:
         print(f"\n[PASS] BENCHMARK PASSED (overall >= {target:.0%})")
-        return 0
-    print(f"\n[FAIL] BENCHMARK FAILED (overall < {target:.0%})")
-    return 1
+    else:
+        print(f"\n[FAIL] BENCHMARK FAILED (overall < {target:.0%})")
+
+    report_path = REPORT_DIR / "research_benchmark.json"
+    csv_path = REPORT_DIR / "research_benchmark.csv"
+    payload = {
+        "generated_at": datetime.utcnow().isoformat(),
+        "dimensions": {k: v for k, v in results.items() if k not in ("overall", "pass_rate")},
+        "overall": results.get("overall", 0.0),
+        "pass_rate": results.get("pass_rate", 0.0),
+        "target": target,
+        "passed": results.get("overall", 0.0) >= target,
+    }
+    report_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    print(f"JSON report written: {report_path}")
+
+    rows = [{"dimension": k, "score": v, "passed": v >= 0.7} for k, v in payload["dimensions"].items()]
+    rows.append({"dimension": "overall", "score": payload["overall"], "passed": payload["passed"]})
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["dimension", "score", "passed"])
+        writer.writeheader()
+        writer.writerows(rows)
+    print(f"CSV report written: {csv_path}")
+
+    return 0 if results.get("overall", 0.0) >= target else 1
 
 
 if __name__ == "__main__":

@@ -1,0 +1,12 @@
+{
+  "record_id": "79403797-fab3-4c0c-ad73-afe9d43e6fcd",
+  "request_id": "70df7153-260a-4536-9d23-c7abcbed0f26",
+  "timestamp": "2026-08-05T02:10:14.536458+00:00",
+  "operation": "gap_analysis",
+  "domain": "e-commerce",
+  "requirements_count": 0,
+  "user_stories_count": 0,
+  "gaps_identified": 6,
+  "roi_analyzed": false,
+  "outcome": "success"
+}

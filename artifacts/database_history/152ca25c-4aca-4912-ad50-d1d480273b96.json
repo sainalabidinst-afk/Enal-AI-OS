@@ -1,0 +1,13 @@
+{
+  "record_id": "152ca25c-4aca-4912-ad50-d1d480273b96",
+  "request_id": "c2ac500f-a559-4088-8310-2f96635caadb",
+  "timestamp": "2026-08-04T23:29:07.560147+00:00",
+  "operation": "replication_plan",
+  "database_type": "postgresql",
+  "findings_count": 2,
+  "critical_count": 0,
+  "high_count": 0,
+  "migration_planned": false,
+  "backup_configured": false,
+  "outcome": "partial"
+}

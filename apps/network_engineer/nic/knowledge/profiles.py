@@ -28,11 +28,26 @@ from apps.network_engineer.vendor.models import NetworkAST
 logger = logging.getLogger(__name__)
 
 AST_RULE_IDS = {
-    "CIS-1.3", "CIS-2.1", "CIS-2.3", "CIS-3.1", "CIS-3.2",
-    "CIS-4.1", "CIS-4.2", "NIST-AC-2", "NIST-AC-3", "NIST-SI-4",
-    "NIST-CP-2", "PCI-6.1", "PCI-10.1", "PCI-10.6",
-    "ISP-1.1", "ISP-1.2", "ISP-2.1", "ISP-3.1", "ISP-4.1",
-    "SMB-1.1", "SMB-3.1",
+    "CIS-1.3",
+    "CIS-2.1",
+    "CIS-2.3",
+    "CIS-3.1",
+    "CIS-3.2",
+    "CIS-4.1",
+    "CIS-4.2",
+    "NIST-AC-2",
+    "NIST-AC-3",
+    "NIST-SI-4",
+    "NIST-CP-2",
+    "PCI-6.1",
+    "PCI-10.6",
+    "ISP-1.1",
+    "ISP-1.2",
+    "ISP-2.1",
+    "ISP-3.1",
+    "ISP-4.1",
+    "SMB-1.1",
+    "SMB-3.1",
 }
 
 

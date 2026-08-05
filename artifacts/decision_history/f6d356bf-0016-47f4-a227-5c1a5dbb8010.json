@@ -1,0 +1,15 @@
+{
+  "record_id": "f6d356bf-0016-47f4-a227-5c1a5dbb8010",
+  "decision_id": "ca51a087-47e8-4b45-a61b-83486b17ae10",
+  "timestamp": "2026-08-04T23:20:01.249705+00:00",
+  "context": "Choose a cloud provider for the new service.",
+  "chosen_alternative": "Proceed with a smaller-scope pilot first",
+  "alternatives_count": 5,
+  "confidence_score": 0.2658,
+  "evidence_count": 1,
+  "risk_score": 0.06,
+  "explanation": "Recommendation: Proceed with a smaller-scope pilot first (score 51%). Confidence 27% with uncertainty \u00b125%. Evidence quality: 60%; Evidence agreement: 0%; Evidence coverage: 20%; Decision margin: 8%. Confidence is low \u2014 consider gathering more evidence or deferring.",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

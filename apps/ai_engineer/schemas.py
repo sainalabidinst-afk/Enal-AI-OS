@@ -25,6 +25,13 @@ class OperationType(str, Enum):
     ai_assessment = "ai_assessment"
 
 
+class OutputFormat(str, Enum):
+    json = "json"
+    markdown = "markdown"
+    html = "html"
+    text = "text"
+
+
 class AgentArchitectureType(str, Enum):
     single_agent = "single_agent"
     multi_agent = "multi_agent"

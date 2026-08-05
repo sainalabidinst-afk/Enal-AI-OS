@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-08-05T00:07:29.865227",
+  "overall_score": 100.0,
+  "grade": "A+",
+  "reasoning_score": 100.0,
+  "coverage_score": 100.0,
+  "explainability_score": 100.0,
+  "consistency_score": 100.0,
+  "safety_score": 100.0,
+  "scenarios_run": 20,
+  "evidence_total": 2241,
+  "domains_detected": [
+    "wyckoff",
+    "smc",
+    "elliott_wave",
+    "volume_profile",
+    "psychology",
+    "macro",
+    "derivatives"
+  ],
+  "domain_evidence_count": {
+    "wyckoff": 160,
+    "smc": 1040,
+    "elliott_wave": 140,
+    "volume_profile": 160,
+    "psychology": 20,
+    "macro": 61,
+    "derivatives": 20
+  },
+  "passed": true
+}

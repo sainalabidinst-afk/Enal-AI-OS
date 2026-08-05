@@ -27,11 +27,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from apps.business_analyst.engine import BusinessAnalystEngine
 from apps.business_analyst.schemas import (
     BusinessAnalysisRequest,
-    OperationType,
     BusinessContext,
-    StakeholderInput,
+    OperationType,
     Persona,
     QualityAttributes,
+    StakeholderInput,
 )
 
 
@@ -61,11 +61,16 @@ def _make_request(operation: str) -> BusinessAnalysisRequest:
                 "Integration with external payment systems is required",
             ],
             interview_transcripts=[
-                "Users want a faster checkout process. They find the current 5-step checkout too long.",
+                "Users want a faster checkout process. "
+                "They find the current 5-step checkout too long.",
                 "Customers need to save multiple shipping addresses.",
                 "Operations team reports manual data entry is causing delays and errors.",
             ],
-            current_state_documentation="Current process: Customer places order -> Manual validation (2 hours) -> Manager approval (1 day) -> Warehouse notification (manual) -> Shipping. This takes 2-3 days total.",
+            current_state_documentation=(
+                "Current process: Customer places order -> Manual validation (2 hours) -> "
+                "Manager approval (1 day) -> Warehouse notification (manual) -> Shipping. "
+                "This takes 2-3 days total."
+            ),
             technical_constraints=[
                 "Must use PostgreSQL for data storage",
                 "Must comply with GDPR regulations",

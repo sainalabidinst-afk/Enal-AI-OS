@@ -59,7 +59,7 @@ class FullStackEngineerEngine:
         self.performance_engineer = PerformanceEngineer()
         self.release_engineer = ReleaseEngineer()
 
-    def review(self, request: FullStackRequest) -> FullStackReport:
+    async def review(self, request: FullStackRequest) -> FullStackReport:
         """
         Run the full-stack engineering pipeline based on operation.
 
@@ -75,40 +75,40 @@ class FullStackEngineerEngine:
         inputs = request.inputs
         context = request.context
 
-        architecture_review: ArchitectureReviewResult | None = None
-        code_review: CodeReviewResult | None = None
-        refactoring_plan: RefactoringPlanResult | None = None
-        test_engineering: TestEngineeringResult | None = None
-        performance_analysis: PerformanceAnalysisResult | None = None
-        release_review: ReleaseReadinessResult | None = None
+        architecture_review: dict[str, Any] | None = None
+        code_review: dict[str, Any] | None = None
+        refactoring_plan: dict[str, Any] | None = None
+        test_engineering: dict[str, Any] | None = None
+        performance_analysis: dict[str, Any] | None = None
+        release_review: dict[str, Any] | None = None
 
         if op in ("architecture_review", "full_stack_review"):
             repo_path = inputs.get("repo_path", ".")
-            architecture_review = self.arch_review_engine.review(repo_path)
+            architecture_review = await self.arch_review_engine.review(repo_path)
 
         if op in ("code_review", "full_stack_review"):
             source_code = inputs.get("source_code", "")
             filename = inputs.get("filename", "<unknown>")
-            code_review = self.code_review_engine.review(source_code, filename)
+            code_review = await self.code_review_engine.review(source_code, filename)
 
         if op in ("refactoring_plan", "full_stack_review"):
             source_code = inputs.get("source_code", "")
             filename = inputs.get("filename", "<unknown>")
-            refactoring_plan = self.refactoring_planner.plan(source_code, filename)
+            refactoring_plan = await self.refactoring_planner.plan(source_code, filename)
 
         if op in ("test_engineering", "full_stack_review"):
             source_path = inputs.get("source_path", ".")
             module_path = inputs.get("module_path", "")
-            test_engineering = self.test_engineer.engineer(source_path, module_path)
+            test_engineering = await self.test_engineer.engineer(source_path, module_path)
 
         if op in ("performance_analysis", "full_stack_review"):
             source_code = inputs.get("source_code", "")
             filename = inputs.get("filename", "<unknown>")
-            performance_analysis = self.performance_engineer.analyze(source_code, filename)
+            performance_analysis = await self.performance_engineer.analyze(source_code, filename)
 
         if op in ("release_review", "full_stack_review"):
             changes = inputs.get("changes", [])
-            release_review = self.release_engineer.review(changes, context)
+            release_review = await self.release_engineer.review(changes, context)
 
         quality_score = self._compute_quality_score(
             architecture_review, code_review, refactoring_plan,
@@ -156,12 +156,12 @@ class FullStackEngineerEngine:
 
     def _compute_quality_score(
         self,
-        arch: ArchitectureReviewResult | None,
-        code: CodeReviewResult | None,
-        refactor: RefactoringPlanResult | None,
-        test: TestEngineeringResult | None,
-        perf: PerformanceAnalysisResult | None,
-        release: ReleaseReadinessResult | None,
+        arch: dict[str, Any] | None,
+        code: dict[str, Any] | None,
+        refactor: dict[str, Any] | None,
+        test: dict[str, Any] | None,
+        perf: dict[str, Any] | None,
+        release: dict[str, Any] | None,
     ) -> float:
         """Compute overall quality score."""
         score = 0.5
@@ -194,12 +194,12 @@ class FullStackEngineerEngine:
     def _build_explanation(
         self,
         op: str,
-        arch: ArchitectureReviewResult | None,
-        code: CodeReviewResult | None,
-        refactor: RefactoringPlanResult | None,
-        test: TestEngineeringResult | None,
-        perf: PerformanceAnalysisResult | None,
-        release: ReleaseReadinessResult | None,
+        arch: dict[str, Any] | None,
+        code: dict[str, Any] | None,
+        refactor: dict[str, Any] | None,
+        test: dict[str, Any] | None,
+        perf: dict[str, Any] | None,
+        release: dict[str, Any] | None,
     ) -> str:
         """Build human-readable explanation."""
         parts = [f"Performed {op} full-stack engineering review."]

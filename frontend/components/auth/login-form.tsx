@@ -5,10 +5,16 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 import { useEulaStore } from "@/store/eula-store";
 
+// Authorized credentials for the Enal AI OS.
+// This is a presentation-layer access control for the UX v2 flow.
+const AUTH_USERNAME = "Enal";
+const AUTH_PASSWORD = "R45t4m4n";
+
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [localError, setLocalError] = useState<string | null>(null);
 
   const router = useRouter();
   const login = useAuthStore((s) => s.login);
@@ -19,6 +25,14 @@ export function LoginForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!username.trim() || !password.trim()) return;
+    setLocalError(null);
+
+    // Validate credentials (case-sensitive username, exact password)
+    if (username.trim() !== AUTH_USERNAME || password !== AUTH_PASSWORD) {
+      setLocalError("Invalid username or password.");
+      return;
+    }
+
     try {
       await login({ username: username.trim(), password });
       // After successful login, route to EULA if not yet accepted, else dashboard
@@ -28,17 +42,17 @@ export function LoginForm() {
     }
   };
 
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-bg-primary)] p-4">
-      <div className="w-full max-w-sm space-y-6">
+return (
+    <div className="flex min-h-screen w-full items-center justify-center overflow-y-auto bg-[var(--color-bg-primary)] p-4">
+      <div className="w-full max-w-sm space-y-6 py-6">
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="text-4xl mb-4">🧠</div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
-            Enal Cognitive Platform
+            Enal AI OS
           </h1>
           <p className="text-sm text-[var(--color-text-secondary)]">
-            Sign in to your workspace
+            Artificial Intelligence Operating System
           </p>
         </div>
 
@@ -77,7 +91,7 @@ export function LoginForm() {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder={showPassword ? "R45t4m4n" : "Enter your password"}
                 autoComplete="current-password"
                 disabled={isLoading}
                 className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-2.5 pr-10 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] disabled:opacity-50"
@@ -93,9 +107,9 @@ export function LoginForm() {
             </div>
           </div>
 
-          {error && (
+          {(localError || error) && (
             <div className="rounded-lg border border-[var(--color-danger)] bg-red-900/20 px-4 py-2.5 text-sm text-[var(--color-danger)]">
-              {error}
+              {localError || error}
             </div>
           )}
 
@@ -110,7 +124,7 @@ export function LoginForm() {
                 Signing in...
               </span>
             ) : (
-              "Sign in"
+              "Login"
             )}
           </button>
         </form>

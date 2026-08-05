@@ -66,6 +66,34 @@ class OutputFormat(str, Enum):
     confluence = "confluence"
 
 
+class Severity(str, Enum):
+    critical = "critical"
+    high = "high"
+    medium = "medium"
+    low = "low"
+    info = "info"
+
+
+class FindingCategory(str, Enum):
+    schema = "schema"
+    requirement = "requirement"
+    process = "process"
+    roi = "roi"
+    gap = "gap"
+
+
+class Finding(BaseModel):
+    """A single business analysis finding."""
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    category: FindingCategory = Field(default=FindingCategory.schema)
+    severity: Severity = Field(default=Severity.medium)
+    title: str = Field(..., description="Short title")
+    description: str = Field(..., description="Detailed description")
+    evidence: dict[str, Any] = Field(default_factory=dict)
+    recommendation: str = Field(default="", description="Remediation guidance")
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+
+
 class BusinessContext(BaseModel):
     domain: str = Field(default="", description="Business domain (e-commerce, fintech, etc.)")
     project_name: str = Field(default="", description="Project name")

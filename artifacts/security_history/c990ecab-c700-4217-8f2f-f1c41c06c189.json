@@ -1,0 +1,14 @@
+{
+  "record_id": "c990ecab-c700-4217-8f2f-f1c41c06c189",
+  "assessment_id": "7779624d-7937-4469-a3a5-98e6ea233d68",
+  "timestamp": "2026-08-04T11:11:42.067860+00:00",
+  "target_type": "code",
+  "total_findings": 0,
+  "critical_count": 1,
+  "high_count": 1,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}

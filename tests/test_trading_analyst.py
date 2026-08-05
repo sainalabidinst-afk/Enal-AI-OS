@@ -138,8 +138,43 @@ class TestTradingEngine:
 
     @pytest.mark.asyncio
     async def test_analyze_market_all_domains_detected(self, engine):
-        macro_data = {"policy_rate": 4.5, "previous_rate": 4.75, "cpi": 3.2}
-        derivatives_data = {"iv_percentile": 0.6, "put_call_ratio": 0.8}
+        macro_data = {
+            "current_rate": 4.5,
+            "previous_rate": 4.75,
+            "central_bank": "Fed",
+            "cpi": 3.2,
+            "core_cpi": 3.5,
+            "gdp_growth": 2.1,
+            "unemployment": 3.8,
+            "pmi": 52.0,
+            "vix": 18.5,
+            "dxy": 103.0,
+            "bond_yield_10y": 4.2,
+            "spy_performance_1m": 0.02,
+        }
+        derivatives_data = {
+            "current_iv": 25.0,
+            "historical_iv": 20.0,
+            "iv_percentile": 0.6,
+            "put_volume": 1000.0,
+            "call_volume": 800.0,
+            "put_oi": 5000.0,
+            "call_oi": 4000.0,
+            "otm_put_iv": 28.0,
+            "atm_iv": 22.0,
+            "otm_call_iv": 26.0,
+            "spot_price": 50000.0,
+            "futures_price": 50500.0,
+            "commercial_long": 0.4,
+            "commercial_short": 0.3,
+            "large_spec_long": 0.35,
+            "large_spec_short": 0.25,
+            "small_spec_long": 0.1,
+            "small_spec_short": 0.15,
+            "open_interest": 100000.0,
+            "option_chain": {"strikes": [50000, 51000, 52000], "current_price": 50000.0},
+            "current_price": 50000.0,
+        }
         result = await engine.analyze_market("BTCUSDT", use_live_data=False, macro_data=macro_data, derivatives_data=derivatives_data)
         evidence_types = {ev.type for ev in result.evidence}
         domain_prefixes = {

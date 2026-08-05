@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-04T07:43:20.861262",
+  "generated_at": "2026-08-05T02:06:38.774688",
   "total_cases": 100,
   "passed_cases": 100,
   "failed_cases": 0,
   "pass_rate": 1.0,
   "avg_score": 1.0,
-  "avg_latency_ms": 1.88,
+  "avg_latency_ms": 1.07,
   "vendor_breakdown": {
     "bgp_full_mesh_0001": {
       "total": 1,
@@ -717,7 +717,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 18,
+      "execution_time_ms": 10,
       "errors": []
     },
     {
@@ -739,7 +739,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 11,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -761,7 +761,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 6,
       "errors": []
     },
     {
@@ -772,7 +772,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -783,7 +783,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -794,7 +794,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -816,7 +816,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 5,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -838,7 +838,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -849,7 +849,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -860,7 +860,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -893,7 +893,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -926,7 +926,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 4,
       "errors": []
     },
     {
@@ -1003,7 +1003,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 17,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1058,7 +1058,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 11,
       "errors": []
     },
     {
@@ -1124,7 +1124,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 26,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1135,7 +1135,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1146,7 +1146,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1157,7 +1157,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1168,7 +1168,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1179,7 +1179,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1190,7 +1190,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 15,
       "errors": []
     },
     {
@@ -1212,7 +1212,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1223,7 +1223,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 4,
       "errors": []
     },
     {
@@ -1245,7 +1245,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 1,
       "errors": []
     },
     {
@@ -1267,7 +1267,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 1,
       "errors": []
     },
     {
@@ -1278,7 +1278,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1289,7 +1289,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1322,7 +1322,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1333,7 +1333,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 4,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1344,7 +1344,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1388,7 +1388,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 8,
       "errors": []
     },
     {
@@ -1399,7 +1399,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 8,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1421,7 +1421,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1443,7 +1443,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 7,
       "errors": []
     },
     {
@@ -1465,7 +1465,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1476,7 +1476,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1487,7 +1487,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1498,7 +1498,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1509,7 +1509,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 7,
       "errors": []
     },
     {
@@ -1520,7 +1520,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 1,
       "errors": []
     },
     {
@@ -1531,7 +1531,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 1,
       "errors": []
     },
     {
@@ -1542,7 +1542,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1564,7 +1564,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1586,7 +1586,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1597,7 +1597,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1608,7 +1608,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 12,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1619,7 +1619,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 2,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1630,7 +1630,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1641,7 +1641,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1652,7 +1652,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 5,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1663,7 +1663,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1674,7 +1674,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1707,7 +1707,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 4,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1718,7 +1718,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 15,
       "errors": []
     },
     {
@@ -1740,7 +1740,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 1,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1762,7 +1762,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 3,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1784,7 +1784,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 16,
+      "execution_time_ms": 0,
       "errors": []
     },
     {
@@ -1806,7 +1806,7 @@
       "score": 1.0,
       "findings_matched": 0,
       "expected_findings": 0,
-      "execution_time_ms": 0,
+      "execution_time_ms": 10,
       "errors": []
     }
   ]

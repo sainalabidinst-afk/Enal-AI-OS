@@ -19,19 +19,16 @@ Usage:
 
 from __future__ import annotations
 
-import ast
 import sys
-import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from apps.qa_engineer.engine import QAEngineerEngine
 from apps.qa_engineer.schemas import (
-    QATestRequestModel,
     QATestOperation,
+    QATestRequestModel,
 )
-
 
 # --- Synthetic Python source for benchmark ---
 SAMPLE_CODE = '''
@@ -74,10 +71,12 @@ if __name__ == "__main__":
 FLAKY_TEST_RESULTS = [
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 50, "build_id": "b1"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 48, "build_id": "b2"},
-    {"test_name": "test_calculate_total", "passed": False, "duration_ms": 0, "build_id": "b3", "error_message": "Connection refused — network timeout"},
+    {"test_name": "test_calculate_total", "passed": False, "duration_ms": 0,
+     "build_id": "b3", "error_message": "Connection refused — network timeout"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 52, "build_id": "b4"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 50, "build_id": "b5"},
-    {"test_name": "test_calculate_total", "passed": False, "duration_ms": 0, "build_id": "b6", "error_message": "HTTP 503 — service unavailable"},
+    {"test_name": "test_calculate_total", "passed": False, "duration_ms": 0,
+     "build_id": "b6", "error_message": "HTTP 503 — service unavailable"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 49, "build_id": "b7"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 51, "build_id": "b8"},
 ]
@@ -151,7 +150,10 @@ def test_coverage_acc() -> float:
     engine = QAEngineerEngine()
     req = _quick_request("coverage")
     report = engine.review(req)
-    if report.coverage_report.line_coverage >= 0.0 and report.coverage_report.function_coverage >= 0.0:
+    if (
+        report.coverage_report.line_coverage >= 0.0
+        and report.coverage_report.function_coverage >= 0.0
+    ):
         return 0.9
     return 0.3
 

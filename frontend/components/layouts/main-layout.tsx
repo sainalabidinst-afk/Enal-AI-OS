@@ -61,6 +61,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   ];
 
   const isAuthPage = pathname === "/login" || pathname === "/eula";
+  const isWorkspaceRoute = pathname.startsWith("/workspace") && !isAuthPage;
 
   // Don't show sidebar on login/eula pages
   if (isAuthPage) {
@@ -70,6 +71,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         <ToastContainer />
       </>
     );
+  }
+
+  // Workspace routes use their own desktop-style layout
+  if (isWorkspaceRoute) {
+    return <>{children}</>;
   }
 
   return (

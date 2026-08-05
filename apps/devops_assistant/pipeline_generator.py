@@ -14,7 +14,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from apps.devops_assistant.schemas import Problem, Solution
+from apps.devops_assistant.schemas import ImprovementType, Problem, Solution
 
 logger = logging.getLogger(__name__)
 

@@ -15,9 +15,11 @@
 | Product Intelligence | v1.0.0-dev | Active | Engineering Hardening phase |
 | Product Contract | v1 | Locked | Effective 2026-08-02 |
 | Frontend MVP | v1.0.0-dev | Active | Product MVP phase |
-| Capability Packs | v1.0.0-rc | Production Ready | 13 packs certified |
+| Capability Packs | v1.1.0 | Production Ready | 19 packs certified |
 | Network Engineer | v2.0.0 | **A+ Certified** | 100 real cases, 100% benchmark pass rate, 100% avg score, ~2ms latency |
 | Security Engineer | v1.0.0 | **A+ Certified** | 103 real cases, 95% benchmark avg score, 52 golden tests, ~7ms latency |
+| Research Assistant | v1.0.0 | **A Certified** | 150 real cases, 96.67% benchmark score, 19 golden tests |
+| Trading Analyst | v1.0.0 | **A+ Certified** | 100 real cases, 100% benchmark score, 24 golden tests, 7 knowledge domains |
 | API Contracts | v1 | Stable | Public APIs frozen |
 | Benchmark Framework | v1.0.0-dev | Active | 452 tests collected (3 JWT errors) |
 | CI/CD | Active | `.github/workflows/` | ci.yml, cce.yml, docs-ci.yml |
@@ -29,7 +31,10 @@
 |-------|-------|
 | Architecture | 92/100 |
 | Network Engineer | 100/100 (100 cases, 100% pass rate, ~2ms latency) |
-| Runtime Tests | 452 collected |
+| Security Engineer | 100/100 (103 cases, 100% pass rate, ~7ms latency) |
+| Research Assistant | 96.67/100 (150 cases, 96.67% benchmark score, 19 golden tests) |
+| Trading Analyst | 100/100 (100 cases, 100% benchmark score, 24 golden tests) |
+| Runtime Tests | 95+ collected |
 | Type Safety | 0 Severity 8+ issues |
 
 ## Next Milestones

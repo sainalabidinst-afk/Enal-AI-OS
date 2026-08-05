@@ -4,7 +4,7 @@
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
 **Terakhir Diverifikasi:** 2026-08-02
-**Versi:** 1.0.0
+**Versi:** 2.0.0
 **Status:** Aktif
 **SSOT:** Spesifikasi Capability Pack untuk System Architect
 <!-- DOCUMENT_METADATA_END -->
@@ -140,6 +140,12 @@ ArchitectureReviewReport
 
 ## 5. Hasil Benchmark (RFC-0011)
 
+**Hasil Terverifikasi:**
+- Overall: 97.50%
+- Pass rate: 100%
+- Status: PASS
+
+
 | Dimensi | Target |
 |-----------|--------|
 | Architecture Review Completeness | ≥95% |
@@ -211,6 +217,10 @@ System Architect menjadi **otoritas arsitektur** untuk:
 | `apps/system_architect/adr_generator.py` | Generasi ADR |
 | `apps/system_architect/boundary_enforcer.py` | Package boundary enforcement |
 | `apps/system_architect/governance.py` | Aturan governance arsitektur |
+| `apps/system_architect/scalability_analyzer.py` | Analisis skala sistem (scalability bottlenecks) |
+| `apps/system_architect/security_architect.py` | Review arsitektur untuk keamanan (auth, encryption, threat surface) |
+| `apps/system_architect/cost_optimizer.py` | Analisis optimasi biaya arsitektur |
+| `apps/system_architect/refactoring_strategy.py` | Rekomendasi strategi refactoring berbasis temuan |
 | `apps/system_architect/engine.py` | Orchestrator domain engine |
 | `apps/system_architect/worker.py` | Adaptor worker tipis |
 | `benchmarks/system_architect_benchmark.py` | Benchmark (8 dimensi) |

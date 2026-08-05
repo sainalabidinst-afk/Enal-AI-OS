@@ -33,6 +33,7 @@ Result
 from typing import Any
 
 from apps.base import BaseReferenceApp
+from apps.devops_assistant.engine import DevOpsEngine
 from apps.devops_assistant.worker import DevOpsWorker
 
 
@@ -44,6 +45,7 @@ class DevOpsAssistantApp(BaseReferenceApp):
     pipeline = ["perception", "memory", "planning", "reasoning", "decision", "action"]
 
     def __init__(self) -> None:
+        self.engine = DevOpsEngine()
         self.worker = DevOpsWorker()
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:

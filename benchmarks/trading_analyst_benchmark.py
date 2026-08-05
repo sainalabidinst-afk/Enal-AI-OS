@@ -14,15 +14,21 @@ without requiring live exchange data.
 """
 
 import asyncio
+import csv
+import json
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from apps.trading_analyst.engine import TradingEngine
 from apps.trading_analyst.market_intelligence.models import OHLCV
 
 logger = logging.getLogger(__name__)
+
+REPORT_DIR = Path(__file__).resolve().parent.parent / "benchmarks" / "reports"
+REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 # 9 knowledge domains per RFC-0005
 DOMAINS = [
@@ -365,6 +371,24 @@ def print_summary(report: TradingBenchmarkReport) -> None:
 def main() -> int:
     report = asyncio.run(run_trading_benchmark())
     print_summary(report)
+
+    json_path = REPORT_DIR / "trading_benchmark.json"
+    csv_path = REPORT_DIR / "trading_benchmark.csv"
+    json_path.write_text(json.dumps(report.to_dict(), indent=2), encoding="utf-8")
+    print(f"JSON report written: {json_path}")
+
+    rows = [{
+        "dimension": k,
+        "score": round(v, 2) if isinstance(v, float) else v,
+        "passed": v >= 90.0 if isinstance(v, float) else v,
+    } for k, v in report.to_dict().items() if k not in ("generated_at", "grade", "domains_detected", "domain_evidence_count", "passed")]
+    rows.append({"dimension": "overall", "score": round(report.overall_score, 2), "passed": report.passed})
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["dimension", "score", "passed"])
+        writer.writeheader()
+        writer.writerows(rows)
+    print(f"CSV report written: {csv_path}")
+
     return 0 if report.passed else 1
 
 

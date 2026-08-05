@@ -47,6 +47,7 @@ from apps.business_analyst.spec_generator import SpecGenerator
 from apps.business_analyst.gap_analyzer import GapAnalyzer
 from apps.business_analyst.roi_calculator import ROICalculator
 from apps.business_analyst.optimizer import ProcessOptimizer
+from apps.business_analyst.domain_knowledge import DomainKnowledgeEngine
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +72,7 @@ class BusinessAnalystEngine:
         self.gap_analyzer = GapAnalyzer()
         self.roi_calc = ROICalculator()
         self.optimizer = ProcessOptimizer()
+        self.domain_knowledge = DomainKnowledgeEngine()
 
     def analyze(self, request: BusinessAnalysisRequest) -> BusinessAnalysisReport:
         """
@@ -128,6 +130,13 @@ class BusinessAnalystEngine:
 
         # Compute quality score.
         quality_score = self._compute_quality_score(requirements, user_stories, gaps, roi_result)
+
+        # Deeper knowledge expansion
+        domain = request.business_context.domain if request.business_context else ""
+        if domain:
+            domain_findings = self.domain_knowledge.enrich_requirements(domain, requirements)
+            if domain_findings:
+                explanation += f"\n\nDomain insights ({domain}): {len(domain_findings)} recommendations based on industry best practices."
 
         explanation = self._build_explanation(op, requirements, user_stories, gaps, roi_result)
 
