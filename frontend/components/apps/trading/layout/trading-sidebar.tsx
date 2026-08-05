@@ -1,6 +1,6 @@
 "use client";
 
-import { useTradingStore } from "../state/trading-store";
+import { useTradingUIStore } from "../stores/ui-store";
 import { Button } from "@/components/design-system/primitives/button";
 import { cn } from "@/lib/utils";
 
@@ -16,8 +16,8 @@ const MENU_ITEMS = [
 ];
 
 export function TradingSidebar() {
-  const activeTab = useTradingStore((s) => s.activeTab);
-  const setActiveTab = useTradingStore((s) => s.setActiveTab);
+  const activeTab = useTradingUIStore((s) => s.activeTab);
+  const setActiveTab = useTradingUIStore((s) => s.setActiveTab);
 
   return (
     <aside className="flex w-48 flex-col border-r border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="Trading sidebar">

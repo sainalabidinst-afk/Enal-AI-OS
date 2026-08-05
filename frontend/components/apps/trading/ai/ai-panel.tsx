@@ -3,12 +3,15 @@
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/design-system/layout/card";
 import { Badge } from "@/components/design-system/primitives/badge";
 import { Sparkles, TrendingUp, AlertTriangle, CheckCircle } from "lucide-react";
+import { useMarketStore } from "../stores/market-store";
 
 export function AIPanel() {
+  const symbol = useMarketStore((s) => s.symbol);
+
   return (
     <aside className="flex w-80 flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="AI Insight panel">
       <div className="border-b border-[var(--color-border)] px-4 py-3">
-        <h2 className="text-sm font-semibold">AI Insight</h2>
+        <h2 className="text-sm font-semibold">AI Insight {symbol ? `• ${symbol}` : ""}</h2>
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         <Card>

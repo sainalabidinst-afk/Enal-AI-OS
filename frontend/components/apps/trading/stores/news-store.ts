@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { NewsItem } from "../models/trading-models";
-import { marketService } from "../services/market-service";
+import type { NewsItem } from "../data/models/trading-models";
+import { marketConnectivityService } from "../services/market-connectivity-service";
 
 type NewsFilter = "all" | "bullish" | "bearish" | "neutral";
 
@@ -24,7 +24,7 @@ export const useNewsStore = create<NewsState>((set) => ({
   fetchNews: async () => {
     set({ status: "loading", error: null });
     try {
-      const items = await marketService.getNews();
+      const items = await marketConnectivityService.getNews();
       set({ items, status: "success" });
     } catch {
       set({ status: "error", error: "Failed to load news" });

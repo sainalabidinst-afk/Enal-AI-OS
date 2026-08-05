@@ -1,15 +1,28 @@
 "use client";
 
 import { useTradingUIStore } from "../stores/ui-store";
+import { useConnectionStore } from "../connectivity/manager/connection-store";
 import { Tabs, TabPanel } from "@/components/design-system/navigation/tabs";
+import { Badge } from "@/components/design-system/primitives/badge";
 import { TradingHeader } from "./trading-header";
 import { TradingSidebar } from "./trading-sidebar";
-import { AIPanel } from "../ai/ai-panel";
+import { AIWorkspacePanel } from "@/components/workspace/ai/ai-workspace-panel";
 import { TradingBottomPanel } from "./trading-bottom-panel";
+
+const STATUS_COLORS: Record<string, "success" | "warning" | "danger" | "secondary"> = {
+  connected: "success",
+  connecting: "warning",
+  reconnecting: "warning",
+  disconnected: "danger",
+  error: "danger",
+  idle: "secondary",
+};
 
 export function TradingLayout({ children }: { children: React.ReactNode }) {
   const activeTab = useTradingUIStore((s) => s.activeTab);
   const setActiveTab = useTradingUIStore((s) => s.setActiveTab);
+  const status = useConnectionStore((s) => s.status);
+  const providerName = useConnectionStore((s) => s.providerName);
 
   const tabs = [
     { id: "dashboard" as const, label: "Dashboard" },
@@ -37,10 +50,20 @@ export function TradingLayout({ children }: { children: React.ReactNode }) {
                 </div>
               </TabPanel>
             </div>
-            <AIPanel />
+            <AIWorkspacePanel capabilityId="trading" />
           </div>
           <TradingBottomPanel />
         </div>
       </div>
+      <div className="flex h-6 shrink-0 items-center justify-between border-t border-[var(--color-border)] bg-[var(--color-surface)] px-3">
+        <div className="flex items-center gap-2">
+          <Badge variant={STATUS_COLORS[status] ?? "secondary"}>{status}</Badge>
+          {providerName && (
+            <span className="text-xs text-[var(--color-secondary-500)]">{providerName}</span>
+          )}
+        </div>
+        <div className="text-xs text-[var(--color-secondary-500)]">Enal AI OS • Trading Terminal</div>
+      </div>
     </div>
   );
+}

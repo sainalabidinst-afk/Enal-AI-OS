@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { OHLCV } from "../models/trading-models";
-import { marketService } from "../services/market-service";
+import type { OHLCV } from "../data/models/trading-models";
+import { marketConnectivityService } from "../services/market-connectivity-service";
 
 interface MarketState {
   symbol: string | null;
@@ -30,7 +30,7 @@ export const useMarketStore = create<MarketState>((set, get) => ({
 
     set({ status: "loading", error: null });
     try {
-      const data = await marketService.getOHLCV(symbol, timeframe);
+      const data = await marketConnectivityService.getOHLCV(symbol, timeframe);
       set({ ohlcv: data, status: "success" });
     } catch (error) {
       set({ status: "error", error: "Failed to fetch chart data" });
@@ -39,7 +39,7 @@ export const useMarketStore = create<MarketState>((set, get) => ({
 
   fetchQuote: async (symbol) => {
     try {
-      return await marketService.getQuote(symbol);
+      return await marketConnectivityService.getQuote(symbol);
     } catch {
       return { price: 0, change: 0 };
     }

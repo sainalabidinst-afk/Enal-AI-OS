@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import type { WatchlistItem } from "../models/trading-models";
-import { marketService } from "../services/market-service";
-import { eventBus } from "../events/event-bus";
+import type { WatchlistItem } from "../data/models/trading-models";
+import { marketConnectivityService } from "../services/market-connectivity-service";
 
 interface WatchlistState {
   items: WatchlistItem[];
@@ -25,7 +24,7 @@ export const useWatchlistStore = create<WatchlistState>((set, get) => ({
   fetchWatchlist: async () => {
     set({ status: "loading", error: null });
     try {
-      const items = await marketService.getWatchlist();
+      const items = await marketConnectivityService.getWatchlist();
       set({ items, status: "success" });
     } catch {
       set({ status: "error", error: "Failed to load watchlist" });

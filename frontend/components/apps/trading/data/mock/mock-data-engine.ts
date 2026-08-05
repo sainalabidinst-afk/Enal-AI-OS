@@ -24,7 +24,7 @@ function random(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-function generateOHLCV(symbol: string, timeframe: string, limit = 100): OHLCV[] {
+export function generateOHLCV(symbol: string, timeframe: string, limit = 100): OHLCV[] {
   const item = SYMBOLS.find((s) => s.symbol === symbol) ?? SYMBOLS[0];
   const now = Date.now();
   const candles: OHLCV[] = [];

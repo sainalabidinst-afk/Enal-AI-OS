@@ -3,8 +3,8 @@ import { useMarketStore } from "../stores/market-store";
 import { useWatchlistStore } from "../stores/watchlist-store";
 import { usePortfolioStore } from "../stores/portfolio-store";
 import { useNewsStore } from "../stores/news-store";
-import { eventBus } from "../events/event-bus";
-import { generateFakeQuote } from "../mock/mock-data-engine";
+import { eventBus } from "../data/events/event-bus";
+import { generateFakeQuote } from "../data/mock/mock-data-engine";
 
 export function useMarketData() {
   const symbol = useMarketStore((s) => s.symbol);

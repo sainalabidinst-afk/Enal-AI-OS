@@ -4,9 +4,12 @@ import { useState } from "react";
 import { Search, Bell, Settings, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/design-system/primitives/button";
 import { Input } from "@/components/design-system/primitives/input";
+import { useMarketStore } from "../stores/market-store";
 
 export function TradingHeader() {
   const [query, setQuery] = useState("");
+  const symbol = useMarketStore((s) => s.symbol);
+  const setSymbol = useMarketStore((s) => s.setSymbol);
 
   return (
     <header className="flex h-12 shrink-0 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)] px-4">
@@ -24,6 +27,12 @@ export function TradingHeader() {
             <option>Forex</option>
           </select>
         </div>
+        {symbol && (
+          <>
+            <div className="h-4 w-px bg-[var(--color-border)]" />
+            <span className="text-sm font-medium">{symbol}</span>
+          </>
+        )}
       </div>
 
       <div className="flex items-center gap-2">
@@ -34,6 +43,12 @@ export function TradingHeader() {
             placeholder="Symbol search..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && query.trim()) {
+                setSymbol(query.trim().toUpperCase());
+                setQuery("");
+              }
+            }}
             className="pl-9 h-8 w-64 text-xs"
           />
         </div>
