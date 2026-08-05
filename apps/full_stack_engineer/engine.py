@@ -133,11 +133,11 @@ class FullStackEngineerEngine:
             explanation=explanation,
             raw={
                 "latency_ms": round((time.monotonic() - started) * 1000.0, 2),
-                "architecture_score": architecture_review.architecture_score if architecture_review else 0.0,
-                "findings_count": len(code_review.findings) if code_review else 0,
-                "refactoring_plans": len(refactoring_plan.plans) if refactoring_plan else 0,
-                "performance_issues": len(performance_analysis.issues) if performance_analysis else 0,
-                "release_ready": release_review.ready if release_review else False,
+                "architecture_score": architecture_review["architecture_score"] if architecture_review else 0.0,
+                "findings_count": len(code_review["findings"]) if code_review else 0,
+                "refactoring_plans": len(refactoring_plan["plans"]) if refactoring_plan else 0,
+                "performance_issues": len(performance_analysis["issues"]) if performance_analysis else 0,
+                "release_ready": release_review["ready"] if release_review else False,
             },
         )
 
@@ -145,9 +145,9 @@ class FullStackEngineerEngine:
             request_id=request.request_id,
             operation=op,
             repo_path=inputs.get("repo_path", ""),
-            architecture_score=architecture_review.architecture_score if architecture_review else 0.0,
-            findings_count=len(code_review.findings) if code_review else 0,
-            release_ready=release_review.ready if release_review else False,
+            architecture_score=architecture_review["architecture_score"] if architecture_review else 0.0,
+            findings_count=len(code_review["findings"]) if code_review else 0,
+            release_ready=release_review["ready"] if release_review else False,
             outcome="accepted" if quality_score >= 0.7 else "partially_accepted",
         )
         self._record(record)
@@ -167,7 +167,7 @@ class FullStackEngineerEngine:
         score = 0.5
 
         if arch:
-            score += min(0.1, arch.architecture_score * 0.1)
+            score += min(0.1, arch["architecture_score"] * 0.1)
 
         if code:
             score += 0.1
@@ -177,16 +177,16 @@ class FullStackEngineerEngine:
 
         if test:
             score += 0.05
-            if test.estimated_coverage > 0:
-                score += min(0.1, test.estimated_coverage * 0.1)
+            if test["estimated_coverage"] > 0:
+                score += min(0.1, test["estimated_coverage"] * 0.1)
 
         if perf:
-            critical_issues = sum(1 for i in perf.issues if i.severity == "critical")
+            critical_issues = sum(1 for i in perf["issues"] if i["severity"] == "critical")
             if critical_issues == 0:
                 score += 0.1
 
         if release:
-            if release.ready:
+            if release["ready"]:
                 score += 0.1
 
         return max(0.0, min(1.0, round(score, 4)))
@@ -205,31 +205,31 @@ class FullStackEngineerEngine:
         parts = [f"Performed {op} full-stack engineering review."]
         if arch:
             parts.append(
-                f"Architecture score: {arch.architecture_score:.0%}, "
-                f"{len(arch.issues)} issues found."
+                f"Architecture score: {arch['architecture_score']:.0%}, "
+                f"{len(arch['issues'])} issues found."
             )
         if code:
             parts.append(
-                f"Code review: {len(code.findings)} findings, "
-                f"precision {code.summary.by_severity}."
+                f"Code review: {len(code['findings'])} findings, "
+                f"precision {code['summary']['by_severity']}."
             )
         if refactor:
             parts.append(
-                f"Refactoring: {len(refactor.plans)} plans generated."
+                f"Refactoring: {len(refactor['plans'])} plans generated."
             )
         if test:
             parts.append(
-                f"Test engineering: coverage {test.estimated_coverage:.0%}, "
-                f"{len(test.plans)} test plans."
+                f"Test engineering: coverage {test['estimated_coverage']:.0%}, "
+                f"{len(test['plans'])} test plans."
             )
         if perf:
             parts.append(
-                f"Performance: {len(perf.issues)} issues found."
+                f"Performance: {len(perf['issues'])} issues found."
             )
         if release:
             parts.append(
-                f"Release readiness: {'Ready' if release.ready else 'Not ready'}, "
-                f"{len(release.checks)} checks performed."
+                f"Release readiness: {'Ready' if release['ready'] else 'Not ready'}, "
+                f"{len(release['checks'])} checks performed."
             )
         return " ".join(parts)
 

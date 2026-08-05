@@ -133,12 +133,11 @@ class BusinessAnalystEngine:
 
         # Deeper knowledge expansion
         domain = request.business_context.domain if request.business_context else ""
+        explanation = self._build_explanation(op, requirements, user_stories, gaps, roi_result)
         if domain:
             domain_findings = self.domain_knowledge.enrich_requirements(domain, requirements)
             if domain_findings:
                 explanation += f"\n\nDomain insights ({domain}): {len(domain_findings)} recommendations based on industry best practices."
-
-        explanation = self._build_explanation(op, requirements, user_stories, gaps, roi_result)
 
         report = BusinessAnalysisReport(
             request_id=request.request_id,
