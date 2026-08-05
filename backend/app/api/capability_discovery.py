@@ -29,12 +29,7 @@ async def list_capabilities():
         })
     domains = []
     for domain, pack in intent_router._capability_packs.items():
-        domains.append({
-            "domain": domain.value,
-            "capabilities": pack.capabilities,
-            "workers": pack.workers,
-            "description": pack.description,
-        })
+        domains.append(domain.value)
     return {
         "capabilities": capabilities,
         "domains": domains,
