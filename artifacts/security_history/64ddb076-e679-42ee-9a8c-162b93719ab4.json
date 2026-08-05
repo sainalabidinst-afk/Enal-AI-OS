@@ -1,0 +1,14 @@
+{
+  "record_id": "64ddb076-e679-42ee-9a8c-162b93719ab4",
+  "assessment_id": "018e9adc-2162-4f2e-a3c9-812ec1c96486",
+  "timestamp": "2026-08-05T04:55:16.604929+00:00",
+  "target_type": "architecture",
+  "total_findings": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}
