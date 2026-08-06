@@ -1,0 +1,43 @@
+{
+  "test_id": "DI-GT-002",
+  "name": "Build vs Buy: Sistem Autentikasi",
+  "category": "build_vs_buy_decision",
+  "inputs": {
+    "context": "Keputusan apakah membangun sistem autentikasi sendiri atau menggunakan layanan pihak ketiga (Auth0, Firebase Auth, Clerk).",
+    "evidence_sources": [
+      {"source_id": "cost_model", "evidence_type": "data", "quality_score": 0.9, "weight": 0.35},
+      {"source_id": "security_audit", "evidence_type": "analysis", "quality_score": 0.95, "weight": 0.3},
+      {"source_id": "time_to_market", "evidence_type": "data", "quality_score": 0.8, "weight": 0.2}
+    ],
+    "constraints": ["timeline < 3 bulan untuk MVP", "timeline < 6 bulan untuk full"],
+    "objectives": [{"name": "kecepatan_go_to_market", "weight": 0.4, "goal": "maximize"}, {"name": "keamanan", "weight": 0.3, "goal": "maximize"}, {"name": "biaya", "weight": 0.3, "goal": "minimize"}],
+    "risk_tolerance": "low",
+    "max_alternatives": 4
+  },
+  "expected_output": {
+    "recommended_decision": "Buy (Firebase Auth) untuk MVP, reassess untuk enterprise",
+    "alternatives_count": 3,
+    "confidence_score_min": 0.8,
+    "confidence_score_max": 0.95,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Setidaknya 3 alternatif dievaluasi (build, buy-Auth0, buy-Firebase)",
+    "Risiko keamanan dibandingkan untuk setiap alternatif",
+    "Biaya total kepemilikan (TCO) dihitung untuk setiap opsi",
+    "Time-to-market dihitung untuk setiap opsi",
+    "Trade-off analysis menunjukkan trade-off yang jelas antara biaya dan kecepatan",
+    "Confidence score dijelaskan dengan batas bawah"
+  ],
+  "edge_cases": [
+    "Biaya 'build' sangat rendah (open source gratis)",
+    "Tim keamanan internal sangat kompeten (mengurangi risiko build)",
+    "Persyaratan kepatuhan ketat (GDPR, HIPAA) yang membatasi vendor"
+  ],
+  "negative_cases": [
+    "Rekomendasi 'build' tanpa pertimbangan biaya maintenance 3 tahun",
+    "Mengabaikan vendor lock-in untuk opsi buy",
+    "Tidak ada trade-off analysis untuk trade-off biaya vs kecepatan"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "test_id": "SE-GT-004",
+  "name": "Threat Modeling STRIDE untuk API",
+  "category": "threat_modeling",
+  "inputs": {
+    "target_type": "architecture",
+    "architecture_description": "REST API untuk e-commerce dengan autentikasi JWT, database PostgreSQL, dan payment gateway eksternal.",
+    "components": ["api_gateway", "auth_service", "product_service", "order_service", "payment_service"],
+    "data_flows": [
+      {"from": "client", "to": "api_gateway", "data": "request"},
+      {"from": "api_gateway", "to": "auth_service", "data": "JWT_token"},
+      {"from": "order_service", "to": "payment_service", "data": "payment_request"}
+    ],
+    "standards": ["owasp_top10", "nist_csf"],
+    "include_compliance_mapping": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "threat_model_required": true,
+    "stride_categories_covered_min": 5,
+    "attack_surface_identified_required": true,
+    "remediation_required": true
+  },
+  "acceptance_criteria": [
+    "STRIDE categories dievaluasi (Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation of Privilege)",
+    "Minimal 5 STRIDE category teridentifikasi dengan threats",
+    "Attack surface dianalisis untuk setiap komponen",
+    "Data flow teridentifikasi dan dievaluasi",
+    "Mitigation direkomendasikan untuk setiap threat",
+    "Compliance mapping ke OWASP dan NIST CSF"
+  ],
+  "edge_cases": [
+    "Third-party service (payment gateway) yang di luar kontrol",
+    "Data sensitif dalam transit antar service",
+    "Insider threat scenario"
+  ],
+  "negative_cases": [
+    "Tidak ada STRIDE category teridentifikasi (false negative)",
+    "Threat model tanpa attack surface analysis",
+    "Mitigation tanpa prioritas atau effort estimate"
+  ]
+}

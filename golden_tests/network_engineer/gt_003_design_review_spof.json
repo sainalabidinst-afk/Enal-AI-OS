@@ -1,0 +1,38 @@
+{
+  "test_id": "network_engineer_gt_003",
+  "name": "Review Desain Jaringan Single Point of Failure",
+  "category": "design_review",
+  "inputs": {
+    "type": "topology",
+    "content": "{\"devices\": [{\"id\": \"r1\", \"role\": \"core\", \"connections\": [\"r2\"]}, {\"id\": \"r2\", \"role\": \"core\", \"connections\": [\"r1\"]}]}",
+    "vendor_hint": "auto-detect"
+  },
+  "expected_output": {
+    "design_review": {
+      "network_score": 40,
+      "availability_grade": "D",
+      "security_grade": "B",
+      "scalability_grade": "C",
+      "performance_grade": "C",
+      "issues": [
+        {
+          "category": "availability",
+          "description": "Single point of failure terdeteksi: tidak ada redundansi antar router core"
+        }
+      ]
+    }
+  },
+  "acceptance_criteria": [
+    "Mendeteksi SPOF pada topologi",
+    "Skor network di bawah 50",
+    "Grade availability D atau F"
+  ],
+  "edge_cases": [
+    "Topologi dengan 2 perangkat",
+    "Topologi dengan anakan bintang tanpa redundansi"
+  ],
+  "negative_cases": [
+    "Topologi kosong",
+    "JSON topologi yang tidak valid"
+  ]
+}

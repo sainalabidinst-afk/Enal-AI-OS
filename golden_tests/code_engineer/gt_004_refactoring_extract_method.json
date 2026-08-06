@@ -1,0 +1,35 @@
+{
+  "test_id": "code_engineer_gt_004",
+  "name": "Refactoring - Ekstraksi Metode",
+  "category": "refactoring",
+  "inputs": {
+    "code": "def process_order(order):\n    # validasi\n    if not order.get('items'):\n        return {'error': 'No items'}\n    if not order.get('customer_id'):\n        return {'error': 'No customer'}\n    if order['total'] <= 0:\n        return {'error': 'Invalid total'}\n    # hitung total\n    total = sum(item['price'] * item['qty'] for item in order['items'])\n    # simpan\n    db.save({'customer_id': order['customer_id'], 'total': total, 'items': order['items']})\n    return {'success': True, 'total': total}",
+    "language": "python",
+    "filename": "order_service.py"
+  },
+  "expected_output": {
+    "suggestions": [
+      {
+        "severity": "medium",
+        "category": "refactoring.extract_method",
+        "description": "Fungsi process_order terlalu panjang (32 baris) dan melakukan terlalu banyak hal",
+        "recommendation": "Extract validation logic into validate_order() method",
+        "line_number": 1,
+        "confidence": 0.85
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Mendeteksi fungsi yang terlalu panjang",
+    "Mengidentifikasi multiple responsibilities",
+    "Rekomendasi refactoring yang spesifik"
+  ],
+  "edge_cases": [
+    "Fungsi dengan nested function",
+    "Fungsi async"
+  ],
+  "negative_cases": [
+    "Fungsi yang sudah sangat pendek",
+    "Kode tanpa fungsi"
+  ]
+}

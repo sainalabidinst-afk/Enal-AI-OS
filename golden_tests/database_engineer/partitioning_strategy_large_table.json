@@ -1,0 +1,51 @@
+{
+  "test_id": "DB-GT-009",
+  "name": "Partitioning Strategy untuk Large Table",
+  "category": "partitioning",
+  "inputs": {
+    "request_id": "db-gt-009",
+    "operation": "performance_analysis",
+    "database_type": "postgresql",
+    "schema": {
+      "tables": [
+        {
+          "name": "events",
+          "columns": [
+            {"name": "id", "type": "BIGSERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "event_type", "type": "VARCHAR(50)"},
+            {"name": "timestamp", "type": "TIMESTAMP"},
+            {"name": "payload", "type": "JSONB"}
+          ]
+        }
+      ]
+    },
+    "workload_profile": {
+      "read_write_ratio": 0.7,
+      "peak_qps": 5000,
+      "data_volume_gb": 1000,
+      "query_patterns": ["time_range_filter", "insert_bulk"]
+    }
+  },
+  "expected_output": {
+    "partitioning_strategy_required": true,
+    "partition_key_recommended": true,
+    "performance_improvement_estimated": true
+  },
+  "acceptance_criteria": [
+    "Partitioning strategy direkomendasikan (range by timestamp atau hash by event_type)",
+    "Partition key dijelaskan dengan alasan",
+    "Performance improvement diestimasikan",
+    "Maintenance strategy (detach old partitions, vacuum) diberikan",
+    "Query pattern compatibility dievaluasi"
+  ],
+  "edge_cases": [
+    "Time-range query yang melintasi partition boundary",
+    "Hot partition (sekitar 50% data di satu partition)",
+    "INSERT-heavy workload dengan partitioning"
+  ],
+  "negative_cases": [
+    "Tidak ada partitioning strategy untuk table 1TB+",
+    "Performance improvement tidak diestimasikan",
+    "Maintenance strategy tidak diberikan"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "test_id": "QA-GT-007",
+  "name": "Validasi Kinerja: API Latency dan Throughput",
+  "category": "performance_validation",
+  "inputs": {
+    "request_id": "qa-gt-007",
+    "operation": "performance_validation",
+    "target": {
+      "source_code": "# FastAPI endpoint\n@app.get('/api/users/{user_id}')\ndef get_user(user_id: int):\n    user = db.get_user(user_id)\n    return {'id': user.id, 'name': user.name}",
+      "language": "python",
+      "framework": "pytest"
+    },
+    "performance_requirements": {
+      "latency_p95_ms": 100,
+      "latency_p99_ms": 200,
+      "throughput_rps": 1000
+    }
+  },
+  "expected_output": {
+    "meets_latency_requirement": true,
+    "p95_latency_ms_max": 100,
+    "p99_latency_ms_max": 200,
+    "throughput_rps_min": 1000
+  },
+  "acceptance_criteria": [
+    "P95 latency diuji dan dilaporkan",
+    "P99 latency diuji dan dilaporkan",
+    "Throughput (RPS) diuji dan dilaporkan",
+    "Meets_latency_requirement ditetapkan berdasarkan P95",
+    "Bottleneck diidentifikasi jika requirement tidak terpenuhi",
+    "Recommendation diberikan jika performance issue ditemukan"
+  ],
+  "edge_cases": [
+    "Cold start latency (first request lebih lambat)",
+    "Performance degradation setelah 1 jam steady load",
+    "Memory leak yang menyebabkan latency meningkat"
+  ],
+  "negative_cases": [
+    "P95 latency tidak diuji",
+    "Meets_latency_requirement salah ditetapkan",
+    "Tidak ada bottleneck identification"
+  ]
+}

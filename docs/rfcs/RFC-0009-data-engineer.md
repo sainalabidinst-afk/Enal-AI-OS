@@ -10,8 +10,8 @@
 |**Capability Pack**|Data Engineer|
 |**ID Kemampuan**|`data-engineer`|
 |**Kategori**|Data|
-|**Target Kualitas**|A- (≥85)|
-|**Target Kematangan**|Level 3 — Siap Produksi|
+|**Target Kualitas**|A (≥90)|
+|**Target Kematangan**|Level 4 — Domain Expert (L4)|
 |**Referensi RFC**|RFC-0009|
 
 ---

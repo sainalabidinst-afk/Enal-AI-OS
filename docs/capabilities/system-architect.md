@@ -9,9 +9,10 @@
 **SSOT:** Spesifikasi Capability Pack untuk System Architect
 <!-- DOCUMENT_METADATA_END -->
 
-## Versi: 1.0.0
+## Versi: 2.0.0
 ## Status: Production Ready (RFC-0011)
-## Quality Target: A (≥90)
+## Quality Target: A+ (≥95), Domain Expert (L4)
+## Sertifikasi: Certified Lifecycle (RFC-0011)
 
 ---
 
@@ -110,58 +111,131 @@ Capability Pack ini menganalisis struktur proyek, mengevaluasi Clean Architectur
 
 ---
 
-## 4. Pipeline
+## 4. Operasi
 
-```
-ArchitectureReviewRequest
-    ↓
-DependencyGraph (import graph, circular deps, layer classification)
-    ↓
-LayerAnalysis (Clean Architecture violations)
-    ↓
-DDDAnalysis (bounded contexts, aggregates, anti-corruption)
-    ↓
-EventAnalysis (event schema, saga patterns)
-    ↓
-CQRSEvaluation (command/query separation)
-    ↓
-MicroservicesReview (decomposition, migration)
-    ↓
-BoundaryEnforcement (package boundary violations)
-    ↓
-Governance (Core change guard, Capability First Rule)
-    ↓
-ADRGeneration (structured ADR drafts)
-    ↓
-ArchitectureReviewReport
+| Operasi | Deskripsi | Input | Output |
+|-----------|-------------|--------|---------|
+| `full_review` | Review arsitektur lengkap (all analyzers) | workspace_path, architecture_style | ArchitectureReviewReport |
+| `clean_architecture` | Review khusus Clean Architecture layer violations | workspace_path | Layer violations + recommendations |
+| `ddd` | Review DDD: bounded context, aggregates, ACL | workspace_path | DDD assessment + violations |
+| `event_driven` | Review desain event-driven, saga patterns | workspace_path | Event design assessment |
+| `cqrs` | Review CQRS: command/query separation | workspace_path | CQRS mismatch findings |
+| `microservices` | Review microservices/monolith decomposition | workspace_path | Decomposition candidates |
+| `package_boundary` | Review pelanggaran package boundary | workspace_path | Boundary violations |
+| `adr_generation` | Generate ADR dari konteks arsitektur | context | ADR draft |
+
+## 5. Modul Analyzer
+
+| Modul | Tanggung Jawab |
+|--------|----------------|
+| `dependency_graph.py` | Membangun import graph + klasifikasi layer |
+| `layer_analyzer.py` | Analisis pelanggaran layer Clean Architecture |
+| `ddd_analyzer.py` | Analisis bounded context, aggregate, ACL |
+| `event_analyzer.py` | Analisis desain event-driven, saga patterns |
+| `cqrs_evaluator.py` | Evaluasi kesesuaian CQRS |
+| `microservices_analyzer.py` | Analisis microservices/monolith |
+| `adr_generator.py` | Generasi ADR |
+| `boundary_enforcer.py` | Package boundary enforcement |
+| `governance.py` | Aturan governance arsitektur |
+| `scalability_analyzer.py` | Analisis bottleneck skalabilitas |
+| `security_architect.py` | Review arsitektur untuk keamanan |
+| `cost_optimizer.py` | Analisis optimasi biaya arsitektur |
+| `refactoring_strategy.py` | Rekomendasi strategi refactoring |
+
+## 6. Dimensi Benchmark
+
+| Dimensi | Target | Grade |
+|-----------|--------|-------|
+| Architecture Review Completeness | ≥95% | A+ |
+| Dependency Violation Detection | ≥95% | A+ |
+| Package Boundary Enforcement | ≥95% | A+ |
+| ADR Coverage | ≥95% | A+ |
+| Design Pattern Application | ≥95% | A+ |
+| Scalability Assessment | ≥95% | A+ |
+| Maintainability | ≥95% | A+ |
+| Explainability | ≥95% | A+ |
+
+---
+
+## 7. Dependensi
+
+- **apps/base.py** — Definisi model dasar
+- **apps/system_architect/schemas.py** — Kontrak publik
+- **apps/system_architect/dependency_graph.py** — Pembangun import graph
+- **apps/system_architect/layer_analyzer.py** — Analisis layer
+- **apps/system_architect/ddd_analyzer.py** — Analisis DDD
+- **apps/system_architect/event_analyzer.py** — Analisis event-driven
+- **apps/system_architect/cqrs_evaluator.py** — Evaluasi CQRS
+- **apps/system_architect/microservices_analyzer.py** — Analisis microservices
+- **apps/system_architect/adr_generator.py** — Generasi ADR
+- **apps/system_architect/boundary_enforcer.py** — Package boundary enforcement
+- **apps/system_architect/governance.py** — Governance arsitektur
+- **apps/system_architect/scalability_analyzer.py** — Analisis skalabilitas
+- **apps/system_architect/security_architect.py** — Review arsitektur security
+- **apps/system_architect/cost_optimizer.py** — Optimasi biaya arsitektur
+- **apps/system_architect/refactoring_strategy.py** — Strategi refactoring
+- **apps/system_architect/engine.py** — Orchestrator domain engine
+- **apps/system_architect/worker.py** — Adaptor worker tipis (ADR-003)
+
+---
+
+## 8. Contoh Penggunaan
+
+```python
+from apps.system_architect.engine import SystemArchitectEngine
+from apps.system_architect.schemas import ArchitectureReviewRequest, ReviewType
+
+engine = SystemArchitectEngine()
+request = ArchitectureReviewRequest(
+    review_type=ReviewType.full_review,
+    workspace_path="/path/to/project",
+    architecture_style="clean_architecture",
+    focus_areas=["scalability", "maintainability"],
+)
+report = engine.review(request)
+print(f"Found {len(report.findings)} architecture issues")
+print(f"Maintainability score: {report.architecture_metrics.maintainability_score:.0%}")
 ```
 
 ---
 
-## 5. Hasil Benchmark (RFC-0011)
+## 9. Audit Keamanan
 
-**Hasil Terverifikasi:**
-- Overall: 97.50%
-- Pass rate: 100%
-- Status: PASS
+| Aspek | Status | Catatan |
+|--------|--------|---------|
+| Input Validation | ✅ | Path validation untuk workspace_path |
+| Code Access Safety | ✅ | Hanya membaca file, tidak menulis |
+| Sensitive Data Handling | ✅ | Tidak mengekspos credential dalam output |
+| ADR Integrity | ✅ | ADR draft diawali sebagai 'proposed' — memerlukan persetujuan manusia |
+| Core Protection | ✅ | ADR-001 compliance — zero Core change |
 
-
-| Dimensi | Target |
-|-----------|--------|
-| Architecture Review Completeness | ≥95% |
-| Dependency Violation Detection | ≥95% |
-| Package Boundary Enforcement | ≥90% |
-| ADR Coverage | ≥90% |
-| Design Pattern Application | ≥85% |
-| Scalability Assessment | ≥90% |
-| Maintainability | ≥90% |
-| Explainability | ≥95% |
-
-Benchmark: `benchmarks/system_architect_benchmark.py`
+**Catatan Keamanan:**
+- System Architect hanya membaca file source code — tidak mengeksekusi atau memodifikasi.
+- ADR yang dihasilkan berupa 'proposed' dan memerlukan persetujuan manusia (ADR-005).
+- Dependency graph construction menghindari traversal ke direktori sensitif.
 
 ---
 
-## 6. Skenario Golden Test
+## 10. Optimasi Kinerja
+
+| Aspek | Rekomendasi | Dampak |
+|--------|-------------|--------|
+| Dependency Graph | Cache import graph antar review (invalidate on file change) | Mengurangi waktu re-analysis |
+| Layer Analysis | Incremental analysis — hanya file yang berubah | 5-10x peningkatan |
+| Boundary Enforcement | Pre-compile regex patterns | Faster pattern matching |
+| ADR Generation | Template-based dengan slot filling | Mengurangi LLM call |
+| Scalability Analysis | Sampling untuk codebase besar (>10K LOC) | Linear scaling |
+| Concurrent Analysis | Jalankan analyzer secara paralel (thread pool) | Multi-core utilization |
+| Result Caching | Cache report untuk workspace yang tidak berubah | Instant report untuk re-review |
+
+**Target Latensi:**
+- Full review (10K LOC): < 5 detik
+- Single analyzer: < 1 detik
+- ADR generation: < 500ms
+
+---
+
+## 11. Skenario Golden Test
 
 | # | Skenario | Deteksi |
 |---|----------|-----------|
@@ -178,7 +252,7 @@ Benchmark: `benchmarks/system_architect_benchmark.py`
 
 ---
 
-## 7. Integrasi Konsumen
+## 12. Integrasi Konsumen
 
 System Architect menjadi **otoritas arsitektur** untuk:
 - **Code Engineer** — review arsitektur pada repositori yang dihasilkan
@@ -190,7 +264,7 @@ System Architect menjadi **otoritas arsitektur** untuk:
 
 ---
 
-## 8. Kepatuhan Arsitektur
+## 13. Kepatuhan Arsitektur
 
 | Prinsip | Kepatuhan |
 |-----------|------------|
@@ -203,7 +277,7 @@ System Architect menjadi **otoritas arsitektur** untuk:
 
 ---
 
-## 9. File
+## 14. File
 
 | File | Tujuan |
 |------|---------|

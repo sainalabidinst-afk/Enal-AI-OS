@@ -1,0 +1,33 @@
+{
+  "test_id": "network_engineer_gt_001",
+  "name": "Audit Keamanan Firewall MikroTik",
+  "category": "security_audit",
+  "inputs": {
+    "type": "text",
+    "content": "/ip firewall filter add chain=input action=accept protocol=tcp port=22,80,443\r\n/ip firewall filter add chain=input action=drop",
+    "vendor_hint": "mikrotik"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "high",
+        "category": "firewall",
+        "description": "Aturan firewall menerima semua traffic TCP pada port 22, 80, 443 tanpa pembatasan IP sumber"
+      }
+    ],
+    "risk_score": 0.7
+  },
+  "acceptance_criteria": [
+    "Mendeteksi aturan firewall yang terlalu permisif",
+    "Memberikan rekomendasi pembatasan IP sumber",
+    "Skor risiko dihitung dengan benar"
+  ],
+  "edge_cases": [
+    "Konfigurasi dengan aturan kosong",
+    "Konfigurasi dengan ratusan aturan"
+  ],
+  "negative_cases": [
+    "Konfigurasi tanpa firewall",
+    "String kosong sebagai input"
+  ]
+}

@@ -1,0 +1,23 @@
+﻿{
+    "inputs":  {
+                   "source_code":  "def process_request(data):\n    result = transform(data)\n    return save(result)",
+                   "repo_path":  "apps/service",
+                   "filename":  "handler.py"
+               },
+    "quality_attributes":  {
+                               "coverage_target":  0.9,
+                               "architecture_target":  "microservices",
+                               "performance_target":  {
+                                                          "latency_p95_ms":  50,
+                                                          "throughput_rps":  5000
+                                                      }
+                           },
+    "output_format":  "json",
+    "request_id":  "case-fs-18",
+    "context":  {
+                    "language":  "python",
+                    "framework":  "fastapi",
+                    "project_id":  "fullstack-project-18"
+                },
+    "operation":  "full_stack_review"
+}

@@ -1,0 +1,33 @@
+{
+  "test_id": "self_development_gt_010",
+  "name": "Saran Perbaikan - Prioritas Berdasarkan Dampak",
+  "category": "improvement_prioritization",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "issues": [
+      {"id": "issue-1", "category": "security", "severity": "critical", "effort": "low", "impact": "high"},
+      {"id": "issue-2", "category": "performance", "severity": "high", "effort": "high", "impact": "high"},
+      {"id": "issue-3", "category": "maintainability", "severity": "medium", "effort": "low", "impact": "medium"},
+      {"id": "issue-4", "category": "style", "severity": "low", "effort": "low", "impact": "low"}
+    ]
+  },
+  "expected_output": {
+    "prioritized_issues": ["issue-1", "issue-3", "issue-4", "issue-2"],
+    "priority_algorithm": "impact_effort_matrix",
+    "quick_wins": ["issue-1", "issue-3"],
+    "major_efforts": ["issue-2"]
+  },
+  "acceptance_criteria": [
+    "Issue dengan critical severity di atas high effort",
+    "Quick wins diidentifikasi",
+    "Prioritas logis (impact/effort)"
+  ],
+  "edge_cases": [
+    "Semua issue dengan severity sama",
+    "Issue dengan effort tidak diketahui"
+  ],
+  "negative_cases": [
+    "Tidak ada issue",
+    "Semua issue dengan impact rendah"
+  ]
+}

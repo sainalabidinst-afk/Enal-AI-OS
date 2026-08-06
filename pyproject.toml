@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "enal-backend"
-version = "1.0.0-developer-preview"
+version = "1.0.0"
 description = "Enal AI OS Backend — AI Operating System API"
 requires-python = ">=3.11"
 license = {text = "MIT"}
@@ -37,6 +37,7 @@ dependencies = [
     "aiohttp>=3.9.0",
     "python-multipart>=0.0.9",
     "psycopg2-binary>=2.9.0",
+    "pyjwt>=2.8.0",
 ]
 
 [project.optional-dependencies]

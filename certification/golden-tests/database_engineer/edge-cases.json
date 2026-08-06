@@ -1,0 +1,24 @@
+{
+  "capabilityId": "database_engineer",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "EdgeCases",
+      "tests": [
+        {
+          "id": "database_engineer-edge-cases-001",
+          "description": "Golden test for edge-cases in database_engineer",
+          "input": {
+            "capability_id": "database_engineer",
+            "category": "edge-cases"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

@@ -1,0 +1,37 @@
+{
+  "test_id": "QA-GT-002",
+  "name": "Generasi Integration Test untuk API Endpoint",
+  "category": "integration_test_generation",
+  "inputs": {
+    "request_id": "qa-gt-002",
+    "operation": "integration_test",
+    "target": {
+      "source_code": "from fastapi import FastAPI, Depends\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass User(BaseModel):\n    id: int\n    name: str\n    email: str\n\nusers_db = {}\n\n@app.post('/users', response_model=User)\ndef create_user(user: User):\n    users_db[user.id] = user\n    return user\n\n@app.get('/users/{user_id}', response_model=User)\ndef get_user(user_id: int):\n    if user_id not in users_db:\n        raise HTTPException(status_code=404, detail='User not found')\n    return users_db[user_id]",
+      "language": "python",
+      "framework": "pytest"
+    }
+  },
+  "expected_output": {
+    "test_count_min": 5,
+    "endpoint_coverage": ["POST /users", "GET /users/{id}"],
+    "error_cases_tested": true
+  },
+  "acceptance_criteria": [
+    "Minimal 5 test case untuk integration",
+    "POST /users dengan valid data diuji",
+    "POST /users dengan invalid data diuji",
+    "GET /users/{id} dengan valid ID diuji",
+    "GET /users/{id} dengan invalid ID (404) diuji",
+    "Test menggunakan TestClient atau fixture"
+  ],
+  "edge_cases": [
+    "POST dengan email yang invalid",
+    "GET dengan user_id yang belum dibuat",
+    "Concurrent POST requests"
+  ],
+  "negative_cases": [
+    "Tidak ada error case test",
+    "Tidak ada coverage untuk GET endpoint",
+    "Test menggunakan hardcoded data yang tidak realistic"
+  ]
+}

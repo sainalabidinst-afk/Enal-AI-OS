@@ -1,0 +1,37 @@
+{
+  "test_id": "code_engineer_gt_002",
+  "name": "Analisis Arsitektur - Deteksi Circular Dependency",
+  "category": "architecture_analysis",
+  "inputs": {
+    "code": "# module_a.py\nfrom module_b import func_b\n\ndef func_a():\n    return func_b()\n\n# module_b.py\nfrom module_a import func_a\n\ndef func_b():\n    return func_a()",
+    "language": "python",
+    "filename": "module_a.py"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "high",
+        "category": "architecture.circular_dependency",
+        "description": "Circular dependency detected: module_a -> module_b -> module_a",
+        "recommendation": "Extract shared logic into a separate module",
+        "line_number": 1,
+        "confidence": 0.9
+      }
+    ],
+    "architecture_patterns": {"total_findings": 1, "findings": [{"category": "circular_dependency", "pattern": "circular_import", "severity": "high", "description": "Circular dependency detected", "recommendation": "Extract shared logic", "line_number": 1, "confidence": 0.9}]},
+    "secure_coding": {"total_findings": 0, "findings": []}
+  },
+  "acceptance_criteria": [
+    "Mendeteksi circular dependency",
+    "Severity high atau critical",
+    "Rekomendasi diberikan"
+  ],
+  "edge_cases": [
+    "Circular dependency melalui 3 modul",
+    "Mutual import tanpa penggunaan"
+  ],
+  "negative_cases": [
+    "Kode tanpa import",
+    "Single modul tanpa dependency"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "test_id": "network_engineer_gt_007",
+  "name": "Analisis Konfigurasi Fortinet Firewall Policy",
+  "category": "security_audit",
+  "inputs": {
+    "type": "text",
+    "content": "config firewall policy\n  edit 1\n    set name \"AllowAll\"\n    set srcintf \"any\"\n    set dstintf \"any\"\n    set action accept\n    set srcaddr \"all\"\n    set dstaddr \"all\"\n    set service \"ALL\"\n  next\nend",
+    "vendor_hint": "fortinet"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "critical",
+        "category": "firewall",
+        "description": "Firewall policy menerima semua traffic dari dan ke semua interface"
+      }
+    ],
+    "risk_score": 0.95
+  },
+  "acceptance_criteria": [
+    "Mendeteksi policy yang terlalu permisif",
+    "Skor risiko tinggi (> 0.8)",
+    "Rekomendasi diberikan"
+  ],
+  "edge_cases": [
+    "Policy dengan service terbatas tapi address any",
+    "Banyak policy dengan overlap"
+  ],
+  "negative_cases": [
+    "Konfigurasi tanpa policy",
+    "Konfigurasi Fortinet yang tidak valid"
+  ]
+}

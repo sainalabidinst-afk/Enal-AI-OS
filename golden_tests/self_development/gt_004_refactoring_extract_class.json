@@ -1,0 +1,32 @@
+{
+  "test_id": "self_development_gt_004",
+  "name": "Usulan Refactoring - Extract Class",
+  "category": "refactoring_proposal",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "target_file": "user_manager.py",
+    "refactoring_type": "extract_class",
+    "reason": "God class with too many responsibilities"
+  },
+  "expected_output": {
+    "proposal_valid": true,
+    "original_class": "UserManager",
+    "proposed_classes": ["UserValidator", "UserRepository", "UserNotifier"],
+    "estimated_effort": "medium",
+    "risk_level": "low",
+    "blast_radius": "low"
+  },
+  "acceptance_criteria": [
+    "Proposal refactoring valid",
+    "Class yang diusulkan relevan",
+    "Estimasi effort diberikan"
+  ],
+  "edge_cases": [
+    "Class yang sangat besar (> 1000 baris)",
+    "Class dengan inheritance kompleks"
+  ],
+  "negative_cases": [
+    "Tidak ada refactoring yang diperlukan",
+    "File yang tidak ada"
+  ]
+}

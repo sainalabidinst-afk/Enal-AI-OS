@@ -1,0 +1,33 @@
+{
+  "test_id": "trading_analyst_gt_008",
+  "name": "Penilaian Risiko - Position Sizing",
+  "category": "risk_assessment",
+  "inputs": {
+    "symbol": "BTCUSDT",
+    "account_balance": 10000,
+    "risk_per_trade_percent": 1.0,
+    "entry_price": 42000,
+    "stop_loss_price": 40000,
+    "confidence": 75
+  },
+  "expected_output": {
+    "position_size_usd": 2000,
+    "position_size_units": 0.05,
+    "max_drawdown_percent": 2.0,
+    "var_95": 500,
+    "risk_level": "low"
+  },
+  "acceptance_criteria": [
+    "Position size sesuai risk per trade",
+    "Max drawdown sesuai",
+    "Risk level sesuai dengan confidence"
+  ],
+  "edge_cases": [
+    "Stop loss di harga entry (invalid)",
+    "Account balance sangat kecil"
+  ],
+  "negative_cases": [
+    "Risk per trade > 5%",
+    "Stop loss di atas entry (short)"
+  ]
+}

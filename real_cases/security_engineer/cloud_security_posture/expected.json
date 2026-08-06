@@ -1,0 +1,26 @@
+{
+  "vendor": "generic",
+  "device_type": "application",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "metadata": {
+    "description": "Security scenario: cloud security posture.",
+    "source": "production",
+    "tags": [
+      "security",
+      "cloud"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "cloud",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "secret",
+    "security",
+    "vulnerability"
+  ]
+}

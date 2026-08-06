@@ -1,0 +1,36 @@
+{
+  "test_id": "trading_analyst_gt_003",
+  "name": "Analisis Elliott Wave - Pola Impuls",
+  "category": "elliott_wave_analysis",
+  "inputs": {
+    "symbol": "AAPL",
+    "timeframes": ["1d"],
+    "ohlcv_data": {
+      "1d": {
+        "closes": [150, 155, 160, 158, 165, 170, 168, 175, 180, 178, 185, 190, 188, 195, 200, 198, 205, 210, 208, 215],
+        "volumes": [1000000, 1200000, 1500000, 1100000, 1800000, 2000000, 1400000, 2200000, 2500000, 1600000, 2800000, 3000000, 1800000, 3200000, 3500000, 2000000, 3800000, 4000000, 2200000, 4200000]
+      }
+    }
+  },
+  "expected_output": {
+    "wave_count_detected": true,
+    "primary_wave": "impulse",
+    "sub_waves": [1, 2, 3, 4, 5],
+    "current_wave": 5,
+    "fibonacci_relationships_valid": true,
+    "confidence": 0.75
+  },
+  "acceptance_criteria": [
+    "Pola impuls teridentifikasi",
+    "5 sub-wave terdeteksi",
+    "Hubungan Fibonacci terpenuhi"
+  ],
+  "edge_cases": [
+    "Diagonal ending pattern",
+    "Extended wave 3"
+  ],
+  "negative_cases": [
+    "Market yang terlalu sideways",
+    "Data yang tidak cukup panjang"
+  ]
+}

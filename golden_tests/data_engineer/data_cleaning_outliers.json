@@ -1,0 +1,42 @@
+{
+  "test_id": "DE-GT-007",
+  "name": "Pembersihan Data: Nilai Hilang dan Outlier",
+  "category": "data_cleaning",
+  "inputs": {
+    "request_id": "de-gt-007",
+    "job_type": "clean",
+    "source": {
+      "type": "csv",
+      "location": "/data/messy_sales.csv",
+      "schema_definition": {"order_id": "string", "amount": "float", "quantity": "integer", "discount": "float"}
+    },
+    "operations": [
+      {"operation": "fill_missing", "parameters": {"strategy": "median", "columns": ["amount"]}},
+      {"operation": "remove_outliers", "parameters": {"column": "amount", "method": "iqr", "threshold": 1.5}},
+      {"operation": "standardize", "parameters": {"columns": ["amount"], "method": "z_score"}}
+    ]
+  },
+  "expected_output": {
+    "status": "success",
+    "outliers_removed_count_reported": true,
+    "missing_filled_count_reported": true,
+    "data_quality_improved": true
+  },
+  "acceptance_criteria": [
+    "Missing values diisi dengan median",
+    "Outliers diidentifikasi dan di-handle (removed atau capped)",
+    "Outlier count dilaporkan",
+    "Missing filled count dilaporkan",
+    "Data quality score meningkat setelah cleaning"
+  ],
+  "edge_cases": [
+    "Semua value missing untuk satu kolom",
+    "IQR = 0 (semua value sama)",
+    "Outlier tapi valid business value"
+  ],
+  "negative_cases": [
+    "Outlier tidak di-identifikasi (false negative)",
+    "Missing values tidak di-handle",
+    "Data quality score menurun (cleaning yang salah)"
+  ]
+}

@@ -1,0 +1,16 @@
+﻿{
+    "operation":  "documentation_generation",
+    "domain":  "technology",
+    "artifacts":  [
+                      "src/",
+                      "docs/",
+                      "config/"
+                  ],
+    "scenario":  "service_level_objective_doc",
+    "source_files":  [
+                         "README.md",
+                         "CHANGELOG.md",
+                         "CONTRIBUTING.md"
+                     ],
+    "project_name":  "doc-project-13"
+}

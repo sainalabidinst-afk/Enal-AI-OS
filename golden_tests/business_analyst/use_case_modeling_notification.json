@@ -1,0 +1,48 @@
+{
+  "test_id": "BA-GT-008",
+  "name": "Use Case untuk Sistem Notifikasi",
+  "category": "use_case_modeling",
+  "inputs": {
+    "request_id": "ba-gt-008",
+    "operation": "use_case",
+    "business_context": {
+      "domain": "e-commerce",
+      "project_name": "Notification System"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "Customer menerima email saat order dikonfirmasi",
+        "Customer menerima SMS saat order dikirim",
+        "Admin menerima alert saat stok di bawah threshold"
+      ],
+      "personas": [
+        {"name": "Customer", "role": "End User", "goals": ["Update status order"], "pain_points": ["Tidak tahu status order"]},
+        {"name": "Admin", "role": "Administrator", "goals": ["Monitor inventory"], "pain_points": ["Stok habis tanpa peringatan"]}
+      ]
+    }
+  },
+  "expected_output": {
+    "use_cases_count_min": 4,
+    "use_case_structure_complete": true,
+    "preconditions_postconditions_required": true,
+    "alternative_scenarios_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 4 use case dihasilkan",
+    "Setiap use case memiliki: ID, name, primary actor, preconditions, postconditions",
+    "Main scenario (happy path) didefinisikan",
+    "Alternative scenarios didefinisikan",
+    "Exception scenarios didefinisikan",
+    "Preconditions dan postconditions jelas"
+  ],
+  "edge_cases": [
+    "Use case dengan multiple primary actors",
+    "Use case dengan include/extend relationship",
+    "Use case dengan exception handling (email delivery failure)"
+  ],
+  "negative_cases": [
+    "Use case tanpa preconditions",
+    "Use case tanpa postconditions",
+    "Alternative scenarios tidak didefinisikan"
+  ]
+}

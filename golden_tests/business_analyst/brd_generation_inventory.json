@@ -1,0 +1,48 @@
+{
+  "test_id": "BA-GT-006",
+  "name": "BRD untuk Sistem Manajemen Inventori",
+  "category": "brd_generation",
+  "inputs": {
+    "request_id": "ba-gt-006",
+    "operation": "brd_generation",
+    "business_context": {
+      "domain": "retail",
+      "project_name": "Inventory Management System",
+      "description": "Sistem manajemen inventori untuk rantai retail 50 toko"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "Sistem harus melacak stok secara real-time di semua toko",
+        "Sistem harus memberikan alert saat stok di bawah threshold",
+        "Admin dapat melihat laporan stok dan pergerakan"
+      ],
+      "stakeholder_notes": [
+        "50 toko dengan bandwidth terbatas (offline capability)",
+        "Integrasi dengan existing POS system"
+      ]
+    }
+  },
+  "expected_output": {
+    "brd_generated": true,
+    "sections_required": ["purpose", "scope", "stakeholders", "requirements", "constraints", "success_criteria"],
+    "requirements_count_min": 10
+  },
+  "acceptance_criteria": [
+    "BRD dihasilkan dengan semua section yang required",
+    "Purpose dan scope dijelaskan dengan jelas",
+    "Stakeholders diidentifikasi (owner, users, admin, IT)",
+    "Minimal 10 requirement (functional dan non-functional)",
+    "Constraints didokumentasikan (budget, timeline, technical)",
+    "Success criteria ditetapkan (measurable)"
+  ],
+  "edge_cases": [
+    "BRD untuk multi-stakeholder dengan conflicting requirements",
+    "BRD dengan regulatory compliance requirement",
+    "BRD untuk sistem yang menggantikan existing system"
+  ],
+  "negative_cases": [
+    "BRD tanpa section yang required",
+    "Requirements tanpa priority",
+    "Success criteria yang tidak measurable"
+  ]
+}

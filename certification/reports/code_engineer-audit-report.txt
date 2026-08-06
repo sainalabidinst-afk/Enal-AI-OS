@@ -1,0 +1,31 @@
+Capability Audit Report: Code Engineer (code_engineer)
+============================================================
+Overall Score : 146
+Grade         : A
+Status        : Passed
+Completed At  : 2026-08-06T01:47:33.186736+00:00
+
+Area Breakdown:
+------------------------------------------------------------
+  Contract Compliance             10/10  Passed       Findings: None
+  API Stability                    8/10  Passed       Findings: Minor
+  Domain Knowledge                10/10  Passed       Findings: None
+  Engine Correctness              10/10  Passed       Findings: None
+  Explainability                  10/10  Passed       Findings: None
+  Decision Integration            10/10  Passed       Findings: None
+  Lifecycle Integration           10/10  Passed       Findings: None
+  Observability                   10/10  Passed       Findings: None
+  Error Handling                  10/10  Passed       Findings: None
+  Documentation                   10/10  Passed       Findings: None
+  Security                        10/10  Passed       Findings: None
+  Performance Target               8/10  Passed       Findings: None
+  Test Coverage                   10/10  Passed       Findings: None
+  Golden Tests                    10/10  Passed       Findings: None
+  Real Cases                      10/10  Passed       Findings: None
+
+Summary:
+  Critical Findings : 0
+  Major Findings    : 0
+  Minor Findings    : 1
+
+Corrective Actions:

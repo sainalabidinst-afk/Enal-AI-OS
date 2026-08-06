@@ -1,0 +1,48 @@
+{
+  "test_id": "ai_-008",
+  "name": "Golden Test 8 for ai_engineer",
+  "category": "observability",
+  "inputs": {
+    "metrics": [
+      "latency",
+      "token_usage",
+      "drift"
+    ]
+  },
+  "expected_output": {
+    "quality_score": 0.9,
+    "valid": true
+  },
+  "acceptance_criteria": [
+    "Output must be valid according to pack schema",
+    "Quality score must be >= 0.9",
+    "All required fields must be present",
+    "No security violations in output",
+    "Execution time must be < 5000ms"
+  ],
+  "edge_cases": [
+    "empty_input",
+    "max_input_size",
+    "special_characters"
+  ],
+  "negative_cases": [
+    "invalid_schema",
+    "missing_required_fields",
+    "type_mismatch"
+  ],
+  "performance_targets": {
+    "latency_p95_ms": 5000,
+    "memory_mb": 512,
+    "token_budget": 4000
+  },
+  "explainability_requirements": {
+    "summary": true,
+    "evidence": true,
+    "reasoning": true,
+    "alternatives": true,
+    "risk": true,
+    "confidence": true,
+    "decision": true,
+    "next_action": true
+  }
+}

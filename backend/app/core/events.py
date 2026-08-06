@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -9,7 +9,7 @@ class Event:
     payload: dict[str, Any]
     source: str = "system"
     target: str = "*"
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
     correlation_id: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 

@@ -1,0 +1,11 @@
+﻿{
+    "environment":  "production",
+    "compliance":  [
+                       "SOC2",
+                       "PCI-DSS"
+                   ],
+    "domain":  "enterprise_it",
+    "cloud_provider":  "aws",
+    "scenario":  "dns_failover_automation",
+    "project_name":  "infra-project-11"
+}

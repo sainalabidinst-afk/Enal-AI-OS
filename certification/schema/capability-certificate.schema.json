@@ -1,0 +1,354 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Capability Certificate",
+  "description": "Uniform certification artifact for every ENAL AI OS Capability Pack.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "capabilityId",
+    "capabilityName",
+    "version",
+    "contractVersion",
+    "certificationLevel",
+    "grade",
+    "overallScore",
+    "status",
+    "audit",
+    "benchmark",
+    "goldenTests",
+    "realCases",
+    "productionReadiness",
+    "certificationDate",
+    "reviewer",
+    "expirationDate"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "Schema version of this certificate.",
+      "example": "1.0.0"
+    },
+    "capabilityId": {
+      "type": "string",
+      "description": "Canonical capability identifier.",
+      "example": "trading-analyst"
+    },
+    "capabilityName": {
+      "type": "string",
+      "description": "Human-readable capability name.",
+      "example": "Trading Analyst"
+    },
+    "version": {
+      "type": "string",
+      "description": "Certified capability version.",
+      "example": "1.0.0"
+    },
+    "contractVersion": {
+      "type": "string",
+      "description": "Capability contract version used during certification.",
+      "example": "1.0.0"
+    },
+    "certificationLevel": {
+      "type": "string",
+      "enum": ["Certified", "Provisional", "Experimental", "Deprecated"],
+      "description": "Certification level assigned after review."
+    },
+    "grade": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "F"],
+      "description": "Letter grade based on overall score."
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Aggregate score across all certification gates."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Active", "Suspended", "Revoked", "Expired"],
+      "description": "Current lifecycle status of the certificate."
+    },
+    "audit": {
+      "type": "object",
+      "required": ["score", "passed", "completedAt", "findings"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "findings": {
+          "type": "object",
+          "required": ["critical", "minor", "correctiveActions"],
+          "properties": {
+            "critical": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minor": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "correctiveActions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "benchmark": {
+      "type": "object",
+      "required": ["score", "passed", "completedAt", "metrics"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "metrics": {
+          "type": "object",
+          "required": [
+            "executionLatencyP50",
+            "executionLatencyP95",
+            "executionLatencyP99",
+            "memoryUsageMB",
+            "throughputPerSecond",
+            "determinismScore",
+            "repeatabilityScore",
+            "stabilityScore",
+            "successRate"
+          ],
+          "properties": {
+            "executionLatencyP50": {
+              "type": "number",
+              "description": "Median execution latency in milliseconds."
+            },
+            "executionLatencyP95": {
+              "type": "number",
+              "description": "95th percentile execution latency in milliseconds."
+            },
+            "executionLatencyP99": {
+              "type": "number",
+              "description": "99th percentile execution latency in milliseconds."
+            },
+            "memoryUsageMB": {
+              "type": "number",
+              "description": "Peak memory usage in megabytes."
+            },
+            "throughputPerSecond": {
+              "type": "number",
+              "description": "Maximum throughput per second."
+            },
+            "determinismScore": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Score for deterministic output given identical inputs."
+            },
+            "repeatabilityScore": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Score for repeatable results across multiple runs."
+            },
+            "stabilityScore": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Score for stability under load."
+            },
+            "successRate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Percentage of successful executions."
+            }
+          }
+        }
+      }
+    },
+    "goldenTests": {
+      "type": "object",
+      "required": ["score", "passed", "completedAt", "categories"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "total", "passed", "failed", "skipped"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": [
+                  "Functional",
+                  "Edge Cases",
+                  "Invalid Input",
+                  "Regression",
+                  "Explainability",
+                  "Performance",
+                  "Contract Compliance"
+                ]
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "passed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "failed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "skipped": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "realCases": {
+      "type": "object",
+      "required": ["score", "passed", "completedAt", "scenarios"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "status", "score", "notes"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Real-case scenario name."
+              },
+              "status": {
+                "type": "string",
+                "enum": ["passed", "failed", "partial", "skipped"]
+              },
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "productionReadiness": {
+      "type": "object",
+      "required": ["score", "passed", "completedAt", "checks"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "status", "notes"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": [
+                  "Interoperability",
+                  "Dependency",
+                  "Lifecycle",
+                  "Telemetry",
+                  "Compatibility",
+                  "Deployment"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": ["passed", "failed", "partial", "skipped"]
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "certificationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when certification was awarded."
+    },
+    "reviewer": {
+      "type": "string",
+      "description": "Name or ID of the reviewer who approved certification."
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when the certificate expires."
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event", "timestamp", "performedBy"],
+      },
+      "description": "Optional audit trail of certificate events."
+    }
+  }
+}

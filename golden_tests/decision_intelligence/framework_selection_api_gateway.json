@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-004",
+  "name": "Framework Selection untuk API Gateway",
+  "category": "framework_selection",
+  "inputs": {
+    "context": "Memilih framework untuk membangun API Gateway yang menangani 10K request/detik.",
+    "evidence_sources": [
+      {"source_id": "performance_benchmark", "evidence_type": "benchmark", "quality_score": 0.9, "weight": 0.35},
+      {"source_id": "team_expertise", "evidence_type": "analysis", "quality_score": 0.8, "weight": 0.25},
+      {"source_id": "community_support", "evidence_type": "data", "quality_score": 0.75, "weight": 0.2}
+    ],
+    "constraints": ["bahasa pemrograman: Go atau Python", "open source atau enterprise"],
+    "objectives": [{"name": "kinerja", "weight": 0.35, "goal": "maximize"}, {"name": "kemudahan_pengembangan", "weight": 0.25, "goal": "maximize"}, {"name": "ekosistem", "weight": 0.2, "goal": "maximize"}],
+    "risk_tolerance": "medium",
+    "max_alternatives": 5
+  },
+  "expected_output": {
+    "recommended_decision": "Kong (open source) atau AWS API Gateway (managed) — tergantung operasional maturity",
+    "alternatives_count": 3,
+    "confidence_score_min": 0.7,
+    "confidence_score_max": 0.9,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 3 framework dievaluasi (Kong, AWS API Gateway, Envoy)",
+    "Performa dibandingkan (throughput, latency)",
+    "Kompleksitas operasional dibandingkan",
+    "Trade-off control vs managed service dijelaskan",
+    "Rekomendasi bergantung pada operasional maturity tim"
+  ],
+  "edge_cases": [
+    "Tim sangat ahli Go tapi tidak berpengalaman dengan Kong",
+    "Persyaratan latency P99 < 10ms",
+    "Multi-cloud strategy yang mengharuskan vendor neutrality"
+  ],
+  "negative_cases": [
+    "Mengabaikan biaya vendor lock-in untuk opsi managed",
+    "Mengabaikan kompleksitas operasional Kong",
+    "Tidak ada trade-off analysis"
+  ]
+}

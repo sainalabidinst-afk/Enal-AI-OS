@@ -1,0 +1,42 @@
+{
+  "test_id": "BA-GT-002",
+  "name": "Pemodelan Proses Bisnis: Order Fulfillment",
+  "category": "process_modeling",
+  "inputs": {
+    "request_id": "ba-gt-002",
+    "operation": "process_modeling",
+    "business_context": {
+      "domain": "e-commerce",
+      "project_name": "Online Shop Platform",
+      "description": "Alur order fulfillment end-to-end"
+    },
+    "inputs": {
+      "current_state_documentation": "Saat ini, setelah customer checkout, admin menerima notifikasi WhatsApp dan mengupdate stok secara manual. Proses ini memakan waktu 2-4 jam."
+    }
+  },
+  "expected_output": {
+    "process_model_required": true,
+    "activities_count_min": 5,
+    "as_is_model_required": true,
+    "to_be_model_required": true
+  },
+  "acceptance_criteria": [
+    "Process model dihasilkan (BPMN-style)",
+    "As-is model menggambarkan proses saat ini",
+    "To-be model menggambarkan proses yang dioptimalkan",
+    "Minimal 5 aktivitas teridentifikasi",
+    "Decision points teridentifikasi (payment success/fail)",
+    "Actor/role untuk setiap aktivitas ditentukan",
+    "Pain points diidentifikasi (2-4 jam processing time)"
+  ],
+  "edge_cases": [
+    "Proses dengan exception handling (payment failure, out of stock)",
+    "Proses paralel (payment verification dan inventory check bersamaan)",
+    "Proses dengan escalation (manager approval untuk refund)"
+  ],
+  "negative_cases": [
+    "Process model tanpa actor/role",
+    "As-is dan to-be model tidak jelas dibedakan",
+    "Pain points tidak diidentifikasi"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "capabilityId": "system_architect",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Regression",
+      "tests": [
+        {
+          "id": "system_architect-regression-001",
+          "description": "Golden test for regression in system_architect",
+          "input": {
+            "capability_id": "system_architect",
+            "category": "regression"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

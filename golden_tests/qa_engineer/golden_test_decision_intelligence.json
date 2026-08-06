@@ -1,0 +1,38 @@
+{
+  "test_id": "QA-GT-008",
+  "name": "Golden Test untuk Decision Intelligence Pack",
+  "category": "golden_test_generation",
+  "inputs": {
+    "request_id": "qa-gt-008",
+    "operation": "golden_test",
+    "for_capability_pack": "decision_intelligence",
+    "target": {
+      "source_code": "from apps.decision_intelligence.engine import DecisionIntelligenceEngine\n\nengine = DecisionIntelligenceEngine()\nrequest = DecisionRequest(\n    context='Cloud provider selection',\n    objectives=[Objective(name='cost', weight=0.3, goal='minimize')],\n    constraints=['budget < 5000']\n)\nresult = engine.evaluate(request)",
+      "language": "python"
+    }
+  },
+  "expected_output": {
+    "golden_test_generated": true,
+    "test_count_min": 5,
+    "acceptance_criteria_defined": true,
+    "edge_cases_included": true
+  },
+  "acceptance_criteria": [
+    "Golden test dihasilkan untuk decision_intelligence pack",
+    "Minimal 5 golden test scenario",
+    "Test untuk basic decision flow",
+    "Test untuk edge case (empty evidence, conflicting objectives)",
+    "Test untuk negative case (invalid constraints)",
+    "Acceptance criteria didefinisikan untuk setiap test"
+  ],
+  "edge_cases": [
+    "Empty evidence sources",
+    "Conflicting objectives (cannot satisfy all)",
+    "Invalid constraints (no valid alternative)"
+  ],
+  "negative_cases": [
+    "Golden test tanpa acceptance criteria",
+    "Tidak ada edge case coverage",
+    "Test untuk capability pack yang salah"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "test_id": "SA-GT-003",
+  "name": "Pelanggaran Package Boundary",
+  "category": "governance",
+  "inputs": {
+    "target_type": "code",
+    "workspace_path": "/project/example_boundary_violation",
+    "architecture_style": "hexagonal",
+    "focus_areas": ["maintainability", "modifiability"],
+    "include_recommendations": true
+  },
+  "expected_output": {
+    "boundary_violations_found": true,
+    "violation_type_required": true,
+    "recommendation_required": true
+  },
+  "acceptance_criteria": [
+    "Pelanggaran batas package terdeteksi (impor dari capability pack ke capability pack)",
+    "Jenis pelanggaran dijelaskan (direct import, shared state)",
+    "ADRA-002 compliance dicevaluasi",
+    "Rekomendasi diberikan (event bus, shared contract)",
+    "File dan baris yang melanggar dilaporkan"
+  ],
+  "edge_cases": [
+    "Pelanggaran lintas nested package",
+    "Pelanggaran melalui import tidak langsung (transitive)",
+    "Pelanggaran yang dibenarkan oleh ADR khusus"
+  ],
+  "negative_cases": [
+    "Pelanggaran tidak terdeteksi (false negative)",
+    "Rekomendasi tanpa referensi ADR-002",
+    "Mengabaikan transitive violations"
+  ]
+}

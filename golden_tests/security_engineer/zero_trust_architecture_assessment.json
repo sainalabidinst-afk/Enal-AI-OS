@@ -1,0 +1,41 @@
+{
+  "test_id": "SE-GT-010",
+  "name": "Arsitektur Zero Trust Assessment",
+  "category": "zero_trust_architecture",
+  "inputs": {
+    "target_type": "architecture",
+    "architecture_description": "Perusahaan dengan VPN akses ke semua sistem. Tidak ada MFA. Semua network segment dianggap trusted di dalam perimeter.",
+    "components": ["vpn_gateway", "internal_api", "database", "file_server"],
+    "data_flows": [
+      {"from": "vpn_gateway", "to": "internal_api", "data": "api_request"},
+      {"from": "internal_api", "to": "database", "data": "query"}
+    ],
+    "standards": ["nist_csf", "zero_trust", "iso27001"],
+    "include_compliance_mapping": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "zero_trust_gaps_identified_min": 5,
+    "mfa_absence_required": true,
+    "network_segmentation_issues_required": true,
+    "remediation_roadmap_required": true
+  },
+  "acceptance_criteria": [
+    "Zero Trust gaps teridentifikasi: no MFA, no network segmentation, no least privilege",
+    "Perimeter-based trust assumption terdeteksi",
+    "Identity verification gaps teridentifikasi",
+    "NIST CSF mapping untuk setiap gap",
+    "Remediation roadmap dengan priority diberikan",
+    "Zero Trust maturity assessment disajikan"
+  ],
+  "edge_cases": [
+    "VPN dengan MFA tapi internal tidak ada",
+    "Partial network segmentation",
+    "Legacy system yang tidak bisa di-upgrade"
+  ],
+  "negative_cases": [
+    "Zero Trust gaps tidak terdeteksi (false negative)",
+    "NIST CSF mapping tidak ada",
+    "Remediation tanpa priority atau timeline"
+  ]
+}

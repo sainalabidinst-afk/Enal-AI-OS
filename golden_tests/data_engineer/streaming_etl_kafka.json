@@ -1,0 +1,42 @@
+{
+  "test_id": "DE-GT-010",
+  "name": "Streaming ETL: Kafka ke Data Warehouse",
+  "category": "stream_processing",
+  "inputs": {
+    "request_id": "de-gt-010",
+    "job_type": "elt",
+    "source": {
+      "type": "kafka",
+      "location": "kafka://broker:9092/sales-topic",
+      "schema_definition": {"order_id": "string", "amount": "float", "timestamp": "datetime"}
+    },
+    "operations": [
+      {"operation": "window", "parameters": {"type": "tumbling", "size": "5m"}},
+      {"operation": "aggregate", "parameters": {"group_by": ["order_id"], "agg": {"amount": "sum"}}},
+      {"operation": "deduplicate", "parameters": {"key": "order_id", "window": "1h"}}
+    ]
+  },
+  "expected_output": {
+    "stream_processing_configured": true,
+    "windowing_correct": true,
+    "deduplication_correct": true,
+    "watermark_handled": true
+  },
+  "acceptance_criteria": [
+    "Kafka consumer di-konfigurasi untuk topic",
+    "Windowing (tumbling 5 menit) diterapkan",
+    "Aggregation per window dihitung",
+    "Deduplication dengan key dan window timeout",
+    "Late data handling (watermark) dijelaskan"
+  ],
+  "edge_cases": [
+    "Late data arriving setelah window close",
+    "Duplicate event dalam Kafka partition",
+    "Out-of-order event dalam partition"
+  ],
+  "negative_cases": [
+    "Windowing tidak diterapkan",
+    "Deduplication tidak di-handle",
+    "Late data menyebabkan incorrect aggregation"
+  ]
+}

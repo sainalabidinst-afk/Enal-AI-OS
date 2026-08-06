@@ -8,6 +8,8 @@ from .api import (
     auth,
     benchmark,
     capability_discovery,
+    capability_execution,
+    capability_lifecycle,
     chat,
     ecosystem,
     execution,
@@ -138,6 +140,8 @@ app.include_router(orchestrator_v2.router, prefix=settings.API_V1_STR, tags=["or
 app.include_router(phase3.router, prefix=settings.API_V1_STR, tags=["phase3"])
 app.include_router(ecosystem.router, prefix=settings.API_V1_STR, tags=["ecosystem"])
 app.include_router(capability_discovery.router, prefix=settings.API_V1_STR, tags=["capability-discovery"])
+app.include_router(capability_execution.router, prefix=settings.API_V1_STR, tags=["capability-execution"])
+app.include_router(capability_lifecycle.router, prefix=settings.API_V1_STR, tags=["capability-lifecycle"])
 app.include_router(execution.router, prefix=settings.API_V1_STR, tags=["execution"])
 app.include_router(workspace.router, prefix=settings.API_V1_STR, tags=["workspace"])
 app.include_router(artifact.router, prefix=settings.API_V1_STR, tags=["artifact"])

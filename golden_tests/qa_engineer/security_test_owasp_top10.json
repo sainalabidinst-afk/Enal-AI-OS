@@ -1,0 +1,38 @@
+{
+  "test_id": "QA-GT-010",
+  "name": "Test Plan Keamanan: OWASP Top 10",
+  "category": "security_testing",
+  "inputs": {
+    "request_id": "qa-gt-010",
+    "operation": "unit_test",
+    "target": {
+      "source_code": "# E-commerce API dengan celah keamanan\nfrom flask import Flask, request\napp = Flask(__name__)\n\n@app.route('/search')\ndef search():\n    query = request.args.get('q', '')\n    # Vulnerable: direct HTML rendering without sanitization\n    return f'<div>{query}</div>'\n\n@app.route('/user/<user_id>')\ndef get_user(user_id):\n    # Vulnerable: SQL injection\n    query = f\"SELECT * FROM users WHERE id = {user_id}\"\n    return db.execute(query)",
+      "language": "python",
+      "framework": "pytest"
+    }
+  },
+  "expected_output": {
+    "owasp_tests_generated_min": 5,
+    "injection_tests_required": true,
+    "xss_tests_required": true,
+    "security_findings_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 5 security test dihasilkan",
+    "Test untuk SQL injection pada get_user endpoint",
+    "Test untuk XSS pada search endpoint",
+    "Test untuk broken authentication (jika ada)",
+    "Test untuk sensitive data exposure",
+    "OWASP Top 10 mapping untuk setiap test"
+  ],
+  "edge_cases": [
+    "SQL injection dengan UNION-based attack",
+    "XSS dengan event handler injection",
+    "SQL injection dengan stacked queries"
+  ],
+  "negative_cases": [
+    "Tidak ada security test untuk OWASP Top 10",
+    "Tidak ada injection test untuk SQL vulnerability",
+    "OWASP mapping tidak diberikan"
+  ]
+}

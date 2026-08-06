@@ -1,0 +1,36 @@
+{
+  "test_id": "SE-GT-001",
+  "name": "Deteksi SQL Injection",
+  "category": "owasp_top10",
+  "inputs": {
+    "target_type": "code",
+    "source_code": "query = \"SELECT * FROM users WHERE id = \" + user_id\ncursor.execute(query)",
+    "language": "python",
+    "standards": ["owasp_top10"],
+    "include_remediation": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "critical_findings_required": 1,
+    "owasp_a03_injection_required": true,
+    "remediation_required": true,
+    "line_evidence_required": true
+  },
+  "acceptance_criteria": [
+    "Temuan A03:2021-Injection terdeteksi pada baris yang benar",
+    "Severity ditetapkan sebagai 'critical'",
+    "Evidence berisi file dan line number yang tepat",
+    "Remediation merekomendasikan parameterized query",
+    "Compliance mapping ke OWASP Top 10"
+  ],
+  "edge_cases": [
+    "SQL injection dengan concatenation multi-baris",
+    "ORM dengan raw query",
+    "Prepared statement yang tidak digunakan"
+  ],
+  "negative_cases": [
+    "Tidak ada temuan untuk code dengan SQL injection jelas (false negative)",
+    "Severity 'low' untuk SQL injection",
+    "Tidak ada remediation suggestion"
+  ]
+}

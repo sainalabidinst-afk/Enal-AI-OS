@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-006",
+  "name": "Data Storage: RDBMS vs Data Lake vs Data Warehouse",
+  "category": "data_storage_decision",
+  "inputs": {
+    "context": "Perusahaan e-commerce memilih arsitektur data storage — RDBMS (PostgreSQL), Data Lake (S3), atau Data Warehouse (Snowflake).",
+    "evidence_sources": [
+      {"source_id": "query_pattern_analysis", "evidence_type": "analysis", "quality_score": 0.85, "weight": 0.3},
+      {"source_id": "cost_comparison", "evidence_type": "data", "quality_score": 0.9, "weight": 0.3},
+      {"source_id": "scalability_assessment", "evidence_type": "benchmark", "quality_score": 0.8, "weight": 0.2}
+    ],
+    "constraints": ["budget < 50K/bulan", "retention >= 7 tahun"],
+    "objectives": [{"name": "query_performance", "weight": 0.35, "goal": "maximize"}, {"name": "biaya", "weight": 0.25, "goal": "minimize"}, {"name": "skalabilitas", "weight": 0.25, "goal": "maximize"}, {"name": "kemudahan_use", "weight": 0.15, "goal": "maximize"}],
+    "risk_tolerance": "low",
+    "max_alternatives": 3
+  },
+  "expected_output": {
+    "recommended_decision": "PostgreSQL untuk OLTP + Snowflake untuk analytics (hybrid approach)",
+    "alternatives_count": 2,
+    "confidence_score_min": 0.8,
+    "confidence_score_max": 0.95,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Setiap opsi storage dibandingkan untuk use case yang berbeda",
+    "Query pattern dianalisis untuk menentukan workload type (OLTP vs OLAP)",
+    "Biaya total dihitung termasuk storage, compute, dan maintenance",
+    "Trade-off latency vs throughput dijelaskan",
+    "Hybrid approach dipertimbangkan sebagai opsi optimal"
+  ],
+  "edge_cases": [
+    "Workload 100% OLTP tanpa kebutuhan analytics",
+    "Real-time analytics requirement (sub-second)",
+    "Data volume mencapai petabytes dalam 2 tahun"
+  ],
+  "negative_cases": [
+    "Rekomendasi single solution untuk workload hybrid",
+    "Mengabaikan biaya egress untuk cloud data lake",
+    "Tidak ada trade-off analysis"
+  ]
+}

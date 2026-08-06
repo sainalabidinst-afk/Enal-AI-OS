@@ -1,0 +1,38 @@
+{
+  "test_id": "self_development_gt_007",
+  "name": "Model Risiko - Kuantifikasi Resiko Perubahan",
+  "category": "risk_modeling",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "change_description": "Migrate database from PostgreSQL to MySQL",
+    "change_scope": "database_abstraction_layer",
+    "complexity": "high",
+    "test_coverage": 0.6
+  },
+  "expected_output": {
+    "overall_risk_score": 0.65,
+    "risk_breakdown": {
+      "complexity_risk": 0.8,
+      "test_coverage_risk": 0.5,
+      "blast_radius_risk": 0.6
+    },
+    "mitigation_suggestions": [
+      "Increase test coverage to 80% before migration",
+      "Create database abstraction layer first",
+      "Run parallel migration in staging"
+    ]
+  },
+  "acceptance_criteria": [
+    "Risk score dihitung",
+    "Breakdown risiko diberikan",
+    "Saran mitigasi diberikan"
+  ],
+  "edge_cases": [
+    "Perubahan dengan coverage 100%",
+    "Perubahan pada prototype code"
+  ],
+  "negative_cases": [
+    "Complexity tidak valid",
+    "Test coverage > 1"
+  ]
+}

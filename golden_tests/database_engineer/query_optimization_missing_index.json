@@ -1,0 +1,56 @@
+{
+  "test_id": "DB-GT-001",
+  "name": "Optimalisasi Query: Missing Index pada JOIN",
+  "category": "query_optimization",
+  "inputs": {
+    "request_id": "db-gt-001",
+    "operation": "query_optimization",
+    "database_type": "postgresql",
+    "queries": [
+      "SELECT o.id, c.name, o.total FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.created_at > '2024-01-01' ORDER BY o.total DESC"
+    ],
+    "schema": {
+      "tables": [
+        {
+          "name": "orders",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "customer_id", "type": "INTEGER", "constraints": ["FOREIGN KEY"]},
+            {"name": "total", "type": "DECIMAL"},
+            {"name": "created_at", "type": "TIMESTAMP"}
+          ]
+        },
+        {
+          "name": "customers",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "name", "type": "VARCHAR(255)"}
+          ]
+        }
+      ]
+    }
+  },
+  "expected_output": {
+    "findings_required": true,
+    "missing_index_required": true,
+    "recommendation_required": true,
+    "estimated_improvement_required": true
+  },
+  "acceptance_criteria": [
+    "Missing index terdeteksi pada orders.customer_id dan orders.created_at",
+    "Rekomendasi CREATE INDEX diberikan dengan kolom yang tepat",
+    "Estimated improvement diberikan (misal: 10x faster)",
+    "Confidence score >= 0.85",
+    "Evidence menunjukkan full table scan"
+  ],
+  "edge_cases": [
+    "Index sudah ada tapi tidak digunakan (statistics stale)",
+    "Composite index yang optimal berbeda dari single-column",
+    "Query dengan multiple JOIN tanpa index"
+  ],
+  "negative_cases": [
+    "Missing index tidak terdeteksi (false negative)",
+    "Rekomendasi tanpa estimated improvement",
+    "Confidence score < 0.85"
+  ]
+}

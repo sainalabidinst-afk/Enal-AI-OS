@@ -1,0 +1,41 @@
+{
+  "test_id": "QA-GT-009",
+  "name": "Load Test: Autentikasi API",
+  "category": "load_testing",
+  "inputs": {
+    "request_id": "qa-gt-009",
+    "operation": "benchmark_test",
+    "target": {
+      "source_code": "from fastapi import FastAPI\nfrom fastapi.security import OAuth2PasswordBearer\n\napp = FastAPI()\noauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')\n\n@app.post('/token')\ndef login(username: str, password: str):\n    user = authenticate(username, password)\n    if not user:\n        raise HTTPException(401)\n    return {'access_token': create_token(user), 'token_type': 'bearer'}",
+      "language": "python",
+      "framework": "pytest"
+    },
+    "performance_requirements": {
+      "latency_p95_ms": 50,
+      "throughput_rps": 500
+    }
+  },
+  "expected_output": {
+    "load_test_configured": true,
+    "concurrent_users_tested": true,
+    "throughput_measured": true,
+    "latency_measured": true
+  },
+  "acceptance_criteria": [
+    "Load test dikonfigurasi dengan concurrent users (100, 500, 1000)",
+    "Throughput diukur untuk setiap concurrent level",
+    "P95 dan P99 latency diukur",
+    "Bottleneck diidentifikasi (CPU, memory, I/O)",
+    "Breaking point ditentukan (max RPS sebelum degradation)"
+  ],
+  "edge_cases": [
+    "Load spike (10x normal traffic)",
+    "Sustained load untuk 1 jam (soak test)",
+    "Load dengan invalid token (error handling overhead)"
+  ],
+  "negative_cases": [
+    "Tidak ada concurrent user testing",
+    "Tidak ada bottleneck identification",
+    "Tidak ada breaking point analysis"
+  ]
+}

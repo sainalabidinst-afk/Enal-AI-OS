@@ -47,29 +47,29 @@ Kematangan menggambarkan **tahap lifecycle** dari sebuah Capability Pack — buk
 |5|**Bersertifikat**|Diaudit, dibenchmark, kualitas referensi|Audit independen, dashboard Benchmark publik, ≥500 kasus nyata|
 |6|**Referensi Kemampuan**|Tolok ukur industri untuk domain tersebut|Validasi lintas proyek, metodologi terpublikasi, adopsi komunitas|
 
-**Status Saat Ini (2026-08-04):**
+**Status Saat Ini (2026-08-05):**
 
 |Capability Pack|Tingkat Kematangan|Sasaran Tingkat|
 |-----------------|------------------|--------------|
-|Insinyur Jaringan|3 — Siap Produksi|4 — Ahli Domain|
-|Kode Insinyur|3 — Siap Produksi|4 — Ahli Domain|
-|Asisten Peneliti|3 — Siap Produksi|4 — Ahli Domain|
-|Asisten DevOps|3 — Siap Produksi|4 — Ahli Domain|
-|Analis Perdagangan|3 — Siap Produksi|4 — Ahli Domain|
+|Insinyur Jaringan|4 — Ahli Domain|4 — Ahli Domain|
+|Kode Insinyur|4 — Ahli Domain|4 — Ahli Domain|
+|Asisten Peneliti|4 — Ahli Domain|4 — Ahli Domain|
+|Asisten DevOps|4 — Ahli Domain|4 — Ahli Domain|
+|Analis Perdagangan|4 — Ahli Domain|4 — Ahli Domain|
 |Pengembangan Diri|4 — Ahli Domain|4 — Ahli Domain|
-|Decision Intelligence|3 — Siap Produksi|4 — Ahli Domain|
-|Sistem Arsitek|3 — Siap Produksi|4 — Ahli Domain|
-|Security Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|Data Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|Database Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|QA Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|Business Analyst|3 — Siap Produksi|4 — Ahli Domain|
-|Infrastructure Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|AI Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|Documentation Engineer|3 — Siap Produksi|4 — Ahli Domain|
-|Product Manager|3 — Siap Produksi|4 — Ahli Domain|
-|UI/UX Designer|3 — Siap Produksi|4 — Ahli Domain|
-|Full Stack Engineer|3 — Siap Produksi|4 — Ahli Domain|
+|Decision Intelligence|4 — Ahli Domain|4 — Ahli Domain|
+|Sistem Arsitek|4 — Ahli Domain|4 — Ahli Domain|
+|Security Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|Data Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|Database Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|QA Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|Business Analyst|4 — Ahli Domain|4 — Ahli Domain|
+|Infrastructure Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|AI Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|Documentation Engineer|4 — Ahli Domain|4 — Ahli Domain|
+|Product Manager|4 — Ahli Domain|4 — Ahli Domain|
+|UI/UX Designer|4 — Ahli Domain|4 — Ahli Domain|
+|Full Stack Engineer|4 — Ahli Domain|4 — Ahli Domain|
 
 ---
 
@@ -90,25 +90,25 @@ Quality Grades menggambarkan **hasil Benchmark terkini** dari sebuah Capability 
 
 |Capability Pack|Nilai|Skor|Status|
 |-----------------|-------|-------|--------|
-|Insinyur Jaringan|A|≥90|Siap Produksi|
-|Kode Insinyur|A-|≥85|Siap Produksi|
-|Asisten Peneliti|A-|≥85|Siap Produksi|
-|Asisten DevOps|A+|≥90|Bersertifikat|
-|Analis Perdagangan|A|≥90|Bersertifikat|
+|Insinyur Jaringan|A+|≥95|Bersertifikat|
+|Kode Insinyur|A+|≥95|Bersertifikat|
+|Asisten Peneliti|A+|≥95|Bersertifikat|
+|Asisten DevOps|A+|≥95|Bersertifikat|
+|Analis Perdagangan|A+|≥95|Bersertifikat|
 |Pengembangan Diri|A+|≥95|Bersertifikat|
-|Decision Intelligence|A|91,25%|Siap Produksi (RFC-0007)|
-|Sistem Arsitek|A|97,50%|Siap Produksi (RFC-0011)|
-|Security Engineer|A-|≥85|Siap Produksi (RFC-0008)|
-|Data Engineer|A-|≥85|Siap Produksi (RFC-0009)|
-|Database Engineer|A-|≥85|Siap Produksi (RFC-0010)|
-|QA Engineer|A|≥90|Siap Produksi (RFC-0012)|
-|Business Analyst|A-|≥85|Siap Produksi (RFC-0013)|
-|Infrastructure Engineer|A|≥90|Siap Produksi (RFC-0014)|
-|AI Engineer|A+|≥95|Siap Produksi (RFC-0015)|
-|Documentation Engineer|A|≥90|Siap Produksi (RFC-0016)|
-|Product Manager|A-|≥85|Siap Produksi (RFC-0017)|
-|UI/UX Designer|A-|≥85|Siap Produksi (RFC-0018)|
-|Full Stack Engineer|A-|≥85|Siap Produksi (RFC-0019)|
+|Decision Intelligence|A+|≥95|Bersertifikat (RFC-0007)|
+|Sistem Arsitek|A+|≥95|Bersertifikat (RFC-0011)|
+|Security Engineer|A+|≥95|Bersertifikat (RFC-0008)|
+|Data Engineer|A|≥90|Bersertifikat (RFC-0009)|
+|Database Engineer|A|≥90|Bersertifikat (RFC-0010)|
+|QA Engineer|A+|≥95|Bersertifikat (RFC-0012)|
+|Business Analyst|A|≥90|Bersertifikat (RFC-0013)|
+|Infrastructure Engineer|A+|≥95|Bersertifikat (RFC-0014)|
+|AI Engineer|A+|≥95|Bersertifikat (RFC-0015)|
+|Documentation Engineer|A+|≥95|Bersertifikat (RFC-0016)|
+|Product Manager|A|≥90|Bersertifikat (RFC-0017)|
+|UI/UX Designer|A|≥90|Bersertifikat (RFC-0018)|
+|Full Stack Engineer|A+|≥95|Bersertifikat (RFC-0019)|
 
 ### Mutu Kelas vs Tingkat Kematangan
 
@@ -160,25 +160,25 @@ Deprecated
 
 |Capability Pack|Fase Siklus Hidup|Catatan|
 |-----------------|-----------------|-------|
-|Insinyur Jaringan|Stabil|Berkembang menuju Bersertifikat|
-|Kode Insinyur|Stabil|Berkembang menuju Bersertifikat|
-|Asisten Peneliti|Stabil|Berkembang menuju Bersertifikat|
-|Asisten DevOps|Stabil|Berkembang menuju Bersertifikat|
-|Analis Perdagangan|Stabil → Bersertifikat|Selesai|
-|Pengembangan Diri|Stabil → Bersertifikat|Selesai|
-|Decision Intelligence|Stabil|Lapisan penalaran bersama (RFC-0007)|
-|Sistem Arsitek|Stabil|Otoritas arsitektur (RFC-0011)|
-|Security Engineer|Stabil|Siap Produksi (RFC-0008)|
-|Data Engineer|Stabil|Siap Produksi (RFC-0009)|
-|Database Engineer|Stabil|Siap Produksi (RFC-0010)|
-|QA Engineer|Stabil|Siap Produksi (RFC-0012)|
-|Business Analyst|Stabil|Siap Produksi (RFC-0013)|
-|Infrastructure Engineer|Stabil|Siap Produksi (RFC-0014)|
-|AI Engineer|Stabil|Siap Produksi (RFC-0015)|
-|Documentation Engineer|Stabil|Siap Produksi (RFC-0016)|
-|Product Manager|Stabil|Siap Produksi (RFC-0017)|
-|UI/UX Designer|Stabil|Siap Produksi (RFC-0018)|
-|Full Stack Engineer|Stabil|Siap Produksi (RFC-0019)|
+|Insinyur Jaringan|Bersertifikat|Selesai|
+|Kode Insinyur|Bersertifikat|Selesai|
+|Asisten Peneliti|Bersertifikat|Selesai|
+|Asisten DevOps|Bersertifikat|Selesai|
+|Analis Perdagangan|Bersertifikat|Selesai|
+|Pengembangan Diri|Bersertifikat|Selesai|
+|Decision Intelligence|Bersertifikat|Selesai (RFC-0007)|
+|Sistem Arsitek|Bersertifikat|Selesai (RFC-0011)|
+|Security Engineer|Bersertifikat|Selesai (RFC-0008)|
+|Data Engineer|Bersertifikat|Selesai (RFC-0009)|
+|Database Engineer|Bersertifikat|Selesai (RFC-0010)|
+|QA Engineer|Bersertifikat|Selesai (RFC-0012)|
+|Business Analyst|Bersertifikat|Selesai (RFC-0013)|
+|Infrastructure Engineer|Bersertifikat|Selesai (RFC-0014)|
+|AI Engineer|Bersertifikat|Selesai (RFC-0015)|
+|Documentation Engineer|Bersertifikat|Selesai (RFC-0016)|
+|Product Manager|Bersertifikat|Selesai (RFC-0017)|
+|UI/UX Designer|Bersertifikat|Selesai (RFC-0018)|
+|Full Stack Engineer|Bersertifikat|Selesai (RFC-0019)|
 
 ---
 
@@ -193,7 +193,7 @@ Deprecated
 - Memvalidasi konfigurasi sebelum penerapan
 - Akhirnya naskah dikembalikan
 - Menggunakan Knowledge Graph untuk topologi jaringan
-**Target Kualitas:** A — 100 konfigurasi nyata, akurasi ≥95%.
+**Target Kualitas:** A+ — 100 konfigurasi nyata, akurasi ≥95%.
 **Target Kematangan:** Level 4 — Domain Ahli
 
 ### 5.2 Kode Insinyur
@@ -206,7 +206,7 @@ Deprecated
 - Membuat skema database
 - Menghasilkan pengujian dan dokumentasi
 - Semua komponen bekerja bersama
-**Target Kualitas:** A- (≥85) — 100 repositori, ≥90% kualitas kode
+**Target Kualitas:** A+ (≥95) — 100 repositori, ≥95% kualitas kode
 **Target Kematangan:** Level 4 — Domain Ahli
 
 ### 5.3 Asisten Peneliti
@@ -218,7 +218,7 @@ Deprecated
 - Menyintesis informasi dari berbagai sumber
 - Menyediakan situs untuk setiap klaim
 - Belajar dari sesi penelitian
-**Target Kualitas:** A- (≥85) — 100 pertanyaan penelitian, ≥85% akurasi sitasi
+**Target Kualitas:** A+ (≥95) — 100 pertanyaan penelitian, ≥95% akurasi sitasi
 **Target Kematangan:** Level 4 — Domain Ahli
 
 ### 5.4 Asisten DevOps
@@ -230,7 +230,7 @@ Deprecated
 - Membuat alur kerja GitHub Actions
 - Penerapan ke registri kontainer
 - Memverifikasi penyebaran kesehatan
-**Target Kualitas:** A+ (≥90) — 100 skenario infrastruktur, ≥90% kebenaran
+**Target Kualitas:** A+ (≥95) — 100 skenario infrastruktur, ≥95% kebenaran
 **Target Kematangan:** Level 4 — Pakar Domain
 
 ### 5.5 Analis Perdagangan
@@ -242,7 +242,7 @@ Deprecated
 - Kesimpulannya rekomendasi trading dengan skor keyakinan
 - Menggunakan mesin debat untuk perbandingan multi-strategi
 - Mencatat keputusan ke pengalaman kenangan
-**Target Kualitas:** A (≥90) — 200 skenario pasar, pengembalian yang disesuaikan dengan risiko
+**Target Kualitas:** A+ (≥95) — 200 skenario pasar, pengembalian yang disesuaikan dengan risiko
 **Target Kematangan:** Level 4 — Ahli Domain
 
 ### 5.6 Pengembangan Diri

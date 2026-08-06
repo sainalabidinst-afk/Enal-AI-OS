@@ -1,0 +1,56 @@
+{
+  "test_id": "DB-GT-002",
+  "name": "Rekomendasi Index untuk Pola Query",
+  "category": "index_recommendation",
+  "inputs": {
+    "request_id": "db-gt-002",
+    "operation": "index_recommendation",
+    "database_type": "postgresql",
+    "queries": [
+      "SELECT * FROM products WHERE category_id = 5 AND price > 100 ORDER BY created_at DESC",
+      "SELECT COUNT(*) FROM products WHERE category_id = 5 AND is_active = true"
+    ],
+    "schema": {
+      "tables": [
+        {
+          "name": "products",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "category_id", "type": "INTEGER"},
+            {"name": "price", "type": "DECIMAL"},
+            {"name": "is_active", "type": "BOOLEAN"},
+            {"name": "created_at", "type": "TIMESTAMP"}
+          ]
+        }
+      ]
+    },
+    "workload_profile": {
+      "read_write_ratio": 0.9,
+      "peak_qps": 500,
+      "query_patterns": ["select", "filter", "order_by"]
+    }
+  },
+  "expected_output": {
+    "index_recommendations_required": true,
+    "recommendations_min": 2,
+    "index_type_specified": true,
+    "priority_specified": true
+  },
+  "acceptance_criteria": [
+    "Minimal 2 index recommendation diberikan",
+    "Composite index (category_id, is_active, created_at) direkomendasikan",
+    "Index type ditentukan (btree untuk range, gist untuk geospatial)",
+    "Priority ditetapkan (high untuk kolom yang sering difilter)",
+    "Write impact dijelaskan untuk setiap index"
+  ],
+  "edge_cases": [
+    "Query yang tidak bisa dioptimalkan dengan index (full scan needed)",
+    "Existing index yang sudah optimal",
+    "Write-heavy workload (index cost signifikan)"
+  ],
+  "negative_cases": [
+    "Tidak ada index recommendation (false negative)",
+    "Rekomendasi tanpa index type",
+    "Tidak ada write impact analysis"
+  ]
+}

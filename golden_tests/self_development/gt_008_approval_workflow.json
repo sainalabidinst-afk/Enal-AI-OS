@@ -1,0 +1,33 @@
+{
+  "test_id": "self_development_gt_008",
+  "name": "Alur Kerja Persetujuan - Approval State Machine",
+  "category": "approval_workflow",
+  "inputs": {
+    "patch_id": "patch-001",
+    "change_type": "refactoring",
+    "risk_level": "medium",
+    "proposed_changes": [
+      {"file": "user_service.py", "type": "modify", "lines": 10}
+    ]
+  },
+  "expected_output": {
+    "approval_required": true,
+    "approval_state": "pending",
+    "required_approvers": ["tech_lead", "security_reviewer"],
+    "auto_approve_eligible": false,
+    "estimated_review_time_hours": 4
+  },
+  "acceptance_criteria": [
+    "Approval state terdefinisi",
+    "Approver yang tepat ditentukan",
+    "Auto-approve eligibility dinilai"
+  ],
+  "edge_cases": [
+    "Hotfix dengan risiko tinggi",
+    "Documentation-only change"
+  ],
+  "negative_cases": [
+    "Patch ID kosong",
+    "Risk level tidak valid"
+  ]
+}

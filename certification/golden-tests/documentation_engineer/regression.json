@@ -1,0 +1,24 @@
+{
+  "capabilityId": "documentation_engineer",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Regression",
+      "tests": [
+        {
+          "id": "documentation_engineer-regression-001",
+          "description": "Golden test for regression in documentation_engineer",
+          "input": {
+            "capability_id": "documentation_engineer",
+            "category": "regression"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

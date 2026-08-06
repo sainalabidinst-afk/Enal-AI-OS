@@ -1,0 +1,60 @@
+{
+  "test_id": "BA-GT-001",
+  "name": "Gathering Requirement: Fitur Checkout E-commerce",
+  "category": "requirement_gathering",
+  "inputs": {
+    "request_id": "ba-gt-001",
+    "operation": "requirement_gathering",
+    "business_context": {
+      "domain": "e-commerce",
+      "project_name": "Online Shop Platform",
+      "description": "Platform e-commerce untuk UKM Indonesia"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "Pengguna harus dapat menambahkan produk ke keranjang",
+        "Pengguna harus dapat checkout dengan pilih metode pembayaran",
+        "Admin harus dapat melihat dan mengelola pesanan",
+        "Sistem harus mengirim email konfirmasi setelah checkout"
+      ],
+      "stakeholder_notes": [
+        "Pembayaran: Transfer Bank, E-Wallet (GoPay, OVO), COD",
+        "Admin dashboard harus di-protect dengan role-based access",
+        "Email konfirmasi dalam Bahasa Indonesia"
+      ]
+    },
+    "personas": [
+      {
+        "name": "Pembeli Online",
+        "role": "Customer",
+        "goals": ["Mudah checkout", "Metode pembayaran beragam"],
+        "pain_points": ["Proses checkout lambat", "Metode pembayaran terbatas"]
+      }
+    ]
+  },
+  "expected_output": {
+    "requirements_count_min": 8,
+    "functional_requirements_identified": true,
+    "non_functional_requirements_identified": true,
+    "clarity_score_min": 0.85
+  },
+  "acceptance_criteria": [
+    "Minimal 8 requirement dihasilkan",
+    "Functional requirements: tambah ke keranjang, checkout, pembayaran, admin dashboard",
+    "Non-functional requirements: performance, availability, security",
+    "Setiap requirement memiliki clarity score >= 0.85",
+    "Priority ditetapkan (must_have, should_have, could_have)",
+    "Acceptance criteria didefinisikan untuk setiap requirement",
+    "Dependencies diidentifikasi"
+  ],
+  "edge_cases": [
+    "Requirement yang ambigu (tidak measurable)",
+    "Stakeholder dengan perspektif yang bertentangan",
+    "Requirement yang bergantung pada pihak ketiga (payment gateway)"
+  ],
+  "negative_cases": [
+    "Requirement tanpa acceptance criteria",
+    "Tidak ada non-functional requirement",
+    "Clarity score < 0.85 tanpa flagging ambiguity"
+  ]
+}

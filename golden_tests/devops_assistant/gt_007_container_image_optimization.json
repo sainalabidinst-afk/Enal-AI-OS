@@ -1,0 +1,31 @@
+{
+  "test_id": "devops_assistant_gt_007",
+  "name": "Deteksi Masalah - Container Image Size",
+  "category": "security_scan",
+  "inputs": {
+    "dockerfile": "FROM node:18\nWORKDIR /app\nCOPY . .\nRUN npm install\nRUN npm run build\nEXPOSE 3000\nCMD [\"node\", \"server.js\"]",
+    "scan_type": "container"
+  },
+  "expected_output": {
+    "issues_found": 2,
+    "categories": ["image_size", "layer_optimization"],
+    "severity": {"high": 1, "medium": 1},
+    "recommendations": [
+      "Use multi-stage build to reduce image size",
+      "Use .dockerignore to exclude node_modules"
+    ]
+  },
+  "acceptance_criteria": [
+    "Mendeteksi image size yang tidak optimal",
+    "Mendeteksi masalah layer optimization",
+    "Rekomendasi diberikan"
+  ],
+  "edge_cases": [
+    "Multi-stage Dockerfile yang sudah optimal",
+    "Base image alpine"
+  ],
+  "negative_cases": [
+    "Dockerfile yang sudah optimal",
+    "Input kosong"
+  ]
+}

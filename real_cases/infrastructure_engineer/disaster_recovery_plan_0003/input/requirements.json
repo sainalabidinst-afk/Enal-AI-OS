@@ -1,0 +1,11 @@
+{
+  "scenario": "disaster_recovery_plan",
+  "project_name": "payment-service",
+  "domain": "fintech",
+  "rpo_minutes": 15,
+  "rto_minutes": 60,
+  "strategy": "warm_standby",
+  "primary_region": "us-east-1",
+  "secondary_region": "us-west-2",
+  "expected_components": ["dr_plan", "backup_schedule", "cost_estimate", "compliance_status"]
+}

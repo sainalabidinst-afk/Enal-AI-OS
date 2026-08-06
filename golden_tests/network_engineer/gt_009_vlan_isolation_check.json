@@ -1,0 +1,27 @@
+{
+  "test_id": "network_engineer_gt_009",
+  "name": "Analisis Konfigurasi VLAN Leak",
+  "category": "security_audit",
+  "inputs": {
+    "type": "text",
+    "content": "/interface bridge add name=br-lan\r\n/interface bridge vlan add bridge=br-lan vlan-ids=10 tagged=bridge,ether2 untagged=ether3\r\n/interface bridge vlan add bridge=br-lan vlan-ids=20 tagged=bridge,ether4 untagged=ether5",
+    "vendor_hint": "mikrotik"
+  },
+  "expected_output": {
+    "issues": [],
+    "risk_score": 0.2
+  },
+  "acceptance_criteria": [
+    "Tidak ada VLAN leak terdeteksi",
+    "VLAN mapping teridentifikasi dengan benar",
+    "Skor risiko rendah"
+  ],
+  "edge_cases": [
+    "VLAN tanpa tagged port",
+    "Port yang berada di banyak VLAN"
+  ],
+  "negative_cases": [
+    "Konfigurasi tanpa bridge VLAN",
+    "Bridge tanpa port anggota"
+  ]
+}

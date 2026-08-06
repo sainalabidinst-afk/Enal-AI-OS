@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Certification Review",
+  "description": "Final certification review record for a capability.",
+  "type": "object",
+  "required": [
+    "capabilityId",
+    "certificationLevel",
+    "grade",
+    "overallScore",
+    "status",
+    "completedAt",
+    "reviewer",
+    "gates"
+  ],
+  "properties": {
+    "capabilityId": {
+      "type": "string"
+    },
+    "certificationLevel": {
+      "type": "string",
+      "enum": ["Certified", "Provisional", "Experimental", "Deprecated"]
+    },
+    "grade": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "F"]
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Active", "Suspended", "Revoked", "Expired"]
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reviewer": {
+      "type": "string"
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "passed", "score"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "Capability Audit",
+              "Benchmark Audit",
+              "Golden Test Expansion",
+              "Real Case Validation",
+              "Production Readiness Review",
+              "Certification Review"
+            ]
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

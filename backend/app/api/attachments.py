@@ -7,9 +7,9 @@ from typing import Any
 
 from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
 
-from backend.app.core.attachments.analyzer import analyze_attachment, analyze_multi
-from backend.app.core.attachments.diff_engine import ConfigurationDiffEngine
-from backend.app.core.attachments.pipeline import validate_filename
+from apps.infrastructure_engineer.attachments.analyzer import analyze_attachment, analyze_multi
+from apps.infrastructure_engineer.attachments.diff_engine import ConfigurationDiffEngine
+from apps.infrastructure_engineer.attachments.pipeline import validate_filename
 from backend.app.core.telemetry.service import record_analysis_event
 from backend.app.core.workspace_service import workspace_service
 

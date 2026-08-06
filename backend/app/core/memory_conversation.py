@@ -13,7 +13,13 @@ class ConversationMemory:
     """Redis-backed conversation memory with longer TTL."""
 
     def __init__(self):
-        self.redis = aioredis.from_url(settings.REDIS_URL, decode_responses=True)
+        self._redis: aioredis.Redis | None = None
+
+    @property
+    def redis(self):
+        if self._redis is None:
+            self._redis = aioredis.from_url(settings.REDIS_URL, decode_responses=True)
+        return self._redis
 
     async def store(self, key: str, value: Any, ttl: int | None = 86400, session_id: str | None = None, project_id: str | None = None):
         await self.redis.setex(f"conv:{key}", ttl or 86400, json.dumps(value, default=str))

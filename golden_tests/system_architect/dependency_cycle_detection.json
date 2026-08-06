@@ -1,0 +1,35 @@
+{
+  "test_id": "SA-GT-002",
+  "name": "Dependency Cycle Detection",
+  "category": "dependency_analysis",
+  "inputs": {
+    "target_type": "architecture",
+    "workspace_path": "/project/example_circular_deps",
+    "architecture_style": "layered",
+    "focus_areas": ["maintainability", "modifiability"],
+    "include_recommendations": true
+  },
+  "expected_output": {
+    "dependency_cycles_detected": true,
+    "cycle_chain_required": true,
+    "recommendation_required": true,
+    "severity": "high"
+  },
+  "acceptance_criteria": [
+    "Siklus dependensi terdeteksi dan rantai module yang terlibat dilaporkan",
+    "Pangkat siklus dihitung (berapa modul yang terlibat)",
+    "Rekomendasi perbaikan diberikan (extract module, apply DI)",
+    "Impact dijelaskan untuk setiap siklus",
+    "File spesifik yang membentuk siklus dilaporkan"
+  ],
+  "edge_cases": [
+    "Siklus panjang (5+ modul)",
+    "Siklus tersembunyi (melalui import tidak langsung)",
+    "Siklus lintas package"
+  ],
+  "negative_cases": [
+    "Siklus tidak terdeteksi (false negative)",
+    "Rekomendasi tanpa chain yang jelas",
+    "Mengabaikan siklus di __init__.py"
+  ]
+}

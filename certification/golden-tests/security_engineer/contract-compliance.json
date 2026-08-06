@@ -1,0 +1,24 @@
+{
+  "capabilityId": "security_engineer",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "ContractCompliance",
+      "tests": [
+        {
+          "id": "security_engineer-contract-compliance-001",
+          "description": "Golden test for contract-compliance in security_engineer",
+          "input": {
+            "capability_id": "security_engineer",
+            "category": "contract-compliance"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

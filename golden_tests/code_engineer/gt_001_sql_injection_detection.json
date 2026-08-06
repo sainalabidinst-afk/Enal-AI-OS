@@ -1,0 +1,37 @@
+{
+  "test_id": "code_engineer_gt_001",
+  "name": "Review Kode - Deteksi SQL Injection",
+  "category": "security_analysis",
+  "inputs": {
+    "code": "def get_user(user_id):\n    query = f\"SELECT * FROM users WHERE id = {user_id}\"\n    return db.execute(query)",
+    "language": "python",
+    "filename": "user_service.py"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "critical",
+        "category": "security.sql_injection",
+        "description": "SQL query constructed using f-string interpolation with user input",
+        "recommendation": "Use parameterized queries with placeholders",
+        "line_number": 2,
+        "confidence": 0.95
+      }
+    ],
+    "architecture_patterns": {"total_findings": 0, "findings": []},
+    "secure_coding": {"total_findings": 1, "findings": [{"category": "sql_injection", "severity": "critical", "description": "SQL injection via f-string", "recommendation": "Use parameterized queries", "line_number": 2, "confidence": 0.95}]}
+  },
+  "acceptance_criteria": [
+    "Mendeteksi SQL injection dengan severity critical",
+    "Memberikan rekomendasi yang benar",
+    "Line number akurat"
+  ],
+  "edge_cases": [
+    "Kode dengan concatenation string",
+    "Kode dengan format() method"
+  ],
+  "negative_cases": [
+    "Kode tanpa database query",
+    "Kode yang hanya berisi komentar"
+  ]
+}

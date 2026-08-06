@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from typing import Any
-from datetime import datetime
+from datetime import UTC, datetime
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ class Aggregator:
                 "error": error,
                 "message_length": message_length,
                 "total_time_ms": total_time_ms,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
         )
 
@@ -77,7 +77,7 @@ class Aggregator:
                 "compliance_score": compliance_score,
                 "executive_report": executive_report,
                 "benchmark_case_id": benchmark_case_id,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
         )
 
@@ -89,7 +89,7 @@ class Aggregator:
                 "goal": goal,
                 "error": error,
                 "total_time_ms": total_time_ms,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
         )
 
@@ -99,7 +99,7 @@ class Aggregator:
                 "attachment_id": attachment_id,
                 "success": success,
                 "format_detected": format_detected,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
         )
 
@@ -110,7 +110,7 @@ class Aggregator:
                 "step_count": step_count,
                 "success": success,
                 "duration_ms": duration_ms,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
         )
 

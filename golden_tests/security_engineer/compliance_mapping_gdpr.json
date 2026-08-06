@@ -1,0 +1,36 @@
+{
+  "test_id": "SE-GT-006",
+  "name": "Compliance Mapping: GDPR",
+  "category": "compliance_audit",
+  "inputs": {
+    "target_type": "full_review",
+    "source_code": "# Data processing without consent\nuser_data = collect_user_data()\nstore_in_database(user_data)\nshare_with_partner(user_data)",
+    "language": "python",
+    "standards": ["gdpr", "pci_dss"],
+    "include_compliance_mapping": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "compliance_report_required": true,
+    "gdpr_gaps_identified_required": true,
+    "remediation_required": true,
+    "compliance_percentage_required": true
+  },
+  "acceptance_criteria": [
+    "Compliance report dihasilkan untuk GDPR",
+    "Gaps teridentifikasi (consent mechanism, data minimization, right to erasure)",
+    "Compliance percentage dihitung untuk setiap standar",
+    "Remediation direkomendasikan untuk setiap gap",
+    "Mapped findings menunjukkan hubungan dengan GDPR article"
+  ],
+  "edge_cases": [
+    "Code yang sebagian compliant",
+    "Cross-border data transfer tanpa mechanism",
+    "Data retention tanpa retention policy"
+  ],
+  "negative_cases": [
+    "Tidak ada compliance gap terdeteksi (false negative)",
+    "Compliance percentage tanpa dasar perhitungan",
+    "Remediation tanpa GDPR article reference"
+  ]
+}

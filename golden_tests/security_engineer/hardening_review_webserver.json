@@ -1,0 +1,34 @@
+{
+  "test_id": "SE-GT-005",
+  "name": "Hardening Review: Konfigurasi Web Server",
+  "category": "hardening_review",
+  "inputs": {
+    "target_type": "config",
+    "config_content": "server {\n  listen 80;\n  server_name example.com;\n  root /var/www/html;\n  index index.html;\n}",
+    "language": "nginx",
+    "standards": ["cis", "owasp_top10"],
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "hardening_issues_found_min": 3,
+    "recommendation_required": true,
+    "cis_mapping_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 3 hardening issue teridentifikasi",
+    "Issues mencakup: no HTTPS, no HSTS, no security headers, no rate limiting",
+    "CIS benchmark mapping untuk setiap finding",
+    "Rekomendasi konfigurasi yang diperbaiki diberikan",
+    "Severity sesuai dengan risk exposure"
+  ],
+  "edge_cases": [
+    "Konfigurasi yang sudah ada security headers tapi salah",
+    "Konfigurasi dengan TLS tapi cipher yang lemah",
+    "Konfigurasi yang compliant sepenuhnya"
+  ],
+  "negative_cases": [
+    "Tidak ada hardening issue terdeteksi untuk config yang jelas vulnerable (false negative)",
+    "Rekomendasi tanpa CIS mapping",
+    "Severity tidak sesuai dengan risk exposure"
+  ]
+}

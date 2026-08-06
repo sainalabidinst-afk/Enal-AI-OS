@@ -1,0 +1,16 @@
+﻿{
+    "operation":  "documentation_generation",
+    "domain":  "technology",
+    "artifacts":  [
+                      "src/",
+                      "docs/",
+                      "config/"
+                  ],
+    "scenario":  "onboarding_guide",
+    "source_files":  [
+                         "README.md",
+                         "CHANGELOG.md",
+                         "CONTRIBUTING.md"
+                     ],
+    "project_name":  "doc-project-7"
+}

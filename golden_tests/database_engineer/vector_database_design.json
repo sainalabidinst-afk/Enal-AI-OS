@@ -1,0 +1,56 @@
+{
+  "test_id": "DB-GT-010",
+  "name": "Desain Database Vector untuk Embeddings",
+  "category": "vector_database",
+  "inputs": {
+    "request_id": "db-gt-010",
+    "operation": "schema_design",
+    "database_type": "postgresql",
+    "schema": {
+      "tables": [
+        {
+          "name": "embeddings",
+          "columns": [
+            {"name": "id", "type": "UUID", "constraints": ["PRIMARY KEY"]},
+            {"name": "content", "type": "TEXT"},
+            {"name": "embedding", "type": "VECTOR(1536)"},
+            {"name": "metadata", "type": "JSONB"}
+          ]
+        }
+      ]
+    },
+    "queries": [
+      "SELECT id, content, 1 - (embedding <=> :query_embedding) AS similarity FROM embeddings ORDER BY similarity DESC LIMIT 10"
+    ],
+    "workload_profile": {
+      "read_write_ratio": 0.9,
+      "peak_qps": 100,
+      "data_volume_gb": 10,
+      "query_patterns": ["vector_search", "similarity"]
+    }
+  },
+  "expected_output": {
+    "vector_index_recommended": true,
+    "index_type_required": true,
+    "hnsw_or_ivf_required": true,
+    "similarity_metric_recommended": true
+  },
+  "acceptance_criteria": [
+    "Vector index (HNSW atau IVF) direkomendasikan",
+    "Index type dijelaskan dengan alasan",
+    "Similarity metric disarankan (cosine similarity untuk embeddings)",
+    "Performance characteristic (recall vs latency trade-off) dijelaskan",
+    "Dimension (1536) dipertimbangkan untuk index design",
+    "Metadata filtering strategy disarankan"
+  ],
+  "edge_cases": [
+    "Embedding dengan dimension yang tinggi (4096+)",
+    "Real-time vector insertion requirement",
+    "Hybrid search (vector + full-text)"
+  ],
+  "negative_cases": [
+    "Vector index tidak direkomendasikan untuk vector search workload",
+    "Tidak ada similarity metric recommendation",
+    "Dimension tidak dipertimbangkan untuk index design"
+  ]
+}

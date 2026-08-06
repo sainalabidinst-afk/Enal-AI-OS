@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-003",
+  "name": "Microservices vs Monolith untuk Startup",
+  "category": "architecture_decision",
+  "inputs": {
+    "context": "Startup dengan 10 engineer memutuskan arsitektur untuk platform SaaS baru — pilih antara monolith atau microservices.",
+    "evidence_sources": [
+      {"source_id": "team_capacity_analysis", "evidence_type": "analysis", "quality_score": 0.85, "weight": 0.35},
+      {"source_id": "scalability_forecast", "evidence_type": "data", "quality_score": 0.8, "weight": 0.3},
+      {"source_id": "operational_complexity", "evidence_type": "recommendation", "quality_score": 0.75, "weight": 0.2}
+    ],
+    "constraints": ["timeline MVP < 4 bulan", "timeline full < 12 bulan"],
+    "objectives": [{"name": "kecepatan_development", "weight": 0.4, "goal": "maximize"}, {"name": "skalabilitas", "weight": 0.3, "goal": "maximize"}, {"name": "biaya_operasional", "weight": 0.3, "goal": "minimize"}],
+    "risk_tolerance": "medium",
+    "max_alternatives": 3
+  },
+  "expected_output": {
+    "recommended_decision": "Monolith dengan modular design untuk phase 1, migrasi ke microservices saat SKU > 50K pengguna",
+    "alternatives_count": 2,
+    "confidence_score_min": 0.75,
+    "confidence_score_max": 0.9,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Monolith direkomendasikan untuk fase awal dengan alasan yang jelas",
+    "Kriteria migrasi microservices ditentukan secara eksplisit",
+    "Biaya operasional dibandingkan untuk kedua arsitektur",
+    "Trade-off complexity vs development speed dijelaskan",
+    "Confidence score mencerminkan ketidakpastian startup stage"
+  ],
+  "edge_cases": [
+    "Tim 10 engineer sangat berpengalaman di microservices",
+    "Persyaratan SLA sangat tinggi dari hari pertama",
+    "Investor menuntut arsitektur microservices untuk exit strategy"
+  ],
+  "negative_cases": [
+    "Rekomendasi microservices tanpa tim yang cukup",
+    "Mengabaikan biaya operasional overhead microservices",
+    "Tidak ada kriteria migrasi yang jelas"
+  ]
+}

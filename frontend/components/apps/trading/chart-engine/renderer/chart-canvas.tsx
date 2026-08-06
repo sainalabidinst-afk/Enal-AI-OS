@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, memo, useCallback } from "react";
 import { useChartEngineStore } from "../stores/chart-engine-store";
 import { viewportEngine } from "../viewport/viewport-engine";
 import { CandleLayer } from "../layers/candle/candle-layer";
@@ -9,13 +9,15 @@ import { CrosshairLayer } from "../layers/overlay/crosshair-layer";
 import { IndicatorLayer } from "../layers/indicator/indicator-layer";
 import { DrawingLayer } from "../layers/drawing/drawing-layer";
 
-export function ChartCanvas() {
+export const ChartCanvas = memo(function ChartCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const candles = useChartEngineStore((s) => s.candles);
   const viewport = useChartEngineStore((s) => s.viewport);
   const setViewport = useChartEngineStore((s) => s.setViewport);
   const setVisibleRange = useChartEngineStore((s) => s.setVisibleRange);
   const resetView = useChartEngineStore((s) => s.resetView);
+  const viewportRef = useRef(viewport);
+  viewportRef.current = viewport;
 
   useEffect(() => {
     viewportEngine.setTotalCandles(candles.length);
@@ -25,43 +27,76 @@ export function ChartCanvas() {
     }
   }, [candles.length, viewport, setVisibleRange]);
 
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    if (containerRef.current) {
-      const newViewport = viewportEngine.zoom(e.deltaY, viewport, containerRef.current.clientWidth);
-      setViewport(newViewport);
-    }
-  };
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button === 1 || (e.button === 0 && e.shiftKey)) {
-      const startX = e.clientX;
-      const startOffset = viewport.offset;
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      const startX = (moveEvent as MouseEvent & { startX?: number }).startX || 0;
+      const startOffset = (moveEvent as MouseEvent & { startOffset?: number }).startOffset || 0;
+      const deltaX = startX - moveEvent.clientX;
+      const currentViewport = viewportEngine.pan(deltaX, { ...viewportRef.current, offset: startOffset }, container.clientWidth);
+      setViewport(currentViewport);
+    };
 
-      const handleMouseMove = (moveEvent: MouseEvent) => {
-        const deltaX = startX - moveEvent.clientX;
-        if (containerRef.current) {
-          const newViewport = viewportEngine.pan(deltaX, { ...viewport, offset: startOffset }, containerRef.current.clientWidth);
-          setViewport(newViewport);
-        }
-      };
+    const handleMouseUp = () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
 
-      const handleMouseUp = () => {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-      };
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [setViewport]);
 
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-    }
-  };
+  const handleWheel = useCallback(
+    (e: React.WheelEvent) => {
+      e.preventDefault();
+      if (containerRef.current) {
+        const newViewport = viewportEngine.zoom(e.deltaY, viewportRef.current, containerRef.current.clientWidth);
+        setViewport(newViewport);
+      }
+    },
+    [setViewport]
+  );
 
-  const handleDoubleClick = () => {
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.button === 1 || (e.button === 0 && e.shiftKey)) {
+        const startX = e.clientX;
+        const startOffset = viewportRef.current.offset;
+
+        const moveEvent = e.nativeEvent as MouseEvent & { startX?: number; startOffset?: number };
+        moveEvent.startX = startX;
+        moveEvent.startOffset = startOffset;
+
+        const handleMouseMove = (moveEvent: MouseEvent) => {
+          const startX = (moveEvent as MouseEvent & { startX?: number }).startX || 0;
+          const startOffset = (moveEvent as MouseEvent & { startOffset?: number }).startOffset || 0;
+          const deltaX = startX - moveEvent.clientX;
+          const currentViewport = viewportEngine.pan(deltaX, { ...viewportRef.current, offset: startOffset }, containerRef.current!.clientWidth);
+          setViewport(currentViewport);
+        };
+
+        const handleMouseUp = () => {
+          document.removeEventListener("mousemove", handleMouseMove);
+          document.removeEventListener("mouseup", handleMouseUp);
+        };
+
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+      }
+    },
+    [setViewport]
+  );
+
+  const handleDoubleClick = useCallback(() => {
     if (containerRef.current) {
       const newViewport = viewportEngine.fitToScreen(containerRef.current.clientWidth);
       setViewport(newViewport);
     }
-  };
+  }, [setViewport]);
 
   return (
     <div
@@ -82,7 +117,7 @@ export function ChartCanvas() {
         <button
           onClick={() => {
             if (containerRef.current) {
-              const newViewport = viewportEngine.zoom(-100, viewport, containerRef.current.clientWidth);
+              const newViewport = viewportEngine.zoom(-100, viewportRef.current, containerRef.current.clientWidth);
               setViewport(newViewport);
             }
           }}
@@ -93,7 +128,7 @@ export function ChartCanvas() {
         <button
           onClick={() => {
             if (containerRef.current) {
-              const newViewport = viewportEngine.zoom(100, viewport, containerRef.current.clientWidth);
+              const newViewport = viewportEngine.zoom(100, viewportRef.current, containerRef.current.clientWidth);
               setViewport(newViewport);
             }
           }}
@@ -110,6 +145,4 @@ export function ChartCanvas() {
       </div>
     </div>
   );
-}
-
-
+});

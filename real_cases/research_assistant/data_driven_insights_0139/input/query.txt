@@ -1,0 +1,6 @@
+Research Query: data_driven_insights
+
+Context:
+- Domain: Technology
+- Timeframe: 2024-2025
+- Sources: Academic papers, industry reports

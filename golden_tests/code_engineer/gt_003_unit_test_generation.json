@@ -1,0 +1,30 @@
+{
+  "test_id": "code_engineer_gt_003",
+  "name": "Generasi Tes Unit - Fungsi Kalkulasi",
+  "category": "test_generation",
+  "inputs": {
+    "code": "def calculate_discount(price, discount_rate):\n    if price < 0 or discount_rate < 0 or discount_rate > 1:\n        raise ValueError(\"Invalid input\")\n    return price * (1 - discount_rate)",
+    "language": "python",
+    "filename": "pricing.py",
+    "module_path": "pricing"
+  },
+  "expected_output": {
+    "tests_generated": true,
+    "coverage_estimate": 0.9,
+    "edge_cases_detected": true
+  },
+  "acceptance_criteria": [
+    "Minimal 3 test case dihasilkan",
+    "Test case untuk input negatif",
+    "Test case untuk discount_rate > 1",
+    "Coverage estimate >= 0.8"
+  ],
+  "edge_cases": [
+    "Fungsi dengan side effects",
+    "Fungsi yang mengakses global state"
+  ],
+  "negative_cases": [
+    "Fungsi tanpa argumen",
+    "Syntax error dalam kode"
+  ]
+}

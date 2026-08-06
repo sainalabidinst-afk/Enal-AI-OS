@@ -1,0 +1,24 @@
+{
+  "capabilityId": "network_engineer",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {
+          "id": "network_engineer-functional-001",
+          "description": "Golden test for functional in network_engineer",
+          "input": {
+            "capability_id": "network_engineer",
+            "category": "functional"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

@@ -1,0 +1,32 @@
+Capability Audit Report: Network Engineer (network_engineer)
+============================================================
+Overall Score : 136
+Grade         : A
+Status        : Passed
+Completed At  : 2026-08-06T01:54:01.756153+00:00
+
+Area Breakdown:
+------------------------------------------------------------
+  Contract Compliance              7/10  Passed       Findings: Major
+  API Stability                   10/10  Passed       Findings: None
+  Domain Knowledge                10/10  Passed       Findings: None
+  Engine Correctness              10/10  Passed       Findings: None
+  Explainability                   7/10  Passed       Findings: Minor
+  Decision Integration             8/10  Passed       Findings: Minor
+  Lifecycle Integration           10/10  Passed       Findings: None
+  Observability                    9/10  Passed       Findings: None
+  Error Handling                   8/10  Passed       Findings: Minor
+  Documentation                   10/10  Passed       Findings: None
+  Security                        10/10  Passed       Findings: None
+  Performance Target               7/10  Passed       Findings: Minor
+  Test Coverage                   10/10  Passed       Findings: None
+  Golden Tests                    10/10  Passed       Findings: None
+  Real Cases                      10/10  Passed       Findings: None
+
+Summary:
+  Critical Findings : 0
+  Major Findings    : 1
+  Minor Findings    : 4
+
+Corrective Actions:
+  1. No schema/contract module detected

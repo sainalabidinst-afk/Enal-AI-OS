@@ -1,0 +1,24 @@
+{
+  "capabilityId": "system_architect",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "EdgeCases",
+      "tests": [
+        {
+          "id": "system_architect-edge-cases-001",
+          "description": "Golden test for edge-cases in system_architect",
+          "input": {
+            "capability_id": "system_architect",
+            "category": "edge-cases"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

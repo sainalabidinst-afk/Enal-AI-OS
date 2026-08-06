@@ -1,0 +1,26 @@
+{
+  "vendor": "generic",
+  "device_type": "application",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "metadata": {
+    "description": "Security scenario: red team exercise.",
+    "source": "production",
+    "tags": [
+      "security",
+      "red"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "red",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "secret",
+    "vulnerability",
+    "security"
+  ]
+}

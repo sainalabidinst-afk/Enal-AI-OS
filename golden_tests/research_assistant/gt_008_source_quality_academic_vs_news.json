@@ -1,0 +1,53 @@
+{
+  "test_id": "research_assistant_gt_008",
+  "name": "Penilaian Kualitas - Sumber Berita vs Akademis",
+  "category": "source_quality_assessment",
+  "inputs": {
+    "query": "Climate change impact on agriculture",
+    "operation": "literature_review",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Peer-reviewed climate study",
+        "content": "Rising temperatures reduce crop yields by 5-10% per degree.",
+        "source_type": "academic",
+        "published_at": "2023-06-01",
+        "author": "Dr. Climate Scientist"
+      },
+      {
+        "id": "src-2",
+        "title": "News article on climate",
+        "content": "Farmers struggle with changing weather patterns.",
+        "source_type": "news",
+        "published_at": "2024-01-15"
+      }
+    ]
+  },
+  "expected_output": {
+    "evidence": [
+      {
+        "source_id": "src-1",
+        "quality_score": 0.95,
+        "relevance_score": 0.9
+      },
+      {
+        "source_id": "src-2",
+        "quality_score": 0.5,
+        "relevance_score": 0.6
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Sumber akademis di-ranking lebih tinggi dari berita",
+    "Quality score akademis > 0.8",
+    "Quality score berita < 0.7"
+  ],
+  "edge_cases": [
+    "Berita yang mengutip penelitian",
+    "Blog dari ahli"
+  ],
+  "negative_cases": [
+    "Tidak ada sumber",
+    "Semua sumber dari blog tidak terpercaya"
+  ]
+}

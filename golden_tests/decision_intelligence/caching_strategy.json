@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-007",
+  "name": "Caching Strategy untuk API Response",
+  "category": "performance_optimization",
+  "inputs": {
+    "context": "API dengan latency P99 500ms perlu dioptimalkan. Pertimbangkan caching di layer yang berbeda.",
+    "evidence_sources": [
+      {"source_id": "latency_analysis", "evidence_type": "data", "quality_score": 0.9, "weight": 0.35},
+      {"source_id": "cache_invalidation_study", "evidence_type": "analysis", "quality_score": 0.85, "weight": 0.3},
+      {"source_id": "cost_model", "evidence_type": "data", "quality_score": 0.75, "weight": 0.2}
+    ],
+    "constraints": ["cache_ttl_max = 1 jam", "budget_cache < 500 USD/bulan"],
+    "objectives": [{"name": "latency_p99", "weight": 0.4, "goal": "maximize"}, {"name": "cache_hit_ratio", "weight": 0.3, "goal": "maximize"}, {"name": "biaya", "weight": 0.2, "goal": "minimize"}],
+    "risk_tolerance": "low",
+    "max_alternatives": 4
+  },
+  "expected_output": {
+    "recommended_decision": "Multi-layer: CDN untuk static, Redis untuk hot data, application cache untuk session",
+    "alternatives_count": 3,
+    "confidence_score_min": 0.75,
+    "confidence_score_max": 0.9,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Multi-layer caching strategy dipertimbangkan",
+    "TTL dihitung berdasarkan data volatility",
+    "Cache invalidation strategy dirancang untuk setiap layer",
+    "Trade-off consistency vs performance dijelaskan",
+    "Cold start problem diakui dan diatasi"
+  ],
+  "edge_cases": [
+    "Data sangat volatile (TTL < 1 menit)",
+    "Cold start overhead signifikan",
+    "Budget cache sangat terbatas"
+  ],
+  "negative_cases": [
+    "Mengabaikan cache invalidation untuk data yang berubah sering",
+    "Rekomendasi cache universal tanpa pertimbangan data type",
+    "Tidak ada trade-off analysis"
+  ]
+}

@@ -1,0 +1,12 @@
+# Input
+
+## Architecture Artifacts
+Path: docs/adr/
+Files: ADR-001.md, ADR-002.md, ADR-003.md, ADR-004.md
+
+## Source Code
+Path: apps/
+Files: __init__.py, base.py, business_analyst/, devops_assistant/
+
+## Request
+Operation: architecture_documentation

@@ -1,0 +1,42 @@
+{
+  "test_id": "QA-GT-004",
+  "name": "Mutation Testing untuk Modul Autentikasi",
+  "category": "mutation_testing",
+  "inputs": {
+    "request_id": "qa-gt-004",
+    "operation": "mutation_test",
+    "target": {
+      "source_code": "def authenticate(username, password, stored_hash):\n    if not username or not password:\n        return False\n    import hashlib\n    computed = hashlib.sha256(password.encode()).hexdigest()\n    return computed == stored_hash\n\ndef is_admin(user):\n    return user.role == 'admin'",
+      "language": "python",
+      "framework": "pytest"
+    },
+    "test_artifacts": [
+      {"test_name": "test_authenticate_valid", "code": "def test_authenticate_valid():\n    assert authenticate('admin', 'pass123', hash('pass123')) == True"},
+      {"test_name": "test_authenticate_invalid", "code": "def test_authenticate_invalid():\n    assert authenticate('admin', 'wrong', hash('pass123')) == False"},
+      {"test_name": "test_authenticate_empty", "code": "def test_authenticate_empty():\n    assert authenticate('', 'pass', hash('pass')) == False"}
+    ]
+  },
+  "expected_output": {
+    "mutation_score_min": 0.8,
+    "total_mutants_min": 10,
+    "killed_mutants_min": 8,
+    "survived_mutants_analysis_required": true
+  },
+  "acceptance_criteria": [
+    "Mutation score >= 80%",
+    "Minimal 10 mutant dihasilkan",
+    "Minimal 8 mutant terbunuh",
+    "Survived mutants dianalisis",
+    "Mutant types: boundary, negation, arithmetic, return value"
+  ],
+  "edge_cases": [
+    "Test suite yang terlalu ketat (mutation score 100% tapi coverage rendah)",
+    "Mutant yang sama dihasilkan untuk multiple locations",
+    "Mutant yang tidak bisa dijalankan (syntax error)"
+  ],
+  "negative_cases": [
+    "Mutation score < 80% tanpa analisis",
+    "Tidak ada survived mutant analysis",
+    "Semua mutant di-kill tapi test suite tidak meaningful"
+  ]
+}

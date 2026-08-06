@@ -1,0 +1,51 @@
+{
+  "test_id": "research_assistant_gt_003",
+  "name": "Deteksi Kontradiksi - Metodologi Eksperimen",
+  "category": "contradiction_detection",
+  "inputs": {
+    "query": "Effectiveness of remote work on productivity",
+    "operation": "contradiction_analysis",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Remote work increases productivity by 20%",
+        "content": "Our controlled experiment with 500 employees showed a 20% increase in productivity.",
+        "source_type": "academic",
+        "published_at": "2023-05-01"
+      },
+      {
+        "id": "src-2",
+        "title": "Remote work decreases team collaboration",
+        "content": "Survey of 1000 employees found 60% report decreased collaboration in remote settings.",
+        "source_type": "industry",
+        "published_at": "2023-08-15"
+      }
+    ]
+  },
+  "expected_output": {
+    "contradictions": [
+      {
+        "type": "methodological",
+        "description": "Source 1 uses controlled experiment while Source 2 uses self-reported survey - different methodologies",
+        "severity": "medium"
+      }
+    ],
+    "synthesis": {
+      "consensus_areas": ["remote work has measurable effects on productivity"],
+      "conflict_areas": ["direction of effect depends on methodology"]
+    }
+  },
+  "acceptance_criteria": [
+    "Kontradiksi metodologis terdeteksi",
+    "Sintesis mencakup area konsensus dan konflik",
+    "Severity sesuai dengan dampak"
+  ],
+  "edge_cases": [
+    "Kontradiksi parsial (hanya sebagian klaim)",
+    "Sumber yang sejalan tapi dengan waktu berbeda"
+  ],
+  "negative_cases": [
+    "Sumber yang sepenuhnya konsisten",
+    "Tidak ada sumber"
+  ]
+}

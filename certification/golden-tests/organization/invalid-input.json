@@ -1,0 +1,24 @@
+{
+  "capabilityId": "organization",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "InvalidInput",
+      "tests": [
+        {
+          "id": "organization-invalid-input-001",
+          "description": "Golden test for invalid-input in organization",
+          "input": {
+            "capability_id": "organization",
+            "category": "invalid-input"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

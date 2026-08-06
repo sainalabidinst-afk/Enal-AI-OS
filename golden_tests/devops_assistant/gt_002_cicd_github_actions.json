@@ -1,0 +1,33 @@
+{
+  "test_id": "devops_assistant_gt_002",
+  "name": "Generasi Pipeline CI/CD - GitHub Actions",
+  "category": "cicd",
+  "inputs": {
+    "service_name": "node-api",
+    "platform": "github_actions",
+    "language": "node",
+    "tests_command": "npm test",
+    "build_command": "npm run build",
+    "deploy_target": "kubernetes"
+  },
+  "expected_output": {
+    "pipeline_valid": true,
+    "stages": ["lint", "test", "build", "security_scan", "deploy"],
+    "caching_enabled": true,
+    "matrix_build": false,
+    "secrets_handling": true
+  },
+  "acceptance_criteria": [
+    "Pipeline memiliki minimal 4 stage",
+    "Testing stage terdefinisi",
+    "Secrets tidak di-expose dalam log"
+  ],
+  "edge_cases": [
+    "Multi-branch strategy",
+    "Conditional deployment"
+  ],
+  "negative_cases": [
+    "Platform yang tidak didukung",
+    "Commands kosong"
+  ]
+}

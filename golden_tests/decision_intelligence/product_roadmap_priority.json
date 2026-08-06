@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-008",
+  "name": "Product Roadmap Priority: Fitur A vs Fitur B",
+  "category": "product_strategy",
+  "inputs": {
+    "context": "Tim produk memilih fitur prioritas untuk Q3: Fitur A (real-time collaboration) vs Fitur B (advanced analytics dashboard).",
+    "evidence_sources": [
+      {"source_id": "user_feedback", "evidence_type": "data", "quality_score": 0.85, "weight": 0.35},
+      {"source_id": "revenue_impact", "evidence_type": "data", "quality_score": 0.9, "weight": 0.3},
+      {"source_id": "engineering_effort", "evidence_type": "analysis", "quality_score": 0.75, "weight": 0.2}
+    ],
+    "constraints": ["sprint_team_capacity = 3 fitur/sprint", "deadline Q3"],
+    "objectives": [{"name": "dampak_pendapatan", "weight": 0.35, "goal": "maximize"}, {"name": "kepuasan_pengguna", "weight": 0.25, "goal": "maximize"}, {"name": "biaya_engineering", "weight": 0.2, "goal": "minimize"}],
+    "risk_tolerance": "medium",
+    "max_alternatives": 3
+  },
+  "expected_output": {
+    "recommended_decision": "Fitur A (real-time collaboration) untuk Q3, Fitur B untuk Q4",
+    "alternatives_count": 2,
+    "confidence_score_min": 0.7,
+    "confidence_score_max": 0.85,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "User feedback dianalisis untuk kedua fitur",
+    "Revenue impact dihitung untuk setiap opsi",
+    "Engineering effort dievaluasi (person-weeks)",
+    "Risk of delay untuk setiap opsi diakui",
+    "Timeline roadmap yang diperbarui disajikan"
+  ],
+  "edge_cases": [
+    "Kedua fitur memiliki dampak revenue yang sama",
+    "Engineering effort untuk Fitur B ternyata 10x lipat",
+    "User feedback sangat polarisasi"
+  ],
+  "negative_cases": [
+    "Rekomendasi tanpa analisis engineering effort",
+    "Mengabaikan risk of delay",
+    "Tidak ada timeline roadmap yang diperbarui"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "test_id": "network_engineer_gt_002",
+  "name": "Inferensi Topologi dari Konfigurasi BGP",
+  "category": "topology_analysis",
+  "inputs": {
+    "type": "text",
+    "content": "/routing bgp instance set default router-id=10.0.0.1\r\n/routing bgp peer add name=peer1 remote-address=10.0.0.2 remote-as=65001\r\n/routing bgp peer add name=peer2 remote-address=10.0.0.3 remote-as=65002",
+    "vendor_hint": "mikrotik"
+  },
+  "expected_output": {
+    "topology": {
+      "router_id": "10.0.0.1",
+      "peers": [
+        {"name": "peer1", "remote_address": "10.0.0.2", "remote_as": 65001},
+        {"name": "peer2", "remote_address": "10.0.0.3", "remote_as": 65002}
+      ]
+    },
+    "issues": []
+  },
+  "acceptance_criteria": [
+    "Router ID diekstrak dengan benar",
+    "Daftar peer diekstrak dengan benar",
+    "Tidak ada false positive"
+  ],
+  "edge_cases": [
+    "Konfigurasi BGP tanpa peer",
+    "Konfigurasi dengan banyak peer (50+)"
+  ],
+  "negative_cases": [
+    "Konfigurasi tanpa instance BGP",
+    "Input dengan sintaks yang tidak valid"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Capability Audit Report",
+  "description": "Detailed audit report for a single ENAL AI OS Capability Pack.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "capabilityId",
+    "capabilityName",
+    "auditVersion",
+    "overallScore",
+    "grade",
+    "status",
+    "areas",
+    "summary",
+    "auditor",
+    "completedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "example": "1.0.0"
+    },
+    "capabilityId": {
+      "type": "string",
+      "example": "trading-analyst"
+    },
+    "capabilityName": {
+      "type": "string",
+      "example": "Trading Analyst"
+    },
+    "auditVersion": {
+      "type": "string",
+      "example": "1.0.0"
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "grade": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "F"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Passed", "Failed", "Conditional", "Skipped"]
+    },
+    "areas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "score", "maxScore", "percentage", "status", "findings"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Contract Compliance"
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maxScore": {
+            "type": "number",
+            "minimum": 1
+          },
+          "percentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "status": {
+            "type": "string",
+            "enum": ["Passed", "Failed", "Conditional", "Skipped"]
+          },
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["severity", "description", "location"],
+              "properties": {
+                "severity": {
+                  "type": "string",
+                  "enum": ["Critical", "Major", "Minor", "Info"]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "File path or module reference."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["criticalFindings", "majorFindings", "minorFindings", "correctiveActions"],
+      "properties": {
+        "criticalFindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "majorFindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minorFindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correctiveActions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "auditor": {
+      "type": "string",
+      "example": "Capability Certification Pipeline"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

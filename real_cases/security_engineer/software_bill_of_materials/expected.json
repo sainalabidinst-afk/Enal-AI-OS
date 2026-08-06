@@ -1,0 +1,22 @@
+{
+  "vendor": "generic",
+  "device_type": "application",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "metadata": {
+    "description": "Security scenario: software bill of materials.",
+    "source": "production",
+    "tags": [
+      "security",
+      "software"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "software",
+  "expected_severity": "warning",
+  "expected_findings": []
+}

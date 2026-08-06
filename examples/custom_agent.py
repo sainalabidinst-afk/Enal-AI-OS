@@ -6,7 +6,8 @@ This example shows how to create a custom agent using the Enal AI OS SDK.
 """
 
 import asyncio
-from sdk import Agent, EnalAI
+
+from sdk.enal_ai import Agent, EnalAI
 
 # Initialize SDK
 enal = EnalAI(api_url="http://localhost:8000")

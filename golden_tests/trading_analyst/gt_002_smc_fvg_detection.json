@@ -1,0 +1,38 @@
+{
+  "test_id": "trading_analyst_gt_002",
+  "name": "Analisis SMC - Fair Value Gap",
+  "category": "smc_analysis",
+  "inputs": {
+    "symbol": "ETHUSDT",
+    "timeframes": ["1h", "4h"],
+    "ohlcv_data": {
+      "1h": {
+        "opens": [2200, 2250, 2300, 2350, 2400, 2380, 2350, 2320, 2280, 2250],
+        "highs": [2210, 2260, 2310, 2360, 2410, 2390, 2360, 2330, 2290, 2260],
+        "lows": [2190, 2240, 2290, 2340, 2390, 2370, 2340, 2310, 2270, 2240],
+        "closes": [2205, 2255, 2305, 2355, 2405, 2385, 2355, 2325, 2285, 2255],
+        "volumes": [500, 600, 800, 1000, 1500, 1200, 900, 700, 500, 400]
+      }
+    }
+  },
+  "expected_output": {
+    "fvg_detected": true,
+    "fvg_type": "bullish",
+    "fvg_lower": 2290,
+    "fvg_upper": 2310,
+    "mitigation_probability": 0.7
+  },
+  "acceptance_criteria": [
+    "FVG terdeteksi",
+    "Tipe FVG (bullish/bearish) benar",
+    "Level FVG akurat"
+  ],
+  "edge_cases": [
+    "Multiple FVG dalam satu timeframe",
+    "FVG yang sudah ter-mitigasi"
+  ],
+  "negative_cases": [
+    "Tidak ada FVG dalam data",
+    "Data yang terlalu volatil"
+  ]
+}

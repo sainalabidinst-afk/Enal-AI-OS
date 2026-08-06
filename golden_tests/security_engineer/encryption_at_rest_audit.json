@@ -1,0 +1,35 @@
+{
+  "test_id": "SE-GT-008",
+  "name": "Audit Enkripsi Data at Rest",
+  "category": "encryption_audit",
+  "inputs": {
+    "target_type": "full_review",
+    "source_code": "# Database connection without SSL\nengine = create_engine('postgresql://user:pass@localhost/db')\n# Sensitive data stored in plaintext\nuser.ssn = request.form['ssn']\ndb.session.add(user)\ndb.session.commit()",
+    "language": "python",
+    "standards": ["pci_dss", "hipaa", "iso27001"],
+    "include_compliance_mapping": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "encryption_findings_required": true,
+    "pci_dss_requirement_3_required": true,
+    "remediation_required": true
+  },
+  "acceptance_criteria": [
+    "Temuan enkripsi data at rest terdeteksi",
+    "PCI DSS Requirement 3 compliance gap diidentifikasi",
+    "HIPAA encryption requirement dievaluasi",
+    "Remediation merekomendasikan column-level encryption atau transparent data encryption",
+    "Evidence menunjukkan data sensitif yang tidak dienkripsi"
+  ],
+  "edge_cases": [
+    "Enkripsi dengan algoritma lemah (MD5, SHA1 untuk password)",
+    "Kunci enkripsi yang di-hardcode",
+    "Enkripsi di application layer vs database layer"
+  ],
+  "negative_cases": [
+    "Tidak ada encryption finding untuk data sensitif yang jelas (false negative)",
+    "PCI DSS Requirement 3 tidak di-reference",
+    "Remediation tanpa algoritma recommendation"
+  ]
+}

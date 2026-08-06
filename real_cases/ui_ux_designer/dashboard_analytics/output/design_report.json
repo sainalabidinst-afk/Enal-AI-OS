@@ -1,0 +1,79 @@
+{
+  "request_id": "case-uiux-002",
+  "operation": "full_design",
+  "ux_research": {
+    "user_personas": [
+      {
+        "name": "Budi",
+        "role": "Manajer Investasi",
+        "goals": ["Monitor portofolio harian", "Identifikasi tren"],
+        "pain_points": ["Data terlalu banyak", "Export lambat"],
+        "technical_proficiency": "high"
+      }
+    ],
+    "user_journeys": [
+      {
+        "persona": "Budi",
+        "stages": [
+          {"stage": "Awareness", "actions": ["Login ke dashboard"], "touchpoints": ["Login", "Dashboard"], "pain_points": ["Loading lama"], "opportunities": ["Cached dashboard"]},
+          {"stage": "Consideration", "actions": ["Melihat metrik"], "touchpoints": ["Dashboard", "Metrics Cards"], "pain_points": ["Terlalu banyak data"], "opportunities": ["Customizable widgets"]},
+          {"stage": "Adoption", "actions": ["Export laporan"], "touchpoints": ["Export Button", "Download"], "pain_points": ["Export lambat"], "opportunities": ["Background export"]}
+        ]
+      }
+    ],
+    "key_findings": ["Ditemukan 3 catatan riset UX", "Manajer butuh customizable dashboard"],
+    "pain_points": ["Data terlalu banyak", "Export lambat", "Loading lama"],
+    "opportunities": ["Customizable widgets", "Background export", "Cached dashboard"],
+    "usability_issues": ["Overwhelming data display"],
+    "research_confidence": 0.85
+  },
+  "design_system": {
+    "id": "DS-analytics-001",
+    "name": "AnalyticsPro Design System",
+    "description": "Sistem desain untuk dashboard analitik AnalyticsPro",
+    "tokens": [
+      {"name": "primary-base", "type": "color", "value": "#2563EB", "description": "Warna primary", "usage": "Chart accent, links"},
+      {"name": "font-display", "type": "typography", "value": "1.5rem/2rem 700", "description": "Font display untuk heading", "usage": "Dashboard title"},
+      {"name": "spacing-16px", "type": "spacing", "value": "16px", "description": "Spasi 16px", "usage": "Card padding"}
+    ],
+    "components": [
+      {"id": "COMP-analytics-1", "name": "MetricCard", "component_type": "card", "variants": ["elevated", "outlined"], "accessibility_requirements": ["Heading hierarki terjaga (h2)"]},
+      {"id": "COMP-analytics-2", "name": "Chart", "component_type": "chart", "variants": ["line", "bar", "pie"], "accessibility_requirements": ["Chart description untuk screen reader"]}
+    ],
+    "color_palette": {"primary-500": "#2563EB", "neutral-500": "#6B7280"},
+    "typography_scale": {"base": {"size": "1rem", "line_height": "1.5rem", "weight": "400"}},
+    "spacing_scale": ["0", "4px", "8px", "16px", "24px", "32px"],
+    "motion_principles": ["Smooth chart transitions"],
+    "accessibility_standards": ["WCAG 2.1 AA"],
+    "version": "1.0.0"
+  },
+  "prototype": {
+    "id": "PROTO-analytics-001",
+    "name": "Prototype AnalyticsPro",
+    "fidelity": "medium",
+    "screens": [
+      {"id": "SCR-analytics-1", "name": "Dashboard", "description": "Dasbor metrik utama", "states": ["default", "loading"], "responsive_breakpoints": ["1024px", "1440px"]},
+      {"id": "SCR-analytics-2", "name": "ChartDetail", "description": "Detail chart dengan drill-down", "states": ["default"], "responsive_breakpoints": ["1024px", "1440px"]}
+    ],
+    "user_flows": [
+      {"name": "Dashboard Review Flow", "start_screen": "Dashboard", "steps": [{"screen": "Dashboard", "action": "view_metrics"}, {"screen": "ChartDetail", "action": "drill_down"}], "success_criteria": "User mendapatkan insight dalam 2 langkah"}
+    ],
+    "interaction_map": {
+      "navigation": {"Dashboard": ["ChartDetail", "Export"], "ChartDetail": ["Dashboard"]},
+      "keyboard_shortcuts": [{"key": "Ctrl+E", "action": "export", "context": "Dashboard"}]
+    }
+  },
+  "accessibility_report": {
+    "total_checks": 15,
+    "violations_found": 1,
+    "compliance_score": 0.93,
+    "violations": [
+      {"id": "A11Y-analytics-1", "wcag_criterion": "1.1.1", "severity": "high", "description": "Chart mungkin tidak memiliki teks alternatif", "element_selector": "component:Chart", "recommendation": "Tambahkan aria-label atau description untuk chart", "impact": "Screen reader user tidak dapat memahami chart data"}
+    ],
+    "passed_checks": ["WCAG 2.1 AA — Design System terdefinisi", "Dashboard memiliki heading hierarki yang benar"],
+    "remediation_priority": ["[HIGH] 1.1.1: Chart mungkin tidak memiliki teks alternatif"],
+    "wcag_level": "AA"
+  },
+  "quality_score": 0.87,
+  "explanation": "Performed full_design UI/UX design. UX Research: 1 personas, 3 pain points, 3 opportunities. Design System: 3 tokens, 2 components. Prototype: 2 screens, 1 user flows. Accessibility: 93% compliant, 1 violation found."
+}

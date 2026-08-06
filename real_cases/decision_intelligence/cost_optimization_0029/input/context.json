@@ -1,0 +1,18 @@
+{
+  "scenario": "cost_optimization",
+  "options": [
+    "Option A",
+    "Option B",
+    "Option C"
+  ],
+  "criteria": [
+    "cost",
+    "performance",
+    "scalability",
+    "maintenance"
+  ],
+  "constraints": [
+    "budget < 100k",
+    "timeline < 6 months"
+  ]
+}

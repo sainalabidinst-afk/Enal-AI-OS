@@ -1,0 +1,24 @@
+{
+  "capabilityId": "qa_engineer",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "ContractCompliance",
+      "tests": [
+        {
+          "id": "qa_engineer-contract-compliance-001",
+          "description": "Golden test for contract-compliance in qa_engineer",
+          "input": {
+            "capability_id": "qa_engineer",
+            "category": "contract-compliance"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

@@ -1,0 +1,43 @@
+{
+  "test_id": "research_assistant_gt_004",
+  "name": "Penilaian Kualitas Sitasi - Format IEEE",
+  "category": "citation_assessment",
+  "inputs": {
+    "query": "Machine learning in healthcare diagnostics",
+    "operation": "citation_assessment",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Deep Learning for Medical Image Analysis",
+        "content": "Deep learning achieves radiologist-level accuracy in chest X-ray analysis.",
+        "source_type": "academic",
+        "published_at": "2023-02-01",
+        "author": "Wang et al."
+      }
+    ],
+    "citation_style": "ieee"
+  },
+  "expected_output": {
+    "citations": [
+      {
+        "source_id": "src-1",
+        "style": "ieee",
+        "confidence": 0.9,
+        "text": "Wang et al., \"Deep Learning for Medical Image Analysis,\" 2023."
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Sitasi dalam format IEEE",
+    "Semua komponen yang diperlukan ada (author, title, year)",
+    "Confidence score > 0.8"
+  ],
+  "edge_cases": [
+    "Sumber tanpa author",
+    "Sumber dengan banyak author"
+  ],
+  "negative_cases": [
+    "Sumber tanpa title",
+    "Citation style yang tidak didukung"
+  ]
+}

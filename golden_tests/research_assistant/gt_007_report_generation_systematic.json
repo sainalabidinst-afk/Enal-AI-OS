@@ -1,0 +1,52 @@
+{
+  "test_id": "research_assistant_gt_007",
+  "name": "Generasi Laporan - Review Sistemik",
+  "category": "report_generation",
+  "inputs": {
+    "query": "Systematic review of transformer architectures in NLP",
+    "operation": "report_generation",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Attention is All You Need",
+        "content": "The Transformer architecture relies entirely on self-attention mechanisms.",
+        "source_type": "academic",
+        "published_at": "2017-06-01"
+      },
+      {
+        "id": "src-2",
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers",
+        "content": "BERT uses bidirectional pre-training for language understanding.",
+        "source_type": "academic",
+        "published_at": "2018-10-01"
+      },
+      {
+        "id": "src-3",
+        "title": "GPT-3: Language Models are Few-Shot Learners",
+        "content": "GPT-3 demonstrates emergent abilities at scale.",
+        "source_type": "academic",
+        "published_at": "2020-05-01"
+      }
+    ],
+    "citation_style": "apa"
+  },
+  "expected_output": {
+    "report_markdown_length": 500,
+    "findings_count": 3,
+    "citations_count": 3,
+    "sections_present": ["introduction", "methodology", "results", "discussion", "conclusion"]
+  },
+  "acceptance_criteria": [
+    "Laporan memiliki minimal 5 bagian",
+    "Minimal 3 sitasi dalam format yang benar",
+    "Panjang laporan > 500 karakter"
+  ],
+  "edge_cases": [
+    "Sumber dengan tahun yang sama",
+    "Sumber dengan author yang sama"
+  ],
+  "negative_cases": [
+    "Tidak ada sumber",
+    "Sumber tanpa konten"
+  ]
+}

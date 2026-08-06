@@ -15,7 +15,9 @@ async def executor_node(state: dict) -> dict:
         from langchain_core.messages import HumanMessage
         messages = state.get("messages", [])
         last_msg = messages[-1].content if messages else ""
-        response = await model_router.acomplete(messages + [HumanMessage(content=f"Execute: {last_msg}")])
+        response = await model_router.acomplete(
+            messages + [HumanMessage(content=f"Execute: {last_msg}")]
+        )
         return {
             "messages": [response.choices[0].message],
             "final_result": response.choices[0].message.content,
@@ -24,7 +26,10 @@ async def executor_node(state: dict) -> dict:
         }
 
     agent_tools = tool_registry.get_tools(tasks[0].get("agent", "planner"))
-    llm = ChatOpenAI(model=settings.DEFAULT_MODEL, temperature=settings.TEMPERATURE).bind_tools(agent_tools)
+    llm = ChatOpenAI(
+        model=settings.DEFAULT_MODEL,
+        temperature=settings.TEMPERATURE,
+    ).bind_tools(agent_tools)
 
     from langchain_core.messages import HumanMessage
     messages = state.get("messages", [])
@@ -33,6 +38,12 @@ async def executor_node(state: dict) -> dict:
 
     return {
         "messages": [response],
-        "task_results": state.get("task_results", []) + [{"task": tasks[0]["description"], "result": response.content}],
+        "task_results": state.get("task_results", [])
+        + [
+            {
+                "task": tasks[0]["description"],
+                "result": response.content,
+            }
+        ],
         "current_agent": "executor",
     }

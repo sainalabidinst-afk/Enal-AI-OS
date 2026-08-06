@@ -1,9 +1,8 @@
 # Trading Analyst — Spesifikasi Capability
 
-**Versi:** 1.0.0
-**Status:** Production Ready (RFC-0005)
-**Target Kualitas:** A+ (≥95)
-**Target Kematangan:** Level 4 — Pakar Domain
+**Versi:** 2.0.0
+**Status:** Bersertifikat (RFC-0005)
+**Target Kualitas:** A+ (≥95) — Level 4 — Pakar Domain
 
 ---
 
@@ -28,6 +27,7 @@ Capability Pack ini mengintegrasikan 7 domain pengetahuan (Wyckoff, SMC/ICT, Ell
 - **Derivatives Analysis** — IV, put/call skew, futures basis, COT, max pain
 - **Risk Assessment** — VaR, drawdown, position sizing, risk level
 - **Strategy Generation** — Momentum, counter-trend, wait strategies
+- **Multi-Strategy Debate** — Perbandingan multi-strategi melalui Debate Engine
 
 ### Di Luar Cakupan
 - Eksekusi perdagangan langsung
@@ -135,6 +135,7 @@ Capability Pack ini mengintegrasikan 7 domain pengetahuan (Wyckoff, SMC/ICT, Ell
 | `assess_risk` | Penilaian risiko | symbol, position_size | RiskAssessment |
 | `analyze_portfolio` | Snapshot portofolio | — | PortfolioSnapshot |
 | `generate_strategy` | Generasi strategi | symbol, risk_tolerance | StrategySuggestion |
+| `run_debate` | Multi-strategy debate | symbol, strategies | DebateResult |
 
 ---
 
@@ -142,19 +143,19 @@ Capability Pack ini mengintegrasikan 7 domain pengetahuan (Wyckoff, SMC/ICT, Ell
 
 | Modul | Tanggung Jawab |
 |--------|----------------|
-| `analyzer.py` | MarketAnalyzer — struktur pasar, tren, volume, volatilitas |
-| `wyckoff.py` | WyckoffAnalyzer — fase akumulasi/distribusi, composite operator |
-| `smc.py` | SMCAnalyzer — FVG, order blocks, liquidity sweeps, premium/discount |
-| `elliott_wave.py` | ElliottWaveAnalyzer — impulse/corrective waves, Fibonacci |
-| `volume_profile.py` | VolumeProfileAnalyzer — POC, value area, HVN/LVN |
-| `psychology.py` | PsychologyAnalyzer — sentimen, FOMO, volume psychology |
-| `macro_analyzer.py` | MacroAnalyzer — policy rate, inflation, risk sentiment |
-| `derivatives.py` | DerivativesAnalyzer — IV, put/call skew, futures basis, COT |
-| `summary.py` | MarketSummaryGenerator — confidence scoring, summary generation |
-| `confidence.py` | ConfidenceScorer — weighted scoring (35/25/20/10/10) |
-| `evidence.py` | EvidenceBuilder — cross-timeframe boost, deduplication |
-| `indicators.py` | Technical indicators — RSI, MACD, ATR, Bollinger Bands |
-| `models.py` | Data models — OHLCV, TradingContext, AnalysisResult, MarketEvidence |
+| `market_intelligence/analyzer.py` | MarketAnalyzer — struktur pasar, tren, volume, volatilitas |
+| `market_intelligence/wyckoff.py` | WyckoffAnalyzer — fase akumulasi/distribusi, composite operator |
+| `market_intelligence/smc.py` | SMCAnalyzer — FVG, order blocks, liquidity sweeps, premium/discount |
+| `market_intelligence/elliott_wave.py` | ElliottWaveAnalyzer — impulse/corrective waves, Fibonacci |
+| `market_intelligence/volume_profile.py` | VolumeProfileAnalyzer — POC, value area, HVN/LVN |
+| `market_intelligence/psychology.py` | PsychologyAnalyzer — sentimen, FOMO, volume psychology |
+| `market_intelligence/macro_analyzer.py` | MacroAnalyzer — policy rate, inflation, risk sentiment |
+| `market_intelligence/derivatives.py` | DerivativesAnalyzer — IV, put/call skew, futures basis, COT |
+| `market_intelligence/summary.py` | MarketSummaryGenerator — confidence scoring, summary |
+| `market_intelligence/confidence.py` | ConfidenceScorer — weighted scoring (35/25/20/10/10) |
+| `market_intelligence/evidence.py` | EvidenceBuilder — cross-timeframe boost, deduplication |
+| `market_intelligence/indicators.py` | Technical indicators — RSI, MACD, ATR, Bollinger Bands |
+| `market_intelligence/models.py` | Data models — OHLCV, TradingContext, AnalysisResult |
 
 ---
 
@@ -162,12 +163,12 @@ Capability Pack ini mengintegrasikan 7 domain pengetahuan (Wyckoff, SMC/ICT, Ell
 
 | Dimensi | Target | Grade |
 |-----------|--------|-------|
-| Reasoning Quality | ≥90% | A |
-| Evidence Coverage | ≥90% (7/7 domains) | A |
-| Explainability | ≥90% | A |
-| Consistency | ≥90% | A |
-| Safety | ≥90% | A |
-| Risk-Adjusted Quality | ≥90% | A |
+| Reasoning Quality | ≥95% | A+ |
+| Evidence Coverage | ≥95% (7/7 domains) | A+ |
+| Explainability | ≥95% | A+ |
+| Consistency | ≥95% | A+ |
+| Safety | ≥95% | A+ |
+| Risk-Adjusted Quality | ≥95% | A+ |
 
 **Grade Thresholds:**
 - A+ (≥95): Semua dimensi ≥95%
@@ -190,7 +191,63 @@ Capability Pack ini mengintegrasikan 7 domain pengetahuan (Wyckoff, SMC/ICT, Ell
 
 ---
 
-## 8. Benchmark Command
+## 8. Audit Keamanan
+
+### OWASP Top 10
+- A03:2021 – Injection: Data injection melalui market data feeds
+- A05:2021 – Security Misconfiguration: Hardcoded API keys untuk exchange
+- A06:2021 – Vulnerable Components: Dependencies data provider yang outdated
+- A08:2021 – Data Integrity Failures: Manipulated OHLCV data
+- A09:2021 – Logging Failures: Missing audit trail untuk analisis
+
+### Deteksi Rahasia
+- API keys untuk exchange dalam konfigurasi
+- Credentials untuk data feeds
+- Private keys untuk signing
+
+### Pencegahan Injeksi
+- Data injection melalui market data feeds
+- Calculation injection melalui manipulated data
+- Result injection melalui crafted inputs
+
+### Validasi Input
+- Validasi symbol format
+- Validasi timeframe values
+- Validasi OHLCV data integrity (high >= low, close dalam range)
+
+### Default Aman
+- Read-only analysis (tidak ada eksekusi order)
+- Data source verification
+- Confidence threshold untuk recommendations
+
+---
+
+## 9. Optimasi Kinerja
+
+### Strategi Caching
+- OHLCV data cache untuk timeframe yang tidak berubah
+- Indicator calculation cache
+- Analysis result cache untuk skenario yang sama
+- Multi-timeframe cache untuk analisis berulang
+
+### Peluang Paralelisme
+- Parallel analysis untuk banyak symbols
+- Independent domain analyzers paralel
+- Multi-timeframe analysis paralel
+
+### Optimasi Memori
+- Rolling window untuk data OHLCV (hanya data yang diperlukan)
+- Lazy loading untuk indicator calculations
+- Disk-based cache untuk large datasets
+
+### Efisiensi Token
+- Context compression untuk large market data
+- Incremental analysis untuk perubahan kecil
+- Selective domain analysis berdasarkan bias
+
+---
+
+## 10. Benchmark Command
 
 ```bash
 # Run 20-scenario benchmark
@@ -209,7 +266,7 @@ print(f'Overall: {report.overall_score:.1f}% ({report.passed})')
 
 ---
 
-## 9. Real Cases
+## 11. Real Cases
 
 Directory: `real_cases/trading/`
 
@@ -223,7 +280,7 @@ Directory: `real_cases/trading/`
 
 ---
 
-## 10. Integrasi
+## 12. Integrasi
 
 | Capability Pack | Konsumen | Penggunaan |
 |-----------------|----------|------------|
@@ -233,4 +290,4 @@ Directory: `real_cases/trading/`
 
 ---
 
-*Dokumen ini adalah kontrak versi 1.0.0 untuk Capability Pack Trading Analyst. Perubahan kontrak memerlukan ADR dan persetujuan Governance.*
+*Dokumen ini adalah kontrak versi 2.0.0 untuk Capability Pack Trading Analyst. Perubahan kontrak memerlukan ADR dan persetujuan Governance.*

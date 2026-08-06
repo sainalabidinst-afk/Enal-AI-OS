@@ -1,0 +1,72 @@
+﻿{
+    "consistency_score":  0.9,
+    "prototype":  {
+                      "interaction_maps":  [
+                                               "Click flows",
+                                               "Gesture mappings"
+                                           ],
+                      "screens":  [
+                                      "Home",
+                                      "Detail",
+                                      "Settings"
+                                  ],
+                      "user_flows":  [
+                                         "Happy path",
+                                         "Error recovery"
+                                     ]
+                  },
+    "accessibility":  {
+                          "wcag_level":  "AA",
+                          "compliance_score":  0.92,
+                          "violations":  [
+                                             "Color contrast 4.2:1 on secondary text"
+                                         ]
+                      },
+    "ux_research":  {
+                        "pain_points":  [
+                                            "Complex navigation",
+                                            "Slow load times",
+                                            "Unclear labels"
+                                        ],
+                        "opportunities":  [
+                                              "Simplify flows",
+                                              "Improve performance",
+                                              "Enhance guidance"
+                                          ],
+                        "user_journeys":  [
+                                              "Onboarding",
+                                              "Core task",
+                                              "Settings"
+                                          ],
+                        "personas":  [
+                                         "Primary user",
+                                         "Secondary user",
+                                         "Admin user"
+                                     ]
+                    },
+    "request_id":  "case-uiux-6",
+    "design_system":  {
+                          "typography":  [
+                                             "Heading scale",
+                                             "Body scale",
+                                             "Monospace"
+                                         ],
+                          "components":  [
+                                             "Button",
+                                             "Input",
+                                             "Card",
+                                             "Modal"
+                                         ],
+                          "spacing":  [
+                                          "4px base",
+                                          "8px grid",
+                                          "16px sections"
+                                      ],
+                          "color_palette":  [
+                                                "Primary",
+                                                "Secondary",
+                                                "Semantic"
+                                            ]
+                      },
+    "operation":  "full_design"
+}

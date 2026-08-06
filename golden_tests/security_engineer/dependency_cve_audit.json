@@ -1,0 +1,35 @@
+{
+  "test_id": "SE-GT-003",
+  "name": "Audit Dependency CVE",
+  "category": "dependency_audit",
+  "inputs": {
+    "target_type": "dependency",
+    "manifest_content": "{\n  \"name\": \"myapp\",\n  \"dependencies\": {\n    \"express\": \"4.17.1\",\n    \"lodash\": \"4.17.15\",\n    \"axios\": \"0.21.1\"\n  }\n}",
+    "language": "javascript",
+    "standards": ["pci_dss"],
+    "check_dependencies": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "cve_findings_required": true,
+    "severity_distribution_required": true,
+    "remediation_required": true
+  },
+  "acceptance_criteria": [
+    "Dependencies yang vulnerable teridentifikasi (CVE ID)",
+    "Severity ditetapkan berdasarkan CVSS score",
+    "Fixed version direkomendasikan untuk setiap CVE",
+    "Dependency graph disajikan",
+    "Impact severity (critical/high/medium/low) dijelaskan"
+  ],
+  "edge_cases": [
+    "Dependency dengan CVE tapi tidak digunakan dalam code",
+    "Transitive dependency yang vulnerable",
+    "Multiple CVE untuk satu package"
+  ],
+  "negative_cases": [
+    "Tidak ada CVE ditemukan untuk dependency yang jelas vulnerable (false negative)",
+    "Fixed version tidak direkomendasikan",
+    "Severity tidak sesuai CVSS score"
+  ]
+}

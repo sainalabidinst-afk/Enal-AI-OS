@@ -39,8 +39,8 @@ class BenchmarkHarness:
         started = datetime.utcnow()
         result = BenchmarkResult(case_id=case.id)
         try:
-            from backend.app.core.attachments.analyzer import analyze_attachment
-            from backend.app.core.attachments.detector import detect_from_content
+            from apps.infrastructure_engineer.attachments.analyzer import analyze_attachment
+            from apps.infrastructure_engineer.attachments.detector import detect_from_content
 
             for source in case.source_files:
                 try:

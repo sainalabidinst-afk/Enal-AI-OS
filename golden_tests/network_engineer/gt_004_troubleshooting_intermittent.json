@@ -1,0 +1,37 @@
+{
+  "test_id": "network_engineer_gt_004",
+  "name": "Troubleshooting Konektivitas Terputus-putus",
+  "category": "troubleshooting",
+  "inputs": {
+    "type": "symptom",
+    "content": "Koneksi ke server internal terputus-putus setiap 5-10 menit. Ping menunjukkan packet loss 30%. Tidak ada perubahan konfigurasi baru.",
+    "vendor_hint": "auto-detect"
+  },
+  "expected_output": {
+    "troubleshooting": {
+      "session_id": "tsh-004",
+      "hypotheses": [
+        {"id": "h1", "description": "Interface flapping pada link utama", "confidence": 0.8},
+        {"id": "h2", "description": "Ketidakstabilan routing (BGP/OSPF)", "confidence": 0.6}
+      ],
+      "root_cause": {
+        "id": "rc1",
+        "description": "Interface flapping disebabkan oleh kabel jaringan yang rusak",
+        "confidence": 0.85
+      }
+    }
+  },
+  "acceptance_criteria": [
+    "Menghasilkan hipotesis yang relevan",
+    "Root cause diidentifikasi dengan confidence > 0.7",
+    "Session ID unik dihasilkan"
+  ],
+  "edge_cases": [
+    "Symptom tanpa bukti pendukung",
+    "Beberapa kemungkinan root cause sekaligus"
+  ],
+  "negative_cases": [
+    "String kosong",
+    "Symptom yang tidak dapat dikategorikan"
+  ]
+}

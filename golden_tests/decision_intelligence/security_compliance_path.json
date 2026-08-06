@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-010",
+  "name": "Security Compliance Path: SOC 2 vs ISO 27001",
+  "category": "compliance_decision",
+  "inputs": {
+    "context": "Perusahaan SaaS B2B harus memilih sertifikasi compliance — SOC 2 Type II atau ISO 27001 untuk masuk ke pasar enterprise.",
+    "evidence_sources": [
+      {"source_id": "customer_requirements", "evidence_type": "data", "quality_score": 0.9, "weight": 0.35},
+      {"source_id": "cost_estimate", "evidence_type": "data", "quality_score": 0.85, "weight": 0.25},
+      {"source_id": "market_analysis", "evidence_type": "analysis", "quality_score": 0.75, "weight": 0.2}
+    ],
+    "constraints": ["certification_deadline = 6 bulan", "audit_budget < 100K USD"],
+    "objectives": [{"name": "market_access", "weight": 0.35, "goal": "maximize"}, {"name": "biaya", "weight": 0.25, "goal": "minimize"}, {"name": "waktu_sertifikasi", "weight": 0.25, "goal": "maximize"}],
+    "risk_tolerance": "low",
+    "max_alternatives": 3
+  },
+  "expected_output": {
+    "recommended_decision": "SOC 2 Type II untuk pasar US, ISO 27001 untuk pasar Eropa — dual certification strategy",
+    "alternatives_count": 2,
+    "confidence_score_min": 0.75,
+    "confidence_score_max": 0.9,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Customer requirements dianalisis untuk kedua pasar",
+    "Biaya audit dan maintenance dihitung untuk setiap opsi",
+    "Timeline certification dibandingkan",
+    "Renewal cost dan ongoing compliance effort dipertimbangkan",
+    "Dual certification strategy dipertimbangkan"
+  ],
+  "edge_cases": [
+    "Customer hanya meminta ISO 27001 (tidak ada SOC 2 requirement)",
+    "Budget sangat terbatas untuk dual certification",
+    "Tim compliance sangat kecil (1 orang)"
+  ],
+  "negative_cases": [
+    "Rekomendasi tanpa analisis renewal cost",
+    "Mengabaikan ongoing compliance effort",
+    "Tidak ada trade-off analysis"
+  ]
+}

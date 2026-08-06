@@ -1,0 +1,47 @@
+{
+  "test_id": "DE-GT-001",
+  "name": "Desain Pipeline ETL untuk Data Penjualan",
+  "category": "etl_pipeline",
+  "inputs": {
+    "request_id": "de-gt-001",
+    "job_type": "etl",
+    "source": {
+      "type": "csv",
+      "location": "/data/sales_2024.csv",
+      "schema_definition": {"order_id": "string", "customer_id": "string", "amount": "float", "order_date": "date"}
+    },
+    "operations": [
+      {"operation": "fill_missing", "parameters": {"strategy": "mean", "columns": ["amount"]}},
+      {"operation": "drop_duplicates", "parameters": {"subset": ["order_id"]}},
+      {"operation": "normalize", "parameters": {"columns": ["amount"], "method": "min_max"}}
+    ],
+    "quality_rules": [
+      {"rule": "completeness", "thresholds": {"min": 0.95}},
+      {"rule": "uniqueness", "thresholds": {"min": 0.99, "columns": ["order_id"]}}
+    ]
+  },
+  "expected_output": {
+    "status": "success",
+    "row_count_min": 100,
+    "quality_score_min": 0.9,
+    "lineage_required": true
+  },
+  "acceptance_criteria": [
+    "Dataset dihasilkan dengan row_count >= 100",
+    "Quality score overall >= 0.9",
+    "Lineage menampilkan source, transforms, dan target",
+    "Duplicate order_id dihapus",
+    "Missing amount diisi dengan mean",
+    "Completeness >= 0.95 dan uniqueness >= 0.99"
+  ],
+  "edge_cases": [
+    "Semua amount kosong (mean = 0)",
+    "Semua row duplikat (row_count = 0 setelah drop_duplicates)",
+    "Schema drift: kolom baru muncul di input"
+  ],
+  "negative_cases": [
+    "Row duplikat tidak dihapus",
+    "Missing value tidak di-handle",
+    "Quality score tidak dihitung"
+  ]
+}

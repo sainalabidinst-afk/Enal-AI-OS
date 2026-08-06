@@ -27,7 +27,7 @@ class SandboxExecution:
     error: str | None = None
     exit_code: int = 0
     duration_ms: float = 0.0
-    started_at: datetime = field(default_factory=datetime.utcnow)
+    started_at: datetime = field(default_factory=datetime.now(UTC))
     finished_at: datetime | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 

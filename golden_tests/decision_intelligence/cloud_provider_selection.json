@@ -1,0 +1,46 @@
+{
+  "test_id": "DI-GT-001",
+  "name": "Pemilihan Cloud Provider",
+  "category": "infrastructure_decision",
+  "inputs": {
+    "context": "Memilih penyedia cloud untuk hosting aplikasi e-commerce dengan traffic 100K pengunjung/hari.",
+    "evidence_sources": [
+      {"source_id": "performance_benchmark", "evidence_type": "data", "quality_score": 0.9, "weight": 0.4},
+      {"source_id": "cost_analysis", "evidence_type": "data", "quality_score": 0.85, "weight": 0.3},
+      {"source_id": "security_assessment", "evidence_type": "analysis", "quality_score": 0.8, "weight": 0.2}
+    ],
+    "constraints": ["budget < 5000 USD/bulan", "uptime SLA >= 99.9%"],
+    "objectives": [{"name": "biaya", "weight": 0.3, "goal": "minimize"}, {"name": "kinerja", "weight": 0.4, "goal": "maximize"}, {"name": "keamanan", "weight": 0.3, "goal": "maximize"}],
+    "risk_tolerance": "medium",
+    "max_alternatives": 3
+  },
+  "expected_output": {
+    "recommended_decision": "AWS dengan Reserved Instances untuk workload tetap",
+    "alternatives_count": 2,
+    "confidence_score_min": 0.75,
+    "confidence_score_max": 0.95,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "DecisionResult.dipilih berisi string yang tidak kosong",
+    "DecisionResult.confidence_score berada di antara 0.0 dan 1.0",
+    "DecisionResult.alternatives berisi minimal 1 alternatif",
+    "Setiap alternatif memiliki score dan risk_profile yang valid",
+    "DecisionResult.explanation.reasoning_chain memiliki minimal 1 item",
+    "Konversi bukti diterapkan (weighted average)",
+    "Risk assessment memperhitungkan probabilitas dan dampak"
+  ],
+  "edge_cases": [
+    "Sumber bukti dengan weight 0 (harus diabaikan dengan aman)",
+    "Hanya 1 alternatif yang valid (monolit)",
+    "Objektivitas dengan bobot yang jumlahnya != 1.0 (harus dinormalisasi)",
+    "Konteks keputusan kosong (harus mengembalikan kesalahan validasi)"
+  ],
+  "negative_cases": [
+    "Rekomendasi tanpa penjelasan (violates explainability)",
+    "Skor keyakinan > 1.0 atau < 0.0",
+    "Alternatif tanpa profil risiko",
+    "Constraint yang bertentangan (tidak ada solusi yang valid)"
+  ]
+}

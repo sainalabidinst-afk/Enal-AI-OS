@@ -1,0 +1,35 @@
+{
+  "test_id": "SE-GT-009",
+  "name": "Keamanan Infrastruktur: SSH dan Firewall",
+  "category": "infrastructure_security",
+  "inputs": {
+    "target_type": "config",
+    "config_content": "# SSH config\nPermitRootLogin yes\nPasswordAuthentication yes\n# Firewall - all traffic allowed\n*filter\n:INPUT ACCEPT [0:0]\n:FORWARD ACCEPT [0:0]\n:OUTPUT ACCEPT [0:0]\nCOMMIT",
+    "language": "bash",
+    "standards": ["cis", "nist_csf"],
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "critical_findings_required": 2,
+    "high_findings_required_min": 1,
+    "cis_mapping_required": true
+  },
+  "acceptance_criteria": [
+    "Critical finding: PermitRootLogin yes (CIS)",
+    "Critical finding: PasswordAuthentication yes (CIS)",
+    "Critical finding: Firewall policy ACCEPT all (CIS)",
+    "CIS benchmark mapping untuk setiap finding",
+    "Remediation step-by-step diberikan",
+    "Impact severity dijelaskan"
+  ],
+  "edge_cases": [
+    "SSH dengan key-based auth tapi weak key",
+    "Firewall dengan default drop tapi missing rules",
+    "IPv6 yang tidak di-config tapi aktif"
+  ],
+  "negative_cases": [
+    "Tidak ada finding untuk config yang jelas vulnerable (false negative)",
+    "CIS mapping tidak ada",
+    "Remediation tanpa langkah konkret"
+  ]
+}

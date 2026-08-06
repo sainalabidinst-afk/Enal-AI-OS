@@ -1,0 +1,36 @@
+{
+  "test_id": "network_engineer_gt_010",
+  "name": "Network Advisor - Desain Data Center HA",
+  "category": "advisory",
+  "inputs": {
+    "type": "query",
+    "content": "Rancang arsitektur data center dengan ketersediaan tinggi untuk 100 server. Sumberdaya: 4 unit firewall, 8 switch core, 16 switch akses. Waktu aktif target: 99.99%.",
+    "vendor_hint": "auto-detect"
+  },
+  "expected_output": {
+    "advisory": {
+      "proposals": [
+        {
+          "id": "prop-1",
+          "title": "Arsitektur Data Center HA Tiga Tier",
+          "description": "Desain dengan layer core, distribution, dan access. Setiap layer memiliki redundansi penuh.",
+          "components": ["Firewall HA", "Core Switch Stack", "Access Switch MLAG"],
+          "risk_score": 0.15
+        }
+      ]
+    }
+  },
+  "acceptance_criteria": [
+    "Menghasilkan setidaknya satu proposal desain",
+    "Menyebutkan redundansi (HA/stacking)",
+    "Skor risiko rendah (< 0.3)"
+  ],
+  "edge_cases": [
+    "Budget terbatas",
+    "Persyaratan RTO/RPO ketat"
+  ],
+  "negative_cases": [
+    "Query tanpa informasi kapasitas",
+    "Pertanyaan di luar domain jaringan"
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Benchmark Result",
+  "description": "Uniform benchmark artifact for a single capability execution.",
+  "type": "object",
+  "required": [
+    "capabilityId",
+    "version",
+    "timestamp",
+    "functional",
+    "performance",
+    "scalability",
+    "reliability",
+    "overallScore",
+    "grade",
+    "passed"
+  ],
+  "properties": {
+    "capabilityId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "functional": {
+      "type": "object",
+      "required": ["successRate", "determinism", "repeatability", "consistency", "score"],
+      "properties": {
+        "successRate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of successful executions."
+        },
+        "determinism": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Score for deterministic output given identical inputs."
+        },
+        "repeatability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Score for repeatable results across multiple runs."
+        },
+        "consistency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Score for consistent output variance."
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Aggregate functional benchmark score."
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": ["executionLatencyP50", "executionLatencyP95", "executionLatencyP99", "throughputPerSecond", "memoryUsageMB", "cpuUsagePercent", "score"],
+      "properties": {
+        "executionLatencyP50": {
+          "type": "number",
+          "description": "Median execution latency in milliseconds."
+        },
+        "executionLatencyP95": {
+          "type": "number",
+          "description": "95th percentile execution latency in milliseconds."
+        },
+        "executionLatencyP99": {
+          "type": "number",
+          "description": "99th percentile execution latency in milliseconds."
+        },
+        "throughputPerSecond": {
+          "type": "number",
+          "description": "Maximum throughput per second."
+        },
+        "memoryUsageMB": {
+          "type": "number",
+          "description": "Peak memory usage in megabytes."
+        },
+        "cpuUsagePercent": {
+          "type": "number",
+          "description": "Peak CPU usage percentage."
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Aggregate performance benchmark score."
+        }
+      }
+    },
+    "scalability": {
+      "type": "object",
+      "required": ["loadLevels", "score"],
+      "properties": {
+        "loadLevels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["requests", "latencyP95", "failureRate", "degradation"],
+            "properties": {
+              "requests": {
+                "type": "integer",
+                "description": "Number of concurrent requests."
+              },
+              "latencyP95": {
+                "type": "number",
+                "description": "95th percentile latency at this load level."
+              },
+              "failureRate": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Failure rate percentage at this load level."
+              },
+              "degradation": {
+                "type": "number",
+                "description": "Performance degradation percentage compared to baseline."
+              }
+            }
+          }
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Aggregate scalability benchmark score."
+        }
+      }
+    },
+    "reliability": {
+      "type": "object",
+      "required": ["recoverySuccess", "timeoutHandling", "retrySuccess", "invalidInputHandling", "lifecycleTransitions", "score"],
+      "properties": {
+        "recoverySuccess": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Recovery success rate after failure."
+        },
+        "timeoutHandling": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Timeout handling correctness score."
+        },
+        "retrySuccess": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Retry mechanism success rate."
+        },
+        "invalidInputHandling": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Invalid input handling correctness score."
+        },
+        "lifecycleTransitions": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Lifecycle transition success rate."
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Aggregate reliability benchmark score."
+        }
+      }
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "grade": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "F"]
+    },
+    "passed": {
+      "type": "boolean"
+    }
+  }
+}

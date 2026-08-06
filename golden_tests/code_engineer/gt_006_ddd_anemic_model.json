@@ -1,0 +1,35 @@
+{
+  "test_id": "code_engineer_gt_006",
+  "name": "Analisis DDD - Deteksi Anemic Domain Model",
+  "category": "ddd_analysis",
+  "inputs": {
+    "code": "class Order:\n    def __init__(self):\n        self.id = None\n        self.customer_id = None\n        self.total = 0.0\n        self.status = 'pending'\n\nclass OrderService:\n    def calculate_total(self, order):\n        for item in order.items:\n            order.total += item.price * item.qty\n        return order.total\n\n    def validate(self, order):\n        return order.total > 0",
+    "language": "python",
+    "filename": "order.py"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "medium",
+        "category": "ddd.anemic_model",
+        "description": "Order entity lacks business logic - behaves like a data bag",
+        "recommendation": "Move business logic into Order aggregate: Order.calculate_total(), Order.validate(), Order.submit()",
+        "line_number": 1,
+        "confidence": 0.85
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Mendeteksi anemic domain model",
+    "Mengidentifikasi logic yang ada di service bukan entity",
+    "Rekomendasi migrasi ke rich domain model"
+  ],
+  "edge_cases": [
+    "Entity dengan beberapa method",
+    "Pure data class (dataclass)"
+  ],
+  "negative_cases": [
+    "Rich domain model",
+    "Kode tanpa class"
+  ]
+}

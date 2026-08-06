@@ -1,0 +1,55 @@
+{
+  "test_id": "research_assistant_gt_006",
+  "name": "Sintesis Multi-Sumber - Topik Kontroversial",
+  "category": "synthesis",
+  "inputs": {
+    "query": "Artificial general intelligence timeline predictions",
+    "operation": "synthesis",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "AGI by 2030",
+        "content": "Leading AI researchers predict AGI within 5-10 years based on current scaling trends.",
+        "source_type": "industry",
+        "published_at": "2024-01-01",
+        "author": "Expert A"
+      },
+      {
+        "id": "src-2",
+        "title": "AGI is decades away",
+        "content": "Fundamental breakthroughs needed in reasoning and common sense make AGI unlikely before 2050.",
+        "source_type": "academic",
+        "published_at": "2023-11-01",
+        "author": "Expert B"
+      },
+      {
+        "id": "src-3",
+        "title": "AGI timeline survey",
+        "content": "Survey of 1000 AI researchers shows median prediction of 2040-2050 for AGI.",
+        "source_type": "academic",
+        "published_at": "2024-03-01"
+      }
+    ]
+  },
+  "expected_output": {
+    "synthesis": {
+      "narrative": "Predictions for AGI timeline vary widely from 5 to 30 years, reflecting fundamental uncertainty in the field. Expert opinion is divided between near-term optimists and long-term skeptics.",
+      "consensus_areas": ["current scaling trends are impressive", "fundamental challenges remain"],
+      "conflict_areas": ["timeline prediction (5 years vs 30+ years)", "definition of AGI"],
+      "confidence": 0.6
+    }
+  },
+  "acceptance_criteria": [
+    "Sintesis mencakup semua sudut pandang",
+    "Area konsensus dan konflik diidentifikasi",
+    "Confidence rendah sesuai dengan kontroversi"
+  ],
+  "edge_cases": [
+    "Sumber yang sama dengan interpretasi berbeda",
+    "Sumber yang saling mengkonfirmasi sebagian"
+  ],
+  "negative_cases": [
+    "Sumber yang sepenuhnya konsensus",
+    "Tidak ada sumber"
+  ]
+}

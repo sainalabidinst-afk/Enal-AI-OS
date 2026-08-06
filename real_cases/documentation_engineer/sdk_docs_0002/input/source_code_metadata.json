@@ -1,0 +1,10 @@
+# Input
+
+## Source Code
+Path: apps/business_analyst/
+Files: engine.py, schemas.py, worker.py
+
+## Request
+Operation: sdk_documentation
+App Name: business-analyst
+Version: 1.0.0

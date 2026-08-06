@@ -1,0 +1,32 @@
+{
+  "test_id": "devops_assistant_gt_009",
+  "name": "Konfigurasi GitOps - ArgoCD Application",
+  "category": "gitops",
+  "inputs": {
+    "app_name": "frontend-app",
+    "repo_url": "https://github.com/org/frontend-manifests",
+    "path": "k8s/overlays/production",
+    "target_namespace": "production",
+    "sync_policy": "automated",
+    "prune_propagation_policy": "foreground"
+  },
+  "expected_output": {
+    "application_manifest_valid": true,
+    "sync_policy_automated": true,
+    "self_heal_enabled": true,
+    "prune_enabled": true
+  },
+  "acceptance_criteria": [
+    "Application manifest valid",
+    "Sync policy automated",
+    "Self-heal enabled"
+  ],
+  "edge_cases": [
+    "Multiple environments",
+    "Helm chart deployment"
+  ],
+  "negative_cases": [
+    "Repo URL yang tidak valid",
+    "Namespace yang tidak ada"
+  ]
+}

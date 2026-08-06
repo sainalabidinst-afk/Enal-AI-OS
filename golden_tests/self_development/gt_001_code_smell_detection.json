@@ -1,0 +1,34 @@
+{
+  "test_id": "self_development_gt_001",
+  "name": "Analisis Proyek - Deteksi Code Smell",
+  "category": "project_analysis",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "analysis_type": "full",
+    "include_dead_code": true,
+    "include_complexity": true
+  },
+  "expected_output": {
+    "total_files": 20,
+    "total_lines": 5000,
+    "issues_found": 5,
+    "categories": ["long_method", "duplicate_code", "complex_conditional", "god_class", "dead_code"],
+    "complexity_metrics": {
+      "cyclomatic_complexity_avg": 8.5,
+      "max_cyclomatic_complexity": 25
+    }
+  },
+  "acceptance_criteria": [
+    "Minimal 5 code smell terdeteksi",
+    "Metrics complexity dihitung",
+    "Dead code terdeteksi"
+  ],
+  "edge_cases": [
+    "Proyek sangat kecil (< 5 file)",
+    "Proyek monorepo"
+  ],
+  "negative_cases": [
+    "Path yang tidak ada",
+    "Tidak ada file Python"
+  ]
+}

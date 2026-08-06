@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "capability_id": "research_assistant",
+  "capability_name": "Research Assistant",
+  "audit_version": "1.0.0",
+  "overall_score": 142,
+  "grade": "A",
+  "status": "Passed",
+  "areas": [
+    {
+      "name": "Contract Compliance",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "API Stability",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Domain Knowledge",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Engine Correctness",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Explainability",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Decision Integration",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Lifecycle Integration",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No dedicated lifecycle module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\research_assistant"
+        }
+      ]
+    },
+    {
+      "name": "Observability",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Error Handling",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No dedicated error handling module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\research_assistant"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Security",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No dedicated security module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\research_assistant"
+        }
+      ]
+    },
+    {
+      "name": "Performance Target",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Test Coverage",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Golden Tests",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Real Cases",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    }
+  ],
+  "summary": {
+    "criticalFindings": 0,
+    "majorFindings": 0,
+    "minorFindings": 3,
+    "correctiveActions": []
+  },
+  "auditor": "Capability Audit Runner",
+  "completed_at": "2026-08-06T01:28:03.968071+00:00"
+}

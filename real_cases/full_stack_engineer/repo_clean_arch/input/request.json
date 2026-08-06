@@ -1,0 +1,20 @@
+{
+  "request_id": "case-fs-001",
+  "operation": "full_stack_review",
+  "inputs": {
+    "repo_path": "apps/code_engineer",
+    "source_code": "def add(a, b): return a + b\ndef process_data(data):\n    result = []\n    for item in data:\n        result.append(item * 2)\n    return result",
+    "filename": "utils.py"
+  },
+  "context": {
+    "project_id": "clean-arch-demo",
+    "language": "python",
+    "framework": "fastapi"
+  },
+  "quality_attributes": {
+    "architecture_target": "clean_architecture",
+    "coverage_target": 0.85,
+    "performance_target": {"latency_p95_ms": 100, "throughput_rps": 1000}
+  },
+  "output_format": "json"
+}

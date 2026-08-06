@@ -1,0 +1,59 @@
+{
+  "test_id": "research_assistant_gt_005",
+  "name": "Estimasi Keyakinan - Konsensus Rendah",
+  "category": "confidence_estimation",
+  "inputs": {
+    "query": "Long-term effects of intermittent fasting",
+    "operation": "confidence_estimation",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Short-term benefits of fasting",
+        "content": "Fasting for 2-4 weeks improves insulin sensitivity.",
+        "source_type": "academic",
+        "published_at": "2023-01-01",
+        "author": "Smith"
+      },
+      {
+        "id": "src-2",
+        "title": "Fasting myths debunked",
+        "content": "No long-term studies exist on fasting benefits.",
+        "source_type": "blog",
+        "published_at": "2022-05-01"
+      },
+      {
+        "id": "src-3",
+        "title": "Fasting and longevity",
+        "content": "Animal studies suggest fasting extends lifespan but human data is limited.",
+        "source_type": "academic",
+        "published_at": "2021-09-01",
+        "author": "Jones"
+      }
+    ]
+  },
+  "expected_output": {
+    "findings": [
+      {
+        "confidence": 0.5,
+        "sources": ["src-1", "src-2", "src-3"]
+      }
+    ],
+    "quality": {
+      "overall_score": 0.55,
+      "source_quality_avg": 0.6
+    }
+  },
+  "acceptance_criteria": [
+    "Confidence score rendah (< 0.7) karena konsensus rendah",
+    "Ketidakpastian terkuantifikasi",
+    "Skor kualitas sesuai"
+  ],
+  "edge_cases": [
+    "Semua sumber berkualitas tinggi tapi bertentangan",
+    "Sumber dengan confidence yang sama"
+  ],
+  "negative_cases": [
+    "Sumber yang sepenuhnya konsensus",
+    "Tidak ada sumber"
+  ]
+}

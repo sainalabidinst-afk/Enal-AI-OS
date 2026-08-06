@@ -1,0 +1,35 @@
+{
+  "test_id": "SA-GT-010",
+  "name": "Degradasi Maintainability dan Remediasi",
+  "category": "code_quality",
+  "inputs": {
+    "target_type": "code",
+    "workspace_path": "/project/example_maintainability_degradation",
+    "architecture_style": "layered",
+    "focus_areas": ["maintainability", "testability"],
+    "include_recommendations": true
+  },
+  "expected_output": {
+    "maintainability_issues_found_min": 3,
+    "severity_assessment_required": true,
+    "remediation_roadmap_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 3 masalah maintainability teridentifikasi",
+    "Masalah meliputi: God class, shotgun surgery, divergent change",
+    "Severity ditetapkan berdasarkan impact",
+    "Remediation roadmap diberikan (quick win vs long-term)",
+    "Effort estimate untuk setiap remediasi",
+    "Priority berdasarkan impact dan effort"
+  ],
+  "edge_cases": [
+    "Code yang sudah refactored sebagian",
+    "Technical debt yang diakui tapi di-schedule",
+    "God class dengan 50+ method"
+  ],
+  "negative_cases": [
+    "Tidak ada maintainability issue (false negative)",
+    "Remediation tanpa effort estimate",
+    "Semua masalah di-severity 'low' tanpa alasan"
+  ]
+}

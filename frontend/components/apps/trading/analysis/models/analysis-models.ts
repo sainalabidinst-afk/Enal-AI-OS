@@ -49,3 +49,4 @@ export interface RiskAssessment {
   confidence: number;
   reasoning: string;
 }
+

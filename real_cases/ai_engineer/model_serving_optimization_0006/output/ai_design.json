@@ -1,0 +1,18 @@
+﻿{
+    "model_architecture":  "transformer_encoder_decoder",
+    "components":  [
+                       "data_pipeline",
+                       "model_training",
+                       "evaluation",
+                       "serving"
+                   ],
+    "monitoring":  [
+                       "latency",
+                       "throughput",
+                       "error_rate"
+                   ],
+    "deployment":  "kubernetes",
+    "scenario":  "model_serving_optimization",
+    "scalability":  "horizontal",
+    "project_name":  "ai-project-6"
+}

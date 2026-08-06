@@ -1,0 +1,46 @@
+{
+  "test_id": "BA-GT-007",
+  "name": "Functional Specification untuk API Pembayaran",
+  "category": "functional_specification",
+  "inputs": {
+    "request_id": "ba-gt-007",
+    "operation": "functional_spec",
+    "business_context": {
+      "domain": "fintech",
+      "project_name": "Payment Gateway Integration"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "API harus menerima payment request dari merchant",
+        "API harus memverifikasi signature untuk keamanan",
+        "API harus mengembalikan payment status",
+        "API harus menyendirkan webhook ke merchant"
+      ],
+      "technical_constraints": ["HTTPS only", "Response time < 500ms", "99.9% uptime"]
+    }
+  },
+  "expected_output": {
+    "functional_spec_required": true,
+    "api_endpoints_specified": true,
+    "request_response_schema_required": true,
+    "error_handling_specified": true
+  },
+  "acceptance_criteria": [
+    "Functional specification dihasilkan",
+    "API endpoints dijelaskan (POST /payment, GET /payment/{id})",
+    "Request/Response schema ditentukan",
+    "Error handling ditentukan (400, 401, 500, timeout)",
+    "Authentication/authorization mechanism dijelaskan",
+    "Non-functional requirements: latency, throughput, availability"
+  ],
+  "edge_cases": [
+    "API dengan idempotency requirement",
+    "API dengan retry mechanism",
+    "API dengan webhook retry untuk merchant yang down"
+  ],
+  "negative_cases": [
+    "Functional spec tanpa request/response schema",
+    "Error handling tidak ditentukan",
+    "Non-functional requirements tidak ada"
+  ]
+}

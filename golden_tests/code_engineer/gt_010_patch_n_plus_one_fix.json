@@ -1,0 +1,29 @@
+{
+  "test_id": "code_engineer_gt_010",
+  "name": "Patch Generator - Perbaikan N+1 Query",
+  "category": "patch_generation",
+  "inputs": {
+    "original_code": "def get_orders_with_items(user_id):\n    orders = db.query('SELECT * FROM orders WHERE user_id = ?', user_id)\n    result = []\n    for order in orders:\n        items = db.query('SELECT * FROM order_items WHERE order_id = ?', order['id'])\n        result.append({'order': order, 'items': items})\n    return result",
+    "modified_code": "def get_orders_with_items(user_id):\n    orders = db.query('SELECT * FROM orders WHERE user_id = ?', user_id)\n    order_ids = [o['id'] for o in orders]\n    items = db.query(f\"SELECT * FROM order_items WHERE order_id IN ({','.join(['?']*len(order_ids))})\", *order_ids)\n    items_map = {}\n    for item in items:\n        items_map.setdefault(item['order_id'], []).append(item)\n    result = []\n    for order in orders:\n        result.append({'order': order, 'items': items_map.get(order['id'], [])})\n    return result",
+    "filename": "order_repository.py"
+  },
+  "expected_output": {
+    "patch_valid": true,
+    "diff_type": "unified",
+    "queries_reduced": true,
+    "performance_improvement": "N+1 -> 2 queries"
+  },
+  "acceptance_criteria": [
+    "Patch valid (dapat di-apply)",
+    "Mengurangi jumlah query dari N+1 menjadi 2",
+    "Tidak ada perubahan behavior yang tidak diinginkan"
+  ],
+  "edge_cases": [
+    "Empty result set",
+    "Single order dengan banyak items"
+  ],
+  "negative_cases": [
+    "Perubahan yang merusak logic",
+    "Patch dengan syntax error"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "test_id": "BA-GT-010",
+  "name": "Analisis Kebutuhan untuk Transformasi Digital",
+  "category": "requirement_gathering",
+  "inputs": {
+    "request_id": "ba-gt-010",
+    "operation": "requirement_gathering",
+    "business_context": {
+      "domain": "manufacturing",
+      "project_name": "Digital Factory Transformation",
+      "description": "Transformasi digital pabrik manufaktur menuju Industry 4.0"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "Real-time monitoring untuk mesin produksi",
+        "Predictive maintenance untuk mesin",
+        "Digital twin untuk simulasi proses",
+        "ERP integration untuk inventory management"
+      ],
+      "stakeholder_notes": [
+        "50 mesin produksi dengan sensor IoT",
+        "Budget 5 M IDR",
+        "Timeline 12 bulan"
+      ]
+    },
+    "quality_attributes": {
+      "availability_target": "99.9%",
+      "performance_target": "< 1 detik untuk sensor data ingestion",
+      "security_target": "ISO 27001 compliant"
+    }
+  },
+  "expected_output": {
+    "requirements_count_min": 12,
+    "functional_requirements": true,
+    "non_functional_requirements": true,
+    "quality_attributes_covered": true
+  },
+  "acceptance_criteria": [
+    "Minimal 12 requirement dihasilkan",
+    "Functional requirements: real-time monitoring, predictive maintenance, digital twin, ERP integration",
+    "Non-functional requirements: latency, throughput, availability, security",
+    "Quality attributes tercakup (99.9% availability, < 1 detik ingestion)",
+    "Priority ditetapkan untuk setiap requirement",
+    "Stakeholder requirements terpetakan",
+    "Constraint diidentifikasi (budget, timeline, sensor compatibility)"
+  ],
+  "edge_cases": [
+    "IoT sensor dengan protocol yang berbeda (MQTT, OPC-UA, Modbus)",
+    "Legacy mesin tanpa sensor (retrofit requirement)",
+    "Real-time requirement yang tidak bisa dipenuhi oleh sistem existing"
+  ],
+  "negative_cases": [
+    "Tidak ada non-functional requirement",
+    "Quality attributes tidak tercakup",
+    "Requirements tanpa priority"
+  ]
+}

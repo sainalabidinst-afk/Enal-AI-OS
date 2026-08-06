@@ -1,0 +1,138 @@
+﻿{
+    "release_review":  {
+                           "checks":  [
+                                          {
+                                              "passed":  true,
+                                              "details":  "No critical issues",
+                                              "severity":  "medium",
+                                              "check":  "security_scan"
+                                          },
+                                          {
+                                              "passed":  true,
+                                              "details":  "All tests pass",
+                                              "severity":  "medium",
+                                              "check":  "tests_passing"
+                                          },
+                                          {
+                                              "passed":  true,
+                                              "details":  "Targets met",
+                                              "severity":  "medium",
+                                              "check":  "performance_benchmark"
+                                          }
+                                      ],
+                           "blockers":  [
+
+                                        ],
+                           "ready":  true,
+                           "summary":  {
+                                           "total_checks":  3,
+                                           "failed_checks":  0,
+                                           "passed_checks":  3,
+                                           "release_readiness":  "ready"
+                                       }
+                       },
+    "refactoring_plan":  {
+                             "plans":  [
+                                           {
+                                               "id":  "REFACTOR-001",
+                                               "proposal":  "Introduce service interfaces",
+                                               "expected_benefit":  "Better testability",
+                                               "cause":  "Direct dependencies",
+                                               "risk":  "low",
+                                               "problem":  "Service coupling",
+                                               "estimated_effort":  "medium",
+                                               "migration_steps":  [
+                                                                       "Define interfaces",
+                                                                       "Implement adapters",
+                                                                       "Migrate gradually"
+                                                                   ]
+                                           }
+                                       ]
+                         },
+    "performance_analysis":  {
+                                 "summary":  {
+                                                 "estimated_speedup":  "30-50%",
+                                                 "critical_issues":  0,
+                                                 "total_issues":  1
+                                             },
+                                 "issues":  [
+                                                {
+                                                    "id":  "PERF-001",
+                                                    "description":  "No caching layer visible",
+                                                    "location":  "handler.py",
+                                                    "estimated_improvement":  "30-50% latency reduction",
+                                                    "severity":  "low",
+                                                    "category":  "caching",
+                                                    "recommendation":  "Add Redis cache"
+                                                }
+                                            ]
+                             },
+    "architecture_review":  {
+                                "layering_grade":  "B",
+                                "architecture_score":  0.75,
+                                "tech_debt_grade":  "B",
+                                "dependency_grade":  "B",
+                                "modularity_grade":  "B",
+                                "issues":  [
+                                               {
+                                                   "id":  "ARCH-001",
+                                                   "description":  "Service boundaries could be better defined",
+                                                   "location":  "handler.py",
+                                                   "severity":  "medium",
+                                                   "category":  "architecture",
+                                                   "recommendation":  "Define clear service interfaces"
+                                               }
+                                           ]
+                            },
+    "quality_score":  0.78,
+    "code_review":  {
+                        "summary":  {
+                                        "total_findings":  1,
+                                        "by_severity":  {
+                                                            "low":  0,
+                                                            "critical":  0,
+                                                            "medium":  1,
+                                                            "info":  0,
+                                                            "high":  0
+                                                        },
+                                        "by_category":  {
+                                                            "architecture":  1
+                                                        }
+                                    },
+                        "findings":  [
+                                         {
+                                             "confidence":  0.85,
+                                             "recommendation":  "Introduce interfaces",
+                                             "title":  "Service Coupling",
+                                             "category":  "architecture",
+                                             "description":  "Tight coupling between layers",
+                                             "severity":  "medium",
+                                             "line_number":  1,
+                                             "evidence":  "direct import"
+                                         }
+                                     ]
+                    },
+    "explanation":  "Performed full_stack_review. Architecture score: 75%, 1 issue found. Code review: 1 finding. Refactoring: 1 plan. Test engineering: 75% coverage. Performance: 1 issue. Release: READY.",
+    "test_engineering":  {
+                             "plans":  [
+                                           {
+                                               "priority":  "high",
+                                               "estimated_coverage":  0.85,
+                                               "description":  "Unit tests for service layer",
+                                               "suggested_tests":  [
+                                                                       "test_process_valid",
+                                                                       "test_process_invalid"
+                                                                   ],
+                                               "test_type":  "unit"
+                                           }
+                                       ],
+                             "estimated_coverage":  0.75,
+                             "missing_tests":  [
+                                                   "integration_test",
+                                                   "load_test"
+                                               ],
+                             "coverage_adequate":  true
+                         },
+    "request_id":  "case-fs-18",
+    "operation":  "full_stack_review"
+}

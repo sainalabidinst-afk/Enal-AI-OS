@@ -1,0 +1,35 @@
+{
+  "test_id": "code_engineer_gt_008",
+  "name": "Analisis CQRS - Deteksi Mixed Read/Write Model",
+  "category": "cqrs_analysis",
+  "inputs": {
+    "code": "class ProductQuery:\n    def get_product(self, product_id):\n        return db.query('SELECT * FROM products WHERE id = ?', product_id)\n    def update_product(self, product_id, data):\n        return db.execute('UPDATE products SET ... WHERE id = ?', product_id)\n    def search_products(self, query):\n        return db.query(f\"SELECT * FROM products WHERE name LIKE '%{query}%'\")",
+    "language": "python",
+    "filename": "product_query.py"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "medium",
+        "category": "cqrs.mixed_responsibility",
+        "description": "ProductQuery mixes read and write operations",
+        "recommendation": "Split into ProductQuery (read) and ProductCommand (write)",
+        "line_number": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Mendeteksi mixed read/write dalam satu class",
+    "Rekomendasi pemisahan CQRS",
+    "Severity sesuai"
+  ],
+  "edge_cases": [
+    "Read model yang memanggil write",
+    "Query yang return modified data"
+  ],
+  "negative_cases": [
+    "Pure query model",
+    "Pure command model"
+  ]
+}

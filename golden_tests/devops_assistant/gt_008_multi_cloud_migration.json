@@ -1,0 +1,39 @@
+{
+  "test_id": "devops_assistant_gt_008",
+  "name": "Desain Multi-Cloud - AWS ke GCP Migration",
+  "category": "multi_cloud",
+  "inputs": {
+    "source_cloud": "aws",
+    "target_cloud": "gcp",
+    "services": ["ec2", "rds", "s3", "lambda"],
+    "requirements": {
+      "high_availability": true,
+      "cost_optimization": true,
+      "data_residency": "ap-southeast-1"
+    }
+  },
+  "expected_output": {
+    "migration_plan_present": true,
+    "service_mapping": {
+      "ec2": "GCE",
+      "rds": "Cloud SQL",
+      "s3": "Cloud Storage",
+      "lambda": "Cloud Functions"
+    },
+    "cost_estimate_provided": true,
+    "estimated_downtime_minutes": 30
+  },
+  "acceptance_criteria": [
+    "Semua service dipetakan",
+    "Rencana migrasi ada",
+    "Estimasi biaya disediakan"
+  ],
+  "edge_cases": [
+    "Vendor lock-in concerns",
+    "Data transfer costs"
+  ],
+  "negative_cases": [
+    "Cloud yang tidak didukung",
+    "Tidak ada service yang ditentukan"
+  ]
+}

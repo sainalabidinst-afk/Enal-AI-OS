@@ -1,0 +1,27 @@
+﻿{
+    "request_id":  "case-uiux-5",
+    "operation":  "full_design",
+    "business_context":  {
+                             "domain":  "technology",
+                             "description":  "UI/UX design project for comprehensive user experience",
+                             "project_name":  "ux-project-5"
+                         },
+    "output_format":  "json",
+    "inputs":  {
+                   "technical_constraints":  [
+                                                 "Browser support",
+                                                 "Performance budget",
+                                                 "Accessibility standards"
+                                             ],
+                   "product_requirements":  [
+                                                "Core functionality",
+                                                "User flows",
+                                                "Platform requirements"
+                                            ],
+                   "user_research_data":  [
+                                              "User needs analysis",
+                                              "Behavioral patterns identified",
+                                              "Pain points documented"
+                                          ]
+               }
+}

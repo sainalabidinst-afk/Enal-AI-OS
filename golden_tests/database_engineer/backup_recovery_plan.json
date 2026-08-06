@@ -1,0 +1,41 @@
+{
+  "test_id": "DB-GT-005",
+  "name": "Rencana Backup dan Recovery",
+  "category": "backup_recovery",
+  "inputs": {
+    "request_id": "db-gt-005",
+    "operation": "backup_plan",
+    "database_type": "postgresql",
+    "rto_hours": 4.0,
+    "rpo_minutes": 60,
+    "workload_profile": {
+      "data_volume_gb": 500,
+      "peak_qps": 500,
+      "availability_requirement": "99.9%"
+    }
+  },
+  "expected_output": {
+    "backup_plan_required": true,
+    "backup_types_required": true,
+    "retention_policy_required": true,
+    "recovery_procedure_required": true
+  },
+  "acceptance_criteria": [
+    "Backup schedule ditentukan (full, incremental, WAL archival)",
+    "Retention policy ditetapkan (30 hari untuk operational, 7 tahun untuk compliance)",
+    "Recovery procedure dengan step-by-step diberikan",
+    "RTO dan RPO tercapai dengan backup strategy",
+    "Backup verification procedure disarankan",
+    "Point-in-time recovery capability dievaluasi"
+  ],
+  "edge_cases": [
+    "Database 1TB+ dengan budget terbatas",
+    "Compliance requirement: retention 7 tahun",
+    "Cross-region backup requirement"
+  ],
+  "negative_cases": [
+    "Backup plan tanpa retention policy",
+    "Recovery procedure tidak diberikan",
+    "RTO/RPO tidak tercapai"
+  ]
+}

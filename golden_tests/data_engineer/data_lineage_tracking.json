@@ -1,0 +1,42 @@
+{
+  "test_id": "DE-GT-008",
+  "name": "Lineage dan Tracking Data",
+  "category": "data_lineage",
+  "inputs": {
+    "request_id": "de-gt-008",
+    "job_type": "etl",
+    "source": {
+      "type": "database",
+      "location": "postgresql://prod/raw_events",
+      "schema_definition": {"event_id": "string", "event_type": "string", "payload": "json", "timestamp": "datetime"}
+    },
+    "operations": [
+      {"operation": "filter", "parameters": {"condition": "event_type = 'purchase'"}},
+      {"operation": "flatten", "parameters": {"column": "payload", "fields": ["product_id", "amount"]}},
+      {"operation": "aggregate", "parameters": {"group_by": ["product_id"], "agg": {"amount": "sum"}}}
+    ]
+  },
+  "expected_output": {
+    "lineage_complete": true,
+    "source_traced": true,
+    "transforms_traced": true,
+    "target_traced": true
+  },
+  "acceptance_criteria": [
+    "Lineage menampilkan source (database)",
+    "Lineage menampilkan semua transforms (filter, flatten, aggregate)",
+    "Lineage menampilkan target (output dataset)",
+    "Dependency graph untuk setiap kolom dihasilkan",
+    "Impact analysis: perubahan di source → dampak ke target"
+  ],
+  "edge_cases": [
+    "Transformasi bertingkat (3+ levels)",
+    "Join dari 2 sumber data",
+    "Transformasi bersarang (aggregate of aggregate)"
+  ],
+  "negative_cases": [
+    "Lineage tidak lengkap (missing transform)",
+    "Tidak ada impact analysis",
+    "Source tidak ditelusuri ke tabel asli"
+  ]
+}

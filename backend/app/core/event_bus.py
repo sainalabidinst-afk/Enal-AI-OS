@@ -14,13 +14,19 @@ logger = logging.getLogger(__name__)
 
 class EventBus:
     def __init__(self):
-        self.redis = Redis.from_url(
-            settings.REDIS_URL,
-            encoding="utf-8",
-            decode_responses=True,
-        )
         self._subscribers: dict[str, list[Callable[[Event], Awaitable[None]]]] = {}
         self._stream_prefix = "enal:events"
+        self._redis: Redis | None = None
+
+    @property
+    def redis(self):
+        if self._redis is None:
+            self._redis = Redis.from_url(
+                settings.REDIS_URL,
+                encoding="utf-8",
+                decode_responses=True,
+            )
+        return self._redis
 
     def _stream_name(self, event_type: str) -> str:
         return f"{self._stream_prefix}:{event_type}"

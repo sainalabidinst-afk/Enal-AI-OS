@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-009",
+  "name": "Vendor Negotiation: SaaS Contract",
+  "category": "vendor_negotiation",
+  "inputs": {
+    "context": "Memutuskan apakah melanjutkan kontrak SaaS vendor saat ini (Vendor X) atau beralih ke Vendor Y dengan harga 20% lebih murah.",
+    "evidence_sources": [
+      {"source_id": "cost_comparison", "evidence_type": "data", "quality_score": 0.9, "weight": 0.3},
+      {"source_id": "migration_risk", "evidence_type": "analysis", "quality_score": 0.8, "weight": 0.3},
+      {"source_id": "feature_comparison", "evidence_type": "analysis", "quality_score": 0.85, "weight": 0.25}
+    ],
+    "constraints": ["contract_minimum_term = 1 tahun", "migration_window < 2 minggu"],
+    "objectives": [{"name": "biaya", "weight": 0.3, "goal": "minimize"}, {"name": "fitur", "weight": 0.25, "goal": "maximize"}, {"name": "risiko_migrasi", "weight": 0.25, "goal": "minimize"}],
+    "risk_tolerance": "medium",
+    "max_alternatives": 3
+  },
+  "expected_output": {
+    "recommended_decision": "Negosiasi ulang dengan Vendor X (target diskon 15%) atau migrasi ke Vendor Y jika ditolak",
+    "alternatives_count": 2,
+    "confidence_score_min": 0.75,
+    "confidence_score_max": 0.9,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Migration risk dievaluasi untuk Vendor Y",
+    "Feature parity dibandingkan",
+    "Migration cost dihitung (person-hours + disruption)",
+    "Vendor lock-in risk diakui",
+    "Negotiation leverage diidentifikasi"
+  ],
+  "edge_cases": [
+    "Vendor X menolak semua negosiasi",
+    "Migration cost melebihi savings dalam 1 tahun",
+    "Feature gap kritis untuk Vendor Y"
+  ],
+  "negative_cases": [
+    "Rekomendasi migrasi tanpa analisis migration cost",
+    "Mengabaikan data portability risk",
+    "Tidak ada trade-off analysis"
+  ]
+}

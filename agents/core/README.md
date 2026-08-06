@@ -1,37 +1,28 @@
-## Bahasa Indonesia/Bahasa Inggris
+# Core Components
 
-### Ringka / Ringka
+Core components are stable platform services that all Capability Packs depend on.
 
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+## Components
 
+1. **Runtime Engine** - Adaptive pipeline execution, task orchestration
+2. **Memory System** - 7-layer memory (working, conversation, knowledge, long-term, session, project, episodic)
+3. **Event Bus** - Event-driven communication between services
+4. **Task Queue** - Async task management with checkpoint/resume
+5. **Tool Registry** - Tool registration, discovery, and schema management
+6. **MCP Registry** - Model Context Protocol plugin registry
+7. **Plugin Manifest** - Plugin validation and compatibility checking
+8. **Workspace Service** - Workspace CRUD and file management
+9. **Artifact Service** - Artifact versioning and lifecycle
+10. **Governance** - Approval workflows, tenant isolation, RBAC
+11. **Security Model** - Authentication, authorization, audit logging
+12. **Contracts** - Stable interface contracts between services
 
-### Informasi Dokumen / Info Dokumen
-- Berkas: `agents/core/README.md`
-- Judul: Readme
-- Status: editor bilingual ditambahkan
-
-
-# Agen Inti (Fase 1)
-
-Berikut adalah 10 agen inti yang diterapkan pada Fase 1:
-
-1. **Perencana** - Menganalisis permintaan dan membuat rencana terstruktur
-2. **Agen Pengkodean** - Menulis dan meninjau kode dalam berbagai bahasa
-3. **Agen Penelitian** - Mengumpulkan informasi dari web dan dokumen
-4. **Agen Data** - mengoordinasikan database, analisis data, dan migrasi
-5. **Agen UI** - Merancang dan membangun antarmuka pengguna
-6. **Agen Perdagangan** - Menganalisis pasar dan mengeksekusi perdagangan
-7. **Agen Jaringan** - Mengonfigurasi jaringan dan keamanan
-8. **Agen Penulis** - Membuat dokumentasi dan konten
-9. **Agen QA** - Menguji dan memvalidasi keluaran
-10. **Agen Keamanan** - Mengaudit kode dan infrastruktur
-11. **Reviewer** - Meninjau dan menggabungkan hasil
-
-## Penggunaan
+## Usage
 
 ```python
-from backend.app.agents.orchestrator import orchestrator
-
-result = await orchestrator.run("Build me a full-stack todo app", "conv-123")
-print(result["final_result"])
+from backend.app.core.tool_registry import tool_registry
+from backend.app.core.mcp_registry import mcp_registry
+from backend.app.core.workspace_service import workspace_service
 ```
+
+Capability Packs import from Core, never the reverse.

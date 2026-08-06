@@ -1,0 +1,33 @@
+{
+  "test_id": "network_engineer_gt_008",
+  "name": "Verifikasi Konfigurasi OSPF Area Design",
+  "category": "routing_analysis",
+  "inputs": {
+    "type": "text",
+    "content": "/routing ospf area add name=backbone\r\n/routing ospf network add network=10.0.1.0/24 area=backbone\r\n/routing ospf network add network=10.0.2.0/24 area=area1\r\n/routing ospf interface add interface=bridge1 area=backbone",
+    "vendor_hint": "mikrotik"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "medium",
+        "category": "routing",
+        "description": "Network 10.0.2.0/24 berada di area1 tetapi tidak ada definisi area1"
+      }
+    ],
+    "risk_score": 0.4
+  },
+  "acceptance_criteria": [
+    "Mendeteksi referensi area yang tidak didefinisikan",
+    "Skor risiko sesuai dengan severity",
+    "Rekomendasi perbaikan diberikan"
+  ],
+  "edge_cases": [
+    "Konfigurasi dengan banyak area OSPF",
+    "Area tanpa network"
+  ],
+  "negative_cases": [
+    "Konfigurasi tanpa OSPF",
+    "Input dengan sintaks error total"
+  ]
+}

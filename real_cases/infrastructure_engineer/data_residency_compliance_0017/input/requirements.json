@@ -1,0 +1,11 @@
+﻿{
+    "environment":  "production",
+    "compliance":  [
+                       "SOC2",
+                       "PCI-DSS"
+                   ],
+    "domain":  "enterprise_it",
+    "cloud_provider":  "aws",
+    "scenario":  "data_residency_compliance",
+    "project_name":  "infra-project-17"
+}

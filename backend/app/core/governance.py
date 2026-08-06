@@ -42,7 +42,7 @@ class ApprovalRequest:
     requester: str
     status: ApprovalStatus = ApprovalStatus.PENDING
     approver: str | None = None
-    created_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=datetime.now(UTC))
     resolved_at: datetime | None = None
 
 

@@ -1,0 +1,24 @@
+{
+  "capabilityId": "devops_assistant",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Performance",
+      "tests": [
+        {
+          "id": "devops_assistant-performance-001",
+          "description": "Golden test for performance in devops_assistant",
+          "input": {
+            "capability_id": "devops_assistant",
+            "category": "performance"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

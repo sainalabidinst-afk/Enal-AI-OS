@@ -1,12 +1,12 @@
-﻿# Analisis Gap Frontend — Sprint 5.2
+﻿# Analisis Gap Frontend — Sprint 5.2 + Three-Level Thinking Architecture
 
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 08-02-2026
-**Versi:** 1.0.0
+**Diverifikasi Terakhir:** 2026-08-05
+**Versi:** 2.0.0
 **Status:** Aktif
-**SSOT:** Dokumentasi untuk FRONTEND_GAP_ANALYSIS
+**SSOT:** Dokumentasi untuk FRONTEND_GAP_ANALYSIS + Three-Level Thinking Architecture
 <!-- DOCUMENT_METADATA_END -->
 
 ## Saat Ini (Pasca Sprint Keadaan 5.1 + 5.2)
@@ -113,3 +113,181 @@ MOD  app/executions/page.tsx         290 lines
 - **Komponen bersifat stateless** di mana memungkinkan — data mengalir dari toko/layanan melalui hook
 - **Batas kesalahan** membungkus bagian utama — mencegah kesalahan LLM/alat merusak UI
 - **Batas ketegangan** digunakan untuk `useSearchParams()` di Router Aplikasi Next.js
+
+---
+
+## Three-Level Thinking Architecture — Frontend Cognitive Layer
+
+### Konsep Arsitektur
+
+Frontend Cognitive Layer memetakan **3 tingkat pemikiran kognitif** ke layer presentasi, selaras dengan Cognitive Kernel backend (8 layanan kognitif):
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    FRONTEND COGNITIVE LAYER                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  Level 3 — Meta-Cognitive (System 3)                      │  │
+│  │  "Strategic Thinking"                                      │  │
+│  │  Dashboard | Capability Registry | Orchestration | Memory  │  │
+│  │  Mapping: Memory + Learning + Meta-Cognition               │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                         ▲                                       │
+│                         │ aggregates & informs                  │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  Level 2 — Analytical (System 2)                           │  │
+│  │  "Deliberate Thinking"                                     │  │
+│  │  Execution Workspace | Analysis Panels | Reasoning Chains  │  │
+│  │  Mapping: Reasoning + Planning + Decision + Reflection     │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                         ▲                                       │
+│                         │ triggers & executes                   │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  Level 1 — Reactive (System 1)                             │  │
+│  │  "Fast Thinking"                                           │  │
+│  │  Chat | Terminal | Streaming | Status | Quick Actions       │  │
+│  │  Mapping: Perception + Action                               │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Level 1 — Reactive / Fast Thinking (System 1)
+
+**Karakteristik:**
+- Respons instan (<100ms), tanpa perturbation kognitif
+- Streaming output (SSE/WebSocket)
+- Status indikator real-time
+- Auto-complete, quick actions
+
+**Komponen Saat Ini:**
+- `ai-chat-panel.tsx` — chat interface with streaming
+- `terminal-widget.tsx` — real-time log output
+- `toast.tsx` — instant notifications
+- `loading-skeleton.tsx` — immediate visual feedback
+- `status-bar.tsx` — live status indicators
+
+**Gap Analysis:**
+
+|Barang|Status|Keterangan|
+|---|---|---|
+|Streaming SSE|✅ Diterapkan|`services/stream.ts` + WebSocket|
+|Real-time status|⚠️ Parsial|Status bar ada, belum terintegrasi dengan execution phases|
+|Quick actions|❌ Belum|Shortcuts untuk capabilities belum ada|
+|Auto-complete input|❌ Belum|Chat input tanpa suggestion|
+|Haptic/visual feedback|❌ Belum|Transisi state halus untuk System 1|
+
+### Level 2 — Analytical / Deliberate Thinking (System 2)
+
+**Karakteristik:**
+- Workspace terstruktur untuk analisis mendalam
+- Reasoning chain visualization
+- Execution graph dengan progress
+- Comparison & multi-panel analysis
+
+**Komponen Saat Ini:**
+- `execution-timeline.tsx` — phase-based execution view
+- `execution-history.tsx` — past execution review
+- `artifact-viewer.tsx` — versioned artifact inspection
+- `property-inspector.tsx` — detail object inspection
+- `code-viewer.tsx` — syntax-highlighted code
+
+**Gap Analysis:**
+
+|Barang|Status|Keterangan|
+|---|---|---|
+|Execution workspace|✅ Diterapkan|Timeline + history + artifacts|
+|Reasoning chain|❌ Belum|Tidak ada visualisasi chain-of-thought|
+|Multi-panel analysis|⚠️ Parsial|Split layout ada, belum dipakai untuk analysis|
+|Comparison view|❌ Belum|Side-by-side capability results|
+|Structured workspace|⚠️ Parsial|File tree ada, belum terintegrasi dengan cognitive context|
+
+### Level 3 — Meta-Cognitive / Strategic Thinking (System 3)
+
+**Karakteristik:**
+- Dashboard agung lintas kemampuan
+| Memory visualization dan context switching
+| Capability orchestration dan discovery
+| Learning insights dan improvement suggestions
+| Meta-cognitive state (confidence, uncertainty, alternatives)
+
+**Komponen Saat Ini:**
+- `dashboard-page.tsx` — app launcher + stats
+- `capability-browser.tsx` — capability discovery
+- `workspace-store.ts` — workspace + memory CRUD
+- `settings-page.tsx` — configuration
+
+**Gap Analysis:**
+
+|Barang|Status|Keterangan|
+|---|---|---|
+|Dashboard|✅ Diterapkan|App launcher dengan favorites/recent|
+|Capability registry|✅ Diterapkan|Filterable list dengan metadata|
+|Memory visualization|❌ Belum|Tidak ada UI untuk 7-layer memory|
+|Learning insights|❌ Belum|Tidak ada panel untuk improvement suggestions|
+|Meta-cognitive state|❌ Belum|Tidak ada indikator confidence/uncertainty|
+|Cross-capability view|❌ Belum|Tidak ada orchestration dashboard|
+
+### Rencana Sprint 8.5 — Frontend Cognitive Layer
+
+**Timeline:** Sprint 8.5 (1 sprint)
+**Target:** Tutup gap Level 1 & Level 2; prototipe Level 3
+
+#### Tujuan Sprint
+1. Wujudkan **Cognitive Layer UI** yang memetakan 3 tingkat pemikiran ke komponen React
+2. Integrasikan streaming execution dengan 3-layer feedback (reactive → analytical → meta)
+3. Tambahkan reasoning chain visualization dan meta-cognitive indicators
+
+#### Deliverables
+
+**A. Types & Contracts (`frontend/types/cognitive.ts`)**
+- `CognitiveLayer` enum: `REACTIVE`, `ANALYTICAL`, `META_COGNITIVE`
+- `ThinkingMode` interface: `mode`, `confidence`, `alternatives[]`, `reasoning_chain[]`
+- `CognitiveState` interface: `current_layer`, `active_capability`, `execution_context`
+- `ReasoningStep` interface: `step_id`, `service`, `input`, `output`, `duration_ms`
+
+**B. Store (`frontend/store/cognitive-store.ts`)**
+- `useCognitiveStore` — Zustand store untuk:
+  - Current thinking mode
+  - Reasoning chain history
+  - Layer transition tracking
+  - Confidence scores
+  - Meta-cognitive flags (uncertainty, alternatives considered)
+
+**C. Components (`frontend/components/cognitive/`)**
+- `cognitive-layer.tsx` — wrapper yang menentukan layer aktif
+- `system1-reactive-layer.tsx` — komponen System 1 (chat, streaming, status)
+- `system2-analytical-layer.tsx` — komponen System 2 (workspace, reasoning, comparison)
+- `system3-strategic-layer.tsx` — komponen System 3 (dashboard, memory, orchestration)
+- `thinking-mode-indicator.tsx` — visual indicator untuk mode pemikiran aktif
+- `reasoning-chain.tsx` — visualisasi step-by-step reasoning
+- `confidence-meter.tsx` — meta-cognitive confidence display
+
+**D. Integration Points**
+- Integrasi `cognitive-store` dengan `execution-store` untuk tracking layer transitions
+- Integrasi dengan `stream` service untuk real-time reasoning updates
+- Integrasi dengan `capability` service untuk capability-aware cognitive modes
+
+#### Acceptance Criteria
+- [ ] `tsc --noEmit` passes (no TypeScript errors)
+- [ ] Cognitive layer switching berfungsi (System 1 → 2 → 3)
+- [ ] Reasoning chain rendered correctly dari stream events
+- [ ] Confidence meter menampilkan skor dari backend meta-cognition
+- [ ] 3-layer layout dapat di-akses dari `/workspace` dengan tab navigasi
+- [ ] Manual test: execution → see System 1 streaming → System 2 analysis → System 3 dashboard
+
+### Rekomendasi Arsitektur
+
+1. **Cognitive Layer sebagai Context Provider** — gunakan React Context + Zustand untuk state global cognitive
+2. **Event-driven updates** — subscribe ke execution stream untuk auto-transition antar layer
+3. **Lazy loading per layer** — System 3 components hanya dimuat ketika diperlukan
+4. **Backend contract** — tambahkan `/cognitive/state` endpoint untuk meta-cognitive state polling
+5. **Progressive disclosure** — System 1 always visible; System 2 dockable; System 3 as overlay/dashboard
+
+### Referensi
+
+- `docs/AES_ARCHITECTURE.md` — Cognitive Kernel (8 services)
+- `docs/CAPABILITY_STRATEGY.md` — Capability maturity levels
+- `frontend/components/workspace/` — existing workspace components
+- `frontend/store/` — existing Zustand stores

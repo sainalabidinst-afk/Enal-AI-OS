@@ -1,0 +1,38 @@
+{
+  "test_id": "DE-GT-003",
+  "name": "Deteksi dan Penanganan Schema Drift",
+  "category": "schema_evolution",
+  "inputs": {
+    "request_id": "de-gt-003",
+    "job_type": "schema_evolve",
+    "source": {
+      "type": "csv",
+      "location": "/data/orders_v2.csv",
+      "schema_definition": {"order_id": "string", "amount": "float", "created_at": "date", "status": "string"}
+    },
+    "old_schema": {"order_id": "string", "amount": "float", "created_at": "date"},
+    "new_schema": {"order_id": "string", "amount": "float", "created_at": "date", "status": "string", "updated_at": "date"}
+  },
+  "expected_output": {
+    "schema_drift_detected": true,
+    "drift_changes_required": true,
+    "migration_plan_required": true
+  },
+  "acceptance_criteria": [
+    "Schema drift terdeteksi (kolom baru: status, updated_at)",
+    "Changes dilaporkan dengan change_type (added, modified, removed)",
+    "Migration plan dihasilkan (ALTER TABLE, backfill)",
+    "Backward compatibility dievaluasi",
+    "Impact pada downstream pipeline dijelaskan"
+  ],
+  "edge_cases": [
+    "Kolom diubah tipe (string → integer)",
+    "Kolom di-rename",
+    "Multiple schema drift secara bersamaan"
+  ],
+  "negative_cases": [
+    "Schema drift tidak terdeteksi (false negative)",
+    "Migration plan tanpa backward compatibility",
+    "Tidak ada impact analysis"
+  ]
+}

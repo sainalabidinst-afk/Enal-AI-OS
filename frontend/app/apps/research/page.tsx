@@ -1,12 +1,12 @@
-import { AppShell } from "@/components/apps/app-shell";
-import { AppComingSoon } from "@/components/apps/app-coming-soon";
-import { findCapabilityApp } from "@/components/apps/capability-registry";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ResearchAppPage() {
-  const app = findCapabilityApp("research")!;
-  return (
-    <AppShell app={app}>
-      <AppComingSoon app={app} />
-    </AppShell>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/workspace/research");
+  }, [router]);
+  return null;
 }

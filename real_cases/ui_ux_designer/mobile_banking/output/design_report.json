@@ -1,0 +1,79 @@
+{
+  "request_id": "case-uiux-003",
+  "operation": "full_design",
+  "ux_research": {
+    "user_personas": [
+      {
+        "name": "Sari",
+        "role": "Pengguna Mobile Banking",
+        "goals": ["Transfer cepat", "Cek saldo kapan saja"],
+        "pain_points": ["Login ribet", "Tidak tahu status transaksi"],
+        "technical_proficiency": "low"
+      }
+    ],
+    "user_journeys": [
+      {
+        "persona": "Sari",
+        "stages": [
+          {"stage": "Awareness", "actions": ["Buka aplikasi"], "touchpoints": ["App Icon", "Splash Screen"], "pain_points": ["Loading lama"], "opportunities": ["Splash screen cepat"]},
+          {"stage": "Consideration", "actions": ["Login dengan biometric"], "touchpoints": ["Login Screen", "Biometric"], "pain_points": ["Password sulit diingat"], "opportunities": ["Face ID / Fingerprint"]},
+          {"stage": "Adoption", "actions": ["Transfer uang"], "touchpoints": ["Transfer Screen", "Confirmation"], "pain_points": ["Banyak field"], "opportunities": ["2-tap transfer dengan kontak favorit"]}
+        ]
+      }
+    ],
+    "key_findings": ["Ditemukan 3 catatan riset UX", "Biometric login sangat diinginkan"],
+    "pain_points": ["Login ribet", "Tidak tahu status transaksi", "Loading lama"],
+    "opportunities": ["Face ID / Fingerprint", "2-tap transfer", "Real-time notifications", "Quick balance widget"],
+    "usability_issues": ["Login terlalu banyak langkah", "Status transaksi tidak jelas"],
+    "research_confidence": 0.9
+  },
+  "design_system": {
+    "id": "DS-bankmobile-001",
+    "name": "BankMobile Design System",
+    "description": "Sistem desain untuk aplikasi mobile banking BankMobile",
+    "tokens": [
+      {"name": "primary-base", "type": "color", "value": "#059669", "description": "Warna primary (green)", "usage": "Tombol utama, success state"},
+      {"name": "font-base", "type": "typography", "value": "0.875rem/1.25rem 400", "description": "Ukuran font base untuk mobile", "usage": "Teks body mobile"},
+      {"name": "spacing-8px", "type": "spacing", "value": "8px", "description": "Spasi 8px untuk mobile", "usage": "Touch target padding"}
+    ],
+    "components": [
+      {"id": "COMP-bank-1", "name": "BiometricButton", "component_type": "button", "variants": ["primary", "secondary"], "accessibility_requirements": ["Label aksesibel", "Touch target minimal 44x44px"]},
+      {"id": "COMP-bank-2", "name": "TransactionCard", "component_type": "card", "variants": ["default", "success", "failed"], "accessibility_requirements": ["Icon dengan alt text", "Amount dengan format angka"]}
+    ],
+    "color_palette": {"primary-500": "#059669", "success-500": "#10B981", "danger-500": "#EF4444"},
+    "typography_scale": {"base": {"size": "0.875rem", "line_height": "1.25rem", "weight": "400"}},
+    "spacing_scale": ["0", "4px", "8px", "12px", "16px", "24px"],
+    "motion_principles": ["Transisi cepat 100-200ms untuk mobile"],
+    "accessibility_standards": ["WCAG 2.1 AA", "Mobile Touch Target 44x44px"],
+    "version": "1.0.0"
+  },
+  "prototype": {
+    "id": "PROTO-bankmobile-001",
+    "name": "Prototype BankMobile",
+    "fidelity": "high",
+    "screens": [
+      {"id": "SCR-bank-1", "name": "Login", "description": "Login dengan biometric", "states": ["default", "loading", "error"], "responsive_breakpoints": ["320px", "375px", "414px"]},
+      {"id": "SCR-bank-2", "name": "Home", "description": "Home dengan quick balance", "states": ["default", "loading"], "responsive_breakpoints": ["320px", "375px"]},
+      {"id": "SCR-bank-3", "name": "Transfer", "description": "Transfer 2-tap", "states": ["default", "confirm", "success", "error"], "responsive_breakpoints": ["320px", "375px"]}
+    ],
+    "user_flows": [
+      {"name": "Transfer Flow", "start_screen": "Home", "steps": [{"screen": "Home", "action": "tap_transfer"}, {"screen": "Transfer", "action": "select_contact"}, {"screen": "Transfer", "action": "confirm"}], "success_criteria": "Transfer dalam 2 tap dari home"}
+    ],
+    "interaction_map": {
+      "navigation": {"Login": ["Home"], "Home": ["Transfer", "History", "Settings"], "Transfer": ["Home", "Confirmation"]},
+      "gestures": [{"gesture": "swipe_down", "action": "refresh_balance", "context": "Home"}, {"gesture": "swipe_left", "action": "next_transaction", "context": "History"}],
+      "keyboard_shortcuts": []
+    }
+  },
+  "accessibility_report": {
+    "total_checks": 18,
+    "violations_found": 0,
+    "compliance_score": 1.0,
+    "violations": [],
+    "passed_checks": ["WCAG 2.1 AA — Design System terdefinisi", "Touch target minimal 44x44px", "Biometric button memiliki label aksesibel"],
+    "remediation_priority": [],
+    "wcag_level": "AA"
+  },
+  "quality_score": 0.95,
+  "explanation": "Performed full_design UI/UX design. UX Research: 1 personas, 3 pain points, 4 opportunities. Design System: 3 tokens, 2 components. Prototype: 3 screens, 1 user flows. Accessibility: 100% compliant, 0 violations found."
+}

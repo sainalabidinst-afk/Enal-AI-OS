@@ -1,0 +1,55 @@
+{
+  "test_id": "DB-GT-007",
+  "name": "Analisis Explain Plan untuk Optimasi",
+  "category": "execution_plan_analysis",
+  "inputs": {
+    "request_id": "db-gt-007",
+    "operation": "performance_analysis",
+    "database_type": "postgresql",
+    "queries": [
+      "SELECT u.name, COUNT(o.id) FROM users u LEFT JOIN orders o ON u.id = o.user_id WHERE u.created_at > '2024-01-01' GROUP BY u.name ORDER BY COUNT(o.id) DESC"
+    ],
+    "schema": {
+      "tables": [
+        {
+          "name": "users",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "name", "type": "VARCHAR(255)"},
+            {"name": "created_at", "type": "TIMESTAMP"}
+          ]
+        },
+        {
+          "name": "orders",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "user_id", "type": "INTEGER"},
+            {"name": "amount", "type": "DECIMAL"}
+          ]
+        }
+      ]
+    }
+  },
+  "expected_output": {
+    "explain_plan_analyzed": true,
+    "sequential_scan_identified": true,
+    "optimization_required": true
+  },
+  "acceptance_criteria": [
+    "Explain plan dianalisis untuk SELECT dengan JOIN dan GROUP BY",
+    "Sequential scan teridentifikasi pada tabel besar",
+    "Nested loop vs hash join dievaluasi",
+    "Rekomendasi index diberikan",
+    "Estimated cost vs actual cost dibandingkan"
+  ],
+  "edge_cases": [
+    "Query optimizer memilih plan yang salah (statistics stale)",
+    "Query dengan correlated subquery",
+    "Query dengan CTE yang tidak di-materialize"
+  ],
+  "negative_cases": [
+    "Explain plan tidak dianalisis (false negative)",
+    "Sequential scan tidak teridentifikasi",
+    "Rekomendasi tanpa basis explain plan"
+  ]
+}

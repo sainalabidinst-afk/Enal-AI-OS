@@ -1,0 +1,32 @@
+{
+  "test_id": "self_development_gt_005",
+  "name": "Pembelajaran Pola - Cross-Project Insight",
+  "category": "pattern_learning",
+  "inputs": {
+    "projects": [
+      {"name": "project_a", "path": "/tmp/project_a", "language": "python"},
+      {"name": "project_b", "path": "/tmp/project_b", "language": "python"}
+    ],
+    "learning_type": "cross_project_patterns",
+    "focus": ["error_handling", "logging", "api_design"]
+  },
+  "expected_output": {
+    "patterns_found": 3,
+    "common_patterns": ["repository_pattern", "service_layer", "dto_pattern"],
+    "anti_patterns": ["god_service", "anemic_domain"],
+    "recommendations": ["Adopt repository pattern consistently", "Add structured logging"]
+  },
+  "acceptance_criteria": [
+    "Minimal 2 pola umum teridentifikasi",
+    "Anti-pola terdeteksi",
+    "Rekomendasi diberikan"
+  ],
+  "edge_cases": [
+    "Proyek dengan arsitektur sangat berbeda",
+    "Satu proyek dengan banyak bahasa"
+  ],
+  "negative_cases": [
+    "Tidak ada proyek",
+    "Proyek dengan kode yang tidak bisa di-parse"
+  ]
+}

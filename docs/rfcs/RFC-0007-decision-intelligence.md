@@ -18,8 +18,8 @@
 |**Capability Pack**|Decision Intelligence|
 |**ID Kemampuan**|`decision-intelligence`|
 |**Kategori**|Pemikiran|
-|**Target Kualitas**|A (≥90)|
-|**Target Kematangan**|Level 3 — Siap Produksi|
+|**Target Kualitas**|A+ (≥95)|
+|**Target Kematangan**|Level 4 — Domain Expert (L4)|
 |**Referensi RFC**|RFC-0007|
 
 ---

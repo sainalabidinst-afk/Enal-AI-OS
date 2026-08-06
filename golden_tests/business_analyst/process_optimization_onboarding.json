@@ -1,0 +1,40 @@
+{
+  "test_id": "BA-GT-009",
+  "name": "Optimasi Proses: Proses Onboarding Karyawan",
+  "category": "process_optimization",
+  "inputs": {
+    "request_id": "ba-gt-009",
+    "operation": "process_optimization",
+    "business_context": {
+      "domain": "technology",
+      "project_name": "Employee Onboarding Automation",
+      "description": "Optimasi proses onboarding karyawan baru"
+    },
+    "inputs": {
+      "current_state_documentation": "Proses onboarding saat ini memakan waktu 2 minggu: HR mengirim email, IT menyiapkan laptop secara manual, Manager mengatur meeting 1:1. Total 12 langkah dengan 5 orang yang terlibat."
+    }
+  },
+  "expected_output": {
+    "optimizations_identified_min": 3,
+    "efficiency_gain_estimated": true,
+    "automation_opportunities_identified": true
+  },
+  "acceptance_criteria": [
+    "Minimal 3 inefficiency teridentifikasi",
+    "Efficiency gain diestimasi untuk setiap optimasi",
+    "Automation opportunity diidentifikasi",
+    "Process time reduction dihitung (dari 2 minggu ke target)",
+    "Stakeholder impact dijelaskan",
+    "Implementation priority ditetapkan"
+  ],
+  "edge_cases": [
+    "Proses dengan banyak exception handling (various role types)",
+    "Proses lintas department dengan SLA yang berbeda",
+    "Proses dengan regulatory compliance requirement"
+  ],
+  "negative_cases": [
+    "Optimization tanpa efficiency gain estimate",
+    "Tidak ada automation opportunity",
+    "Process time reduction tidak dihitung"
+  ]
+}

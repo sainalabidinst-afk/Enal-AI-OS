@@ -1,0 +1,83 @@
+{
+  "request_id": "case-uiux-001",
+  "operation": "full_design",
+  "ux_research": {
+    "user_personas": [
+      {
+        "name": "Rina",
+        "role": "Pelanggan UKM",
+        "goals": ["Menemukan produk cepat", "Checkout mudah"],
+        "pain_points": ["Antarmuka tidak intuitif", "Loading lama"],
+        "technical_proficiency": "medium"
+      }
+    ],
+    "user_journeys": [
+      {
+        "persona": "Rina",
+        "stages": [
+          {"stage": "Awareness", "actions": ["Mencari produk"], "touchpoints": ["Search", "Homepage"], "pain_points": ["Hasil search tidak relevan"], "opportunities": ["AI-powered search suggestions"]},
+          {"stage": "Consideration", "actions": ["Membandingkan produk"], "touchpoints": ["Product Page", "Comparison"], "pain_points": ["Informasi tidak lengkap"], "opportunities": ["Comparison table"]},
+          {"stage": "Adoption", "actions": ["Checkout"], "touchpoints": ["Cart", "Checkout"], "pain_points": ["Checkout ribet"], "opportunities": ["3-step checkout"]},
+          {"stage": "Usage", "actions": ["Menerima pesanan"], "touchpoints": ["Order Tracking"], "pain_points": ["Tidak tahu status"], "opportunities": ["Real-time notifications"]},
+          {"stage": "Advocacy", "actions": ["Memberi review"], "touchpoints": ["Review Form"], "pain_points": ["Form review panjang"], "opportunities": ["Quick rating"]}
+        ]
+      }
+    ],
+    "key_findings": ["Ditemukan 3 catatan riset UX", "Checkout terlalu banyak langkah"],
+    "pain_points": ["Antarmuka tidak intuitif", "Loading lama", "Checkout ribet", "Tidak tahu status pesanan"],
+    "opportunities": ["AI-powered search suggestions", "Comparison table", "3-step checkout", "Real-time notifications", "Quick rating"],
+    "usability_issues": ["Tidak intuitif", "Bingung dengan navigasi"],
+    "research_confidence": 0.8
+  },
+  "design_system": {
+    "id": "DS-tokoonline-001",
+    "name": "TokoOnline Design System",
+    "description": "Sistem desain untuk platform e-commerce TokoOnline",
+    "tokens": [
+      {"name": "primary-base", "type": "color", "value": "#2563EB", "description": "Warna primary", "usage": "Tombol utama, link"},
+      {"name": "font-base", "type": "typography", "value": "1rem/1.5rem 400", "description": "Ukuran font base", "usage": "Teks body"},
+      {"name": "spacing-8px", "type": "spacing", "value": "8px", "description": "Spasi 8px", "usage": "Gap, padding"}
+    ],
+    "components": [
+      {"id": "COMP-tokoonline-1", "name": "Button", "component_type": "button", "variants": ["primary", "secondary", "ghost", "danger"], "accessibility_requirements": ["WCAG 2.1 AA — Kontras minimal 4.5:1"]},
+      {"id": "COMP-tokoonline-2", "name": "Input", "component_type": "input", "variants": ["default", "error", "disabled"], "accessibility_requirements": ["Label terasosiasi via htmlFor/id"]}
+    ],
+    "color_palette": {"primary-500": "#2563EB", "neutral-500": "#6B7280"},
+    "typography_scale": {"base": {"size": "1rem", "line_height": "1.5rem", "weight": "400"}},
+    "spacing_scale": ["0", "4px", "8px", "12px", "16px", "24px", "32px"],
+    "motion_principles": ["Transisi 150-300ms untuk interaksi UI"],
+    "accessibility_standards": ["WCAG 2.1 AA"],
+    "version": "1.0.0"
+  },
+  "prototype": {
+    "id": "PROTO-tokoonline-001",
+    "name": "Prototype TokoOnline",
+    "fidelity": "medium",
+    "screens": [
+      {"id": "SCR-tokoonline-1", "name": "Home", "description": "Halaman utama", "states": ["default", "hover", "loading"], "responsive_breakpoints": ["320px", "768px", "1024px"]},
+      {"id": "SCR-tokoonline-2", "name": "Checkout", "description": "Checkout 3 langkah", "states": ["default", "error"], "responsive_breakpoints": ["320px", "768px"]}
+    ],
+    "user_flows": [
+      {"name": "Checkout Flow", "start_screen": "Cart", "steps": [{"screen": "Cart", "action": "click_checkout"}, {"screen": "Checkout", "action": "fill_address"}, {"screen": "Payment", "action": "confirm"}], "success_criteria": "Checkout dalam 3 langkah"}
+    ],
+    "interaction_map": {
+      "navigation": {"Home": ["Search", "Cart"], "Checkout": ["Payment"]},
+      "gestures": [{"gesture": "swipe_left", "action": "next_step", "context": "Checkout"}],
+      "keyboard_shortcuts": [{"key": "Ctrl+K", "action": "open_search", "context": "global"}]
+    }
+  },
+  "accessibility_report": {
+    "total_checks": 15,
+    "violations_found": 2,
+    "compliance_score": 0.87,
+    "violations": [
+      {"id": "A11Y-tokoonline-1", "wcag_criterion": "1.4.3", "severity": "high", "description": "Kontras warna primary mungkin rendah", "element_selector": "token:primary-base", "recommendation": "Verifikasi kontras mencapai 4.5:1", "impact": "Teks mungkin tidak terbaca"},
+      {"id": "A11Y-tokoonline-2", "wcag_criterion": "3.3.2", "severity": "medium", "description": "Form input mungkin tidak memiliki label", "element_selector": "screen:Checkout:form", "recommendation": "Tambahkan label terasosiasi", "impact": "Screen reader tidak dapat membaca field"}
+    ],
+    "passed_checks": ["WCAG 2.1 AA — Design System terdefinisi", "Design System — Token warna terdefinisi"],
+    "remediation_priority": ["[HIGH] 1.4.3: Kontras warna primary mungkin rendah", "[MEDIUM] 3.3.2: Form input mungkin tidak memiliki label"],
+    "wcag_level": "AA"
+  },
+  "quality_score": 0.85,
+  "explanation": "Performed full_design UI/UX design. UX Research: 1 personas, 4 pain points, 5 opportunities. Design System: 3 tokens, 2 components. Prototype: 2 screens, 1 user flows. Accessibility: 87% compliant, 2 violations found."
+}

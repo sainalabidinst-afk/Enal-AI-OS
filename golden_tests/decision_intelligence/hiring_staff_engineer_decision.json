@@ -1,0 +1,42 @@
+{
+  "test_id": "DI-GT-005",
+  "name": "Hiring: Staff Engineer vs Konsultan Eksternal",
+  "category": "resource_decision",
+  "inputs": {
+    "context": "Startup harus memutuskan antara merekrut Staff Engineer penuh waktu atau menggunakan konsultan eksternal untuk arsitektur sistem.",
+    "evidence_sources": [
+      {"source_id": "budget_analysis", "evidence_type": "data", "quality_score": 0.9, "weight": 0.3},
+      {"source_id": "market_salary_data", "evidence_type": "data", "quality_score": 0.85, "weight": 0.25},
+      {"source_id": "retention_risk", "evidence_type": "analysis", "quality_score": 0.7, "weight": 0.2}
+    ],
+    "constraints": ["budget hiring < 200K/tahun", "waktu penempatan < 2 bulan"],
+    "objectives": [{"name": "biaya_total", "weight": 0.3, "goal": "minimize"}, {"name": "kualitas_output", "weight": 0.4, "goal": "maximize"}, {"name": "stabilitas_tim", "weight": 0.3, "goal": "maximize"}],
+    "risk_tolerance": "high",
+    "max_alternatives": 4
+  },
+  "expected_output": {
+    "recommended_decision": "Kombinasi: hire 1 staff engineer + consultant untuk bridge gap",
+    "alternatives_count": 3,
+    "confidence_score_min": 0.7,
+    "confidence_score_max": 0.85,
+    "explanation_required": true,
+    "risk_assessment_required": true
+  },
+  "acceptance_criteria": [
+    "Biaya tahunan dihitung untuk setiap alternatif",
+    "Risiko retensi dievaluasi untuk hire vs consultant",
+    "Knowledge transfer dipertimbangkan",
+    "Timeline competency dibandingkan",
+    "Decision rationale menjelaskan mengapa kombinasi optimal"
+  ],
+  "edge_cases": [
+    "Passive candidate pool sangat terbatas",
+    "Budget menurun secara drastis dalam 12 bulan",
+    "Tim sangat muda (semua < 2 tahun pengalaman)"
+  ],
+  "negative_cases": [
+    "Rekomendasi hire tanpa analisis biaya 2 tahun",
+    "Mengabaikan risiko consultant leaving setelah knowledge transfer",
+    "Tidak ada trade-off analysis"
+  ]
+}

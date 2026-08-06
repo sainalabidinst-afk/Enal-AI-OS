@@ -1,0 +1,43 @@
+{
+  "test_id": "DE-GT-009",
+  "name": "Kualitas Data: Metrics dan Reporting",
+  "category": "data_quality",
+  "inputs": {
+    "request_id": "de-gt-009",
+    "job_type": "validate",
+    "source": {
+      "type": "csv",
+      "location": "/data/quality_test.csv",
+      "schema_definition": {"id": "string", "value": "float", "category": "string"}
+    },
+    "quality_rules": [
+      {"rule": "completeness", "thresholds": {"min": 0.9, "columns": ["id", "value"]}},
+      {"rule": "uniqueness", "thresholds": {"min": 0.95, "columns": ["id"]}},
+      {"rule": "validity", "thresholds": {"min": 0.95, "columns": ["category"], "allowed_values": ["A", "B", "C"]}},
+      {"rule": "freshness", "thresholds": {"max_age_hours": 24}},
+      {"rule": "consistency", "thresholds": {"cross_column_check": "value > 0"}}
+    ]
+  },
+  "expected_output": {
+    "quality_report_required": true,
+    "all_5_d_metrics_required": true,
+    "issues_report_required": true
+  },
+  "acceptance_criteria": [
+    "5 dimensi kualitas diukur: completeness, uniqueness, validity, freshness, consistency",
+    "Setiap dimensi memiliki score",
+    "Issues dilaporkan dengan type, column, severity, count",
+    "Overall quality score dihitung",
+    "Threshold violations dijelaskan"
+  ],
+  "edge_cases": [
+    "Semua 5 dimensi pass threshold",
+    "Semua 5 dimensi fail threshold",
+    "Freshness untuk streaming data (real-time)"
+  ],
+  "negative_cases": [
+    "Tidak semua 5 dimensi diukur",
+    "Overall score dihitung tanpa weighted average",
+    "Issues tidak dilaporkan"
+  ]
+}

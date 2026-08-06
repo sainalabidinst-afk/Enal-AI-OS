@@ -1,0 +1,41 @@
+{
+  "test_id": "QA-GT-006",
+  "name": "Analisis Coverage: Line, Branch, dan Function",
+  "category": "coverage_analysis",
+  "inputs": {
+    "request_id": "qa-gt-006",
+    "operation": "coverage",
+    "target": {
+      "source_code": "def process_order(order):\n    if not order:\n        return None\n    if order.total < 0:\n        raise ValueError('Invalid total')\n    if order.items:\n        total = sum(item.price for item in order.items)\n        order.total = total\n    if order.status == 'pending':\n        order.status = 'processed'\n    return order",
+      "language": "python",
+      "framework": "pytest"
+    },
+    "test_suite": [
+      "def test_process_order_empty():\n    assert process_order(None) is None",
+      "def test_process_order_valid():\n    order = Order(items=[Item(price=100)])\n    result = process_order(order)\n    assert result.status == 'processed'"
+    ]
+  },
+  "expected_output": {
+    "line_coverage_min": 0.8,
+    "branch_coverage_min": 0.7,
+    "function_coverage_min": 0.9,
+    "uncovered_lines_identified": true
+  },
+  "acceptance_criteria": [
+    "Line coverage dihitung dan dilaporkan",
+    "Branch coverage dihitung (if/else, True/False branch)",
+    "Function coverage dihitung",
+    "Uncovered lines diidentifikasi dengan baris number",
+    "Coverage gap direkomendasikan untuk ditambahkan test"
+  ],
+  "edge_cases": [
+    "Source code dengan exception handling yang tidak di-cover",
+    "Branch dengan multiple elif yang tidak semuanya diuji",
+    "Function yang dipanggil tapi tidak di-cover (indirect call)"
+  ],
+  "negative_cases": [
+    "Coverage tanpa metric yang jelas",
+    "Uncovered lines tidak diidentifikasi",
+    "Tidak ada coverage gap recommendation"
+  ]
+}

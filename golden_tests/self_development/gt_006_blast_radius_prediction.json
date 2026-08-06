@@ -1,0 +1,31 @@
+{
+  "test_id": "self_development_gt_006",
+  "name": "Prediksi Dampak - Estimasi Blast Radius",
+  "category": "impact_prediction",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "target_file": "payment_processor.py",
+    "change_type": "modify",
+    "lines_changed": 50
+  },
+  "expected_output": {
+    "blast_radius": "medium",
+    "affected_modules": ["order_service", "invoice_generator", "refund_handler"],
+    "affected_tests": 15,
+    "estimated_regression_risk": 0.3,
+    "recommended_tests": ["unit_test_payment", "integration_test_order"]
+  },
+  "acceptance_criteria": [
+    "Blast radius dinilai",
+    "Module yang terpengaruh diidentifikasi",
+    "Rekomendasi test diberikan"
+  ],
+  "edge_cases": [
+    "Perubahan pada file yang jarang diubah",
+    "Perubahan pada utility function"
+  ],
+  "negative_cases": [
+    "File yang tidak ada",
+    "Lines changed <= 0"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "test_id": "DE-GT-006",
+  "name": "Pipeline ELT dengan Data Lake",
+  "category": "elt_pipeline",
+  "inputs": {
+    "request_id": "de-gt-006",
+    "job_type": "elt",
+    "source": {
+      "type": "api",
+      "location": "https://api.example.com/sales",
+      "schema_definition": {"order_id": "string", "customer_id": "string", "amount": "float"}
+    },
+    "operations": [
+      {"operation": "deduplicate", "parameters": {"columns": ["order_id"]}},
+      {"operation": "type_cast", "parameters": {"amount": "float"}},
+      {"operation": "aggregate", "parameters": {"group_by": ["customer_id"], "agg": {"amount": "sum"}}}
+    ]
+  },
+  "expected_output": {
+    "status": "success",
+    "elt_complete": true,
+    "transform_applied": true,
+    "aggregation_correct": true
+  },
+  "acceptance_criteria": [
+    "Data di-extract dari API",
+    "Data di-load ke storage (data lake)",
+    "Transformasi diterapkan setelah loading",
+    "Deduplication berjalan",
+    "Aggregation menghitung total amount per customer_id",
+    "Lineage menampilkan extract → load → transform"
+  ],
+  "edge_cases": [
+    "API timeout saat extract",
+    "Data yang di-load memiliki schema drift",
+    "Aggregation dengan null amount"
+  ],
+  "negative_cases": [
+    "Transform diterapkan sebelum load (violates ELT)",
+    "Deduplication tidak berjalan",
+    "Lineage tidak menampilkan tahap ELT"
+  ]
+}

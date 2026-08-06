@@ -1,0 +1,6 @@
+! palo_alto security_admin_exposed configuration
+!
+interface GigabitEthernet0/1
+ ip address 192.168.1.1/24
+ no shutdown
+!

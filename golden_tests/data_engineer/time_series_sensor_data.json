@@ -1,0 +1,43 @@
+{
+  "test_id": "DE-GT-005",
+  "name": "Pemrosesan Time-Series: Data Sensor IoT",
+  "category": "time_series",
+  "inputs": {
+    "request_id": "de-gt-005",
+    "job_type": "time_series",
+    "source": {
+      "type": "csv",
+      "location": "/data/sensor_readings.csv",
+      "schema_definition": {"timestamp": "datetime", "sensor_id": "string", "temperature": "float", "humidity": "float"}
+    },
+    "time_series_config": {
+      "frequency": "1h",
+      "time_column": "timestamp",
+      "interpolation_method": "linear",
+      "aggregation_method": "mean"
+    }
+  },
+  "expected_output": {
+    "alignment_complete": true,
+    "missing_count_reported": true,
+    "interpolated_count_reported": true,
+    "frequency_compliant": true
+  },
+  "acceptance_criteria": [
+    "Data diresample ke frekuensi 1 jam",
+    "Missing values diinterpolasi dengan metode linear",
+    "Missing count dan interpolated count dilaporkan",
+    "Data untuk setiap sensor_id di-align",
+    "Frekuensi output sesuai dengan configuration (1h)"
+  ],
+  "edge_cases": [
+    "Gap data > 24 jam (seharusnya tidak diinterpolasi)",
+    "Multiple sensor_id dengan frekuensi berbeda",
+    "Timezone handling untuk timestamp"
+  ],
+  "negative_cases": [
+    "Data tidak diresample ke frekuensi yang benar",
+    "Missing count tidak dilaporkan",
+    "Timezone tidak di-handle"
+  ]
+}

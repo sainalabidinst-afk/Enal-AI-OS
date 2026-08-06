@@ -1,0 +1,41 @@
+{
+  "test_id": "DE-GT-004",
+  "name": "Feature Engineering: Fitur Turunan",
+  "category": "feature_engineering",
+  "inputs": {
+    "request_id": "de-gt-004",
+    "job_type": "feature_engineer",
+    "source": {
+      "type": "csv",
+      "location": "/data/customers.csv",
+      "schema_definition": {"customer_id": "string", "first_name": "string", "last_name": "string", "purchase_amount": "float", "purchase_date": "date"}
+    },
+    "feature_definitions": [
+      {"name": "full_name", "type": "string", "dependencies": ["first_name", "last_name"], "expression": "first_name + ' ' + last_name"},
+      {"name": "purchase_amount_log", "type": "numerical", "dependencies": ["purchase_amount"], "expression": "log(purchase_amount)"},
+      {"name": "is_high_value", "type": "boolean", "dependencies": ["purchase_amount"], "expression": "purchase_amount > 1000"}
+    ]
+  },
+  "expected_output": {
+    "features_generated_min": 3,
+    "feature_lineage_required": true,
+    "data_quality_check_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 3 fitur dihasilkan",
+    "Setiap fitur memiliki lineage (source columns → expression → output)",
+    "Fitur dengan dependency yang hilang ditangani",
+    "Type fitur sesuai (string, numerical, boolean)",
+    "Feature quality diukur (null ratio, uniqueness)"
+  ],
+  "edge_cases": [
+    "Missing dependency untuk fitur",
+    "Expression dengan error (log(0))",
+    "Duplicate feature name"
+  ],
+  "negative_cases": [
+    "Fitur tanpa lineage",
+    "Type fitur salah",
+    "Tidak ada data quality check untuk fitur baru"
+  ]
+}

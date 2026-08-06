@@ -1,0 +1,32 @@
+{
+  "test_id": "trading_analyst_gt_004",
+  "name": "Analisis Volume Profile - POC Identification",
+  "category": "volume_profile_analysis",
+  "inputs": {
+    "symbol": "SPY",
+    "timeframe": "1d",
+    "price_levels": [450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460],
+    "volume_at_price": [1000, 2500, 5000, 12000, 25000, 45000, 38000, 22000, 15000, 8000, 3000],
+    "session_period": "daily"
+  },
+  "expected_output": {
+    "poc_price": 455,
+    "poc_volume": 45000,
+    "value_area_high": 458,
+    "value_area_low": 452,
+    "value_area_percent": 70
+  },
+  "acceptance_criteria": [
+    "POC diidentifikasi dengan benar",
+    "Value area dihitung",
+    "Volume POC sesuai input"
+  ],
+  "edge_cases": [
+    "Dual POC (bimodal distribution)",
+    "Very narrow value area"
+  ],
+  "negative_cases": [
+    "Volume data kosong",
+    "Hanya 1 price level"
+  ]
+}

@@ -1,0 +1,4 @@
+# clickjacking
+
+def main():
+    pass

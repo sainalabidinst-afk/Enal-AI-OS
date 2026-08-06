@@ -1,0 +1,24 @@
+{
+  "capabilityId": "system_architect",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Explainability",
+      "tests": [
+        {
+          "id": "system_architect-explainability-001",
+          "description": "Golden test for explainability in system_architect",
+          "input": {
+            "capability_id": "system_architect",
+            "category": "explainability"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

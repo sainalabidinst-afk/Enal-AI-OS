@@ -10,8 +10,8 @@
 |**Capability Pack**|Security Engineer|
 |**ID Kemampuan**|`security-engineer`|
 |**Kategori**|Keamanan|
-|**Target Kualitas**|A- (≥85)|
-|**Target Kematangan**|Level 3 — Siap Produksi|
+|**Target Kualitas**|A+ (≥95)|
+|**Target Kematangan**|Level 4 — Domain Expert (L4)|
 |**Referensi RFC**|RFC-0008|
 
 ---

@@ -1,0 +1,34 @@
+{
+  "test_id": "devops_assistant_gt_010",
+  "name": "Saran Perbaikan - CI/CD Pipeline yang Lambat",
+  "category": "suggestion_generation",
+  "inputs": {
+    "pipeline": {
+      "name": "slow-pipeline",
+      "stages": [
+        {"name": "install", "duration_seconds": 120},
+        {"name": "test", "duration_seconds": 300},
+        {"name": "build", "duration_seconds": 180},
+        {"name": "deploy", "duration_seconds": 60}
+      ]
+    }
+  },
+  "expected_output": {
+    "suggestions_count": 3,
+    "categories": ["caching", "parallelism", "artifact_management"],
+    "estimated_time_savings_percent": 40
+  },
+  "acceptance_criteria": [
+    "Minimal 3 saran perbaikan",
+    "Menyertakan caching strategy",
+    "Estimasi penghematan waktuyy"
+  ],
+  "edge_cases": [
+    "Pipeline yang sudah sangat cepat",
+    "Pipeline dengan dependencies kompleks"
+  ],
+  "negative_cases": [
+    "Pipeline kosong",
+    "Semua stage sudah optimal"
+  ]
+}

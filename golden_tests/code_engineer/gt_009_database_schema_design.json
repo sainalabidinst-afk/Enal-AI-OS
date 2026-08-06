@@ -1,0 +1,28 @@
+{
+  "test_id": "code_engineer_gt_009",
+  "name": "Generasi Skema Database - E-commerce",
+  "category": "database_design",
+  "inputs": {
+    "requirements": "Sistem e-commerce dengan produk, kategori, pengguna, pesanan, item pesanan, pembayaran, pengiriman. Setiap pesanan dapat memiliki banyak item. Pengguna dapat memiliki banyak alamat. Produk dapat masuk ke banyak kategori.",
+    "language": "sql"
+  },
+  "expected_output": {
+    "tables": ["users", "products", "categories", "orders", "order_items", "payments", "shipments", "addresses", "product_categories"],
+    "relationships": ["users.addresses (1:N)", "users.orders (1:N)", "orders.order_items (1:N)", "products.product_categories (N:M)"],
+    "indexes_recommended": ["idx_users_email", "idx_orders_user_id", "idx_products_category_id"]
+  },
+  "acceptance_criteria": [
+    "Minimal 6 tabel dihasilkan",
+    "Relasi one-to-many teridentifikasi",
+    "Relasi many-to-many menggunakan junction table",
+    "Rekomendasi index diberikan"
+  ],
+  "edge_cases": [
+    "Soft delete requirement",
+    "Multi-tenancy"
+  ],
+  "negative_cases": [
+    "Requirements tanpa entity",
+    "Requirements yang ambigu"
+  ]
+}

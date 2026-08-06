@@ -1,0 +1,36 @@
+{
+  "test_id": "SA-GT-001",
+  "name": "Violasi Layer Clean Architecture",
+  "category": "architecture_review",
+  "inputs": {
+    "target_type": "code",
+    "workspace_path": "/project/example_clean_arch_violation",
+    "architecture_style": "clean_architecture",
+    "focus_areas": ["maintainability", "testability"],
+    "include_recommendations": true
+  },
+  "expected_output": {
+    "layer_violations_found": true,
+    "critical_violations_min": 1,
+    "recommendation_required": true,
+    "evidence_required": true,
+    "adr_draft_required": false
+  },
+  "acceptance_criteria": [
+    "Pelanggaran layer terdeteksi (domain mengimpor infrastructure)",
+    "File dan baris yang melanggar dilaporkan dengan akurat",
+    "Rekomendasi perbaikan diberikan (extract interface, apply DIP)",
+    "Impact dijelaskan (maintainability, testability)",
+    "Severity ditetapkan (critical untuk domain → infrastructure)"
+  ],
+  "edge_cases": [
+    "Pelanggaran lintas 3 layer sekaligus",
+    "Circular dependency antar layer",
+    "Domain layer yang murni tanpa dependensi"
+  ],
+  "negative_cases": [
+    "Pelanggaran tidak terdeteksi (false negative)",
+    "Rekomendasi tanpa bukti konkret (file, baris)",
+    "Severity tidak konsisten dengan ADR-001"
+  ]
+}

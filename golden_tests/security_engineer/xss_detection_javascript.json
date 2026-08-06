@@ -1,0 +1,36 @@
+{
+  "test_id": "SE-GT-007",
+  "name": "Deteksi XSS dalam JavaScript",
+  "category": "owasp_top10",
+  "inputs": {
+    "target_type": "code",
+    "source_code": "function displayMessage(msg) {\n  document.getElementById('msg').innerHTML = msg;\n}\n// Called from user input\ndisplayMessage(request.query.message);",
+    "language": "javascript",
+    "standards": ["owasp_top10", "cis"],
+    "include_remediation": true,
+    "scan_depth": "thorough"
+  },
+  "expected_output": {
+    "xss_finding_required": true,
+    "owasp_a07_required": true,
+    "severity": "high",
+    "remediation_required": true
+  },
+  "acceptance_criteria": [
+    "XSS vulnerability terdeteksi (innerHTML dengan user input)",
+    "OWASP A07:2021-XSS mapping diberikan",
+    "Severity ditetapkan sebagai 'high' atau 'critical'",
+    "Evidence menunjukkan data flow dari input ke sink",
+    "Remediation merekomendasikan textContent atau sanitization library"
+  ],
+  "edge_cases": [
+    "XSS dengan innerHTML setelah sanitization yang salah",
+    "XSS dalam attribute value",
+    "XSS dalam JSON context"
+  ],
+  "negative_cases": [
+    "XSS tidak terdeteksi (false negative)",
+    "Severity 'low' untuk reflected XSS",
+    "Tidak ada remediation suggestion"
+  ]
+}

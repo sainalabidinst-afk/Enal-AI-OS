@@ -1,0 +1,42 @@
+{
+  "test_id": "DB-GT-006",
+  "name": "Analisis Kinerja: Deadlock dan Contention",
+  "category": "performance_analysis",
+  "inputs": {
+    "request_id": "db-gt-006",
+    "operation": "performance_analysis",
+    "database_type": "postgresql",
+    "queries": [
+      "BEGIN;\nSELECT * FROM inventory WHERE product_id = 100 FOR UPDATE;\n-- Long running transaction",
+      "UPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;"
+    ],
+    "workload_profile": {
+      "read_write_ratio": 0.6,
+      "peak_qps": 2000,
+      "concurrent_connections": 500
+    }
+  },
+  "expected_output": {
+    "deadlock_risk_identified": true,
+    "contention_identified": true,
+    "recommendation_required": true,
+    "performance_stats_required": true
+  },
+  "acceptance_criteria": [
+    "Deadlock risk teridentifikasi dari concurrent UPDATE patterns",
+    "Row-level contention terdeteksi pada hot rows",
+    "Long-running transaction teridentifikasi",
+    "Rekomendasi isolation level atau retry mechanism diberikan",
+    "Performance stats dihasilkan (connections, lock waits)"
+  ],
+  "edge_cases": [
+    "Deadlock yang terjadi setiap 1 menit",
+    "Hot row dengan 10K concurrent updates",
+    "Phantom read dalam reporting query"
+  ],
+  "negative_cases": [
+    "Deadlock risk tidak teridentifikasi (false negative)",
+    "Tidak ada recommendation untuk deadlock handling",
+    "Performance stats tidak dihitung"
+  ]
+}

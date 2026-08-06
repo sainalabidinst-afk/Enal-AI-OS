@@ -1,0 +1,49 @@
+{
+  "test_id": "BA-GT-005",
+  "name": "Analisis ROI: Investasi Sistem Baru",
+  "category": "roi_analysis",
+  "inputs": {
+    "request_id": "ba-gt-005",
+    "operation": "roi_analysis",
+    "business_context": {
+      "domain": "logistics",
+      "project_name": "Warehouse Management System",
+      "description": "Investasi WMS untuk mengurangi biaya operasional"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "Investasi 2 M IDR untuk WMS",
+        "Efisiensi 30% di biaya operasional warehouse",
+        "ROI dalam 18 bulan"
+      ]
+    },
+    "quality_attributes": {
+      "availability_target": "99.5%",
+      "performance_target": "< 2 detik response time"
+    }
+  },
+  "expected_output": {
+    "npv_calculated": true,
+    "payback_period_calculated": true,
+    "roi_percentage_calculated": true,
+    "assumptions_documented": true
+  },
+  "acceptance_criteria": [
+    "NPV dihitung dengan discount rate yang wajar (10-15%)",
+    "Payback period dihitung (target < 18 bulan)",
+    "ROI percentage dihitung",
+    "Cost estimate detail: license, implementation, training",
+    "Benefit estimate detail: efficiency gain, error reduction",
+    "Assumptions didokumentasikan (adoption rate, efficiency gain)"
+  ],
+  "edge_cases": [
+    "Payback period melebihi target (24 bulan)",
+    "NPV negatif (investasi tidak worthwhile)",
+    "Multiple benefit streams (efficiency + revenue growth)"
+  ],
+  "negative_cases": [
+    "NPV tanpa discount rate",
+    "Assumptions tidak didokumentasikan",
+    "ROI tanpa cost/benefit breakdown"
+  ]
+}

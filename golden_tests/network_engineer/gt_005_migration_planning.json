@@ -1,0 +1,36 @@
+{
+  "test_id": "network_engineer_gt_005",
+  "name": "Perencanaan Migrasi Cisco ke MikroTik",
+  "category": "migration_planning",
+  "inputs": {
+    "type": "query",
+    "content": "Rencanakan migrasi dari Cisco IOS ke MikroTik RouterOS untuk kantor cabang dengan 50 pengguna. Fitur yang dibutuhkan: VLAN, DHCP, firewall, VPN IPSec.",
+    "vendor_hint": "cisco"
+  },
+  "expected_output": {
+    "migration_plan": {
+      "source_vendor": "cisco",
+      "target_vendor": "mikrotik",
+      "phases": [
+        {"phase": 1, "description": "Audit konfigurasi Cisco saat ini"},
+        {"phase": 2, "description": "Pemetaan fitur Cisco ke MikroTik"},
+        {"phase": 3, "description": "Implementasi paralel dan uji"},
+        {"phase": 4, "description": "Cutover dan verifikasi"}
+      ],
+      "estimated_downtime_minutes": 30
+    }
+  },
+  "acceptance_criteria": [
+    "Rencana migrasi memiliki minimal 3 fase",
+    "Estimasi downtime wajar (< 1 jam)",
+    "Pemetaan fitur tercakup"
+  ],
+  "edge_cases": [
+    "Migrasi dengan zero downtime requirement",
+    "Migrasi antar vendor yang sama"
+  ],
+  "negative_cases": [
+    "Query tanpa informasi vendor sumber",
+    "Input yang tidak relevan dengan jaringan"
+  ]
+}

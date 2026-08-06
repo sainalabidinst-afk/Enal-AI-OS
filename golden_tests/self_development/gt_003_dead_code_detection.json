@@ -1,0 +1,30 @@
+{
+  "test_id": "self_development_gt_003",
+  "name": "Identifikasi Kode Mati - Unreachable Code",
+  "category": "dead_code_detection",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "analysis_type": "dead_code",
+    "include_comments": false
+  },
+  "expected_output": {
+    "dead_functions_found": 2,
+    "dead_classes_found": 1,
+    "dead_imports_found": 5,
+    "unreachable_code_blocks": 3,
+    "estimated_loc_to_remove": 250
+  },
+  "acceptance_criteria": [
+    "Minimal 1 dead function terdeteksi",
+    "Dead imports terdeteksi",
+    "Estimasi LOC untuk removal"
+  ],
+  "edge_cases": [
+    "Fungsi yang dipanggil secara dinamis",
+    "Import untuk side effects"
+  ],
+  "negative_cases": [
+    "Tidak ada dead code",
+    "Path yang tidak valid"
+  ]
+}

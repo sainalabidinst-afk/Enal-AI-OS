@@ -1,0 +1,34 @@
+{
+  "test_id": "devops_assistant_gt_001",
+  "name": "Generasi Dockerfile - Aplikasi Python FastAPI",
+  "category": "containerization",
+  "inputs": {
+    "service_name": "fastapi-app",
+    "language": "python",
+    "framework": "fastapi",
+    "requirements": ["fastapi", "uvicorn", "sqlalchemy", "pydantic"],
+    "port": 8000
+  },
+  "expected_output": {
+    "dockerfile_valid": true,
+    "base_image": "python:3.11-slim",
+    "multi_stage": false,
+    "healthcheck_present": true,
+    "non_root_user": true,
+    "layers_optimized": true
+  },
+  "acceptance_criteria": [
+    "Dockerfile valid dan dapat di-build",
+    "Menggunakan base image yang tepat",
+    "Menggunakan non-root user",
+    "Healthcheck terdefinisi"
+  ],
+  "edge_cases": [
+    "Aplikasi dengan dependency native (psycopg2, numpy)",
+    "Aplikasi dengan entrypoint kustom"
+  ],
+  "negative_cases": [
+    "Requirements kosong",
+    "Service name dengan karakter invalid"
+  ]
+}

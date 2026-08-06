@@ -1,0 +1,48 @@
+{
+  "test_id": "DB-GT-003",
+  "name": "Migration Plan: Skema v1 ke v2",
+  "category": "migration_management",
+  "inputs": {
+    "request_id": "db-gt-003",
+    "operation": "migration",
+    "database_type": "postgresql",
+    "current_schema_version": "v1",
+    "target_schema_version": "v2",
+    "schema": {
+      "tables": [
+        {
+          "name": "users",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "email", "type": "VARCHAR(255)"},
+            {"name": "name", "type": "VARCHAR(255)"}
+          ]
+        }
+      ]
+    }
+  },
+  "expected_output": {
+    "migration_plan_required": true,
+    "rollback_sql_required": true,
+    "steps_required": true,
+    "backward_compatible": true
+  },
+  "acceptance_criteria": [
+    "Migration plan dengan step-by-step SQL diberikan",
+    "Rollback SQL untuk setiap step diberikan",
+    "Plan backward compatible (existing app tidak broken)",
+    "Dependency order dipertimbangkan",
+    "Data migration jika diperlukan dijelaskan",
+    "Estimated downtime dihitung"
+  ],
+  "edge_cases": [
+    "Schema change yang breaking (drop column)",
+    "Large table migration (100M+ rows)",
+    "Zero-downtime migration requirement"
+  ],
+  "negative_cases": [
+    "Rollback SQL tidak diberikan",
+    "Plan tidak backward compatible",
+    "Tidak ada downtime estimate"
+  ]
+}

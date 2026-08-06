@@ -1,0 +1,36 @@
+{
+  "test_id": "devops_assistant_gt_003",
+  "name": "Desain Infrastruktur - Kubernetes Deployment",
+  "category": "infrastructure_design",
+  "inputs": {
+    "service_name": "web-api",
+    "platform": "kubernetes",
+    "replicas": 3,
+    "cpu_request": "500m",
+    "memory_request": "512Mi",
+    "cpu_limit": "1000m",
+    "memory_limit": "1Gi",
+    "port": 8080
+  },
+  "expected_output": {
+    "deployment_valid": true,
+    "service_type": "ClusterIP",
+    "hpa_configured": false,
+    "pod_disruption_budget": true,
+    "resource_requests_set": true,
+    "probes_configured": true
+  },
+  "acceptance_criteria": [
+    "Deployment dengan 3 replicas",
+    "Resource requests dan limits terdefinisi",
+    "Liveness dan readiness probes terdefinisi"
+  ],
+  "edge_cases": [
+    "StatefulSet untuk database",
+    "DaemonSet untuk logging"
+  ],
+  "negative_cases": [
+    "Replicas <= 0",
+    "Platform yang tidak didukung"
+  ]
+}

@@ -27,3 +27,4 @@ export type {
   NetworkDesignReviewRequest,
   SelfImprovementRequest,
 } from "./integration";
+export type { CognitiveLayer, ThinkingMode, ReasoningStep, CognitiveState, ExecutionContext, MetaCognitiveFlags } from "./cognitive";

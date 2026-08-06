@@ -10,11 +10,17 @@ logger = logging.getLogger(__name__)
 
 class ConversationStore:
     def __init__(self):
-        self.redis = aioredis.from_url(
-            settings.REDIS_URL,
-            encoding="utf-8",
-            decode_responses=True,
-        )
+        self._redis: aioredis.Redis | None = None
+
+    @property
+    def redis(self):
+        if self._redis is None:
+            self._redis = aioredis.from_url(
+                settings.REDIS_URL,
+                encoding="utf-8",
+                decode_responses=True,
+            )
+        return self._redis
 
     async def get_conversation(self, conversation_id: str) -> list[dict]:
         key = f"conversation:{conversation_id}"

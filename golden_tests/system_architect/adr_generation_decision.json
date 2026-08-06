@@ -1,0 +1,36 @@
+{
+  "test_id": "SA-GT-008",
+  "name": "Generasi ADR untuk Keputusan Arsitektur",
+  "category": "adr_generation",
+  "inputs": {
+    "target_type": "architecture",
+    "workspace_path": "/project/example_adr_scenario",
+    "architecture_style": "clean_architecture",
+    "focus_areas": ["maintainability", "testability"],
+    "include_recommendations": true,
+    "adr_context": "Tim harus memutuskan antara menggunakan PostgreSQL atau MongoDB untuk service recommendation."
+  },
+  "expected_output": {
+    "adr_draft_required": true,
+    "adr_sections_required": ["title", "status", "context", "decision", "consequences"],
+    "alternatives_considered_required": true
+  },
+  "acceptance_criteria": [
+    "ADR draft dihasilkan dengan semua section yang required",
+    "Context menjelaskan masalah yang dihadapi",
+    "Decision menjelaskan pilihan yang dibuat",
+    "Consequences menjelaskan dampak jangka pendek dan panjang",
+    "Alternatives yang dipertimbangkan tercantum",
+    "ADR format sesuai dengan ADR template yang ditentukan"
+  ],
+  "edge_cases": [
+    "Keputusan yang kontroversial (trade-off tanpa pilihan benar)",
+    "Keputusan yang reversible (status 'proposed' vs 'accepted')",
+    "Multiple ADR yang saling bergantung"
+  ],
+  "negative_cases": [
+    "ADR tanpa consequences (incomplete)",
+    "Decision tanpa alternatives considered",
+    "Context terlalu singkat (< 100 kata)"
+  ]
+}

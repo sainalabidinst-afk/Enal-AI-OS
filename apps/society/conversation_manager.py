@@ -363,7 +363,7 @@ class ConversationManager:
             return None
 
         try:
-            from backend.app.core.attachments.analyzer import analyze_multi
+            from apps.infrastructure_engineer.attachments.analyzer import analyze_multi
 
             items = []
             uploads = files if isinstance(files, list) else [files]

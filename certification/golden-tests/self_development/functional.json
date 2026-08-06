@@ -1,0 +1,24 @@
+{
+  "capabilityId": "self_development",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {
+          "id": "self_development-functional-001",
+          "description": "Golden test for functional in self_development",
+          "input": {
+            "capability_id": "self_development",
+            "category": "functional"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

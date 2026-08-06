@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Benchmark Audit Record",
+  "description": "Recorded benchmark results for a single capability execution.",
+  "type": "object",
+  "required": [
+    "capabilityId",
+    "runId",
+    "timestamp",
+    "iterations",
+    "metrics"
+  ],
+  "properties": {
+    "capabilityId": {
+      "type": "string"
+    },
+    "runId": {
+      "type": "string",
+      "description": "Unique identifier for this benchmark run."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "iterations": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of execution iterations."
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "executionLatencyP50",
+        "executionLatencyP95",
+        "executionLatencyP99",
+        "memoryUsageMB",
+        "throughputPerSecond",
+        "determinismScore",
+        "repeatabilityScore",
+        "stabilityScore",
+        "successRate"
+      ],
+      "properties": {
+        "executionLatencyP50": {
+          "type": "number",
+          "description": "Median execution latency in milliseconds."
+        },
+        "executionLatencyP95": {
+          "type": "number",
+          "description": "95th percentile execution latency in milliseconds."
+        },
+        "executionLatencyP99": {
+          "type": "number",
+          "description": "99th percentile execution latency in milliseconds."
+        },
+        "memoryUsageMB": {
+          "type": "number",
+          "description": "Peak memory usage in megabytes."
+        },
+        "throughputPerSecond": {
+          "type": "number",
+          "description": "Maximum throughput per second."
+        },
+        "determinismScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "repeatabilityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "stabilityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "successRate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "rawSamples": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Optional raw latency samples for deeper analysis."
+    }
+  }
+}

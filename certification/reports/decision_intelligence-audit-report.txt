@@ -1,0 +1,31 @@
+Capability Audit Report: Decision Intelligence (decision_intelligence)
+============================================================
+Overall Score : 139
+Grade         : A
+Status        : Passed
+Completed At  : 2026-08-06T01:27:25.910773+00:00
+
+Area Breakdown:
+------------------------------------------------------------
+  Contract Compliance             10/10  Passed       Findings: None
+  API Stability                   10/10  Passed       Findings: None
+  Domain Knowledge                10/10  Passed       Findings: None
+  Engine Correctness              10/10  Passed       Findings: None
+  Explainability                   8/10  Passed       Findings: None
+  Decision Integration            10/10  Passed       Findings: None
+  Lifecycle Integration            8/10  Passed       Findings: Minor
+  Observability                    7/10  Passed       Findings: Minor
+  Error Handling                   8/10  Passed       Findings: Minor
+  Documentation                   10/10  Passed       Findings: None
+  Security                         8/10  Passed       Findings: Minor
+  Performance Target              10/10  Passed       Findings: None
+  Test Coverage                   10/10  Passed       Findings: None
+  Golden Tests                    10/10  Passed       Findings: None
+  Real Cases                      10/10  Passed       Findings: None
+
+Summary:
+  Critical Findings : 0
+  Major Findings    : 0
+  Minor Findings    : 4
+
+Corrective Actions:

@@ -1,0 +1,39 @@
+{
+  "test_id": "QA-GT-005",
+  "name": "Deteksi Flaky Test: Test dengan Network Call",
+  "category": "flaky_test_detection",
+  "inputs": {
+    "request_id": "qa-gt-005",
+    "operation": "flaky_test",
+    "target": {
+      "test_results": [
+        {"test_name": "test_api_call_success", "runs": 10, "failures": 3, "errors": ["Connection refused", "HTTP 503", "Timeout"]},
+        {"test_name": "test_database_read", "runs": 10, "failures": 0, "errors": []},
+        {"test_name": "test_cache_hit", "runs": 10, "failures": 2, "errors": ["Cache miss unexpected"]}
+      ]
+    }
+  },
+  "expected_output": {
+    "flaky_tests_identified": true,
+    "flaky_test_count_min": 2,
+    "classification_required": true,
+    "evidence_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 2 flaky test teridentifikasi",
+    "test_api_call_success diklasifikasikan sebagai flaky (network dependency)",
+    "test_cache_hit diklasifikasikan sebagai flaky (shared state)",
+    "Evidence menunjukkan error patterns yang konsisten",
+    "Root cause disarankan untuk setiap flaky test"
+  ],
+  "edge_cases": [
+    "Flaky test dengan failure rate rendah (10%) tapi regular",
+    "Test yang sepenuhnya deterministic tapi menunjukkan flakiness (environment issue)",
+    "Flaky test yang baru muncul setelah deployment"
+  ],
+  "negative_cases": [
+    "Flaky test tidak teridentifikasi (false negative)",
+    "Klasifikasi tanpa root cause analysis",
+    "Evidence yang tidak relevan"
+  ]
+}

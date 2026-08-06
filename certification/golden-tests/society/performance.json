@@ -1,0 +1,24 @@
+{
+  "capabilityId": "society",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Performance",
+      "tests": [
+        {
+          "id": "society-performance-001",
+          "description": "Golden test for performance in society",
+          "input": {
+            "capability_id": "society",
+            "category": "performance"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

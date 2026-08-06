@@ -1,0 +1,30 @@
+{
+  "test_id": "devops_assistant_gt_005",
+  "name": "Analisis Proyek - Deteksi Tech Debt",
+  "category": "project_scanning",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "scan_type": "full",
+    "languages": ["python", "yaml", "dockerfile"]
+  },
+  "expected_output": {
+    "scan_completed": true,
+    "total_files": 15,
+    "issues_found": 3,
+    "categories": ["ci_cd", "containerization", "monitoring"],
+    "severity_breakdown": {"high": 1, "medium": 2, "low": 0}
+  },
+  "acceptance_criteria": [
+    "Scan menyelesaikan tanpa error",
+    "Minimal 1 issue terdeteksi",
+    "Kategori issue sesuai dengan jenis proyek"
+  ],
+  "edge_cases": [
+    "Proyek tanpa CI/CD",
+    "Proyek monorepo"
+  ],
+  "negative_cases": [
+    "Path yang tidak ada",
+    "Permission denied"
+  ]
+}

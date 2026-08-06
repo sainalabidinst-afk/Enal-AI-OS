@@ -1,0 +1,66 @@
+{
+  "test_id": "research_assistant_gt_002",
+  "name": "Evidence Gathering - Kualitas Sumber Beragam",
+  "category": "evidence_gathering",
+  "inputs": {
+    "query": "Quantum computing applications in cryptography",
+    "operation": "evidence_gathering",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Quantum Cryptography Review",
+        "content": "Quantum computers threaten RSA and ECC encryption.",
+        "source_type": "academic",
+        "published_at": "2024-03-10",
+        "author": "Dr. Smith"
+      },
+      {
+        "id": "src-2",
+        "title": "NIST Post-Quantum Standards",
+        "content": "NIST has standardized CRYSTALS-Kyber for key encapsulation.",
+        "source_type": "government",
+        "published_at": "2024-08-01"
+      },
+      {
+        "id": "src-3",
+        "title": "Quantum Computing Hype",
+        "content": "Quantum computers will break all encryption by 2025.",
+        "source_type": "blog",
+        "published_at": "2023-11-05"
+      }
+    ],
+    "max_sources": 3
+  },
+  "expected_output": {
+    "evidence": [
+      {
+        "source_id": "src-1",
+        "quality_score": 0.9,
+        "relevance_score": 0.95
+      },
+      {
+        "source_id": "src-2",
+        "quality_score": 0.95,
+        "relevance_score": 0.9
+      },
+      {
+        "source_id": "src-3",
+        "quality_score": 0.3,
+        "relevance_score": 0.7
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Semua sumber di-ranking",
+    "Sumber akademis/government di atas blog",
+    "Quality score mencerminkan kualitas sumber"
+  ],
+  "edge_cases": [
+    "Sumber dengan confidence yang sama",
+    "Sumber yang saling mengkonfirmasi"
+  ],
+  "negative_cases": [
+    "Tidak ada sumber",
+    "Sumber dengan konten kosong"
+  ]
+}

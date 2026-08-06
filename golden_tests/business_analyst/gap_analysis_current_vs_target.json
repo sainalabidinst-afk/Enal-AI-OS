@@ -1,0 +1,41 @@
+{
+  "test_id": "BA-GT-004",
+  "name": "Gap Analysis: Sistem Saat ini vs Target",
+  "category": "gap_analysis",
+  "inputs": {
+    "request_id": "ba-gt-004",
+    "operation": "gap_analysis",
+    "business_context": {
+      "domain": "healthcare",
+      "project_name": "Electronic Medical Record System"
+    },
+    "inputs": {
+      "current_state_documentation": "Sistem saat ini menggunakan spreadsheet dan email untuk manajemen pasien. Tidak ada integrasi antara departemen.",
+      "technical_constraints": ["Budget 500 juta IDR", "Timeline 6 bulan", "Tim 5 engineer"]
+    }
+  },
+  "expected_output": {
+    "gaps_identified_min": 5,
+    "gap_priority_assigned": true,
+    "effort_estimated": true,
+    "impact_if_unaddressed_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 5 gap teridentifikasi",
+    "Gap dianalisis: current capability vs required capability",
+    "Priority ditetapkan untuk setiap gap (must_have, should_have)",
+    "Estimated effort untuk setiap gap",
+    "Impact if unaddressed dijelaskan untuk setiap gap",
+    "Remediation recommendation diberikan"
+  ],
+  "edge_cases": [
+    "Gap yang tidak bisa diatasi oleh teknologi (perlu perubahan proses)",
+    "Gap yang memerlukan regulatory compliance",
+    "Gap dengan conflicting requirements antar stakeholder"
+  ],
+  "negative_cases": [
+    "Gap tanpa priority assignment",
+    "Tidak ada effort estimation",
+    "Impact if unaddressed tidak dijelaskan"
+  ]
+}

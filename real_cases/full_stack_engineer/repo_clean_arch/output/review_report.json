@@ -1,0 +1,55 @@
+{
+  "request_id": "case-fs-001",
+  "operation": "full_stack_review",
+  "architecture_review": {
+    "architecture_score": 0.75,
+    "layering_grade": "B",
+    "dependency_grade": "B+",
+    "modularity_grade": "B",
+    "tech_debt_grade": "C",
+    "issues": [
+      {"id": "ARCH-001", "severity": "medium", "category": "layering", "description": "Beberapa modul melanggar dependency rule", "location": "apps/code_engineer", "recommendation": "Pindah modul yang melanggar ke layer yang sesuai"},
+      {"id": "ARCH-002", "severity": "high", "category": "tech_debt", "description": "Fungsi dengan panjang > 50 baris terdeteksi", "location": "utils.py", "recommendation": "Ekstrak fungsi panjang menjadi fungsi kecil"},
+      {"id": "ARCH-003", "severity": "medium", "category": "modularity", "description": "Modul dengan coupling tinggi", "location": "apps/code_engineer", "recommendation": "Pisahkan concern menjadi modul terpisah"}
+    ]
+  },
+  "code_review": {
+    "findings": [
+      {"severity": "low", "category": "maintainability", "title": "Fungsi panjang", "description": "Fungsi process_data terlalu panjang", "recommendation": "Bagi menjadi fungsi kecil", "evidence": "Line 5-12", "line_number": 5, "confidence": 0.95},
+      {"severity": "medium", "category": "maintainability", "title": "Magic number", "description": "Angka 2 digunakan tanpa konteks", "recommendation": "Gunakan konstanta bernama", "evidence": "Line 8", "line_number": 8, "confidence": 0.9}
+    ],
+    "summary": {"total_findings": 2, "by_severity": {"critical": 0, "high": 0, "medium": 1, "low": 1, "info": 0}, "by_category": {"maintainability": 2}}
+  },
+  "refactoring_plan": {
+    "plans": [
+      {"id": "REFACTOR-001", "problem": "Fungsi process_data terlalu panjang", "cause": "Tidak ada ekstraksi fungsi", "proposal": "Bagi process_data menjadi map_items dan filter_items", "expected_benefit": "Kode lebih mudah dibaca dan diuji", "risk": "low", "migration_steps": ["Buat fungsi map_items", "Buat fungsi filter_items", "Update test"], "estimated_effort": "low"},
+      {"id": "REFACTOR-002", "problem": "Magic number 2", "cause": "Konstanta tidak didefinisikan", "proposal": "Gunakan konstanta DOUBLE_FACTOR", "expected_benefit": "Kode lebih eksplisit", "risk": "low", "migration_steps": ["Definisikan DOUBLE_FACTOR", "Ganti angka 2 dengan konstanta"], "estimated_effort": "low"}
+    ]
+  },
+  "test_engineering": {
+    "coverage_adequate": False,
+    "estimated_coverage": 0.6,
+    "missing_tests": ["test_process_data_edge_cases", "test_add_negative_numbers"],
+    "plans": [
+      {"test_type": "unit", "description": "Unit test untuk add dan process_data", "suggested_tests": ["test_add_positive", "test_add_negative", "test_add_zero", "test_process_data_empty", "test_process_data_negative"], "priority": "high", "estimated_coverage": 0.85}
+    ]
+  },
+  "performance_analysis": {
+    "issues": [
+      {"id": "PERF-001", "severity": "low", "category": "algorithm", "description": "Loop manual untuk transformasi data", "location": "utils.py line 5-12", "recommendation": "Gunakan list comprehension", "estimated_improvement": "10-20% faster"}
+    ],
+    "summary": {"total_issues": 1, "critical_issues": 0, "estimated_speedup": "10-20%"}
+  },
+  "release_review": {
+    "ready": True,
+    "checks": [
+      {"check": "changelog_updated", "passed": True, "details": "Changelog mencantumkan perubahan", "severity": "medium"},
+      {"check": "tests_passing", "passed": True, "details": "Semua test passing", "severity": "high"},
+      {"check": "no_critical_issues", "passed": True, "details": "Tidak ada critical issues", "severity": "high"}
+    ],
+    "blockers": [],
+    "summary": {"total_checks": 3, "passed_checks": 3, "failed_checks": 0, "release_readiness": "ready"}
+  },
+  "quality_score": 0.82,
+  "explanation": "Performed full_stack_review full-stack engineering review. Architecture score: 75%, 3 issues found. Code review: 2 findings. Refactoring: 2 plans. Test engineering: 60% coverage, 1 plan. Performance: 1 issue. Release: Ready."
+}

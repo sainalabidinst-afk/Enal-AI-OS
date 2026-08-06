@@ -1,0 +1,23 @@
+# Infrastructure Design Output
+
+## Kubernetes Spec
+
+Cluster: shop-api-cluster
+Kubernetes Version: 1.28
+Nodes: 3 worker + 1 control-plane (t3.large)
+
+## Network
+- CIDR: 10.0.0.0/16
+- Subnet count: 3
+- Ingress: nginx
+- NetworkPolicy: enabled
+
+## Security Hardening
+- PodSecurityStandard: restricted
+- RBAC: enabled
+- NetworkPolicy: enabled
+- ResourceQuota: enabled
+- LimitRange: enabled
+
+## Cost Estimate
+- node_t3.large: 240.00 USD/month

@@ -1,0 +1,52 @@
+{
+  "test_id": "BA-GT-003",
+  "name": "Generasi User Story dengan Kriteria INVEST",
+  "category": "user_story_generation",
+  "inputs": {
+    "request_id": "ba-gt-003",
+    "operation": "user_story",
+    "business_context": {
+      "domain": "fintech",
+      "project_name": "Digital Wallet App"
+    },
+    "inputs": {
+      "natural_language_requirements": [
+        "User dapat mengirim uang ke kontak",
+        "User dapat melihat riwayat transaksi",
+        "User dapat top-up saldo"
+      ]
+    },
+    "personas": [
+      {
+        "name": "Pengguna Digital",
+        "role": "End User",
+        "goals": ["Kirim uang cepat", "Lihat riwayat transaksi"],
+        "pain_points": ["Transaksi lambat", "Riwayat tidak jelas"]
+      }
+    ]
+  },
+  "expected_output": {
+    "user_stories_count_min": 5,
+    "invest_compliant": true,
+    "acceptance_criteria_per_story": true,
+    "story_points_estimated": true
+  },
+  "acceptance_criteria": [
+    "Minimal 5 user story dihasilkan",
+    "Setiap story mengikuti format: 'As a [role] I want [feature] so that [benefit]'",
+    "INVEST criteria dicevaluasi (Independent, Negotiable, Valuable, Estimable, Small, Testable)",
+    "Acceptance criteria (Given/When/Then) untuk setiap story",
+    "Story points diestimasi (S/M/L/XL)",
+    "Priority ditetapkan"
+  ],
+  "edge_cases": [
+    "Epic yang terlalu besar (perlu di-split)",
+    "Story yang bergantung pada story lain",
+    "Story dengan acceptance criteria yang ambigu"
+  ],
+  "negative_cases": [
+    "User story tanpa benefit (seharusnya di-split)",
+    "Tidak ada acceptance criteria",
+    "Story tidak mengikuti INVEST criteria"
+  ]
+}

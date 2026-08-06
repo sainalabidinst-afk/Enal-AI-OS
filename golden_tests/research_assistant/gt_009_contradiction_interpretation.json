@@ -1,0 +1,47 @@
+{
+  "test_id": "research_assistant_gt_009",
+  "name": "Contradiction Detection - Konflik Interpretasi",
+  "category": "contradiction_detection",
+  "inputs": {
+    "query": "Social media impact on mental health",
+    "operation": "contradiction_analysis",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Social media and depression",
+        "content": "Study of 5000 adolescents found 30% increased depression risk with >3 hours daily social media use.",
+        "source_type": "academic",
+        "published_at": "2023-03-01"
+      },
+      {
+        "id": "src-2",
+        "title": "Social media benefits",
+        "content": "Social media provides social support for isolated individuals and reduces loneliness.",
+        "source_type": "academic",
+        "published_at": "2022-09-01"
+      }
+    ]
+  },
+  "expected_output": {
+    "contradictions": [
+      {
+        "type": "interpretative",
+        "description": "Source 1 focuses on negative effects while Source 2 identifies positive effects - context-dependent outcomes",
+        "severity": "medium"
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Kontradiksi interpretatif terdeteksi",
+    "Severity medium (bukan high)",
+    "Konflik konteks dijelaskan"
+  ],
+  "edge_cases": [
+    "Kontradiksi parsial",
+    "Kontradiksi antara dua review"
+  ],
+  "negative_cases": [
+    "Sumber yang konsensus",
+    "Tidak ada sumber"
+  ]
+}

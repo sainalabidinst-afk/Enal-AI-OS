@@ -1,0 +1,37 @@
+{
+  "test_id": "trading_analyst_gt_006",
+  "name": "Analisis Makro - Dampak Kebijakan Fed",
+  "category": "macro_analysis",
+  "inputs": {
+    "symbol": "SPY",
+    "timeframes": ["1d", "1w"],
+    "macro_data": {
+      "central_bank": "Fed",
+      "current_rate": 5.25,
+      "cpi": 3.2,
+      "gdp_growth": 2.1,
+      "vix": 18.0,
+      "dxy": 105.0,
+      "event": "Fed rate decision upcoming"
+    }
+  },
+  "expected_output": {
+    "macro_bias": "bearish",
+    "confidence": 0.7,
+    "key_factors": ["high interest rates", "elevated VIX", "strong DXY"],
+    "risk_level": "medium"
+  },
+  "acceptance_criteria": [
+    "Bias makro teridentifikasi",
+    "Faktor kunci disebutkan",
+    "Confidence sesuai dengan data"
+  ],
+  "edge_cases": [
+    "Mixed signals from macro indicators",
+    "Upcoming event with no decision yet"
+  ],
+  "negative_cases": [
+    "Tidak ada data makro",
+    "Data makro yang tidak valid"
+  ]
+}

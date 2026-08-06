@@ -31,7 +31,7 @@ class BenchmarkResult:
     failed: int = 0
     total: int = 0
     results: list[dict[str, Any]] = field(default_factory=list)
-    started_at: datetime = field(default_factory=datetime.utcnow)
+    started_at: datetime = field(default_factory=datetime.now(UTC))
     finished_at: datetime | None = None
     gate_results: dict[str, bool] = field(default_factory=dict)
 

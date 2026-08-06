@@ -1,0 +1,32 @@
+{
+  "test_id": "devops_assistant_gt_006",
+  "name": "Rencana Deployment - Rolling Update Strategy",
+  "category": "deployment_planning",
+  "inputs": {
+    "service_name": "user-api",
+    "strategy": "rolling",
+    "replicas": 5,
+    "max_surge": 1,
+    "max_unavailable": 1
+  },
+  "expected_output": {
+    "plan_valid": true,
+    "strategy": "rolling",
+    "rollback_plan_present": true,
+    "health_checks_required": true,
+    "estimated_duration_minutes": 10
+  },
+  "acceptance_criteria": [
+    "Rencana rolling update terdefinisi",
+    "Rollback plan disertakan",
+    "Health check integration"
+  ],
+  "edge_cases": [
+    "Zero-downtime requirement",
+    "Database migration during deployment"
+  ],
+  "negative_cases": [
+    "Strategy yang tidak didukung",
+    "Replicas <= 0"
+  ]
+}

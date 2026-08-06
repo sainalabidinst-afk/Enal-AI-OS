@@ -14,30 +14,30 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 ---
 
-## Status Kemampuan (2026-08-04)
-**Platform Kandidat Pelepasan**
+## Status Kemampuan (2026-08-05)
+**Platform Bersertifikat — Semua Pack Level 4 Domain Expert**
 
 |Capability Pack|Nilai|Catatan|
 |-----------------|-------|-------|
-|Insinyur Jaringan|A (≥90)|Siap Produksi|
-|Kode Insinyur|A+ (≥95)|Siap Produksi|Domain Expert (L4)|
-|Asisten Peneliti|A+ (≥90)|Bersertifikat|
-|Asisten DevOps|A+ (≥90)|Bersertifikat|
-|Analis Perdagangan|A (≥90)|Bersertifikat|
-|Pengembangan Diri|A+ (≥95)|Bersertifikat|
-|Decision Intelligence|A+ (≥95)|Bersertifikat|
-|Sistem Arsitek|A (≥90)|Siap Produksi|
-|Security Engineer|A+ (≥95)|Siap Produksi|103 real cases, 95% benchmark avg score, 52 golden tests|
-|Data Engineer|A (≥90)|Siap Produksi|
-|Database Engineer|A- (≥85)|Siap Produksi|
-|QA Engineer|A (≥90)|Siap Produksi|
-|Business Analyst|A- (≥85)|Siap Produksi|
-|Infrastructure Engineer|A (≥90)|Production Ready|RFC-0014|
-|AI Engineer|A+ (≥95)|Production Ready|RFC-0015|
-|Documentation Engineer|A (≥90)|Production Ready|RFC-0016|
-|Product Manager|A- (≥85)|Production Ready|RFC-0017|
-|UI/UX Designer|A- (≥85)|Production Ready|RFC-0018|
-|Full Stack Engineer|A- (≥85)|Production Ready|RFC-0019|
+|Insinyur Jaringan|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Kode Insinyur|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Asisten Peneliti|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Asisten DevOps|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Analis Perdagangan|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Pengembangan Diri|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Decision Intelligence|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Sistem Arsitek|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Security Engineer|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Data Engineer|A (≥90)|Bersertifikat|Domain Expert (L4)|
+|Database Engineer|A (≥90)|Bersertifikat|Domain Expert (L4)|
+|QA Engineer|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Business Analyst|A (≥90)|Bersertifikat|Domain Expert (L4)|
+|Infrastructure Engineer|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|AI Engineer|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Documentation Engineer|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
+|Product Manager|A (≥90)|Bersertifikat|Domain Expert (L4)|
+|UI/UX Designer|A (≥90)|Bersertifikat|Domain Expert (L4)|
+|Full Stack Engineer|A+ (≥95)|Bersertifikat|Domain Expert (L4)|
 
 ---
 
@@ -45,7 +45,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `network`
 **Kategori:** Jaringan
-**Target Kualitas:** A
+**Target Kualitas:** A+ (≥95)
 
 ### Cakupan
 
@@ -129,7 +129,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `research`
 **Kategori:** Penelitian
-**Target Kualitas:** A+ (≥90) - Bersertifikat
+**Target Kualitas:** A+ (≥95) - Bersertifikat
 
 ### Cakupan
 
@@ -174,7 +174,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `devops`
 **Kategori:** DevOps
-**Target Kualitas:** A+ (≥90) - Bersertifikat
+**Target Kualitas:** A+ (≥95) - Bersertifikat
 
 ### Cakupan
 
@@ -218,7 +218,7 @@ Gunakan dokumen yang diketahui ini sebagai sumber kebenaran untuk apa yang dihar
 
 **Kemampuan ID:** `trading`
 **Kategori:** Keuangan
-**Target Kualitas:** A (≥90) - Bersertifikat
+**Target Kualitas:** A+ (≥95) - Bersertifikat
 **Target Kematangan:** Level 4 — Pakar Domain
 
 ### Cakupan
@@ -592,8 +592,8 @@ Bagian ini mendokumentasikan perluasan pengetahuan yang direncanakan untuk setia
 
 **Kemampuan ID:** `system-architect`
 **Kategori:** Arsitektur
-**Target Kualitas:** A (≥90)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Target Kualitas:** A+ (≥95)
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 
@@ -651,7 +651,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
 **Kemampuan ID:** `security-engineer`
 **Referensi RFC:** RFC-0008
-**Nilai:** A (≥90)
+**Nilai:** A+ (≥95)
 
 **Tujuan:** Kapabilitas keamanan perusahaan di seluruh OWASP Top 10, pemodelan ancaman, deteksi rahasia, analisis kerentanan, audit ketergantungan, pengerasan konfigurasi, dan pemetaan kepatuhan.
 
@@ -673,7 +673,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 2 — Keunggulan Kemampuan (Selesai)
 **Kemampuan ID:** `database-engineer`
 **Referensi RFC:** RFC-0010
-**Nilai:** A- (≥85)
+**Nilai:** A (≥90)
 
 **Tujuan:** Kapabilitas database perusahaan: skema desain, optimasi query, manajemen migrasi, perencanaan replikasi, backup/recovery, rekomendasi indeks, dan analisis kinerja.
 
@@ -695,7 +695,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 3 — Perusahaan (Selesai)
 **Kemampuan ID:** `qa-engineer`
 **Referensi RFC:** RFC-0012
-**Nilai:** A (≥90)
+**Nilai:** A+ (≥95)
 
 **Tujuan:** Jaminan kualitas otomatis: generasi test unit/integrasi, uji regresi otomasi, pengujian mutasi, pembuatan Golden Test untuk paket lain, pengujian generasi Benchmark, deteksi flaky test, cover analisis, dan validasi kinerja.
 
@@ -706,7 +706,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Fase:** Fase 3 — Perusahaan (Selesai)
 **Kemampuan ID:** `business-analyst`
 **Referensi RFC:** RFC-0013
-**Nilai:** A- (≥85)
+**Nilai:** A (≥90)
 
 **Tujuan:** Penerjemahan bisnis-ke-teknis: pengumpulan kebutuhan, pemodelan proses bisnis, pembuatan user story, pemodelan use case, pembuatan BRD, spesifikasi fungsional, analisis gap, analisis ROI, dan proses optimasi.
 
@@ -718,8 +718,8 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 
 **Kemampuan ID:** `infrastructure-engineer`
 **Kategori:** Infrastruktur
-**Target Kualitas:** A (≥90)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Target Kualitas:** A+ (≥95)
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 
@@ -769,7 +769,7 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 **Kemampuan ID:** `ai-engineer`
 **Kategori:** AI/ML
 **Target Kualitas:** A+ (≥95)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 
@@ -818,8 +818,8 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 
 **Kemampuan ID:** `documentation-engineer`
 **Kategori:** Dokumentasi
-**Target Kualitas:** A (≥90)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Target Kualitas:** A+ (≥95)
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 
@@ -864,8 +864,8 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 
 **Kemampuan ID:** `product-manager`
 **Kategori:** Produk
-**Target Kualitas:** A- (≥85)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Target Kualitas:** A (≥90)
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 
@@ -915,8 +915,8 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 
 **Kemampuan ID:** `ui-ux-designer`
 **Kategori:** Desain
-**Target Kualitas:** A- (≥85)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Target Kualitas:** A (≥90)
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 
@@ -962,9 +962,9 @@ Capability Pack berikut telah sepenuhnya diimplementasikan dan berstatus siap pr
 ## Full Stack Engineer
 
 **Kemampuan ID:** `full-stack-engineer`
-**Kategori:** Pengembangan
-**Target Kualitas:** A- (≥85)
-**Target Kematangan:** Level 3 — Siap Produksi
+**Kategori:** Full Stack
+**Target Kualitas:** A+ (≥95)
+**Target Kematangan:** Level 4 — Ahli Domain
 
 ### Cakupan
 

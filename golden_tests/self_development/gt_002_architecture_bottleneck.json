@@ -1,0 +1,29 @@
+{
+  "test_id": "self_development_gt_002",
+  "name": "Deteksi Kemacetan - Bottleneck Arsitektur",
+  "category": "bottleneck_detection",
+  "inputs": {
+    "project_path": "/tmp/sample_project",
+    "analysis_type": "architecture",
+    "focus": ["dependency_graph", "coupling", "cohesion"]
+  },
+  "expected_output": {
+    "bottlenecks_found": 3,
+    "hotspot_modules": ["auth_service", "payment_processor", "user_manager"],
+    "coupling_issues": ["circular_dependency", "tight_coupling"],
+    "cohesion_issues": ["low_cohesion"]
+  },
+  "acceptance_criteria": [
+    "Minimal 3 bottleneck terdeteksi",
+    "Module hotspot diidentifikasi",
+    "Coupling dan cohesion issues tercakup"
+  ],
+  "edge_cases": [
+    "Arsitektur yang sudah sangat baik",
+    "Proyek dengan satu modul besar"
+  ],
+  "negative_cases": [
+    "Tidak ada bottleneck",
+    "Path yang tidak valid"
+  ]
+}

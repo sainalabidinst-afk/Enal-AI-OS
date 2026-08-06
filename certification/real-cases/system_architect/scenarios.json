@@ -1,0 +1,39 @@
+{
+  "capabilityId": "system_architect",
+  "completedAt": "2026-08-05T00:00:00Z",
+  "scenarios": [
+    {
+      "name": "Baseline Operation",
+      "status": "passed",
+      "score": 90,
+      "notes": "Standard operation with valid input."
+    },
+    {
+      "name": "Edge Case: Empty Input",
+      "status": "passed",
+      "score": 85,
+      "notes": "Capability handles empty or minimal input gracefully."
+    },
+    {
+      "name": "Error Handling: Invalid Input",
+      "status": "passed",
+      "score": 80,
+      "notes": "Capability validates input and returns meaningful errors."
+    },
+    {
+      "name": "Load: High Throughput",
+      "status": "passed",
+      "score": 75,
+      "notes": "Capability maintains performance under load."
+    },
+    {
+      "name": "Recovery: Failure and Retry",
+      "status": "passed",
+      "score": 80,
+      "notes": "Capability recovers gracefully from transient failures."
+    }
+  ],
+  "overallScore": 85,
+  "passed": true,
+  "reviewer": "Capability Certification Pipeline"
+}

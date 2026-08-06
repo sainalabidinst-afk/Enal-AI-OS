@@ -1,0 +1,15 @@
+{
+  "record_id": "a11a5c67-86ee-4d8f-8349-b9a33409e3a9",
+  "decision_id": "938f08b2-a338-425f-a39d-f705c0b08a0c",
+  "timestamp": "2026-08-05T23:30:38.057006+00:00",
+  "context": "Should I deploy the new release to production?",
+  "chosen_alternative": "Blue-green deployment with instant rollback",
+  "alternatives_count": 4,
+  "confidence_score": 0.5316,
+  "evidence_count": 2,
+  "risk_score": 0.25,
+  "explanation": "Recommendation: Blue-green deployment with instant rollback (score 59%). Confidence 53% with uncertainty \u00b118%. Evidence quality: 88%; Evidence agreement: 57%; Evidence coverage: 40%; Decision margin: 1%",
+  "outcome": "pending",
+  "user_feedback": null,
+  "revision_history": []
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Production Readiness Review",
+  "description": "Cross-capability production readiness review.",
+  "type": "object",
+  "required": [
+    "completedAt",
+    "capabilities",
+    "overallScore",
+    "passed",
+    "reviewer"
+  ],
+  "properties": {
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capabilityId", "checks", "score", "passed"],
+        "properties": {
+          "capabilityId": {
+            "type": "string"
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "status", "notes"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "enum": [
+                    "Interoperability",
+                    "Dependency",
+                    "Lifecycle",
+                    "Telemetry",
+                    "Compatibility",
+                    "Deployment"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["passed", "failed", "partial", "skipped"]
+                },
+                "notes": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "reviewer": {
+      "type": "string"
+    }
+  }
+}

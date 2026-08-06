@@ -1,0 +1,26 @@
+{
+  "vendor": "generic",
+  "device_type": "application",
+  "expected": {
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "metadata": {
+    "description": "Security scenario: privilege escalation review 0001.",
+    "source": "production",
+    "tags": [
+      "security",
+      "privilege"
+    ],
+    "complexity": "moderate"
+  },
+  "category": "privilege",
+  "expected_severity": "warning",
+  "expected_findings": [
+    "privilege_escalation",
+    "secret",
+    "command_injection"
+  ]
+}

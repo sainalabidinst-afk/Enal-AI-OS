@@ -1,0 +1,34 @@
+{
+  "test_id": "SA-GT-007",
+  "name": "Peluang Dekomposisi Monolith",
+  "category": "microservices_analysis",
+  "inputs": {
+    "target_type": "architecture",
+    "workspace_path": "/project/example_monolith_candidates",
+    "architecture_style": "monolith",
+    "focus_areas": ["scalability", "deployability"],
+    "include_recommendations": true
+  },
+  "expected_output": {
+    "decomposition_candidates_found_min": 2,
+    "candidate_priority_required": true,
+    "migration_strategy_required": true
+  },
+  "acceptance_criteria": [
+    "Minimal 2 modul/domain yang cocok untuk diekstrak teridentifikasi",
+    "Priority dihitung berdasarkan coupling dan cohesion",
+    "Migration strategy direkomendasikan (strangler fig pattern)",
+    "Impact analysis untuk setiap candidate",
+    "Data ownership teridentifikasi untuk setiap candidate"
+  ],
+  "edge_cases": [
+    "Monolith dengan coupling tinggi (sulit diekstrak)",
+    "Shared database antar modul",
+    "Modul dengan dependency silang"
+  ],
+  "negative_cases": [
+    "Tidak ada decomposition candidate (false negative)",
+    "Rekomendasi ekstraksi tanpa migration strategy",
+    "Mengabaikan data ownership concern"
+  ]
+}

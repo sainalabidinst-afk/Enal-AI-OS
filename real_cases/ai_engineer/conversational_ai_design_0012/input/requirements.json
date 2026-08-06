@@ -1,0 +1,13 @@
+﻿{
+    "accuracy_target":  "92%",
+    "domain":  "technology",
+    "expected_components":  [
+                                "model_spec",
+                                "training_pipeline",
+                                "evaluation_metrics",
+                                "deployment_config"
+                            ],
+    "architecture":  "transformer_based",
+    "scenario":  "conversational_ai_design",
+    "project_name":  "ai-project-12"
+}

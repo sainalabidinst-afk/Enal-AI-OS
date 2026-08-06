@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "capability_id": "society",
+  "capability_name": "Society",
+  "audit_version": "1.0.0",
+  "overall_score": 137,
+  "grade": "A",
+  "status": "Passed",
+  "areas": [
+    {
+      "name": "Contract Compliance",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "API Stability",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Domain Knowledge",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Engine Correctness",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No engine module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\society"
+        }
+      ]
+    },
+    {
+      "name": "Explainability",
+      "score": 7,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No dedicated explainability module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\society"
+        }
+      ]
+    },
+    {
+      "name": "Decision Integration",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No decision integration module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\society"
+        }
+      ]
+    },
+    {
+      "name": "Lifecycle Integration",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Observability",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Error Handling",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No dedicated error handling module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\society"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Security",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No dedicated security module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\society"
+        }
+      ]
+    },
+    {
+      "name": "Performance Target",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Test Coverage",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Golden Tests",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Real Cases",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    }
+  ],
+  "summary": {
+    "criticalFindings": 0,
+    "majorFindings": 0,
+    "minorFindings": 5,
+    "correctiveActions": []
+  },
+  "auditor": "Capability Audit Runner",
+  "completed_at": "2026-08-06T01:28:16.189588+00:00"
+}

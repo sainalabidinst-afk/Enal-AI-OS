@@ -1,0 +1,34 @@
+{
+  "test_id": "SA-GT-005",
+  "name": "Anti-Pola Event-Driven: Schema Event yang Tidak Ada",
+  "category": "event_driven_design",
+  "inputs": {
+    "target_type": "architecture",
+    "workspace_path": "/project/example_event_driven_issues",
+    "architecture_style": "event_driven",
+    "focus_areas": ["deployability", "maintainability"],
+    "include_recommendations": true
+  },
+  "expected_output": {
+    "event_design_issues_found": true,
+    "schema_gaps_required": true,
+    "recommendation_required": true
+  },
+  "acceptance_criteria": [
+    "Event schema tidak terdefinisi terdeteksi",
+    "Event handler tanpa idempotency terdeteksi",
+    "Dead letter queue tidak ada terdeteksi",
+    "Rekomendasi event schema versioning diberikan",
+    "Saga pattern direkomendasikan untuk distributed transaction"
+  ],
+  "edge_cases": [
+    "Event schema berubah tanpa versioning",
+    "Event handler yang tidak idempoten",
+    "Tidak ada dead letter queue untuk failed events"
+  ],
+  "negative_cases": [
+    "Event schema issues tidak terdeteksi (false negative)",
+    "Rekomendasi tanpa contoh konkret",
+    "Mengabaikan event ordering requirement"
+  ]
+}

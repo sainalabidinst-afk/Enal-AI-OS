@@ -1,0 +1,35 @@
+{
+  "test_id": "code_engineer_gt_005",
+  "name": "Deteksi Pola SOLID - Single Responsibility Principle",
+  "category": "solid_analysis",
+  "inputs": {
+    "code": "class UserManager:\n    def create_user(self, name, email):\n        # validasi\n        if not email:\n            raise ValueError('Email required')\n        # simpan ke db\n        db.execute('INSERT INTO users...')\n        # kirim email\n        smtp.send('welcome@company.com', email, 'Welcome!')\n        # log\n        logger.info(f'User {name} created')\n        return {'id': 1, 'name': name}",
+    "language": "python",
+    "filename": "user_manager.py"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "medium",
+        "category": "solid.single_responsibility",
+        "description": "UserManager class violates Single Responsibility Principle: handles validation, persistence, email, and logging",
+        "recommendation": "Split into UserValidator, UserRepository, EmailService, and Logger",
+        "line_number": 1,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "Mendeteksi pelanggaran SRP",
+    "Severity medium atau tinggi",
+    "Rekomendasi refactoring yang jelas"
+  ],
+  "edge_cases": [
+    "Class dengan static methods",
+    "Mixin classes"
+  ],
+  "negative_cases": [
+    "Class yang hanya memiliki satu method",
+    "Kode tanpa class"
+  ]
+}

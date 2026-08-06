@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "capability_id": "code_engineer",
+  "capability_name": "Code Engineer",
+  "audit_version": "1.0.0",
+  "overall_score": 146,
+  "grade": "A",
+  "status": "Passed",
+  "areas": [
+    {
+      "name": "Contract Compliance",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "API Stability",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": [
+        {
+          "severity": "Minor",
+          "description": "No API schema/contract module detected",
+          "location": "E:\\Enal\\Enal-AI-OS\\apps\\code_engineer"
+        }
+      ]
+    },
+    {
+      "name": "Domain Knowledge",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Engine Correctness",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Explainability",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Decision Integration",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Lifecycle Integration",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Observability",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Error Handling",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Documentation",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Security",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Performance Target",
+      "score": 8,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Test Coverage",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Golden Tests",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    },
+    {
+      "name": "Real Cases",
+      "score": 10,
+      "max_score": 10,
+      "status": "Passed",
+      "findings": []
+    }
+  ],
+  "summary": {
+    "criticalFindings": 0,
+    "majorFindings": 0,
+    "minorFindings": 1,
+    "correctiveActions": []
+  },
+  "auditor": "Capability Audit Runner",
+  "completed_at": "2026-08-06T01:47:33.186736+00:00"
+}

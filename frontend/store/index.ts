@@ -4,6 +4,7 @@ import { useExecutionStore } from "./execution-store";
 import { useArtifactStore } from "./artifact-store";
 import { useNotificationStore } from "./notification-store";
 import { useSettingsStore } from "./settings-store";
+import { useCognitiveStore } from "./cognitive-store";
 
 export {
   useChatStore,
@@ -12,4 +13,5 @@ export {
   useArtifactStore,
   useNotificationStore,
   useSettingsStore,
+  useCognitiveStore,
 };

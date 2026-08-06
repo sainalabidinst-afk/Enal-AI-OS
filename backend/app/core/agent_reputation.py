@@ -1,13 +1,13 @@
 import logging
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class MetricType(str, Enum):
+class MetricType(StrEnum):
     QUALITY = "quality"
     SPEED = "speed"
     SUCCESS_RATE = "success_rate"
@@ -23,7 +23,7 @@ class AgentReputation:
     total_tasks: int = 0
     successful_tasks: int = 0
     failed_tasks: int = 0
-    last_updated: datetime = field(default_factory=datetime.utcnow)
+    last_updated: datetime = field(default_factory=lambda: datetime.now(UTC))
 
     def record_task(self, success: bool, quality_score: float, latency_ms: float, cost: float):
         self.total_tasks += 1
@@ -31,10 +31,21 @@ class AgentReputation:
             self.successful_tasks += 1
         else:
             self.failed_tasks += 1
-        self.metrics[MetricType.QUALITY] = (self.metrics.get(MetricType.QUALITY, 0.0) * (self.total_tasks - 1) + quality_score) / self.total_tasks
-        self.metrics[MetricType.SUCCESS_RATE] = self.successful_tasks / self.total_tasks if self.total_tasks > 0 else 0.0
-        self.metrics[MetricType.LATENCY] = (self.metrics.get(MetricType.LATENCY, 0.0) * (self.total_tasks - 1) + latency_ms) / self.total_tasks
-        self.metrics[MetricType.COST] = (self.metrics.get(MetricType.COST, 0.0) * (self.total_tasks - 1) + cost) / self.total_tasks
+        self.metrics[MetricType.QUALITY] = (
+            (self.metrics.get(MetricType.QUALITY, 0.0) * (self.total_tasks - 1) + quality_score)
+            / self.total_tasks
+        )
+        self.metrics[MetricType.SUCCESS_RATE] = (
+            self.successful_tasks / self.total_tasks if self.total_tasks > 0 else 0.0
+        )
+        self.metrics[MetricType.LATENCY] = (
+            (self.metrics.get(MetricType.LATENCY, 0.0) * (self.total_tasks - 1) + latency_ms)
+            / self.total_tasks
+        )
+        self.metrics[MetricType.COST] = (
+            (self.metrics.get(MetricType.COST, 0.0) * (self.total_tasks - 1) + cost)
+            / self.total_tasks
+        )
         self.last_updated = datetime.now(UTC)
 
     def get_score(self) -> float:
@@ -54,7 +65,14 @@ class AgentReputationManager:
             self._reputations[agent_id] = AgentReputation(agent_id=agent_id)
         return self._reputations[agent_id]
 
-    def record(self, agent_id: str, success: bool, quality_score: float, latency_ms: float, cost: float):
+    def record(
+        self,
+        agent_id: str,
+        success: bool,
+        quality_score: float,
+        latency_ms: float,
+        cost: float,
+    ):
         rep = self.get_or_create(agent_id)
         rep.record_task(success, quality_score, latency_ms, cost)
 

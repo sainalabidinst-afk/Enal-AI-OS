@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Golden Test Suite",
+  "description": "Canonical golden test definitions for capability certification.",
+  "type": "object",
+  "required": ["capabilityId", "version", "categories", "generatedAt"],
+  "properties": {
+    "capabilityId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "tests"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "Functional",
+              "Edge Cases",
+              "Invalid Input",
+              "Regression",
+              "Explainability",
+              "Performance",
+              "Contract Compliance"
+            ]
+          },
+          "tests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "description", "input", "expected"],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "input": {
+                  "type": "object"
+                },
+                "expected": {
+                  "type": "object"
+                },
+                "tolerance": {
+                  "type": "number",
+                  "description": "Optional numeric tolerance for floating point comparisons."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

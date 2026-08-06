@@ -1,0 +1,42 @@
+{
+  "test_id": "DB-GT-004",
+  "name": "Strategi Replikasi untuk High Availability",
+  "category": "replication_planning",
+  "inputs": {
+    "request_id": "db-gt-004",
+    "operation": "replication_plan",
+    "database_type": "postgresql",
+    "workload_profile": {
+      "read_write_ratio": 0.8,
+      "peak_qps": 1000,
+      "data_volume_gb": 100,
+      "availability_requirement": "99.99%"
+    },
+    "rto_hours": 1.0,
+    "rpo_minutes": 5
+  },
+  "expected_output": {
+    "replication_design_required": true,
+    "topology_required": true,
+    "failover_strategy_required": true,
+    "estimated_lag_required": true
+  },
+  "acceptance_criteria": [
+    "Replication topology direncanakan (primary + N replicas)",
+    "Failover strategy ditentukan (automatic vs manual)",
+    "RTO dan RPO tercapai dengan topology yang direncanakan",
+    "Replication lag diestimasi",
+    "Load balancing untuk read replicas direncanakan",
+    "Monitoring untuk replication lag disarankan"
+  ],
+  "edge_cases": [
+    "Cross-region replication requirement",
+    "Multi-master requirement (bukan single primary)",
+    "Very low RPO requirement (< 1 menit)"
+  ],
+  "negative_cases": [
+    "Topology tanpa failover strategy",
+    "RTO/RPO tidak tercapai dengan topology yang direncanakan",
+    "Tidak ada monitoring recommendation"
+  ]
+}

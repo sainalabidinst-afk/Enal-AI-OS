@@ -1,0 +1,41 @@
+{
+  "test_id": "QA-GT-001",
+  "name": "Generasi Unit Test untuk Fungsi Kalkulasi",
+  "category": "unit_test_generation",
+  "inputs": {
+    "request_id": "qa-gt-001",
+    "operation": "unit_test",
+    "target": {
+      "source_code": "def calculate_discount(price, discount_rate):\n    if discount_rate < 0 or discount_rate > 1:\n        raise ValueError('Discount rate must be between 0 and 1')\n    return price * (1 - discount_rate)\n\ndef calculate_total(items):\n    total = 0\n    for item in items:\n        if item.price > 0:\n            total += item.price * item.quantity\n    return total",
+      "language": "python",
+      "framework": "pytest"
+    }
+  },
+  "expected_output": {
+    "test_count_min": 8,
+    "edge_cases_tested": true,
+    "error_cases_tested": true,
+    "coverage_min": 0.9
+  },
+  "acceptance_criteria": [
+    "Minimal 8 test case dihasilkan",
+    "Test untuk calculate_discount dengan normal value",
+    "Test untuk boundary (discount_rate = 0, discount_rate = 1)",
+    "Test untuk error case (discount_rate < 0, discount_rate > 1)",
+    "Test untuk calculate_total dengan empty list",
+    "Test untuk calculate_total dengan item.price <= 0",
+    "Test untuk calculate_total dengan multiple items",
+    "Coverage di atas 90%"
+  ],
+  "edge_cases": [
+    "Discount rate = 0 (tidak ada diskon)",
+    "Discount rate = 1 (diskon 100%, harga = 0)",
+    "Items list kosong",
+    "Item dengan price = 0 atau negative"
+  ],
+  "negative_cases": [
+    "Tidak ada test untuk error case",
+    "Tidak ada boundary value test",
+    "Coverage di bawah 90%"
+  ]
+}

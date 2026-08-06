@@ -1,0 +1,37 @@
+{
+  "test_id": "trading_analyst_gt_010",
+  "name": "Analisis Multi-Strategi - Debate Engine",
+  "category": "multi_strategy_debate",
+  "inputs": {
+    "symbol": "GOLD",
+    "timeframes": ["1d", "1w"],
+    "strategies_to_compare": ["wyckoff", "smc", "elliott_wave"],
+    "market_data": {
+      "bias_wyckoff": "bullish",
+      "bias_smc": "neutral",
+      "bias_elliott": "bearish"
+    }
+  },
+  "expected_output": {
+    "debate_result": {
+      "winner": "wyckoff",
+      "confidence": 0.6,
+      "reasoning": "Wyckoff phase strongest in current context",
+      "consensus_level": "low"
+    },
+    "recommendation": "wait_for_confirmation"
+  },
+  "acceptance_criteria": [
+    "Semua strategi dievaluasi",
+    "Pemenang debat dijelaskan",
+    "Rekomendasi diberikan saat konsensus rendah"
+  ],
+  "edge_cases": [
+    "Semua strategi sependapat",
+    "Tidak ada strategi yang cukup kuat"
+  ],
+  "negative_cases": [
+    "Tidak ada strategi untuk dibandingkan",
+    "Data pasar yang tidak cukup"
+  ]
+}

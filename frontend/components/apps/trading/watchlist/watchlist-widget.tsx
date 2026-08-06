@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { Card, CardHeader, CardTitle } from "@/components/design-system/layout/card";
 import { useWatchlistStore } from "../stores/watchlist-store";
 
-export function WatchlistWidget() {
+const WatchlistWidgetInner = () => {
   const items = useWatchlistStore((s) => s.items);
   const status = useWatchlistStore((s) => s.status);
   const fetchWatchlist = useWatchlistStore((s) => s.fetchWatchlist);
@@ -64,4 +64,7 @@ export function WatchlistWidget() {
       </div>
     </Card>
   );
-}
+};
+
+export const WatchlistWidget = memo(WatchlistWidgetInner);
+WatchlistWidget.displayName = "WatchlistWidget";

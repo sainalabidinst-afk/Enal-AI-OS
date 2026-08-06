@@ -1,0 +1,34 @@
+{
+  "test_id": "trading_analyst_gt_009",
+  "name": "Generasi Strategi - Momentum Entry",
+  "category": "strategy_generation",
+  "inputs": {
+    "symbol": "NVDA",
+    "timeframes": ["1h", "4h"],
+    "bias": "bullish",
+    "confidence": 80,
+    "risk_level": "medium",
+    "market_regime": "trending"
+  },
+  "expected_output": {
+    "strategy_type": "momentum",
+    "entry_condition": "Pullback to 20 EMA with bullish engulfing",
+    "exit_condition": "Take profit at previous high, stop below 20 EMA",
+    "stop_loss": "2% below entry",
+    "take_profit": "4% above entry",
+    "risk_reward_ratio": 2.0
+  },
+  "acceptance_criteria": [
+    "Strategi sesuai dengan bias",
+    "Risk-reward ratio >= 1.5",
+    "Entry dan exit conditions spesifik"
+  ],
+  "edge_cases": [
+    "Counter-trend dalam trending market",
+    "Wait strategy saat uncertainty tinggi"
+  ],
+  "negative_cases": [
+    "Tidak ada bias",
+    "Confidence terlalu rendah (< 50)"
+  ]
+}

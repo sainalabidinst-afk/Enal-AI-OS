@@ -1,0 +1,57 @@
+{
+  "test_id": "research_assistant_gt_010",
+  "name": "Estimasi Keyakinan - Konsensus Tinggi",
+  "category": "confidence_estimation",
+  "inputs": {
+    "query": "Smoking causes lung cancer",
+    "operation": "confidence_estimation",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Smoking and lung cancer: a meta-analysis",
+        "content": "Smoking increases lung cancer risk by 15-30 times.",
+        "source_type": "academic",
+        "published_at": "2020-01-01"
+      },
+      {
+        "id": "src-2",
+        "title": "WHO report on tobacco",
+        "content": "Tobacco kills more than 8 million people each year. Smoking causes lung cancer.",
+        "source_type": "government",
+        "published_at": "2023-01-01"
+      },
+      {
+        "id": "src-3",
+        "title": "Cancer and smoking review",
+        "content": "Overwhelming evidence links smoking to lung cancer.",
+        "source_type": "academic",
+        "published_at": "2021-06-01"
+      }
+    ]
+  },
+  "expected_output": {
+    "findings": [
+      {
+        "confidence": 0.98,
+        "sources": ["src-1", "src-2", "src-3"]
+      }
+    ],
+    "quality": {
+      "overall_score": 0.95,
+      "source_quality_avg": 0.9
+    }
+  },
+  "acceptance_criteria": [
+    "Confidence score tinggi (> 0.9)",
+    "Konsensus lintas sumber",
+    "Skor kualitas tinggi"
+  ],
+  "edge_cases": [
+    "Konsensus dengan source yang rendah kualitasnya",
+    "Konsensus parsial"
+  ],
+  "negative_cases": [
+    "Sumber yang bertentangan",
+    "Tidak ada sumber"
+  ]
+}

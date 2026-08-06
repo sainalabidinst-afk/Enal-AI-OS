@@ -1,0 +1,24 @@
+{
+  "capabilityId": "decision_intelligence",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {
+          "id": "decision_intelligence-functional-001",
+          "description": "Golden test for functional in decision_intelligence",
+          "input": {
+            "capability_id": "decision_intelligence",
+            "category": "functional"
+          },
+          "expected": {
+            "status": "success"
+          },
+          "tolerance": 0.01
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-05T00:00:00Z"
+}

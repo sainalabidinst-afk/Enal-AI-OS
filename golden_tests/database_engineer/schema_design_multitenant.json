@@ -1,0 +1,54 @@
+{
+  "test_id": "DB-GT-008",
+  "name": "Desain Skema: Multi-Tenant E-commerce",
+  "category": "schema_design",
+  "inputs": {
+    "request_id": "db-gt-008",
+    "operation": "schema_design",
+    "database_type": "postgresql",
+    "schema": {
+      "tables": [
+        {
+          "name": "products",
+          "columns": [
+            {"name": "id", "type": "SERIAL", "constraints": ["PRIMARY KEY"]},
+            {"name": "tenant_id", "type": "UUID"},
+            {"name": "name", "type": "VARCHAR(255)"},
+            {"name": "price", "type": "DECIMAL"},
+            {"name": "inventory", "type": "INTEGER"}
+          ]
+        }
+      ]
+    },
+    "workload_profile": {
+      "read_write_ratio": 0.7,
+      "peak_qps": 1000,
+      "data_volume_gb": 50,
+      "tenants_count": 1000,
+      "query_patterns": ["select", "filter_by_tenant"]
+    }
+  },
+  "expected_output": {
+    "schema_recommendations_required": true,
+    "tenant_isolation_analysis_required": true,
+    "partitioning_recommendation_required": true,
+    "row_level_security_required": true
+  },
+  "acceptance_criteria": [
+    "Multi-tenant isolation strategy direkomendasikan (row-level vs schema-level)",
+    "tenant_id index direkomendasikan untuk isolasi",
+    "Partitioning strategy untuk large tables direncanakan",
+    "Row-level security policy untuk tenant isolation diberikan",
+    "Performance impact untuk isolation strategy diukur"
+  ],
+  "edge_cases": [
+    "Super tenant dengan akses ke semua data",
+    "Tenant dengan custom schema extension",
+    "Data residency requirement per tenant"
+  ],
+  "negative_cases": [
+    "Tidak ada tenant isolation strategy",
+    "Partitioning tidak direkomendasikan untuk large tables",
+    "Performance impact tidak diukur"
+  ]
+}

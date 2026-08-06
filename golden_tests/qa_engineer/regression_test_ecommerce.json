@@ -1,0 +1,39 @@
+{
+  "test_id": "QA-GT-003",
+  "name": "Regression Test Suite untuk E-commerce",
+  "category": "regression_test",
+  "inputs": {
+    "request_id": "qa-gt-003",
+    "operation": "regression_test",
+    "target": {
+      "source_code": "# E-commerce checkout flow\nclass CheckoutService:\n    def calculate_total(self, cart):\n        subtotal = sum(item.price * item.qty for item in cart.items)\n        tax = subtotal * 0.1\n        shipping = 10 if subtotal < 100 else 0\n        return subtotal + tax + shipping\n    \n    def apply_coupon(self, total, coupon_code):\n        if coupon_code == 'SAVE10':\n            return total * 0.9\n        return total",
+      "language": "python",
+      "framework": "pytest"
+    }
+  },
+  "expected_output": {
+    "test_count_min": 10,
+    "regression_scenarios_required": true,
+    "risk_scoring_applied": true
+  },
+  "acceptance_criteria": [
+    "Minimal 10 test case untuk regression suite",
+    "Test untuk checkout dengan empty cart",
+    "Test untuk checkout dengan normal cart",
+    "Test untuk checkout dengan coupon (SAVE10)",
+    "Test untuk checkout dengan invalid coupon",
+    "Test untuk checkout dengan free shipping threshold",
+    "Risk scoring diterapkan (high risk = checkout flow)",
+    "Test case diurutkan berdasarkan risk priority"
+  ],
+  "edge_cases": [
+    "Checkout dengan harga tepat pada threshold (100 USD)",
+    "Checkout dengan negative subtotal",
+    "Coupon yang expired"
+  ],
+  "negative_cases": [
+    "Tidak ada risk scoring",
+    "Test case tanpa priority order",
+    "Tidak ada regression scenario (hanya unit test)"
+  ]
+}

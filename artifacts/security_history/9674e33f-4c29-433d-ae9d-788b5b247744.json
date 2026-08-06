@@ -1,0 +1,14 @@
+{
+  "record_id": "9674e33f-4c29-433d-ae9d-788b5b247744",
+  "assessment_id": "a344724c-d29d-4898-9972-6ed5e6860ac2",
+  "timestamp": "2026-08-05T23:38:51.662498+00:00",
+  "target_type": "code",
+  "total_findings": 0,
+  "critical_count": 1,
+  "high_count": 1,
+  "resolved": [],
+  "false_positives": [],
+  "fp_rate": 0.0,
+  "detection_rate": 1.0,
+  "outcome": "pending"
+}

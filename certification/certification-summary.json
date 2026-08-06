@@ -1,0 +1,577 @@
+{
+  "generatedAt": "2026-08-06T01:55:19.009303+00:00",
+  "totalCapabilities": 22,
+  "dimensions": {
+    "audit": {
+      "averageScore": 93.06,
+      "certified": 22,
+      "provisional": 0,
+      "experimental": 0
+    },
+    "benchmark": {
+      "averageScore": 96.99,
+      "gradeA": 22,
+      "gradeB": 0,
+      "gradeC": 0,
+      "gradeD": 0,
+      "gradeF": 0
+    },
+    "productionReadiness": {
+      "averageScore": 98.11,
+      "passed": 22,
+      "failed": 0
+    }
+  },
+  "capabilities": [
+    {
+      "capabilityId": "ai_engineer",
+      "capabilityName": "Ai Engineer",
+      "audit": {
+        "score": 141,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 94.0
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "business_analyst",
+      "capabilityName": "Business Analyst",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "code_engineer",
+      "capabilityName": "Code Engineer",
+      "audit": {
+        "score": 146,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 97.33
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 91.66,
+        "passed": true,
+        "capabilityReadiness": 83.33,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "data_engineer",
+      "capabilityName": "Data Engineer",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "database_engineer",
+      "capabilityName": "Database Engineer",
+      "audit": {
+        "score": 141,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 94.0
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "decision_intelligence",
+      "capabilityName": "Decision Intelligence",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 91.66,
+        "passed": true,
+        "capabilityReadiness": 83.33,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "devops_assistant",
+      "capabilityName": "Devops Assistant",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "documentation_engineer",
+      "capabilityName": "Documentation Engineer",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "full_stack_engineer",
+      "capabilityName": "Full Stack Engineer",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "infrastructure_engineer",
+      "capabilityName": "Infrastructure Engineer",
+      "audit": {
+        "score": 141,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 94.0
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "integration",
+      "capabilityName": "Integration",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "network_engineer",
+      "capabilityName": "Network Engineer",
+      "audit": {
+        "score": 136,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 90.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 91.66,
+        "passed": true,
+        "capabilityReadiness": 83.33,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "organization",
+      "capabilityName": "Organization",
+      "audit": {
+        "score": 138,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.0
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 95.84,
+        "passed": true,
+        "capabilityReadiness": 91.67,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "product_manager",
+      "capabilityName": "Product Manager",
+      "audit": {
+        "score": 140,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 93.33
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "qa_engineer",
+      "capabilityName": "Qa Engineer",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "research_assistant",
+      "capabilityName": "Research Assistant",
+      "audit": {
+        "score": 142,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 94.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "security_engineer",
+      "capabilityName": "Security Engineer",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "self_development",
+      "capabilityName": "Self Development",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "society",
+      "capabilityName": "Society",
+      "audit": {
+        "score": 137,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 91.33
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 95.84,
+        "passed": true,
+        "capabilityReadiness": 91.67,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "system_architect",
+      "capabilityName": "System Architect",
+      "audit": {
+        "score": 141,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 94.0
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "trading_analyst",
+      "capabilityName": "Trading Analyst",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 91.66,
+        "passed": true,
+        "capabilityReadiness": 83.33,
+        "platformReadiness": 100.0
+      }
+    },
+    {
+      "capabilityId": "ui_ux_designer",
+      "capabilityName": "Ui Ux Designer",
+      "audit": {
+        "score": 139,
+        "grade": "A",
+        "status": "Passed",
+        "percentage": 92.67
+      },
+      "benchmark": {
+        "overallScore": 96.99,
+        "grade": "A",
+        "passed": true,
+        "functional": 100.0,
+        "performance": 99.95,
+        "scalability": 100,
+        "reliability": 88.0
+      },
+      "productionReadiness": {
+        "overallScore": 100.0,
+        "passed": true,
+        "capabilityReadiness": 100.0,
+        "platformReadiness": 100.0
+      }
+    }
+  ]
+}

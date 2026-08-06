@@ -1,0 +1,54 @@
+{
+  "request_id": "case-fs-003",
+  "operation": "release_review",
+  "architecture_review": {
+    "architecture_score": 0.8,
+    "layering_grade": "B+",
+    "dependency_grade": "A",
+    "modularity_grade": "B+",
+    "tech_debt_grade": "B",
+    "issues": [
+      {"id": "ARCH-006", "severity": "low", "category": "tech_debt", "description": "Modul auth belum memiliki interface yang didefinisikan", "location": "auth.py", "recommendation": "Definisikan interface untuk auth service"}
+    ]
+  },
+  "code_review": {
+    "findings": [
+      {"severity": "low", "category": "maintainability", "title": "Type hint tidak lengkap", "description": "Beberapa fungsi tidak memiliki type hints", "recommendation": "Tambahkan type hints untuk semua fungsi", "evidence": "auth.py", "line_number": 10, "confidence": 0.85}
+    ],
+    "summary": {"total_findings": 1, "by_severity": {"critical": 0, "high": 0, "medium": 0, "low": 1, "info": 0}, "by_category": {"maintainability": 1}}
+  },
+  "refactoring_plan": {
+    "plans": [
+      {"id": "REFACTOR-005", "problem": "Type hint tidak lengkap", "cause": "Tidak ada standar type hinting", "proposal": "Tambahkan type hints untuk semua fungsi publik", "expected_benefit": "Better IDE support dan type safety", "risk": "low", "migration_steps": ["Audit fungsi tanpa type hints", "Tambahkan type hints", "Run mypy"], "estimated_effort": "low"}
+    ]
+  },
+  "test_engineering": {
+    "coverage_adequate": True,
+    "estimated_coverage": 0.88,
+    "missing_tests": ["test_auth_edge_cases"],
+    "plans": [
+      {"test_type": "integration", "description": "Integration test untuk auth flow", "suggested_tests": ["test_login_success", "test_login_invalid", "test_token_refresh"], "priority": "high", "estimated_coverage": 0.9}
+    ]
+  },
+  "performance_analysis": {
+    "issues": [
+      {"id": "PERF-003", "severity": "medium", "category": "n_plus_1", "description": "N+1 query di user list endpoint", "location": "users.py", "recommendation": "Gunakan eager loading atau batch query", "estimated_improvement": "50-80% faster for large lists"}
+    ],
+    "summary": {"total_issues": 1, "critical_issues": 0, "estimated_speedup": "50-80%"}
+  },
+  "release_review": {
+    "ready": True,
+    "checks": [
+      {"check": "changelog_updated", "passed": True, "details": "Changelog mencantumkan 3 perubahan", "severity": "medium"},
+      {"check": "semantic_versioning", "passed": True, "details": "Versi 1.2.0 (minor bump)", "severity": "medium"},
+      {"check": "migration_plan", "passed": True, "details": "Migration script tersedia", "severity": "high"},
+      {"check": "rollback_plan", "passed": True, "details": "Rollback script tersedia", "severity": "high"},
+      {"check": "tests_passing", "passed": True, "details": "88% coverage, semua test passing", "severity": "high"},
+      {"check": "no_critical_issues", "passed": True, "details": "Tidak ada critical issues", "severity": "high"}
+    ],
+    "blockers": [],
+    "summary": {"total_checks": 6, "passed_checks": 6, "failed_checks": 0, "release_readiness": "ready"}
+  },
+  "quality_score": 0.85,
+  "explanation": "Performed release_review full-stack engineering review. Architecture score: 80%, 1 issue found. Code review: 1 finding. Refactoring: 1 plan. Test engineering: 88% coverage, 1 plan. Performance: 1 issue. Release: READY — 6/6 checks passed."
+}

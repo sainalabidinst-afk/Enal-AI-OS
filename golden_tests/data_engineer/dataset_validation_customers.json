@@ -1,0 +1,42 @@
+{
+  "test_id": "DE-GT-002",
+  "name": "Validasi Dataset: Skema dan Kualitas",
+  "category": "dataset_validation",
+  "inputs": {
+    "request_id": "de-gt-002",
+    "job_type": "validate",
+    "source": {
+      "type": "csv",
+      "location": "/data/customers.csv",
+      "schema_definition": {"customer_id": "string", "email": "string", "age": "integer"}
+    },
+    "quality_rules": [
+      {"rule": "completeness", "thresholds": {"min": 0.95, "columns": ["customer_id"]}},
+      {"rule": "validity", "thresholds": {"min": 0.9, "columns": ["email"], "pattern": "^[^@]+@[^@]+\\.[^@]+$"}},
+      {"rule": "uniqueness", "thresholds": {"min": 1.0, "columns": ["customer_id"]}}
+    ]
+  },
+  "expected_output": {
+    "validation_report_required": true,
+    "completeness_required": true,
+    "validity_required": true,
+    "uniqueness_required": true
+  },
+  "acceptance_criteria": [
+    "Validation report dihasilkan dengan semua metrik",
+    "Completeness dihitung per kolom",
+    "Validity menggunakan pattern matching untuk email",
+    "Uniqueness dicek untuk customer_id (harus 100%)",
+    "Issues dilaporkan dengan kolom, severity, dan count"
+  ],
+  "edge_cases": [
+    "Dataset kosong (0 row)",
+    "Semua kolom kosong untuk satu kolom",
+    "Email dengan format yang tidak valid"
+  ],
+  "negative_cases": [
+    "Validation report tanpa metrik",
+    "Pattern tidak di-apply untuk validity",
+    "Issues tidak dilaporkan"
+  ]
+}

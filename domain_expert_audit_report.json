@@ -1,0 +1,211 @@
+[
+  {
+    "pack_id": "network_engineer",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "code_engineer",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "research_assistant",
+    "golden_tests": 30,
+    "real_cases": 150,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "devops_assistant",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "trading_analyst",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "self_development",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "decision_intelligence",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "system_architect",
+    "golden_tests": 30,
+    "real_cases": 101,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "security_engineer",
+    "golden_tests": 30,
+    "real_cases": 202,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "data_engineer",
+    "golden_tests": 30,
+    "real_cases": 100,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A (\u226590)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "database_engineer",
+    "golden_tests": 30,
+    "real_cases": 101,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A (\u226590)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "qa_engineer",
+    "golden_tests": 30,
+    "real_cases": 101,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "business_analyst",
+    "golden_tests": 30,
+    "real_cases": 101,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A (\u226590)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "infrastructure_engineer",
+    "golden_tests": 20,
+    "real_cases": 20,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "ai_engineer",
+    "golden_tests": 20,
+    "real_cases": 20,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "documentation_engineer",
+    "golden_tests": 20,
+    "real_cases": 20,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "product_manager",
+    "golden_tests": 20,
+    "real_cases": 20,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A (\u226590)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "ui_ux_designer",
+    "golden_tests": 20,
+    "real_cases": 20,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A (\u226590)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  },
+  {
+    "pack_id": "full_stack_engineer",
+    "golden_tests": 20,
+    "real_cases": 20,
+    "has_engine": true,
+    "has_benchmark": true,
+    "has_capability_doc": true,
+    "grade": "A+ (\u226595)",
+    "maturity": "Level 4 \u2014 Domain Expert",
+    "lifecycle": "Bersertifikat"
+  }
+]

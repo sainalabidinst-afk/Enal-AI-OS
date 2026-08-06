@@ -11,7 +11,7 @@
 |**ID Kemampuan**|`business-analyst`|
 |**Kategori**|Analisis Bisnis|
 |**Target Kualitas**|A (≥90)|
-|**Target Kematangan**|Level 3 — Siap Produksi|
+|**Target Kematangan**|Level 4 — Domain Expert (L4)|
 |**Referensi RFC**|RFC-0013|
 
 ---

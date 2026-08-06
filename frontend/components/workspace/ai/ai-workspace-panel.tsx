@@ -10,7 +10,11 @@ import { tradingCapabilityAdapter } from "./adapters/trading-capability-adapter"
 import { promptPipelineBuilder } from "./pipeline/prompt-pipeline";
 import { EvidenceBuilder } from "./evidence/evidence-builder";
 import type { EvidencePayload } from "./evidence/evidence-types";
-import { Sparkles, CheckCircle, AlertTriangle, TrendingUp } from "lucide-react";
+import { useDecisionIntelligence } from "../decision-intelligence/hooks/use-decision-intelligence";
+import { createTradingDecisionRequest } from "../decision-intelligence/adapters/trading-decision-adapter";
+import type { DecisionOutcome, ExplainabilityChain } from "../decision-intelligence/models/decision-models";
+import type { AIMessage } from "./context/conversation-types";
+import { Sparkles, CheckCircle, AlertTriangle, TrendingUp, GitBranch, Shield } from "lucide-react";
 
 export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: string }) {
   const [input, setInput] = useState("");
@@ -21,6 +25,8 @@ export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: 
   const setLoading = useConversationStore((s) => s.setLoading);
   const setError = useConversationStore((s) => s.setError);
   const lastEvidence = useConversationStore((s) => s.lastEvidence);
+
+  const { evaluateWithHistory, getExplainability } = useDecisionIntelligence();
 
   useEffect(() => {
     const adapter = tradingCapabilityAdapter;
@@ -79,12 +85,23 @@ export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: 
         nextAction: "Monitor key levels and adjust strategy accordingly.",
       });
 
+      const decisionRequest = createTradingDecisionRequest(
+        { action: "wait", confidence: evidence.confidence, strength: 70 },
+        { level: "medium", volatility: 2.5, confidence: evidence.confidence },
+        evidence.evidence
+      );
+
+      const decision = evaluateWithHistory(decisionRequest, evidence.evidence);
+      const explainability = getExplainability(decision);
+
       const assistantMessage = {
         id: `msg-${Date.now()}`,
         role: "assistant" as const,
         content: responseContent,
         timestamp: Date.now(),
         evidence,
+        decision,
+        explainability,
       };
 
       addMessage(assistantMessage);
@@ -151,6 +168,77 @@ export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: 
     );
   };
 
+  const renderDecision = (decision: NonNullable<AIMessage["decision"]>, explainability: NonNullable<AIMessage["explainability"]>) => {
+
+    return (
+      <div className="mt-3 space-y-3 border-t border-[var(--color-border)] pt-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <GitBranch className="h-4 w-4 text-[var(--color-primary-500)]" />
+            <span className="text-sm font-medium">Decision</span>
+          </div>
+          <Badge variant={decision.confidence >= 70 ? "success" : decision.confidence >= 50 ? "warning" : "danger"}>
+            {decision.confidenceLevel.replace(/_/g, " ").toUpperCase()}
+          </Badge>
+        </div>
+
+        <div className="space-y-1">
+          <span className="text-xs font-medium text-[var(--color-secondary-500)]">Action</span>
+          <p className="text-sm font-semibold text-[var(--color-foreground)]">{decision.action.toUpperCase()}</p>
+        </div>
+
+        {explainability && (
+          <>
+            <div className="space-y-1">
+              <span className="text-xs font-medium text-[var(--color-secondary-500)]">Reasoning</span>
+              <p className="text-xs text-[var(--color-secondary-600)]">{explainability.reasoning}</p>
+            </div>
+
+            <div className="space-y-1">
+              <span className="text-xs font-medium text-[var(--color-secondary-500)]">Trade-offs</span>
+              <div className="text-xs text-[var(--color-secondary-600)] space-y-1">
+                <p>Benefit: {explainability.tradeOffs.benefit}</p>
+                <p>Cost: {explainability.tradeOffs.cost}</p>
+                <p>Net: {explainability.tradeOffs.net}</p>
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <Shield className="h-3 w-3 text-[var(--color-warning-500)]" />
+                <span className="text-xs font-medium text-[var(--color-secondary-500)]">Risk</span>
+              </div>
+              <div className="text-xs text-[var(--color-secondary-600)]">
+                <p>Level: {explainability.risk.level}</p>
+                <p>Volatility: {explainability.risk.volatility}%</p>
+                <p>Mitigation: {explainability.risk.mitigation}</p>
+              </div>
+            </div>
+
+            {explainability.alternatives.length > 0 && (
+              <div className="space-y-1">
+                <span className="text-xs font-medium text-[var(--color-secondary-500)]">Alternatives</span>
+                {explainability.alternatives.slice(0, 3).map((alt, idx) => (
+                  <div key={idx} className="text-xs text-[var(--color-secondary-600)]">
+                    <span className="font-medium">{alt.label}:</span> {alt.confidence}% - {alt.reason}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="flex items-start gap-2">
+              <TrendingUp className="h-4 w-4 text-[var(--color-primary-500)] mt-0.5" />
+              <div>
+                <span className="text-xs font-medium text-[var(--color-secondary-500)]">Next Action</span>
+                <p className="text-xs text-[var(--color-secondary-600)]">{explainability.nextAction}</p>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
   return (
     <aside className="flex w-80 flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="AI Workspace panel">
       <div className="border-b border-[var(--color-border)] px-4 py-3">
@@ -173,6 +261,7 @@ export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: 
               <CardDescription>{message.content}</CardDescription>
             </CardHeader>
             {message.evidence && renderEvidence(message.evidence)}
+            {message.decision && message.explainability && renderDecision(message.decision, message.explainability)}
           </Card>
         ))}
 
@@ -206,4 +295,3 @@ export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: 
     </aside>
   );
 }
-

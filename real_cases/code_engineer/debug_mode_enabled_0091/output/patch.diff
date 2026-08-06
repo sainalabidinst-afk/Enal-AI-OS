@@ -1,0 +1,15 @@
+--- a/main.py
++++ b/main.py
+@@ -1,5 +1,8 @@
++import os
++from typing import Optional
++
+ def main():
+-    api_key = 'hardcoded_key'
+-    password = 'plaintext_password'
+-    query = f"SELECT * FROM users WHERE id = {user_id}"
+-    return query
++    api_key = os.environ.get('API_KEY')
++    password = os.environ.get('DB_PASSWORD')
++    query = 'SELECT * FROM users WHERE id = :id'
++    return query

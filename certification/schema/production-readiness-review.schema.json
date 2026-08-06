@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Production Readiness Review",
+  "description": "Two-part production readiness review: capability-level and platform-level.",
+  "type": "object",
+  "required": [
+    "completedAt",
+    "reviewer",
+    "capabilityReadiness",
+    "platformReadiness",
+    "overallScore",
+    "passed"
+  ],
+  "properties": {
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reviewer": {
+      "type": "string"
+    },
+    "capabilityReadiness": {
+      "type": "object",
+      "required": ["capabilities", "overallScore", "passed"],
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["capabilityId", "checks", "score", "passed"],
+            "properties": {
+              "capabilityId": {
+                "type": "string"
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name", "status", "notes"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "enum": [
+                        "Dependency",
+                        "Lifecycle",
+                        "Observability",
+                        "Health",
+                        "Metrics",
+                        "Contracts"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["passed", "failed", "partial", "skipped"]
+                    },
+                    "notes": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "passed": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "overallScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "platformReadiness": {
+      "type": "object",
+      "required": ["checks", "overallScore", "passed"],
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "status", "notes"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": [
+                  "CrossCapabilityExecution",
+                  "WorkspaceIntegration",
+                  "DecisionIntelligence",
+                  "EventBus",
+                  "Deployment",
+                  "Telemetry",
+                  "Recovery",
+                  "Compatibility"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": ["passed", "failed", "partial", "skipped"]
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "overallScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "passed": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "test_id": "network_engineer_gt_006",
+  "name": "Audit Kepatuhan SNMP Community String",
+  "category": "compliance_audit",
+  "inputs": {
+    "type": "text",
+    "content": "/snmp community set public name=public authentication-protocol=no-privacy\r\n/snmp community set private name=private authentication-protocol=md5",
+    "vendor_hint": "mikrotik"
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "critical",
+        "category": "snmp",
+        "description": "SNMP community 'public' dengan autentikasi tanpa enkripsi terdeteksi"
+      },
+      {
+        "severity": "high",
+        "category": "snmp",
+        "description": "SNMP community 'private' menggunakan MD5 yang sudah deprecated"
+      }
+    ],
+    "risk_score": 0.9
+  },
+  "acceptance_criteria": [
+    "Mendeteksi community string 'public' sebagai risiko",
+    "Mendeteksi penggunaan MD5 sebagai deprecated",
+    "Skor risiko > 0.8"
+  ],
+  "edge_cases": [
+    "Konfigurasi SNMP tanpa community",
+    "Banyak community string"
+  ],
+  "negative_cases": [
+    "Konfigurasi tanpa SNMP",
+    "Input binary/acak"
+  ]
+}

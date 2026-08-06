@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Real Case Validation Report",
+  "description": "Real-case validation results for a capability certification.",
+  "type": "object",
+  "required": [
+    "capabilityId",
+    "completedAt",
+    "scenarios",
+    "overallScore",
+    "passed",
+    "reviewer"
+  ],
+  "properties": {
+    "capabilityId": {
+      "type": "string"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "score", "notes"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "failed", "partial", "skipped"]
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "reviewer": {
+      "type": "string"
+    }
+  }
+}

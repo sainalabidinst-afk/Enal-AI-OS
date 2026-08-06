@@ -1,0 +1,60 @@
+{
+  "test_id": "research_assistant_gt_001",
+  "name": "Review Literatur - Dampak Microservices pada Reliability",
+  "category": "literature_review",
+  "inputs": {
+    "query": "Impact of microservices on system reliability",
+    "operation": "literature_review",
+    "sources": [
+      {
+        "id": "src-1",
+        "title": "Microservices: The definitive guide",
+        "content": "Microservices improve system reliability through service isolation and independent deployment.",
+        "source_type": "industry",
+        "published_at": "2023-01-15"
+      },
+      {
+        "id": "src-2",
+        "title": "Failure modes in distributed systems",
+        "content": "Microservices introduce new failure modes including network partitions and cascading failures.",
+        "source_type": "academic",
+        "published_at": "2022-06-20"
+      }
+    ],
+    "max_sources": 5,
+    "citation_style": "apa"
+  },
+  "expected_output": {
+    "findings": [
+      {
+        "title": "Mixed evidence on reliability impact",
+        "confidence": 0.75,
+        "sources": ["src-1", "src-2"]
+      }
+    ],
+    "contradictions": [
+      {
+        "type": "factual",
+        "description": "Source 1 claims microservices improve reliability while Source 2 notes new failure modes",
+        "severity": "medium"
+      }
+    ],
+    "quality": {
+      "overall_score": 0.8,
+      "source_quality_avg": 0.85
+    }
+  },
+  "acceptance_criteria": [
+    "Minimal 1 finding dihasilkan",
+    "Kontradiksi terdeteksi",
+    "Skor kualitas > 0.7"
+  ],
+  "edge_cases": [
+    "Sumber dengan kualitas yang sangat bervariasi",
+    "Sumber tanpa tanggal publikasi"
+  ],
+  "negative_cases": [
+    "Query kosong",
+    "Tidak ada sumber yang disediakan"
+  ]
+}
