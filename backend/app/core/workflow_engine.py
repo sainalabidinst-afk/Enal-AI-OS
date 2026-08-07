@@ -40,7 +40,7 @@ class Workflow:
     status: WorkflowStatus = WorkflowStatus.DRAFT
     context: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)
-    created_at: datetime = field(default_factory=datetime.now(UTC))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 class WorkflowEngine:

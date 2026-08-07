@@ -1,0 +1,63 @@
+{
+  "test_id": "network_engineer_gt_031",
+  "name": "Topology Review: SPOF Detection pada Data Center",
+  "category": "topology_analysis",
+  "inputs": {
+    "type": "json",
+    "content": {
+      "topology": {
+        "devices": [
+          {"id": "core-1", "type": "core_switch", "vendor": "cisco"},
+          {"id": "core-2", "type": "core_switch", "vendor": "cisco"},
+          {"id": "dist-1", "type": "distribution_switch", "vendor": "cisco"},
+          {"id": "dist-2", "type": "distribution_switch", "vendor": "cisco"},
+          {"id": "acc-1", "type": "access_switch", "vendor": "cisco"},
+          {"id": "acc-2", "type": "access_switch", "vendor": "cisco"},
+          {"id": "fw-1", "type": "firewall", "vendor": "fortinet"}
+        ],
+        "links": [
+          {"source": "core-1", "target": "dist-1", "bandwidth": "10G"},
+          {"source": "core-1", "target": "dist-2", "bandwidth": "10G"},
+          {"source": "core-2", "target": "dist-1", "bandwidth": "10G"},
+          {"source": "core-2", "target": "dist-2", "bandwidth": "10G"},
+          {"source": "dist-1", "target": "acc-1", "bandwidth": "1G"},
+          {"source": "dist-2", "target": "acc-2", "bandwidth": "1G"}
+        ]
+      }
+    }
+  },
+  "expected_output": {
+    "issues": [
+      {
+        "severity": "critical",
+        "category": "spof",
+        "description": "Firewall fw-1 adalah single point of failure tanpa redundansi",
+        "affected_component": "fw-1"
+      },
+      {
+        "severity": "high",
+        "category": "redundancy",
+        "description": "Access switch acc-1 hanya terhubung ke dist-1, tidak ada jalur redundansi",
+        "affected_component": "acc-1"
+      }
+    ],
+    "spof_count": 2,
+    "availability_score": 0.65
+  },
+  "acceptance_criteria": [
+    "Mendeteksi SPOF pada firewall",
+    "Mendeteksi SPOF pada access switch",
+    "Menghitung availability score dengan benar",
+    "Memberikan rekomendasi remediasi untuk setiap SPOF"
+  ],
+  "edge_cases": [
+    "Topologi dengan redundansi penuh",
+    "Topologi dengan banyak SPOF",
+    "Topologi dengan link yang berbeda bandwidth"
+  ],
+  "negative_cases": [
+    "Topologi kosong",
+    "Device tanpa koneksi",
+    "Data topology yang tidak valid"
+  ]
+}
