@@ -50,6 +50,7 @@ dev = [
 testpaths = ["tests", "backend/tests"]
 asyncio_mode = "auto"
 addopts = "-v"
+norecursedirs = ["tests/reference", "backend/tests/reference"]
 
 [tool.ruff]
 line-length = 100

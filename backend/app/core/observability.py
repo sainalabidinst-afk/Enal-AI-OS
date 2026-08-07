@@ -32,7 +32,7 @@ class TraceSpan:
     success: bool = True
     error: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
-    started_at: datetime = field(default_factory=datetime.now(UTC))
+    started_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     finished_at: datetime | None = None
 
 
