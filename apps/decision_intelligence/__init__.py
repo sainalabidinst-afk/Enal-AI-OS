@@ -27,6 +27,9 @@ Pipeline:
     DecisionResult
 """
 
+from typing import Any
+
+from apps.base import BaseReferenceApp
 from apps.decision_intelligence.engine import DecisionIntelligenceEngine
 from apps.decision_intelligence.worker import DecisionIntelligenceWorker
 from apps.decision_intelligence.schemas import (
@@ -48,7 +51,31 @@ from apps.decision_intelligence.schemas import (
 from apps.decision_intelligence.simulation_engine import SimulationEngine, SimulationOutcome
 from apps.decision_intelligence.debate_engine import DebateEngine, DebateResult, StrategyVote
 
+
+class DecisionIntelligenceApp(BaseReferenceApp):
+    name = "decision-intelligence"
+    version = "1.0.0"
+    description = "Evidence-based decision analysis and explainable reasoning"
+    category = "decision-intelligence"
+    pipeline = ["perception", "memory", "reasoning", "decision", "action"]
+
+    def __init__(self) -> None:
+        self.worker = DecisionIntelligenceWorker()
+
+    async def run(
+        self, user_input: str, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        task = dict(context or {})
+        task.setdefault("context", user_input)
+        return await self.worker.execute(task)
+
+
+def get_app() -> DecisionIntelligenceApp:
+    return DecisionIntelligenceApp()
+
 __all__ = [
+    "DecisionIntelligenceApp",
+    "get_app",
     "DecisionIntelligenceEngine",
     "DecisionIntelligenceWorker",
     "DecisionRequest",

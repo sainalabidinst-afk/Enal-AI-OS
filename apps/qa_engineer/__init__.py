@@ -22,6 +22,9 @@ Pipeline:
     QATestReport
 """
 
+from typing import Any
+
+from apps.base import BaseReferenceApp
 from apps.qa_engineer.engine import QAEngineerEngine
 from apps.qa_engineer.worker import QAEngineerWorker
 from apps.qa_engineer.schemas import (
@@ -41,7 +44,31 @@ from apps.qa_engineer.schemas import (
     QATestArtifact,
 )
 
+
+class QAEngineerApp(BaseReferenceApp):
+    name = "qa-engineer"
+    version = "1.0.0"
+    description = "Test generation, quality analysis, and validation"
+    category = "quality"
+    pipeline = ["perception", "analysis", "reasoning", "decision", "action"]
+
+    def __init__(self) -> None:
+        self.worker = QAEngineerWorker()
+
+    async def run(
+        self, user_input: str, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        task = dict(context or {})
+        task.setdefault("user_input", user_input)
+        return await self.worker.execute(task)
+
+
+def get_app() -> QAEngineerApp:
+    return QAEngineerApp()
+
 __all__ = [
+    "QAEngineerApp",
+    "get_app",
     "QAEngineerEngine",
     "QAEngineerWorker",
     "QATestRequestModel",

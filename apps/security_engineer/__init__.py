@@ -25,6 +25,9 @@ Pipeline:
     SecurityAssessmentReport
 """
 
+from typing import Any
+
+from apps.base import BaseReferenceApp
 from apps.security_engineer.engine import SecurityEngineerEngine
 from apps.security_engineer.worker import SecurityEngineerWorker
 from apps.security_engineer.schemas import (
@@ -48,7 +51,31 @@ from apps.security_engineer.schemas import (
     AssessmentOutcome,
 )
 
+
+class SecurityEngineerApp(BaseReferenceApp):
+    name = "security-engineer"
+    version = "1.0.0"
+    description = "Security analysis, hardening, and compliance assessment"
+    category = "security"
+    pipeline = ["perception", "analysis", "reasoning", "decision", "action"]
+
+    def __init__(self) -> None:
+        self.worker = SecurityEngineerWorker()
+
+    async def run(
+        self, user_input: str, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        task = dict(context or {})
+        task.setdefault("user_input", user_input)
+        return await self.worker.execute(task)
+
+
+def get_app() -> SecurityEngineerApp:
+    return SecurityEngineerApp()
+
 __all__ = [
+    "SecurityEngineerApp",
+    "get_app",
     "SecurityEngineerEngine",
     "SecurityEngineerWorker",
     "SecurityAssessmentRequest",
