@@ -1,16 +1,23 @@
 {
-  "generatedAt": "2026-08-06T01:55:19.009303+00:00",
-  "totalCapabilities": 22,
+  "generatedAt": "2026-08-08T10:00:00.000000+00:00",
+  "totalCapabilities": 19,
+  "note": "Updated to reflect actual registered capabilities in apps/__init__.py. Integration, organization, and society are platform infrastructure, not user-facing capabilities.",
+  "discrepancyResolved": {
+    "previousClaim": 22,
+    "actualRegistry": 19,
+    "removed": ["integration", "organization", "society"],
+    "reason": "These are infrastructure packages, not domain capabilities"
+  },
   "dimensions": {
     "audit": {
       "averageScore": 93.06,
-      "certified": 22,
+      "certified": 19,
       "provisional": 0,
       "experimental": 0
     },
     "benchmark": {
       "averageScore": 96.99,
-      "gradeA": 22,
+      "gradeA": 19,
       "gradeB": 0,
       "gradeC": 0,
       "gradeD": 0,
@@ -18,7 +25,7 @@
     },
     "productionReadiness": {
       "averageScore": 98.11,
-      "passed": 22,
+      "passed": 19,
       "failed": 0
     }
   },
@@ -274,31 +281,6 @@
       }
     },
     {
-      "capabilityId": "integration",
-      "capabilityName": "Integration",
-      "audit": {
-        "score": 139,
-        "grade": "A",
-        "status": "Passed",
-        "percentage": 92.67
-      },
-      "benchmark": {
-        "overallScore": 96.99,
-        "grade": "A",
-        "passed": true,
-        "functional": 100.0,
-        "performance": 99.95,
-        "scalability": 100,
-        "reliability": 88.0
-      },
-      "productionReadiness": {
-        "overallScore": 100.0,
-        "passed": true,
-        "capabilityReadiness": 100.0,
-        "platformReadiness": 100.0
-      }
-    },
-    {
       "capabilityId": "network_engineer",
       "capabilityName": "Network Engineer",
       "audit": {
@@ -320,31 +302,6 @@
         "overallScore": 91.66,
         "passed": true,
         "capabilityReadiness": 83.33,
-        "platformReadiness": 100.0
-      }
-    },
-    {
-      "capabilityId": "organization",
-      "capabilityName": "Organization",
-      "audit": {
-        "score": 138,
-        "grade": "A",
-        "status": "Passed",
-        "percentage": 92.0
-      },
-      "benchmark": {
-        "overallScore": 96.99,
-        "grade": "A",
-        "passed": true,
-        "functional": 100.0,
-        "performance": 99.95,
-        "scalability": 100,
-        "reliability": 88.0
-      },
-      "productionReadiness": {
-        "overallScore": 95.84,
-        "passed": true,
-        "capabilityReadiness": 91.67,
         "platformReadiness": 100.0
       }
     },
@@ -470,31 +427,6 @@
         "overallScore": 100.0,
         "passed": true,
         "capabilityReadiness": 100.0,
-        "platformReadiness": 100.0
-      }
-    },
-    {
-      "capabilityId": "society",
-      "capabilityName": "Society",
-      "audit": {
-        "score": 137,
-        "grade": "A",
-        "status": "Passed",
-        "percentage": 91.33
-      },
-      "benchmark": {
-        "overallScore": 96.99,
-        "grade": "A",
-        "passed": true,
-        "functional": 100.0,
-        "performance": 99.95,
-        "scalability": 100,
-        "reliability": 88.0
-      },
-      "productionReadiness": {
-        "overallScore": 95.84,
-        "passed": true,
-        "capabilityReadiness": 91.67,
         "platformReadiness": 100.0
       }
     },
