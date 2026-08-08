@@ -1,40 +1,29 @@
-# FRONTEND TRUTH
-**Date:** 2026-08-08  
-**Status:** PARTIAL — 2 placeholders, 1 missing page
+# Frontend Truth
 
----
+Build status: PASS.
 
-## PAGES REALITY
+`npm run build` completed successfully with Next.js 14.2.0 and generated 39 static routes. `npm run lint` is not a noninteractive check: `next lint` opened the ESLint setup prompt and exited without running lint.
 
-| Page | Route | Status | Evidence |
-|------|-------|--------|----------|
-| Boot | / | GREEN | 114 lines, animated sequence |
-| Login | /login | GREEN | LoginForm component |
-| Dashboard | /dashboard | GREEN | AppLauncher 60 lines |
-| EULA | /eula | GREEN | Mandatory acceptance |
-| Capabilities | /capabilities | GREEN | Capability discovery |
-| Executions | /executions | GREEN | Execution monitoring |
-| Metrics | /metrics | GREEN | Observability |
-| Settings | /settings | GREEN | Settings panel |
-| Integration | /integration | GREEN | Integration config |
-| Workspace | /workspace | RED | Redirect placeholder only |
-| Trading | /trading | RED | TestComponent placeholder (9 lines) |
-| Chat | /chat | RED | MISSING entirely |
+| Route | Status | Evidence |
+|---|---|---|
+| `/` | IMPLEMENTED | Static page generated |
+| `/login` | IMPLEMENTED | Login form page generated |
+| `/dashboard` | IMPLEMENTED | Dashboard page generated |
+| `/capabilities` | IMPLEMENTED | Capability discovery page generated |
+| `/executions` | IMPLEMENTED | Execution monitoring page generated |
+| `/metrics` | IMPLEMENTED | Metrics page generated |
+| `/settings` | IMPLEMENTED | Settings page generated |
+| `/eula` | IMPLEMENTED | EULA page generated |
+| `/integration` | IMPLEMENTED | Tabbed integration page generated |
+| `/trading` | PLACEHOLDER | `frontend/app/trading/page.tsx` renders `TestComponent` |
+| `/workspace` | REDIRECT | Immediately redirects to `/workspace/trading` |
+| `/workspace/*` | PARTIAL | Capability workspace pages exist, but coverage is not one-to-one with the 19 registry entries |
+| `/chat` | MISSING | No `frontend/app/chat/page.tsx` exists |
 
----
+## Launcher Truth
 
-## SERVICES & STATE: GREEN
+`frontend/components/apps/capability-registry.ts` contains 11 launcher entries, all marked `Coming Soon`. It is not the canonical 19-entry backend registry and must not be used as evidence that all registered capabilities have a finished frontend.
 
-- 15 API services defined
-- 11 Zustand stores
-- Base HTTP client with auth handling
+## Frontend Decision
 
----
-
-## ISSUES
-
-1. **Workspace page** — redirect placeholder, no actual UI
-2. **Trading page** — TestComponent placeholder, no actual trading UI
-3. **Chat page** — route not implemented
-
-These are documented as known issues, not blockers for Release Candidate.
+The frontend is buildable but functionally partial. A successful Next build verifies compilation and route generation only; it does not verify backend connectivity, authentication flow, page behavior, or capability completeness.

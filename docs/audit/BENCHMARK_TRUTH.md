@@ -1,108 +1,46 @@
-# BENCHMARK TRUTH
-**Date:** 2026-08-08  
-**Status:** SUSPICIOUS — Likely hardcoded/placeholder values
+# Benchmark Truth
 
----
+Status: BLOCKED. No current benchmark score is valid.
 
-## FINDING
+## Execution Attempt
 
-All 19 capabilities in `certification/certification-summary.json` have **identical benchmark scores**:
+Command:
 
-```json
-{
-  "overallScore": 96.99,
-  "grade": "A",
-  "passed": true,
-  "functional": 100.0,
-  "performance": 99.95,
-  "scalability": 100,
-  "reliability": 88.0
-}
+```text
+python -m benchmarks.performance_benchmark
 ```
 
-This pattern is repeated for **every single capability** despite:
-- Different domain complexities
-- Different implementation sizes
-- Different test coverage
-- Different real-world usage
+Result: process failed before measurement collection with:
 
----
-
-## EVIDENCE
-
-| Capability | Score | functional | performance | scalability | reliability |
-|------------|-------|------------|-------------|-------------|-------------|
-| ai_engineer | 96.99 | 100.0 | 99.95 | 100 | 88.0 |
-| business_analyst | 96.99 | 100.0 | 99.95 | 100 | 88.0 |
-| code_engineer | 96.99 | 100.0 | 99.95 | 100 | 88.0 |
-| ... (all 19) | 96.99 | 100.0 | 99.95 | 100 | 88.0 |
-
-**Source:** certification/certification-summary.json (lines 35-576)
-
----
-
-## ASSESSMENT
-
-**RED FLAG:** Identical scores across all capabilities indicate:
-
-1. **Placeholder values** — Scores were hardcoded as placeholders
-2. **No actual benchmark execution** — Results were not measured
-3. **Certification inflation** — Scores do not reflect actual capability quality
-
----
-
-## BENCHMARK FRAMEWORK STATUS
-
-**Framework exists and is legitimate:**
-
-- `benchmarks/capability_benchmark.py` — Abstract base class with BenchmarkResult dataclass
-- `benchmarks/performance_benchmark.py` — Performance measurement base
-- `benchmarks/*_benchmark.py` — Per-capability benchmark implementations exist
-- `benchmarks/golden_test_set.py` — Golden test framework
-
-**However:** The certification-summary.json does NOT appear to be populated from actual benchmark execution.
-
----
-
-## ACTION REQUIRED
-
-1. **INVESTIGATE** benchmark generator scripts to determine if they:
-   - Execute actual benchmarks
-   - Or just generate placeholder scores
-
-2. **RUN** actual benchmarks for each capability
-
-3. **UPDATE** certification-summary.json with real measured data
-
-4. **MARK** current certification as STALE until verified
-
----
-
-## CORRECT BENCHMARK FLOW
-
-```
-Capability
-    ↓
-Actual execution with real inputs
-    ↓
-Measurement:
-  - latency
-  - throughput
-  - success rate
-  - failure rate
-  - resource usage
-  - determinism
-  - recovery
-    ↓
-Raw benchmark data
-    ↓
-Scoring algorithm
-    ↓
-BenchmarkResult
-    ↓
-Certificate
+```text
+litellm.BadRequestError: LLM Provider NOT provided.
+You passed model=claude-3-5-sonnet-20240620
 ```
 
-**NOT:**
-```
-Certificate → 96.99 (hardcoded)
+The stack reaches `adaptive_runtime`, `cognitive_kernel`, `strategic_planner`, and `model_router.acomplete` before failing. Raw executions: 0. Latency, throughput, determinism and reliability measurements: none.
+
+## Root Cause
+
+- `backend/app/core/config.py` sets `DEFAULT_REASONING_MODEL` to `claude-3-5-sonnet-20240620`.
+- `backend/app/core/model_router.py` passes that model to LiteLLM and adds an Anthropic key field, but does not add an explicit provider prefix.
+- The local environment has no configured Anthropic, OpenAI or Google key.
+- No credentials were created or injected during this audit.
+
+Classification: ENVIRONMENT BLOCKER combined with an explicit model-routing configuration gap.
+
+## Artifact Reconciliation
+
+- 22 stored benchmark JSON files report the same `overallScore: 96.99`.
+- The stored files also repeat identical latency, throughput, iteration and failure values.
+- `docs/audit/BENCHMARK_EXECUTION_RESULT.md` records zero completed executions and no score.
+- The stored 96.99 and platform scores are therefore STALE / UNVERIFIED, not fresh measurements.
+
+## What Passed
+
+`tests/test_performance_benchmark.py` passed 4 targeted regression tests for runtime output extraction and error handling in 14.35 seconds.
+
+Those tests verify the adapter contract. They do not verify provider connectivity or produce benchmark measurements.
+
+## Required Remediation
+
+Configure an authorized model provider and an explicit provider-compatible model route, then rerun the benchmark without changing the scoring formula or supplying synthetic data. Do not update certification artifacts until raw executions are present.
