@@ -50,13 +50,22 @@ class DebateEngine:
         self._debates[debate_id] = debate
         return debate
 
-    async def _generate_argument(self, topic: str, agent: str, existing_args: list[DebateArgument]) -> DebateArgument:
+    async def _generate_argument(
+        self,
+        topic: str,
+        agent: str,
+        existing_args: list[DebateArgument],
+    ) -> DebateArgument:
         prompt = f"You are the {agent} agent. Provide your proposal for: {topic}\n"
         if existing_args:
             prompt += "\nOther proposals:\n"
             for arg in existing_args:
                 prompt += f"- {arg.agent}: {arg.proposal}\n"
-            prompt += "\nProvide a strong argument considering other proposals. Output JSON: {\"proposal\": str, \"reasoning\": str, \"strengths\": [str], \"weaknesses\": [str], \"confidence\": float}"
+            prompt += (
+                "\nProvide a strong argument considering other proposals. "
+                'Output JSON: {"proposal": str, "reasoning": str, "strengths": [str], '
+                '"weaknesses": [str], "confidence": float}'
+            )
         response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_MODEL,
@@ -77,7 +86,11 @@ class DebateEngine:
         except (json.JSONDecodeError, AttributeError):
             return DebateArgument(agent=agent, proposal=topic, reasoning="", confidence=0.5)
 
-    async def _judge_debate(self, topic: str, arguments: list[DebateArgument]) -> tuple[str | None, str, float]:
+    async def _judge_debate(
+        self,
+        topic: str,
+        arguments: list[DebateArgument],
+    ) -> tuple[str | None, str, float]:
         prompt = (
             f"Judge the debate on: {topic}\n\n"
             "Proposals:\n"

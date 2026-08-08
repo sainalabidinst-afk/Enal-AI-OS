@@ -9,36 +9,36 @@ from backend.app.core.model_router import model_router
 logger = logging.getLogger(__name__)
 
 
-SYSTEM_PROMPT = """You are a Meta Planner for an AI Operating System. Your job is to decompose large projects into organizational units.
-
-You have access to an organization tree with roles:
-- CEO: Overall project ownership
-- CTO: Technical leadership
-- Manager: Team coordination
-- Lead: Technical lead for a domain
-- Specialist: Deep expertise in one area
-- Worker: Execution agent
-
-For a given request, output a JSON org structure:
-{
-  "root": {
-    "name": "Project Name",
-    "role": "ceo",
-    "children": [
-      {
-        "name": "Division Name",
-        "role": "cto",
-        "children": [
-          {"name": "Team Name", "role": "lead", "children": [
-            {"name": "Worker Name", "role": "worker"}
-          ]}
-        ]
-      }
-    ]
-  }
-}
-
-Only include necessary divisions and teams."""
+SYSTEM_PROMPT = (
+    "You are a Meta Planner for an AI Operating System. "
+    "Your job is to decompose large projects into organizational units.\n\n"
+    "You have access to an organization tree with roles:\n"
+    "- CEO: Overall project ownership\n"
+    "- CTO: Technical leadership\n"
+    "- Manager: Team coordination\n"
+    "- Lead: Technical lead for a domain\n"
+    "- Specialist: Deep expertise in one area\n"
+    "- Worker: Execution agent\n\n"
+    "For a given request, output a JSON org structure:\n"
+    "{\n"
+    '  "root": {\n'
+    '    "name": "Project Name",\n'
+    '    "role": "ceo",\n'
+    '    "children": [\n'
+    "      {\n"
+    '        "name": "Division Name",\n'
+    '        "role": "cto",\n'
+    '        "children": [\n'
+    '          {"name": "Team Name", "role": "lead", "children": [\n'
+    '            {"name": "Worker Name", "role": "worker"}\n'
+    "          ]}\n"
+    "        ]\n"
+    "      }\n"
+    "    ]\n"
+    "  }\n"
+    "}\n\n"
+    "Only include necessary divisions and teams."
+)
 
 
 class MetaPlanner:
@@ -47,7 +47,11 @@ class MetaPlanner:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"Create an organization for: {project_description}"},
         ]
-        response = await model_router.acomplete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)
+        response = await model_router.acomplete(
+            messages,
+            model=settings.DEFAULT_REASONING_MODEL,
+            temperature=0.3,
+        )
         content = response.choices[0].message.content
         try:
             return json.loads(content)

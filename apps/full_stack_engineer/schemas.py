@@ -113,6 +113,12 @@ class RefactoringStep(BaseModel):
     effort: str = Field(default="medium", description="low|medium|high")
 
 
+class RefactoringStepData(BaseModel):
+    """A single migration step in a refactoring plan."""
+    step: str = Field(default="")
+    description: str = Field(default="")
+
+
 class RefactoringPlanItem(BaseModel):
     id: str = Field(default_factory=lambda: f"REFACTOR-{uuid.uuid4().hex[:8]}")
     problem: str = Field(default="")
@@ -120,7 +126,7 @@ class RefactoringPlanItem(BaseModel):
     proposal: str = Field(default="")
     expected_benefit: str = Field(default="")
     risk: str = Field(default="medium")
-    migration_steps: list[str] = Field(default_factory=list)
+    migration_steps: list[str | RefactoringStepData] = Field(default_factory=list)
     estimated_effort: str = Field(default="medium", description="low|medium|high")
 
 

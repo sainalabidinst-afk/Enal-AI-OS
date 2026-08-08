@@ -6,14 +6,22 @@ router = APIRouter()
 
 
 @router.post("/notifications")
-async def send_notification(recipient: str, message: str, channel: str = "websocket", metadata: dict | None = None):
+async def send_notification(
+    recipient: str,
+    message: str,
+    channel: str = "websocket",
+    metadata: dict | None = None,
+):
     entry = await notification_service.send(recipient, message, channel=channel, metadata=metadata)
     return entry
 
 
 @router.get("/notifications/{recipient}")
 async def get_notifications(recipient: str, limit: int = 50):
-    return {"recipient": recipient, "notifications": await notification_service.get_notifications(recipient, limit)}
+    return {
+        "recipient": recipient,
+        "notifications": await notification_service.get_notifications(recipient, limit),
+    }
 
 
 @router.patch("/notifications/{recipient}/read/{notification_id}")

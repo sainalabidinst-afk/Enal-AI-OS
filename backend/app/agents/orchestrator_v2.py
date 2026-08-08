@@ -32,7 +32,9 @@ class AIOrchestrator:
         perception_result = await perception_engine.process(perception_input)
         plan = ai_planner.plan_from_goal(goal, context)
 
-        capabilities_needed = [s.capability_id for s in plan.steps if s.step_type.value == "capability"]
+        capabilities_needed = [
+            s.capability_id for s in plan.steps if s.step_type.value == "capability"
+        ]
 
         session_id = f"orch-{hash(goal) % 10000}"
         self._active_sessions[session_id] = {"goal": goal, "plan_id": plan.plan_id}
@@ -41,7 +43,10 @@ class AIOrchestrator:
             "session_id": session_id,
             "plan_id": plan.plan_id,
             "goal": goal,
-            "perception": {"entities": perception_result.entities, "intents": perception_result.intents},
+            "perception": {
+                "entities": perception_result.entities,
+                "intents": perception_result.intents,
+            },
             "capabilities_needed": capabilities_needed,
             "steps": len(plan.steps),
             "cost_estimate": plan.metadata.get("cost_estimate"),

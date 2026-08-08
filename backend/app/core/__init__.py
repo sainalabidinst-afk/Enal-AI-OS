@@ -1,15 +1,15 @@
 from backend.app.core.memory_layer import (
     ConsolidatedBlock,
+    ConversationMemory,
     EpisodicMemory,
     EpisodicMemoryEntry,
-    MemoryLayer,
-    MemoryManager,
-    WorkingMemory,
-    ConversationMemory,
     KnowledgeMemory,
     LongTermMemory,
-    SessionMemory,
+    MemoryLayer,
+    MemoryManager,
     ProjectMemory,
+    SessionMemory,
+    WorkingMemory,
     memory_manager,
 )
 

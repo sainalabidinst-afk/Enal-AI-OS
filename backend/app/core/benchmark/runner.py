@@ -23,7 +23,13 @@ logger = logging.getLogger(__name__)
 
 
 class ProgressCallback(Protocol):
-    async def __call__(self, case_id: str, passed: bool, score: float, capability_score: float) -> None: ...
+    async def __call__(
+        self,
+        case_id: str,
+        passed: bool,
+        score: float,
+        capability_score: float,
+    ) -> None: ...
 
 
 class BenchmarkRunner:
@@ -31,13 +37,20 @@ class BenchmarkRunner:
         self.base_url = base_url.rstrip("/")
         self.concurrency = concurrency
 
-    async def run_suite(self, suite: BenchmarkSuite, progress: ProgressCallback | None = None) -> BenchmarkSuite:
+    async def run_suite(
+        self,
+        suite: BenchmarkSuite,
+        progress: ProgressCallback | None = None,
+    ) -> BenchmarkSuite:
         suite.results = []
         semaphore = asyncio.Semaphore(self.concurrency)
 
         async with httpx.AsyncClient(
             timeout=httpx.Timeout(60.0),
-            limits=httpx.Limits(max_connections=self.concurrency + 10, max_keepalive_connections=self.concurrency),
+            limits=httpx.Limits(
+                max_connections=self.concurrency + 10,
+                max_keepalive_connections=self.concurrency,
+            ),
         ) as client:
             async def run(case: BenchmarkCase) -> BenchmarkResult:
                 async with semaphore:
@@ -72,11 +85,13 @@ class BenchmarkRunner:
                 raise FileNotFoundError(f"Case content not found for {case.case_id}")
 
             boundary = f"benchmark{uuid.uuid4().hex}"
-            payload = (
+            header = (
                 f"--{boundary}\r\n"
                 f'Content-Disposition: form-data; name="files"; filename="{case.filename}"\r\n'
                 f"Content-Type: application/octet-stream\r\n\r\n"
-            ).encode() + content.encode("utf-8", errors="ignore") + f"\r\n--{boundary}--\r\n".encode()
+            ).encode()
+            footer = f"\r\n--{boundary}--\r\n".encode()
+            payload = header + content.encode("utf-8", errors="ignore") + footer
 
             response = await client.post(
                 f"{self.base_url}/api/v1/attachments/analyze",
@@ -122,8 +137,22 @@ class BenchmarkRunner:
                 "ast": ast,
             }
 
-            score = self._score_case(case, expected, findings=findings, risk_score=risk_score, confidence=confidence, ast=ast)
-            self._capability_score(case, expected, findings=findings, risk_score=risk_score, confidence=confidence, ast=ast)
+            score = self._score_case(
+                case,
+                expected,
+                findings=findings,
+                risk_score=risk_score,
+                confidence=confidence,
+                ast=ast,
+            )
+            self._capability_score(
+                case,
+                expected,
+                findings=findings,
+                risk_score=risk_score,
+                confidence=confidence,
+                ast=ast,
+            )
             capability_breakdown = self._compute_capability_breakdown(
                 case, expected, ast=ast, data=data, findings_list=findings_list
             )
@@ -170,7 +199,11 @@ class BenchmarkRunner:
     def _load_expected(self, case: BenchmarkCase) -> ExpectedResult:
         expected_path = Path(case.filename).parent / "expected.json"
         if not expected_path.exists():
-            expected_path = Path("real_cases") / case.vendor / (Path(case.filename).stem + ".expected.json")
+            expected_path = (
+                Path("real_cases")
+                / case.vendor
+                / (Path(case.filename).stem + ".expected.json")
+            )
         if not expected_path.exists():
             vendor_dir = Path("real_cases") / case.vendor
             if vendor_dir.exists():
@@ -238,23 +271,41 @@ class BenchmarkRunner:
         breakdown = CapabilityScore(vendor=case.vendor)
 
         breakdown.parser = self._score_parser(case, expected, ast=ast)
-        breakdown.reasoning = self._score_reasoning(case, expected, ast=ast, findings_list=findings_list)
+        breakdown.reasoning = self._score_reasoning(
+            case,
+            expected,
+            ast=ast,
+            findings_list=findings_list,
+        )
         breakdown.evidence = self._score_evidence(findings_list)
         breakdown.compliance = self._score_compliance(ast)
         breakdown.executive_report = self._score_executive_report(data)
 
         return breakdown
 
-    def _score_parser(self, case: BenchmarkCase, expected: ExpectedResult, ast: dict[str, Any]) -> float:
+    def _score_parser(
+        self,
+        case: BenchmarkCase,
+        expected: ExpectedResult,
+        ast: dict[str, Any],
+    ) -> float:
         if not ast:
             return 0.0
         vendor_match = 100.0 if ast.get("vendor") == case.vendor else 50.0
         has_findings = 100.0 if ast.get("findings") else 0.0
-        has_structure = 100.0 if ast.get("interfaces") or ast.get("firewall") or ast.get("routing") else 50.0
+        has_structure = (
+            100.0
+            if ast.get("interfaces") or ast.get("firewall") or ast.get("routing")
+            else 50.0
+        )
         return round((vendor_match + has_findings + has_structure) / 3, 2)
 
     def _score_reasoning(
-        self, case: BenchmarkCase, expected: ExpectedResult, ast: dict[str, Any], findings_list: list[dict[str, Any]]
+        self,
+        case: BenchmarkCase,
+        expected: ExpectedResult,
+        ast: dict[str, Any],
+        findings_list: list[dict[str, Any]],
     ) -> float:
         if not findings_list:
             return 0.0

@@ -1,52 +1,25 @@
-# UX v2 — Navigation & User Experience
+# TODO — Resolusi Temuan Audit (Menuju Skor 100%)
 
-**Scope:** Presentation-layer only. No backend, API, contracts, capability packs, or Core changes.
+## Informasi yang Dikumpulkan
+- Repo Enal Cognitive Platform (ECP) dengan 19-22 Capability Pack, Core frozen, ADR 1-14.
+- Temuan audit: (1) duplikasi VERY_COMPLEX di adaptive_runtime.py, (2) 173 `except Exception`, (3) discrepansi test count, (4) duplikasi nomor apps/__init__.py, (5) BaseApp vs BaseReferenceApp, (6) test full_stack tipis, (7) contoh async/sync di docs, (8) real_cases kosong.
 
-**Goal:** Splash → Login → EULA → Dashboard (App Launcher) → Capability Pack (apps)
+## Plan
 
----
+### P0 — Bug Kode
+- [x] Perbaiki duplikasi VERY_COMPLEX di `backend/app/core/adaptive_runtime.py`
+- [x] Perbaiki ikon `BaseApp` vs `BaseReferenceApp` (rendering konsisten ke `BaseApp` dengan alias)
 
-## Phase 1 — Navigation & UX
+### P1 — Dokumentasi Sinkron dengan Aktual
+- [ ] Perbaiki duplikasi nomor di `apps/__init__.py` docstring
+- [ ] Perbaiki contoh penggunaan sync→async di `docs/capabilities/full-stack-engineer.md`
+- [ ] Update `AUDIT_COMPREHENSIVE_FINAL.md` dengan status resolusi semua temuan
+- [ ] Update README/CHANGELOG/VERSION_MATRIX agar konsisten
 
-- [x] 1. EULA types (`frontend/types/eula.ts`)
-- [x] 2. EULA store (`frontend/store/eula-store.ts`) — `accepted_eula`, `accepted_version`, `accepted_at`
-- [x] 3. EULA page (`frontend/app/eula/page.tsx` + `frontend/components/eula/eula-page.tsx`)
-- [x] 4. Splash screen routing (`frontend/app/page.tsx`) — route by auth + EULA state
-- [x] 5. Reusable App Launcher (capability registry + capability card)
-- [x] 6. Dashboard = App Launcher grid (`frontend/components/dashboard/dashboard-page.tsx`)
-- [x] 7. Search / Favorites / Recent in launcher
-- [x] 8. Update `MainLayout` (EULA guard + apps nav)
-- [x] 9. Update `LoginForm` (redirect to EULA after login)
+### P2 — Kualitas
+- [ ] Perkuat `tests/test_full_stack_engineer.py` dengan test engine nyata
+- [ ] Kurangi `except Exception` luas di titik kritikal
 
-## Phase 2 — App Shell (placeholders only)
-
-- [x] 10. Shared AppShell component (`frontend/components/apps/app-shell.tsx`)
-- [x] 11. `/apps/trading` shell
-- [x] 12. `/apps/network` shell
-- [x] 13. `/apps/code` shell
-- [x] 14. `/apps/security` shell
-- [x] 15. `/apps/database` shell
-- [x] 16. `/apps/research` shell
-- [x] 17. `/apps/devops` shell
-- [x] 18. `/apps/business` shell
-- [x] 19. `/apps/architect` shell
-- [x] 20. `/apps/decision` shell
-- [x] 21. `/apps/self-development` shell
-
-## Verification
-
-- [x] `npm run build` / `tsc --noEmit` passes (no TS errors, EXIT_CODE=0)
-- [ ] Manual test: login → EULA → dashboard → click app icon
-
-## Post-Review Adjustments (before freeze)
-
-- [x] Splash: boot sequence loading states (Initializing → Checking Authentication → Loading Workspace → Capability Registry)
-- [x] Dashboard: 3 sections — Favorites, Recent, Capabilities
-- [x] Capability Card: status badge (Ready / Beta / Coming Soon / Installed)
-- [x] Search: searches name, description, keywords (e.g. "firewall" → Network Engineer)
-- [x] App Shell: empty workspace structure (Header / Sidebar / Workspace / Right Panel)
-- [x] Theme: Light / Dark / System selector added to desktop sidebar
-- [x] Capability Registry: expanded with `category`, `status`, `version`, `keywords`
-- [x] Dashboard Header: ENAL AI OS + Version 1.0.0 + User + Search + Settings
-
-## Milestone: UX v2.0 Foundation — FROZEN
+### Verifikasi
+- [ ] Jalankan pytest untuk konfirmasi test count aktual
+- [ ] Update skor ke 100% pada dokumen audit

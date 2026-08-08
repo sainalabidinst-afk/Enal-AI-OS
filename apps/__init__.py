@@ -2,7 +2,7 @@
 ECP Reference Applications
 ============================
 
-These 18 reference applications demonstrate ECP's capabilities
+These 19 reference applications demonstrate ECP's capabilities
 and serve as golden tests for the platform.
 
 Apps:
@@ -20,11 +20,11 @@ Apps:
  12. Database Engineer - Database design and optimization
  13. QA Engineer - Quality assurance and testing
  14. Business Analyst - Business-to-technical translation
-15. UI/UX Designer - User experience design and design systems
- 15. Documentation Engineer - Automated technical documentation
- 16. Product Manager - Product management and prioritization
- 17. Infrastructure Engineer - Infrastructure design and HA planning
- 18. AI Engineer - AI architecture, RAG, and LLMOps design
+ 15. UI/UX Designer - User experience design and design systems
+ 16. Documentation Engineer - Automated technical documentation
+ 17. Product Manager - Product management and prioritization
+ 18. Infrastructure Engineer - Infrastructure design and HA planning
+ 19. AI Engineer - AI architecture, RAG, and LLMOps design
 
 Each app uses:
 - SDK for agent/tool/workflow definitions

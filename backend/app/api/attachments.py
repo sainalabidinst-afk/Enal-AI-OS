@@ -5,11 +5,11 @@ import time
 import uuid
 from typing import Any
 
-from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
-
 from apps.infrastructure_engineer.attachments.analyzer import analyze_attachment, analyze_multi
 from apps.infrastructure_engineer.attachments.diff_engine import ConfigurationDiffEngine
 from apps.infrastructure_engineer.attachments.pipeline import validate_filename
+from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
+
 from backend.app.core.telemetry.service import record_analysis_event
 from backend.app.core.workspace_service import workspace_service
 
@@ -63,10 +63,19 @@ async def upload_attachment(
                         path=f"/attachments/{file.filename}",
                         size=len(content),
                         metadata={
-                            "attachment_type": _safe_get(_safe_get(result, "meta"), "attachment_type"),
-                            "vendor": _safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value"),
-                            "device_role": _safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value"),
-                            "analysis": _safe_get(_safe_get(result, "ast"), "to_dict") and _safe_get(result, "ast", None).to_dict() or {},
+                            "attachment_type": _safe_get(
+                                _safe_get(result, "meta"), "attachment_type"
+                            ),
+                            "vendor": _safe_get(
+                                _safe_get(_safe_get(result, "meta"), "vendor"), "value"
+                            ),
+                            "device_role": _safe_get(
+                                _safe_get(_safe_get(result, "meta"), "device_role"),
+                                "value",
+                            ),
+                            "analysis": _safe_get(_safe_get(result, "ast"), "to_dict")
+                            and _safe_get(result, "ast", None).to_dict()
+                            or {},
                             "summary": _safe_get(result, "summary"),
                             "risk_score": _safe_get(result, "risk_score"),
                             "recommendations": _safe_get(result, "recommendations"),
@@ -87,8 +96,12 @@ async def upload_attachment(
                 status=status,
                 error=error,
                 workspace_id=workspace_id or conversation_id or "",
-                vendor=_safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value") or "",
-                device_type=_safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value") or "",
+                vendor=_safe_get(
+                    _safe_get(_safe_get(result, "meta"), "vendor"), "value"
+                ) or "",
+                device_type=_safe_get(
+                    _safe_get(_safe_get(result, "meta"), "device_role"), "value"
+                ) or "",
                 files=1,
                 size_bytes=len(content),
                 parser=_safe_get(_safe_get(result, "ast"), "format"),
@@ -103,16 +116,24 @@ async def upload_attachment(
 
     payload: dict[str, Any] = {
         "filename": _safe_get(_safe_get(result, "meta"), "filename"),
-        "attachment_type": _safe_get(_safe_get(_safe_get(result, "meta"), "attachment_type"), "value"),
-        "vendor": _safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value"),
-        "device_role": _safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value"),
+        "attachment_type": _safe_get(
+            _safe_get(_safe_get(result, "meta"), "attachment_type"), "value"
+        ),
+        "vendor": _safe_get(
+            _safe_get(_safe_get(result, "meta"), "vendor"), "value"
+        ),
+        "device_role": _safe_get(
+            _safe_get(_safe_get(result, "meta"), "device_role"), "value"
+        ),
         "format": _safe_get(_safe_get(result, "meta"), "detected_format"),
         "version": _safe_get(_safe_get(result, "meta"), "detected_version"),
         "confidence": _safe_get(_safe_get(result, "meta"), "confidence"),
         "summary": _safe_get(result, "summary"),
         "risk_score": _safe_get(result, "risk_score"),
         "recommendations": _safe_get(result, "recommendations"),
-        "ast": _safe_get(_safe_get(result, "ast"), "to_dict") and _safe_get(_safe_get(result, "ast"), "to_dict")() or {},
+        "ast": _safe_get(_safe_get(result, "ast"), "to_dict")
+        and _safe_get(_safe_get(result, "ast"), "to_dict")()
+        or {},
     }
     if _safe_get(result, "analysis_error"):
         payload["analysis_error"] = _safe_get(result, "analysis_error")
@@ -145,7 +166,9 @@ async def analyze_attachments(
             "summary": _safe_get(result, "summary"),
             "risk_score": _safe_get(result, "risk_score"),
             "recommendations": _safe_get(result, "recommendations"),
-            "ast": _safe_get(_safe_get(result, "ast"), "to_dict") and _safe_get(result, "ast").to_dict() or {},
+            "ast": _safe_get(_safe_get(result, "ast"), "to_dict")
+            and _safe_get(result, "ast").to_dict()
+            or {},
             "analysis_error": _safe_get(result, "analysis_error"),
         }
     except Exception as exc:

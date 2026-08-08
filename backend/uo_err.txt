@@ -1,0 +1,82 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\ICT\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: E:\Enal\Enal-AI-OS\backend
+configfile: pyproject.toml
+plugins: anyio-4.14.2, langsmith-0.10.15, asyncio-1.4.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+tests/test_unified_orchestrator.py::TestUnifiedOrchestrator::test_execute_workflow_mode FAILED [100%]
+
+================================== FAILURES ===================================
+_____________ TestUnifiedOrchestrator.test_execute_workflow_mode ______________
+
+self = <backend.tests.test_unified_orchestrator.TestUnifiedOrchestrator object at 0x0000028CD33E5550>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028CD33F76D0>
+
+    async def test_execute_workflow_mode(self, monkeypatch):
+        orch = UnifiedOrchestrator()
+    
+        class FakeMultiAgent:
+            async def execute_plan(self, plan):
+                return type("Result", (), {"status": "completed", "aggregated_result": {"ok": True}})()
+    
+        class FakePlanner:
+            def plan_from_goal(self, task, context):
+                return type("Plan", (), {"plan_id": "plan-1", "steps": []})()
+    
+        monkeypatch.setattr(orch, "_get_multi_agent", lambda: FakeMultiAgent())
+        monkeypatch.setattr(orch, "_get_planner", lambda: (FakePlanner(), None))
+>       result = await orch.execute("do something", mode="workflow")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_unified_orchestrator.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <backend.app.core.unified_orchestrator.UnifiedOrchestrator object at 0x0000028CD34000D0>
+task = 'do something', project_id = None
+mode = <OrchestrationMode.WORKFLOW: 'workflow'>, context = {}
+
+    async def execute(
+        self,
+        task: str,
+        project_id: str | None = None,
+        mode: OrchestrationMode | str | None = None,
+        context: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        context = context or {}
+        mode = OrchestrationMode(mode) if isinstance(mode, str) else mode or OrchestrationMode.DIRECT
+    
+        if mode == OrchestrationMode.COGNITIVE:
+            return await self._execute_cognitive(task, project_id, context)
+        elif mode == OrchestrationMode.MULTI_AGENT:
+            return await self._execute_multi_agent(task, project_id, context)
+        elif mode == OrchestrationMode.WORKFLOW:
+>           return await self._execute_workflow(task, project_id, context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+app\core\unified_orchestrator.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <backend.app.core.unified_orchestrator.UnifiedOrchestrator object at 0x0000028CD34000D0>
+task = 'do something', project_id = None, context = {}
+
+    async def _execute_workflow(self, task: str, project_id: str | None, context: dict) -> dict[str, Any]:
+        multi_agent = self._get_multi_agent()
+    
+        plan = self._get_planner()[0].plan_from_goal(task, context)
+        result = await multi_agent.execute_plan(plan)
+        return {
+            "plan_id": plan.plan_id,
+>           "status": result.status.value if hasattr(result, 'status') else str(result.status),
+                      ^^^^^^^^^^^^^^^^^^^
+            "steps": len(plan.steps),
+            "result": result.aggregated_result if hasattr(result, 'aggregated_result') else {},
+        }
+E       AttributeError: 'str' object has no attribute 'value'
+
+app\core\unified_orchestrator.py:124: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/test_unified_orchestrator.py::TestUnifiedOrchestrator::test_execute_workflow_mode - AttributeError: 'str' object has no attribute 'value'
+============================== 1 failed in 0.69s ==============================

@@ -73,7 +73,10 @@ async def analyze_market(req: AnalyzeRequest):
         if not analyzed_timeframes:
             raise HTTPException(
                 status_code=422,
-                detail=f"Insufficient data to analyze {symbol}. Need at least 20 candles per timeframe.",
+                detail=(
+                    f"Insufficient data to analyze {symbol}. "
+                    "Need at least 20 candles per timeframe."
+                ),
             )
 
         # Step 3: Generate summary

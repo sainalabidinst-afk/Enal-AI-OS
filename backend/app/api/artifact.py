@@ -7,7 +7,15 @@ router = APIRouter()
 
 
 @router.post("/artifacts", response_model=Artifact)
-async def create_artifact(workspace_id: str, name: str, artifact_type: str, description: str | None = None, content: str | None = None, path: str | None = None, metadata: dict | None = None):
+async def create_artifact(
+    workspace_id: str,
+    name: str,
+    artifact_type: str,
+    description: str | None = None,
+    content: str | None = None,
+    path: str | None = None,
+    metadata: dict | None = None,
+):
     artifact = await artifact_service.create_artifact(
         workspace_id=workspace_id,
         name=name,
@@ -21,8 +29,13 @@ async def create_artifact(workspace_id: str, name: str, artifact_type: str, desc
 
 
 @router.get("/artifacts", response_model=list[Artifact])
-async def list_artifacts(workspace_id: str | None = Query(None), artifact_type: str | None = Query(None)):
-    return await artifact_service.list_artifacts(workspace_id=workspace_id, artifact_type=artifact_type)
+async def list_artifacts(
+    workspace_id: str | None = Query(None),
+    artifact_type: str | None = Query(None),
+):
+    return await artifact_service.list_artifacts(
+        workspace_id=workspace_id, artifact_type=artifact_type
+    )
 
 
 @router.get("/artifacts/{artifact_id}", response_model=Artifact)
@@ -42,8 +55,15 @@ async def get_artifact_version(artifact_id: str, version: int):
 
 
 @router.post("/artifacts/{artifact_id}/versions", response_model=Artifact)
-async def add_artifact_version(artifact_id: str, content: str | None = None, path: str | None = None, metadata: dict | None = None):
-    artifact = await artifact_service.add_version(artifact_id, content=content, path=path, metadata=metadata)
+async def add_artifact_version(
+    artifact_id: str,
+    content: str | None = None,
+    path: str | None = None,
+    metadata: dict | None = None,
+):
+    artifact = await artifact_service.add_version(
+        artifact_id, content=content, path=path, metadata=metadata
+    )
     if not artifact:
         raise HTTPException(status_code=404, detail="Artifact not found")
     return artifact

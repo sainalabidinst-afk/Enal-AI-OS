@@ -1,17 +1,16 @@
 import logging
-import time
 from typing import Any
 
+from apps.organization.capability_lifecycle import (
+    CapabilityHealth,
+    CapabilityRecord,
+    CapabilityState,
+    CapabilityVersion,
+    capability_lifecycle_manager,
+)
 from fastapi import APIRouter, Depends, HTTPException
 
 from backend.app.core.auth import require_permission
-from apps.organization.capability_lifecycle import (
-    CapabilityLifecycleManager,
-    CapabilityRecord,
-    CapabilityState,
-    CapabilityHealth,
-    capability_lifecycle_manager,
-)
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -78,7 +77,10 @@ async def get_capability_lifecycle(capability_id: str):
     return _serialize(record)
 
 
-@router.post("/capabilities/{capability_id}/load", dependencies=[Depends(require_permission("admin"))])
+@router.post(
+    "/capabilities/{capability_id}/load",
+    dependencies=[Depends(require_permission("admin"))],
+)
 async def load_capability(capability_id: str):
     try:
         record = await capability_lifecycle_manager.load(capability_id)
@@ -87,7 +89,10 @@ async def load_capability(capability_id: str):
         raise HTTPException(status_code=400, detail=str(exc))
 
 
-@router.post("/capabilities/{capability_id}/unload", dependencies=[Depends(require_permission("admin"))])
+@router.post(
+    "/capabilities/{capability_id}/unload",
+    dependencies=[Depends(require_permission("admin"))],
+)
 async def unload_capability(capability_id: str):
     try:
         record = await capability_lifecycle_manager.unload(capability_id)
@@ -96,7 +101,10 @@ async def unload_capability(capability_id: str):
         raise HTTPException(status_code=400, detail=str(exc))
 
 
-@router.post("/capabilities/{capability_id}/suspend", dependencies=[Depends(require_permission("admin"))])
+@router.post(
+    "/capabilities/{capability_id}/suspend",
+    dependencies=[Depends(require_permission("admin"))],
+)
 async def suspend_capability(capability_id: str):
     try:
         record = await capability_lifecycle_manager.suspend(capability_id)
@@ -105,7 +113,10 @@ async def suspend_capability(capability_id: str):
         raise HTTPException(status_code=400, detail=str(exc))
 
 
-@router.post("/capabilities/{capability_id}/resume", dependencies=[Depends(require_permission("admin"))])
+@router.post(
+    "/capabilities/{capability_id}/resume",
+    dependencies=[Depends(require_permission("admin"))],
+)
 async def resume_capability(capability_id: str):
     try:
         record = await capability_lifecycle_manager.resume(capability_id)
@@ -114,7 +125,10 @@ async def resume_capability(capability_id: str):
         raise HTTPException(status_code=400, detail=str(exc))
 
 
-@router.post("/capabilities/{capability_id}/upgrade", dependencies=[Depends(require_permission("admin"))])
+@router.post(
+    "/capabilities/{capability_id}/upgrade",
+    dependencies=[Depends(require_permission("admin"))],
+)
 async def upgrade_capability(capability_id: str, version: dict[str, Any]):
     try:
         new_version = CapabilityVersion(

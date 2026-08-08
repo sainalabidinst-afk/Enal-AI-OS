@@ -16,7 +16,14 @@ class CapabilityScore:
 
     def compute_total(self) -> float:
         self.total = round(
-            (self.parser + self.reasoning + self.evidence + self.compliance + self.executive_report) / 5,
+            (
+                self.parser
+                + self.reasoning
+                + self.evidence
+                + self.compliance
+                + self.executive_report
+            )
+            / 5,
             2,
         )
         return self.total
@@ -50,7 +57,9 @@ class ExpectedResult:
             high=int(expected.get("high", 0)),
             medium=int(expected.get("medium", 0)),
             low=int(expected.get("low", 0)),
-            compliance_score_min=float(expected["compliance_score_min"]) if expected.get("compliance_score_min") is not None else None,
+            compliance_score_min=float(expected["compliance_score_min"])
+            if expected.get("compliance_score_min") is not None
+            else None,
             expected_keywords=list(expected.get("expected_keywords", []) or []),
             metadata=dict(data.get("metadata", {}) or {}),
         )

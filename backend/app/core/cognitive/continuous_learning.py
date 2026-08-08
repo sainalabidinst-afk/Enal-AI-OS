@@ -62,19 +62,28 @@ class ContinuousLearning:
     async def _analyze_failures(self, benchmark_id: str, result) -> LearningCycle:
         cycle_id = f"cycle-{uuid.uuid4().hex[:8]}"
         failures = [r for r in result.results if not r.get("passed", False)]
-        return LearningCycle(id=cycle_id, benchmark_id=benchmark_id, failures=failures, improvements=[])
+        return LearningCycle(
+            id=cycle_id,
+            benchmark_id=benchmark_id,
+            failures=failures,
+            improvements=[],
+        )
 
     async def _generate_improvements(self, cycle: LearningCycle) -> list[str]:
         if not cycle.failures:
             return []
         prompt = (
-            "Analyze the following benchmark failures and suggest improvements to prompts, workflows, or skills.\n\n"
-            "Failures:\n"
+            "Analyze the following benchmark failures and suggest improvements "
+            "to prompts, workflows, or skills.\n\nFailures:\n"
         )
         for failure in cycle.failures[:5]:
             prompt += f"- {json.dumps(failure)}\n"
         prompt += "\nOutput JSON array of improvement strings."
-        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512)
+        response = await model_router.acomplete(
+            [{"role": "user", "content": prompt}],
+            temperature=0.5,
+            max_tokens=512,
+        )
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):
@@ -96,7 +105,13 @@ class ContinuousLearning:
         cycle.applied = True
         return True
 
-    def record_human_feedback(self, cycle_id: str, rating: float, feedback_text: str, source: str = "human") -> None:
+    def record_human_feedback(
+        self,
+        cycle_id: str,
+        rating: float,
+        feedback_text: str,
+        source: str = "human",
+    ) -> None:
         feedback = HumanFeedback(rating=rating, feedback_text=feedback_text, source=source)
         cycle = self._cycles.get(cycle_id)
         if cycle:

@@ -146,19 +146,50 @@ async def chat_stream(
             if execution_promise is not None:
                 try:
                     execution = await execution_promise
-                    yield f"data: {json.dumps({'type': 'execution_started', 'execution_id': execution.id, 'goal': execution.goal})}\n\n"
+                    payload = {
+                        "type": "execution_started",
+                        "execution_id": execution.id,
+                        "goal": execution.goal,
+                    }
+                    yield f"data: {json.dumps(payload)}\n\n"
                     ws = await workspace_service.get_workspace(workspace_id)
                     if ws:
                         ws.execution_ids.append(execution.id)
                     for phase in execution.phases:
-                        yield f"data: {json.dumps({'type': 'phase', 'phase_id': phase.get('id'), 'name': phase.get('name'), 'status': phase.get('status')})}\n\n"
+                        payload = {
+                            "type": "phase",
+                            "phase_id": phase.get("id"),
+                            "name": phase.get("name"),
+                            "status": phase.get("status"),
+                        }
+                        yield f"data: {json.dumps(payload)}\n\n"
                     for log in getattr(execution, "logs", []) or []:
-                        yield f"data: {json.dumps({'type': 'log', 'level': log.get('level'), 'message': log.get('message')})}\n\n"
+                        payload = {
+                            "type": "log",
+                            "level": log.get("level"),
+                            "message": log.get("message"),
+                        }
+                        yield f"data: {json.dumps(payload)}\n\n"
                     for artifact_id in getattr(execution, "artifacts", []) or []:
-                        art = await __import__('backend.app.core.artifact_service', fromlist=['artifact_service']).artifact_service.get_artifact(artifact_id)
+                        artifact_module = __import__(
+                            'backend.app.core.artifact_service',
+                            fromlist=['artifact_service'],
+                        )
+                        art = await artifact_module.artifact_service.get_artifact(artifact_id)
                         if art:
-                            yield f"data: {json.dumps({'type': 'artifact', 'artifact_id': art.id, 'name': art.name, 'artifact_type': art.type})}\n\n"
-                    yield f"data: {json.dumps({'type': 'execution_complete', 'execution_id': execution.id, 'progress': getattr(execution, 'progress', 100.0)})}\n\n"
+                            payload = {
+                                "type": "artifact",
+                                "artifact_id": art.id,
+                                "name": art.name,
+                                "artifact_type": art.type,
+                            }
+                            yield f"data: {json.dumps(payload)}\n\n"
+                        payload = {
+                            "type": "execution_complete",
+                            "execution_id": execution.id,
+                            "progress": getattr(execution, "progress", 100.0),
+                        }
+                        yield f"data: {json.dumps(payload)}\n\n"
                 except Exception as exc:
                     yield f"data: {json.dumps({'type': 'error', 'message': str(exc)})}\n\n"
         except Exception as exc:

@@ -10,8 +10,8 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 
-class BaseReferenceApp(ABC):
-    """Base class for all ECP reference applications."""
+class BaseApp(ABC):
+    """Base class for all ECP Capability Pack applications (canonical name)."""
 
     name: str = "base"
     version: str = "1.0.0"
@@ -42,3 +42,7 @@ class BaseReferenceApp(ABC):
             "category": self.category,
             "pipeline": self.pipeline,
         }
+
+
+# Backward-compatible alias (docs historically referenced BaseReferenceApp).
+BaseReferenceApp = BaseApp

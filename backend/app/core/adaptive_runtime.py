@@ -11,17 +11,57 @@ logger = logging.getLogger(__name__)
 PIPELINE_PRESETS = {
     TaskComplexity.TRIVIAL: ["perception", "memory", "decision", "action"],
     TaskComplexity.SIMPLE: ["perception", "memory", "reasoning", "decision", "action"],
-    TaskComplexity.MEDIUM: ["perception", "memory", "planning", "reasoning", "decision", "reflection", "action"],
-    TaskComplexity.COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
-    TaskComplexity.VERY_COMPLEX: ["perception", "memory", "planning", "reasoning", "debate", "simulation", "debate", "simulation", "decision", "verification", "reflection", "action", "learning"],
+    TaskComplexity.MEDIUM: [
+        "perception",
+        "memory",
+        "planning",
+        "reasoning",
+        "decision",
+        "reflection",
+        "action",
+    ],
+    TaskComplexity.COMPLEX: [
+        "perception",
+        "memory",
+        "planning",
+        "reasoning",
+        "debate",
+        "simulation",
+        "decision",
+        "verification",
+        "reflection",
+        "action",
+        "learning",
+    ],
+    TaskComplexity.VERY_COMPLEX: [
+        "perception",
+        "memory",
+        "planning",
+        "reasoning",
+        "debate",
+        "simulation",
+        "decision",
+        "verification",
+        "reflection",
+        "action",
+        "learning",
+    ],
 }
 
 PIPELINE_DESCRIPTIONS = {
     TaskComplexity.TRIVIAL: "Quick perception → memory lookup → decision → action",
     TaskComplexity.SIMPLE: "Perception → memory → reasoning → decision → action",
-    TaskComplexity.MEDIUM: "Perception → memory → planning → reasoning → decision → reflection → action",
-    TaskComplexity.COMPLEX: "Full cognitive pipeline with single debate/simulation pass, verification, reflection, and learning",
-    TaskComplexity.VERY_COMPLEX: "Full cognitive pipeline with double debate/simulation passes, verification, reflection, and learning for high-risk novel problems",
+    TaskComplexity.MEDIUM: (
+        "Perception → memory → planning → reasoning → decision → reflection → action"
+    ),
+    TaskComplexity.COMPLEX: (
+        "Full cognitive pipeline with single debate/simulation pass, "
+        "verification, reflection, and learning"
+    ),
+    TaskComplexity.VERY_COMPLEX: (
+        "Full cognitive pipeline with debate/simulation, verification, "
+        "reflection, and learning for high-risk novel problems"
+    ),
 }
 
 
@@ -33,13 +73,20 @@ class AdaptiveCognitiveRuntime:
         self.model_router = model_router
         self.cost_optimizer = cost_optimizer
 
-    async def execute(self, user_input: str, project_id: str | None = None, force_pipeline: list[str] | None = None) -> dict[str, Any]:
+    async def execute(
+        self,
+        user_input: str,
+        project_id: str | None = None,
+        force_pipeline: list[str] | None = None,
+    ) -> dict[str, Any]:
         budget = self.budget.estimate(user_input)
         context = {"input": user_input, "project_id": project_id, "budget": budget}
         if force_pipeline:
             pipeline = force_pipeline
         else:
-            pipeline = PIPELINE_PRESETS.get(budget.complexity, PIPELINE_PRESETS[TaskComplexity.MEDIUM])
+            pipeline = PIPELINE_PRESETS.get(
+                budget.complexity, PIPELINE_PRESETS[TaskComplexity.MEDIUM]
+            )
         model = budget.model
         context["selected_model"] = model
         result = await self.kernel.execute_pipeline(pipeline, context)

@@ -69,7 +69,11 @@ def _workflow_result_to_response(result: Any) -> dict[str, Any]:
     metadata = getattr(context, "metadata", {}) or {}
 
     reasoning_output = intermediate.get("reasoning_output", {})
-    conclusions = reasoning_output.get("conclusions", []) if isinstance(reasoning_output, dict) else []
+    conclusions = (
+        reasoning_output.get("conclusions", [])
+        if isinstance(reasoning_output, dict)
+        else []
+    )
 
     legacy_reasoning_chain = metadata.get("legacy_reasoning_chain", [])
     if not legacy_reasoning_chain and conclusions:

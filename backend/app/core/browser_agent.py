@@ -47,13 +47,28 @@ class BrowserAgent:
     async def browse(self, url: str) -> BrowserResult:
         await self._ensure_session()
         if self.session is None:
-            return BrowserResult(url=url, title="Stub", content="Browser not available", evidence_score=0.3)
+            return BrowserResult(
+                url=url,
+                title="Stub",
+                content="Browser not available",
+                evidence_score=0.3,
+            )
 
         parsed = urlparse(url)
         hostname = parsed.hostname or ""
         blocked_hosts = {"127.0.0.1", "localhost", "0.0.0.0", "169.254.169.254", "[::1]"}
-        if hostname.lower() in blocked_hosts or hostname.startswith("10.") or hostname.startswith("192.168.") or hostname.startswith("172."):
-            return BrowserResult(url=url, title="Blocked", content="SSRF blocked", evidence_score=0.0)
+        if (
+            hostname.lower() in blocked_hosts
+            or hostname.startswith("10.")
+            or hostname.startswith("192.168.")
+            or hostname.startswith("172.")
+        ):
+            return BrowserResult(
+                url=url,
+                title="Blocked",
+                content="SSRF blocked",
+                evidence_score=0.0,
+            )
 
         try:
             async with self.session.get(url) as response:
@@ -163,10 +178,14 @@ class BrowserAgent:
         try:
             if method.upper() == "GET":
                 async with self.session.get(endpoint, params=data) as response:
-                    return await response.json() if "json" in response.content_type else await response.text()
+                    if "json" in response.content_type:
+                        return await response.json()
+                    return await response.text()
             else:
                 async with self.session.post(endpoint, json=data) as response:
-                    return await response.json() if "json" in response.content_type else await response.text()
+                    if "json" in response.content_type:
+                        return await response.json()
+                    return await response.text()
         except Exception as e:
             return {"error": str(e)}
 

@@ -3,9 +3,8 @@ import logging
 from typing import Any
 
 from fastapi import Depends, HTTPException, Request
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from backend.app.core.config import settings
 from backend.app.core.security_model import Permission, security_model
 
 logger = logging.getLogger(__name__)

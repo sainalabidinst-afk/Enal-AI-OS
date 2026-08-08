@@ -11,7 +11,8 @@ async def list_capabilities():
     from apps.organization.capability_graph import capability_graph
     from apps.society.intent_router import intent_router
 
-    nodes = [capability_graph.get_capability_node(cap_id) for cap_id in capability_graph.get_all_capabilities()]
+    all_cap_ids = capability_graph.get_all_capabilities()
+    nodes = [capability_graph.get_capability_node(cap_id) for cap_id in all_cap_ids]
     capabilities = []
     for node in nodes:
         if node is None:

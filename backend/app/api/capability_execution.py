@@ -1,7 +1,6 @@
 import logging
 import time
 import uuid
-from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -15,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 @router.get("/capabilities")
 async def list_capabilities():
-    from apps import list_apps, APPS
+    from apps import APPS
 
     capabilities = []
     for app_id, app in APPS.items():
@@ -33,7 +32,7 @@ async def list_capabilities():
 
 @router.get("/capabilities/{capability_id}")
 async def get_capability(capability_id: str):
-    from apps import APPS, get_app
+    from apps import get_app
 
     app = get_app(capability_id)
     if app is None:
@@ -41,7 +40,10 @@ async def get_capability(capability_id: str):
     return app.to_dict()
 
 
-@router.post("/capabilities/{capability_id}/execute", dependencies=[Depends(require_permission("execute"))])
+@router.post(
+    "/capabilities/{capability_id}/execute",
+    dependencies=[Depends(require_permission("execute"))],
+)
 async def execute_capability(capability_id: str, request: ChatRequest):
     from apps import get_app
 

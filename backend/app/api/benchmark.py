@@ -80,10 +80,25 @@ async def get_benchmark_suite():
 async def run_benchmark():
     suite = _load_suite_from_disk()
     if not suite.cases:
-        return {"suite_id": suite.suite_id, "results": [], "summary": {"total": 0, "passed": 0, "failed": 0, "avg_score": 0}}
+        return {
+            "suite_id": suite.suite_id,
+            "results": [],
+            "summary": {"total": 0, "passed": 0, "failed": 0, "avg_score": 0},
+        }
 
-    async def progress_callback(case_id: str, passed: bool, score: float, capability_score: float) -> None:
-        logger.info("Benchmark progress: %s passed=%s score=%s capability=%s", case_id, passed, score, capability_score)
+    async def progress_callback(
+        case_id: str,
+        passed: bool,
+        score: float,
+        capability_score: float,
+    ) -> None:
+        logger.info(
+            "Benchmark progress: %s passed=%s score=%s capability=%s",
+            case_id,
+            passed,
+            score,
+            capability_score,
+        )
 
     suite = await runner.run_suite(suite, progress=progress_callback)
     results = [
@@ -96,21 +111,46 @@ async def run_benchmark():
             "confidence": result.confidence,
             "capability_score": result.capability_score,
             "capability_breakdown": {
-                "vendor": result.capability_breakdown.vendor if result.capability_breakdown else result.case_id.split(":")[0],
-                "parser": result.capability_breakdown.parser if result.capability_breakdown else 0.0,
-                "reasoning": result.capability_breakdown.reasoning if result.capability_breakdown else 0.0,
-                "evidence": result.capability_breakdown.evidence if result.capability_breakdown else 0.0,
-                "compliance": result.capability_breakdown.compliance if result.capability_breakdown else 0.0,
-                "executive_report": result.capability_breakdown.executive_report if result.capability_breakdown else 0.0,
-                "total": result.capability_breakdown.total if result.capability_breakdown else 0.0,
+                "vendor": result.capability_breakdown.vendor
+                if result.capability_breakdown
+                else result.case_id.split(":")[0],
+                "parser": result.capability_breakdown.parser
+                if result.capability_breakdown
+                else 0.0,
+                "reasoning": result.capability_breakdown.reasoning
+                if result.capability_breakdown
+                else 0.0,
+                "evidence": result.capability_breakdown.evidence
+                if result.capability_breakdown
+                else 0.0,
+                "compliance": result.capability_breakdown.compliance
+                if result.capability_breakdown
+                else 0.0,
+                "executive_report": result.capability_breakdown.executive_report
+                if result.capability_breakdown
+                else 0.0,
+                "total": result.capability_breakdown.total
+                if result.capability_breakdown
+                else 0.0,
             },
             "details": result.details,
         }
         for result in suite.results
     ]
     passed = sum(1 for result in suite.results if result.passed)
-    avg_score = round(sum(result.score for result in suite.results) / len(suite.results), 2) if suite.results else 0
-    avg_capability = round(sum(result.capability_score for result in suite.results) / len(suite.results), 2) if suite.results else 0
+    avg_score = (
+        round(sum(result.score for result in suite.results) / len(suite.results), 2)
+        if suite.results
+        else 0
+    )
+    avg_capability = (
+        round(
+            sum(result.capability_score for result in suite.results) / len(suite.results),
+            2,
+        )
+        if suite.results
+        else 0
+    )
     return {
         "suite_id": suite.suite_id,
         "results": results,
@@ -130,7 +170,12 @@ async def get_capability_scores():
     if not suite.cases:
         return {"capabilities": {}}
 
-    async def progress_callback(case_id: str, passed: bool, score: float, capability_score: float) -> None:
+    async def progress_callback(
+        case_id: str,
+        passed: bool,
+        score: float,
+        capability_score: float,
+    ) -> None:
         pass
 
     suite = await runner.run_suite(suite, progress=progress_callback)

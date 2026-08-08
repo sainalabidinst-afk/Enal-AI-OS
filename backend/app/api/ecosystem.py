@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
+from backend.app.core.distributed_runtime import NodeCapability, distributed_runtime
+from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus, plugin_marketplace
 from backend.app.studio.ai_studio import ai_studio
-from backend.app.core.plugin_marketplace import plugin_marketplace, PluginManifest, PluginStatus
-from backend.app.core.distributed_runtime import distributed_runtime, NodeCapability
 
 router = APIRouter()
 
@@ -58,7 +58,16 @@ async def studio_export_project(project_id: str):
 
 
 @router.post("/marketplace/publish")
-async def marketplace_publish(plugin_id: str, name: str, version: str, description: str, author: str, category: str, tags: list[str] | None = None, permissions: list[str] | None = None):
+async def marketplace_publish(
+    plugin_id: str,
+    name: str,
+    version: str,
+    description: str,
+    author: str,
+    category: str,
+    tags: list[str] | None = None,
+    permissions: list[str] | None = None,
+):
     manifest = PluginManifest(
         id=plugin_id,
         name=name,
@@ -77,13 +86,31 @@ async def marketplace_publish(plugin_id: str, name: str, version: str, descripti
 async def marketplace_list_plugins(category: str | None = None, status: str | None = None):
     plugin_status = PluginStatus(status) if status else None
     plugins = plugin_marketplace.list_plugins(category=category, status=plugin_status)
-    return [{"id": p.id, "name": p.name, "version": p.version, "description": p.description, "downloads": p.downloads, "rating": p.rating} for p in plugins]
+    return [
+        {
+            "id": p.id,
+            "name": p.name,
+            "version": p.version,
+            "description": p.description,
+            "downloads": p.downloads,
+            "rating": p.rating,
+        }
+        for p in plugins
+    ]
 
 
 @router.get("/marketplace/plugins/search")
 async def marketplace_search(query: str):
     plugins = plugin_marketplace.search(query)
-    return [{"id": p.id, "name": p.name, "version": p.version, "description": p.description} for p in plugins]
+    return [
+        {
+            "id": p.id,
+            "name": p.name,
+            "version": p.version,
+            "description": p.description,
+        }
+        for p in plugins
+    ]
 
 
 @router.post("/marketplace/install/{plugin_id}")
@@ -120,4 +147,9 @@ async def distributed_get_node(node_id: str):
     node = await distributed_runtime.get_node(node_id)
     if not node:
         raise HTTPException(status_code=404, detail="Node not found")
-    return {"id": node.id, "name": node.name, "capabilities": [c.value for c in node.capabilities], "status": node.status.value}
+    return {
+        "id": node.id,
+        "name": node.name,
+        "capabilities": [c.value for c in node.capabilities],
+        "status": node.status.value,
+    }

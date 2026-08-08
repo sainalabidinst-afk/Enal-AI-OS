@@ -235,17 +235,24 @@ Capability Pack ini menganalisis repositori, source code, dan changes untuk meng
 ## 8. Contoh Penggunaan
 
 ```python
+import asyncio
 from apps.full_stack_engineer.engine import FullStackEngineerEngine
 from apps.full_stack_engineer.schemas import FullStackRequest, OperationType
 
-engine = FullStackEngineerEngine()
-request = FullStackRequest(
-    operation=OperationType.architecture_review,
-    inputs={"repo_path": "/path/to/repo"},
-    context={"project_id": "my-project", "language": "python"},
-)
-report = engine.review(request)
-print(f"Architecture score: {report.architecture_review.architecture_score:.0%}")
-print(f"Findings: {len(report.code_review.findings)} code issues")
-print(f"Refactoring plans: {len(report.refactoring_plan.plans)}")
+
+async def main() -> None:
+    engine = FullStackEngineerEngine()
+    request = FullStackRequest(
+        operation=OperationType.architecture_review,
+        inputs={"repo_path": "/path/to/repo"},
+        context={"project_id": "my-project", "language": "python"},
+    )
+    report = await engine.review(request)
+    print(f"Architecture score: {report.architecture_review.architecture_score:.0%}")
+    print(f"Findings: {len(report.code_review.findings)} code issues")
+    print(f"Refactoring plans: {len(report.refactoring_plan.plans)}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
