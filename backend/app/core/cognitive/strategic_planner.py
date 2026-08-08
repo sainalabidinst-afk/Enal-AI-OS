@@ -1,3 +1,4 @@
+import dataclasses
 import json
 import logging
 from dataclasses import dataclass, field
@@ -34,11 +35,32 @@ class StrategicPlanner:
         self._goals: dict[str, StrategicGoal] = {}
         self._roadmaps: dict[str, Roadmap] = {}
 
+    def _serialize_context(self, context: dict[str, Any], visited: set[int] | None = None) -> dict[str, Any]:
+        if visited is None:
+            visited = set()
+        obj_id = id(context)
+        if obj_id in visited:
+            return {}
+        visited.add(obj_id)
+        serializable: dict[str, Any] = {}
+        for key, value in context.items():
+            if dataclasses.is_dataclass(value) and not isinstance(value, type):
+                serializable[key] = {
+                    f.name: getattr(value, f.name)
+                    for f in dataclasses.fields(value)
+                }
+            elif isinstance(value, dict):
+                serializable[key] = self._serialize_context(value, visited)
+            else:
+                serializable[key] = value
+        return serializable
+
     async def create_strategy(self, goal_description: str, context: dict[str, Any] | None = None) -> Roadmap:
+        safe_context = self._serialize_context(context or {})
         prompt = (
             "You are a strategic planner. Create a detailed roadmap for the following goal.\n\n"
             f"Goal: {goal_description}\n"
-            f"Context: {json.dumps(context or {})}\n\n"
+            f"Context: {json.dumps(safe_context)}\n\n"
             "Output JSON roadmap with:\n"
             "{\n"
             '  "phases": [{"name": str, "description": str, "duration": str, "deliverables": [str]}],\n'
