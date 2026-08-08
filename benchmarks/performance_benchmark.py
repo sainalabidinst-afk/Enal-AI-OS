@@ -43,11 +43,42 @@ class BenchmarkMetrics:
         }
 
 
+def _extract_output(result: Any) -> str:
+    """Extract textual output from runtime result using actual runtime contract."""
+    if not isinstance(result, dict):
+        return str(result)
+
+    # Preferred: decision.selected_description
+    decision = result.get("decision")
+    if isinstance(decision, dict):
+        selected = decision.get("selected_description")
+        if selected:
+            return str(selected)
+
+    # Fallback: decision may itself be the description string
+    if isinstance(decision, str):
+        return decision
+
+    # Fallback: action.action
+    action = result.get("action")
+    if isinstance(action, dict):
+        act = action.get("action")
+        if act:
+            return str(act)
+
+    if isinstance(action, str):
+        return action
+
+    return ""
+
+
 async def run_with_metrics(user_input: str, metrics: BenchmarkMetrics):
     start = time.time()
     result = await adaptive_runtime.execute(user_input)
     latency = (time.time() - start) * 1000
-    output_str = str(result.get("decision", {}).get("decision", ""))
+
+    output_str = _extract_output(result)
+
     output_hash = hashlib.sha256(output_str.encode()).hexdigest()[:16]
     tokens = len(output_str.split())
     success = "error" not in output_str.lower()
