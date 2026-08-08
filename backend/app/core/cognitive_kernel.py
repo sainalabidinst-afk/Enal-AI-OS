@@ -94,7 +94,13 @@ class DecisionService(CognitiveService):
 class ActionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         decision = context.get("decision", {})
-        return {"action": decision.get("decision", ""), "parameters": decision.get("parameters", {}), "executed": False}
+        if isinstance(decision, dict):
+            return {
+                "action": decision.get("decision", "") or decision.get("selected_description", ""),
+                "parameters": decision.get("parameters", {}),
+                "executed": False,
+            }
+        return {"action": decision or "", "parameters": {}, "executed": False}
 
 
 class ReflectionService(CognitiveService):
@@ -102,7 +108,7 @@ class ReflectionService(CognitiveService):
         from backend.app.core.reflection import self_reflection
         decision = context.get("decision", {})
         task = context.get("perception", {}).get("input", "")
-        result = decision.get("decision", "")
+        result = decision.get("decision", "") if isinstance(decision, dict) else decision
         review = await self_reflection.review(task, result)
         return {"review": review, "score": review.get("score", 0), "passed": review.get("passed", False)}
 
