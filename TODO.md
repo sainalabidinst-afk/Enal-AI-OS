@@ -22,4 +22,4 @@
 
 ### Verifikasi
 - [ ] Jalankan pytest untuk konfirmasi test count aktual
-- [ ] Update skor ke 100% pada dokumen audit
+- [ ] Capai skor ke 100% pada dokumen audit

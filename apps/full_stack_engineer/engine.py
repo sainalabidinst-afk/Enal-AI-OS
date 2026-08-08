@@ -23,12 +23,6 @@ from apps.full_stack_engineer.schemas import (
     FullStackRequest,
     FullStackReport,
     FullStackRecord,
-    ArchitectureReviewResult,
-    CodeReviewResult,
-    RefactoringPlanResult,
-    TestEngineeringResult,
-    PerformanceAnalysisResult,
-    ReleaseReadinessResult,
     OperationType,
 )
 from apps.full_stack_engineer.architecture_review import ArchitectureReviewEngine
@@ -48,7 +42,7 @@ class FullStackEngineerEngine:
     Public API::
 
         engine = FullStackEngineerEngine()
-        report = engine.review(request)
+        report = await engine.review(request)
     """
 
     def __init__(self) -> None:
@@ -70,7 +64,7 @@ class FullStackEngineerEngine:
             FullStackReport with architecture review, code review, etc.
         """
         started = time.monotonic()
-        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)
+        op = request.operation.value if hasattr(request.operation, "value") else str(request.operation)
 
         inputs = request.inputs
         context = request.context
@@ -112,12 +106,12 @@ class FullStackEngineerEngine:
 
         quality_score = self._compute_quality_score(
             architecture_review, code_review, refactoring_plan,
-            test_engineering, performance_analysis, release_review
+            test_engineering, performance_analysis, release_review,
         )
 
         explanation = self._build_explanation(
             op, architecture_review, code_review, refactoring_plan,
-            test_engineering, performance_analysis, release_review
+            test_engineering, performance_analysis, release_review,
         )
 
         report = FullStackReport(
@@ -133,11 +127,11 @@ class FullStackEngineerEngine:
             explanation=explanation,
             raw={
                 "latency_ms": round((time.monotonic() - started) * 1000.0, 2),
-                "architecture_score": architecture_review["architecture_score"] if architecture_review else 0.0,
-                "findings_count": len(code_review["findings"]) if code_review else 0,
-                "refactoring_plans": len(refactoring_plan["plans"]) if refactoring_plan else 0,
-                "performance_issues": len(performance_analysis["issues"]) if performance_analysis else 0,
-                "release_ready": release_review["ready"] if release_review else False,
+                "architecture_score": self._get_arch_score(architecture_review),
+                "findings_count": self._get_findings_count(code_review),
+                "refactoring_plans": self._len_of(refactoring_plan, "plans"),
+                "performance_issues": self._len_of(performance_analysis, "issues"),
+                "release_ready": self._get_release_ready(release_review),
             },
         )
 
@@ -145,29 +139,59 @@ class FullStackEngineerEngine:
             request_id=request.request_id,
             operation=op,
             repo_path=inputs.get("repo_path", ""),
-            architecture_score=architecture_review["architecture_score"] if architecture_review else 0.0,
-            findings_count=len(code_review["findings"]) if code_review else 0,
-            release_ready=release_review["ready"] if release_review else False,
+            architecture_score=self._get_arch_score(architecture_review),
+            findings_count=self._get_findings_count(code_review),
+            release_ready=self._get_release_ready(release_review),
             outcome="accepted" if quality_score >= 0.7 else "partially_accepted",
         )
         self._record(record)
 
         return report
 
+    @staticmethod
+    def _get_arch_score(arch: Any) -> float:
+        if not arch:
+            return 0.0
+        val = arch.get("architecture_score", 0.0) if isinstance(arch, dict) else getattr(arch, "architecture_score", 0.0)
+        return float(val or 0.0)
+
+    @staticmethod
+    def _get_findings_count(code: Any) -> int:
+        if not code:
+            return 0
+        if isinstance(code, dict):
+            return len(code.get("findings", []))
+        return len(getattr(code, "findings", []))
+
+    @staticmethod
+    def _get_release_ready(release: Any) -> bool:
+        if not release:
+            return False
+        val = release.get("ready", False) if isinstance(release, dict) else getattr(release, "ready", False)
+        return bool(val)
+
+    @staticmethod
+    def _len_of(obj: Any, key: str) -> int:
+        if not obj:
+            return 0
+        val = obj.get(key, []) if isinstance(obj, dict) else getattr(obj, key, [])
+        return len(val)
+
     def _compute_quality_score(
         self,
-        arch: dict[str, Any] | None,
-        code: dict[str, Any] | None,
-        refactor: dict[str, Any] | None,
-        test: dict[str, Any] | None,
-        perf: dict[str, Any] | None,
-        release: dict[str, Any] | None,
+        arch: Any | None,
+        code: Any | None,
+        refactor: Any | None,
+        test: Any | None,
+        perf: Any | None,
+        release: Any | None,
     ) -> float:
         """Compute overall quality score."""
         score = 0.5
 
         if arch:
-            score += min(0.1, arch["architecture_score"] * 0.1)
+            arch_score = self._get_arch_score(arch)
+            score += min(0.1, arch_score * 0.1)
 
         if code:
             score += 0.1
@@ -177,59 +201,79 @@ class FullStackEngineerEngine:
 
         if test:
             score += 0.05
-            if test["estimated_coverage"] > 0:
-                score += min(0.1, test["estimated_coverage"] * 0.1)
+            est = self._get_test_coverage(test)
+            if est > 0:
+                score += min(0.1, est * 0.1)
 
         if perf:
-            critical_issues = sum(1 for i in perf["issues"] if i["severity"] == "critical")
+            issues = self._len_of(perf, "issues")
+            critical_issues = 0
+            if issues:
+                items = perf.get("issues", []) if isinstance(perf, dict) else getattr(perf, "issues", [])
+                critical_issues = sum(1 for i in items if i.get("severity") == "critical")
             if critical_issues == 0:
                 score += 0.1
 
         if release:
-            if release["ready"]:
+            if self._get_release_ready(release):
                 score += 0.1
 
         return max(0.0, min(1.0, round(score, 4)))
 
+    @staticmethod
+    def _get_test_coverage(test: Any) -> float:
+        if not test:
+            return 0.0
+        if isinstance(test, dict):
+            est = test.get("estimated_coverage", 0.0)
+            if not est and isinstance(test.get("summary"), dict):
+                est = test["summary"].get("estimated_coverage", 0.0)
+            return float(est or 0.0)
+        summary = getattr(test, "summary", {})
+        est = getattr(test, "estimated_coverage", 0.0)
+        if not est and isinstance(summary, dict):
+            est = summary.get("estimated_coverage", 0.0)
+        return float(est or 0.0)
+
     def _build_explanation(
         self,
         op: str,
-        arch: dict[str, Any] | None,
-        code: dict[str, Any] | None,
-        refactor: dict[str, Any] | None,
-        test: dict[str, Any] | None,
-        perf: dict[str, Any] | None,
-        release: dict[str, Any] | None,
+        arch: Any | None,
+        code: Any | None,
+        refactor: Any | None,
+        test: Any | None,
+        perf: Any | None,
+        release: Any | None,
     ) -> str:
         """Build human-readable explanation."""
         parts = [f"Performed {op} full-stack engineering review."]
         if arch:
             parts.append(
-                f"Architecture score: {arch['architecture_score']:.0%}, "
-                f"{len(arch['issues'])} issues found."
+                f"Architecture score: {self._get_arch_score(arch):.0%}, "
+                f"{self._len_of(arch, 'issues')} issues found."
             )
         if code:
+            findings = self._len_of(code, "findings")
             parts.append(
-                f"Code review: {len(code['findings'])} findings, "
-                f"precision {code['summary']['by_severity']}."
+                f"Code review: {findings} detailed findings."
             )
         if refactor:
             parts.append(
-                f"Refactoring: {len(refactor['plans'])} plans generated."
+                f"Refactoring: {self._len_of(refactor, 'plans')} plans generated."
             )
         if test:
             parts.append(
-                f"Test engineering: coverage {test['estimated_coverage']:.0%}, "
-                f"{len(test['plans'])} test plans."
+                f"Test engineering: coverage {self._get_test_coverage(test):.0%}, "
+                f"{self._len_of(test, 'plans')} test plans."
             )
         if perf:
             parts.append(
-                f"Performance: {len(perf['issues'])} issues found."
+                f"Performance: {self._len_of(perf, 'issues')} issues found."
             )
         if release:
             parts.append(
-                f"Release readiness: {'Ready' if release['ready'] else 'Not ready'}, "
-                f"{len(release['checks'])} checks performed."
+                f"Release readiness: {'Ready' if self._get_release_ready(release) else 'Not ready'}, "
+                f"{self._len_of(release, 'checks')} checks performed."
             )
         return " ".join(parts)
 
