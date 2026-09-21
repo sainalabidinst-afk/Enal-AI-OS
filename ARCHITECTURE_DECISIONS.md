@@ -35,7 +35,7 @@ Perubahan yang melanggar salah satu arsitektur merupakan suatu cacat, terlepas d
 
 ## Aturan Penerimaan Fitur
 
-Setiap fitur baru harus menjawab tiga pertanyaan berikut sebelum diterapkan:
+Setiap fitur baru harus menjawab empat pertanyaan berikut sebelum diterapkan:
 
 1. Kemampuan mana yang ditingkatkan?
    - Jika tidak ada kemampuan yang meningkat: jangan membangun.
@@ -46,7 +46,10 @@ Setiap fitur baru harus menjawab tiga pertanyaan berikut sebelum diterapkan:
 3. Benchmark yang mana yang meningkat?
    - Jika tidak ada Benchmark yang bertambah: jangan membangun.
 
-Jika jawaban ketiga tersebut adalah “ya”, implementasi dapat dilanjutkan.
+4. Apakah berguna untuk umat manusia?
+   - Jika tidak ada manfaat yang bertambah bagi manusia : jangan membangun.   
+
+Jika jawaban keempat tersebut adalah “ya”, implementasi dapat dilanjutkan.
 Aturan ini mencegah fitur menambahkan dan menjaga pengembangan selaras dengan nilai produk, bukan kebaruan arsitektur.
 
 ---

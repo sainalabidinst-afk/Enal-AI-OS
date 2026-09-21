@@ -75,7 +75,14 @@ jobs:
 
   benchmarks:
     name: Benchmark Suite
+    # Provider-backed work is intentionally opt-in. Normal CI must remain
+    # deterministic and must not fail because a protected API secret is absent.
+    if: ${{ vars.RUN_PROVIDER_BENCHMARK == 'true' }}
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      DEFAULT_REASONING_MODEL: gemini/gemini-2.5-flash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

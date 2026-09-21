@@ -1,23 +1,53 @@
-# Direktori Audit & Laporan
+# Audit Documentation
 
-<!-- DOCUMENT_METADATA_START -->
-**Pemilik:** Documentation Team
-**Canonical Owner:** Documentation Governance Lead
-**Terakhir Diverifikasi:** 2026-08-03
-**Versi:** 1.0.0
-**Status:** Aktif
-**SSOT:** Laporan audit, kualitas, sprint, dan konsistensi yang dikonsolidasi
-<!-- DOCUMENT_METADATA_END -->
+This directory has one current source of truth and a small set of retained
+historical evidence reports.
 
-## Indeks
+## Current Sources
 
-| Dokumen | Isi |
-|---------|-----|
-| `AUDIT_REPORT.md` | Audit komprehensif repository (arsitektur, kualitas, produksi) |
-| `QUALITY_REPORTS.md` | Laporan remediasi kualitas, type fix, klasifikasi static analysis |
-| `SPRINT_REPORTS.md` | Laporan sprint hardening, workflow catalog |
-| `CONSISTENCY_REPORTS.md` | Laporan konsistensi dokumentasi & arsitektur, prinsip arsitektur |
+| Document | Purpose |
+|---|---|
+| `COMPREHENSIVE_AUDIT_2026-09-21.md` | Current repository audit, evidence, findings, and release decision |
+| `REMEDIATION_PLAN_2026-09-21.md` | Ordered remediation work and acceptance criteria |
 
-## Catatan Konsolidasi
+The current release classification remains **D - NOT READY** until the open
+P1/P2 gates are rerun and pass. No historical benchmark or certification score
+is current evidence.
 
-Dokumen-dokumen ini dikonsolidasi dari file tingkat root pada 2026-08-03 untuk merapikan struktur repository. Konten asli tidak diubah, hanya digabungkan ke dalam satu direktori.
+## Retained Evidence
+
+The following documents are retained for traceability and are not release
+certification:
+
+- `CAPABILITY_TRUTH.md`
+- `CAPABILITY_REGISTRY_TRUTH.md`
+- `BENCHMARK_TRUTH.md`
+- `BENCHMARK_EXECUTION_FAILURE.md`
+- `BENCHMARK_EXECUTION_RESULT.md`
+- `CERTIFICATION_TRUTH.md`
+- `FRONTEND_TRUTH.md`
+- `RUNTIME_TRUTH.md`
+- `QUALITY_REPORTS.md`
+- `FINDINGS.md`
+- `LEGACY_CODE_TRUTH.md`
+- `PHASE_0_BASELINE.md`
+- `PHASE_1_CAPABILITY_REMEDIATION.md`
+- `AUDIT_REPORT.md`
+- `CONSISTENCY_REPORTS.md`
+- `SPRINT_REPORTS.md`
+- `CAPABILITY_CLASSIFICATION.md`
+
+When a retained report conflicts with the current audit, the dated
+`COMPREHENSIVE_AUDIT_2026-09-21.md` and its remediation plan take precedence.
+
+## Removed Duplicates
+
+The following superseded roll-up documents were removed to prevent conflicting
+release claims:
+
+- `TOTAL_AUDIT_2026-08-08.md`
+- `TOTAL_AUDIT_FINAL_2026-08-08.md`
+- `TOTAL_AUDIT_BASELINE.md`
+- `FINAL_TRUTH_AUDIT.md`
+- `TRUTH_MATRIX.md`
+- `REMEDIATION_PLAN.md`

@@ -1,5 +1,3 @@
-import sys
-
 import pytest
 
 from backend.app.core.model_router import ModelRouter

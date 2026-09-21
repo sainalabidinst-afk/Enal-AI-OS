@@ -179,7 +179,9 @@ export function CitationCard({ source, citation, className }: CitationCardProps)
         <CardTitle>Citation</CardTitle>
       </CardHeader>
       <div className="px-4 pb-4">
-        <p className="text-sm text-[var(--color-foreground)] italic">"{citation}"</p>
+        <p className="text-sm text-[var(--color-foreground)] italic">
+          &quot;{citation}&quot;
+        </p>
         <p className="text-xs text-[var(--color-secondary-500)] mt-2">— {source}</p>
       </div>
     </Card>

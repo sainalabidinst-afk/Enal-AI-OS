@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -60,7 +60,7 @@ class UnifiedEvidence:
     claim_id: str | None = None
     contradicting_ids: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     raw: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:

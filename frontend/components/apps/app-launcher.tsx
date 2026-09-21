@@ -135,7 +135,7 @@ export function AppLauncher({
           <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-10 text-center">
             <p className="text-lg mb-2">🔍</p>
             <p className="text-sm text-[var(--color-text-secondary)]">
-              No capability found for "{query}"
+              No capability found for &quot;{query}&quot;
             </p>
           </div>
         )}

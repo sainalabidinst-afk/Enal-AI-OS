@@ -155,10 +155,10 @@ published.
 
 ### P3-02: Audit Artifacts Are Not Ignored
 
-`audit_output/`, `onboarding_output/`, and their archives are currently visible
-as untracked files. They should be ignored or moved to an explicitly managed
-evidence location so generated reports cannot accidentally enter a product
-commit. Existing artifacts were not deleted during this audit.
+`audit_output/`, `onboarding_output/`, and their archives were visible as
+untracked files during this audit. The repository now ignores these generated
+locations so reports cannot accidentally enter a product commit. Existing
+artifacts remain local evidence and are not release inputs.
 
 ## 5. Verified Strengths
 
@@ -175,3 +175,30 @@ Do not certify production, do not reuse stored benchmark scores, and do not
 claim an enterprise or Grade A platform status. The next release audit should
 start only after the P1 findings have tests proving their corrected behavior.
 
+## 7. Remediation Status - 2026-09-22
+
+The following changes have been implemented after the baseline above:
+
+- Full-stack architecture scores are normalized to the documented 0..1 contract,
+  with regression coverage for the report boundary.
+- Integration evidence is adapted to the reasoning contract, and unavailable
+  market data or reasoning failures now fail the workflow instead of returning
+  a successful empty result.
+- Gemini routing supports `gemini/gemini-2.5-flash` and the
+  `GEMINI_API_KEY`/`GOOGLE_API_KEY` compatibility path without logging values.
+- The benchmark emits `BENCHMARK BLOCKED` and no score when provider
+  configuration is absent or the provider call cannot complete.
+- Compose now requires database credentials and uses the internal database
+  service URL; the saved `SECRET_KEY` was not replaced.
+- The audit index is consolidated, duplicate roll-ups are removed, and
+  generated audit output is ignored by Git.
+
+Still open and not certified:
+
+- A real provider-backed benchmark with an authorized key has not produced
+  fresh measurements in this run.
+- Full Ruff, Mypy, and pytest gates still require completion and remediation.
+- Frontend dependency installation/lint and Docker service health remain
+  environment-dependent and were not declared passing without evidence.
+- The frontend trading placeholder, workspace redirect, and missing chat route
+  remain product-completeness work.

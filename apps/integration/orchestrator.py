@@ -17,7 +17,7 @@ from typing import Any
 
 from apps.integration.context import CapabilityContext
 from apps.integration.evidence_adapter import EvidenceAdapter, UnifiedEvidence
-from apps.integration.registry import CapabilityDescriptor, capability_registry
+from apps.integration.registry import capability_registry
 from apps.integration.workflow import WorkflowEngine, WorkflowResult, WorkflowStep
 
 logger = logging.getLogger(__name__)
@@ -35,11 +35,11 @@ class IntegrationEngine:
     def __init__(self) -> None:
         self._evidence_adapter = EvidenceAdapter()
         self._workflow_engine = WorkflowEngine()
-        self._knowledge_store = None
-        self._reasoning_engine = None
-        self._trading_analyzer = None
-        self._trading_summary_generator = None
-        self._network_design_engine = None
+        self._knowledge_store: Any = None
+        self._reasoning_engine: Any = None
+        self._trading_analyzer: Any = None
+        self._trading_summary_generator: Any = None
+        self._network_design_engine: Any = None
         self._init_dependencies()
         self._register_workflows()
 
@@ -196,8 +196,11 @@ class IntegrationEngine:
         if not self._trading_analyzer:
             raise RuntimeError("Trading analyzer not initialized")
 
-        from apps.trading_analyst.market_intelligence.provider import build_trading_context, DEFAULT_TIMEFRAMES
         from apps.trading_analyst.market_intelligence.evidence import EvidenceBuilder
+        from apps.trading_analyst.market_intelligence.provider import (
+            DEFAULT_TIMEFRAMES,
+            build_trading_context,
+        )
 
         symbol = context.get_input("symbol")
         timeframes = context.get_input("timeframes") or DEFAULT_TIMEFRAMES
@@ -316,14 +319,15 @@ class IntegrationEngine:
             return context
 
         try:
-            from backend.app.core.knowledge.schema import (
-                KnowledgeEntity,
-                KnowledgeDomain,
-                KnowledgeCategory,
-                KnowledgeType,
-                KnowledgeStatus,
-            )
             import uuid as uuid_module
+
+            from backend.app.core.knowledge.schema import (
+                KnowledgeCategory,
+                KnowledgeDomain,
+                KnowledgeEntity,
+                KnowledgeStatus,
+                KnowledgeType,
+            )
 
             symbol = context.get_input("symbol")
             exchange = context.get_input("exchange", "binance")

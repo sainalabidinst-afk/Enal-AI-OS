@@ -12,17 +12,21 @@ This benchmark suite measures:
 """
 
 import asyncio
+import hashlib
 import json
 import time
-import hashlib
 from typing import Any
 
+adaptive_runtime: Any = None
+settings: Any = None
 try:
-    from backend.app.core.adaptive_runtime import adaptive_runtime
-    from backend.app.core.config import settings
+    from backend.app.core.adaptive_runtime import adaptive_runtime as _adaptive_runtime
+    from backend.app.core.config import settings as _settings
+
+    adaptive_runtime = _adaptive_runtime
+    settings = _settings
 except Exception:
-    adaptive_runtime = None
-    settings = None
+    pass
 
 
 class BenchmarkMetrics:

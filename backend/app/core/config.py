@@ -1,5 +1,5 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import model_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -42,12 +42,16 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def validate_secret_key(self):
         if not self.SECRET_KEY:
-            raise ValueError("SECRET_KEY is required. Set it via environment variable or .env file.")
+            raise ValueError(
+                "SECRET_KEY is required. Set it via environment variable or .env file."
+            )
         return self
 
     def require_database_url(self) -> str:
         if not self.DATABASE_URL:
-            raise ValueError("DATABASE_URL is required. Set it via environment variable or .env file.")
+            raise ValueError(
+                "DATABASE_URL is required. Set it via environment variable or .env file."
+            )
         return self.DATABASE_URL
 
 

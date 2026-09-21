@@ -8,22 +8,19 @@ Analyzes repository architecture and produces comprehensive review.
 import ast
 import logging
 import re
-import os
 from pathlib import Path
 from typing import Any
 
 from apps.full_stack_engineer.architecture_review_models import (
+    DEFAULT_VIOLATION_PATTERNS,
     ADREntry,
-    ArchitectureReport,
     CircularDependency,
     CouplingMetric,
-    DEFAULT_VIOLATION_PATTERNS,
     DependencyEdge,
     Grade,
     LayerViolation,
     ModuleInfo,
     RefactoringRecommendation,
-    Severity,
     TechDebtItem,
 )
 

@@ -167,3 +167,17 @@ are true:
 
 Until then, keep the release classification at **D - NOT READY**.
 
+## Execution Status - 2026-09-22
+
+Completed in the current remediation pass:
+
+- Phase 1 score-contract and integration failure-semantics fixes, with focused
+  regression tests.
+- Gemini model/key routing and truthful benchmark blocking behavior.
+- Compose credential preflight changes without replacing the saved secret.
+- Audit-document consolidation and generated-output ignore rules.
+- Provider-backed benchmark CI changed to explicit opt-in through the
+  `RUN_PROVIDER_BENCHMARK` repository variable.
+
+The release gate remains open. Fresh provider measurements, complete pytest,
+Ruff, Mypy, frontend lint/build, and Docker health evidence are still required.

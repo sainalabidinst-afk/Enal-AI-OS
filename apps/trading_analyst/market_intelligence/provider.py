@@ -9,13 +9,11 @@ Current implementation: Binance Public API (free, no API key required for public
 Future: Bybit, OKX, CSV, Manual input — all via same interface.
 """
 
-import logging
-import time
-import urllib.request
-import urllib.error
 import json
+import logging
+import urllib.error
+import urllib.request
 from typing import Any
-from dataclasses import dataclass, field
 
 from apps.trading_analyst.market_intelligence.models import OHLCV, TradingContext
 

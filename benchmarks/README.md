@@ -46,8 +46,23 @@ Tolok ukur sintetis memvalidasi peningkatan; kasus-kasus dunia nyata mendorong m
 
 ## Integrasi CI
 
-Tolok ukur dijalankan secara otomatis di setiap PR:
+Benchmark offline dan test deterministik dapat dijalankan pada setiap PR:
 - Kinerja tolok ukur tidak boleh menurun > 10%
 - Tolok ukur kualitas harus mempertahankan tingkat kelulusan > 80%.
 - Batasan paket tidak boleh ada pelanggaran
+
+## Benchmark Provider Nyata
+
+`performance_benchmark` memakai provider Gemini secara eksplisit. Jalankan
+benchmark provider-backed hanya dari environment yang sudah memiliki kredensial
+resmi; jangan menaruh nilainya di file audit, log, atau commit.
+
+```powershell
+$env:DEFAULT_REASONING_MODEL = "gemini/gemini-2.5-flash"
+python -m benchmarks.performance_benchmark
+```
+
+Jika `GEMINI_API_KEY` atau model provider belum tersedia, command akan keluar
+non-zero dengan status `BENCHMARK BLOCKED` dan tidak menghasilkan score.
+Raw measurements hanya valid jika eksekusi provider benar-benar terjadi.
 
