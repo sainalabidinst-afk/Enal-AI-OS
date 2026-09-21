@@ -1,0 +1,264 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\ICT\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: E:\Enal-AI-OS
+configfile: pyproject.toml
+testpaths: tests, backend/tests
+plugins: anyio-4.14.2, langsmith-0.10.15, asyncio-1.4.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 939 items
+
+tests/test_ai_engineer.py::test_capability_imports PASSED                [  0%]
+tests/test_ai_engineer.py::test_capability_package PASSED                [  0%]
+tests/test_ai_planner.py::test_plan_from_goal_network_domain PASSED      [  0%]
+tests/test_ai_planner.py::test_plan_from_goal_code_domain PASSED         [  0%]
+tests/test_ai_planner.py::test_plan_from_goal_general_domain PASSED      [  0%]
+tests/test_ai_planner.py::test_plan_with_workflows PASSED                [  0%]
+tests/test_ai_planner.py::test_plan_with_workflows_empty PASSED          [  0%]
+tests/test_ai_planner.py::test_plan_from_goal_creates_unique_plan_id PASSED [  0%]
+tests/test_ai_planner.py::test_plan_steps_have_dependency_chain PASSED   [  0%]
+tests/test_ai_planner.py::test_plan_steps_have_valid_types PASSED        [  1%]
+tests/test_ai_planner.py::test_plan_initial_status PASSED                [  1%]
+tests/test_ai_planner.py::test_plan_progress PASSED                      [  1%]
+tests/test_ai_planner.py::test_plan_completed_progress PASSED            [  1%]
+tests/test_ai_planner.py::test_plan_progress_with_empty_steps PASSED     [  1%]
+tests/test_ai_planner.py::test_list_plans PASSED                         [  1%]
+tests/test_ai_planner.py::test_get_plan PASSED                           [  1%]
+tests/test_ai_planner.py::test_get_plan_not_found PASSED                 [  1%]
+tests/test_ai_planner.py::test_cancel_plan PASSED                        [  1%]
+tests/test_ai_planner.py::test_cancel_nonexistent_plan PASSED            [  2%]
+tests/test_ai_planner.py::test_get_plan_summary PASSED                   [  2%]
+tests/test_ai_planner.py::test_get_plan_summary_not_found PASSED         [  2%]
+tests/test_ai_planner.py::test_plan_with_special_characters_in_goal PASSED [  2%]
+tests/test_ai_planner.py::test_plan_with_very_long_goal PASSED           [  2%]
+tests/test_ai_planner.py::test_multiple_plans_dont_interfere PASSED      [  2%]
+tests/test_ai_planner.py::test_plan_created_and_updated_timestamps PASSED [  2%]
+tests/test_background_tasks.py::TestBackgroundTaskManager::test_submit_returns_task_id SKIPPED [  2%]
+tests/test_background_tasks.py::TestBackgroundTaskManager::test_get_status_returns_none_for_unknown_task PASSED [  2%]
+tests/test_background_tasks.py::TestBackgroundTaskManager::test_on_complete_registers_callback PASSED [  2%]
+tests/test_browser_agent.py::TestBrowserAgent::test_browse_stub PASSED   [  3%]
+tests/test_browser_agent.py::TestBrowserAgent::test_parse_html PASSED    [  3%]
+tests/test_browser_agent.py::TestBrowserAgent::test_extract_evidence PASSED [  3%]
+tests/test_browser_agent.py::TestBrowserAgent::test_search_history PASSED [  3%]
+tests/test_browser_agent.py::TestBrowserAgentAPI::test_call_api_stub PASSED [  3%]
+tests/test_business_analyst.py::test_capability_imports PASSED           [  3%]
+tests/test_business_analyst.py::test_capability_package PASSED           [  3%]
+tests/test_capability_entrypoints.py::test_all_registered_capabilities_expose_valid_entrypoints PASSED [  3%]
+tests/test_capability_execution_engine.py::test_capability_found_completed PASSED [  3%]
+tests/test_capability_execution_engine.py::test_capability_not_found PASSED [  4%]
+tests/test_capability_execution_engine.py::test_valid_input_succeeds PASSED [  4%]
+tests/test_capability_execution_engine.py::test_invalid_input_type PASSED [  4%]
+tests/test_capability_execution_engine.py::test_network_capability_execution PASSED [  4%]
+tests/test_capability_execution_engine.py::test_telemetry_recorded_on_success PASSED [  4%]
+tests/test_capability_execution_engine.py::test_telemetry_recorded_on_failure PASSED [  4%]
+tests/test_capability_execution_engine.py::test_response_follows_contract_on_success PASSED [  4%]
+tests/test_capability_execution_engine.py::test_response_follows_contract_on_failure PASSED [  4%]
+tests/test_capability_execution_engine.py::test_execution_id_and_correlation_id PASSED [  4%]
+tests/test_capability_execution_engine.py::test_auto_generated_ids PASSED [  5%]
+tests/test_capability_execution_engine.py::test_multiple_executions_maintain_separate_telemetry PASSED [  5%]
+tests/test_capability_execution_engine.py::test_clear_telemetry PASSED   [  5%]
+tests/test_capability_execution_engine.py::test_economics_capability_execution PASSED [  5%]
+tests/test_capability_pipeline.py::test_sequential_execution_two_capabilities PASSED [  5%]
+tests/test_capability_pipeline.py::test_sequential_execution_three_capabilities PASSED [  5%]
+tests/test_capability_pipeline.py::test_pipeline_failure_propagation PASSED [  5%]
+tests/test_capability_pipeline.py::test_pipeline_failure_at_first_step PASSED [  5%]
+tests/test_capability_pipeline.py::test_telemetry_aggregation_across_steps PASSED [  5%]
+tests/test_capability_pipeline.py::test_telemetry_on_failure PASSED      [  5%]
+tests/test_capability_pipeline.py::test_unified_response_contract_success PASSED [  6%]
+tests/test_capability_pipeline.py::test_unified_response_contract_failure PASSED [  6%]
+tests/test_capability_pipeline.py::test_empty_pipeline PASSED            [  6%]
+tests/test_capability_pipeline.py::test_custom_pipeline_id_and_correlation_id PASSED [  6%]
+tests/test_capability_pipeline.py::test_auto_generated_ids PASSED        [  6%]
+tests/test_capability_pipeline.py::test_step_alias_defaults_to_capability_id PASSED [  6%]
+tests/test_capability_pipeline.py::test_summary_output PASSED            [  6%]
+tests/test_code_engineer.py::test_capability_imports PASSED              [  6%]
+tests/test_code_engineer.py::test_capability_package PASSED              [  6%]
+tests/test_contracts.py::TestContractVersion::test_version_string_format PASSED [  7%]
+tests/test_contracts.py::TestContractVersion::test_version_constants PASSED [  7%]
+tests/test_contracts.py::TestCapabilityContract::test_cannot_instantiate_abstract_class PASSED [  7%]
+tests/test_contracts.py::TestCapabilityContract::test_subclass_must_implement_execute PASSED [  7%]
+tests/test_contracts.py::TestCapabilityContract::test_concrete_subclass_works PASSED [  7%]
+tests/test_contracts.py::TestToolContract::test_cannot_instantiate_abstract_class PASSED [  7%]
+tests/test_contracts.py::TestToolContract::test_concrete_subclass_works PASSED [  7%]
+tests/test_contracts.py::TestArtifactContract::test_cannot_instantiate_abstract_class PASSED [  7%]
+tests/test_contracts.py::TestArtifactContract::test_concrete_subclass_works PASSED [  7%]
+tests/test_contracts.py::TestMemoryContract::test_cannot_instantiate_abstract_class PASSED [  7%]
+tests/test_contracts.py::TestMemoryContract::test_concrete_subclass_works PASSED [  8%]
+tests/test_contracts.py::TestWorkflowContract::test_cannot_instantiate_abstract_class PASSED [  8%]
+tests/test_contracts.py::TestWorkflowContract::test_concrete_subclass_works PASSED [  8%]
+tests/test_contracts.py::TestWorldModelContract::test_cannot_instantiate_abstract_class PASSED [  8%]
+tests/test_contracts.py::TestWorldModelContract::test_concrete_subclass_works PASSED [  8%]
+tests/test_contracts.py::TestLearningContract::test_cannot_instantiate_abstract_class PASSED [  8%]
+tests/test_contracts.py::TestLearningContract::test_concrete_subclass_works PASSED [  8%]
+tests/test_data_engineer.py::test_capability_imports PASSED              [  8%]
+tests/test_data_engineer.py::test_capability_package PASSED              [  8%]
+tests/test_database_engineer.py::test_capability_imports PASSED          [  9%]
+tests/test_database_engineer.py::test_capability_package PASSED          [  9%]
+tests/test_decision_intelligence.py::TestEvidenceCollection::test_collect_returns_evidence_set PASSED [  9%]
+tests/test_decision_intelligence.py::TestEvidenceCollection::test_evidence_weights_normalized PASSED [  9%]
+tests/test_decision_intelligence.py::TestAlternativeGeneration::test_generates_alternatives PASSED [  9%]
+tests/test_decision_intelligence.py::TestAlternativeGeneration::test_respects_max_alternatives PASSED [  9%]
+tests/test_decision_intelligence.py::TestRiskAnalysis::test_risk_profile_populated PASSED [  9%]
+tests/test_decision_intelligence.py::TestSimulationEngine::test_simulation_returns_outcome PASSED [  9%]
+tests/test_decision_intelligence.py::TestSimulationEngine::test_simulation_outcome_fields PASSED [  9%]
+tests/test_decision_intelligence.py::TestDebateEngine::test_debate_returns_results PASSED [ 10%]
+tests/test_decision_intelligence.py::TestDebateEngine::test_debate_result_fields PASSED [ 10%]
+tests/test_decision_intelligence.py::TestConfidenceEstimation::test_confidence_in_valid_range PASSED [ 10%]
+tests/test_decision_intelligence.py::TestConfidenceEstimation::test_high_quality_evidence_high_confidence PASSED [ 10%]
+tests/test_decision_intelligence.py::TestExplanationGeneration::test_explanation_populated PASSED [ 10%]
+tests/test_decision_intelligence.py::TestExplanationGeneration::test_reasoning_chain_present PASSED [ 10%]
+tests/test_decision_intelligence.py::TestDecisionHistory::test_history_ref_set PASSED [ 10%]
+tests/test_decision_intelligence.py::TestEndToEnd::test_full_pipeline PASSED [ 10%]
+tests/test_decision_intelligence.py::TestEndToEnd::test_consistency PASSED [ 10%]
+tests/test_devops_assistant.py::test_capability_imports PASSED           [ 10%]
+tests/test_devops_assistant.py::test_capability_package PASSED           [ 11%]
+tests/test_documentation_engineer.py::test_capability_imports PASSED     [ 11%]
+tests/test_documentation_engineer.py::test_capability_package PASSED     [ 11%]
+tests/test_full_stack_engineer.py::test_capability_imports PASSED        [ 11%]
+tests/test_full_stack_engineer.py::test_capability_package PASSED        [ 11%]
+tests/test_full_stack_engineer.py::test_schemas_contract PASSED          [ 11%]
+tests/test_full_stack_engineer.py::test_enums PASSED                     [ 11%]
+tests/test_full_stack_engineer.py::test_engine_architecture_review FAILED [ 11%]
+
+================================== FAILURES ===================================
+_______________________ test_engine_architecture_review _______________________
+
+    @pytest.mark.asyncio
+    async def test_engine_architecture_review() -> None:
+        """F1: Architecture review returns a report with score and issues."""
+        engine = FullStackEngineerEngine()
+        request = FullStackRequest(
+            operation=OperationType.architecture_review,
+            inputs={"repo_path": "."},
+            context={"project_id": "audit-test", "language": "python"},
+        )
+>       report = await engine.review(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_full_stack_engineer.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <apps.full_stack_engineer.engine.FullStackEngineerEngine object at 0x00000230E820E710>
+request = FullStackRequest(request_id='279a14e1-b83a-486e-b336-3782eef7da23', operation=<OperationType.architecture_review: 'arc...o_path': '.'}, context={'project_id': 'audit-test', 'language': 'python'}, quality_attributes={}, output_format='json')
+
+    async def review(self, request: FullStackRequest) -> FullStackReport:
+        """
+        Run the full-stack engineering pipeline based on operation.
+    
+        Args:
+            request: FullStackRequest with inputs, context, options.
+    
+        Returns:
+            FullStackReport with architecture review, code review, etc.
+        """
+        started = time.monotonic()
+        op = request.operation.value if hasattr(request.operation, "value") else str(request.operation)
+    
+        inputs = request.inputs
+        context = request.context
+    
+        architecture_review: dict[str, Any] | None = None
+        code_review: dict[str, Any] | None = None
+        refactoring_plan: dict[str, Any] | None = None
+        test_engineering: dict[str, Any] | None = None
+        performance_analysis: dict[str, Any] | None = None
+        release_review: dict[str, Any] | None = None
+    
+        if op in ("architecture_review", "full_stack_review"):
+            repo_path = inputs.get("repo_path", ".")
+            architecture_review = await self.arch_review_engine.review(repo_path)
+    
+        if op in ("code_review", "full_stack_review"):
+            source_code = inputs.get("source_code", "")
+            filename = inputs.get("filename", "<unknown>")
+            code_review = await self.code_review_engine.review(source_code, filename)
+    
+        if op in ("refactoring_plan", "full_stack_review"):
+            source_code = inputs.get("source_code", "")
+            filename = inputs.get("filename", "<unknown>")
+            refactoring_plan = await self.refactoring_planner.plan(source_code, filename)
+    
+        if op in ("test_engineering", "full_stack_review"):
+            source_path = inputs.get("source_path", ".")
+            module_path = inputs.get("module_path", "")
+            test_engineering = await self.test_engineer.engineer(source_path, module_path)
+    
+        if op in ("performance_analysis", "full_stack_review"):
+            source_code = inputs.get("source_code", "")
+            filename = inputs.get("filename", "<unknown>")
+            performance_analysis = await self.performance_engineer.analyze(source_code, filename)
+    
+        if op in ("release_review", "full_stack_review"):
+            changes = inputs.get("changes", [])
+            release_review = await self.release_engineer.review(changes, context)
+    
+        quality_score = self._compute_quality_score(
+            architecture_review, code_review, refactoring_plan,
+            test_engineering, performance_analysis, release_review,
+        )
+    
+        explanation = self._build_explanation(
+            op, architecture_review, code_review, refactoring_plan,
+            test_engineering, performance_analysis, release_review,
+        )
+    
+>       report = FullStackReport(
+            request_id=request.request_id,
+            operation=op,
+            architecture_review=architecture_review,
+            code_review=code_review,
+            refactoring_plan=refactoring_plan,
+            test_engineering=test_engineering,
+            performance_analysis=performance_analysis,
+            release_review=release_review,
+            quality_score=quality_score,
+            explanation=explanation,
+            raw={
+                "latency_ms": round((time.monotonic() - started) * 1000.0, 2),
+                "architecture_score": self._get_arch_score(architecture_review),
+                "findings_count": self._get_findings_count(code_review),
+                "refactoring_plans": self._len_of(refactoring_plan, "plans"),
+                "performance_issues": self._len_of(performance_analysis, "issues"),
+                "release_ready": self._get_release_ready(release_review),
+            },
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for FullStackReport
+E       architecture_review.architecture_score
+E         Input should be less than or equal to 1 [type=less_than_equal, input_value=84.1, input_type=float]
+E           For further information visit https://errors.pydantic.dev/2.13/v/less_than_equal
+
+apps\full_stack_engineer\engine.py:117: ValidationError
+------------------------------ Captured log call ------------------------------
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\container_security_scan\source.py: invalid syntax (source.py, line 1)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\dependency_vulnerability_check\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\iac_security_review\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\iac_security_review_0001\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\iac_security_review_0002\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\iac_security_review_0003\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security\patch_management\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\container_security_scan\source.py: invalid syntax (source.py, line 1)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\dependency_vulnerability_check\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\iac_security_review\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\iac_security_review_0001\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\iac_security_review_0002\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\iac_security_review_0003\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning .kilo\worktrees\tame-squash\real_cases\security_engineer\patch_management\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\container_security_scan\source.py: invalid syntax (source.py, line 1)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\dependency_vulnerability_check\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\iac_security_review\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\iac_security_review_0001\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\iac_security_review_0002\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\iac_security_review_0003\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security\patch_management\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\container_security_scan\source.py: invalid syntax (source.py, line 1)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\dependency_vulnerability_check\source.py: invalid syntax (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\iac_security_review\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\iac_security_review_0001\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\iac_security_review_0002\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\iac_security_review_0003\source.py: invalid syntax. Maybe you meant '==' or ':=' instead of '='? (source.py, line 2)
+WARNING  apps.full_stack_engineer.architecture_review_engine:architecture_review_engine.py:112 Error scanning real_cases\security_engineer\patch_management\source.py: invalid syntax (source.py, line 2)
+---------- generated xml file: E:\Enal-AI-OS\audit_output\junit.xml -----------
+=========================== short test summary info ===========================
+FAILED tests/test_full_stack_engineer.py::test_engine_architecture_review - p...
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+====== 1 failed, 109 passed, 1 skipped, 5 warnings in 171.25s (0:02:51) =======

@@ -1,0 +1,7 @@
+repo=E:\Enal-AI-OS
+branch=
+main
+head=
+ffea744
+python=
+Python 3.11.9

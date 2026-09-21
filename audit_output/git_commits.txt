@@ -1,0 +1,20 @@
+ffea744 2026-08-08 feat(apps): add reference app classes extending BaseReferenceApp
+ca9c01e 2026-08-08 docs(audit): add comprehensive audit documentation and update truth reports
+bfa1687 2026-08-08 refactor(planner): implement safe context serialization for strategy creation
+ca5b026 2026-08-08 test(benchmarks): add performance benchmark tests and improve output extraction
+93cc13e 2026-08-08 Merge branch 'main' of https://github.com/sainalabidinst-afk/Enal-AI-OS
+fbf2f16 2026-08-08 refactor(engine): simplify report generation and update review method to async
+ebd172e 2026-08-08 fix(core): handle non-dict decision values
+3c18a34 2026-08-08 feat(backend): add telemetry collection and resolve certification discrepancies
+188cf42 2026-08-08 style(backend): reformat code and improve readability
+3106436 2026-08-07 test: increase backend coverage to 71% with new test suites
+4bae19f 2026-08-07 test: increase coverage with new test suites for core modules
+13ee2c6 2026-08-07 test: add comprehensive test suite and fix timestamp initialization
+7574dbe 2026-08-07 chore: add .coverage to gitignore and remove from repo
+474ff8f 2026-08-07 feat: improve test infrastructure and add comprehensive golden test
+e1ffa51 2026-08-07 fix: replace detected Slack token placeholder with explicit fake marker in security real case
+d124191 2026-08-07 fix: differentiate VERY_COMPLEX cognitive preset with double debate/simulation passes
+f6f81a6 2026-08-07 fix: resolve audit findings - agent_reputation bug, lint violations, and working tree cleanup
+d931c49 2026-08-05 feat(trading): implement real-time data connectivity and chart engine
+d55bcf5 2026-08-05 fix: resolve Pylance runtime errors in business_analyst and full_stack_engineer
+92555fe 2026-08-05 refactor(ui): modularize workspace architecture and optimize loading

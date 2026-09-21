@@ -13,8 +13,8 @@
 ### P1 — Dokumentasi Sinkron dengan Aktual
 - [ ] Perbaiki duplikasi nomor di `apps/__init__.py` docstring
 - [ ] Perbaiki contoh penggunaan sync→async di `docs/capabilities/full-stack-engineer.md`
-- [ ] Update `AUDIT_COMPREHENSIVE_FINAL.md` dengan status resolusi semua temuan
-- [ ] Update README/CHANGELOG/VERSION_MATRIX agar konsisten
+- [x] Update `AUDIT_COMPREHENSIVE_FINAL.md` dengan status resolusi semua temuan
+- [x] Update README/CHANGELOG/VERSION_MATRIX agar konsisten (2026-09-21: synced with audit truth, corrected version to v1.0.0-developer-preview, corrected certification claims, added Audit Truth section)
 
 ### P2 — Kualitas
 - [ ] Perkuat `tests/test_full_stack_engineer.py` dengan test engine nyata

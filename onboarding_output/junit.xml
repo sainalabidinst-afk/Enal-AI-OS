@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="111" time="161.353" timestamp="2026-09-21T16:35:41.918335+08:00" hostname="DESKTOP-QBNDVC6"><testcase classname="tests.test_ai_engineer" name="test_capability_imports" time="0.005" /><testcase classname="tests.test_ai_engineer" name="test_capability_package" time="0.002" /><testcase classname="tests.test_ai_planner" name="test_plan_from_goal_network_domain" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_from_goal_code_domain" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_from_goal_general_domain" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_plan_with_workflows" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_with_workflows_empty" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_from_goal_creates_unique_plan_id" time="0.007" /><testcase classname="tests.test_ai_planner" name="test_plan_steps_have_dependency_chain" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_plan_steps_have_valid_types" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_plan_initial_status" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_plan_progress" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_plan_completed_progress" time="0.005" /><testcase classname="tests.test_ai_planner" name="test_plan_progress_with_empty_steps" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_list_plans" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_get_plan" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_get_plan_not_found" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_cancel_plan" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_cancel_nonexistent_plan" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_get_plan_summary" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_get_plan_summary_not_found" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_with_special_characters_in_goal" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_with_very_long_goal" time="0.004" /><testcase classname="tests.test_ai_planner" name="test_multiple_plans_dont_interfere" time="0.003" /><testcase classname="tests.test_ai_planner" name="test_plan_created_and_updated_timestamps" time="0.003" /><testcase classname="tests.test_background_tasks.TestBackgroundTaskManager" name="test_submit_returns_task_id" time="48.196"><skipped type="pytest.skip" message="Redis not available in test environment">E:\Enal-AI-OS\tests\test_background_tasks.py:14: Redis not available in test environment</skipped></testcase><testcase classname="tests.test_background_tasks.TestBackgroundTaskManager" name="test_get_status_returns_none_for_unknown_task" time="0.005" /><testcase classname="tests.test_background_tasks.TestBackgroundTaskManager" name="test_on_complete_registers_callback" time="0.006" /><testcase classname="tests.test_browser_agent.TestBrowserAgent" name="test_browse_stub" time="2.829" /><testcase classname="tests.test_browser_agent.TestBrowserAgent" name="test_parse_html" time="0.003" /><testcase classname="tests.test_browser_agent.TestBrowserAgent" name="test_extract_evidence" time="0.281" /><testcase classname="tests.test_browser_agent.TestBrowserAgent" name="test_search_history" time="0.003" /><testcase classname="tests.test_browser_agent.TestBrowserAgentAPI" name="test_call_api_stub" time="2.256" /><testcase classname="tests.test_business_analyst" name="test_capability_imports" time="0.003" /><testcase classname="tests.test_business_analyst" name="test_capability_package" time="0.002" /><testcase classname="tests.test_capability_entrypoints" name="test_all_registered_capabilities_expose_valid_entrypoints" time="0.004" /><testcase classname="tests.test_capability_execution_engine" name="test_capability_found_completed" time="0.007" /><testcase classname="tests.test_capability_execution_engine" name="test_capability_not_found" time="0.005" /><testcase classname="tests.test_capability_execution_engine" name="test_valid_input_succeeds" time="0.006" /><testcase classname="tests.test_capability_execution_engine" name="test_invalid_input_type" time="0.005" /><testcase classname="tests.test_capability_execution_engine" name="test_network_capability_execution" time="0.005" /><testcase classname="tests.test_capability_execution_engine" name="test_telemetry_recorded_on_success" time="0.007" /><testcase classname="tests.test_capability_execution_engine" name="test_telemetry_recorded_on_failure" time="0.005" /><testcase classname="tests.test_capability_execution_engine" name="test_response_follows_contract_on_success" time="5.411" /><testcase classname="tests.test_capability_execution_engine" name="test_response_follows_contract_on_failure" time="0.012" /><testcase classname="tests.test_capability_execution_engine" name="test_execution_id_and_correlation_id" time="0.009" /><testcase classname="tests.test_capability_execution_engine" name="test_auto_generated_ids" time="0.007" /><testcase classname="tests.test_capability_execution_engine" name="test_multiple_executions_maintain_separate_telemetry" time="0.009" /><testcase classname="tests.test_capability_execution_engine" name="test_clear_telemetry" time="0.006" /><testcase classname="tests.test_capability_execution_engine" name="test_economics_capability_execution" time="0.007" /><testcase classname="tests.test_capability_pipeline" name="test_sequential_execution_two_capabilities" time="0.006" /><testcase classname="tests.test_capability_pipeline" name="test_sequential_execution_three_capabilities" time="0.008" /><testcase classname="tests.test_capability_pipeline" name="test_pipeline_failure_propagation" time="0.006" /><testcase classname="tests.test_capability_pipeline" name="test_pipeline_failure_at_first_step" time="0.007" /><testcase classname="tests.test_capability_pipeline" name="test_telemetry_aggregation_across_steps" time="0.006" /><testcase classname="tests.test_capability_pipeline" name="test_telemetry_on_failure" time="0.007" /><testcase classname="tests.test_capability_pipeline" name="test_unified_response_contract_success" time="0.006" /><testcase classname="tests.test_capability_pipeline" name="test_unified_response_contract_failure" time="0.006" /><testcase classname="tests.test_capability_pipeline" name="test_empty_pipeline" time="0.006" /><testcase classname="tests.test_capability_pipeline" name="test_custom_pipeline_id_and_correlation_id" time="0.008" /><testcase classname="tests.test_capability_pipeline" name="test_auto_generated_ids" time="0.007" /><testcase classname="tests.test_capability_pipeline" name="test_step_alias_defaults_to_capability_id" time="0.008" /><testcase classname="tests.test_capability_pipeline" name="test_summary_output" time="0.006" /><testcase classname="tests.test_code_engineer" name="test_capability_imports" time="0.004" /><testcase classname="tests.test_code_engineer" name="test_capability_package" time="0.002" /><testcase classname="tests.test_contracts.TestContractVersion" name="test_version_string_format" time="0.002" /><testcase classname="tests.test_contracts.TestContractVersion" name="test_version_constants" time="0.002" /><testcase classname="tests.test_contracts.TestCapabilityContract" name="test_cannot_instantiate_abstract_class" time="0.005" /><testcase classname="tests.test_contracts.TestCapabilityContract" name="test_subclass_must_implement_execute" time="0.003" /><testcase classname="tests.test_contracts.TestCapabilityContract" name="test_concrete_subclass_works" time="0.003" /><testcase classname="tests.test_contracts.TestToolContract" name="test_cannot_instantiate_abstract_class" time="0.005" /><testcase classname="tests.test_contracts.TestToolContract" name="test_concrete_subclass_works" time="0.003" /><testcase classname="tests.test_contracts.TestArtifactContract" name="test_cannot_instantiate_abstract_class" time="0.003" /><testcase classname="tests.test_contracts.TestArtifactContract" name="test_concrete_subclass_works" time="0.007" /><testcase classname="tests.test_contracts.TestMemoryContract" name="test_cannot_instantiate_abstract_class" time="0.003" /><testcase classname="tests.test_contracts.TestMemoryContract" name="test_concrete_subclass_works" time="0.007" /><testcase classname="tests.test_contracts.TestWorkflowContract" name="test_cannot_instantiate_abstract_class" time="0.003" /><testcase classname="tests.test_contracts.TestWorkflowContract" name="test_concrete_subclass_works" time="0.008" /><testcase classname="tests.test_contracts.TestWorldModelContract" name="test_cannot_instantiate_abstract_class" time="0.003" /><testcase classname="tests.test_contracts.TestWorldModelContract" name="test_concrete_subclass_works" time="0.008" /><testcase classname="tests.test_contracts.TestLearningContract" name="test_cannot_instantiate_abstract_class" time="0.006" /><testcase classname="tests.test_contracts.TestLearningContract" name="test_concrete_subclass_works" time="0.006" /><testcase classname="tests.test_data_engineer" name="test_capability_imports" time="0.003" /><testcase classname="tests.test_data_engineer" name="test_capability_package" time="0.004" /><testcase classname="tests.test_database_engineer" name="test_capability_imports" time="0.003" /><testcase classname="tests.test_database_engineer" name="test_capability_package" time="0.003" /><testcase classname="tests.test_decision_intelligence.TestEvidenceCollection" name="test_collect_returns_evidence_set" time="0.011" /><testcase classname="tests.test_decision_intelligence.TestEvidenceCollection" name="test_evidence_weights_normalized" time="0.005" /><testcase classname="tests.test_decision_intelligence.TestAlternativeGeneration" name="test_generates_alternatives" time="0.007" /><testcase classname="tests.test_decision_intelligence.TestAlternativeGeneration" name="test_respects_max_alternatives" time="0.005" /><testcase classname="tests.test_decision_intelligence.TestRiskAnalysis" name="test_risk_profile_populated" time="0.007" /><testcase classname="tests.test_decision_intelligence.TestSimulationEngine" name="test_simulation_returns_outcome" time="0.007" /><testcase classname="tests.test_decision_intelligence.TestSimulationEngine" name="test_simulation_outcome_fields" time="0.006" /><testcase classname="tests.test_decision_intelligence.TestDebateEngine" name="test_debate_returns_results" time="0.008" /><testcase classname="tests.test_decision_intelligence.TestDebateEngine" name="test_debate_result_fields" time="0.006" /><testcase classname="tests.test_decision_intelligence.TestConfidenceEstimation" name="test_confidence_in_valid_range" time="0.007" /><testcase classname="tests.test_decision_intelligence.TestConfidenceEstimation" name="test_high_quality_evidence_high_confidence" time="0.008" /><testcase classname="tests.test_decision_intelligence.TestExplanationGeneration" name="test_explanation_populated" time="0.006" /><testcase classname="tests.test_decision_intelligence.TestExplanationGeneration" name="test_reasoning_chain_present" time="0.006" /><testcase classname="tests.test_decision_intelligence.TestDecisionHistory" name="test_history_ref_set" time="0.009" /><testcase classname="tests.test_decision_intelligence.TestEndToEnd" name="test_full_pipeline" time="0.008" /><testcase classname="tests.test_decision_intelligence.TestEndToEnd" name="test_consistency" time="0.012" /><testcase classname="tests.test_devops_assistant" name="test_capability_imports" time="0.004" /><testcase classname="tests.test_devops_assistant" name="test_capability_package" time="0.005" /><testcase classname="tests.test_documentation_engineer" name="test_capability_imports" time="0.004" /><testcase classname="tests.test_documentation_engineer" name="test_capability_package" time="0.003" /><testcase classname="tests.test_full_stack_engineer" name="test_capability_imports" time="0.003" /><testcase classname="tests.test_full_stack_engineer" name="test_capability_package" time="0.004" /><testcase classname="tests.test_full_stack_engineer" name="test_schemas_contract" time="0.005" /><testcase classname="tests.test_full_stack_engineer" name="test_enums" time="0.003" /><testcase classname="tests.test_full_stack_engineer" name="test_engine_architecture_review" time="70.601"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for FullStackReport&#10;architecture_review.architecture_score&#10;  Input should be less than or equal to 1 [type=less_than_equal, input_value=84.1, input_type=float]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/less_than_equal">@pytest.mark.asyncio
+    async def test_engine_architecture_review() -&gt; None:
+        """F1: Architecture review returns a report with score and issues."""
+        engine = FullStackEngineerEngine()
+        request = FullStackRequest(
+            operation=OperationType.architecture_review,
+            inputs={"repo_path": "."},
+            context={"project_id": "audit-test", "language": "python"},
+        )
+&gt;       report = await engine.review(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_full_stack_engineer.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;apps.full_stack_engineer.engine.FullStackEngineerEngine object at 0x00000257926A2E10&gt;
+request = FullStackRequest(request_id='97a27050-388c-4787-8604-adbb8ea48e7a', operation=&lt;OperationType.architecture_review: 'arc...o_path': '.'}, context={'project_id': 'audit-test', 'language': 'python'}, quality_attributes={}, output_format='json')
+
+    async def review(self, request: FullStackRequest) -&gt; FullStackReport:
+        """
+        Run the full-stack engineering pipeline based on operation.
+    
+        Args:
+            request: FullStackRequest with inputs, context, options.
+    
+        Returns:
+            FullStackReport with architecture review, code review, etc.
+        """
+        started = time.monotonic()
+        op = request.operation.value if hasattr(request.operation, "value") else str(request.operation)
+    
+        inputs = request.inputs
+        context = request.context
+    
+        architecture_review: dict[str, Any] | None = None
+        code_review: dict[str, Any] | None = None
+        refactoring_plan: dict[str, Any] | None = None
+        test_engineering: dict[str, Any] | None = None
+        performance_analysis: dict[str, Any] | None = None
+        release_review: dict[str, Any] | None = None
+    
+        if op in ("architecture_review", "full_stack_review"):
+            repo_path = inputs.get("repo_path", ".")
+            architecture_review = await self.arch_review_engine.review(repo_path)
+    
+        if op in ("code_review", "full_stack_review"):
+            source_code = inputs.get("source_code", "")
+            filename = inputs.get("filename", "&lt;unknown&gt;")
+            code_review = await self.code_review_engine.review(source_code, filename)
+    
+        if op in ("refactoring_plan", "full_stack_review"):
+            source_code = inputs.get("source_code", "")
+            filename = inputs.get("filename", "&lt;unknown&gt;")
+            refactoring_plan = await self.refactoring_planner.plan(source_code, filename)
+    
+        if op in ("test_engineering", "full_stack_review"):
+            source_path = inputs.get("source_path", ".")
+            module_path = inputs.get("module_path", "")
+            test_engineering = await self.test_engineer.engineer(source_path, module_path)
+    
+        if op in ("performance_analysis", "full_stack_review"):
+            source_code = inputs.get("source_code", "")
+            filename = inputs.get("filename", "&lt;unknown&gt;")
+            performance_analysis = await self.performance_engineer.analyze(source_code, filename)
+    
+        if op in ("release_review", "full_stack_review"):
+            changes = inputs.get("changes", [])
+            release_review = await self.release_engineer.review(changes, context)
+    
+        quality_score = self._compute_quality_score(
+            architecture_review, code_review, refactoring_plan,
+            test_engineering, performance_analysis, release_review,
+        )
+    
+        explanation = self._build_explanation(
+            op, architecture_review, code_review, refactoring_plan,
+            test_engineering, performance_analysis, release_review,
+        )
+    
+&gt;       report = FullStackReport(
+            request_id=request.request_id,
+            operation=op,
+            architecture_review=architecture_review,
+            code_review=code_review,
+            refactoring_plan=refactoring_plan,
+            test_engineering=test_engineering,
+            performance_analysis=performance_analysis,
+            release_review=release_review,
+            quality_score=quality_score,
+            explanation=explanation,
+            raw={
+                "latency_ms": round((time.monotonic() - started) * 1000.0, 2),
+                "architecture_score": self._get_arch_score(architecture_review),
+                "findings_count": self._get_findings_count(code_review),
+                "refactoring_plans": self._len_of(refactoring_plan, "plans"),
+                "performance_issues": self._len_of(performance_analysis, "issues"),
+                "release_ready": self._get_release_ready(release_review),
+            },
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for FullStackReport
+E       architecture_review.architecture_score
+E         Input should be less than or equal to 1 [type=less_than_equal, input_value=84.1, input_type=float]
+E           For further information visit https://errors.pydantic.dev/2.13/v/less_than_equal
+
+apps\full_stack_engineer\engine.py:117: ValidationError</failure></testcase></testsuite></testsuites>

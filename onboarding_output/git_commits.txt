@@ -1,0 +1,10 @@
+ffea744 2026-08-08 feat(apps): add reference app classes extending BaseReferenceApp
+ca9c01e 2026-08-08 docs(audit): add comprehensive audit documentation and update truth reports
+bfa1687 2026-08-08 refactor(planner): implement safe context serialization for strategy creation
+ca5b026 2026-08-08 test(benchmarks): add performance benchmark tests and improve output extraction
+93cc13e 2026-08-08 Merge branch 'main' of https://github.com/sainalabidinst-afk/Enal-AI-OS
+fbf2f16 2026-08-08 refactor(engine): simplify report generation and update review method to async
+ebd172e 2026-08-08 fix(core): handle non-dict decision values
+3c18a34 2026-08-08 feat(backend): add telemetry collection and resolve certification discrepancies
+188cf42 2026-08-08 style(backend): reformat code and improve readability
+3106436 2026-08-07 test: increase backend coverage to 71% with new test suites

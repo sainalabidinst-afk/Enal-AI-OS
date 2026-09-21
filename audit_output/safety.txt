@@ -1,0 +1,216 @@
+
+
+[33m[1m+===========================================================================================================================================================================================+[0m
+
+
+[31m[1mDEPRECATED: [0m[33m[1mthis command (`check`) has been DEPRECATED, and will be unsupported beyond 01 June 2024.[0m
+
+
+[32mWe highly encourage switching to the new [0m[32m[1m`scan`[0m[32m command which is easier to use, more powerful, and can be set up to mimic the deprecated command if required.[0m
+
+
+[33m[1m+===========================================================================================================================================================================================+[0m
+
+
++==============================================================================+
+
+                               /$$$$$$            /$$
+                              /$$__  $$          | $$
+           /$$$$$$$  /$$$$$$ | $$  \__//$$$$$$  /$$$$$$   /$$   /$$
+          /$$_____/ |____  $$| $$$$   /$$__  $$|_  $$_/  | $$  | $$
+         |  $$$$$$   /$$$$$$$| $$_/  | $$$$$$$$  | $$    | $$  | $$
+          \____  $$ /$$__  $$| $$    | $$_____/  | $$ /$$| $$  | $$
+          /$$$$$$$/|  $$$$$$$| $$    |  $$$$$$$  |  $$$$/|  $$$$$$$
+         |_______/  \_______/|__/     \_______/   \___/   \____  $$
+                                                          /$$  | $$
+                                                         |  $$$$$$/
+  by safetycli.com                                        \______/
+
++==============================================================================+
+
+ [1mREPORT[0m 
+
+  Safety [1mv3.8.1[0m is scanning for [1mVulnerabilities[0m[1m...[0m
+[1m  Scanning dependencies[0m in your [1menvironment:[0m
+
+  -> C:\Users\ICT\AppData\Local\Programs\Python\Python311\Lib\site-packages
+
+  Using [1mopen-source vulnerability database[0m
+[1m  Found and scanned 153 packages[0m
+  Timestamp [1m2026-09-21 16:09:45[0m
+[1m  8[0m[1m vulnerabilities reported[0m
+[1m  0[0m[1m vulnerabilities ignored[0m
+
++==============================================================================+
+ [1mVULNERABILITIES REPORTED[0m 
++==============================================================================+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0m85681
+[1m   Affected spec: [0m<26.0
+[1m   ADVISORY: [0mAffected versions of the pip package are vulnerable to
+   Path Traversal due to an incorrect directory containment check when
+   extracting wheel archives. In src/pip/_internal/utils/unpacking.py, the
+   is_within_directory() helper used os.path.commonprefix() (character-by-
+   character) to compare directory and target paths, allowing crafted paths
+   like a parent-directory substring match to be treated as safely inside the
+   installation directory.
+[1m   CVE-2026-1703[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/85681/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id 85681 in safety’s
+   ignore command-line argument or add the ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0mSFTY-20260601-69199
+[1m   Affected spec: [0m<26.1.2
+[1m   ADVISORY: [0mAffected versions of the `pip` package are vulnerable to
+   Path Traversal due to improper sanitization of entry point names in
+   `console_scripts` and `gui_scripts`. The `pip` installer treats these
+   entry point names as paths rather than file names, failing to sanitize the
+   resolved absolute path to the installation directory. An attacker can
+   exploit this by crafting a package with malicious entry point names,
+   allowing the installation of scripts outside the intended directory,
+   potentially leading to unauthorized code execution.
+[1m   CVE-2026-8643[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/SFTY-20260601-69199/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id
+   SFTY-20260601-69199 in safety’s ignore command-line argument or add the
+   ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0mSFTY-20260420-60812
+[1m   Affected spec: [0m<=26.0.1
+[1m   ADVISORY: [0mAffected versions of the `pip` package are vulnerable to
+   Interpretation Conflict due to handling both concatenated tar and ZIP
+   files as ZIP files. The `pip` installer incorrectly interprets
+   concatenated tar and ZIP files as ZIP files, regardless of the filename or
+   the file's dual nature as both a tar and ZIP archive. An attacker can
+   exploit this by providing a specially crafted archive that leads to
+   confusing installation behaviour, potentially installing unintended files
+   based on the archive's filename.
+[1m   CVE-2026-3219[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/SFTY-20260420-60812/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id
+   SFTY-20260420-60812 in safety’s ignore command-line argument or add the
+   ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0m75180
+[1m   Affected spec: [0m<25.0
+[1m   ADVISORY: [0mPip solves a security vulnerability that previously
+   allowed maliciously crafted wheel files to execute unauthorized code
+   during installation.
+[1m   PVE-2025-75180[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/75180/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id 75180 in safety’s
+   ignore command-line argument or add the ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0m79883
+[1m   Affected spec: [0m<25.2
+[1m   ADVISORY: [0mAffected versions of the pip package are vulnerable to
+   Arbitrary File Overwrite due to improper validation of symbolic link
+   targets in the fallback tar extraction code. In
+   src/pip/_internal/utils/unpacking.py, the _untar_without_filter routine
+   used when the Python tarfile module lacks PEP 706 (no tarfile.data_filter)
+   extracted symlink members with tar._extract_member without verifying that
+   link destinations resolve under the extraction root, a check later added
+   via the is_symlink_target_in_tar helper.
+[1m   CVE-2025-8869[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/79883/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id 79883 in safety’s
+   ignore command-line argument or add the ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0mSFTY-20260427-69629
+[1m   Affected spec: [0m<26.1
+[1m   ADVISORY: [0mAffected versions of the `pip` package are vulnerable to
+   Inclusion of Functionality from Untrusted Control Sphere due to the
+   deferred import of well-known Python module names. The self-update check
+   functionality, which runs after installing wheel files, requires importing
+   these modules, creating a risk if a newly-installed module with the same
+   name is malicious. An attacker can exploit this by crafting a malicious
+   package with module names that match those required by the self-update
+   functionality, potentially executing arbitrary code upon installation.
+[1m   CVE-2026-6357[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/SFTY-20260427-69629/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id
+   SFTY-20260427-69629 in safety’s ignore command-line argument or add the
+   ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in pip version 24.0[0m
+[1m   Vulnerability ID: [0mSFTY-20260729-70233
+[1m   Affected spec: [0m<26.2.0
+[1m   ADVISORY: [0mAffected versions of the `pip` package are vulnerable to
+   Path Traversal due to improper handling of doubly-encoded package URLs
+   from indexes. The URL handling mechanism fails to correctly decode and
+   sanitize package URLs, allowing crafted URLs to traverse directories and
+   write files to arbitrary locations on disk. An attacker can exploit this
+   vulnerability by hosting a malicious package index and tricking users into
+   downloading or installing packages using `pip download` with the `--only-
+   binary` option, potentially leading to unauthorized file modifications on
+   the user's system.
+[1m   CVE-2026-13346[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/SFTY-20260729-70233/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id
+   SFTY-20260729-70233 in safety’s ignore command-line argument or add the
+   ignore to your safety policy file.
+
+
+[31m-> Vulnerability found in h2 version 4.4.0[0m
+[1m   Vulnerability ID: [0mSFTY-20260806-02568
+[1m   Affected spec: [0m<=4.4.0
+[1m   ADVISORY: [0mAffected versions of the `h2` package are vulnerable to
+   Request Smuggling due to improper handling of duplicate Host headers. The
+   `h2` library accepts HTTP/2 request header blocks that contain multiple
+   Host headers and forwards all of them to the consuming application, which
+   may downgrade the request to HTTP/1.1, resulting in two Host headers in
+   the request. An attacker can exploit this vulnerability by crafting
+   requests with multiple Host headers, potentially bypassing security
+   controls or routing requests to unintended destinations.
+[1m   CVE-2026-71554[0m
+[1m   For more information about this vulnerability, visit
+   [0mhttps://getsafety.com/v/SFTY-20260806-02568/97c[0m
+   To ignore this vulnerability, use PyUp vulnerability id
+   SFTY-20260806-02568 in safety’s ignore command-line argument or add the
+   ignore to your safety policy file.
+
+
++==============================================================================+
+   [32m[1mREMEDIATIONS[0m
+
+  8 vulnerabilities were reported in 2 packages. For detailed remediation & 
+  fix recommendations, upgrade to a commercial license. 
+
++==============================================================================+
+
+ Scan was completed. 8 vulnerabilities were reported. 
+
++==============================================================================+[0m
+
+
+[33m[1m+===========================================================================================================================================================================================+[0m
+
+
+[31m[1mDEPRECATED: [0m[33m[1mthis command (`check`) has been DEPRECATED, and will be unsupported beyond 01 June 2024.[0m
+
+
+[32mWe highly encourage switching to the new [0m[32m[1m`scan`[0m[32m command which is easier to use, more powerful, and can be set up to mimic the deprecated command if required.[0m
+
+
+[33m[1m+===========================================================================================================================================================================================+[0m
+
+

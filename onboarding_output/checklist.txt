@@ -1,0 +1,32 @@
+ONBOARDING CHECKLIST
+
+1. Documentation
+- Read README.md for project overview and local commands.
+- Read ARCHITECTURE_DECISIONS.md for design context.
+- Read PRODUCT_VISION.md for product direction.
+- Read CONTRIBUTING.md for contribution and commit rules.
+
+2. Environment
+- Use the existing checkout; do not clone over a non-empty repository.
+- Create or activate a Python virtual environment.
+- Install dependencies only when explicitly requested and with network access approved.
+- Do not replace or print local secrets in .env.
+
+3. Audit
+- Run pytest and retain its exit code and final summary.
+- Run repository gates: ruff and mypy.
+- Run optional legacy tools only as supplemental checks.
+- Record tool-unavailable, timeout, and failure states separately.
+
+4. First task
+- Start with a small bug fix, documentation change, or focused test.
+- Use a feature branch for product changes.
+
+5. Review
+- Use the repository commit convention.
+- Include tests and the actual command results in the pull request.
+
+6. Release
+- Do not claim certification from stale artifacts.
+- Do not report a benchmark score when the model/provider is blocked.
+- Verify Docker and authenticated end-to-end behavior separately.

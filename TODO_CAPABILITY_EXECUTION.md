@@ -1,8 +1,8 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Terakhir Diverifikasi:** 2026-08-02
-**Version:** 1.0.0
+**Terakhir Diverifikasi:** 2026-09-21
+**Version:** 1.1.0
 **Status:** Active
 **SSOT:** Capability Pack execution plan and rollout milestones
 <!-- DOCUMENT_METADATA_END -->
@@ -947,7 +947,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 
 | Release | Target | Isi |
 |---------|--------|-----|
-| v1.0.0-dev | Q3 2026 | Platform complete ✅ |
+| v1.0.0-dev | Q3 2026 | Platform complete ✅ (Developer Preview — Fase 1 Complete) |
 | v1.0.0 | Q4 2026 | 13 packs certified, documentation, SDK, Studio |
 | v1.1.0 | Q1 2027 | All packs A-/A, Trading Certification |
 | v1.2.0 | Q2 2027 | Decision Intelligence + Security + Data |
@@ -968,6 +968,8 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | Golden Test Pass Rate | ≥80% | ≥85% | ≥90% |
 | Test Coverage | ≥80% | ≥85% | ≥90% |
 | Architecture Violations | 0 | 0 | 0 |
+| Registry Loadability | 19/19 (after Phase 1 remediation) | — | — |
+| Benchmark Status | BLOCKED (no fresh runtime execution) | — | — |
 
 ---
 
@@ -1011,6 +1013,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | 2026-08-05 | Grade Corrections: Fixed all grade discrepancies (A/A+ targets) across all documentation | ✅ |
 | 2026-08-05 | Benchmarks: Created missing full_stack_engineer_benchmark.py | ✅ |
 | 2026-08-05 | Audit Report: Generated domain_expert_audit_report.json with final state | ✅ |
+| 2026-09-21 | Documentation Sync: VERSION_MATRIX.md synchronized with audit truth; corrected version to v1.0.0-developer-preview; corrected certification claims; added Audit Truth section | ✅ |
 
 ## SPRINT 8.5 — Frontend Cognitive Layer (Three-Level Thinking Architecture)
 

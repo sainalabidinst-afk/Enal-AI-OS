@@ -1,0 +1,31 @@
+ONBOARDING RERUN SUMMARY
+
+timestamp=2026-09-21T16:47:38.3206727+08:00
+repo=E:\Enal-AI-OS
+branch=main
+head=ffea744
+
+EXIT CODES
+pytest: exit_code=1
+ruff: exit_code=1
+mypy: exit_code=1
+flake8: exit_code=1
+black: exit_code=123
+isort: exit_code=1
+bandit: exit_code=1
+safety: exit_code=64
+
+RESULTS
+pytest: 109 passed, 1 skipped, 1 failed; stopped at first failure in tests/test_full_stack_engineer.py::test_engine_architecture_review
+ruff: 3442 errors
+mypy: 86 errors in 29 files, 632 source files checked
+flake8: non-zero with 73696 output lines
+black: 2066 files would be reformatted, 410 unchanged, 28 failed to reformat
+isort: non-zero, import ordering errors reported
+bandit: non-zero, syntax errors reported in generated real_cases source files
+safety: exit 64; legacy command did not produce a vulnerability verdict
+
+NOTES
+- The rerun used the existing checkout; no git clone was performed.
+- No dependency installation was performed because the virtualenv lacks pytest and no network install was requested.
+- No .env, API key, or SECRET_KEY value was copied or printed.
