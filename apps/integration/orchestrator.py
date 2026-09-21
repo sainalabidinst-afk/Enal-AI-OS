@@ -194,8 +194,7 @@ class IntegrationEngine:
 
     async def _step_trading_analysis(self, context: CapabilityContext) -> CapabilityContext:
         if not self._trading_analyzer:
-            context.set_intermediate("trading_error", "Trading analyzer not initialized")
-            return context
+            raise RuntimeError("Trading analyzer not initialized")
 
         from apps.trading_analyst.market_intelligence.provider import build_trading_context, DEFAULT_TIMEFRAMES
         from apps.trading_analyst.market_intelligence.evidence import EvidenceBuilder
@@ -210,8 +209,13 @@ class IntegrationEngine:
         evidence_builder = EvidenceBuilder()
         built_evidences = evidence_builder.build(raw_evidence, self._trading_analyzer.get_analyzed_timeframes())
 
+        if not built_evidences:
+            raise RuntimeError("Trading analysis produced no market evidence")
+
         trading_evidences = [self._evidence_adapter.from_trading_evidence(ev) for ev in built_evidences]
         context.add_evidences(trading_evidences)
+        context.set_output("market_evidence", [e.to_dict() for e in trading_evidences])
+        context.set_output("trading_context", ctx.metadata)
         context.set_intermediate("trading_evidence_count", len(trading_evidences))
         context.set_intermediate("analyzed_timeframes", self._trading_analyzer.get_analyzed_timeframes())
         context.set_metadata("step.trading_analysis.status", "completed")
@@ -276,27 +280,30 @@ class IntegrationEngine:
         return context
 
     async def _step_reasoning(self, context: CapabilityContext) -> CapabilityContext:
-        reasoning_output: dict[str, Any] = {}
-        if self._reasoning_engine and hasattr(self._reasoning_engine, "forward_chaining"):
-            try:
-                facts = list(context.evidences[:20])
-                goal = (
-                    f"Analyze market condition for {context.get_input('symbol')}"
-                    if context.get_input("symbol")
-                    else "Evaluate design against best practices"
-                )
-                reasoning_result = self._reasoning_engine.forward_chaining(
-                    initial_evidence=facts,  # type: ignore[arg-type]
-                    goal=goal,
-                )
-                reasoning_output = {
-                    "conclusions": getattr(reasoning_result, "conclusions", []),
-                    "confidence": getattr(reasoning_result, "confidence", 0.0),
-                }
-            except Exception as e:
-                logger.warning("Reasoning engine failed: %s", e)
-                reasoning_output = {"error": str(e)}
+        if not self._reasoning_engine or not hasattr(self._reasoning_engine, "forward_chaining"):
+            raise RuntimeError("Reasoning engine not available")
+
+        facts = [self._evidence_adapter.to_reasoning_evidence(e) for e in context.evidences[:20]]
+        goal = (
+            f"Analyze market condition for {context.get_input('symbol')}"
+            if context.get_input("symbol")
+            else "Evaluate design against best practices"
+        )
+        try:
+            reasoning_result = self._reasoning_engine.forward_chaining(
+                initial_evidence=facts,
+                goal=goal,
+            )
+        except Exception as e:
+            logger.warning("Reasoning engine failed: %s", e)
+            raise RuntimeError("Reasoning engine failed") from e
+
+        reasoning_output = {
+            "conclusions": getattr(reasoning_result, "conclusions", []),
+            "confidence": getattr(reasoning_result, "confidence", 0.0),
+        }
         context.set_intermediate("reasoning_output", reasoning_output)
+        context.set_output("reasoning_output", reasoning_output)
         context.set_metadata("step.reasoning.status", "completed")
         return context
 

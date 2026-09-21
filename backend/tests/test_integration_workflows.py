@@ -6,10 +6,29 @@ from apps.integration.context import CapabilityContext
 from apps.integration.evidence_adapter import EvidenceAdapter, EvidenceSource, EvidenceType
 from apps.integration.orchestrator import IntegrationEngine
 from apps.integration.workflow import WorkflowStep
+from apps.trading_analyst.market_intelligence import provider as market_provider
+
+
+def _fake_market_data(symbol: str, timeframes: list[str], limit: int = 100) -> dict[str, list[dict]]:
+    candles = []
+    for index in range(max(30, limit)):
+        price = 100.0 + index
+        candles.append(
+            {
+                "timestamp": index,
+                "open": price - 0.5,
+                "high": price + 1.0,
+                "low": price - 1.0,
+                "close": price,
+                "volume": 1000.0 + index,
+            }
+        )
+    return {timeframe: list(candles) for timeframe in timeframes}
 
 
 @pytest.mark.asyncio
-async def test_trading_analysis_workflow_produces_context():
+async def test_trading_analysis_workflow_produces_context(monkeypatch):
+    monkeypatch.setattr(market_provider, "fetch_multi_timeframe", _fake_market_data)
     engine = IntegrationEngine()
     result = await engine.trading_analysis_with_knowledge(
         symbol="BTCUSDT",
@@ -22,6 +41,26 @@ async def test_trading_analysis_workflow_produces_context():
     assert result.context.workflow_type == "trading_analysis_with_knowledge"
     assert result.context.get_input("symbol") == "BTCUSDT"
     assert result.context.get_input("exchange") == "binance"
+    assert result.context.get_output("market_evidence")
+    assert result.context.get_output("reasoning_output") is not None
+
+
+@pytest.mark.asyncio
+async def test_trading_analysis_fails_when_market_data_is_unavailable(monkeypatch):
+    monkeypatch.setattr(
+        market_provider,
+        "fetch_multi_timeframe",
+        lambda symbol, timeframes, limit=100: {timeframe: [] for timeframe in timeframes},
+    )
+    result = await IntegrationEngine().trading_analysis_with_knowledge(
+        symbol="BTCUSDT",
+        timeframes=["1h"],
+        exchange="binance",
+    )
+
+    assert result.success is False
+    assert "No market data available" in (result.error or "")
+    assert result.context.outputs == {}
 
 
 @pytest.mark.asyncio

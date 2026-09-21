@@ -12,10 +12,17 @@ This benchmark suite measures:
 """
 
 import asyncio
+import json
 import time
 import hashlib
 from typing import Any
-from backend.app.core.adaptive_runtime import adaptive_runtime
+
+try:
+    from backend.app.core.adaptive_runtime import adaptive_runtime
+    from backend.app.core.config import settings
+except Exception:
+    adaptive_runtime = None
+    settings = None
 
 
 class BenchmarkMetrics:
@@ -72,7 +79,32 @@ def _extract_output(result: Any) -> str:
     return ""
 
 
+def _provider_for_model(model: str) -> str | None:
+    if model.startswith("gemini"):
+        return "gemini"
+    if model.startswith("gpt"):
+        return "openai"
+    if model.startswith("claude"):
+        return "anthropic"
+    if model.startswith("ollama/"):
+        return "ollama"
+    return None
+
+
+def _provider_ready(model: str, config: Any) -> bool:
+    provider = _provider_for_model(model)
+    if provider == "gemini":
+        return bool(getattr(config, "GEMINI_API_KEY", "") or getattr(config, "GOOGLE_API_KEY", ""))
+    if provider == "openai":
+        return bool(getattr(config, "OPENAI_API_KEY", ""))
+    if provider == "anthropic":
+        return bool(getattr(config, "ANTHROPIC_API_KEY", ""))
+    return provider in {None, "ollama"}
+
+
 async def run_with_metrics(user_input: str, metrics: BenchmarkMetrics):
+    if adaptive_runtime is None:
+        raise RuntimeError("benchmark runtime is not configured")
     start = time.time()
     result = await adaptive_runtime.execute(user_input)
     latency = (time.time() - start) * 1000
@@ -86,7 +118,20 @@ async def run_with_metrics(user_input: str, metrics: BenchmarkMetrics):
     return result
 
 
-async def main():
+async def main() -> int:
+    if settings is None or adaptive_runtime is None:
+        print("BENCHMARK BLOCKED: runtime configuration is unavailable")
+        print("BENCHMARK RAW MEASUREMENTS: none")
+        print("BENCHMARK FINAL RESULTS: not generated")
+        return 1
+
+    model = settings.DEFAULT_REASONING_MODEL
+    if not _provider_ready(model, settings):
+        print(f"BENCHMARK BLOCKED: provider credential is unavailable for {model}")
+        print("BENCHMARK RAW MEASUREMENTS: none")
+        print("BENCHMARK FINAL RESULTS: not generated")
+        return 1
+
     metrics = BenchmarkMetrics()
 
     # Run benchmarks
@@ -98,13 +143,20 @@ async def main():
     ]
 
     for user_input in test_inputs:
-        await run_with_metrics(user_input, metrics)
+        try:
+            await run_with_metrics(user_input, metrics)
+        except Exception as exc:
+            print(f"BENCHMARK BLOCKED: provider call failed ({type(exc).__name__})")
+            print("BENCHMARK RAW MEASUREMENTS: none")
+            print("BENCHMARK FINAL RESULTS: not generated")
+            return 1
 
     summary = metrics.get_summary()
-    print("Benchmark Results:")
-    for key, value in summary.items():
-        print(f"  {key}: {value:.2f}")
+    print("BENCHMARK RAW MEASUREMENTS:")
+    print(json.dumps({"samples": len(metrics.latencies), "summary": summary}, indent=2))
+    print("BENCHMARK FINAL RESULTS: raw measurements collected; no certification score generated")
+    return 0
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    raise SystemExit(asyncio.run(main()))

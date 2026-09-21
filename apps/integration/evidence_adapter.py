@@ -157,6 +157,22 @@ class EvidenceAdapter:
             },
         )
 
+    def to_reasoning_evidence(self, unified: UnifiedEvidence) -> Any:
+        """Convert unified evidence to the reasoning engine's input contract."""
+        from apps.organization.reasoning_engine import Evidence, EvidenceType
+
+        supported_types = {item.value for item in EvidenceType}
+        evidence_type = unified.type.value if unified.type.value in supported_types else EvidenceType.FACT.value
+        return Evidence(
+            id=unified.id,
+            type=EvidenceType(evidence_type),
+            description=unified.content,
+            value=unified.raw or unified.content,
+            source=unified.source.value,
+            confidence=unified.confidence,
+            metadata=dict(unified.metadata),
+        )
+
     def to_knowledge_evidence(self, unified: UnifiedEvidence) -> Any:
         """Convert unified evidence back to Knowledge system format."""
         from backend.app.core.knowledge.evidence import Evidence

@@ -157,6 +157,10 @@ async def build_trading_context(symbol: str, timeframes: list[str], exchange: st
             )
             for c in candles
         ]
+    if not any(parsed.values()):
+        raise MarketProviderError(
+            f"No market data available for {symbol} on requested timeframes"
+        )
     return TradingContext(
         symbol=symbol.upper(),
         exchange=exchange,

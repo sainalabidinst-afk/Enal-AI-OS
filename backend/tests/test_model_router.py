@@ -12,6 +12,7 @@ class FakeConfig:
     OPENAI_API_KEY = "sk-test"
     ANTHROPIC_API_KEY = "sk-ant-test"
     GOOGLE_API_KEY = "sk-goog-test"
+    GEMINI_API_KEY = "sk-gemini-test"
     OLLAMA_BASE_URL = "http://localhost:11434"
 
 
@@ -35,7 +36,16 @@ class TestModelRouter:
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("gemini-pro")
-        assert config["api_key"] == "sk-goog-test"
+        assert config["api_key"] == "sk-gemini-test"
+        assert config["model"] == "gemini/gemini-pro"
+
+    def test_get_provider_config_prefers_gemini_key(self, monkeypatch):
+        import backend.app.core.model_router as mr_module
+        monkeypatch.setattr(mr_module, "settings", FakeConfig)
+        router = ModelRouter()
+        config = router.get_provider_config("gemini/gemini-2.5-flash")
+        assert config["api_key"] == "sk-gemini-test"
+        assert config["model"] == "gemini/gemini-2.5-flash"
 
     def test_get_provider_config_ollama(self, monkeypatch):
         import backend.app.core.model_router as mr_module

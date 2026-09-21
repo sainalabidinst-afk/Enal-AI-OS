@@ -902,7 +902,21 @@ class ArchitectureReviewEngine(_ScanMixin, _AnalysisMixin, _ScoringMixin, _Repor
 
         report.summary = self._generate_summary(report)
 
-        return report.to_dict()
+        result = report.to_dict()
+        raw_score = float(result.get("architecture_score", 0.0) or 0.0)
+        normalized_score = raw_score / 100.0 if raw_score > 1.0 else raw_score
+        normalized_score = min(max(normalized_score, 0.0), 1.0)
+        result["architecture_score"] = round(normalized_score, 4)
+        result.update(
+            {
+                "total_modules": report.total_modules,
+                "total_files": report.total_files,
+                "total_lines": report.total_lines,
+            }
+        )
+        if isinstance(result.get("arch"), dict):
+            result["arch"]["score"] = round(normalized_score, 4)
+        return result
 
 
 architecture_review_engine = ArchitectureReviewEngine()

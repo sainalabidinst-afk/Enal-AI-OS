@@ -20,7 +20,8 @@ class ModelRouter:
         elif model.startswith("claude"):
             config["api_key"] = settings.ANTHROPIC_API_KEY
         elif model.startswith("gemini"):
-            config["api_key"] = settings.GOOGLE_API_KEY
+            config["model"] = model if "/" in model else f"gemini/{model}"
+            config["api_key"] = getattr(settings, "GEMINI_API_KEY", "") or settings.GOOGLE_API_KEY
         elif model.startswith("ollama/"):
             config["api_base"] = settings.OLLAMA_BASE_URL
         return config

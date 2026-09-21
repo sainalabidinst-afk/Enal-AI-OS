@@ -17,10 +17,11 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     ANTHROPIC_API_KEY: str = ""
     GOOGLE_API_KEY: str = ""
+    GEMINI_API_KEY: str = ""
     OLLAMA_BASE_URL: str = "http://localhost:11434"
 
     DEFAULT_MODEL: str = "gpt-4o"
-    DEFAULT_REASONING_MODEL: str = "claude-3-5-sonnet-20240620"
+    DEFAULT_REASONING_MODEL: str = "gemini/gemini-2.5-flash"
     DEFAULT_EMBEDDING_MODEL: str = "text-embedding-3-small"
 
     MAX_TOKENS: int = 4096
