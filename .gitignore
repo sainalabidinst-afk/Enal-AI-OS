@@ -50,3 +50,5 @@ audit_output.tar.gz
 onboarding_output/
 onboarding_output.tar.gz
 repo_inspect_output/
+docs/audit
+
