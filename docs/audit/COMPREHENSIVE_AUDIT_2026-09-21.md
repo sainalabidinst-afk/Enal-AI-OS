@@ -197,8 +197,21 @@ Still open and not certified:
 
 - A real provider-backed benchmark with an authorized key has not produced
   fresh measurements in this run.
-- Full Ruff, Mypy, and pytest gates still require completion and remediation.
-- Frontend dependency installation/lint and Docker service health remain
-  environment-dependent and were not declared passing without evidence.
+- Full Ruff and Mypy gates still require completion and remediation.
+- Docker service health remains environment-dependent and was not declared
+  passing without evidence.
 - The frontend trading placeholder, workspace redirect, and missing chat route
   remain product-completeness work.
+
+Additional evidence collected on 2026-09-22:
+
+- `npm ci` completed, `npm run lint` passed with warnings, and `npm run build`
+  passed with 39 static routes.
+- The complete pytest run finished with `939 passed, 2 skipped, 152 warnings`
+  from 941 collected tests.
+- Global Ruff remains failing with 3,417 findings; global Mypy remains failing
+  with 81 errors in 28 files.
+- `docker compose config --quiet` passed with process-only validation values;
+  without `SECRET_KEY` it fails closed as intended.
+- The benchmark remained blocked because this checkout exposed neither a local
+  `.env` nor a process `GEMINI_API_KEY`.

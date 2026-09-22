@@ -179,5 +179,8 @@ Completed in the current remediation pass:
 - Provider-backed benchmark CI changed to explicit opt-in through the
   `RUN_PROVIDER_BENCHMARK` repository variable.
 
-The release gate remains open. Fresh provider measurements, complete pytest,
-Ruff, Mypy, frontend lint/build, and Docker health evidence are still required.
+The release gate remains open. Fresh provider measurements, green Ruff/Mypy,
+and Docker health evidence are still required. The complete pytest gate now
+has a final result: `939 passed, 2 skipped, 152 warnings` from 941 collected
+tests. Frontend lint and build also have passing evidence, with non-fatal lint
+warnings documented in the audit.
