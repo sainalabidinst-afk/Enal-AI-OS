@@ -314,7 +314,7 @@ def main() -> int:
     print("\nRunning Gate 0/1/2 validation...\n")
 
     if not shutil.which("docker"):
-        print("❌ docker not installed — Gate 0 cannot run")
+        print("[FAIL] docker not installed — Gate 0 cannot run")
         return 2
 
     backend_pyproject_exists()
