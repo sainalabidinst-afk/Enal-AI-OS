@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
 
+from backend.app.core.config import settings
+
 logger = logging.getLogger(__name__)
 
 
@@ -32,11 +34,11 @@ class CognitiveBudget:
 class CognitiveBudgetManager:
     def __init__(self):
         self.complexity_model_map = {
-            TaskComplexity.TRIVIAL: "gpt-4o-mini",
-            TaskComplexity.SIMPLE: "gpt-4o-mini",
-            TaskComplexity.MEDIUM: "gpt-4o",
-            TaskComplexity.COMPLEX: "claude-3-5-sonnet-20240620",
-            TaskComplexity.VERY_COMPLEX: "claude-3-5-sonnet-20240620",
+            TaskComplexity.TRIVIAL: settings.DEFAULT_MODEL,
+            TaskComplexity.SIMPLE: settings.DEFAULT_MODEL,
+            TaskComplexity.MEDIUM: settings.DEFAULT_REASONING_MODEL,
+            TaskComplexity.COMPLEX: settings.DEFAULT_REASONING_MODEL,
+            TaskComplexity.VERY_COMPLEX: settings.DEFAULT_REASONING_MODEL,
         }
         self.token_budget_map = {
             TaskComplexity.TRIVIAL: 1024,

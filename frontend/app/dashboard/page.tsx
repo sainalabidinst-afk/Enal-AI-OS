@@ -1,6 +1,6 @@
-import { DashboardPage } from "@/components/dashboard/dashboard-page";
+import { ChatGPTPage } from "@/components/chat/chatgpt-page";
 
 export default function DashboardRoute() {
-  return <DashboardPage />;
+  return <ChatGPTPage />;
 }
 

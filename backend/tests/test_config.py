@@ -12,7 +12,7 @@ def test_settings_defaults():
     assert settings.PROJECT_NAME == "Enal AI OS"
     assert settings.VERSION == "1.0.0-dev"
     assert settings.API_V1_STR == "/api/v1"
-    assert settings.DEFAULT_MODEL == "gpt-4o"
+    assert settings.DEFAULT_MODEL == "lmstudio/google/gemma-4-4b"
     assert settings.MAX_TOKENS == 4096
     assert settings.TEMPERATURE == 0.7
 

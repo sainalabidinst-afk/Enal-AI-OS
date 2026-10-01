@@ -19,9 +19,11 @@ class Settings(BaseSettings):
     GOOGLE_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
     OLLAMA_BASE_URL: str = "http://localhost:11434"
+    LM_STUDIO_BASE_URL: str = "http://localhost:1234/v1"
+    LM_STUDIO_API_KEY: str = "lm-studio"
 
-    DEFAULT_MODEL: str = "gpt-4o"
-    DEFAULT_REASONING_MODEL: str = "gemini/gemini-3.8-flash"
+    DEFAULT_MODEL: str = "lmstudio/google/gemma-4-4b"
+    DEFAULT_REASONING_MODEL: str = "lmstudio/google/gemma-4-4b"
     DEFAULT_EMBEDDING_MODEL: str = "text-embedding-3-small"
 
     MAX_TOKENS: int = 4096

@@ -22,6 +22,10 @@ class ModelRouter:
         elif model.startswith("gemini"):
             config["model"] = model if "/" in model else f"gemini/{model}"
             config["api_key"] = getattr(settings, "GEMINI_API_KEY", "") or settings.GOOGLE_API_KEY
+        elif model.startswith("lmstudio/"):
+            config["model"] = f"openai/{model.removeprefix('lmstudio/')}"
+            config["api_base"] = settings.LM_STUDIO_BASE_URL
+            config["api_key"] = settings.LM_STUDIO_API_KEY
         elif model.startswith("ollama/"):
             config["api_base"] = settings.OLLAMA_BASE_URL
         return config
