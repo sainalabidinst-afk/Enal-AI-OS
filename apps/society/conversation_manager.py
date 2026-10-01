@@ -103,20 +103,7 @@ class ConversationManager:
         state.current_domain = intent_domain
 
         results_raw = result.get("result", {})
-        if isinstance(results_raw, dict):
-            results_list = results_raw.get("results", [])
-        else:
-            results_list = []
-        if results_list:
-            first = results_list[0]
-            if hasattr(first, "result"):
-                assistant_message = first.result or ""
-            elif isinstance(first, dict):
-                assistant_message = first.get("result", "")
-            else:
-                assistant_message = str(first)
-        else:
-            assistant_message = str(results_raw)
+        assistant_message = self._format_assistant_message(result, results_raw)
 
         analysis_payload = await self._maybe_analyze_attachments(user_message, context)
 
@@ -187,21 +174,7 @@ class ConversationManager:
         task_plan = result.get("task_plan", {})
         execution_plan = result.get("execution_plan", {})
 
-        results_raw = result.get("result", {})
-        if isinstance(results_raw, dict):
-            results_list = results_raw.get("results", [])
-        else:
-            results_list = []
-        if results_list:
-            first = results_list[0]
-            if hasattr(first, "result"):
-                assistant_message = first.result or ""
-            elif isinstance(first, dict):
-                assistant_message = first.get("result", "")
-            else:
-                assistant_message = str(first)
-        else:
-            assistant_message = str(results_raw)
+        assistant_message = self._format_assistant_message(result, results_raw)
 
         artifact = {
             "conversation_id": conversation_id,
@@ -266,6 +239,38 @@ class ConversationManager:
             "metadata": assistant_turn.metadata,
         }
 
+    @staticmethod
+    def _format_assistant_message(result: dict[str, Any], results_raw: Any) -> str:
+        """Convert society output into user-facing text without leaking raw containers."""
+        for key in ("message", "answer", "response", "text", "content"):
+            value = result.get(key)
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+
+        if isinstance(results_raw, dict):
+            for key in ("message", "answer", "response", "text", "content"):
+                value = results_raw.get(key)
+                if isinstance(value, str) and value.strip():
+                    return value.strip()
+            results_list = results_raw.get("results")
+        else:
+            results_list = results_raw if isinstance(results_raw, list) else None
+
+        if results_list:
+            first = results_list[0]
+            if hasattr(first, "result"):
+                value = first.result
+            elif isinstance(first, dict):
+                value = first.get("result") or first.get("message") or first.get("content")
+            else:
+                value = first
+            if value is not None and str(value).strip():
+                return str(value).strip()
+
+        return (
+            "Saya memahami permintaan Anda, tetapi belum ada hasil yang dapat ditindaklanjuti. "
+            "Tambahkan sedikit konteks agar saya dapat melanjutkan."
+        )
     def _get_capability_summary(self) -> dict[str, Any]:
         try:
             from apps.organization.capability_graph import capability_graph
