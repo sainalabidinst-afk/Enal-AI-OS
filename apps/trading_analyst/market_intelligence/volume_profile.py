@@ -16,7 +16,7 @@ organizes volume by price level, not by time.
 import logging
 from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import MarketEvidence, OHLCV
+from apps.trading_analyst.market_intelligence.models import OHLCV, MarketEvidence
 
 logger = logging.getLogger(__name__)
 

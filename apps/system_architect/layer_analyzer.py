@@ -12,24 +12,21 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Any
 
 from apps.system_architect.dependency_graph import (
     DependencyGraphBuilder,
     DependencyGraphSnapshot,
     Layer,
-    DependencyType,
-    ModuleInfo,
 )
 from apps.system_architect.schemas import (
+    ArchitectureMetrics,
+    Effort,
     Finding,
     FindingCategory,
-    Severity,
     Impact,
-    ArchitectureMetrics,
-    Recommendation,
     Priority,
-    Effort,
+    Recommendation,
+    Severity,
 )
 
 logger = logging.getLogger(__name__)
@@ -253,11 +250,10 @@ class LayerAnalyzer:
 
     def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:
         """Compute quantitative architecture metrics from analysis."""
-        layer_violations = sum(1 for f in findings if f.category == FindingCategory.layer_violation)
-        dep_cycles = sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)
+        sum(1 for f in findings if f.category == FindingCategory.layer_violation)
+        sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)
         boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)
 
-        total = snapshot.total_modules
         layer_violations_count = len(snapshot.layer_violations)
         cycles_count = len(snapshot.circular_dependencies)
 

@@ -5,10 +5,10 @@ Re-exports core data models from market intelligence module.
 """
 
 from apps.trading_analyst.market_intelligence.models import (
+    OHLCV,
     AnalysisResult,
     Bias,
     MarketEvidence,
-    OHLCV,
     TradingContext,
 )
 

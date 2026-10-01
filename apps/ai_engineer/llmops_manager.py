@@ -9,16 +9,14 @@ pipelines, and evaluation frameworks for production AI systems.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.ai_engineer.schemas import (
     AIEngineerRequest,
     DeploymentConfig,
-    MonitoringConfig,
-    FineTuningConfig,
-    LLMProvider,
-    EvaluationMetric,
     DeploymentEnvironment,
+    EvaluationMetric,
+    FineTuningConfig,
+    MonitoringConfig,
 )
 
 logger = logging.getLogger(__name__)

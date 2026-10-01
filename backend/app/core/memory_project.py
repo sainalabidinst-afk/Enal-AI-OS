@@ -31,7 +31,6 @@ class ProjectMemory:
 
     async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:
         results: list[dict] = []
-        pid = project_id or "*"
         query_lower = query.lower()
         for proj_dir in self.base_path.iterdir():
             if proj_dir.is_dir():

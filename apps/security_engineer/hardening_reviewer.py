@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any
 
 from apps.security_engineer.schemas import Finding, Severity
 

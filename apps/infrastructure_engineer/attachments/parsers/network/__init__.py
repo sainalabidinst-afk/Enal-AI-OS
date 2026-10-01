@@ -1,11 +1,17 @@
 from apps.infrastructure_engineer.attachments.parsers.network.aruba import ArubaParser
-from apps.infrastructure_engineer.attachments.parsers.network.aruba_central import ArubaCentralParser
-from apps.infrastructure_engineer.attachments.parsers.network.aruba_instant import ArubaInstantParser
+from apps.infrastructure_engineer.attachments.parsers.network.aruba_central import (
+    ArubaCentralParser,
+)
+from apps.infrastructure_engineer.attachments.parsers.network.aruba_instant import (
+    ArubaInstantParser,
+)
 from apps.infrastructure_engineer.attachments.parsers.network.cambium import CambiumParser
 from apps.infrastructure_engineer.attachments.parsers.network.checkpoint import CheckPointParser
 from apps.infrastructure_engineer.attachments.parsers.network.cisco import CiscoIOSParser
 from apps.infrastructure_engineer.attachments.parsers.network.cisco_asa import CiscoASAParser
-from apps.infrastructure_engineer.attachments.parsers.network.dell_networking import DellNetworkingParser
+from apps.infrastructure_engineer.attachments.parsers.network.dell_networking import (
+    DellNetworkingParser,
+)
 from apps.infrastructure_engineer.attachments.parsers.network.extreme import ExtremeNetworksParser
 from apps.infrastructure_engineer.attachments.parsers.network.fortinet import FortinetParser
 from apps.infrastructure_engineer.attachments.parsers.network.hpe_procurve import HPEProCurveParser
@@ -22,7 +28,9 @@ from apps.infrastructure_engineer.attachments.parsers.network.sonicwall import S
 from apps.infrastructure_engineer.attachments.parsers.network.sophos import SophosParser
 from apps.infrastructure_engineer.attachments.parsers.network.text_config import TextConfigParser
 from apps.infrastructure_engineer.attachments.parsers.network.unifi import UniFiParser
-from apps.infrastructure_engineer.attachments.parsers.network.unifi_wireless import UniFiWirelessParser
+from apps.infrastructure_engineer.attachments.parsers.network.unifi_wireless import (
+    UniFiWirelessParser,
+)
 
 __all__ = [
     "ArubaCentralParser",

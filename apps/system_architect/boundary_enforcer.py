@@ -11,10 +11,8 @@ Enforces package boundary rules and detects violations:
 
 from __future__ import annotations
 
-import ast
 import logging
 from pathlib import Path
-from typing import Any
 
 from apps.system_architect.dependency_graph import (
     DependencyGraphBuilder,
@@ -22,14 +20,14 @@ from apps.system_architect.dependency_graph import (
     DependencyType,
 )
 from apps.system_architect.schemas import (
+    ArchitectureMetrics,
+    Effort,
     Finding,
     FindingCategory,
-    Severity,
     Impact,
-    ArchitectureMetrics,
-    Recommendation,
     Priority,
-    Effort,
+    Recommendation,
+    Severity,
 )
 
 logger = logging.getLogger(__name__)

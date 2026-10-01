@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -24,8 +26,6 @@ from .api import (
     workspace,
 )
 from .core.config import settings
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +57,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next):
         import time
+
         from backend.app.core.config import settings
         if getattr(settings, "TESTING", False):
             return await call_next(request)

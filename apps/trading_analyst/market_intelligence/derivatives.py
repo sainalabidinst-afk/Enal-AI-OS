@@ -12,7 +12,6 @@ It does NOT produce trading signals.
 """
 
 import logging
-import math
 from typing import Any
 
 from apps.trading_analyst.market_intelligence.models import MarketEvidence
@@ -324,7 +323,7 @@ class DerivativesAnalyzer:
 
         tot_comm = commercial_long + commercial_short
         tot_large = large_spec_long + large_spec_short
-        tot_small = small_spec_long + small_spec_short
+        small_spec_long + small_spec_short
 
         if tot_comm > 0 and tot_large > 0:
             # Commercial (smart money) net position

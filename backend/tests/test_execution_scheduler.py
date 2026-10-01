@@ -1,4 +1,3 @@
-import pytest
 
 from backend.app.core.execution_integration import ExecutionScheduler
 from backend.app.models.schemas_execution import ExecutionGraph, ExecutionStatus, ExecutionTask

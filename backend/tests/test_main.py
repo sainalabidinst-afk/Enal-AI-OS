@@ -4,6 +4,7 @@ os.environ["SECRET_KEY"] = "test-secret-key-for-unit-tests-only"
 os.environ["TESTING"] = "true"
 
 from fastapi.testclient import TestClient
+
 from backend.app.main import app
 
 client = TestClient(app)

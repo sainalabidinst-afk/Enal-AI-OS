@@ -70,9 +70,10 @@ class TestExperienceLearning:
         assert manager._lessons[lesson_id].tags == ["fast", "reliable"]
 
     def test_search_returns_matching_lessons(self, manager):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.experience as exp_module
-        from datetime import datetime, UTC
 
         with patch.object(exp_module, "datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
@@ -85,9 +86,10 @@ class TestExperienceLearning:
         assert results[0].situation == "login fails"
 
     def test_search_filters_by_category(self, manager):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.experience as exp_module
-        from datetime import datetime, UTC
 
         with patch.object(exp_module, "datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
@@ -100,9 +102,10 @@ class TestExperienceLearning:
         assert results[0].category == "bug"
 
     def test_search_scores_action_taken(self, manager):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.experience as exp_module
-        from datetime import datetime, UTC
 
         with patch.object(exp_module, "datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
@@ -113,9 +116,10 @@ class TestExperienceLearning:
         assert results[0].action_taken == "action taken here"
 
     def test_search_scores_by_relevance(self, manager):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.experience as exp_module
-        from datetime import datetime, UTC
 
         with patch.object(exp_module, "datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
@@ -128,9 +132,10 @@ class TestExperienceLearning:
         assert results[0].situation == "fix login bug"
 
     def test_search_respects_limit(self, manager):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.experience as exp_module
-        from datetime import datetime, UTC
 
         with patch.object(exp_module, "datetime") as mock_dt:
             mock_dt.UTC = UTC
@@ -141,9 +146,10 @@ class TestExperienceLearning:
         assert len(results) == 3
 
     def test_get_by_project_filters_by_project(self, manager):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.experience as exp_module
-        from datetime import datetime, UTC
 
         with patch.object(exp_module, "datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)

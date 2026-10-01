@@ -26,9 +26,7 @@ Pipeline:
 
 from __future__ import annotations
 
-import hashlib
 import logging
-import random
 from pathlib import Path
 from typing import Any
 
@@ -38,7 +36,6 @@ from apps.self_development.schemas import (
     ApprovalState,
     Patch,
     Problem,
-    ProjectAnalysis,
     Solution,
 )
 from apps.self_development.smell_taxonomy import SmellTaxonomy
@@ -176,8 +173,8 @@ class SelfDevelopmentEngine:
 
     def _build_diff(self, problem: Problem, solution: Solution) -> str:
         return (
-            "--- a/{location}\n"
-            "+++ b/{location}\n"
+            f"--- a/{problem.location}\n"
+            f"+++ b/{problem.location}\n"
             "@@ -10,7 +10,7 @@\n"
             " class CommunicationChannel:\n"
             "-    def broadcast(self, message):\n"
@@ -186,7 +183,7 @@ class SelfDevelopmentEngine:
             "+    async def broadcast(self, message):\n"
             "+        tasks = [agent.receive(message) for agent in self._agents]\n"
             "+        await asyncio.gather(*tasks)\n"
-        ).format(location=problem.location)
+        )
 
     def _get_problem(self, problem_id: str) -> Problem | None:
         if self._custom_problems is not None:

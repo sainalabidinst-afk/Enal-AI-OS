@@ -8,7 +8,6 @@ applies transformations, and loads into standardized formats.
 from __future__ import annotations
 
 import csv
-import io
 import json
 import logging
 from typing import Any
@@ -17,7 +16,6 @@ from apps.data_engineer.schemas import (
     DataSource,
     SourceType,
     TransformOperation,
-    Operation,
 )
 
 logger = logging.getLogger(__name__)
@@ -107,7 +105,7 @@ class ETLPipeline:
     def _extract_csv(self, location: str) -> list[dict[str, Any]]:
         """Extract data from a CSV file."""
         try:
-            with open(location, "r", encoding="utf-8") as f:
+            with open(location, encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 return [dict(row) for row in reader]
         except FileNotFoundError:
@@ -120,7 +118,7 @@ class ETLPipeline:
     def _extract_json(self, location: str) -> list[dict[str, Any]]:
         """Extract data from a JSON file."""
         try:
-            with open(location, "r", encoding="utf-8") as f:
+            with open(location, encoding="utf-8") as f:
                 content = json.load(f)
                 if isinstance(content, list):
                     return content
@@ -137,7 +135,7 @@ class ETLPipeline:
     def _extract_file(self, location: str) -> list[dict[str, Any]]:
         """Extract data from a generic file."""
         try:
-            with open(location, "r", encoding="utf-8") as f:
+            with open(location, encoding="utf-8") as f:
                 content = f.read()
             return [{"content": content, "source": location}]
         except FileNotFoundError:

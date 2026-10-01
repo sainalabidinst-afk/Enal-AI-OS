@@ -35,23 +35,23 @@ import random
 import time
 from typing import Any
 
+from apps.trading_analyst.market_intelligence import indicators as ind
+from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
+from apps.trading_analyst.market_intelligence.derivatives import DerivativesAnalyzer
+from apps.trading_analyst.market_intelligence.elliott_wave import ElliottWaveAnalyzer
+from apps.trading_analyst.market_intelligence.macro_analyzer import MacroAnalyzer
 from apps.trading_analyst.market_intelligence.models import (
     OHLCV,
     AnalysisResult,
-    TradingContext,
-    MarketEvidence,
     Bias,
+    MarketEvidence,
+    TradingContext,
 )
-from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
-from apps.trading_analyst.market_intelligence.wyckoff import WyckoffAnalyzer
-from apps.trading_analyst.market_intelligence.smc import SMCAnalyzer
-from apps.trading_analyst.market_intelligence.elliott_wave import ElliottWaveAnalyzer
-from apps.trading_analyst.market_intelligence.volume_profile import VolumeProfileAnalyzer
 from apps.trading_analyst.market_intelligence.psychology import PsychologyAnalyzer
-from apps.trading_analyst.market_intelligence.macro_analyzer import MacroAnalyzer
-from apps.trading_analyst.market_intelligence.derivatives import DerivativesAnalyzer
+from apps.trading_analyst.market_intelligence.smc import SMCAnalyzer
 from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
-from apps.trading_analyst.market_intelligence import indicators as ind
+from apps.trading_analyst.market_intelligence.volume_profile import VolumeProfileAnalyzer
+from apps.trading_analyst.market_intelligence.wyckoff import WyckoffAnalyzer
 
 logger = logging.getLogger(__name__)
 

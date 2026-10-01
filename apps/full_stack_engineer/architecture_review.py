@@ -19,23 +19,6 @@ to produce:
 Integrates with F0 (RepositoryIntelligenceEngine) for context-aware analysis.
 """
 
-from apps.full_stack_engineer.architecture_review_models import (
-    ADREntry,
-    ArchitectureReport,
-    ArchitectureStyle,
-    CircularDependency,
-    CouplingMetric,
-    DEFAULT_VIOLATION_PATTERNS,
-    DependencyEdge,
-    Grade,
-    LayerViolation,
-    LAYER_VIOLATION_PATTERNS,
-    ModuleInfo,
-    RefactoringRecommendation,
-    RiskLevel,
-    Severity,
-    TechDebtItem,
-)
 from apps.full_stack_engineer.architecture_review_engine import ArchitectureReviewEngine
 
 architecture_review_engine = ArchitectureReviewEngine()

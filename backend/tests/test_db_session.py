@@ -1,8 +1,6 @@
 import sys
 import types
 
-import pytest
-
 
 def _install_fake_sqlalchemy(monkeypatch):
     fake_engine = object()

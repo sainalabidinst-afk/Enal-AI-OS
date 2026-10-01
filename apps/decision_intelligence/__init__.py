@@ -30,26 +30,26 @@ Pipeline:
 from typing import Any
 
 from apps.base import BaseReferenceApp
+from apps.decision_intelligence.debate_engine import DebateEngine, DebateResult, StrategyVote
 from apps.decision_intelligence.engine import DecisionIntelligenceEngine
-from apps.decision_intelligence.worker import DecisionIntelligenceWorker
 from apps.decision_intelligence.schemas import (
+    Alternative,
+    ConfidenceScore,
+    DecisionOutcome,
+    DecisionRecord,
     DecisionRequest,
     DecisionResult,
     EvidenceSource,
     EvidenceSourceType,
+    Explanation,
     Objective,
     ObjectiveGoal,
-    RiskTolerance,
-    Alternative,
     RiskProfile,
+    RiskTolerance,
     TradeOff,
-    ConfidenceScore,
-    Explanation,
-    DecisionRecord,
-    DecisionOutcome,
 )
 from apps.decision_intelligence.simulation_engine import SimulationEngine, SimulationOutcome
-from apps.decision_intelligence.debate_engine import DebateEngine, DebateResult, StrategyVote
+from apps.decision_intelligence.worker import DecisionIntelligenceWorker
 
 
 class DecisionIntelligenceApp(BaseReferenceApp):

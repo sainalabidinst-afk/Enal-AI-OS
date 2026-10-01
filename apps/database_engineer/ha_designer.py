@@ -8,14 +8,14 @@ for different database systems.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from apps.database_engineer.schemas import (
-    Finding,
-    Severity,
-    FindingCategory,
     DatabaseType,
+    Finding,
+    FindingCategory,
+    Severity,
     WorkloadProfile,
 )
 

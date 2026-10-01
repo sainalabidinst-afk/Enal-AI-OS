@@ -18,9 +18,10 @@ from __future__ import annotations
 
 import logging
 import time
+from collections.abc import Callable, Coroutine
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from typing import Any, Callable, Coroutine
+from datetime import UTC, datetime
+from typing import Any
 
 from apps.integration.context import CapabilityContext
 
@@ -43,7 +44,7 @@ class WorkflowResult:
     success: bool
     context: CapabilityContext
     error: str | None = None
-    started_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    started_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     completed_at: str | None = None
     latency_ms: float = 0.0
 
@@ -104,7 +105,7 @@ class WorkflowEngine:
                     success=False,
                     context=context,
                     error=f"Step '{step.name}' failed: {e}",
-                    completed_at=datetime.now(timezone.utc).isoformat(),
+                    completed_at=datetime.now(UTC).isoformat(),
                     latency_ms=(time.monotonic() - start) * 1000,
                 )
 
@@ -113,6 +114,6 @@ class WorkflowEngine:
             workflow_id=context.workflow_id,
             success=True,
             context=context,
-            completed_at=datetime.now(timezone.utc).isoformat(),
+            completed_at=datetime.now(UTC).isoformat(),
             latency_ms=(time.monotonic() - start) * 1000,
         )

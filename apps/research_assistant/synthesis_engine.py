@@ -6,7 +6,6 @@ Synthesizes multi-source findings into coherent narrative.
 """
 
 import logging
-from typing import Any
 
 from apps.research_assistant.schemas import (
     Contradiction,

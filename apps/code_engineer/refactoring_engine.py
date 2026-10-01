@@ -19,7 +19,6 @@ import logging
 from pathlib import Path
 
 from apps.code_engineer.refactoring_models import (
-    RefactoringCategory,
     RefactoringReport,
     RefactoringSeverity,
     RefactoringSuggestion,

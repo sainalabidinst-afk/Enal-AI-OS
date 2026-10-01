@@ -9,7 +9,6 @@ their outputs against expected results.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.qa_engineer.schemas import QATestArtifact, TestType
 

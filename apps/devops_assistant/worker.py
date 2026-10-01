@@ -12,7 +12,6 @@ from typing import Any
 
 from apps.devops_assistant.engine import DevOpsEngine
 from apps.devops_assistant.project_scanner import DevOpsProjectScanner
-from apps.devops_assistant.schemas import ProjectAnalysis
 from apps.devops_assistant.suggestion_generator import DevOpsSuggestionGenerator
 
 logger = logging.getLogger(__name__)

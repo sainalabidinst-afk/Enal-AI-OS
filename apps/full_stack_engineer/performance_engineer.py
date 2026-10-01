@@ -94,7 +94,6 @@ class PerformanceEngineer:
         for i, line in enumerate(lines, start=1):
             stripped = line.strip()
             if stripped.startswith("for ") and " in " in stripped:
-                loop_start = i
                 loop_indent = len(line) - len(line.lstrip())
                 for j in range(i + 1, len(lines) + 1):
                     if j > len(lines):

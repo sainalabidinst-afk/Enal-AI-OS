@@ -11,10 +11,9 @@ Provides specialized strategies for generating different types of tests:
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
-from apps.qa_engineer.schemas import FindingSeverity, Finding
+from apps.qa_engineer.schemas import Finding, FindingSeverity
 
 logger = logging.getLogger(__name__)
 

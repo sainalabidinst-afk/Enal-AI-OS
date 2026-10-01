@@ -18,9 +18,9 @@ import difflib
 import logging
 import re
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ class PatchFile:
     old_hash: str = ""
     new_hash: str = ""
     status: str = PatchStatus.PENDING
-    validation_error: Optional[str] = None
+    validation_error: str | None = None
 
     def to_unified_diff(self) -> str:
         """Generate full unified diff for this file."""
@@ -146,7 +146,7 @@ class PatchGenerator:
         line_number: int,
         title: str = "",
         description: str = "",
-    ) -> Optional[PatchBundle]:
+    ) -> PatchBundle | None:
         """Generate a patch from a text suggestion at a specific line."""
         full_path = self.repo_path / file_path
         if not full_path.exists():
@@ -205,7 +205,7 @@ class PatchGenerator:
 
         # Parse diff into hunks
         hunk_pattern = re.compile(r'^@@ -(\d+),?(\d*) \+(\d+),?(\d*) @@(.*)$')
-        current_hunk: Optional[PatchHunk] = None
+        current_hunk: PatchHunk | None = None
         old_lines_buffer: list[str] = []
         new_lines_buffer: list[str] = []
 
@@ -317,13 +317,13 @@ class PatchGenerator:
         """Create a new patch bundle with unique ID."""
         self._patch_counter += 1
         return PatchBundle(
-            patch_id=f"patch-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}-{self._patch_counter}",
+            patch_id=f"patch-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}-{self._patch_counter}",
             title=title,
             description=description,
-            created_at=datetime.now(timezone.utc).isoformat(),
+            created_at=datetime.now(UTC).isoformat(),
         )
 
-    def _apply_patch_content(self, original: str, patch_file: PatchFile) -> Optional[str]:
+    def _apply_patch_content(self, original: str, patch_file: PatchFile) -> str | None:
         """Apply patch hunks to original content and return new content."""
         lines = original.splitlines(keepends=True)
         # Apply hunks in reverse order to preserve line numbers

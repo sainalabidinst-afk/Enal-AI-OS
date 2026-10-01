@@ -10,7 +10,6 @@ from __future__ import annotations
 import logging
 import re
 from dataclasses import dataclass
-from typing import Any
 
 from apps.security_engineer.schemas import SecretFinding, SecretType, Severity
 

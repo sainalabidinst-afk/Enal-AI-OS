@@ -19,33 +19,29 @@ adapter (per ADR-003).
 from __future__ import annotations
 
 import logging
-import math
-import random
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
+from apps.research_assistant.citation_assessor import CitationQualityAssessor
+from apps.research_assistant.confidence_estimator import ConfidenceEstimator
+from apps.research_assistant.contradiction_detector import ContradictionDetector
+from apps.research_assistant.evidence_ranker import EvidenceRanker
 from apps.research_assistant.schemas import (
     Citation,
-    CitationStyle,
     ConfidenceLevel,
     Contradiction,
-    ContradictionType,
     Evidence,
     Finding,
     FindingSeverity,
     ResearchOperation,
-    ResearchRequest,
-    ResearchReport,
     ResearchQualityRecord,
+    ResearchReport,
+    ResearchRequest,
     SourceQuality,
     SourceType,
     Synthesis,
 )
-from apps.research_assistant.evidence_ranker import EvidenceRanker
-from apps.research_assistant.contradiction_detector import ContradictionDetector
-from apps.research_assistant.citation_assessor import CitationQualityAssessor
-from apps.research_assistant.confidence_estimator import ConfidenceEstimator
 from apps.research_assistant.synthesis_engine import SynthesisEngine
 
 logger = logging.getLogger(__name__)
@@ -219,7 +215,7 @@ class ResearchEngine:
             source.metadata = {
                 "index": i + 1,
                 "database": "simulated-research-db",
-                "indexed_at": datetime.now(timezone.utc).isoformat(),
+                "indexed_at": datetime.now(UTC).isoformat(),
             }
 
         return sources
@@ -234,7 +230,7 @@ class ResearchEngine:
         Returns:
             ResearchReport with evidence, findings, contradictions, citations, and synthesis.
         """
-        started = datetime.now(timezone.utc)
+        started = datetime.now(UTC)
         query_terms = [term.lower() for term in re.findall(r"[a-zA-Z]{3,}", request.query)]
 
         if request.operation == ResearchOperation.literature_review:
@@ -477,7 +473,7 @@ class ResearchEngine:
         uncertainty: list[str],
         started: datetime,
     ) -> ResearchReport:
-        latency_ms = (datetime.now(timezone.utc) - started).total_seconds() * 1000.0
+        latency_ms = (datetime.now(UTC) - started).total_seconds() * 1000.0
 
         return ResearchReport(
             request_id=request.request_id,
@@ -555,7 +551,7 @@ class ResearchEngine:
         return self._generate_full_report(query, evidence, findings, contradictions, [], None, confidence, uncertainty)
 
     def _generate_contradiction_report(self, query: str, evidence: list[Evidence], contradictions: list[Contradiction], confidence: float, uncertainty: list[str]) -> str:
-        lines = [f"# Contradiction Analysis: {query}", "", f"## Summary", f"Analyzed {len(evidence)} sources and detected {len(contradictions)} contradictions.", ""]
+        lines = [f"# Contradiction Analysis: {query}", "", "## Summary", f"Analyzed {len(evidence)} sources and detected {len(contradictions)} contradictions.", ""]
         if contradictions:
             lines.extend(["## Contradictions"])
             for c in contradictions:
@@ -564,7 +560,7 @@ class ResearchEngine:
         return "\n".join(lines)
 
     def _generate_citation_report(self, query: str, citations: list[Citation], avg_quality: float) -> str:
-        lines = [f"# Citation Assessment: {query}", "", f"## Summary", f"Assessed {len(citations)} citations with average quality {avg_quality:.0%}.", ""]
+        lines = [f"# Citation Assessment: {query}", "", "## Summary", f"Assessed {len(citations)} citations with average quality {avg_quality:.0%}.", ""]
         if citations:
             lines.extend(["## Citations"])
             for c in citations:

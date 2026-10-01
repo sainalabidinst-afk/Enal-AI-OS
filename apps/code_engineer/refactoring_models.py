@@ -6,7 +6,6 @@ Shared data models for the refactoring engine and rules.
 """
 
 from dataclasses import dataclass, field
-from typing import Any
 
 
 class RefactoringCategory:

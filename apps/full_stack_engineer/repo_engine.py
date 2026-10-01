@@ -7,7 +7,6 @@ Engine that orchestrates repository intelligence gathering.
 
 from typing import Any
 
-from apps.full_stack_engineer.repo_intelligence_models import RepositoryIntelligence
 from apps.full_stack_engineer.repo_scanner import RepositoryScanner
 
 

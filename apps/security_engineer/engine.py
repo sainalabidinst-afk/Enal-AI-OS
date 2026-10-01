@@ -20,22 +20,22 @@ import logging
 import time
 from typing import Any
 
+from apps.security_engineer.compliance_mapper import ComplianceMapper
+from apps.security_engineer.dependency_auditor import DependencyAuditor
+from apps.security_engineer.hardening_reviewer import HardeningReviewer
+from apps.security_engineer.owasp_analyzer import OWASPAnalyzer
 from apps.security_engineer.schemas import (
-    SecurityAssessmentRequest,
-    SecurityAssessmentReport,
-    SecuritySummary,
-    SecurityAnalysisRecord,
     AssessmentOutcome,
     Finding,
+    SecurityAnalysisRecord,
+    SecurityAssessmentReport,
+    SecurityAssessmentRequest,
+    SecuritySummary,
     Severity,
 )
-from apps.security_engineer.owasp_analyzer import OWASPAnalyzer
 from apps.security_engineer.secret_detector import SecretDetector
-from apps.security_engineer.dependency_auditor import DependencyAuditor
 from apps.security_engineer.threat_modeler import ThreatModeler
 from apps.security_engineer.vulnerability_scanner import VulnerabilityScanner
-from apps.security_engineer.hardening_reviewer import HardeningReviewer
-from apps.security_engineer.compliance_mapper import ComplianceMapper
 
 logger = logging.getLogger(__name__)
 

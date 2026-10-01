@@ -8,11 +8,10 @@ and confidence intervals that downstream scoring can consume.
 
 from __future__ import annotations
 
-import random
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.decision_intelligence.schemas import EvidenceSource, Objective, RiskProfile
+from apps.decision_intelligence.schemas import Objective, RiskProfile
 
 
 @dataclass

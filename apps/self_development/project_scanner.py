@@ -10,7 +10,6 @@ complexity signals without mutating the source tree.
 
 from __future__ import annotations
 
-import ast
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path

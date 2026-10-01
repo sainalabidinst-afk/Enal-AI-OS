@@ -7,7 +7,7 @@ Generates comprehensive network documentation from configurations and analysis.
 
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class NetworkDocGenerator:
     def generate(self, config: Any, analysis: Any | None = None, topology: Any | None = None) -> NetworkDocumentation:
         doc = NetworkDocumentation(
             title=f"Network Configuration Documentation - {config.system_identity.name if config.system_identity else 'Router'}",
-            metadata={"generated_at": datetime.now(timezone.utc).isoformat()},
+            metadata={"generated_at": datetime.now(UTC).isoformat()},
         )
 
         doc.executive_summary = self._generate_executive_summary(config, analysis)

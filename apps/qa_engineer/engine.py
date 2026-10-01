@@ -22,21 +22,21 @@ import logging
 import time
 from typing import Any
 
+from apps.qa_engineer.coverage_analyzer import CoverageAnalyzer
+from apps.qa_engineer.flaky_detector import FlakyDetector
+from apps.qa_engineer.golden_test_gen import GoldenTestGenerator
+from apps.qa_engineer.mutation_tester import MutationTester
+from apps.qa_engineer.performance_validator import PerformanceValidator
 from apps.qa_engineer.schemas import (
-    QATestRequestModel,
-    QATestReport,
-    QATestSummary,
     CoverageReport,
     MutationReport,
     PerformanceValidation,
+    QATestReport,
+    QATestRequestModel,
+    QATestSummary,
     TestQualityRecord,
 )
 from apps.qa_engineer.test_generator import TestGenerator
-from apps.qa_engineer.mutation_tester import MutationTester
-from apps.qa_engineer.flaky_detector import FlakyDetector
-from apps.qa_engineer.coverage_analyzer import CoverageAnalyzer
-from apps.qa_engineer.performance_validator import PerformanceValidator
-from apps.qa_engineer.golden_test_gen import GoldenTestGenerator
 from apps.qa_engineer.test_strategies import TestGenerationStrategies
 
 logger = logging.getLogger(__name__)
@@ -163,7 +163,6 @@ class QAEngineerEngine:
         )
         record_id = self._record(record)
 
-        from apps.qa_engineer.schemas import QATestOperation as _OpsEnum
         # Use the string value for the report.
         op_str = op.value if hasattr(op, "value") else str(op)
 

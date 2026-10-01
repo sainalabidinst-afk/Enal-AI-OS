@@ -10,8 +10,8 @@ AnalysisResult  — Final structured output
 """
 
 from dataclasses import dataclass, field
-from typing import Any
 from enum import Enum
+from typing import Any
 
 
 class Bias(str, Enum):

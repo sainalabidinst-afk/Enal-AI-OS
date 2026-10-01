@@ -97,8 +97,9 @@ class TestEventBus:
         assert stream == "enal:events:test"
 
     def test_redis_property_creates_client_when_none(self, monkeypatch):
-        import backend.app.core.event_bus as eb_module
         from unittest.mock import MagicMock
+
+        import backend.app.core.event_bus as eb_module
 
         bus = EventBus()
         bus._redis = None

@@ -12,9 +12,8 @@ Reference: Elliott Wave Principle by A.J. Frost and Robert Prechter
 """
 
 import logging
-from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import MarketEvidence, OHLCV
+from apps.trading_analyst.market_intelligence.models import OHLCV, MarketEvidence
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +49,7 @@ class ElliottWaveAnalyzer:
         if len(ohlcv) < 50:
             return evidence
 
-        closes = [c.close for c in ohlcv]
+        [c.close for c in ohlcv]
         highs = [c.high for c in ohlcv]
         lows = [c.low for c in ohlcv]
 

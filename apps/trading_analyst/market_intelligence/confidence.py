@@ -13,7 +13,7 @@ Computes final confidence score using weighted scoring model:
 Pure function: input Evidence list → output confidence score.
 """
 
-from apps.trading_analyst.market_intelligence.models import Evidence, Bias
+from apps.trading_analyst.market_intelligence.models import Bias, Evidence
 
 WEIGHTS = {
     "market_structure": 0.35,

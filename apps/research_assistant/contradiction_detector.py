@@ -8,7 +8,6 @@ Detects conflicting claims between evidence items.
 import logging
 import random
 import re
-from typing import Any
 
 from apps.research_assistant.schemas import (
     Contradiction,

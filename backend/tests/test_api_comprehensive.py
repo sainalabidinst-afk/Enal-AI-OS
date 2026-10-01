@@ -1,5 +1,4 @@
 import os
-import uuid
 
 import pytest
 from fastapi.testclient import TestClient
@@ -548,7 +547,7 @@ def test_ecosystem_studio_memory(token, auth_headers):
         redis_client.ping()
     except Exception:
         pytest.skip("Redis not available in test environment")
-    
+
     response = client.get("/api/v1/studio/memory", headers=auth_headers, params={"layer": "working", "query": "test", "limit": 5})
     assert response.status_code in (200, 404, 422, 500)
 

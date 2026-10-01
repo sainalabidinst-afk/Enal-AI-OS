@@ -9,14 +9,13 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any
 
 from apps.business_analyst.schemas import (
-    StakeholderInput,
     BusinessContext,
+    Priority,
     Requirement,
     RequirementType,
-    Priority,
+    StakeholderInput,
 )
 
 logger = logging.getLogger(__name__)

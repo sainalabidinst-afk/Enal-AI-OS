@@ -53,7 +53,7 @@ sync yang benar. Verifikasi: tidak ada `complete()` blocking tersisa di jalur as
 ### B1.6 Bonus fixes during verification ✅
 
 - [x] **Bug deteksi vendor Fortinet** (`apps/network_engineer/vendor/cisco_ios.py`) — Cisco `detect()`
-      memakai `hostname ` yang terlalu generik sehingga config FortiOS salah dideteksi sebagai Cisco.
+      memakai `hostname` yang terlalu generik sehingga config FortiOS salah dideteksi sebagai Cisco.
       Ditambahkan pengecekan negatif untuk marker FortiOS.
 - [x] **Bug coroutine tak di-await** (`backend/app/api/model_gateway.py`) — route `/providers` memanggil
       `model_gateway.get_status()` (async) tanpa `await`. Ditambahkan `await`.

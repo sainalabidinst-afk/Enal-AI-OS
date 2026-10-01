@@ -10,12 +10,11 @@ These schemas follow the RFC-0011 contract definitions exactly.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
 from pydantic import BaseModel, Field
-
 
 # ---------------------------------------------------------------------------
 # Enums
@@ -223,7 +222,7 @@ class ArchitectureReviewRecord(BaseModel):
 
     record_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Record identifier")
     review_id: str = Field(..., description="Reference to the review")
-    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat(), description="ISO 8601 timestamp")
+    timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat(), description="ISO 8601 timestamp")
     review_type: ReviewType = Field(default=ReviewType.full_review, description="Type of review")
     total_findings: int = Field(default=0)
     violations_detected: int = Field(default=0)

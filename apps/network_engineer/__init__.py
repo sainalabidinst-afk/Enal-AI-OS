@@ -38,8 +38,8 @@ from apps.network_engineer.design_review import design_review_engine
 from apps.network_engineer.docs_generator import network_doc_generator
 from apps.network_engineer.generator import routeros_generator
 from apps.network_engineer.graph_builder import network_graph_builder
-from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser, parse_routeros_config
 from apps.network_engineer.migration_planner import migration_planner
+from apps.network_engineer.mikrotik.routeros_parser import RouterOSParser, parse_routeros_config
 from apps.network_engineer.nic import (
     ConceptTag,
     ReasoningChain,
@@ -49,7 +49,12 @@ from apps.network_engineer.nic import (
 )
 from apps.network_engineer.recommendation_engine import recommendation_engine
 from apps.network_engineer.simulator import network_simulator
-from apps.network_engineer.topology import NetworkConnection, NetworkDevice, NetworkInterface, NetworkSegment
+from apps.network_engineer.topology import (
+    NetworkConnection,
+    NetworkDevice,
+    NetworkInterface,
+    NetworkSegment,
+)
 from apps.network_engineer.troubleshooting import troubleshooting_engine
 
 
@@ -353,7 +358,7 @@ class NetworkEngineerApp(BaseReferenceApp):
                     content=item.get("content", ""),
                     confidence=item.get("confidence", 1.0),
                 )
-        hypotheses = troubleshooting_engine.generate_hypotheses(session)
+        troubleshooting_engine.generate_hypotheses(session)
         return session.to_dict()
 
     async def plan_migration(self, source_vendor: str, target_vendor: str, source_config: str = "") -> dict[str, Any]:

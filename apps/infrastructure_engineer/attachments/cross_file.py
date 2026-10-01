@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from apps.infrastructure_engineer.attachments.models import InfrastructureAST, InfrastructureFinding, Severity
+from apps.infrastructure_engineer.attachments.models import (
+    InfrastructureAST,
+    InfrastructureFinding,
+    Severity,
+)
 
 
 class CrossFileReasoningEngine:

@@ -10,9 +10,8 @@ Does NOT produce decisions — only structured evidence.
 """
 
 import logging
-from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import MarketEvidence, Bias
+from apps.trading_analyst.market_intelligence.models import Bias, MarketEvidence
 
 logger = logging.getLogger(__name__)
 

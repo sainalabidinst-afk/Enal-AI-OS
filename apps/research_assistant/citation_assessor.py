@@ -7,7 +7,6 @@ Assesses citation completeness, format accuracy, and provenance.
 
 import logging
 import re
-from typing import Any
 
 from apps.research_assistant.schemas import Citation, CitationStyle, Evidence
 

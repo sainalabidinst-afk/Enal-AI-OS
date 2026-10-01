@@ -12,12 +12,12 @@ from typing import Any
 from apps.business_analyst.engine import BusinessAnalystEngine
 from apps.business_analyst.schemas import (
     BusinessAnalysisRequest,
-    OperationType,
     BusinessContext,
-    StakeholderInput,
+    OperationType,
+    OutputFormat,
     Persona,
     QualityAttributes,
-    OutputFormat,
+    StakeholderInput,
 )
 
 

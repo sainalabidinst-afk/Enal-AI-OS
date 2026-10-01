@@ -37,7 +37,7 @@ class ResearchAssistantApp(BaseReferenceApp):
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         context = context or {}
-        project_id = context.get("project_id", "research-assistant-default")
+        context.get("project_id", "research-assistant-default")
 
         request = ResearchRequest(
             query=user_input,

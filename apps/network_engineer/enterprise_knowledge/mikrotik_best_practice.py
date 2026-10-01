@@ -9,7 +9,6 @@ Reference: MikroTik Official Documentation, RouterOS Best Practices
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 
@@ -145,7 +144,6 @@ class MikroTikBestPracticeAnalyzer:
     def _check_fasttrack_optimization(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
         findings = []
         has_fasttrack = "fasttrack" in raw
-        has_fasttrack_connection = "fasttrack-connection" in raw
         has_firewall_rules = any(kw in raw for kw in ["firewall", "ip firewall", "chain="])
 
         if has_fasttrack:
@@ -188,7 +186,6 @@ class MikroTikBestPracticeAnalyzer:
         findings = []
         has_ipv6 = any(kw in raw for kw in ["ipv6", "ipv6 address", "ipv6 route"])
         has_ipv6_firewall = "ipv6 firewall" in raw or ("ipv6" in raw and "firewall" in raw)
-        has_ipv6_nd = "nd" in raw or "neighbor discovery" in raw
 
         if has_ipv6:
             findings.append(EnterpriseKnowledgeFinding(

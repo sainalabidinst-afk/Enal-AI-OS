@@ -25,9 +25,6 @@ class TestAutonomousGoalEngine:
     @pytest.fixture
     def engine(self, monkeypatch):
         import backend.app.core.goal_engine as ge_module
-        import backend.app.core.task_queue as tq_module
-        import backend.app.core.state_recovery as sr_module
-        import backend.app.core.event_bus as eb_module
 
         fake_tasks = {}
         fake_task_counter = [0]
@@ -65,9 +62,10 @@ class TestAutonomousGoalEngine:
         assert goal.id in engine._goals
 
     async def test_create_goal_generates_unique_id(self, engine):
+        from datetime import UTC, datetime
         from unittest.mock import patch
+
         import backend.app.core.goal_engine as ge_module
-        from datetime import datetime, UTC
 
         with patch.object(ge_module, "datetime") as mock_dt:
             mock_dt.now.return_value = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
@@ -134,11 +132,12 @@ class TestAutonomousGoalEngine:
         assert engine.list_goals() == []
 
     async def test_list_goals_filters_by_project(self, engine, monkeypatch):
+        from datetime import UTC, datetime
+
         import backend.app.core.goal_engine as ge_module
-        from datetime import datetime, UTC
 
         counter = [0]
-        base_ts = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC).timestamp()
+        datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC).timestamp()
 
         def fake_now(cls_or_self, tz=None):
             counter[0] += 1
@@ -146,8 +145,8 @@ class TestAutonomousGoalEngine:
 
         fake_dt = type("dt", (), {"now": staticmethod(fake_now), "UTC": UTC})()
         monkeypatch.setattr(ge_module, "datetime", fake_dt)
-        goal1 = await engine.create_goal("g1", ["c1"], project_id="p1")
-        goal2 = await engine.create_goal("g2", ["c2"], project_id="p2")
+        await engine.create_goal("g1", ["c1"], project_id="p1")
+        await engine.create_goal("g2", ["c2"], project_id="p2")
         goals = engine.list_goals(project_id="p1")
         assert len(goals) == 1
         assert goals[0].project_id == "p1"

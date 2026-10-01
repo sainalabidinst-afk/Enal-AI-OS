@@ -13,12 +13,13 @@ Output: structured facts organized by category:
 """
 
 import logging
-from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import (
-    TradingContext, OHLCV, MarketEvidence,
-)
 from apps.trading_analyst.market_intelligence import indicators as ind
+from apps.trading_analyst.market_intelligence.models import (
+    OHLCV,
+    MarketEvidence,
+    TradingContext,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +104,7 @@ class MarketAnalyzer:
         evidence: list[MarketEvidence] = []
         highs = [c.high for c in ohlcv]
         lows = [c.low for c in ohlcv]
-        closes = [c.close for c in ohlcv]
+        [c.close for c in ohlcv]
 
         # 1. Higher High / Lower Low via swing points
         swings = ind.detect_swing_points(highs, lows, window=5)

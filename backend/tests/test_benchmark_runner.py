@@ -1,7 +1,6 @@
-import pytest
 
+from backend.app.core.benchmark.models import ExpectedResult
 from backend.app.core.benchmark.runner import BenchmarkRunner
-from backend.app.core.benchmark.models import BenchmarkCase, ExpectedResult
 
 
 class FakeCase:
@@ -84,8 +83,8 @@ class TestBenchmarkRunner:
 
     def test_score_evidence_perfect(self):
         runner = BenchmarkRunner()
-        case = FakeCase("c1", "cisco")
-        expected = ExpectedResult(vendor="cisco", device_type="router")
+        FakeCase("c1", "cisco")
+        ExpectedResult(vendor="cisco", device_type="router")
         findings = [{"evidence": "e1"}, {"evidence": "e2"}]
         score = runner._score_evidence(findings)
         assert score == 100.0

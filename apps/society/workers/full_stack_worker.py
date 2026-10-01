@@ -14,7 +14,6 @@ Exposes capabilities through the ECP pipeline:
 - release engineering
 """
 
-import json
 import logging
 from typing import Any
 

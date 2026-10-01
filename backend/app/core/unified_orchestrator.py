@@ -91,7 +91,7 @@ class UnifiedOrchestrator:
             "budget": budget,
             **context,
         }
-        result = await kernel.execute_pipeline(pipeline, exec_context)
+        await kernel.execute_pipeline(pipeline, exec_context)
         exec_context["pipeline"] = pipeline
         return exec_context
 

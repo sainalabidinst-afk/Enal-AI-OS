@@ -8,14 +8,13 @@ query patterns, and database vendor capabilities.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
 from apps.database_engineer.schemas import (
     Finding,
-    Severity,
     FindingCategory,
     SchemaDefinition,
+    Severity,
     TableDefinition,
     WorkloadProfile,
 )

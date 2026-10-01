@@ -8,14 +8,13 @@ and format inconsistencies in datasets.
 from __future__ import annotations
 
 import logging
-import re
 from collections import Counter
 from typing import Any
 
 from apps.data_engineer.schemas import (
-    QualityIssue,
-    IssueType,
     IssueSeverity,
+    IssueType,
+    QualityIssue,
 )
 
 logger = logging.getLogger(__name__)
@@ -89,7 +88,7 @@ class DataCleaner:
                     column=col,
                     severity=severity,
                     count=missing_count,
-                    remediation=f"Fill missing values using mean/median imputation or drop rows",
+                    remediation="Fill missing values using mean/median imputation or drop rows",
                     confidence=0.9,
                 ))
         return issues

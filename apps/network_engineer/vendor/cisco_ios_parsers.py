@@ -9,15 +9,13 @@ from apps.network_engineer.vendor.models import (
     NetworkAST,
     UniversalDHCPServer,
     UniversalFirewallRule,
-    UniversalIPAddress,
     UniversalInterface,
+    UniversalIPAddress,
     UniversalNATRule,
     UniversalRoute,
     UniversalUser,
     UniversalVLAN,
-    UniversalVPN,
 )
-from apps.network_engineer.vendor.base import VendorAdapter
 
 
 def parse_system(ast: NetworkAST, lines: list[str]):

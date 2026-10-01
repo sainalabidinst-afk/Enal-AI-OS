@@ -9,7 +9,6 @@ Reference: RFC 4271, RFC 1997, RFC 7454, Cisco BGP Best Practices
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 
@@ -88,7 +87,6 @@ class BGPAnalyzer:
     def _check_route_filtering(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
         findings = []
         has_prefix_list = any(kw in raw for kw in ["prefix-list", "prefix-list", "ip prefix-list"])
-        has_filter_list = "filter-list" in raw or "as-path-filter" in raw
         has_distribute = "distribute-list" in raw or "route-map" in raw
         has_max_prefix = "maximum-prefix" in raw or "max-prefix" in raw
 
@@ -131,7 +129,7 @@ class BGPAnalyzer:
         findings = []
         has_community = "community" in raw or "set community" in raw
         has_comm_list = "community-list" in raw or "ip community-list" in raw
-        has_comm_action = any(kw in raw for kw in ["no-export", "no-advertise", "local-as"])
+        any(kw in raw for kw in ["no-export", "no-advertise", "local-as"])
 
         if has_community:
             findings.append(EnterpriseKnowledgeFinding(
@@ -172,7 +170,6 @@ class BGPAnalyzer:
         findings = []
         is_rr_client = "route-reflector-client" in raw or "rr-client" in raw or "cluster-id" in raw
         has_cluster = "cluster-id" in raw or "bgp cluster-id" in raw
-        has_client_to_client = "client-to-client" in raw or "rr-client-to-client" in raw
 
         if is_rr_client:
             findings.append(EnterpriseKnowledgeFinding(

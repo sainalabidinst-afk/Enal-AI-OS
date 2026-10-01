@@ -46,7 +46,6 @@ class TradeoffAnalyzer:
             TradeOff with dimension scores (0-1).
         """
         lowered = description.lower()
-        evidence_quality = evidence_set.avg_quality if evidence_set is not None else 0.5
         dominance = "positive" if (evidence_set is not None and evidence_set.positive_weight > evidence_set.negative_weight) else ("negative" if evidence_set is not None else "neutral")
 
         # Per-dimension heuristics.

@@ -14,7 +14,7 @@ from __future__ import annotations
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from apps.integration.evidence_adapter import UnifiedEvidence
@@ -39,7 +39,7 @@ class CapabilityContext:
     intermediate: dict[str, Any] = field(default_factory=dict)
     outputs: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)
-    started_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    started_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     completed_at: str | None = None
 
     def set_input(self, key: str, value: Any) -> CapabilityContext:
@@ -79,7 +79,7 @@ class CapabilityContext:
         return self.metadata.get(key, default)
 
     def mark_completed(self) -> CapabilityContext:
-        self.completed_at = datetime.now(timezone.utc).isoformat()
+        self.completed_at = datetime.now(UTC).isoformat()
         return self
 
     def to_dict(self) -> dict[str, Any]:

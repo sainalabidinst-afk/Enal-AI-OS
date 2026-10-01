@@ -33,7 +33,7 @@ Result
 from typing import Any
 
 from apps.base import BaseReferenceApp
-from apps.trading_analyst.engine import trading_engine, TradingEngine
+from apps.trading_analyst.engine import TradingEngine, trading_engine
 
 
 class TradingAnalystApp(BaseReferenceApp):
@@ -48,7 +48,7 @@ class TradingAnalystApp(BaseReferenceApp):
 
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         context = context or {}
-        project_id = context.get("project_id", "trading-analyst-default")
+        context.get("project_id", "trading-analyst-default")
 
         # Parse symbol from user input if possible.
         symbol = context.get("symbol", "BTCUSDT")

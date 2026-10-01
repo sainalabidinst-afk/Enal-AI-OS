@@ -31,28 +31,28 @@ from typing import Any
 
 from apps.base import BaseReferenceApp
 from apps.system_architect.engine import SystemArchitectEngine
-from apps.system_architect.worker import SystemArchitectWorker
 from apps.system_architect.schemas import (
-    ArchitectureReviewRequest,
-    ArchitectureReviewReport,
+    ADRDraft,
+    ADRStatus,
+    ArchitectureMetrics,
     ArchitectureReviewRecord,
-    ReviewType,
+    ArchitectureReviewReport,
+    ArchitectureReviewRequest,
     ArchitectureStyle,
-    Severity,
+    BoundedContext,
+    DDDAssessment,
+    Effort,
+    Finding,
     FindingCategory,
     Impact,
     Priority,
-    Effort,
-    ADRStatus,
-    ReviewOutcome,
-    Finding,
-    ADRDraft,
-    BoundedContext,
-    DDDAssessment,
-    ArchitectureMetrics,
     Recommendation,
+    ReviewOutcome,
     ReviewSummary,
+    ReviewType,
+    Severity,
 )
+from apps.system_architect.worker import SystemArchitectWorker
 
 
 class SystemArchitectApp(BaseReferenceApp):

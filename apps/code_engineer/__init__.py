@@ -30,17 +30,19 @@ class CodeEngineerApp(BaseReferenceApp):
     async def _ensure_components(self):
         if self._components_loaded:
             return
-        from apps.code_engineer.parser import code_parser
         from apps.code_engineer.analyzer import code_analyzer
+        from apps.code_engineer.architecture_patterns import (
+            architecture_pattern_analyzer,
+        )
         from apps.code_engineer.architecture_reader import ArchitectureReader, read_architecture
         from apps.code_engineer.dependency_graph import DependencyGraphBuilder
         from apps.code_engineer.impact_analyzer import ImpactAnalyzer
-        from apps.code_engineer.refactoring_engine import RefactoringEngine
+        from apps.code_engineer.parser import code_parser
         from apps.code_engineer.patch_generator import PatchGenerator
+        from apps.code_engineer.refactoring_engine import RefactoringEngine
         from apps.code_engineer.regression_analyzer import RegressionAnalyzer
+        from apps.code_engineer.secure_coding import secure_coding_analyzer
         from apps.code_engineer.test_generator import TestGenerator
-        from apps.code_engineer.architecture_patterns import architecture_pattern_analyzer, ArchitecturePatternAnalyzer
-        from apps.code_engineer.secure_coding import secure_coding_analyzer, SecureCodingAnalyzer
 
         self.parser = code_parser
         self.analyzer = code_analyzer
@@ -205,7 +207,8 @@ class CodeEngineerApp(BaseReferenceApp):
         """Get refactoring suggestions for code."""
         await self._ensure_components()
         self.parser.parse(code, filename=filename)
-        import os as _os, asyncio
+        import asyncio
+        import os as _os
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_file = _os.path.join(tmpdir, filename)
             await asyncio.to_thread(self._write_file_sync, tmp_file, code)

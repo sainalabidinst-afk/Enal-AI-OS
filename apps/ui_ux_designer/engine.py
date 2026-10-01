@@ -15,22 +15,20 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Any
 
-from apps.ui_ux_designer.schemas import (
-    UIUXDesignerRequest,
-    UIUXDesignerReport,
-    UXDesignRecord,
-    UXResearchResult,
-    DesignSystem,
-    Prototype,
-    AccessibilityReport,
-    OperationType,
-)
-from apps.ui_ux_designer.ux_researcher import UXResearcher
+from apps.ui_ux_designer.accessibility_checker import AccessibilityChecker
 from apps.ui_ux_designer.design_system import DesignSystemBuilder
 from apps.ui_ux_designer.prototype_generator import PrototypeGenerator
-from apps.ui_ux_designer.accessibility_checker import AccessibilityChecker
+from apps.ui_ux_designer.schemas import (
+    AccessibilityReport,
+    DesignSystem,
+    Prototype,
+    UIUXDesignerReport,
+    UIUXDesignerRequest,
+    UXDesignRecord,
+    UXResearchResult,
+)
+from apps.ui_ux_designer.ux_researcher import UXResearcher
 
 logger = logging.getLogger(__name__)
 

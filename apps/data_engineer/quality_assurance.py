@@ -11,11 +11,10 @@ import logging
 from typing import Any
 
 from apps.data_engineer.schemas import (
-    QualityReport,
-    QualityIssue,
-    IssueType,
     IssueSeverity,
-    QualityRule,
+    IssueType,
+    QualityIssue,
+    QualityReport,
     QualityRuleSpec,
 )
 

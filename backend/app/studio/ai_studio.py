@@ -2,14 +2,14 @@
 import logging
 from typing import Any
 
-from backend.app.core.observability import observability
-from backend.app.core.artifact_service import artifact_service
-from backend.app.core.semantic_graph import semantic_graph
-from backend.app.core.memory_layer import memory_manager
-from backend.app.core.agent_reputation import agent_reputation
-from backend.app.core.cognitive_kernel import cognitive_kernel
 from backend.app.core.adaptive_runtime import adaptive_runtime
+from backend.app.core.agent_reputation import agent_reputation
+from backend.app.core.artifact_service import artifact_service
+from backend.app.core.cognitive_kernel import cognitive_kernel
+from backend.app.core.memory_layer import memory_manager
 from backend.app.core.meta_cognition import meta_cognition
+from backend.app.core.observability import observability
+from backend.app.core.semantic_graph import semantic_graph
 
 logger = logging.getLogger(__name__)
 

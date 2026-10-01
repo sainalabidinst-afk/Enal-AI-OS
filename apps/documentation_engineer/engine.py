@@ -15,12 +15,12 @@ from typing import Any
 from apps.documentation_engineer.architecture_docs import ArchitectureDocsGenerator
 from apps.documentation_engineer.openapi_generator import OpenAPIGenerator
 from apps.documentation_engineer.release_notes_generator import ReleaseNotesGenerator
-from apps.documentation_engineer.sdk_docs_generator import SDKDocsGenerator
 from apps.documentation_engineer.schemas import (
+    DocumentationRecord,
     DocumentationReport,
     DocumentationRequest,
-    DocumentationRecord,
 )
+from apps.documentation_engineer.sdk_docs_generator import SDKDocsGenerator
 from apps.documentation_engineer.validator import DocumentationValidator
 
 logger = logging.getLogger(__name__)

@@ -18,32 +18,31 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Any
 
+from apps.database_engineer.backup_planner import BackupPlanner
+from apps.database_engineer.database_knowledge import DatabaseKnowledgeEngine
+from apps.database_engineer.ha_designer import HADesigner
+from apps.database_engineer.index_advisor import IndexAdvisor
+from apps.database_engineer.migration_manager import MigrationManager
+from apps.database_engineer.partitioning_advisor import PartitioningAdvisor
+from apps.database_engineer.performance_analyzer import PerformanceAnalyzer
+from apps.database_engineer.query_optimizer import QueryOptimizer
+from apps.database_engineer.replication_planner import ReplicationPlanner
+from apps.database_engineer.schema_designer import SchemaDesigner
 from apps.database_engineer.schemas import (
-    DatabaseRequest,
-    DatabaseReport,
+    BackupPlan,
     DatabaseAnalysisRecord,
+    DatabaseReport,
+    DatabaseRequest,
     Finding,
     FindingCategory,
-    SchemaRecommendation,
     IndexRecommendation,
     MigrationPlan,
-    ReplicationDesign,
-    BackupPlan,
     PerformanceStats,
+    ReplicationDesign,
+    SchemaRecommendation,
     Severity,
 )
-from apps.database_engineer.schema_designer import SchemaDesigner
-from apps.database_engineer.query_optimizer import QueryOptimizer
-from apps.database_engineer.migration_manager import MigrationManager
-from apps.database_engineer.index_advisor import IndexAdvisor
-from apps.database_engineer.replication_planner import ReplicationPlanner
-from apps.database_engineer.backup_planner import BackupPlanner
-from apps.database_engineer.performance_analyzer import PerformanceAnalyzer
-from apps.database_engineer.database_knowledge import DatabaseKnowledgeEngine
-from apps.database_engineer.partitioning_advisor import PartitioningAdvisor
-from apps.database_engineer.ha_designer import HADesigner
 
 logger = logging.getLogger(__name__)
 

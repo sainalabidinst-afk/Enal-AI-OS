@@ -10,7 +10,7 @@ These schemas follow the RFC-0009 contract definitions exactly.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -201,7 +201,7 @@ class DataQualityRecord(BaseModel):
 
     record_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     job_id: str = Field(..., description="Reference to DataEngineeringRequest")
-    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     job_type: str = Field(default="")
     quality_score: float = Field(default=0.0, ge=0.0, le=1.0)
     issues_found: int = Field(default=0)

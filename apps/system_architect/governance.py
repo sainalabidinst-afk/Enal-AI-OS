@@ -14,17 +14,15 @@ from __future__ import annotations
 import ast
 import logging
 from pathlib import Path
-from typing import Any
 
 from apps.system_architect.schemas import (
+    Effort,
     Finding,
     FindingCategory,
-    Severity,
     Impact,
-    ArchitectureMetrics,
-    Recommendation,
     Priority,
-    Effort,
+    Recommendation,
+    Severity,
 )
 
 logger = logging.getLogger(__name__)
@@ -126,7 +124,7 @@ class ArchitectureGovernance:
                                 confidence=0.5,
                             )
                         )
-                except (IOError, Exception):
+                except (OSError, Exception):
                     continue
         return findings
 
@@ -285,7 +283,7 @@ class ArchitectureGovernance:
             for py_file in pack_dir.rglob("*.py"):
                 try:
                     content = py_file.read_text(encoding="utf-8")
-                except (IOError, Exception):
+                except (OSError, Exception):
                     continue
                 # Check for hardcoded model references (violates Principle 6)
                 if "gpt-4" in content.lower() or "claude-3" in content.lower():

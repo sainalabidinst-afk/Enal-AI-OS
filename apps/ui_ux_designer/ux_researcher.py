@@ -15,10 +15,10 @@ import logging
 from typing import Any
 
 from apps.ui_ux_designer.schemas import (
-    Persona,
-    UXResearchResult,
     BusinessContext,
+    Persona,
     StakeholderInput,
+    UXResearchResult,
 )
 
 logger = logging.getLogger(__name__)

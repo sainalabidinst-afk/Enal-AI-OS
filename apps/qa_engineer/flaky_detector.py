@@ -10,10 +10,10 @@ from __future__ import annotations
 import logging
 import re
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
-from apps.qa_engineer.schemas import FlakyClassification, FindingSeverity
+from apps.qa_engineer.schemas import FindingSeverity, FlakyClassification
 
 logger = logging.getLogger(__name__)
 

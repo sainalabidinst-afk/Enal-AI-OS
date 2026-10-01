@@ -14,9 +14,8 @@ Reference: ICT (Inner Circle Trader) concepts by Michael Huddleston
 """
 
 import logging
-from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import MarketEvidence, OHLCV
+from apps.trading_analyst.market_intelligence.models import OHLCV, MarketEvidence
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +49,7 @@ class SMCAnalyzer:
 
         for i in range(len(ohlcv) - 2):
             c1 = ohlcv[i]
-            c2 = ohlcv[i + 1]
+            ohlcv[i + 1]
             c3 = ohlcv[i + 2]
 
             # Bullish FVG: c1 high < c3 low (gap up)
@@ -102,7 +101,7 @@ class SMCAnalyzer:
             c_prev = ohlcv[i - 1]
             c_curr = ohlcv[i]
             c_next = ohlcv[i + 1]
-            c_next2 = ohlcv[i + 2]
+            ohlcv[i + 2]
 
             # Bullish OB: c_prev bearish, c_curr and c_next bullish
             if c_prev.close < c_prev.open and c_curr.close > c_prev.high and c_next.close > c_curr.high:

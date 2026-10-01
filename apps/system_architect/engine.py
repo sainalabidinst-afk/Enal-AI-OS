@@ -21,35 +21,33 @@ from __future__ import annotations
 import logging
 import time
 from pathlib import Path
-from typing import Any
 
-from apps.system_architect.schemas import (
-    ArchitectureReviewRequest,
-    ArchitectureReviewReport,
-    ArchitectureReviewRecord,
-    ReviewType,
-    ReviewOutcome,
-    ADRStatus,
-    Severity,
-    Finding,
-    ADRDraft,
-    ArchitectureMetrics,
-    Recommendation,
-    ReviewSummary,
-)
-from apps.system_architect.dependency_graph import DependencyGraphBuilder
-from apps.system_architect.layer_analyzer import LayerAnalyzer
+from apps.system_architect.adr_generator import ADRGenerator
+from apps.system_architect.boundary_enforcer import BoundaryEnforcer
+from apps.system_architect.cost_optimizer import CostOptimizer
+from apps.system_architect.cqrs_evaluator import CQRSEvaluator
 from apps.system_architect.ddd_analyzer import DDDAnalyzer
 from apps.system_architect.event_analyzer import EventAnalyzer
-from apps.system_architect.cqrs_evaluator import CQRSEvaluator
-from apps.system_architect.microservices_analyzer import MicroservicesAnalyzer
-from apps.system_architect.boundary_enforcer import BoundaryEnforcer
 from apps.system_architect.governance import ArchitectureGovernance
-from apps.system_architect.adr_generator import ADRGenerator
-from apps.system_architect.scalability_analyzer import ScalabilityAnalyzer
-from apps.system_architect.security_architect import SecurityArchitect
-from apps.system_architect.cost_optimizer import CostOptimizer
+from apps.system_architect.layer_analyzer import LayerAnalyzer
+from apps.system_architect.microservices_analyzer import MicroservicesAnalyzer
 from apps.system_architect.refactoring_strategy import RefactoringStrategy
+from apps.system_architect.scalability_analyzer import ScalabilityAnalyzer
+from apps.system_architect.schemas import (
+    ADRDraft,
+    ADRStatus,
+    ArchitectureMetrics,
+    ArchitectureReviewRecord,
+    ArchitectureReviewReport,
+    ArchitectureReviewRequest,
+    Finding,
+    Recommendation,
+    ReviewOutcome,
+    ReviewSummary,
+    ReviewType,
+    Severity,
+)
+from apps.system_architect.security_architect import SecurityArchitect
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +89,7 @@ class SystemArchitectEngine:
         Returns:
             ArchitectureReviewReport with findings, metrics, ADR draft.
         """
-        started = time.monotonic()
+        time.monotonic()
         workspace_path = Path(request.workspace_path)
         if not workspace_path.exists():
             raise FileNotFoundError(f"Workspace path not found: {request.workspace_path}")

@@ -28,7 +28,7 @@ class TestExecutionSessionManager:
     async def test_list_sessions_filters_by_workspace(self):
         mgr = ExecutionSessionManager()
         s1 = await mgr.create_session("g1", workspace_id="ws1")
-        s2 = await mgr.create_session("g2", workspace_id="ws2")
+        await mgr.create_session("g2", workspace_id="ws2")
         sessions = await mgr.list_sessions(workspace_id="ws1")
         assert len(sessions) == 1
         assert sessions[0].id == s1.id

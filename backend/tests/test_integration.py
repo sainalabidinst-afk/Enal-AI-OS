@@ -3,10 +3,11 @@ import os
 os.environ.setdefault("SECRET_KEY", "test-secret-key-for-unit-tests-only")
 
 from fastapi.testclient import TestClient
-from backend.app.main import app
 
 # Re-import settings after env is set so SECRET_KEY is picked up.
 from backend.app.core.config import settings
+from backend.app.main import app
+
 assert settings.SECRET_KEY, "SECRET_KEY must be configured for integration tests"
 
 from backend.app.api.auth import _create_access_token

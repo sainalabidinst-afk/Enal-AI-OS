@@ -13,15 +13,19 @@ The Reasoning Engine takes structured evidence and produces:
 """
 
 import logging
-from typing import Any
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-from apps.trading_analyst.market_intelligence.models import (
-    AnalysisResult, AnalysisMetadata, MarketEvidence, Bias, RiskLevel,
+from apps.trading_analyst.market_intelligence.confidence import (
+    compute_risk_level,
+    compute_weighted_score,
 )
 from apps.trading_analyst.market_intelligence.evidence import EvidenceBuilder
-from apps.trading_analyst.market_intelligence.confidence import (
-    compute_weighted_score, compute_risk_level,
+from apps.trading_analyst.market_intelligence.models import (
+    AnalysisMetadata,
+    AnalysisResult,
+    Bias,
+    MarketEvidence,
+    RiskLevel,
 )
 
 logger = logging.getLogger(__name__)
@@ -82,7 +86,7 @@ class MarketSummaryGenerator:
             symbol=symbol,
             exchange=exchange,
             timeframes=timeframes,
-            generated_at=datetime.now(timezone.utc).isoformat(),
+            generated_at=datetime.now(UTC).isoformat(),
             data_source="binance_public_api",
             analysis_version="1.0.0",
             latency_ms=latency_ms,
@@ -211,7 +215,7 @@ class MarketSummaryGenerator:
         """Build reasoning trace for transparency."""
         steps = [
             f"1. Analyzed {len(evidence)} evidence items across {len(category_scores)} categories.",
-            f"2. Weighted scoring applied: Market Structure 35%, Trend 25%, Volume 20%, Volatility 10%, Session 10%.",
+            "2. Weighted scoring applied: Market Structure 35%, Trend 25%, Volume 20%, Volatility 10%, Session 10%.",
             f"3. Overall bias: {bias.value.upper()} (confidence: {round(confidence * 100)}%).",
         ]
 

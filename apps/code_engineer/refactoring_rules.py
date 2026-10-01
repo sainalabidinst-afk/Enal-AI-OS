@@ -18,7 +18,7 @@ from apps.code_engineer.refactoring_models import (
 def check_long_methods(tree: ast.Module, module_path: str, content: str) -> list[RefactoringSuggestion]:
     """Detect methods/functions that are too long."""
     suggestions: list[RefactoringSuggestion] = []
-    lines = content.splitlines()
+    content.splitlines()
 
     for node in ast.walk(tree):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
@@ -434,7 +434,7 @@ def check_bare_excepts(tree: ast.Module, module_path: str) -> list[RefactoringSu
 def check_suggest_design_pattern(tree: ast.Module, module_path: str, content: str) -> list[RefactoringSuggestion]:
     """Suggest design patterns based on code structure."""
     suggestions: list[RefactoringSuggestion] = []
-    lines = content.splitlines()
+    content.splitlines()
 
     for node in ast.walk(tree):
         if isinstance(node, ast.If):

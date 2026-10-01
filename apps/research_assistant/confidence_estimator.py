@@ -6,7 +6,6 @@ Estimates confidence with uncertainty quantification.
 """
 
 import logging
-from typing import Any
 
 from apps.research_assistant.schemas import (
     ConfidenceLevel,

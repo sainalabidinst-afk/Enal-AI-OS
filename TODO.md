@@ -11,15 +11,15 @@
 - [x] Perbaiki ikon `BaseApp` vs `BaseReferenceApp` (rendering konsisten ke `BaseApp` dengan alias)
 
 ### P1 — Dokumentasi Sinkron dengan Aktual
-- [ ] Perbaiki duplikasi nomor di `apps/__init__.py` docstring
-- [ ] Perbaiki contoh penggunaan sync→async di `docs/capabilities/full-stack-engineer.md`
+- [x] Perbaiki duplikasi nomor di `apps/__init__.py` docstring (spacing konsisten untuk item 1-19)
+- [x] Perbaiki contoh penggunaan sync→async di `docs/capabilities/full-stack-engineer.md` (contoh yang benar dengan null check)
 - [x] Update `AUDIT_COMPREHENSIVE_FINAL.md` dengan status resolusi semua temuan
 - [x] Update README/CHANGELOG/VERSION_MATRIX agar konsisten (2026-09-21: synced with audit truth, corrected version to v1.0.0-developer-preview, corrected certification claims, added Audit Truth section)
 
 ### P2 — Kualitas
-- [ ] Perkuat `tests/test_full_stack_engineer.py` dengan test engine nyata
-- [ ] Kurangi `except Exception` luas di titik kritikal
+- [x] Perkuat `tests/test_full_stack_engineer.py` dengan test engine nyata (21 tests, ditambah 7 test baru)
+- [x] Kurangi `except Exception` luas di titik kritikal (repo_scanner.py, architecture_review_engine.py)
 
 ### Verifikasi
-- [ ] Jalankan pytest untuk konfirmasi test count aktual
-- [ ] Capai skor ke 100% pada dokumen audit
+- [x] Jalankan pytest untuk konfirmasi test count aktual (21 tests collected)
+- [x] Capai skor ke 100% pada dokumen audit

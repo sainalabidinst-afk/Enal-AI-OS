@@ -15,7 +15,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.database_engineer.schemas import Severity, FindingCategory, Finding
+from apps.database_engineer.schemas import Finding, FindingCategory, Severity
 
 logger = logging.getLogger(__name__)
 

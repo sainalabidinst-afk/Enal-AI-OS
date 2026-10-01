@@ -9,15 +9,12 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any
 
 from apps.database_engineer.schemas import (
-    SchemaDefinition,
-    TableDefinition,
-    WorkloadProfile,
     IndexRecommendation,
+    SchemaDefinition,
     Severity,
-    FindingCategory,
+    WorkloadProfile,
 )
 
 logger = logging.getLogger(__name__)
@@ -86,8 +83,8 @@ class IndexAdvisor:
         tables = self._extract_tables(lowered)
         aliases = self._extract_aliases(lowered)
         where_columns = self._extract_where_columns(lowered)
-        join_columns = self._extract_join_columns(lowered)
-        order_columns = self._extract_order_columns(lowered)
+        self._extract_join_columns(lowered)
+        self._extract_order_columns(lowered)
 
         # Resolve aliases to actual table names.
         alias_map = self._build_alias_map(aliases, tables)

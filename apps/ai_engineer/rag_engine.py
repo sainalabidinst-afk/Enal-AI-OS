@@ -9,13 +9,11 @@ chunking strategies, embedding models, vector stores, and reranking.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.ai_engineer.schemas import (
     AIEngineerRequest,
     RAGConfig,
     RAGStrategy,
-    EvaluationMetric,
 )
 
 logger = logging.getLogger(__name__)

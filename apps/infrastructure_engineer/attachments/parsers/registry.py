@@ -63,7 +63,9 @@ class ParserRegistry:
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
         parser = self.best_parser(meta)
         if parser is None:
-            from apps.infrastructure_engineer.attachments.parsers.network.text_config import TextConfigParser
+            from apps.infrastructure_engineer.attachments.parsers.network.text_config import (
+                TextConfigParser,
+            )
             return TextConfigParser().parse(meta, content)
         return parser.parse(meta, content)
 

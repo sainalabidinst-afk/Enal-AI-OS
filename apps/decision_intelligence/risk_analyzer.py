@@ -12,7 +12,6 @@ from typing import Any
 
 from apps.decision_intelligence.schemas import RiskProfile, RiskTolerance
 
-
 # Risk factor definitions: keyword -> (probability_boost, impact_boost, label)
 _RISK_FACTORS: dict[str, tuple[float, float, str]] = {
     "rewrite": (0.4, 0.6, "High code change volume — elevated regression risk"),

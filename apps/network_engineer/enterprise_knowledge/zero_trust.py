@@ -9,7 +9,6 @@ Reference: NIST SP 800-207, Zero Trust Architecture
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 

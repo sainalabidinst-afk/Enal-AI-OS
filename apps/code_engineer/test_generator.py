@@ -15,7 +15,7 @@ import ast
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -106,7 +106,7 @@ class TestGenerator:
         self,
         source_path: str,
         module_path: str,
-        output_dir: Optional[str] = None,
+        output_dir: str | None = None,
     ) -> TestFile:
         """Generate tests for a single Python module."""
         source = Path(source_path)
@@ -223,7 +223,7 @@ class TestGenerator:
         """Extract classes."""
         return [n for n in tree.body if isinstance(n, ast.ClassDef)]
 
-    def _determine_test_path(self, source: Path, output_dir: Optional[str]) -> str:
+    def _determine_test_path(self, source: Path, output_dir: str | None) -> str:
         """Determine test file output path."""
         if output_dir:
             test_dir = Path(output_dir)
@@ -241,7 +241,7 @@ class TestGenerator:
         test_name = f"test_{stem}" if not stem.startswith("test_") else stem
         return str(test_dir / f"{test_name}.py")
 
-    def _generate_fixture(self, cls: ast.ClassDef) -> Optional[str]:
+    def _generate_fixture(self, cls: ast.ClassDef) -> str | None:
         """Generate pytest fixture from __init__ method."""
         init_m = None
         for item in cls.body:
@@ -256,7 +256,7 @@ class TestGenerator:
         names = [p.arg for p in params]
         num_no_default = len(names) - len(args.defaults)
 
-        vals: list[Optional[str]] = []
+        vals: list[str | None] = []
         for i, name in enumerate(names):
             if i < num_no_default:
                 vals.append(None)
@@ -300,7 +300,7 @@ class TestGenerator:
             return "None"
         return "None"
 
-    def _gen_function_test(self, func: ast.FunctionDef) -> Optional[GeneratedTest]:
+    def _gen_function_test(self, func: ast.FunctionDef) -> GeneratedTest | None:
         """Generate test for a function."""
         name = func.name
         args = func.args
@@ -342,8 +342,8 @@ class TestGenerator:
         )
 
     def _gen_method_test(
-        self, method: Union[ast.FunctionDef, ast.AsyncFunctionDef], cls: ast.ClassDef
-    ) -> Optional[GeneratedTest]:
+        self, method: ast.FunctionDef | ast.AsyncFunctionDef, cls: ast.ClassDef
+    ) -> GeneratedTest | None:
         """Generate test for a class method."""
         name = method.name
         args = method.args
@@ -372,7 +372,7 @@ class TestGenerator:
             fixtures_needed=[inst],
         )
 
-    def _gen_edge_tests(self, func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> list[GeneratedTest]:
+    def _gen_edge_tests(self, func: ast.FunctionDef | ast.AsyncFunctionDef) -> list[GeneratedTest]:
         """Generate edge case tests for a function."""
         results: list[GeneratedTest] = []
         name = func.name
@@ -441,7 +441,7 @@ class TestGenerator:
         return results
 
     def _gen_edge_method_tests(
-        self, method: Union[ast.FunctionDef, ast.AsyncFunctionDef], cls: ast.ClassDef
+        self, method: ast.FunctionDef | ast.AsyncFunctionDef, cls: ast.ClassDef
     ) -> list[GeneratedTest]:
         """Generate edge case tests for a method."""
         results: list[GeneratedTest] = []
@@ -507,14 +507,14 @@ class TestGenerator:
                 ))
         return results
 
-    def _has_return(self, func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> bool:
+    def _has_return(self, func: ast.FunctionDef | ast.AsyncFunctionDef) -> bool:
         """Check if function has a return statement with a value."""
         for node in ast.walk(func):
             if isinstance(node, ast.Return) and node.value is not None:
                 return True
         return False
 
-    def _infer_mocks(self, func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> list[str]:
+    def _infer_mocks(self, func: ast.FunctionDef | ast.AsyncFunctionDef) -> list[str]:
         """Infer which mocks are needed based on function body."""
         mocks: list[str] = []
         for node in ast.walk(func):

@@ -8,23 +8,9 @@ Converts FortiOS configs to/from Universal AST.
 import logging
 
 from apps.network_engineer.vendor.base import VendorAdapter
-from apps.network_engineer.vendor.models import (
-    InterfaceType,
-    NetworkAST,
-    RuleAction,
-    UniversalDHCPServer,
-    UniversalDNS,
-    UniversalFirewallRule,
-    UniversalInterface,
-    UniversalIPAddress,
-    UniversalNATRule,
-    UniversalRoute,
-    UniversalUser,
-    UniversalVPN,
-)
 from apps.network_engineer.vendor.fortinet_parsers import (
-    parse_dns,
     parse_dhcp,
+    parse_dns,
     parse_firewall_policies,
     parse_ha,
     parse_interfaces,
@@ -36,6 +22,9 @@ from apps.network_engineer.vendor.fortinet_parsers import (
     parse_users,
     parse_vlans,
     parse_vpn,
+)
+from apps.network_engineer.vendor.models import (
+    NetworkAST,
 )
 
 logger = logging.getLogger(__name__)

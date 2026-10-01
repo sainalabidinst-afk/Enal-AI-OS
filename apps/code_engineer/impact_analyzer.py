@@ -16,7 +16,7 @@ import ast
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -395,7 +395,7 @@ class ImpactAnalyzer:
 
         return "\n".join(lines)
 
-    async def _get_ast(self, module_path: str) -> Optional[ast.Module]:
+    async def _get_ast(self, module_path: str) -> ast.Module | None:
         """Get cached AST for a module."""
         if module_path in self._module_ast_cache:
             return self._module_ast_cache[module_path]

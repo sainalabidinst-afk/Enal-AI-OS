@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import logging
 import time
-import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
@@ -112,7 +111,7 @@ class CapabilityLifecycleManager:
         self._register_defaults()
 
     def _register_defaults(self) -> None:
-        from apps import APPS, get_app
+        from apps import APPS
 
         for app_id, app in APPS.items():
             if app is None:

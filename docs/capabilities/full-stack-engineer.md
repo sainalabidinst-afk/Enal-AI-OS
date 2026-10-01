@@ -249,8 +249,18 @@ async def main() -> None:
     )
     report = await engine.review(request)
     print(f"Architecture score: {report.architecture_review.architecture_score:.0%}")
-    print(f"Findings: {len(report.code_review.findings)} code issues")
-    print(f"Refactoring plans: {len(report.refactoring_plan.plans)}")
+    
+    # For full_stack_review, all sections are available
+    request_full = FullStackRequest(
+        operation=OperationType.full_stack_review,
+        inputs={"repo_path": "/path/to/repo"},
+        context={"project_id": "my-project", "language": "python"},
+    )
+    report_full = await engine.review(request_full)
+    print(f"Overall quality score: {report_full.quality_score:.0%}")
+    print(f"Architecture score: {report_full.architecture_review.architecture_score:.0%}")
+    if report_full.code_review:
+        print(f"Code issues found: {len(report_full.code_review.findings)}")
 
 
 if __name__ == "__main__":

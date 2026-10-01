@@ -10,7 +10,7 @@ These schemas follow the RFC-0018 contract definitions exactly.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -190,7 +190,7 @@ class UXDesignRecord(BaseModel):
 
     record_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     request_id: str = Field(..., description="Reference to UIUXDesignerRequest")
-    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     operation: str = Field(default="")
     project_name: str = Field(default="")
     personas_count: int = Field(default=0)

@@ -8,7 +8,6 @@ Reference: RFC 8200, RFC 4861, RFC 4862, RFC 8415, RFC 6144
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 
@@ -131,7 +130,6 @@ class IPv6Analyzer:
         findings = []
         has_ipv6_fw = any(kw in raw for kw in ["ipv6 firewall", "ipv6 access-list", "ipv6 filter"])
         has_ra_guard = any(kw in raw for kw in ["ra-guard", "router-advertisement-guard", "nd inspect"])
-        has_dhcpv6_guard = "dhcpv6-guard" in raw or "dhcp-snooping v6" in raw
         has_privacy = "privacy-extensions" in raw or "ipv6 privacy" in raw
 
         if not has_ipv6_fw:
@@ -175,7 +173,7 @@ class IPv6Analyzer:
         has_dns64 = "dns64" in raw or "nat64" in raw
         has_6to4 = "6to4" in raw or "ipv6 6to4" in raw
         has_6rd = "6rd" in raw or "ipv6 6rd" in raw
-        has_tunnel = any(kw in raw for kw in ["tunnel", "ipv6ip", "gre tunnel"])
+        any(kw in raw for kw in ["tunnel", "ipv6ip", "gre tunnel"])
 
         if has_dns64:
             findings.append(EnterpriseKnowledgeFinding(
@@ -205,7 +203,6 @@ class IPv6Analyzer:
         findings = []
         has_wan_ipv6 = any(kw in raw for kw in ["ipv6 address", "ipv6 dhcp client", "ipv6 pd"])
         has_bgp_ipv6 = "ipv6" in raw and "bgp" in raw
-        has_ospf_ipv6 = "ipv6" in raw and "ospf" in raw
 
         if has_wan_ipv6:
             findings.append(EnterpriseKnowledgeFinding(

@@ -26,21 +26,19 @@ import os
 import tempfile
 from typing import Any
 
-from apps.code_engineer.parser import code_parser, CodeAST
-from apps.code_engineer.analyzer import code_analyzer, CodeAnalyzer
+from apps.code_engineer.analyzer import code_analyzer
 from apps.code_engineer.architecture_patterns import (
     architecture_pattern_analyzer,
-    ArchitecturePatternAnalyzer,
 )
+from apps.code_engineer.architecture_reader import ArchitectureReader, read_architecture
+from apps.code_engineer.dependency_graph import DependencyGraphBuilder
+from apps.code_engineer.parser import code_parser
+from apps.code_engineer.patch_generator import PatchGenerator
+from apps.code_engineer.refactoring_engine import RefactoringEngine
+from apps.code_engineer.regression_analyzer import RegressionAnalyzer
 from apps.code_engineer.secure_coding import (
     secure_coding_analyzer,
-    SecureCodingAnalyzer,
 )
-from apps.code_engineer.dependency_graph import DependencyGraphBuilder
-from apps.code_engineer.architecture_reader import ArchitectureReader, read_architecture
-from apps.code_engineer.refactoring_engine import RefactoringEngine
-from apps.code_engineer.patch_generator import PatchGenerator
-from apps.code_engineer.regression_analyzer import RegressionAnalyzer
 from apps.code_engineer.test_generator import TestGenerator
 
 logger = logging.getLogger(__name__)

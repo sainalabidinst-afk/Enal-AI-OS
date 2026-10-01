@@ -11,9 +11,9 @@ import logging
 from typing import Any
 
 from apps.data_engineer.schemas import (
-    SchemaDriftReport,
-    SchemaChange,
     ChangeType,
+    SchemaChange,
+    SchemaDriftReport,
 )
 
 logger = logging.getLogger(__name__)

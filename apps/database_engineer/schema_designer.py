@@ -8,15 +8,13 @@ with appropriate data types, normalization, and constraints.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.database_engineer.schemas import (
-    SchemaDefinition,
-    TableDefinition,
-    ColumnDefinition,
     DatabaseType,
+    SchemaDefinition,
     SchemaRecommendation,
     Severity,
+    TableDefinition,
 )
 
 logger = logging.getLogger(__name__)
@@ -130,7 +128,7 @@ class SchemaDesigner:
             ))
 
         # Check column types.
-        type_map = _TYPE_RECOMMENDATIONS.get(db_key, {})
+        _TYPE_RECOMMENDATIONS.get(db_key, {})
         for col in table.columns:
             col_type_lower = col.type.lower()
             if "varchar" in col_type_lower and "255" not in col_type_lower:

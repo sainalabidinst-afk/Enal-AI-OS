@@ -11,14 +11,14 @@ from typing import Any
 
 from apps.database_engineer.engine import DatabaseEngineerEngine
 from apps.database_engineer.schemas import (
+    ColumnDefinition,
     DatabaseRequest,
     DatabaseType,
+    ForeignKey,
     OperationType,
     SchemaDefinition,
-    WorkloadProfile,
     TableDefinition,
-    ColumnDefinition,
-    ForeignKey,
+    WorkloadProfile,
 )
 
 

@@ -12,7 +12,6 @@ from typing import Any
 
 from apps.data_engineer.schemas import (
     FeatureSpec,
-    FeatureType,
 )
 
 logger = logging.getLogger(__name__)

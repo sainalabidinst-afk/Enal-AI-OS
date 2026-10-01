@@ -5,9 +5,7 @@ Clean Architecture Analysis
 Clean Architecture layer analysis and entity purity checks.
 """
 
-from typing import Optional
 
-from apps.code_engineer.architecture_models import ModuleInfo
 from apps.code_engineer.architecture_patterns import ArchitectureFinding, ArchitectureSeverity
 
 
@@ -66,14 +64,14 @@ class CleanArchitectureAnalyzer:
                     ))
         return findings
 
-    def _classify_module_layer(self, module_name: str) -> Optional[str]:
+    def _classify_module_layer(self, module_name: str) -> str | None:
         for layer, keywords in self.LAYER_KEYWORDS.items():
             for kw in keywords:
                 if kw in module_name:
                     return layer
         return None
 
-    def _classify_import_layer(self, import_name: str) -> Optional[str]:
+    def _classify_import_layer(self, import_name: str) -> str | None:
         for layer, keywords in self.LAYER_KEYWORDS.items():
             for kw in keywords:
                 if kw in import_name:

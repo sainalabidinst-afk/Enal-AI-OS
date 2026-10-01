@@ -6,29 +6,29 @@ from typing import Any
 
 from apps.base import BaseReferenceApp
 from apps.database_engineer.engine import DatabaseEngineerEngine
-from apps.database_engineer.worker import DatabaseEngineerWorker
 from apps.database_engineer.schemas import (
-    DatabaseRequest,
-    DatabaseReport,
-    DatabaseType,
-    OperationType,
-    Severity,
-    FindingCategory,
-    ColumnDefinition,
-    ForeignKey,
-    TableDefinition,
-    SchemaDefinition,
-    WorkloadProfile,
-    Finding,
-    SchemaRecommendation,
-    IndexRecommendation,
-    MigrationStep,
-    MigrationPlan,
-    ReplicationDesign,
     BackupPlan,
-    PerformanceStats,
+    ColumnDefinition,
     DatabaseAnalysisRecord,
+    DatabaseReport,
+    DatabaseRequest,
+    DatabaseType,
+    Finding,
+    FindingCategory,
+    ForeignKey,
+    IndexRecommendation,
+    MigrationPlan,
+    MigrationStep,
+    OperationType,
+    PerformanceStats,
+    ReplicationDesign,
+    SchemaDefinition,
+    SchemaRecommendation,
+    Severity,
+    TableDefinition,
+    WorkloadProfile,
 )
+from apps.database_engineer.worker import DatabaseEngineerWorker
 
 
 class DatabaseEngineerApp(BaseReferenceApp):

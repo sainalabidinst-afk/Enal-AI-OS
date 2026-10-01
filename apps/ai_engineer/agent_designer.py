@@ -9,14 +9,13 @@ swarm, and pipeline patterns with tool specifications and orchestration.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.ai_engineer.schemas import (
-    AIEngineerRequest,
-    AgentSpec,
     AgentArchitectureType,
-    OrchestrationPattern,
+    AgentSpec,
+    AIEngineerRequest,
     LLMProvider,
+    OrchestrationPattern,
     ToolSpec,
 )
 

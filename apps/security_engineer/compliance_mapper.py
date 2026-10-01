@@ -8,10 +8,8 @@ HIPAA, PCI-DSS, NIST-CSF) and identifies compliance gaps.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.security_engineer.schemas import (
-    ComplianceStandard,
     ComplianceReport,
     Finding,
 )

@@ -11,8 +11,8 @@ from typing import Any
 
 from apps.security_engineer.engine import SecurityEngineerEngine
 from apps.security_engineer.schemas import (
-    SecurityAssessmentRequest,
     AssessmentType,
+    SecurityAssessmentRequest,
 )
 
 

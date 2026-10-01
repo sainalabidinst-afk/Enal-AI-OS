@@ -9,7 +9,7 @@ Detects project architecture, frameworks, entry points, module organization.
 import ast
 import logging
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from apps.code_engineer.architecture_models import (
     ArchitectureSummary,
@@ -125,7 +125,7 @@ class ArchitectureReader:
             missing_init_files=self._missing_init,
         )
 
-    async def _analyze_file(self, py_file: Path, relative: Path) -> Optional[ModuleInfo]:
+    async def _analyze_file(self, py_file: Path, relative: Path) -> ModuleInfo | None:
         """Analyze a single Python file."""
         try:
             content = py_file.read_text(encoding="utf-8")
@@ -138,7 +138,7 @@ class ArchitectureReader:
             classes: list[str] = []
             functions: list[str] = []
             decorators: list[str] = []
-            docstring: Optional[str] = None
+            docstring: str | None = None
 
             if tree.body and isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Constant):
                 docstring = ast.get_docstring(tree)
@@ -203,7 +203,7 @@ class ArchitectureReader:
             logger.error(f"Error analyzing {py_file}: {e}")
             return None
 
-    def _extract_decorator_name(self, node: ast.expr) -> Optional[str]:
+    def _extract_decorator_name(self, node: ast.expr) -> str | None:
         """Extract decorator name from AST node."""
         if isinstance(node, ast.Name):
             return node.id

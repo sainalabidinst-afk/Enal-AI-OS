@@ -11,7 +11,15 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.system_architect.schemas import Finding, FindingCategory, Severity, Impact, Recommendation, Priority, Effort
+from apps.system_architect.schemas import (
+    Effort,
+    Finding,
+    FindingCategory,
+    Impact,
+    Priority,
+    Recommendation,
+    Severity,
+)
 
 logger = logging.getLogger(__name__)
 

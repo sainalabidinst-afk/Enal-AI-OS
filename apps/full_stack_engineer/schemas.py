@@ -10,7 +10,7 @@ These schemas follow the RFC-0019 contract definitions exactly.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -213,7 +213,7 @@ class FullStackRecord(BaseModel):
 
     record_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     request_id: str = Field(..., description="Reference to FullStackRequest")
-    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     operation: str = Field(default="")
     repo_path: str = Field(default="")
     architecture_score: float = Field(default=0.0)

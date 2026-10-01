@@ -47,7 +47,6 @@ class TestCognitiveServices:
 
     @pytest.mark.asyncio
     async def test_reasoning_service(self, monkeypatch):
-        import backend.app.core.cognitive_kernel as ck_module
 
         class FakeReasoningEngine:
             @staticmethod
@@ -71,7 +70,6 @@ class TestCognitiveServices:
 
     @pytest.mark.asyncio
     async def test_planning_service(self, monkeypatch):
-        import backend.app.core.cognitive_kernel as ck_module
 
         class FakeStrategicPlanner:
             @staticmethod
@@ -98,7 +96,6 @@ class TestCognitiveServices:
 
     @pytest.mark.asyncio
     async def test_reflection_service(self, monkeypatch):
-        import backend.app.core.cognitive_kernel as ck_module
 
         class FakeSelfReflection:
             @staticmethod

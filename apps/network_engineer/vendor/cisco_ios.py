@@ -8,20 +8,6 @@ Full Cisco IOS/IOS-XE/NX-OS parser.
 import logging
 
 from apps.network_engineer.vendor.base import VendorAdapter
-from apps.network_engineer.vendor.models import (
-    InterfaceType,
-    NetworkAST,
-    RuleAction,
-    UniversalBGP,
-    UniversalDHCPServer,
-    UniversalFirewallRule,
-    UniversalInterface,
-    UniversalIPAddress,
-    UniversalNATRule,
-    UniversalRoute,
-    UniversalUser,
-    UniversalVLAN,
-)
 from apps.network_engineer.vendor.cisco_ios_parsers import (
     parse_aaa,
     parse_acls,
@@ -39,10 +25,13 @@ from apps.network_engineer.vendor.cisco_ios_parsers import (
     parse_routes,
     parse_snmp,
     parse_spanning_tree,
+    parse_ssh_telnet,
     parse_system,
     parse_users,
     parse_vlans,
-    parse_ssh_telnet,
+)
+from apps.network_engineer.vendor.models import (
+    NetworkAST,
 )
 
 logger = logging.getLogger(__name__)

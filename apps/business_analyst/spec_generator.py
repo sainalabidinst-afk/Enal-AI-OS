@@ -8,17 +8,15 @@ user stories, and use cases for downstream capability packs.
 from __future__ import annotations
 
 import logging
+from datetime import UTC
 from typing import Any
 
 from apps.business_analyst.schemas import (
     BusinessAnalysisRequest,
-    BusinessAnalysisReport,
     Requirement,
-    UserStory,
-    UseCase,
-    BusinessContext,
-    Priority,
     RequirementType,
+    UseCase,
+    UserStory,
 )
 
 logger = logging.getLogger(__name__)
@@ -203,5 +201,5 @@ class SpecGenerator:
 
     def _timestamp(self) -> str:
         """Get current timestamp string."""
-        from datetime import datetime, timezone
-        return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+        from datetime import datetime
+        return datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")

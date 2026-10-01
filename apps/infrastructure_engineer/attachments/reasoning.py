@@ -8,7 +8,11 @@ from apps.infrastructure_engineer.attachments.compliance import (
     ComplianceEngine,
     ComplianceFramework,
 )
-from apps.infrastructure_engineer.attachments.models import InfrastructureAST, InfrastructureFinding, Severity
+from apps.infrastructure_engineer.attachments.models import (
+    InfrastructureAST,
+    InfrastructureFinding,
+    Severity,
+)
 
 
 @dataclass

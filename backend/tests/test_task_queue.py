@@ -1,9 +1,8 @@
-import logging
 
 import pytest
 
-from backend.app.core.task_queue import Task, TaskQueue, TaskStatus
 from backend.app.core.events import Event
+from backend.app.core.task_queue import Task, TaskQueue, TaskStatus
 
 
 class FakeEventBus:

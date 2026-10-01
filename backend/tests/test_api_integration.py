@@ -3,13 +3,14 @@ import os
 os.environ.setdefault("SECRET_KEY", "test-secret-key-for-unit-tests-only")
 
 from fastapi.testclient import TestClient
-from backend.app.main import app
+
 from backend.app.core.security_model import (
-    SecurityPolicy,
-    SecurityLevel,
     Permission,
+    SecurityLevel,
+    SecurityPolicy,
     security_model,
 )
+from backend.app.main import app
 
 client = TestClient(app)
 

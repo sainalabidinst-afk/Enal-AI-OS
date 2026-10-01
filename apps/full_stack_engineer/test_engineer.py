@@ -18,8 +18,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from apps.code_engineer.test_generator import TestGenerator
-
 logger = logging.getLogger(__name__)
 
 

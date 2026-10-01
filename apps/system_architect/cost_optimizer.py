@@ -11,10 +11,14 @@ Analyzes architecture for cost optimization opportunities:
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
 from typing import Any
 
-from apps.system_architect.schemas import Finding, FindingCategory, Severity, Impact, Recommendation, Priority, Effort
+from apps.system_architect.schemas import (
+    Finding,
+    FindingCategory,
+    Impact,
+    Severity,
+)
 
 logger = logging.getLogger(__name__)
 

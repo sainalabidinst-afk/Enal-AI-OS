@@ -9,14 +9,13 @@ load balancers, and quorum management.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.infrastructure_engineer.schemas import (
-    InfrastructureEngineerRequest,
     ClusterSpec,
-    NodeConfig,
     FailoverConfig,
     HighAvailabilityMode,
+    InfrastructureEngineerRequest,
+    NodeConfig,
 )
 
 logger = logging.getLogger(__name__)

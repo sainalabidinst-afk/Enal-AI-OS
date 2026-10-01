@@ -8,12 +8,6 @@ All profiles operate on Universal AST, making them vendor-agnostic.
 
 import logging
 
-from apps.network_engineer.nic.knowledge.compliance_models import (
-    ComplianceCheck,
-    ComplianceProfile,
-    ComplianceReport,
-    ComplianceRule,
-)
 from apps.network_engineer.nic.knowledge.compliance_checks import CHECK_REGISTRY
 from apps.network_engineer.nic.knowledge.compliance_profiles import (
     CISProfile,
@@ -22,6 +16,12 @@ from apps.network_engineer.nic.knowledge.compliance_profiles import (
     PCIDSSProfile,
     PROFILES,
     SMBBestPracticeProfile,
+)
+from apps.network_engineer.nic.knowledge.compliance_models import (
+    ComplianceCheck,
+    ComplianceProfile,
+    ComplianceReport,
+    ComplianceRule,
 )
 from apps.network_engineer.vendor.models import NetworkAST
 

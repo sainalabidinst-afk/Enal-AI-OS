@@ -8,7 +8,7 @@ for the Research Assistant Capability Pack, plus all supporting types.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -200,7 +200,7 @@ class ResearchQualityRecord(BaseModel):
     evidence_quality_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Average evidence quality")
     confidence_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall confidence score")
     completeness: float = Field(default=0.0, ge=0.0, le=1.0, description="Completeness of research")
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
 def _serialize(value: Any) -> Any:

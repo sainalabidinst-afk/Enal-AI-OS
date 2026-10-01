@@ -7,7 +7,6 @@ No state, no side effects. Input → Output.
 """
 
 import statistics
-import math
 from typing import Any
 
 

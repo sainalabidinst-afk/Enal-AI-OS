@@ -9,7 +9,6 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from apps.network_engineer.nic.knowledge.ontology import UniversalConcept
-from apps.network_engineer.vendor.models import NetworkAST
 
 
 @dataclass

@@ -240,3 +240,128 @@ def test_architecture_review_engine_scan(tmp_path: Path) -> None:
     assert report["total_lines"] > 0
     assert "architecture_score" in report
     assert "detected_style" in report
+
+
+@pytest.mark.asyncio
+async def test_engine_error_handling_invalid_repo() -> None:
+    """Engine handles invalid repo path gracefully."""
+    engine = FullStackEngineerEngine()
+    request = FullStackRequest(
+        operation=OperationType.architecture_review,
+        inputs={"repo_path": "/nonexistent/path/that/does/not/exist"},
+        context={"project_id": "error-test", "language": "python"},
+    )
+    report = await engine.review(request)
+    assert report.operation == "architecture_review"
+    assert report.architecture_review is not None
+
+
+@pytest.mark.asyncio
+async def test_engine_refactoring_plan_quality() -> None:
+    """F3: Refactoring plan produces actionable plans."""
+    engine = FullStackEngineerEngine()
+    complex_code = """
+class Everything:
+    def method1(self): pass
+    def method2(self): pass
+    def method3(self): pass
+    def method4(self): pass
+    def method5(self): pass
+    def method6(self): pass
+    def method7(self): pass
+    def method8(self): pass
+    def method9(self): pass
+    def method10(self): pass
+    def method11(self): pass
+    def method12(self): pass
+"""
+    request = FullStackRequest(
+        operation=OperationType.refactoring_plan,
+        inputs={"source_code": complex_code, "filename": "god_class.py"},
+        context={"project_id": "refactor", "language": "python"},
+    )
+    report = await engine.review(request)
+    assert isinstance(report.refactoring_plan, RefactoringPlanResult)
+    assert len(report.refactoring_plan.plans) > 0
+
+
+@pytest.mark.asyncio
+async def test_engine_test_engineering_analysis() -> None:
+    """F4: Test engineering provides coverage insights."""
+    engine = FullStackEngineerEngine()
+    source_code = "def add(a, b):\n    return a + b\n"
+    request = FullStackRequest(
+        operation=OperationType.test_engineering,
+        inputs={"source_path": ".", "module_path": "calculator.py", "source_code": source_code},
+        context={"project_id": "test-eng", "language": "python"},
+    )
+    report = await engine.review(request)
+    assert isinstance(report.test_engineering, TestEngineeringResult)
+    assert report.test_engineering.estimated_coverage >= 0.0
+
+
+@pytest.mark.asyncio
+async def test_engine_output_formats() -> None:
+    """Engine respects output_format parameter."""
+    for output_format in ["json", "markdown"]:
+        engine = FullStackEngineerEngine()
+        request = FullStackRequest(
+            operation=OperationType.code_review,
+            inputs={"source_code": "def x(): pass\n", "filename": "test.py"},
+            context={"project_id": f"format-{output_format}", "language": "python"},
+            output_format=output_format,
+        )
+        report = await engine.review(request)
+        assert report.operation == "code_review"
+        assert report.code_review is not None
+
+
+@pytest.mark.asyncio
+async def test_engine_quality_score_range() -> None:
+    """Quality score is always between 0 and 1."""
+    engine = FullStackEngineerEngine()
+    request = FullStackRequest(
+        operation=OperationType.full_stack_review,
+        inputs={"repo_path": "."},
+        context={"project_id": "quality", "language": "python"},
+    )
+    report = await engine.review(request)
+    assert 0.0 <= report.quality_score <= 1.0
+
+
+@pytest.mark.asyncio
+async def test_worker_returns_dict() -> None:
+    """Worker always returns a dictionary result."""
+    worker = FullStackEngineerWorker()
+    operations = [
+        "architecture_review",
+        "code_review",
+        "refactoring_plan",
+        "test_engineering",
+        "performance_analysis",
+        "release_review",
+    ]
+    for op in operations:
+        result = await worker.execute({
+            "operation": op,
+            "inputs": {"repo_path": "."},
+            "context": {"project_id": f"worker-{op}", "language": "python"},
+        })
+        assert isinstance(result, dict)
+        assert "operation" in result
+        assert "quality_score" in result
+
+
+@pytest.mark.asyncio
+async def test_engine_multiple_languages() -> None:
+    """Engine handles different programming languages."""
+    languages = ["python", "javascript", "typescript"]
+    for lang in languages:
+        engine = FullStackEngineerEngine()
+        request = FullStackRequest(
+            operation=OperationType.code_review,
+            inputs={"source_code": "function test() { return true; }\n", "filename": "test.js"},
+            context={"project_id": f"lang-{lang}", "language": lang},
+        )
+        report = await engine.review(request)
+        assert report.code_review is not None

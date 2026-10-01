@@ -14,10 +14,6 @@ from typing import Any
 from apps.network_engineer.topology import (
     DeviceType,
     InterfaceType,
-    NetworkConnection,
-    NetworkDevice,
-    NetworkInterface,
-    NetworkSegment,
     NetworkTopology,
     RedundancyRole,
 )

@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from apps.decision_intelligence.schemas import Objective, RiskTolerance, TradeOff
+from apps.decision_intelligence.schemas import Objective, RiskTolerance
 
 
 class ScoringEngine:

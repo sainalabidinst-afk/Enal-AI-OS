@@ -8,13 +8,11 @@ Produces prioritized gap analysis reports.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.business_analyst.schemas import (
-    StakeholderInput,
     GapItem,
     Priority,
-    Requirement,
+    StakeholderInput,
 )
 
 logger = logging.getLogger(__name__)

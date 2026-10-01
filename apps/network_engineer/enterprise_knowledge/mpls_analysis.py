@@ -8,7 +8,6 @@ Reference: RFC 3031, RFC 5036, RFC 4364, MPLS Best Practices
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 
@@ -46,7 +45,6 @@ class MPLSAnalyzer:
         findings = []
         has_mpls_ip = "mpls ip" in raw or "mpls label" in raw
         has_mtu = "mtu" in raw and "mpls" in raw
-        has_ttl = "ttl" in raw and "mpls" in raw
 
         if has_mpls_ip:
             findings.append(EnterpriseKnowledgeFinding(
@@ -77,7 +75,6 @@ class MPLSAnalyzer:
         has_ldp = "mpls ldp" in raw or "ldp" in raw
         has_ldp_auth = "ldp password" in raw or "ldp md5" in raw or "ldp auth" in raw
         has_ldp_transport = "transport-address" in raw or "ldp router-id" in raw
-        has_ldp_session = "session protection" in raw or "ldp session" in raw
 
         if has_ldp:
             findings.append(EnterpriseKnowledgeFinding(
@@ -119,7 +116,6 @@ class MPLSAnalyzer:
         has_vrf = "vrf definition" in raw or "ip vrf" in raw or "vrf" in raw
         has_rd = "rd " in raw or "route-distinguisher" in raw
         has_rt = "route-target" in raw or "rt " in raw
-        has_vrf_leaking = "import" in raw and "export" in raw and "vrf" in raw
 
         if has_vrf:
             findings.append(EnterpriseKnowledgeFinding(
@@ -160,7 +156,6 @@ class MPLSAnalyzer:
         findings = []
         has_te = "mpls traffic-eng" in raw or "traffic-engineering" in raw or "mpls te" in raw
         has_rsvp = "rsvp" in raw or "rsvp-te" in raw
-        has_tunnel = "tunnel" in raw and "mpls" in raw
 
         if has_te:
             findings.append(EnterpriseKnowledgeFinding(

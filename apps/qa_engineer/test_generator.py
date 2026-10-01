@@ -9,11 +9,10 @@ from __future__ import annotations
 
 import ast
 import re
-from dataclasses import dataclass, field
-from pathlib import Path
+from dataclasses import dataclass
 from typing import Any
 
-from apps.qa_engineer.schemas import QATestArtifact, TestType, CoverageReport
+from apps.qa_engineer.schemas import QATestArtifact, TestType
 
 
 @dataclass
@@ -250,7 +249,7 @@ class TestGenerator:
             lines.append(f"public class Test{cls} {{")
             lines.append("")
             for method in methods[:10]:
-                lines.append(f"  @Test")
+                lines.append("  @Test")
                 lines.append(f"  public void test{method.capitalize()}() {{")
                 lines.append(f"    // TODO: Implement test for {method}")
                 lines.append("    assertTrue(true);")
@@ -357,7 +356,7 @@ class TestGenerator:
             lines.append(f"    def test_{name}_behavior(self):")
             lines.append(f"        \"\"\"Test {name} basic behavior.\"\"\"")
             lines.append(f"        # TODO: Implement comprehensive test for {name}")
-            lines.append(f"        assert True")
+            lines.append("        assert True")
             lines.append("")
         return "\n".join(lines)
 
@@ -371,7 +370,7 @@ class TestGenerator:
         for name in method_names:
             lines.append(f"    def test_{name}(self):")
             lines.append(f"        \"\"\"Test {name}.\"\"\"")
-            lines.append(f"        self.assertTrue(True)")
+            lines.append("        self.assertTrue(True)")
             lines.append("")
         lines.append("")
         lines.append("if __name__ == '__main__':")
@@ -389,12 +388,12 @@ class TestGenerator:
         lines.append("")
         for fn in functions:
             lines.append(f"    # Benchmark {fn.name}")
-            lines.append(f"    times = []")
-            lines.append(f"    for _ in range(100):")
-            lines.append(f"        start = time.perf_counter()")
+            lines.append("    times = []")
+            lines.append("    for _ in range(100):")
+            lines.append("        start = time.perf_counter()")
             lines.append(f"        # TODO: Call {fn.name}()")
-            lines.append(f"        elapsed = time.perf_counter() - start")
-            lines.append(f"        times.append(elapsed)")
+            lines.append("        elapsed = time.perf_counter() - start")
+            lines.append("        times.append(elapsed)")
             lines.append(f"    results['{fn.name}'] = statistics.mean(times)")
             lines.append("")
         lines.append("    return results")

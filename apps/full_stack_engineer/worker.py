@@ -13,7 +13,6 @@ from apps.full_stack_engineer.engine import FullStackEngineerEngine
 from apps.full_stack_engineer.schemas import (
     FullStackRequest,
     OperationType,
-    OutputFormat,
 )
 
 

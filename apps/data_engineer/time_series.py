@@ -79,7 +79,7 @@ class TimeSeriesHandler:
         missing_count = self._count_missing(sorted_data, ts_col, freq_delta)
 
         # Interpolate.
-        interpolated = self._interpolate(sorted_data, ts_col, method, freq_delta)
+        self._interpolate(sorted_data, ts_col, method, freq_delta)
         interpolated_count = len(sorted_data)  # tracks interpolation operations
 
         return TimeSeriesReport(

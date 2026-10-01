@@ -10,7 +10,7 @@ Defines the input (InfrastructureEngineerRequest) and output
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -207,7 +207,7 @@ class InfrastructureEngineerReport(BaseModel):
     recommendations: list[str] = Field(default_factory=list, description="Improvement recommendations")
     quality_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall quality score")
     explanation: str = Field(default="", description="Human-readable analysis summary")
-    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
     def to_dict(self) -> dict[str, Any]:
         data = self.model_dump()
@@ -218,7 +218,7 @@ class InfrastructureEngineerReport(BaseModel):
 class InfrastructureRecord(BaseModel):
     record_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     request_id: str = Field(default="")
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     operation: str = Field(default="")
     infrastructure_type: str = Field(default="")
     availability_achieved: str = Field(default="")

@@ -9,7 +9,6 @@ Reference: Fortinet Security Best Practices, FortiOS Hardening Guide
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 
@@ -160,7 +159,6 @@ class FortinetHardeningAnalyzer:
         has_ssl_vpn = "vpn ssl" in raw or "ssl-vpn" in raw or "web-portal" in raw
         has_ikev2 = "ikev2" in raw or "ike-version 2" in raw
         has_dpd = "dpd" in raw or "dead-peer-detection" in raw
-        has_nat_traversal = "nat-traversal" in raw or "nat-traversal-mode" in raw
 
         if has_ipsec:
             findings.append(EnterpriseKnowledgeFinding(
@@ -212,7 +210,6 @@ class FortinetHardeningAnalyzer:
         findings = []
         has_ips = "ips" in raw or "ips-sensor" in raw or "intrusion-prevention" in raw
         has_av = "antivirus" in raw or "av-profile" in raw
-        has_waf = "waf" in raw or "web-application-firewall" in raw
         has_fortisandbox = "fortisandbox" in raw or "sandbox" in raw
 
         if not has_ips:
@@ -255,7 +252,6 @@ class FortinetHardeningAnalyzer:
         has_logging = "log" in raw or "logdisk" in raw or "syslog" in raw
         has_fortianalyzer = "fortianalyzer" in raw or "analytics" in raw
         has_log_forward = "log-forward" in raw or "syslog" in raw
-        has_audit = "audit" in raw or "event-log" in raw
 
         if not has_logging:
             findings.append(EnterpriseKnowledgeFinding(

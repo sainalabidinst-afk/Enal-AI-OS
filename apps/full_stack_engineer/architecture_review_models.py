@@ -5,8 +5,7 @@ Architecture Review Models
 Data models, enums, and constants for the architecture review engine.
 """
 
-import re
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
 

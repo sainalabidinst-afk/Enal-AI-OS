@@ -3,7 +3,7 @@ import sys
 
 import pytest
 
-from backend.app.agents.meta_planner import MetaPlanner, SYSTEM_PROMPT
+from backend.app.agents.meta_planner import MetaPlanner
 
 
 class TestMetaPlanner:

@@ -318,7 +318,7 @@ class _AnalysisMixin:
                             imports=m.imports[:5],
                             recommendation=f"Refactor to respect {pattern['rule']}",
                         ))
-                except Exception:
+                except (KeyError, AttributeError, IndexError, TypeError):
                     continue
 
         return violations

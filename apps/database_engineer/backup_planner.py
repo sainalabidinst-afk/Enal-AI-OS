@@ -8,11 +8,10 @@ RTO (Recovery Time Objective) and RPO (Recovery Point Objective) requirements.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.database_engineer.schemas import (
-    DatabaseType,
     BackupPlan,
+    DatabaseType,
 )
 
 logger = logging.getLogger(__name__)

@@ -12,9 +12,8 @@ Reference: Wyckoff Method by Richard D. Wyckoff
 """
 
 import logging
-from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import MarketEvidence, OHLCV
+from apps.trading_analyst.market_intelligence.models import OHLCV, MarketEvidence
 
 logger = logging.getLogger(__name__)
 
@@ -57,14 +56,14 @@ class WyckoffAnalyzer:
         recent_high = max(highs[-10:])
         recent_low = min(lows[-10:])
         if recent_high > 0:
-            recent_range = (recent_high - recent_low) / recent_high
+            (recent_high - recent_low) / recent_high
         else:
-            recent_range = 0
+            pass
 
         # 2. Volume analysis: decreasing volume on lows
         recent_volumes = volumes[-20:]
         vol_avg = sum(recent_volumes) / len(recent_volumes) if recent_volumes else 0
-        last_10_vol = sum(volumes[-10:]) / 10 if len(volumes) >= 10 else 0
+        sum(volumes[-10:]) / 10 if len(volumes) >= 10 else 0
 
         # 3. Spring detection: false breakdown below support
         if len(lows) >= 20:
@@ -88,7 +87,7 @@ class WyckoffAnalyzer:
             current_high = max(highs[-5:])
             current_vol = sum(volumes[-5:]) / 5 if len(volumes) >= 5 else 0
             prev_vol = sum(volumes[-10:-5]) / 5 if len(volumes) >= 10 else 0
-            
+
             if current_high > recent_swing_high and current_vol > prev_vol * 1.3:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_sos_{tf}",
@@ -183,7 +182,7 @@ class WyckoffAnalyzer:
             current_low = min(lows[-5:])
             current_vol = sum(volumes[-5:]) / 5 if len(volumes) >= 5 else 0
             prev_vol = sum(volumes[-10:-5]) / 5 if len(volumes) >= 10 else 0
-            
+
             if current_low < recent_swing_low and current_vol > prev_vol * 1.3:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_sow_{tf}",
@@ -218,7 +217,7 @@ class WyckoffAnalyzer:
             bounce = max(highs[-5:])
             bounce_vol = sum(volumes[-5:]) / 5 if len(volumes) >= 5 else 0
             decline_vol = sum(volumes[-15:-10]) / 5 if len(volumes) >= 15 else 0
-            
+
             if bounce > recent_decline * 1.02 and bounce_vol < decline_vol * 0.7:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_lpsy_{tf}",

@@ -11,7 +11,6 @@ to typed Problem instances.
 from __future__ import annotations
 
 import logging
-import math
 import random
 from typing import Any
 

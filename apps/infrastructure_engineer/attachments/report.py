@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from apps.infrastructure_engineer.attachments.reasoning import InfrastructureReasoningEngine, ReasoningChain
+from apps.infrastructure_engineer.attachments.reasoning import (
+    InfrastructureReasoningEngine,
+    ReasoningChain,
+)
 
 
 class ExecutiveReportGenerator:

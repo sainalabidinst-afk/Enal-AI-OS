@@ -7,7 +7,6 @@ Data models for the architecture reader module.
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
 
 
 class ProjectType(str, Enum):
@@ -49,7 +48,7 @@ class ModuleInfo:
     functions: list[str] = field(default_factory=list)
     decorators: list[str] = field(default_factory=list)
     lines_of_code: int = 0
-    docstring: Optional[str] = None
+    docstring: str | None = None
 
 
 @dataclass

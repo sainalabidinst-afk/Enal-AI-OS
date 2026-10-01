@@ -8,12 +8,11 @@ performance: primary-replica, multi-primary, and leaderless topologies.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.database_engineer.schemas import (
-    WorkloadProfile,
     DatabaseType,
     ReplicationDesign,
+    WorkloadProfile,
 )
 
 logger = logging.getLogger(__name__)

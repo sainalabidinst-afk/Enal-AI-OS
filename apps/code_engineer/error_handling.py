@@ -4,8 +4,9 @@ Error handling module for Code Engineer capability.
 This module provides error handling and retry logic.
 """
 
-from typing import TypeVar, Callable, ParamSpec
+from collections.abc import Callable
 from functools import wraps
+from typing import ParamSpec, TypeVar
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -15,13 +16,15 @@ def retry(max_attempts: int = 3):
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            last_error = None
+            last_error: Exception | None = None
             for attempt in range(max_attempts):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
                     last_error = e
-            raise last_error
+            if last_error is not None:
+                raise last_error
+            raise RuntimeError("retry failed without error")
         return wrapper
     return decorator
 

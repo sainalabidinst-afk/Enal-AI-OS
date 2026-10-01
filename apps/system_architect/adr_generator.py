@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import logging
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -88,7 +88,7 @@ class ADRGenerator:
     ) -> ADRDraft:
         """Generate an ADR draft from context and findings."""
         findings = findings or []
-        date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        datetime.now(UTC).strftime("%Y-%m-%d")
 
         # Synthesize decision and consequences from findings
         if decision is None:
@@ -119,7 +119,7 @@ class ADRGenerator:
             number=number,
             title=title_clean,
             status=adr.status.value,
-            date=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+            date=datetime.now(UTC).strftime("%Y-%m-%d"),
             context=adr.context,
             decision=adr.decision,
             consequences=consequences,

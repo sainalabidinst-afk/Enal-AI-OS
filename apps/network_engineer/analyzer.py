@@ -11,9 +11,9 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
 
-from apps.network_engineer.analyzer_security import _SecurityRuleMixin
-from apps.network_engineer.analyzer_network import _NetworkConfigRuleMixin
 from apps.network_engineer.analyzer_ip_routing import _IPRoutingRuleMixin
+from apps.network_engineer.analyzer_network import _NetworkConfigRuleMixin
+from apps.network_engineer.analyzer_security import _SecurityRuleMixin
 from apps.network_engineer.analyzer_vendor import _VendorRuleMixin
 
 logger = logging.getLogger(__name__)

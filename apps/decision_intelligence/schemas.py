@@ -10,12 +10,11 @@ These schemas follow the RFC-0007 contract definitions exactly.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
-
 
 # ---------------------------------------------------------------------------
 # Enums
@@ -152,7 +151,7 @@ class DecisionRecord(BaseModel):
 
     record_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Record identifier")
     decision_id: str = Field(..., description="Reference to the original decision")
-    timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat(), description="ISO 8601 timestamp")
+    timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat(), description="ISO 8601 timestamp")
     context: str = Field(default="", description="Decision context")
     chosen_alternative: str = Field(default="", description="The selected alternative description")
     alternatives_count: int = Field(default=0, description="Number of alternatives considered")

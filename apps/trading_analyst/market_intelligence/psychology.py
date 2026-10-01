@@ -14,9 +14,8 @@ It does NOT produce trading signals.
 """
 
 import logging
-from typing import Any
 
-from apps.trading_analyst.market_intelligence.models import MarketEvidence, OHLCV
+from apps.trading_analyst.market_intelligence.models import OHLCV, MarketEvidence
 
 logger = logging.getLogger(__name__)
 
@@ -147,8 +146,8 @@ class PsychologyAnalyzer:
 
         closes = [c.close for c in ohlcv]
         volumes = [c.volume for c in ohlcv]
-        highs = [c.high for c in ohlcv]
-        lows = [c.low for c in ohlcv]
+        [c.high for c in ohlcv]
+        [c.low for c in ohlcv]
 
         # Check for accelerating price (consecutive large gains)
         recent_returns = []

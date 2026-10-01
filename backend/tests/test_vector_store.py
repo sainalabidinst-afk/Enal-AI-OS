@@ -1,7 +1,5 @@
 import sys
 
-import pytest
-
 
 def fake_embedding(model, input):
     return type("Resp", (), {"data": [{"embedding": [0.1, 0.2, 0.3]}]})()
@@ -12,6 +10,7 @@ class TestVectorStore:
         fake_litellm = type("module", (), {"embedding": staticmethod(fake_embedding)})()
         monkeypatch.setitem(sys.modules, "litellm", fake_litellm)
         import importlib
+
         import backend.app.core.vector_store as vs_module
         importlib.reload(vs_module)
         store = vs_module.VectorStore.__new__(vs_module.VectorStore)
@@ -50,6 +49,7 @@ class TestVectorStore:
         monkeypatch.setitem(sys.modules, "qdrant_client.models", fake_qdrant)
         monkeypatch.setitem(sys.modules, "litellm", fake_litellm)
         import importlib
+
         import backend.app.core.vector_store as vs_module
         importlib.reload(vs_module)
         store = vs_module.VectorStore()
@@ -79,6 +79,7 @@ class TestVectorStore:
         monkeypatch.setitem(sys.modules, "qdrant_client", fake_qdrant)
         monkeypatch.setitem(sys.modules, "litellm", fake_litellm)
         import importlib
+
         import backend.app.core.vector_store as vs_module
         importlib.reload(vs_module)
         store = vs_module.VectorStore()

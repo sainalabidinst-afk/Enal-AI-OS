@@ -4,7 +4,6 @@ Lifecycle management for Code Engineer capability.
 This module handles load, unload, suspend, and resume operations.
 """
 
-from typing import Any
 
 
 class LifecycleManager:

@@ -13,8 +13,14 @@ Exports:
     - workflow_executor: Workflow executor
 """
 
-from apps.organization.registry import AgentRegistry, AgentRole, AgentStatus, Department, agent_registry
 from apps.organization.capability_graph import capability_graph
+from apps.organization.registry import (
+    AgentRegistry,
+    AgentRole,
+    AgentStatus,
+    Department,
+    agent_registry,
+)
 
 __all__ = [
     "AgentRegistry",

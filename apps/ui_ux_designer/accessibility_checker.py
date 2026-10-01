@@ -14,13 +14,11 @@ Audits UI designs for accessibility compliance:
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.ui_ux_designer.schemas import (
     AccessibilityReport,
     AccessibilityViolation,
     BusinessContext,
-    StakeholderInput,
     DesignSystem,
     Prototype,
     PrototypeScreen,

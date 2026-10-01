@@ -5,11 +5,8 @@ Repository Intelligence Models
 Data models and constants for the repository intelligence module.
 """
 
-import json
-import os
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from typing import Any
-
 
 LANGUAGE_EXTENSIONS: dict[str, str] = {
     ".py": "Python",
@@ -448,14 +445,14 @@ class RepositoryIntelligence:
             "",
             "---",
             "",
-            f"## Architecture Style",
+            "## Architecture Style",
             "",
             f"**Detected**: {', '.join(self.architecture_styles) if self.architecture_styles else 'Unknown'}",
             f"**Confidence**: {self.architecture_confidence:.0%}",
             "",
             "---",
             "",
-            f"## Infrastructure",
+            "## Infrastructure",
             "",
             f"- **Docker**: {'✅' if self.has_docker else '❌'} | **Docker Compose**: {'✅' if self.has_docker_compose else '❌'} | **Kubernetes**: {'✅' if self.has_kubernetes else '❌'}",
             f"- **CI/CD**: {'✅ ' + self.ci_cd_type if self.has_ci_cd else '❌'}",
@@ -478,7 +475,7 @@ class RepositoryIntelligence:
             "",
             "---",
             "",
-            f"## Testing & Quality",
+            "## Testing & Quality",
             "",
             f"- **Has Tests**: {'✅' if self.has_tests else '❌'}",
             f"- **Test Frameworks**: {', '.join(self.test_frameworks) if self.test_frameworks else 'None'}",

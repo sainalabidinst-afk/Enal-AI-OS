@@ -10,7 +10,7 @@ from __future__ import annotations
 from typing import Any
 
 from apps.qa_engineer.engine import QAEngineerEngine
-from apps.qa_engineer.schemas import QATestRequestModel, QATestOperation
+from apps.qa_engineer.schemas import QATestOperation, QATestRequestModel
 
 
 class QAEngineerWorker:

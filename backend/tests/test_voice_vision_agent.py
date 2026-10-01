@@ -1,10 +1,10 @@
 import pytest
 
 from backend.app.core.voice_vision_agent import (
-    VoiceAgent,
-    VoiceTranscription,
     VisionAgent,
     VisionAnalysis,
+    VoiceAgent,
+    VoiceTranscription,
 )
 
 

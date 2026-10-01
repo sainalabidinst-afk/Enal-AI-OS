@@ -1,4 +1,3 @@
-import pytest
 
 from backend.app.core.perception_engine import (
     PerceptionEngine,

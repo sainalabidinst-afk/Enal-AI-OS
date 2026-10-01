@@ -8,17 +8,13 @@ structured requirements, user stories, and business context.
 from __future__ import annotations
 
 import logging
-from typing import Any
+from datetime import UTC
 
 from apps.business_analyst.schemas import (
     BusinessAnalysisRequest,
-    BusinessAnalysisReport,
     Requirement,
-    UserStory,
-    BusinessContext,
-    StakeholderInput,
-    Priority,
     RequirementType,
+    UserStory,
 )
 
 logger = logging.getLogger(__name__)
@@ -161,5 +157,5 @@ class BRDGenerator:
 
     def _timestamp(self) -> str:
         """Get current timestamp string."""
-        from datetime import datetime, timezone
-        return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+        from datetime import datetime
+        return datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")

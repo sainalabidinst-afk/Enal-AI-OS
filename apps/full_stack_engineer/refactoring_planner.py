@@ -8,7 +8,7 @@ Problem -> Cause -> Proposal -> Expected Benefit -> Risk -> Migration Steps
 
 import ast
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -55,7 +55,7 @@ class RefactoringPlanner:
 
         plans: list[RefactoringPlan] = []
         raw = code
-        lines = code.splitlines()
+        code.splitlines()
 
         if any(" = []" in raw.splitlines()[i] or " = {}" in raw.splitlines()[i] for i in range(min(20, len(raw.splitlines())))):
             plans.append(RefactoringPlan(

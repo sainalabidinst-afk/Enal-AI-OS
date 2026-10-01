@@ -44,7 +44,7 @@ class MacroAnalyzer:
             "2025-12": 3.25,
         }
 
-    def analyze_policy_rate(self, current_rate: float, 
+    def analyze_policy_rate(self, current_rate: float,
                            previous_rate: float,
                            central_bank: str = "Fed") -> list[MarketEvidence]:
         """

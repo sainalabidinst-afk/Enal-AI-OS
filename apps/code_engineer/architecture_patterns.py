@@ -13,7 +13,6 @@ This module produces structured findings about code architecture.
 It does NOT modify code. It only analyzes and reports.
 """
 
-import ast
 import logging
 from dataclasses import dataclass, field
 from typing import Any
@@ -57,10 +56,10 @@ class ArchitectureFinding:
 
 
 from apps.code_engineer.clean_architecture import CleanArchitectureAnalyzer
-from apps.code_engineer.ddd_analysis import DDDAnalyzer
-from apps.code_engineer.solid_analysis import SOLIDAnalyzer
 from apps.code_engineer.cqrs_analysis import CQRSAnalyzer
+from apps.code_engineer.ddd_analysis import DDDAnalyzer
 from apps.code_engineer.event_sourcing_analysis import EventSourcingAnalyzer
+from apps.code_engineer.solid_analysis import SOLIDAnalyzer
 
 
 class ArchitecturePatternAnalyzer:

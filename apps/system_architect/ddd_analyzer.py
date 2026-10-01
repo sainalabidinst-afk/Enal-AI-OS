@@ -15,18 +15,17 @@ from __future__ import annotations
 import ast
 import logging
 from pathlib import Path
-from typing import Any
 
 from apps.system_architect.schemas import (
-    DDDAssessment,
     BoundedContext,
+    DDDAssessment,
+    Effort,
     Finding,
     FindingCategory,
-    Severity,
     Impact,
-    Recommendation,
     Priority,
-    Effort,
+    Recommendation,
+    Severity,
 )
 
 logger = logging.getLogger(__name__)

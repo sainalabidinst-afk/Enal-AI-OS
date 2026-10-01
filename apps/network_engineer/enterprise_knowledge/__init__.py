@@ -16,13 +16,25 @@ via the EnterpriseKnowledgeEngine. No Core changes required.
 """
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
-from apps.network_engineer.enterprise_knowledge.cisco_design_guide import CiscoDesignAnalyzer, cisco_design_analyzer
-from apps.network_engineer.enterprise_knowledge.mikrotik_best_practice import MikroTikBestPracticeAnalyzer, mikrotik_bp_analyzer
-from apps.network_engineer.enterprise_knowledge.fortinet_hardening import FortinetHardeningAnalyzer, fortinet_hardening_analyzer
 from apps.network_engineer.enterprise_knowledge.bgp_analysis import BGPAnalyzer, bgp_analyzer
-from apps.network_engineer.enterprise_knowledge.mpls_analysis import MPLSAnalyzer, mpls_analyzer
+from apps.network_engineer.enterprise_knowledge.cisco_design_guide import (
+    CiscoDesignAnalyzer,
+    cisco_design_analyzer,
+)
+from apps.network_engineer.enterprise_knowledge.fortinet_hardening import (
+    FortinetHardeningAnalyzer,
+    fortinet_hardening_analyzer,
+)
 from apps.network_engineer.enterprise_knowledge.ipv6_analysis import IPv6Analyzer, ipv6_analyzer
-from apps.network_engineer.enterprise_knowledge.zero_trust import ZeroTrustAnalyzer, zero_trust_analyzer
+from apps.network_engineer.enterprise_knowledge.mikrotik_best_practice import (
+    MikroTikBestPracticeAnalyzer,
+    mikrotik_bp_analyzer,
+)
+from apps.network_engineer.enterprise_knowledge.mpls_analysis import MPLSAnalyzer, mpls_analyzer
+from apps.network_engineer.enterprise_knowledge.zero_trust import (
+    ZeroTrustAnalyzer,
+    zero_trust_analyzer,
+)
 
 __all__ = [
     "EnterpriseKnowledgeFinding",

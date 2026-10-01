@@ -1,10 +1,13 @@
-import logging
 
 import pytest
-
 from apps.integration.context import CapabilityContext
-from apps.integration.evidence_adapter import EvidenceAdapter, UnifiedEvidence, EvidenceSource, EvidenceType
-from apps.integration.registry import CapabilityRegistry, CapabilityDescriptor
+from apps.integration.evidence_adapter import (
+    EvidenceAdapter,
+    EvidenceSource,
+    EvidenceType,
+    UnifiedEvidence,
+)
+from apps.integration.registry import CapabilityRegistry
 from apps.integration.workflow import WorkflowEngine, WorkflowStep
 
 

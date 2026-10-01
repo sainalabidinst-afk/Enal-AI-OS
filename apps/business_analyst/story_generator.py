@@ -8,14 +8,13 @@ from requirements and personas.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.business_analyst.schemas import (
-    Requirement,
     Persona,
-    UserStory,
     Priority,
+    Requirement,
     StoryPoint,
+    UserStory,
 )
 
 logger = logging.getLogger(__name__)

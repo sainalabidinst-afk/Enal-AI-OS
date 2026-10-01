@@ -12,11 +12,11 @@ from typing import Any
 
 from apps.documentation_engineer.engine import DocumentationEngine
 from apps.documentation_engineer.schemas import (
+    DocumentationInput,
     DocumentationRequest,
-    OperationType,
     DocumentationTarget,
     GenerationOptions,
-    DocumentationInput,
+    OperationType,
 )
 
 logger = logging.getLogger(__name__)

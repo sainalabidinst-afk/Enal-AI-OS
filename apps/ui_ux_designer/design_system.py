@@ -13,15 +13,14 @@ Builds and manages design systems:
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.ui_ux_designer.schemas import (
+    BusinessContext,
+    ComponentSpec,
     DesignSystem,
     DesignToken,
-    ComponentSpec,
-    BusinessContext,
-    StakeholderInput,
     QualityAttributes,
+    StakeholderInput,
 )
 
 logger = logging.getLogger(__name__)

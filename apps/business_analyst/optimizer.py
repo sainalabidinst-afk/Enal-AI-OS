@@ -8,11 +8,10 @@ recommends improvements based on process models.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.business_analyst.schemas import (
-    ProcessModel,
     ProcessActivity,
+    ProcessModel,
     ProcessOptimization,
 )
 

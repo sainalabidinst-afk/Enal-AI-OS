@@ -9,14 +9,12 @@ network policies, and security settings.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.infrastructure_engineer.schemas import (
     InfrastructureEngineerRequest,
     KubernetesSpec,
-    NodeConfig,
     NetworkConfig,
-    HighAvailabilityMode,
+    NodeConfig,
 )
 
 logger = logging.getLogger(__name__)
@@ -47,13 +45,10 @@ class KubernetesDesigner:
         availability = request.quality_attributes.availability_target
 
         if "99.99" in availability or "99.999" in availability:
-            ha_mode = HighAvailabilityMode.active_active
             node_count = max(node_count, 5)
         elif "99.9" in availability:
-            ha_mode = HighAvailabilityMode.active_standby
             node_count = max(node_count, 3)
         else:
-            ha_mode = HighAvailabilityMode.n_plus_1
             node_count = max(node_count, 2)
 
         nodes = [

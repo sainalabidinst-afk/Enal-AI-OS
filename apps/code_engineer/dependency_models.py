@@ -6,7 +6,6 @@ Data models for the dependency graph module.
 """
 
 from dataclasses import dataclass, field
-from typing import Any
 
 
 class DependencyType:

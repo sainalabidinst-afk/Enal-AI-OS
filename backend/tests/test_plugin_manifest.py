@@ -1,4 +1,3 @@
-import pytest
 
 from backend.app.core.plugin_manifest import (
     PluginManifest,

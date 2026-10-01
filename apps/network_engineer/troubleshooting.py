@@ -8,6 +8,7 @@ Input: symptom → evidence → hypothesis → verification → root cause.
 
 import logging
 from dataclasses import dataclass, field
+from datetime import UTC
 from enum import Enum
 from typing import Any
 
@@ -205,11 +206,11 @@ class TroubleshootingEngine:
         return TroubleshootingSession(session_id=str(uuid.uuid4())[:8], symptom=symptom)
 
     def add_evidence(self, session: TroubleshootingSession, source: str, content: str, confidence: float = 1.0) -> None:
-        from datetime import datetime, timezone
+        from datetime import datetime
         session.evidence.append(EvidenceItem(
             source=source,
             content=content,
-            timestamp=datetime.now(timezone.utc).isoformat() + "Z",
+            timestamp=datetime.now(UTC).isoformat() + "Z",
             confidence=confidence,
         ))
 

@@ -8,11 +8,10 @@ JavaScript (package-lock.json/yarn.lock), and Go (go.mod).
 
 from __future__ import annotations
 
-import hashlib
 import json
 import logging
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from apps.security_engineer.schemas import (

@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.decision_intelligence.schemas import EvidenceSource, Objective, RiskProfile
+from apps.decision_intelligence.schemas import Objective, RiskProfile
 
 
 @dataclass

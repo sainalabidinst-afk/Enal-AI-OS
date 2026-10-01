@@ -10,10 +10,9 @@ from __future__ import annotations
 import ast
 import logging
 import random
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
-from apps.qa_engineer.schemas import MutationReport, MutantStatus, CoverageReport, QATestArtifact
+from apps.qa_engineer.schemas import MutantStatus, MutationReport, QATestArtifact
 
 logger = logging.getLogger(__name__)
 

@@ -6,8 +6,7 @@ Ranks evidence by source quality, recency, and methodology.
 """
 
 import logging
-from datetime import datetime, timezone
-from typing import Any
+from datetime import UTC, datetime
 
 from apps.research_assistant.schemas import Evidence, SourceQuality
 
@@ -19,7 +18,7 @@ class EvidenceRanker:
 
     def rank(self, evidence_list: list[Evidence], query_terms: list[str]) -> list[Evidence]:
         scored: list[tuple[float, Evidence]] = []
-        current_year = datetime.now(timezone.utc).year
+        current_year = datetime.now(UTC).year
 
         for ev in evidence_list:
             recency = ev.recency_score

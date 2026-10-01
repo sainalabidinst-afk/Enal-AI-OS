@@ -10,9 +10,8 @@ from __future__ import annotations
 import ast
 import logging
 from dataclasses import dataclass, field
-from typing import Any
 
-from apps.qa_engineer.schemas import CoverageReport, QATestArtifact, CoverageMetric
+from apps.qa_engineer.schemas import CoverageReport, QATestArtifact
 
 logger = logging.getLogger(__name__)
 

@@ -15,7 +15,7 @@ import ast
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +70,7 @@ class RegressionReport:
         return {
             "changes_count": len(self.changes),
             "total_tests": self.total_tests,
-            "affected_tests": len(self.affected_tests),
+            "affected_tests_count": len(self.affected_tests),
             "overall_risk_score": round(self.overall_risk_score, 2),
             "high_risk_count": self.high_risk_count,
             "risk_distribution": self.risk_distribution,
@@ -113,7 +113,7 @@ class RegressionAnalyzer:
         self,
         repo_path: str,
         changes: list[dict[str, Any]],
-        test_patterns: Optional[list[str]] = None,
+        test_patterns: list[str] | None = None,
     ) -> RegressionReport:
         """
         Analyze regression risk for a set of changes.

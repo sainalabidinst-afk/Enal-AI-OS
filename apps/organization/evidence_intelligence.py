@@ -26,10 +26,9 @@ Design:
 from __future__ import annotations
 
 import logging
-import time
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -82,7 +81,7 @@ class EvidenceRecord:
     source: EvidenceSource = EvidenceSource.SYSTEM
     evidence_type: EvidenceType = EvidenceType.OBSERVATION
     confidence: float = 0.0
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
     version: int = 1
     versions: list[EvidenceVersion] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
@@ -130,7 +129,7 @@ class EvidenceConflict:
         self.evidence_b = evidence_b
         self.confidence_a = evidence_a.confidence
         self.confidence_b = evidence_b.confidence
-        self.detected_at = datetime.now(timezone.utc)
+        self.detected_at = datetime.now(UTC)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -196,7 +195,7 @@ class EvidenceIntelligenceEngine:
         record.version += 1
         record.content = content
         record.confidence = confidence
-        record.timestamp = datetime.now(timezone.utc)
+        record.timestamp = datetime.now(UTC)
         record.metadata.setdefault("updated_by", source)
         logger.debug("Evidence updated: %s to version %d", evidence_id, record.version)
         return record

@@ -10,13 +10,12 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any
 
 from apps.security_engineer.schemas import (
+    Severity,
+    ThreatCategory,
     ThreatModelEntry,
     ThreatModelResult,
-    ThreatCategory,
-    Severity,
 )
 
 logger = logging.getLogger(__name__)

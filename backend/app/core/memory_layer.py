@@ -3,12 +3,7 @@ import logging
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any
-
-import redis.asyncio as aioredis
-
-from backend.app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -64,13 +59,13 @@ class MemoryLayer(ABC):
         return len(keys)
 
 
-from backend.app.core.memory_working import WorkingMemory
 from backend.app.core.memory_conversation import ConversationMemory
+from backend.app.core.memory_episodic import EpisodicMemory
 from backend.app.core.memory_knowledge import KnowledgeMemory
 from backend.app.core.memory_longterm import LongTermMemory
-from backend.app.core.memory_episodic import EpisodicMemory
-from backend.app.core.memory_session import SessionMemory
 from backend.app.core.memory_project import ProjectMemory
+from backend.app.core.memory_session import SessionMemory
+from backend.app.core.memory_working import WorkingMemory
 
 
 class MemoryManager:

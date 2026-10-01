@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -91,7 +91,7 @@ class DecisionHistoryStore:
         record.revision_history.append(
             {
                 "revision_id": f"rev-{len(record.revision_history) + 1}",
-                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
                 "changes": f"outcome -> {outcome.value}",
             }
         )

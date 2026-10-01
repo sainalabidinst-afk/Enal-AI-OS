@@ -8,12 +8,11 @@ Calculates NPV, payback period, and ROI percentage.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.business_analyst.schemas import (
-    StakeholderInput,
     BusinessContext,
     ROIResult,
+    StakeholderInput,
 )
 
 logger = logging.getLogger(__name__)

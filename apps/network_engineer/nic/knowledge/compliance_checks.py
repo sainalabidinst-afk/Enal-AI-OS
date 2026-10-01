@@ -9,7 +9,6 @@ import logging
 
 from apps.network_engineer.nic.knowledge.compliance_models import (
     ComplianceCheck,
-    ComplianceReport,
     ComplianceRule,
 )
 from apps.network_engineer.vendor.models import NetworkAST

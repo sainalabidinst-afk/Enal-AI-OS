@@ -5,8 +5,6 @@ Repository Scanner
 Scans a repository directory and produces RepositoryIntelligence.
 """
 
-import ast
-import fnmatch
 import json
 import os
 from pathlib import Path
@@ -18,9 +16,9 @@ from apps.full_stack_engineer.repo_intelligence_models import (
     FRAMEWORK_SIGNATURES,
     IGNORE_DIRS,
     IGNORE_FILES,
+    TEST_PATTERNS,
     LanguageStat,
     RepositoryIntelligence,
-    TEST_PATTERNS,
 )
 
 
@@ -110,11 +108,11 @@ class RepositoryScanner:
                 language_stats[lang].files += 1
 
                 try:
-                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    with open(file_path, encoding="utf-8", errors="ignore") as f:
                         line_count = sum(1 for _ in f)
                     total_lines += line_count
                     language_stats[lang].lines += line_count
-                except Exception:
+                except (OSError, UnicodeDecodeError):
                     pass
 
         for stat in language_stats.values():
@@ -137,7 +135,7 @@ class RepositoryScanner:
                 import tomllib
                 data = tomllib.loads(pyproject.read_text(encoding="utf-8"))
                 return data.get("project", {}).get("name", "") or data.get("tool", {}).get("poetry", {}).get("name", "")
-            except Exception:
+            except (OSError, UnicodeDecodeError):
                 pass
 
         pkg_json = self.repo_path / "package.json"
@@ -145,7 +143,7 @@ class RepositoryScanner:
             try:
                 data = json.loads(pkg_json.read_text(encoding="utf-8"))
                 return data.get("name", "")
-            except Exception:
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError):
                 pass
 
         cargo = self.repo_path / "Cargo.toml"
@@ -154,7 +152,7 @@ class RepositoryScanner:
                 import tomllib
                 data = tomllib.loads(cargo.read_text(encoding="utf-8"))
                 return data.get("package", {}).get("name", "")
-            except Exception:
+            except (OSError, UnicodeDecodeError):
                 pass
 
         gomod = self.repo_path / "go.mod"
@@ -176,7 +174,7 @@ class RepositoryScanner:
             try:
                 content = (self.repo_path / df).read_text(encoding="utf-8", errors="ignore")
                 dep_content += content + "\n"
-            except Exception:
+            except (OSError, UnicodeDecodeError):
                 pass
 
         source_imports = ""
@@ -186,7 +184,7 @@ class RepositoryScanner:
                 if file.endswith((".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs")):
                     try:
                         source_imports += (Path(root) / file).read_text(encoding="utf-8", errors="ignore") + "\n"
-                    except Exception:
+                    except (OSError, UnicodeDecodeError):
                         pass
 
         combined = dep_content + "\n" + source_imports

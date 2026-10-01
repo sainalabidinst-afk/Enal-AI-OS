@@ -9,7 +9,6 @@ Reference: Cisco Validated Designs, Cisco Enterprise Architecture
 """
 
 import logging
-from typing import Any
 
 from apps.network_engineer.enterprise_knowledge.base import EnterpriseKnowledgeFinding
 
@@ -185,7 +184,7 @@ class CiscoDesignAnalyzer:
 
         has_sdwan = any(kw in raw for kw in ["sd-wan", "vsmart", "vmanage", "vedge", "cedge"])
         has_tloc = "tloc" in raw
-        has_bgp_wan = "bgp" in raw and any(kw in raw for kw in ["wan", "internet", "mpls"])
+        "bgp" in raw and any(kw in raw for kw in ["wan", "internet", "mpls"])
 
         if has_sdwan:
             findings.append(EnterpriseKnowledgeFinding(

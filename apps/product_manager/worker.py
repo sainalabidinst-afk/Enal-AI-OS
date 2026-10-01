@@ -12,14 +12,14 @@ from typing import Any
 
 from apps.product_manager.engine import ProductManagerEngine
 from apps.product_manager.schemas import (
-    ProductManagementRequest,
-    OperationType,
-    ProductContext,
     BacklogInput,
-    RoadmapInput,
-    OKRInput,
     Constraints,
+    OKRInput,
+    OperationType,
     PrioritizationOptions,
+    ProductContext,
+    ProductManagementRequest,
+    RoadmapInput,
 )
 
 logger = logging.getLogger(__name__)

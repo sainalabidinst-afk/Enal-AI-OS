@@ -19,18 +19,17 @@ import logging
 import time
 from typing import Any
 
-from apps.full_stack_engineer.schemas import (
-    FullStackRequest,
-    FullStackReport,
-    FullStackRecord,
-    OperationType,
-)
 from apps.full_stack_engineer.architecture_review import ArchitectureReviewEngine
 from apps.full_stack_engineer.code_review import FullStackCodeReviewEngine
-from apps.full_stack_engineer.refactoring_planner import RefactoringPlanner
-from apps.full_stack_engineer.test_engineer import TestEngineer
 from apps.full_stack_engineer.performance_engineer import PerformanceEngineer
+from apps.full_stack_engineer.refactoring_planner import RefactoringPlanner
 from apps.full_stack_engineer.release_engineer import ReleaseEngineer
+from apps.full_stack_engineer.schemas import (
+    FullStackRecord,
+    FullStackReport,
+    FullStackRequest,
+)
+from apps.full_stack_engineer.test_engineer import TestEngineer
 
 logger = logging.getLogger(__name__)
 

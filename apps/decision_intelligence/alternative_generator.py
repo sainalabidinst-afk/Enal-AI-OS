@@ -8,7 +8,6 @@ downstream risk/trade-off/scoring stages have a bounded candidate set.
 
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass, field
 from typing import Any
 

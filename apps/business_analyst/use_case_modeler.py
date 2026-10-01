@@ -8,13 +8,11 @@ Includes actors, pre/post conditions, scenarios, and exceptions.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.business_analyst.schemas import (
-    Requirement,
     Persona,
+    Requirement,
     UseCase,
-    BusinessContext,
 )
 
 logger = logging.getLogger(__name__)
@@ -46,7 +44,6 @@ class UseCaseModeler:
             List of UseCase objects.
         """
         use_cases: list[UseCase] = []
-        default_actor = "User"
 
         for req in requirements:
             actor = self._determine_actor(req, personas)
@@ -113,13 +110,13 @@ class UseCaseModeler:
         """Build alternative scenarios."""
         return [
             f"1a. {actor} cancels the operation at any step — system returns to previous state",
-            f"2a. System encounters a recoverable error — system retries up to 3 times",
+            "2a. System encounters a recoverable error — system retries up to 3 times",
         ]
 
     def _build_exceptions(self, req: Requirement, actor: str) -> list[str]:
         """Build exception scenarios."""
         return [
-            f"E1. Invalid input — system returns validation error with details",
-            f"E2. Authorization failure — system returns 403 Forbidden",
-            f"E3. System unavailable — system returns 503 Service Unavailable",
+            "E1. Invalid input — system returns validation error with details",
+            "E2. Authorization failure — system returns 403 Forbidden",
+            "E3. System unavailable — system returns 503 Service Unavailable",
         ]

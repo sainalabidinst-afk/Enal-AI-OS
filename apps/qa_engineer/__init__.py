@@ -26,23 +26,23 @@ from typing import Any
 
 from apps.base import BaseReferenceApp
 from apps.qa_engineer.engine import QAEngineerEngine
-from apps.qa_engineer.worker import QAEngineerWorker
 from apps.qa_engineer.schemas import (
-    QATestRequestModel,
-    QATestReport,
-    QATestOperation,
-    TestType,
+    CoverageMetric,
     CoverageReport,
-    MutationReport,
-    MutantStatus,
-    FlakyClassification,
-    PerformanceValidation,
-    TestQualityRecord,
     Finding,
     FindingSeverity,
-    CoverageMetric,
+    FlakyClassification,
+    MutantStatus,
+    MutationReport,
+    PerformanceValidation,
     QATestArtifact,
+    QATestOperation,
+    QATestReport,
+    QATestRequestModel,
+    TestQualityRecord,
+    TestType,
 )
+from apps.qa_engineer.worker import QAEngineerWorker
 
 
 class QAEngineerApp(BaseReferenceApp):

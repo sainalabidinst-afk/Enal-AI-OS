@@ -8,7 +8,7 @@ Deployment → Backup → Diff → Approval → Execution → Verification → R
 
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -44,7 +44,7 @@ class AuditTrail:
     def add_event(self, event_type: AuditEventType, actor: str, details: dict[str, Any] | None = None, artifact_id: str | None = None):
         event = AuditEvent(
             event_type=event_type,
-            timestamp=datetime.now(timezone.utc).isoformat(),
+            timestamp=datetime.now(UTC).isoformat(),
             actor=actor,
             details=details or {},
             artifact_id=artifact_id,
