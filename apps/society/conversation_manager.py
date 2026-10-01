@@ -242,30 +242,40 @@ class ConversationManager:
     @staticmethod
     def _format_assistant_message(result: dict[str, Any], results_raw: Any) -> str:
         """Convert society output into user-facing text without leaking raw containers."""
-        for key in ("message", "answer", "response", "text", "content"):
-            value = result.get(key)
+        def extract_text(value: Any, depth: int = 0) -> str | None:
+            if depth > 4 or value is None:
+                return None
             if isinstance(value, str) and value.strip():
                 return value.strip()
+            if hasattr(value, "to_dict"):
+                payload = value.to_dict()
+                summary = payload.get("summary")
+                if isinstance(summary, str) and summary.strip():
+                    return summary.strip()
+                symbol = payload.get("symbol", "")
+                bias = payload.get("bias", "neutral")
+                risk = payload.get("risk_level", "medium")
+                return f"Analisis {symbol}: bias {bias}, risiko {risk}."
+            if hasattr(value, "result"):
+                extracted = extract_text(value.result, depth + 1)
+                if extracted:
+                    return extracted
+            if isinstance(value, dict):
+                for key in ("message", "answer", "response", "text", "content", "result"):
+                    extracted = extract_text(value.get(key), depth + 1)
+                    if extracted:
+                        return extracted
+                return extract_text(value.get("results"), depth + 1)
+            if isinstance(value, list):
+                for item in value:
+                    extracted = extract_text(item, depth + 1)
+                    if extracted:
+                        return extracted
+            return None
 
-        if isinstance(results_raw, dict):
-            for key in ("message", "answer", "response", "text", "content"):
-                value = results_raw.get(key)
-                if isinstance(value, str) and value.strip():
-                    return value.strip()
-            results_list = results_raw.get("results")
-        else:
-            results_list = results_raw if isinstance(results_raw, list) else None
-
-        if results_list:
-            first = results_list[0]
-            if hasattr(first, "result"):
-                value = first.result
-            elif isinstance(first, dict):
-                value = first.get("result") or first.get("message") or first.get("content")
-            else:
-                value = first
-            if value is not None and str(value).strip():
-                return str(value).strip()
+        assistant_message = extract_text(result) or extract_text(results_raw)
+        if assistant_message:
+            return assistant_message
 
         return (
             "Saya memahami permintaan Anda, tetapi belum ada hasil yang dapat ditindaklanjuti. "

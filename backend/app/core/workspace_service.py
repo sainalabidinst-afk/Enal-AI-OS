@@ -10,9 +10,14 @@ class WorkspaceService:
         self._workspaces: dict[str, Workspace] = {}
         self._lock = asyncio.Lock()
 
-    async def create_workspace(self, name: str, description: str | None = None) -> Workspace:
+    async def create_workspace(
+        self,
+        name: str,
+        description: str | None = None,
+        workspace_id: str | None = None,
+    ) -> Workspace:
         async with self._lock:
-            ws = Workspace(name=name, description=description)
+            ws = Workspace(id=workspace_id, name=name, description=description)
             self._workspaces[ws.id] = ws
             return ws
 

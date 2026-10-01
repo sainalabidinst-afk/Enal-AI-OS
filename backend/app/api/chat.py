@@ -32,7 +32,10 @@ async def chat(request: ChatRequest):
     try:
         ws = await workspace_service.get_workspace(workspace_id)
         if not ws:
-            ws = await workspace_service.create_workspace(name=f"Chat {conversation_id[:8]}")
+            ws = await workspace_service.create_workspace(
+                name=f"Chat {conversation_id[:8]}",
+                workspace_id=workspace_id,
+            )
 
         from apps.society.conversation_manager import conversation_manager
 

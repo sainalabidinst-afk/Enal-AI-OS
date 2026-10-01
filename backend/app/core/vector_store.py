@@ -18,14 +18,23 @@ class VectorStore:
         try:
             self.client.get_collection(self.collection_name)
         except Exception:
+            vector_size = len(self.embed(""))
             self.client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config=VectorParams(size=1536, distance=Distance.COSINE),
+                vectors_config=VectorParams(size=vector_size, distance=Distance.COSINE),
             )
 
     def embed(self, text: str) -> list[float]:
         from litellm import embedding
-        response = embedding(model=self.embedding_model, input=text)
+        model = self.embedding_model
+        config = {"model": model, "input": text}
+        if model.startswith("lmstudio/"):
+            config.update({
+                "model": f"openai/{model.removeprefix('lmstudio/')}",
+                "api_base": settings.LM_STUDIO_BASE_URL,
+                "api_key": settings.LM_STUDIO_API_KEY,
+            })
+        response = embedding(**config)
         return response.data[0]["embedding"]
 
     def index(self, documents: list[dict]):

@@ -1,7 +1,7 @@
 import sys
 
 
-def fake_embedding(model, input):
+def fake_embedding(model, input, **kwargs):
     return type("Resp", (), {"data": [{"embedding": [0.1, 0.2, 0.3]}]})()
 
 

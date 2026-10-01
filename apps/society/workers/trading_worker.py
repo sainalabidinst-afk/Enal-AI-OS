@@ -13,6 +13,7 @@ Exposes capabilities through the ECP pipeline:
 """
 
 import logging
+import re
 from typing import Any
 
 from apps.trading_analyst import get_app
@@ -41,7 +42,7 @@ class TradingWorker:
         subtask_id = subtask_data.get("id", subtask_data.get("subtask_id", ""))
 
         lowered = name.lower()
-        if "market" in lowered or "analysis" in lowered or "analyze" in lowered:
+        if "market" in lowered or "analysis" in lowered or "analyze" in lowered or "analisa" in lowered or "analisis" in lowered:
             return await self._handle_market(subtask_data, context)
         if "risk" in lowered or "assess" in lowered:
             return await self._handle_risk(subtask_data, context)
@@ -57,8 +58,7 @@ class TradingWorker:
         }
 
     async def _handle_market(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
-        task_context = context.get("task", {})
-        symbol = task_context.get("intent", "BTCUSDT")
+        symbol = self._resolve_symbol(subtask_data, context)
         try:
             result = await self._app.engine.analyze_market(symbol)
             return {
@@ -70,8 +70,7 @@ class TradingWorker:
             return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}
 
     async def _handle_risk(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
-        task_context = context.get("task", {})
-        symbol = task_context.get("intent", "BTCUSDT")
+        symbol = self._resolve_symbol(subtask_data, context)
         try:
             result = await self._app.engine.assess_risk(symbol)
             return {
@@ -94,8 +93,7 @@ class TradingWorker:
             return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}
 
     async def _handle_strategy(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
-        task_context = context.get("task", {})
-        symbol = task_context.get("intent", "BTCUSDT")
+        symbol = self._resolve_symbol(subtask_data, context)
         try:
             result = await self._app.engine.generate_strategy(symbol)
             return {
@@ -105,6 +103,23 @@ class TradingWorker:
             }
         except Exception as exc:
             return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}
+
+    @staticmethod
+    def _resolve_symbol(subtask_data: dict[str, Any], context: dict[str, Any]) -> str:
+        task_context = context.get("task", {})
+        raw_text = (
+            task_context.get("intent")
+            or task_context.get("description")
+            or subtask_data.get("description")
+            or subtask_data.get("name")
+            or "BTCUSDT"
+        )
+        return TradingWorker._extract_symbol(str(raw_text))
+
+    @staticmethod
+    def _extract_symbol(intent: str) -> str:
+        tickers = re.findall(r"\b[A-Z]{4,5}\b", intent or "")
+        return tickers[0] if tickers else (intent or "BTCUSDT")
 
 
 trading_worker = TradingWorker()

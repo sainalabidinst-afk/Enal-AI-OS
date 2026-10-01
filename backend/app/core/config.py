@@ -22,9 +22,9 @@ class Settings(BaseSettings):
     LM_STUDIO_BASE_URL: str = "http://localhost:1234/v1"
     LM_STUDIO_API_KEY: str = "lm-studio"
 
-    DEFAULT_MODEL: str = "lmstudio/google/gemma-4-4b"
-    DEFAULT_REASONING_MODEL: str = "lmstudio/google/gemma-4-4b"
-    DEFAULT_EMBEDDING_MODEL: str = "text-embedding-3-small"
+    DEFAULT_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
+    DEFAULT_REASONING_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
+    DEFAULT_EMBEDDING_MODEL: str = "lmstudio/text-embedding-nomic-embed-text-v1.5"
 
     MAX_TOKENS: int = 4096
     TEMPERATURE: float = 0.7

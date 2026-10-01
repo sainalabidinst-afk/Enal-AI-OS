@@ -11,6 +11,7 @@ Behind the scenes: Intent → Domain → Team → Execution → Result
 """
 
 import logging
+import re
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
@@ -214,7 +215,7 @@ class IntentRouter:
             "cd": ["ci/cd", "cd ", "continuous delivery", "deployment"],
             "pipeline": ["pipeline", "workflow", "github actions", "gitlab ci"],
             "research": ["research", "paper", "journal", "study", "bgp"],
-            "trading": ["trading", "trade", "stock", "crypto", "btc", "eth", "portfolio", "market", "investasi"],
+            "trading": ["trading", "trade", "stock", "crypto", "btc", "eth", "portfolio", "market", "investasi", "saham", "analisa", "analisis", "prospek"],
             "crypto": ["crypto", "bitcoin", "btc", "ethereum", "eth"],
             "stock": ["stock", "saham", "equity", "nasdaq", "sp500"],
             "self-development": ["audit", "bottleneck", "refactor", "improve", "optimize", "self-improve", "patch", "dead code"],
@@ -223,6 +224,8 @@ class IntentRouter:
         for entity, keywords in entity_keywords.items():
             if any(kw in lower_input for kw in keywords):
                 entities.append(entity)
+        if re.search(r"\b[A-Z]{4,5}\b", user_input):
+            entities.append("stock")
         return entities
 
     def _extract_constraints(self, user_input: str) -> list[str]:
