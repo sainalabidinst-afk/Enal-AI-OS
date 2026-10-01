@@ -82,7 +82,7 @@ jobs:
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      DEFAULT_REASONING_MODEL: gemini/gemini-2.5-flash
+      DEFAULT_REASONING_MODEL: gemini/gemini-3.8-flash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

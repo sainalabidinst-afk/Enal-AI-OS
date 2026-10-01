@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     OLLAMA_BASE_URL: str = "http://localhost:11434"
 
     DEFAULT_MODEL: str = "gpt-4o"
-    DEFAULT_REASONING_MODEL: str = "gemini/gemini-2.5-flash"
+    DEFAULT_REASONING_MODEL: str = "gemini/gemini-3.8-flash"
     DEFAULT_EMBEDDING_MODEL: str = "text-embedding-3-small"
 
     MAX_TOKENS: int = 4096

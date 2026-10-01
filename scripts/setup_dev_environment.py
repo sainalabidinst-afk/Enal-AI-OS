@@ -44,7 +44,7 @@ def setup_environment() -> None:
         "GEMINI_API_KEY": "",
         "OLLAMA_BASE_URL": "http://localhost:11434",
         "DEFAULT_MODEL": "gpt-4o",
-        "DEFAULT_REASONING_MODEL": "gemini/gemini-2.5-flash",
+        "DEFAULT_REASONING_MODEL": "gemini/gemini-3.8-flash",
         "DEFAULT_EMBEDDING_MODEL": "text-embedding-3-small",
         "MAX_TOKENS": "4096",
         "TEMPERATURE": "0.7",

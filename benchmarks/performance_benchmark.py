@@ -110,7 +110,20 @@ async def run_with_metrics(user_input: str, metrics: BenchmarkMetrics):
     if adaptive_runtime is None:
         raise RuntimeError("benchmark runtime is not configured")
     start = time.time()
-    result = await adaptive_runtime.execute(user_input)
+    result = None
+    for attempt in range(3):
+        try:
+            result = await adaptive_runtime.execute(user_input)
+            break
+        except Exception as exc:
+            message = str(exc).lower()
+            retryable = any(token in message for token in ("503", "429", "timeout", "temporarily"))
+            if not retryable or attempt == 2:
+                raise
+            await asyncio.sleep(2**attempt)
+
+    if result is None:
+        raise RuntimeError("benchmark runtime returned no result")
     latency = (time.time() - start) * 1000
 
     output_str = _extract_output(result)

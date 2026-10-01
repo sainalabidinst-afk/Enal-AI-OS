@@ -58,7 +58,7 @@ benchmark provider-backed hanya dari environment yang sudah memiliki kredensial
 resmi; jangan menaruh nilainya di file audit, log, atau commit.
 
 ```powershell
-$env:DEFAULT_REASONING_MODEL = "gemini/gemini-2.5-flash"
+$env:DEFAULT_REASONING_MODEL = "gemini/gemini-3.8-flash"
 python -m benchmarks.performance_benchmark
 ```
 
