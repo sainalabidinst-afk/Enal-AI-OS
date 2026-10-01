@@ -55,7 +55,7 @@ class CiscoDesignAnalyzer:
         # Check for distribution layer (VLAN, inter-VLAN routing)
         has_distribution = any(kw in raw for kw in ["vlan", "ip routing", "interface vlan"])
         # Check for access layer (switchport, port-security)
-        has_access = any(kw in raw for kw in ["switchport", "port-security", "spanning-tree portfast"])
+        has_access = any(kw in raw for kw in ["switchport", "port-security", "spanning-tree portfast"])  # noqa: E501
         # Check for core layer (high-speed interfaces, routing)
         has_core = any(kw in raw for kw in ["router ospf", "router eigrp", "ip route 0.0.0.0"])
 
@@ -96,7 +96,7 @@ class CiscoDesignAnalyzer:
                 domain="cisco_design",
                 category="campus_scalability",
                 severity="warning",
-                description=f"Large number of VLANs ({vlan_count}) detected — may cause STP convergence issues",
+                description=f"Large number of VLANs ({vlan_count}) detected — may cause STP convergence issues",  # noqa: E501
                 recommendation=(
                     "Consider using VXLAN/EVPN for large-scale segmentation. "
                     "Alternatively, implement MSTP with multiple instances."
@@ -124,7 +124,7 @@ class CiscoDesignAnalyzer:
 
         return findings
 
-    def _check_data_center_fabric(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
+    def _check_data_center_fabric(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         """Check data center fabric patterns (VXLAN, EVPN, etc.)."""
         findings = []
 
@@ -169,7 +169,7 @@ class CiscoDesignAnalyzer:
                 description="Spine-leaf topology detected",
                 recommendation=(
                     "Ensure equal-cost multipath (ECMP) is configured across all spine links. "
-                    "All leaf switches should connect to all spine switches for optimal load balancing."
+                    "All leaf switches should connect to all spine switches for optimal load balancing."  # noqa: E501
                 ),
                 confidence=0.8,
                 vendor="cisco",
@@ -233,7 +233,7 @@ class CiscoDesignAnalyzer:
                     domain="cisco_design",
                     category="high_availability",
                     severity="info",
-                    description=f"First Hop Redundancy Protocol detected ({standby_count} standby groups)",
+                    description=f"First Hop Redundancy Protocol detected ({standby_count} standby groups)",  # noqa: E501
                     recommendation=(
                         "Verify HSRP/VRRP authentication, preemption delay, and "
                         "object tracking for WAN link failure detection."
@@ -280,7 +280,7 @@ class CiscoDesignAnalyzer:
         findings = []
 
         # Check for AAA
-        has_aaa = any(kw in raw for kw in ["aaa new-model", "aaa authentication", "aaa authorization"])
+        has_aaa = any(kw in raw for kw in ["aaa new-model", "aaa authentication", "aaa authorization"])  # noqa: E501
         if not has_aaa:
             findings.append(EnterpriseKnowledgeFinding(
                 domain="cisco_design",

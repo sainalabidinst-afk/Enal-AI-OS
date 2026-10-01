@@ -95,7 +95,7 @@ class DevOpsProjectScanner:
             metadata={"devops_files_count": len(devops_files), "devops_files": devops_files[:10]},
         )
 
-    def _assess_complexity(self, files_count: int, modules_count: int, devops_files_count: int) -> str:
+    def _assess_complexity(self, files_count: int, modules_count: int, devops_files_count: int) -> str:  # noqa: E501
         score = files_count * 0.1 + modules_count * 2 + devops_files_count * 0.5
         if score > 50:
             return "high"

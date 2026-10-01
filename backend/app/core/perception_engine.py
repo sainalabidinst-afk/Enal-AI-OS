@@ -39,13 +39,13 @@ class PerceptionEngine:
         content = perception_input.content
 
         if perception_input.content_type == "text/plain":
-            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")  # noqa: E501
             result = await self._process_text(text_content, result)
         elif perception_input.content_type.startswith("image/"):
             bytes_content = content if isinstance(content, bytes) else content.encode("utf-8")
             result = await self._process_image(bytes_content, result)
         elif perception_input.content_type == "application/json":
-            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")  # noqa: E501
             result = await self._process_json(text_content, result)
 
         result.metadata.update(perception_input.metadata)

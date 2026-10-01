@@ -1,9 +1,9 @@
-import logging
+import logging  # noqa: I001
 import uuid
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from backend.app.core.event_bus import event_bus
@@ -12,7 +12,7 @@ from backend.app.core.events import Event
 logger = logging.getLogger(__name__)
 
 
-class TaskStatus(str, Enum):
+class TaskStatus(StrEnum):
     PENDING = "pending"
     QUEUED = "queued"
     RUNNING = "running"

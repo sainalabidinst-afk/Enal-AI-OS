@@ -24,13 +24,13 @@ Flow:
     └── Return aggregated results
 """
 
-import asyncio
+import asyncio  # noqa: I001
 import logging
 import uuid
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from apps.organization.ai_planner import (
@@ -61,14 +61,14 @@ MULTI_AGENT_COMPLETED = "MultiAgentCompleted"
 # ─── Enums ───
 
 
-class AgentStatus(str, Enum):
+class AgentStatus(StrEnum):
     IDLE = "idle"
     BUSY = "busy"
     OFFLINE = "offline"
     ERROR = "error"
 
 
-class CoordinationStrategy(str, Enum):
+class CoordinationStrategy(StrEnum):
     SEQUENTIAL = "sequential"
     PARALLEL = "parallel"
     HIERARCHICAL = "hierarchical"

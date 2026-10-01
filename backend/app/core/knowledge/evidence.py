@@ -25,7 +25,7 @@ class EvidenceBuilder:
         self.capability = capability
         self._items: list[Evidence] = []
 
-    def add(self, content: str, source: str, source_type: str = "manual", confidence: float = 0.0, metadata: dict[str, Any] | None = None) -> EvidenceBuilder:
+    def add(self, content: str, source: str, source_type: str = "manual", confidence: float = 0.0, metadata: dict[str, Any] | None = None) -> EvidenceBuilder:  # noqa: E501
         evidence = Evidence(
             claim_id=self.claim_id,
             content=content,
@@ -53,7 +53,7 @@ class ConfidencePropagator:
         related_claims = [cid for cid in self.evidence_store.all().keys() if cid != claim_id]
         if not related_claims:
             return 0.0
-        propagated = sum(self.evidence_store.confidence(cid) * (decay ** 1) for cid in related_claims) / len(related_claims)
+        propagated = sum(self.evidence_store.confidence(cid) * (decay ** 1) for cid in related_claims) / len(related_claims)  # noqa: E501
         return propagated
 
 

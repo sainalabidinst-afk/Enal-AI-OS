@@ -97,15 +97,15 @@ class KnowledgeEnricher:
             return definition.description
         return None
 
-    def get_cross_vendor_mapping(self, vendor_concept: str, source_vendor: str, target_vendor: str) -> str | None:
+    def get_cross_vendor_mapping(self, vendor_concept: str, source_vendor: str, target_vendor: str) -> str | None:  # noqa: E501
         """Get the equivalent concept name in another vendor."""
         concept_map: dict[str, dict[str, str]] = {
             "hsrp": {"cisco": "hsrp", "fortinet": "ha", "mikrotik": "vrrp"},
             "vrrp": {"cisco": "hsrp", "fortinet": "ha", "mikrotik": "vrrp"},
             "ha": {"cisco": "hsrp", "fortinet": "ha", "mikrotik": "vrrp"},
-            "acl": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},
-            "firewall_policy": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},
-            "firewall_filter": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},
+            "acl": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},  # noqa: E501
+            "firewall_policy": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},  # noqa: E501
+            "firewall_filter": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},  # noqa: E501
             "nat": {"cisco": "ip nat", "fortinet": "nat", "mikrotik": "nat"},
         }
 
@@ -115,27 +115,27 @@ class KnowledgeEnricher:
             return mapping.get(target_vendor)
         return None
 
-    def _build_explanation(self, concept: UniversalConcept, definition: ConceptDefinition, ast: Any) -> str:
+    def _build_explanation(self, concept: UniversalConcept, definition: ConceptDefinition, ast: Any) -> str:  # noqa: E501
         explanations = {
             UniversalConcept.HIGH_AVAILABILITY: (
                 "High Availability (HA) ensures network services remain available during failures. "
-                "Protocols like HSRP, VRRP, and Fortinet HA provide automatic failover between devices."
+                "Protocols like HSRP, VRRP, and Fortinet HA provide automatic failover between devices."  # noqa: E501
             ),
             UniversalConcept.TRAFFIC_FILTERING: (
                 "Traffic filtering controls which packets are allowed or denied based on "
-                "source, destination, protocol, and port. Proper filtering is critical for network security."
+                "source, destination, protocol, and port. Proper filtering is critical for network security."  # noqa: E501
             ),
             UniversalConcept.ADDRESS_TRANSLATION: (
                 "Address Translation (NAT) maps private IP addresses to public IP addresses. "
-                "This enables internal devices to access external networks while hiding internal addressing."
+                "This enables internal devices to access external networks while hiding internal addressing."  # noqa: E501
             ),
             UniversalConcept.IP_MANAGEMENT: (
-                "IP Management includes interface configuration, DHCP services, and IP address planning. "
+                "IP Management includes interface configuration, DHCP services, and IP address planning. "  # noqa: E501
                 "Proper IP management ensures connectivity and prevents address conflicts."
             ),
             UniversalConcept.ROUTING: (
                 "Routing determines the path packets take through the network. "
-                "Static routes provide fixed paths, while dynamic protocols adapt to topology changes."
+                "Static routes provide fixed paths, while dynamic protocols adapt to topology changes."  # noqa: E501
             ),
             UniversalConcept.AUTHENTICATION: (
                 "Authentication verifies user identity before granting access. "
@@ -178,7 +178,7 @@ class KnowledgeEnricher:
                 "Proper switch configuration prevents loops and optimizes traffic flow."
             ),
             UniversalConcept.OSPF: (
-                "OSPF is an interior gateway protocol that calculates shortest paths using link-state databases. "
+                "OSPF is an interior gateway protocol that calculates shortest paths using link-state databases. "  # noqa: E501
                 "Proper area design and authentication improve scalability and security."
             ),
             UniversalConcept.IS_IS: (

@@ -6,16 +6,16 @@ Records all deployment steps as artifacts.
 Deployment → Backup → Diff → Approval → Execution → Verification → Rollback → Final Report
 """
 
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class AuditEventType(str, Enum):
+class AuditEventType(StrEnum):
     DEPLOYMENT_START = "deployment_start"
     BACKUP = "backup"
     DIFF = "diff"
@@ -41,7 +41,7 @@ class AuditTrail:
     deployment_id: str
     events: list[AuditEvent] = field(default_factory=list)
 
-    def add_event(self, event_type: AuditEventType, actor: str, details: dict[str, Any] | None = None, artifact_id: str | None = None):
+    def add_event(self, event_type: AuditEventType, actor: str, details: dict[str, Any] | None = None, artifact_id: str | None = None):  # noqa: E501
         event = AuditEvent(
             event_type=event_type,
             timestamp=datetime.now(UTC).isoformat(),

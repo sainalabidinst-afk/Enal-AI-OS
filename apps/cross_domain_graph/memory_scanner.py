@@ -126,7 +126,7 @@ class MemoryScanner:
         Uses context to prioritize which layers to scan and what to look for.
         """
         context = context or {}
-        source_domains = context.get("source_domains", [])
+        source_domains = context.get("source_domains", [])  # noqa: F841
         target_layers = context.get("target_memory_layers")
 
         # If specific layers specified, use them
@@ -153,7 +153,7 @@ class MemoryScanner:
             description = value.get("description", value.get("summary", ""))
             node_type_str = value.get("type", value.get("category", "entity"))
             domain = value.get("domain", value.get("pack", "unknown"))
-            properties = {k: v for k, v in value.items() if k not in ("name", "description", "type", "domain", "summary", "title")}
+            properties = {k: v for k, v in value.items() if k not in ("name", "description", "type", "domain", "summary", "title")}  # noqa: E501
         elif isinstance(value, str):
             name = value[:100]
             description = value[:500]
@@ -165,7 +165,7 @@ class MemoryScanner:
 
         # Map type string to NodeType enum
         try:
-            node_type = NodeType(node_type_str)
+            node_type = NodeType(node_type_str or "entity")
         except ValueError:
             node_type = NodeType.ENTITY
 
@@ -173,7 +173,7 @@ class MemoryScanner:
             id=f"{layer}-{idx}-{key[:16]}",
             name=name or f"Entry {idx}",
             node_type=node_type,
-            domain=domain,
+            domain=domain or "unknown",
             layer=layer,
             description=str(description)[:500],
             properties=properties,

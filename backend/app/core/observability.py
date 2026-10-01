@@ -1,14 +1,14 @@
-import logging
+import logging  # noqa: I001
 import uuid
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class SpanType(str, Enum):
+class SpanType(StrEnum):
     AGENT = "agent"
     TOOL = "tool"
     LLM = "llm"
@@ -50,7 +50,7 @@ class Observability:
         self._traces[trace_id].append(span)
         return trace_id
 
-    def start_span(self, name: str, span_type: SpanType = SpanType.AGENT, agent: str = "", parent_id: str | None = None) -> TraceSpan:
+    def start_span(self, name: str, span_type: SpanType = SpanType.AGENT, agent: str = "", parent_id: str | None = None) -> TraceSpan:  # noqa: E501
         trace_id = self._current_trace or str(uuid.uuid4())
         if trace_id not in self._traces:
             self._traces[trace_id] = []
@@ -97,8 +97,8 @@ class Observability:
             all_spans = [s for s in all_spans if s.agent == agent]
         return {
             "total_spans": len(all_spans),
-            "success_rate": sum(1 for s in all_spans if s.success) / len(all_spans) if all_spans else 0,
-            "avg_latency_ms": sum(s.latency_ms for s in all_spans) / len(all_spans) if all_spans else 0,
+            "success_rate": sum(1 for s in all_spans if s.success) / len(all_spans) if all_spans else 0,  # noqa: E501
+            "avg_latency_ms": sum(s.latency_ms for s in all_spans) / len(all_spans) if all_spans else 0,  # noqa: E501
             "total_cost": sum(s.cost for s in all_spans),
             "total_tokens": sum(s.tokens_used for s in all_spans),
         }

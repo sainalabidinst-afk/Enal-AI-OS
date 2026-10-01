@@ -1,14 +1,14 @@
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 KNOWLEDGE_SCHEMA_VERSION = "1.0.0"
 
 
-class KnowledgeDomain(str, Enum):
+class KnowledgeDomain(StrEnum):
     TRADING = "trading"
     NETWORK = "network"
     CODE = "code"
@@ -21,7 +21,7 @@ class KnowledgeDomain(str, Enum):
     INFRASTRUCTURE = "infrastructure"
 
 
-class KnowledgeCategory(str, Enum):
+class KnowledgeCategory(StrEnum):
     DOMAIN = "domain"
     OPERATIONAL = "operational"
     REFERENCE = "reference"
@@ -31,14 +31,14 @@ class KnowledgeCategory(str, Enum):
     ONTOLOGY = "ontology"
 
 
-class KnowledgeStatus(str, Enum):
+class KnowledgeStatus(StrEnum):
     DRAFT = "draft"
     VALIDATED = "validated"
     DEPRECATED = "deprecated"
     ARCHIVED = "archived"
 
 
-class KnowledgeType(str, Enum):
+class KnowledgeType(StrEnum):
     CONCEPT = "concept"
     RELATION = "relation"
     RULE = "rule"

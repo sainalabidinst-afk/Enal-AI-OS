@@ -93,7 +93,7 @@ add chain=srcnat src-address={network} out-interface=ether0 action=masquerade
             vlan_id = vlan.get("id", 10)
             name = vlan.get("name", f"vlan{vlan_id}")
             interface = vlan.get("interface", "bridge")
-            config += f"/interface bridge vlan\nadd bridge={interface} tagged={interface} vlan-ids={vlan_id} comment={name}\n"
+            config += f"/interface bridge vlan\nadd bridge={interface} tagged={interface} vlan-ids={vlan_id} comment={name}\n"  # noqa: E501
 
         return config
 
@@ -103,7 +103,7 @@ add chain=srcnat src-address={network} out-interface=ether0 action=masquerade
 
         config += "/ip firewall filter\n"
         config += "add chain=input action=accept protocol=icmp comment=\"Allow ICMP\"\n"
-        config += "add chain=input action=accept connection-state=established,related comment=\"Allow established\"\n"
+        config += "add chain=input action=accept connection-state=established,related comment=\"Allow established\"\n"  # noqa: E501
         config += "add chain=input action=drop comment=\"Drop everything else\"\n"
 
         return config

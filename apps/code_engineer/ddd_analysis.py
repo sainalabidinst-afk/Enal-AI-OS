@@ -49,7 +49,7 @@ class DDDAnalyzer:
             is_namedtuple = "NamedTuple" in cls.bases or "namedtuple" in cls.bases
             is_dataclass = "dataclass" in cls.decorators or "dataclasses" in raw
 
-            if (has_eq and not has_identity) or is_namedtuple or (is_dataclass and not has_identity):
+            if (has_eq and not has_identity) or is_namedtuple or (is_dataclass and not has_identity):  # noqa: E501
                 findings.append(ArchitectureFinding(
                     category="ddd",
                     severity=ArchitectureSeverity.INFO,
@@ -64,7 +64,7 @@ class DDDAnalyzer:
                 ))
 
             has_children = any(
-                m.name in ("add_", "remove_", "add_item", "add_entity", "children", "items", "parts")
+                m.name in ("add_", "remove_", "add_item", "add_entity", "children", "items", "parts")  # noqa: E501
                 or m.name.startswith("add_")
                 for m in cls.methods
             )
@@ -75,7 +75,7 @@ class DDDAnalyzer:
                     description=f"Class '{cls.name}' looks like a DDD Aggregate Root",
                     recommendation=(
                         "Aggregate Root controls consistency boundary: all invariants "
-                        "are enforced through the root. External entities reference the root by ID only."
+                        "are enforced through the root. External entities reference the root by ID only."  # noqa: E501
                     ),
                     line_number=cls.lineno,
                     confidence=0.6,
@@ -93,7 +93,7 @@ class DDDAnalyzer:
 
             if is_repository:
                 has_crud = any(
-                    m.name in ("save", "delete", "find", "find_by_id", "find_all", "get_by_id", "update")
+                    m.name in ("save", "delete", "find", "find_by_id", "find_all", "get_by_id", "update")  # noqa: E501
                     for m in cls.methods
                 )
                 if has_crud:

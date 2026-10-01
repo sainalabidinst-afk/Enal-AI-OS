@@ -31,9 +31,9 @@ class TestPlanner:
         monkeypatch.setattr(planner_module, "settings", FakeConfig)
 
         async def fake_acomplete(*args, **kwargs):
-            return FakeResp(json.dumps({"description": "plan", "agents": ["planner"], "tasks": [{"description": "task", "agent": "planner"}]}))
+            return FakeResp(json.dumps({"description": "plan", "agents": ["planner"], "tasks": [{"description": "task", "agent": "planner"}]}))  # noqa: E501
 
-        monkeypatch.setattr(planner_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())
+        monkeypatch.setattr(planner_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
         planner = Planner()
         plan = await planner.create_plan("build something")
         assert plan["description"] == "plan"
@@ -47,7 +47,7 @@ class TestPlanner:
         async def fake_acomplete(*args, **kwargs):
             return FakeResp("not json")
 
-        monkeypatch.setattr(planner_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())
+        monkeypatch.setattr(planner_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
         planner = Planner()
         plan = await planner.create_plan("build something")
         assert plan["description"] == "Direct response"
@@ -61,7 +61,7 @@ class TestPlanner:
         async def fake_acomplete(*args, **kwargs):
             return FakeResp("PASS")
 
-        monkeypatch.setattr(planner_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())
+        monkeypatch.setattr(planner_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
         planner = Planner()
         result = await planner.review_result("task", "result")
         assert result == "PASS"

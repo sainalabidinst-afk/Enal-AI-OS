@@ -5,11 +5,11 @@ Architecture Models
 Data models for the architecture reader module.
 """
 
-from dataclasses import dataclass, field
-from enum import Enum
+from dataclasses import dataclass, field  # noqa: I001
+from enum import StrEnum, Enum  # noqa: F401
 
 
-class ProjectType(str, Enum):
+class ProjectType(StrEnum):
     UNKNOWN = "unknown"
     FASTAPI = "fastapi"
     DJANGO = "django"
@@ -22,7 +22,7 @@ class ProjectType(str, Enum):
     SCRIPT = "script"
 
 
-class ModuleType(str, Enum):
+class ModuleType(StrEnum):
     ENTRY_POINT = "entry_point"
     API_MODULE = "api_module"
     CORE_MODULE = "core_module"

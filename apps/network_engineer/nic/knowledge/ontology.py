@@ -6,12 +6,12 @@ Maps vendor-specific network features to universal concepts.
 This is the foundation for concept-level analysis, compliance, and cross-vendor translation.
 """
 
-from dataclasses import dataclass, field
-from enum import Enum
+from dataclasses import dataclass, field  # noqa: I001
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class UniversalConcept(str, Enum):
+class UniversalConcept(StrEnum):
     HIGH_AVAILABILITY = "high_availability"
     TRAFFIC_FILTERING = "traffic_filtering"
     ADDRESS_TRANSLATION = "address_translation"
@@ -67,7 +67,7 @@ CONCEPT_DEFINITIONS: dict[UniversalConcept, ConceptDefinition] = {
     ),
     UniversalConcept.TRAFFIC_FILTERING: ConceptDefinition(
         concept=UniversalConcept.TRAFFIC_FILTERING,
-        description="Rules controlling traffic flow based on source, destination, protocol, and port",
+        description="Rules controlling traffic flow based on source, destination, protocol, and port",  # noqa: E501
         vendor_names={
             "cisco": ["acl", "access-list", "ip access-list"],
             "fortinet": ["firewall policy", "firewall address", "firewall service"],
@@ -77,7 +77,7 @@ CONCEPT_DEFINITIONS: dict[UniversalConcept, ConceptDefinition] = {
     ),
     UniversalConcept.ADDRESS_TRANSLATION: ConceptDefinition(
         concept=UniversalConcept.ADDRESS_TRANSLATION,
-        description="Translation of private IP addresses to public IP addresses for internet access",
+        description="Translation of private IP addresses to public IP addresses for internet access",  # noqa: E501
         vendor_names={
             "cisco": ["nat", "ip nat"],
             "fortinet": ["nat", "firewall nat"],
@@ -342,7 +342,7 @@ class ConceptMapper:
             if vendor in ["cisco", "fortinet"]:
                 for key in vendor_specific:
                     if any(kw in key.lower() for kw in vendor_keywords):
-                        evidence.append({"keyword": key, "source": "vendor_specific", "vendor": vendor})
+                        evidence.append({"keyword": key, "source": "vendor_specific", "vendor": vendor})  # noqa: E501
 
             if evidence:
                 detected[concept] = evidence

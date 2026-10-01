@@ -176,7 +176,7 @@ class QAEngineerEngine:
             performance_validation=perf_validation,
             regression_report=regression_info,
             summary=QATestSummary(
-                total_tests_generated=sum(len(a.content) for a in test_artifacts if hasattr(a, 'content')),
+                total_tests_generated=sum(len(a.content) for a in test_artifacts if hasattr(a, 'content')),  # noqa: E501
                 coverage_improvement=coverage_report.line_coverage,
                 mutation_score=mutation_report.mutation_score,
                 overall_risk="low" if coverage_report.line_coverage >= 0.8 else "medium",
@@ -198,7 +198,7 @@ class QAEngineerEngine:
     ) -> list[str]:
         recs: list[str] = []
         if coverage.line_coverage < 0.8:
-            recs.append(f"Increase test coverage: current line coverage is {coverage.line_coverage:.0%}")
+            recs.append(f"Increase test coverage: current line coverage is {coverage.line_coverage:.0%}")  # noqa: E501
         if mutation.mutation_score < 0.8 and op and "mutation" in str(op).lower():
             recs.append(f"Improve mutation score: current score is {mutation.mutation_score:.0%}")
         if flaky:
@@ -217,7 +217,7 @@ class QAEngineerEngine:
             base = Path("artifacts/qa_test_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"
-            path.write_text(json.dumps(record.model_dump(), indent=2, default=str), encoding="utf-8")
+            path.write_text(json.dumps(record.model_dump(), indent=2, default=str), encoding="utf-8")  # noqa: E501
         except OSError:
             logger.warning("Failed to persist QA test record %s", record.record_id)
         return record.record_id

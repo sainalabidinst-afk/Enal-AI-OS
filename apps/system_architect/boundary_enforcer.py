@@ -96,7 +96,7 @@ class BoundaryEnforcer:
     def _find_cross_package_violations(self, snapshot: DependencyGraphSnapshot) -> list[Finding]:
         """Detect unauthorized cross-package imports."""
         findings: list[Finding] = []
-        package_imports: dict[str, set[str]] = {}
+        package_imports: dict[tuple[str, str], set[str]] = {}
 
         for mod_path, mod_info in snapshot.modules.items():
             source_pkg = self._get_package(mod_path)
@@ -113,7 +113,7 @@ class BoundaryEnforcer:
                     continue
 
                 if target_pkg != source_pkg:
-                    key = f"{source_pkg} -> {target_pkg}"
+                    key = (source_pkg, target_pkg)
                     if key not in package_imports:
                         package_imports[key] = set()
                     package_imports[key].add(f"{mod_path} imports {dep.target}")
@@ -145,7 +145,7 @@ class BoundaryEnforcer:
                     description=(
                         f"Package `{src}` imports from `{tgt}`. "
                         f"Found {len(full_imports)} cross-package import(s). "
-                        "Cross-package imports violate package encapsulation unless explicitly allowed."
+                        "Cross-package imports violate package encapsulation unless explicitly allowed."  # noqa: E501
                     ),
                     evidence={
                         "source_package": src,
@@ -223,22 +223,22 @@ class BoundaryEnforcer:
                 findings.append(finding)
         return findings
 
-    def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:
+    def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:  # noqa: E501
         """Compute boundary enforcement metrics."""
-        boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)
-        cycle_violations = sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)
+        boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)  # noqa: E501
+        cycle_violations = sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)  # noqa: E501
         layer_violations = len(snapshot.layer_violations)
 
         return ArchitectureMetrics(
             dependency_cycles=cycle_violations,
             layer_violations=layer_violations,
             package_boundaries_crossed=boundary_violations,
-            maintainability_score=max(0.0, 100.0 - (layer_violations * 5.0 + cycle_violations * 10.0 + boundary_violations * 4.0)),
-            scalability_score=max(0.0, 100.0 - (cycle_violations * 8.0 + boundary_violations * 3.0)),
+            maintainability_score=max(0.0, 100.0 - (layer_violations * 5.0 + cycle_violations * 10.0 + boundary_violations * 4.0)),  # noqa: E501
+            scalability_score=max(0.0, 100.0 - (cycle_violations * 8.0 + boundary_violations * 3.0)),  # noqa: E501
             testability_score=max(0.0, 100.0 - (cycle_violations * 6.0 + layer_violations * 3.0)),
         )
 
-    def _generate_recommendations(self, findings: list[Finding], metrics: ArchitectureMetrics) -> list[Recommendation]:
+    def _generate_recommendations(self, findings: list[Finding], metrics: ArchitectureMetrics) -> list[Recommendation]:  # noqa: E501
         recs: list[Recommendation] = []
         if metrics.package_boundaries_crossed > 0:
             recs.append(

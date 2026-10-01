@@ -12,5 +12,5 @@ class ScreenshotParser(BaseParser):
         ast = InfrastructureAST(format="screenshot", device_role=meta.device_role)
         ast.system["image_kind"] = "screenshot"
         ast.system["ocr_required"] = True
-        ast.system["likely_vendors"] = ["winbox", "fortigate", "unifi", "aruba", "esxi", "proxmox", "idrac"]
+        ast.system["likely_vendors"] = ["winbox", "fortigate", "unifi", "aruba", "esxi", "proxmox", "idrac"]  # noqa: E501
         return ast

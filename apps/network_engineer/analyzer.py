@@ -6,9 +6,9 @@ Analyzes RouterOS configurations for security, performance, and best practices.
 Rule checks are organized into mixin classes for maintainability.
 """
 
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from apps.network_engineer.analyzer_ip_routing import _IPRoutingRuleMixin
@@ -19,7 +19,7 @@ from apps.network_engineer.analyzer_vendor import _VendorRuleMixin
 logger = logging.getLogger(__name__)
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     CRITICAL = "critical"
     WARNING = "warning"
     INFO = "info"
@@ -55,7 +55,7 @@ class NetworkAnalysisReport:
         references: list[str] | None = None,
     ):
         if isinstance(severity, str):
-            severity = Severity(severity.lower()) if severity.lower() in Severity._value2member_map_ else Severity.INFO
+            severity = Severity(severity.lower()) if severity.lower() in Severity._value2member_map_ else Severity.INFO  # noqa: E501
         self.issues.append(AnalysisIssue(
             severity=severity,
             category=category,
@@ -76,7 +76,7 @@ class NetworkAnalysisReport:
         }
 
 
-class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRuleMixin, _VendorRuleMixin):
+class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRuleMixin, _VendorRuleMixin):  # noqa: E501
     """Analyzes network configurations for issues and best practices."""
 
     def __init__(self):
@@ -162,7 +162,7 @@ class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRul
             from apps.network_engineer.enterprise_knowledge import enterprise_knowledge_engine
             findings = enterprise_knowledge_engine.analyze(config)
             for finding in findings:
-                severity = Severity(finding.severity) if finding.severity in Severity._value2member_map_ else Severity.INFO
+                severity = Severity(finding.severity) if finding.severity in Severity._value2member_map_ else Severity.INFO  # noqa: E501
                 report.add_issue(
                     severity=severity,
                     category=f"{finding.domain}.{finding.category}",
@@ -176,7 +176,7 @@ class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRul
         report.summary = report.get_summary()
         parser_errors = getattr(config, "errors", [])
         report.metadata["total_rules"] = len(self._rules)
-        report.metadata["parser_errors"] = len(parser_errors) if isinstance(parser_errors, list) else 0
+        report.metadata["parser_errors"] = len(parser_errors) if isinstance(parser_errors, list) else 0  # noqa: E501
         return report
 
 

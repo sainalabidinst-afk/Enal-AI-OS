@@ -5,16 +5,16 @@ Network Recommendation Engine
 Generates prioritized recommendations from analysis findings.
 """
 
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 
 from apps.network_engineer.analyzer import AnalysisIssue, Severity
 
 logger = logging.getLogger(__name__)
 
 
-class RecommendationPriority(str, Enum):
+class RecommendationPriority(StrEnum):
     P0_CRITICAL = "P0-CRITICAL"
     P1_HIGH = "P1-HIGH"
     P2_MEDIUM = "P2-MEDIUM"
@@ -62,7 +62,7 @@ class RecommendationEngine:
 
     def _explain_why(self, issue: AnalysisIssue) -> str:
         explanations = {
-            "Security": "This creates an attack surface that could be exploited by unauthorized users.",
+            "Security": "This creates an attack surface that could be exploited by unauthorized users.",  # noqa: E501
             "Firewall": "Improper firewall rules can allow malicious traffic into the network.",
             "NAT": "NAT misconfigurations can break internet access or expose internal networks.",
             "Performance": "This configuration may limit throughput or increase latency.",

@@ -22,13 +22,13 @@ This engine is an EXECUTOR, not a planner.
 It delegates planning to ExecutionPlanner and execution to ExecutionRuntime.
 """
 
-import asyncio
+import asyncio  # noqa: I001
 import logging
 import time
 import uuid
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from apps.organization.capability_contract import (
@@ -57,7 +57,7 @@ from apps.society.society import WORKER_REGISTRY
 logger = logging.getLogger(__name__)
 
 
-class ExecutionStatus(str, Enum):
+class ExecutionStatus(StrEnum):
     """Standardized execution lifecycle matching documented flow.
 
     CREATED → QUEUED → RUNNING → COMPLETED
@@ -355,7 +355,7 @@ class CapabilityExecutionEngine:
         # Find the worker for this domain
         worker = self._route_to_worker(domain.value)
         if worker is None:
-            raise ValueError(f"No worker found for domain '{domain.value}' (capability: {request.capability_id})")
+            raise ValueError(f"No worker found for domain '{domain.value}' (capability: {request.capability_id})")  # noqa: E501
 
         # Build a single subtask representing this capability execution
         subtask = SubTask(

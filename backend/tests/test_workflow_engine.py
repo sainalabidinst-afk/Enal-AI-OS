@@ -93,7 +93,7 @@ class TestWorkflowEngine:
         async def fail_call(agent, action, params):
             raise RuntimeError("boom")
 
-        step = WorkflowStep(id="s1", name="Step 1", agent="agent-a", action="act", retry_policy={"max_retries": 0})
+        step = WorkflowStep(id="s1", name="Step 1", agent="agent-a", action="act", retry_policy={"max_retries": 0})  # noqa: E501
         wf = Workflow(id="wf1", name="WF", description="desc", steps=[step])
         await eng.create_workflow(wf)
         monkeypatch = pytest.MonkeyPatch()

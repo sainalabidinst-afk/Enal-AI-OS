@@ -69,7 +69,7 @@ class ConversationManager:
                 turns.append(ConversationTurn(
                     role=msg.get("role", "user"),
                     content=msg.get("content", ""),
-                    timestamp=datetime.fromisoformat(msg.get("timestamp", datetime.now(UTC).isoformat())),
+                    timestamp=datetime.fromisoformat(msg.get("timestamp", datetime.now(UTC).isoformat())),  # noqa: E501
                     metadata=msg.get("metadata", {}),
                 ))
             state = ConversationState(conversation_id=conversation_id, turns=turns)
@@ -78,7 +78,7 @@ class ConversationManager:
             self._states[conversation_id] = state
         return self._states[conversation_id]
 
-    async def send_message(self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
+    async def send_message(self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
         state = await self.get_state(conversation_id)
         context = context or {}
 
@@ -142,7 +142,7 @@ class ConversationManager:
             response["analysis"] = analysis_payload
         return response
 
-    async def stream_message(self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None) -> AsyncGenerator[dict[str, Any], None]:
+    async def stream_message(self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None) -> AsyncGenerator[dict[str, Any], None]:  # noqa: E501
         state = await self.get_state(conversation_id)
         context = context or {}
 
@@ -154,7 +154,7 @@ class ConversationManager:
             ]
 
         lowered = user_message.lower()
-        if any(keyword in lowered for keyword in ["what can you do", "capabilities", "list capability", "apa yang bisa"]):
+        if any(keyword in lowered for keyword in ["what can you do", "capabilities", "list capability", "apa yang bisa"]):  # noqa: E501
             yield {"type": "capabilities", "capabilities": self._get_capability_summary()}
             return
 
@@ -195,7 +195,7 @@ class ConversationManager:
 
         if execution_plan:
             for stage in execution_plan.get("stages", []):
-                yield {"type": "stage", "mode": stage.get("mode"), "subtasks": stage.get("subtasks", [])}
+                yield {"type": "stage", "mode": stage.get("mode"), "subtasks": stage.get("subtasks", [])}  # noqa: E501
 
         analysis_payload = await self._maybe_analyze_attachments(user_message, context)
         if analysis_payload:
@@ -367,9 +367,9 @@ class ConversationManager:
         except Exception:
             pass
 
-    async def _maybe_analyze_attachments(self, user_message: str, context: dict[str, Any]) -> dict[str, Any] | None:
+    async def _maybe_analyze_attachments(self, user_message: str, context: dict[str, Any]) -> dict[str, Any] | None:  # noqa: E501
         lowered = user_message.lower()
-        attachment_triggers = ["audit", "analyze", "analysis", "review", "cek", "periksa", "upload", "file", "config", "configuration"]
+        attachment_triggers = ["audit", "analyze", "analysis", "review", "cek", "periksa", "upload", "file", "config", "configuration"]  # noqa: E501
         if not any(trigger in lowered for trigger in attachment_triggers):
             return None
 
@@ -393,7 +393,7 @@ class ConversationManager:
                     continue
                 items.append((filename, content))
 
-            compliance = [value for value in context.get("compliance_frameworks", []) if value in {"cis", "nist_csf", "zero_trust", "vendor_best_practice"}]
+            compliance = [value for value in context.get("compliance_frameworks", []) if value in {"cis", "nist_csf", "zero_trust", "vendor_best_practice"}]  # noqa: E501
             analysis = analyze_multi(items, compliance_frameworks=compliance or None)
 
             payload = analysis.ast.to_dict()

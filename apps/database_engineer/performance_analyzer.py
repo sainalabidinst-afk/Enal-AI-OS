@@ -34,7 +34,7 @@ _SLOW_QUERY_PATTERNS: list[tuple[str, str, Severity]] = [
 
 # Patterns indicating inefficient joins or subqueries.
 _INEFFICIENT_PATTERNS: list[tuple[str, str, Severity]] = [
-    (r'(?i)\bjoin\b.*\bjoin\b.*\bjoin\b', "3+ table JOIN — consider denormalization", Severity.medium),
+    (r'(?i)\bjoin\b.*\bjoin\b.*\bjoin\b', "3+ table JOIN — consider denormalization", Severity.medium),  # noqa: E501
     (r'(?i)in\s*\(select', "IN with subquery — consider EXISTS or JOIN", Severity.medium),
     (r'(?i)union\s+all\s+select', "UNION ALL — verify deduplication not needed", Severity.low),
 ]
@@ -76,7 +76,7 @@ class PerformanceAnalyzer:
             query_findings = self._analyze_query(query, i)
             findings.extend(query_findings)
 
-            if any("slow" in f.title.lower() or "deadlock" in f.title.lower() for f in query_findings):
+            if any("slow" in f.title.lower() or "deadlock" in f.title.lower() for f in query_findings):  # noqa: E501
                 slow_count += 1
                 if "deadlock" in str(query_findings).lower():
                     deadlock_count += 1
@@ -105,7 +105,7 @@ class PerformanceAnalyzer:
                 if description not in seen:
                     seen.add(description)
                     findings.append(Finding(
-                        category=FindingCategory.deadlock if "deadlock" in description.lower() else FindingCategory.query_performance,
+                        category=FindingCategory.deadlock if "deadlock" in description.lower() else FindingCategory.query_performance,  # noqa: E501
                         severity=severity,
                         title=f"Query {index + 1}: {description}",
                         description=f"Query: {query[:200]}...",
@@ -134,12 +134,12 @@ class PerformanceAnalyzer:
     def _get_recommendation(self, description: str) -> str:
         """Get remediation for a performance issue."""
         recs = {
-            "Full table scan detected": "Add index on filtered columns or rewrite query to use indexed columns",
+            "Full table scan detected": "Add index on filtered columns or rewrite query to use indexed columns",  # noqa: E501
             "Filesort operation (temp table)": "Add composite index matching ORDER BY columns",
             "Temporary table created": "Optimize GROUP BY or add covering index",
             "Lock wait timeout": "Reduce transaction scope; add row-level locking hints",
             "Deadlock detected": "Ensure consistent access order; add deadlock retry logic",
-            "Connection pool exhaustion": "Increase pool size; add connection timeout; use pooling middleware",
+            "Connection pool exhaustion": "Increase pool size; add connection timeout; use pooling middleware",  # noqa: E501
             "Memory pressure": "Increase buffer pool size; add swap; optimize queries",
         }
         return recs.get(description, "Review execution plan and add appropriate indexes")

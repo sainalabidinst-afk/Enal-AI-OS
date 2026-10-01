@@ -80,8 +80,8 @@ class StoryGenerator:
         for persona in personas:
             for goal in persona.goals:
                 story = UserStory(
-                    title=f"As a {persona.role}, I want to {goal.lower()} so that I can achieve my objectives",
-                    description=f"User persona: {persona.name} ({persona.role}). Goal: {goal}. Pain points: {', '.join(persona.pain_points)}",
+                    title=f"As a {persona.role}, I want to {goal.lower()} so that I can achieve my objectives",  # noqa: E501
+                    description=f"User persona: {persona.name} ({persona.role}). Goal: {goal}. Pain points: {', '.join(persona.pain_points)}",  # noqa: E501
                     acceptance_criteria=self._default_acceptance_criteria(goal),
                     story_points=StoryPoint.m.value,
                     priority=Priority.should_have,
@@ -137,7 +137,7 @@ class StoryGenerator:
     def _default_acceptance_criteria(self, goal: str) -> list[str]:
         """Generate default acceptance criteria for a goal."""
         return [
-            f"Given a user with appropriate permissions, when they attempt to {goal}, then the system allows the action",
-            f"Given a user without appropriate permissions, when they attempt to {goal}, then the system denies access with an appropriate message",
-            f"Given invalid input, when the user attempts to {goal}, then the system returns a validation error",
+            f"Given a user with appropriate permissions, when they attempt to {goal}, then the system allows the action",  # noqa: E501
+            f"Given a user without appropriate permissions, when they attempt to {goal}, then the system denies access with an appropriate message",  # noqa: E501
+            f"Given invalid input, when the user attempts to {goal}, then the system returns a validation error",  # noqa: E501
         ]

@@ -90,7 +90,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
         auth = request.headers.get("Authorization")
         if not auth or not auth.startswith("Bearer "):
             from fastapi.responses import JSONResponse
-            return JSONResponse(status_code=401, content={"detail": "Missing or invalid authorization header"})
+            return JSONResponse(status_code=401, content={"detail": "Missing or invalid authorization header"})  # noqa: E501
 
         token = auth.split(" ", 1)[1]
         try:
@@ -140,9 +140,9 @@ app.include_router(chat.router, prefix=settings.API_V1_STR, tags=["chat"])
 app.include_router(orchestrator_v2.router, prefix=settings.API_V1_STR, tags=["orchestrator-v2"])
 app.include_router(phase3.router, prefix=settings.API_V1_STR, tags=["phase3"])
 app.include_router(ecosystem.router, prefix=settings.API_V1_STR, tags=["ecosystem"])
-app.include_router(capability_discovery.router, prefix=settings.API_V1_STR, tags=["capability-discovery"])
-app.include_router(capability_execution.router, prefix=settings.API_V1_STR, tags=["capability-execution"])
-app.include_router(capability_lifecycle.router, prefix=settings.API_V1_STR, tags=["capability-lifecycle"])
+app.include_router(capability_discovery.router, prefix=settings.API_V1_STR, tags=["capability-discovery"])  # noqa: E501
+app.include_router(capability_execution.router, prefix=settings.API_V1_STR, tags=["capability-execution"])  # noqa: E501
+app.include_router(capability_lifecycle.router, prefix=settings.API_V1_STR, tags=["capability-lifecycle"])  # noqa: E501
 app.include_router(execution.router, prefix=settings.API_V1_STR, tags=["execution"])
 app.include_router(workspace.router, prefix=settings.API_V1_STR, tags=["workspace"])
 app.include_router(artifact.router, prefix=settings.API_V1_STR, tags=["artifact"])

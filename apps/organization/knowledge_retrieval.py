@@ -197,7 +197,7 @@ class ContextBuilder:
 
         confidence = 0.0
         if primary_concepts:
-            confidence = sum(c.get("confidence", 0.0) for c in primary_concepts) / len(primary_concepts)
+            confidence = sum(c.get("confidence", 0.0) for c in primary_concepts) / len(primary_concepts)  # noqa: E501
 
         return KnowledgeContext(
             query=query,

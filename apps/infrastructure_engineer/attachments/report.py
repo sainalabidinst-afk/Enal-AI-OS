@@ -20,7 +20,7 @@ class ExecutiveReportGenerator:
         lines.append("")
         lines.append("## Executive Summary")
         lines.append("")
-        lines.append(result.executive_summary or engine._generate_executive_summary(ast, chains, risk))
+        lines.append(result.executive_summary or engine._generate_executive_summary(ast, chains, risk))  # noqa: E501
         lines.append("")
         lines.append("## Detected Environment")
         lines.append("")
@@ -43,7 +43,7 @@ class ExecutiveReportGenerator:
             if risk.lateral_movement_paths:
                 lines.append(f"- Lateral Movement: {', '.join(risk.lateral_movement_paths)}")
             if risk.privilege_escalation_risks:
-                lines.append(f"- Privilege Escalation: {', '.join(risk.privilege_escalation_risks)}")
+                lines.append(f"- Privilege Escalation: {', '.join(risk.privilege_escalation_risks)}")  # noqa: E501
         lines.append("")
         lines.append("## Critical Findings")
         lines.append("")

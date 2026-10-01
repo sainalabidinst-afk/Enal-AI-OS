@@ -6,18 +6,18 @@ Internal mailbox, event system, and blackboard for inter-agent communication.
 Enables agents to collaborate without always going through a central planner.
 """
 
-import logging
+import logging  # noqa: I001
 import uuid
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class MessageType(str, Enum):
+class MessageType(StrEnum):
     TASK = "task"
     REPLY = "reply"
     QUERY = "query"
@@ -58,7 +58,7 @@ class Mailbox:
     def send(self, message: Message) -> None:
         self._inboxes.setdefault(message.recipient_id, []).append(message)
         self._sent.setdefault(message.sender_id, []).append(message)
-        logger.debug(f"Message sent: {message.sender_id} -> {message.recipient_id}: {message.subject}")
+        logger.debug(f"Message sent: {message.sender_id} -> {message.recipient_id}: {message.subject}")  # noqa: E501
 
     def receive(self, agent_id: str) -> list[Message]:
         messages = self._inboxes.get(agent_id, [])
@@ -107,7 +107,7 @@ class Blackboard:
         self._lock: bool = False
         self._history: list[dict] = []
 
-    async def write(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:
+    async def write(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:  # noqa: E501
         self._entries[key] = value
         self._history.append({
             "key": key,
@@ -123,7 +123,7 @@ class Blackboard:
             pass
         logger.debug(f"Blackboard write: {key}")
 
-    def write_sync(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:
+    def write_sync(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:  # noqa: E501
         self._entries[key] = value
         self._history.append({
             "key": key,

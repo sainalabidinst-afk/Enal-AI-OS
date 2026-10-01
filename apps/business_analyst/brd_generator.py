@@ -51,7 +51,7 @@ class BRDGenerator:
         inputs = request.inputs
 
         lines: list[str] = []
-        lines.append(f"# Business Requirement Document: {context.project_name or 'Untitled Project'}")
+        lines.append(f"# Business Requirement Document: {context.project_name or 'Untitled Project'}")  # noqa: E501
         lines.append("")
         lines.append(f"**Domain:** {context.domain}")
         lines.append(f"**Generated:** {self._timestamp()}")
@@ -81,8 +81,8 @@ class BRDGenerator:
         if inputs.natural_language_requirements:
             lines.append("### 3.1 Raw Requirements")
             lines.append("")
-            for i, req in enumerate(inputs.natural_language_requirements, 1):
-                lines.append(f"{i}. {req}")
+            for i, nl_req in enumerate(inputs.natural_language_requirements, 1):
+                lines.append(f"{i}. {nl_req}")
             lines.append("")
 
         if inputs.stakeholder_notes:
@@ -133,8 +133,11 @@ class BRDGenerator:
         if nf_reqs:
             lines.append("## 6. Non-Functional Requirements")
             lines.append("")
-            for req in nf_reqs:
-                lines.append(f"- **{req.id}:** {req.title} (Priority: {req.priority.value})")
+            for requirement in nf_reqs:
+                lines.append(
+                    f"- **{requirement.id}:** {requirement.title}"
+                    f" (Priority: {requirement.priority.value})"
+                )
             lines.append("")
 
         # 7. Technical Constraints.

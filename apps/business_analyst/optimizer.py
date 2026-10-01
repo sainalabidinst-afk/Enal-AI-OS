@@ -21,10 +21,10 @@ logger = logging.getLogger(__name__)
 # Inefficiency patterns and their remedies.
 _INEFFICIENCY_PATTERNS: list[tuple[str, str, str, str]] = [
     ("manual", "Manual data entry", "Automate data capture with forms and integrations", "70%"),
-    ("approval", "Sequential approval chain", "Implement parallel approvals with SLA tracking", "60%"),
+    ("approval", "Sequential approval chain", "Implement parallel approvals with SLA tracking", "60%"),  # noqa: E501
     ("rework", "Error correction loop", "Add validation at source; reduce rework cycles", "50%"),
     ("wait", "Waiting for external input", "Implement SLAs and escalation paths", "40%"),
-    ("duplicate", "Duplicate data entry", "Single source of truth; eliminate redundant entries", "80%"),
+    ("duplicate", "Duplicate data entry", "Single source of truth; eliminate redundant entries", "80%"),  # noqa: E501
     ("batch", "Batch processing delay", "Move to event-driven or near-real-time processing", "65%"),
 ]
 

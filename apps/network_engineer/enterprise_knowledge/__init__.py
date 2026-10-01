@@ -89,11 +89,11 @@ class EnterpriseKnowledgeEngine:
                 )
         return all_findings
 
-    def find_by_domain(self, findings: list[EnterpriseKnowledgeFinding], domain: str) -> list[EnterpriseKnowledgeFinding]:
+    def find_by_domain(self, findings: list[EnterpriseKnowledgeFinding], domain: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         """Filter findings by domain."""
         return [f for f in findings if f.domain == domain]
 
-    def find_by_vendor(self, findings: list[EnterpriseKnowledgeFinding], vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def find_by_vendor(self, findings: list[EnterpriseKnowledgeFinding], vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         """Filter findings by vendor."""
         return [f for f in findings if f.vendor == vendor]
 

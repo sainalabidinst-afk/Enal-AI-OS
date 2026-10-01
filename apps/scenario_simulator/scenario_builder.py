@@ -87,8 +87,9 @@ class ScenarioBuilder:
 
         Falls back to regex-based parsing if LLM is unavailable.
         """
+        import asyncio
         try:
-            return self._parse_with_llm(description, base_state, iterations, seed)
+            return asyncio.run(self._parse_with_llm(description, base_state, iterations, seed))
         except Exception as e:
             logger.warning(f"LLM parsing failed, falling back to regex: {e}")
             return self.build(description, base_state, iterations, seed)
@@ -112,7 +113,7 @@ class ScenarioBuilder:
         for competitor_key in base_state:
             if "competitor" in competitor_key.lower() or "kompetitor" in competitor_key.lower():
                 if competitor_key.replace("_", " ") in text or competitor_key in text:
-                    change = self._detect_change(text, competitor_key, base_state.get(competitor_key))
+                    change = self._detect_change(text, competitor_key, base_state.get(competitor_key))  # noqa: E501
                     if change:
                         changes.append(change)
 
@@ -167,7 +168,7 @@ class ScenarioBuilder:
 
         return None
 
-    def _detect_generic_changes(self, text: str, base_state: dict[str, Any]) -> list[VariableChange]:
+    def _detect_generic_changes(self, text: str, base_state: dict[str, Any]) -> list[VariableChange]:  # noqa: E501
         """Detect generic variable changes from any numeric patterns."""
         changes: list[VariableChange] = []
         for var_name, value in base_state.items():
@@ -193,7 +194,7 @@ class ScenarioBuilder:
     def _generate_title(self, description: str) -> str:
         """Generate a title from the description."""
         words = description.split()[:8]
-        return " ".join(words).rstrip(".,;:") + "..." if len(description.split()) > 8 else description
+        return " ".join(words).rstrip(".,;:") + "..." if len(description.split()) > 8 else description  # noqa: E501
 
     async def _parse_with_llm(
         self,

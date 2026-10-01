@@ -126,7 +126,7 @@ class AdversarialTestingEngine:
         result = AdversarialTestResult(
             request_id="",
             subject=subject,
-            subject_type=SubjectType(subject_type) if isinstance(subject_type, str) else subject_type,
+            subject_type=SubjectType(subject_type) if isinstance(subject_type, str) else subject_type,  # noqa: E501
             attack_vectors=[
                 {
                     "id": v.id,

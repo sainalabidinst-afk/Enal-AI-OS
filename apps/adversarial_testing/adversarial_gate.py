@@ -138,7 +138,7 @@ class AdversarialGate:
             )
 
         if high_critical_actions and hardening_completion < self.MIN_HARDENING_COMPLETION:
-            remaining = len(high_critical_actions) - int(hardening_completion * len(high_critical_actions))
+            remaining = len(high_critical_actions) - int(hardening_completion * len(high_critical_actions))  # noqa: E501
             return (
                 GateResult.REVIEW_REQUIRED,
                 f"{remaining} high/critical hardening action(s) not yet applied. "

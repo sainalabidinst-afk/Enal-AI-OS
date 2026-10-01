@@ -39,7 +39,7 @@ class NetworkGraphBuilder:
         interfaces = []
         for iface in config.interfaces:
             redundancy_role = RedundancyRole.NONE
-            if any("vrrp" in line.lower() or "redundancy" in line.lower() for line in getattr(iface, "raw_lines", [])):
+            if any("vrrp" in line.lower() or "redundancy" in line.lower() for line in getattr(iface, "raw_lines", [])):  # noqa: E501
                 redundancy_role = RedundancyRole.SECONDARY
             interfaces.append(NetworkInterface(
                 name=iface.name,
@@ -67,7 +67,7 @@ class NetworkGraphBuilder:
             },
         )
 
-    def _link_interfaces(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):
+    def _link_interfaces(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):  # noqa: E501
         for ip_addr in config.ip_addresses:
             iface = next((i for i in router.interfaces if i.name == ip_addr.interface), None)
             if iface:
@@ -81,7 +81,7 @@ class NetworkGraphBuilder:
                         connection_type="ip-network",
                     ))
 
-    def _link_bridges(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):
+    def _link_bridges(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):  # noqa: E501
         for bridge in config.bridge_configs:
             bridge_iface = NetworkInterface(
                 name=bridge.name,
@@ -98,7 +98,7 @@ class NetworkGraphBuilder:
                     connection_type="bridge-member",
                 ))
 
-    def _detect_segments(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):
+    def _detect_segments(self, config: RouterOSConfig, router: NetworkDevice, topology: NetworkTopology):  # noqa: E501
         seen_networks = set()
         for ip_addr in config.ip_addresses:
             if ip_addr.network and ip_addr.network not in seen_networks:

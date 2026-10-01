@@ -193,7 +193,7 @@ class ADRGenerator:
 
         match = re.search(r"ADR[-_]?(\d+)", adr.title)
         number = match.group(1) if match else str(self._next_number - 1)
-        short_title = re.sub(r"[^a-z0-9]+", "-", re.sub(r"^ADR[-_]?\d+[: ]*", "", adr.title).lower()).strip("-")
+        short_title = re.sub(r"[^a-z0-9]+", "-", re.sub(r"^ADR[-_]?\d+[: ]*", "", adr.title).lower()).strip("-")  # noqa: E501
         filename = f"ADR-{number}-{short_title}.md"
         path = target / filename
         path.write_text(self.to_markdown(adr), encoding="utf-8")

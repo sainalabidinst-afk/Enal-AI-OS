@@ -37,9 +37,9 @@ class CQRSEvaluator:
         findings, recs = await evaluator.analyze()
     """
 
-    COMMAND_HINTS = ("command", "write", "create", "update", "delete", "post", "put", "submit", "execute")
+    COMMAND_HINTS = ("command", "write", "create", "update", "delete", "post", "put", "submit", "execute")  # noqa: E501
     QUERY_HINTS = ("query", "read", "get", "find", "list", "search", "fetch", "retrieve", "load")
-    SEPARATION_HINTS = ("command", "query", "queries", "commands", "cqrs", "write_model", "read_model")
+    SEPARATION_HINTS = ("command", "query", "queries", "commands", "cqrs", "write_model", "read_model")  # noqa: E501
     ANTI_PATTERN_HINTS = ("write_through", "read_through", "same_model", "shared_model")
 
     def __init__(self, repo_path: str | Path):
@@ -271,7 +271,7 @@ class CQRSEvaluator:
                     impact="Improves scalability and query performance",
                 )
             )
-        if any(f.category == FindingCategory.cqrs_mismatch and f.severity == Severity.low for f in findings):
+        if any(f.category == FindingCategory.cqrs_mismatch and f.severity == Severity.low for f in findings):  # noqa: E501
             recs.append(
                 Recommendation(
                     priority=Priority.low,

@@ -186,7 +186,7 @@ class MikroTikAdapter(VendorAdapter):
             ast.dns = UniversalDNS(
                 servers=config.dns_config.servers,
                 allow_remote=config.dns_config.allow_remote_requests,
-                cache_size=int(config.dns_config.cache_size) if config.dns_config.cache_size else 2048,
+                cache_size=int(config.dns_config.cache_size) if config.dns_config.cache_size else 2048,  # noqa: E501
             )
 
         # Bridges
@@ -270,7 +270,7 @@ class MikroTikAdapter(VendorAdapter):
             lines.append("/interface ethernet")
             for iface in ast.interfaces:
                 disabled = "yes" if iface.vendor_specific.get("disabled") else "no"
-                lines.append(f"set [ find default-name={iface.name} ] name={iface.name} disabled={disabled}")
+                lines.append(f"set [ find default-name={iface.name} ] name={iface.name} disabled={disabled}")  # noqa: E501
             lines.append("")
 
         # Bridges
@@ -283,7 +283,7 @@ class MikroTikAdapter(VendorAdapter):
         if ast.ip_addresses:
             lines.append("/ip address")
             for ip in ast.ip_addresses:
-                lines.append(f"add address={ip.address} interface={ip.interface} network={ip.network}")
+                lines.append(f"add address={ip.address} interface={ip.interface} network={ip.network}")  # noqa: E501
             lines.append("")
 
         # DHCP Servers
@@ -296,7 +296,7 @@ class MikroTikAdapter(VendorAdapter):
 
             lines.append("/ip dhcp-server")
             for dhcp in ast.dhcp_servers:
-                lines.append(f"add name={dhcp.name} interface={dhcp.interface} address-pool={dhcp.name}_pool")
+                lines.append(f"add name={dhcp.name} interface={dhcp.interface} address-pool={dhcp.name}_pool")  # noqa: E501
             lines.append("")
 
         # Firewall Rules

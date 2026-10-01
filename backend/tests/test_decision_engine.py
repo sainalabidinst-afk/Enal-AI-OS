@@ -13,7 +13,7 @@ class TestDecisionOption:
         assert option.metadata == {}
 
     def test_custom_values(self):
-        option = DecisionOption(id="opt1", description="Option 1", utility=0.8, risk=0.2, cost=0.1, confidence=0.9)
+        option = DecisionOption(id="opt1", description="Option 1", utility=0.8, risk=0.2, cost=0.1, confidence=0.9)  # noqa: E501
         assert option.utility == 0.8
         assert option.risk == 0.2
 
@@ -36,7 +36,7 @@ class TestDecisionEngine:
 
     async def test_decide_single_option(self):
         engine = DecisionEngine()
-        options = [DecisionOption(id="opt1", description="Only option", confidence=0.8, expected_value=0.5)]
+        options = [DecisionOption(id="opt1", description="Only option", confidence=0.8, expected_value=0.5)]  # noqa: E501
         result = await engine.decide(options)
         assert result.selected_option_id == "opt1"
         assert result.selected_description == "Only option"
@@ -46,8 +46,8 @@ class TestDecisionEngine:
     async def test_decide_multiple_options_selects_best(self):
         engine = DecisionEngine()
         options = [
-            DecisionOption(id="opt1", description="Low", utility=0.3, confidence=0.5, risk=0.1, cost=0.1),
-            DecisionOption(id="opt2", description="High", utility=0.9, confidence=0.9, risk=0.1, cost=0.1),
+            DecisionOption(id="opt1", description="Low", utility=0.3, confidence=0.5, risk=0.1, cost=0.1),  # noqa: E501
+            DecisionOption(id="opt2", description="High", utility=0.9, confidence=0.9, risk=0.1, cost=0.1),  # noqa: E501
         ]
         result = await engine.decide(options)
         assert result.selected_option_id == "opt2"
@@ -56,7 +56,7 @@ class TestDecisionEngine:
 
     def test_calculate_expected_value(self):
         engine = DecisionEngine()
-        option = DecisionOption(id="opt1", description="Option 1", utility=0.8, confidence=0.9, risk=0.2, cost=0.1)
+        option = DecisionOption(id="opt1", description="Option 1", utility=0.8, confidence=0.9, risk=0.2, cost=0.1)  # noqa: E501
         ev = engine._calculate_expected_value(option)
         assert ev == (0.8 * 0.9) - (0.2 + 0.1)
 

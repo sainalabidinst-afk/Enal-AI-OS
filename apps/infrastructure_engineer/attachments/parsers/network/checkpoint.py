@@ -10,10 +10,10 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class CheckPointParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.checkpoint or "check point" in meta.text_preview.lower() or "cp-".lower() in meta.filename.lower()
+        return meta.vendor == VendorFamily.checkpoint or "check point" in meta.text_preview.lower() or "cp-".lower() in meta.filename.lower()  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.checkpoint, format="checkpoint", device_role=meta.device_role)
+        ast = InfrastructureAST(vendor=VendorFamily.checkpoint, format="checkpoint", device_role=meta.device_role)  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

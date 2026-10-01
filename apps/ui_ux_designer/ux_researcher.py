@@ -121,7 +121,7 @@ class UXResearcher:
         stages = ["Awareness", "Consideration", "Adoption", "Usage", "Advocacy"]
 
         for persona in personas:
-            journey = {
+            journey: dict[str, Any] = {
                 "persona": persona.name,
                 "role": persona.role,
                 "stages": [],

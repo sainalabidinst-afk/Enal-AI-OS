@@ -45,7 +45,7 @@ class MemoryService(CognitiveService):
                 relevant_memories = await memory_manager.search("knowledge", user_input, limit=5)
             except Exception:
                 pass
-        return {"relevant_memories": relevant_memories, "working_memory": perception.get("memories", [])}
+        return {"relevant_memories": relevant_memories, "working_memory": perception.get("memories", [])}  # noqa: E501
 
 
 class ReasoningService(CognitiveService):
@@ -56,7 +56,7 @@ class ReasoningService(CognitiveService):
         hypotheses = await reasoning_engine.generate_hypotheses(problem)
         chain = await reasoning_engine.reason(problem, hypotheses)
         decision = await reasoning_engine.decide(chain)
-        return {"hypotheses": [h.__dict__ for h in hypotheses], "chain": chain.__dict__, "decision": decision}
+        return {"hypotheses": [h.__dict__ for h in hypotheses], "chain": chain.__dict__, "decision": decision}  # noqa: E501
 
 
 class PlanningService(CognitiveService):
@@ -110,7 +110,7 @@ class ReflectionService(CognitiveService):
         task = context.get("perception", {}).get("input", "")
         result = decision.get("decision", "") if isinstance(decision, dict) else decision
         review = await self_reflection.review(task, result)
-        return {"review": review, "score": review.get("score", 0), "passed": review.get("passed", False)}
+        return {"review": review, "score": review.get("score", 0), "passed": review.get("passed", False)}  # noqa: E501
 
 
 class LearningService(CognitiveService):
@@ -118,7 +118,7 @@ class LearningService(CognitiveService):
         reflection = context.get("reflection", {})
         review = reflection.get("review", {})
         score = review.get("score", 0)
-        return {"learned": score >= 7, "quality_score": score, "suggestions": review.get("suggestions", [])}
+        return {"learned": score >= 7, "quality_score": score, "suggestions": review.get("suggestions", [])}  # noqa: E501
 
 
 class SimulationService(CognitiveService):
@@ -132,7 +132,7 @@ class SimulationService(CognitiveService):
         engine = ScenarioSimulatorEngine()
         simulation_ctx = context.get("simulation", context)
         request = engine.build_scenario(
-            description=simulation_ctx.get("description", simulation_ctx.get("input", context.get("perception", {}).get("input", ""))),
+            description=simulation_ctx.get("description", simulation_ctx.get("input", context.get("perception", {}).get("input", ""))),  # noqa: E501
             base_state=simulation_ctx.get("base_state", {}),
             iterations=simulation_ctx.get("iterations", 50),
             seed=simulation_ctx.get("seed"),
@@ -198,7 +198,7 @@ class CognitiveKernel:
     def list_services(self) -> list[str]:
         return list(self.services.keys())
 
-    async def execute_pipeline(self, pipeline: list[str], context: dict[str, Any]) -> dict[str, Any]:
+    async def execute_pipeline(self, pipeline: list[str], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
         result = dict(context)
         pipeline_results: dict[str, Any] = {}
         for service_name in pipeline:

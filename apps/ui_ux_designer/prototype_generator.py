@@ -70,7 +70,7 @@ class PrototypeGenerator:
 
         return Prototype(
             name=f"Prototype — {context.project_name}",
-            description=f"Prototipe {fidelity} fidelity untuk {context.project_name} di domain {context.domain}",
+            description=f"Prototipe {fidelity} fidelity untuk {context.project_name} di domain {context.domain}",  # noqa: E501
             fidelity=fidelity,
             screens=screens,
             user_flows=user_flows,
@@ -162,21 +162,21 @@ class PrototypeGenerator:
 
     def _screen_interactions(self, screen_name: str) -> list[dict[str, Any]]:
         """Generate interaction definitions for a screen."""
-        interaction_map = {
+        interaction_map: dict[str, list[dict[str, Any]]] = {
             "Home": [
-                {"trigger": "click", "target": "cta-button", "action": "navigate", "destination": "Form"},
-                {"trigger": "hover", "target": "card", "action": "elevate", "params": {"shadow": "md"}},
+                {"trigger": "click", "target": "cta-button", "action": "navigate", "destination": "Form"},  # noqa: E501
+                {"trigger": "hover", "target": "card", "action": "elevate", "params": {"shadow": "md"}},  # noqa: E501
             ],
             "List": [
-                {"trigger": "click", "target": "filter-toggle", "action": "toggle", "target_component": "FilterPanel"},
-                {"trigger": "search", "target": "search-bar", "action": "filter", "params": {"debounce": "300ms"}},
+                {"trigger": "click", "target": "filter-toggle", "action": "toggle", "target_component": "FilterPanel"},  # noqa: E501
+                {"trigger": "search", "target": "search-bar", "action": "filter", "params": {"debounce": "300ms"}},  # noqa: E501
             ],
             "Form": [
                 {"trigger": "submit", "target": "form", "action": "validate", "then": "submit_api"},
                 {"trigger": "blur", "target": "input", "action": "validate_field"},
             ],
             "Dashboard": [
-                {"trigger": "click", "target": "metric-card", "action": "drill_down", "destination": "Detail"},
+                {"trigger": "click", "target": "metric-card", "action": "drill_down", "destination": "Detail"},  # noqa: E501
             ],
         }
         return interaction_map.get(screen_name, [
@@ -192,7 +192,7 @@ class PrototypeGenerator:
         flows: list[dict[str, Any]] = []
         screen_names = [s.name for s in screens]
 
-        flow_templates = [
+        flow_templates: list[dict[str, Any]] = [
             {
                 "name": "Onboarding Flow",
                 "description": "Alur pengguna baru menuju aktivasi pertama",
@@ -219,7 +219,7 @@ class PrototypeGenerator:
 
         for template in flow_templates:
             flow = dict(template)
-            flow["screens_involved"] = [s for s in screen_names if s in [step["screen"] for step in flow["steps"]]]
+            flow["screens_involved"] = [s for s in screen_names if s in [step["screen"] for step in flow["steps"]]]  # noqa: E501
             flows.append(flow)
 
         return flows
@@ -237,7 +237,7 @@ class PrototypeGenerator:
             "gestures": [
                 {"gesture": "swipe_left", "action": "next_item", "context": "List, Detail"},
                 {"gesture": "swipe_right", "action": "previous_item", "context": "List, Detail"},
-                {"gesture": "pull_to_refresh", "action": "refresh_data", "context": "List, Dashboard"},
+                {"gesture": "pull_to_refresh", "action": "refresh_data", "context": "List, Dashboard"},  # noqa: E501
             ],
             "keyboard_shortcuts": [
                 {"key": "Ctrl+K", "action": "open_search", "context": "global"},

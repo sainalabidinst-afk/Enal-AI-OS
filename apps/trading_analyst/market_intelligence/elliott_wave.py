@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class ElliottWaveAnalyzer:
     """
     Analyze price action for Elliott Wave patterns.
-    
+
     Detects:
     - Impulse wave structure (5-wave)
     - Corrective wave structure (3-wave)
@@ -32,14 +32,14 @@ class ElliottWaveAnalyzer:
     def detect_impulse_wave(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect 5-wave impulse pattern.
-        
+
         Rules:
         - Wave 1: Initial move, often with low volume
         - Wave 2: Retracement of wave 1 (typically 50-61.8%)
         - Wave 3: Longest, strongest wave (volume expands)
         - Wave 4: Retracement of wave 3 (typically 38.2-50%)
         - Wave 5: Final wave (often with divergence)
-        
+
         Rules:
         - Wave 2 cannot retrace beyond wave 1 start
         - Wave 3 cannot be the shortest
@@ -72,7 +72,7 @@ class ElliottWaveAnalyzer:
         # Check for 5-wave impulse pattern (alternating swings)
         if len(swing_highs) >= 3 and len(swing_lows) >= 2:
             last_highs = [h for _, h in swing_highs[-3:]]
-            last_lows = [l for _, l in swing_lows[-2:]]
+            last_lows = [l for _, l in swing_lows[-2:]]  # noqa: E741
 
             # Impulse: higher highs and higher lows
             if last_highs[-1] > last_highs[-2] > last_highs[-3] and \
@@ -142,7 +142,7 @@ class ElliottWaveAnalyzer:
     def detect_ending_diagonal(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect Ending Diagonal pattern.
-        
+
         An ending diagonal occurs in wave 5 of an impulse.
         Characterized by converging trendlines (wedge pattern)
         where sub-waves are 3-3-3-3-3.

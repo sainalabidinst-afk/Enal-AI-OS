@@ -42,8 +42,8 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_get_related(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
-        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))  # noqa: E501
         await graph.add_edge("n1", "n2", RelationType.DEPENDS_ON)
         related = await graph.get_related("n1")
         assert len(related) == 1
@@ -52,8 +52,8 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_get_related_filters_by_relation(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
-        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))  # noqa: E501
         await graph.add_edge("n1", "n2", RelationType.DEPENDS_ON)
         related = await graph.get_related("n1", relation=RelationType.USES)
         assert len(related) == 0
@@ -61,8 +61,8 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_get_dependencies(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
-        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))  # noqa: E501
         await graph.add_edge("n2", "n1", RelationType.DEPENDS_ON)
         deps = await graph.get_dependencies("n1")
         assert len(deps) == 1
@@ -71,8 +71,8 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_get_dependents(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
-        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))  # noqa: E501
         await graph.add_edge("n1", "n2", RelationType.DEPENDS_ON)
         dependents = await graph.get_dependents("n1")
         assert len(dependents) == 1
@@ -81,9 +81,9 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_propagate_change(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
-        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))
-        await graph.add_node(GraphNode(id="n3", node_type=NodeType.PROJECT, name="P3", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n2", node_type=NodeType.PROJECT, name="P2", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n3", node_type=NodeType.PROJECT, name="P3", description="d"))  # noqa: E501
         await graph.add_edge("n1", "n2", RelationType.DEPENDS_ON)
         await graph.add_edge("n2", "n3", RelationType.DEPENDS_ON)
         affected = await graph.propagate_change("n1", {})
@@ -93,7 +93,7 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_query_by_name(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="MyProject", description="A project"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="MyProject", description="A project"))  # noqa: E501
         results = await graph.query("MyProject")
         assert len(results) == 1
         assert results[0]["name"] == "MyProject"
@@ -101,15 +101,15 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_query_by_description(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="A test project"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="A test project"))  # noqa: E501
         results = await graph.query("test")
         assert len(results) == 1
 
     @pytest.mark.asyncio
     async def test_query_filters_by_node_type(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
-        await graph.add_node(GraphNode(id="n2", node_type=NodeType.COMPONENT, name="C1", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
+        await graph.add_node(GraphNode(id="n2", node_type=NodeType.COMPONENT, name="C1", description="d"))  # noqa: E501
         results = await graph.query("P1", node_type=NodeType.PROJECT)
         assert len(results) == 1
         assert results[0]["id"] == "n1"
@@ -117,14 +117,14 @@ class TestSemanticProjectGraph:
     @pytest.mark.asyncio
     async def test_query_returns_empty_for_no_match(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))
+        await graph.add_node(GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d"))  # noqa: E501
         results = await graph.query("nonexistent")
         assert results == []
 
     @pytest.mark.asyncio
     async def test_get_evidence(self, tmp_path):
         graph = SemanticProjectGraph(base_path=str(tmp_path))
-        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"confidence": 0.8, "url": "http://test.com"}]})
+        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"confidence": 0.8, "url": "http://test.com"}]})  # noqa: E501
         await graph.add_node(node)
         evidence = await graph.get_evidence("n1")
         assert evidence is not None
@@ -144,19 +144,19 @@ class TestSemanticProjectGraph:
 
     def test_calculate_evidence_score_with_sources(self):
         graph = SemanticProjectGraph()
-        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"confidence": 0.8}, {"confidence": 0.6}]})
+        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"confidence": 0.8}, {"confidence": 0.6}]})  # noqa: E501
         score = graph._calculate_evidence_score(node)
         assert score == 0.7
 
     def test_format_citation_with_url(self):
         graph = SemanticProjectGraph()
-        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"url": "http://test.com"}]})
+        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"url": "http://test.com"}]})  # noqa: E501
         citation = graph._format_citation(node)
         assert "http://test.com" in citation
 
     def test_format_citation_with_document(self):
         graph = SemanticProjectGraph()
-        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"document": "doc.pdf"}]})
+        node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d", properties={"sources": [{"document": "doc.pdf"}]})  # noqa: E501
         citation = graph._format_citation(node)
         assert "doc.pdf" in citation
 

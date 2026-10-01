@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class PsychologyAnalyzer:
     """
     Analyze market psychology and sentiment.
-    
+
     Detects:
     - Fear/Greed extremes (contrarian signals)
     - FOMO (Fear Of Missing Out) patterns
@@ -38,7 +38,7 @@ class PsychologyAnalyzer:
                                     tf: str) -> list[MarketEvidence]:
         """
         Detect sentiment extremes using RSI and price action.
-        
+
         Args:
             rsi: Current RSI value (0-100)
             volume_spike: Whether volume is spiking
@@ -63,7 +63,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"euphoria_blowoff_{tf}",
                     type="psychology",
-                    description=f"RSI {rsi:.1f} + volume spike on {tf} - possible blowoff top (euphoria)",
+                    description=f"RSI {rsi:.1f} + volume spike on {tf} - possible blowoff top (euphoria)",  # noqa: E501
                     timeframe=tf,
                     strength=0.85,
                     direction="bearish",
@@ -85,7 +85,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"capitulation_{tf}",
                     type="psychology",
-                    description=f"RSI {rsi:.1f} + volume spike on {tf} - possible capitulation (panic selling)",
+                    description=f"RSI {rsi:.1f} + volume spike on {tf} - possible capitulation (panic selling)",  # noqa: E501
                     timeframe=tf,
                     strength=0.85,
                     direction="bullish",
@@ -120,7 +120,7 @@ class PsychologyAnalyzer:
             evidence.append(MarketEvidence(
                 id=f"climactic_action_{tf}",
                 type="psychology",
-                description=f"Price extreme + volume spike on {tf} - climactic behavior (emotional extreme)",
+                description=f"Price extreme + volume spike on {tf} - climactic behavior (emotional extreme)",  # noqa: E501
                 timeframe=tf,
                 strength=0.70,
                 direction="neutral",
@@ -133,7 +133,7 @@ class PsychologyAnalyzer:
     def analyze_fomo(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect FOMO (Fear Of Missing Out) patterns.
-        
+
         FOMO indicators:
         - Consecutive large bullish candles
         - Volume increasing as price accelerates
@@ -173,7 +173,7 @@ class PsychologyAnalyzer:
                     evidence.append(MarketEvidence(
                         id=f"fomo_acceleration_{tf}",
                         type="psychology",
-                        description=f"FOMO pattern on {tf}: {consecutive_gains} large gains with increasing volume",
+                        description=f"FOMO pattern on {tf}: {consecutive_gains} large gains with increasing volume",  # noqa: E501
                         timeframe=tf,
                         strength=0.70,
                         direction="bearish",
@@ -184,7 +184,7 @@ class PsychologyAnalyzer:
                     evidence.append(MarketEvidence(
                         id=f"fomo_weak_volume_{tf}",
                         type="psychology",
-                        description=f"FOMO warning on {tf}: {consecutive_gains} large gains but volume not confirming",
+                        description=f"FOMO warning on {tf}: {consecutive_gains} large gains but volume not confirming",  # noqa: E501
                         timeframe=tf,
                         strength=0.55,
                         direction="bearish",
@@ -209,7 +209,7 @@ class PsychologyAnalyzer:
                     evidence.append(MarketEvidence(
                         id=f"panic_selling_{tf}",
                         type="psychology",
-                        description=f"Panic selling on {tf}: {consecutive_losses} large losses with increasing volume",
+                        description=f"Panic selling on {tf}: {consecutive_losses} large losses with increasing volume",  # noqa: E501
                         timeframe=tf,
                         strength=0.75,
                         direction="bullish",
@@ -227,7 +227,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"price_far_above_ma50_{tf}",
                     type="psychology",
-                    description=f"Price {deviation:.1f}% above MA50 on {tf} - extended from mean (potential greed)",
+                    description=f"Price {deviation:.1f}% above MA50 on {tf} - extended from mean (potential greed)",  # noqa: E501
                     timeframe=tf,
                     strength=min(deviation / 20, 0.85),
                     direction="bearish",
@@ -238,7 +238,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"price_far_below_ma50_{tf}",
                     type="psychology",
-                    description=f"Price {abs(deviation):.1f}% below MA50 on {tf} - extended from mean (potential fear)",
+                    description=f"Price {abs(deviation):.1f}% below MA50 on {tf} - extended from mean (potential fear)",  # noqa: E501
                     timeframe=tf,
                     strength=min(abs(deviation) / 20, 0.85),
                     direction="bullish",
@@ -251,7 +251,7 @@ class PsychologyAnalyzer:
     def analyze_volume_psychology(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Analyze volume patterns for psychological insights.
-        
+
         - High volume on up days vs down days (conviction)
         - Volume climax (exhaustion)
         - Low volume after trend (indecision)
@@ -281,7 +281,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"buying_conviction_{tf}",
                     type="psychology",
-                    description=f"{up_ratio*100:.0f}% of volume on up days on {tf} - strong buying conviction",
+                    description=f"{up_ratio*100:.0f}% of volume on up days on {tf} - strong buying conviction",  # noqa: E501
                     timeframe=tf,
                     strength=min((up_ratio - 0.5) * 3, 0.85),
                     direction="bullish",
@@ -292,7 +292,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"selling_conviction_{tf}",
                     type="psychology",
-                    description=f"{down_volume/total_volume*100:.0f}% of volume on down days on {tf} - strong selling pressure",
+                    description=f"{down_volume/total_volume*100:.0f}% of volume on down days on {tf} - strong selling pressure",  # noqa: E501
                     timeframe=tf,
                     strength=min((0.5 - up_ratio) * 3, 0.85),
                     direction="bearish",
@@ -317,7 +317,7 @@ class PsychologyAnalyzer:
                     evidence.append(MarketEvidence(
                         id=f"buying_climax_{tf}",
                         type="psychology",
-                        description=f"Volume climax ({vol_ratio:.1f}x avg) on {tf} up day - potential buying exhaustion",
+                        description=f"Volume climax ({vol_ratio:.1f}x avg) on {tf} up day - potential buying exhaustion",  # noqa: E501
                         timeframe=tf,
                         strength=min(vol_ratio / 5, 0.85),
                         direction="bearish",
@@ -328,7 +328,7 @@ class PsychologyAnalyzer:
                     evidence.append(MarketEvidence(
                         id=f"selling_climax_{tf}",
                         type="psychology",
-                        description=f"Volume climax ({vol_ratio:.1f}x avg) on {tf} down day - potential selling exhaustion",
+                        description=f"Volume climax ({vol_ratio:.1f}x avg) on {tf} down day - potential selling exhaustion",  # noqa: E501
                         timeframe=tf,
                         strength=min(vol_ratio / 5, 0.85),
                         direction="bullish",
@@ -346,7 +346,7 @@ class PsychologyAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"volume_quiet_{tf}",
                     type="psychology",
-                    description=f"Volume dropped {((1 - vol_decline) * 100):.0f}% on {tf} - market indecision (waiting for catalyst)",
+                    description=f"Volume dropped {((1 - vol_decline) * 100):.0f}% on {tf} - market indecision (waiting for catalyst)",  # noqa: E501
                     timeframe=tf,
                     strength=0.60,
                     direction="neutral",

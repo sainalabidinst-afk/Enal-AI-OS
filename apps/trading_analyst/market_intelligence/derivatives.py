@@ -22,14 +22,14 @@ logger = logging.getLogger(__name__)
 class DerivativesAnalyzer:
     """
     Analyze options and futures market data.
-    
+
     Options Analysis:
     - Implied Volatility (IV) levels and changes
     - Put/Call ratio for sentiment
     - IV skew (volatility smile)
     - Max pain price level
     - Unusual activity detection
-    
+
     Futures Analysis:
     - Contango/Backwardation regime
     - Basis (spot vs futures)
@@ -41,7 +41,7 @@ class DerivativesAnalyzer:
                    iv_percentile: float, tf: str = "1d") -> list[MarketEvidence]:
         """
         Analyze Implied Volatility.
-        
+
         Args:
             current_iv: Current implied volatility (%)
             historical_iv: Historical average IV (%)
@@ -59,7 +59,7 @@ class DerivativesAnalyzer:
             evidence.append(MarketEvidence(
                 id="iv_elevated",
                 type="derivatives",
-                description=f"IV at {current_iv:.1f}% - {(iv_ratio - 1) * 100:.0f}% above historical average "
+                description=f"IV at {current_iv:.1f}% - {(iv_ratio - 1) * 100:.0f}% above historical average "  # noqa: E501
                            f"(expensive options, expected volatility)",
                 timeframe=tf,
                 strength=min((iv_ratio - 1) * 0.8, 0.85),
@@ -71,7 +71,7 @@ class DerivativesAnalyzer:
             evidence.append(MarketEvidence(
                 id="iv_depressed",
                 type="derivatives",
-                description=f"IV at {current_iv:.1f}% - {(1 - iv_ratio) * 100:.0f}% below historical average "
+                description=f"IV at {current_iv:.1f}% - {(1 - iv_ratio) * 100:.0f}% below historical average "  # noqa: E501
                            f"(cheap options, complacency)",
                 timeframe=tf,
                 strength=min((1 - iv_ratio) * 0.8, 0.80),
@@ -110,7 +110,7 @@ class DerivativesAnalyzer:
                                 tf: str = "1d") -> list[MarketEvidence]:
         """
         Analyze Put/Call ratio for sentiment.
-        
+
         Args:
             put_volume: Total put option volume
             call_volume: Total call option volume
@@ -185,7 +185,7 @@ class DerivativesAnalyzer:
             evidence.append(MarketEvidence(
                 id="pc_ratio_divergence",
                 type="derivatives",
-                description=f"Put/Call divergence: volume ratio {pc_ratio_vol:.2f} vs OI ratio {pc_ratio_oi:.2f} "
+                description=f"Put/Call divergence: volume ratio {pc_ratio_vol:.2f} vs OI ratio {pc_ratio_oi:.2f} "  # noqa: E501
                            f"- possible positioning shift",
                 timeframe=tf,
                 strength=0.65,
@@ -200,7 +200,7 @@ class DerivativesAnalyzer:
                         otm_call_iv: float, tf: str = "1d") -> list[MarketEvidence]:
         """
         Analyze IV skew (volatility smile).
-        
+
         Args:
             otm_put_iv: Out-of-the-money put IV (%)
             atm_iv: At-the-money IV (%)
@@ -260,7 +260,7 @@ class DerivativesAnalyzer:
                               tf: str = "1d") -> list[MarketEvidence]:
         """
         Analyze futures basis (spot vs futures).
-        
+
         Args:
             spot_price: Current spot price
             futures_price: Current futures price
@@ -279,7 +279,7 @@ class DerivativesAnalyzer:
             evidence.append(MarketEvidence(
                 id="futures_contango",
                 type="derivatives",
-                description=f"Futures in contango: futures {futures_price:.2f} vs spot {spot_price:.2f} "
+                description=f"Futures in contango: futures {futures_price:.2f} vs spot {spot_price:.2f} "  # noqa: E501
                            f"(basis: {basis:.2f}%, annualized: {annualized_basis:.1f}%)",
                 timeframe=tf,
                 strength=min(basis * 0.1, 0.75),
@@ -291,7 +291,7 @@ class DerivativesAnalyzer:
             evidence.append(MarketEvidence(
                 id="futures_backwardation",
                 type="derivatives",
-                description=f"Futures in backwardation: futures {futures_price:.2f} vs spot {spot_price:.2f} "
+                description=f"Futures in backwardation: futures {futures_price:.2f} vs spot {spot_price:.2f} "  # noqa: E501
                            f"(basis: {basis:.2f}%, annualized: {annualized_basis:.1f}%)",
                 timeframe=tf,
                 strength=min(abs(basis) * 0.1, 0.75),
@@ -308,7 +308,7 @@ class DerivativesAnalyzer:
                     open_interest: float, tf: str = "1w") -> list[MarketEvidence]:
         """
         Analyze COT (Commitment of Traders) report.
-        
+
         Args:
             commercial_long: Commercial (hedger) long positions
             commercial_short: Commercial (hedger) short positions
@@ -361,7 +361,7 @@ class DerivativesAnalyzer:
                 evidence.append(MarketEvidence(
                     id="cot_large_spec_long",
                     type="derivatives",
-                    description=f"Large specs net long {large_net:.0f}% - crowd bullish (contrarian signal)",
+                    description=f"Large specs net long {large_net:.0f}% - crowd bullish (contrarian signal)",  # noqa: E501
                     timeframe=tf,
                     strength=min(large_net * 0.015, 0.70),
                     direction="bearish",
@@ -372,7 +372,7 @@ class DerivativesAnalyzer:
                 evidence.append(MarketEvidence(
                     id="cot_large_spec_short",
                     type="derivatives",
-                    description=f"Large specs net short {abs(large_net):.0f}% - crowd bearish (contrarian signal)",
+                    description=f"Large specs net short {abs(large_net):.0f}% - crowd bearish (contrarian signal)",  # noqa: E501
                     timeframe=tf,
                     strength=min(abs(large_net) * 0.015, 0.70),
                     direction="bullish",
@@ -385,7 +385,7 @@ class DerivativesAnalyzer:
                 evidence.append(MarketEvidence(
                     id="cot_smart_money_bullish",
                     type="derivatives",
-                    description=f"Smart money bullish (commercials +{comm_net:.0f}%) vs crowd bearish "
+                    description=f"Smart money bullish (commercials +{comm_net:.0f}%) vs crowd bearish "  # noqa: E501
                                f"(specs {large_net:.0f}%) - strong bullish divergence",
                     timeframe=tf,
                     strength=0.80,
@@ -397,7 +397,7 @@ class DerivativesAnalyzer:
                 evidence.append(MarketEvidence(
                     id="cot_smart_money_bearish",
                     type="derivatives",
-                    description=f"Smart money bearish (commercials {comm_net:.0f}%) vs crowd bullish "
+                    description=f"Smart money bearish (commercials {comm_net:.0f}%) vs crowd bullish "  # noqa: E501
                                f"(specs +{large_net:.0f}%) - strong bearish divergence",
                     timeframe=tf,
                     strength=0.80,
@@ -412,10 +412,10 @@ class DerivativesAnalyzer:
                          current_price: float, tf: str = "1d") -> list[MarketEvidence]:
         """
         Analyze max pain (option expiration gravity).
-        
+
         Simplified calculation: the price level where the most options
         would expire worthless.
-        
+
         Args:
             option_chain: Dict with strikes, call_oi, put_oi
             current_price: Current market price
@@ -477,7 +477,7 @@ class DerivativesAnalyzer:
                 evidence.append(MarketEvidence(
                     id="max_pain_below",
                     type="derivatives",
-                    description=f"Price {abs(dist_to_max_pain):.1f}% below max pain ({max_pain:.2f}) "
+                    description=f"Price {abs(dist_to_max_pain):.1f}% below max pain ({max_pain:.2f}) "  # noqa: E501
                                f"- potential rally to expiration",
                     timeframe=tf,
                     strength=min(abs(dist_to_max_pain) * 0.05, 0.70),

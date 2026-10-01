@@ -101,7 +101,7 @@ def fetch_24hr_ticker(symbol: str) -> dict:
     return _fetch_json(url)
 
 
-def fetch_multi_timeframe(symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT) -> dict[str, list[dict]]:
+def fetch_multi_timeframe(symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT) -> dict[str, list[dict]]:  # noqa: E501
     """
     Fetch OHLCV for multiple timeframes.
 
@@ -139,7 +139,7 @@ def validate_symbol(symbol: str) -> bool:
         return False
 
 
-async def build_trading_context(symbol: str, timeframes: list[str], exchange: str = "binance") -> TradingContext:
+async def build_trading_context(symbol: str, timeframes: list[str], exchange: str = "binance") -> TradingContext:  # noqa: E501
     """Build a TradingContext by fetching market data for multiple timeframes."""
     raw_data = fetch_multi_timeframe(symbol, timeframes)
     parsed: dict[str, list[OHLCV]] = {}

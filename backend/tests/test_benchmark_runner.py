@@ -16,28 +16,28 @@ class TestBenchmarkRunner:
     def test_score_case_all_pass(self):
         runner = BenchmarkRunner()
         case = FakeCase("c1", "cisco")
-        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8)
-        score = runner._score_case(case, expected, findings=2, risk_score=3.0, confidence=0.9, ast={"vendor": "cisco", "findings": [1], "keywords": ["test"]})
+        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8)  # noqa: E501
+        score = runner._score_case(case, expected, findings=2, risk_score=3.0, confidence=0.9, ast={"vendor": "cisco", "findings": [1], "keywords": ["test"]})  # noqa: E501
         assert score >= 0.6
 
     def test_score_case_keyword_match(self):
         runner = BenchmarkRunner()
         case = FakeCase("c1", "cisco")
-        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8, expected_keywords=["cisco", "firewall"])
-        score = runner._score_case(case, expected, findings=2, risk_score=3.0, confidence=0.9, ast={"vendor": "cisco", "findings": [1]})
+        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8, expected_keywords=["cisco", "firewall"])  # noqa: E501
+        score = runner._score_case(case, expected, findings=2, risk_score=3.0, confidence=0.9, ast={"vendor": "cisco", "findings": [1]})  # noqa: E501
         assert score >= 0.6
 
     def test_score_case_no_keywords(self):
         runner = BenchmarkRunner()
         case = FakeCase("c1", "cisco")
-        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8)
+        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8)  # noqa: E501
         score = runner._score_case(case, expected, findings=0, risk_score=10.0, confidence=0.5)
         assert score < 0.6
 
     def test_capability_score_all_pass(self):
         runner = BenchmarkRunner()
         case = FakeCase("c1", "cisco")
-        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8)
+        expected = ExpectedResult(vendor="cisco", device_type="router", findings_min=1, risk_max=5.0, confidence_min=0.8)  # noqa: E501
         score = runner._capability_score(case, expected, findings=2, risk_score=3.0, confidence=0.9)
         assert score > 0
 

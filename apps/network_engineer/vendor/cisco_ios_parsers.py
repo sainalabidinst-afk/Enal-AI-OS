@@ -33,7 +33,7 @@ def parse_interfaces(ast: NetworkAST, lines: list[str]):
             iface_name = stripped.split(" ", 1)[1]
             iface = UniversalInterface(
                 name=iface_name,
-                type=__import__('apps.network_engineer.vendor.models', fromlist=['InterfaceType']).InterfaceType.ETHERNET,
+                type=__import__('apps.network_engineer.vendor.models', fromlist=['InterfaceType']).InterfaceType.ETHERNET,  # noqa: E501
             )
             ast.interfaces.append(iface)
             current_iface = iface
@@ -115,7 +115,7 @@ def parse_routes(ast: NetworkAST, lines: list[str]):
                         distance = int(parts[5])
                     except ValueError:
                         pass
-                prefix = __import__('apps.network_engineer.vendor.cisco_ios', fromlist=['CiscoIOSAdapter']).CiscoIOSAdapter._mask_to_prefix(mask)
+                prefix = __import__('apps.network_engineer.vendor.cisco_ios', fromlist=['CiscoIOSAdapter']).CiscoIOSAdapter._mask_to_prefix(mask)  # noqa: E501
                 ast.routes.append(UniversalRoute(
                     destination=f"{dst}/{prefix}",
                     gateway=gateway,
@@ -356,7 +356,7 @@ def parse_logging(ast: NetworkAST, lines: list[str]):
         if stripped.startswith("logging "):
             ast.system.logging_enabled = True
             parts = stripped.split()
-            if len(parts) >= 2 and parts[1] != "on" and parts[1] != "console" and parts[1] != "monitor":
+            if len(parts) >= 2 and parts[1] != "on" and parts[1] != "console" and parts[1] != "monitor":  # noqa: E501
                 ast.vendor_specific["logging_host"] = parts[1]
             break
 
@@ -398,7 +398,7 @@ def parse_users(ast: NetworkAST, lines: list[str]):
                 except (ValueError, IndexError):
                     pass
             elif stripped.startswith("secret "):
-                current_user.vendor_specific["secret_type"] = stripped.split(" ", 1)[1].split(" ")[0] if " " in stripped else ""
+                current_user.vendor_specific["secret_type"] = stripped.split(" ", 1)[1].split(" ")[0] if " " in stripped else ""  # noqa: E501
             elif stripped == "!" or stripped.startswith("username "):
                 in_username = False
                 current_user = None

@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class SMCAnalyzer:
     """
     Analyze market structure using Smart Money Concepts.
-    
+
     Provides:
     - Market structure levels (HH, HL, LH, LL)
     - Fair Value Gaps (FVG)
@@ -36,11 +36,11 @@ class SMCAnalyzer:
     def detect_fair_value_gaps(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect Fair Value Gaps (FVG).
-        
+
         FVG occurs when three consecutive candles have a gap between
         candle 1's low and candle 3's high (bullish FVG) or
         candle 1's high and candle 3's low (bearish FVG).
-        
+
         FVGs act as magnets - price tends to return to fill them.
         """
         evidence: list[MarketEvidence] = []
@@ -87,10 +87,10 @@ class SMCAnalyzer:
     def detect_order_blocks(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect Order Blocks (OB).
-        
+
         Bullish OB: Last down candle before strong up move
         Bearish OB: Last up candle before strong down move
-        
+
         OBs act as support/resistance levels.
         """
         evidence: list[MarketEvidence] = []
@@ -104,7 +104,7 @@ class SMCAnalyzer:
             ohlcv[i + 2]
 
             # Bullish OB: c_prev bearish, c_curr and c_next bullish
-            if c_prev.close < c_prev.open and c_curr.close > c_prev.high and c_next.close > c_curr.high:
+            if c_prev.close < c_prev.open and c_curr.close > c_prev.high and c_next.close > c_curr.high:  # noqa: E501
                 ob_high = c_prev.high
                 ob_low = c_prev.low
                 evidence.append(MarketEvidence(
@@ -119,7 +119,7 @@ class SMCAnalyzer:
                 ))
 
             # Bearish OB: c_prev bullish, c_curr and c_next bearish
-            if c_prev.close > c_prev.open and c_curr.close < c_prev.low and c_next.close < c_curr.low:
+            if c_prev.close > c_prev.open and c_curr.close < c_prev.low and c_next.close < c_curr.low:  # noqa: E501
                 ob_high = c_prev.high
                 ob_low = c_prev.low
                 evidence.append(MarketEvidence(
@@ -138,11 +138,11 @@ class SMCAnalyzer:
     def detect_liquidity_sweeps(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect liquidity sweeps.
-        
+
         Liquidity sweeps occur when price briefly breaks:
         - Above a previous high (to trigger buy stops) then reverses
         - Below a previous low (to trigger sell stops) then reverses
-        
+
         These are also known as "stop hunts" or "liquidity grabs".
         """
         evidence: list[MarketEvidence] = []
@@ -164,7 +164,7 @@ class SMCAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"liq_sweep_high_{tf}",
                     type="smc_liquidity",
-                    description=f"Liquidity sweep above {recent_high:.2f} to {sweep_high:.2f} on {tf}",
+                    description=f"Liquidity sweep above {recent_high:.2f} to {sweep_high:.2f} on {tf}",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bearish",
@@ -183,7 +183,7 @@ class SMCAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"liq_sweep_low_{tf}",
                     type="smc_liquidity",
-                    description=f"Liquidity sweep below {recent_low:.2f} to {sweep_low:.2f} on {tf}",
+                    description=f"Liquidity sweep below {recent_low:.2f} to {sweep_low:.2f} on {tf}",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bullish",
@@ -196,7 +196,7 @@ class SMCAnalyzer:
     def detect_premium_discount_zones(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect Premium/Discount zones.
-        
+
         Premium: Above 50% of range (sell zone)
         Discount: Below 50% of range (buy zone)
         Optimal Trade Entry (OTE): 70-80% discount/pullback

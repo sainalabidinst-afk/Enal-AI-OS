@@ -92,7 +92,7 @@ class DatabaseEngineerWorker:
         request = DatabaseRequest(
             operation=operation,
             database_type=database_type,
-            schema=schema,
+            database_schema=schema,
             queries=task.get("queries", []),
             workload_profile=workload,
             current_schema_version=task.get("current_schema_version", "v1"),

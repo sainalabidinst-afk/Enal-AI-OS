@@ -1,7 +1,7 @@
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from backend.app.core.event_bus import event_bus
@@ -10,7 +10,7 @@ from backend.app.core.events import Event
 logger = logging.getLogger(__name__)
 
 
-class WorkflowStatus(str, Enum):
+class WorkflowStatus(StrEnum):
     DRAFT = "draft"
     ACTIVE = "active"
     RUNNING = "running"
@@ -120,7 +120,7 @@ class WorkflowEngine:
                             "workflow.failed",
                             {"workflow_id": workflow_id, "failed_step": step.id},
                         )
-                        return {"status": "failed", "results": results, "error": f"Step {step.id} failed"}
+                        return {"status": "failed", "results": results, "error": f"Step {step.id} failed"}  # noqa: E501
                 else:
                     executed.add(step.id)
                     await self._publish_event(

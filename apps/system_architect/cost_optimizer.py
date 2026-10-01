@@ -48,7 +48,7 @@ class CostOptimizer:
                 category=FindingCategory.architecture_smell,
                 severity=Severity.low,
                 title="Large number of modules may indicate redundancy",
-                description=f"{len(modules)} modules detected; review for consolidation opportunities",
+                description=f"{len(modules)} modules detected; review for consolidation opportunities",  # noqa: E501
                 recommendation="Review modules for consolidation or shared library extraction",
                 impact=Impact.maintainability,
                 confidence=0.5,
@@ -62,7 +62,7 @@ class CostOptimizer:
                 category=FindingCategory.architecture_smell,
                 severity=Severity.medium,
                 title="Low maintainability increases operational cost",
-                description=f"Maintainability score {metrics.maintainability_score:.1f} indicates high technical debt",
+                description=f"Maintainability score {metrics.maintainability_score:.1f} indicates high technical debt",  # noqa: E501
                 recommendation="Invest in refactoring to reduce long-term maintenance costs",
                 impact=Impact.maintainability,
                 confidence=0.7,
@@ -77,7 +77,7 @@ class CostOptimizer:
                 category=FindingCategory.architecture_smell,
                 severity=Severity.medium,
                 title="Circular dependencies may increase scaling costs",
-                description=f"{cycles} circular dependencies detected; may require coordinated scaling",
+                description=f"{cycles} circular dependencies detected; may require coordinated scaling",  # noqa: E501
                 recommendation="Break circular dependencies to enable independent scaling",
                 impact=Impact.scalability,
                 confidence=0.65,

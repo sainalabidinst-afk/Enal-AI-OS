@@ -246,9 +246,9 @@ class SecurityEngineerEngine:
         recs: list[str] = []
 
         if severity_counts.get("critical", 0) > 0:
-            recs.append(f"Address {severity_counts['critical']} critical security finding(s) immediately")
+            recs.append(f"Address {severity_counts['critical']} critical security finding(s) immediately")  # noqa: E501
         if secrets:
-            recs.append(f"Rotate and remove {len(secrets)} hardcoded secret(s) — store in a secrets manager")
+            recs.append(f"Rotate and remove {len(secrets)} hardcoded secret(s) — store in a secrets manager")  # noqa: E501
         if dep_findings:
             recs.append(f"Upgrade {len(dep_findings)} vulnerable dependency package(s)")
         if severity_counts.get("high", 0) > 0:

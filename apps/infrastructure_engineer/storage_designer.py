@@ -39,7 +39,7 @@ TIER_MAP: dict[str, StorageTier] = {
 class StorageDesigner:
     """Designs storage specifications for various workloads."""
 
-    def design_storage(self, request: InfrastructureEngineerRequest) -> list[VolumeSpec | StorageClassSpec]:
+    def design_storage(self, request: InfrastructureEngineerRequest) -> list[VolumeSpec | StorageClassSpec]:  # noqa: E501
         inputs = request.inputs
         storage_requests = inputs.get("storage_specs", [])
         result: list[VolumeSpec | StorageClassSpec] = []
@@ -120,7 +120,7 @@ class StorageDesigner:
                 monthly = spec.size_gb * gb_cost
                 if spec.iops > 3000:
                     monthly += (spec.iops - 3000) * 0.005
-                by_type[spec.storage_type.value] = by_type.get(spec.storage_type.value, 0.0) + monthly
+                by_type[spec.storage_type.value] = by_type.get(spec.storage_type.value, 0.0) + monthly  # noqa: E501
                 total_monthly += monthly
         result = dict(by_type)
         result["total_monthly"] = total_monthly

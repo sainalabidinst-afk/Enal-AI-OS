@@ -175,11 +175,11 @@ class RequirementGatherer:
         """Generate acceptance criteria from requirement text."""
         criteria: list[str] = []
         if req_type == RequirementType.functional:
-            criteria.append(f"Given a user, when they trigger the action, then the system behaves as described: {text[:80]}")
-            criteria.append("Given invalid input, when the action is triggered, then the system returns an appropriate error")
+            criteria.append(f"Given a user, when they trigger the action, then the system behaves as described: {text[:80]}")  # noqa: E501
+            criteria.append("Given invalid input, when the action is triggered, then the system returns an appropriate error")  # noqa: E501
         else:
-            criteria.append(f"Given load conditions, when the system is tested, then it meets: {text[:80]}")
-            criteria.append("Given degraded conditions, when the system is tested, then it degrades gracefully")
+            criteria.append(f"Given load conditions, when the system is tested, then it meets: {text[:80]}")  # noqa: E501
+            criteria.append("Given degraded conditions, when the system is tested, then it degrades gracefully")  # noqa: E501
         return criteria
 
     def _extract_from_transcript(self, transcript: str) -> list[str]:
@@ -188,6 +188,6 @@ class RequirementGatherer:
         requirements: list[str] = []
         for sentence in sentences:
             sentence = sentence.strip()
-            if len(sentence) > 20 and any(w in sentence.lower() for w in _FUNCTIONAL_KEYWORDS | _NON_FUNCTIONAL_KEYWORDS):
+            if len(sentence) > 20 and any(w in sentence.lower() for w in _FUNCTIONAL_KEYWORDS | _NON_FUNCTIONAL_KEYWORDS):  # noqa: E501
                 requirements.append(sentence)
         return requirements

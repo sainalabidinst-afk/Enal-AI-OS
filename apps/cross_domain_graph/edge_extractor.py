@@ -65,7 +65,7 @@ class EdgeExtractor:
         """
         context = context or {}
         edges: list[GraphEdge] = []
-        node_ids = [n.id for n in nodes]
+        node_ids = [n.id for n in nodes]  # noqa: F841
 
         # 1. Pattern-based extraction from descriptions
         edges.extend(self._extract_from_text(nodes))

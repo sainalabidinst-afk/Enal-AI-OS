@@ -8,6 +8,7 @@ performance: primary-replica, multi-primary, and leaderless topologies.
 from __future__ import annotations
 
 import logging
+from typing import Any
 
 from apps.database_engineer.schemas import (
     DatabaseType,
@@ -54,7 +55,7 @@ class ReplicationPlanner:
         if read_ratio >= 0.8:
             strategy = "primary_replica"
             topology = "1 primary + N read replicas"
-            nodes = [
+            nodes: list[dict[str, Any]] = [
                 {"role": "primary", "purpose": "write traffic"},
                 {"role": "replica", "purpose": "read traffic", "count": max(2, qps // 1000)},
             ]

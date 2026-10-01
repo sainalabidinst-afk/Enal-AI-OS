@@ -153,7 +153,7 @@ class ArchitectureGovernance:
                                     Finding(
                                         category=FindingCategory.layer_violation,
                                         severity=Severity.critical,
-                                        title=f"Capability First Rule violation: Core imports {pkg_name}",
+                                        title=f"Capability First Rule violation: Core imports {pkg_name}",  # noqa: E501
                                         description=(
                                             f"Core module `{relative}` imports `{alias.name}` "
                                             f"from Capability Pack `{pkg_name}`. "
@@ -250,7 +250,7 @@ class ArchitectureGovernance:
                                                 severity=Severity.high,
                                                 title=f"Capability Pack imports other pack: {pack}",
                                                 description=(
-                                                    f"Capability Pack `{pack}` imports `{alias.name}` "
+                                                    f"Capability Pack `{pack}` imports `{alias.name}` "  # noqa: E501
                                                     f"from `{other_name}`. "
                                                     "Per ADR-002, Capability Packs must not "
                                                     "import each other directly."
@@ -317,7 +317,7 @@ class ArchitectureGovernance:
             recs.append(
                 Recommendation(
                     priority=Priority.critical,
-                    problem=f"{sum(1 for f in findings if f.severity == Severity.critical)} critical governance violation(s)",
+                    problem=f"{sum(1 for f in findings if f.severity == Severity.critical)} critical governance violation(s)",  # noqa: E501
                     solution=(
                         "Address critical violations immediately: remove Core dependencies "
                         "on Capability Packs, register ADRs for all Core changes, "

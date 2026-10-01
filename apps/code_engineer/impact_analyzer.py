@@ -118,7 +118,7 @@ class ImpactAnalyzer:
         result.total_tests_impacted = len(result.impacted_tests)
 
         # Determine max severity
-        severity_order = [ImpactSeverity.NONE, ImpactSeverity.LOW, ImpactSeverity.MEDIUM, ImpactSeverity.HIGH, ImpactSeverity.CRITICAL]
+        severity_order = [ImpactSeverity.NONE, ImpactSeverity.LOW, ImpactSeverity.MEDIUM, ImpactSeverity.HIGH, ImpactSeverity.CRITICAL]  # noqa: E501
         max_sev = ImpactSeverity.NONE
         for item in unique_impacted:
             if severity_order.index(item.severity) > severity_order.index(max_sev):
@@ -175,7 +175,7 @@ class ImpactAnalyzer:
                 if node.name == change.target_name:
                     for caller_node in ast.walk(tree):
                         if isinstance(caller_node, ast.Call):
-                            if isinstance(caller_node.func, ast.Name) and caller_node.func.id == change.target_name:
+                            if isinstance(caller_node.func, ast.Name) and caller_node.func.id == change.target_name:  # noqa: E501
                                 impacted.append(ImpactedItem(
                                     module_path=change.module_path,
                                     item_name=f"{change.target_name}() caller",
@@ -192,7 +192,7 @@ class ImpactAnalyzer:
                 for cls_node in ast.walk(tree):
                     if isinstance(cls_node, ast.ClassDef):
                         for method in cls_node.body:
-                            if isinstance(method, ast.FunctionDef) and method.name == change.target_name:
+                            if isinstance(method, ast.FunctionDef) and method.name == change.target_name:  # noqa: E501
                                 # All usages of this class method
                                 impacted.append(ImpactedItem(
                                     module_path=change.module_path,
@@ -201,7 +201,7 @@ class ImpactAnalyzer:
                                     impact_type="direct",
                                     severity=self._severity_for_change(change),
                                     confidence=0.85,
-                                    reason=f"Method {change.target_name} in class {cls_node.name} modified",
+                                    reason=f"Method {change.target_name} in class {cls_node.name} modified",  # noqa: E501
                                 ))
 
         return impacted
@@ -237,7 +237,7 @@ class ImpactAnalyzer:
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for alias in node.names:
-                    if change.target_name in alias.name or (change.module_path and change.module_path in str(alias.name)):
+                    if change.target_name in alias.name or (change.module_path and change.module_path in str(alias.name)):  # noqa: E501
                         impacted.append(ImpactedItem(
                             module_path=change.module_path,
                             item_name=alias.name,
@@ -248,7 +248,7 @@ class ImpactAnalyzer:
                             reason=f"Depends on modified module {change.module_path}",
                         ))
             elif isinstance(node, ast.ImportFrom):
-                if node.module and (change.target_name in node.module or change.module_path in str(node.module)):
+                if node.module and (change.target_name in node.module or change.module_path in str(node.module)):  # noqa: E501
                     for alias in node.names:
                         impacted.append(ImpactedItem(
                             module_path=change.module_path,
@@ -275,7 +275,7 @@ class ImpactAnalyzer:
                         item_name=child.id,
                         item_type="module",
                         impact_type="direct",
-                        severity=ImpactSeverity.CRITICAL if change.change_type == ChangeType.REMOVED else ImpactSeverity.HIGH,
+                        severity=ImpactSeverity.CRITICAL if change.change_type == ChangeType.REMOVED else ImpactSeverity.HIGH,  # noqa: E501
                         confidence=0.95,
                         reason=f"Uses {change.target_name} which was {change.change_type}",
                         line_number=child.lineno,
@@ -353,16 +353,16 @@ class ImpactAnalyzer:
         recommendations = []
 
         if result.max_severity in (ImpactSeverity.CRITICAL, ImpactSeverity.HIGH):
-            recommendations.append("⚠️  High-risk change detected. Consider splitting into smaller changes.")
+            recommendations.append("⚠️  High-risk change detected. Consider splitting into smaller changes.")  # noqa: E501
 
         if result.total_tests_impacted > 0:
-            recommendations.append(f"🧪 Run {result.total_tests_impacted} impacted test(s) after applying changes.")
+            recommendations.append(f"🧪 Run {result.total_tests_impacted} impacted test(s) after applying changes.")  # noqa: E501
 
         if result.risk_score > 0.5:
-            recommendations.append("🔍 Risk score is above 0.5. Consider adding more tests before deployment.")
+            recommendations.append("🔍 Risk score is above 0.5. Consider adding more tests before deployment.")  # noqa: E501
 
         if any(i.impact_type == "transitive" for i in result.impacted_items):
-            recommendations.append("📦 Transitive dependencies affected. Verify integration points.")
+            recommendations.append("📦 Transitive dependencies affected. Verify integration points.")  # noqa: E501
 
         if not recommendations:
             recommendations.append("✅ Low-risk change. No special actions required.")
@@ -383,7 +383,7 @@ class ImpactAnalyzer:
         ]
 
         # Group by severity
-        for severity in [ImpactSeverity.CRITICAL, ImpactSeverity.HIGH, ImpactSeverity.MEDIUM, ImpactSeverity.LOW]:
+        for severity in [ImpactSeverity.CRITICAL, ImpactSeverity.HIGH, ImpactSeverity.MEDIUM, ImpactSeverity.LOW]:  # noqa: E501
             items = [i for i in result.impacted_items if i.severity == severity]
             if items:
                 lines.append(f"## {severity.upper()} ({len(items)})")

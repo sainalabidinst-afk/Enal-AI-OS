@@ -6,16 +6,16 @@ Structured troubleshooting workflow that learns from network engineer patterns.
 Input: symptom → evidence → hypothesis → verification → root cause.
 """
 
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
 from datetime import UTC
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
@@ -23,7 +23,7 @@ class Severity(str, Enum):
     INFO = "info"
 
 
-class VerificationStatus(str, Enum):
+class VerificationStatus(StrEnum):
     CONFIRMED = "confirmed"
     RULED_OUT = "ruled_out"
     PARTIAL = "partial"
@@ -120,7 +120,7 @@ class TroubleshootingEngine:
                 Hypothesis(
                     id="TSH-001",
                     title="Downstream Device Unreachable",
-                    description="The target device is powered off, disconnected, or has no IP reachability.",
+                    description="The target device is powered off, disconnected, or has no IP reachability.",  # noqa: E501
                     required_evidence=["icmp_timeout", "device_status"],
                     verification_steps=[
                         "Ping the target IP directly.",
@@ -131,7 +131,7 @@ class TroubleshootingEngine:
                 Hypothesis(
                     id="TSH-002",
                     title="Routing Blackhole",
-                    description="A static or dynamic route is missing or incorrect toward the destination.",
+                    description="A static or dynamic route is missing or incorrect toward the destination.",  # noqa: E501
                     required_evidence=["route_check", "traceroute"],
                     verification_steps=[
                         "Run traceroute to identify blackhole.",
@@ -155,7 +155,7 @@ class TroubleshootingEngine:
                 Hypothesis(
                     id="TSH-004",
                     title="Interface Flapping",
-                    description="Physical interface is going up and down due to cabling, duplex, or SFP issues.",
+                    description="Physical interface is going up and down due to cabling, duplex, or SFP issues.",  # noqa: E501
                     required_evidence=["interface_status_history", "error_counts"],
                     verification_steps=[
                         "Check interface error counters (CRC, runts, giants).",
@@ -166,7 +166,7 @@ class TroubleshootingEngine:
                 Hypothesis(
                     id="TSH-005",
                     title="Routing Instability",
-                    description="Dynamic routing protocol is flapping routes due to unstable neighbors or MTU mismatch.",
+                    description="Dynamic routing protocol is flapping routes due to unstable neighbors or MTU mismatch.",  # noqa: E501
                     required_evidence=["ospf_bdf", "bgp_state_changes"],
                     verification_steps=[
                         "Check routing protocol neighbor state.",
@@ -205,7 +205,7 @@ class TroubleshootingEngine:
         import uuid
         return TroubleshootingSession(session_id=str(uuid.uuid4())[:8], symptom=symptom)
 
-    def add_evidence(self, session: TroubleshootingSession, source: str, content: str, confidence: float = 1.0) -> None:
+    def add_evidence(self, session: TroubleshootingSession, source: str, content: str, confidence: float = 1.0) -> None:  # noqa: E501
         from datetime import datetime
         session.evidence.append(EvidenceItem(
             source=source,
@@ -223,10 +223,10 @@ class TroubleshootingEngine:
         session.hypotheses = matched
         return matched
 
-    def add_counter_hypothesis(self, session: TroubleshootingSession, hypothesis: Hypothesis) -> None:
+    def add_counter_hypothesis(self, session: TroubleshootingSession, hypothesis: Hypothesis) -> None:  # noqa: E501
         session.counter_hypotheses.append(hypothesis)
 
-    def verify_hypothesis(self, session: TroubleshootingSession, hypothesis_id: str, status: VerificationStatus) -> None:
+    def verify_hypothesis(self, session: TroubleshootingSession, hypothesis_id: str, status: VerificationStatus) -> None:  # noqa: E501
         for h in session.hypotheses:
             if h.id == hypothesis_id:
                 h.status = status

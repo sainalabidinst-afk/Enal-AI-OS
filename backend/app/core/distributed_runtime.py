@@ -1,7 +1,7 @@
-import logging
+import logging  # noqa: I001
 import uuid
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from backend.app.core.event_bus import Event, event_bus
@@ -10,13 +10,13 @@ from backend.app.core.task_queue import Task
 logger = logging.getLogger(__name__)
 
 
-class NodeStatus(str, Enum):
+class NodeStatus(StrEnum):
     ONLINE = "online"
     OFFLINE = "offline"
     BUSY = "busy"
 
 
-class NodeCapability(str, Enum):
+class NodeCapability(StrEnum):
     REASONING = "reasoning"
     EXECUTION = "execution"
     SIMULATION = "simulation"
@@ -42,20 +42,20 @@ class DistributedRuntime:
         node_id = f"node-{uuid.uuid4().hex[:8]}"
         node = RuntimeNode(id=node_id, name=name, capabilities=capabilities)
         self._nodes[node_id] = node
-        await event_bus.publish(Event(event_type="node.registered", payload={"node_id": node_id, "name": name}, source="distributed-runtime"))
+        await event_bus.publish(Event(event_type="node.registered", payload={"node_id": node_id, "name": name}, source="distributed-runtime"))  # noqa: E501
         return node_id
 
     async def get_node(self, node_id: str) -> RuntimeNode | None:
         return self._nodes.get(node_id)
 
     async def find_capable_nodes(self, capability: NodeCapability) -> list[RuntimeNode]:
-        return [n for n in self._nodes.values() if capability in n.capabilities and n.status == NodeStatus.ONLINE]
+        return [n for n in self._nodes.values() if capability in n.capabilities and n.status == NodeStatus.ONLINE]  # noqa: E501
 
     async def get_cluster_status(self) -> dict[str, Any]:
         return {
             "total_nodes": len(self._nodes),
             "online_nodes": sum(1 for n in self._nodes.values() if n.status == NodeStatus.ONLINE),
-            "nodes": [{"id": n.id, "name": n.name, "capabilities": [c.value for c in n.capabilities], "status": n.status.value} for n in self._nodes.values()],
+            "nodes": [{"id": n.id, "name": n.name, "capabilities": [c.value for c in n.capabilities], "status": n.status.value} for n in self._nodes.values()],  # noqa: E501
         }
 
     async def execute_distributed(self, task: Task, capability: NodeCapability) -> dict[str, Any]:

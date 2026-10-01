@@ -58,7 +58,7 @@ class ROICalculator:
         payback_months = self._compute_payback(cost_estimate, benefit_estimate)
 
         # Calculate ROI percentage.
-        roi_pct = ((benefit_estimate - cost_estimate) / cost_estimate * 100) if cost_estimate > 0 else 0.0
+        roi_pct = ((benefit_estimate - cost_estimate) / cost_estimate * 100) if cost_estimate > 0 else 0.0  # noqa: E501
 
         return ROIResult(
             npv=round(npv, 2),

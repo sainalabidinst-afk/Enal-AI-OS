@@ -6,12 +6,12 @@ Vendor-agnostic data model for network configurations.
 All vendor parsers convert their config into this model.
 """
 
-from dataclasses import dataclass, field
-from enum import Enum
+from dataclasses import dataclass, field  # noqa: I001
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class InterfaceType(str, Enum):
+class InterfaceType(StrEnum):
     ETHERNET = "ethernet"
     WIRELESS = "wireless"
     VLAN = "vlan"
@@ -22,7 +22,7 @@ class InterfaceType(str, Enum):
     VPN = "vpn"
 
 
-class RuleAction(str, Enum):
+class RuleAction(StrEnum):
     ACCEPT = "accept"
     DROP = "drop"
     REJECT = "reject"

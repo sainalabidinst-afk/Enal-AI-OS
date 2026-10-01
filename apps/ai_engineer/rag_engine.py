@@ -88,7 +88,7 @@ class RAGEngine:
 
         return {
             "embedding_monthly": round((monthly_embeddings / 1000) * embedding_cost_per_1k, 2),
-            "rerank_monthly": round((monthly_embeddings / 1000) * rerank_cost_per_1k * config.top_k, 2),
+            "rerank_monthly": round((monthly_embeddings / 1000) * rerank_cost_per_1k * config.top_k, 2),  # noqa: E501
             "vector_store_monthly": vector_store_cost,
             "total_monthly": round(monthly, 2),
         }

@@ -80,7 +80,7 @@ class BusinessAnalystEngine:
             BusinessAnalysisReport with requirements, stories, use cases, etc.
         """
         started = time.monotonic()
-        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)
+        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)  # noqa: E501
 
         requirements: list[Requirement] = []
         user_stories: list[UserStory] = []
@@ -130,9 +130,11 @@ class BusinessAnalystEngine:
         domain = request.business_context.domain if request.business_context else ""
         explanation = self._build_explanation(op, requirements, user_stories, gaps, roi_result)
         if domain:
-            domain_findings = self.domain_knowledge.enrich_requirements(domain, requirements)
+            domain_findings = self.domain_knowledge.enrich_requirements(
+                domain, [r.model_dump() for r in requirements]
+            )
             if domain_findings:
-                explanation += f"\n\nDomain insights ({domain}): {len(domain_findings)} recommendations based on industry best practices."
+                explanation += f"\n\nDomain insights ({domain}): {len(domain_findings)} recommendations based on industry best practices."  # noqa: E501
 
         report = BusinessAnalysisReport(
             request_id=request.request_id,
@@ -214,7 +216,7 @@ class BusinessAnalystEngine:
         if gaps:
             parts.append(f"Identified {len(gaps)} capability gaps.")
         if roi:
-            parts.append(f"ROI analysis: NPV ${roi.npv:,.2f}, {roi.payback_period_months} months payback.")
+            parts.append(f"ROI analysis: NPV ${roi.npv:,.2f}, {roi.payback_period_months} months payback.")  # noqa: E501
         return " ".join(parts)
 
     def _record(self, record: BusinessAnalysisRecord) -> str:

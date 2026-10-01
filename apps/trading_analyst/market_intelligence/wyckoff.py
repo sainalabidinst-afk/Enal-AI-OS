@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class WyckoffAnalyzer:
     """
     Analyzes price/volume patterns using Wyckoff Method.
-    
+
     Detects:
     - Accumulation phases (Spring, SOS, LPS)
     - Distribution phases (LPSY, SOW, UTAD)
@@ -32,7 +32,7 @@ class WyckoffAnalyzer:
     def detect_accumulation(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect Wyckoff accumulation pattern.
-        
+
         Typical accumulation:
         1. Preliminary Support (PS) after downtrend
         2. Selling Climax (SC) with high volume
@@ -73,7 +73,7 @@ class WyckoffAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_spring_{tf}",
                     type="wyckoff",
-                    description=f"Spring detected on {tf} - false breakdown below {support_level:.2f}",
+                    description=f"Spring detected on {tf} - false breakdown below {support_level:.2f}",  # noqa: E501
                     timeframe=tf,
                     strength=0.75,
                     direction="bullish",
@@ -92,7 +92,7 @@ class WyckoffAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_sos_{tf}",
                     type="wyckoff",
-                    description=f"Sign of Strength (SOS) on {tf} - breakout above {recent_swing_high:.2f} with volume",
+                    description=f"Sign of Strength (SOS) on {tf} - breakout above {recent_swing_high:.2f} with volume",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bullish",
@@ -140,7 +140,7 @@ class WyckoffAnalyzer:
     def detect_distribution(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Detect Wyckoff distribution pattern.
-        
+
         Typical distribution:
         1. Preliminary Supply (PSY) after uptrend
         2. Buying Climax (BC) with high volume
@@ -168,7 +168,7 @@ class WyckoffAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_utad_{tf}",
                     type="wyckoff",
-                    description=f"Upthrust After Distribution (UTAD) on {tf} - false breakout above {resistance_level:.2f}",
+                    description=f"Upthrust After Distribution (UTAD) on {tf} - false breakout above {resistance_level:.2f}",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bearish",
@@ -187,7 +187,7 @@ class WyckoffAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_sow_{tf}",
                     type="wyckoff",
-                    description=f"Sign of Weakness (SOW) on {tf} - breakdown below {recent_swing_low:.2f} with volume",
+                    description=f"Sign of Weakness (SOW) on {tf} - breakdown below {recent_swing_low:.2f} with volume",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bearish",
@@ -235,7 +235,7 @@ class WyckoffAnalyzer:
     def analyze_composite_operator(self, ohlcv: list[OHLCV], tf: str) -> list[MarketEvidence]:
         """
         Analyze Composite Operator (CO) behavior.
-        
+
         The CO is the collective smart money that moves price.
         Look for:
         - Absorption: large positions being accumulated/distributed
@@ -275,13 +275,13 @@ class WyckoffAnalyzer:
 
         # 2. Markup phase: consistent higher highs + higher lows
         if len(highs) >= 20:
-            swing_highs_flag = all(highs[i] > highs[i-5] for i in range(-5, 0) if abs(i) <= len(highs))
+            swing_highs_flag = all(highs[i] > highs[i-5] for i in range(-5, 0) if abs(i) <= len(highs))  # noqa: E501
             swing_lows_flag = all(lows[i] > lows[i-5] for i in range(-5, 0) if abs(i) <= len(lows))
             if swing_highs_flag and swing_lows_flag:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_markup_{tf}",
                     type="wyckoff",
-                    description=f"Markup phase detected on {tf} - consistent Higher Highs and Higher Lows",
+                    description=f"Markup phase detected on {tf} - consistent Higher Highs and Higher Lows",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bullish",
@@ -291,13 +291,13 @@ class WyckoffAnalyzer:
 
         # 3. Markdown phase: consistent lower highs + lower lows
         if len(highs) >= 20:
-            swing_highs_flag = all(highs[i] < highs[i-5] for i in range(-5, 0) if abs(i) <= len(highs))
+            swing_highs_flag = all(highs[i] < highs[i-5] for i in range(-5, 0) if abs(i) <= len(highs))  # noqa: E501
             swing_lows_flag = all(lows[i] < lows[i-5] for i in range(-5, 0) if abs(i) <= len(lows))
             if swing_highs_flag and swing_lows_flag:
                 evidence.append(MarketEvidence(
                     id=f"wyckoff_markdown_{tf}",
                     type="wyckoff",
-                    description=f"Markdown phase detected on {tf} - consistent Lower Highs and Lower Lows",
+                    description=f"Markdown phase detected on {tf} - consistent Lower Highs and Lower Lows",  # noqa: E501
                     timeframe=tf,
                     strength=0.80,
                     direction="bearish",

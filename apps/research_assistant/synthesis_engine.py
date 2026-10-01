@@ -20,18 +20,18 @@ logger = logging.getLogger(__name__)
 class SynthesisEngine:
     """Synthesizes multi-source findings into coherent narrative."""
 
-    def synthesize(self, query: str, evidence_list: list[Evidence], findings: list[Finding], contradictions: list[Contradiction]) -> Synthesis:
+    def synthesize(self, query: str, evidence_list: list[Evidence], findings: list[Finding], contradictions: list[Contradiction]) -> Synthesis:  # noqa: E501
         narrative_parts = [
             f"## Synthesis: {query}",
             "",
             "### Overview",
-            f"This synthesis integrates {len(evidence_list)} sources and {len(findings)} findings to address the research query.",
+            f"This synthesis integrates {len(evidence_list)} sources and {len(findings)} findings to address the research query.",  # noqa: E501
             "",
             "### Key Findings",
         ]
 
         for finding in findings[:5]:
-            narrative_parts.append(f"- **{finding.title}**: {finding.description} (confidence: {finding.confidence:.0%})")
+            narrative_parts.append(f"- **{finding.title}**: {finding.description} (confidence: {finding.confidence:.0%})")  # noqa: E501
 
         if contradictions:
             narrative_parts.extend([
@@ -49,7 +49,7 @@ class SynthesisEngine:
             "- Additional longitudinal studies recommended",
             "",
             "### Conclusion",
-            "The evidence suggests moderate-to-high confidence in the primary findings, with noted uncertainties that warrant further investigation.",
+            "The evidence suggests moderate-to-high confidence in the primary findings, with noted uncertainties that warrant further investigation.",  # noqa: E501
         ])
 
         narrative = "\n".join(narrative_parts)

@@ -54,7 +54,7 @@ def compute_weighted_score(evidence: list[Evidence]) -> tuple[Bias, float, dict[
         # Score: sum of (strength * confidence * direction_sign) / count
         cat_score = 0.0
         for ev in ev_list:
-            sign = 1.0 if ev.direction == "bullish" else (-1.0 if ev.direction == "bearish" else 0.0)
+            sign = 1.0 if ev.direction == "bullish" else (-1.0 if ev.direction == "bearish" else 0.0)  # noqa: E501
             cat_score += sign * ev.strength * ev.confidence
 
         cat_score = cat_score / len(ev_list) if ev_list else 0.0

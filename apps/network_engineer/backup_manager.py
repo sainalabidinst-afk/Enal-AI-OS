@@ -36,7 +36,7 @@ class BackupManager:
         self.store_dir.mkdir(parents=True, exist_ok=True)
         self._backups: dict[str, BackupRecord] = {}
 
-    def create_backup(self, device_id: str, config_content: str, metadata: dict[str, Any] | None = None) -> BackupRecord:
+    def create_backup(self, device_id: str, config_content: str, metadata: dict[str, Any] | None = None) -> BackupRecord:  # noqa: E501
         """Create a backup of the current configuration."""
         backup_id = f"bkp-{int(time.time() * 1000)}"
         config_hash = hashlib.sha256(config_content.encode()).hexdigest()[:16]

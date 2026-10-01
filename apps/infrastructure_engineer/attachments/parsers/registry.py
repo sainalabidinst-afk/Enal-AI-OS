@@ -36,7 +36,7 @@ class ParserRegistry:
                             module = importlib.import_module(f"{full_name}.{sub_name}")
                             self._register_parser_classes(module)
                         except Exception as exc:
-                            logger.debug("Failed to load parser module %s.%s: %s", full_name, sub_name, exc)
+                            logger.debug("Failed to load parser module %s.%s: %s", full_name, sub_name, exc)  # noqa: E501
                             continue
                 except Exception as exc:
                     logger.debug("Failed to load parser subpackage %s: %s", full_name, exc)

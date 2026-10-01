@@ -70,7 +70,7 @@ class FortiOSAdapter(VendorAdapter):
         parse_users(ast, lines)
         parse_ha(ast, lines)
         parse_nat(ast, lines)
-        ast.raw_lines = [line for line in lines if line.strip() and not line.strip().startswith("#")]
+        ast.raw_lines = [line for line in lines if line.strip() and not line.strip().startswith("#")]  # noqa: E501
         return ast
 
     def generate(self, ast: NetworkAST) -> str:

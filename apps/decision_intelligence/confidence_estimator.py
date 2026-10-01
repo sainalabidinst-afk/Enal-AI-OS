@@ -51,8 +51,8 @@ class ConfidenceEstimator:
         else:
             avg_quality = evidence_set.avg_quality
             # Agreement = how one-sided the evidence is (0 = split, 1 = unanimous).
-            total = evidence_set.positive_weight + evidence_set.negative_weight + evidence_set.neutral_weight
-            agreement = max(evidence_set.positive_weight, evidence_set.negative_weight) / total if total > 0 else 0.0
+            total = evidence_set.positive_weight + evidence_set.negative_weight + evidence_set.neutral_weight  # noqa: E501
+            agreement = max(evidence_set.positive_weight, evidence_set.negative_weight) / total if total > 0 else 0.0  # noqa: E501
 
         # Evidence coverage.
         coverage = min(1.0, evidence_count / 5.0)  # 5+ evidence items = full coverage

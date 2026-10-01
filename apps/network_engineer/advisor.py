@@ -54,7 +54,7 @@ class NetworkAdvisor:
 
         if "500 cabang" in query_lower or "500 branch" in query_lower or "branch" in query_lower:
             proposals.append(self._design_multi_branch(context))
-        if "ha datacenter" in query_lower or "high availability datacenter" in query_lower or "datacenter" in query_lower:
+        if "ha datacenter" in query_lower or "high availability datacenter" in query_lower or "datacenter" in query_lower:  # noqa: E501
             proposals.append(self._design_ha_datacenter(context))
         if "security" in query_lower and "zero trust" in query_lower:
             proposals.append(self._design_zero_trust(context))
@@ -81,7 +81,7 @@ class NetworkAdvisor:
             description="Scalable design for 500+ branches with centralized control.",
             architecture_summary=(
                 "Hub-and-spoke topology with a central datacenter hub, regional distribution hubs, "
-                "and branch edge routers. SD-WAN orchestrates connectivity with application-aware routing. "
+                "and branch edge routers. SD-WAN orchestrates connectivity with application-aware routing. "  # noqa: E501
                 "Zero Trust Network Access (ZTNA) secures branch-to-cloud traffic."
             ),
             components=[
@@ -115,7 +115,7 @@ class NetworkAdvisor:
             description="Resilient datacenter design with no single point of failure.",
             architecture_summary=(
                 "Leaf-spine topology with dual-homed servers, MLAG/EVPN multi-chassis, "
-                "and out-of-band management network. Border leaf routers provide north-south connectivity "
+                "and out-of-band management network. Border leaf routers provide north-south connectivity "  # noqa: E501
                 "with redundant BGP peering. Power, cooling, and control plane are fully redundant."
             ),
             components=[
@@ -149,7 +149,7 @@ class NetworkAdvisor:
             description="Security model that verifies every request, regardless of origin.",
             architecture_summary=(
                 "Identity-aware firewall and microsegmentation enforce least-privilege access. "
-                "All traffic is inspected, and access is granted per application and user identity. "
+                "All traffic is inspected, and access is granted per application and user identity. "  # noqa: E501
                 "Continuous verification replaces perimeter-based trust."
             ),
             components=[
@@ -182,8 +182,8 @@ class NetworkAdvisor:
             title="SD-WAN Architecture",
             description="Application-aware WAN with centralized orchestration.",
             architecture_summary=(
-                "SD-WAN edge devices at each site connect to multiple transports (MPLS, broadband, LTE). "
-                "Centralized controller defines policies for path selection based on application performance. "
+                "SD-WAN edge devices at each site connect to multiple transports (MPLS, broadband, LTE). "  # noqa: E501
+                "Centralized controller defines policies for path selection based on application performance. "  # noqa: E501
                 "Cloud on-ramp provides optimized access to SaaS applications."
             ),
             components=[
@@ -196,7 +196,7 @@ class NetworkAdvisor:
             ],
             recommendations=[
                 "Start with a pilot site to validate application performance.",
-                "Use application-aware routing to steer critical traffic over MPLS and less critical over broadband.",
+                "Use application-aware routing to steer critical traffic over MPLS and less critical over broadband.",  # noqa: E501
                 "Deploy integrated security at the edge to avoid backhauling.",
                 "Implement centralized configuration and zero-touch provisioning.",
                 "Monitor application performance with synthetic testing.",
@@ -249,8 +249,8 @@ class NetworkAdvisor:
             title="General Network Design Guidance",
             description=f"Advice based on query: '{query}'",
             architecture_summary=(
-                "A well-designed network follows the principle of least privilege, defense in depth, "
-                "and operational simplicity. Start with requirements gathering, then design the physical and logical topology, "
+                "A well-designed network follows the principle of least privilege, defense in depth, "  # noqa: E501
+                "and operational simplicity. Start with requirements gathering, then design the physical and logical topology, "  # noqa: E501
                 "followed by detailed configuration and testing."
             ),
             components=[

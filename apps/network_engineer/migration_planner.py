@@ -5,15 +5,15 @@ Migration Planner
 Generates cross-vendor migration plans with risk assessment, rollback, and validation.
 """
 
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class MigrationPhase(str, Enum):
+class MigrationPhase(StrEnum):
     DISCOVERY = "discovery"
     PLANNING = "planning"
     PREPARATION = "preparation"
@@ -23,7 +23,7 @@ class MigrationPhase(str, Enum):
     COMPLETED = "completed"
 
 
-class MigrationRisk(str, Enum):
+class MigrationRisk(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -118,13 +118,13 @@ VENDOR_ALIGNMENT = {
 class MigrationPlanner:
     """Generates cross-vendor migration plans."""
 
-    async def plan(self, source_config: str, source_vendor: str, target_vendor: str, config_content: str = "") -> MigrationPlan:
+    async def plan(self, source_config: str, source_vendor: str, target_vendor: str, config_content: str = "") -> MigrationPlan:  # noqa: E501
         plan = MigrationPlan(source_vendor=source_vendor, target_vendor=target_vendor)
         alignment = VENDOR_ALIGNMENT.get((source_vendor, target_vendor), {})
 
         if source_vendor == target_vendor:
-            plan.warnings.append("Source and target vendor are identical; migration plan is a no-op.")
-            plan.recommendations.append("Consider refactoring or version upgrade instead of full migration.")
+            plan.warnings.append("Source and target vendor are identical; migration plan is a no-op.")  # noqa: E501
+            plan.recommendations.append("Consider refactoring or version upgrade instead of full migration.")  # noqa: E501
             plan.tasks.append(MigrationTask(
                 phase=MigrationPhase.PLANNING,
                 title="Validate Same-Vendor Migration",
@@ -140,7 +140,7 @@ class MigrationPlanner:
             MigrationTask(
                 phase=MigrationPhase.DISCOVERY,
                 title="Discover Source Configuration",
-                description="Parse source configuration and extract all features, interfaces, routing, and security rules.",
+                description="Parse source configuration and extract all features, interfaces, routing, and security rules.",  # noqa: E501
                 estimated_duration_minutes=30,
                 rollback_steps=["No rollback needed during discovery."],
                 validation_steps=["Verify parsed config matches source file."],
@@ -149,7 +149,7 @@ class MigrationPlanner:
             MigrationTask(
                 phase=MigrationPhase.PLANNING,
                 title="Map Features to Target Vendor",
-                description=f"Map {source_vendor} concepts to {target_vendor} equivalents. Alignment coverage: {len(alignment)} concepts.",
+                description=f"Map {source_vendor} concepts to {target_vendor} equivalents. Alignment coverage: {len(alignment)} concepts.",  # noqa: E501
                 estimated_duration_minutes=60,
                 dependencies=["Discover Source Configuration"],
                 rollback_steps=["No rollback needed during planning."],
@@ -159,7 +159,7 @@ class MigrationPlanner:
             MigrationTask(
                 phase=MigrationPhase.PREPARATION,
                 title="Prepare Target Device",
-                description=f"Provision {target_vendor} device with baseline configuration: management, NTP, logging, and AAA.",
+                description=f"Provision {target_vendor} device with baseline configuration: management, NTP, logging, and AAA.",  # noqa: E501
                 estimated_duration_minutes=45,
                 dependencies=["Map Features to Target Vendor"],
                 rollback_steps=[
@@ -172,7 +172,7 @@ class MigrationPlanner:
             MigrationTask(
                 phase=MigrationPhase.EXECUTION,
                 title="Migrate Firewall and Security",
-                description=f"Translate firewall and security policies from {source_vendor} to {target_vendor}.",
+                description=f"Translate firewall and security policies from {source_vendor} to {target_vendor}.",  # noqa: E501
                 estimated_duration_minutes=90,
                 dependencies=["Prepare Target Device"],
                 rollback_steps=[
@@ -188,7 +188,7 @@ class MigrationPlanner:
             MigrationTask(
                 phase=MigrationPhase.EXECUTION,
                 title="Migrate Routing and Services",
-                description=f"Translate static routes, dynamic routing, DHCP, and DNS from {source_vendor} to {target_vendor}.",
+                description=f"Translate static routes, dynamic routing, DHCP, and DNS from {source_vendor} to {target_vendor}.",  # noqa: E501
                 estimated_duration_minutes=120,
                 dependencies=["Migrate Firewall and Security"],
                 rollback_steps=[
@@ -204,7 +204,7 @@ class MigrationPlanner:
             MigrationTask(
                 phase=MigrationPhase.VALIDATION,
                 title="Validate Migration",
-                description="Run full validation suite: connectivity, performance, security, and compliance.",
+                description="Run full validation suite: connectivity, performance, security, and compliance.",  # noqa: E501
                 estimated_duration_minutes=60,
                 dependencies=["Migrate Routing and Services"],
                 rollback_steps=[
@@ -220,7 +220,7 @@ class MigrationPlanner:
             ),
         ])
 
-        plan.estimated_downtime_minutes = sum(t.estimated_duration_minutes for t in plan.tasks if t.phase == MigrationPhase.EXECUTION)
+        plan.estimated_downtime_minutes = sum(t.estimated_duration_minutes for t in plan.tasks if t.phase == MigrationPhase.EXECUTION)  # noqa: E501
         plan.warnings.append("Always maintain rollback capability during execution phase.")
         plan.warnings.append("Test migration in lab environment before production cutover.")
         plan.recommendations.append("Use maintenance window for execution phase.")

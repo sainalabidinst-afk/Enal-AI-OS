@@ -7,17 +7,17 @@ contracts for the Product Manager Capability Pack, plus all supporting types.
 These schemas follow the RFC-0017 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     roadmap_management = "roadmap_management"
     backlog_management = "backlog_management"
     sprint_planning = "sprint_planning"
@@ -26,13 +26,13 @@ class OperationType(str, Enum):
     release_coordination = "release_coordination"
 
 
-class Priority(str, Enum):
+class Priority(StrEnum):
     high = "high"
     medium = "medium"
     low = "low"
 
 
-class PrioritizationFramework(str, Enum):
+class PrioritizationFramework(StrEnum):
     rice = "rice"
     moscow = "moscow"
     value_effort = "value_effort"

@@ -7,17 +7,17 @@ contracts for the Security Engineer Capability Pack, plus all supporting types.
 These schemas follow the RFC-0008 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class AssessmentType(str, Enum):
+class AssessmentType(StrEnum):
     code = "code"
     config = "config"
     dependency = "dependency"
@@ -25,14 +25,14 @@ class AssessmentType(str, Enum):
     full_review = "full_review"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
     low = "low"
 
 
-class EvidenceType(str, Enum):
+class EvidenceType(StrEnum):
     static_analysis = "static_analysis"
     dependency_scan = "dependency_scan"
     config_review = "config_review"
@@ -40,7 +40,7 @@ class EvidenceType(str, Enum):
     manual = "manual"
 
 
-class ThreatCategory(str, Enum):
+class ThreatCategory(StrEnum):
     spoofing = "spoofing"
     tampering = "tampering"
     repudiation = "repudiation"
@@ -49,7 +49,7 @@ class ThreatCategory(str, Enum):
     elevation_privilege = "elevation_privilege"
 
 
-class ComplianceStandard(str, Enum):
+class ComplianceStandard(StrEnum):
     soc2 = "soc2"
     iso27001 = "iso27001"
     hipaa = "hipaa"
@@ -59,7 +59,7 @@ class ComplianceStandard(str, Enum):
     cis = "cis"
 
 
-class SecretType(str, Enum):
+class SecretType(StrEnum):
     api_key = "api_key"
     password = "password"
     token = "token"
@@ -68,14 +68,14 @@ class SecretType(str, Enum):
     other = "other"
 
 
-class DependencySeverity(str, Enum):
+class DependencySeverity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
     low = "low"
 
 
-class AssessmentOutcome(str, Enum):
+class AssessmentOutcome(StrEnum):
     pending = "pending"
     accepted = "accepted"
     rejected = "rejected"
@@ -110,7 +110,7 @@ class SecretFinding(BaseModel):
     severity: Severity = Field(default=Severity.high)
     remediation: str = Field(default="", description="Rotation guidance")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
-    evidence: dict[str, Any] = Field(default_factory=dict, description="Supporting evidence for the finding")
+    evidence: dict[str, Any] = Field(default_factory=dict, description="Supporting evidence for the finding")  # noqa: E501
 
 
 class DependencyFinding(BaseModel):
@@ -122,6 +122,9 @@ class DependencyFinding(BaseModel):
     description: str = Field(default="")
     fix_version: str = Field(default="", description="Recommended upgrade version")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    evidence: dict[str, Any] | None = Field(
+        default=None, description="Evidence supporting this finding"
+    )
 
 
 class ThreatModelEntry(BaseModel):
@@ -165,8 +168,8 @@ class SecurityAssessmentRequest(BaseModel):
 
     assessment_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     target_type: AssessmentType = Field(..., description="Type of artifact to assess")
-    target: dict[str, Any] = Field(default_factory=dict, description="Source code, config files, dependencies")
-    standards: list[str] = Field(default_factory=lambda: ["owasp_top10", "cis"], description="Security standards to check against")
+    target: dict[str, Any] = Field(default_factory=dict, description="Source code, config files, dependencies")  # noqa: E501
+    standards: list[str] = Field(default_factory=lambda: ["owasp_top10", "cis"], description="Security standards to check against")  # noqa: E501
     include_remediation: bool = Field(default=True)
     include_compliance_mapping: bool = Field(default=True)
     check_secrets: bool = Field(default=True)

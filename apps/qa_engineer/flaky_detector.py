@@ -43,7 +43,7 @@ class FlakyFinding:
 
 
 # Keywords for classification.
-_NETWORK_KEYWORDS = {"timeout", "connection", "socket", "network", "request", "api", "http", "503", "502", "504"}
+_NETWORK_KEYWORDS = {"timeout", "connection", "socket", "network", "request", "api", "http", "503", "502", "504"}  # noqa: E501
 _TIMING_KEYWORDS = {"sleep", "wait", "timing", "delay", "race", "async", "concurrent", "thread"}
 _SHARED_STATE_KEYWORDS = {"shared", "global", "fixture", "singleton", "static", "cache", "state"}
 _ORDER_KEYWORDS = {"order", "sequence", "before", "after", "setup", "teardown", "depend"}

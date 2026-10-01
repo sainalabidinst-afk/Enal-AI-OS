@@ -216,7 +216,7 @@ class LayerAnalyzer:
                                 title=f"Unclassified module: {mod_path}",
                                 description=(
                                     f"Module `{mod_path}` could not be classified into a layer. "
-                                    f"It imports from layers: {', '.join(sorted(layers_imported))}. "
+                                    f"It imports from layers: {', '.join(sorted(layers_imported))}. "  # noqa: E501
                                     f"Suggested layer: {suggested}."
                                 ),
                                 evidence={
@@ -248,11 +248,11 @@ class LayerAnalyzer:
     # Metrics & Recommendations
     # ------------------------------------------------------------------
 
-    def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:
+    def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:  # noqa: E501
         """Compute quantitative architecture metrics from analysis."""
         sum(1 for f in findings if f.category == FindingCategory.layer_violation)
         sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)
-        boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)
+        boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)  # noqa: E501
 
         layer_violations_count = len(snapshot.layer_violations)
         cycles_count = len(snapshot.circular_dependencies)

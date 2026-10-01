@@ -16,18 +16,18 @@ Designed as a Core Platform service so all capability packs
 are managed through a single, consistent interface.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import logging
 import time
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class CapabilityState(str, Enum):
+class CapabilityState(StrEnum):
     LOADED = "loaded"
     UNLOADED = "unloaded"
     SUSPENDED = "suspended"
@@ -35,7 +35,7 @@ class CapabilityState(str, Enum):
     ERROR = "error"
 
 
-class CapabilityHealth(str, Enum):
+class CapabilityHealth(StrEnum):
     HEALTHY = "healthy"
     DEGRADED = "degraded"
     UNHEALTHY = "unhealthy"
@@ -163,9 +163,9 @@ class CapabilityLifecycleManager:
         if record is None:
             raise ValueError(f"Capability '{capability_id}' is not registered")
 
-        dependents = [dep for dep in record.dependents if self._records[dep].state == CapabilityState.LOADED]
+        dependents = [dep for dep in record.dependents if self._records[dep].state == CapabilityState.LOADED]  # noqa: E501
         if dependents:
-            raise ValueError(f"Cannot unload '{capability_id}': dependents still loaded {dependents}")
+            raise ValueError(f"Cannot unload '{capability_id}': dependents still loaded {dependents}")  # noqa: E501
 
         record.state = CapabilityState.UNLOADED
         record.loaded_at = None
@@ -238,7 +238,7 @@ class CapabilityLifecycleManager:
             return True, "Compatible"
         return False, f"Contract mismatch: {record.version.contract_version} != {required_contract}"
 
-    def record_execution(self, capability_id: str, success: bool, latency_ms: float, error: str | None = None) -> None:
+    def record_execution(self, capability_id: str, success: bool, latency_ms: float, error: str | None = None) -> None:  # noqa: E501
         record = self._records.get(capability_id)
         if record is None:
             return

@@ -66,7 +66,7 @@ class TestModelRouter:
     def test_complete_raises_on_failure(self, monkeypatch):
         import backend.app.core.model_router as mr_module
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
-        monkeypatch.setattr(mr_module, "completion", lambda **kwargs: (_ for _ in ()).throw(ValueError("fail")))
+        monkeypatch.setattr(mr_module, "completion", lambda **kwargs: (_ for _ in ()).throw(ValueError("fail")))  # noqa: E501
         router = ModelRouter()
         with pytest.raises(ValueError):
             router.complete([{"role": "user", "content": "hi"}])

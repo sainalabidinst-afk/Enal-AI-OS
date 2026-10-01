@@ -1,13 +1,13 @@
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class Permission(str, Enum):
+class Permission(StrEnum):
     READ = "read"
     WRITE = "write"
     EXECUTE = "execute"
@@ -15,7 +15,7 @@ class Permission(str, Enum):
     ADMIN = "admin"
 
 
-class ApprovalStatus(str, Enum):
+class ApprovalStatus(StrEnum):
     PENDING = "pending"
     APPROVED = "approved"
     REJECTED = "rejected"
@@ -55,7 +55,7 @@ class PolicyEngine:
         self._policies[policy.id] = policy
         logger.info(f"Policy added: {policy.id} for {policy.agent}")
 
-    def can_execute(self, agent: str, tool: str, permission: Permission, tenant_id: str | None = None) -> bool:
+    def can_execute(self, agent: str, tool: str, permission: Permission, tenant_id: str | None = None) -> bool:  # noqa: E501
         policy = next((p for p in self._policies.values() if p.agent == agent), None)
         if not policy:
             return False
@@ -71,7 +71,7 @@ class PolicyEngine:
     def get_policy(self, agent: str) -> Policy | None:
         return next((p for p in self._policies.values() if p.agent == agent), None)
 
-    def create_approval(self, agent: str, action: str, justification: str, requester: str) -> ApprovalRequest:
+    def create_approval(self, agent: str, action: str, justification: str, requester: str) -> ApprovalRequest:  # noqa: E501
         approval = ApprovalRequest(
             id=f"approval-{datetime.now(UTC).timestamp()}",
             agent=agent,

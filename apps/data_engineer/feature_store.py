@@ -76,10 +76,10 @@ class FeatureStore:
             elif "-" in expression and len(feat.dependencies) == 2:
                 a = deps.get(feat.dependencies[0]) or 0
                 b = deps.get(feat.dependencies[1]) or 0
-                row[feat.name] = (a or 0) - (b or 0) if isinstance(a, (int, float)) and isinstance(b, (int, float)) else 0
+                row[feat.name] = (a or 0) - (b or 0) if isinstance(a, (int, float)) and isinstance(b, (int, float)) else 0  # noqa: E501
             elif "*" in expression:
                 values = [deps.get(d, 1) or 1 for d in feat.dependencies]
-                prod = 1
+                prod: int | float = 1
                 for v in values:
                     prod *= v if isinstance(v, (int, float)) else 1
                 row[feat.name] = prod
@@ -93,11 +93,11 @@ class FeatureStore:
             elif "log" in expression:
                 import math
                 val = deps.get(feat.dependencies[0], 1) or 1
-                row[feat.name] = math.log(abs(val)) if isinstance(val, (int, float)) and val > 0 else 0.0
+                row[feat.name] = math.log(abs(val)) if isinstance(val, (int, float)) and val > 0 else 0.0  # noqa: E501
             elif "sqrt" in expression:
                 import math
                 val = deps.get(feat.dependencies[0], 0) or 0
-                row[feat.name] = math.sqrt(val) if isinstance(val, (int, float)) and val >= 0 else 0.0
+                row[feat.name] = math.sqrt(val) if isinstance(val, (int, float)) and val >= 0 else 0.0  # noqa: E501
             elif "abs" in expression:
                 val = deps.get(feat.dependencies[0], 0) or 0
                 row[feat.name] = abs(val) if isinstance(val, (int, float)) else 0

@@ -81,18 +81,18 @@ class CoverageAnalyzer:
         functions = self._extract_functions(tree)
 
         # Estimate coverage from test artifacts.
-        covered_lines = self._estimate_covered_lines(test_artifacts, source_code, lines_info, functions)
+        covered_lines = self._estimate_covered_lines(test_artifacts, source_code, lines_info, functions)  # noqa: E501
 
-        total_executable = sum(1 for l in lines_info if l.is_executable)
+        total_executable = sum(1 for l in lines_info if l.is_executable)  # noqa: E741
         covered_executable = sum(
-            1 for l in lines_info
+            1 for l in lines_info  # noqa: E741
             if l.is_executable and l.lineno in covered_lines
         )
 
         line_cov = covered_executable / total_executable if total_executable > 0 else 1.0
 
         # Branch coverage: count branch points (if/elif/for/while) and check coverage.
-        branch_points = [l for l in lines_info if l.is_branch]
+        branch_points = [l for l in lines_info if l.is_branch]  # noqa: E741
         covered_branches = sum(1 for b in branch_points if b.lineno in covered_lines)
         branch_cov = covered_branches / len(branch_points) if branch_points else 1.0
 
@@ -103,7 +103,7 @@ class CoverageAnalyzer:
         # Identify gaps.
         uncovered = [
             f"line {l.lineno}: {l.code.strip()}"
-            for l in lines_info
+            for l in lines_info  # noqa: E741
             if l.is_executable and l.lineno not in covered_lines
         ]
         gaps = self._identify_coverage_gaps(source_code, tree, line_cov)
@@ -245,7 +245,7 @@ def re_match_branch(stripped: str) -> bool:
 
 def re_is_executable(stripped: str) -> bool:
     """Check if a line is executable code."""
-    exec_prefixes = ("return", "yield", "raise", "=", "assert", "import", "from", "pass", "break", "continue")
+    exec_prefixes = ("return", "yield", "raise", "=", "assert", "import", "from", "pass", "break", "continue")  # noqa: E501
     if any(stripped.startswith(p) for p in exec_prefixes):
         return True
     if "(" in stripped and "=" not in stripped[:stripped.index("(")]:

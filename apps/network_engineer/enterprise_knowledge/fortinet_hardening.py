@@ -98,7 +98,7 @@ class FortinetHardeningAnalyzer:
             ))
         return findings
 
-    def _check_policy_optimization(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
+    def _check_policy_optimization(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_firewall_policy = "config firewall policy" in raw
         has_application_control = "application-control" in raw or "app-control" in raw
@@ -109,8 +109,8 @@ class FortinetHardeningAnalyzer:
             policy_count = raw.count("edit ")
             if policy_count > 50:
                 findings.append(EnterpriseKnowledgeFinding(
-                    domain="fortinet_hardening", category="policy_optimization", severity="suggestion",
-                    description=f"Large number of firewall policies ({policy_count}) — review for consolidation",
+                    domain="fortinet_hardening", category="policy_optimization", severity="suggestion",  # noqa: E501
+                    description=f"Large number of firewall policies ({policy_count}) — review for consolidation",  # noqa: E501
                     recommendation=(
                         "Consolidate firewall policies using policy objects (address groups, "
                         "service groups). Remove unused policies."
@@ -142,7 +142,7 @@ class FortinetHardeningAnalyzer:
                 ))
             if not has_identity:
                 findings.append(EnterpriseKnowledgeFinding(
-                    domain="fortinet_hardening", category="policy_optimization", severity="suggestion",
+                    domain="fortinet_hardening", category="policy_optimization", severity="suggestion",  # noqa: E501
                     description="Identity-based policies not configured",
                     recommendation=(
                         "Use identity-based policies with FSSO or LDAP integration "
@@ -206,7 +206,7 @@ class FortinetHardeningAnalyzer:
             ))
         return findings
 
-    def _check_threat_protection(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
+    def _check_threat_protection(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_ips = "ips" in raw or "ips-sensor" in raw or "intrusion-prevention" in raw
         has_av = "antivirus" in raw or "av-profile" in raw
@@ -247,7 +247,7 @@ class FortinetHardeningAnalyzer:
             ))
         return findings
 
-    def _check_logging_analytics(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
+    def _check_logging_analytics(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_logging = "log" in raw or "logdisk" in raw or "syslog" in raw
         has_fortianalyzer = "fortianalyzer" in raw or "analytics" in raw

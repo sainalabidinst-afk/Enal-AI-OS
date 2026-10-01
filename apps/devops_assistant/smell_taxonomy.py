@@ -67,7 +67,7 @@ class DevOpsSmellTaxonomy:
     def _detect_missing_health_check(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
-        if "health" not in content.lower() and "readiness" not in content.lower() and "liveness" not in content.lower():
+        if "health" not in content.lower() and "readiness" not in content.lower() and "liveness" not in content.lower():  # noqa: E501
             problems.append(Problem(
                 id=f"devops-missing-health-check-{len(problems)+1}",
                 type=ProblemType.MISSING_HEALTH_CHECK.value,
@@ -151,7 +151,7 @@ class DevOpsSmellTaxonomy:
     def _detect_missing_monitoring(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
-        if "prometheus" not in content.lower() and "metrics" not in content.lower() and "monitoring" not in content.lower():
+        if "prometheus" not in content.lower() and "metrics" not in content.lower() and "monitoring" not in content.lower():  # noqa: E501
             problems.append(Problem(
                 id=f"devops-missing-monitoring-{len(problems)+1}",
                 type=ProblemType.MISSING_MONITORING.value,

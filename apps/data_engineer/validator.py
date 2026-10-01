@@ -83,7 +83,7 @@ class DatasetValidator:
             issues=issues,
         )
 
-    def _validate_schema(self, data: list[dict[str, Any]], schema: dict[str, Any]) -> list[QualityIssue]:
+    def _validate_schema(self, data: list[dict[str, Any]], schema: dict[str, Any]) -> list[QualityIssue]:  # noqa: E501
         """Validate data against expected schema."""
         issues: list[QualityIssue] = []
         if not data:
@@ -184,7 +184,7 @@ class DatasetValidator:
 
     def _type_matches(self, value: Any, expected_type: str) -> bool:
         """Check if a value matches an expected type string."""
-        type_map = {
+        type_map: dict[str, type | tuple[type, ...]] = {
             "string": str,
             "int": int,
             "integer": int,
@@ -201,9 +201,9 @@ class DatasetValidator:
 
     def _is_valid_value(self, value: Any) -> bool:
         """Check if a value is valid (not None, not empty)."""
-        return value is not None and value != "" and not (isinstance(value, float) and (value != value))  # NaN check
+        return value is not None and value != "" and not (isinstance(value, float) and (value != value))  # NaN check  # noqa: E501
 
-    def _compute_scores(self, data: list[dict[str, Any]], issues: list[QualityIssue]) -> dict[str, float]:
+    def _compute_scores(self, data: list[dict[str, Any]], issues: list[QualityIssue]) -> dict[str, float]:  # noqa: E501
         """Compute quality dimension scores."""
         if not data:
             return {"overall": 0.0}

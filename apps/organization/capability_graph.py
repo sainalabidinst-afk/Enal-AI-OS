@@ -319,7 +319,7 @@ class CapabilityGraph:
                 capability_id="architecture-review",
                 version=CAPABILITY_CONTRACT_VERSION,
                 name="Architecture Review",
-                description="Score repository architecture: layering, dependencies, modularity, technical debt",
+                description="Score repository architecture: layering, dependencies, modularity, technical debt",  # noqa: E501
                 required_skills=["architecture", "analysis", "system-design"],
                 dependencies=["architecture-analysis", "code-generation"],
                 estimated_complexity="high",
@@ -329,7 +329,7 @@ class CapabilityGraph:
                 capability_id="full-stack-code-review",
                 version=CAPABILITY_CONTRACT_VERSION,
                 name="Full Stack Code Review",
-                description="Review code for bugs, race conditions, deadlocks, SQL injection, XSS, security, performance, and maintainability",
+                description="Review code for bugs, race conditions, deadlocks, SQL injection, XSS, security, performance, and maintainability",  # noqa: E501
                 required_skills=["code-review", "static-analysis", "security"],
                 dependencies=["code-generation"],
                 estimated_complexity="high",
@@ -339,7 +339,7 @@ class CapabilityGraph:
                 capability_id="refactoring-planner",
                 version=CAPABILITY_CONTRACT_VERSION,
                 name="Refactoring Planner",
-                description="Generate structured refactoring plans: problem -> cause -> proposal -> benefit -> risk -> migration steps",
+                description="Generate structured refactoring plans: problem -> cause -> proposal -> benefit -> risk -> migration steps",  # noqa: E501
                 required_skills=["refactoring", "code-review", "architecture"],
                 dependencies=["code-review"],
                 estimated_complexity="medium",
@@ -349,7 +349,7 @@ class CapabilityGraph:
                 capability_id="test-engineer",
                 version=CAPABILITY_CONTRACT_VERSION,
                 name="Test Engineer",
-                description="Plan and generate unit, integration, contract, performance, and regression tests",
+                description="Plan and generate unit, integration, contract, performance, and regression tests",  # noqa: E501
                 required_skills=["testing", "qa", "code-generation"],
                 dependencies=["code-generation"],
                 estimated_complexity="high",
@@ -359,7 +359,7 @@ class CapabilityGraph:
                 capability_id="performance-engineer",
                 version=CAPABILITY_CONTRACT_VERSION,
                 name="Performance Engineer",
-                description="Analyze N+1 queries, missing indexes, bundle size, rendering, and hydration issues",
+                description="Analyze N+1 queries, missing indexes, bundle size, rendering, and hydration issues",  # noqa: E501
                 required_skills=["performance", "database", "frontend"],
                 dependencies=["code-generation"],
                 estimated_complexity="high",
@@ -369,7 +369,7 @@ class CapabilityGraph:
                 capability_id="release-engineer",
                 version=CAPABILITY_CONTRACT_VERSION,
                 name="Release Engineer",
-                description="Validate release readiness: changelog, semver, migration, rollback, deployment checklist, post-deployment verification",
+                description="Validate release readiness: changelog, semver, migration, rollback, deployment checklist, post-deployment verification",  # noqa: E501
                 required_skills=["devops", "deployment", "documentation"],
                 dependencies=["testing"],
                 estimated_complexity="medium",
@@ -759,7 +759,7 @@ class CapabilityGraph:
                 SubtaskTemplate(
                     subtask_id="fs-architecture-review",
                     name="Architecture Review",
-                    description="Score repository architecture across layering, dependencies, modularity, and technical debt",
+                    description="Score repository architecture across layering, dependencies, modularity, and technical debt",  # noqa: E501
                     required_skills=["architecture", "analysis", "system-design"],
                     produces_artifact="architecture_review",
                     estimated_duration_minutes=60,
@@ -769,7 +769,7 @@ class CapabilityGraph:
                 SubtaskTemplate(
                     subtask_id="fs-code-review",
                     name="Code Review",
-                    description="Review code for bugs, race conditions, deadlocks, SQL injection, XSS, security, performance, and maintainability",
+                    description="Review code for bugs, race conditions, deadlocks, SQL injection, XSS, security, performance, and maintainability",  # noqa: E501
                     required_skills=["code-review", "static-analysis", "security"],
                     produces_artifact="code_review_report",
                     estimated_duration_minutes=90,
@@ -779,7 +779,7 @@ class CapabilityGraph:
                 SubtaskTemplate(
                     subtask_id="fs-refactoring",
                     name="Refactoring Planner",
-                    description="Generate structured refactoring plans with risk and migration steps",
+                    description="Generate structured refactoring plans with risk and migration steps",  # noqa: E501
                     required_skills=["refactoring", "code-review", "architecture"],
                     produces_artifact="refactoring_plan",
                     estimated_duration_minutes=45,
@@ -789,7 +789,7 @@ class CapabilityGraph:
                 SubtaskTemplate(
                     subtask_id="fs-test-engineering",
                     name="Test Engineer",
-                    description="Plan and generate unit, integration, contract, performance, and regression tests",
+                    description="Plan and generate unit, integration, contract, performance, and regression tests",  # noqa: E501
                     required_skills=["testing", "qa", "code-generation"],
                     produces_artifact="test_plan",
                     estimated_duration_minutes=90,
@@ -799,7 +799,7 @@ class CapabilityGraph:
                 SubtaskTemplate(
                     subtask_id="fs-performance",
                     name="Performance Engineer",
-                    description="Analyze N+1 queries, missing indexes, bundle size, rendering, and hydration issues",
+                    description="Analyze N+1 queries, missing indexes, bundle size, rendering, and hydration issues",  # noqa: E501
                     required_skills=["performance", "database", "frontend"],
                     produces_artifact="performance_report",
                     estimated_duration_minutes=60,
@@ -809,7 +809,7 @@ class CapabilityGraph:
                 SubtaskTemplate(
                     subtask_id="fs-release",
                     name="Release Engineer",
-                    description="Validate release readiness: changelog, semver, migration, rollback, deployment checklist, post-deployment verification",
+                    description="Validate release readiness: changelog, semver, migration, rollback, deployment checklist, post-deployment verification",  # noqa: E501
                     required_skills=["devops", "deployment", "documentation"],
                     produces_artifact="release_readiness_report",
                     estimated_duration_minutes=30,

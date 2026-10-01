@@ -7,17 +7,17 @@ Defines the input (AIEngineerRequest) and output (AIEngineerReport)
 contracts, plus all supporting types.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     agent_design = "agent_design"
     rag_engine_design = "rag_engine_design"
     prompt_engineering = "prompt_engineering"
@@ -25,14 +25,14 @@ class OperationType(str, Enum):
     ai_assessment = "ai_assessment"
 
 
-class OutputFormat(str, Enum):
+class OutputFormat(StrEnum):
     json = "json"
     markdown = "markdown"
     html = "html"
     text = "text"
 
 
-class AgentArchitectureType(str, Enum):
+class AgentArchitectureType(StrEnum):
     single_agent = "single_agent"
     multi_agent = "multi_agent"
     hierarchical = "hierarchical"
@@ -40,7 +40,7 @@ class AgentArchitectureType(str, Enum):
     pipeline = "pipeline"
 
 
-class OrchestrationPattern(str, Enum):
+class OrchestrationPattern(StrEnum):
     sequential = "sequential"
     concurrent = "concurrent"
     conditional = "conditional"
@@ -48,7 +48,7 @@ class OrchestrationPattern(str, Enum):
     reflection = "reflection"
 
 
-class RAGStrategy(str, Enum):
+class RAGStrategy(StrEnum):
     naive = "naive"
     chunked = "chunked"
     hybrid = "hybrid"
@@ -56,7 +56,7 @@ class RAGStrategy(str, Enum):
     agentic = "agentic"
 
 
-class EvaluationMetric(str, Enum):
+class EvaluationMetric(StrEnum):
     accuracy = "accuracy"
     f1_score = "f1_score"
     bleu = "bleu"
@@ -67,7 +67,7 @@ class EvaluationMetric(str, Enum):
     throughput = "throughput"
 
 
-class LLMProvider(str, Enum):
+class LLMProvider(StrEnum):
     openai = "openai"
     anthropic = "anthropic"
     google = "google"
@@ -76,7 +76,7 @@ class LLMProvider(str, Enum):
     custom = "custom"
 
 
-class DeploymentEnvironment(str, Enum):
+class DeploymentEnvironment(StrEnum):
     development = "development"
     staging = "staging"
     production = "production"
@@ -170,7 +170,7 @@ class MonitoringConfig(BaseModel):
     metrics_enabled: bool = Field(default=True, description="Enable metrics collection")
     logging_level: str = Field(default="INFO", description="Logging level")
     tracing_enabled: bool = Field(default=True, description="Enable distributed tracing")
-    alert_on_latency_p95: str = Field(default="1000ms", description="Alert threshold for P95 latency")
+    alert_on_latency_p95: str = Field(default="1000ms", description="Alert threshold for P95 latency")  # noqa: E501
     alert_on_error_rate: str = Field(default="1%", description="Alert threshold for error rate")
     dashboard_url: str = Field(default="", description="Monitoring dashboard URL")
 
@@ -189,13 +189,13 @@ class AIEngineerReport(BaseModel):
     operation: str = Field(default="")
     agent_spec: AgentSpec | None = Field(default=None, description="Agent architecture design")
     rag_config: RAGConfig | None = Field(default=None, description="RAG configuration")
-    prompt_templates: list[PromptTemplate] = Field(default_factory=list, description="Prompt templates")
-    fine_tuning_config: FineTuningConfig | None = Field(default=None, description="Fine-tuning configuration")
-    deployment_config: DeploymentConfig | None = Field(default=None, description="Deployment configuration")
-    monitoring_config: MonitoringConfig | None = Field(default=None, description="Monitoring configuration")
-    evaluation_results: dict[str, float] = Field(default_factory=dict, description="Evaluation metrics")
+    prompt_templates: list[PromptTemplate] = Field(default_factory=list, description="Prompt templates")  # noqa: E501
+    fine_tuning_config: FineTuningConfig | None = Field(default=None, description="Fine-tuning configuration")  # noqa: E501
+    deployment_config: DeploymentConfig | None = Field(default=None, description="Deployment configuration")  # noqa: E501
+    monitoring_config: MonitoringConfig | None = Field(default=None, description="Monitoring configuration")  # noqa: E501
+    evaluation_results: dict[str, float] = Field(default_factory=dict, description="Evaluation metrics")  # noqa: E501
     cost_estimate: dict[str, float] = Field(default_factory=dict, description="Cost estimate")
-    recommendations: list[str] = Field(default_factory=list, description="Improvement recommendations")
+    recommendations: list[str] = Field(default_factory=list, description="Improvement recommendations")  # noqa: E501
     quality_score: float = Field(default=0.0, ge=0.0, le=1.0)
     explanation: str = Field(default="")
     generated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))

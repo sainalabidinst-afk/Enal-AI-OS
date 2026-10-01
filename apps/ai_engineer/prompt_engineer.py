@@ -32,7 +32,7 @@ class PromptEngineer:
         defaults: dict[str, PromptTemplate] = {
             "general": PromptTemplate(
                 name="general_assistant",
-                template="Anda adalah asisten AI yang membantu dalam domain {domain}. Jawab pertanyaan dengan jelas dan akurat.\n\nPertanyaan: {query}\n\nJawaban:",
+                template="Anda adalah asisten AI yang membantu dalam domain {domain}. Jawab pertanyaan dengan jelas dan akurat.\n\nPertanyaan: {query}\n\nJawaban:",  # noqa: E501
                 variables=["domain", "query"],
                 version="1.0",
                 description="General-purpose assistant template",
@@ -40,7 +40,7 @@ class PromptEngineer:
             ),
             "code": PromptTemplate(
                 name="code_assistant",
-                template="Anda adalah programmer ahli dalam bahasa {language}. Tulis kode yang bersih, efisien, dan terdokumentasi.\n\nPermintaan: {query}\n\nKode:\n```{language}\n",
+                template="Anda adalah programmer ahli dalam bahasa {language}. Tulis kode yang bersih, efisien, dan terdokumentasi.\n\nPermintaan: {query}\n\nKode:\n```{language}\n",  # noqa: E501
                 variables=["language", "query"],
                 version="1.0",
                 description="Code generation template with best practices",
@@ -48,7 +48,7 @@ class PromptEngineer:
             ),
             "analysis": PromptTemplate(
                 name="analysis_assistant",
-                template="Lakukan analisis {analysis_type} untuk data berikut:\n\n{data}\n\nBerikan analisis terstruktur dengan:\n1. Ringkasan\n2. Temuan utama\n3. Rekomendasi\n\nAnalisis:",
+                template="Lakukan analisis {analysis_type} untuk data berikut:\n\n{data}\n\nBerikan analisis terstruktur dengan:\n1. Ringkasan\n2. Temuan utama\n3. Rekomendasi\n\nAnalisis:",  # noqa: E501
                 variables=["analysis_type", "data"],
                 version="1.0",
                 description="Structured analysis template with reasoning chain",
@@ -56,7 +56,7 @@ class PromptEngineer:
             ),
             "rag": PromptTemplate(
                 name="rag_assistant",
-                template="Gunakan konteks berikut untuk menjawab pertanyaan:\n\nKonteks:\n{context}\n\nPertanyaan: {query}\n\nInstruksi:\n- Jawab hanya berdasarkan konteks yang diberikan\n- Jika konteks tidak cukup, katakan 'Saya tidak memiliki informasi yang cukup'\n- Sertakan kutipan sumber\n\nJawaban:",
+                template="Gunakan konteks berikut untuk menjawab pertanyaan:\n\nKonteks:\n{context}\n\nPertanyaan: {query}\n\nInstruksi:\n- Jawab hanya berdasarkan konteks yang diberikan\n- Jika konteks tidak cukup, katakan 'Saya tidak memiliki informasi yang cukup'\n- Sertakan kutipan sumber\n\nJawaban:",  # noqa: E501
                 variables=["context", "query"],
                 version="1.0",
                 description="RAG prompt with source attribution",
@@ -64,7 +64,7 @@ class PromptEngineer:
             ),
             "agentic": PromptTemplate(
                 name="agentic_reasoning",
-                template="Anda adalah agent AI yang dapat menggunakan tools berikut:\n{tools}\n\nTugas: {task}\n\nLangkah-langkah:\n1. Analisis tugas\n2. Pilih tool yang tepat\n3. Eksekusi\n4. Verifikasi hasil\n5. Berikan jawaban akhir\n\nMulai:",
+                template="Anda adalah agent AI yang dapat menggunakan tools berikut:\n{tools}\n\nTugas: {task}\n\nLangkah-langkah:\n1. Analisis tugas\n2. Pilih tool yang tepat\n3. Eksekusi\n4. Verifikasi hasil\n5. Berikan jawaban akhir\n\nMulai:",  # noqa: E501
                 variables=["tools", "task"],
                 version="1.0",
                 description="Agentic reasoning with tool use",

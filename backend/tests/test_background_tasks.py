@@ -43,7 +43,7 @@ class TestBackgroundTaskManager:
         assert status is None
 
     def test_on_complete_registers_callback(self, manager):
-        callback = lambda result: None
+        callback = lambda result: None  # noqa: E731
         manager.on_complete("task-1", callback)
         assert "task-1" in manager._listeners
         assert callback in manager._listeners["task-1"]

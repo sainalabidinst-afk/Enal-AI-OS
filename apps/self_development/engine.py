@@ -69,7 +69,7 @@ class SelfDevelopmentEngine:
         if self._custom_problems is not None:
             return [self._problem_to_dict(p) for p in self._custom_problems]
         scanner = ProjectScanner()
-        analysis = scanner.to_analysis(scanner.scan(project_path or str(Path(__file__).resolve().parent.parent.parent)))
+        analysis = scanner.to_analysis(scanner.scan(project_path or str(Path(__file__).resolve().parent.parent.parent)))  # noqa: E501
         problems = self.taxonomy.detect(analysis)
         return [self._problem_to_dict(p) for p in problems]
 
@@ -192,7 +192,7 @@ class SelfDevelopmentEngine:
                     return problem
             return None
         scanner = ProjectScanner()
-        analysis = scanner.to_analysis(scanner.scan(str(Path(__file__).resolve().parent.parent.parent)))
+        analysis = scanner.to_analysis(scanner.scan(str(Path(__file__).resolve().parent.parent.parent)))  # noqa: E501
         problems = self.taxonomy.detect(analysis)
         for problem in problems:
             if problem.id == problem_id:

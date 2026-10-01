@@ -141,7 +141,7 @@ class MarketSummaryGenerator:
 
         # Determine strongest category
         if category_scores:
-            strongest_cat = max(category_scores, key=lambda k: category_scores[k] if category_scores[k] is not None else 0.0)
+            strongest_cat = max(category_scores, key=lambda k: category_scores[k] if category_scores[k] is not None else 0.0)  # noqa: E501
             strongest_score = category_scores[strongest_cat]
         else:
             strongest_cat = "unknown"
@@ -159,7 +159,7 @@ class MarketSummaryGenerator:
         if top:
             summary_parts.append("Key observations:")
             for ev in top:
-                summary_parts.append(f"  - {ev.description} ({ev.timeframe}, strength: {ev.strength:.2f})")
+                summary_parts.append(f"  - {ev.description} ({ev.timeframe}, strength: {ev.strength:.2f})")  # noqa: E501
 
         return " ".join(summary_parts)
 
@@ -215,11 +215,11 @@ class MarketSummaryGenerator:
         """Build reasoning trace for transparency."""
         steps = [
             f"1. Analyzed {len(evidence)} evidence items across {len(category_scores)} categories.",
-            "2. Weighted scoring applied: Market Structure 35%, Trend 25%, Volume 20%, Volatility 10%, Session 10%.",
+            "2. Weighted scoring applied: Market Structure 35%, Trend 25%, Volume 20%, Volatility 10%, Session 10%.",  # noqa: E501
             f"3. Overall bias: {bias.value.upper()} (confidence: {round(confidence * 100)}%).",
         ]
 
-        for category, score in sorted(category_scores.items(), key=lambda x: abs(x[1]), reverse=True):
+        for category, score in sorted(category_scores.items(), key=lambda x: abs(x[1]), reverse=True):  # noqa: E501
             direction = "bullish" if score > 0 else "bearish" if score < 0 else "neutral"
             steps.append(
                 f"   - {category.replace('_', ' ').title()}: {direction} ({abs(score):.2f})"

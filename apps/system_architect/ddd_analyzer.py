@@ -41,8 +41,8 @@ class DDDAnalyzer:
     """
 
     # Patterns used to classify domain objects
-    ENTITY_HINTS = ("entity", "aggerate", " domain ", "model", "order", "invoice", "customer", "product", "user", "account")
-    VALUE_OBJECT_HINTS = ("value", "vo", "amount", "money", "address", "email", "phone", "rating", "percent")
+    ENTITY_HINTS = ("entity", "aggerate", " domain ", "model", "order", "invoice", "customer", "product", "user", "account")  # noqa: E501
+    VALUE_OBJECT_HINTS = ("value", "vo", "amount", "money", "address", "email", "phone", "rating", "percent")  # noqa: E501
     EVENT_HINTS = ("event", "domainevent", "occurred", "happened", "changed", "created", "updated",
                    "deleted", "cancelled", "completed", "submitted")
     AGGREGATE_HINTS = ("aggregate", "root", "cluster")
@@ -79,7 +79,7 @@ class DDDAnalyzer:
                     name = node.name
                     lower = name.lower()
                     # Aggregate detection
-                    if self._matches(lower, self.AGGREGATE_HINTS) or name in {"Order", "CustomerAccount"}:
+                    if self._matches(lower, self.AGGREGATE_HINTS) or name in {"Order", "CustomerAccount"}:  # noqa: E501
                         aggregates.append(f"{module_path}:{name}")
                     # Entity detection
                     elif self._matches(lower, self.ENTITY_HINTS) or (

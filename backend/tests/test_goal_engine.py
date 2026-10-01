@@ -15,7 +15,7 @@ class TestGoal:
         assert goal.metadata == {}
 
     def test_custom_values(self):
-        goal = Goal(id="g1", description="desc", success_criteria=["c1"], constraints=["c2"], max_iterations=5, project_id="p1")
+        goal = Goal(id="g1", description="desc", success_criteria=["c1"], constraints=["c2"], max_iterations=5, project_id="p1")  # noqa: E501
         assert goal.constraints == ["c2"]
         assert goal.max_iterations == 5
         assert goal.project_id == "p1"
@@ -79,9 +79,9 @@ class TestAutonomousGoalEngine:
         import backend.app.core.goal_engine as ge_module
 
         async def fake_acomplete(*args, **kwargs):
-            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": '{"success": true, "progress": 100.0, "reasoning": "ok"}'})()})]})()
+            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": '{"success": true, "progress": 100.0, "reasoning": "ok"}'})()})]})()  # noqa: E501
 
-        monkeypatch.setattr(ge_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())
+        monkeypatch.setattr(ge_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
         goal = await engine.create_goal("test goal", ["criterion 1"])
         result = await engine.execute(goal.id)
         assert result["status"] == "completed"
@@ -95,9 +95,9 @@ class TestAutonomousGoalEngine:
         import backend.app.core.goal_engine as ge_module
 
         async def fake_acomplete(*args, **kwargs):
-            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": '{"success": true, "progress": 80.0, "reasoning": "ok"}'})()})]})()
+            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": '{"success": true, "progress": 80.0, "reasoning": "ok"}'})()})]})()  # noqa: E501
 
-        monkeypatch.setattr(ge_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())
+        monkeypatch.setattr(ge_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
         engine = AutonomousGoalEngine()
         goal = Goal(id="g1", description="test", success_criteria=["c1"])
         result = await engine._evaluate_progress(goal, "result data")
@@ -108,9 +108,9 @@ class TestAutonomousGoalEngine:
         import backend.app.core.goal_engine as ge_module
 
         async def fake_acomplete(*args, **kwargs):
-            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": "not json"})()})]})()
+            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": "not json"})()})]})()  # noqa: E501
 
-        monkeypatch.setattr(ge_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())
+        monkeypatch.setattr(ge_module, "model_router", type("MR", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
         engine = AutonomousGoalEngine()
         goal = Goal(id="g1", description="test", success_criteria=["c1"])
         result = await engine._evaluate_progress(goal, "result data")

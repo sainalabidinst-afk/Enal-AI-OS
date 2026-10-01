@@ -120,17 +120,17 @@ class DecisionIntelligenceEngine:
 
         # 5. Simulation Engine.
         simulation_outcomes: list[SimulationOutcome] = []
-        for alt in scored:
-            rp = alt.get("risk_profile")
+        for scored_alt in scored:
+            rp = scored_alt.get("risk_profile")
             risk_profile = rp if isinstance(rp, RiskProfile) else RiskProfile()
             outcome = self.simulation.simulate(
-                description=alt["description"],
+                description=scored_alt["description"],
                 evidence_set=evidence_set,
                 objectives=request.objectives,
                 risk_profile=risk_profile,
             )
             simulation_outcomes.append(outcome)
-            alt["simulation_outcome"] = outcome
+            scored_alt["simulation_outcome"] = outcome
 
         # 6. Debate Engine.
         debate_results = self.debate.debate(
@@ -174,7 +174,7 @@ class DecisionIntelligenceEngine:
                 "evidence_count": evidence_set.count if evidence_set else 0,
                 "alternatives_count": len(scored),
                 "evidence_quality": round(evidence_set.avg_quality, 4) if evidence_set else 0.0,
-                "dominant_sentiment": evidence_set.dominant_sentiment if evidence_set else "neutral",
+                "dominant_sentiment": evidence_set.dominant_sentiment if evidence_set else "neutral",  # noqa: E501
                 "simulation_outcomes": [
                     {
                         "description": o.alternative_description,
@@ -204,7 +204,7 @@ class DecisionIntelligenceEngine:
             alternatives_count=len(scored),
             confidence_score=conf.score,
             evidence_count=len(request.evidence_sources),
-            risk_score=scored[0]["risk_profile"].overall_risk if scored and scored[0].get("risk_profile") else 0.0,
+            risk_score=scored[0]["risk_profile"].overall_risk if scored and scored[0].get("risk_profile") else 0.0,  # noqa: E501
             explanation=explanation.final_rationale,
             outcome=DecisionOutcome.pending,
         )

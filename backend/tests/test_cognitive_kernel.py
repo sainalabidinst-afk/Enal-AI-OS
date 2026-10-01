@@ -61,7 +61,7 @@ class TestCognitiveServices:
             async def decide(chain):
                 return type("Decision", (), {"__dict__": {}})()
 
-        monkeypatch.setattr("backend.app.core.cognitive.reasoning_engine.reasoning_engine", FakeReasoningEngine)
+        monkeypatch.setattr("backend.app.core.cognitive.reasoning_engine.reasoning_engine", FakeReasoningEngine)  # noqa: E501
         service = ReasoningService()
         result = await service.process({"perception": {"input": "problem"}})
         assert "hypotheses" in result
@@ -76,7 +76,7 @@ class TestCognitiveServices:
             async def create_strategy(problem, context):
                 return type("Roadmap", (), {"__dict__": {"steps": []}})()
 
-        monkeypatch.setattr("backend.app.core.cognitive.strategic_planner.strategic_planner", FakeStrategicPlanner)
+        monkeypatch.setattr("backend.app.core.cognitive.strategic_planner.strategic_planner", FakeStrategicPlanner)  # noqa: E501
         service = PlanningService()
         result = await service.process({"perception": {"input": "problem"}})
         assert "roadmap" in result
@@ -104,7 +104,7 @@ class TestCognitiveServices:
 
         monkeypatch.setattr("backend.app.core.reflection.self_reflection", FakeSelfReflection)
         service = ReflectionService()
-        result = await service.process({"decision": {"decision": "done"}, "perception": {"input": "task"}})
+        result = await service.process({"decision": {"decision": "done"}, "perception": {"input": "task"}})  # noqa: E501
         assert result["score"] == 8
         assert result["passed"] is True
 
@@ -148,8 +148,8 @@ class TestCognitiveKernel:
                 return []
 
         monkeypatch.setattr("backend.app.core.cognitive.world_model.world_model", FakeWorldModel())
-        monkeypatch.setattr("backend.app.core.cognitive.strategic_planner.strategic_planner.create_strategy", lambda *a, **k: type("R", (), {"__dict__": {}})())
-        monkeypatch.setattr("backend.app.core.reflection.self_reflection.review", lambda *a, **k: {"score": 8, "passed": True, "suggestions": []})
+        monkeypatch.setattr("backend.app.core.cognitive.strategic_planner.strategic_planner.create_strategy", lambda *a, **k: type("R", (), {"__dict__": {}})())  # noqa: E501
+        monkeypatch.setattr("backend.app.core.reflection.self_reflection.review", lambda *a, **k: {"score": 8, "passed": True, "suggestions": []})  # noqa: E501
 
         class FakeReasoningEngine:
             @staticmethod
@@ -164,9 +164,9 @@ class TestCognitiveKernel:
             async def decide(chain):
                 return type("Decision", (), {"__dict__": {}})()
 
-        monkeypatch.setattr("backend.app.core.cognitive.reasoning_engine.reasoning_engine", FakeReasoningEngine)
+        monkeypatch.setattr("backend.app.core.cognitive.reasoning_engine.reasoning_engine", FakeReasoningEngine)  # noqa: E501
 
         kernel = CognitiveKernel()
-        result = await kernel.execute_pipeline(["perception", "memory", "reasoning"], {"input": "test"})
+        result = await kernel.execute_pipeline(["perception", "memory", "reasoning"], {"input": "test"})  # noqa: E501
         assert "_pipeline_results" in result
         assert "perception" in result["_pipeline_results"]

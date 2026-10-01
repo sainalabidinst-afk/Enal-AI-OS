@@ -11,10 +11,10 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class MerakiParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.ubiquiti and "meraki" in meta.text_preview.lower() or "meraki" in meta.filename.lower()
+        return meta.vendor == VendorFamily.ubiquiti and "meraki" in meta.text_preview.lower() or "meraki" in meta.filename.lower()  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.ubiquiti, format="meraki", device_role=DeviceRole.switch)
+        ast = InfrastructureAST(vendor=VendorFamily.ubiquiti, format="meraki", device_role=DeviceRole.switch)  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

@@ -9,7 +9,7 @@ class NotificationService:
         self._notifications: dict[str, list[dict[str, Any]]] = defaultdict(list)
         self._lock = asyncio.Lock()
 
-    async def send(self, recipient: str, message: str, channel: str = "websocket", metadata: dict[str, Any] | None = None) -> dict[str, Any]:
+    async def send(self, recipient: str, message: str, channel: str = "websocket", metadata: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
         async with self._lock:
             entry = {
                 "id": __import__("uuid").uuid4().hex,

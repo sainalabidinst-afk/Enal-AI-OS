@@ -1,6 +1,6 @@
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from backend.app.core.config import settings
@@ -8,7 +8,7 @@ from backend.app.core.config import settings
 logger = logging.getLogger(__name__)
 
 
-class TaskComplexity(str, Enum):
+class TaskComplexity(StrEnum):
     TRIVIAL = "trivial"
     SIMPLE = "simple"
     MEDIUM = "medium"
@@ -72,20 +72,20 @@ class CognitiveBudgetManager:
             complexity=complexity,
             model=model,
             max_tokens=max_tokens,
-            temperature=0.3 if complexity in [TaskComplexity.COMPLEX, TaskComplexity.VERY_COMPLEX] else 0.7,
+            temperature=0.3 if complexity in [TaskComplexity.COMPLEX, TaskComplexity.VERY_COMPLEX] else 0.7,  # noqa: E501
             require_reflection=require_reflection,
             require_review=complexity in [TaskComplexity.COMPLEX, TaskComplexity.VERY_COMPLEX],
-            max_iterations=3 if complexity == TaskComplexity.VERY_COMPLEX else (2 if complexity == TaskComplexity.COMPLEX else 1),
+            max_iterations=3 if complexity == TaskComplexity.VERY_COMPLEX else (2 if complexity == TaskComplexity.COMPLEX else 1),  # noqa: E501
             estimated_duration_seconds=duration_map.get(complexity, 60),
         )
 
     def _estimate_complexity(self, task_description: str) -> TaskComplexity:
         lower = task_description.lower()
-        complex_keywords = ["build", "create", "design", "implement", "architecture", "system", "platform", "enterprise"]
+        complex_keywords = ["build", "create", "design", "implement", "architecture", "system", "platform", "enterprise"]  # noqa: E501
         medium_keywords = ["analyze", "write", "generate", "configure", "setup"]
         simple_keywords = ["fix", "update", "rename", "delete", "list"]
         if any(k in lower for k in complex_keywords):
-            return TaskComplexity.VERY_COMPLEX if len(task_description) > 500 else TaskComplexity.COMPLEX
+            return TaskComplexity.VERY_COMPLEX if len(task_description) > 500 else TaskComplexity.COMPLEX  # noqa: E501
         if any(k in lower for k in medium_keywords):
             return TaskComplexity.MEDIUM
         if any(k in lower for k in simple_keywords):

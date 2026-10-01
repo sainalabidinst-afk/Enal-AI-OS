@@ -18,16 +18,16 @@ logger = logging.getLogger(__name__)
 
 # Anti-patterns that indicate slow queries.
 _SLOW_PATTERNS: list[tuple[str, str, Severity, str]] = [
-    (r'(?i)select\s+\*', "SELECT * retrieves all columns", Severity.medium, "Specify only required columns"),
-    (r'(?i)like\s+[\'"]%', "Leading wildcard LIKE prevents index usage", Severity.high, "Avoid leading wildcards; use full-text search"),
-    (r'(?i)order\s+by\s+\w+\s+asc', "ORDER BY without LIMIT on large tables", Severity.medium, "Add LIMIT or ensure index covers ORDER BY"),
-    (r'(?i)group\s+by\s+.*order\s+by', "GROUP BY with ORDER BY may require temp table", Severity.low, "Consider covering index"),
-    (r'(?i)join\s+\w+\s+on\s+\w+\.\w+\s*=\s*\w+\.\w+(?!\s+and)', "JOIN without WHERE filter may produce large result sets", Severity.low, "Add WHERE clause or LIMIT"),
-    (r'(?i)not\s+in\s*\(', "NOT IN with subquery may be slow", Severity.high, "Use NOT EXISTS or LEFT JOIN ... IS NULL"),
-    (r'(?i)or\s+\w+\.\w+\s*=\s*\w+\.\w+.*or\s+\w+\.\w+\s*=\s*\w+\.\w+', "Multiple OR conditions may prevent index usage", Severity.medium, "Consider UNION or separate queries"),
-    (r'(?i)count\s*\(\s*\*\s*\)', "COUNT(*) without WHERE on large table", Severity.low, "Ensure proper WHERE clause or use estimate for large tables"),
-    (r'(?i)distinct\s+\w+', "DISTINCT may indicate data quality issue or need for index", Severity.low, "Review need for DISTINCT; add index if required"),
-    (r'(?i)having\s+', "HAVING without GROUP BY", Severity.low, "Move conditions to WHERE clause if no aggregation"),
+    (r'(?i)select\s+\*', "SELECT * retrieves all columns", Severity.medium, "Specify only required columns"),  # noqa: E501
+    (r'(?i)like\s+[\'"]%', "Leading wildcard LIKE prevents index usage", Severity.high, "Avoid leading wildcards; use full-text search"),  # noqa: E501
+    (r'(?i)order\s+by\s+\w+\s+asc', "ORDER BY without LIMIT on large tables", Severity.medium, "Add LIMIT or ensure index covers ORDER BY"),  # noqa: E501
+    (r'(?i)group\s+by\s+.*order\s+by', "GROUP BY with ORDER BY may require temp table", Severity.low, "Consider covering index"),  # noqa: E501
+    (r'(?i)join\s+\w+\s+on\s+\w+\.\w+\s*=\s*\w+\.\w+(?!\s+and)', "JOIN without WHERE filter may produce large result sets", Severity.low, "Add WHERE clause or LIMIT"),  # noqa: E501
+    (r'(?i)not\s+in\s*\(', "NOT IN with subquery may be slow", Severity.high, "Use NOT EXISTS or LEFT JOIN ... IS NULL"),  # noqa: E501
+    (r'(?i)or\s+\w+\.\w+\s*=\s*\w+\.\w+.*or\s+\w+\.\w+\s*=\s*\w+\.\w+', "Multiple OR conditions may prevent index usage", Severity.medium, "Consider UNION or separate queries"),  # noqa: E501
+    (r'(?i)count\s*\(\s*\*\s*\)', "COUNT(*) without WHERE on large table", Severity.low, "Ensure proper WHERE clause or use estimate for large tables"),  # noqa: E501
+    (r'(?i)distinct\s+\w+', "DISTINCT may indicate data quality issue or need for index", Severity.low, "Review need for DISTINCT; add index if required"),  # noqa: E501
+    (r'(?i)having\s+', "HAVING without GROUP BY", Severity.low, "Move conditions to WHERE clause if no aggregation"),  # noqa: E501
 ]
 
 
@@ -90,7 +90,7 @@ class QueryOptimizer:
                     ))
 
         # Check for missing WHERE clause on large tables (heuristic).
-        if re.search(r'(?i)select\s+.*\bfrom\s+\w+', query) and not re.search(r'(?i)\bwhere\b', query):
+        if re.search(r'(?i)select\s+.*\bfrom\s+\w+', query) and not re.search(r'(?i)\bwhere\b', query):  # noqa: E501
             if "limit" not in query.lower():
                 findings.append(Finding(
                     category=FindingCategory.query_performance,
@@ -124,7 +124,7 @@ class QueryOptimizer:
         """Get optimization recommendation for a pattern."""
         recommendations = {
             r'(?i)select\s+\*': "Replace SELECT * with explicit column list",
-            r'(?i)like\s+[\'"]%': "Use full-text search or trigram index instead of leading wildcard LIKE",
+            r'(?i)like\s+[\'"]%': "Use full-text search or trigram index instead of leading wildcard LIKE",  # noqa: E501
             r'(?i)not\s+in\s*\(': "Use NOT EXISTS or LEFT JOIN ... IS NULL for better performance",
             r'(?i)or\s+\w+\.\w+': "Consider UNION ALL or separate queries with individual indexes",
         }

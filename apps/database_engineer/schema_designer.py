@@ -122,9 +122,9 @@ class SchemaDesigner:
             recs.append(SchemaRecommendation(
                 table=table.name,
                 action="add_column",
-                details={"column": "id", "type": _TYPE_RECOMMENDATIONS.get(db_key, {}).get("id", "SERIAL PRIMARY KEY")},
+                details={"column": "id", "type": _TYPE_RECOMMENDATIONS.get(db_key, {}).get("id", "SERIAL PRIMARY KEY")},  # noqa: E501
                 priority=Severity.high,
-                rationale="Tables should have a primary key for unique row identification and indexing",
+                rationale="Tables should have a primary key for unique row identification and indexing",  # noqa: E501
             ))
 
         # Check column types.
@@ -140,17 +140,17 @@ class SchemaDesigner:
                             action="modify_column",
                             details={"column": col.name, "old_type": col.type, "new_type": "TEXT"},
                             priority=Severity.low,
-                            rationale=f"VARCHAR({size}) is large — consider TEXT for variable-length content",
+                            rationale=f"VARCHAR({size}) is large — consider TEXT for variable-length content",  # noqa: E501
                         ))
                 except (IndexError, ValueError):
                     pass
 
-            if "text" in col_type_lower and "json" not in col_type_lower and "timestamp" not in col_type_lower:
+            if "text" in col_type_lower and "json" not in col_type_lower and "timestamp" not in col_type_lower:  # noqa: E501
                 if not any("fulltext" in c.lower() for c in col.constraints):
                     recs.append(SchemaRecommendation(
                         table=table.name,
                         action="add_constraint",
-                        details={"column": col.name, "constraint": "consider full-text index if searching"},
+                        details={"column": col.name, "constraint": "consider full-text index if searching"},  # noqa: E501
                         priority=Severity.low,
                         rationale="TEXT column without index may cause slow searches",
                     ))
@@ -177,7 +177,7 @@ class SchemaDesigner:
                     action="normalize",
                     details={"prefix": prefix, "count": count},
                     priority=Severity.medium,
-                    rationale=f"Possible repeating group '{prefix}_*' — consider normalizing to separate table",
+                    rationale=f"Possible repeating group '{prefix}_*' — consider normalizing to separate table",  # noqa: E501
                 ))
 
         return recs
@@ -188,7 +188,7 @@ class SchemaDesigner:
 
         for col in table.columns:
             # Check for nullable columns that should be NOT NULL.
-            if "not null" not in [c.lower() for c in col.constraints] and col.name in ("email", "username", "id"):
+            if "not null" not in [c.lower() for c in col.constraints] and col.name in ("email", "username", "id"):  # noqa: E501
                 recs.append(SchemaRecommendation(
                     table=table.name,
                     action="add_constraint",

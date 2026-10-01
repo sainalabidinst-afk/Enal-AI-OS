@@ -7,13 +7,13 @@ Each agent has identity, role, department, skills, cost, quality, latency,
 availability, memory, tools, and manager.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field  # noqa: I001
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class AgentRole(str, Enum):
+class AgentRole(StrEnum):
     CEO = "ceo"
     DIRECTOR = "director"
     MANAGER = "manager"
@@ -22,14 +22,14 @@ class AgentRole(str, Enum):
     SPECIALIST = "specialist"
 
 
-class AgentStatus(str, Enum):
+class AgentStatus(StrEnum):
     IDLE = "idle"
     BUSY = "busy"
     OFFLINE = "offline"
     ERROR = "error"
 
 
-class Department(str, Enum):
+class Department(StrEnum):
     ENGINEERING = "engineering"
     NETWORK = "network"
     AI = "ai"

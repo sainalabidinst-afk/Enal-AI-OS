@@ -56,7 +56,7 @@ class DevOpsSuggestionGenerator:
         type_solutions: dict[str, dict[str, Any]] = {
             "hardcoded_secret": {
                 "solution_type": "security_hardening",
-                "description": "Gunakan secret management seperti HashiCorp Vault atau Kubernetes Secrets.",
+                "description": "Gunakan secret management seperti HashiCorp Vault atau Kubernetes Secrets.",  # noqa: E501
                 "estimated_effort": "medium",
                 "risk": "low",
                 "confidence": 0.95,

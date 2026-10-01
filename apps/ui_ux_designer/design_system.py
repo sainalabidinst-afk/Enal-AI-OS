@@ -53,7 +53,7 @@ class DesignSystemBuilder:
             {"name": "3xl", "size": "1.875rem", "line_height": "2.25rem", "weight": "700"},
             {"name": "4xl", "size": "2.25rem", "line_height": "2.5rem", "weight": "800"},
         ]
-        self._spacing_scale = ["0", "4px", "8px", "12px", "16px", "24px", "32px", "48px", "64px", "96px"]
+        self._spacing_scale = ["0", "4px", "8px", "12px", "16px", "24px", "32px", "48px", "64px", "96px"]  # noqa: E501
 
     def build(
         self,
@@ -169,7 +169,7 @@ class DesignSystemBuilder:
                     "type": "object",
                     "properties": {
                         "label": {"type": "string"},
-                        "variant": {"type": "string", "enum": ["primary", "secondary", "ghost", "danger"]},
+                        "variant": {"type": "string", "enum": ["primary", "secondary", "ghost", "danger"]},  # noqa: E501
                         "size": {"type": "string", "enum": ["sm", "md", "lg"]},
                         "disabled": {"type": "boolean"},
                     },

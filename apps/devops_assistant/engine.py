@@ -31,16 +31,16 @@ class DevOpsEngine:
         self.monitoring_configurator = MonitoringConfigurator()
         self.project_scanner = DevOpsProjectScanner()
 
-    async def generate_pipeline(self, service_name: str, platform: str = "github_actions") -> dict[str, Any]:
+    async def generate_pipeline(self, service_name: str, platform: str = "github_actions") -> dict[str, Any]:  # noqa: E501
         return self.pipeline_generator.generate(service_name, platform)
 
-    async def design_infrastructure(self, service_name: str, platform: str = "kubernetes") -> dict[str, Any]:
+    async def design_infrastructure(self, service_name: str, platform: str = "kubernetes") -> dict[str, Any]:  # noqa: E501
         return self.infrastructure_designer.design(service_name, platform)
 
     async def plan_deployment(self, service_name: str, strategy: str = "rolling") -> dict[str, Any]:
         return self.deployment_planner.plan(service_name, strategy)
 
-    async def configure_monitoring(self, service_name: str, stack: str = "prometheus") -> dict[str, Any]:
+    async def configure_monitoring(self, service_name: str, stack: str = "prometheus") -> dict[str, Any]:  # noqa: E501
         return self.monitoring_configurator.configure(service_name, stack)
 
     def scan_project(self, project_path: str) -> ProjectAnalysis:

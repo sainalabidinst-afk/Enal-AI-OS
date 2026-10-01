@@ -45,7 +45,7 @@ class CrossDomainGraphEngine:
     def __init__(self, persist_path: str = "./workspace/cross_domain_graph") -> None:
         self.resolver = EntityResolver()
         self.extractor = EdgeExtractor(self.resolver)
-        self.builder = GraphBuilder(persist_path=persist_path, resolver=self.resolver, extractor=self.extractor)
+        self.builder = GraphBuilder(persist_path=persist_path, resolver=self.resolver, extractor=self.extractor)  # noqa: E501
         self.scanner = MemoryScanner()
 
     # ------------------------------------------------------------------
@@ -172,7 +172,7 @@ class CrossDomainGraphEngine:
             query=request.query,
             answer=inference.answer if inference else "No inference available.",
             entities_discovered=[
-                {"id": n.id, "name": n.name, "domain": n.domain, "layer": n.layer, "confidence": n.confidence}
+                {"id": n.id, "name": n.name, "domain": n.domain, "layer": n.layer, "confidence": n.confidence}  # noqa: E501
                 for n in relevant_nodes
             ],
             relationships=[
@@ -234,7 +234,7 @@ class CrossDomainGraphEngine:
             path_explanations.append(" | ".join(explanation_parts))
 
         return {
-            "explanation": f"Found {len(paths)} path(s) between '{source_entity}' and '{target_entity}'",
+            "explanation": f"Found {len(paths)} path(s) between '{source_entity}' and '{target_entity}'",  # noqa: E501
             "paths": path_explanations,
         }
 
@@ -268,8 +268,30 @@ class CrossDomainGraphEngine:
 
         # If we have LLM inference available, enhance with LLM
         try:
-            llm_result = await self._llm_inference(request, relevant_nodes, deterministic)
+            from backend.app.core.config import settings
+
+            has_llm = any(
+                [
+                    settings.OPENAI_API_KEY,
+                    settings.ANTHROPIC_API_KEY,
+                    settings.GOOGLE_API_KEY,
+                    settings.GEMINI_API_KEY,
+                ]
+            )
+            if not has_llm:
+                logger.debug("No LLM API keys configured, using deterministic inference")
+                return deterministic
+
+            import asyncio
+
+            llm_result = await asyncio.wait_for(
+                self._llm_inference(request, relevant_nodes, deterministic),
+                timeout=5.0,
+            )
             return llm_result
+        except TimeoutError as e:
+            logger.debug(f"LLM inference timed out, using deterministic: {e}")
+            return deterministic
         except Exception as e:
             logger.debug(f"LLM inference not available, using deterministic: {e}")
             return deterministic

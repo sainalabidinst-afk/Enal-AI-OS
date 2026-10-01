@@ -109,7 +109,7 @@ class WorkflowExecutor:
             raise ValueError(f"Workflow '{definition.workflow_id}' must have at least one step")
         for step in definition.ordered_steps:
             if not step.capability_id:
-                raise ValueError(f"Step in workflow '{definition.workflow_id}' has empty capability_id")
+                raise ValueError(f"Step in workflow '{definition.workflow_id}' has empty capability_id")  # noqa: E501
         self._workflows[definition.workflow_id] = definition
         logger.info("Workflow registered: %s (%s)", definition.workflow_id, definition.name)
 

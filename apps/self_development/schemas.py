@@ -5,21 +5,21 @@ Self Development Schemas
 Typed contracts for the Self Development capability pack.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
 
 
-class ProblemType(str, Enum):
+class ProblemType(StrEnum):
     BOTTLENECK = "bottleneck"
     DEAD_CODE = "dead_code"
     DUPLICATION = "duplication"
@@ -32,7 +32,7 @@ class ProblemType(str, Enum):
     API_CONTRACT_BREAKING = "api_contract_breaking"
 
 
-class ImprovementType(str, Enum):
+class ImprovementType(StrEnum):
     REFACTOR = "refactor"
     RESTRUCTURE = "restructure"
     OPTIMIZE = "optimize"

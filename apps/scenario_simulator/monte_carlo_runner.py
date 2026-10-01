@@ -47,7 +47,7 @@ class MonteCarloRunner:
     """
 
     def __init__(self) -> None:
-        self._rng: random.Random | None = None
+        self._rng: random.Random = random.Random()
 
     def run(
         self,

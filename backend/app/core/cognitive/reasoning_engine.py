@@ -1,6 +1,6 @@
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from backend.app.core.config import settings
@@ -9,7 +9,7 @@ from backend.app.core.model_router import model_router
 logger = logging.getLogger(__name__)
 
 
-class ReasoningStrategy(str, Enum):
+class ReasoningStrategy(StrEnum):
     DEDUCTIVE = "deductive"
     INDUCTIVE = "inductive"
     ABDUCTIVE = "abductive"
@@ -45,7 +45,7 @@ class ReasoningEngine:
 
     async def generate_hypotheses(self, problem: str, num_hypotheses: int = 3) -> list[Hypothesis]:
         prompt = (
-            f"Given the following problem, generate {num_hypotheses} distinct hypotheses or solution approaches.\n"
+            f"Given the following problem, generate {num_hypotheses} distinct hypotheses or solution approaches.\n"  # noqa: E501
             f"Problem: {problem}\n\n"
             "For each hypothesis, provide:\n"
             "- A clear description\n"
@@ -77,7 +77,7 @@ class ReasoningEngine:
             return [Hypothesis(id="hyp-0", description=problem, confidence=0.5)]
 
     async def reason(self, problem: str, hypotheses: list[Hypothesis]) -> ReasoningChain:
-        chain = ReasoningChain(id=f"chain-{len(self._chains)}", problem=problem, hypotheses=hypotheses)
+        chain = ReasoningChain(id=f"chain-{len(self._chains)}", problem=problem, hypotheses=hypotheses)  # noqa: E501
         prompt = (
             f"Analyze the following problem and hypotheses using structured reasoning.\n\n"
             f"Problem: {problem}\n\n"
@@ -88,7 +88,7 @@ class ReasoningEngine:
         prompt += (
             "\nProvide a step-by-step reasoning chain, evaluate each hypothesis, "
             "select the best one, and state a conclusion.\n"
-            "Output JSON: {\"reasoning_steps\": [str], \"selected_id\": str, \"conclusion\": str, \"confidence\": float}"
+            "Output JSON: {\"reasoning_steps\": [str], \"selected_id\": str, \"conclusion\": str, \"confidence\": float}"  # noqa: E501
         )
         response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],

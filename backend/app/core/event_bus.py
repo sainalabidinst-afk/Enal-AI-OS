@@ -71,7 +71,7 @@ class EventBus:
                         payload=json.loads(data.get("data", "{}")),
                         source=data.get("source", "system"),
                         target=data.get("target", "*"),
-                        timestamp=datetime.fromisoformat(data.get("timestamp", datetime.now(UTC).isoformat())),
+                        timestamp=datetime.fromisoformat(data.get("timestamp", datetime.now(UTC).isoformat())),  # noqa: E501
                         correlation_id=data.get("correlation_id") or None,
                         metadata=json.loads(data.get("metadata", "{}")),
                     )

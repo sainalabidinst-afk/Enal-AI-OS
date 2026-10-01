@@ -32,14 +32,14 @@ class WorkforceOptimizer:
         self._suggestions: list[OptimizationSuggestion] = []
         self._optimization_history: list[dict[str, Any]] = []
 
-    def optimize_team_composition(self, team_members: list[Any], task_requirements: dict[str, Any]) -> list[OptimizationSuggestion]:
+    def optimize_team_composition(self, team_members: list[Any], task_requirements: dict[str, Any]) -> list[OptimizationSuggestion]:  # noqa: E501
         suggestions = []
         team_size = len(team_members)
         if team_size > 7:
             suggestions.append(OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="team_composition",
-                description=f"Team size ({team_size}) exceeds optimal size (5-7). Consider splitting.",
+                description=f"Team size ({team_size}) exceeds optimal size (5-7). Consider splitting.",  # noqa: E501
                 expected_impact="Improved coordination and reduced communication overhead",
                 estimated_savings=team_size * 0.1,
                 priority="high",
@@ -48,18 +48,18 @@ class WorkforceOptimizer:
             suggestions.append(OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="team_composition",
-                description="Team size is too small for high-complexity task. Consider adding members.",
+                description="Team size is too small for high-complexity task. Consider adding members.",  # noqa: E501
                 expected_impact="Improved quality and reduced completion time",
                 priority="high",
             ))
         return suggestions
 
-    def optimize_model_allocation(self, worker_id: str, capability: str, current_model: str, cost_per_1k: float, quality_score: float) -> OptimizationSuggestion | None:
+    def optimize_model_allocation(self, worker_id: str, capability: str, current_model: str, cost_per_1k: float, quality_score: float) -> OptimizationSuggestion | None:  # noqa: E501
         if cost_per_1k > 0.001 and quality_score < 0.85:
             return OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="model_allocation",
-                description=f"Worker {worker_id} using expensive model ({current_model}) for low-quality output. Consider cheaper alternative.",
+                description=f"Worker {worker_id} using expensive model ({current_model}) for low-quality output. Consider cheaper alternative.",  # noqa: E501
                 expected_impact="Reduced cost with minimal quality loss",
                 estimated_savings=cost_per_1k * 100,
                 priority="medium",
@@ -73,7 +73,7 @@ class WorkforceOptimizer:
             suggestions.append(OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="budget",
-                description="Budget utilization is very high (>90%). Consider reducing team size or using cheaper models.",
+                description="Budget utilization is very high (>90%). Consider reducing team size or using cheaper models.",  # noqa: E501
                 expected_impact="Prevent budget overrun",
                 priority="critical",
             ))
@@ -81,18 +81,18 @@ class WorkforceOptimizer:
             suggestions.append(OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="budget",
-                description="Budget utilization is low (<30%). Consider allocating more resources or reducing budget.",
+                description="Budget utilization is low (<30%). Consider allocating more resources or reducing budget.",  # noqa: E501
                 expected_impact="Better resource utilization",
                 priority="low",
             ))
         return suggestions
 
-    def should_retire_worker(self, worker_id: str, quality_score: float, reuse_rate: float, days_since_last_use: int) -> OptimizationSuggestion | None:
+    def should_retire_worker(self, worker_id: str, quality_score: float, reuse_rate: float, days_since_last_use: int) -> OptimizationSuggestion | None:  # noqa: E501
         if quality_score < 0.5 and days_since_last_use > 30:
             return OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="worker_retirement",
-                description=f"Worker {worker_id} has low quality ({quality_score:.2f}) and hasn't been used in {days_since_last_use} days. Consider retiring.",
+                description=f"Worker {worker_id} has low quality ({quality_score:.2f}) and hasn't been used in {days_since_last_use} days. Consider retiring.",  # noqa: E501
                 expected_impact="Reduced maintenance cost and improved organization efficiency",
                 estimated_savings=10.0,
                 priority="medium",
@@ -101,7 +101,7 @@ class WorkforceOptimizer:
             return OptimizationSuggestion(
                 id=f"opt-{uuid.uuid4().hex[:8]}",
                 category="worker_retirement",
-                description=f"Worker {worker_id} has very low reuse rate ({reuse_rate:.2f}) and hasn't been used in {days_since_last_use} days. Consider retiring.",
+                description=f"Worker {worker_id} has very low reuse rate ({reuse_rate:.2f}) and hasn't been used in {days_since_last_use} days. Consider retiring.",  # noqa: E501
                 expected_impact="Reduced maintenance cost",
                 estimated_savings=5.0,
                 priority="low",

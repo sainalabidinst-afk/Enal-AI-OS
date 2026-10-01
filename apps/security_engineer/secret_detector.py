@@ -33,46 +33,46 @@ _BASE64_PATTERNS = [
 # Explicit secret assignment patterns.
 _SECRET_ASSIGNMENT_PATTERNS = [
     # API keys
-    (r'(?i)(api[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "api_key", SecretType.api_key, Severity.critical),
-    (r'(?i)(apikey\s*=\s*["\'])([^"\']{8,})(["\'])', "apikey", SecretType.api_key, Severity.critical),
-    (r'(?i)(secret[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "secret_key", SecretType.api_key, Severity.critical),
-    (r'(?i)(access[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "access_key", SecretType.api_key, Severity.critical),
+    (r'(?i)(api[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "api_key", SecretType.api_key, Severity.critical),  # noqa: E501
+    (r'(?i)(apikey\s*=\s*["\'])([^"\']{8,})(["\'])', "apikey", SecretType.api_key, Severity.critical),  # noqa: E501
+    (r'(?i)(secret[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "secret_key", SecretType.api_key, Severity.critical),  # noqa: E501
+    (r'(?i)(access[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "access_key", SecretType.api_key, Severity.critical),  # noqa: E501
     (r'(?i)(bearer\s+)([A-Za-z0-9._-]{20,})', "Bearer token", SecretType.token, Severity.critical),
 
     # AWS credentials
-    (r'(?i)(aws[_-]?access[_-]?key[_-]?id\s*=\s*["\'])([A-Z0-9]{20})(["\'])', "AWS access key ID", SecretType.api_key, Severity.critical),
-    (r'(?i)(aws[_-]?secret[_-]?access[_-]?key\s*=\s*["\'])([^"\']{40})(["\'])', "AWS secret access key", SecretType.api_key, Severity.critical),
+    (r'(?i)(aws[_-]?access[_-]?key[_-]?id\s*=\s*["\'])([A-Z0-9]{20})(["\'])', "AWS access key ID", SecretType.api_key, Severity.critical),  # noqa: E501
+    (r'(?i)(aws[_-]?secret[_-]?access[_-]?key\s*=\s*["\'])([^"\']{40})(["\'])', "AWS secret access key", SecretType.api_key, Severity.critical),  # noqa: E501
     (r'AKIA[0-9A-Z]{16}', "AWS access key ID pattern", SecretType.api_key, Severity.critical),
 
     # GitHub tokens
     (r'ghp_[A-Za-z0-9]{36}', "GitHub personal access token", SecretType.token, Severity.critical),
     (r'gho_[A-Za-z0-9]{36}', "GitHub OAuth token", SecretType.token, Severity.critical),
-    (r'github_pat_[A-Za-z0-9_]{22,}', "GitHub fine-grained PAT", SecretType.token, Severity.critical),
+    (r'github_pat_[A-Za-z0-9_]{22,}', "GitHub fine-grained PAT", SecretType.token, Severity.critical),  # noqa: E501
 
     # Private keys
-    (r'-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----', "Private key block", SecretType.private_key, Severity.critical),
+    (r'-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----', "Private key block", SecretType.private_key, Severity.critical),  # noqa: E501
     (r'-----BEGIN CERTIFICATE-----', "Certificate block", SecretType.certificate, Severity.high),
 
     # Passwords
-    (r'(?i)(password\s*=\s*["\'])([^"\']{4,})(["\'])', "password", SecretType.password, Severity.high),
+    (r'(?i)(password\s*=\s*["\'])([^"\']{4,})(["\'])', "password", SecretType.password, Severity.high),  # noqa: E501
     (r'(?i)(passwd\s*=\s*["\'])([^"\']{4,})(["\'])', "passwd", SecretType.password, Severity.high),
     (r'(?i)(pwd\s*=\s*["\'])([^"\']{4,})(["\'])', "pwd", SecretType.password, Severity.high),
-    (r'(?i)(password|passwd|pwd)["\']\s*:\s*["\']([^"\']{4,})["\']', "password_in_dict", SecretType.password, Severity.high),
+    (r'(?i)(password|passwd|pwd)["\']\s*:\s*["\']([^"\']{4,})["\']', "password_in_dict", SecretType.password, Severity.high),  # noqa: E501
 
     # Database passwords
-    (r'\bpostgres://[^:]+:([^@]+)@', "PostgreSQL connection string with password", SecretType.password, Severity.high),
-    (r'\bmongodb(\+srv)?://[^:]+:([^@]+)@', "MongoDB connection string with password", SecretType.password, Severity.high),
+    (r'\bpostgres://[^:]+:([^@]+)@', "PostgreSQL connection string with password", SecretType.password, Severity.high),  # noqa: E501
+    (r'\bmongodb(\+srv)?://[^:]+:([^@]+)@', "MongoDB connection string with password", SecretType.password, Severity.high),  # noqa: E501
 
     # Generic token patterns
     (r'(?i)(token\s*=\s*["\'])([^"\']{20,})(["\'])', "token", SecretType.token, Severity.high),
-    (r'(?i)(auth[_-]?token\s*=\s*["\'])([^"\']{20,})(["\'])', "auth_token", SecretType.token, Severity.high),
+    (r'(?i)(auth[_-]?token\s*=\s*["\'])([^"\']{20,})(["\'])', "auth_token", SecretType.token, Severity.high),  # noqa: E501
 
     # Slack tokens
     (r'xox[baprs]-[A-Za-z0-9-]+', "Slack API token", SecretType.token, Severity.critical),
 
     # Generic cloud credentials
-    (r'(?i)(gcp[_-]?service[_-]?account[_-]?key)', "GCP service account key", SecretType.api_key, Severity.critical),
-    (r'(?i)(client[_-]?secret\s*=\s*["\'])([^"\']{8,})(["\'])', "client_secret", SecretType.api_key, Severity.high),
+    (r'(?i)(gcp[_-]?service[_-]?account[_-]?key)', "GCP service account key", SecretType.api_key, Severity.critical),  # noqa: E501
+    (r'(?i)(client[_-]?secret\s*=\s*["\'])([^"\']{8,})(["\'])', "client_secret", SecretType.api_key, Severity.high),  # noqa: E501
 ]
 
 # False positive filter patterns — things that look like secrets but aren't.
@@ -188,7 +188,7 @@ class SecretDetector:
                     type=SecretType.other,
                     location=f"{file_path}:{line_num}",
                     severity=Severity.high,
-                    remediation="If this is a secret, rotate it immediately and move to a secure vault.",
+                    remediation="If this is a secret, rotate it immediately and move to a secure vault.",  # noqa: E501
                     confidence=0.7,
                     evidence={
                         "description": description,
@@ -305,11 +305,11 @@ class SecretDetector:
     def _get_rotation_guidance(self, secret_type: SecretType, label: str) -> str:
         """Get rotation guidance for a specific secret type."""
         guidance = {
-            SecretType.api_key: "Rotate the API key in your provider's console and store the new key in a secrets manager (e.g., HashiCorp Vault, AWS Secrets Manager).",
-            SecretType.password: "Change the password immediately and enforce a strong password policy. Use a password manager for storage.",
-            SecretType.token: "Revoke the current token and generate a new one. Implement token rotation policies.",
-            SecretType.private_key: "Revoke the compromised key pair and generate a new one. Audit access logs for unauthorized use.",
-            SecretType.certificate: "Reissue the certificate and revoke the old one. Review certificate transparency logs.",
+            SecretType.api_key: "Rotate the API key in your provider's console and store the new key in a secrets manager (e.g., HashiCorp Vault, AWS Secrets Manager).",  # noqa: E501
+            SecretType.password: "Change the password immediately and enforce a strong password policy. Use a password manager for storage.",  # noqa: E501
+            SecretType.token: "Revoke the current token and generate a new one. Implement token rotation policies.",  # noqa: E501
+            SecretType.private_key: "Revoke the compromised key pair and generate a new one. Audit access logs for unauthorized use.",  # noqa: E501
+            SecretType.certificate: "Reissue the certificate and revoke the old one. Review certificate transparency logs.",  # noqa: E501
             SecretType.other: "Rotate this credential and store it securely.",
         }
         return guidance.get(secret_type, "Rotate this credential and store it securely.")

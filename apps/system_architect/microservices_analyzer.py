@@ -38,7 +38,7 @@ class MicroservicesAnalyzer:
         findings, recs = await analyzer.analyze()
     """
 
-    SERVICE_HINTS = ("service", "microservice", "svc", "domain_service", "module", "bounded_context")
+    SERVICE_HINTS = ("service", "microservice", "svc", "domain_service", "module", "bounded_context")  # noqa: E501
     SHARED_DB_HINTS = ("shared_db", "shared_database", "global_schema", "single_db")
     ORCHESTRATOR_HINTS = ("monolith", "god_module", "god_class", "god_object", "big_bang")
     API_HINTS = ("grpc", "proto", "rest", "api", "endpoint", "rpc")

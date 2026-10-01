@@ -44,7 +44,7 @@ class MikroTikBestPracticeAnalyzer:
 
     def _check_isp_edge(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
         findings = []
-        has_pppoe = any(kw in raw for kw in ["pppoe", "pppoe-server", "pppoe-client", "ppp profile"])
+        has_pppoe = any(kw in raw for kw in ["pppoe", "pppoe-server", "pppoe-client", "ppp profile"])  # noqa: E501
         has_ppp_encryption = "ppp encrypt" in raw or "encryption" in raw
         has_bgp_peering = any(kw in raw for kw in ["routing bgp", "bgp peer", "remote-as"])
         has_bfd = "bfd" in raw
@@ -68,7 +68,7 @@ class MikroTikBestPracticeAnalyzer:
                     category="isp_edge",
                     severity="warning",
                     description="PPPoE without encryption — user credentials in cleartext",
-                    recommendation="Enable PPP encryption (use-encryption=required) in PPP profile.",
+                    recommendation="Enable PPP encryption (use-encryption=required) in PPP profile.",  # noqa: E501
                     confidence=0.9, vendor="mikrotik",
                     references=["MikroTik PPP Security Guide"],
                 ))
@@ -92,7 +92,7 @@ class MikroTikBestPracticeAnalyzer:
                     category="isp_edge",
                     severity="suggestion",
                     description="BGP without BFD for fast failure detection",
-                    recommendation="Enable BFD on BGP peers for sub-second failure detection (< 50ms).",
+                    recommendation="Enable BFD on BGP peers for sub-second failure detection (< 50ms).",  # noqa: E501
                     confidence=0.75, vendor="mikrotik",
                     references=["MikroTik BFD Guide", "RFC 5880"],
                 ))
@@ -110,7 +110,7 @@ class MikroTikBestPracticeAnalyzer:
             findings.append(EnterpriseKnowledgeFinding(
                 domain="mikrotik_best_practice", category="hotspot", severity="info",
                 description="Hotspot configuration detected",
-                recommendation="Use custom hotspot profiles with HTTPS redirect and bandwidth management.",
+                recommendation="Use custom hotspot profiles with HTTPS redirect and bandwidth management.",  # noqa: E501
                 confidence=0.85, vendor="mikrotik",
                 references=["MikroTik Hotspot Best Practice"],
             ))
@@ -118,7 +118,7 @@ class MikroTikBestPracticeAnalyzer:
                 findings.append(EnterpriseKnowledgeFinding(
                     domain="mikrotik_best_practice", category="hotspot", severity="warning",
                     description="Hotspot using default profile — limited customization",
-                    recommendation="Create a custom hotspot profile with branded login page and bandwidth limits.",
+                    recommendation="Create a custom hotspot profile with branded login page and bandwidth limits.",  # noqa: E501
                     confidence=0.8, vendor="mikrotik",
                     references=["MikroTik Custom Hotspot Guide"],
                 ))
@@ -141,7 +141,7 @@ class MikroTikBestPracticeAnalyzer:
 
         return findings
 
-    def _check_fasttrack_optimization(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:
+    def _check_fasttrack_optimization(self, raw: str, config: object) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_fasttrack = "fasttrack" in raw
         has_firewall_rules = any(kw in raw for kw in ["firewall", "ip firewall", "chain="])

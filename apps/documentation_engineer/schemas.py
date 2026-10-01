@@ -7,17 +7,17 @@ contracts for the Documentation Engineer Capability Pack, plus all supporting ty
 These schemas follow the RFC-0016 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     openapi_generation = "openapi_generation"
     sdk_documentation = "sdk_documentation"
     architecture_documentation = "architecture_documentation"
@@ -25,14 +25,14 @@ class OperationType(str, Enum):
     release_notes_generation = "release_notes_generation"
 
 
-class GenerationStatus(str, Enum):
+class GenerationStatus(StrEnum):
     generated = "generated"
     validated = "validated"
     skipped = "skipped"
     failed = "failed"
 
 
-class IssueSeverity(str, Enum):
+class IssueSeverity(StrEnum):
     error = "error"
     warning = "warning"
     info = "info"

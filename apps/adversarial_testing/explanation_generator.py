@@ -76,13 +76,13 @@ class ExplanationGenerator:
         if assumptions:
             for a in assumptions:
                 assumption_summary.append(
-                    f"[{a['severity'].upper() if isinstance(a.get('severity'), str) else Severity(a.get('risk', 'low')).value.upper()}] "
+                    f"[{a['severity'].upper() if isinstance(a.get('severity'), str) else Severity(a.get('risk', 'low')).value.upper()}] "  # noqa: E501
                     f"{a.get('description', a.get('id', ''))}"
                 )
 
         # Final hardening summary
         gate_summary = (
-            f"Gate result: {gate_result.get('gate_result', 'unknown').upper() if isinstance(gate_result.get('gate_result'), str) else gate_result.get('gate_result', 'unknown')}\n"
+            f"Gate result: {gate_result.get('gate_result', 'unknown').upper() if isinstance(gate_result.get('gate_result'), str) else gate_result.get('gate_result', 'unknown')}\n"  # noqa: E501
             f"Pass score: {gate_result.get('pass_score', 0.0)}\n"
             f"Confidence: {gate_result.get('confidence', 0.0)}\n"
             f"Vulnerabilities: {gate_result.get('vulnerability_summary', {})}"

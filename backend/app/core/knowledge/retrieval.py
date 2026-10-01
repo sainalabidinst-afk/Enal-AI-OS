@@ -31,7 +31,7 @@ class KnowledgeRetrieval:
             })
         return results
 
-    def related(self, concept_id: str, relation: str | None = None, max_depth: int = 2) -> list[dict[str, Any]]:
+    def related(self, concept_id: str, relation: str | None = None, max_depth: int = 2) -> list[dict[str, Any]]:  # noqa: E501
         paths = self.graph.traverse(concept_id, relation=relation, max_depth=max_depth)
         results: list[dict[str, Any]] = []
         seen: set[str] = set()

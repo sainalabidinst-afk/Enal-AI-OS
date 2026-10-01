@@ -38,7 +38,7 @@ class KubernetesDesigner:
 
     def design_cluster(self, request: InfrastructureEngineerRequest) -> KubernetesSpec:
         inputs = request.inputs
-        cluster_name = inputs.get("cluster_name", request.business_context.project_name or "default-cluster")
+        cluster_name = inputs.get("cluster_name", request.business_context.project_name or "default-cluster")  # noqa: E501
         k8s_version = inputs.get("kubernetes_version", "1.28")
         node_count = inputs.get("node_count", 3)
         instance_type = inputs.get("instance_type", "t3.medium")
@@ -115,7 +115,7 @@ class KubernetesDesigner:
                 cost_per_node = 80.0
             else:
                 cost_per_node = 40.0
-            node_costs[node.instance_type] = node_costs.get(node.instance_type, 0.0) + cost_per_node * node.count
+            node_costs[node.instance_type] = node_costs.get(node.instance_type, 0.0) + cost_per_node * node.count  # noqa: E501
             monthly += cost_per_node * node.count
         node_costs["total_monthly"] = monthly
         return node_costs

@@ -86,7 +86,7 @@ class TeamBuilder:
             members.append(TeamMember(
                 agent=agent,
                 role_in_team=f"role_{i}",
-                reason=f"matched {len(set(agent.skills) & set(requirement.required_skills))} skills",
+                reason=f"matched {len(set(agent.skills) & set(requirement.required_skills))} skills",  # noqa: E501
             ))
 
         total_cost = sum(a.cost_per_token for a in selected)

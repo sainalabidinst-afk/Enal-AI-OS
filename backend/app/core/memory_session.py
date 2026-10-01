@@ -15,21 +15,21 @@ class SessionMemory:
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._sessions: dict[str, dict] = {}
 
-    async def store(self, key: str, value: Any, ttl: int | None = 86400, session_id: str | None = None, project_id: str | None = None):
+    async def store(self, key: str, value: Any, ttl: int | None = 86400, session_id: str | None = None, project_id: str | None = None):  # noqa: E501
         sid = session_id or key.split(":")[0] if ":" in key else key
         if sid not in self._sessions:
             self._sessions[sid] = {}
         self._sessions[sid][key] = {"value": value, "timestamp": time.time()}
         self._persist_session(sid)
 
-    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:
+    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:  # noqa: E501
         sid = session_id or key.split(":")[0] if ":" in key else key
         return self._sessions.get(sid, {}).get(key, {}).get("value")
 
-    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:
+    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:  # noqa: E501
         results: list[dict] = []
         query_lower = query.lower()
-        sessions = {session_id: self._sessions.get(session_id, {})} if session_id else self._sessions
+        sessions = {session_id: self._sessions.get(session_id, {})} if session_id else self._sessions  # noqa: E501
         for sid, session in sessions.items():
             for k, v in session.items():
                 if query_lower in str(v.get("value", "")).lower():

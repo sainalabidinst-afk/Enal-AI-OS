@@ -70,7 +70,7 @@ def parse_interfaces(ast: NetworkAST, lines: list[str]):
                 elif "loopback" in iface_type.lower():
                     current_interface.type = InterfaceType.LOOPBACK
             elif stripped.startswith("set alias "):
-                current_interface.comment = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_interface.comment = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set mtu "):
                 try:
                     current_interface.mtu = int(stripped.split(" ", 2)[2])
@@ -108,7 +108,7 @@ def parse_vlans(ast: NetworkAST, lines: list[str]):
                         vlan_id=current_vlan.id,
                     ))
             elif stripped.startswith("set interface "):
-                current_vlan.interface = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_vlan.interface = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
 
 
 def parse_routes(ast: NetworkAST, lines: list[str]):
@@ -147,7 +147,7 @@ def parse_dhcp(ast: NetworkAST, lines: list[str]):
             ast.dhcp_servers.append(current_server)
         elif in_dhcp and current_server is not None:
             if stripped.startswith("set default-gateway "):
-                current_server.vendor_specific["default_gateway"] = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_server.vendor_specific["default_gateway"] = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set dns-service "):
                 pass
             elif stripped.startswith("set lease-time "):
@@ -162,7 +162,7 @@ def parse_dns(ast: NetworkAST, lines: list[str]):
             in_dns = True
         elif in_dns and stripped == "end":
             in_dns = False
-        elif in_dns and (stripped.startswith("set primary ") or stripped.startswith("set secondary ")):
+        elif in_dns and (stripped.startswith("set primary ") or stripped.startswith("set secondary ")):  # noqa: E501
             server = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
             if ast.dns is None:
                 ast.dns = UniversalDNS()
@@ -220,20 +220,20 @@ def parse_firewall_policies(ast: NetworkAST, lines: list[str]):
             ast.firewall_rules.append(current_rule)
         elif in_policy and current_rule is not None:
             if stripped.startswith("set srcintf "):
-                current_rule.in_interface = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_rule.in_interface = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set dstintf "):
-                current_rule.out_interface = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_rule.out_interface = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set srcaddr "):
-                current_rule.src_address = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_rule.src_address = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set dstaddr "):
-                current_rule.dst_address = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_rule.dst_address = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set action "):
                 action_str = stripped.split(" ", 2)[2].strip()
-                current_rule.action = RuleAction.ACCEPT if action_str == "accept" else RuleAction.DROP
+                current_rule.action = RuleAction.ACCEPT if action_str == "accept" else RuleAction.DROP  # noqa: E501
             elif stripped.startswith("set service "):
-                current_rule.protocol = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_rule.protocol = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set schedule "):
-                current_rule.vendor_specific["schedule"] = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_rule.vendor_specific["schedule"] = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set logtraffic "):
                 current_rule.vendor_specific["logtraffic"] = stripped.split(" ", 2)[2]
 
@@ -264,12 +264,12 @@ def parse_vpn(ast: NetworkAST, lines: list[str]):
             ast.vpns.append(current_vpn)
         elif in_phase1 and current_vpn is not None:
             if stripped.startswith("set remote-gw "):
-                current_vpn.peer = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_vpn.peer = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
             elif stripped.startswith("set psksecret "):
                 current_vpn.pre_shared_key = stripped.split('"')[1] if '"' in stripped else ""
         elif in_phase2 and current_vpn is not None:
             if stripped.startswith("set dst-addr "):
-                current_vpn.remote_address = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+                current_vpn.remote_address = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
 
 
 def parse_users(ast: NetworkAST, lines: list[str]):
@@ -303,7 +303,7 @@ def parse_ha(ast: NetworkAST, lines: list[str]):
         elif in_ha and stripped.startswith("set mode "):
             ast.vendor_specific["ha_mode"] = stripped.split(" ", 2)[2]
         elif in_ha and stripped.startswith("set group-name "):
-            ast.vendor_specific["ha_group"] = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]
+            ast.vendor_specific["ha_group"] = stripped.split('"')[1] if '"' in stripped else stripped.split(" ", 2)[2]  # noqa: E501
         elif in_ha and stripped.startswith("set priority "):
             try:
                 ast.vendor_specific["ha_priority"] = int(stripped.split(" ", 2)[2])

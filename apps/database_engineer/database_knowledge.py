@@ -37,7 +37,7 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         recommended_index_types=["btree", "gin", "gist", "brin"],
         partitioning_strategies=["range", "list", "hash"],
         ha_strategies=["streaming_replication", "logical_replication", "patroni"],
-        tuning_parameters=["shared_buffers", "work_mem", "maintenance_work_mem", "effective_cache_size"],
+        tuning_parameters=["shared_buffers", "work_mem", "maintenance_work_mem", "effective_cache_size"],  # noqa: E501
         security_considerations=["row_level_security", "ssl_enforcement", "password_encryption"],
     ),
     "mysql": DatabaseVendorKnowledge(
@@ -99,7 +99,7 @@ class DatabaseKnowledgeEngine:
 
         return findings
 
-    def _performance_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:
+    def _performance_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:  # noqa: E501
         findings: list[Finding] = []
         for param in knowledge.tuning_parameters[:3]:
             findings.append(Finding(
@@ -112,27 +112,27 @@ class DatabaseKnowledgeEngine:
             ))
         return findings
 
-    def _schema_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:
+    def _schema_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:  # noqa: E501
         findings: list[Finding] = []
         if knowledge.recommended_index_types:
             findings.append(Finding(
                 category=FindingCategory.index,
                 severity=Severity.info,
-                title=f"{vendor}: consider index types {', '.join(knowledge.recommended_index_types[:2])}",
+                title=f"{vendor}: consider index types {', '.join(knowledge.recommended_index_types[:2])}",  # noqa: E501
                 description=f"{vendor} supports specialized index types for better performance",
-                recommendation=f"Evaluate {', '.join(knowledge.recommended_index_types[:2])} indexes for your workload",
+                recommendation=f"Evaluate {', '.join(knowledge.recommended_index_types[:2])} indexes for your workload",  # noqa: E501
                 confidence=0.75,
             ))
         return findings
 
-    def _replication_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:
+    def _replication_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:  # noqa: E501
         findings: list[Finding] = []
         if knowledge.ha_strategies:
             findings.append(Finding(
                 category=FindingCategory.replication,
                 severity=Severity.info,
                 title=f"{vendor}: HA strategy options",
-                description=f"Common HA strategies for {vendor}: {', '.join(knowledge.ha_strategies)}",
+                description=f"Common HA strategies for {vendor}: {', '.join(knowledge.ha_strategies)}",  # noqa: E501
                 recommendation=f"Evaluate {knowledge.ha_strategies[0]} for your HA requirements",
                 confidence=0.8,
             ))

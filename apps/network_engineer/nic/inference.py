@@ -61,7 +61,7 @@ class InferenceEngine:
                 ],
                 min_confidence=0.7,
                 severity="critical",
-                recommendation="Implement VRRP/HSRP/HA, add secondary WAN link, configure backup routes",
+                recommendation="Implement VRRP/HSRP/HA, add secondary WAN link, configure backup routes",  # noqa: E501
             ),
             Hypothesis(
                 id="HYP-002",
@@ -73,7 +73,7 @@ class InferenceEngine:
                 ],
                 min_confidence=0.6,
                 severity="critical",
-                recommendation="Restrict management access to trusted networks, enable strong authentication",
+                recommendation="Restrict management access to trusted networks, enable strong authentication",  # noqa: E501
             ),
             Hypothesis(
                 id="HYP-003",

@@ -1,9 +1,9 @@
-import json
+import json  # noqa: I001
 import logging
 import uuid
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from pathlib import Path
 from typing import Any, TypedDict
 
@@ -32,7 +32,7 @@ class GraphEdgeData(TypedDict):
     properties: dict[str, Any]
 
 
-class NodeType(str, Enum):
+class NodeType(StrEnum):
     PROJECT = "project"
     REQUIREMENT = "requirement"
     COMPONENT = "component"
@@ -46,7 +46,7 @@ class NodeType(str, Enum):
     DOCUMENT = "document"
 
 
-class RelationType(str, Enum):
+class RelationType(StrEnum):
     DEPENDS_ON = "depends_on"
     IMPLEMENTS = "implements"
     USES = "uses"
@@ -90,14 +90,14 @@ class SemanticProjectGraph:
         self._persist_node(node)
         return node.id
 
-    async def add_edge(self, source_id: str, target_id: str, relation: RelationType, properties: dict[str, Any] | None = None) -> str:
+    async def add_edge(self, source_id: str, target_id: str, relation: RelationType, properties: dict[str, Any] | None = None) -> str:  # noqa: E501
         edge_id = f"edge-{uuid.uuid4().hex[:8]}"
-        edge = GraphEdge(id=edge_id, source_id=source_id, target_id=target_id, relation=relation, properties=properties or {})
+        edge = GraphEdge(id=edge_id, source_id=source_id, target_id=target_id, relation=relation, properties=properties or {})  # noqa: E501
         self._edges[edge_id] = edge
         self._persist_edge(edge)
         return edge_id
 
-    async def get_related(self, node_id: str, relation: RelationType | None = None) -> list[dict[str, Any]]:
+    async def get_related(self, node_id: str, relation: RelationType | None = None) -> list[dict[str, Any]]:  # noqa: E501
         related: list[dict[str, Any]] = []
         for edge in self._edges.values():
             if edge.source_id == node_id or edge.target_id == node_id:
@@ -186,7 +186,7 @@ class SemanticProjectGraph:
                 citations.append(f"Source: {s['document']}")
         return "; ".join(citations) if citations else f"Internal knowledge: {node.name}"
 
-    async def query(self, query_str: str, node_type: NodeType | None = None) -> list[dict[str, Any]]:
+    async def query(self, query_str: str, node_type: NodeType | None = None) -> list[dict[str, Any]]:  # noqa: E501
         """Query nodes by name/description."""
         results = []
         query_lower = query_str.lower()

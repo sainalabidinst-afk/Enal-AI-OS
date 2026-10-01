@@ -70,7 +70,7 @@ def analyze_bytes(filename: str, content: bytes) -> AttachmentAnalysisResult:
         return AttachmentAnalysisResult(
             meta=meta,
             ast=ast,
-            summary="Image file detected. Screenshot/diagram analysis should be handled by image-capable models.",
+            summary="Image file detected. Screenshot/diagram analysis should be handled by image-capable models.",  # noqa: E501
             recommendations=["Route image to multimodal analysis if supported."],
         )
 
@@ -84,11 +84,11 @@ def analyze_bytes(filename: str, content: bytes) -> AttachmentAnalysisResult:
 
     text = text[:MAX_ANALYSIS_TEXT]
     if meta.attachment_type == AttachmentType.document:
-        ast = _make_infra(meta.vendor, meta.device_role, meta.detected_format, text_preview=text[:500])
+        ast = _make_infra(meta.vendor, meta.device_role, meta.detected_format, text_preview=text[:500])  # noqa: E501
         return AttachmentAnalysisResult(
             meta=meta,
             ast=ast,
-            summary=f"Document detected ({filename}). Text extraction result may need document-aware parsing.",
+            summary=f"Document detected ({filename}). Text extraction result may need document-aware parsing.",  # noqa: E501
             recommendations=["Use document-aware parsing for structured fields if needed."],
         )
 

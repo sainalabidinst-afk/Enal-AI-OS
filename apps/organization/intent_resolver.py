@@ -212,7 +212,7 @@ class IntentResolver:
                     error=None,
                     matched_intent=target_intent,
                     confidence=0.9,
-                    reason=f"Alias match: '{intent_id}' → '{target_intent}' → workflow '{cat_result.workflow_id}'",
+                    reason=f"Alias match: '{intent_id}' → '{target_intent}' → workflow '{cat_result.workflow_id}'",  # noqa: E501
                 )
                 self._emit_resolved(result)
                 return result
@@ -231,7 +231,7 @@ class IntentResolver:
                     error=None,
                     matched_intent=task_intent,
                     confidence=1.0,
-                    reason=f"Task name exact match: '{intent_id}' → '{task_intent}' → workflow '{cat_result.workflow_id}'",
+                    reason=f"Task name exact match: '{intent_id}' → '{task_intent}' → workflow '{cat_result.workflow_id}'",  # noqa: E501
                 )
                 self._emit_resolved(result)
                 return result
@@ -251,7 +251,7 @@ class IntentResolver:
                     error=None,
                     matched_intent=task_intent,
                     confidence=0.8,
-                    reason=f"Task name prefix match: '{intent_id}' starts with '{best_task}' → '{task_intent}' → workflow '{cat_result.workflow_id}'",
+                    reason=f"Task name prefix match: '{intent_id}' starts with '{best_task}' → '{task_intent}' → workflow '{cat_result.workflow_id}'",  # noqa: E501
                 )
                 self._emit_resolved(result)
                 return result
@@ -268,7 +268,7 @@ class IntentResolver:
                 error=None,
                 matched_intent=intent_id,
                 confidence=0.7,
-                reason=f"Tag fallback: intent '{intent_id}' matches tag → workflow '{entry.workflow_id}'",
+                reason=f"Tag fallback: intent '{intent_id}' matches tag → workflow '{entry.workflow_id}'",  # noqa: E501
             )
             self._emit_resolved(result)
             return result

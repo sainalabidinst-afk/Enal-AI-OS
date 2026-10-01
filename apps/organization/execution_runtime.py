@@ -10,12 +10,12 @@ This is the runtime bridge between ExecutionPlanner and actual
 micro-agent execution.
 """
 
-import asyncio
+import asyncio  # noqa: I001
 import logging
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from apps.organization.execution_planner import ExecutionPlan, ExecutionStage
@@ -24,7 +24,7 @@ from apps.organization.task_planner import SubTask
 logger = logging.getLogger(__name__)
 
 
-class SubtaskStatus(str, Enum):
+class SubtaskStatus(StrEnum):
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -83,7 +83,7 @@ class ExecutionRuntime:
                 break
         return results
 
-    async def _run_stage(self, stage: ExecutionStage, context: ExecutionContext) -> list[SubtaskResult]:
+    async def _run_stage(self, stage: ExecutionStage, context: ExecutionContext) -> list[SubtaskResult]:  # noqa: E501
         if stage.mode == "parallel":
             tasks = [self._run_subtask(subtask, context) for subtask in stage.subtasks]
             return list(await asyncio.gather(*tasks, return_exceptions=False))
@@ -123,15 +123,15 @@ class ExecutionRuntime:
                 result.status = SubtaskStatus.COMPLETED
                 result.result = worker_output
                 result.finished_at = datetime.now(UTC)
-                logger.info("Subtask completed: %s duration=%.2fs", subtask.subtask_id, result.duration_seconds)
+                logger.info("Subtask completed: %s duration=%.2fs", subtask.subtask_id, result.duration_seconds)  # noqa: E501
                 return result
             except TimeoutError:
                 logger.warning("Subtask timeout: %s attempt=%d", subtask.subtask_id, attempt)
                 result.error = "timeout"
             except (ValueError, RuntimeError, ConnectionError) as exc:
-                logger.error("Subtask failed: %s attempt=%d error=%s", subtask.subtask_id, attempt, exc)
+                logger.error("Subtask failed: %s attempt=%d error=%s", subtask.subtask_id, attempt, exc)  # noqa: E501
                 result.error = str(exc)
-            result.status = SubtaskStatus.RETRYING if attempt < context.retry_limit else SubtaskStatus.FAILED
+            result.status = SubtaskStatus.RETRYING if attempt < context.retry_limit else SubtaskStatus.FAILED  # noqa: E501
             result.finished_at = datetime.now(UTC)
             if result.status == SubtaskStatus.RETRYING:
                 await asyncio.sleep(context.retry_delay_seconds)

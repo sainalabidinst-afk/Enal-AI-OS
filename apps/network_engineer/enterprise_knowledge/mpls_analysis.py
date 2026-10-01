@@ -41,7 +41,7 @@ class MPLSAnalyzer:
 
         return findings
 
-    def _check_mpls_forwarding(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_mpls_forwarding(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_mpls_ip = "mpls ip" in raw or "mpls label" in raw
         has_mtu = "mtu" in raw and "mpls" in raw
@@ -70,7 +70,7 @@ class MPLSAnalyzer:
                 ))
         return findings
 
-    def _check_ldp_config(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_ldp_config(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_ldp = "mpls ldp" in raw or "ldp" in raw
         has_ldp_auth = "ldp password" in raw or "ldp md5" in raw or "ldp auth" in raw
@@ -111,7 +111,7 @@ class MPLSAnalyzer:
                 ))
         return findings
 
-    def _check_vrf_config(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_vrf_config(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_vrf = "vrf definition" in raw or "ip vrf" in raw or "vrf" in raw
         has_rd = "rd " in raw or "route-distinguisher" in raw
@@ -152,7 +152,7 @@ class MPLSAnalyzer:
                 ))
         return findings
 
-    def _check_traffic_engineering(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_traffic_engineering(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_te = "mpls traffic-eng" in raw or "traffic-engineering" in raw or "mpls te" in raw
         has_rsvp = "rsvp" in raw or "rsvp-te" in raw
@@ -181,7 +181,7 @@ class MPLSAnalyzer:
                 ))
         return findings
 
-    def _check_sp_edge(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_sp_edge(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_pe = "pe" in raw or "provider-edge" in raw
         has_ce = "ce" in raw or "customer-edge" in raw or "vrf" in raw

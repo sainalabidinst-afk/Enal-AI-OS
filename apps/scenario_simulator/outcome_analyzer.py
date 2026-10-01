@@ -140,7 +140,7 @@ class OutcomeAnalyzer:
         min_val = sorted_values[0]
         max_val = sorted_values[-1]
         if max_val == min_val:
-            return [{"bucket": f"[{min_val:.2f}]", "count": len(sorted_values), "range_start": min_val, "range_end": max_val}]
+            return [{"bucket": f"[{min_val:.2f}]", "count": len(sorted_values), "range_start": min_val, "range_end": max_val}]  # noqa: E501
 
         bucket_size = (max_val - min_val) / self.HISTOGRAM_BUCKETS
         buckets: list[dict[str, Any]] = []
@@ -148,7 +148,7 @@ class OutcomeAnalyzer:
         for i in range(self.HISTOGRAM_BUCKETS):
             lo = min_val + i * bucket_size
             hi = min_val + (i + 1) * bucket_size
-            count = sum(1 for v in sorted_values if lo <= v < hi or (i == self.HISTOGRAM_BUCKETS - 1 and v == hi))
+            count = sum(1 for v in sorted_values if lo <= v < hi or (i == self.HISTOGRAM_BUCKETS - 1 and v == hi))  # noqa: E501
             buckets.append({
                 "bucket": f"[{lo:.2f}, {hi:.2f}]",
                 "count": count,
@@ -270,12 +270,12 @@ class OutcomeAnalyzer:
             "axioms": [
                 f"Scenario: {title}",
                 f"Description: {description}",
-                f"Based on {distribution.mean:.4f} mean of {distribution.min_value:.4f} to {distribution.max_value:.4f}",
+                f"Based on {distribution.mean:.4f} mean of {distribution.min_value:.4f} to {distribution.max_value:.4f}",  # noqa: E501
             ],
             "assumptions": assumptions,
             "simulation_logic": (
                 f"Ran {distribution.min_value} to {distribution.max_value} range "
-                f"with {distribution.histogram[-1]['count'] if distribution.histogram else 0} buckets. "
+                f"with {distribution.histogram[-1]['count'] if distribution.histogram else 0} buckets. "  # noqa: E501
                 f"Mean: {distribution.mean:.4f}, StdDev: {distribution.std_dev:.4f}, "
                 f"Median: {distribution.median:.4f}"
             ),

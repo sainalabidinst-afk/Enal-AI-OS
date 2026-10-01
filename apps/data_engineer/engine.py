@@ -120,7 +120,7 @@ class DataEngineerEngine:
         # Build dataset summary.
         dataset_summary = DatasetSummary(
             row_count=len(cleaned_data) if isinstance(cleaned_data, list) else 1,
-            column_count=len(cleaned_data[0].keys()) if isinstance(cleaned_data, list) and cleaned_data else 0,
+            column_count=len(cleaned_data[0].keys()) if isinstance(cleaned_data, list) and cleaned_data else 0,  # noqa: E501
             schema_definition=request.source.schema_definition or {},
             quality_score=quality_report.overall_score,
         )
@@ -134,7 +134,7 @@ class DataEngineerEngine:
 
         # Determine status.
         status = JobStatus.success
-        if quality_report.issues and any(i.severity in (IssueSeverity.critical, IssueSeverity.high) for i in quality_report.issues):
+        if quality_report.issues and any(i.severity in (IssueSeverity.critical, IssueSeverity.high) for i in quality_report.issues):  # noqa: E501
             status = JobStatus.partial
         if not cleaned_data or (isinstance(cleaned_data, list) and len(cleaned_data) == 0):
             status = JobStatus.failed
@@ -166,7 +166,7 @@ class DataEngineerEngine:
             job_type=request.job_type.value,
             quality_score=quality_report.overall_score,
             issues_found=len(quality_report.issues),
-            issues_resolved=len([i for i in quality_report.issues if i.count == 0 or i.severity == IssueSeverity.low]),
+            issues_resolved=len([i for i in quality_report.issues if i.count == 0 or i.severity == IssueSeverity.low]),  # noqa: E501
             schema_drift_detected=schema_drift.detected,
             features_created=len(features),
             time_series_gaps_filled=ts_report.interpolated_count,

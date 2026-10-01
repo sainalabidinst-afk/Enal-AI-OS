@@ -104,7 +104,7 @@ class AssumptionAuditor:
                 max_tokens=1024,
             )
             lines = response.choices[0].message.content.strip().split("\n")
-            assumptions = [line.lstrip("- ").strip() for line in lines if line.strip().startswith("-")]
+            assumptions = [line.lstrip("- ").strip() for line in lines if line.strip().startswith("-")]  # noqa: E501
 
             if assumptions:
                 return assumptions[:20]  # Cap at 20
@@ -140,7 +140,7 @@ class AssumptionAuditor:
 
         # Heuristic risk assessment based on assumption keywords
         high_risk_keywords = ["accuracy", "no external", "dependencies behave", "stable",
-                              "do not change", "remain constant", "no critical", "do not accumulate"]
+                              "do not change", "remain constant", "no critical", "do not accumulate"]  # noqa: E501
         medium_risk_keywords = ["alignment", "follow predicted", "complete"]
 
         assumption_lower = assumption.lower()

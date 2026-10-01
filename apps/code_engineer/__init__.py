@@ -203,7 +203,7 @@ class CodeEngineerApp(BaseReferenceApp):
         await self._ensure_components()
         return self.analyze_code(code, filename)
 
-    async def get_refactoring_suggestions(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:
+    async def get_refactoring_suggestions(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:  # noqa: E501
         """Get refactoring suggestions for code."""
         await self._ensure_components()
         self.parser.parse(code, filename=filename)

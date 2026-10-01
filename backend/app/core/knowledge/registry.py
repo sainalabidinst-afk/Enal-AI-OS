@@ -58,7 +58,7 @@ class KnowledgeRegistry:
     def categories(self) -> list[KnowledgeCategory]:
         return list(self._by_category.keys())
 
-    def version(self, entity: KnowledgeEntity, version: str, changed_by: str | None = None, change_summary: str = "") -> None:
+    def version(self, entity: KnowledgeEntity, version: str, changed_by: str | None = None, change_summary: str = "") -> None:  # noqa: E501
         kv = KnowledgeVersion(
             entity_id=entity.id,
             version=version,

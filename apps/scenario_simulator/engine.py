@@ -92,7 +92,7 @@ class ScenarioSimulatorEngine:
 
         # Step 1: Run Monte Carlo iterations
         iterations = self.runner.run(request, outcome_fn)
-        logger.info(f"Monte Carlo: {len(iterations)} iterations in {time.monotonic() - started:.2f}s")
+        logger.info(f"Monte Carlo: {len(iterations)} iterations in {time.monotonic() - started:.2f}s")  # noqa: E501
 
         # Step 2: Optional sandbox experiment
         sandbox_logs: list[dict[str, Any]] = []
@@ -131,7 +131,7 @@ class ScenarioSimulatorEngine:
         result.raw["seed"] = request.seed
         result.raw["sandbox_enabled"] = request.sandbox_enabled
 
-        logger.info(f"Scenario simulation complete: {total_ms:.1f}ms for {request.iterations} iterations")
+        logger.info(f"Scenario simulation complete: {total_ms:.1f}ms for {request.iterations} iterations")  # noqa: E501
 
         return result
 
@@ -201,10 +201,10 @@ class ScenarioSimulatorEngine:
                 base_state[step.get("description", "unknown")] = 1.0  # baseline success
 
         # Inject variability based on context
-        changes: list[Any] = []
+        changes: list[Any] = []  # noqa: F841
         request = ScenarioRequest(
             title="Plan Simulation",
-            description=f"Simulating plan under variable conditions: {context.get('scenario', 'unknown')}",
+            description=f"Simulating plan under variable conditions: {context.get('scenario', 'unknown')}",  # noqa: E501
             base_state=base_state,
             variable_changes=[],  # Plans are deterministic, no variable changes
             iterations=iterations,

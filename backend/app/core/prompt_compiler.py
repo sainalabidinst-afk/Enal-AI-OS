@@ -39,14 +39,14 @@ class PromptCompiler:
         """Extract intent from user input using model."""
         prompt = (
             "Analyze the user's intent and extract key information.\n"
-            'Return JSON: {"primary_intent": str, "secondary_intents": [str], "entities": [str], "complexity": str}\n\n'
+            'Return JSON: {"primary_intent": str, "secondary_intents": [str], "entities": [str], "complexity": str}\n\n'  # noqa: E501
             f"User input: {user_input}\n"
         )
-        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)
+        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)  # noqa: E501
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):
-            return {"primary_intent": user_input, "secondary_intents": [], "entities": [], "complexity": "medium"}
+            return {"primary_intent": user_input, "secondary_intents": [], "entities": [], "complexity": "medium"}  # noqa: E501
 
     def _get_constraints(self, agent_type: str) -> dict[str, Any]:
         """Get constraints for the given agent type."""
@@ -57,7 +57,7 @@ class PromptCompiler:
             "allowed_tools": self._get_tools_for_agent(agent_type),
         }
 
-    async def _gather_memory(self, user_input: str, project_id: str | None = None) -> list[dict[str, Any]]:
+    async def _gather_memory(self, user_input: str, project_id: str | None = None) -> list[dict[str, Any]]:  # noqa: E501
         """Gather relevant memories for context."""
         memories: list[dict[str, Any]] = []
         try:
@@ -80,7 +80,7 @@ class PromptCompiler:
                 tools.extend(skill.tools)
         return list(set(tools))
 
-    async def _gather_experience(self, user_input: str, project_id: str | None = None) -> list[dict[str, Any]]:
+    async def _gather_experience(self, user_input: str, project_id: str | None = None) -> list[dict[str, Any]]:  # noqa: E501
         """Gather past experience for context."""
         if not project_id:
             return []

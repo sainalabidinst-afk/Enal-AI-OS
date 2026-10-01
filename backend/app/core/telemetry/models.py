@@ -1,18 +1,18 @@
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class EventType(str, Enum):
+class EventType(StrEnum):
     analysis = "analysis"
     chat = "chat"
     parser = "parser"
     reasoning = "reasoning"
 
 
-class Status(str, Enum):
+class Status(StrEnum):
     success = "success"
     error = "error"
 

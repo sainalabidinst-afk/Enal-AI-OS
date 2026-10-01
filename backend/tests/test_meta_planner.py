@@ -55,7 +55,7 @@ class TestMetaPlanner:
 
         fake_registry = SkillRegistry.__new__(SkillRegistry)
         fake_registry.skills = {
-            "skill-a": Skill(name="skill-a", category="test", agent="agent-x", description="desc", capabilities=["cap-a"], cost_weight=1.0),
+            "skill-a": Skill(name="skill-a", category="test", agent="agent-x", description="desc", capabilities=["cap-a"], cost_weight=1.0),  # noqa: E501
         }
 
         class FakeSkill:

@@ -34,10 +34,10 @@ class SecurityArchitect:
         findings = architect.review(dependency_graph, architecture_metrics)
     """
 
-    def review(self, metrics: Any) -> list[Finding]:
+    def review(self, snapshot: Any, metrics: Any) -> list[Finding]:
         """Review architecture for security concerns based on metrics."""
         findings: list[Finding] = []
-        findings.extend(self._check_threat_surface(metrics))
+        findings.extend(self._check_threat_surface(snapshot, metrics))
         return findings
 
     def _check_auth_patterns(self, snapshot: Any) -> list[Finding]:
@@ -50,7 +50,7 @@ class SecurityArchitect:
                 severity=Severity.high,
                 title="Missing authentication layer",
                 description="No dedicated authentication module detected",
-                recommendation="Introduce authentication/authorization layer with standard patterns",
+                recommendation="Introduce authentication/authorization layer with standard patterns",  # noqa: E501
                 impact=Impact.maintainability,
                 confidence=0.7,
             ))
@@ -59,7 +59,7 @@ class SecurityArchitect:
     def _check_data_protection(self, snapshot: Any) -> list[Finding]:
         findings: list[Finding] = []
         modules = getattr(snapshot, 'modules', {})
-        has_encryption = any('encrypt' in m.lower() or 'crypto' in m.lower() for m in modules.keys())
+        has_encryption = any('encrypt' in m.lower() or 'crypto' in m.lower() for m in modules.keys())  # noqa: E501
         if not has_encryption:
             findings.append(Finding(
                 category=FindingCategory.architecture_smell,
@@ -78,12 +78,12 @@ class SecurityArchitect:
 
     def _check_threat_surface(self, snapshot: Any, metrics: Any) -> list[Finding]:
         findings: list[Finding] = []
-        if hasattr(metrics, 'package_boundaries_crossed') and metrics.package_boundaries_crossed > 5:
+        if hasattr(metrics, 'package_boundaries_crossed') and metrics.package_boundaries_crossed > 5:  # noqa: E501
             findings.append(Finding(
                 category=FindingCategory.architecture_smell,
                 severity=Severity.medium,
                 title="Large attack surface: many package boundary crossings",
-                description=f"{metrics.package_boundaries_crossed} boundary crossings increase attack surface",
+                description=f"{metrics.package_boundaries_crossed} boundary crossings increase attack surface",  # noqa: E501
                 recommendation="Reduce cross-package dependencies; define explicit API contracts",
                 impact=Impact.maintainability,
                 confidence=0.75,

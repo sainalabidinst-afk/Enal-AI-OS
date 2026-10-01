@@ -11,18 +11,18 @@ This adapter normalizes all evidence into a single standard format
 that can be consumed by any capability.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import logging
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class EvidenceSource(str, Enum):
+class EvidenceSource(StrEnum):
     TRADING = "trading"
     NETWORK = "network"
     CODE = "code"
@@ -34,7 +34,7 @@ class EvidenceSource(str, Enum):
     SELF_IMPROVEMENT = "self_improvement"
 
 
-class EvidenceType(str, Enum):
+class EvidenceType(StrEnum):
     FACT = "fact"
     OBSERVATION = "observation"
     HYPOTHESIS = "hypothesis"
@@ -149,7 +149,7 @@ class EvidenceAdapter:
             metadata={
                 "value": reasoning_evidence.value,
                 "source": reasoning_evidence.source,
-                "timestamp": reasoning_evidence.timestamp.isoformat() if hasattr(reasoning_evidence.timestamp, "isoformat") else str(reasoning_evidence.timestamp),
+                "timestamp": reasoning_evidence.timestamp.isoformat() if hasattr(reasoning_evidence.timestamp, "isoformat") else str(reasoning_evidence.timestamp),  # noqa: E501
             },
             raw={
                 "type": reasoning_evidence.type.value,
@@ -162,7 +162,7 @@ class EvidenceAdapter:
         from apps.organization.reasoning_engine import Evidence, EvidenceType
 
         supported_types = {item.value for item in EvidenceType}
-        evidence_type = unified.type.value if unified.type.value in supported_types else EvidenceType.FACT.value
+        evidence_type = unified.type.value if unified.type.value in supported_types else EvidenceType.FACT.value  # noqa: E501
         return Evidence(
             id=unified.id,
             type=EvidenceType(evidence_type),

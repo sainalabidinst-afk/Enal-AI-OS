@@ -41,7 +41,7 @@ class ContradictionDetector:
                         description=self._describe_contradiction(a, b),
                         severity=FindingSeverity.high,
                         confidence=0.8,
-                        resolution_suggestion="Further investigation needed; compare methodologies and sample sizes.",
+                        resolution_suggestion="Further investigation needed; compare methodologies and sample sizes.",  # noqa: E501
                     ))
 
         return contradictions
@@ -51,8 +51,8 @@ class ContradictionDetector:
         b_text = b.content.lower()
 
         opposition_patterns = [
-            (r"\b(improve|increase|enhance|boost|positive)\b", r"\b(no\s+\w+.*effect|decrease|reduce|negative|ineffective|no\s+significant)\b"),
-            (r"\b(significant|strong|effective)\b", r"\b(no\s+significant|weak|ineffective|no\s+effect)\b"),
+            (r"\b(improve|increase|enhance|boost|positive)\b", r"\b(no\s+\w+.*effect|decrease|reduce|negative|ineffective|no\s+significant)\b"),  # noqa: E501
+            (r"\b(significant|strong|effective)\b", r"\b(no\s+significant|weak|ineffective|no\s+effect)\b"),  # noqa: E501
         ]
         for positive_pattern, negative_pattern in opposition_patterns:
             a_has_positive = bool(re.search(positive_pattern, a_text))
@@ -70,5 +70,5 @@ class ContradictionDetector:
     def _describe_contradiction(self, a: Evidence, b: Evidence) -> str:
         return (
             f"Conflicting claims between '{a.title}' and '{b.title}'. "
-            f"Further investigation is needed to reconcile differences in methodology, sample, or interpretation."
+            f"Further investigation is needed to reconcile differences in methodology, sample, or interpretation."  # noqa: E501
         )

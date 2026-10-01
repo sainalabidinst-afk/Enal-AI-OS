@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import logging
 import re
+from collections.abc import Iterator
 
 from apps.cross_domain_graph.schemas import GraphNode, ResolvedEntity
 
@@ -34,7 +35,7 @@ class EntityResolver:
     def __init__(self, confidence_threshold: float = 0.7) -> None:
         self.confidence_threshold = confidence_threshold
 
-    def resolve(self, nodes: list[GraphNode]) -> list[ResolvedEntity]:
+    def resolve(self, nodes: list[GraphNode]) -> Iterator[ResolvedEntity]:
         """
         Resolve entities across nodes, identifying duplicates.
 

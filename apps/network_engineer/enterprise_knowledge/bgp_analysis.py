@@ -42,7 +42,7 @@ class BGPAnalyzer:
 
         return findings
 
-    def _check_path_selection(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_path_selection(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_weight = "weight" in raw or "set-weight" in raw or "local-preference" in raw
         has_local_pref = "local-preference" in raw or "set local-preference" in raw
@@ -52,7 +52,7 @@ class BGPAnalyzer:
         if not has_weight and not has_local_pref:
             findings.append(EnterpriseKnowledgeFinding(
                 domain="bgp_analysis", category="path_selection", severity="warning",
-                description="No BGP path selection attributes configured — using default best-path selection",
+                description="No BGP path selection attributes configured — using default best-path selection",  # noqa: E501
                 recommendation=(
                     "Configure local-preference for outbound path selection (higher is preferred). "
                     "Use weight for fine-grained control on single router."
@@ -63,7 +63,7 @@ class BGPAnalyzer:
         if not has_med:
             findings.append(EnterpriseKnowledgeFinding(
                 domain="bgp_analysis", category="path_selection", severity="suggestion",
-                description="MED (Multi-Exit Discriminator) not configured for inbound path selection",
+                description="MED (Multi-Exit Discriminator) not configured for inbound path selection",  # noqa: E501
                 recommendation=(
                     "Use MED (lower is preferred) to influence inbound traffic from AS peers. "
                     "Set MED in route-maps for granular control."
@@ -84,7 +84,7 @@ class BGPAnalyzer:
             ))
         return findings
 
-    def _check_route_filtering(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_route_filtering(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_prefix_list = any(kw in raw for kw in ["prefix-list", "prefix-list", "ip prefix-list"])
         has_distribute = "distribute-list" in raw or "route-map" in raw
@@ -125,7 +125,7 @@ class BGPAnalyzer:
             ))
         return findings
 
-    def _check_communities(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_communities(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_community = "community" in raw or "set community" in raw
         has_comm_list = "community-list" in raw or "ip community-list" in raw
@@ -166,7 +166,7 @@ class BGPAnalyzer:
             ))
         return findings
 
-    def _check_route_reflector(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_route_reflector(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         is_rr_client = "route-reflector-client" in raw or "rr-client" in raw or "cluster-id" in raw
         has_cluster = "cluster-id" in raw or "bgp cluster-id" in raw
@@ -195,10 +195,10 @@ class BGPAnalyzer:
                 ))
         return findings
 
-    def _check_monitoring(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_monitoring(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_keepalive = "timers" in raw or "keepalive" in raw or "hold-time" in raw
-        has_log_neighbor = any(kw in raw for kw in ["log-neighbor-changes", "log-updates", "bgp log"])
+        has_log_neighbor = any(kw in raw for kw in ["log-neighbor-changes", "log-updates", "bgp log"])  # noqa: E501
         has_bfd = "bfd" in raw
 
         if not has_keepalive:

@@ -13,7 +13,7 @@ class TestPerceptionInput:
         assert inp.metadata == {}
 
     def test_custom_values(self):
-        inp = PerceptionInput(source="img", content=b"data", content_type="image/png", metadata={"size": 1024})
+        inp = PerceptionInput(source="img", content=b"data", content_type="image/png", metadata={"size": 1024})  # noqa: E501
         assert inp.content_type == "image/png"
         assert inp.metadata["size"] == 1024
 
@@ -49,7 +49,7 @@ class TestPerceptionEngine:
 
     async def test_process_json(self):
         engine = PerceptionEngine()
-        inp = PerceptionInput(source="json", content='{"key": "value", "number": 42}', content_type="application/json")
+        inp = PerceptionInput(source="json", content='{"key": "value", "number": 42}', content_type="application/json")  # noqa: E501
         result = await engine.process(inp)
         assert "key" in result.entities
         assert result.extracted_data["key"] == "value"

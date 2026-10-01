@@ -79,7 +79,7 @@ class TestGenerationStrategies:
                 category="schema",
                 severity=strategy.priority,
                 title=f"Test Strategy: {strategy.strategy_name}",
-                description=f"Recommended pattern: {strategy.pattern_type} for {operation} in {language}",
+                description=f"Recommended pattern: {strategy.pattern_type} for {operation} in {language}",  # noqa: E501
                 recommendation=f"Use {strategy.strategy_name} pattern for {operation} generation",
                 confidence=0.8,
             ))

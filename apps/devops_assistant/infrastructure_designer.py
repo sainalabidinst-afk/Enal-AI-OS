@@ -58,7 +58,7 @@ class InfrastructureDesigner:
             solutions.append(Solution(
                 problem_id=f"{current_infra.get('service', 'unknown')}-missing-health-check",
                 solution_type=ImprovementType.INFRASTRUCTURE.value,
-                description="Tambahkan health check ke infrastructure untuk memastikan ketersediaan layanan.",
+                description="Tambahkan health check ke infrastructure untuk memastikan ketersediaan layanan.",  # noqa: E501
                 estimated_effort="low",
                 risk="low",
                 tests_required=True,

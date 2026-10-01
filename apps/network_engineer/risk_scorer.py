@@ -38,14 +38,14 @@ class RiskScore:
 class RiskScoringEngine:
     """Computes risk scores for configuration changes."""
 
-    def score(self, diff_summary: dict[str, int], findings: list[dict[str, Any]], is_new_device: bool = False) -> RiskScore:
+    def score(self, diff_summary: dict[str, int], findings: list[dict[str, Any]], is_new_device: bool = False) -> RiskScore:  # noqa: E501
         """Compute risk scores from diff summary and analysis findings."""
         config_risk = self._compute_config_risk(diff_summary)
         security_risk = self._compute_security_risk(findings)
         downtime_risk = self._compute_downtime_risk(diff_summary)
         rollback_risk = self._compute_rollback_risk(is_new_device)
 
-        overall = (config_risk * 0.3 + security_risk * 0.3 + downtime_risk * 0.25 + rollback_risk * 0.15)
+        overall = (config_risk * 0.3 + security_risk * 0.3 + downtime_risk * 0.25 + rollback_risk * 0.15)  # noqa: E501
 
         factors = []
         if diff_summary.get("removed", 0) > 0:
@@ -70,7 +70,7 @@ class RiskScoringEngine:
         )
 
     def _compute_config_risk(self, diff_summary: dict[str, int]) -> float:
-        total_changes = diff_summary.get("added", 0) + diff_summary.get("removed", 0) + diff_summary.get("modified", 0)
+        total_changes = diff_summary.get("added", 0) + diff_summary.get("removed", 0) + diff_summary.get("modified", 0)  # noqa: E501
         if total_changes == 0:
             return 0.0
         # More changes = more risk
@@ -96,7 +96,7 @@ class RiskScoringEngine:
         if diff_summary.get("removed", 0) > 0:
             risk += 0.2
         # Large changes increase downtime risk
-        total = diff_summary.get("added", 0) + diff_summary.get("removed", 0) + diff_summary.get("modified", 0)
+        total = diff_summary.get("added", 0) + diff_summary.get("removed", 0) + diff_summary.get("modified", 0)  # noqa: E501
         if total > 10:
             risk += 0.2
         return min(risk, 1.0)

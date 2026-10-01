@@ -71,7 +71,7 @@ class ExplanationGenerator:
                 f"neutral {evidence_set.neutral_weight:.0%})."
             )
         if constraints:
-            chain.append(f"Applied {len(constraints)} hard constraint(s): " + "; ".join(constraints))
+            chain.append(f"Applied {len(constraints)} hard constraint(s): " + "; ".join(constraints))  # noqa: E501
         chain.append("Generated and scored alternatives against weighted objectives.")
         chain.append("Risk profiles computed for each alternative (probability × impact).")
         chain.append(f"Selected best alternative with {confidence.score:.0%} confidence.")

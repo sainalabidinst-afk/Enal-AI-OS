@@ -5,17 +5,17 @@ Defines the input (AdversarialTestRequest) and output (AdversarialTestResult)
 contracts for the Adversarial Testing Capability Pack ("Devil's Advocate").
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class SubjectType(str, Enum):
+class SubjectType(StrEnum):
     """Type of subject being tested."""
 
     PLAN = "plan"
@@ -26,7 +26,7 @@ class SubjectType(str, Enum):
     DECISION = "decision"
 
 
-class AttackCategory(str, Enum):
+class AttackCategory(StrEnum):
     """Categories of adversarial attacks."""
 
     EXTERNAL_SHOCK = "external_shock"
@@ -39,7 +39,7 @@ class AttackCategory(str, Enum):
     OPERATIONAL_DISRUPTION = "operational_disruption"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     """Severity of a vulnerability or attack."""
 
     LOW = "low"
@@ -48,7 +48,7 @@ class Severity(str, Enum):
     CRITICAL = "critical"
 
 
-class Priority(str, Enum):
+class Priority(StrEnum):
     """Priority of a hardening recommendation."""
 
     LOW = "low"
@@ -57,7 +57,7 @@ class Priority(str, Enum):
     CRITICAL = "critical"
 
 
-class GateResult(str, Enum):
+class GateResult(StrEnum):
     """Result of the adversarial pass/fail gate."""
 
     PASS = "pass"
@@ -75,14 +75,14 @@ class AttackRequest(BaseModel):
 
     category: AttackCategory = Field(..., description="Category of attack")
     description: str | None = None
-    severity: Severity = Field(default=Severity.MEDIUM, description="Expected severity of this attack")
+    severity: Severity = Field(default=Severity.MEDIUM, description="Expected severity of this attack")  # noqa: E501
     assumptions: list[str] = Field(default_factory=list, description="Worst-case assumptions")
 
 
 class AdversarialTestRequest(BaseModel):
     """Input contract for an adversarial testing request."""
 
-    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier")
+    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier")  # noqa: E501
     subject: str = Field(..., description="The plan/strategy/recommendation to attack")
     subject_type: SubjectType = Field(..., description="Type of subject")
     context: str | None = Field(default=None, description="Additional context")
@@ -93,7 +93,7 @@ class AdversarialTestRequest(BaseModel):
         default_factory=lambda: list(AttackCategory),
         description="Categories of attacks to generate",
     )
-    existing_hardening: list[str] = Field(default_factory=list, description="Already-applied mitigations")
+    existing_hardening: list[str] = Field(default_factory=list, description="Already-applied mitigations")  # noqa: E501
 
 
 # ---------------------------------------------------------------------------

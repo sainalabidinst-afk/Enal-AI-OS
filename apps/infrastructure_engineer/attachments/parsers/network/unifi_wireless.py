@@ -13,10 +13,10 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class UniFiWirelessParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.ubiquiti and "unifi" in meta.text_preview.lower() or meta.filename.lower().startswith("unifi")
+        return meta.vendor == VendorFamily.ubiquiti and "unifi" in meta.text_preview.lower() or meta.filename.lower().startswith("unifi")  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.ubiquiti, format="unifi", device_role=DeviceRole.wireless_controller)
+        ast = InfrastructureAST(vendor=VendorFamily.ubiquiti, format="unifi", device_role=DeviceRole.wireless_controller)  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()
@@ -24,14 +24,14 @@ class UniFiWirelessParser(BaseParser):
                 ast.wireless.append({"raw": stripped[:200]})
                 if "wpa" not in stripped.lower() and "encryption" not in stripped.lower():
                     evidence = [stripped]
-                    ast.findings.append(InfrastructureFinding(Severity.high, "wireless", "SSID without WPA/WPA2/WPA3 detected", "Enable WPA3 or at minimum WPA2-PSK", confidence=0.8, evidence=evidence))
+                    ast.findings.append(InfrastructureFinding(Severity.high, "wireless", "SSID without WPA/WPA2/WPA3 detected", "Enable WPA3 or at minimum WPA2-PSK", confidence=0.8, evidence=evidence))  # noqa: E501
             if "channel" in stripped.lower():
                 ast.wireless.append({"type": "channel", "raw": stripped[:200]})
             if "dfs" in stripped.lower():
                 ast.wireless.append({"type": "dfs", "raw": stripped[:200]})
             if "tx-power" in stripped.lower() or "txpower" in stripped.lower():
                 ast.wireless.append({"type": "tx_power", "raw": stripped[:200]})
-            if "band" in stripped.lower() or "5ghz" in stripped.lower() or "2.4ghz" in stripped.lower():
+            if "band" in stripped.lower() or "5ghz" in stripped.lower() or "2.4ghz" in stripped.lower():  # noqa: E501
                 ast.wireless.append({"type": "band", "raw": stripped[:200]})
             if "roaming" in stripped.lower():
                 ast.wireless.append({"type": "roaming", "raw": stripped[:200]})

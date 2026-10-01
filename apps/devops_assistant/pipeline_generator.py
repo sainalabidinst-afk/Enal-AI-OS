@@ -24,12 +24,12 @@ PIPELINE_TEMPLATES: dict[str, dict[str, Any]] = {
         "file": ".github/workflows/ci.yml",
         "steps": [
             {"name": "Checkout", "uses": "actions/checkout@v4"},
-            {"name": "Setup Python", "uses": "actions/setup-python@v5", "with": {"python-version": "3.11"}},
+            {"name": "Setup Python", "uses": "actions/setup-python@v5", "with": {"python-version": "3.11"}},  # noqa: E501
             {"name": "Install", "run": "pip install -e .[dev]"},
             {"name": "Lint", "run": "ruff check ."},
             {"name": "Type Check", "run": "mypy ."},
             {"name": "Test", "run": "pytest tests/ -v"},
-            {"name": "Build", "run": "docker build -t ${{ github.repository }}:${{ github.sha }} ."},
+            {"name": "Build", "run": "docker build -t ${{ github.repository }}:${{ github.sha }} ."},  # noqa: E501
             {"name": "Security Scan", "uses": "trivy-action/trivy-scan@master"},
         ],
     },

@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 class VolumeProfileAnalyzer:
     """
     Analyze volume by price level to identify key trading areas.
-    
+
     Volume Profile reveals:
     - Where smart money accumulated/distributed
     - Fair value areas (POC ± Value Area)
@@ -38,7 +38,7 @@ class VolumeProfileAnalyzer:
     def _build_profile(self, ohlcv: list[OHLCV]) -> dict[str, Any]:
         """
         Build volume profile from OHLCV data.
-        
+
         Distributes volume across price levels using simple approximation:
         - Each candle's volume is distributed evenly across its range
         - Accumulates volume by price bin
@@ -54,7 +54,7 @@ class VolumeProfileAnalyzer:
         price_range = price_max - price_min
 
         if price_range == 0:
-            return {"bins": {}, "poc": price_min, "value_area_high": price_min, "value_area_low": price_min}
+            return {"bins": {}, "poc": price_min, "value_area_high": price_min, "value_area_low": price_min}  # noqa: E501
 
         bin_size = price_range / self.num_bins
 
@@ -259,7 +259,7 @@ class VolumeProfileAnalyzer:
             evidence.append(MarketEvidence(
                 id=f"profile_shape_P_{tf}",
                 type="volume_profile",
-                description=f"P-shaped profile on {tf} - POC at top (selling pressure, potential rejection)",
+                description=f"P-shaped profile on {tf} - POC at top (selling pressure, potential rejection)",  # noqa: E501
                 timeframe=tf,
                 strength=0.65,
                 direction="bearish",
@@ -270,7 +270,7 @@ class VolumeProfileAnalyzer:
             evidence.append(MarketEvidence(
                 id=f"profile_shape_b_{tf}",
                 type="volume_profile",
-                description=f"b-shaped profile on {tf} - POC at bottom (buying pressure, potential support)",
+                description=f"b-shaped profile on {tf} - POC at bottom (buying pressure, potential support)",  # noqa: E501
                 timeframe=tf,
                 strength=0.65,
                 direction="bullish",
@@ -288,7 +288,7 @@ class VolumeProfileAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"hvn_proximity_{tf}_{hvn:.0f}",
                     type="volume_profile",
-                    description=f"High Volume Node at {hvn:.2f} on {tf} (strong support/resistance)",
+                    description=f"High Volume Node at {hvn:.2f} on {tf} (strong support/resistance)",  # noqa: E501
                     timeframe=tf,
                     strength=0.70,
                     direction="neutral",

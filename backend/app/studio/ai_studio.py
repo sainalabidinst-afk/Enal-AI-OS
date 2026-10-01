@@ -36,7 +36,7 @@ class AIStudio:
             if project_id is None or node.project_id == project_id:
                 nodes.append({"id": node.id, "type": node.node_type.value, "name": node.name})
         for edge in semantic_graph._edges.values():
-            edges.append({"id": edge.id, "source": edge.source_id, "target": edge.target_id, "relation": edge.relation.value})
+            edges.append({"id": edge.id, "source": edge.source_id, "target": edge.target_id, "relation": edge.relation.value})  # noqa: E501
         return {"nodes": nodes, "edges": edges}
 
     async def get_memory(self, layer: str, query: str, limit: int = 10) -> list[dict[str, Any]]:
@@ -54,7 +54,7 @@ class AIStudio:
         from backend.app.core.cognitive_budget import TaskComplexity
         return {
             "presets": [
-                {"complexity": c.value, "pipeline": adaptive_runtime.get_pipeline_for_complexity(c), "description": adaptive_runtime.describe_pipeline(c)}
+                {"complexity": c.value, "pipeline": adaptive_runtime.get_pipeline_for_complexity(c), "description": adaptive_runtime.describe_pipeline(c)}  # noqa: E501
                 for c in TaskComplexity
             ]
         }
@@ -79,13 +79,13 @@ class AIStudio:
     async def create_workspace(self, name: str, description: str = "") -> dict[str, Any]:
         workspace = await artifact_service.create_workspace(name=name, description=description)
         if hasattr(workspace, 'created_at'):
-            created = workspace.created_at.isoformat() if hasattr(workspace.created_at, 'isoformat') else str(workspace.created_at)
+            created = workspace.created_at.isoformat() if hasattr(workspace.created_at, 'isoformat') else str(workspace.created_at)  # noqa: E501
         else:
             created = ""
         return {"id": workspace.id, "name": workspace.name, "created_at": created}
 
-    async def create_artifact(self, workspace_id: str, name: str, content: str, artifact_type: str = "text") -> dict[str, Any]:
-        artifact = await artifact_service.create_artifact(workspace_id=workspace_id, name=name, content=content, artifact_type=artifact_type)
+    async def create_artifact(self, workspace_id: str, name: str, content: str, artifact_type: str = "text") -> dict[str, Any]:  # noqa: E501
+        artifact = await artifact_service.create_artifact(workspace_id=workspace_id, name=name, content=content, artifact_type=artifact_type)  # noqa: E501
         return {"id": artifact.id, "name": artifact.name, "type": artifact.type}
 
     async def execute_task(self, task: str, workspace_id: str | None = None) -> dict[str, Any]:

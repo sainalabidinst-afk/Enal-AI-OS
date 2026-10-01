@@ -73,7 +73,7 @@ class GapAnalyzer:
                 business_need="High-scale operation",
                 current_capability="Not specified in technical constraints",
                 required_capability="Distributed architecture, caching, CDN, load balancing",
-                gap_description="Requirement indicates high-scale needs but no scaling technology is mentioned in constraints",
+                gap_description="Requirement indicates high-scale needs but no scaling technology is mentioned in constraints",  # noqa: E501
                 priority=Priority.must_have,
                 estimated_effort="High (3-6 months)",
                 impact_if_unaddressed="System failure under load; poor user experience",
@@ -84,7 +84,7 @@ class GapAnalyzer:
             gaps.append(GapItem(
                 business_need="Real-time data processing",
                 current_capability="Not specified in technical constraints",
-                required_capability="WebSocket, streaming platform (Kafka), event-driven architecture",
+                required_capability="WebSocket, streaming platform (Kafka), event-driven architecture",  # noqa: E501
                 gap_description="Real-time requirement lacks enabling technology in constraints",
                 priority=Priority.must_have,
                 estimated_effort="Medium (1-3 months)",
@@ -97,7 +97,7 @@ class GapAnalyzer:
                 business_need="Regulatory compliance",
                 current_capability="Not specified in technical constraints",
                 required_capability="Audit logging, encryption, access controls, data retention",
-                gap_description="Compliance requirement lacks security and audit technology in constraints",
+                gap_description="Compliance requirement lacks security and audit technology in constraints",  # noqa: E501
                 priority=Priority.must_have,
                 estimated_effort="High (2-4 months)",
                 impact_if_unaddressed="Regulatory penalties; data breach liability",
@@ -109,7 +109,7 @@ class GapAnalyzer:
                 business_need="Mobile application support",
                 current_capability="Not specified in technical constraints",
                 required_capability="Mobile SDK, responsive API, offline sync",
-                gap_description="Mobile requirement lacks mobile-specific technology in constraints",
+                gap_description="Mobile requirement lacks mobile-specific technology in constraints",  # noqa: E501
                 priority=Priority.should_have,
                 estimated_effort="Medium (2-3 months)",
                 impact_if_unaddressed="Poor mobile UX; limited market reach",
@@ -142,7 +142,7 @@ class GapAnalyzer:
 
         # Check for reporting/analytics needs.
         if any(w in lowered for w in ("report", "dashboard", "analytics", "metrics", "kpi")):
-            if not any(w in c.lower() for c in constraints for w in ("report", "dashboard", "analytics")):
+            if not any(w in c.lower() for c in constraints for w in ("report", "dashboard", "analytics")):  # noqa: E501
                 gaps.append(GapItem(
                     business_need="Reporting and analytics",
                     current_capability="No analytics technology specified",

@@ -120,8 +120,8 @@ class DomainKnowledgeEngine:
                     category=FindingCategory.schema,
                     severity=Severity.info,
                     title=f"{domain}: common requirement pattern",
-                    description=f"Consider {req.get('title', 'requirement')} in context of {domain} best practices",
-                    recommendation=f"Review {domain} common requirements: {', '.join(knowledge.common_requirements[:3])}",
+                    description=f"Consider {req.get('title', 'requirement')} in context of {domain} best practices",  # noqa: E501
+                    recommendation=f"Review {domain} common requirements: {', '.join(knowledge.common_requirements[:3])}",  # noqa: E501
                     confidence=0.7,
                 ))
 

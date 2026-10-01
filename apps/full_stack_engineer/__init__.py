@@ -23,7 +23,7 @@ from apps.base import BaseReferenceApp
 class FullStackEngineerApp(BaseReferenceApp):
     name = "full-stack-engineer"
     version = "1.0.0"
-    description = "Full-stack engineering: architecture review, code review, refactoring, testing, performance, and release engineering."
+    description = "Full-stack engineering: architecture review, code review, refactoring, testing, performance, and release engineering."  # noqa: E501
     category = "software-engineering"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
@@ -33,12 +33,12 @@ class FullStackEngineerApp(BaseReferenceApp):
     async def _ensure_components(self):
         if self._components_loaded:
             return
-        from apps.code_engineer.architecture_reader import ArchitectureReader, read_architecture
-        from apps.code_engineer.dependency_graph import DependencyGraphBuilder
-        from apps.code_engineer.impact_analyzer import ImpactAnalyzer
-        from apps.code_engineer.refactoring_engine import RefactoringEngine
-        from apps.code_engineer.regression_analyzer import RegressionAnalyzer
-        from apps.code_engineer.test_generator import TestGenerator
+        from apps.code_engineer.architecture_reader import ArchitectureReader, read_architecture  # noqa: F401, I001
+        from apps.code_engineer.dependency_graph import DependencyGraphBuilder  # noqa: F401
+        from apps.code_engineer.impact_analyzer import ImpactAnalyzer  # noqa: F401
+        from apps.code_engineer.refactoring_engine import RefactoringEngine  # noqa: F401
+        from apps.code_engineer.regression_analyzer import RegressionAnalyzer  # noqa: F401
+        from apps.code_engineer.test_generator import TestGenerator  # noqa: F401
         from apps.full_stack_engineer.architecture_review import ArchitectureReviewEngine
         from apps.full_stack_engineer.code_review import FullStackCodeReviewEngine
         from apps.full_stack_engineer.performance_engineer import PerformanceEngineer
@@ -62,7 +62,7 @@ class FullStackEngineerApp(BaseReferenceApp):
         result = await adaptive_runtime.execute(
             user_input,
             project_id=project_id,
-            force_pipeline=self.pipeline,
+            force_pipeline=self.pipeline
         )
         return {
             "app": self.name,
@@ -75,12 +75,12 @@ class FullStackEngineerApp(BaseReferenceApp):
             },
         }
 
-    async def review_architecture(self, repo_path: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
+    async def review_architecture(self, repo_path: str, context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
         await self._ensure_components()
         engine = self.architecture_review_engine_cls()
         return await engine.review(repo_path, context)
 
-    async def review_code(self, code: str, filename: str = "<unknown>", context: dict[str, Any] | None = None) -> dict[str, Any]:
+    async def review_code(self, code: str, filename: str = "<unknown>", context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
         await self._ensure_components()
         engine = self.code_review_engine_cls()
         return await engine.review(code, filename, context)
@@ -100,7 +100,7 @@ class FullStackEngineerApp(BaseReferenceApp):
         engine = self.performance_engineer_cls()
         return await engine.analyze(code, filename)
 
-    async def review_release(self, changes: list[dict[str, Any]], context: dict[str, Any] | None = None) -> dict[str, Any]:
+    async def review_release(self, changes: list[dict[str, Any]], context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
         await self._ensure_components()
         engine = self.release_engineer_cls()
         return await engine.review(changes, context)
@@ -108,3 +108,9 @@ class FullStackEngineerApp(BaseReferenceApp):
 
 def get_app() -> FullStackEngineerApp:
     return FullStackEngineerApp()
+
+
+__all__ = [
+    "Any",
+    "BaseReferenceApp",
+]

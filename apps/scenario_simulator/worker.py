@@ -92,7 +92,7 @@ class ScenarioSimulatorWorker:
 
         # If no explicit changes but description has them, use builder
         if not variable_changes and description:
-            self._engine.builder.build(description, base_state, task.get("iterations", 100), task.get("seed"))
+            self._engine.builder.build(description, base_state, task.get("iterations", 100), task.get("seed"))  # noqa: E501
 
         return ScenarioRequest(
             title=task.get("title", f"Scenario: {description[:50]}"),

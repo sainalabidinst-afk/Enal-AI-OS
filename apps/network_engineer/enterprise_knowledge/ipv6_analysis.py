@@ -41,7 +41,7 @@ class IPv6Analyzer:
 
         return findings
 
-    def _check_dual_stack(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_dual_stack(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_ipv4 = any(kw in raw for kw in ["ip address", "ip route 0.0.0.0"])
         has_ipv6_route = "ipv6 route" in raw or "ipv6 address" in raw
@@ -71,7 +71,7 @@ class IPv6Analyzer:
             ))
         return findings
 
-    def _check_addressing(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_addressing(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_slaac = any(kw in raw for kw in ["slaac", "autoconfig", "ipv6 nd ra"])
         has_dhcpv6 = any(kw in raw for kw in ["dhcpv6", "dhcp6", "ipv6 dhcp"])
@@ -126,10 +126,10 @@ class IPv6Analyzer:
             ))
         return findings
 
-    def _check_security(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_security(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_ipv6_fw = any(kw in raw for kw in ["ipv6 firewall", "ipv6 access-list", "ipv6 filter"])
-        has_ra_guard = any(kw in raw for kw in ["ra-guard", "router-advertisement-guard", "nd inspect"])
+        has_ra_guard = any(kw in raw for kw in ["ra-guard", "router-advertisement-guard", "nd inspect"])  # noqa: E501
         has_privacy = "privacy-extensions" in raw or "ipv6 privacy" in raw
 
         if not has_ipv6_fw:
@@ -168,7 +168,7 @@ class IPv6Analyzer:
             ))
         return findings
 
-    def _check_transition(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_transition(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_dns64 = "dns64" in raw or "nat64" in raw
         has_6to4 = "6to4" in raw or "ipv6 6to4" in raw
@@ -199,7 +199,7 @@ class IPv6Analyzer:
             ))
         return findings
 
-    def _check_isp_deployment(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:
+    def _check_isp_deployment(self, raw: str, config: object, vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         findings = []
         has_wan_ipv6 = any(kw in raw for kw in ["ipv6 address", "ipv6 dhcp client", "ipv6 pd"])
         has_bgp_ipv6 = "ipv6" in raw and "bgp" in raw

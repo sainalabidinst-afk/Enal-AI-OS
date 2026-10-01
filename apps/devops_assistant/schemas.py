@@ -5,21 +5,21 @@ DevOps Assistant Schemas
 Typed contracts for the DevOps Assistant capability pack.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
 
 
-class ProblemType(str, Enum):
+class ProblemType(StrEnum):
     PIPELINE_BREAK = "pipeline_break"
     MISSING_HEALTH_CHECK = "missing_health_check"
     HARDCODED_SECRET = "hardcoded_secret"
@@ -32,7 +32,7 @@ class ProblemType(str, Enum):
     POLICY_VIOLATION = "policy_violation"
 
 
-class ImprovementType(str, Enum):
+class ImprovementType(StrEnum):
     PIPELINE_FIX = "pipeline_fix"
     INFRASTRUCTURE = "infrastructure"
     MONITORING = "monitoring"

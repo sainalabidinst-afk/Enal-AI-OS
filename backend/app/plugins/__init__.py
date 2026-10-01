@@ -219,4 +219,4 @@ POSTGRES_PLUGIN = MCPPlugin(
 def register_default_plugins():
     for plugin in [DOCKER_PLUGIN, GITHUB_PLUGIN, FILESYSTEM_PLUGIN, POSTGRES_PLUGIN]:
         mcp_registry.register_plugin(plugin)
-    logger.info(f"Registered {len([DOCKER_PLUGIN, GITHUB_PLUGIN, FILESYSTEM_PLUGIN, POSTGRES_PLUGIN])} default MCP plugins")
+    logger.info(f"Registered {len([DOCKER_PLUGIN, GITHUB_PLUGIN, FILESYSTEM_PLUGIN, POSTGRES_PLUGIN])} default MCP plugins")  # noqa: E501

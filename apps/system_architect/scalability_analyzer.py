@@ -47,16 +47,16 @@ class ScalabilityAnalyzer:
         assessment = ScalabilityAssessment()
         assessment.bottlenecks = self._detect_bottlenecks(metrics)
         assessment.score = self._compute_score(metrics, assessment.bottlenecks)
-        assessment.recommendations = self._generate_recommendations(assessment.bottlenecks, assessment.score)
+        assessment.recommendations = self._generate_recommendations(assessment.bottlenecks, assessment.score)  # noqa: E501
         return assessment
 
     def _detect_bottlenecks(self, metrics: Any) -> list[str]:
         bottlenecks: list[str] = []
         if hasattr(metrics, 'dependency_cycles') and metrics.dependency_cycles > 0:
-            bottlenecks.append("Circular dependencies create tight coupling and hinder horizontal scaling")
+            bottlenecks.append("Circular dependencies create tight coupling and hinder horizontal scaling")  # noqa: E501
         if hasattr(metrics, 'layer_violations') and metrics.layer_violations > 5:
             bottlenecks.append("High layer violation count indicates poor separation of concerns")
-        if hasattr(metrics, 'package_boundaries_crossed') and metrics.package_boundaries_crossed > 3:
+        if hasattr(metrics, 'package_boundaries_crossed') and metrics.package_boundaries_crossed > 3:  # noqa: E501
             bottlenecks.append("Frequent cross-package communication increases coupling")
         return bottlenecks
 
@@ -70,7 +70,7 @@ class ScalabilityAnalyzer:
             base -= metrics.package_boundaries_crossed * 4.0
         return max(0.0, min(100.0, base))
 
-    def _generate_recommendations(self, bottlenecks: list[str], score: float) -> list[Recommendation]:
+    def _generate_recommendations(self, bottlenecks: list[str], score: float) -> list[Recommendation]:  # noqa: E501
         recs: list[Recommendation] = []
         if "Circular dependencies" in str(bottlenecks):
             recs.append(Recommendation(

@@ -141,9 +141,9 @@ def detect_from_content(filename: str, content: str, max_preview: int = 2000) ->
         meta.confidence = min(1.0, 0.5 + best_confidence / 10.0)
 
     if meta.attachment_type == AttachmentType.unknown:
-        if any(key in lowered for key in ["/interface", "/ip ", "routeros", "/routing", "/ip firewall"]):
+        if any(key in lowered for key in ["/interface", "/ip ", "routeros", "/routing", "/ip firewall"]):  # noqa: E501
             meta.attachment_type = AttachmentType.config
-        elif any(key in lowered for key in ["building", "Building configuration", "version", "hostname"]):
+        elif any(key in lowered for key in ["building", "Building configuration", "version", "hostname"]):  # noqa: E501
             meta.attachment_type = AttachmentType.config
         elif "apiVersion:" in lowered and "kind:" in lowered:
             meta.attachment_type = AttachmentType.config

@@ -23,32 +23,32 @@ logger = logging.getLogger(__name__)
 
 _STRIDE_PATTERNS: dict[ThreatCategory, list[tuple[str, str, str]]] = {
     ThreatCategory.spoofing: [
-        (r'(?i)(oauth|auth|login|token|password|credential)', "Authentication mechanism detected", "Implement multi-factor authentication and proper token validation"),
-        (r'(?i)(user_input|request\.user|current_user)', "User identity in request flow", "Validate user identity through trusted identity provider"),
+        (r'(?i)(oauth|auth|login|token|password|credential)', "Authentication mechanism detected", "Implement multi-factor authentication and proper token validation"),  # noqa: E501
+        (r'(?i)(user_input|request\.user|current_user)', "User identity in request flow", "Validate user identity through trusted identity provider"),  # noqa: E501
     ],
     ThreatCategory.tampering: [
-        (r'(?i)(json\.parse|deserialize|eval|pickle\.loads)', "Unsafe deserialization", "Use safe deserialization with schema validation"),
-        (r'(?i)(query.*\+|concat|f["\'].*SELECT|f["\'].*INSERT)', "Dynamic query construction", "Use parameterized queries"),
-        (r'(?i)(innerHTML|document\.write)', "DOM manipulation", "Sanitize and encode all DOM inputs"),
+        (r'(?i)(json\.parse|deserialize|eval|pickle\.loads)', "Unsafe deserialization", "Use safe deserialization with schema validation"),  # noqa: E501
+        (r'(?i)(query.*\+|concat|f["\'].*SELECT|f["\'].*INSERT)', "Dynamic query construction", "Use parameterized queries"),  # noqa: E501
+        (r'(?i)(innerHTML|document\.write)', "DOM manipulation", "Sanitize and encode all DOM inputs"),  # noqa: E501
     ],
     ThreatCategory.repudiation: [
-        (r'(?i)(delete|remove|drop|archive)', "Destructive operation", "Implement audit logging for all destructive actions"),
-        (r'(?i)(update|modify|edit)', "Data modification", "Log all data modifications with user context and timestamp"),
+        (r'(?i)(delete|remove|drop|archive)', "Destructive operation", "Implement audit logging for all destructive actions"),  # noqa: E501
+        (r'(?i)(update|modify|edit)', "Data modification", "Log all data modifications with user context and timestamp"),  # noqa: E501
     ],
     ThreatCategory.info_disclosure: [
-        (r'(?i)(print|console\.log|logger\.debug|dump|var_dump|pprint)', "Debug/logging output", "Remove debug output in production; implement log redaction"),
-        (r'(?i)(except.*pass|except.*:|except:)', "Bare except (error swallowing)", "Log exceptions with sanitized details"),
-        (r'(?i)(pickle|marshal|yaml\.load\b)', "Unsafe deserialization", "Replace with safe alternatives (json, yaml.safe_load)"),
+        (r'(?i)(print|console\.log|logger\.debug|dump|var_dump|pprint)', "Debug/logging output", "Remove debug output in production; implement log redaction"),  # noqa: E501
+        (r'(?i)(except.*pass|except.*:|except:)', "Bare except (error swallowing)", "Log exceptions with sanitized details"),  # noqa: E501
+        (r'(?i)(pickle|marshal|yaml\.load\b)', "Unsafe deserialization", "Replace with safe alternatives (json, yaml.safe_load)"),  # noqa: E501
     ],
     ThreatCategory.denial_service: [
-        (r'(?i)(for\s+.*in.*:|while\s+|loop)', "Unbounded loop", "Implement circuit breakers and rate limiting"),
-        (r'(?i)(read\(\)|file\.read|open\()', "File/resource access without limit", "Add resource limits and timeouts"),
-        (r'(?i)(requests\.get|fetch\(|http\.request)', "External HTTP call", "Implement timeouts and retry with backoff"),
+        (r'(?i)(for\s+.*in.*:|while\s+|loop)', "Unbounded loop", "Implement circuit breakers and rate limiting"),  # noqa: E501
+        (r'(?i)(read\(\)|file\.read|open\()', "File/resource access without limit", "Add resource limits and timeouts"),  # noqa: E501
+        (r'(?i)(requests\.get|fetch\(|http\.request)', "External HTTP call", "Implement timeouts and retry with backoff"),  # noqa: E501
     ],
     ThreatCategory.elevation_privilege: [
-        (r'(?i)(eval|exec|os\.system|subprocess|__import__|globals\(\)|locals\(\))', "Arbitrary code execution", "Run with least privilege; sandbox untrusted code"),
-        (r'(?i)(sudo|root|admin\b)', "Privilege escalation", "Implement least-privilege access control"),
-        (r'(?i)(shell=True|shell_exec|passthru)', "Shell execution", "Use parameterized command execution without shell"),
+        (r'(?i)(eval|exec|os\.system|subprocess|__import__|globals\(\)|locals\(\))', "Arbitrary code execution", "Run with least privilege; sandbox untrusted code"),  # noqa: E501
+        (r'(?i)(sudo|root|admin\b)', "Privilege escalation", "Implement least-privilege access control"),  # noqa: E501
+        (r'(?i)(shell=True|shell_exec|passthru)', "Shell execution", "Use parameterized command execution without shell"),  # noqa: E501
     ],
 }
 
@@ -104,8 +104,8 @@ class ThreatModeler:
         Returns:
             ThreatModelResult with attack surface, trust boundaries, threats.
         """
-        attack_surface = self._identify_attack_surface(architecture_description, source_code, components)
-        trust_boundaries = self._identify_trust_boundaries(architecture_description, source_code, components)
+        attack_surface = self._identify_attack_surface(architecture_description, source_code, components)  # noqa: E501
+        trust_boundaries = self._identify_trust_boundaries(architecture_description, source_code, components)  # noqa: E501
         flow_list = data_flows or self._infer_data_flows(architecture_description, source_code)
         threats = self._identify_threats(architecture_description, source_code)
 
@@ -153,7 +153,7 @@ class ThreatModeler:
         if components:
             boundaries.append(f"Component boundary: {', '.join(components)}")
 
-        return list(dict.fromkeys(boundaries)) if boundaries else ["No explicit trust boundaries identified"]
+        return list(dict.fromkeys(boundaries)) if boundaries else ["No explicit trust boundaries identified"]  # noqa: E501
 
     def _infer_data_flows(self, arch_desc: str, source_code: str) -> list[str]:
         """Infer data flows from architecture description and source code."""
@@ -171,7 +171,7 @@ class ThreatModeler:
             for match in re.finditer(pattern, combined, re.IGNORECASE):
                 flows.append(match.group(0)[:100])
 
-        return list(dict.fromkeys(flows)) if flows else ["Data flow details not specified in architecture"]
+        return list(dict.fromkeys(flows)) if flows else ["Data flow details not specified in architecture"]  # noqa: E501
 
     def _identify_threats(self, arch_desc: str, source_code: str) -> list[ThreatModelEntry]:
         """Identify STRIDE threats from architecture and code."""

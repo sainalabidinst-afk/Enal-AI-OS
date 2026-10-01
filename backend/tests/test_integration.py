@@ -10,13 +10,13 @@ from backend.app.main import app
 
 assert settings.SECRET_KEY, "SECRET_KEY must be configured for integration tests"
 
-from backend.app.api.auth import _create_access_token
+from backend.app.api.auth import _create_access_token  # noqa: E402
 
 client = TestClient(app)
 
 
 def _auth_headers() -> dict[str, str]:
-    token = _create_access_token({"sub": "test-user", "roles": ["default"], "permissions": ["default"]})
+    token = _create_access_token({"sub": "test-user", "roles": ["default"], "permissions": ["default"]})  # noqa: E501
     return {"Authorization": f"Bearer {token}"}
 
 

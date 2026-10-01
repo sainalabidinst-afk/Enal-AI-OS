@@ -16,7 +16,7 @@ class ImportResolver:
 
     def __init__(self, repo_path: Path):
         self.repo_path = repo_path
-        self._stdlib_modules: set[str] = set(sys.stdlib_module_names) if hasattr(sys, 'stdlib_module_names') else {
+        self._stdlib_modules: set[str] = set(sys.stdlib_module_names) if hasattr(sys, 'stdlib_module_names') else {  # noqa: E501
             "os", "sys", "re", "json", "math", "datetime", "typing", "pathlib",
             "collections", "itertools", "functools", "hashlib", "random", "time",
             "uuid", "logging", "abc", "enum", "dataclasses", "io", "textwrap",

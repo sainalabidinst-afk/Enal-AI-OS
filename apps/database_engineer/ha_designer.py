@@ -72,7 +72,7 @@ class HADesigner:
             category=FindingCategory.replication,
             severity=Severity.info,
             title=f"HA Topology: {topology.strategy}",
-            description=f"Strategy: {topology.strategy}, Failover: {topology.failover_strategy}, RTO: {topology.rto_minutes}m, RPO: {topology.rpo_minutes}m",
+            description=f"Strategy: {topology.strategy}, Failover: {topology.failover_strategy}, RTO: {topology.rto_minutes}m, RPO: {topology.rpo_minutes}m",  # noqa: E501
             recommendation=f"Deploy {topology.strategy} with automatic failover",
             confidence=0.8,
         ))

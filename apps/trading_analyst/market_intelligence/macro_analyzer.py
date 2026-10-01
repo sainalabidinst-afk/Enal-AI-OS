@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 class MacroAnalyzer:
     """
     Analyze macroeconomic conditions and their market impact.
-    
+
     Evaluates:
     - Central bank policy stance (dovish/hawkish)
     - Economic health indicators
@@ -49,7 +49,7 @@ class MacroAnalyzer:
                            central_bank: str = "Fed") -> list[MarketEvidence]:
         """
         Analyze central bank interest rate policy.
-        
+
         Args:
             current_rate: Current policy rate (%)
             previous_rate: Previous policy rate (%)
@@ -64,7 +64,7 @@ class MacroAnalyzer:
             evidence.append(MarketEvidence(
                 id=f"rate_hike_{central_bank.lower()}",
                 type="macro",
-                description=f"{central_bank} raised rates by {abs(rate_change):.2f}% to {current_rate:.2f}% (hawkish)",
+                description=f"{central_bank} raised rates by {abs(rate_change):.2f}% to {current_rate:.2f}% (hawkish)",  # noqa: E501
                 timeframe="1d",
                 strength=strength,
                 direction="bearish",
@@ -76,7 +76,7 @@ class MacroAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"restrictive_rate_{central_bank.lower()}",
                     type="macro",
-                    description=f"{central_bank} rate at {current_rate:.2f}% - restrictive territory",
+                    description=f"{central_bank} rate at {current_rate:.2f}% - restrictive territory",  # noqa: E501
                     timeframe="1d",
                     strength=0.75,
                     direction="bearish",
@@ -89,7 +89,7 @@ class MacroAnalyzer:
             evidence.append(MarketEvidence(
                 id=f"rate_cut_{central_bank.lower()}",
                 type="macro",
-                description=f"{central_bank} cut rates by {abs(rate_change):.2f}% to {current_rate:.2f}% (dovish)",
+                description=f"{central_bank} cut rates by {abs(rate_change):.2f}% to {current_rate:.2f}% (dovish)",  # noqa: E501
                 timeframe="1d",
                 strength=strength,
                 direction="bullish",
@@ -101,7 +101,7 @@ class MacroAnalyzer:
                 evidence.append(MarketEvidence(
                     id=f"accommodative_rate_{central_bank.lower()}",
                     type="macro",
-                    description=f"{central_bank} rate at {current_rate:.2f}% - accommodative territory",
+                    description=f"{central_bank} rate at {current_rate:.2f}% - accommodative territory",  # noqa: E501
                     timeframe="1d",
                     strength=0.70,
                     direction="bullish",
@@ -126,7 +126,7 @@ class MacroAnalyzer:
                          target: float = 2.0) -> list[MarketEvidence]:
         """
         Analyze inflation data.
-        
+
         Args:
             cpi: Headline CPI (year-over-year %)
             core_cpi: Core CPI (year-over-year %)
@@ -140,7 +140,7 @@ class MacroAnalyzer:
             evidence.append(MarketEvidence(
                 id="cpi_high",
                 type="macro",
-                description=f"CPI at {cpi:.1f}% - well above {target:.0f}% target (inflationary pressure)",
+                description=f"CPI at {cpi:.1f}% - well above {target:.0f}% target (inflationary pressure)",  # noqa: E501
                 timeframe="1w",
                 strength=min(abs(cpi_deviation) * 0.15, 0.85),
                 direction="bearish",
@@ -176,7 +176,7 @@ class MacroAnalyzer:
             evidence.append(MarketEvidence(
                 id="core_cpi_sticky",
                 type="macro",
-                description=f"Core CPI ({core_cpi:.1f}%) above headline ({cpi:.1f}%) - sticky inflation",
+                description=f"Core CPI ({core_cpi:.1f}%) above headline ({cpi:.1f}%) - sticky inflation",  # noqa: E501
                 timeframe="1w",
                 strength=0.65,
                 direction="bearish",
@@ -191,7 +191,7 @@ class MacroAnalyzer:
                                 pmi: float) -> list[MarketEvidence]:
         """
         Analyze overall economic health using GDP, unemployment, and PMI.
-        
+
         Args:
             gdp_growth: GDP growth rate (annual %)
             unemployment: Unemployment rate (%)
@@ -279,7 +279,7 @@ class MacroAnalyzer:
                                spy_performance_1m: float) -> list[MarketEvidence]:
         """
         Analyze risk-on/risk-off sentiment.
-        
+
         Args:
             vix: VIX volatility index
             dxy: US Dollar Index
@@ -354,7 +354,7 @@ class MacroAnalyzer:
             evidence.append(MarketEvidence(
                 id="spy_momentum_positive",
                 type="macro",
-                description=f"SPY up {spy_performance_1m:.1f}% in 1 month - positive equity momentum",
+                description=f"SPY up {spy_performance_1m:.1f}% in 1 month - positive equity momentum",  # noqa: E501
                 timeframe="1d",
                 strength=min(spy_performance_1m * 0.03, 0.80),
                 direction="bullish",
@@ -365,7 +365,7 @@ class MacroAnalyzer:
             evidence.append(MarketEvidence(
                 id="spy_momentum_negative",
                 type="macro",
-                description=f"SPY down {abs(spy_performance_1m):.1f}% in 1 month - negative equity momentum",
+                description=f"SPY down {abs(spy_performance_1m):.1f}% in 1 month - negative equity momentum",  # noqa: E501
                 timeframe="1d",
                 strength=min(abs(spy_performance_1m) * 0.03, 0.80),
                 direction="bearish",
@@ -378,7 +378,7 @@ class MacroAnalyzer:
     def analyze(self, macro_data: dict[str, Any]) -> list[MarketEvidence]:
         """
         Run full macro analysis.
-        
+
         Expected macro_data keys:
             - central_bank: str
             - current_rate: float

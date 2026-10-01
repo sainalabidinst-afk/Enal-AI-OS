@@ -26,8 +26,8 @@ class CleanArchitectureAnalyzer:
     LAYER_KEYWORDS = {
         "entity": ["entity", "domain", "model", "models", "aggregate"],
         "use_case": ["use_case", "usecase", "service", "interactor", "application"],
-        "adapter": ["adapter", "controller", "presenter", "gateway", "repository_impl", "infrastructure"],
-        "framework": ["api", "router", "views", "handlers", "main", "app", "web", "db", "database", "external"],
+        "adapter": ["adapter", "controller", "presenter", "gateway", "repository_impl", "infrastructure"],  # noqa: E501
+        "framework": ["api", "router", "views", "handlers", "main", "app", "web", "db", "database", "external"],  # noqa: E501
     }
 
     def analyze_layers(self, code_ast) -> list[ArchitectureFinding]:

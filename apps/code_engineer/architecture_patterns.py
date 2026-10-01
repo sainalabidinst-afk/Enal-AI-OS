@@ -55,11 +55,11 @@ class ArchitectureFinding:
         }
 
 
-from apps.code_engineer.clean_architecture import CleanArchitectureAnalyzer
-from apps.code_engineer.cqrs_analysis import CQRSAnalyzer
-from apps.code_engineer.ddd_analysis import DDDAnalyzer
-from apps.code_engineer.event_sourcing_analysis import EventSourcingAnalyzer
-from apps.code_engineer.solid_analysis import SOLIDAnalyzer
+from apps.code_engineer.clean_architecture import CleanArchitectureAnalyzer  # noqa: E402
+from apps.code_engineer.cqrs_analysis import CQRSAnalyzer  # noqa: E402
+from apps.code_engineer.ddd_analysis import DDDAnalyzer  # noqa: E402
+from apps.code_engineer.event_sourcing_analysis import EventSourcingAnalyzer  # noqa: E402
+from apps.code_engineer.solid_analysis import SOLIDAnalyzer  # noqa: E402
 
 
 class ArchitecturePatternAnalyzer:

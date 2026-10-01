@@ -43,7 +43,7 @@ class EventSourcingAnalyzer:
 
         for cls in code_ast.classes:
             cls_name = cls.name.lower()
-            if "event" in cls_name and ("store" in cls_name or "repository" in cls_name or "log" in cls_name):
+            if "event" in cls_name and ("store" in cls_name or "repository" in cls_name or "log" in cls_name):  # noqa: E501
                 findings.append(ArchitectureFinding(
                     category="event_sourcing",
                     severity=ArchitectureSeverity.INFO,
@@ -64,7 +64,7 @@ class EventSourcingAnalyzer:
         for cls in code_ast.classes:
             cls_name = cls.name.lower()
             if "projection" in cls_name or "projector" in cls_name or "read_model" in cls_name:
-                has_when = any(m.name == "when" or m.name.startswith("project") for m in cls.methods)
+                has_when = any(m.name == "when" or m.name.startswith("project") for m in cls.methods)  # noqa: E501
                 if has_when:
                     findings.append(ArchitectureFinding(
                         category="event_sourcing",
@@ -72,7 +72,7 @@ class EventSourcingAnalyzer:
                         description=f"Projection detected: '{cls.name}'",
                         recommendation=(
                             "Projections build read models from events. Each projection "
-                            "handles specific event types. Rebuild from scratch by replaying all events."
+                            "handles specific event types. Rebuild from scratch by replaying all events."  # noqa: E501
                         ),
                         line_number=cls.lineno,
                         confidence=0.85,

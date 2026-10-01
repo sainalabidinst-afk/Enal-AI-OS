@@ -92,7 +92,7 @@ class TestBrowserAgent:
     async def test_browse_parses_html(self, monkeypatch):
         import backend.app.core.browser_agent as ba_module
 
-        html = "<html><head><title>Test Page</title></head><body><a href='http://example.com'>link</a><img src='http://img.com/x.png'/></body></html>"
+        html = "<html><head><title>Test Page</title></head><body><a href='http://example.com'>link</a><img src='http://img.com/x.png'/></body></html>"  # noqa: E501
         response = FakeResponse(html)
 
         async def fake_ensure(self):

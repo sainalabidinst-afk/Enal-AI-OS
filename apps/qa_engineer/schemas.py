@@ -7,17 +7,17 @@ for the QA Engineer Capability Pack, plus all supporting types.
 These schemas follow the RFC-0012 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class QATestOperation(str, Enum):
+class QATestOperation(StrEnum):
     unit_test = "unit_test"
     integration_test = "integration_test"
     regression_test = "regression_test"
@@ -29,7 +29,7 @@ class QATestOperation(str, Enum):
     performance_validation = "performance_validation"
 
 
-class TestType(str, Enum):
+class TestType(StrEnum):
     unit = "unit"
     integration = "integration"
     regression = "regression"
@@ -37,27 +37,27 @@ class TestType(str, Enum):
     benchmark = "benchmark"
 
 
-class FindingSeverity(str, Enum):
+class FindingSeverity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
     low = "low"
 
 
-class CoverageMetric(str, Enum):
+class CoverageMetric(StrEnum):
     line = "line"
     branch = "branch"
     function = "function"
 
 
-class MutantStatus(str, Enum):
+class MutantStatus(StrEnum):
     killed = "killed"
     survived = "survived"
     timeout = "timeout"
     no_coverage = "no_coverage"
 
 
-class FlakyClassification(str, Enum):
+class FlakyClassification(StrEnum):
     network = "network"
     timing = "timing"
     shared_state = "shared_state"
@@ -90,7 +90,7 @@ class MutantResult(BaseModel):
 
 
 class MutationReport(BaseModel):
-    mutation_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Mutants killed / total mutants")
+    mutation_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Mutants killed / total mutants")  # noqa: E501
     total_mutants: int = Field(default=0)
     killed: int = Field(default=0)
     survived: int = Field(default=0)
@@ -139,8 +139,8 @@ class QATestRequestModel(BaseModel):
 
     request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     operation: QATestOperation = Field(..., description="Type of QA operation")
-    target: dict[str, Any] = Field(default_factory=dict, description="Source code, test suite, language, framework")
-    for_capability_pack: str | None = Field(default=None, description="Target pack for golden test generation")
+    target: dict[str, Any] = Field(default_factory=dict, description="Source code, test suite, language, framework")  # noqa: E501
+    for_capability_pack: str | None = Field(default=None, description="Target pack for golden test generation")  # noqa: E501
     coverage_target: float = Field(default=0.8, ge=0.0, le=1.0)
     mutation_target: float = Field(default=0.8, ge=0.0, le=1.0)
     performance_requirements: dict[str, Any] | None = Field(default=None)
@@ -185,7 +185,7 @@ class Finding(BaseModel):
     """A single QA finding."""
 
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    category: str = Field(..., description="unit_test|integration_test|regression|mutation|flaky|coverage|performance")
+    category: str = Field(..., description="unit_test|integration_test|regression|mutation|flaky|coverage|performance")  # noqa: E501
     severity: FindingSeverity = Field(default=FindingSeverity.medium)
     title: str = Field(..., description="Short title")
     description: str = Field(..., description="Detailed description")

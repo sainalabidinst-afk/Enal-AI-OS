@@ -6,7 +6,7 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class GrafanaParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.filename.lower().endswith((".json", ".txt")) and "grafana" in meta.text_preview.lower()
+        return meta.filename.lower().endswith((".json", ".txt")) and "grafana" in meta.text_preview.lower()  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
         ast = InfrastructureAST(format="grafana")

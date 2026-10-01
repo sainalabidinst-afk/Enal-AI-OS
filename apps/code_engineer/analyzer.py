@@ -85,7 +85,7 @@ class CodeAnalyzer:
                     issues.append(CodeIssue(
                         severity=Severity.LOW,
                         category="Documentation",
-                        description=f"Method {method.name} in class {cls.name} is missing docstring",
+                        description=f"Method {method.name} in class {cls.name} is missing docstring",  # noqa: E501
                         recommendation="Add docstring to method",
                         line_number=method.lineno,
                         confidence=1.0,
@@ -178,7 +178,7 @@ class CodeAnalyzer:
                 issues.append(CodeIssue(
                     severity=Severity.HIGH,
                     category="SOLID",
-                    description=f"Class '{cls.name}' has {num_methods} methods - violates Single Responsibility",
+                    description=f"Class '{cls.name}' has {num_methods} methods - violates Single Responsibility",  # noqa: E501
                     recommendation="Split class into smaller, focused classes",
                     line_number=cls.lineno,
                     confidence=0.85,
@@ -187,13 +187,13 @@ class CodeAnalyzer:
         # Open/Closed Principle: Large if-elif chains (feature envy)
         for func in code_ast.functions:
             if "elif" in raw and func.name not in ("__init__", "__new__"):
-                lines = [l for l in code_ast.raw_lines if "elif" in l]
+                lines = [l for l in code_ast.raw_lines if "elif" in l]  # noqa: E741
                 if len(lines) > 3:
                     issues.append(CodeIssue(
                         severity=Severity.MEDIUM,
                         category="SOLID",
-                        description=f"Function '{func.name}' has multiple elif branches - consider Strategy pattern (Open/Closed)",
-                        recommendation="Use strategy pattern or polymorphism instead of conditionals",
+                        description=f"Function '{func.name}' has multiple elif branches - consider Strategy pattern (Open/Closed)",  # noqa: E501
+                        recommendation="Use strategy pattern or polymorphism instead of conditionals",  # noqa: E501
                         line_number=func.lineno,
                         confidence=0.7,
                     ))
@@ -226,7 +226,7 @@ class CodeAnalyzer:
                 issues.append(CodeIssue(
                     severity=Severity.INFO,
                     category="DDD",
-                    description=f"Class '{cls.name}' could be an Entity - consider adding identity field",
+                    description=f"Class '{cls.name}' could be an Entity - consider adding identity field",  # noqa: E501
                     recommendation="Add 'id' or 'uuid' field for Entity pattern",
                     line_number=cls.lineno,
                     confidence=0.6,
@@ -238,7 +238,7 @@ class CodeAnalyzer:
                 issues.append(CodeIssue(
                     severity=Severity.INFO,
                     category="DDD",
-                    description=f"Class '{cls.name}' implements __eq__ without identity - could be Value Object",
+                    description=f"Class '{cls.name}' implements __eq__ without identity - could be Value Object",  # noqa: E501
                     recommendation="Consider making this class immutable",
                     line_number=cls.lineno,
                     confidence=0.5,

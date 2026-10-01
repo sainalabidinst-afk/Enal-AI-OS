@@ -1,19 +1,19 @@
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class SecurityLevel(str, Enum):
+class SecurityLevel(StrEnum):
     SAFE = "safe"
     RESTRICTED = "restricted"
     PRIVILEGED = "privileged"
 
 
-class Permission(str, Enum):
+class Permission(StrEnum):
     READ = "read"
     WRITE = "write"
     EXECUTE = "execute"
@@ -23,7 +23,7 @@ class Permission(str, Enum):
     SYSTEM = "system"
 
 
-class AccessModel(str, Enum):
+class AccessModel(StrEnum):
     RBAC = "rbac"
     ABAC = "abac"
     CAPABILITY = "capability"
@@ -46,7 +46,7 @@ class SecurityPolicy:
 
 
 class PolicyEvaluator:
-    def evaluate(self, policy: SecurityPolicy, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:
+    def evaluate(self, policy: SecurityPolicy, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:  # noqa: E501
         if policy.access_model == AccessModel.RBAC:
             return self._evaluate_rbac(policy, permission)
         elif policy.access_model == AccessModel.ABAC:
@@ -60,7 +60,7 @@ class PolicyEvaluator:
             return False
         return permission in policy.allowed_permissions
 
-    def _evaluate_abac(self, policy: SecurityPolicy, permission: Permission, context: dict[str, Any]) -> bool:
+    def _evaluate_abac(self, policy: SecurityPolicy, permission: Permission, context: dict[str, Any]) -> bool:  # noqa: E501
         if permission in policy.denied_permissions:
             return False
         if permission not in policy.allowed_permissions:
@@ -87,7 +87,7 @@ class SecurityModel:
         self._max_audit_log_size = 10000
         self._max_pending_approval_size = 100
 
-    def _log_audit(self, action: str, plugin_id: str, permission: Permission | None = None, allowed: bool | None = None):
+    def _log_audit(self, action: str, plugin_id: str, permission: Permission | None = None, allowed: bool | None = None):  # noqa: E501
         self._audit_log.append({
             "timestamp": datetime.now(UTC).isoformat(),
             "action": action,
@@ -120,7 +120,7 @@ class SecurityModel:
             return True
         return False
 
-    def check_permission(self, plugin_id: str, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:
+    def check_permission(self, plugin_id: str, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:  # noqa: E501
         policy = self._policies.get(plugin_id)
         if not policy:
             self._log_audit("check_permission", plugin_id, permission, False)

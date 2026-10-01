@@ -24,7 +24,7 @@ class MikroTikDeployAdapter(VendorDeploymentAdapter):
         return {
             "device_id": device_id,
             "status": "simulated",
-            "message": "SSH deployment simulated. In production, this would connect via SSH and apply config.",
+            "message": "SSH deployment simulated. In production, this would connect via SSH and apply config.",  # noqa: E501
             "vendor": "mikrotik",
         }
 

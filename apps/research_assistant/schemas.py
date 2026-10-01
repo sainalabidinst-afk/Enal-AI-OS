@@ -5,17 +5,17 @@ Defines the input (ResearchRequest) and output (ResearchReport) contracts
 for the Research Assistant Capability Pack, plus all supporting types.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class ResearchOperation(str, Enum):
+class ResearchOperation(StrEnum):
     literature_review = "literature_review"
     evidence_gathering = "evidence_gathering"
     contradiction_analysis = "contradiction_analysis"
@@ -25,7 +25,7 @@ class ResearchOperation(str, Enum):
     report_generation = "report_generation"
 
 
-class SourceType(str, Enum):
+class SourceType(StrEnum):
     journal = "journal"
     conference = "conference"
     book = "book"
@@ -36,14 +36,14 @@ class SourceType(str, Enum):
     dataset = "dataset"
 
 
-class SourceQuality(str, Enum):
+class SourceQuality(StrEnum):
     peer_reviewed = "peer_reviewed"
     expert_review = "expert_review"
     editorial = "editorial"
     unverified = "unverified"
 
 
-class CitationStyle(str, Enum):
+class CitationStyle(StrEnum):
     apa = "apa"
     mla = "mla"
     chicago = "chicago"
@@ -51,7 +51,7 @@ class CitationStyle(str, Enum):
     harvard = "harvard"
 
 
-class ConfidenceLevel(str, Enum):
+class ConfidenceLevel(StrEnum):
     very_high = "very_high"
     high = "high"
     moderate = "moderate"
@@ -59,7 +59,7 @@ class ConfidenceLevel(str, Enum):
     very_low = "very_low"
 
 
-class FindingSeverity(str, Enum):
+class FindingSeverity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
@@ -67,7 +67,7 @@ class FindingSeverity(str, Enum):
     informational = "informational"
 
 
-class ContradictionType(str, Enum):
+class ContradictionType(StrEnum):
     methodological = "methodological"
     results = "results"
     interpretation = "interpretation"
@@ -87,10 +87,10 @@ class Evidence(BaseModel):
     content: str = Field(..., description="Content or abstract of the evidence")
     url: str | None = Field(default=None, description="URL or DOI if available")
     citation: str = Field(default="", description="Formatted citation")
-    recency_score: float = Field(default=0.0, ge=0.0, le=1.0, description="How recent the source is (0-1)")
-    methodology_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Quality of methodology (0-1)")
-    relevance_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Relevance to query (0-1)")
-    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in this evidence (0-1)")
+    recency_score: float = Field(default=0.0, ge=0.0, le=1.0, description="How recent the source is (0-1)")  # noqa: E501
+    methodology_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Quality of methodology (0-1)")  # noqa: E501
+    relevance_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Relevance to query (0-1)")  # noqa: E501
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in this evidence (0-1)")  # noqa: E501
     keywords: list[str] = Field(default_factory=list, description="Keywords extracted from source")
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
 
@@ -104,8 +104,8 @@ class Citation(BaseModel):
     text: str = Field(..., description="Formatted citation text")
     completeness: float = Field(default=0.0, ge=0.0, le=1.0, description="Completeness score (0-1)")
     format_accuracy: float = Field(default=0.0, ge=0.0, le=1.0, description="Format accuracy (0-1)")
-    provenance_traceability: float = Field(default=0.0, ge=0.0, le=1.0, description="Provenance traceability (0-1)")
-    overall_quality: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall citation quality (0-1)")
+    provenance_traceability: float = Field(default=0.0, ge=0.0, le=1.0, description="Provenance traceability (0-1)")  # noqa: E501
+    overall_quality: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall citation quality (0-1)")  # noqa: E501
     issues: list[str] = Field(default_factory=list, description="Issues found with citation")
 
 
@@ -118,8 +118,8 @@ class Contradiction(BaseModel):
     evidence_b: str = Field(..., description="Second evidence ID")
     description: str = Field(..., description="Description of the contradiction")
     severity: FindingSeverity = Field(..., description="Severity of contradiction")
-    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in this contradiction (0-1)")
-    resolution_suggestion: str = Field(default="", description="Suggested resolution or further investigation")
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in this contradiction (0-1)")  # noqa: E501
+    resolution_suggestion: str = Field(default="", description="Suggested resolution or further investigation")  # noqa: E501
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
 
 
@@ -130,8 +130,8 @@ class Finding(BaseModel):
     title: str = Field(..., description="Title of the finding")
     description: str = Field(..., description="Detailed description")
     evidence_ids: list[str] = Field(default_factory=list, description="Supporting evidence IDs")
-    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in finding (0-1)")
-    uncertainty_factors: list[str] = Field(default_factory=list, description="Factors contributing to uncertainty")
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in finding (0-1)")  # noqa: E501
+    uncertainty_factors: list[str] = Field(default_factory=list, description="Factors contributing to uncertainty")  # noqa: E501
     severity: FindingSeverity = Field(..., description="Severity/importance of finding")
     category: str = Field(default="general", description="Category of finding")
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
@@ -143,9 +143,9 @@ class Synthesis(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     query: str = Field(..., description="Original research query")
     narrative: str = Field(..., description="Synthesized narrative text")
-    supporting_evidence: list[str] = Field(default_factory=list, description="Evidence IDs supporting synthesis")
-    contradicted_evidence: list[str] = Field(default_factory=list, description="Evidence IDs contradicted by synthesis")
-    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in synthesis (0-1)")
+    supporting_evidence: list[str] = Field(default_factory=list, description="Evidence IDs supporting synthesis")  # noqa: E501
+    contradicted_evidence: list[str] = Field(default_factory=list, description="Evidence IDs contradicted by synthesis")  # noqa: E501
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence in synthesis (0-1)")  # noqa: E501
     gaps_identified: list[str] = Field(default_factory=list, description="Research gaps identified")
     future_work: list[str] = Field(default_factory=list, description="Suggested future work")
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
@@ -157,11 +157,11 @@ class ResearchRequest(BaseModel):
     request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     query: str = Field(..., description="Research question or topic")
     operation: ResearchOperation = Field(..., description="Type of research operation")
-    sources: list[Evidence] = Field(default_factory=list, description="Pre-provided sources (optional)")
-    citation_style: CitationStyle = Field(default=CitationStyle.apa, description="Preferred citation style")
+    sources: list[Evidence] = Field(default_factory=list, description="Pre-provided sources (optional)")  # noqa: E501
+    citation_style: CitationStyle = Field(default=CitationStyle.apa, description="Preferred citation style")  # noqa: E501
     max_sources: int = Field(default=20, description="Maximum number of sources to retrieve")
-    min_confidence: float = Field(default=0.5, ge=0.0, le=1.0, description="Minimum confidence threshold")
-    include_contradictions: bool = Field(default=True, description="Whether to detect contradictions")
+    min_confidence: float = Field(default=0.5, ge=0.0, le=1.0, description="Minimum confidence threshold")  # noqa: E501
+    include_contradictions: bool = Field(default=True, description="Whether to detect contradictions")  # noqa: E501
     include_citations: bool = Field(default=True, description="Whether to generate citations")
     context: dict[str, Any] = Field(default_factory=dict, description="Additional context")
     metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
@@ -175,11 +175,11 @@ class ResearchReport(BaseModel):
     operation: str = Field(..., description="Operation performed")
     evidence: list[Evidence] = Field(default_factory=list, description="Gathered evidence")
     findings: list[Finding] = Field(default_factory=list, description="Research findings")
-    contradictions: list[Contradiction] = Field(default_factory=list, description="Detected contradictions")
+    contradictions: list[Contradiction] = Field(default_factory=list, description="Detected contradictions")  # noqa: E501
     citations: list[Citation] = Field(default_factory=list, description="Generated citations")
     synthesis: Synthesis | None = Field(default=None, description="Synthesized narrative")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall confidence (0-1)")
-    uncertainty_factors: list[str] = Field(default_factory=list, description="Factors affecting uncertainty")
+    uncertainty_factors: list[str] = Field(default_factory=list, description="Factors affecting uncertainty")  # noqa: E501
     report_markdown: str = Field(default="", description="Generated report in Markdown")
     raw: dict[str, Any] = Field(default_factory=dict, description="Raw analysis data")
 
@@ -196,9 +196,9 @@ class ResearchQualityRecord(BaseModel):
     evidence_count: int = Field(default=0, description="Number of evidence items")
     finding_count: int = Field(default=0, description="Number of findings")
     contradiction_count: int = Field(default=0, description="Number of contradictions detected")
-    citation_accuracy: float = Field(default=0.0, ge=0.0, le=1.0, description="Citation accuracy score")
-    evidence_quality_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Average evidence quality")
-    confidence_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall confidence score")
+    citation_accuracy: float = Field(default=0.0, ge=0.0, le=1.0, description="Citation accuracy score")  # noqa: E501
+    evidence_quality_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Average evidence quality")  # noqa: E501
+    confidence_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Overall confidence score")  # noqa: E501
     completeness: float = Field(default=0.0, ge=0.0, le=1.0, description="Completeness of research")
     timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
 

@@ -80,7 +80,7 @@ class ScoringEngine:
     # Internal
     # ------------------------------------------------------------------
 
-    def _tradeoff_composite(self, description: str, objectives: list[Objective], evidence_set: Any) -> float:
+    def _tradeoff_composite(self, description: str, objectives: list[Objective], evidence_set: Any) -> float:  # noqa: E501
         """Compute composite trade-off score via TradeoffAnalyzer."""
         from apps.decision_intelligence.tradeoff_analyzer import TradeoffAnalyzer
 

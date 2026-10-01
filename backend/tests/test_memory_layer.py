@@ -6,7 +6,7 @@ from backend.app.core.memory_layer import MemoryManager
 
 
 class FakeMemory:
-    def __init__(self, store_result=None, retrieve_result=None, search_result=None, list_keys_result=None, delete_result=None):
+    def __init__(self, store_result=None, retrieve_result=None, search_result=None, list_keys_result=None, delete_result=None):  # noqa: E501
         self._store_result = store_result
         self._retrieve_result = retrieve_result
         self._search_result = search_result or []
@@ -96,7 +96,7 @@ class TestMemoryManager:
 
     async def test_cross_session_search(self, manager):
         for layer in manager._layers:
-            manager._layers[layer] = FakeMemory(search_result=[{"value": {"session_id": "s1", "text": "a"}}])
+            manager._layers[layer] = FakeMemory(search_result=[{"value": {"session_id": "s1", "text": "a"}}])  # noqa: E501
         results = await manager.cross_session_search("query")
         assert len(results) == len(manager._layers)
 

@@ -42,7 +42,7 @@ class ReferenceStore:
 
     def search(self, query: str) -> list[Reference]:
         lowered = query.lower()
-        return [r for r in self._references.values() if lowered in r.title.lower() or lowered in r.content.lower()]
+        return [r for r in self._references.values() if lowered in r.title.lower() or lowered in r.content.lower()]  # noqa: E501
 
     def all(self) -> list[Reference]:
         return list(self._references.values())

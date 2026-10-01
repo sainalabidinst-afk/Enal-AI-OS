@@ -14,14 +14,14 @@ class ProjectMemory:
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
 
-    async def store(self, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):
+    async def store(self, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):  # noqa: E501
         pid = project_id or key.split(":")[0] if ":" in key else "default"
         path = self.base_path / f"{pid}" / f"{key}.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         data = {"key": key, "value": value, "updated_at": time.time()}
         path.write_text(json.dumps(data, default=str))
 
-    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:
+    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:  # noqa: E501
         pid = project_id or key.split(":")[0] if ":" in key else "default"
         path = self.base_path / f"{pid}" / f"{key}.json"
         if path.exists():
@@ -29,7 +29,7 @@ class ProjectMemory:
             return data.get("value")
         return None
 
-    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:
+    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:  # noqa: E501
         results: list[dict] = []
         query_lower = query.lower()
         for proj_dir in self.base_path.iterdir():
@@ -37,7 +37,7 @@ class ProjectMemory:
                 for file in proj_dir.glob("*.json"):
                     data = json.loads(file.read_text())
                     if query_lower in str(data.get("value", "")).lower():
-                        results.append({"key": data["key"], "value": data["value"], "project_id": proj_dir.name})
+                        results.append({"key": data["key"], "value": data["value"], "project_id": proj_dir.name})  # noqa: E501
                         if len(results) >= limit:
                             return results
         return results

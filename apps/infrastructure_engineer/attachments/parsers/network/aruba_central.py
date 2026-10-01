@@ -11,10 +11,10 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class ArubaCentralParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.aruba and "central" in meta.text_preview.lower() or "aruba central" in meta.text_preview.lower()
+        return meta.vendor == VendorFamily.aruba and "central" in meta.text_preview.lower() or "aruba central" in meta.text_preview.lower()  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.aruba, format="aruba_central", device_role=DeviceRole.wireless_controller)
+        ast = InfrastructureAST(vendor=VendorFamily.aruba, format="aruba_central", device_role=DeviceRole.wireless_controller)  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

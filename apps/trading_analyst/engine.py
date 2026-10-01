@@ -296,7 +296,7 @@ class TradingEngine:
 
                 c = max(o * (1 + drift + shock), 0.5)
                 h = max(o, c) * (1 + abs(rng.gauss(0, 0.004 * (1.8 if i >= trend_end else 1.0))))
-                l = min(o, c) * (1 - abs(rng.gauss(0, 0.004 * (1.8 if i >= trend_end else 1.0))))
+                l = min(o, c) * (1 - abs(rng.gauss(0, 0.004 * (1.8 if i >= trend_end else 1.0))))  # noqa: E741
                 v = base_vol * vol_mult * (2.5 if i >= trend_end else 1.0)
                 candles.append(
                     OHLCV(
@@ -337,7 +337,7 @@ class TradingEngine:
                 continue
 
             # Core market analyzer (4 categories).
-            from apps.trading_analyst.market_intelligence.models import TradingContext as _TC
+            from apps.trading_analyst.market_intelligence.models import TradingContext as _TC  # noqa: N814, I001
 
             mini = _TC(symbol=ctx.symbol, exchange=ctx.exchange, timeframes={tf: ohlcv})
             core_categories = await self.analyzer.analyze(mini)

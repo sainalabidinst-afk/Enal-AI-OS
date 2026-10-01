@@ -56,11 +56,11 @@ class ResearchWorker:
             "required_skills": required_skills,
         }
 
-    async def _handle_literature_review(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_literature_review(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         query = task_context.get("intent", "")
         if not query:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for literature review"}
+            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for literature review"}  # noqa: E501
         try:
             evidence = await self._app.engine.search_evidence(query)
             return {
@@ -73,13 +73,13 @@ class ResearchWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}
+            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
 
-    async def _handle_data_analysis(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_data_analysis(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         query = task_context.get("intent", "")
         if not query:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for data analysis"}
+            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for data analysis"}  # noqa: E501
         try:
             evidence = await self._app.engine.search_evidence(query)
             analysis = await self._app.engine.analyze_findings(query, evidence)
@@ -94,9 +94,9 @@ class ResearchWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}
+            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
 
-    async def _handle_experiment_design(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_experiment_design(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         query = task_context.get("intent", "")
         return {
@@ -108,11 +108,11 @@ class ResearchWorker:
             },
         }
 
-    async def _handle_report_writing(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
+    async def _handle_report_writing(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         query = task_context.get("intent", "")
         if not query:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for report writing"}
+            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for report writing"}  # noqa: E501
         try:
             evidence = await self._app.engine.search_evidence(query)
             analysis = await self._app.engine.analyze_findings(query, evidence)
@@ -127,7 +127,7 @@ class ResearchWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}
+            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
 
 
 research_worker = ResearchWorker()

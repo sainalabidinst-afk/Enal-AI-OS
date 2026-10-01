@@ -78,7 +78,7 @@ class CiscoIOSAdapter(VendorAdapter):
         """Detect Cisco sub-version."""
         if "vdc " in config_text.lower() or "vpc-domain" in config_text.lower():
             return "nx-os"
-        if "interface GigabitEthernet" in config_text or "interface TenGigabitEthernet" in config_text:
+        if "interface GigabitEthernet" in config_text or "interface TenGigabitEthernet" in config_text:  # noqa: E501
             return "ios-xe"
         return "ios"
 
@@ -108,7 +108,7 @@ class CiscoIOSAdapter(VendorAdapter):
         parse_enable(ast, lines)
         parse_dns(ast, lines)
         parse_spanning_tree(ast, lines)
-        ast.raw_lines = [line for line in lines if line.strip() and not line.strip().startswith("!")]
+        ast.raw_lines = [line for line in lines if line.strip() and not line.strip().startswith("!")]  # noqa: E501
         return ast
 
     @staticmethod

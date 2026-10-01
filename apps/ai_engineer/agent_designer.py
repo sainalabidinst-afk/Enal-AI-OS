@@ -65,10 +65,10 @@ class AgentDesigner:
         if not tool_specs:
             tool_specs = DEFAULT_TOOLS.copy()
 
-        agent_name = inputs.get("agent_name", request.business_context.project_name or "default-agent")
+        agent_name = inputs.get("agent_name", request.business_context.project_name or "default-agent")  # noqa: E501
         system_prompt = inputs.get(
             "system_prompt",
-            f"Anda adalah {agent_name}, asisten AI yang membantu dalam domain {request.business_context.domain}.",
+            f"Anda adalah {agent_name}, asisten AI yang membantu dalam domain {request.business_context.domain}.",  # noqa: E501
         )
 
         if architecture == AgentArchitectureType.multi_agent:

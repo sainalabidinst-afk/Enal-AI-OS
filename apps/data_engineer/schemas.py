@@ -7,17 +7,17 @@ contracts for the Data Engineer Capability Pack, plus all supporting types.
 These schemas follow the RFC-0009 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class JobType(str, Enum):
+class JobType(StrEnum):
     etl = "etl"
     elt = "elt"
     clean = "clean"
@@ -27,7 +27,7 @@ class JobType(str, Enum):
     time_series = "time_series"
 
 
-class SourceType(str, Enum):
+class SourceType(StrEnum):
     csv = "csv"
     json = "json"
     api = "api"
@@ -35,7 +35,7 @@ class SourceType(str, Enum):
     file = "file"
 
 
-class Operation(str, Enum):
+class Operation(StrEnum):
     drop_duplicates = "drop_duplicates"
     fill_missing = "fill_missing"
     remove_outliers = "remove_outliers"
@@ -45,7 +45,7 @@ class Operation(str, Enum):
     interpolate = "interpolate"
 
 
-class QualityRule(str, Enum):
+class QualityRule(StrEnum):
     completeness = "completeness"
     uniqueness = "uniqueness"
     validity = "validity"
@@ -53,7 +53,7 @@ class QualityRule(str, Enum):
     consistency = "consistency"
 
 
-class IssueType(str, Enum):
+class IssueType(StrEnum):
     missing_values = "missing_values"
     duplicate_rows = "duplicate_rows"
     schema_drift = "schema_drift"
@@ -61,26 +61,26 @@ class IssueType(str, Enum):
     invalid_format = "invalid_format"
 
 
-class IssueSeverity(str, Enum):
+class IssueSeverity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
     low = "low"
 
 
-class JobStatus(str, Enum):
+class JobStatus(StrEnum):
     success = "success"
     partial = "partial"
     failed = "failed"
 
 
-class FeatureType(str, Enum):
+class FeatureType(StrEnum):
     categorical = "categorical"
     numerical = "numerical"
     datetime = "datetime"
 
 
-class ChangeType(str, Enum):
+class ChangeType(StrEnum):
     added = "added"
     removed = "removed"
     type_changed = "type_changed"
@@ -90,7 +90,7 @@ class ChangeType(str, Enum):
 class DataSource(BaseModel):
     type: SourceType = Field(..., description="Type of data source")
     location: str = Field(..., description="File path, URL, or connection string")
-    schema_definition: dict[str, Any] | None = Field(default=None, description="Expected schema definition")
+    schema_definition: dict[str, Any] | None = Field(default=None, description="Expected schema definition")  # noqa: E501
 
 
 class TransformOperation(BaseModel):

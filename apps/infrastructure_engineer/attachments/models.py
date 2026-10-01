@@ -1,11 +1,11 @@
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class AttachmentType(str, Enum):
+class AttachmentType(StrEnum):
     config = "config"
     screenshot = "screenshot"
     document = "document"
@@ -17,7 +17,7 @@ class AttachmentType(str, Enum):
     unknown = "unknown"
 
 
-class VendorFamily(str, Enum):
+class VendorFamily(StrEnum):
     mikrotik = "mikrotik"
     cisco = "cisco"
     fortinet = "fortinet"
@@ -54,7 +54,7 @@ class VendorFamily(str, Enum):
     unknown = "unknown"
 
 
-class DeviceRole(str, Enum):
+class DeviceRole(StrEnum):
     router = "router"
     firewall = "firewall"
     switch = "switch"
@@ -71,7 +71,7 @@ class DeviceRole(str, Enum):
     unknown = "unknown"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"

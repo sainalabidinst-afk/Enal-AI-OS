@@ -128,7 +128,7 @@ class ProcessModeler:
         words = text.split()
         for word in words:
             if word.lower() in verbs:
-                return f"{word.capitalize()} {words[words.index(word) + 1] if words.index(word) + 1 < len(words) else 'item'}"
+                return f"{word.capitalize()} {words[words.index(word) + 1] if words.index(word) + 1 < len(words) else 'item'}"  # noqa: E501
         return text[:30]
 
     def _extract_actor(self, text: str) -> str:

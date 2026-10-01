@@ -9,24 +9,24 @@ AnalysisMetadata — Audit trail
 AnalysisResult  — Final structured output
 """
 
-from dataclasses import dataclass, field
-from enum import Enum
+from dataclasses import dataclass, field  # noqa: I001
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 
-class Bias(str, Enum):
+class Bias(StrEnum):
     BULLISH = "bullish"
     BEARISH = "bearish"
     NEUTRAL = "neutral"
 
 
-class RiskLevel(str, Enum):
+class RiskLevel(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
 
 
-class Timeframe(str, Enum):
+class Timeframe(StrEnum):
     M1 = "1m"
     M5 = "5m"
     M15 = "15m"

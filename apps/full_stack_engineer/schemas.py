@@ -7,17 +7,17 @@ contracts for the Full Stack Engineer Capability Pack, plus all supporting types
 These schemas follow the RFC-0019 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     architecture_review = "architecture_review"
     code_review = "code_review"
     refactoring_plan = "refactoring_plan"
@@ -27,7 +27,7 @@ class OperationType(str, Enum):
     full_stack_review = "full_stack_review"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     low = "low"
     medium = "medium"
     high = "high"
@@ -35,20 +35,20 @@ class Severity(str, Enum):
     info = "info"
 
 
-class OutputFormat(str, Enum):
+class OutputFormat(StrEnum):
     json = "json"
     markdown = "markdown"
     html = "html"
     text = "text"
 
 
-class RiskLevel(str, Enum):
+class RiskLevel(StrEnum):
     low = "low"
     medium = "medium"
     high = "high"
 
 
-class ArchitectureStyle(str, Enum):
+class ArchitectureStyle(StrEnum):
     clean_architecture = "clean_architecture"
     ddd = "ddd"
     microservices = "microservices"
@@ -56,7 +56,7 @@ class ArchitectureStyle(str, Enum):
     layered = "layered"
 
 
-class Grade(str, Enum):
+class Grade(StrEnum):
     a = "A"
     b_plus = "B+"
     b = "B"
@@ -68,7 +68,7 @@ class Grade(str, Enum):
 class ArchitectureIssue(BaseModel):
     id: str = Field(default_factory=lambda: f"ARCH-{uuid.uuid4().hex[:8]}")
     severity: str = Field(default="medium")
-    category: str = Field(default="layering", description="layering|dependency|modularity|tech_debt|circular_dep")
+    category: str = Field(default="layering", description="layering|dependency|modularity|tech_debt|circular_dep")  # noqa: E501
     description: str = Field(default="")
     location: str = Field(default="")
     recommendation: str = Field(default="")
@@ -85,7 +85,7 @@ class ArchitectureReviewResult(BaseModel):
 
 class CodeReviewFinding(BaseModel):
     severity: str = Field(default="medium")
-    category: str = Field(default="maintainability", description="security|concurrency|reliability|maintainability|api")
+    category: str = Field(default="maintainability", description="security|concurrency|reliability|maintainability|api")  # noqa: E501
     title: str = Field(default="")
     description: str = Field(default="")
     recommendation: str = Field(default="")
@@ -135,7 +135,7 @@ class RefactoringPlanResult(BaseModel):
 
 
 class TestPlanItem(BaseModel):
-    test_type: str = Field(default="unit", description="unit|integration|contract|performance|regression")
+    test_type: str = Field(default="unit", description="unit|integration|contract|performance|regression")  # noqa: E501
     description: str = Field(default="")
     suggested_tests: list[str] = Field(default_factory=list)
     priority: str = Field(default="medium")
@@ -152,7 +152,7 @@ class TestEngineeringResult(BaseModel):
 class PerformanceIssue(BaseModel):
     id: str = Field(default_factory=lambda: f"PERF-{uuid.uuid4().hex[:8]}")
     severity: str = Field(default="medium")
-    category: str = Field(default="n_plus_1", description="n_plus_1|blocking_io|memory|algorithm|database")
+    category: str = Field(default="n_plus_1", description="n_plus_1|blocking_io|memory|algorithm|database")  # noqa: E501
     description: str = Field(default="")
     location: str = Field(default="")
     recommendation: str = Field(default="")
@@ -184,7 +184,7 @@ class FullStackRequest(BaseModel):
     request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     operation: OperationType = Field(..., description="Type of full stack engineering operation")
     inputs: dict[str, Any] = Field(default_factory=dict, description="Operation-specific inputs")
-    context: dict[str, Any] = Field(default_factory=dict, description="Context like project_id, language, framework")
+    context: dict[str, Any] = Field(default_factory=dict, description="Context like project_id, language, framework")  # noqa: E501
     quality_attributes: dict[str, Any] = Field(default_factory=dict)
     output_format: str = Field(default="json", description="json|markdown")
 

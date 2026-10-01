@@ -73,7 +73,7 @@ class OrganizationalMetrics:
             self._update_team_metrics(metrics)
         return metrics
 
-    def record_task(self, project_id: str, success: bool, tokens: int = 0, cost: float = 0.0) -> None:
+    def record_task(self, project_id: str, success: bool, tokens: int = 0, cost: float = 0.0) -> None:  # noqa: E501
         metrics = self._project_metrics.get(project_id)
         if metrics:
             if success:

@@ -27,11 +27,11 @@ Flow:
     └── Return AIPlan with validation
 """
 
-import logging
+import logging  # noqa: I001
 import uuid
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from apps.organization.capability_graph import capability_graph
@@ -63,7 +63,7 @@ PLAN_FAILED = "PlanFailed"
 # ─── Enums ───
 
 
-class PlanStatus(str, Enum):
+class PlanStatus(StrEnum):
     DRAFT = "draft"
     READY = "ready"
     IN_PROGRESS = "in_progress"
@@ -72,7 +72,7 @@ class PlanStatus(str, Enum):
     CANCELLED = "cancelled"
 
 
-class StepType(str, Enum):
+class StepType(StrEnum):
     WORKFLOW = "workflow"
     CAPABILITY = "capability"
     SUB_PLAN = "sub_plan"
@@ -623,7 +623,7 @@ class AIPlanner:
             if step.step_type == StepType.CAPABILITY:
                 # Capability steps without input validation are risky
                 if not step.input_data:
-                    risk_factors.append({"step": step.step_id, "factor": "missing_input_validation"})
+                    risk_factors.append({"step": step.step_id, "factor": "missing_input_validation"})  # noqa: E501
         # Determine risk level
         high_risk_count = len([r for r in risk_factors if r["factor"] == "many_dependencies"])
         risk_level = "high" if high_risk_count > 2 else "medium" if high_risk_count > 0 else "low"

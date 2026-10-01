@@ -89,17 +89,17 @@ class DatabaseEngineerEngine:
         perf_stats = PerformanceStats()
         explanation_parts: list[str] = []
 
-        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)
+        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)  # noqa: E501
 
         if op == "schema_design":
-            schema_recs = self.schema_designer.design(request.database_schema, request.database_type)
+            schema_recs = self.schema_designer.design(request.database_schema, request.database_type)  # noqa: E501
             all_findings.extend(self._schema_to_findings(schema_recs))
             explanation_parts.append(f"Schema design analysis: {len(schema_recs)} recommendations")
 
         elif op == "query_optimization":
             opt_results = self.query_optimizer.optimize(request.queries, request.database_type)
             all_findings.extend(opt_results.get("findings", []))
-            explanation_parts.append(f"Query optimization: {len(all_findings)} improvements identified")
+            explanation_parts.append(f"Query optimization: {len(all_findings)} improvements identified")  # noqa: E501
 
         elif op == "migration":
             migration_plan = self.migration_manager.plan(
@@ -129,7 +129,7 @@ class DatabaseEngineerEngine:
             backup_plan = self.backup_planner.plan(
                 request.database_type, request.rto_hours, request.rpo_minutes
             )
-            explanation_parts.append(f"Backup plan: {backup_plan.schedule} with RTO {request.rto_hours}h")
+            explanation_parts.append(f"Backup plan: {backup_plan.schedule} with RTO {request.rto_hours}h")  # noqa: E501
 
         elif op == "performance_analysis":
             perf_result = self.performance_analyzer.analyze(
@@ -137,10 +137,10 @@ class DatabaseEngineerEngine:
             )
             all_findings.extend(perf_result.get("findings", []))
             perf_stats = perf_result.get("stats", PerformanceStats())
-            explanation_parts.append(f"Performance analysis: {perf_stats.slow_queries} slow queries detected")
+            explanation_parts.append(f"Performance analysis: {perf_stats.slow_queries} slow queries detected")  # noqa: E501
 
         # Deeper knowledge expansion
-        if request.database_type and op in ("performance_analysis", "query_optimization", "replication_plan"):
+        if request.database_type and op in ("performance_analysis", "query_optimization", "replication_plan"):  # noqa: E501
             vendor_findings = self.knowledge_engine.recommend_for_vendor(
                 request.database_type.value,
                 {"operation": op, "queries": request.queries, "schema": request.database_schema},
@@ -148,7 +148,7 @@ class DatabaseEngineerEngine:
             all_findings.extend(vendor_findings)
 
         if request.database_schema and op in ("schema_design", "partitioning"):
-            part_recs = self.partitioning_advisor.recommend(request.database_schema, request.workload_profile)
+            part_recs = self.partitioning_advisor.recommend(request.database_schema, request.workload_profile)  # noqa: E501
             all_findings.extend(self.partitioning_advisor.to_findings(part_recs))
 
         if op == "replication_plan" and request.database_type:
@@ -172,7 +172,7 @@ class DatabaseEngineerEngine:
             replication_design=replication_design,
             backup_plan=backup_plan,
             performance_stats=perf_stats,
-            explanation=". ".join(explanation_parts) if explanation_parts else f"Analyzed {op} for {request.database_type.value}",
+            explanation=". ".join(explanation_parts) if explanation_parts else f"Analyzed {op} for {request.database_type.value}",  # noqa: E501
             raw={
                 "latency_ms": round((time.monotonic() - started) * 1000.0, 2),
                 "overall_risk": overall_risk.value,
@@ -220,7 +220,7 @@ class DatabaseEngineerEngine:
                 severity=rec.priority,
                 title=f"Index recommended on {rec.table}({', '.join(rec.columns)})",
                 description=f"Add {rec.index_type} index for query performance",
-                recommendation=f"CREATE INDEX idx_{rec.table}_{'_'.join(rec.columns)} ON {rec.table} ({', '.join(rec.columns)})",
+                recommendation=f"CREATE INDEX idx_{rec.table}_{'_'.join(rec.columns)} ON {rec.table} ({', '.join(rec.columns)})",  # noqa: E501
                 estimated_improvement=rec.estimated_impact,
                 confidence=0.85,
             ))

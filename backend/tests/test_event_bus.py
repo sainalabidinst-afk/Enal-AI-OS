@@ -29,12 +29,12 @@ class FakeRedis:
 
 
 class FakeEvent:
-    def __init__(self, event_type, payload, source="system", target="*", timestamp=None, correlation_id=None, metadata=None):
+    def __init__(self, event_type, payload, source="system", target="*", timestamp=None, correlation_id=None, metadata=None):  # noqa: E501
         self.event_type = event_type
         self.payload = payload
         self.source = source
         self.target = target
-        self.timestamp = timestamp or __import__("datetime").datetime.now(__import__("datetime").timezone.utc)
+        self.timestamp = timestamp or __import__("datetime").datetime.now(__import__("datetime").timezone.utc)  # noqa: E501
         self.correlation_id = correlation_id
         self.metadata = metadata or {}
 

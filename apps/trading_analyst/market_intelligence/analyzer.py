@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 class MarketAnalyzer:
     """
     Analyzes market data and produces structured facts.
-    
+
     Each method produces factual observations only.
     No method returns a trading decision (BUY/SELL).
     """
@@ -38,7 +38,7 @@ class MarketAnalyzer:
     async def analyze(self, ctx: TradingContext) -> dict[str, list[MarketEvidence]]:
         """
         Run full analysis across all timeframes.
-        
+
         Returns dict mapping category -> list[MarketEvidence]
         Categories: market_structure, trend, volume, volatility
         """
@@ -51,7 +51,7 @@ class MarketAnalyzer:
 
         for tf, ohlcv_list in ctx.timeframes.items():
             if not ohlcv_list or len(ohlcv_list) < 20:
-                logger.debug("Skipping %s: insufficient data (%d candles)", tf, len(ohlcv_list or []))
+                logger.debug("Skipping %s: insufficient data (%d candles)", tf, len(ohlcv_list or []))  # noqa: E501
                 continue
 
             self._analyzed_timeframes.append(tf)
@@ -145,7 +145,7 @@ class MarketAnalyzer:
         else:
             recent_high = max(highs)
             recent_low = min(lows)
-        range_pct = (current_price - recent_low) / (recent_high - recent_low) if recent_high != recent_low else 0.5
+        range_pct = (current_price - recent_low) / (recent_high - recent_low) if recent_high != recent_low else 0.5  # noqa: E501
         if range_pct > 0.75:
             evidence.append(self._create_evidence(
                 "market_structure",
@@ -162,7 +162,7 @@ class MarketAnalyzer:
         # 3. Support / Resistance proximity via swing points
         if swings["highs"] and swings["lows"]:
             nearest_support = max(lows[i] for i in swings["lows"][-3:]) if swings["lows"] else None
-            nearest_resistance = min(highs[i] for i in swings["highs"][-3:]) if swings["highs"] else None
+            nearest_resistance = min(highs[i] for i in swings["highs"][-3:]) if swings["highs"] else None  # noqa: E501
             if nearest_support is not None and current_price > 0:
                 dist_to_support = abs(current_price - nearest_support) / current_price
                 if dist_to_support < 0.01:
@@ -266,7 +266,7 @@ class MarketAnalyzer:
         if vol_stats["recent_avg"] > vol_stats["average"] * 2:
             evidence.append(self._create_evidence(
                 "volume",
-                f"Volume spike detected on {tf} ({vol_stats['recent_avg']:.0f} vs avg {vol_stats['average']:.0f})",
+                f"Volume spike detected on {tf} ({vol_stats['recent_avg']:.0f} vs avg {vol_stats['average']:.0f})",  # noqa: E501
                 tf, 0.70, "bullish", "analyzer.volume"
             ))
 

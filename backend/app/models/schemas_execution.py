@@ -1,11 +1,11 @@
-from datetime import UTC, datetime
-from enum import Enum
+from datetime import UTC, datetime  # noqa: I001
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class ExecutionStatus(str, Enum):
+class ExecutionStatus(StrEnum):
     pending = "pending"
     planning = "planning"
     running = "running"

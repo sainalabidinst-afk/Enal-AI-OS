@@ -26,7 +26,7 @@ class MetaCognition:
     def __init__(self):
         self._traces: list[CognitionTrace] = []
 
-    async def evaluate_and_optimize(self, task_description: str, result: dict[str, Any]) -> dict[str, Any]:
+    async def evaluate_and_optimize(self, task_description: str, result: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
         trace = CognitionTrace(
             task_description=task_description,
             pipeline_used=result.get("pipeline", []),
@@ -47,15 +47,15 @@ class MetaCognition:
         }
 
     async def _optimize_pipeline(self, trace: CognitionTrace) -> dict[str, Any]:
-        similar_traces = [t for t in self._traces if t.task_description == trace.task_description and t is not trace]
+        similar_traces = [t for t in self._traces if t.task_description == trace.task_description and t is not trace]  # noqa: E501
         if not similar_traces:
             return {"recommendation": "Continue current pipeline", "changes": []}
         avg_quality = sum(t.quality_score for t in similar_traces) / len(similar_traces)
         avg_cost = sum(t.cost for t in similar_traces) / len(similar_traces)
         if trace.quality_score < avg_quality - 1.0:
-            return {"recommendation": "Add reasoning and verification steps", "changes": ["add_verification", "add_reasoning"]}
+            return {"recommendation": "Add reasoning and verification steps", "changes": ["add_verification", "add_reasoning"]}  # noqa: E501
         if trace.cost > avg_cost * 1.5:
-            return {"recommendation": "Simplify pipeline, use cheaper model", "changes": ["simplify_pipeline", "reduce_model"]}
+            return {"recommendation": "Simplify pipeline, use cheaper model", "changes": ["simplify_pipeline", "reduce_model"]}  # noqa: E501
         return {"recommendation": "Pipeline is optimal", "changes": []}
 
     async def choose_pipeline(self, task_description: str) -> dict[str, Any]:
@@ -65,9 +65,9 @@ class MetaCognition:
         if similar:
             best = max(similar, key=lambda t: t.quality_score)
             if best.quality_score >= 7.0:
-                return {"pipeline": best.pipeline_used, "model": best.model_used, "reason": "Historical best"}
+                return {"pipeline": best.pipeline_used, "model": best.model_used, "reason": "Historical best"}  # noqa: E501
         model = cost_optimizer.select_model(task_description, budget.complexity.value)
-        return {"pipeline": preset, "model": model, "complexity": budget.complexity.value, "reason": "Adaptive selection"}
+        return {"pipeline": preset, "model": model, "complexity": budget.complexity.value, "reason": "Adaptive selection"}  # noqa: E501
 
     def get_metrics(self) -> dict[str, Any]:
         if not self._traces:

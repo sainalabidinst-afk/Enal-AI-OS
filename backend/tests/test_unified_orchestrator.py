@@ -194,7 +194,7 @@ class TestUnifiedOrchestrator:
                 self.budget = FakeBudget()
 
         monkeypatch.setattr(orch, "_get_kernel", lambda: FakeKernel())
-        monkeypatch.setattr(orch, "_get_runtime", lambda: (FakeRuntime(), {"medium": ["p1"]}, type("TC", (), {"MEDIUM": "medium"})()))
+        monkeypatch.setattr(orch, "_get_runtime", lambda: (FakeRuntime(), {"medium": ["p1"]}, type("TC", (), {"MEDIUM": "medium"})()))  # noqa: E501
         result = await orch.execute("do something", mode="cognitive")
         assert result["input"] == "do something"
         assert "pipeline" in result
@@ -226,7 +226,7 @@ class TestUnifiedOrchestrator:
         fake_status = type("PS", (), {})()
         monkeypatch.setattr(ap_module, "ai_planner", fake_planner)
         monkeypatch.setattr(ap_module, "PlanStatus", fake_status)
-        planner, PlanStatus = orch._get_planner()
+        planner, PlanStatus = orch._get_planner()  # noqa: N806
         assert planner == "fake-planner"
 
     def test_get_multi_agent_returns_orchestrator(self, monkeypatch):

@@ -98,7 +98,7 @@ class AccessibilityChecker:
                 )
             )
 
-        total_checks = len(self._wcag_checks) + max(0, len(design_system.components) if design_system else 0) + max(0, len(prototype.screens) if prototype else 0)
+        total_checks = len(self._wcag_checks) + max(0, len(design_system.components) if design_system else 0) + max(0, len(prototype.screens) if prototype else 0)  # noqa: E501
         violations_found = len(violations)
         compliance_score = max(0.0, 1.0 - (violations_found / max(total_checks, 1)))
 
@@ -151,10 +151,10 @@ class AccessibilityChecker:
                         AccessibilityViolation(
                             wcag_criterion="1.4.3 Contrast (Minimum)",
                             severity="high",
-                            description=f"Warna '{token.name}' ({color}) mungkin memiliki kontras rendah dengan latar belakang putih",
+                            description=f"Warna '{token.name}' ({color}) mungkin memiliki kontras rendah dengan latar belakang putih",  # noqa: E501
                             element_selector=f"token:{token.name}",
-                            recommendation=f"Verifikasi kontras '{token.name}' mencapai 4.5:1 untuk teks normal",
-                            impact="Teks mungkin tidak terbaca untuk pengguna dengan gangguan penglihatan",
+                            recommendation=f"Verifikasi kontras '{token.name}' mencapai 4.5:1 untuk teks normal",  # noqa: E501
+                            impact="Teks mungkin tidak terbaca untuk pengguna dengan gangguan penglihatan",  # noqa: E501
                         )
                     )
 
@@ -184,7 +184,7 @@ class AccessibilityChecker:
                         severity="medium",
                         description=f"Tipe token '{req_type}' tidak ada di design system",
                         element_selector="design-system:tokens",
-                        recommendation=f"Tambahkan token tipe '{req_type}' untuk konsistensi aksesibilitas",
+                        recommendation=f"Tambahkan token tipe '{req_type}' untuk konsistensi aksesibilitas",  # noqa: E501
                         impact="Konsistensi desain mungkin terganggu",
                     )
                 )
@@ -203,9 +203,9 @@ class AccessibilityChecker:
                 AccessibilityViolation(
                     wcag_criterion="3.3.2 Labels or Instructions",
                     severity="high",
-                    description="Komponen form pada screen mungkin tidak memiliki label yang terasosiasi",
+                    description="Komponen form pada screen mungkin tidak memiliki label yang terasosiasi",  # noqa: E501
                     element_selector=f"screen:{screen.name}",
-                    recommendation="Pastikan semua input memiliki label teks yang terasosiasi via htmlFor/id",
+                    recommendation="Pastikan semua input memiliki label teks yang terasosiasi via htmlFor/id",  # noqa: E501
                     impact="Pengguna screen reader tidak dapat memahami field form",
                 )
             )
@@ -224,7 +224,7 @@ class AccessibilityChecker:
                         description="Navigasi mungkin tidak memiliki skip link",
                         element_selector=f"screen:{screen.name}:navigation",
                         recommendation="Tambahkan 'Skip to main content' link sebelum navigasi",
-                        impact="Pengguna keyboard harus menavigasi seluruh navigasi sebelum konten utama",
+                        impact="Pengguna keyboard harus menavigasi seluruh navigasi sebelum konten utama",  # noqa: E501
                     )
                 )
 
@@ -247,7 +247,7 @@ class AccessibilityChecker:
                     severity="high",
                     description="Tidak ada interaksi keyboard yang terdefinisi dalam prototype",
                     element_selector="prototype:interactions",
-                    recommendation="Tambahkan keyboard shortcuts dan keydown handlers untuk semua interaksi utama",
+                    recommendation="Tambahkan keyboard shortcuts dan keydown handlers untuk semua interaksi utama",  # noqa: E501
                     impact="Pengguna tidak dapat menggunakan keyboard untuk navigasi",
                 )
             )

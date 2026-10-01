@@ -20,7 +20,7 @@ IMPROVEMENT_MAP: dict[str, dict[str, Any]] = {
         "estimated_effort": "medium",
         "risk": "medium",
         "tests_required": True,
-        "description_template": "Refactor {location} for concurrent or batched processing to reduce latency.",
+        "description_template": "Refactor {location} for concurrent or batched processing to reduce latency.",  # noqa: E501
     },
     ProblemType.DEAD_CODE.value: {
         "solution_type": "refactor",
@@ -41,14 +41,14 @@ IMPROVEMENT_MAP: dict[str, dict[str, Any]] = {
         "estimated_effort": "high",
         "risk": "high",
         "tests_required": True,
-        "description_template": "Restructure {location} to reduce coupling and respect module boundaries.",
+        "description_template": "Restructure {location} to reduce coupling and respect module boundaries.",  # noqa: E501
     },
     ProblemType.SECURITY_HOLE.value: {
         "solution_type": "security_hardening",
         "estimated_effort": "medium",
         "risk": "medium",
         "tests_required": True,
-        "description_template": "Harden {location} by removing hardcoded secrets and adopting secret management.",
+        "description_template": "Harden {location} by removing hardcoded secrets and adopting secret management.",  # noqa: E501
     },
     ProblemType.PERFORMANCE_ISSUE.value: {
         "solution_type": "optimize",
@@ -69,21 +69,21 @@ IMPROVEMENT_MAP: dict[str, dict[str, Any]] = {
         "estimated_effort": "high",
         "risk": "high",
         "tests_required": True,
-        "description_template": "Break dependency cycle involving {location} by introducing an abstraction.",
+        "description_template": "Break dependency cycle involving {location} by introducing an abstraction.",  # noqa: E501
     },
     ProblemType.LAYER_VIOLATION.value: {
         "solution_type": "refactor",
         "estimated_effort": "medium",
         "risk": "medium",
         "tests_required": True,
-        "description_template": "Fix layer violation in {location} by restoring the correct dependency direction.",
+        "description_template": "Fix layer violation in {location} by restoring the correct dependency direction.",  # noqa: E501
     },
     ProblemType.API_CONTRACT_BREAKING.value: {
         "solution_type": "refactor",
         "estimated_effort": "high",
         "risk": "high",
         "tests_required": True,
-        "description_template": "Restore or version the API contract at {location} to avoid breaking clients.",
+        "description_template": "Restore or version the API contract at {location} to avoid breaking clients.",  # noqa: E501
     },
 }
 

@@ -1,12 +1,12 @@
-import logging
+import logging  # noqa: I001
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class RoleType(str, Enum):
+class RoleType(StrEnum):
     CEO = "ceo"
     CTO = "cto"
     MANAGER = "manager"

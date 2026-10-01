@@ -13,7 +13,7 @@ class SynologyParser(BaseParser):
         return meta.vendor == VendorFamily.synology
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.synology, format="synology", device_role=meta.device_role)
+        ast = InfrastructureAST(vendor=VendorFamily.synology, format="synology", device_role=meta.device_role)  # noqa: E501
         for line in content.splitlines()[:200]:
             if any(key in line.lower() for key in ["volume", "raid", "pool", "disk", "snapshot"]):
                 ast.storage.append({"raw": line.strip()[:200]})

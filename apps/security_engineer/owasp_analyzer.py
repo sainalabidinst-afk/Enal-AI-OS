@@ -30,14 +30,14 @@ logger = logging.getLogger(__name__)
 
 # SQL injection patterns — string formatting/concatenation with SQL keywords.
 _SQL_INJECTION_PATTERNS = [
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*["\'].*["\']', "string concatenation in SQL"),
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*\w', "string concatenation with variable in SQL"),
+    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*["\'].*["\']', "string concatenation in SQL"),  # noqa: E501
+    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*\w', "string concatenation with variable in SQL"),  # noqa: E501
     (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*%s.*%', "format string in SQL"),
     (r'execute\s*\(\s*["\'].*\{.*\}.*["\']', "f-string in SQL execute"),
     (r'execute\s*\(\s*["\'].*%s.*["\']', "%s formatting in SQL execute"),
     (r'f["\'].*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION).*\{.*\}.*["\']', "f-string SQL query"),
-    (r'\+\s*["\'<]\s*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)', "string concatenation with SQL keyword"),
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*"[^"]*"\s*\+\s*', "string + variable in SQL context"),
+    (r'\+\s*["\'<]\s*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)', "string concatenation with SQL keyword"),  # noqa: E501
+    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*"[^"]*"\s*\+\s*', "string + variable in SQL context"),  # noqa: E501
 ]
 
 # XSS patterns — unescaped output, innerHTML assignment.
@@ -73,7 +73,7 @@ _SSRF_PATTERNS = [
 
 # CSRF patterns — missing CSRF token.
 _CSRF_PATTERNS = [
-    (r'@app\.(get|post|put|delete)\s*\(.*methods\s*=\s*\[.*POST', "POST route without CSRF protection"),
+    (r'@app\.(get|post|put|delete)\s*\(.*methods\s*=\s*\[.*POST', "POST route without CSRF protection"),  # noqa: E501
     (r'\.post\s*\(.*method:', "AJAX POST without CSRF token"),
 ]
 
@@ -176,8 +176,8 @@ class OWASPAnalyzer:
                                 category="A03:2021-Injection",
                                 severity=Severity.high,
                                 title="SQL injection via f-string in assignment",
-                                description="SQL query constructed using f-string interpolation in variable assignment.",
-                                evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},
+                                description="SQL query constructed using f-string interpolation in variable assignment.",  # noqa: E501
+                                evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},  # noqa: E501
                                 remediation="Use parameterized queries with placeholders.",
                                 owasp_mapping="A03:2021-Injection",
                                 confidence=0.85,
@@ -222,25 +222,25 @@ class OWASPAnalyzer:
                     ))
 
         # Regex-based detection (covers both languages).
-        findings.extend(self._regex_patterns(source_code, file_path, _CMD_INJECTION_PATTERNS, "A03:2021-Injection", Severity.critical))
-        findings.extend(self._regex_patterns(source_code, file_path, _SQL_INJECTION_PATTERNS, "A03:2021-Injection", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _SSRF_PATTERNS, "A10:2021-Server-Side Request Forgery", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _CSRF_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))
-        findings.extend(self._regex_patterns(source_code, file_path, _DESERIALIZATION_PATTERNS, "A08:2021-Software and Data Integrity Failures", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_CRYPTO_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _OPEN_REDIRECT_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))
-        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_SSL_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))
+        findings.extend(self._regex_patterns(source_code, file_path, _CMD_INJECTION_PATTERNS, "A03:2021-Injection", Severity.critical))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _SQL_INJECTION_PATTERNS, "A03:2021-Injection", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _SSRF_PATTERNS, "A10:2021-Server-Side Request Forgery", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _CSRF_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _DESERIALIZATION_PATTERNS, "A08:2021-Software and Data Integrity Failures", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_CRYPTO_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _OPEN_REDIRECT_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_SSL_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))  # noqa: E501
 
         return findings
 
     def _analyze_javascript(self, source_code: str, file_path: str) -> list[Finding]:
         """Analyze JavaScript/TypeScript code using regex."""
         findings: list[Finding] = []
-        findings.extend(self._regex_patterns(source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _CMD_INJECTION_PATTERNS, "A03:2021-Injection", Severity.critical))
-        findings.extend(self._regex_patterns(source_code, file_path, _SSRF_PATTERNS, "A10:2021-SSRF", Severity.high))
-        findings.extend(self._regex_patterns(source_code, file_path, _CSRF_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))
+        findings.extend(self._regex_patterns(source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _CMD_INJECTION_PATTERNS, "A03:2021-Injection", Severity.critical))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _SSRF_PATTERNS, "A10:2021-SSRF", Severity.high))  # noqa: E501
+        findings.extend(self._regex_patterns(source_code, file_path, _CSRF_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))  # noqa: E501
         return findings
 
     def _check_sql_injection_call(
@@ -264,7 +264,7 @@ class OWASPAnalyzer:
                             severity=Severity.critical,
                             title="SQL injection via f-string in execute()",
                             description="SQL query constructed using f-string interpolation.",
-                            evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},
+                            evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},  # noqa: E501
                             remediation="Use parameterized queries with placeholders.",
                             owasp_mapping="A03:2021-Injection",
                             confidence=0.95,
@@ -368,8 +368,8 @@ class OWASPAnalyzer:
     def _get_remediation(self, category: str) -> str:
         """Get remediation guidance by OWASP category."""
         remediations = {
-            "A03:2021-Injection": "Use parameterized queries, input validation, and output encoding. Never concatenate user input into SQL, commands, or HTML.",
-            "A01:2021-Broken Access Control": "Implement proper CSRF tokens, access control checks, and ensure proper session management.",
-            "A10:2021-Server-Side Request Forgery": "Validate and sanitize URL inputs, use allowlists for target hosts, and disable unnecessary URL schemes.",
+            "A03:2021-Injection": "Use parameterized queries, input validation, and output encoding. Never concatenate user input into SQL, commands, or HTML.",  # noqa: E501
+            "A01:2021-Broken Access Control": "Implement proper CSRF tokens, access control checks, and ensure proper session management.",  # noqa: E501
+            "A10:2021-Server-Side Request Forgery": "Validate and sanitize URL inputs, use allowlists for target hosts, and disable unnecessary URL schemes.",  # noqa: E501
         }
-        return remediations.get(category, "Review OWASP Top 10 guidance for this category and apply mitigations.")
+        return remediations.get(category, "Review OWASP Top 10 guidance for this category and apply mitigations.")  # noqa: E501

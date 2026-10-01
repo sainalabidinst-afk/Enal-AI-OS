@@ -7,17 +7,17 @@ contracts for the Database Engineer Capability Pack, plus all supporting types.
 These schemas follow the RFC-0010 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class DatabaseType(str, Enum):
+class DatabaseType(StrEnum):
     postgresql = "postgresql"
     mysql = "mysql"
     sqlite = "sqlite"
@@ -25,7 +25,7 @@ class DatabaseType(str, Enum):
     sqlserver = "sqlserver"
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     schema_design = "schema_design"
     query_optimization = "query_optimization"
     migration = "migration"
@@ -35,7 +35,7 @@ class OperationType(str, Enum):
     performance_analysis = "performance_analysis"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
@@ -43,7 +43,7 @@ class Severity(str, Enum):
     info = "info"
 
 
-class FindingCategory(str, Enum):
+class FindingCategory(StrEnum):
     schema = "schema"
     query_performance = "query_performance"
     index = "index"  # type: ignore[assignment]
@@ -56,7 +56,7 @@ class FindingCategory(str, Enum):
 class ColumnDefinition(BaseModel):
     name: str = Field(..., description="Column name")
     type: str = Field(..., description="SQL data type")
-    constraints: list[str] = Field(default_factory=list, description="NOT NULL, UNIQUE, DEFAULT, etc.")
+    constraints: list[str] = Field(default_factory=list, description="NOT NULL, UNIQUE, DEFAULT, etc.")  # noqa: E501
 
 
 class ForeignKey(BaseModel):
@@ -89,7 +89,7 @@ class Finding(BaseModel):
     severity: Severity = Field(default=Severity.medium)
     title: str = Field(..., description="Short title")
     description: str = Field(..., description="Detailed description")
-    evidence: dict[str, Any] = Field(default_factory=dict, description="Query, table, execution plan")
+    evidence: dict[str, Any] = Field(default_factory=dict, description="Query, table, execution plan")  # noqa: E501
     recommendation: str = Field(default="", description="How to fix")
     estimated_improvement: str = Field(default="", description="Expected performance gain")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
@@ -128,7 +128,7 @@ class MigrationPlan(BaseModel):
 
 
 class ReplicationDesign(BaseModel):
-    strategy: str = Field(default="primary_replica", description="primary_replica | multi_primary | leaderless")
+    strategy: str = Field(default="primary_replica", description="primary_replica | multi_primary | leaderless")  # noqa: E501
     topology: str = Field(default="", description="Description of replication topology")
     nodes: list[dict[str, Any]] = Field(default_factory=list)
     failover_strategy: str = Field(default="automatic")

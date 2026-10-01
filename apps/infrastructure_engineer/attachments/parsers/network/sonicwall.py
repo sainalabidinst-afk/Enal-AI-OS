@@ -13,7 +13,7 @@ class SonicWallParser(BaseParser):
         return meta.vendor == VendorFamily.sonicwall or "sonicwall" in meta.text_preview.lower()
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.sonicwall, format="sonicos", device_role=meta.device_role)
+        ast = InfrastructureAST(vendor=VendorFamily.sonicwall, format="sonicos", device_role=meta.device_role)  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

@@ -7,17 +7,17 @@ contracts for the Business Analyst Capability Pack, plus all supporting types.
 These schemas follow the RFC-0013 contract definitions exactly.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # noqa: I001
 
 import uuid
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     requirement_gathering = "requirement_gathering"
     process_modeling = "process_modeling"
     user_story = "user_story"
@@ -29,27 +29,27 @@ class OperationType(str, Enum):
     process_optimization = "process_optimization"
 
 
-class RequirementType(str, Enum):
+class RequirementType(StrEnum):
     functional = "functional"
     non_functional = "non_functional"
 
 
-class Priority(str, Enum):
+class Priority(StrEnum):
     must_have = "must_have"
     should_have = "should_have"
     could_have = "could_have"
     wont_have = "wont_have"
 
 
-class StoryPoint(str, Enum):
+class StoryPoint(StrEnum):
     xs = "XS"
     s = "S"
     m = "M"
-    l = "L"
+    l = "L"  # noqa: E741
     xl = "XL"
 
 
-class ProcessActivityType(str, Enum):
+class ProcessActivityType(StrEnum):
     start = "start"
     end = "end"
     task = "task"
@@ -58,7 +58,7 @@ class ProcessActivityType(str, Enum):
     subprocess = "subprocess"
 
 
-class OutputFormat(str, Enum):
+class OutputFormat(StrEnum):
     json = "json"
     markdown = "markdown"
     bpmn = "bpmn"
@@ -66,7 +66,7 @@ class OutputFormat(str, Enum):
     confluence = "confluence"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     critical = "critical"
     high = "high"
     medium = "medium"
@@ -74,7 +74,7 @@ class Severity(str, Enum):
     info = "info"
 
 
-class FindingCategory(str, Enum):
+class FindingCategory(StrEnum):
     schema = "schema"
     requirement = "requirement"
     process = "process"

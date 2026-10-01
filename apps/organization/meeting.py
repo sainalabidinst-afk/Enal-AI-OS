@@ -6,11 +6,11 @@ Synchronous, mediated collaboration between multiple entities.
 Meetings have agendas, timeboxes, and produce outcomes written to Blackboard.
 """
 
-import logging
+import logging  # noqa: I001
 import uuid
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from enum import Enum
+from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
 from apps.organization.communication import blackboard
@@ -18,7 +18,7 @@ from apps.organization.communication import blackboard
 logger = logging.getLogger(__name__)
 
 
-class MeetingStatus(str, Enum):
+class MeetingStatus(StrEnum):
     SCHEDULED = "scheduled"
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
@@ -26,7 +26,7 @@ class MeetingStatus(str, Enum):
     TIMED_OUT = "timed_out"
 
 
-class MeetingType(str, Enum):
+class MeetingType(StrEnum):
     TEAM_SYNC = "team_sync"
     PLANNING = "planning"
     REVIEW = "review"
@@ -92,8 +92,8 @@ class MeetingSystem:
         timebox_minutes: int = 30,
     ) -> Meeting:
         meeting_id = f"meeting-{uuid.uuid4().hex[:8]}"
-        participants = [MeetingParticipant(entity_id=pid, role="participant", required=True) for pid in participant_ids]
-        participants.append(MeetingParticipant(entity_id=organizer_id, role="organizer", required=True))
+        participants = [MeetingParticipant(entity_id=pid, role="participant", required=True) for pid in participant_ids]  # noqa: E501
+        participants.append(MeetingParticipant(entity_id=organizer_id, role="organizer", required=True))  # noqa: E501
 
         agenda: list[AgendaItem] = []
         if agenda_titles:
@@ -135,7 +135,7 @@ class MeetingSystem:
             meeting.ended_at = datetime.now(UTC)
             meeting.outcome = outcome
             self._write_outcome_to_blackboard(meeting)
-            logger.info("Meeting completed: %s - %d decisions, %d action items", meeting_id, len(outcome.decisions), len(outcome.action_items))
+            logger.info("Meeting completed: %s - %d decisions, %d action items", meeting_id, len(outcome.decisions), len(outcome.action_items))  # noqa: E501
             return meeting
         return None
 
@@ -154,7 +154,7 @@ class MeetingSystem:
         return [m for m in self._meetings.values() if m.organizer_id == organizer_id]
 
     def get_meetings_by_participant(self, entity_id: str) -> list[Meeting]:
-        return [m for m in self._meetings.values() if any(p.entity_id == entity_id for p in m.participants)]
+        return [m for m in self._meetings.values() if any(p.entity_id == entity_id for p in m.participants)]  # noqa: E501
 
     def _write_outcome_to_blackboard(self, meeting: Meeting) -> None:
         if not meeting.outcome:

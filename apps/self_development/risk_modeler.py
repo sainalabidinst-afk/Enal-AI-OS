@@ -51,11 +51,11 @@ class RiskModeler:
         impact = severity
         reversibility = 0.7
         if solution:
-            reversibility = max(0.1, 1.0 - EFFORT_WEIGHTS.get(solution.estimated_effort.lower(), 0.5))
+            reversibility = max(0.1, 1.0 - EFFORT_WEIGHTS.get(solution.estimated_effort.lower(), 0.5))  # noqa: E501
         overall = probability * 0.4 + impact * 0.4 + (1.0 - reversibility) * 0.2
         return max(0.0, min(1.0, overall))
 
-    def score_from_dicts(self, problem: dict[str, Any], solution: dict[str, Any] | None = None) -> float:
+    def score_from_dicts(self, problem: dict[str, Any], solution: dict[str, Any] | None = None) -> float:  # noqa: E501
         p = Problem(
             id=problem.get("id", ""),
             type=problem.get("type", ""),

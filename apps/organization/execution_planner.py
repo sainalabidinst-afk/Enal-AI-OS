@@ -52,7 +52,7 @@ class ExecutionPlan:
 
     def __post_init__(self) -> None:
         if not self.total_duration_minutes:
-            self.total_duration_minutes = float(sum(s.estimated_duration_minutes for s in self.stages))
+            self.total_duration_minutes = float(sum(s.estimated_duration_minutes for s in self.stages))  # noqa: E501
         if not self.parallelism_factor and self.stages:
             serial_sum = sum(s.estimated_duration_minutes for s in self.stages)
             if serial_sum > 0:

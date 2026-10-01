@@ -166,7 +166,7 @@ class IndexAdvisor:
     def _extract_where_columns(self, query: str) -> dict[str, set[str]]:
         """Extract columns used in WHERE clauses by table."""
         result: dict[str, set[str]] = {}
-        for match in re.finditer(r'\bwhere\s+(.+?)(?:\bgroup\b|\border\b|\blimit\b|$)', query, re.IGNORECASE):
+        for match in re.finditer(r'\bwhere\s+(.+?)(?:\bgroup\b|\border\b|\blimit\b|$)', query, re.IGNORECASE):  # noqa: E501
             where_clause = match.group(1)
             # Extract qualified columns (table.column).
             for col_match in re.finditer(r'(\w+)\.(\w+)\s*[=<>!]', where_clause):
@@ -183,7 +183,7 @@ class IndexAdvisor:
     def _extract_join_columns(self, query: str) -> dict[str, set[str]]:
         """Extract columns used in JOIN conditions."""
         result: dict[str, set[str]] = {}
-        for match in re.finditer(r'\bjoin\s+(\w+)\s+\w+\s+on\s+(\w+)\.(\w+)\s*=\s*(\w+)\.(\w+)', query, re.IGNORECASE):
+        for match in re.finditer(r'\bjoin\s+(\w+)\s+\w+\s+on\s+(\w+)\.(\w+)\s*=\s*(\w+)\.(\w+)', query, re.IGNORECASE):  # noqa: E501
             table1 = match.group(2)
             col1 = match.group(3)
             table2 = match.group(4)

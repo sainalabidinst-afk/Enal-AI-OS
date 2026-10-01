@@ -66,7 +66,7 @@ def compute_macd(prices: list[float]) -> dict[str, list[float]]:
     return {"macd": macd_line, "signal": signal, "histogram": histogram}
 
 
-def compute_bollinger_bands(prices: list[float], period: int = 20, std_dev: float = 2.0) -> dict[str, list[float]]:
+def compute_bollinger_bands(prices: list[float], period: int = 20, std_dev: float = 2.0) -> dict[str, list[float]]:  # noqa: E501
     """Bollinger Bands."""
     if len(prices) < period:
         return {"upper": [], "middle": [], "lower": []}
@@ -80,7 +80,7 @@ def compute_bollinger_bands(prices: list[float], period: int = 20, std_dev: floa
     return {"upper": upper, "middle": middle, "lower": lower}
 
 
-def compute_atr(highs: list[float], lows: list[float], closes: list[float], period: int = 14) -> list[float]:
+def compute_atr(highs: list[float], lows: list[float], closes: list[float], period: int = 14) -> list[float]:  # noqa: E501
     """Average True Range."""
     if len(highs) < 2:
         return []
@@ -119,7 +119,7 @@ def compute_linear_regression(prices: list[float]) -> tuple[float, float]:
     return slope, intercept
 
 
-def detect_swing_points(highs: list[float], lows: list[float], window: int = 5) -> dict[str, list[int]]:
+def detect_swing_points(highs: list[float], lows: list[float], window: int = 5) -> dict[str, list[int]]:  # noqa: E501
     """Detect swing highs and lows. Returns dict with 'highs' and 'lows' as list of indices."""
     swing_highs, swing_lows = [], []
     for i in range(window, len(highs) - window):
@@ -143,7 +143,8 @@ def compute_volume_stats(volumes: list[float]) -> dict[str, float]:
 
 
 def compute_volume_trend(volumes: list[float], short_period: int = 5, long_period: int = 20) -> str:
-    """Compare short-term vs long-term volume average. Returns 'increasing', 'decreasing', or 'stable'."""
+    """Compare short-term vs long-term volume average. Returns
+        'increasing', 'decreasing', or 'stable'."""
     if len(volumes) < min(short_period, long_period):
         return "stable"
     short_avg = sum(volumes[-short_period:]) / min(short_period, len(volumes))

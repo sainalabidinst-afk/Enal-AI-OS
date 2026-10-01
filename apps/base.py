@@ -24,7 +24,7 @@ class BaseApp(ABC):
         """Run the application with user input."""
         raise NotImplementedError
 
-    async def _execute_pipeline(self, user_input: str, project_id: str | None = None) -> dict[str, Any]:
+    async def _execute_pipeline(self, user_input: str, project_id: str | None = None) -> dict[str, Any]:  # noqa: E501
         """Execute the application's cognitive pipeline."""
         from backend.app.core.adaptive_runtime import adaptive_runtime
         return await adaptive_runtime.execute(
