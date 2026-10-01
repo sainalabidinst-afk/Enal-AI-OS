@@ -5,6 +5,8 @@
 **Status:** Release Candidate  
 **Prepared by:** ENAL AI OS Engineering  
 
+> **Peringatan (2026-09-21):** Dokumen ini dibuat 2026-08-06, sebelum audit komprehensif `COMPREHENSIVE_AUDIT_2026-09-21.md`. Klaim-klaim sertifikasi, skor benchmark, dan production readiness di bawah **tidak diverifikasi** oleh bukti runtime saat ini. Lihat bagian **Current Audit Status** di bawah untuk fakta terbaru.
+
 ---
 
 ## Executive Summary
@@ -15,10 +17,26 @@ ENAL AI OS has completed all planned construction, hardening, certification, and
 
 ---
 
+## Current Audit Status (2026-09-21)
+
+| Dimension | Status | Evidence |
+|-----------|--------|----------|
+| Release Classification | **D — NOT READY** | COMPREHENSIVE_AUDIT_2026-09-21 |
+| Capability Registry | 19 registered, 19 loadable | Phase 1 remediation complete |
+| Benchmark | BLOCKED | No fresh runtime execution; stored 96.99% is STALE/UNVERIFIED |
+| Certification | UNVERIFIED | No certification score issued; stored scores stale |
+| Frontend Build | PASS | `npm ci` + lint + build pass, 39 routes |
+| Docker Runtime | BLOCKED | No containers; daemon unavailable on this checkout |
+| Test Suite | 939 passed, 2 skipped | 941 collected (significant improvement from 166) |
+| Quality Gates | FAIL | Ruff: 3,417 errors; Mypy: 81 errors in 28 files |
+| Version Identity | Inconsistent | VERSION says developer-preview; pyproject.toml says 1.0.0; frontend says 0.1.0 |
+
+---
+
 ## Architecture Baseline
 
 - **Core Platform:** Frozen, stable, independent of Capability Packs
-- **Capability Architecture:** 22 Certified Capability Packs (Grade A, ≥90%)
+- **Capability Architecture:** 19 registered capabilities (not 22); all loadable after Phase 1 remediation
 - **Decision Intelligence:** Integrated, explainable, tested
 - **AI Workspace:** Operational, consuming decision intelligence output
 - **Capability Lifecycle:** Managed through Capability Lifecycle Manager
@@ -28,6 +46,8 @@ ENAL AI OS has completed all planned construction, hardening, certification, and
 ---
 
 ## Capability Certification Summary
+
+> **Status:** UNVERIFIED per COMPREHENSIVE_AUDIT_2026-09-21. The table below is **historical** from 2026-08-06 and **not supported by fresh runtime evidence**. Canonical registry has 19 capabilities, not 22.
 
 | Dimension | Average Score | Status |
 |-----------|---------------|--------|
@@ -41,9 +61,13 @@ ENAL AI OS has completed all planned construction, hardening, certification, and
 
 All 22 Capability Packs are certified at Grade A level.
 
+**Correction:** Canonical registry has 19 capabilities, not 22 (integration, organization, society are infrastructure). Benchmark execution is BLOCKED — stored 96.99% scores are stale.
+
 ---
 
 ## Platform Certification Summary
+
+> **Historical** (2026-08-06): These scores are UNVERIFIED per COMPREHENSIVE_AUDIT_2026-09-21.
 
 | Dimension | Score | Status |
 |-----------|-------|--------|
@@ -57,9 +81,13 @@ All 22 Capability Packs are certified at Grade A level.
 **Certificate Level:** Enterprise Platform  
 **Certificate:** `certification/certificates/platform_certificate.json`
 
+> **Peringatan:** Certification status is UNVERIFIED. Benchmark is BLOCKED. Stored scores are stale.
+
 ---
 
 ## Benchmark Summary
+
+> **Historical** (2026-08-06): Current benchmark execution is BLOCKED per COMPREHENSIVE_AUDIT_2026-09-21.
 
 All 22 capabilities passed functional, performance, scalability, and reliability benchmarks:
 
@@ -71,6 +99,8 @@ All 22 capabilities passed functional, performance, scalability, and reliability
 ---
 
 ## Production Readiness Summary
+
+> **Historical** (2026-08-06): Current production readiness is UNVERIFIED per COMPREHENSIVE_AUDIT_2026-09-21.
 
 All 22 capabilities passed capability-level and platform-level production readiness checks:
 
@@ -100,18 +130,22 @@ All 22 capabilities passed capability-level and platform-level production readin
 
 ## Release Decision
 
-| Criterion | Status |
-|-----------|--------|
-| All capabilities Grade A (≥90%) | ✅ 22/22 |
-| Platform Certification passed | ✅ Enterprise Platform |
-| Zero critical findings | ✅ Yes |
-| Zero major findings | ✅ Yes |
-| Backend tests passing | ✅ 95/95 |
-| Frontend build clean | ✅ Yes |
-| TypeScript clean | ✅ Yes |
-| Lint passing | ✅ Yes |
+> **Peringatan:** This table reflects the 2026-08-06 assessment. Per COMPREHENSIVE_AUDIT_2026-09-21, the repository classification is **D — NOT READY**.
 
-**Decision:** APPROVED for Internal Developer Preview.
+| Criterion | Status | Evidence |
+|-----------|--------|----------|
+| All capabilities Grade A (≥90%) | UNVERIFIED | Stored scores are stale; benchmark BLOCKED |
+| Platform Certification passed | UNVERIFIED | Certification artifacts unverified |
+| Zero critical findings | Yes (P0) | No P0 findings observed |
+| Zero major findings | No | 4 P1 findings (benchmark, secret, loadability, integration) |
+| Backend tests passing | ✅ 939 passed, 2 skipped | From 941 collected |
+| Frontend build clean | ✅ Yes | npm ci + lint + build pass |
+| TypeScript clean | ✅ Yes | tsc --noEmit passes |
+| Lint passing | ❌ No | 3,417 Ruff errors (global) |
+| Mypy passing | ❌ No | 81 errors in 28 files |
+| Docker runtime | ❌ No | Cannot connect to daemon |
+
+**Decision:** Per COMPREHENSIVE_AUDIT_2026-09-21 — Do not certify production, do not reuse stored benchmark scores, do not claim Enterprise Platform status. Release classification remains **D — NOT READY** pending P1 resolution.
 
 ---
 
@@ -135,10 +169,13 @@ All 22 capabilities passed capability-level and platform-level production readin
 
 ## References
 
-- `certification/certificates/platform_certificate.json`
-- `certification/certificates/*-certificate.json` (22 files)
-- `certification/audits/*-audit.json` (22 files)
-- `certification/benchmarks/*-benchmark.json` (22 files)
-- `certification/benchmarks/*-production-readiness.json` (22 files)
-- `certification/certification-summary.json`
-- `certification/dashboard.json`
+- `docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md` — Current comprehensive audit
+- `docs/audit/REMEDIATION_PLAN_2026-09-21.md` — Active remediation execution orders
+- `docs/audit/PHASE_1_CAPABILITY_REMEDIATION.md` — Phase 1 capability remediation evidence
+- `docs/audit/FINDINGS.md` — Detailed audit findings
+
+> The following certification artifacts are **STALE/UNVERIFIED** and should not be reused:
+> - `certification/certificates/platform_certificate.json`
+> - `certification/certificates/*-certificate.json` (claims 22 capabilities)
+> - `certification/benchmarks/*-benchmark.json` (stored 96.99% scores)
+> - `certification/certification-summary.json`

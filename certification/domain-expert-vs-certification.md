@@ -70,10 +70,12 @@ A capability can be:
 
 ## Current State
 
+> **Diperbarui 2026-09-21:** Canonical registry (`apps/__init__.py`) mencatat 19 Capability Pack, bukan 22. Paket `integration`, `organization`, dan `society` adalah infrastruktur platform, bukan Capability Pack pengguna.
+
 As of Sprint 11:
-- **22 capabilities** are at Domain Expert level (implementation complete)
+- **19 capabilities** are at Domain Expert level (implementation complete)
 - **0 capabilities** are Certified (formal validation pending)
-- **22 capabilities** are Provisional (audit score 73-77%, corrective actions in progress)
+- **19 capabilities** are Provisional (audit score 73-77%, corrective actions in progress)
 
 ## Why This Matters
 

@@ -3,8 +3,8 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 08-02-2026
-**Versi:** 1.0.0
+**Diverifikasi Terakhir:** 21-09-2026
+**Versi:** 1.1.0
 **Status:** Aktif
 **SSOT:** Proses RFC, indeks RFC, dan siklus hidup RFC
 <!-- DOCUMENT_METADATA_END -->
@@ -85,8 +85,14 @@ RFC terkait, dokumentasi, dll.
 - RFC-0015: AI Engineer (Diterima)
 - RFC-0016: Documentation Engineer (Diterima)
 - RFC-0017: Product Manager (Diterima)
-- RFC-0018: UI/UX Designer (Draf)
-- RFC-0019: Full Stack Engineer (Draf)
+- RFC-0018: UI/UX Designer (Diimplementasikan)
+- RFC-0019: Full Stack Engineer (Diimplementasikan)
+- RFC-0020: Research Assistant — Sertifikasi Level 4 Domain Expert (Diterima)
+- RFC-0021: DevOps Assistant — Sertifikasi Level 4 Domain Expert (Diterima)
+- RFC-0022: Self Development — Sertifikasi Level 4 Domain Expert (Diterima)
+- RFC-0023: Scenario Simulator / Real-Time Simulation & Sandboxing (Draft)
+- RFC-0024: Cross-Domain Knowledge Graph Generator (Draft)
+- RFC-0025: Adversarial Testing / Devil's Advocate (Draft)
 
 ## Indeks RFC
 
@@ -109,5 +115,11 @@ RFC terkait, dokumentasi, dll.
 |RFC-0015|AI Engineer|Diterima|AI Engineer|
 |RFC-0016|Documentation Engineer|Diterima|Documentation Engineer|
 |RFC-0017|Product Manager|Diterima|Product Manager|
-|RFC-0018|UI/UX Designer|Draf|UI/UX Designer|
-|RFC-0019|Full Stack Engineer|Draf|Full Stack Engineer|
+|RFC-0018|UI/UX Designer|Diimplementasikan|UI/UX Designer|
+|RFC-0019|Full Stack Engineer|Diimplementasikan|Full Stack Engineer|
+|RFC-0020|Sertifikasi Research Assistant — Level 4 Domain Expert|Diterima|Research Assistant|
+|RFC-0021|Sertifikasi DevOps Assistant — Level 4 Domain Expert|Diterima|DevOps Assistant|
+|RFC-0022|Sertifikasi Self Development — Level 4 Domain Expert|Diterima|Self Development|
+|RFC-0023|Scenario Simulator|Draf|Scenario Simulator|
+|RFC-0024|Cross-Domain Knowledge Graph Generator|Draf|Cross-Domain Graph|
+|RFC-0025|Adversarial Testing / Devil's Advocate|Draf|Adversarial Testing|

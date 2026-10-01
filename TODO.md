@@ -1,7 +1,7 @@
 # TODO — Resolusi Temuan Audit (Menuju Skor 100%)
 
 ## Informasi yang Dikumpulkan
-- Repo Enal Cognitive Platform (ECP) dengan 19-22 Capability Pack, Core frozen, ADR 1-14.
+- Repo Enal Cognitive Platform (ECP) dengan 19 Capability Pack, Core frozen, ADR 1-14.
 - Temuan audit: (1) duplikasi VERY_COMPLEX di adaptive_runtime.py, (2) 173 `except Exception`, (3) discrepansi test count, (4) duplikasi nomor apps/__init__.py, (5) BaseApp vs BaseReferenceApp, (6) test full_stack tipis, (7) contoh async/sync di docs, (8) real_cases kosong.
 
 ## Plan

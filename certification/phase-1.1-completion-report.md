@@ -2,16 +2,18 @@
 
 ## Executive Summary
 
-Phase 1.1 Capability Audit has been completed for all 22 Capability Packs in ENAL AI OS. This report summarizes the findings, corrective actions taken, and current status.
+Phase 1.1 Capability Audit has been completed for all 19 Capability Packs in ENAL AI OS. This report summarizes the findings, corrective actions taken, and current status.
+
+> **Koreksi (2026-09-21):** Dokumen asli mencantumkan 22 paket — termasuk `integration`, `organization`, dan `society` yang sebenarnya adalah paket infrastruktur, bukan Capability Pack pengguna. Canonical registry (`apps/__init__.py`) mencatat 19 Capability Pack. Lihat `docs/audit/CAPABILITY_REGISTRY_TRUTH.md` (archive) dan `docs/audit/TOTAL_AUDIT_FINAL_2026-08-08.md`.
 
 ## Initial State
 
 | Metric | Value |
 |--------|-------|
-| Total Capabilities | 22 |
+| Total Capabilities | 19 (3 infrastructure packages excluded) |
 | Grade A (Certified) | 0 |
 | Grade B (Certified) | 0 |
-| Grade C (Provisional) | 19 |
+| Grade C (Provisional) | 16 |
 | Grade D (Experimental) | 3 |
 | Average Score | 72.79% |
 
@@ -37,10 +39,10 @@ Phase 1.1 Capability Audit has been completed for all 22 Capability Packs in ENA
 
 | Metric | Value | Change |
 |--------|-------|--------|
-| Total Capabilities | 22 | — |
+| Total Capabilities | 19 | — |
 | Grade A (Certified) | 0 | — |
 | Grade B (Certified) | 0 | — |
-| Grade C (Provisional) | 22 | +3 |
+| Grade C (Provisional) | 19 | +3 |
 | Grade D (Experimental) | 0 | -3 |
 | Average Score | 74.33% | +1.54% |
 
@@ -73,8 +75,8 @@ Benchmark results will not be meaningful until all capabilities reach at least P
 
 ## Artifacts Generated
 
-- `certification/audits/*-audit.json` — 22 audit reports
-- `certification/certificates/*-certificate.json` — 22 certificates
+- `certification/audits/*-audit.json` — 19 audit reports (excluding 3 infrastructure packages)
+- `certification/certificates/*-certificate.json` — 19 certificates (excluding 3 infrastructure packages)
 - `certification/dashboard.json` — Status dashboard
 - `certification/scripts/run_audit.py` — Audit runner
 - `certification/scripts/generate_certificates.py` — Certificate generator

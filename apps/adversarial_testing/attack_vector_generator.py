@@ -1,0 +1,351 @@
+"""
+Attack Vector Generator — generates adversarial attack scenarios.
+
+Generates diverse, creative attack scenarios that challenge the
+robustness of a plan, recommendation, or strategy. Each attack
+represents a worst-case assumption or external shock.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+from typing import Any
+
+from backend.app.core.config import settings
+from backend.app.core.model_router import model_router
+from apps.adversarial_testing.schemas import (
+    AttackCategory,
+    AttackRequest,
+    AttackVector,
+    Severity,
+)
+
+logger = logging.getLogger(__name__)
+
+
+# Predefined attack templates per category
+_ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
+    AttackCategory.EXTERNAL_SHOCK: [
+        {
+            "template": "Market crash: A sudden market downturn eliminates 30% of projected revenue",
+            "severity": Severity.HIGH,
+            "assumptions": ["Market moves faster than expected", "No early warning indicators", "Liquidity dries up"],
+        },
+        {
+            "template": "Geopolitical crisis: War, sanctions, or political upheaval disrupts supply chains",
+            "severity": Severity.CRITICAL,
+            "assumptions": ["No fallback suppliers", "No contingency plan", "Regulatory freeze"],
+        },
+        {
+            "template": "Natural disaster: Localized event (fire, flood, earthquake) halts operations",
+            "severity": Severity.HIGH,
+            "assumptions": ["Single-region deployment", "No disaster recovery", "Critical dependency on location"],
+        },
+    ],
+    AttackCategory.DEPENDENCY_FAILURE: [
+        {
+            "template": "Third-party API outage: A critical external service goes down for 24 hours",
+            "severity": Severity.HIGH,
+            "assumptions": ["No circuit breaker", "No caching layer", "Single provider"],
+        },
+        {
+            "template": "Database corruption: Data integrity is compromised, requiring full restore",
+            "severity": Severity.CRITICAL,
+            "assumptions": ["No recent backup", "No data validation", "Single database instance"],
+        },
+        {
+            "template": "Network partition: Services lose connectivity to each other",
+            "severity": Severity.HIGH,
+            "assumptions": ["No multi-zone deployment", "No retry logic", "Stateful coupling"],
+        },
+    ],
+    AttackCategory.RESOURCE_EXHAUSTION: [
+        {
+            "template": "Budget overrun: Project costs exceed budget by 200%",
+            "severity": Severity.HIGH,
+            "assumptions": ["No budget monitoring", "Fixed-cost commitments", "No cost optimization"],
+        },
+        {
+            "template": "Team turnover: 80% of key personnel leave mid-project",
+            "severity": Severity.HIGH,
+            "assumptions": ["No documentation", "No knowledge transfer", "Single-person dependencies"],
+        },
+        {
+            "template": "Compute exhaustion: Cloud costs or resource limits are exceeded",
+            "severity": Severity.MEDIUM,
+            "assumptions": ["No auto-scaling", "No load shedding", "Unbounded resource usage"],
+        },
+    ],
+    AttackCategory.COMPETITIVE_RESPONSE: [
+        {
+            "template": "Competitor price war: A major competitor launches aggressive discounting",
+            "severity": Severity.HIGH,
+            "assumptions": ["No pricing flexibility", "No differentiation", "No customer loyalty"],
+        },
+        {
+            "template": "Competitor innovation leap: A competitor releases a superior product",
+            "severity": Severity.HIGH,
+            "assumptions": ["No R&D buffer", "No fast-follow capability", "Static roadmap"],
+        },
+        {
+            "template": "New entrant disruption: A startup with innovative technology enters the market",
+            "severity": Severity.MEDIUM,
+            "assumptions": ["No market monitoring", "No response plan", "High entry barriers assumed"],
+        },
+    ],
+    AttackCategory.REGULATORY_CHANGE: [
+        {
+            "template": "New compliance requirement: Sudden regulatory change requires architecture redesign",
+            "severity": Severity.HIGH,
+            "assumptions": ["No compliance monitoring", "Hard-coded compliance", "No modular design"],
+        },
+        {
+            "template": "Data privacy crackdown: Stricter GDPR/CCPA enforcement blocks current practices",
+            "severity": Severity.CRITICAL,
+            "assumptions": ["No data governance", "No regional compliance", "No consent management"],
+        },
+    ],
+    AttackCategory.DATA_CORRUPTION: [
+        {
+            "template": "Data poisoning: Malicious actor injects corrupt data into the system",
+            "severity": Severity.CRITICAL,
+            "assumptions": ["No input validation", "No anomaly detection", "Trusted data sources"],
+        },
+        {
+            "template": "Model drift: LLM output quality degrades due to prompt injection or drift",
+            "severity": Severity.HIGH,
+            "assumptions": ["No output validation", "No model monitoring", "No fallback to deterministic logic"],
+        },
+    ],
+    AttackCategory.INFORMATION_WARFARE: [
+        {
+            "template": "Misinformation campaign: Fake evidence or reports mislead the analysis",
+            "severity": Severity.MEDIUM,
+            "assumptions": ["No source verification", "No cross-check", "Single-source dependency"],
+        },
+    ],
+    AttackCategory.OPERATIONAL_DISRUPTION: [
+        {
+            "template": "Security breach: Unauthorized access compromises system integrity",
+            "severity": Severity.CRITICAL,
+            "assumptions": ["No defense in depth", "No incident response", "No access reviews"],
+        },
+        {
+            "template": "Release rollback failure: Critical bug in production, rollback fails",
+            "severity": Severity.CRITICAL,
+            "assumptions": ["No canary deployment", "No rollback testing", "Stateful migrations"],
+        },
+    ],
+}
+
+
+class AttackVectorGenerator:
+    """
+    Generates adversarial attack scenarios for a given subject.
+
+    Usage::
+
+        generator = AttackVectorGenerator()
+        vectors = generator.generate(subject, categories)
+    """
+
+    def __init__(self) -> None:
+        self._templates = _ATTACK_TEMPLATES
+
+    def generate(
+        self,
+        request: Any,
+    ) -> list[AttackVector]:
+        """
+        Generate attack vectors for the given request.
+
+        Args:
+            request: An AdversarialTestRequest or a dict-like object with
+                     subject, subject_type, attack_categories, attack_budget.
+
+        Returns:
+            List of AttackVector objects.
+        """
+        import uuid as _uuid
+
+        # Extract fields from request (works for both pydantic and dict)
+        if hasattr(request, "subject"):
+            subject = request.subject
+            subject_type = getattr(request, "subject_type", None)
+            categories = getattr(request, "attack_categories", list(self._templates.keys()))
+            budget = getattr(request, "attack_budget", 10)
+            existing_hardening = getattr(request, "existing_hardening", [])
+            context = getattr(request, "context", None)
+            constraints = getattr(request, "constraints", [])
+        else:
+            subject = request.get("subject", "")
+            subject_type = request.get("subject_type", "plan")
+            categories = request.get("attack_categories", list(self._templates.keys()))
+            budget = request.get("attack_budget", 10)
+            existing_hardening = request.get("existing_hardening", [])
+            context = request.get("context")
+            constraints = request.get("constraints", [])
+
+        vectors: list[AttackVector] = []
+
+        # First, use LLM to generate contextually relevant attacks
+        llm_vectors = self._generate_with_llm(subject, subject_type, categories, budget, context, constraints, existing_hardening)
+        vectors.extend(llm_vectors)
+
+        # Supplement with template-based attacks if LLM produced fewer than budget
+        if len(vectors) < budget:
+            template_vectors = self._generate_from_templates(
+                subject, categories, budget - len(vectors), existing_hardening
+            )
+            vectors.extend(template_vectors)
+
+        return vectors[:budget]
+
+    # ------------------------------------------------------------------
+    # Internal
+    # ------------------------------------------------------------------
+
+    def _generate_with_llm(
+        self,
+        subject: str,
+        subject_type: str,
+        categories: list[str],
+        budget: int,
+        context: str | None,
+        constraints: list[str],
+        existing_hardening: list[str],
+    ) -> list[AttackVector]:
+        """Generate attack vectors using LLM for creative, contextual attacks."""
+        import uuid as _uuid
+
+        attack_categories_str = ", ".join(categories) if categories else "all categories"
+
+        hardening_note = ""
+        if existing_hardening:
+            hardening_note = f"\n\nAlready applied mitigations (do NOT reuse): {', '.join(existing_hardening)}"
+
+        constraints_note = ""
+        if constraints:
+            constraints_note = f"\n\nHard constraints (attacks must NOT violate these): {', '.join(constraints)}"
+
+        prompt = (
+            f"You are a Devil's Advocate agent. Your job is to find weaknesses in plans and strategies.\n\n"
+            f"Subject ({subject_type}): {subject}\n\n"
+            f"Context: {context or 'No additional context'}\n\n"
+            f"Generate {budget} diverse adversarial attack scenarios across categories: {attack_categories_str}.{hardening_note}{constraints_note}\n\n"
+            "For each attack, provide:\n"
+            "- category (from the list above)\n"
+            "- description (specific, creative attack scenario)\n"
+            "- severity (low/medium/high/critical)\n"
+            "- assumptions (worst-case assumptions the attack relies on)\n"
+            "- worst_case_impact (what happens if the attack succeeds)\n\n"
+            "Output JSON array of objects with these exact fields."
+        )
+
+        try:
+            response = model_router.acomplete  # sync version may not exist, use async
+        except AttributeError:
+            pass
+
+        # Use async acomplete
+        import asyncio
+
+        async def _llm_call():
+            return await model_router.acomplete(
+                [{"role": "user", "content": prompt}],
+                model=settings.DEFAULT_REASONING_MODEL,
+                temperature=0.8,  # High creativity for adversarial scenarios
+                max_tokens=2048,
+            )
+
+        try:
+            # Try running in existing event loop
+            loop = asyncio.get_running_loop()
+            response = None  # Can't call async from sync
+            raise RuntimeError("No sync API available")
+        except RuntimeError:
+            # Fallback to sync completion
+            response = model_router.complete(
+                [{"role": "user", "content": prompt}],
+                model=settings.DEFAULT_REASONING_MODEL,
+                temperature=0.8,
+                max_tokens=2048,
+            )
+
+        try:
+            data = json.loads(response.choices[0].message.content)
+            vectors = []
+            for item in data:
+                cat_str = item.get("category", "external_shock")
+                try:
+                    category = AttackCategory(cat_str)
+                except ValueError:
+                    category = AttackCategory.EXTERNAL_SHOCK
+
+                try:
+                    severity = Severity(item.get("severity", "medium"))
+                except ValueError:
+                    severity = Severity.MEDIUM
+
+                vectors.append(AttackVector(
+                    id=f"atk-{_uuid.uuid4().hex[:8]}",
+                    category=category,
+                    description=item.get("description", ""),
+                    severity=severity,
+                    assumptions=item.get("assumptions", []),
+                    worst_case_impact=item.get("worst_case_impact", ""),
+                ))
+            return vectors
+        except (json.JSONDecodeError, AttributeError, IndexError) as e:
+            logger.warning(f"LLM attack generation failed, using templates: {e}")
+            return self._generate_from_templates(subject, list(self._templates.keys()), budget, existing_hardening)
+
+    def _generate_from_templates(
+        self,
+        subject: str,
+        categories: list[str],
+        count: int,
+        existing_hardening: list[str],
+    ) -> list[AttackVector]:
+        """Generate attack vectors from predefined templates."""
+        import uuid as _uuid
+
+        # Flatten templates, filtering by categories and excluding already-hardened
+        available: list[tuple[AttackCategory, dict[str, Any]]] = []
+        for cat in categories:
+            try:
+                cat_enum = AttackCategory(cat)
+            except ValueError:
+                continue
+            for template in self._templates.get(cat_enum, []):
+                if template["template"] in existing_hardening:
+                    continue
+                available.append((cat_enum, template))
+
+        if not available:
+            return []
+
+        # Distribute requested count across available templates
+        selected = available[:count]
+        if len(available) > count:
+            import random as _random
+            selected = _random.sample(available, count)
+
+        vectors: list[AttackVector] = []
+        for cat_enum, template in selected:
+            try:
+                severity = Severity(template["severity"])
+            except (ValueError, TypeError):
+                severity = Severity.MEDIUM
+
+            vectors.append(AttackVector(
+                id=f"atk-{_uuid.uuid4().hex[:8]}",
+                category=cat_enum,
+                description=f"{template['template']} (applied to: {subject[:80]})",
+                severity=severity,
+                assumptions=template.get("assumptions", []),
+                worst_case_impact=f"Subject may fail to achieve its objectives due to {template['template'].lower()}",
+            ))
+
+        return vectors
