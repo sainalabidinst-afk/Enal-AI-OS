@@ -7,6 +7,7 @@ All profiles operate on Universal AST, making them vendor-agnostic.
 """
 
 import logging
+from typing import Any
 
 from apps.network_engineer.nic.knowledge.compliance_checks import CHECK_REGISTRY
 from apps.network_engineer.nic.knowledge.compliance_profiles import (
@@ -75,7 +76,7 @@ class ComplianceEngine:
         raw = "\n".join(ast.raw_lines).lower()
 
         for rule in self._rules:
-            check_fn = CHECK_REGISTRY.get(rule.id)
+            check_fn: Any = CHECK_REGISTRY.get(rule.id)
             if check_fn:
                 if rule.id in AST_RULE_IDS:
                     check = check_fn(rule, ast)

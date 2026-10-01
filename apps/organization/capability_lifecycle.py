@@ -142,7 +142,12 @@ class CapabilityLifecycleManager:
         if record is None:
             raise ValueError(f"Capability '{capability_id}' is not registered")
 
-        missing = [dep for dep in record.dependencies if self._records.get(dep, CapabilityRecord(capability_id=dep)).state != CapabilityState.LOADED]
+        missing = [
+            dep
+            for dep in record.dependencies
+            if (dependency := self._records.get(dep)) is None
+            or dependency.state != CapabilityState.LOADED
+        ]
         if missing:
             raise ValueError(f"Cannot load '{capability_id}': missing dependencies {missing}")
 

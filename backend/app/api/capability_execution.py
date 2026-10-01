@@ -79,8 +79,8 @@ async def execute_capability(capability_id: str, request: ChatRequest):
         try:
             from backend.app.core.telemetry.service import record_execution_event
             record_execution_event(
-                capability_id=capability_id,
-                workspace_id=workspace_id,
+                execution_id=capability_id,
+                goal=capability_id,
                 status=status,
                 error=error,
                 total_time_ms=round(total_ms, 2),

@@ -77,7 +77,24 @@ class FullStackEngineerEngine:
 
         if op in ("architecture_review", "full_stack_review"):
             repo_path = inputs.get("repo_path", ".")
-            architecture_review = await self.arch_review_engine.review(repo_path)
+            try:
+                architecture_review = await self.arch_review_engine.review(repo_path)
+            except FileNotFoundError as exc:
+                architecture_review = {
+                    "architecture_score": 0.0,
+                    "layering_grade": "N/A",
+                    "dependency_grade": "N/A",
+                    "modularity_grade": "N/A",
+                    "tech_debt_grade": "N/A",
+                    "issues": [
+                        {
+                            "severity": "high",
+                            "category": "reliability",
+                            "description": str(exc),
+                            "recommendation": "Provide an existing repository path",
+                        }
+                    ],
+                }
 
         if op in ("code_review", "full_stack_review"):
             source_code = inputs.get("source_code", "")
