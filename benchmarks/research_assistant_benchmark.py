@@ -29,7 +29,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from apps.research_assistant.engine import ResearchEngine
 from apps.research_assistant.schemas import (
     CitationStyle,
-    ConfidenceLevel,
     Evidence,
     ResearchOperation,
     ResearchRequest,

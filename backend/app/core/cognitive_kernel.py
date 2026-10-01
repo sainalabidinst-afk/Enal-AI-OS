@@ -121,6 +121,58 @@ class LearningService(CognitiveService):
         return {"learned": score >= 7, "quality_score": score, "suggestions": review.get("suggestions", [])}
 
 
+class SimulationService(CognitiveService):
+    """Real-time What-If scenario simulation and sandboxing (RFC-0023).
+
+    Delegates to the Scenario Simulator capability pack's engine.
+    """
+
+    async def process(self, context: dict[str, Any]) -> dict[str, Any]:
+        from apps.scenario_simulator.engine import ScenarioSimulatorEngine
+        engine = ScenarioSimulatorEngine()
+        simulation_ctx = context.get("simulation", context)
+        request = engine.build_scenario(
+            description=simulation_ctx.get("description", simulation_ctx.get("input", context.get("perception", {}).get("input", ""))),
+            base_state=simulation_ctx.get("base_state", {}),
+            iterations=simulation_ctx.get("iterations", 50),
+            seed=simulation_ctx.get("seed"),
+            use_llm=simulation_ctx.get("use_llm", False),
+        )
+        result = await engine.run_simulation_async(request)
+        return {"simulation_result": result.to_dict(), "confidence": result.confidence}
+
+
+class AdversarialTestingService(CognitiveService):
+    """Adversarial testing — Devil's Advocate (RFC-0025).
+
+    Injects worst-case attack scenarios into plans and recommendations.
+    """
+
+    async def process(self, context: dict[str, Any]) -> dict[str, Any]:
+        from apps.adversarial_testing.engine import AdversarialTestingEngine
+        engine = AdversarialTestingEngine()
+        adversarial_ctx = context.get("adversarial_testing", context)
+        subject = adversarial_ctx.get(
+            "subject",
+            adversarial_ctx.get("input", context.get("perception", {}).get("input", "")),
+        )
+        result = engine.test(
+            subject=subject,
+            subject_type=adversarial_ctx.get("subject_type", "plan"),
+            context=adversarial_ctx.get("context"),
+            evidence=adversarial_ctx.get("evidence"),
+            constraints=adversarial_ctx.get("constraints"),
+            attack_categories=adversarial_ctx.get("attack_categories"),
+            attack_budget=adversarial_ctx.get("attack_budget", 10),
+            existing_hardening=adversarial_ctx.get("existing_hardening"),
+        )
+        return {
+            "adversarial_result": result.to_dict(),
+            "gate_result": result.gate_result.value,
+            "pass_score": result.pass_score,
+        }
+
+
 class CognitiveKernel:
     def __init__(self):
         self.services: dict[str, CognitiveService] = {
@@ -132,6 +184,8 @@ class CognitiveKernel:
             "action": ActionService(),
             "reflection": ReflectionService(),
             "learning": LearningService(),
+            "simulation": SimulationService(),
+            "adversarial_testing": AdversarialTestingService(),
         }
         self._initialized = True
 

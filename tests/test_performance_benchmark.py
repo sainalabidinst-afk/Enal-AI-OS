@@ -9,12 +9,10 @@ And NOT the stale assumption:
 - result["decision"]["decision"]
 """
 
-import asyncio
-from unittest.mock import AsyncMock
 
 import pytest
 
-from benchmarks.performance_benchmark import run_with_metrics, BenchmarkMetrics
+from benchmarks.performance_benchmark import BenchmarkMetrics, run_with_metrics
 
 
 def _make_result(decision: dict | None = None, action: dict | None = None, **extra):

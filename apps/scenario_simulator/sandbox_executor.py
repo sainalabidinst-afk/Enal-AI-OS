@@ -12,7 +12,6 @@ import time
 from typing import Any
 
 from backend.app.core.sandbox import SandboxLanguage, sandbox_runtime
-from apps.scenario_simulator.schemas import SimulationResult
 
 logger = logging.getLogger(__name__)
 

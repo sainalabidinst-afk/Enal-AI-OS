@@ -14,21 +14,11 @@ import argparse
 import asyncio
 import html
 import json
-from datetime import datetime
 from pathlib import Path
 
 from benchmarks.trading_analyst_benchmark import (
     DOMAINS,
-    BENCHMARK_TIMEFRAMES,
     run_trading_benchmark,
-    _seed_scenario,
-    _run_scenario,
-    _analyze_domains,
-    _score_reasoning,
-    _score_coverage,
-    _score_explainability,
-    _score_safety,
-    _score_consistency,
 )
 
 

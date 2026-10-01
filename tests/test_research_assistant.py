@@ -15,11 +15,7 @@ import pytest
 from apps.research_assistant.engine import ResearchEngine
 from apps.research_assistant.schemas import (
     CitationStyle,
-    ConfidenceLevel,
-    Contradiction,
     Evidence,
-    Finding,
-    FindingSeverity,
     ResearchOperation,
     ResearchRequest,
     SourceQuality,

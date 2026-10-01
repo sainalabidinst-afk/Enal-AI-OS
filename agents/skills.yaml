@@ -78,3 +78,27 @@ skills:
     capabilities: [writing, docs, markdown]
     tools: [markdown, openapi]
     cost_weight: 0.8
+
+  - name: simulation
+    category: simulation
+    description: Real-time What-If scenario simulation with Monte Carlo analysis
+    agent: simulation-agent
+    capabilities: [simulation, monte-carlo, what-if, sandboxing]
+    tools: [python, bash]
+    cost_weight: 1.5
+
+  - name: knowledge-graph
+    category: knowledge
+    description: Cross-domain knowledge graph generation and inference
+    agent: knowledge-agent
+    capabilities: [knowledge-graph, cross-domain, inference, entity-resolution]
+    tools: [search, graph]
+    cost_weight: 1.2
+
+  - name: adversarial-testing
+    category: testing
+    description: Adversarial testing and Devil's Advocate for plan hardening
+    agent: testing-agent
+    capabilities: [adversarial-testing, failure-injection, hardening, assumption-auditing]
+    tools: [analysis, testing]
+    cost_weight: 1.3

@@ -25,15 +25,15 @@ import json
 import logging
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from benchmarks.trend_analyzer import TrendAnalyzer, RegressionResult
-from benchmarks.report_generator import generate_html_report
-from benchmarks.calibration import ConfidenceCalibration
-from backend.app.core.benchmark.runner import BenchmarkRunner
 from backend.app.core.benchmark.models import BenchmarkSuite
+from backend.app.core.benchmark.runner import BenchmarkRunner
+from benchmarks.calibration import ConfidenceCalibration
+from benchmarks.report_generator import generate_html_report
+from benchmarks.trend_analyzer import RegressionResult, TrendAnalyzer
 
 logger = logging.getLogger(__name__)
 
@@ -134,9 +134,9 @@ class CCERunner:
         self.trend_analyzer = TrendAnalyzer(history_dir=history_dir)
 
     async def run(self, suite: BenchmarkSuite | None = None) -> CCEResult:
-        run_id = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        run_id = datetime.now(UTC).strftime("%Y%m%d-%H%M%S")
         started = time.perf_counter()
-        result = CCEResult(run_id=run_id, timestamp=datetime.now(timezone.utc).isoformat())
+        result = CCEResult(run_id=run_id, timestamp=datetime.now(UTC).isoformat())
 
         if suite is None:
             from backend.app.api.benchmark import _load_suite_from_disk

@@ -55,28 +55,28 @@ def test_society_creation():
 
 def test_agent_registration_and_role_assignment():
     society = create_society("Test Corp")
-    
+
     ceo = SimpleAgent("ceo-1", "Alice", AgentRole.CEO, Department.ENGINEERING)
     cto = SimpleAgent("cto-1", "Bob", AgentRole.DIRECTOR, Department.ENGINEERING)
     backend_lead = SimpleAgent("lead-1", "Charlie", AgentRole.LEAD, Department.ENGINEERING)
     worker = SimpleAgent("worker-1", "Dave", AgentRole.WORKER, Department.ENGINEERING)
-    
+
     society.register_agent(ceo)
     society.register_agent(cto)
     society.register_agent(backend_lead)
     society.register_agent(worker)
-    
+
     assert society.get_organization_state()["total_agents"] == 4
-    
+
     society.assign_role("ceo-1", AgentRole.CEO, Department.ENGINEERING)
     society.assign_role("cto-1", AgentRole.DIRECTOR, Department.ENGINEERING, manager_id="ceo-1")
     society.assign_role("lead-1", AgentRole.LEAD, Department.ENGINEERING, manager_id="cto-1")
     society.assign_role("worker-1", AgentRole.WORKER, Department.ENGINEERING, manager_id="lead-1")
-    
+
     cto_record = agent_registry.get("cto-1")
     assert cto_record.manager_id == "ceo-1"
     assert cto_record.role == AgentRole.DIRECTOR
-    
+
     worker_record = agent_registry.get("worker-1")
     assert worker_record.manager_id == "lead-1"
     assert worker_record.role == AgentRole.WORKER
@@ -84,7 +84,7 @@ def test_agent_registration_and_role_assignment():
 
 def test_team_formation():
     society = create_society("Test Corp")
-    
+
     for i in range(5):
         agent = SimpleAgent(
             f"agent-{i}",
@@ -94,14 +94,14 @@ def test_team_formation():
             skills=["python", "api", "database"] if i < 3 else ["frontend", "ui"],
         )
         society.register_agent(agent)
-    
+
     team = society.form_team_for_task({
         "description": "Build a web application",
         "required_skills": ["python", "api"],
         "team_size": 3,
         "min_quality": 0.5,
     })
-    
+
     assert len(team.members) <= 3
     assert team.team_id is not None
 
@@ -109,26 +109,26 @@ def test_team_formation():
 @pytest.mark.asyncio
 async def test_project_execution():
     society = create_society("Test Corp")
-    
+
     ceo = SimpleAgent("ceo-1", "Alice", AgentRole.CEO, Department.ENGINEERING)
     worker = SimpleAgent("worker-1", "Bob", AgentRole.WORKER, Department.ENGINEERING, skills=["python"])
-    
+
     society.register_agent(ceo)
     society.register_agent(worker)
     society.assign_role("ceo-1", AgentRole.CEO, Department.ENGINEERING)
     society.assign_role("worker-1", AgentRole.WORKER, Department.ENGINEERING)
-    
+
     team = society.form_team_for_task({
         "description": "Build API",
         "required_skills": ["python"],
         "team_size": 1,
     })
-    
+
     result = await society.run_project("proj-1", team.team_id, {
         "type": "build",
         "target": "api",
     })
-    
+
     assert result is not None
     assert "results" in result
     assert len(result["results"]) > 0
@@ -136,13 +136,13 @@ async def test_project_execution():
 
 def test_communication():
     society = create_society("Test Corp")
-    
+
     sender = SimpleAgent("sender-1", "Alice", AgentRole.WORKER, Department.ENGINEERING)
     recipient = SimpleAgent("recipient-1", "Bob", AgentRole.WORKER, Department.ENGINEERING)
-    
+
     society.register_agent(sender)
     society.register_agent(recipient)
-    
+
     society.send_message("sender-1", "recipient-1", "Task Update", {"status": "in_progress"})
     messages = mailbox.receive("recipient-1")
     assert len(messages) == 1
@@ -168,21 +168,21 @@ def test_organization_state():
     agent_registry._agents.clear()
     agent_registry._skill_index.clear()
     agent_registry._department_index.clear()
-    
+
     society = create_society("Test Corp")
-    
+
     ceo = SimpleAgent("ceo-1", "Alice", AgentRole.CEO, Department.ENGINEERING)
     cto = SimpleAgent("cto-1", "Bob", AgentRole.DIRECTOR, Department.ENGINEERING)
     qa = SimpleAgent("qa-1", "Charlie", AgentRole.WORKER, Department.QUALITY)
-    
+
     society.register_agent(ceo)
     society.register_agent(cto)
     society.register_agent(qa)
-    
+
     society.assign_role("ceo-1", AgentRole.CEO, Department.ENGINEERING)
     society.assign_role("cto-1", AgentRole.DIRECTOR, Department.ENGINEERING, manager_id="ceo-1")
     society.assign_role("qa-1", AgentRole.WORKER, Department.QUALITY, manager_id="cto-1")
-    
+
     state = society.get_organization_state()
     assert state["total_agents"] == 3
     assert state["agents_by_role"]["ceo"] == 1
@@ -333,7 +333,7 @@ async def test_conversation_manager_flow():
 @pytest.mark.asyncio
 async def test_end_to_end_user_command_flow():
     society = create_society("Test AI Corp")
-    
+
     net_worker = SimpleAgent(
         "net-1", "NetworkWorker", AgentRole.WORKER, Department.NETWORK,
         skills=["network-design", "config-analysis"],
@@ -344,9 +344,9 @@ async def test_end_to_end_user_command_flow():
     )
     society.register_agent(net_worker)
     society.register_agent(net_worker2)
-    
+
     result = await society.process_user_request("Analyze the network configuration")
-    
+
     assert result["status"] == "completed"
     assert result["intent"]["domain"] in ["network", "general"]
     assert result["team_size"] >= 1

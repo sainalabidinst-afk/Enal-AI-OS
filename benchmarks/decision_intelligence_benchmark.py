@@ -21,7 +21,6 @@ from __future__ import annotations
 import sys
 import time
 from pathlib import Path
-from typing import Any
 
 # Ensure project root is on PYTHONPATH.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))

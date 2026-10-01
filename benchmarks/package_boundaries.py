@@ -65,7 +65,7 @@ def check_imports(file_path: str, package_name: str) -> list[str]:
     """Check if a file violates package boundaries."""
     violations = []
     try:
-        with open(file_path, "r") as f:
+        with open(file_path) as f:
             tree = ast.parse(f.read())
     except Exception as e:
         logger.debug(f"Could not parse {file_path}: {e}")

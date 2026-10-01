@@ -10,10 +10,8 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from typing import Any
-
-from backend.app.core.config import settings
-from backend.app.core.model_router import model_router
 
 logger = logging.getLogger(__name__)
 
@@ -75,6 +73,9 @@ class AssumptionAuditor:
         constraints: list[str] | None,
     ) -> list[str]:
         """Extract assumptions using LLM and heuristics."""
+        from backend.app.core.config import settings
+        from backend.app.core.model_router import model_router
+
         ev_str = json.dumps(evidence or {})[:500] if evidence else ""
         constraints_str = ", ".join(constraints or [])
 
@@ -91,6 +92,11 @@ class AssumptionAuditor:
         )
 
         try:
+            if os.environ.get("TESTING", "").lower() in ("true", "1", "yes"):
+                raise RuntimeError("Skipping LLM calls in test mode")
+            from backend.app.core.config import settings
+            from backend.app.core.model_router import model_router
+
             response = model_router.complete(
                 [{"role": "user", "content": prompt}],
                 model=settings.DEFAULT_REASONING_MODEL,
@@ -133,7 +139,7 @@ class AssumptionAuditor:
                 return {"risk": "medium", "confidence": 0.8, "mitigatable": True}
 
         # Heuristic risk assessment based on assumption keywords
-        high_risk_keywords = ["accuracy", "no external", "dependencies behave", "stable", 
+        high_risk_keywords = ["accuracy", "no external", "dependencies behave", "stable",
                               "do not change", "remain constant", "no critical", "do not accumulate"]
         medium_risk_keywords = ["alignment", "follow predicted", "complete"]
 

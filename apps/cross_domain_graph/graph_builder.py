@@ -9,22 +9,20 @@ from __future__ import annotations
 
 import json
 import logging
-import uuid
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from apps.cross_domain_graph.edge_extractor import EdgeExtractor
+from apps.cross_domain_graph.entity_resolver import EntityResolver
 from apps.cross_domain_graph.schemas import (
     GraphEdge,
     GraphNode,
-    GraphQueryResult,
     InferenceResult,
     NodeType,
     RelationType,
     ResolvedEntity,
 )
-from apps.cross_domain_graph.edge_extractor import EdgeExtractor
-from apps.cross_domain_graph.entity_resolver import EntityResolver
 
 logger = logging.getLogger(__name__)
 

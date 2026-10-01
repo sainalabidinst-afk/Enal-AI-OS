@@ -174,7 +174,7 @@ class ConversationManager:
         task_plan = result.get("task_plan", {})
         execution_plan = result.get("execution_plan", {})
 
-        assistant_message = self._format_assistant_message(result, results_raw)
+        assistant_message = self._format_assistant_message(result, result)
 
         artifact = {
             "conversation_id": conversation_id,
@@ -182,7 +182,7 @@ class ConversationManager:
             "intent": intent,
             "task_plan": task_plan,
             "execution_plan": execution_plan,
-            "result": results_raw,
+            "result": result,
             "timestamp": __import__("datetime").datetime.now(UTC).isoformat(),
         }
         await self._persist_artifact(conversation_id, artifact)

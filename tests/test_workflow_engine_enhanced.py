@@ -64,12 +64,16 @@ class TestWorkflowEngineDependencies:
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-4",
-            name="Deps Workflow",
+            name="Enhanced Workflow",
             description="With dependencies",
             steps=[
                 WorkflowStep(id="s1", name="First", agent="test", action="step1"),
-                WorkflowStep(id="s2", name="Second", agent="test", action="step2", depends_on=["s1"]),
-                WorkflowStep(id="s3", name="Third", agent="test", action="step3", depends_on=["s1"]),
+                WorkflowStep(
+                    id="s2", name="Second", agent="test", action="step2", depends_on=["s1"]
+                ),
+                WorkflowStep(
+                    id="s3", name="Third", agent="test", action="step3", depends_on=["s1"]
+                ),
             ],
         )
         await engine.create_workflow(workflow)

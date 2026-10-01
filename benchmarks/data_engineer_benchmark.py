@@ -22,7 +22,6 @@ import csv
 import os
 import sys
 import tempfile
-import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -31,15 +30,14 @@ from apps.data_engineer.engine import DataEngineerEngine
 from apps.data_engineer.schemas import (
     DataEngineeringRequest,
     DataSource,
-    SourceType,
-    TransformOperation,
-    Operation,
-    QualityRuleSpec,
-    QualityRule,
     FeatureSpec,
     FeatureType,
+    Operation,
+    QualityRule,
+    QualityRuleSpec,
+    SourceType,
+    TransformOperation,
 )
-
 
 # Create a temporary directory with CSV files for the benchmark.
 _TEMP_DIR = tempfile.mkdtemp()

@@ -15,13 +15,14 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from apps.scenario_simulator.monte_carlo_runner import MonteCarloRunner
 from apps.scenario_simulator.outcome_analyzer import OutcomeAnalyzer
 from apps.scenario_simulator.sandbox_executor import SandboxExecutor
-from apps.scenario_simulator.schemas import SimulationResult, ScenarioRequest
 from apps.scenario_simulator.scenario_builder import ScenarioBuilder
+from apps.scenario_simulator.schemas import ScenarioRequest, SimulationResult
 
 logger = logging.getLogger(__name__)
 

@@ -10,9 +10,8 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any
 
-from apps.cross_domain_graph.schemas import GraphNode, NodeType, ResolvedEntity
+from apps.cross_domain_graph.schemas import GraphNode, ResolvedEntity
 
 logger = logging.getLogger(__name__)
 

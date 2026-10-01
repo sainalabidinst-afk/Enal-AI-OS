@@ -1,15 +1,16 @@
 import asyncio
+
 import pytest
 
 from backend.app.core.contracts import (
-    CapabilityContract,
-    ToolContract,
     ArtifactContract,
+    CapabilityContract,
+    ContractVersion,
+    LearningContract,
     MemoryContract,
+    ToolContract,
     WorkflowContract,
     WorldModelContract,
-    LearningContract,
-    ContractVersion,
 )
 
 

@@ -14,7 +14,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import html
-from benchmarks.generate_dashboard import run_and_generate, normalize_report
+
+from benchmarks.generate_dashboard import normalize_report, run_and_generate
 
 DASHBOARD_DIR = Path(__file__).resolve().parent / "dashboards"
 DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)

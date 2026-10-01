@@ -27,10 +27,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from apps.security_engineer.engine import SecurityEngineerEngine
 from apps.security_engineer.schemas import (
-    SecurityAssessmentRequest,
     AssessmentType,
+    SecurityAssessmentRequest,
 )
-
 
 # Sample source code with known security issues.
 VULNERABLE_CODE = '''

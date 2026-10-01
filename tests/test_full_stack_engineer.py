@@ -12,18 +12,18 @@ import pytest
 from apps.full_stack_engineer.architecture_review import ArchitectureReviewEngine
 from apps.full_stack_engineer.engine import FullStackEngineerEngine
 from apps.full_stack_engineer.schemas import (
-    FullStackRequest,
-    FullStackReport,
-    OperationType,
-    OutputFormat,
-    Severity,
-    RiskLevel,
     ArchitectureReviewResult,
     CodeReviewResult,
-    RefactoringPlanResult,
-    TestEngineeringResult,
+    FullStackReport,
+    FullStackRequest,
+    OperationType,
+    OutputFormat,
     PerformanceAnalysisResult,
+    RefactoringPlanResult,
     ReleaseReadinessResult,
+    RiskLevel,
+    Severity,
+    TestEngineeringResult,
 )
 from apps.full_stack_engineer.worker import FullStackEngineerWorker
 

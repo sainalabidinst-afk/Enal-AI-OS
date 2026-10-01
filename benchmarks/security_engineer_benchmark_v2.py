@@ -17,8 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from apps.security_engineer.engine import SecurityEngineerEngine
 from apps.security_engineer.schemas import (
-    SecurityAssessmentRequest,
     AssessmentType,
+    SecurityAssessmentRequest,
 )
 from real_cases.benchmark import load_cases_from_disk
 
@@ -29,13 +29,13 @@ logger = logging.getLogger(__name__)
 def _score_case(actual_issues: list[dict], actual_secrets: list[dict], expected_findings: list[str]) -> tuple[float, int, int]:
     if not expected_findings:
         return 1.0, 0, 0
-    
+
     detectable = [ef for ef in expected_findings if _is_detectable_finding(ef)]
     undetectable = [ef for ef in expected_findings if not _is_detectable_finding(ef)]
-    
+
     if not detectable:
         return 1.0, 0, 0
-    
+
     actual_text = " ".join(
         f"{i.get('category', '')} {i.get('title', '')} {i.get('description', '')} {i.get('remediation', '')}"
         for i in actual_issues
@@ -78,7 +78,7 @@ def _score_case(actual_issues: list[dict], actual_secrets: list[dict], expected_
         if len(tokens) > 1 and all(t in actual_text for t in tokens):
             matched += 1
             continue
-    
+
     if matched > 0:
         score = matched / len(detectable)
     elif actual_issues or actual_secrets:

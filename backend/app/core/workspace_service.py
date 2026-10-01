@@ -17,7 +17,10 @@ class WorkspaceService:
         workspace_id: str | None = None,
     ) -> Workspace:
         async with self._lock:
-            ws = Workspace(id=workspace_id, name=name, description=description)
+            if workspace_id is not None:
+                ws = Workspace(id=workspace_id, name=name, description=description)
+            else:
+                ws = Workspace(name=name, description=description)
             self._workspaces[ws.id] = ws
             return ws
 

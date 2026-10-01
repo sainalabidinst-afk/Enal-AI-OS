@@ -23,7 +23,6 @@ from pathlib import Path
 from typing import Any
 
 from apps.trading_analyst.engine import TradingEngine
-from apps.trading_analyst.market_intelligence.models import OHLCV
 
 logger = logging.getLogger(__name__)
 

@@ -12,11 +12,11 @@ Measures:
 
 from __future__ import annotations
 
-import time
 import json
 import os
+import time
 from dataclasses import dataclass, field
-from typing import List, Dict, Any
+from typing import Any
 
 
 @dataclass
@@ -24,12 +24,12 @@ class BenchmarkResult:
     dimension: str
     score: float
     latency_ms: float
-    details: Dict[str, Any] = field(default_factory=dict)
+    details: dict[str, Any] = field(default_factory=dict)
 
 
 class FullStackEngineerBenchmark:
     def __init__(self):
-        self.results: List[BenchmarkResult] = []
+        self.results: list[BenchmarkResult] = []
         self.golden_tests_dir = "golden_tests/full_stack_engineer"
 
     def run_accuracy(self) -> BenchmarkResult:
@@ -68,13 +68,13 @@ class FullStackEngineerBenchmark:
         latency = (time.perf_counter() - start) * 1000
         return BenchmarkResult(dimension="consistency", score=score, latency_ms=latency)
 
-    def run_golden_tests(self) -> Dict[str, Any]:
+    def run_golden_tests(self) -> dict[str, Any]:
         if not os.path.isdir(self.golden_tests_dir):
             return {"status": "skipped", "reason": "no golden tests"}
         files = [f for f in os.listdir(self.golden_tests_dir) if f.endswith(".json")]
         return {"status": "ok", "count": len(files)}
 
-    def run_all(self) -> Dict[str, Any]:
+    def run_all(self) -> dict[str, Any]:
         self.results = [
             self.run_accuracy(),
             self.run_completeness(),

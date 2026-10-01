@@ -14,8 +14,9 @@ Categories:
 
 import asyncio
 from typing import Any
-from backend.app.core.evaluation import Benchmark, evaluation_framework
+
 from backend.app.core.adaptive_runtime import adaptive_runtime
+from backend.app.core.evaluation import Benchmark, evaluation_framework
 
 # Category 1: Simple Tasks (50 tests)
 SIMPLE_TASKS = [

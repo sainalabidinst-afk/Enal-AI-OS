@@ -11,8 +11,6 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from apps.devops_assistant.schemas import Problem, ProblemType
-
 logger = logging.getLogger(__name__)
 
 SCENARIOS: list[dict[str, Any]] = [

@@ -9,33 +9,30 @@ dependency auditor, and the full engine pipeline.
 """
 from __future__ import annotations
 
-import json
 import pytest
 
+from apps.security_engineer.compliance_mapper import ComplianceMapper
+from apps.security_engineer.dependency_auditor import DependencyAuditor
+from apps.security_engineer.engine import SecurityEngineerEngine
+from apps.security_engineer.hardening_reviewer import HardeningReviewer
+from apps.security_engineer.owasp_analyzer import OWASPAnalyzer
 from apps.security_engineer.schemas import (
     AssessmentType,
+    ComplianceReport,
     Finding,
     SecretFinding,
     SecretType,
-    Severity,
-    SecurityAssessmentRequest,
     SecurityAssessmentReport,
+    SecurityAssessmentRequest,
     SecuritySummary,
+    Severity,
     ThreatCategory,
     ThreatModelEntry,
     ThreatModelResult,
-    ComplianceReport,
-    ComplianceStandard,
 )
-from apps.security_engineer.engine import SecurityEngineerEngine
-from apps.security_engineer.owasp_analyzer import OWASPAnalyzer
 from apps.security_engineer.secret_detector import SecretDetector
-from apps.security_engineer.vulnerability_scanner import VulnerabilityScanner
 from apps.security_engineer.threat_modeler import ThreatModeler
-from apps.security_engineer.hardening_reviewer import HardeningReviewer
-from apps.security_engineer.compliance_mapper import ComplianceMapper
-from apps.security_engineer.dependency_auditor import DependencyAuditor
-
+from apps.security_engineer.vulnerability_scanner import VulnerabilityScanner
 
 # ---------------------------------------------------------------------------
 # Fixtures

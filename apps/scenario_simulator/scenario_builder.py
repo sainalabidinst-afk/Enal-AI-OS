@@ -12,14 +12,11 @@ import logging
 import re
 from typing import Any
 
-from backend.app.core.config import settings
-from backend.app.core.model_router import model_router
 from apps.scenario_simulator.schemas import (
     ChangeType,
     DistributionType,
     ScenarioRequest,
     VariableChange,
-    VariableType,
 )
 
 logger = logging.getLogger(__name__)
@@ -75,6 +72,7 @@ class ScenarioBuilder:
             variable_changes=changes,
             iterations=iterations,
             seed=seed,
+            context={"assumptions": assumptions},
         )
 
     def parse_with_llm(
@@ -226,6 +224,9 @@ class ScenarioBuilder:
             '  "assumptions": ["assumption1", "assumption2"]\n'
             "}"
         )
+        from backend.app.core.config import settings
+        from backend.app.core.model_router import model_router
+
         response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
             model=settings.DEFAULT_REASONING_MODEL,

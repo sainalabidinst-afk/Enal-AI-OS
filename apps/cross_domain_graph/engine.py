@@ -23,9 +23,9 @@ from apps.cross_domain_graph.entity_resolver import EntityResolver
 from apps.cross_domain_graph.graph_builder import GraphBuilder
 from apps.cross_domain_graph.memory_scanner import MemoryScanner
 from apps.cross_domain_graph.schemas import (
+    GraphQueryRequest,
     GraphQueryResult,
     InferenceResult,
-    GraphQueryRequest,
 )
 
 logger = logging.getLogger(__name__)
@@ -281,8 +281,8 @@ class CrossDomainGraphEngine:
         fallback: InferenceResult,
     ) -> InferenceResult:
         """Enhance inference using LLM for natural language synthesis."""
-        from backend.app.core.model_router import model_router
         from backend.app.core.config import settings
+        from backend.app.core.model_router import model_router
 
         node_descs = [
             f"{n.name} (domain: {n.domain}, layer: {n.layer}): {n.description}"

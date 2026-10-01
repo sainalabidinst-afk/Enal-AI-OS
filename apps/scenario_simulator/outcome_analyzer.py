@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import logging
 import statistics
-from collections import Counter
 from typing import Any
 
 from apps.scenario_simulator.monte_carlo_runner import IterationResult

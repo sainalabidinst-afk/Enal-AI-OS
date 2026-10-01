@@ -12,7 +12,6 @@ from typing import Any
 
 from apps.network_engineer import get_app
 
-
 GOLDEN_DIR = Path(__file__).resolve().parents[2] / "golden" / "mikrotik"
 
 

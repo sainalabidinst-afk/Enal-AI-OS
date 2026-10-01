@@ -7,8 +7,9 @@ This benchmark measures the quality of agent responses across different task typ
 
 import asyncio
 from typing import Any
-from backend.app.core.evaluation import Benchmark, evaluation_framework
+
 from backend.app.core.adaptive_runtime import adaptive_runtime
+from backend.app.core.evaluation import Benchmark, evaluation_framework
 
 
 async def run_agent_task(case: dict[str, Any]) -> str:

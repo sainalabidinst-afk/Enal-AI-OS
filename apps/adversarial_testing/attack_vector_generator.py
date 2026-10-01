@@ -9,11 +9,10 @@ represents a worst-case assumption or external shock.
 from __future__ import annotations
 
 import logging
+import os
 import uuid
 from typing import Any
 
-from backend.app.core.config import settings
-from backend.app.core.model_router import model_router
 from apps.adversarial_testing.schemas import (
     AttackCategory,
     AttackVector,
@@ -159,8 +158,8 @@ class AttackVectorGenerator:
         self,
         subject: str,
         subject_type: str,
-        categories: list[str],
-        budget: int,
+        categories: list[str] | None = None,
+        budget: int = 10,
         context: str | None = None,
         constraints: list[str] | None = None,
         existing_hardening: list[str] | None = None,
@@ -171,9 +170,8 @@ class AttackVectorGenerator:
         Args:
             subject: The plan/strategy/recommendation to attack.
             subject_type: Type of subject (plan, recommendation, etc.).
-            categories: Attack categories to generate.
+            categories: Attack categories to generate (default: all).
             budget: Number of attacks to generate.
-            context: Additional context.
             constraints: Hard constraints attacks must not violate.
             existing_hardening: Already-applied mitigations (to avoid reusing).
 
@@ -181,6 +179,8 @@ class AttackVectorGenerator:
             List of AttackVector objects.
         """
         existing_hardening = existing_hardening or []
+        if categories is None:
+            categories = [c.value for c in self._templates.keys()]
 
         # Try LLM generation first for contextual attacks
         llm_vectors = self._generate_with_llm(
@@ -214,6 +214,9 @@ class AttackVectorGenerator:
         existing_hardening: list[str],
     ) -> list[AttackVector]:
         """Generate attack vectors using LLM for creative, contextual attacks."""
+        from backend.app.core.config import settings
+        from backend.app.core.model_router import model_router
+
         categories_str = ", ".join(categories) if categories else "all categories"
 
         hardening_note = ""
@@ -239,6 +242,11 @@ class AttackVectorGenerator:
         )
 
         try:
+            if os.environ.get("TESTING", "").lower() in ("true", "1", "yes"):
+                raise RuntimeError("Skipping LLM calls in test mode")
+            from backend.app.core.config import settings
+            from backend.app.core.model_router import model_router
+
             response = model_router.complete(
                 [{"role": "user", "content": prompt}],
                 model=settings.DEFAULT_REASONING_MODEL,
@@ -273,7 +281,7 @@ class AttackVectorGenerator:
         except Exception as e:
             logger.warning(f"LLM attack generation failed, falling back to templates: {e}")
             return self._generate_from_templates(
-                subject, list(self._templates.keys()), budget, existing_hardening
+                subject, categories, budget, existing_hardening
             )
 
     def _generate_from_templates(

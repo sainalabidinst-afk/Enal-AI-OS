@@ -12,12 +12,12 @@ import logging
 import re
 from typing import Any
 
+from apps.cross_domain_graph.entity_resolver import EntityResolver
 from apps.cross_domain_graph.schemas import (
     GraphEdge,
     GraphNode,
     RelationType,
 )
-from apps.cross_domain_graph.entity_resolver import EntityResolver
 
 logger = logging.getLogger(__name__)
 

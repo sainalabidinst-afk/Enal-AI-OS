@@ -51,8 +51,7 @@ class TestUnifiedOrchestratorExecution:
         assert isinstance(teams, list)
 
     def test_orchestration_modes(self):
-        from backend.app.core.unified_orchestrator import OrchestrationMode, UnifiedOrchestrator
-        orch = UnifiedOrchestrator()
+        from backend.app.core.unified_orchestrator import OrchestrationMode
         assert OrchestrationMode.DIRECT.value == "direct"
         assert OrchestrationMode.MULTI_AGENT.value == "multi_agent"
         assert OrchestrationMode.WORKFLOW.value == "workflow"

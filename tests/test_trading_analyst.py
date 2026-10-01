@@ -13,14 +13,13 @@ import pytest
 
 from apps.trading_analyst.engine import TradingEngine
 from apps.trading_analyst.market_intelligence.models import (
+    OHLCV,
     AnalysisResult,
     Bias,
     MarketEvidence,
-    OHLCV,
     RiskLevel,
     TradingContext,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

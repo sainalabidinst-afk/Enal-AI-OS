@@ -7,8 +7,8 @@ Tests Code Engineer with various Python code samples.
 
 from apps.code_engineer import get_app
 from apps.code_engineer.analyzer import code_analyzer
-from apps.code_engineer.parser import code_parser
 from apps.code_engineer.architecture_patterns import architecture_pattern_analyzer
+from apps.code_engineer.parser import code_parser
 from apps.code_engineer.secure_coding import secure_coding_analyzer
 
 SIMPLE_CODE = '''

@@ -9,6 +9,8 @@
 **SSOT:** Dokumentasi untuk PHASE_SUMMARY
 <!-- DOCUMENT_METADATA_END -->
 
+> ⚠️ **Historical Disclaimer (2026-09-21):** Dokumen ini mencerminkan status pada 27-07-2026. Klaim skor dan status di bawah adalah historis dan **tidak mencerminkan kondisi aktual per 2026-09-21**. Perbaikan koreksi: (1) hanya 4 ADR ada (ADR-001 hingga ADR-004), bukan 14; (2) Release Classification saat ini adalah **D — NOT READY** per `COMPREHENSIVE_AUDIT_2026-09-21.md`. Lihat `VERSION_MATRIX.md` untuk status kondisi aktual.
+
 ## Apa yang Sudah Selesai
 
 ### Platform Inti (Selesai)
@@ -48,7 +50,7 @@
 ### UX & Tata Kelola
 - Spesifikasi UX Design: satu percakapan, tanpa eksposur internal
 - Perjalanan Pengguna: 7 aliran kanonik
-- Keputusan Arsitektur: ADR-001 sampai ADR-014
+ - Keputusan Arsitektur: ADR-001 hingga ADR-004 (bukan 14 — hanya 4 ADR yang ada)
 - Aturan Penerimaan Fitur: Kemampuan + Perjalanan + Benchmark
 - Kapabilitas Benchmark: 6 dimensi termasuk Konsistensi
 - Benchmark di dunia nyata: `real_cases/<capability_id>/`
