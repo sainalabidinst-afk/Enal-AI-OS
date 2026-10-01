@@ -14,6 +14,8 @@
 **Branch:** main
 **Konteks:** Capability Excellence — 13 Pack Bersertifikat
 
+> ⚠️ **Historical Note (2026-09-21):** Catatan rilis ini mencerminkan status pada 2026-08-04. Setelah Fase 1 Capability Remediation (2026-09-21), jumlah Capability Pack bertambah dari 13 ke 19. Status rilis saat ini: **D — NOT READY** (lihat `docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`). Skor benchmark yang disimpan tidak lagi terverifikasi; Benchmark runtime BLOCKED.
+
 ---
 
 ## Ringkasan

@@ -8,15 +8,14 @@ represents a worst-case assumption or external shock.
 
 from __future__ import annotations
 
-import json
 import logging
+import uuid
 from typing import Any
 
 from backend.app.core.config import settings
 from backend.app.core.model_router import model_router
 from apps.adversarial_testing.schemas import (
     AttackCategory,
-    AttackRequest,
     AttackVector,
     Severity,
 )
@@ -24,7 +23,6 @@ from apps.adversarial_testing.schemas import (
 logger = logging.getLogger(__name__)
 
 
-# Predefined attack templates per category
 _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
     AttackCategory.EXTERNAL_SHOCK: [
         {
@@ -140,6 +138,10 @@ _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
 }
 
 
+# Severity ranking for sorting
+_SEVERITY_RANK = {Severity.LOW: 0, Severity.MEDIUM: 1, Severity.HIGH: 2, Severity.CRITICAL: 3}
+
+
 class AttackVectorGenerator:
     """
     Generates adversarial attack scenarios for a given subject.
@@ -147,7 +149,7 @@ class AttackVectorGenerator:
     Usage::
 
         generator = AttackVectorGenerator()
-        vectors = generator.generate(subject, categories)
+        vectors = generator.generate(request)
     """
 
     def __init__(self) -> None:
@@ -155,52 +157,47 @@ class AttackVectorGenerator:
 
     def generate(
         self,
-        request: Any,
+        subject: str,
+        subject_type: str,
+        categories: list[str],
+        budget: int,
+        context: str | None = None,
+        constraints: list[str] | None = None,
+        existing_hardening: list[str] | None = None,
     ) -> list[AttackVector]:
         """
-        Generate attack vectors for the given request.
+        Generate attack vectors for the given subject.
 
         Args:
-            request: An AdversarialTestRequest or a dict-like object with
-                     subject, subject_type, attack_categories, attack_budget.
+            subject: The plan/strategy/recommendation to attack.
+            subject_type: Type of subject (plan, recommendation, etc.).
+            categories: Attack categories to generate.
+            budget: Number of attacks to generate.
+            context: Additional context.
+            constraints: Hard constraints attacks must not violate.
+            existing_hardening: Already-applied mitigations (to avoid reusing).
 
         Returns:
             List of AttackVector objects.
         """
-        import uuid as _uuid
+        existing_hardening = existing_hardening or []
 
-        # Extract fields from request (works for both pydantic and dict)
-        if hasattr(request, "subject"):
-            subject = request.subject
-            subject_type = getattr(request, "subject_type", None)
-            categories = getattr(request, "attack_categories", list(self._templates.keys()))
-            budget = getattr(request, "attack_budget", 10)
-            existing_hardening = getattr(request, "existing_hardening", [])
-            context = getattr(request, "context", None)
-            constraints = getattr(request, "constraints", [])
-        else:
-            subject = request.get("subject", "")
-            subject_type = request.get("subject_type", "plan")
-            categories = request.get("attack_categories", list(self._templates.keys()))
-            budget = request.get("attack_budget", 10)
-            existing_hardening = request.get("existing_hardening", [])
-            context = request.get("context")
-            constraints = request.get("constraints", [])
+        # Try LLM generation first for contextual attacks
+        llm_vectors = self._generate_with_llm(
+            subject, subject_type, categories, budget, context, constraints or [], existing_hardening
+        )
 
-        vectors: list[AttackVector] = []
-
-        # First, use LLM to generate contextually relevant attacks
-        llm_vectors = self._generate_with_llm(subject, subject_type, categories, budget, context, constraints, existing_hardening)
-        vectors.extend(llm_vectors)
-
-        # Supplement with template-based attacks if LLM produced fewer than budget
-        if len(vectors) < budget:
+        # Supplement with template-based attacks
+        if len(llm_vectors) < budget:
             template_vectors = self._generate_from_templates(
-                subject, categories, budget - len(vectors), existing_hardening
+                subject, categories, budget - len(llm_vectors), existing_hardening
             )
-            vectors.extend(template_vectors)
+            llm_vectors.extend(template_vectors)
 
-        return vectors[:budget]
+        # Sort by severity (highest first) for prioritized testing
+        llm_vectors.sort(key=lambda v: _SEVERITY_RANK.get(v.severity, 0), reverse=True)
+
+        return llm_vectors[:budget]
 
     # ------------------------------------------------------------------
     # Internal
@@ -217,9 +214,7 @@ class AttackVectorGenerator:
         existing_hardening: list[str],
     ) -> list[AttackVector]:
         """Generate attack vectors using LLM for creative, contextual attacks."""
-        import uuid as _uuid
-
-        attack_categories_str = ", ".join(categories) if categories else "all categories"
+        categories_str = ", ".join(categories) if categories else "all categories"
 
         hardening_note = ""
         if existing_hardening:
@@ -233,7 +228,7 @@ class AttackVectorGenerator:
             f"You are a Devil's Advocate agent. Your job is to find weaknesses in plans and strategies.\n\n"
             f"Subject ({subject_type}): {subject}\n\n"
             f"Context: {context or 'No additional context'}\n\n"
-            f"Generate {budget} diverse adversarial attack scenarios across categories: {attack_categories_str}.{hardening_note}{constraints_note}\n\n"
+            f"Generate {budget} diverse adversarial attack scenarios across categories: {categories_str}.{hardening_note}{constraints_note}\n\n"
             "For each attack, provide:\n"
             "- category (from the list above)\n"
             "- description (specific, creative attack scenario)\n"
@@ -244,38 +239,16 @@ class AttackVectorGenerator:
         )
 
         try:
-            response = model_router.acomplete  # sync version may not exist, use async
-        except AttributeError:
-            pass
-
-        # Use async acomplete
-        import asyncio
-
-        async def _llm_call():
-            return await model_router.acomplete(
-                [{"role": "user", "content": prompt}],
-                model=settings.DEFAULT_REASONING_MODEL,
-                temperature=0.8,  # High creativity for adversarial scenarios
-                max_tokens=2048,
-            )
-
-        try:
-            # Try running in existing event loop
-            loop = asyncio.get_running_loop()
-            response = None  # Can't call async from sync
-            raise RuntimeError("No sync API available")
-        except RuntimeError:
-            # Fallback to sync completion
             response = model_router.complete(
                 [{"role": "user", "content": prompt}],
                 model=settings.DEFAULT_REASONING_MODEL,
                 temperature=0.8,
                 max_tokens=2048,
             )
-
-        try:
+            import json
             data = json.loads(response.choices[0].message.content)
-            vectors = []
+
+            vectors: list[AttackVector] = []
             for item in data:
                 cat_str = item.get("category", "external_shock")
                 try:
@@ -289,7 +262,7 @@ class AttackVectorGenerator:
                     severity = Severity.MEDIUM
 
                 vectors.append(AttackVector(
-                    id=f"atk-{_uuid.uuid4().hex[:8]}",
+                    id=f"atk-{uuid.uuid4().hex[:8]}",
                     category=category,
                     description=item.get("description", ""),
                     severity=severity,
@@ -297,9 +270,11 @@ class AttackVectorGenerator:
                     worst_case_impact=item.get("worst_case_impact", ""),
                 ))
             return vectors
-        except (json.JSONDecodeError, AttributeError, IndexError) as e:
-            logger.warning(f"LLM attack generation failed, using templates: {e}")
-            return self._generate_from_templates(subject, list(self._templates.keys()), budget, existing_hardening)
+        except Exception as e:
+            logger.warning(f"LLM attack generation failed, falling back to templates: {e}")
+            return self._generate_from_templates(
+                subject, list(self._templates.keys()), budget, existing_hardening
+            )
 
     def _generate_from_templates(
         self,
@@ -309,9 +284,8 @@ class AttackVectorGenerator:
         existing_hardening: list[str],
     ) -> list[AttackVector]:
         """Generate attack vectors from predefined templates."""
-        import uuid as _uuid
+        import random as _random
 
-        # Flatten templates, filtering by categories and excluding already-hardened
         available: list[tuple[AttackCategory, dict[str, Any]]] = []
         for cat in categories:
             try:
@@ -326,11 +300,10 @@ class AttackVectorGenerator:
         if not available:
             return []
 
-        # Distribute requested count across available templates
-        selected = available[:count]
         if len(available) > count:
-            import random as _random
             selected = _random.sample(available, count)
+        else:
+            selected = available
 
         vectors: list[AttackVector] = []
         for cat_enum, template in selected:
@@ -340,12 +313,12 @@ class AttackVectorGenerator:
                 severity = Severity.MEDIUM
 
             vectors.append(AttackVector(
-                id=f"atk-{_uuid.uuid4().hex[:8]}",
+                id=f"atk-{uuid.uuid4().hex[:8]}",
                 category=cat_enum,
                 description=f"{template['template']} (applied to: {subject[:80]})",
                 severity=severity,
                 assumptions=template.get("assumptions", []),
-                worst_case_impact=f"Subject may fail to achieve its objectives due to {template['template'].lower()}",
+                worst_case_impact=f"Subject may fail due to {template['template'].lower().split(':')[0]}",
             ))
 
         return vectors

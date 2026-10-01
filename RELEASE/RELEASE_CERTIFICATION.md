@@ -107,6 +107,10 @@
 2. **Penandatanganan gambar** tidak dilakukan; memerlukan setup GPG/Cosign
 3. **Ekspor SBOM** dalam format CycloneDX/SPDX tertunda tooling
 4. **Drill rollback** tidak dieksekusi; prosedur didokumentasikan tetapi belum diuji di staging
+
+---
+
+> ⚠️ **Historical Disclaimer (2026-09-21):** Dokumen ini merupakan laporan sertifikasi untuk rilis `v1.0.0-rc1` (2026-08-02). Klaim di atas (426 test passed, MyPy=0, Ruff PASS, import backend berhasil) **tidak lagi akurat** per `COMPREHENSIVE_AUDIT_2026-09-21.md`. Status saat ini: **D — NOT READY** (941 tests/939 passed, 81 MyPy errors, 3,417 Ruff errors, Benchmark BLOCKED). Dokumen ini disimpan sebagai catatan historis saja.
 5. **Pengujian beban** tidak dilakukan; disarankan sebelum lalu lintas produksi
 
 ---

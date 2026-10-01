@@ -7,7 +7,7 @@
 **SSOT:** Version history and Capability Pack version matrix
 <!-- DOCUMENT_METADATA_END -->
 
-> **Catatan:** Dokumen ini disinkronkan dengan `docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`, `docs/audit/REMEDIATION_PLAN_2026-09-21.md`, `docs/audit/PHASE_1_CAPABILITY_REMEDIATION.md`, `AUDIT_COMPREHENSIVE_FINAL.md`, `AUDIT_REMEDIATION_EXECUTION.md`, `VERSION`, `CHANGELOG.md`, dan `TODO.md`. Klaim yang tidak didukung bukti runtime telah dikoreksi.
+> **Catatan:** Dokumen ini disinkronkan dengan `docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`, `docs/audit/REMEDIATION_PLAN_2026-09-21.md`, `docs/audit/PHASE_1_CAPABILITY_REMEDIATION.md`, `VERSION`, `CHANGELOG.md`, dan `TODO.md`. Klaim serta dokumen audit lama yang mengandung klaim tidak akurat (termasuk AUDIT_COMPREHENSIVE_FINAL.md, AUDIT_REMEDIATION_EXECUTION.md, MASTER_IMPROVEMENT_PLAN.md, dan AUDIT_COMPREHENSIVE_2026.md) telah dihapus. Klaim yang tidak didukung bukti runtime telah dikoreksi.
 
 > **Release Classification: D — NOT READY** (per COMPREHENSIVE_AUDIT_2026-09-21). Benchmark BLOCKED; Ruff & Mypy quality gates failing; Docker runtime unavailable. Stored benchmark scores (96.99%, 98.11%, 93.06%) remain STALE/UNVERIFIED.
 
@@ -48,7 +48,7 @@
 
 | Layer | Score |
 |-------|-------|
-| Architecture | 100/100 (APPROVED 94/100 per AUDIT_COMPREHENSIVE_FINAL.md) |
+| Architecture | 100/100 (APPROVED 94/100 per COMPREHENSIVE_AUDIT_2026-09-21) |
 | Capability Packs | 19/19 registered, **19/19 loadable** (Phase 1 remediation complete) |
 | Golden Tests | 510 scenarios across 19 packs (154 JSON definitions verified) |
 | Real Cases | 1,350+ across Fase 1 (13 packs); expanded to 19 packs |

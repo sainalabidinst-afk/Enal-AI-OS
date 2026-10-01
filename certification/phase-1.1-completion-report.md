@@ -4,7 +4,7 @@
 
 Phase 1.1 Capability Audit has been completed for all 19 Capability Packs in ENAL AI OS. This report summarizes the findings, corrective actions taken, and current status.
 
-> **Koreksi (2026-09-21):** Dokumen asli mencantumkan 22 paket — termasuk `integration`, `organization`, dan `society` yang sebenarnya adalah paket infrastruktur, bukan Capability Pack pengguna. Canonical registry (`apps/__init__.py`) mencatat 19 Capability Pack. Lihat `docs/audit/CAPABILITY_REGISTRY_TRUTH.md` (archive) dan `docs/audit/TOTAL_AUDIT_FINAL_2026-08-08.md`.
+> **Koreksi (2026-09-21):** Dokumen asli mencantumkan 22 paket — termasuk `integration`, `organization`, dan `society` yang sebenarnya adalah paket infrastruktur, bukan Capability Pack pengguna. Canonical registry (`apps/__init__.py`) mencatat 19 Capability Pack. Lihat `docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md` dan `docs/audit/PHASE_1_CAPABILITY_REMEDIATION.md`.
 
 ## Initial State
 
