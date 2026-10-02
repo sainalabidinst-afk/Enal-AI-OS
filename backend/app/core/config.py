@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     PROJECT_NAME: str = "Enal AI OS"
-    VERSION: str = "1.0.0-dev"
+    VERSION: str = "3.0.0"
     API_V1_STR: str = "/api/v1"
 
     DATABASE_URL: str = ""
@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     GOOGLE_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    LM_STUDIO_BASE_URL: str = "http://localhost:1234/v1"
+    LM_STUDIO_BASE_URL: str = "http://host.docker.internal:1234/v1"
     LM_STUDIO_API_KEY: str = "lm-studio"
 
     STT_PROVIDER: str = "whisper"
@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     TEMPERATURE: float = 0.7
 
     SECRET_KEY: str = ""
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 480
     TESTING: bool = False
 
     LANGCHAIN_TRACING_V2: bool = False
@@ -61,6 +61,13 @@ class Settings(BaseSettings):
     LANGFUSE_SECRET_KEY: str = ""
     LANGFUSE_PUBLIC_KEY: str = ""
     LANGFUSE_HOST: str = "http://localhost:3000"
+
+    LITELLM_MASTER_KEY: str = ""
+    DEBUG: bool = False
+    ENABLE_BENCHMARK_RUNTIME: bool = True
+    LOG_LEVEL: str = "INFO"
+    LOG_FORMAT: str = "json"
+    LOGGING_PROVIDER: str = "console"
 
     @model_validator(mode="after")
     def validate_secret_key(self):
