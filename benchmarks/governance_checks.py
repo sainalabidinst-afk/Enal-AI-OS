@@ -78,6 +78,7 @@ CAPABILITY_PACKS = [
     "devsecops",
     "translator_expert",
     "document_processing",
+    "voice_interaction",
 ]
 
 # ADR file pattern

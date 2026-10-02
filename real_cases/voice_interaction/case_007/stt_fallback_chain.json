@@ -1,0 +1,31 @@
+{
+  "id": "case_007",
+  "name": "STT Provider Fallback Chain",
+  "category": "provider_resilience",
+  "description": "Tests STT provider fallback: whisper fails -> openai -> web_speech fallback. Verifies chain resilience.",
+  "input": {
+    "operation": "transcribe",
+    "audio_data": "base64-wav-id-fallback",
+    "source_language": "id",
+    "stt_provider": "whisper",
+    "force_fallback": true,
+    "fallback_chain": ["whisper", "openai", "web_speech"],
+    "sample_rate": 16000
+  },
+  "output": {
+    "transcription": "Apa kabar, apa berita terbaru?",
+    "confidence": 0.88,
+    "detected_language": "id",
+    "providers_tried": 3,
+    "successful_provider": "web_speech",
+    "processing_time_ms": 1920
+  },
+  "evaluation": {
+    "fallback_chain_worked": true,
+    "all_providers_reachable": true,
+    "score": 0.90,
+    "passed": true,
+    "threshold": 0.80,
+    "notes": "Fallback chain worked correctly, web_speech provided valid transcription"
+  }
+}

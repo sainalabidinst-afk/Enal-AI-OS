@@ -1,0 +1,29 @@
+{
+  "id": "case_001",
+  "name": "English Voice Command",
+  "category": "stt_accuracy",
+  "description": "Real-world English voice command for task automation system. Tests transcription accuracy with technical vocabulary.",
+  "input": {
+    "operation": "transcribe",
+    "audio_source": "real_user_sample_en_001.wav",
+    "source_language": "en",
+    "stt_provider": "whisper",
+    "sample_rate": 16000,
+    "duration_ms": 2450,
+    "user_command": "Schedule a meeting with the product team for next Tuesday at 2pm"
+  },
+  "output": {
+    "transcription": "Schedule a meeting with the product team for next Tuesday at 2pm",
+    "confidence": 0.92,
+    "detected_language": "en",
+    "processing_time_ms": 320
+  },
+  "evaluation": {
+    "wer": 0.00,
+    "accuracy": 1.00,
+    "score": 0.92,
+    "passed": true,
+    "threshold": 0.85,
+    "notes": "Perfect transcription of technical scheduling command"
+  }
+}

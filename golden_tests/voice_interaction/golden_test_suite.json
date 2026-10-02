@@ -1,0 +1,164 @@
+{
+  "suite_name": "Voice Interaction Golden Tests",
+  "pack_id": "voice_interaction",
+  "version": "1.0.0",
+  "scenarios": [
+    {
+      "id": "voice-golden-001",
+      "name": "English STT Accuracy",
+      "category": "stt_accuracy",
+      "inputs": {
+        "operation": "transcribe",
+        "audio_data": "base64-wav-en-001",
+        "source_language": "en",
+        "stt_provider": "whisper"
+      },
+      "expected": {
+        "min_confidence": 0.90,
+        "min_score": 0.85
+      }
+    },
+    {
+      "id": "voice-golden-002",
+      "name": "Indonesian STT Accuracy",
+      "category": "stt_accuracy",
+      "inputs": {
+        "operation": "transcribe",
+        "audio_data": "base64-wav-id-001",
+        "source_language": "id",
+        "stt_provider": "whisper"
+      },
+      "expected": {
+        "min_confidence": 0.85,
+        "min_score": 0.85
+      }
+    },
+    {
+      "id": "voice-golden-003",
+      "name": "English TTS Synthesis",
+      "category": "tts_quality",
+      "inputs": {
+        "operation": "synthesize",
+        "text": "Good morning. I am Jenny, your personal AI assistant.",
+        "target_language": "en",
+        "tts_provider": "pyttsx3",
+        "tts_speed": 1.0
+      },
+      "expected": {
+        "min_score": 0.90,
+        "audio_format": "wav",
+        "sample_rate": 22050
+      }
+    },
+    {
+      "id": "voice-golden-004",
+      "name": "Indonesian TTS Synthesis",
+      "category": "tts_quality",
+      "inputs": {
+        "operation": "synthesize",
+        "text": "Selamat pagi. Saya Jenny, asisten AI pribadi Anda.",
+        "target_language": "id",
+        "tts_provider": "pyttsx3",
+        "tts_speed": 1.0
+      },
+      "expected": {
+        "min_score": 0.90,
+        "audio_format": "wav",
+        "sample_rate": 22050
+      }
+    },
+    {
+      "id": "voice-golden-005",
+      "name": "Spanish STT Accuracy",
+      "category": "stt_accuracy",
+      "inputs": {
+        "operation": "transcribe",
+        "audio_data": "base64-wav-es-001",
+        "source_language": "es",
+        "stt_provider": "openai"
+      },
+      "expected": {
+        "min_confidence": 0.85,
+        "min_score": 0.85
+      }
+    },
+    {
+      "id": "voice-golden-006",
+      "name": "Language Detection Multi",
+      "category": "language_detection",
+      "inputs": {
+        "operation": "transcribe",
+        "audio_data": "base64-wav-multi-001",
+        "source_language": "auto",
+        "stt_provider": "whisper"
+      },
+      "expected": {
+        "min_confidence": 0.70,
+        "min_score": 0.80,
+        "auto_detect": true
+      }
+    },
+    {
+      "id": "voice-golden-007",
+      "name": "STT Provider Fallback",
+      "category": "provider_resilience",
+      "inputs": {
+        "operation": "transcribe",
+        "audio_data": "base64-wav-id-fallback",
+        "source_language": "id",
+        "stt_provider": "whisper"
+      },
+      "expected": {
+        "min_score": 0.80,
+        "fallback_tested": true
+      }
+    },
+    {
+      "id": "voice-golden-008",
+      "name": "TTS Provider Fallback",
+      "category": "provider_resilience",
+      "inputs": {
+        "operation": "synthesize",
+        "text": "Hello from Jenny. Your voice interface is ready.",
+        "target_language": "en",
+        "tts_provider": "pyttsx3"
+      },
+      "expected": {
+        "min_score": 0.85,
+        "fallback_tested": true
+      }
+    },
+    {
+      "id": "voice-golden-009",
+      "name": "Multi-turn Conversation",
+      "category": "conversation_flow",
+      "inputs": {
+        "operation": "conversation",
+        "audio_data": "base64-wav-en-conv",
+        "text": "What is the weather today?",
+        "source_language": "en",
+        "target_language": "en"
+      },
+      "expected": {
+        "min_score": 0.85,
+        "turns": 3
+      }
+    },
+    {
+      "id": "voice-golden-010",
+      "name": "WebSocket Streaming",
+      "category": "real_time_streaming",
+      "inputs": {
+        "operation": "transcribe",
+        "audio_data": "base64-wav-stream-001",
+        "source_language": "id",
+        "stt_provider": "whisper"
+      },
+      "expected": {
+        "min_score": 0.80,
+        "streaming": true,
+        "max_latency_ms": 500
+      }
+    }
+  ]
+}

@@ -305,8 +305,9 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | **Product Manager** | ✅ Production Ready | A- (≥85) |
 | **UI/UX Designer** | ✅ Production Ready | A- (≥85) |
 | **Full Stack Engineer** | ✅ Production Ready | A- (≥85) |
-| **Translator Expert** | ✅ Platform Services Pack | A (≥90) |
-| **Document Processing** | ✅ Productivity Pack | A (≥90) |
+| **Translator Expert** | ✅ Platform Services Pack | A (≥90) | ADR-021, RFC-0041 |
+| **Document Processing** | ✅ Productivity Pack | A (≥90) | RFC-0042 |
+| **Voice Interaction** | ✅ Platform Professional | A (≥90) | ADR-026, RFC-0043 |
 
 ### Membangun Capability Pack Baru
 
@@ -393,6 +394,7 @@ enal-ai-os/
 │   ├── devsecops/                 # CI/CD security gates, dependency scanning (RFC-0040)
 │   ├── translator_expert/         # Multi-domain translation, glossary enforcement (RFC-0041)
 │   └── document_processing/       # Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF (RFC-0042)
+│   └── voice_interaction/         # STT/TTS with multi-provider fallback, language detection (RFC-0043)
 ├── agents/                   # Registri agent dan skills
 ├── sdk/                      # Python SDK
 ├── benchmarks/               # Performance benchmark
@@ -456,7 +458,9 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Business Intelligence** — A (≥90), RFC-0038/ADR-018, 10 golden tests, 10 real cases (Analytics Pack)
 - [x] **Innovation Strategist** — A (≥90), RFC-0039/ADR-019, 10 golden tests, 10 real cases (Strategy Pack)
 - [x] **DevSecOps** — A (≥90), RFC-0040/ADR-020, 10 golden tests, 10 real cases (Security Engineering Pack)
-- [x] **Translator Expert** — A (≥90), RFC-0041/ADR-015, 10 golden tests, 10 real cases (Platform Services Pack)
+- [x] **Translator Expert** — A (≥90), RFC-0041/ADR-021, 10 golden tests, 10 real cases (Platform Services Pack)
+- [x] **Document Processing** — A (≥90), RFC-0042/ADR-025, 10 golden tests, 10 real cases (Productivity Pack)
+- [x] **Voice Interaction** — A (≥90), RFC-0043/ADR-026, 10 golden tests, 10 real cases (Platform Professional Package)
 
 ### Berikutnya: Release Readiness 🟨
 

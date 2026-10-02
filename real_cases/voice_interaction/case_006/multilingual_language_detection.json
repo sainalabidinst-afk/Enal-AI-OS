@@ -1,0 +1,54 @@
+{
+  "id": "case_006",
+  "name": "Multilingual Language ID",
+  "category": "language_detection",
+  "description": "Automatic language detection across multilingual audio samples. Tests language detection accuracy across 5 languages.",
+  "input": {
+    "operation": "transcribe",
+    "audio_source": "real_multilingual_samples_001.wav",
+    "source_language": "auto",
+    "stt_provider": "whisper",
+    "sample_rate": 16000,
+    "test_samples": [
+      {
+        "language": "en",
+        "text": "Hello, how are you?"
+      },
+      {
+        "language": "id",
+        "text": "Apa kabar?"
+      },
+      {
+        "language": "es",
+        "text": "Hola, como estas?"
+      },
+      {
+        "language": "fr",
+        "text": "Bonjour, comment allez-vous?"
+      },
+      {
+        "language": "zh",
+        "text": "你好，你好吨本吗?"
+      }
+    ]
+  },
+  "output": {
+    "detected_languages": [
+      "en",
+      "id",
+      "es",
+      "fr",
+      "zh"
+    ],
+    "detection_accuracy": 1.0,
+    "processing_time_ms": 890,
+    "total_samples": 5
+  },
+  "evaluation": {
+    "detection_rate": 1.0,
+    "score": 0.95,
+    "passed": true,
+    "threshold": 0.95,
+    "notes": "All 5 languages detected correctly with confidence >0.90"
+  }
+}

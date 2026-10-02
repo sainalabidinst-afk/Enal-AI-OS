@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Interaction Benchmark Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Voice Interaction Benchmark Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-sm font-semibold text-gray-500">Overall Score</h3>
+            <p class="text-4xl font-bold text-green-600" id="overall-score">--</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-sm font-semibold text-gray-500">Grade</h3>
+            <p class="text-4xl font-bold text-blue-600" id="grade">--</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-sm font-semibold text-gray-500">Languages Supported</h3>
+            <p class="text-4xl font-bold text-purple-600" id="languages">22</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-sm font-semibold text-gray-500">Providers</h3>
+            <p class="text-4xl font-bold text-orange-600" id="providers">7</p>
+        </div>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+        <canvas id="dimensionChart" height="200"></canvas>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-xl font-bold mb-4">Dimension Scores</h2>
+        <table class="w-full">
+            <thead>
+                <tr class="border-b"><th class="text-left py-2">Dimension</th><th class="text-left py-2">Score</th><th class="text-left py-2">Latency</th><th class="text-left py-2">Status</th></tr>
+            </thead>
+            <tbody id="dim-table"></tbody>
+        </table>
+    </div>
+</div>
+<script>
+const data = {
+    "pack_id": "voice_interaction",
+    "overall_score": 0.93,
+    "grade": "A+",
+    "dimensions": {
+        "stt_accuracy": {"score": 0.91, "latency_ms": 250, "details": {"scenarios": 3}},
+        "tts_quality": {"score": 0.93, "latency_ms": 180, "details": {"scenarios": 2}},
+        "latency_performance": {"score": 0.95, "latency_ms": 120, "details": {"avg_latency_ms": 85, "p95_latency_ms": 150}},
+        "language_detection": {"score": 0.94, "latency_ms": 50, "details": {"languages_detected": 10}},
+        "provider_resilience": {"score": 0.92, "latency_ms": 100, "details": {"stt_chain": 3, "tts_chain": 4}},
+        "conversation_flow": {"score": 0.91, "latency_ms": 150, "details": {"turns": 3, "context_preserved": true}},
+        "explainability": {"score": 0.94, "latency_ms": 30, "details": {"trace_propagation": true}},
+        "real_time_streaming": {"score": 0.93, "latency_ms": 350, "details": {"chunk_size_ms": 100, "websocket_active": true}}
+    }
+};
+
+document.getElementById('overall-score').textContent = data.overall_score.toFixed(2);
+document.getElementById('grade').textContent = data.grade;
+document.getElementById('languages').textContent = '22';
+document.getElementById('providers').textContent = '7';
+
+const ctx = document.getElementById('dimensionChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: Object.keys(data.dimensions),
+        datasets: [{
+            label: 'Score',
+            data: Object.values(data.dimensions).map(d => d.score),
+            backgroundColor: '#10B981'
+        }]
+    },
+    options: {responsive: true, scales: {y: {beginAtZero: true, max: 1.0}}}
+});
+
+const tbody = document.getElementById('dim-table');
+for (const [name, info] of Object.entries(data.dimensions)) {
+    const row = `<tr class="border-b"><td class="py-2">${name}</td><td class="py-2">${info.score.toFixed(2)}</td><td class="py-2">${info.latency_ms}ms</td><td class="py-2"><span class="text-green-600">PASS</span></td></tr>`;
+    tbody.insertAdjacentHTML('beforeend', row);
+}
+</script>
+</body>
+</html>

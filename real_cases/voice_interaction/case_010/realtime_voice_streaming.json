@@ -1,0 +1,36 @@
+{
+  "id": "case_010",
+  "name": "Real-time Voice Streaming",
+  "category": "real_time_streaming",
+  "description": "Real-time voice streaming via WebSocket with chunk-based processing. Tests latency and throughput.",
+  "input": {
+    "operation": "transcribe",
+    "streaming": true,
+    "websocket_endpoint": "ws://localhost:8000/ws/voice",
+    "audio_format": "webm;opus",
+    "sample_rate": 16000,
+    "chunk_size_ms": 100,
+    "source_language": "id",
+    "stt_provider": "whisper",
+    "stt_model": "whisper-tiny",
+    "total_duration_ms": 45000
+  },
+  "output": {
+    "streaming_latency_ms": 350,
+    "chunk_processing_time_avg_ms": 45,
+    "max_chunk_latency_ms": 120,
+    "transcription": "Ini adalah uji coba streaming suara secara real-time.",
+    "confidence": 0.91,
+    "chunks_processed": 450,
+    "websocket_connected": true
+  },
+  "evaluation": {
+    "streaming_success": true,
+    "latency_meets_requirement": true,
+    "max_latency_requirement_ms": 500,
+    "score": 0.94,
+    "passed": true,
+    "threshold": 0.80,
+    "notes": "Streaming latency well within requirements, all chunks processed successfully"
+  }
+}

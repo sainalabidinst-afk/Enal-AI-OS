@@ -99,6 +99,7 @@ APPS = {
     "devsecops": _load_app("devsecops"),
     "translator-expert": _load_app("translator_expert"),
     "document-processing": _load_app("document_processing"),
+    "voice-interaction": _load_app("voice_interaction"),
 }
 
 

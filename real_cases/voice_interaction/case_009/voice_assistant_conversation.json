@@ -1,0 +1,38 @@
+{
+  "id": "case_009",
+  "name": "Voice Assistant Conversation",
+  "category": "conversation_flow",
+  "description": "Multi-turn voice assistant conversation with context preservation across 3 turns.",
+  "input": {
+    "operation": "conversation",
+    "audio_data": "base64-wav-conv-001",
+    "source_language": "en",
+    "target_language": "en",
+    "stt_provider": "whisper",
+    "tts_provider": "pyttsx3",
+    "turns": 3,
+    "conversation_history": [
+      {"speaker": "user", "text": "What is the weather today?", "audio": "turn_001.wav"},
+      {"speaker": "assistant", "text": "The weather is sunny with a high of 75 degrees.", "audio": "turn_001_tts.wav"},
+      {"speaker": "user", "text": "What about tomorrow?", "audio": "turn_002.wav"},
+      {"speaker": "assistant", "text": "Tomorrow will be partly cloudy with scattered showers.", "audio": "turn_002_tts.wav"},
+      {"speaker": "user", "text": "Will it rain in the morning?", "audio": "turn_003.wav"},
+      {"speaker": "assistant", "text": "Yes, expect light rain around 9am.", "audio": "turn_003_tts.wav"}
+    ]
+  },
+  "output": {
+    "transcriptions": 3,
+    "syntheses": 3,
+    "context_preserved": true,
+    "avg_turn_latency_ms": 150,
+    "processing_time_ms": 890
+  },
+  "evaluation": {
+    "context_retention": 1.0,
+    "turn_accuracies": [0.95, 0.93, 0.91],
+    "score": 0.93,
+    "passed": true,
+    "threshold": 0.85,
+    "notes": "Excellent context preservation across 3 turns"
+  }
+}

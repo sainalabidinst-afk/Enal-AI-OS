@@ -1,0 +1,29 @@
+{
+  "id": "case_002",
+  "name": "Indonesian Voice Dictation",
+  "category": "stt_accuracy",
+  "description": "Real Indonesian voice dictation with mixed English loanwords. Tests cross-lingual transcription.",
+  "input": {
+    "operation": "transcribe",
+    "audio_source": "real_user_sample_id_001.wav",
+    "source_language": "id",
+    "stt_provider": "whisper",
+    "sample_rate": 16000,
+    "duration_ms": 3120,
+    "spoken_text": "Saya perlu mengirimkan laporan ke pakai email ke project manager besok pagi"
+  },
+  "output": {
+    "transcription": "Saya perlu mengirimkan laporan ke email ke project manager besok pagi",
+    "confidence": 0.89,
+    "detected_language": "id",
+    "processing_time_ms": 450
+  },
+  "evaluation": {
+    "wer": 0.05,
+    "accuracy": 0.95,
+    "score": 0.89,
+    "passed": true,
+    "threshold": 0.85,
+    "notes": "Minor WER on preposition, acceptable for Indonesian dictation"
+  }
+}

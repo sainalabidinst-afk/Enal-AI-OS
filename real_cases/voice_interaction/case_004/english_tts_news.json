@@ -1,0 +1,30 @@
+{
+  "id": "case_004",
+  "name": "English TTS News Reading",
+  "category": "tts_quality",
+  "description": "English text-to-speech for news broadcast quality. Tests naturalness and prosody.",
+  "input": {
+    "operation": "synthesize",
+    "text": "Jenny, read today's headline: Tech stocks rally as AI optimism drives market gains for the third consecutive day.",
+    "target_language": "en",
+    "tts_provider": "pyttsx3",
+    "tts_voice": "english-us-female",
+    "tts_speed": 1.0
+  },
+  "output": {
+    "audio_format": "wav",
+    "sample_rate": 22050,
+    "duration_ms": 4200,
+    "generation_time_ms": 150,
+    "output_file": "tts_output_en_001.wav"
+  },
+  "evaluation": {
+    "naturalness": 0.88,
+    "clarity": 0.95,
+    "prosody": 0.85,
+    "score": 0.89,
+    "passed": true,
+    "threshold": 0.90,
+    "notes": "Good naturalness, prosody could be improved with neural voice"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "case_008",
+  "name": "TTS Provider Fallback Chain",
+  "category": "provider_resilience",
+  "description": "Tests TTS provider fallback: pyttsx3 fails -> piper -> elevenlabs -> openai. Verifies chain resilience.",
+  "input": {
+    "operation": "synthesize",
+    "text": "Hello from Jenny. Your voice interface is ready.",
+    "target_language": "en",
+    "tts_provider": "pyttsx3",
+    "force_fallback": true,
+    "fallback_chain": ["pyttsx3", "piper", "elevenlabs", "openai"],
+    "tts_voice": "female-us"
+  },
+  "output": {
+    "audio_format": "wav",
+    "sample_rate": 22050,
+    "duration_ms": 3200,
+    "providers_tried": 2,
+    "successful_provider": "piper",
+    "generation_time_ms": 450,
+    "output_file": "tts_output_fallback_001.wav"
+  },
+  "evaluation": {
+    "fallback_chain_worked": true,
+    "all_providers_reachable": true,
+    "score": 0.92,
+    "passed": true,
+    "threshold": 0.85,
+    "notes": "Fallback chain worked, piper provided high-quality neural audio"
+  }
+}

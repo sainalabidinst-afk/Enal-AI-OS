@@ -1,0 +1,30 @@
+{
+  "id": "case_003",
+  "name": "Spanish Customer Service",
+  "category": "stt_accuracy",
+  "description": "Spanish customer service dialogue with multiple speakers. Tests diarization and transcription.",
+  "input": {
+    "operation": "transcribe",
+    "audio_source": "real_customer_service_es_001.wav",
+    "source_language": "es",
+    "stt_provider": "openai",
+    "sample_rate": 16000,
+    "duration_ms": 5800,
+    "dialogue": "Cliente: Hola, tengo un problema con mi pedido. Agente: Buenos dias, ¿en que puedo ayudarle?"
+  },
+  "output": {
+    "transcription": "Cliente: Hola, tengo un problema con mi pedido. Agente: Buenos dias, ¿en que puedo ayudarle?",
+    "confidence": 0.87,
+    "detected_language": "es",
+    "processing_time_ms": 680,
+    "speakers_detected": 2
+  },
+  "evaluation": {
+    "wer": 0.02,
+    "accuracy": 0.98,
+    "score": 0.87,
+    "passed": true,
+    "threshold": 0.85,
+    "notes": "Two-speaker diarization successful"
+  }
+}

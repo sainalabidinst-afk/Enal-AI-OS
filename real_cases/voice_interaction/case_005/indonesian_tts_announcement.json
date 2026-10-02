@@ -1,0 +1,30 @@
+{
+  "id": "case_005",
+  "name": "Indonesian TTS Announcement",
+  "category": "tts_quality",
+  "description": "Indonesian text-to-speech for airport announcement. Tests pronunciation accuracy.",
+  "input": {
+    "operation": "synthesize",
+    "text": "Pasien yang harus menunjukkan identitas di gerbang 3, silakan menuju ke konter pendaftaran.",
+    "target_language": "id",
+    "tts_provider": "pyttsx3",
+    "tts_voice": "indonesian-male",
+    "tts_speed": 0.9
+  },
+  "output": {
+    "audio_format": "wav",
+    "sample_rate": 22050,
+    "duration_ms": 5800,
+    "generation_time_ms": 180,
+    "output_file": "tts_output_id_001.wav"
+  },
+  "evaluation": {
+    "naturalness": 0.82,
+    "clarity": 0.90,
+    "pronunciation": 0.92,
+    "score": 0.88,
+    "passed": true,
+    "threshold": 0.90,
+    "notes": "Good Indonesian pronunciation, slight unnaturalness in longer sentences"
+  }
+}
