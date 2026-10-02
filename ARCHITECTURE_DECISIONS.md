@@ -329,7 +329,7 @@ Pekerjaan baru harus mengikuti siklus ini:
 
 Tidak ada perubahan arsitektur lebih lanjut yang diharapkan atau diizinkan kecuali perubahan tersebut memenuhi Daftar Pengecualian di atas.
 
-Dokumen ini, bersama dengan ADR-001 hingga ADR-014, merupakan Tata Kelola Arsitektur Enal AI OS.
+Dokumen ini, bersama dengan ADR-001 hingga ADR-018, merupakan Tata Kelola Arsitektur Enal AI OS.
 
 ---
 
@@ -468,9 +468,10 @@ Layanan ini tidak dapat mengubah Core. Mereka adalah bagian dari lapisan produk,
 **Alasan:**
 Pengguna menilai ECP berdasarkan kegunaan sehari-hari, bukan berdasarkan arsitektur internal. Lapisan Produk Operasional inilah yang mengubah AI Runtime yang kuat menjadi produk yang dapat diandalkan pengguna untuk pekerjaan nyata. Tanpa layanan ini, ECP hanya akan menjadi sebuah kerangka kerja. Bersama mereka, ini menjadi Platform Eksekusi AI.
 
-ADR‑015: Observability & Consent Layer
-Status: Beku
-Efektif: 2026‑10‑02
+## ADR-015: Observability & Consent Layer
+
+**Status:** Beku
+**Efektif:** 2026-10-02
 
 Semua aksi dengan risiko medium atau tinggi harus melewati ConsentManager. Observability wajib mencatat trace, anomaly, dan consent log.
 
@@ -480,11 +481,12 @@ Consent: aksi medium → konfirmasi user; aksi high → persetujuan eksplisit + 
 
 Semua consent disimpan sebagai artefak audit.
 
-Alasan: Menjamin keamanan, transparansi, dan kepercayaan pengguna saat AI mengeksekusi aksi nyata.
+**Alasan:** Menjamin keamanan, transparansi, dan kepercayaan pengguna saat AI mengeksekusi aksi nyata.
 
-ADR‑016: Benchmark & Quality Gates
-Status: Beku
-Efektif: 2026‑10‑02
+## ADR-016: Benchmark & Quality Gates
+
+**Status:** Beku
+**Efektif:** 2026-10-02
 
 Setiap Capability Pack baru harus lulus benchmark ≥90% dan quality gates (MyPy, Ruff, tests).
 
@@ -494,11 +496,12 @@ Quality gates wajib: lint, typecheck, unit tests, integration tests.
 
 Hasil benchmark disimpan sebagai artefak versi.
 
-Alasan: Menjaga standar kinerja dan kualitas konsisten di seluruh Capability Pack.
+**Alasan:** Menjaga standar kinerja dan kualitas konsisten di seluruh Capability Pack.
 
-ADR‑017: Documentation Completeness
-Status: Beku
-Efektif: 2026‑10‑02
+## ADR-017: Documentation Completeness
+
+**Status:** Beku
+**Efektif:** 2026-10-02
 
 Semua RFC/ADR harus memiliki contoh kode, diagram, dan analisis dampak.
 
@@ -508,18 +511,201 @@ Dokumentasi harus sinkron dengan implementasi aktual.
 
 Artefak dokumentasi disimpan dan diberi versi.
 
-Alasan: Dokumentasi lengkap adalah syarat kepercayaan, audit, dan keberlanjutan pengembangan.
+**Alasan:** Dokumentasi lengkap adalah syarat kepercayaan, audit, dan keberlanjutan pengembangan.
 
-ADR‑018: Developer Experience
-Status: Beku
-Efektif: 2026‑10‑02
+## ADR-018: Developer Experience
+
+**Status:** Beku
+**Efektif:** 2026-10-02
 
 Platform harus menyediakan pengalaman developer yang konsisten dan efisien.
 
-CLI tool ecp doctor untuk lint, typecheck, test, governance check.
+CLI tool `ecp doctor` untuk lint, typecheck, test, governance check.
 
-Pre‑commit hooks untuk Ruff + MyPy.
+Pre-commit hooks untuk Ruff + MyPy.
 
 Devcontainer (VSCode) untuk setup cepat.
 
-Alasan: Mempercepat onboarding, mengurangi kesalahan, dan menjaga kualitas kode.
+**Alasan:** Mempercepat onboarding, mengurangi kesalahan, dan menjaga kualitas kode.
+
+---
+
+## Arsip ADR: Capability Pack & Provider Architecture (ADR-019 hingga ADR-026)
+
+Keputusan-keputusan berikut mendefinisikan arsitektur Capability Pack dan provider baru yang dibangun di atas Core yang telah dibekukan. Setiap keputusan ini tidak mengubah Inti, Kontrak Kemampuan, atau lapisan inti ECP. Dokumen rinci tersedia di `docs/adr/`.
+
+---
+
+### ADR-019: Innovation Strategist Engine Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**RFC:** RFC-0039
+**File:** `docs/adr/ADR-019-innovation-strategist.md`
+
+Innovation Strategist capability pack menyediakan trend analysis, foresight modeling, dan R&D portfolio management.
+
+- Trend Analysis: NLP pada market intelligence feeds dengan TF-IDF, fallback ke keyword extraction
+- Foresight Modeling: Scenario tree generation, mereuse pola Scenario Simulator
+- R&D Portfolio: Portfolio optimization via efficient frontier algorithms (scipy), fallback ke heuristic
+- Technology Radar: Quadrant-based assessment dengan adoption scoring
+
+**Alasan:** Mengidentifikasi peluang inovasi dan merencanakan inisiatif strategis berdasarkan tren pasar yang lintas domain.
+
+---
+
+### ADR-020: DevSecOps Engine Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**RFC:** RFC-0040
+**File:** `docs/adr/ADR-020-devsecops.md`
+
+DevSecOps capability pack menyediakan CI/CD security gates, dependency scanning, dan runtime policy enforcement.
+
+- Dependency Scanning: SCA via pip-audit/safety (lazy import), fallback ke requirements.txt CVE parsing
+- Security Gates: Policy-as-code via OPA (lazy import), fallback ke regex-based checks
+- Container Security: Dokumen pola image vulnerability scanning (trivy/docker scan)
+- Runtime Policy: Admission control rules untuk Kubernetes (OPA Gatekeeper patterns)
+
+**Alasan:** Memastikan rantai pasok perangkat lunak aman tanpa vendor lock-in pada platform komersial.
+
+---
+
+### ADR-021: Translator Engine Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**RFC:** RFC-0041
+**File:** `docs/adr/ADR-021-translator-expert.md`
+
+Translator Expert capability pack menyediakan multilingual translation dengan domain context, style control, dan glossary enforcement.
+
+- Translation Engine: HuggingFace MarianMT/M2M-100 via lazy import (`__getattr__` pattern)
+- Fallback Strategy: Rule-based translation dengan glossary lookup ketika ML libraries tidak tersedia
+- Language Detection: langdetect (lazy import) dengan heuristic fallback (en, id, es, zh)
+- Glossary Enforcement: Pre-processing tagged token replacement, post-processing approved terms
+- Style Control: Style prefix prompts (formal/informal/technical/casual)
+
+**Alasan:** Menerjemahkan dokumen dan komunikasi lintas bahasa tanpa ketergantungan pada API eksternal yang berbayar.
+
+---
+
+### ADR-022: Document Processing Pack Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**RFC:** RFC-0042
+**File:** `docs/adr/ADR-022-document-processing.md`
+
+Document Processing capability pack menyediakan dokumen processing terpusat untuk DOCX, XLSX, PPTX, dan PDF.
+
+- Berada sepenuhnya di dalam `apps/document_processing/` — tidak ada modifikasi pada Core
+- Pipeline: read → transform → write dengan lazy import untuk python-docx, openpyxl, python-pptx, PyPDF2/pypdf, reportlab
+- Boundary enforcement: tidak meng-import pack lain, tidak meng-import `backend.app.core` langsung
+
+**Alasan:** Eliminasi duplikasi kode parser/writer di setiap pack; satu sumber kebenaran untuk dokumen processing.
+
+---
+
+### ADR-023: Voice Provider Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**RFC:** RFC-0043
+**File:** `docs/adr/ADR-023-voice-provider-architecture.md`
+
+Arsitektur provider Speech-to-Text (STT) dan Text-to-Speech (TTS) untuk Jenny Voice Interface dengan lazy provider pattern dan fallback chain.
+
+- STT fallback chain: whisper → openai → web_speech
+- TTS fallback chain: pyttsx3 → piper → elevenlabs → openai
+- Lazy import: provider dipilih berdasarkan konfigurasi (`STT_PROVIDER`, `TTS_PROVIDER`)
+
+**Alasan:** Dukungan suara lokal dan cloud yang fleksibel dengan resilience melalui fallback chain tanpa hard dependency pada provider tertentu.
+
+---
+
+### ADR-024: Action Connector Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**File:** `docs/adr/ADR-024-action-connector-architecture.md`
+
+Action Connector Manager terpisah dari Trading Connector Manager untuk system-domain actions (file I/O, email, calendar, smart home).
+
+- `BaseActionConnector` abstract base class
+- `ActionRequest` / `ActionResult` dataclasses
+- `safe_path()` path-traversal guard untuk file operations
+- Connectors: `FileSystemConnector`, `EmailConnector`, `CalendarConnector`, `SmartHomeConnector`
+
+**Alasan:** Mencegah konfluksi domain trading dengan system-domain actions; dekoupling penuh memungkinkan pengembangan yang independen.
+
+---
+
+### ADR-025: Consent & Permission Architecture
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**Related RFC:** RFC-0044, RFC-0045
+**File:** `docs/adr/ADR-025-consent-permission-architecture.md`
+
+ConsentManager untuk kontrol akses aksi real-world berdasarkan risk classification dan lifecycle management.
+
+- Risk classification: LOW (auto-approve) → MEDIUM (konfirmasi user) → HIGH (persetujuan eksplisit + timeout)
+- Consent lifecyle: PENDING → APPROVED|DENIED|EXPIRED dengan `created_at`, `expires_at`, `timeout_seconds` (default 30s)
+- In-memory dict untuk active requests + deque (maxlen=1000) untuk history; module-level singleton `consent_manager`
+- REST endpoints di `backend/app/api/consent.py` under `/api/v1/consent`
+
+**Alasan:** Kebutuhan persetujuan manusia (lihat ADR-005) diterapkan pada aksi suara nyata melalui risk-aware consent flow.
+
+---
+
+### ADR-026: Voice Interaction Capability Pack
+
+**Status:** Beku
+**Efektif:** 2026-10-02
+**Related RFC:** RFC-0043
+**Related ADRs:** ADR-023, ADR-021
+**File:** `docs/adr/ADR-026-voice-interaction-capability-pack.md`
+
+Voice Interaction capability pack di `apps/voice_interaction/` yang mengintegrasikan backend STT/TTS services dan frontend voice UI.
+
+- Schemas: Pydantic models dengan StrEnum untuk `VoiceInteractionOperation` dan `VoiceLanguage`
+- Voice Engine: Delegasi ke backend `stt_service` dan `tts_service` via runtime facade
+- Benchmark: 8 dimensi (STT accuracy, TTS quality, latency, language detection, provider resilience, conversation flow, explainability, real-time streaming)
+- 22 kode bahasa didukung: en, id, es, fr, de, zh, ja, ar, pt, ru, ko, hi, th, vi, tl, nl, it, tr, pl, uk, ca, ms
+
+**Alasan:** Voice-first interaction untuk Jenny, mengikuti pola ECP yang berlaku dengan observability, benchmark, dan lazy import strategy.
+
+---
+
+## Indeks Lengkap ADR
+
+| No | Judul | Kategori | Lokasi |
+|---|---|---|---|
+| ADR-001 | Core Pipeline Freeze | Arsitektur Teknis | § di dokumen ini |
+| ADR-002 | Capability Pack Independence | Arsitektur Teknis | § di dokumen ini |
+| ADR-003 | Worker = Only Adapter | Arsitektur Teknis | § di dokumen ini |
+| ADR-004 | Domain Engine Owns Business Logic | Arsitektur Teknis | § di dokumen ini |
+| ADR-005 | Human Approval Required | Arsitektur Teknis | § di dokumen ini |
+| ADR-006 | Capability Contract v1 Frozen | Arsitektur Teknis | § di dokumen ini |
+| ADR-007 | Task Boundary | Arsitektur Teknis | § di dokumen ini |
+| ADR-008 | Core Change Requires Cross-Capability Proof | Arsitektur Teknis | § di dokumen ini |
+| ADR-009 | Single Conversation Interface | Arsitektur Pengalaman | § di dokumen ini |
+| ADR-010 | Workspace Isolation | Arsitektur Pengalaman | § di dokumen ini |
+| ADR-011 | Artifact Persistence | Arsitektur Pengalaman | § di dokumen ini |
+| ADR-012 | Progress Transparency | Arsitektur Pengalaman | § di dokumen ini |
+| ADR-013 | Result-First Rule | Arsitektur Pengalaman | § di dokumen ini |
+| ADR-014 | Operational Product Layer | Arsitektur Pengalaman | § di dokumen ini |
+| ADR-015 | Observability & Consent Layer | Governance & Operations | § di dokumen ini |
+| ADR-016 | Benchmark & Quality Gates | Governance & Operations | § di dokumen ini |
+| ADR-017 | Documentation Completeness | Governance & Operations | § di dokumen ini |
+| ADR-018 | Developer Experience | Governance & Operations | § di dokumen ini |
+| ADR-019 | Innovation Strategist Engine Architecture | Capability Pack | `docs/adr/ADR-019-innovation-strategist.md` |
+| ADR-020 | DevSecOps Engine Architecture | Capability Pack | `docs/adr/ADR-020-devsecops.md` |
+| ADR-021 | Translator Engine Architecture | Capability Pack | `docs/adr/ADR-021-translator-expert.md` |
+| ADR-022 | Document Processing Pack Architecture | Capability Pack | `docs/adr/ADR-022-document-processing.md` |
+| ADR-023 | Voice Provider Architecture | Provider Architecture | `docs/adr/ADR-023-voice-provider-architecture.md` |
+| ADR-024 | Action Connector Architecture | Provider Architecture | `docs/adr/ADR-024-action-connector-architecture.md` |
+| ADR-025 | Consent & Permission Architecture | Provider Architecture | `docs/adr/ADR-025-consent-permission-architecture.md` |
+| ADR-026 | Voice Interaction Capability Pack | Capability Pack | `docs/adr/ADR-026-voice-interaction-capability-pack.md` |

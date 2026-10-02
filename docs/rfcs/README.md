@@ -109,10 +109,10 @@ RFC terkait, dokumentasi, dll.
 - RFC-0039: Innovation Strategist Capability Pack (Diterima — Phase 8)
 - RFC-0040: DevSecOps Capability Pack (Diterima — Phase 8)
 - RFC-0041: Translator Expert Capability Pack (Diterima)
-- RFC-0042: Document Processing Capability Pack (Draft — Phase Professional)
-- RFC-0043: Jenny Voice Interface (Draft — Platform Professional)
-- RFC-0044: Jenny Action Connectors (Diterima — Platform Professional)
-- RFC-0045: Jenny Safety & Observability (Draft — Platform Professional)
+- RFC-0042: Document Processing Capability Pack (Diterima — Phase Professional)
+- RFC-0043: Jenny Voice Interface (Diterima — Phase Professional)
+- RFC-0044: Jenny Action Connectors (Diterima — Phase Professional)
+- RFC-0045: Jenny Safety & Observability (Diterima — Phase Professional)
 
 ## Indeks RFC
 

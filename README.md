@@ -407,7 +407,7 @@ enal-ai-os/
 └── docs/                     # Dokumentasi (170+ dokumen)
     ├── adr/                  # Architecture Decision Records (26 ADRs)
     ├── audit/                # Audit & compliance reports
-    ├── capabilities/         # Capability pack specifications (36 docs)
+    ├── capabilities/         # Capability pack specifications (37 docs)
     ├── frontend/             # Frontend architecture & component docs
     ├── guides/               # Technical guides & tutorials
     ├── quality/              # Kebijakan Quality Gate

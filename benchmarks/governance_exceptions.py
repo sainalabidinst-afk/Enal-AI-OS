@@ -19,7 +19,6 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -95,7 +94,9 @@ def record_exception(
     return entry
 
 
-def list_exceptions(filter_rule: str | None = None, active_only: bool = True) -> list[dict[str, Any]]:
+def list_exceptions(
+    filter_rule: str | None = None, active_only: bool = True
+) -> list[dict[str, Any]]:
     if not TRACKER_FILE.exists():
         return []
     entries = []

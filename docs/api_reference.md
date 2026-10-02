@@ -513,6 +513,168 @@ Membuat notification.
 
 Menandai notification telah dibaca.
 
+### Action Connectors
+
+#### GET /actions/types
+
+Mendaftar semua tipe action connector yang tersedia.
+
+**Response:**
+```json
+{
+  "types": ["file_system", "email", "calendar", "smart_home", "paper"]
+}
+```
+
+#### GET /actions/connectors
+
+Mendaftar semua connector yang terdaftar dan statusnya.
+
+**Response:**
+```json
+{
+  "connectors": [
+    {
+      "connector": "file_system",
+      "connected": true
+    },
+    {
+      "connector": "email",
+      "connected": false
+    }
+  ]
+}
+```
+
+#### POST /actions/connect
+
+Menghubungkan connector tertentu dengan konfigurasi opsional.
+
+**Request:**
+```json
+{
+  "connector_name": "email",
+  "config": {
+    "smtp_host": "smtp.gmail.com",
+    "smtp_port": 587,
+    "smtp_user": "bot@example.com",
+    "smtp_password": "app-password",
+    "imap_host": "imap.gmail.com",
+    "imap_port": 993,
+    "imap_user": "bot@example.com",
+    "imap_password": "app-password"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "connector": "email",
+  "connected": true
+}
+```
+
+#### POST /actions/disconnect
+
+Memutuskan koneksi connector tertentu.
+
+**Request:**
+```json
+{
+  "connector_name": "email"
+}
+```
+
+**Response:**
+```json
+{
+  "connector": "email",
+  "connected": false
+}
+```
+
+#### GET /actions/connectors/{connector_name}/actions
+
+Mendaftar aksi yang tersedia untuk connector tertentu.
+
+**Response:**
+```json
+{
+  "connector": "email",
+  "actions": ["send_email", "read_emails", "list_emails", "search_emails"]
+}
+```
+
+#### POST /actions/execute
+
+Mengeksekusi aksi pada connector yang ditentukan.
+
+**Request:**
+```json
+{
+  "action": "send_email",
+  "params": {
+    "to": "team@example.com",
+    "subject": "Daily Report",
+    "body": "Please find the attached report.",
+    "cc": ["manager@example.com"],
+    "bcc": []
+  },
+  "connector": "email",
+  "requester": "janny"
+}
+```
+
+**Response** (`ActionResult`):
+```json
+{
+  "success": true,
+  "data": {
+    "to": "team@example.com",
+    "subject": "Daily Report",
+    "sent": true,
+    "timestamp": "2026-10-02T10:30:00+00:00"
+  },
+  "error": null,
+  "metadata": {},
+  "executed_at": "2026-10-02T10:30:00.123456+00:00",
+  "action": "send_email",
+  "connector": "email"
+}
+```
+
+**Connector Action Reference:**
+
+| Connector | Action | Required Params | Optional Params |
+|-----------|--------|----------------|-----------------|
+| `file_system` | `read_file` | `path` | — |
+| `file_system` | `write_file` | `path`, `content` | — |
+| `file_system` | `list_files` | — | `path` |
+| `file_system` | `delete_file` | `path` | — |
+| `email` | `send_email` | `to` | `subject`, `body`, `from`, `cc`, `bcc` |
+| `email` | `read_emails` | — | `folder`, `limit`, `unread_only` |
+| `email` | `list_emails` | — | `folder`, `limit`, `unread_only` |
+| `email` | `search_emails` | `query` | `folder` |
+| `calendar` | `create_event` | `summary`, `start` | `end`, `description`, `attendees`, `location` |
+| `calendar` | `list_events` | — | `start_time`, `end_time`, `max_results` |
+| `calendar` | `update_event` | `event_id` | `summary`, `start`, `end`, `description`, `location`, `attendees` |
+| `calendar` | `delete_event` | `event_id` | — |
+| `smart_home` | `turn_on` | `entity_id` **or** `topic` | `payload` |
+| `smart_home` | `turn_off` | `entity_id` **or** `topic` | `payload` |
+| `smart_home` | `set_brightness` | `entity_id` | `brightness` (0-100) |
+| `smart_home` | `set_temperature` | `entity_id` | `temperature` (10-40) |
+| `smart_home` | `get_state` | `entity_id` | — |
+
+**Error Response (400):**
+```json
+{
+  "detail": "ActionConnectorError: 'to' parameter is required for send_email"
+}
+```
+
+---
+
 ### Model Routing
 
 #### GET /providers

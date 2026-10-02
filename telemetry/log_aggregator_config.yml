@@ -1,0 +1,188 @@
+# Log Aggregator Configuration for Production
+# =============================================
+# Supports two configurations: ELK Stack (Elasticsearch + Logstash + Kibana)
+# and Loki Stack (Loki + Promtail + Grafana). Use one or both.
+#
+# Deploy as sidecar containers in docker-compose or as separate services.
+
+# ============================================================================
+# OPTION A: EFK Stack (Elasticsearch + Fluentd + Kibana)
+# ============================================================================
+
+# --- Elasticsearch ---
+# docker run -d --name elasticsearch \
+#   -p 9200:9200 -p 9300:9300 \
+#   -e "discovery.type=single-node" \
+#   -e "ES_JAVA_OPTS=-Xms2g -Xmx2g" \
+#   docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+
+# --- Fluentd (log forwarder) ---
+# Configuration: fluentd/conf/fluent.conf
+fluentd_config:
+  source:
+    - type: forward
+      port: 24224
+      bind: 0.0.0.0
+  filter:
+    - type: parser
+      key_name: log
+      emit_chunk_metadata: true
+      parser:
+        type: json
+        time_type: unix_epoch
+        time_key: executed_at
+  match:
+    - type: copy
+      deep_copy: true
+      store:
+        - type: elasticsearch
+          host: elasticsearch
+          port: 9200
+          logstash_format: true
+          logstash_prefix: enal-ai-os
+          include_tag_key: true
+          tag_key: @log_name
+          num_records:
+            buffer_chunk_limit: 2M
+            flush_interval: 10s
+      store:
+        - type: loki
+          url: http://loki:3100
+          tenant_id: enal-ai-os
+          line_format: json
+
+# --- Kibana ---
+# docker run -d --name kibana -p 5601:5601 \
+#   --link elasticsearch \
+#   -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" \
+#   docker.elastic.co/kibana/kibana:8.15.0
+
+# ============================================================================
+# OPTION B: LGTM Stack (Loki + Promtail + Grafana + Tempo)
+# ============================================================================
+
+# --- Loki ---
+# docker run -d --name loki -p 3100:3100 \
+#   grafana/loki:2.9.0 -config.file=/etc/loki/local-config.yaml
+
+# --- Promtail (log collector) ---
+# Configuration: telemetry/promtail-config.yml
+promtail_config:
+  server:
+    http_listen_port: 9080
+  positions:
+    filename: /tmp/positions.yaml
+  clients:
+    - url: http://loki:3100/loki/api/v1/push
+      tenant_id: enal-ai-os
+      batch_wait: 1s
+      batch_size: 102400
+  scrape_configs:
+    - job_name: enal-ai-os
+      static_configs:
+        - targets:
+            - localhost
+          labels:
+            job: enal-ai-os-backend
+            host: backend
+            environment: production
+          path: /var/log/enal-ai-os/backend
+          refresh_configs:
+            - filename: /var/log/enal-ai-os/backend/*.log
+          pipeline_stages:
+            - json:
+                expressions:
+                  level: level
+                  msg: msg
+                  module: logger
+                  action: action
+                  connector: connector
+            - labels:
+                level:
+                action:
+                connector:
+            - output:
+                source: msg
+            - timestamps:
+                source: executed_at
+                format: RFC3339
+  # Alert rules for critical failures
+  alert_rules:
+    - alert: BackendHighErrorRate
+      expr: rate({job="enal-ai-os-backend"} |= "error" [5m]) > 0.05
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "High error rate detected in backend"
+        description: "{{ $value }}% error rate over the last 5 minutes"
+    - alert: BackendCrashLoop
+      expr: up{job="enal-ai-os-backend"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Backend service is down"
+        description: "Backend container not responding for more than 1 minute"
+
+# --- Grafana ---
+# docker run -d --name grafana -p 3000:3000 \
+#   --link loki --link prometheus --link tempo \
+#   -e "GF_SECURITY_ADMIN_PASSWORD=admin" \
+#   grafana/grafana-helm
+
+# Dashboard JSON (import into Grafana)
+dashboard:
+  uid: enal-ai-os-overview
+  title: Enal AI OS — Production Overview
+  tags: [enal-ai-os, production, observability]
+  panels:
+    - title: API Request Rate
+      datasource: Prometheus
+      targets:
+        - expr: rate(http_requests_total[5m])
+      gridPos: {h: 4, w: 6, x: 0, y: 0}
+    - title: Error Rate (%)
+      datasource: Prometheus
+      targets:
+        - expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100
+      gridPos: {h: 4, w: 6, x: 6, y: 0}
+    - title: P95 Latency (ms)
+      datasource: Prometheus
+      targets:
+        - expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) * 1000
+      gridPos: {h: 4, w: 6, x: 12, y: 0}
+    - title: LLM API Error Rate
+      datasource: Loki
+      targets:
+        - expr: rate({job="enal-ai-os-backend"} |= "Model completion failed" [5m]) > 0
+      gridPos: {h: 4, w: 6, x: 18, y: 0}
+    - title: Active Capability Executions
+      datasource: Prometheus
+      targets:
+        - expr: sum(capability_execution_active)
+      gridPos: {h: 8, w: 12, y: 4}
+    - title: Top Error Logs (Last 5 min)
+      datasource: Loki
+      targets:
+        - expr: {job="enal-ai-os-backend"} |= "error" |~ ".*Exception.*"
+      gridPos: {h: 8, w: 12, y: 12}
+
+# ============================================================================
+# Log Format Expectations (JSON structured logging)
+# ============================================================================
+#
+# Application logs (JSON):
+# {"timestamp": "2026-10-02T10:30:00Z", "level": "INFO", "logger": "backend.app.main",
+#  "msg": "audit POST /api/v1/actions/execute status=200 duration=12.34ms user=Bearer ..."}
+#
+# Telemetry metrics (JSONL in telemetry/):
+# {"chat_id": "...", "conversation_id": "...", "workspace_id": "...",
+#  "status": "success", "total_time_ms": 1250.0, "timestamp": "..."}
+#
+# Alert thresholds:
+#   - Error rate > 5% for 2+ minutes → Critical alert
+#   - Backend down (no heartbeat) for 1+ minute → Critical alert
+#   - LLM completion failures > 10% for 5+ minutes → Warning alert
+#   - Memory usage > 85% → Warning alert
+#   - Capability execution latency > 30s → Warning alert

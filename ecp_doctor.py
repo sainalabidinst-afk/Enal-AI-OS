@@ -19,9 +19,9 @@ import argparse
 import subprocess
 import sys
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 
@@ -65,8 +65,11 @@ def run_command(cmd: list[str], cwd: Path = PROJECT_ROOT, timeout: int = 120) ->
 
 
 def check_ruff(fix: bool = False) -> CheckResult:
-    target = str(PROJECT_ROOT / "apps")
-    check_dirs = [str(PROJECT_ROOT / "apps"), str(PROJECT_ROOT / "backend" / "app"), str(PROJECT_ROOT / "benchmarks")]
+    check_dirs = [
+        str(PROJECT_ROOT / "apps"),
+        str(PROJECT_ROOT / "backend" / "app"),
+        str(PROJECT_ROOT / "benchmarks"),
+    ]
     ts_dir = str(PROJECT_ROOT / "tests")
     if Path(ts_dir).exists():
         check_dirs.append(ts_dir)
@@ -80,7 +83,11 @@ def check_ruff(fix: bool = False) -> CheckResult:
 
 
 def check_black() -> CheckResult:
-    check_dirs = [str(PROJECT_ROOT / "apps"), str(PROJECT_ROOT / "backend" / "app"), str(PROJECT_ROOT / "benchmarks")]
+    check_dirs = [
+        str(PROJECT_ROOT / "apps"),
+        str(PROJECT_ROOT / "backend" / "app"),
+        str(PROJECT_ROOT / "benchmarks"),
+    ]
     ts_dir = str(PROJECT_ROOT / "tests")
     if Path(ts_dir).exists():
         check_dirs.append(ts_dir)
