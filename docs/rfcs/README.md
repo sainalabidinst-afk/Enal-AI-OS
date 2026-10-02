@@ -111,7 +111,7 @@ RFC terkait, dokumentasi, dll.
 - RFC-0041: Translator Expert Capability Pack (Diterima)
 - RFC-0042: Document Processing Capability Pack (Draft — Phase Professional)
 - RFC-0043: Jenny Voice Interface (Draft — Platform Professional)
-- RFC-0044: Jenny Action Connectors (Draft — Platform Professional)
+- RFC-0044: Jenny Action Connectors (Diterima — Platform Professional)
 - RFC-0045: Jenny Safety & Observability (Draft — Platform Professional)
 
 ## Indeks RFC

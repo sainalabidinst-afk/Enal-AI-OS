@@ -8,17 +8,15 @@ Uses safe_path validation to prevent path traversal (ADR-024).
 
 from __future__ import annotations
 
-import json
 import logging
 import os
 from datetime import UTC, datetime
-from pathlib import Path
 from typing import Any
 
 from backend.app.connectors.base_action import (
     ActionConnectorError,
-    ActionType,
     ActionResult,
+    ActionType,
     BaseActionConnector,
     safe_path,
 )
@@ -146,7 +144,7 @@ class FileSystemConnector(BaseActionConnector):
         target = safe_path(self._base_path, relative_path)
         max_results = int(params.get("max_results", 100))
 
-        results = []
+        results: list[dict[str, Any]] = []
         for match in sorted(target.rglob(pattern)):
             if len(results) >= max_results:
                 break
@@ -156,7 +154,12 @@ class FileSystemConnector(BaseActionConnector):
                 "size_bytes": stat.st_size,
                 "modified_at": datetime.fromtimestamp(stat.st_mtime, UTC).isoformat(),
             })
-        return {"query": pattern, "base_path": str(target), "results": results, "count": len(results)}
+        return {
+            "query": pattern,
+            "base_path": str(target),
+            "results": results,
+            "count": len(results),
+        }
 
     async def _delete_file(self, params: dict[str, Any]) -> dict[str, Any]:
         relative_path = params.get("path", "")

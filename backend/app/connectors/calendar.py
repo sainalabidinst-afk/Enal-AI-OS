@@ -14,8 +14,8 @@ from typing import Any
 
 from backend.app.connectors.base_action import (
     ActionConnectorError,
-    ActionType,
     ActionResult,
+    ActionType,
     BaseActionConnector,
 )
 
@@ -129,7 +129,9 @@ class CalendarConnector(BaseActionConnector):
                         timeout=aiohttp.ClientTimeout(total=15),
                     ) as resp:
                         if resp.status != 200:
-                            raise ActionConnectorError(f"Google Calendar API error: HTTP {resp.status}")
+                            raise ActionConnectorError(
+    f"Google Calendar API error: HTTP {resp.status}"
+)
                         result = await resp.json()
                 return {"event_id": result.get("id"), **event}
             except ImportError:
@@ -155,9 +157,14 @@ class CalendarConnector(BaseActionConnector):
                     query_params["timeMax"] = end_time
 
                 async with aiohttp.ClientSession() as session:
-                    async with session.get(url, headers=headers, params=query_params, timeout=aiohttp.ClientTimeout(total=15)) as resp:
+                    async with session.get(
+                        url, headers=headers, params=query_params,
+                        timeout=aiohttp.ClientTimeout(total=15)
+                    ) as resp:
                         if resp.status != 200:
-                            raise ActionConnectorError(f"Google Calendar API error: HTTP {resp.status}")
+                            raise ActionConnectorError(
+                                f"Google Calendar API error: HTTP {resp.status}"
+                            )
                         result = await resp.json()
                 events = result.get("items", [])
                 return {"count": len(events), "events": events}
@@ -204,13 +211,19 @@ class CalendarConnector(BaseActionConnector):
                         timeout=aiohttp.ClientTimeout(total=15),
                     ) as resp:
                         if resp.status != 200:
-                            raise ActionConnectorError(f"Google Calendar API error: HTTP {resp.status}")
+                            raise ActionConnectorError(
+    f"Google Calendar API error: HTTP {resp.status}"
+)
                         result = await resp.json()
                 return {"event_id": event_id, "updated": True, "result": result}
             except ImportError:
                 raise ActionConnectorError("aiohttp required for Google Calendar API")
         else:
-            return {"event_id": event_id, "updated": True, "note": "Local stub — no real update performed"}
+            return {
+                "event_id": event_id,
+                "updated": True,
+                "note": "Local stub — no real update performed",
+            }
 
     async def _delete_event(self, params: dict[str, Any]) -> dict[str, Any]:
         event_id = params.get("event_id", "")
@@ -229,9 +242,15 @@ class CalendarConnector(BaseActionConnector):
                         timeout=aiohttp.ClientTimeout(total=15),
                     ) as resp:
                         if resp.status != 204:
-                            raise ActionConnectorError(f"Google Calendar API error: HTTP {resp.status}")
+                            raise ActionConnectorError(
+    f"Google Calendar API error: HTTP {resp.status}"
+)
                 return {"event_id": event_id, "deleted": True}
             except ImportError:
                 raise ActionConnectorError("aiohttp required for Google Calendar API")
         else:
-            return {"event_id": event_id, "deleted": True, "note": "Local stub — no real delete performed"}
+            return {
+                "event_id": event_id,
+                "deleted": True,
+                "note": "Local stub — no real delete performed",
+            }

@@ -14,8 +14,8 @@ from typing import Any
 
 from backend.app.connectors.base_action import (
     ActionConnectorError,
-    ActionType,
     ActionResult,
+    ActionType,
     BaseActionConnector,
 )
 
@@ -93,7 +93,9 @@ class SmartHomeConnector(BaseActionConnector):
                 connector=self.connector_type.value,
             )
 
-    async def _send_ha_service(self, service: str, entity_id: str, data: dict[str, Any]) -> dict[str, Any]:
+    async def _send_ha_service(
+        self, service: str, entity_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Send a Home Assistant service call."""
         import aiohttp
 

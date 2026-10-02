@@ -95,7 +95,7 @@ async def disconnect_connector(
 
 
 @router.get("/connectors/{connector_name}/actions")
-async def list_connector_actions(connector_name: str) -> dict[str, list[str]]:
+async def list_connector_actions(connector_name: str) -> dict[str, str | list[str]]:
     """List available actions for a specific connector."""
     try:
         connector = await action_connector_manager.get_connector(connector_name)

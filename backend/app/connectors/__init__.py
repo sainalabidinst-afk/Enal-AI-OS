@@ -485,29 +485,16 @@ class ConnectorManager:
         self._connectors.clear()
 
 
-connector_manager = ConnectorManager()
-
-
-# ============================================================================
-# Action Connector Framework
-# ----------------------------------------------------------------------------
-# Provides general-purpose connectors for Jenny-like voice interaction:
-#   - FileSystemConnector (read, write, list, search, delete)
-#   - EmailConnector (send, read, list, search emails)
-#   - CalendarConnector (create, list, update, delete events)
-#   - SmartHomeConnector (turn_on, turn_off, set_brightness, set_temperature)
-# ============================================================================
-from backend.app.connectors.base_action import (
+from backend.app.connectors.base_action import (  # noqa: E402
     ActionConnectorError,
     ActionConnectorManager,
-    ActionResult,
     ActionRequest,
+    ActionResult,
     ActionType,
     BaseActionConnector,
     action_connector_manager,
     safe_path,
 )
-
 
 __all__ = [
     "connector_manager",

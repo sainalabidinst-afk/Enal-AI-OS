@@ -27,6 +27,9 @@ from .api import (
     voice,
     workspace,
 )
+from .api import (
+    consent as consent_api,
+)
 from .core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -153,10 +156,22 @@ app.include_router(notifications.router, prefix=settings.API_V1_STR, tags=["noti
 app.include_router(attachments.router, prefix=settings.API_V1_STR, tags=["attachments"])
 app.include_router(voice.router, prefix=settings.API_V1_STR, tags=["voice"])
 app.include_router(actions.router, prefix=settings.API_V1_STR, tags=["actions"])
+app.include_router(consent_api.router, prefix=settings.API_V1_STR, tags=["consent"])
 app.include_router(telemetry.router, prefix=settings.API_V1_STR, tags=["telemetry"])
 app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmark"])
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
 app.include_router(integration.router, prefix=settings.API_V1_STR, tags=["integration"])
+
+
+@app.on_event("startup")
+async def register_action_tools_startup():
+    """Register action connector tools with ToolRegistry on startup."""
+    try:
+        from backend.app.connectors.action_tools import register_action_tools
+        count = register_action_tools()
+        logger.info("Registered %d action tools on startup", count)
+    except Exception as e:
+        logger.warning("Failed to register action tools on startup: %s", e)
 
 
 @app.get("/")

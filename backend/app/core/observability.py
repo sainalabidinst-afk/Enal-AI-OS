@@ -36,6 +36,30 @@ class TraceSpan:
     finished_at: datetime | None = None
 
 
+class AnomalyType(StrEnum):
+    """Types of anomalies that can be detected."""
+
+    SPAM = "spam"
+    TOXICITY = "toxicity"
+    HALLUCINATION = "hallucination"
+    BIAS = "bias"
+    COST_SPIKE = "cost_spike"
+    LATENCY_SPIKE = "latency_spike"
+    FREQUENCY_SPIKE = "frequency_spike"
+
+
+@dataclass
+class AnomalyResult:
+    """Result of an anomaly detection check."""
+
+    detected: bool
+    anomaly_type: str = ""
+    score: float = 0.0
+    threshold: float = 0.0
+    details: dict[str, Any] = field(default_factory=dict)
+    recommendation: str = ""
+
+
 class Observability:
     def __init__(self):
         self._traces: dict[str, list[TraceSpan]] = {}
@@ -102,7 +126,6 @@ class Observability:
             "total_cost": sum(s.cost for s in all_spans),
             "total_tokens": sum(s.tokens_used for s in all_spans),
         }
-
     def inject_context(self, trace_id: str, parent_id: str | None = None) -> dict[str, str]:
         return {"trace_id": trace_id, "parent_id": parent_id or ""}
 
@@ -111,6 +134,103 @@ class Observability:
 
     def propagate_context(self, trace_id: str) -> str:
         return f"trace_id={trace_id}"
+
+    def anomaly_detect(
+        self,
+        metric_name: str,
+        value: float,
+        baseline: float | None = None,
+        history: list[float] | None = None,
+    ) -> AnomalyResult:
+        """Detect anomalies in metrics using Z-score and threshold methods.
+
+        Uses baseline deviation: if value deviates > 2 standard deviations from
+        baseline/history, flag as anomaly.
+        """
+        history = history or []
+
+        if baseline is not None:
+            if value > baseline * 1.5:
+                anomaly_type = (
+                    AnomalyType.COST_SPIKE
+                    if "cost" in metric_name
+                    else AnomalyType.LATENCY_SPIKE
+                )
+                return AnomalyResult(
+                    detected=True,
+                    anomaly_type=anomaly_type,
+                    score=value / baseline if baseline else 0,
+                    threshold=baseline * 1.5,
+                    details={
+                        "metric": metric_name,
+                        "value": value,
+                        "baseline": baseline,
+                    },
+                    recommendation=(
+                        f"Investigate {metric_name}: {value} "
+                        f"exceeds baseline {baseline} by 50%"
+                    ),
+                )
+
+        if len(history) >= 3:
+            mean_val = sum(history) / len(history)
+            variance = sum((x - mean_val) ** 2 for x in history) / len(history)
+            std_dev = variance ** 0.5
+
+            if std_dev > 0:
+                z_score = abs(value - mean_val) / std_dev
+                if z_score > 2.0:
+                    return AnomalyResult(
+                        detected=True,
+                        anomaly_type=AnomalyType.FREQUENCY_SPIKE,
+                        score=z_score,
+                        threshold=2.0,
+                        details={
+                            "metric": metric_name,
+                            "value": value,
+                            "mean": mean_val,
+                            "std_dev": std_dev,
+                        },
+                        recommendation=f"Anomaly detected in {metric_name}: Z-score={z_score:.2f}",
+                    )
+
+        return AnomalyResult(
+            detected=False,
+            anomaly_type="",
+            score=0.0,
+            details={"metric": metric_name, "value": value},
+        )
+
+    def check_span_anomaly(self, span: TraceSpan) -> AnomalyResult:
+        """Check if a trace span has anomalous characteristics."""
+        issues = []
+
+        if span.error and span.success is False:
+            issues.append(f"span error: {span.error}")
+        if span.latency_ms > 5000:
+            issues.append(f"high latency: {span.latency_ms}ms")
+        if span.tokens_used > 8000:
+            issues.append(f"high token count: {span.tokens_used}")
+
+        if issues:
+            anomaly_type = (
+                AnomalyType.HALLUCINATION
+                if "error" in str(issues)
+                else AnomalyType.LATENCY_SPIKE
+            )
+            return AnomalyResult(
+                detected=True,
+                anomaly_type=anomaly_type,
+                score=1.0 if len(issues) > 1 else 0.7,
+                details={
+                    "span_name": span.name,
+                    "issues": issues,
+                },
+                recommendation=f"Review span '{span.name}': {'; '.join(issues)}",
+            )
+
+        return AnomalyResult(detected=False)
+
 
 
 observability = Observability()

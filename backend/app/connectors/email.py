@@ -12,12 +12,14 @@ import logging
 import smtplib
 from datetime import UTC, datetime
 from email.message import EmailMessage
+from email.parser import BytesParser
+from email.policy import default as default_policy
 from typing import Any
 
 from backend.app.connectors.base_action import (
     ActionConnectorError,
-    ActionType,
     ActionResult,
+    ActionType,
     BaseActionConnector,
 )
 
@@ -168,9 +170,23 @@ class EmailConnector(BaseActionConnector):
 
             for eid in email_ids:
                 _, msg_data = mail.fetch(eid, "(RFC822)")
-                msg_body = msg_data[0][1]
-                msg = EmailMessage()
-                msg.set_content(msg_body.decode("utf-8", errors="replace"))
+                # msg_data[0] from imaplib is tuple[bytes, bytes | None]
+                raw_entry = msg_data[0]
+                raw_bytes: bytes | None
+                if isinstance(raw_entry, tuple) and len(raw_entry) > 1:
+                    raw_bytes = raw_entry[1]
+                elif isinstance(raw_entry, bytes):
+                    raw_bytes = raw_entry
+                else:
+                    raw_bytes = None
+
+                msg: EmailMessage
+                if raw_bytes:
+                    msg = BytesParser(
+                        policy=default_policy
+                    ).parsebytes(raw_bytes)  # type: ignore[assignment]
+                else:
+                    msg = EmailMessage()
                 emails.append({
                     "id": eid.decode("utf-8"),
                     "from": msg.get("From", ""),
