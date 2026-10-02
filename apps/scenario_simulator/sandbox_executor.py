@@ -11,7 +11,7 @@ import logging
 import time
 from typing import Any
 
-from backend.app.core.sandbox import SandboxLanguage, sandbox_runtime
+from backend.app.runtime import SandboxLanguage, sandbox_runtime
 
 logger = logging.getLogger(__name__)
 

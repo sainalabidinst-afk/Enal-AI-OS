@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from apps.trading_analyst.knowledge.seeders.trading import seed_trading_knowledge
-from backend.app.core.knowledge.store import KnowledgeStore
+from backend.app.runtime.store import KnowledgeStore
 
 
 def build_knowledge_store() -> KnowledgeStore:

@@ -1,0 +1,38 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "finance-analyst",
+  "version": "0.1.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {"id": "FIN-GT-001", "description": "Calculate ratios from complete, unit-labelled inputs.", "input": {"operation": "financial_summary", "currency": "USD", "period": "FY2025", "revenue": 1000000, "cost_of_goods_sold": 600000, "current_assets": 300000, "current_liabilities": 150000}, "expected": {"currency_and_period_preserved": true, "gross_margin": 0.4, "current_ratio": 2.0, "formulae_and_inputs_traced": true}},
+        {"id": "FIN-GT-002", "description": "Estimate cash runway using supplied cash and monthly net burn.", "input": {"operation": "cash_flow", "currency": "USD", "cash_balance": 1200000, "monthly_net_burn": 100000}, "expected": {"runway_months": 12, "assumptions_disclosed": true, "investment_advice": false}},
+        {"id": "FIN-GT-003", "description": "Run bounded sensitivity cases for user-supplied revenue assumptions.", "input": {"operation": "scenario_analysis", "baseline_revenue": 1000000, "margin": 0.3, "revenue_changes_pct": [-10, 0, 10]}, "expected": {"scenario_count": 3, "baseline_included": true, "inputs_and_formulae_traced": true}},
+        {"id": "FIN-GT-004", "description": "Compare a downside scenario with an explicit baseline.", "input": {"operation": "risk_model", "baseline_cost": 500000, "downside_cost_increase_pct": 20, "currency": "USD"}, "expected": {"baseline_cost": 500000, "downside_cost": 600000, "assumption_labelled": true}},
+        {"id": "FIN-GT-005", "description": "Map supplied control evidence to a versioned checklist.", "input": {"operation": "control_check", "checklist_version": "project-v1", "evidence": [{"control": "monthly_reconciliation", "status": "documented", "source": "evidence-1"}]}, "expected": {"source_reference_preserved": true, "unsupported_controls_marked_unknown": true, "compliance_certification_claim": false}}
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {"id": "FIN-GT-006", "description": "Do not divide by zero or silently invent a missing denominator.", "input": {"operation": "financial_summary", "revenue": 1000, "cost_of_goods_sold": 400, "current_assets": 300}, "expected": {"current_ratio": null, "missing_input_reported": true, "fabricated_value": false}},
+        {"id": "FIN-GT-007", "description": "Reject ambiguous currency or units instead of mixing values.", "input": {"operation": "scenario_analysis", "cash_balance": 1000, "monthly_burn": 100, "currency": null}, "expected": {"calculation_performed": false, "validation_error_reported": true, "silent_default": false}}
+      ]
+    },
+    {
+      "name": "Explainability",
+      "tests": [
+        {"id": "FIN-GT-008", "description": "Expose source inputs, formula, and assumptions for each modeled result.", "input": {"operation": "risk_model", "baseline_revenue": 200000, "stress_pct": 15, "source_id": "forecast-7"}, "expected": {"source_id_preserved": true, "formula_disclosed": true, "assumptions_disclosed": true}}
+      ]
+    },
+    {
+      "name": "Contract Compliance",
+      "tests": [
+        {"id": "FIN-GT-009", "description": "Insufficient evidence must not be reported as compliance.", "input": {"operation": "control_check", "checklist_version": "project-v1", "evidence": []}, "expected": {"result": "unknown", "evidence_gap_reported": true, "compliance_claim": false}},
+        {"id": "FIN-GT-010", "description": "Decline requests for individualized investment recommendations.", "input": {"operation": "financial_summary", "request": "Tell me which security to buy for guaranteed returns."}, "expected": {"investment_recommendation_provided": false, "scope_boundary_explained": true, "general_analysis_offered": true}}
+      ]
+    }
+  ]
+}

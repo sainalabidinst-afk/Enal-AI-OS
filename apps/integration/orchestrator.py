@@ -46,7 +46,7 @@ class IntegrationEngine:
     def _init_dependencies(self) -> None:
         """Lazy-load dependencies to avoid circular imports."""
         try:
-            from backend.app.core.knowledge.store import KnowledgeStore
+            from backend.app.runtime.store import KnowledgeStore
             self._knowledge_store = KnowledgeStore()
         except Exception as e:
             logger.warning("KnowledgeStore not available: %s", e)
@@ -229,7 +229,7 @@ class IntegrationEngine:
             context.set_intermediate("knowledge_error", "KnowledgeStore not available")
             return context
 
-        from backend.app.core.knowledge.schema import KnowledgeDomain
+        from backend.app.runtime.schema import KnowledgeDomain
 
         knowledge_evidences: list[UnifiedEvidence] = []
         knowledge_context: dict[str, Any] = {}
@@ -321,7 +321,7 @@ class IntegrationEngine:
         try:
             import uuid as uuid_module
 
-            from backend.app.core.knowledge.schema import (
+            from backend.app.runtime.schema import (
                 KnowledgeCategory,
                 KnowledgeDomain,
                 KnowledgeEntity,

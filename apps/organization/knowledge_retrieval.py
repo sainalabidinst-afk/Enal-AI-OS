@@ -29,10 +29,10 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from backend.app.core.knowledge.evidence import EvidenceStore
-from backend.app.core.knowledge.graph import KnowledgeGraph
-from backend.app.core.knowledge.registry import KnowledgeRegistry
-from backend.app.core.knowledge.retrieval import KnowledgeRetrieval
+from backend.app.runtime.evidence import EvidenceStore
+from backend.app.runtime.graph import KnowledgeGraph
+from backend.app.runtime.registry import KnowledgeRegistry
+from backend.app.runtime.retrieval import KnowledgeRetrieval
 
 logger = logging.getLogger(__name__)
 

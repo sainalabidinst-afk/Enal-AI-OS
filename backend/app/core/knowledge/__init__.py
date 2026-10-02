@@ -32,6 +32,7 @@ from backend.app.core.knowledge.schema import (
     KnowledgeStatus,
     KnowledgeType,
 )
+from backend.app.core.knowledge.store import KnowledgeStore
 from backend.app.core.knowledge.versioning import KnowledgeVersion, KnowledgeVersionStore
 
 __all__ = [
@@ -52,6 +53,7 @@ __all__ = [
     "KnowledgeRegistry",
     "KnowledgeRetrieval",
     "KnowledgeStatus",
+    "KnowledgeStore",
     "KnowledgeType",
     "KnowledgeVersion",
     "KnowledgeVersionStore",

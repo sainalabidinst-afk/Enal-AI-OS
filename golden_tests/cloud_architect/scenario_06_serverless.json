@@ -1,0 +1,46 @@
+{
+    "expected_output":  {
+                            "valid":  true,
+                            "quality_score":  0.9
+                        },
+    "performance_targets":  {
+                                "memory_mb":  512,
+                                "token_budget":  4000,
+                                "latency_p95_ms":  5000
+                            },
+    "test_id":  "cloud-006",
+    "category":  "serverless",
+    "negative_cases":  [
+                           "invalid_schema",
+                           "missing_required_fields",
+                           "type_mismatch"
+                       ],
+    "name":  "Golden Test 6 for cloud_architect",
+    "edge_cases":  [
+                       "empty_input",
+                       "max_input_size",
+                       "special_characters"
+                   ],
+    "acceptance_criteria":  [
+                                "Output must be valid according to pack schema",
+                                "Quality score must be \u003e= 0.9",
+                                "All required fields must be present",
+                                "No security violations in output",
+                                "Execution time must be \u003c 5000ms"
+                            ],
+    "inputs":  {
+                   "cloud_provider":  "aws",
+                   "region_strategy":  "multi_region",
+                   "architecture_pattern":  "microservices"
+               },
+    "explainability_requirements":  {
+                                        "confidence":  true,
+                                        "decision":  true,
+                                        "alternatives":  true,
+                                        "reasoning":  true,
+                                        "risk":  true,
+                                        "summary":  true,
+                                        "next_action":  true,
+                                        "evidence":  true
+                                    }
+}

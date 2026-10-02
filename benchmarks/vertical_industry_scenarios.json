@@ -1,0 +1,52 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "note": "Scenario specifications only; not executed benchmark results. Each scenario maps to one golden test.",
+  "packs": [
+    {
+      "capabilityId": "finance-analyst",
+      "scenarios": [
+        {"id": "fin-001", "name": "Financial ratio calculation", "dimension": "financial_analysis", "goldenTestId": "FIN-GT-001"},
+        {"id": "fin-002", "name": "Cash-flow runway", "dimension": "cash_flow", "goldenTestId": "FIN-GT-002"},
+        {"id": "fin-003", "name": "Sensitivity analysis", "dimension": "scenario_modeling", "goldenTestId": "FIN-GT-003"},
+        {"id": "fin-004", "name": "Downside risk scenario", "dimension": "risk_modeling", "goldenTestId": "FIN-GT-004"},
+        {"id": "fin-005", "name": "Finance control evidence mapping", "dimension": "control_check", "goldenTestId": "FIN-GT-005"},
+        {"id": "fin-006", "name": "Missing denominator abstention", "dimension": "invalid_input", "goldenTestId": "FIN-GT-006"},
+        {"id": "fin-007", "name": "Currency and unit ambiguity", "dimension": "input_validation", "goldenTestId": "FIN-GT-007"},
+        {"id": "fin-008", "name": "Assumption and formula traceability", "dimension": "explainability", "goldenTestId": "FIN-GT-008"},
+        {"id": "fin-009", "name": "Unverified compliance evidence", "dimension": "compliance_boundary", "goldenTestId": "FIN-GT-009"},
+        {"id": "fin-010", "name": "No investment advice", "dimension": "safety_boundary", "goldenTestId": "FIN-GT-010"}
+      ]
+    },
+    {
+      "capabilityId": "legal-advisor",
+      "scenarios": [
+        {"id": "leg-001", "name": "Clause extraction with source span", "dimension": "document_analysis", "goldenTestId": "LEG-GT-001"},
+        {"id": "leg-002", "name": "Playbook deviation comparison", "dimension": "clause_review", "goldenTestId": "LEG-GT-002"},
+        {"id": "leg-003", "name": "Obligation and deadline extraction", "dimension": "obligation_tracking", "goldenTestId": "LEG-GT-003"},
+        {"id": "leg-004", "name": "Jurisdiction and effective-date scoping", "dimension": "source_grounding", "goldenTestId": "LEG-GT-004"},
+        {"id": "leg-005", "name": "Conflicting clause detection", "dimension": "issue_spotting", "goldenTestId": "LEG-GT-005"},
+        {"id": "leg-006", "name": "Unsupported legal conclusion abstention", "dimension": "invalid_input", "goldenTestId": "LEG-GT-006"},
+        {"id": "leg-007", "name": "Malformed document handling", "dimension": "input_validation", "goldenTestId": "LEG-GT-007"},
+        {"id": "leg-008", "name": "Missing jurisdiction escalation", "dimension": "edge_case", "goldenTestId": "LEG-GT-008"},
+        {"id": "leg-009", "name": "Unapproved source rejection", "dimension": "source_governance", "goldenTestId": "LEG-GT-009"},
+        {"id": "leg-010", "name": "Human-review and no-advice boundary", "dimension": "safety_boundary", "goldenTestId": "LEG-GT-010"}
+      ]
+    },
+    {
+      "capabilityId": "hse-specialist",
+      "scenarios": [
+        {"id": "hse-001", "name": "Task hazard identification", "dimension": "hazard_analysis", "goldenTestId": "HSE-GT-001"},
+        {"id": "hse-002", "name": "Risk matrix calculation", "dimension": "risk_assessment", "goldenTestId": "HSE-GT-002"},
+        {"id": "hse-003", "name": "Hierarchy of controls review", "dimension": "control_review", "goldenTestId": "HSE-GT-003"},
+        {"id": "hse-004", "name": "Incident timeline and contributing factors", "dimension": "incident_analysis", "goldenTestId": "HSE-GT-004"},
+        {"id": "hse-005", "name": "Corrective action evidence mapping", "dimension": "action_tracking", "goldenTestId": "HSE-GT-005"},
+        {"id": "hse-006", "name": "Unknown likelihood or severity", "dimension": "invalid_input", "goldenTestId": "HSE-GT-006"},
+        {"id": "hse-007", "name": "Contradictory site conditions escalation", "dimension": "edge_case", "goldenTestId": "HSE-GT-007"},
+        {"id": "hse-008", "name": "Jurisdiction-specific requirement mapping", "dimension": "compliance_evidence", "goldenTestId": "HSE-GT-008"},
+        {"id": "hse-009", "name": "Imminent hazard escalation", "dimension": "safety_boundary", "goldenTestId": "HSE-GT-009"},
+        {"id": "hse-010", "name": "No autonomous operational control", "dimension": "governance_boundary", "goldenTestId": "HSE-GT-010"}
+      ]
+    }
+  ]
+}

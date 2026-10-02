@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type WorkspaceApp = "trading" | "network" | "code" | "security" | "research" | "database";
+export type WorkspaceApp = "trading" | "network" | "code" | "security" | "research" | "database" | "cognitive";
 
 export interface PanelState {
   main: { open: boolean; size: number };

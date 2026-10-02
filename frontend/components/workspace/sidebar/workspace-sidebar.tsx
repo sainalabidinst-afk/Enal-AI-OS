@@ -8,6 +8,7 @@ import {
   Shield,
   FlaskConical,
   Database,
+  Brain,
 } from "lucide-react";
 import { useWorkspaceStore } from "@/components/workspace/stores/workspace-store";
 import { SidebarItem } from "@/components/workspace/sidebar/sidebar-item";
@@ -22,6 +23,10 @@ const APP_ITEMS = [
   { id: "security" as const, label: "Security", icon: Shield, href: "/workspace/security" },
   { id: "research" as const, label: "Research", icon: FlaskConical, href: "/workspace/research" },
   { id: "database" as const, label: "Database", icon: Database, href: "/workspace/database" },
+];
+
+const COGNITIVE_ITEMS = [
+  { id: "cognitive" as const, label: "Cognitive", icon: Brain, href: "/workspace/cognitive" },
 ];
 
 export function WorkspaceSidebar({ activeApp }: { activeApp: string }) {
@@ -61,6 +66,20 @@ export function WorkspaceSidebar({ activeApp }: { activeApp: string }) {
       <div className="flex-1 overflow-y-auto p-2">
       <SidebarGroup>
         {APP_ITEMS.map((item) => {
+          const isActive = activeApp === item.id;
+          return (
+            <SidebarItem
+              key={item.id}
+              icon={<item.icon className="h-4 w-4" />}
+              label={item.label}
+              active={isActive}
+              onClick={() => handleClick(item.id, item.href)}
+            />
+          );
+        })}
+      </SidebarGroup>
+      <SidebarGroup label="Cognitive">
+        {COGNITIVE_ITEMS.map((item) => {
           const isActive = activeApp === item.id;
           return (
             <SidebarItem

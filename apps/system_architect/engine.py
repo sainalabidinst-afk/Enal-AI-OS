@@ -31,8 +31,10 @@ from apps.system_architect.event_analyzer import EventAnalyzer
 from apps.system_architect.governance import ArchitectureGovernance
 from apps.system_architect.layer_analyzer import LayerAnalyzer
 from apps.system_architect.microservices_analyzer import MicroservicesAnalyzer
+from apps.system_architect.performance_architecture import PerformanceArchitect
 from apps.system_architect.refactoring_strategy import RefactoringStrategy
 from apps.system_architect.scalability_analyzer import ScalabilityAnalyzer
+from apps.system_architect.security_architect import SecurityArchitect
 from apps.system_architect.schemas import (
     ADRDraft,
     ADRStatus,
@@ -41,13 +43,13 @@ from apps.system_architect.schemas import (
     ArchitectureReviewReport,
     ArchitectureReviewRequest,
     Finding,
+    PerformanceAssessment,
     Recommendation,
     ReviewOutcome,
     ReviewSummary,
     ReviewType,
     Severity,
 )
-from apps.system_architect.security_architect import SecurityArchitect
 
 logger = logging.getLogger(__name__)
 
@@ -74,6 +76,7 @@ class SystemArchitectEngine:
         self._security_architect: SecurityArchitect | None = None
         self._cost_optimizer: CostOptimizer | None = None
         self._refactoring_strategy: RefactoringStrategy | None = None
+        self._performance_architect: PerformanceArchitect | None = None
 
     # ------------------------------------------------------------------
     # Public API
@@ -143,21 +146,58 @@ class SystemArchitectEngine:
             findings.extend(gov_findings)
             recommendations.extend(gov_recs)
 
-        # Deeper knowledge expansion
-        if ReviewType.full_review in review_types:
-            scalability = self._get_scalability_analyzer().assess(metrics)
-            findings.extend(self._get_scalability_analyzer().to_findings(scalability))
+        # Deeper knowledge expansion — build graph lazily when needed
+        from apps.system_architect.dependency_graph import build_graph
+        performance_assessment: PerformanceAssessment | None = None
+        scalability: ScalabilityAssessment | None = None
+        security_findings: list[Finding] = []
+        cost_findings: list[Finding] = []
 
-            from apps.system_architect.dependency_graph import build_graph
+        graph_dependent = (
+            ReviewType.full_review in review_types
+            or ReviewType.scalability_review in review_types
+            or ReviewType.performance_architecture in review_types
+            or ReviewType.security_architecture in review_types
+            or ReviewType.cost_optimization in review_types
+        )
+
+        if graph_dependent:
             snapshot = build_graph(workspace_path)
+
+        if ReviewType.full_review in review_types:
+            scalability = self._get_scalability_analyzer().assess(snapshot, metrics)
+            findings.extend(self._get_scalability_analyzer().to_findings(scalability))
+            recommendations.extend(scalability.recommendations)
+
             security_findings = self._get_security_architect().review(snapshot, metrics)
             findings.extend(security_findings)
 
-            cost_findings = self._get_cost_optimizer().analyze(metrics)
+            cost_findings = self._get_cost_optimizer().analyze(snapshot, metrics)
             findings.extend(cost_findings)
 
             refactor_recs = self._get_refactoring_strategy().recommend(findings, metrics)
             recommendations.extend(refactor_recs)
+
+            performance_assessment = self._get_performance_architect().assess(metrics)
+            findings.extend(self._get_performance_architect().to_findings(performance_assessment))
+            recommendations.extend(self._get_performance_architect().to_recommendations(performance_assessment))
+
+        # Individual review types
+        if ReviewType.scalability_review in review_types:
+            scalability = self._get_scalability_analyzer().assess(snapshot, metrics)
+            findings.extend(self._get_scalability_analyzer().to_findings(scalability))
+
+        if ReviewType.performance_architecture in review_types:
+            performance_assessment = self._get_performance_architect().assess(metrics)
+            findings.extend(self._get_performance_architect().to_findings(performance_assessment))
+
+        if ReviewType.security_architecture in review_types:
+            security_findings = self._get_security_architect().review(snapshot, metrics)
+            findings.extend(security_findings)
+
+        if ReviewType.cost_optimization in review_types:
+            cost_findings = self._get_cost_optimizer().analyze(snapshot, metrics)
+            findings.extend(cost_findings)
 
         # 2. Compute consolidated metrics if not already set
         metrics = self._finalize_metrics(metrics, findings)
@@ -194,6 +234,7 @@ class SystemArchitectEngine:
             architecture_metrics=metrics,
             recommendations=recommendations,
             summary=summary,
+            performance_assessment=performance_assessment or PerformanceAssessment(),
         )
         return report
 
@@ -213,6 +254,10 @@ class SystemArchitectEngine:
                 ReviewType.package_boundary,
             ]
         return [review_type]
+
+    def _get_performance_architect(self) -> PerformanceArchitect:
+        self._performance_architect = self._performance_architect or PerformanceArchitect()
+        return self._performance_architect
 
     def _get_layer_analyzer(self, workspace_path: Path) -> LayerAnalyzer:
         self._layer_analyzer = self._layer_analyzer or LayerAnalyzer(workspace_path)

@@ -22,7 +22,7 @@ from typing import Any
 from apps.society.society import SocietyRuntime, create_society
 
 try:
-    from backend.app.core.memory import conversation_store as _memory
+    from backend.app.runtime import conversation_store as _memory
     _MEMORY_AVAILABLE = True
 except Exception:
     _MEMORY_AVAILABLE = False

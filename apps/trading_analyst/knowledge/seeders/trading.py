@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from backend.app.core.knowledge.edge import KnowledgeEdge
-from backend.app.core.knowledge.graph import KnowledgeGraph
-from backend.app.core.knowledge.node import KnowledgeNode
-from backend.app.core.knowledge.registry import KnowledgeRegistry
-from backend.app.core.knowledge.schema import (
+from backend.app.runtime.edge import KnowledgeEdge
+from backend.app.runtime.graph import KnowledgeGraph
+from backend.app.runtime.node import KnowledgeNode
+from backend.app.runtime.registry import KnowledgeRegistry
+from backend.app.runtime.schema import (
     KnowledgeCategory,
     KnowledgeDomain,
     KnowledgeEntity,

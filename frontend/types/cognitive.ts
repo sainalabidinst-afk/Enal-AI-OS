@@ -44,3 +44,59 @@ export interface MetaCognitiveFlags {
   confidence_trend: "increasing" | "stable" | "decreasing";
   last_reflection: string | null;
 }
+
+export type MemoryLayerType =
+  | "working"
+  | "conversation"
+  | "knowledge"
+  | "long_term"
+  | "episodic"
+  | "session"
+  | "project";
+
+export interface MemoryLayerData {
+  type: MemoryLayerType;
+  name: string;
+  description: string;
+  capacity: number;
+  used: number;
+  utilization: number;
+  last_access: string;
+  color: string;
+}
+
+export type InsightPriority = "high" | "medium" | "low";
+
+export interface LearningInsight {
+  id: string;
+  text: string;
+  priority: InsightPriority;
+  source_capability: string;
+  created_at: string;
+  applied?: boolean;
+}
+
+export type CapabilityRunStatus = "ready" | "running" | "idle" | "failed" | "pending";
+
+export interface CapabilityStatusInfo {
+  id: string;
+  name: string;
+  domain: string;
+  status: CapabilityRunStatus;
+  last_active: string;
+  success_rate: number;
+  executions: number;
+}
+
+export interface CrossCapabilityMetric {
+  capability_id: string;
+  metric: string;
+  value: number;
+}
+
+export interface OrchestrationState {
+  capabilities: CapabilityStatusInfo[];
+  active_execution: string | null;
+  cross_capability_metrics: CrossCapabilityMetric[];
+  last_sync: string;
+}

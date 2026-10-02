@@ -31,7 +31,7 @@ class MemoryScanner:
     def _get_memory_manager(self) -> Any:
         """Lazy-load memory manager to avoid import-time coupling."""
         if self._memory_manager is None:
-            from backend.app.core.memory_layer import memory_manager as _mm
+            from backend.app.runtime import memory_manager as _mm
             self._memory_manager = _mm
         return self._memory_manager
 

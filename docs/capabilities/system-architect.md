@@ -49,7 +49,7 @@ Capability Pack ini menganalisis struktur proyek, mengevaluasi Clean Architectur
 ```json
 {
   "review_id": "uuid",
-  "review_type": "full_review|clean_architecture|ddd|event_driven|cqrs|microservices|package_boundary|adr_generation",
+  "review_type": "full_review|clean_architecture|ddd|event_driven|cqrs|microservices|package_boundary|adr_generation|scalability_review|performance_architecture|security_architecture|cost_optimization",
   "workspace_path": "path-to-project",
   "architecture_style": "clean_architecture|layered|hexagonal|ddd|microservices|monolith|event_driven",
   "existing_adrs": ["ADR-001", "ADR-002"],
@@ -94,7 +94,20 @@ Capability Pack ini menganalisis struktur proyek, mengevaluasi Clean Architectur
     "package_boundaries_crossed": 0,
     "maintainability_score": 0.0,
     "scalability_score": 0.0,
-    "testability_score": 0.0
+    "testability_score": 0.0,
+    "p95_latency_ms": 0.0,
+    "memory_mb": 0.0,
+    "max_concurrent_requests": 0,
+    "database_connections": 0
+  },
+  "performance_assessment": {
+    "latency_p95_ms": 0.0,
+    "memory_mb": 0.0,
+    "max_concurrent_requests": 0,
+    "database_connections": 0,
+    "bottlenecks": [],
+    "throughput_qps": 0.0,
+    "recommendations": []
   },
   "recommendations": [{"priority": "high", "problem": "string", "solution": "string"}],
   "summary": {
@@ -123,6 +136,10 @@ Capability Pack ini menganalisis struktur proyek, mengevaluasi Clean Architectur
 | `microservices` | Review microservices/monolith decomposition | workspace_path | Decomposition candidates |
 | `package_boundary` | Review pelanggaran package boundary | workspace_path | Boundary violations |
 | `adr_generation` | Generate ADR dari konteks arsitektur | context | ADR draft |
+| `scalability_review` | Review bottleneck skalabilitas & rekomendasi scaling | workspace_path | Scalability findings + scaling recommendations |
+| `performance_architecture` | Review performa: latency, memory, throughput, bottlenecks | workspace_path | PerformanceAssessment + bottleneck findings |
+| `security_architecture` | Review arsitektur untuk keamanan (auth, encryption, threat) | workspace_path | Security findings + remediation |
+| `cost_optimization` | Analisis optimasi biaya & deteksi redundancy | workspace_path | Cost findings + optimization recommendations |
 
 ## 5. Modul Analyzer
 
@@ -141,6 +158,7 @@ Capability Pack ini menganalisis struktur proyek, mengevaluasi Clean Architectur
 | `security_architect.py` | Review arsitektur untuk keamanan |
 | `cost_optimizer.py` | Analisis optimasi biaya arsitektur |
 | `refactoring_strategy.py` | Rekomendasi strategi refactoring |
+| `performance_architecture.py` | Analisis performa: latency, memory, throughput, bottlenecks |
 
 ## 6. Dimensi Benchmark
 
@@ -173,7 +191,8 @@ Capability Pack ini menganalisis struktur proyek, mengevaluasi Clean Architectur
 - **apps/system_architect/scalability_analyzer.py** — Analisis skalabilitas
 - **apps/system_architect/security_architect.py** — Review arsitektur security
 - **apps/system_architect/cost_optimizer.py** — Optimasi biaya arsitektur
-- **apps/system_architect/refactoring_strategy.py** — Strategi refactoring
+  - **apps/system_architect/refactoring_strategy.py** — Strategi refactoring
+  - **apps/system_architect/performance_architecture.py** — Analisis performa (latency, memory, throughput, bottlenecks)
 - **apps/system_architect/engine.py** — Orchestrator domain engine
 - **apps/system_architect/worker.py** — Adaptor worker tipis (ADR-003)
 
@@ -249,6 +268,9 @@ print(f"Maintainability score: {report.architecture_metrics.maintainability_scor
 | 8 | Generasi ADR | Draft ADR dengan context/decision/consequences |
 | 9 | Scalability bottleneck | Kekhawatiran teridentifikasi |
 | 10 | Degradasi maintainability | Masalah dengan remediasi |
+| 11 | Performance architecture review | P95 latency, memory, throughput, bottlenecks |
+| 12 | Security architecture review | Auth patterns, data protection, threat surface |
+| 13 | Cost optimization review | Redundancy, resource efficiency, cost findings |
 
 ---
 
@@ -294,7 +316,8 @@ System Architect menjadi **otoritas arsitektur** untuk:
 | `apps/system_architect/scalability_analyzer.py` | Analisis skala sistem (scalability bottlenecks) |
 | `apps/system_architect/security_architect.py` | Review arsitektur untuk keamanan (auth, encryption, threat surface) |
 | `apps/system_architect/cost_optimizer.py` | Analisis optimasi biaya arsitektur |
-| `apps/system_architect/refactoring_strategy.py` | Rekomendasi strategi refactoring berbasis temuan |
+| `apps/system_architect/refactoring_strategy.py` | Rekomendasi strategi refactoring |
+| `apps/system_architect/performance_architecture.py` | Analisis performa arsitektur (latency, memory, throughput, bottlenecks) |
 | `apps/system_architect/engine.py` | Orchestrator domain engine |
 | `apps/system_architect/worker.py` | Adaptor worker tipis |
 | `benchmarks/system_architect_benchmark.py` | Benchmark (8 dimensi) |

@@ -175,7 +175,7 @@ class EvidenceAdapter:
 
     def to_knowledge_evidence(self, unified: UnifiedEvidence) -> Any:
         """Convert unified evidence back to Knowledge system format."""
-        from backend.app.core.knowledge.evidence import Evidence
+        from backend.app.runtime.evidence import Evidence
         return Evidence(
             claim_id=unified.claim_id or unified.id,
             content=unified.content,

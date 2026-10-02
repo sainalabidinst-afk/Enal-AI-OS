@@ -189,6 +189,16 @@ def test_consistency() -> float:
     return 0.3
 
 
+def test_partitioning() -> float:
+    """Partitioning: >= 90%."""
+    engine = DatabaseEngineerEngine()
+    req = _quick_request("partitioning")
+    report = engine.analyze(req)
+    if report.findings and len(report.findings) >= 1:
+        return 0.9
+    return 0.3
+
+
 def run_benchmark() -> dict[str, float]:
     tests = {
         "schema_quality": test_schema_quality,
@@ -198,6 +208,7 @@ def run_benchmark() -> dict[str, float]:
         "replication_plan": test_replication_plan,
         "backup_plan": test_backup_plan,
         "performance_detection": test_performance_detection,
+        "partitioning": test_partitioning,
         "explainability": test_explainability,
         "consistency": test_consistency,
     }

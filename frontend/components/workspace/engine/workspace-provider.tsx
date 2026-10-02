@@ -12,6 +12,7 @@ const APP_MAP: Record<string, import("@/components/workspace/stores/workspace-st
   security: "security",
   research: "research",
   database: "database",
+  cognitive: "cognitive",
 };
 
 export function WorkspaceProvider({ children }: { children: ReactNode }) {

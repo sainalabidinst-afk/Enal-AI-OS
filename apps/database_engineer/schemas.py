@@ -23,6 +23,9 @@ class DatabaseType(StrEnum):
     sqlite = "sqlite"
     mongodb = "mongodb"
     sqlserver = "sqlserver"
+    oracle = "oracle"
+    redis = "redis"
+    timeseries = "timeseries"
 
 
 class OperationType(StrEnum):
@@ -33,6 +36,7 @@ class OperationType(StrEnum):
     replication_plan = "replication_plan"
     backup_plan = "backup_plan"
     performance_analysis = "performance_analysis"
+    partitioning = "partitioning"
 
 
 class Severity(StrEnum):

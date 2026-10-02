@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {
+      "id": "persist_test",
+      "name": "Test",
+      "node_type": "entity",
+      "domain": "test",
+      "layer": "knowledge",
+      "description": "Test",
+      "properties": {},
+      "confidence": 0.0
+    }
+  ],
+  "edges": []
+}

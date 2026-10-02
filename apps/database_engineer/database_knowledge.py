@@ -72,6 +72,30 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         tuning_parameters=["retention_policy", "compression_codec", "chunk_interval"],
         security_considerations=["data_retention_encryption", "access_control"],
     ),
+    "oracle": DatabaseVendorKnowledge(
+        vendor="oracle",
+        recommended_index_types=["btree", "bitmap", "function_based", "cluster"],
+        partitioning_strategies=["range", "list", "hash", "composite"],
+        ha_strategies=["dataguard", "rac", "standby"],
+        tuning_parameters=["sga_target", "pga_aggregate_target", "db_cache_size", "shared_pool_size"],
+        security_considerations=["advanced_security", "data_redaction", "audit_trail"],
+    ),
+    "sqlserver": DatabaseVendorKnowledge(
+        vendor="sqlserver",
+        recommended_index_types=["clustered", "non_clustered", "columnstore", "xml"],
+        partitioning_strategies=["range", "list", "hash"],
+        ha_strategies=["always_on_availability_groups", "log_shipping", "clustered_columnstore"],
+        tuning_parameters=["max_server_memory", "cost_threshold_for_caching", "maxdop"],
+        security_considerations=["transparent_data_encryption", "row_level_security", "dynamic_data_masking"],
+    ),
+    "sqlite": DatabaseVendorKnowledge(
+        vendor="sqlite",
+        recommended_index_types=["btree"],
+        partitioning_strategies=["range", "hash"],
+        ha_strategies=["wal_replication", "backup_api"],
+        tuning_parameters=["cache_size", "page_size", "wal_autocheckpoint"],
+        security_considerations=["encryption_extension", "cell_secrets"],
+    ),
 }
 
 

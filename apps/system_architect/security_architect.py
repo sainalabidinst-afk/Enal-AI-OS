@@ -35,8 +35,10 @@ class SecurityArchitect:
     """
 
     def review(self, snapshot: Any, metrics: Any) -> list[Finding]:
-        """Review architecture for security concerns based on metrics."""
+        """Review architecture for security concerns based on dependency graph and metrics."""
         findings: list[Finding] = []
+        findings.extend(self._check_auth_patterns(snapshot))
+        findings.extend(self._check_data_protection(snapshot))
         findings.extend(self._check_threat_surface(snapshot, metrics))
         return findings
 
@@ -44,13 +46,13 @@ class SecurityArchitect:
         findings: list[Finding] = []
         modules = getattr(snapshot, 'modules', {})
         has_auth = any('auth' in m.lower() or 'security' in m.lower() for m in modules.keys())
-        if not has_auth:
+        if not has_auth and modules:
             findings.append(Finding(
-                category=FindingCategory.architecture_smell,
+                category=FindingCategory.security,
                 severity=Severity.high,
                 title="Missing authentication layer",
-                description="No dedicated authentication module detected",
-                recommendation="Introduce authentication/authorization layer with standard patterns",  # noqa: E501
+                description="No dedicated authentication or authorization module detected in the dependency graph",  # noqa: E501
+                recommendation="Introduce authentication/authorization layer with standard patterns (OAuth2, JWT, or session-based)",  # noqa: E501
                 impact=Impact.maintainability,
                 confidence=0.7,
             ))
@@ -60,13 +62,13 @@ class SecurityArchitect:
         findings: list[Finding] = []
         modules = getattr(snapshot, 'modules', {})
         has_encryption = any('encrypt' in m.lower() or 'crypto' in m.lower() for m in modules.keys())  # noqa: E501
-        if not has_encryption:
+        if not has_encryption and modules:
             findings.append(Finding(
-                category=FindingCategory.architecture_smell,
+                category=FindingCategory.security,
                 severity=Severity.medium,
                 title="Missing data protection module",
-                description="No encryption or data protection module detected",
-                recommendation="Add data encryption at rest and in transit",
+                description="No encryption or data protection module detected in the dependency graph",  # noqa: E501
+                recommendation="Add data encryption at rest and in transit; use standard crypto libraries",  # noqa: E501
                 impact=Impact.maintainability,
                 confidence=0.6,
             ))
@@ -80,7 +82,7 @@ class SecurityArchitect:
         findings: list[Finding] = []
         if hasattr(metrics, 'package_boundaries_crossed') and metrics.package_boundaries_crossed > 5:  # noqa: E501
             findings.append(Finding(
-                category=FindingCategory.architecture_smell,
+                category=FindingCategory.security,
                 severity=Severity.medium,
                 title="Large attack surface: many package boundary crossings",
                 description=f"{metrics.package_boundaries_crossed} boundary crossings increase attack surface",  # noqa: E501

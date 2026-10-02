@@ -139,6 +139,13 @@ class DatabaseEngineerEngine:
             perf_stats = perf_result.get("stats", PerformanceStats())
             explanation_parts.append(f"Performance analysis: {perf_stats.slow_queries} slow queries detected")  # noqa: E501
 
+        elif op == "partitioning":
+            part_recs = self.partitioning_advisor.recommend(
+                request.database_schema, request.workload_profile
+            )
+            all_findings.extend(self.partitioning_advisor.to_findings(part_recs))
+            explanation_parts.append(f"Partitioning recommendations: {len(part_recs)} strategies suggested")  # noqa: E501
+
         # Deeper knowledge expansion
         if request.database_type and op in ("performance_analysis", "query_optimization", "replication_plan"):  # noqa: E501
             vendor_findings = self.knowledge_engine.recommend_for_vendor(
@@ -147,7 +154,7 @@ class DatabaseEngineerEngine:
             )
             all_findings.extend(vendor_findings)
 
-        if request.database_schema and op in ("schema_design", "partitioning"):
+        if request.database_schema and op == "schema_design":
             part_recs = self.partitioning_advisor.recommend(request.database_schema, request.workload_profile)  # noqa: E501
             all_findings.extend(self.partitioning_advisor.to_findings(part_recs))
 

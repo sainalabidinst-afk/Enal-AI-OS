@@ -268,7 +268,7 @@ class CrossDomainGraphEngine:
 
         # If we have LLM inference available, enhance with LLM
         try:
-            from backend.app.core.config import settings
+            from backend.app.runtime import settings
 
             has_llm = any(
                 [
@@ -303,8 +303,8 @@ class CrossDomainGraphEngine:
         fallback: InferenceResult,
     ) -> InferenceResult:
         """Enhance inference using LLM for natural language synthesis."""
-        from backend.app.core.config import settings
-        from backend.app.core.model_router import model_router
+        from backend.app.runtime import settings
+        from backend.app.runtime import model_router
 
         node_descs = [
             f"{n.name} (domain: {n.domain}, layer: {n.layer}): {n.description}"

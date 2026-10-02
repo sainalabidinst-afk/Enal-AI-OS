@@ -29,6 +29,10 @@ class ReviewType(StrEnum):
     microservices = "microservices"
     package_boundary = "package_boundary"
     adr_generation = "adr_generation"
+    scalability_review = "scalability_review"
+    performance_architecture = "performance_architecture"
+    security_architecture = "security_architecture"
+    cost_optimization = "cost_optimization"
 
 
 class ArchitectureStyle(StrEnum):
@@ -57,6 +61,10 @@ class FindingCategory(StrEnum):
     cqrs_mismatch = "cqrs_mismatch"
     monolith_anti_pattern = "monolith_anti_pattern"
     architecture_smell = "architecture_smell"
+    scalability = "scalability"
+    performance = "performance"
+    security = "security"
+    cost = "cost"
 
 
 class Impact(StrEnum):
@@ -168,6 +176,22 @@ class ArchitectureMetrics(BaseModel):
     maintainability_score: float = Field(default=0.0, ge=0.0, le=100.0, description="Maintainability score (0-100)")  # noqa: E501
     scalability_score: float = Field(default=0.0, ge=0.0, le=100.0, description="Scalability score (0-100)")  # noqa: E501
     testability_score: float = Field(default=0.0, ge=0.0, le=100.0, description="Testability score (0-100)")  # noqa: E501
+    p95_latency_ms: float = Field(default=0.0, ge=0.0, description="P95 latency in milliseconds")
+    memory_mb: float = Field(default=0.0, ge=0.0, description="Memory consumption in MB")
+    max_concurrent_requests: int = Field(default=0, description="Maximum concurrent request capacity")
+    database_connections: int = Field(default=0, description="Database connection pool size")
+
+
+class PerformanceAssessment(BaseModel):
+    """Performance architecture assessment output."""
+
+    latency_p95_ms: float = Field(default=0.0, ge=0.0, description="P95 latency in milliseconds")
+    memory_mb: float = Field(default=0.0, ge=0.0, description="Peak memory consumption in MB")
+    max_concurrent_requests: int = Field(default=0, description="Max concurrent request capacity")
+    database_connections: int = Field(default=0, description="Database connection pool size")
+    throughput_qps: float = Field(default=0.0, ge=0.0, description="Estimated queries per second at baseline")
+    bottlenecks: list[str] = Field(default_factory=list, description="Identified performance bottlenecks")
+    recommendations: list[str] = Field(default_factory=list, description="Performance improvement recommendations")
 
 
 class Recommendation(BaseModel):
@@ -207,6 +231,7 @@ class ArchitectureReviewReport(BaseModel):
     architecture_metrics: ArchitectureMetrics = Field(default_factory=ArchitectureMetrics, description="Quantitative metrics")  # noqa: E501
     recommendations: list[Recommendation] = Field(default_factory=list, description="Remediation recommendations")  # noqa: E501
     summary: ReviewSummary = Field(default_factory=ReviewSummary, description="Summary statistics")
+    performance_assessment: PerformanceAssessment = Field(default_factory=PerformanceAssessment, description="Performance architecture assessment")  # noqa: E501
 
     def to_dict(self) -> dict[str, Any]:
         """Return a JSON-serializable dict."""

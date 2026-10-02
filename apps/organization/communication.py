@@ -117,7 +117,7 @@ class Blackboard:
         })
         # Store in shared memory if available
         try:
-            from backend.app.core.memory_layer import memory_manager
+            from backend.app.runtime import memory_manager
             await memory_manager.store("blackboard", f"{key}:{agent_id or 'anon'}", value, ttl=ttl)
         except Exception:
             pass

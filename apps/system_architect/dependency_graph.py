@@ -18,6 +18,7 @@ Features:
 from __future__ import annotations
 
 import ast
+import asyncio
 import logging
 import sys
 from dataclasses import dataclass, field
@@ -384,8 +385,15 @@ class DependencyGraphBuilder:
 
 def build_graph(repo_path: str | Path) -> DependencyGraphSnapshot:
     """Synchronous convenience wrapper for building a dependency graph."""
-    import asyncio
-
     builder = DependencyGraphBuilder(repo_path)
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop and loop.is_running():
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor() as pool:
+            return pool.submit(asyncio.run, builder.build()).result()
     return asyncio.run(builder.build())
 

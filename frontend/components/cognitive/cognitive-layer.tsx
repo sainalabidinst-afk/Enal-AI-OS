@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { type ReactNode, Children } from "react";
 import { useCognitiveStore } from "@/store/cognitive-store";
 import { CognitiveLayer as CognitiveLayerEnum } from "@/types/cognitive";
 import { cn } from "@/lib/utils";
@@ -10,28 +10,30 @@ interface CognitiveLayerProps {
   fallback?: ReactNode;
 }
 
+const LAYER_CONFIG = {
+  [CognitiveLayerEnum.REACTIVE]: {
+    label: "System 1 — Fast Thinking",
+    description: "Reactive, instant responses",
+    className: "border-l-4 border-l-[var(--color-primary-500)]",
+  },
+  [CognitiveLayerEnum.ANALYTICAL]: {
+    label: "System 2 — Deliberate Thinking",
+    description: "Analytical, step-by-step reasoning",
+    className: "border-l-4 border-l-[var(--color-secondary-500)]",
+  },
+  [CognitiveLayerEnum.META_COGNITIVE]: {
+    label: "System 3 — Strategic Thinking",
+    description: "Meta-cognitive, cross-capability insights",
+    className: "border-l-4 border-l-[var(--color-accent)]",
+  },
+} as const;
+
+const LAYER_ORDER = [CognitiveLayerEnum.REACTIVE, CognitiveLayerEnum.ANALYTICAL, CognitiveLayerEnum.META_COGNITIVE];
+
 export function CognitiveLayer({ children, fallback }: CognitiveLayerProps) {
   const currentLayer = useCognitiveStore((s) => s.current_layer);
-
-  const layerConfig = {
-    [CognitiveLayerEnum.REACTIVE]: {
-      label: "System 1 — Fast Thinking",
-      description: "Reactive, instant responses",
-      className: "border-l-4 border-l-[var(--color-primary-500)]",
-    },
-    [CognitiveLayerEnum.ANALYTICAL]: {
-      label: "System 2 — Deliberate Thinking",
-      description: "Analytical, step-by-step reasoning",
-      className: "border-l-4 border-l-[var(--color-secondary-500)]",
-    },
-    [CognitiveLayerEnum.META_COGNITIVE]: {
-      label: "System 3 — Strategic Thinking",
-      description: "Meta-cognitive, cross-capability insights",
-      className: "border-l-4 border-l-[var(--color-accent)]",
-    },
-  };
-
-  const config = layerConfig[currentLayer];
+  const config = LAYER_CONFIG[currentLayer];
+  const childArray = Children.toArray(children);
 
   return (
     <div className={cn("flex flex-col h-full w-full", config.className)}>
@@ -47,7 +49,18 @@ export function CognitiveLayer({ children, fallback }: CognitiveLayerProps) {
         <CognitiveLayerTabs />
       </div>
       <div className="flex-1 overflow-hidden">
-        {children}
+        {childArray.map((child, index) => {
+          const layer = LAYER_ORDER[index];
+          return (
+            <div
+              key={index}
+              hidden={layer !== currentLayer}
+              className="h-full"
+            >
+              {child}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -73,7 +86,7 @@ function CognitiveLayerTabs() {
             "px-2 py-1 rounded text-xs font-medium transition-colors",
             currentLayer === tab.id
               ? "bg-[var(--color-primary-500)] text-white"
-              : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+              : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
           )}
         >
           {tab.label}

@@ -2,8 +2,7 @@
 ECP Reference Applications
 ============================
 
-These 19 reference applications demonstrate ECP's capabilities
-and serve as golden tests for the platform.
+These 22 reference applications demonstrate ECP's capabilities and serve as golden tests for the platform.
 
 Apps:
   1. Trading Analyst - Market analysis and trading insights
@@ -24,7 +23,14 @@ Apps:
  16. Documentation Engineer - Automated technical documentation
  17. Product Manager - Product management and prioritization
  18. Infrastructure Engineer - Infrastructure design and HA planning
- 19. AI Engineer - AI architecture, RAG, and LLMOps design
+    18. AI Engineer - AI architecture, RAG, and LLMOps design
+    19. Cloud Architect - Cloud architecture design (Phase 5)
+    20. SRE Engineer - Site reliability engineering (Phase 5)
+    21. Compliance Officer - Compliance assessment and audit (Phase 5)
+    22. Knowledge Engineer - Ontology and knowledge graphs
+    23. Finance Analyst - Financial analysis and risk modeling
+    24. Legal Advisor - Legal document analysis and clause review
+    25. HSE Specialist - Health safety environment hazard analysis (Phase 5)
 
 Each app uses:
 - SDK for agent/tool/workflow definitions
@@ -66,6 +72,10 @@ APPS = {
     "infrastructure-engineer": _load_app("infrastructure_engineer"),
     "ai-engineer": _load_app("ai_engineer"),
     "ui-ux-designer": _load_app("ui_ux_designer"),
+    "cloud-architect": _load_app("cloud_architect"),
+    "sre-engineer": _load_app("sre_engineer"),
+    "compliance-officer": _load_app("compliance_officer"),
+    "knowledge-engineer": _load_app("knowledge_engineer"),
 }
 
 

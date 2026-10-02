@@ -73,8 +73,8 @@ class AssumptionAuditor:
         constraints: list[str] | None,
     ) -> list[str]:
         """Extract assumptions using LLM and heuristics."""
-        from backend.app.core.config import settings
-        from backend.app.core.model_router import model_router
+        from backend.app.runtime import settings
+        from backend.app.runtime import model_router
 
         ev_str = json.dumps(evidence or {})[:500] if evidence else ""
         constraints_str = ", ".join(constraints or [])
@@ -94,8 +94,8 @@ class AssumptionAuditor:
         try:
             if os.environ.get("TESTING", "").lower() in ("true", "1", "yes"):
                 raise RuntimeError("Skipping LLM calls in test mode")
-            from backend.app.core.config import settings
-            from backend.app.core.model_router import model_router
+            from backend.app.runtime import settings
+            from backend.app.runtime import model_router
 
             response = model_router.complete(
                 [{"role": "user", "content": prompt}],

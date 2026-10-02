@@ -90,9 +90,13 @@ RFC terkait, dokumentasi, dll.
 - RFC-0020: Research Assistant — Sertifikasi Level 4 Domain Expert (Diterima)
 - RFC-0021: DevOps Assistant — Sertifikasi Level 4 Domain Expert (Diterima)
 - RFC-0022: Self Development — Sertifikasi Level 4 Domain Expert (Diterima)
-- RFC-0023: Scenario Simulator / Real-Time Simulation & Sandboxing (Draft)
-- RFC-0024: Cross-Domain Knowledge Graph Generator (Draft)
-- RFC-0025: Adversarial Testing / Devil's Advocate (Draft)
+- RFC-0023: Scenario Simulator / Real-Time Simulation & Sandboxing (Diimplementasikan — 25 golden tests passing)
+- RFC-0024: Cross-Domain Knowledge Graph Generator (Diimplementasikan — 21 golden tests passing)
+- RFC-0025: Adversarial Testing / Devil's Advocate (Diimplementasikan — 28 golden tests passing)
+- RFC-0026: Cloud Architect Capability Pack (Diterima — Phase 5)
+- RFC-0027: SRE Engineer Capability Pack (Diterima — Phase 5)
+- RFC-0028: Compliance Officer Capability Pack (Diterima — Phase 5)
+- RFC-0029: Knowledge Engineer Capability Pack (Diterima — Phase 5)
 
 ## Indeks RFC
 
@@ -120,6 +124,10 @@ RFC terkait, dokumentasi, dll.
 |RFC-0020|Sertifikasi Research Assistant — Level 4 Domain Expert|Diterima|Research Assistant|
 |RFC-0021|Sertifikasi DevOps Assistant — Level 4 Domain Expert|Diterima|DevOps Assistant|
 |RFC-0022|Sertifikasi Self Development — Level 4 Domain Expert|Diterima|Self Development|
-|RFC-0023|Scenario Simulator|Draf|Scenario Simulator|
-|RFC-0024|Cross-Domain Knowledge Graph Generator|Draf|Cross-Domain Graph|
-|RFC-0025|Adversarial Testing / Devil's Advocate|Draf|Adversarial Testing|
+|RFC-0023|Scenario Simulator / Real-Time Simulation & Sandboxing|Diimplementasikan|Scenario Simulator|
+|RFC-0024|Cross-Domain Knowledge Graph Generator|Diimplementasikan|Cross-Domain Graph|
+|RFC-0025|Adversarial Testing / Devil's Advocate|Diimplementasikan|Adversarial Testing|
+|RFC-0026|Cloud Architect Capability Pack|Diterima|Cloud Architect|
+|RFC-0027|SRE Engineer Capability Pack|Diterima|SRE Engineer|
+|RFC-0028|Compliance Officer Capability Pack|Diterima|Compliance Officer|
+|RFC-0029|Knowledge Engineer Capability Pack|Diterima|Knowledge Engineer|

@@ -1,0 +1,38 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "legal-advisor",
+  "version": "0.1.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {"id": "LEG-GT-001", "description": "Extract a clause and preserve its source location.", "input": {"operation": "document_extract", "document_id": "contract-1", "text": "Supplier shall notify Customer within five business days of a security incident.", "page": 4}, "expected": {"clause_type": "notice_obligation", "source_document": "contract-1", "page": 4, "quoted_text_preserved": true}},
+        {"id": "LEG-GT-002", "description": "Compare a supplied limitation clause to an approved playbook.", "input": {"operation": "clause_compare", "playbook_id": "commercial-v2", "playbook_rule": "Liability cap must be at least annual fees.", "clause": "Liability is capped at fees paid in the prior month."}, "expected": {"deviation_flagged": true, "playbook_id_preserved": true, "legal_conclusion_claimed": false}},
+        {"id": "LEG-GT-003", "description": "Extract party, action, trigger, deadline, and source for an obligation.", "input": {"operation": "obligation_register", "text": "Customer must provide renewal notice at least 60 days before expiration.", "source_id": "agreement-8"}, "expected": {"responsible_party": "Customer", "action": "provide renewal notice", "deadline_trigger_present": true, "source_id_preserved": true}},
+        {"id": "LEG-GT-004", "description": "Keep jurisdiction and effective date attached to a supplied source.", "input": {"operation": "source_summary", "source_id": "policy-3", "jurisdiction": "Example-Jurisdiction", "effective_date": "2025-01-01", "text": "Supplied source text."}, "expected": {"jurisdiction_preserved": true, "effective_date_preserved": true, "source_id_preserved": true}}
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {"id": "LEG-GT-005", "description": "Surface inconsistent obligations without choosing an unsupported interpretation.", "input": {"operation": "clause_compare", "clauses": [{"id": "a", "text": "Notice within 5 days."}, {"id": "b", "text": "Notice within 30 days."}]}, "expected": {"conflict_flagged": true, "both_sources_preserved": true, "definitive_interpretation": false}},
+        {"id": "LEG-GT-008", "description": "Ask for jurisdiction before making jurisdiction-dependent analysis.", "input": {"operation": "source_summary", "question": "Is this clause enforceable?", "jurisdiction": null, "text": "Clause text."}, "expected": {"jurisdiction_dependent_conclusion": null, "clarification_requested": true, "law_invented": false}}
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {"id": "LEG-GT-006", "description": "Abstain from legal conclusions when no approved source supports them.", "input": {"operation": "source_summary", "question": "What law applies?", "approved_sources": []}, "expected": {"legal_conclusion_provided": false, "evidence_gap_reported": true, "source_fabricated": false}},
+        {"id": "LEG-GT-007", "description": "Reject malformed or unsupported document content with an explicit error.", "input": {"operation": "document_extract", "document_format": "unknown-binary", "content": "not-a-valid-document"}, "expected": {"extraction_succeeded": false, "validation_error_reported": true, "silent_fallback": false}}
+      ]
+    },
+    {
+      "name": "Contract Compliance",
+      "tests": [
+        {"id": "LEG-GT-009", "description": "Do not rely on sources outside the configured approved registry.", "input": {"operation": "source_summary", "source_id": "unregistered-source", "approved_sources": ["approved-source-1"]}, "expected": {"source_used": false, "approval_error_reported": true, "unsupported_claims": false}},
+        {"id": "LEG-GT-010", "description": "Mark review output as assistive and not legal advice.", "input": {"operation": "clause_compare", "clause": "Standard clause.", "request": "Approve this contract as my lawyer."}, "expected": {"contract_approved": false, "legal_advice_claimed": false, "qualified_human_review_required": true}}
+      ]
+    }
+  ]
+}
