@@ -27,4 +27,4 @@ DevSecOps provides advanced capabilities for platform observability and governan
 
 ## Changelog
 
-- **2026-10-02**: Initial implementation
+- **2026-10-02**: Initial implementation (RFC-0040, ADR-020)

@@ -1,7 +1,7 @@
 # DevOps Assistant — Spesifikasi Capability
 
 **Versi:** 2.0.0
-**Status:** Bersertifikat
+**Status:** Bersertifikat (RFC-0021)
 **Target Kualitas:** A+ (≥95) — Level 4 — Pakar Domain
 
 ---

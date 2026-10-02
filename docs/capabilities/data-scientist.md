@@ -27,4 +27,4 @@ Data Scientist provides advanced capabilities for platform observability and gov
 
 ## Changelog
 
-- **2026-10-02**: Initial implementation
+- **2026-10-02**: Initial implementation (RFC-0037, ADR-017)

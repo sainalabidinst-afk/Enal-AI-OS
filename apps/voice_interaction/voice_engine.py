@@ -18,20 +18,18 @@ import logging
 import time
 from typing import Any
 
+from apps.voice_interaction.observability_log import (
+    log_voice_complete,
+    log_voice_error,
+    start_voice_trace,
+)
 from apps.voice_interaction.schemas import (
     AudioTranscription,
     SpeechSynthesis,
-    VoiceInteractionInputs,
     VoiceInteractionOperation,
     VoiceInteractionReport,
     VoiceInteractionRequest,
     VoiceLanguage,
-    VoiceProvider,
-)
-from apps.voice_interaction.observability_log import (
-    start_voice_trace,
-    log_voice_complete,
-    log_voice_error,
 )
 
 logger = logging.getLogger(__name__)
@@ -97,7 +95,10 @@ class VoiceEngine:
 
         Falls back to web_speech stub if the primary provider is unavailable.
         """
-        audio_bytes = audio_data if isinstance(audio_data, bytes) else self._decode_audio(audio_data)
+        if isinstance(audio_data, bytes):
+            audio_bytes = audio_data
+        else:
+            audio_bytes = self._decode_audio(audio_data)
         if not audio_bytes:
             return AudioTranscription(
                 text="",
@@ -133,7 +134,11 @@ class VoiceEngine:
                     provider=provider,
                     alternatives=result.alternatives[:3] if result.alternatives else [],
                 )
-                log_voice_complete(span, {"text": transcription.text, "confidence": transcription.confidence}, elapsed_ms)
+                log_voice_complete(
+                    span,
+                    {"text": transcription.text, "confidence": transcription.confidence},
+                    elapsed_ms,
+                )
                 return transcription
             except Exception as exc:
                 last_error = exc
@@ -188,7 +193,11 @@ class VoiceEngine:
                 )
                 log_voice_complete(
                     span,
-                    {"format": synthesis.audio_format, "provider": synthesis.provider, "chars": len(text)},
+                    {
+                        "format": synthesis.audio_format,
+                        "provider": synthesis.provider,
+                        "chars": len(text),
+                    },
                     elapsed_ms,
                 )
                 return synthesis

@@ -49,4 +49,4 @@ untuk dependency opsional (python-docx, openpyxl, python-pptx, PyPDF2/pypdf, rep
 
 ## Changelog
 
-- **2026-10-02**: Initial specification (RFC-0042, ADR-021)
+- **2026-10-02**: Initial specification (RFC-0042, ADR-022)

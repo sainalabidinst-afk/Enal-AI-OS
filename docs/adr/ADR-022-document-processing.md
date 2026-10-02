@@ -1,4 +1,4 @@
-# ADR-021: Document Processing Pack Architecture
+# ADR-022: Document Processing Pack Architecture
 
 **ADR ID:** ADR-022
 **RFC:** RFC-0042

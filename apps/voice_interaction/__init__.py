@@ -4,6 +4,7 @@ Voice Interaction Capability Pack — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.voice_interaction.engine import VoiceInteractionEngine
 from apps.voice_interaction.schemas import (
     AudioTranscription,
@@ -12,13 +13,12 @@ from apps.voice_interaction.schemas import (
     VoiceInteractionInputs,
     VoiceInteractionOperation,
     VoiceInteractionRecord,
-    VoiceInteractionRequest,
     VoiceInteractionReport,
+    VoiceInteractionRequest,
     VoiceLanguage,
     VoiceProvider,
 )
 from apps.voice_interaction.worker import VoiceInteractionWorker
-from apps.base import BaseReferenceApp
 
 
 class VoiceInteractionApp(BaseReferenceApp):

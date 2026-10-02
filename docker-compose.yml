@@ -220,15 +220,32 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-    healthcheck:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:-}
+      DEFAULT_MODEL: ${DEFAULT_MODEL:-gpt-4o}
+      DEFAULT_REASONING_MODEL: ${DEFAULT_REASONING_MODEL:-gpt-4o}
+      DEFAULT_EMBEDDING_MODEL: ${DEFAULT_EMBEDDING_MODEL:-text-embedding-3-small}
+      MAX_TOKENS: ${MAX_TOKENS:-4096}
+      TEMPERATURE: ${TEMPERATURE:-0.7}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-480}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_HOST: ${LANGFUSE_HOST:-http://langfuse:3000}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      LOG_FORMAT: ${LOG_FORMAT:-json}
+      LOGGING_PROVIDER: ${LOGGING_PROVIDER:-console}
+      TESTING: ${TESTING:-false}
+      DEBUG: ${DEBUG:-false}
+      ENABLE_BENCHMARK_RUNTIME: ${ENABLE_BENCHMARK_RUNTIME:-true}
+      healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
-    # read_only: true
+    read_only: true
     tmpfs:
       - /tmp
+      - /app/workspace
     volumes:
       - backend_workspace:/app/workspace
     security_opt:

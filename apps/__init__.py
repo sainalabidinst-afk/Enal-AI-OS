@@ -2,7 +2,7 @@
 ECP Reference Applications
 ============================
 
-These 34 reference applications demonstrate ECP's capabilities and serve as
+These 37 reference applications demonstrate ECP's capabilities and serve as
 golden tests for the platform.
 
 Apps:
@@ -15,32 +15,34 @@ Apps:
   7. Self Development - Personal improvement and learning
   8. Decision Intelligence - Cross-domain reasoning layer
   9. System Architect - Architecture review and governance
- 10. Security Engineer - Security analysis and hardening
- 11. Data Engineer - Data lifecycle management
- 12. Database Engineer - Database design and optimization
- 13. QA Engineer - Quality assurance and testing
- 14. Business Analyst - Business-to-technical translation
- 15. UI/UX Designer - User experience design and design systems
- 16. Documentation Engineer - Automated technical documentation
- 17. Product Manager - Product management and prioritization
- 18. Infrastructure Engineer - Infrastructure design and HA planning
-    18. AI Engineer - AI architecture, RAG, and LLMOps design
-    19. Cloud Architect - Cloud architecture design (Phase 5)
-    20. SRE Engineer - Site reliability engineering (Phase 5)
-    21. Compliance Officer - Compliance assessment and audit (Phase 5)
-    22. Knowledge Engineer - Ontology and knowledge graphs
-    23. Finance Analyst - Financial analysis and risk modeling
-    24. Legal Advisor - Legal document analysis and clause review
-    25. HSE Specialist - Health safety environment hazard analysis (Phase 5)
-    26. Observability - Metrics collection, tracing, log analysis, anomaly detection (Phase 6)
-  27. Cybersecurity Analyst - Threat modeling, vulnerability assessment,
-      incident detection, compliance mapping (Phase 6)
-  28. AI Ethics & Governance - Fairness auditing, bias detection, explainability (Phase 7)
-  29. Supply Chain Analyst - Logistics optimization, demand forecasting, risk management (Phase 7)
-  30. Data Scientist - Advanced ML pipelines, feature engineering, model training (Phase 7)
-  31. Business Intelligence - Dashboarding, KPI tracking, metric analysis (Phase 7)
-  32. Innovation Strategist - Trend analysis, foresight, R&D portfolio (Phase 7)
-  33. DevSecOps - CI/CD security gates, dependency scanning, policy enforcement (Phase 7)
+  10. Security Engineer - Security analysis and hardening
+  11. Data Engineer - Data lifecycle management
+  12. Database Engineer - Database design and optimization
+  13. QA Engineer - Quality assurance and testing
+  14. Business Analyst - Business-to-technical translation
+  15. Documentation Engineer - Automated technical documentation
+  16. Product Manager - Product management and prioritization
+  17. Infrastructure Engineer - Infrastructure design and HA planning
+  18. AI Engineer - AI architecture, RAG, and LLMOps design
+  19. UI/UX Designer - User experience design and design systems
+  20. Cloud Architect - Cloud architecture design
+  21. SRE Engineer - Site reliability engineering
+  22. Compliance Officer - Compliance assessment and audit
+  23. Knowledge Engineer - Ontology and knowledge graphs
+  24. Finance Analyst - Financial analysis and risk modeling
+  25. Legal Advisor - Legal document analysis and clause review
+  26. HSE Specialist - Health safety environment hazard analysis
+  27. Observability - Metrics collection, tracing, log analysis, anomaly detection
+  28. Cybersecurity Analyst - Threat modeling, vulnerability assessment, incident detection, compliance mapping
+  29. AI Ethics & Governance - Fairness auditing, bias detection, explainability
+  30. Supply Chain Analyst - Logistics optimization, demand forecasting, risk management
+  31. Data Scientist - Advanced ML pipelines, feature engineering, model training
+  32. Business Intelligence - Dashboarding, KPI tracking, metric analysis
+  33. Innovation Strategist - Trend analysis, foresight, R&D portfolio
+  34. DevSecOps - CI/CD security gates, dependency scanning, policy enforcement
+  35. Translator Expert - Multi-domain translation, glossary enforcement
+  36. Document Processing - Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF
+  37. Voice Interaction - STT/TTS with multi-provider fallback, language detection
 
 Each app uses:
 - SDK for agent/tool/workflow definitions

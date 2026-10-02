@@ -467,3 +467,59 @@ Layanan ini tidak dapat mengubah Core. Mereka adalah bagian dari lapisan produk,
 
 **Alasan:**
 Pengguna menilai ECP berdasarkan kegunaan sehari-hari, bukan berdasarkan arsitektur internal. Lapisan Produk Operasional inilah yang mengubah AI Runtime yang kuat menjadi produk yang dapat diandalkan pengguna untuk pekerjaan nyata. Tanpa layanan ini, ECP hanya akan menjadi sebuah kerangka kerja. Bersama mereka, ini menjadi Platform Eksekusi AI.
+
+ADR‑015: Observability & Consent Layer
+Status: Beku
+Efektif: 2026‑10‑02
+
+Semua aksi dengan risiko medium atau tinggi harus melewati ConsentManager. Observability wajib mencatat trace, anomaly, dan consent log.
+
+Observability: setiap eksekusi menghasilkan TraceSpan dengan latency, throughput, confidence.
+
+Consent: aksi medium → konfirmasi user; aksi high → persetujuan eksplisit + timeout.
+
+Semua consent disimpan sebagai artefak audit.
+
+Alasan: Menjamin keamanan, transparansi, dan kepercayaan pengguna saat AI mengeksekusi aksi nyata.
+
+ADR‑016: Benchmark & Quality Gates
+Status: Beku
+Efektif: 2026‑10‑02
+
+Setiap Capability Pack baru harus lulus benchmark ≥90% dan quality gates (MyPy, Ruff, tests).
+
+Benchmark mencakup latency, throughput, confidence metrics.
+
+Quality gates wajib: lint, typecheck, unit tests, integration tests.
+
+Hasil benchmark disimpan sebagai artefak versi.
+
+Alasan: Menjaga standar kinerja dan kualitas konsisten di seluruh Capability Pack.
+
+ADR‑017: Documentation Completeness
+Status: Beku
+Efektif: 2026‑10‑02
+
+Semua RFC/ADR harus memiliki contoh kode, diagram, dan analisis dampak.
+
+Setiap rilis wajib memperbarui version history dan release readiness report.
+
+Dokumentasi harus sinkron dengan implementasi aktual.
+
+Artefak dokumentasi disimpan dan diberi versi.
+
+Alasan: Dokumentasi lengkap adalah syarat kepercayaan, audit, dan keberlanjutan pengembangan.
+
+ADR‑018: Developer Experience
+Status: Beku
+Efektif: 2026‑10‑02
+
+Platform harus menyediakan pengalaman developer yang konsisten dan efisien.
+
+CLI tool ecp doctor untuk lint, typecheck, test, governance check.
+
+Pre‑commit hooks untuk Ruff + MyPy.
+
+Devcontainer (VSCode) untuk setup cepat.
+
+Alasan: Mempercepat onboarding, mengurangi kesalahan, dan menjaga kualitas kode.

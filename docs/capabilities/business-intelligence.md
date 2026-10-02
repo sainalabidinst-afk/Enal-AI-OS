@@ -27,4 +27,4 @@ Business Intelligence provides advanced capabilities for platform observability 
 
 ## Changelog
 
-- **2026-10-02**: Initial implementation
+- **2026-10-02**: Initial implementation (RFC-0038, ADR-018)

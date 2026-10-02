@@ -6,8 +6,6 @@ provide structured tracing for voice operations (transcription, synthesis).
 """
 
 import logging
-import time
-import uuid
 from typing import Any
 
 from backend.app.runtime import SpanType, observability

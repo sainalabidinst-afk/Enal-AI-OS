@@ -4,8 +4,8 @@
 **Target Grade:** A (≥90%)  
 **Status:** Implemented  
 **Phase:** Platform Enterprise (Phase 7)  
-**RFC:** [RFC-0039](docs/rfcs/RFC-0039-translator-expert.md)  
-**ADR:** [ADR-015](docs/adr/ADR-015-translator-expert.md)  
+**RFC:** [RFC-0041](docs/rfcs/RFC-0041-translator-expert.md)  
+**ADR:** [ADR-021](docs/adr/ADR-021-translator-expert.md)  
 
 ## Ringkasan
 
@@ -94,7 +94,7 @@ Translation model imports (`transformers`, `langdetect`, `torch`) are **lazy-loa
 
 ## Changelog
 
-- **2026-10-02**: Initial implementation (RFC-0039, ADR-015)
+- **2026-10-02**: Initial implementation (RFC-0041, ADR-021)
   - `apps/translator_expert/` pack with engine, schemas, worker, glossary_manager, translator_engine
   - Lazy-loaded HuggingFace MarianMT/M2M-100 + rule-based fallback
   - 10 golden test scenarios

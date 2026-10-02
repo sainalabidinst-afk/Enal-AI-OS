@@ -26,10 +26,17 @@
 | Fase | Waktu | Total Pack | Fokus |
 |------|-------|------------|-------|
 | **Fase 1** — Capability Excellence | 0–12 bulan | 13 | Naikkan kualitas 13 pack ke A/A- |
-| **Fase 2** — Decision Intelligence + Security + Data | 12–18 bulan | 9 | Tambah 3 pack baru |
-| **Fase 3** — Enterprise | 18–24 bulan | 13 | Database, System Architect, QA, Business Analyst |
-| **Fase 4** — Platform Professional | 24–36 bulan | 18 (Target) | Infrastructure, AI Engineer, Documentation, Product, UI/UX |
-| **Fase 5** — Platform Enterprise | 36–42 bulan (kondisional) | 23 (Proposed) | Cloud Architect, SRE, Compliance, Knowledge, Full Stack |
+| **Fase 2** — Decision Intelligence + Security + Data | 12–18 bulan | 16 | Decision Intelligence, Security Engineer, Data Engineer |
+| **Fase 3** — Enterprise | 18–24 bulan | 17 | Database Engineer, System Architect, QA Engineer, Business Analyst |
+| **Fase 4** — Platform Professional | 24–36 bulan | 18 | Infrastructure, AI Engineer, Documentation, Product, UI/UX |
+| **Fase 5** — Platform Enterprise | 36–42 bulan | 22 | Cloud Architect, SRE, Compliance, Knowledge, Full Stack |
+| **Fase 6** — Vertical Industry | 42–48 bulan* | 26 | Finance Analyst, Legal Advisor, HSE Specialist |
+| **Fase 7** — Platform Vertical Expansion | 48–54 bulan* | 28 | Observability, Cybersecurity Analyst |
+| **Fase 8** — Enterprise Specialization | 54–60 bulan* | 35 | AI Ethics, Supply Chain, Data Scientist, Business Intelligence, Innovation Strategist, DevSecOps |
+| **Fase 9+** — Translator + Document Processing + Voice Interaction | 60+ bulan* | 35+ | Translator Expert, Document Processing, Voice Interaction |
+| **Jenny-like Interaction** | 2026-Q4 | — | Voice Interface (Q4.1), Action Connectors (Q4.2), Observability & Safety (Q4.3) |
+
+\* Timeline paralel/kondisional — banyak fase dieksekusi secara paralel sejak 2026-10-02
 
 ---
 
@@ -988,7 +995,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | v2.9.0 | 2031 Q3 | Innovation Strategist Pack (trend analysis, R&D portfolio, foresight modeling) |
 | v3.0.0 | 2026-10-02 | DevSecOps Pack (CI/CD security gates, dependency scanning, runtime policy enforcement) |
 | v3.0.1 | 2026-10-02 | Translator Expert Pack (multilingual translation, glossary enforcement, latency/accuracy) |
-| v3.1.0-rc1 | 2026-Q4 | RELEASE CANDIDATE — All 35 packs complete, governance & boundaries passing, TypeScript 0 errors |
+| v3.1.0-rc1 | 2026-Q4 | RELEASE CANDIDATE — All 37 packs complete (35 at v3.0.0-rc1 + Document Processing + Voice Interaction), governance & boundaries passing, TypeScript 0 errors |
 
 ---
 
@@ -996,7 +1003,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 
 | Metric | Fase 1 Target | Fase 2 Target | Fase 3 Target | Fase 4 Target | Fase 5 Target | Fase 6 Target | Fase 7 Target | Fase 8 Target |
 |--------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
-| Total Capability Packs | 13 | 16 | 17 (Target: 18 packs — Phase 4 roadmap) | 18 | 22 | 26 | 28 | 35 |
+| Total Capability Packs | 13 | 16 | 17 | 18 | 22 | 26 | 28 | 35 |
 | Real Cases | 1,000+ | 2,000+ | 3,000+ | 3,000+ | 3,000+ | 3,000+ | 3,090+ | 3,180+ |
 | Pack Grade | Semua A-/A | Semua A-/A | Semua A/A- | Semua A/A- | Semua A | Semua A | Semua A | Semua A |
 | Golden Test Pass Rate | ≥80% | ≥85% | ≥90% | ≥90% | ≥90% | ≥90% | ≥90% | ≥90% |
@@ -1368,7 +1375,7 @@ Frontend Cognitive Layer memetakan **3 tingkat pemikiran kognitif** ke layer pre
 | 2026-10-02 | Translator Expert: Benchmark run — Grade A (91.67%), 6 dimensions passing | ✅ |
 | 2026-10-02 | RFC/ADR numbering fixed: RFC-0033 through RFC-0041 now correctly numbered; ADR-021 for Translator Expert created | ✅ |
 | 2026-10-02 | Governance checks: 0 violations; Package boundary checks: 0 violations; TypeScript: 0 errors | ✅ |
-| 2026-10-02 | **Release Candidate v3.0.0-rc1 declared — 35 capability packs, all Grade A** | ✅ |
+| 2026-10-02 | **Release Candidate v3.0.0-rc1 declared — 35 capability packs (now 37 with Document Processing + Voice Interaction), all Grade A** | ✅ |
 | 2026-10-02 | **Phase Professional: Document Processing pack (RFC-0042, ADR-022)** created — apps/document_processing/ (engine, document_worker, schemas, document_engine, office_reader, pdf_reader, office_writer, pdf_writer, __init__) | ✅ |
 | 2026-10-02 | Document Processing: 10 golden test cases (DP-GT-001 through DP-GT-011) in golden_tests/document_processing/ | ✅ |
 | 2026-10-02 | Document Processing: 10 real cases created in real_cases/document_processing/ (dp_001–dp_010, legal/finance/technical) | ✅ |

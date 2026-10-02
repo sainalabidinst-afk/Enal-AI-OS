@@ -12,19 +12,17 @@ import logging
 import time
 from typing import Any
 
-from apps.voice_interaction.schemas import (
-    VoiceInteractionInputs,
-    VoiceInteractionOperation,
-    VoiceInteractionReport,
-    VoiceInteractionRequest,
-    VoiceInteractionRecord,
-)
-from apps.voice_interaction.voice_engine import VoiceEngine, process_voice_interaction
 from apps.voice_interaction.observability_log import (
-    start_voice_trace,
     log_voice_complete,
     log_voice_error,
+    start_voice_trace,
 )
+from apps.voice_interaction.schemas import (
+    VoiceInteractionRecord,
+    VoiceInteractionReport,
+    VoiceInteractionRequest,
+)
+from apps.voice_interaction.voice_engine import VoiceEngine, process_voice_interaction
 
 logger = logging.getLogger(__name__)
 

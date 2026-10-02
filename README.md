@@ -14,7 +14,7 @@
 > 🟢 **Engineering Baseline:** Tag `v1.0.0-engineering-baseline` (frozen baseline; code has diverged — see audit)
 > 🟢 **Engineering Transformation:** COMPLETE — MyPy: 0 errors, Ruff: 0 errors, 1023 tests (1021 passed, 2 skipped)
 > 🟢 **Governance:** ACTIVE — Quality Gates, ADRs, Architecture Specification
-> 🟨 **Release Classification:** B — RELEASE CANDIDATE (v3.0.0-rc1; 35 capability packs implemented, all benchmarks Grade A)
+> 🟨 **Release Classification:** B — RELEASE CANDIDATE (v3.0.0-rc1; 37 capability packs implemented, all benchmarks Grade A)
 
 ---
 
@@ -55,14 +55,11 @@ User → [API Layer] → [Orchestrator] → [Cognitive Pipeline (8 services)] �
 |---|---|---|
 | `docs/ENGINEERING_BASELINE.md` | 297 | Baseline yang dibekukan — apa yang dikunci dan mengapa |
 | `docs/quality/QUALITY_GATES.md` | 137 | 12 quality gate dengan proses pengecualian |
-| `docs/adr/ADR-001-*.md` | 68 | Keputusan Event Bus Architecture |
-| `docs/adr/ADR-002-*.md` | 72 | Keputusan Capability Pack Architecture |
-| `docs/adr/ADR-003-*.md` | 60 | Keputusan desain Universal AST |
-| `docs/adr/ADR-004-*.md` | 71 | Keputusan Debate Engine Architecture |
+| `docs/adr/ADR-001.md` — `ADR-026.md` | 1,247 | 26 arsip keputusan arsitektur (Event Bus — Voice Interaction) |
 | `docs/AES_ARCHITECTURE.md` | 734 | Architecture Engineering Specification (kondisi kode aktual) |
 | `docs/REFERENCE_ARCHITECTURE.md` | 635 | Pola, anti-pola, kerangka keputusan |
 | `docs/APP_DEV_GUIDE.md` | 798 | Panduan langkah-demi-langkah untuk membangun Capability Pack |
-| **Total** | **2,872 baris** | **97.6 KB — rangkaian engineering governance lengkap** |
+| **Total** | **3,848 baris** | **~131 KB — rangkaian engineering governance lengkap** |
 
 ### Skor Kualitas Akhir
 
@@ -71,10 +68,10 @@ Engineering:     94/100  (Architecture APPROVED; Type Safety & Ruff gates PASSIN
 Architecture:   100/100  (APPROVED 94/100 per COMPREHENSIVE_AUDIT_2026-09-21)
 Governance:     100/100  (COMPLETE)
 Documentation:   72/100  (6,553 lines documented; stale claims corrected 2026-09-21)
-Product Ready:   85/100  (B — RELEASE CANDIDATE v3.0.0-rc1; 35 packs Grade A, benchmarks passing)
+Product Ready:   85/100  (B — RELEASE CANDIDATE v3.0.0-rc1; 37 packs Grade A, benchmarks passing)
 ```
 
-> 🟨 **Release Classification B — RELEASE CANDIDATE (v3.0.0-rc1).** Semua 35 capability packs ter-implementasi, semua benchmark lulus Grade A. Governance & package boundary checks: ✅ 0 violations. TypeScript frontend: ✅ 0 errors. Roadmap v2.x siap dilanjutkan ke release penuh. Lihat [`docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`](docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md).
+> 🟨 **Release Classification B — RELEASE CANDIDATE (v3.0.0-rc1).** Semua 37 capability packs ter-implementasi, semua benchmark lulus Grade A. Governance & package boundary checks: ✅ 0 violations. TypeScript frontend: ✅ 0 errors. Roadmap v2.x siap dilanjutkan ke release penuh. Lihat [`docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`](docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md).
 
 ---
 
@@ -160,7 +157,7 @@ ECP dapat berinteraksi seperti "Jenny" melalui lapisan tambahan di atas Cognitiv
 │  Action Layer                                              │
 │  • ToolRegistry (plugin-style tool registration)          │
 │  • ConnectorManager (FileSystem, Email, Calendar, IoT)    │
-│  • Capability Packs (35 packs, all Grade A)               │
+│  • Capability Packs (37 packs, all Grade A)               │
 └─────────────────────┬──────────────────────────────────────┘
                       │
 ┌─────────────────────▼──────────────────────────────────────┐
@@ -270,44 +267,45 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 
 ## Capability Pack Resmi
 
-| Capability Pack | Status | Grade |
-|---|---|---|
-| **Network Engineer** | ✅ Production Ready | A (≥90) |
-| **Code Engineer** | ✅ Production Ready | A+ (≥95) |
-| **Research Assistant** | ✅ Production Ready | A+ (≥90) |
-| **DevOps Assistant** | ✅ Production Ready | A+ (≥90) |
-| **Trading Analyst** | ✅ Production Ready | A+ (≥95) |
-| **Self Development** | ✅ Production Ready | A+ (≥95) |
-| **Decision Intelligence** | ✅ Production Ready | A+ (≥95) |
-| **Cloud Architect** | ✅ Production Ready | A+ (≥95) |
-| **SRE Engineer** | ✅ Production Ready | A (≥90) |
-| **Compliance Officer** | ✅ Production Ready | A (≥90) |
-| **Knowledge Engineer** | ✅ Production Ready | A (≥90) |
-| **Finance Analyst** | ✅ Vertical Industry Pack | A (≥90) |
-| **Legal Advisor** | ✅ Vertical Industry Pack | A (≥90) |
-| **HSE Specialist** | ✅ Vertical Industry Pack | A (≥90) |
-| **Observability** | ✅ Platform Services Pack | A (≥90) |
-| **Cybersecurity Analyst** | ✅ Platform Services Pack | A (≥90) |
-| **AI Ethics & Governance** | ✅ Governance Pack | A (≥90) |
-| **Supply Chain Analyst** | ✅ Vertical Industry Pack | A (≥90) |
-| **Data Scientist** | ✅ AI/ML Engineering Pack | A (≥90) |
-| **Business Intelligence** | ✅ Analytics Pack | A (≥90) |
-| **Innovation Strategist** | ✅ Strategy Pack | A (≥90) |
-| **DevSecOps** | ✅ Security Engineering Pack | A (≥90) |
-| **Security Engineer** | ✅ Production Ready | A (≥90) |
-| **Data Engineer** | ✅ Production Ready | A (≥90) |
-| **Database Engineer** | ✅ Production Ready | A- (≥85) |
-| **QA Engineer** | ✅ Production Ready | A (≥90) |
-| **Business Analyst** | ✅ Production Ready | A- (≥85) |
-| **Infrastructure Engineer** | ✅ Production Ready | A (≥90) |
-| **AI Engineer** | ✅ Production Ready | A+ (≥95) |
-| **Documentation Engineer** | ✅ Production Ready | A (≥90) |
-| **Product Manager** | ✅ Production Ready | A- (≥85) |
-| **UI/UX Designer** | ✅ Production Ready | A- (≥85) |
-| **Full Stack Engineer** | ✅ Production Ready | A- (≥85) |
-| **Translator Expert** | ✅ Platform Services Pack | A (≥90) | ADR-021, RFC-0041 |
-| **Document Processing** | ✅ Productivity Pack | A (≥90) | RFC-0042 |
-| **Voice Interaction** | ✅ Platform Professional | A (≥90) | ADR-026, RFC-0043 |
+| Capability Pack | Status | Grade | RFC/ADR |
+|---|---|---|---|
+| **Network Engineer** | ✅ Production Ready | A (≥90) | RFC-0004 |
+| **Code Engineer** | ✅ Production Ready | A+ (≥95) | RFC-0006 |
+| **Research Assistant** | ✅ Production Ready | A+ (≥90) | RFC-0020 |
+| **DevOps Assistant** | ✅ Production Ready | A+ (≥90) | RFC-0021 |
+| **Trading Analyst** | ✅ Production Ready | A+ (≥95) | RFC-0005 |
+| **Self Development** | ✅ Production Ready | A+ (≥95) | RFC-0022 |
+| **Decision Intelligence** | ✅ Production Ready | A+ (≥95) | RFC-0007 |
+| **System Architect** | ✅ Production Ready | A+ (≥95) | RFC-0011 |
+| **Security Engineer** | ✅ Production Ready | A (≥90) | RFC-0008 |
+| **Data Engineer** | ✅ Production Ready | A (≥90) | RFC-0009 |
+| **Database Engineer** | ✅ Production Ready | A- (≥85) | RFC-0010 |
+| **QA Engineer** | ✅ Production Ready | A (≥90) | RFC-0012 |
+| **Business Analyst** | ✅ Production Ready | A- (≥85) | RFC-0013 |
+| **Infrastructure Engineer** | ✅ Production Ready | A (≥90) | RFC-0014 |
+| **AI Engineer** | ✅ Production Ready | A+ (≥95) | RFC-0015 |
+| **Documentation Engineer** | ✅ Production Ready | A (≥90) | RFC-0016 |
+| **Product Manager** | ✅ Production Ready | A- (≥85) | RFC-0017 |
+| **UI/UX Designer** | ✅ Production Ready | A- (≥85) | RFC-0018 |
+| **Full Stack Engineer** | ✅ Production Ready | A- (≥85) | RFC-0019 |
+| **Cloud Architect** | ✅ Production Ready | A+ (≥95) | RFC-0026/ADR-005 |
+| **SRE Engineer** | ✅ Production Ready | A (≥90) | RFC-0027/ADR-006 |
+| **Compliance Officer** | ✅ Production Ready | A (≥90) | RFC-0028/ADR-007 |
+| **Knowledge Engineer** | ✅ Production Ready | A (≥90) | RFC-0029/ADR-008 |
+| **Finance Analyst** | ✅ Vertical Industry Pack | A (≥90) | RFC-0030/ADR-010 |
+| **Legal Advisor** | ✅ Vertical Industry Pack | A (≥90) | RFC-0031/ADR-011 |
+| **HSE Specialist** | ✅ Vertical Industry Pack | A (≥90) | RFC-0032/ADR-012 |
+| **Observability** | ✅ Platform Services Pack | A (≥90) | RFC-0033/ADR-013 |
+| **Cybersecurity Analyst** | ✅ Platform Services Pack | A (≥90) | RFC-0034/ADR-014 |
+| **AI Ethics & Governance** | ✅ Governance Pack | A (≥90) | RFC-0035/ADR-015 |
+| **Supply Chain Analyst** | ✅ Vertical Industry Pack | A (≥90) | RFC-0036/ADR-016 |
+| **Data Scientist** | ✅ AI/ML Engineering Pack | A (≥90) | RFC-0037/ADR-017 |
+| **Business Intelligence** | ✅ Analytics Pack | A (≥90) | RFC-0038/ADR-018 |
+| **Innovation Strategist** | ✅ Strategy Pack | A (≥90) | RFC-0039/ADR-019 |
+| **DevSecOps** | ✅ Security Engineering Pack | A (≥90) | RFC-0040/ADR-020 |
+| **Translator Expert** | ✅ Platform Services Pack | A (≥90) | RFC-0041/ADR-021 |
+| **Document Processing** | ✅ Productivity Pack | A (≥90) | RFC-0042/ADR-022 |
+| **Voice Interaction** | ✅ Platform Professional | A (≥90) | RFC-0043/ADR-026 |
 
 ### Membangun Capability Pack Baru
 
@@ -332,7 +330,7 @@ Lihat [Application Development Guide](docs/APP_DEV_GUIDE.md) untuk petunjuk lang
 | **App Development Guide** | `docs/APP_DEV_GUIDE.md` | Membangun capability pack baru |
 | **Engineering Baseline** | `docs/ENGINEERING_BASELINE.md` | Apa yang dibekukan dan mengapa |
 | **Quality Gates** | `docs/quality/QUALITY_GATES.md` | Persyaratan merge dan pengecualian |
-| **ADRs** | `docs/adr/ADR-001.md` — `ADR-004.md` | Mengapa keputusan arsitektur dibuat |
+| **ADRs** | `docs/adr/ADR-001.md` — `ADR-026.md` | Mengapa keputusan arsitektur dibuat |
 | **API Reference** | `docs/api_reference.md` | Dokumentasi endpoint |
 | **SDK Reference** | `sdk/README.md` | Penggunaan Python SDK |
 | **Infrastructure Engineer** | `docs/rfcs/RFC-0014.md` | Infrastructure design (K8s, HA, DR) |
@@ -358,12 +356,12 @@ enal-ai-os/
 │   │   └── studio/           # ECP Studio
 │   └── tests/
 ├── apps/                     # Capability Packs
-│   ├── network_engineer/     # Analisis & generasi konfigurasi jaringan
-│   ├── code_engineer/        # Analisis & generasi kode
-│   ├── research_assistant/   # Research & analisis
-│   ├── devops_assistant/     # Otomasi DevOps
-│   ├── trading_analyst/      # Analisis trading
-│   ├── self_development/     # Pengembangan diri
+│   ├── network_engineer/     # Network configuration analysis & generation (RFC-0004)
+│   ├── code_engineer/        # Code analysis & generation (RFC-0006)
+│   ├── research_assistant/   # Literature research & synthesis (RFC-0020)
+│   ├── devops_assistant/     # DevOps automation (RFC-0021)
+│   ├── trading_analyst/      # Trading analysis (RFC-0005)
+│   ├── self_development/     # Self-development & learning (RFC-0022)
 │   ├── decision_intelligence/     # Decision Intelligence (RFC-0007)
 │   ├── system_architect/          # System Architect (RFC-0011)
 │   ├── security_engineer/         # Security Engineer (RFC-0008)
@@ -393,16 +391,28 @@ enal-ai-os/
 │   ├── innovation_strategist/     # Trend analysis, foresight, R&D portfolio (RFC-0039)
 │   ├── devsecops/                 # CI/CD security gates, dependency scanning (RFC-0040)
 │   ├── translator_expert/         # Multi-domain translation, glossary enforcement (RFC-0041)
-│   └── document_processing/       # Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF (RFC-0042)
-│   └── voice_interaction/         # STT/TTS with multi-provider fallback, language detection (RFC-0043)
+│   ├── document_processing/       # Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF (RFC-0042)
+│   ├── voice_interaction/         # STT/TTS with multi-provider fallback, language detection (RFC-0043)
+│   ├── adversarial_testing/       # Adversarial testing, devil's advocate (RFC-0025)
+│   ├── cross_domain_graph/        # Cross-domain knowledge graph generator (RFC-0024)
+│   ├── scenario_simulator/        # Real-time simulation & sandboxing (RFC-0023)
+│   ├── integration/               # Core integration layer
+│   ├── organization/              # Organization structure & governance
+│   └── society/                   # Society-level patterns
 ├── agents/                   # Registri agent dan skills
 ├── sdk/                      # Python SDK
 ├── benchmarks/               # Performance benchmark
 ├── tests/                    # Test suite (1023 test, 1021 passed, 2 skipped)
 ├── voice/                    # STT/TTS provider configs (whisper.cpp, piper, elevenlabs)
-└── docs/                     # Dokumentasi (60+ dokumen)
-    ├── adr/                  # Architecture Decision Records
-    └── quality/              # Kebijakan Quality Gate
+└── docs/                     # Dokumentasi (170+ dokumen)
+    ├── adr/                  # Architecture Decision Records (26 ADRs)
+    ├── audit/                # Audit & compliance reports
+    ├── capabilities/         # Capability pack specifications (36 docs)
+    ├── frontend/             # Frontend architecture & component docs
+    ├── guides/               # Technical guides & tutorials
+    ├── quality/              # Kebijakan Quality Gate
+    ├── releases/             # Release notes & changelogs
+    └── rfcs/                 # RFCs (45 RFCs)
 ```
 
 ### Quality Gates (Sebelum Merge)
@@ -459,7 +469,7 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Innovation Strategist** — A (≥90), RFC-0039/ADR-019, 10 golden tests, 10 real cases (Strategy Pack)
 - [x] **DevSecOps** — A (≥90), RFC-0040/ADR-020, 10 golden tests, 10 real cases (Security Engineering Pack)
 - [x] **Translator Expert** — A (≥90), RFC-0041/ADR-021, 10 golden tests, 10 real cases (Platform Services Pack)
-- [x] **Document Processing** — A (≥90), RFC-0042/ADR-025, 10 golden tests, 10 real cases (Productivity Pack)
+- [x] **Document Processing** — A (≥90), RFC-0042/ADR-022, 10 golden tests, 10 real cases (Productivity Pack)
 - [x] **Voice Interaction** — A (≥90), RFC-0043/ADR-026, 10 golden tests, 10 real cases (Platform Professional Package)
 
 ### Berikutnya: Release Readiness 🟨

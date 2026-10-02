@@ -27,4 +27,4 @@ Supply Chain Analyst provides advanced capabilities for platform observability a
 
 ## Changelog
 
-- **2026-10-02**: Initial implementation
+- **2026-10-02**: Initial implementation (RFC-0036, ADR-016)
