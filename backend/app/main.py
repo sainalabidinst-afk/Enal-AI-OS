@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from .api import (
+    actions,
     artifact,
     attachments,
     auth,
@@ -151,6 +152,7 @@ app.include_router(model_gateway.router, prefix=settings.API_V1_STR, tags=["mode
 app.include_router(notifications.router, prefix=settings.API_V1_STR, tags=["notifications"])
 app.include_router(attachments.router, prefix=settings.API_V1_STR, tags=["attachments"])
 app.include_router(voice.router, prefix=settings.API_V1_STR, tags=["voice"])
+app.include_router(actions.router, prefix=settings.API_V1_STR, tags=["actions"])
 app.include_router(telemetry.router, prefix=settings.API_V1_STR, tags=["telemetry"])
 app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmark"])
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
