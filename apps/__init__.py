@@ -2,7 +2,7 @@
 ECP Reference Applications
 ============================
 
-These 22 reference applications demonstrate ECP's capabilities and serve as golden tests for the platform.
+These 25 reference applications demonstrate ECP's capabilities and serve as golden tests for the platform.
 
 Apps:
   1. Trading Analyst - Market analysis and trading insights
@@ -76,6 +76,9 @@ APPS = {
     "sre-engineer": _load_app("sre_engineer"),
     "compliance-officer": _load_app("compliance_officer"),
     "knowledge-engineer": _load_app("knowledge_engineer"),
+    "finance-analyst": _load_app("finance_analyst"),
+    "legal-advisor": _load_app("legal_advisor"),
+    "hse-specialist": _load_app("hse_specialist"),
 }
 
 

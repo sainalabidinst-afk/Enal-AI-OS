@@ -48,6 +48,14 @@ class LegalInputs(BaseModel):
     question: str | None = None
 
 
+class LegalAdvisorRequest(BaseModel):
+    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    operation: str = "document_extract"
+    business_context: BusinessContext
+    inputs: LegalInputs
+    quality_attributes: dict[str, Any] = Field(default_factory=dict)
+
+
 class ClauseExtraction(BaseModel):
     clause_type: str
     source_document: str

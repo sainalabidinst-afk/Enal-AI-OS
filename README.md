@@ -199,7 +199,13 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | **Trading Analyst** | ✅ Production Ready | A+ (≥95) |
 | **Self Development** | ✅ Production Ready | A+ (≥95) |
 | **Decision Intelligence** | ✅ Production Ready | A+ (≥95) |
-| **System Architect** | ✅ Production Ready | A (≥90) |
+| **Cloud Architect** | ✅ Production Ready | A+ (≥95) |
+| **SRE Engineer** | ✅ Production Ready | A (≥90) |
+| **Compliance Officer** | ✅ Production Ready | A (≥90) |
+| **Knowledge Engineer** | ✅ Production Ready | A (≥90) |
+| **Finance Analyst** | ✅ Vertical Industry Pack | A (≥90) |
+| **Legal Advisor** | ✅ Vertical Industry Pack | A (≥90) |
+| **HSE Specialist** | ✅ Vertical Industry Pack | A (≥90) |
 | **Security Engineer** | ✅ Production Ready | A (≥90) |
 | **Data Engineer** | ✅ Production Ready | A (≥90) |
 | **Database Engineer** | ✅ Production Ready | A- (≥85) |
@@ -280,6 +286,13 @@ enal-ai-os/
 │   ├── product_manager/           # Product management (roadmap, OKR, backlog) (RFC-0017)
 │   ├── ui_ux_designer/            # UI/UX design (design system, accessibility) (RFC-0018)
 │   └── full_stack_engineer/       # Full stack engineering (code review, refactoring, release) (RFC-0019)
+│   ├── cloud_architect/           # Cloud architecture design (landing zones, DR, security) (RFC-0026)
+│   ├── sre_engineer/              # SRE & reliability engineering (SLOs, incident response) (RFC-0027)
+│   ├── compliance_officer/        # Compliance monitoring & evidence collection (RFC-0028)
+│   ├── knowledge_engineer/        # Knowledge management & RAG optimization (RFC-0029)
+│   ├── finance_analyst/           # Financial analysis, modeling, and controls (RFC-0030)
+│   ├── legal_advisor/             # Legal document analysis, obligations, compliance (RFC-0031)
+│   └── hse_specialist/            # Health, Safety & Environment risk and compliance (RFC-0032)
 ├── agents/                   # Registri agent dan skills
 ├── sdk/                      # Python SDK
 ├── benchmarks/               # Performance benchmark
@@ -323,6 +336,13 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Complexity Reduction** — Max complexity 272 → 211, top 10 files di-split
 - [x] **Integration Tests** — 122 tests baru covering 130 endpoints
 - [x] **Trading Analyst** — A+ (100%), Level 4 Domain Expert, bersertifikat
+- [x] **Cloud Architect** — A+ (≥95), RFC-0026/ADR-005, 10 golden tests, 10 real cases
+- [x] **SRE Engineer** — A (≥90), RFC-0027/ADR-006, 10 golden tests, 10 real cases
+- [x] **Compliance Officer** — A (≥90), RFC-0028/ADR-007, 10 golden tests, 10 real cases
+- [x] **Knowledge Engineer** — A (≥90), RFC-0029/ADR-008, 10 golden tests, 10 real cases
+- [x] **Finance Analyst** — A (≥90), RFC-0030/ADR-010, 10 golden tests, 10 real cases (Vertical Industry Pack)
+- [x] **Legal Advisor** — A (≥90), RFC-0031/ADR-011, 10 golden tests, 10 real cases (Vertical Industry Pack)
+- [x] **HSE Specialist** — A (≥90), RFC-0032/ADR-012, 10 golden tests, 10 real cases (Vertical Industry Pack)
 
 ### Berikutnya: Remediation & Quality Gates 🟨
 
