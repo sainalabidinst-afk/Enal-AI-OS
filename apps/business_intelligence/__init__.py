@@ -1,33 +1,5 @@
 """
-Business Intelligence Pack
-=========================
-
-Demonstrates ECP capabilities for business intelligence and data analytics.
-
-Workflow:
-    User Request
-        ↓
-    Intent Router
-        ↓
-    Capability Graph → business-intelligence-*
-        ↓
-    Task Planner
-        ↓
-    Subtasks:
-    - Dashboard Generation
-    - KPI Tracking
-    - Metric Analysis
-    - Trend Analysis
-        ↓
-    Execution Planner
-        ↓
-    Execution Runtime
-        ↓
-    BI Worker
-        ↓
-    BI Analysis Engine (full BI pipeline)
-        ↓
-    Result
+Business Intelligence Capability Pack — __init__.py
 """
 
 from typing import Any
@@ -35,32 +7,27 @@ from typing import Any
 from apps.base import BaseReferenceApp
 from apps.business_intelligence.engine import BusinessIntelligenceEngine
 from apps.business_intelligence.schemas import (
-    BIConfig,
-    BIReport,
-    BIReportType,
-    BIRequest,
     BusinessContext,
-    BusinessIntelligencePackRecord,
-    DashboardSpec,
-    DashboardWidget,
-    DataPoint,
-    KpiStatus,
-    KpiTarget,
-    KpiTracking,
-    MetricAnalysis,
-    MetricDefinition,
-    MetricType,
-    TrendAnalysis,
-    VisualizationType,
+    BusinessIntelligenceInputs,
+    BusinessIntelligenceOperation,
+    BusinessIntelligenceRecord,
+    BusinessIntelligenceReport,
+    BusinessIntelligenceRequest,
+    DashboardConfig,
+    KpiMetric,
+    ScenarioAnalysis,
 )
 from apps.business_intelligence.worker import BusinessIntelligenceWorker
 
 
 class BusinessIntelligenceApp(BaseReferenceApp):
     name = "business-intelligence"
-    version = "1.0.0"
-    description = "Business intelligence: dashboarding, KPI tracking, metric analysis, and trend forecasting"  # noqa: E501
-    category = "business-intelligence"
+    version = "2.8.0"
+    description = (
+        "Dashboarding, KPI tracking, metric analysis, and scenario planning "
+        "for business intelligence"
+    )
+    category = "business"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
     def __init__(self) -> None:
@@ -80,23 +47,16 @@ def get_app() -> BusinessIntelligenceApp:
 
 __all__ = [
     "BusinessIntelligenceApp",
+    "get_app",
     "BusinessIntelligenceEngine",
     "BusinessIntelligenceWorker",
-    "BIReportType",
-    "VisualizationType",
-    "MetricType",
-    "KpiStatus",
-    "DataPoint",
-    "MetricDefinition",
-    "KpiTarget",
-    "DashboardWidget",
+    "BusinessIntelligenceRequest",
+    "BusinessIntelligenceReport",
+    "BusinessIntelligenceOperation",
+    "BusinessIntelligenceInputs",
+    "BusinessIntelligenceRecord",
+    "KpiMetric",
+    "DashboardConfig",
+    "ScenarioAnalysis",
     "BusinessContext",
-    "BIConfig",
-    "BIRequest",
-    "MetricAnalysis",
-    "KpiTracking",
-    "DashboardSpec",
-    "TrendAnalysis",
-    "BIReport",
-    "BusinessIntelligencePackRecord",
 ]

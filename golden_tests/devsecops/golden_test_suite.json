@@ -1,0 +1,170 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "devsecops",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Security Gate",
+      "tests": [
+        {
+          "id": "DSO-GT-001",
+          "description": "Test DSO-GT-001 for devsecops - Security Gate",
+          "input": {
+            "operation": "security_gate"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DSO-GT-002",
+          "description": "Test DSO-GT-002 for devsecops - Security Gate",
+          "input": {
+            "operation": "security_gate"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dependency Scan",
+      "tests": [
+        {
+          "id": "DSO-GT-003",
+          "description": "Test DSO-GT-003 for devsecops - Dependency Scan",
+          "input": {
+            "operation": "dependency_scan"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DSO-GT-004",
+          "description": "Test DSO-GT-004 for devsecops - Dependency Scan",
+          "input": {
+            "operation": "dependency_scan"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Runtime Policy",
+      "tests": [
+        {
+          "id": "DSO-GT-005",
+          "description": "Test DSO-GT-005 for devsecops - Runtime Policy",
+          "input": {
+            "operation": "runtime_policy"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DSO-GT-006",
+          "description": "Test DSO-GT-006 for devsecops - Runtime Policy",
+          "input": {
+            "operation": "runtime_policy"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compliance As Code",
+      "tests": [
+        {
+          "id": "DSO-GT-007",
+          "description": "Test DSO-GT-007 for devsecops - Compliance As Code",
+          "input": {
+            "operation": "compliance_as_code"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DSO-GT-008",
+          "description": "Test DSO-GT-008 for devsecops - Compliance As Code",
+          "input": {
+            "operation": "compliance_as_code"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "DSO-GT-009",
+          "description": "Test DSO-GT-009 for devsecops - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DSO-GT-010",
+          "description": "Test DSO-GT-010 for devsecops - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {
+          "id": "GT-011",
+          "description": "Test GT-011 for devsecops - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "GT-012",
+          "description": "Test GT-012 for devsecops - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

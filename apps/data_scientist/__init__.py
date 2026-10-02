@@ -1,33 +1,5 @@
 """
-Data Scientist Pack
-===================
-
-Demonstrates ECP capabilities for advanced ML pipelines and data science workflows.
-
-Workflow:
-    User Request
-        ↓
-    Intent Router
-        ↓
-    Capability Graph → data-scientist-*
-        ↓
-    Task Planner
-        ↓
-    Subtasks:
-    - Feature Engineering
-    - Model Training
-    - Model Evaluation
-    - Hyperparameter Tuning
-        ↓
-    Execution Planner
-        ↓
-    Execution Runtime
-        ↓
-    Data Scientist Worker
-        ↓
-    ML Pipeline Engine (full ML pipeline)
-        ↓
-    Result
+Data Scientist Capability Pack — __init__.py
 """
 
 from typing import Any
@@ -36,29 +8,27 @@ from apps.base import BaseReferenceApp
 from apps.data_scientist.engine import DataScientistEngine
 from apps.data_scientist.schemas import (
     BusinessContext,
-    DataScienceConfig,
-    DataScienceOperation,
-    DataScienceReport,
-    DataScienceRequest,
-    DataScientistPackRecord,
-    Dataset,
-    FeatureConfig,
-    FeatureEngineeringResult,
-    HyperparameterResult,
-    MLAlgorithm,
-    MLTask,
-    ModelConfig,
-    ModelEvaluationResult,
-    ModelTrainingResult,
+    DataScientistInputs,
+    DataScientistOperation,
+    DataScientistRecord,
+    DataScientistReport,
+    DataScientistRequest,
+    FeatureImportance,
+    ModelEvaluation,
+    PipelineResult,
+    TrainingSummary,
 )
 from apps.data_scientist.worker import DataScientistWorker
 
 
 class DataScientistApp(BaseReferenceApp):
     name = "data-scientist"
-    version = "1.0.0"
-    description = "Advanced ML pipelines: feature engineering, model training, evaluation, and hyperparameter tuning"  # noqa: E501
-    category = "data-science"
+    version = "2.7.0"
+    description = (
+        "Advanced ML pipelines, feature engineering, model training, "
+        "evaluation, and feature importance analysis"
+    )
+    category = "ai"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
     def __init__(self) -> None:
@@ -78,21 +48,17 @@ def get_app() -> DataScientistApp:
 
 __all__ = [
     "DataScientistApp",
+    "get_app",
     "DataScientistEngine",
     "DataScientistWorker",
-    "MLTask",
-    "MLAlgorithm",
-    "DataScienceOperation",
-    "Dataset",
-    "FeatureConfig",
-    "ModelConfig",
+    "DataScientistRequest",
+    "DataScientistReport",
+    "DataScientistOperation",
+    "DataScientistInputs",
+    "DataScientistRecord",
+    "TrainingSummary",
+    "ModelEvaluation",
+    "FeatureImportance",
+    "PipelineResult",
     "BusinessContext",
-    "DataScienceConfig",
-    "DataScienceRequest",
-    "FeatureEngineeringResult",
-    "ModelTrainingResult",
-    "ModelEvaluationResult",
-    "HyperparameterResult",
-    "DataScienceReport",
-    "DataScientistPackRecord",
 ]

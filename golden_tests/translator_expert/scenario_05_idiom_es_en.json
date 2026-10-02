@@ -1,0 +1,31 @@
+{
+    "test_id": "translator-005",
+    "name": "Idiomatic Phrase Translation ES→EN",
+    "category": "idiom",
+    "source_language": "es",
+    "target_language": "en",
+    "style": "casual",
+    "domain": "general",
+    "inputs": {
+        "text": "Este proyecto costó un brazo y una pierna, pero el resultado es un pastel.",
+        "glossary_domain": "general",
+        "enforce_glossary": false
+    },
+    "expected_output": {
+        "target_language": "en",
+        "contains_terms": ["arm and a leg", "piece of cake"],
+        "min_confidence": 0.65,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Idiomatic phrases must be adapted (cost an arm and a leg → costar un brazo y una pierna)",
+        "Confidence score must be >= 0.65",
+        "Casual style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["idiomatic_expressions", "cultural_context"]
+}

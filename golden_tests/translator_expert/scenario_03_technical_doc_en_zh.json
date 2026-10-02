@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-003",
+    "name": "Technical Documentation Translation EN→ZH",
+    "category": "technical_document",
+    "source_language": "en",
+    "target_language": "zh",
+    "style": "technical",
+    "domain": "technical",
+    "inputs": {
+        "text": "The algorithm uses asynchronous containerization via microservices orchestration to scale horizontally.",
+        "glossary_domain": "technical",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "zh",
+        "contains_terms": ["算法", "异步", "容器化", "编排"],
+        "min_confidence": 0.70,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must contain Chinese characters",
+        "Technical glossary terms must be enforced (算法, 异步, 容器化, 编排)",
+        "Confidence score must be >= 0.70",
+        "Technical style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["technical_jargon", "special_characters"]
+}

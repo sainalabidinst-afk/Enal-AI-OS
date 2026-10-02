@@ -1,0 +1,170 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "business-intelligence",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "KPI Tracking",
+      "tests": [
+        {
+          "id": "BI-GT-001",
+          "description": "Test BI-GT-001 for business_intelligence - KPI Tracking",
+          "input": {
+            "operation": "kpi_tracking"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "BI-GT-002",
+          "description": "Test BI-GT-002 for business_intelligence - KPI Tracking",
+          "input": {
+            "operation": "kpi_tracking"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard Generation",
+      "tests": [
+        {
+          "id": "BI-GT-003",
+          "description": "Test BI-GT-003 for business_intelligence - Dashboard Generation",
+          "input": {
+            "operation": "dashboard_generation"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "BI-GT-004",
+          "description": "Test BI-GT-004 for business_intelligence - Dashboard Generation",
+          "input": {
+            "operation": "dashboard_generation"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scenario Planning",
+      "tests": [
+        {
+          "id": "BI-GT-005",
+          "description": "Test BI-GT-005 for business_intelligence - Scenario Planning",
+          "input": {
+            "operation": "scenario_planning"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "BI-GT-006",
+          "description": "Test BI-GT-006 for business_intelligence - Scenario Planning",
+          "input": {
+            "operation": "scenario_planning"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Metric Analysis",
+      "tests": [
+        {
+          "id": "BI-GT-007",
+          "description": "Test BI-GT-007 for business_intelligence - Metric Analysis",
+          "input": {
+            "operation": "metric_analysis"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "BI-GT-008",
+          "description": "Test BI-GT-008 for business_intelligence - Metric Analysis",
+          "input": {
+            "operation": "metric_analysis"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "BI-GT-009",
+          "description": "Test BI-GT-009 for business_intelligence - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "BI-GT-010",
+          "description": "Test BI-GT-010 for business_intelligence - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {
+          "id": "GT-011",
+          "description": "Test GT-011 for business_intelligence - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "GT-012",
+          "description": "Test GT-012 for business_intelligence - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

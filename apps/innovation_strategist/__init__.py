@@ -1,34 +1,5 @@
 """
-Innovation Strategist Pack
-=========================
-
-Demonstrates ECP capabilities for innovation strategy and technology foresight.
-
-Workflow:
-    User Request
-        ↓
-    Intent Router
-        ↓
-    Capability Graph → innovation-strategist-*
-        ↓
-    Task Planner
-        ↓
-    Subtasks:
-    - Trend Analysis
-    - Technology Forecast
-    - Competitive Intelligence
-    - Scenario Planning
-    - Opportunity Identification
-        ↓
-    Execution Planner
-        ↓
-    Execution Runtime
-        ↓
-    Innovation Strategist Worker
-        ↓
-    Strategy Analysis Engine (full foresight pipeline)
-        ↓
-    Result
+Innovation Strategist Capability Pack — __init__.py
 """
 
 from typing import Any
@@ -37,31 +8,25 @@ from apps.base import BaseReferenceApp
 from apps.innovation_strategist.engine import InnovationStrategistEngine
 from apps.innovation_strategist.schemas import (
     BusinessContext,
-    CompetitiveInsight,
-    Competitor,
-    InnovationConfig,
-    InnovationOperation,
-    InnovationOpportunity,
-    InnovationReport,
-    InnovationRequest,
-    InnovationStrategistPackRecord,
-    Scenario,
-    ScenarioLikelihood,
-    TechnologyDomain,
-    TechnologyForecast,
-    TrendCategory,
-    TrendDataPoint,
-    TrendImpact,
-    TrendSignal,
-    TrendTimeframe,
+    ForesightScenario,
+    InnovationStrategistInputs,
+    InnovationStrategistOperation,
+    InnovationStrategistRecord,
+    InnovationStrategistReport,
+    InnovationStrategistRequest,
+    PortfolioItem,
+    TechTrend,
 )
 from apps.innovation_strategist.worker import InnovationStrategistWorker
 
 
 class InnovationStrategistApp(BaseReferenceApp):
     name = "innovation-strategist"
-    version = "1.0.0"
-    description = "Innovation strategy and technology foresight: trend analysis, competitive intelligence, scenario planning, and opportunity identification"  # noqa: E501
+    version = "2.9.0"
+    description = (
+        "Trend analysis, technology foresight, R&D portfolio planning, "
+        "and strategic scenario modeling"
+    )
     category = "strategy"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
@@ -82,24 +47,16 @@ def get_app() -> InnovationStrategistApp:
 
 __all__ = [
     "InnovationStrategistApp",
+    "get_app",
     "InnovationStrategistEngine",
     "InnovationStrategistWorker",
-    "InnovationOperation",
-    "TrendCategory",
-    "TrendImpact",
-    "TrendTimeframe",
-    "ScenarioLikelihood",
-    "TechnologyDomain",
-    "TrendDataPoint",
-    "Competitor",
+    "InnovationStrategistRequest",
+    "InnovationStrategistReport",
+    "InnovationStrategistOperation",
+    "InnovationStrategistInputs",
+    "InnovationStrategistRecord",
+    "PortfolioItem",
+    "TechTrend",
+    "ForesightScenario",
     "BusinessContext",
-    "InnovationConfig",
-    "InnovationRequest",
-    "TrendSignal",
-    "TechnologyForecast",
-    "CompetitiveInsight",
-    "Scenario",
-    "InnovationOpportunity",
-    "InnovationReport",
-    "InnovationStrategistPackRecord",
 ]

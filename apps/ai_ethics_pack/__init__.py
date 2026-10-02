@@ -1,52 +1,20 @@
 """
-AI Ethics & Governance Pack
-============================
-
-Demonstrates ECP capabilities for AI ethics assessment and governance.
-
-Workflow:
-    User Request
-        ↓
-    Intent Router
-        ↓
-    Capability Graph → ai-ethics-governance-*
-        ↓
-    Task Planner
-        ↓
-    Subtasks:
-    - Fairness Assessment
-    - Bias Detection
-    - Risk Assessment
-    - Recommendation Generation
-        ↓
-    Execution Planner
-        ↓
-    Execution Runtime
-        ↓
-    Ethics Worker
-        ↓
-    Ethics Assessment Engine (full governance pipeline)
-        ↓
-    Result
+AI Ethics & Governance Capability Pack — __init__.py
 """
 
 from typing import Any
 
 from apps.ai_ethics_pack.engine import AIEthicsGovernanceEngine
 from apps.ai_ethics_pack.schemas import (
+    AIEthicsGovernanceReport,
+    AIEthicsGovernanceRequest,
+    AIEthicsInputs,
+    AIEthicsOperation,
+    AIEthicsRecord,
     BiasFinding,
-    BiasMetric,
-    BusinessContext,
-    EthicsConfig,
-    EthicsFramework,
-    EthicsOperation,
-    EthicsPackRecord,
-    EthicsReport,
-    EthicsRequest,
-    EthicsRisk,
-    FairnessViolation,
-    ProtectedAttribute,
-    Severity,
+    ComplianceMapping,
+    EthicsAssessment,
+    FairnessMetric,
 )
 from apps.ai_ethics_pack.worker import AIEthicsGovernanceWorker
 from apps.base import BaseReferenceApp
@@ -54,9 +22,12 @@ from apps.base import BaseReferenceApp
 
 class AIEthicsGovernanceApp(BaseReferenceApp):
     name = "ai-ethics-governance"
-    version = "1.0.0"
-    description = "AI ethics assessment and governance: bias detection, fairness auditing, explainability, and impact analysis"  # noqa: E501
-    category = "ethics"
+    version = "2.5.0"
+    description = (
+        "Fairness auditing, bias detection, explainability analysis, "
+        "and regulatory compliance for AI systems"
+    )
+    category = "governance"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
     def __init__(self) -> None:
@@ -76,19 +47,16 @@ def get_app() -> AIEthicsGovernanceApp:
 
 __all__ = [
     "AIEthicsGovernanceApp",
+    "get_app",
     "AIEthicsGovernanceEngine",
     "AIEthicsGovernanceWorker",
-    "EthicsFramework",
-    "EthicsOperation",
-    "BiasMetric",
-    "Severity",
-    "ProtectedAttribute",
-    "BusinessContext",
-    "EthicsConfig",
-    "EthicsRequest",
+    "AIEthicsGovernanceRequest",
+    "AIEthicsGovernanceReport",
+    "AIEthicsOperation",
+    "AIEthicsInputs",
+    "AIEthicsRecord",
     "BiasFinding",
-    "FairnessViolation",
-    "EthicsRisk",
-    "EthicsReport",
-    "EthicsPackRecord",
+    "FairnessMetric",
+    "EthicsAssessment",
+    "ComplianceMapping",
 ]

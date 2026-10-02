@@ -61,6 +61,22 @@ CAPABILITY_PACKS = [
     "infrastructure_engineer",
     "ai_engineer",
     "ui_ux_designer",
+    "cloud_architect",
+    "sre_engineer",
+    "compliance_officer",
+    "knowledge_engineer",
+    "finance_analyst",
+    "legal_advisor",
+    "hse_specialist",
+    "observability",
+    "cybersecurity_analyst",
+    "ai_ethics_pack",
+    "supply_chain_analyst",
+    "data_scientist",
+    "business_intelligence",
+    "innovation_strategist",
+    "devsecops",
+    "translator_expert",
 ]
 
 # ADR file pattern

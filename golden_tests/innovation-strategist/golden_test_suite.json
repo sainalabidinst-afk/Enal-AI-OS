@@ -1,0 +1,170 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "innovation-strategist",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Trend Analysis",
+      "tests": [
+        {
+          "id": "INN-GT-001",
+          "description": "Test INN-GT-001 for innovation_strategist - Trend Analysis",
+          "input": {
+            "operation": "trend_analysis"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "INN-GT-002",
+          "description": "Test INN-GT-002 for innovation_strategist - Trend Analysis",
+          "input": {
+            "operation": "trend_analysis"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Portfolio Planning",
+      "tests": [
+        {
+          "id": "INN-GT-003",
+          "description": "Test INN-GT-003 for innovation_strategist - Portfolio Planning",
+          "input": {
+            "operation": "portfolio_planning"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "INN-GT-004",
+          "description": "Test INN-GT-004 for innovation_strategist - Portfolio Planning",
+          "input": {
+            "operation": "portfolio_planning"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Foresight Scenarios",
+      "tests": [
+        {
+          "id": "INN-GT-005",
+          "description": "Test INN-GT-005 for innovation_strategist - Foresight Scenarios",
+          "input": {
+            "operation": "foresight_scenarios"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "INN-GT-006",
+          "description": "Test INN-GT-006 for innovation_strategist - Foresight Scenarios",
+          "input": {
+            "operation": "foresight_scenarios"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Competitive Intel",
+      "tests": [
+        {
+          "id": "INN-GT-007",
+          "description": "Test INN-GT-007 for innovation_strategist - Competitive Intel",
+          "input": {
+            "operation": "competitive_intel"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "INN-GT-008",
+          "description": "Test INN-GT-008 for innovation_strategist - Competitive Intel",
+          "input": {
+            "operation": "competitive_intel"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "INN-GT-009",
+          "description": "Test INN-GT-009 for innovation_strategist - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "INN-GT-010",
+          "description": "Test INN-GT-010 for innovation_strategist - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {
+          "id": "GT-011",
+          "description": "Test GT-011 for innovation_strategist - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "GT-012",
+          "description": "Test GT-012 for innovation_strategist - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

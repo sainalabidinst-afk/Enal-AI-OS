@@ -169,6 +169,19 @@ export const CAPABILITY_APPS: CapabilityApp[] = [
     version: "1.0.0",
     keywords: ["self", "development", "improve", "refactor", "improve", "codebase"],
   },
+  {
+    id: "translator",
+    name: "Translator Expert",
+    description: "Multilingual translation with domain context & glossary",
+    icon: "🌍",
+    color: "#10b981",
+    route: "/apps/translator",
+    domain: "translator",
+    category: "Knowledge",
+    status: "Installed",
+    version: "1.0.0",
+    keywords: ["translator", "translation", "language", "multilingual", "glossary", "localization", "i18n"],
+  },
 ];
 
 export function findCapabilityApp(id: string): CapabilityApp | undefined {

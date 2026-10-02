@@ -100,6 +100,15 @@ RFC terkait, dokumentasi, dll.
 - RFC-0030: Finance Analyst Capability Pack (Diterima — Phase 6)
 - RFC-0031: Legal Advisor Capability Pack (Diterima — Phase 6)
 - RFC-0032: HSE Specialist Capability Pack (Diterima — Phase 6)
+- RFC-0033: Observability Capability Pack (Diterima — Phase 7)
+- RFC-0034: Cybersecurity Analyst Capability Pack (Diterima — Phase 7)
+- RFC-0035: AI Ethics & Governance Capability Pack (Diterima — Phase 7)
+- RFC-0036: Supply Chain Analyst Capability Pack (Diterima — Phase 7)
+- RFC-0037: Data Scientist Capability Pack (Diterima — Phase 7)
+- RFC-0038: Business Intelligence Capability Pack (Diterima — Phase 7)
+- RFC-0039: Innovation Strategist Capability Pack (Diterima — Phase 7)
+- RFC-0040: DevSecOps Capability Pack (Diterima — Phase 7)
+- RFC-0039: Translator Expert Capability Pack (Draft — Phase 7)
 
 ## Indeks RFC
 
@@ -137,3 +146,12 @@ RFC terkait, dokumentasi, dll.
 |RFC-0030|Finance Analyst Capability Pack|Diterima|Finance Analyst|
 |RFC-0031|Legal Advisor Capability Pack|Diterima|Legal Advisor|
 |RFC-0032|HSE Specialist Capability Pack|Diterima|HSE Specialist|
+|RFC-0033|Observability Capability Pack|Diterima|Observability|
+|RFC-0034|Cybersecurity Analyst Capability Pack|Diterima|Cybersecurity Analyst|
+|RFC-0035|AI Ethics & Governance Capability Pack|Diterima|AI Ethics & Governance|
+|RFC-0036|Supply Chain Analyst Capability Pack|Diterima|Supply Chain Analyst|
+|RFC-0037|Data Scientist Capability Pack|Diterima|Data Scientist|
+|RFC-0038|Business Intelligence Capability Pack|Diterima|Business Intelligence|
+|RFC-0039|Innovation Strategist Capability Pack|Diterima|Innovation Strategist|
+|RFC-0040|DevSecOps Capability Pack|Diterima|DevSecOps|
+|RFC-0039|Translator Expert Capability Pack|Diterima|Translator Expert|

@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-007",
+    "name": "Multi-sentence Context Preservation",
+    "category": "context_preservation",
+    "source_language": "en",
+    "target_language": "es",
+    "style": "formal",
+    "domain": "general",
+    "inputs": {
+        "text": "First, we initialize the system. Then, we deploy the application. Finally, we monitor the services. The system is now operational.",
+        "glossary_domain": "general",
+        "enforce_glossary": false
+    },
+    "expected_output": {
+        "target_language": "es",
+        "min_confidence": 0.70,
+        "valid": true,
+        "sentence_count_match": true
+    },
+    "acceptance_criteria": [
+        "All sentences must be translated preserving order",
+        "Punctuation and structure must be preserved",
+        "Confidence score must be >= 0.70",
+        "No sentences dropped or merged"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input"],
+    "edge_cases": ["long_paragraphs", "punctuation_preservation"]
+}

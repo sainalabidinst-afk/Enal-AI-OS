@@ -1,0 +1,33 @@
+{
+    "test_id": "translator-002",
+    "name": "Medical Guideline Translation EN→ES",
+    "category": "medical_guideline",
+    "source_language": "en",
+    "target_language": "es",
+    "style": "formal",
+    "domain": "medical",
+    "inputs": {
+        "text": "Hypertension is a chronic medical condition characterized by elevated blood pressure. Diagnosis requires repeated measurements.",
+        "glossary_domain": "medical",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "es",
+        "contains_terms": ["hipertensión", "diagnóstico"],
+        "min_confidence": 0.70,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid Spanish",
+        "Medical glossary terms (hipertensión, diagnóstico) must be enforced",
+        "Confidence score must be >= 0.70",
+        "Formal style must be applied",
+        "No English words remaining"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["special_characters", "medical_abbreviations"]
+}

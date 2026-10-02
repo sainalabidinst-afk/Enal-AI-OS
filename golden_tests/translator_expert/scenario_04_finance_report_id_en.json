@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-004",
+    "name": "Financial Report Translation ID→EN",
+    "category": "financial_report",
+    "source_language": "id",
+    "target_language": "en",
+    "style": "formal",
+    "domain": "finance",
+    "inputs": {
+        "text": "Portofolio investasi ini memiliki volatilitas tinggi akibat likuiditas rendah. Diversifikasi diperlukan untuk mengurangi risiko.",
+        "glossary_domain": "finance",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "en",
+        "contains_terms": ["portfolio", "volatility", "liquidity", "diversification"],
+        "min_confidence": 0.70,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid English",
+        "Finance glossary terms must be enforced (portfolio, volatility, liquidity, diversification)",
+        "Confidence score must be >= 0.70",
+        "Formal style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["financial_jargon", "currency_symbols"]
+}

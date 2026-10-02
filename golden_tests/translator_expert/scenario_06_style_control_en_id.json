@@ -1,0 +1,33 @@
+{
+    "test_id": "translator-006",
+    "name": "Formal vs Informal Tone Adaptation",
+    "category": "style_control",
+    "source_language": "en",
+    "target_language": "id",
+    "style": "formal",
+    "domain": "general",
+    "inputs": {
+        "text": "Please submit your documents to the department head immediately.",
+        "glossary_domain": "general",
+        "enforce_glossary": false,
+        "compare_styles": ["formal", "casual"]
+    },
+    "expected_output": {
+        "target_language": "id",
+        "min_confidence": 0.65,
+        "valid": true,
+        "formal_contains": ["silakan", "terimakan"],
+        "casual_contains": ["tolong", "aja"]
+    },
+    "acceptance_criteria": [
+        "Formal translation must use formal register",
+        "Tone adaptation consistency across styles",
+        "Confidence score must be >= 0.65"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input"],
+    "edge_cases": ["tone_consistency", "politeness_markers"]
+}

@@ -1,0 +1,170 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "ai-ethics-pack",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Fairness Audit",
+      "tests": [
+        {
+          "id": "ETH-GT-001",
+          "description": "Test ETH-GT-001 for ai_ethics_pack - Fairness Audit",
+          "input": {
+            "operation": "fairness_auditing"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "ETH-GT-002",
+          "description": "Test ETH-GT-002 for ai_ethics_pack - Fairness Audit",
+          "input": {
+            "operation": "fairness_auditing"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bias Detection",
+      "tests": [
+        {
+          "id": "ETH-GT-003",
+          "description": "Test ETH-GT-003 for ai_ethics_pack - Bias Detection",
+          "input": {
+            "operation": "bias_detection"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "ETH-GT-004",
+          "description": "Test ETH-GT-004 for ai_ethics_pack - Bias Detection",
+          "input": {
+            "operation": "bias_detection"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Explainability",
+      "tests": [
+        {
+          "id": "ETH-GT-005",
+          "description": "Test ETH-GT-005 for ai_ethics_pack - Explainability",
+          "input": {
+            "operation": "explainability"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "ETH-GT-006",
+          "description": "Test ETH-GT-006 for ai_ethics_pack - Explainability",
+          "input": {
+            "operation": "explainability"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compliance Check",
+      "tests": [
+        {
+          "id": "ETH-GT-007",
+          "description": "Test ETH-GT-007 for ai_ethics_pack - Compliance Check",
+          "input": {
+            "operation": "compliance_check"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "ETH-GT-008",
+          "description": "Test ETH-GT-008 for ai_ethics_pack - Compliance Check",
+          "input": {
+            "operation": "compliance_check"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Input Validation",
+      "tests": [
+        {
+          "id": "ETH-GT-009",
+          "description": "Test ETH-GT-009 for ai_ethics_pack - Input Validation",
+          "input": {
+            "operation": "input_validation"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "ETH-GT-010",
+          "description": "Test ETH-GT-010 for ai_ethics_pack - Input Validation",
+          "input": {
+            "operation": "input_validation"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {
+          "id": "GT-011",
+          "description": "Test GT-011 for ai_ethics_pack - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "GT-012",
+          "description": "Test GT-012 for ai_ethics_pack - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

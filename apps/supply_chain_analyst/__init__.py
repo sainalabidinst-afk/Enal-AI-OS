@@ -1,67 +1,38 @@
 """
-Supply Chain Analyst Pack
-=========================
-
-Demonstrates ECP capabilities for supply chain logistics optimization.
-
-Workflow:
-    User Request
-        ↓
-    Intent Router
-        ↓
-    Capability Graph → supply-chain-analyst-*
-        ↓
-    Task Planner
-        ↓
-    Subtasks:
-    - Route Optimization
-    - Inventory Optimization
-    - Demand Forecasting
-    - Supplier Risk Assessment
-        ↓
-    Execution Planner
-        ↓
-    Execution Runtime
-        ↓
-    Supply Chain Worker
-        ↓
-    Logistics Optimization Engine (full supply chain pipeline)
-        ↓
-    Result
+Supply Chain Analyst Capability Pack — __init__.py
 """
 
 from typing import Any
 
 from apps.base import BaseReferenceApp
-from apps.supply_chain_analyst.engine import SupplyChainAnalystEngine
+from apps.supply_chain_analyst.engine import SupplyChainEngine
 from apps.supply_chain_analyst.schemas import (
-    SKU,
     BusinessContext,
+    CostBenefitAnalysis,
     DemandForecast,
-    InventoryRecommendation,
-    Location,
-    Route,
-    RouteRecommendation,
-    Supplier,
-    SupplierRisk,
-    SupplyChainConfig,
+    InventoryOptimization,
+    RiskAssessment,
+    SupplyChainInputs,
     SupplyChainOperation,
-    SupplyChainPackRecord,
+    SupplyChainRecord,
     SupplyChainReport,
     SupplyChainRequest,
 )
-from apps.supply_chain_analyst.worker import SupplyChainAnalystWorker
+from apps.supply_chain_analyst.worker import SupplyChainWorker
 
 
 class SupplyChainAnalystApp(BaseReferenceApp):
     name = "supply-chain-analyst"
-    version = "1.0.0"
-    description = "Supply chain logistics optimization: route planning, inventory management, demand forecasting, supplier risk assessment"  # noqa: E501
-    category = "supply-chain"
+    version = "2.6.0"
+    description = (
+        "Logistics optimization, demand forecasting, inventory management, "
+        "and supply chain risk analysis"
+    )
+    category = "business"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
     def __init__(self) -> None:
-        self.worker = SupplyChainAnalystWorker()
+        self.worker = SupplyChainWorker()
 
     async def run(
         self, user_input: str, context: dict[str, Any] | None = None
@@ -77,20 +48,17 @@ def get_app() -> SupplyChainAnalystApp:
 
 __all__ = [
     "SupplyChainAnalystApp",
-    "SupplyChainAnalystEngine",
-    "SupplyChainAnalystWorker",
-    "SupplyChainOperation",
-    "Location",
-    "Route",
-    "RouteRecommendation",
-    "Supplier",
-    "SupplierRisk",
-    "SKU",
-    "BusinessContext",
-    "SupplyChainConfig",
+    "get_app",
+    "SupplyChainEngine",
+    "SupplyChainWorker",
     "SupplyChainRequest",
-    "InventoryRecommendation",
-    "DemandForecast",
     "SupplyChainReport",
-    "SupplyChainPackRecord",
+    "SupplyChainOperation",
+    "SupplyChainInputs",
+    "SupplyChainRecord",
+    "DemandForecast",
+    "InventoryOptimization",
+    "CostBenefitAnalysis",
+    "RiskAssessment",
+    "BusinessContext",
 ]

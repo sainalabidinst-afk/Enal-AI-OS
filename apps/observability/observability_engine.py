@@ -13,7 +13,6 @@ from apps.observability.schemas import (
     AnomalyReport,
     LogEntry,
     LogPattern,
-    MetricSample,
     MetricSummary,
     ObservabilityInputs,
     ObservabilityOperation,
@@ -90,7 +89,9 @@ class ObservabilityAnalysisEngine:
             maximum = None
             minimum = None
 
-        breached = self._is_threshold_breached(current, inputs.threshold, inputs.threshold_direction)
+        breached = self._is_threshold_breached(
+            current, inputs.threshold, inputs.threshold_direction
+        )
 
         unit = inputs.metric_samples[0].unit if inputs.metric_samples else ""
         inputs_traced = ["metric_name", "current_value", "historical_values"]
@@ -127,7 +128,7 @@ class ObservabilityAnalysisEngine:
         """Summarize a distributed trace and its health."""
         spans: list[TraceSpan] = list(inputs.spans)
         if inputs.duration_ms is not None:
-            total_duration = inputs.duration_ms
+            total_duration: float | None = inputs.duration_ms
         else:
             total_duration = round(sum(s.duration_ms for s in spans), 4) if spans else None
 
@@ -135,10 +136,13 @@ class ObservabilityAnalysisEngine:
         error_rate = inputs.error_rate
 
         if inputs.p95_latency_ms is not None:
-            p95 = inputs.p95_latency_ms
+            p95: float | None = inputs.p95_latency_ms
         elif spans:
             durations = sorted(s.duration_ms for s in spans)
-            p95 = round(durations[int(len(durations) * 0.95) - 1], 4) if len(durations) > 0 else None
+            if durations:
+                p95 = round(durations[int(len(durations) * 0.95) - 1], 4)
+            else:
+                p95 = None
         else:
             p95 = None
 

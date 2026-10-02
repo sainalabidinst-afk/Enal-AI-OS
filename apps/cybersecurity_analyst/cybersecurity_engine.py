@@ -18,7 +18,6 @@ from apps.cybersecurity_analyst.schemas import (
     CybersecurityOperation,
     IncidentDetectionReport,
     IncidentFinding,
-    Severity,
     ThreatCategory,
     ThreatFinding,
     ThreatModel,
@@ -171,7 +170,9 @@ class CybersecurityAnalysisEngine:
 
         # Sort by severity and cap.
         severity_order = ["critical", "high", "medium", "low", "info"]
-        findings.sort(key=lambda f: (severity_order.index(f.severity) if f.severity in severity_order else 99))
+        findings.sort(key=lambda f: (
+            severity_order.index(f.severity) if f.severity in severity_order else 99
+        ))
         findings = findings[: self.MAX_THREAT_FINDINGS]
 
         inputs_traced = ["system_description", "assets", "trust_boundaries"]
@@ -203,7 +204,10 @@ class CybersecurityAnalysisEngine:
         severity = self._severity_for_category(category)
         likelihood = "medium" if severity in ("high", "critical") else "low"
 
-        affected = asset or (trust_boundaries[0] if is_boundary and trust_boundaries else (assets[0] if assets else keyword))
+        affected = asset or (
+            trust_boundaries[0] if is_boundary and trust_boundaries
+            else (assets[0] if assets else keyword)
+        )
 
         title_map = {
             "spoofing": "Identity spoofing via credential replay",
@@ -217,9 +221,9 @@ class CybersecurityAnalysisEngine:
             "spoofing": "Implement multi-factor authentication and token rotation",
             "tampering": "Apply integrity checks (signatures, hashes) and boundary validation",
             "repudiation": "Enforce audit logging with tamper-evident storage",
-            "information_disclosure": "Encrypt data at rest and in transit; enforce least privilege",
+            "information_disclosure": "Encrypt data at rest and in transit; enforce least privilege",  # noqa: E501
             "denial_of_service": "Apply rate limiting, circuit breakers, and capacity autoscaling",
-            "elevation_of_privilege": "Enforce least-privilege RBAC and continuous privilege review",
+            "elevation_of_privilege": "Enforce least-privilege RBAC and continuous privilege review",  # noqa: E501
         }
 
         return ThreatFinding(

@@ -1,0 +1,35 @@
+{
+    "test_id": "translator-010",
+    "name": "Latency & Accuracy Benchmark",
+    "category": "performance",
+    "source_language": "en",
+    "target_language": "id",
+    "style": "formal",
+    "domain": "general",
+    "inputs": {
+        "text": "The quick brown fox jumps over the lazy dog. This pangram is commonly used for typing practice and font testing.",
+        "glossary_domain": "general",
+        "enforce_glossary": false,
+        "benchmark_latency": true,
+        "benchmark_accuracy": true
+    },
+    "expected_output": {
+        "target_language": "id",
+        "min_confidence": 0.70,
+        "max_latency_ms": 2500,
+        "valid": true,
+        "contains_terms": ["rubah", "kucing", "cepat"]
+    },
+    "acceptance_criteria": [
+        "Translation must complete within 2500ms",
+        "Confidence score must be >= 0.70",
+        "Output must be valid Bahasa Indonesia",
+        "Pangram content must be fully translated"
+    ],
+    "performance_targets": {
+        "latency_ms": 2500,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input"],
+    "edge_cases": ["short_text", "pangram_coverage"]
+}

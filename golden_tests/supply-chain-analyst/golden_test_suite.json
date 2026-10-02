@@ -1,0 +1,170 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "supply-chain-analyst",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Demand Forecasting",
+      "tests": [
+        {
+          "id": "SUP-GT-001",
+          "description": "Test SUP-GT-001 for supply_chain_analyst - Demand Forecasting",
+          "input": {
+            "operation": "demand_forecasting"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "SUP-GT-002",
+          "description": "Test SUP-GT-002 for supply_chain_analyst - Demand Forecasting",
+          "input": {
+            "operation": "demand_forecasting"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory Optimization",
+      "tests": [
+        {
+          "id": "SUP-GT-003",
+          "description": "Test SUP-GT-003 for supply_chain_analyst - Inventory Optimization",
+          "input": {
+            "operation": "inventory_optimization"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "SUP-GT-004",
+          "description": "Test SUP-GT-004 for supply_chain_analyst - Inventory Optimization",
+          "input": {
+            "operation": "inventory_optimization"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Risk Assessment",
+      "tests": [
+        {
+          "id": "SUP-GT-005",
+          "description": "Test SUP-GT-005 for supply_chain_analyst - Risk Assessment",
+          "input": {
+            "operation": "risk_assessment"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "SUP-GT-006",
+          "description": "Test SUP-GT-006 for supply_chain_analyst - Risk Assessment",
+          "input": {
+            "operation": "risk_assessment"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Route Optimization",
+      "tests": [
+        {
+          "id": "SUP-GT-007",
+          "description": "Test SUP-GT-007 for supply_chain_analyst - Route Optimization",
+          "input": {
+            "operation": "route_optimization"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "SUP-GT-008",
+          "description": "Test SUP-GT-008 for supply_chain_analyst - Route Optimization",
+          "input": {
+            "operation": "route_optimization"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "SUP-GT-009",
+          "description": "Test SUP-GT-009 for supply_chain_analyst - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "SUP-GT-010",
+          "description": "Test SUP-GT-010 for supply_chain_analyst - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Safety Boundary",
+      "tests": [
+        {
+          "id": "GT-011",
+          "description": "Test GT-011 for supply_chain_analyst - Safety Boundary",
+          "input": {
+            "operation": "safety_boundary"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "GT-012",
+          "description": "Test GT-012 for supply_chain_analyst - Safety Boundary",
+          "input": {
+            "operation": "safety_boundary"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

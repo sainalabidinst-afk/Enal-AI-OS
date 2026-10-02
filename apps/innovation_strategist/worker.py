@@ -8,7 +8,7 @@ import json
 from typing import Any
 
 from apps.innovation_strategist.engine import InnovationStrategistEngine
-from apps.innovation_strategist.schemas import InnovationRequest
+from apps.innovation_strategist.schemas import InnovationStrategistRequest
 
 
 class InnovationStrategistWorker:
@@ -18,9 +18,6 @@ class InnovationStrategistWorker:
         self.engine = InnovationStrategistEngine()
 
     def execute(self, task: dict[str, Any]) -> dict[str, Any]:
-        request = InnovationRequest(**task)
-        report = self.engine.execute(request)
+        request = InnovationStrategistRequest(**task)
+        report = self.engine.analyze(request)
         return json.loads(report.model_dump_json())
-
-
-__all__ = ["InnovationStrategistWorker"]

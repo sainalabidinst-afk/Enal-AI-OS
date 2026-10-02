@@ -8,7 +8,7 @@ import json
 from typing import Any
 
 from apps.data_scientist.engine import DataScientistEngine
-from apps.data_scientist.schemas import DataScienceRequest
+from apps.data_scientist.schemas import DataScientistRequest
 
 
 class DataScientistWorker:
@@ -18,9 +18,6 @@ class DataScientistWorker:
         self.engine = DataScientistEngine()
 
     def execute(self, task: dict[str, Any]) -> dict[str, Any]:
-        request = DataScienceRequest(**task)
-        report = self.engine.execute(request)
+        request = DataScientistRequest(**task)
+        report = self.engine.analyze(request)
         return json.loads(report.model_dump_json())
-
-
-__all__ = ["DataScientistWorker"]

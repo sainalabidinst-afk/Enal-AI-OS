@@ -19,8 +19,5 @@ class DevSecOpsWorker:
 
     def execute(self, task: dict[str, Any]) -> dict[str, Any]:
         request = DevSecOpsRequest(**task)
-        report = self.engine.execute(request)
+        report = self.engine.analyze(request)
         return json.loads(report.model_dump_json())
-
-
-__all__ = ["DevSecOpsWorker"]

@@ -108,6 +108,18 @@ jobs:
           python benchmarks/finance_analyst_benchmark.py
           python benchmarks/legal_advisor_benchmark.py
           python benchmarks/hse_specialist_benchmark.py
+      - name: Run Phase 7+ benchmarks (Observability, Cybersecurity Analyst)
+        run: |
+          python benchmarks/observability_benchmark.py
+          python benchmarks/cybersecurity_analyst_benchmark.py
+      - name: Run Phase 7++ benchmarks (AI Ethics, Supply Chain, Data Scientist, BI, Innovation, DevSecOps)
+        run: |
+          python benchmarks/ai_ethics_pack_benchmark.py
+          python benchmarks/supply_chain_analyst_benchmark.py
+          python benchmarks/data_scientist_benchmark.py
+          python benchmarks/business_intelligence_benchmark.py
+          python benchmarks/innovation_strategist_benchmark.py
+          python benchmarks/devsecops_benchmark.py
       - name: Run provider-backed benchmarks (opt-in)
         if: ${{ vars.RUN_PROVIDER_BENCHMARK == 'true' }}
         run: python benchmarks/performance_benchmark.py

@@ -8,13 +8,11 @@ import logging
 
 from apps.observability.observability_engine import ObservabilityAnalysisEngine
 from apps.observability.schemas import (
-    AnomalyReport,
     BusinessContext,
     ObservabilityAnalystRequest,
     ObservabilityInputs,
     ObservabilityOperation,
     ObservabilityReport,
-    TraceSummary,
 )
 
 logger = logging.getLogger(__name__)

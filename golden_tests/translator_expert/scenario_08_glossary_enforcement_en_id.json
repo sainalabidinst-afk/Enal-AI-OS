@@ -1,0 +1,37 @@
+{
+    "test_id": "translator-008",
+    "name": "Domain Glossary Enforcement (Finance)",
+    "category": "glossary_enforcement",
+    "source_language": "en",
+    "target_language": "id",
+    "style": "technical",
+    "domain": "finance",
+    "inputs": {
+        "text": "The equity portfolio shows high volatility despite diversification efforts. Bonds and derivatives are key holdings.",
+        "glossary_domain": "finance",
+        "enforce_glossary": true,
+        "custom_terms": {
+            "equity": "ekuitas",
+            "derivative": "derivatif",
+            "bond": "obligasi"
+        }
+    },
+    "expected_output": {
+        "target_language": "id",
+        "contains_terms": ["portofolio", "volatilitas", "diversifikasi", "ekuitas", "derivatif", "obligasi"],
+        "min_confidence": 0.75,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Finance glossary terms must be enforced (portofolio, volatilitas, diversifikasi, ekuitas, derivatif, obligasi)",
+        "Custom terms must override defaults",
+        "Confidence score must be >= 0.75",
+        "No English terms remaining in output"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input"],
+    "edge_cases": ["custom_glossary_override", "term_order_independence"]
+}

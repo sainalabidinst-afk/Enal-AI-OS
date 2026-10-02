@@ -1,10 +1,9 @@
 """
-Data Scientist Capability Schemas
-====================================
+Data Scientist Schemas
+=======================
 
 Typed contracts for the Data Scientist capability pack.
-Defines input (DataScienceRequest) and output (DataScienceReport) contracts for
-advanced ML pipelines, model training, evaluation, and feature engineering.
+Defines input/output contracts for ML pipelines and model evaluation.
 """
 
 from __future__ import annotations
@@ -17,146 +16,102 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
-class MLTask(StrEnum):
-    classification = "classification"
-    regression = "regression"
-    clustering = "clustering"
-    time_series_forecasting = "time_series_forecasting"
-
-
-class MLAlgorithm(StrEnum):
-    random_forest = "random_forest"
-    gradient_boosting = "gradient_boosting"
-    logistic_regression = "logistic_regression"
-    neural_network = "neural_network"
-    kmeans = "kmeans"
-    arima = "arima"
-    prophet = "prophet"
-
-
-class DataScienceOperation(StrEnum):
+class DataScientistOperation(StrEnum):
     feature_engineering = "feature_engineering"
     model_training = "model_training"
     model_evaluation = "model_evaluation"
-    hyperparameter_tuning = "hyperparameter_tuning"
-
-
-class Dataset(BaseModel):
-    name: str
-    path: str
-    n_samples: int = 0
-    n_features: int = 0
-    target_column: str | None = None
-
-
-class FeatureConfig(BaseModel):
-    name: str
-    type: str = "numerical"
-    transformation: str = "none"
-
-
-class ModelConfig(BaseModel):
-    algorithm: MLAlgorithm
-    hyperparameters: dict[str, Any] = Field(default_factory=dict)
-    task: MLTask = MLTask.classification
+    pipeline_execution = "pipeline_execution"
 
 
 class BusinessContext(BaseModel):
     project_name: str
     domain: str
-    team_size: int = Field(default=8, ge=1)
+    team_size: int = Field(default=5, ge=1)
+    budget_monthly_usd: float = Field(default=10000, ge=0)
 
 
-class DataScienceConfig(BaseModel):
-    operation: DataScienceOperation
-    task: MLTask = MLTask.classification
-    datasets: list[Dataset] = Field(default_factory=list)
-    features: list[FeatureConfig] = Field(default_factory=list)
-    model: ModelConfig | None = None
+class DataScientistInputs(BaseModel):
+    operation: DataScientistOperation
+    dataset_description: str = ""
+    features: list[str] = Field(default_factory=list)
+    target: str = ""
+    model_type: str = ""
+    sample_size: int = Field(default=1000, ge=1)
+    test_split: float = Field(default=0.2, ge=0, le=1)
     metrics: list[str] = Field(default_factory=list)
-    constraints: dict[str, Any] = Field(default_factory=dict)
+    hyperparameters: dict[str, Any] = Field(default_factory=dict)
 
 
-class DataScienceRequest(BaseModel):
-    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    operation: str = "model_training"
-    business_context: BusinessContext
-    inputs: DataScienceConfig
-    quality_attributes: dict[str, Any] = Field(default_factory=dict)
-
-
-class FeatureEngineeringResult(BaseModel):
-    original_features: int
-    engineered_features: int
-    generated_features: list[str] = Field(default_factory=list)
-    transformations_applied: list[str] = Field(default_factory=list)
-    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
-
-
-class ModelTrainingResult(BaseModel):
-    algorithm: MLAlgorithm
-    model_id: str
-    training_samples: int
+class TrainingSummary(BaseModel):
+    model_type: str
     training_time_seconds: float
-    feature_importance: dict[str, float] = Field(default_factory=dict)
-    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    training_samples: int
+    feature_count: int
+    convergence_info: str = ""
 
 
-class ModelEvaluationResult(BaseModel):
-    model_id: str
-    task: MLTask
-    metrics: dict[str, float] = Field(default_factory=dict)
-    confusion_matrix: dict[str, Any] = Field(default_factory=dict)
-    classification_report: dict[str, Any] = Field(default_factory=dict)
-    overfit_risk: str = "low"
+class ModelEvaluation(BaseModel):
+    metric_name: str
+    value: float
+    threshold: float = 0.8
+    passes: bool = True
+    description: str = ""
 
 
-class HyperparameterResult(BaseModel):
-    model_id: str
-    best_params: dict[str, Any] = Field(default_factory=dict)
-    best_score: float = 0.0
-    search_space_size: int = 0
-    iterations: int = 0
+class FeatureImportance(BaseModel):
+    feature_name: str
+    importance_score: float
+    rank: int
+    description: str = ""
 
 
-class DataScienceReport(BaseModel):
+class PipelineResult(BaseModel):
+    step_name: str
+    status: str
+    output_description: str = ""
+    artifacts: list[str] = Field(default_factory=list)
+
+
+class DataScientistReport(BaseModel):
     report_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     request_id: str
     timestamp: datetime = Field(default_factory=datetime.utcnow)
-    operation: DataScienceOperation
-    feature_results: list[FeatureEngineeringResult] = Field(default_factory=list)
-    training_results: list[ModelTrainingResult] = Field(default_factory=list)
-    evaluation_results: list[ModelEvaluationResult] = Field(default_factory=list)
-    hyperparameter_results: list[HyperparameterResult] = Field(default_factory=list)
-    quality_score: float = Field(default=0.0, ge=0.0, le=1.0)
+    training_summary: TrainingSummary | None = None
+    evaluations: list[ModelEvaluation] = Field(default_factory=list)
+    feature_importance: list[FeatureImportance] = Field(default_factory=list)
+    pipeline_results: list[PipelineResult] = Field(default_factory=list)
+    recommendations: list[str] = Field(default_factory=list)
+    quality_score: float = Field(default=0.90, ge=0, le=1)
     model_version: str = "1.0.0"
 
 
-class DataScientistPackRecord(BaseModel):
+class DataScientistRecord(BaseModel):
     pack_id: str = "data-scientist"
-    version: str = "1.0.0"
+    version: str = "2.7.0"
     capabilities: list[str] = Field(default_factory=lambda: [
         "feature_engineering",
         "model_training",
         "model_evaluation",
-        "hyperparameter_tuning",
+        "pipeline_execution",
     ])
 
 
+class DataScientistRequest(BaseModel):
+    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    business_context: BusinessContext
+    inputs: DataScientistInputs
+    quality_attributes: dict[str, Any] = Field(default_factory=dict)
+
+
 __all__ = [
+    "DataScientistInputs",
+    "DataScientistOperation",
+    "DataScientistRequest",
+    "DataScientistReport",
+    "DataScientistRecord",
+    "TrainingSummary",
+    "ModelEvaluation",
+    "FeatureImportance",
+    "PipelineResult",
     "BusinessContext",
-    "DataScienceConfig",
-    "DataScienceOperation",
-    "DataScienceReport",
-    "DataScienceRequest",
-    "DataScientistPackRecord",
-    "Dataset",
-    "FeatureConfig",
-    "FeatureEngineeringResult",
-    "HyperparameterResult",
-    "MLAlgorithm",
-    "MLTask",
-    "ModelConfig",
-    "ModelEvaluationResult",
-    "ModelTrainingResult",
 ]

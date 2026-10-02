@@ -1,0 +1,33 @@
+{
+    "test_id": "translator-001",
+    "name": "Legal Contract Translation EN→ID",
+    "category": "legal_contract",
+    "source_language": "en",
+    "target_language": "id",
+    "style": "formal",
+    "domain": "legal",
+    "inputs": {
+        "text": "The parties agree that this Agreement shall be governed by and construed in accordance with the laws of the Republic of Indonesia.",
+        "glossary_domain": "legal",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "id",
+        "contains_terms": ["kontrak", "yurisdiksi", "hukum"],
+        "min_confidence": 0.70,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid Bahasa Indonesia",
+        "Legal glossary terms must be enforced (kontrak, yurisdiksi, hukum)",
+        "Confidence score must be >= 0.70",
+        "No English words remaining in translation",
+        "Formal style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["very_long_text", "special_characters"]
+}

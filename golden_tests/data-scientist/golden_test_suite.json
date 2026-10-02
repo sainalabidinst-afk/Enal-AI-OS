@@ -1,0 +1,170 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "data-scientist",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Feature Engineering",
+      "tests": [
+        {
+          "id": "DS-GT-001",
+          "description": "Test DS-GT-001 for data_scientist - Feature Engineering",
+          "input": {
+            "operation": "feature_engineering"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DS-GT-002",
+          "description": "Test DS-GT-002 for data_scientist - Feature Engineering",
+          "input": {
+            "operation": "feature_engineering"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Model Training",
+      "tests": [
+        {
+          "id": "DS-GT-003",
+          "description": "Test DS-GT-003 for data_scientist - Model Training",
+          "input": {
+            "operation": "model_training"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DS-GT-004",
+          "description": "Test DS-GT-004 for data_scientist - Model Training",
+          "input": {
+            "operation": "model_training"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Model Evaluation",
+      "tests": [
+        {
+          "id": "DS-GT-005",
+          "description": "Test DS-GT-005 for data_scientist - Model Evaluation",
+          "input": {
+            "operation": "model_evaluation"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DS-GT-006",
+          "description": "Test DS-GT-006 for data_scientist - Model Evaluation",
+          "input": {
+            "operation": "model_evaluation"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pipeline Execution",
+      "tests": [
+        {
+          "id": "DS-GT-007",
+          "description": "Test DS-GT-007 for data_scientist - Pipeline Execution",
+          "input": {
+            "operation": "pipeline_execution"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DS-GT-008",
+          "description": "Test DS-GT-008 for data_scientist - Pipeline Execution",
+          "input": {
+            "operation": "pipeline_execution"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "DS-GT-009",
+          "description": "Test DS-GT-009 for data_scientist - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "DS-GT-010",
+          "description": "Test DS-GT-010 for data_scientist - Invalid Input",
+          "input": {
+            "operation": "invalid_input"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {
+          "id": "GT-011",
+          "description": "Test GT-011 for data_scientist - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        },
+        {
+          "id": "GT-012",
+          "description": "Test GT-012 for data_scientist - Edge Cases",
+          "input": {
+            "operation": "edge_cases"
+          },
+          "expected": {
+            "valid": true,
+            "quality_score": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

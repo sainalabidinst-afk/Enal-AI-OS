@@ -6,68 +6,79 @@ from __future__ import annotations
 
 import logging
 
-from apps.supply_chain_analyst.logistics_engine import LogisticsOptimizationEngine
 from apps.supply_chain_analyst.schemas import (
-    SupplyChainConfig,
+    CostBenefitAnalysis,
+    DemandForecast,
+    InventoryOptimization,
+    RiskAssessment,
+    SupplyChainInputs,
+    SupplyChainOperation,
     SupplyChainReport,
     SupplyChainRequest,
 )
+from apps.supply_chain_analyst.supply_chain_engine import SupplyChainAnalysisEngine
 
 logger = logging.getLogger(__name__)
 
 
-class SupplyChainAnalystEngine:
+class SupplyChainEngine:
     """
-    Orchestrates the supply chain analysis pipeline:
-        1. Route Optimization
-        2. Inventory Optimization
-        3. Demand Forecasting
-        4. Supplier Risk Assessment
+    Orchestrates supply chain analysis pipeline:
+        1. Input Validation
+        2. Demand Forecasting / Route Optimization / Inventory Analysis / Risk Assessment
+        3. Cost-Benefit Analysis
+        4. Recommendation Generation
     """
 
     def __init__(self) -> None:
-        self.engine = LogisticsOptimizationEngine()
+        self.engine = SupplyChainAnalysisEngine()
 
-    def execute(self, request: SupplyChainRequest) -> SupplyChainReport:
-        config: SupplyChainConfig = request.inputs
+    def analyze(self, request: SupplyChainRequest) -> SupplyChainReport:
+        inputs: SupplyChainInputs = request.inputs
+        validation = self.engine.check_input_validation(inputs)
 
-        route_recs = []
-        inventory_recs = []
-        forecasts = []
-        supplier_risks = []
+        if not validation["valid"]:
+            logger.warning("Supply Chain validation failed: %s", validation["errors"])
+            return SupplyChainReport(
+                request_id=request.request_id,
+                forecasts=[],
+                inventory_results=[],
+                cost_benefit=[],
+                risks=[],
+                recommendations=validation["errors"],
+                quality_score=0.0,
+            )
 
-        if config.operation == "route_optimization":
-            route_recs = self.engine.optimize_routes(config)
-        elif config.operation == "inventory_optimization":
-            inventory_recs = self.engine.optimize_inventory(config)
-        elif config.operation == "demand_forecasting":
-            forecasts = self.engine.forecast_demand(config)
-        elif config.operation == "supplier_risk_assessment":
-            supplier_risks = self.engine.assess_supplier_risks(config)
-        else:
-            # Run all sub-operations for comprehensive analysis.
-            route_recs = self.engine.optimize_routes(config)
-            inventory_recs = self.engine.optimize_inventory(config)
-            forecasts = self.engine.forecast_demand(config)
-            supplier_risks = self.engine.assess_supplier_risks(config)
+        forecasts: list[DemandForecast] = []
+        inventory_results: list[InventoryOptimization] = []
+        cost_benefit: list[CostBenefitAnalysis] = []
+        risks: list[RiskAssessment] = []
+        recommendations: list[str] = []
 
-        total_optimizations = (
-            len(route_recs) + len(inventory_recs) + len(forecasts) + len(supplier_risks)
+        if inputs.operation == SupplyChainOperation.demand_forecast:
+            forecasts = self.engine.forecast_demand(inputs)
+        elif inputs.operation == SupplyChainOperation.route_optimization:
+            recommendations = self.engine.optimize_routes(inputs)
+        elif inputs.operation == SupplyChainOperation.inventory_analysis:
+            inventory_results = self.engine.optimize_inventory(inputs)
+        elif inputs.operation == SupplyChainOperation.risk_assessment:
+            risks = self.engine.assess_risk(inputs)
+
+        recommendations.extend(self.engine.safety_boundary_check())
+
+        quality_score = self.engine.compute_quality_score(
+            forecasts=forecasts,
+            inventory_results=inventory_results,
+            cost_benefit=cost_benefit,
+            risks=risks,
         )
-        cost_savings = sum(r.total_cost for r in route_recs) * 0.15 + sum(
-            i.holding_cost for i in inventory_recs
-        ) * 0.10
 
         return SupplyChainReport(
             request_id=request.request_id,
-            operation=config.operation,
-            route_recommendations=route_recs,
-            inventory_recommendations=inventory_recs,
-            demand_forecasts=forecasts,
-            supplier_risks=supplier_risks,
-            total_optimizations=total_optimizations,
-            cost_savings_estimate=round(cost_savings, 2),
+            forecasts=forecasts,
+            inventory_results=inventory_results,
+            cost_benefit=cost_benefit,
+            risks=risks,
+            recommendations=recommendations,
+            quality_score=quality_score,
         )
-
-
-__all__ = ["SupplyChainAnalystEngine"]

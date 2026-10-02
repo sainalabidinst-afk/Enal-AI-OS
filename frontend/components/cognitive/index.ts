@@ -12,3 +12,5 @@ export { CrossCapabilityView } from "./cross-capability-view";
 export { QuickActions } from "./quick-actions";
 export { ChatInputWithSuggestions } from "./chat-input-with-suggestions";
 export { ComparisonView } from "./comparison-view";
+export { TranslationPipeline } from "./translation-pipeline";
+export type { TranslationStyle, DomainGlossary, TranslationPipelineProps } from "./translation-pipeline";

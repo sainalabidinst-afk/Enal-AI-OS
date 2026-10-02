@@ -7,20 +7,17 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from apps.supply_chain_analyst.engine import SupplyChainAnalystEngine
+from apps.supply_chain_analyst.engine import SupplyChainEngine
 from apps.supply_chain_analyst.schemas import SupplyChainRequest
 
 
-class SupplyChainAnalystWorker:
-    """Thin adapter that exposes the Supply Chain Analyst engine to agents."""
+class SupplyChainWorker:
+    """Thin adapter that exposes the Supply Chain engine to agents."""
 
     def __init__(self) -> None:
-        self.engine = SupplyChainAnalystEngine()
+        self.engine = SupplyChainEngine()
 
     def execute(self, task: dict[str, Any]) -> dict[str, Any]:
         request = SupplyChainRequest(**task)
-        report = self.engine.execute(request)
+        report = self.engine.analyze(request)
         return json.loads(report.model_dump_json())
-
-
-__all__ = ["SupplyChainAnalystWorker"]

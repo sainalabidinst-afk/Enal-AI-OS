@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-009",
+    "name": "Real-time Chat Translation",
+    "category": "chat_translation",
+    "source_language": "en",
+    "target_language": "zh",
+    "style": "casual",
+    "domain": "general",
+    "inputs": {
+        "text": "Hey, can you send me the report by tomorrow? Oh, and congratulations on the promotion!",
+        "glossary_domain": "general",
+        "enforce_glossary": false
+    },
+    "expected_output": {
+        "target_language": "zh",
+        "contains_terms": ["报告", "明天", "恭喜"],
+        "min_confidence": 0.65,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Informal/conversational tone must be preserved",
+        "Chinese characters must be present in output",
+        "Confidence score must be >= 0.65",
+        "Greetings and exclamations handled appropriately"
+    ],
+    "performance_targets": {
+        "latency_ms": 2000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input"],
+    "edge_cases": ["conversational_tone", "multiple_sentences"]
+}

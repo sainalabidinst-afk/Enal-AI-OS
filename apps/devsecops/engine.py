@@ -7,55 +7,77 @@ from __future__ import annotations
 import logging
 
 from apps.devsecops.schemas import (
-    DevSecOpsConfig,
+    DevSecOpsInputs,
+    DevSecOpsOperation,
     DevSecOpsReport,
     DevSecOpsRequest,
+    PipelineSecurityGate,
+    SecurityFinding,
+    VulnerableDependency,
 )
-from apps.devsecops.security_engine import SecurityScanningEngine
+from apps.devsecops.security_engine import DevSecOpsSecurityEngine
 
 logger = logging.getLogger(__name__)
 
 
 class DevSecOpsEngine:
     """
-    Orchestrates the DevSecOps security pipeline:
-        1. Security Gate Scanning
-        2. Vulnerability Collection
-        3. Compliance Verification
-        4. Security Scoring & Recommendations
+    Orchestrates DevSecOps pipeline:
+        1. Input Validation
+        2. Security Gate / Dependency Scan / Runtime Policy / Compliance
+        3. Result Generation
     """
 
     def __init__(self) -> None:
-        self.engine = SecurityScanningEngine()
+        self.engine = DevSecOpsSecurityEngine()
 
-    def execute(self, request: DevSecOpsRequest) -> DevSecOpsReport:
-        config: DevSecOpsConfig = request.inputs
+    def analyze(self, request: DevSecOpsRequest) -> DevSecOpsReport:
+        inputs: DevSecOpsInputs = request.inputs
+        validation = self.engine.check_input_validation(inputs)
 
-        gate_results = self.engine.scan_gates(config)
-        all_vulnerabilities = self.engine.collect_vulnerabilities(config)
-        compliance_results = self.engine.verify_compliance(config)
-        recommendations = self.engine.generate_recommendations(
-            gate_results, all_vulnerabilities
+        if not validation["valid"]:
+            logger.warning("DevSecOps validation failed: %s", validation["errors"])
+            return DevSecOpsReport(
+                request_id=request.request_id,
+                security_gates=[],
+                findings=[],
+                vulnerable_dependencies=[],
+                policy_violations=[],
+                recommendations=validation["errors"],
+                quality_score=0.0,
+            )
+
+        security_gates: list[PipelineSecurityGate] = []
+        findings: list[SecurityFinding] = []
+        vulnerable_dependencies: list[VulnerableDependency] = []
+        policy_violations: list[str] = []
+        recommendations: list[str] = []
+
+        if inputs.operation == DevSecOpsOperation.security_gate:
+            security_gates.append(self.engine.evaluate_security_gate(inputs))
+        elif inputs.operation == DevSecOpsOperation.dependency_scan:
+            vulnerable_dependencies = self.engine.scan_dependencies(inputs)
+            findings = self.engine.detect_security_findings(inputs)
+        elif inputs.operation == DevSecOpsOperation.runtime_policy:
+            policy_violations = self.engine.evaluate_runtime_policy(inputs)
+        elif inputs.operation == DevSecOpsOperation.compliance_as_code:
+            policy_violations = self.engine.check_compliance(inputs)
+            security_gates.append(self.engine.evaluate_security_gate(inputs))
+
+        recommendations.extend(self.engine.safety_boundary_check())
+
+        quality_score = self.engine.compute_quality_score(
+            security_gates=security_gates,
+            findings=findings,
+            vulnerable_dependencies=vulnerable_dependencies,
         )
-
-        security_score, overall_status = self.engine.compute_security_score(
-            gate_results, all_vulnerabilities
-        )
-
-        critical_count = sum(1 for v in all_vulnerabilities if v.severity.value == "critical")
 
         return DevSecOpsReport(
             request_id=request.request_id,
-            pipeline_name=config.pipeline.name,
-            gate_results=gate_results,
-            all_vulnerabilities=all_vulnerabilities,
-            compliance_results=compliance_results,
-            overall_status=overall_status,
-            security_score=security_score,
-            total_vulnerabilities=len(all_vulnerabilities),
-            critical_vulnerabilities=critical_count,
+            security_gates=security_gates,
+            findings=findings,
+            vulnerable_dependencies=vulnerable_dependencies,
+            policy_violations=policy_violations,
             recommendations=recommendations,
+            quality_score=quality_score,
         )
-
-
-__all__ = ["DevSecOpsEngine"]

@@ -8,9 +8,13 @@ import logging
 
 from apps.business_intelligence.bi_engine import BIAnalysisEngine
 from apps.business_intelligence.schemas import (
-    BIConfig,
-    BIReport,
-    BIRequest,
+    BusinessIntelligenceInputs,
+    BusinessIntelligenceOperation,
+    BusinessIntelligenceReport,
+    BusinessIntelligenceRequest,
+    DashboardConfig,
+    KpiMetric,
+    ScenarioAnalysis,
 )
 
 logger = logging.getLogger(__name__)
@@ -18,59 +22,57 @@ logger = logging.getLogger(__name__)
 
 class BusinessIntelligenceEngine:
     """
-    Orchestrates the business intelligence pipeline:
-        1. Dashboard Generation
-        2. KPI Tracking
-        3. Metric Analysis
-        4. Trend Analysis
+    Orchestrates business intelligence pipeline:
+        1. Input Validation
+        2. KPI Tracking / Dashboard Generation / Scenario Planning / Metric Analysis
+        3. Result Generation
     """
 
     def __init__(self) -> None:
         self.engine = BIAnalysisEngine()
 
-    def execute(self, request: BIRequest) -> BIReport:
-        config: BIConfig = request.inputs
+    def analyze(self, request: BusinessIntelligenceRequest) -> BusinessIntelligenceReport:
+        inputs: BusinessIntelligenceInputs = request.inputs
+        validation = self.engine.check_input_validation(inputs)
 
-        dashboards = self.engine.generate_dashboard(config)
-        kpi_tracking = self.engine.track_kpis(config)
-        metric_analyses = self.engine.analyze_metrics(config)
-        trend_analyses = self.engine.analyze_trends(config)
-        overall_health = self.engine.compute_overall_health(metric_analyses)
+        if not validation["valid"]:
+            logger.warning("BI validation failed: %s", validation["errors"])
+            return BusinessIntelligenceReport(
+                request_id=request.request_id,
+                kpis=[],
+                dashboard_configs=[],
+                scenarios=[],
+                recommendations=validation["errors"],
+                quality_score=0.0,
+            )
 
-        summary = self._generate_summary(
-            dashboards, kpi_tracking, metric_analyses, trend_analyses, overall_health
+        kpis: list[KpiMetric] = []
+        dashboard_configs: list[DashboardConfig] = []
+        scenarios: list[ScenarioAnalysis] = []
+        recommendations: list[str] = []
+
+        if inputs.operation == BusinessIntelligenceOperation.kpi_tracking:
+            kpis = self.engine.track_kpis(inputs)
+        elif inputs.operation == BusinessIntelligenceOperation.dashboard_generation:
+            dashboard_configs.append(self.engine.generate_dashboard(inputs))
+        elif inputs.operation == BusinessIntelligenceOperation.scenario_planning:
+            scenarios = self.engine.plan_scenario(inputs)
+        elif inputs.operation == BusinessIntelligenceOperation.metric_analysis:
+            kpis = self.engine.analyze_metric(inputs)
+
+        recommendations.extend(self.engine.safety_boundary_check())
+
+        quality_score = self.engine.compute_quality_score(
+            kpis=kpis,
+            dashboard_configs=dashboard_configs,
+            scenarios=scenarios,
         )
 
-        return BIReport(
+        return BusinessIntelligenceReport(
             request_id=request.request_id,
-            report_type=config.report_type,
-            dashboards=dashboards,
-            kpi_tracking=kpi_tracking,
-            metric_analyses=metric_analyses,
-            trend_analyses=trend_analyses,
-            overall_health=overall_health,
-            summary=summary,
+            kpis=kpis,
+            dashboard_configs=dashboard_configs,
+            scenarios=scenarios,
+            recommendations=recommendations,
+            quality_score=quality_score,
         )
-
-    def _generate_summary(
-        self,
-        dashboards: list,
-        kpi_tracking: list,
-        metric_analyses: list,
-        trend_analyses: list,
-        overall_health: str,
-    ) -> str:
-        """Generate a human-readable summary of the BI report."""
-        parts = [f"Overall health: {overall_health}."]
-        if kpi_tracking:
-            parts.append(f"Tracked {len(kpi_tracking)} KPIs.")
-        if metric_analyses:
-            parts.append(f"Analyzed {len(metric_analyses)} metrics.")
-        if trend_analyses:
-            parts.append(f"Identified {len(trend_analyses)} trends.")
-        if dashboards:
-            parts.append(f"Generated {len(dashboards)} dashboard(s).")
-        return " ".join(parts)
-
-
-__all__ = ["BusinessIntelligenceEngine"]

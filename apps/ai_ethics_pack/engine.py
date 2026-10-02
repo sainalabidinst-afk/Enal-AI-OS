@@ -6,59 +6,78 @@ from __future__ import annotations
 
 import logging
 
-from apps.ai_ethics_pack.assessment_engine import EthicsAssessmentEngine
+from apps.ai_ethics_pack.ai_ethics_engine import AIEthicsGovernanceEngine
 from apps.ai_ethics_pack.schemas import (
-    EthicsConfig,
-    EthicsReport,
-    EthicsRequest,
+    AIEthicsGovernanceReport,
+    AIEthicsGovernanceRequest,
+    AIEthicsInputs,
+    AIEthicsOperation,
+    BiasFinding,
+    ComplianceMapping,
+    EthicsAssessment,
+    FairnessMetric,
 )
 
 logger = logging.getLogger(__name__)
 
 
-class AIEthicsGovernanceEngine:
+class AIEthicsEngine:
     """
-    Orchestrates the AI ethics and governance pipeline:
-        1. Fairness Assessment (bias metric evaluation)
-        2. Bias Detection (protected attribute analysis)
-        3. Risk Assessment (ethical risk identification)
-        4. Recommendation Generation
+    Orchestrates AI ethics and governance analysis pipeline:
+        1. Input Validation
+        2. Fairness Audit / Bias Detection / Explainability / Compliance
+        3. Ethics Assessment
+        4. Compliance Mapping
+        5. Recommendation Generation
     """
 
     def __init__(self) -> None:
-        self.engine = EthicsAssessmentEngine()
+        self.engine = AIEthicsGovernanceEngine()
 
-    def execute(self, request: EthicsRequest) -> EthicsReport:
-        config: EthicsConfig = request.inputs
+    def analyze(self, request: AIEthicsGovernanceRequest) -> AIEthicsGovernanceReport:
+        inputs: AIEthicsInputs = request.inputs
+        validation = self.engine.check_input_validation(inputs)
 
-        violations = self.engine.assess_fairness(config, request.business_context)
-        findings = self.engine.detect_bias(config, request.business_context)
-        risks = self.engine.assess_risks(config, request.business_context)
-        recommendations = self.engine.generate_recommendations(config, request.business_context)
+        if not validation["valid"]:
+            logger.warning("AI Ethics validation failed: %s", validation["errors"])
+            return AIEthicsGovernanceReport(
+                request_id=request.request_id,
+                fairness_metrics=[],
+                bias_findings=[],
+                ethics_assessments=[],
+                compliance_mappings=[],
+                recommendations=validation["errors"],
+                quality_score=0.0,
+            )
 
-        all_findings = len(findings)
-        all_violations = len(violations)
-        if all_findings + all_violations == 0:
-            fairness_score = 1.0
-        else:
-            weights = {"critical": 0.4, "high": 0.25, "medium": 0.15, "low": 0.05}
-            penalty = 0.0
-            for f in findings:
-                penalty += weights.get(f.severity.value, 0.1) * f.confidence
-            for v in violations:
-                penalty += 0.1
-            fairness_score = max(0.0, round(1.0 - penalty, 2))
+        fairness_metrics: list[FairnessMetric] = []
+        bias_findings: list[BiasFinding] = []
+        assessments: list[EthicsAssessment] = []
+        mappings: list[ComplianceMapping] = []
+        recommendations: list[str] = []
 
-        return EthicsReport(
-            request_id=request.request_id,
-            operation=config.operation,
-            frameworks=config.frameworks,
-            fairness_violations=violations,
-            bias_findings=findings,
-            risks=risks,
-            recommendations=recommendations,
-            fairness_score=fairness_score,
+        if inputs.operation == AIEthicsOperation.fairness_audit:
+            fairness_metrics = self.engine.audit_fairness(inputs)
+        elif inputs.operation == AIEthicsOperation.bias_detection:
+            bias_findings = self.engine.detect_bias(inputs)
+        elif inputs.operation == AIEthicsOperation.explainability:
+            assessments = self.engine.assess_explainability(inputs)
+        elif inputs.operation == AIEthicsOperation.compliance_check:
+            mappings = self.engine.check_compliance(inputs)
+
+        # Always run safety boundary check
+        recommendations.extend(self.engine.safety_boundary_check(inputs))
+
+        quality_score = self.engine.compute_quality_score(
+            fairness_metrics, bias_findings, assessments, mappings
         )
 
-
-__all__ = ["AIEthicsGovernanceEngine"]
+        return AIEthicsGovernanceReport(
+            request_id=request.request_id,
+            fairness_metrics=fairness_metrics,
+            bias_findings=bias_findings,
+            ethics_assessments=assessments,
+            compliance_mappings=mappings,
+            recommendations=recommendations,
+            quality_score=quality_score,
+        )
