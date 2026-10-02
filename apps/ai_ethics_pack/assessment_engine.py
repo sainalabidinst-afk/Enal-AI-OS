@@ -235,4 +235,7 @@ class EthicsAssessmentEngine:
             BiasMetric.calibration: "Post-process prediction thresholds to calibrate across groups",
             BiasMetric.equal_opportunity: "Ensure true positive rates are equal across groups",
         }
-        return mapping.get(metric, "Review data and model for potential
+        return mapping.get(metric, "Review data and model for potential bias")
+
+
+__all__ = ["EthicsAssessmentEngine"]

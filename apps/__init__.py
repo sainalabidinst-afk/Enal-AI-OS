@@ -2,7 +2,7 @@
 ECP Reference Applications
 ============================
 
-These 31 reference applications demonstrate ECP's capabilities and serve as
+These 33 reference applications demonstrate ECP's capabilities and serve as
 golden tests for the platform.
 
 Apps:
@@ -34,12 +34,12 @@ Apps:
     25. HSE Specialist - Health safety environment hazard analysis (Phase 5)
     26. Observability - Metrics collection, tracing, log analysis, anomaly detection (Phase 6)
     27. Cybersecurity Analyst - Threat modeling, vulnerability assessment, incident detection, compliance mapping (Phase 6)
-    27. AI Ethics & Governance - Bias detection, fairness auditing, explainability (Phase 6)
-    28. Supply Chain Analyst - Logistics optimization, route planning, inventory (Phase 6)
-    29. Data Scientist - Advanced ML pipelines, feature engineering, model training (Phase 6)
-    30. Business Intelligence - Dashboarding, KPI tracking, metric analysis (Phase 6)
-    31. Innovation Strategist - Trend analysis, technology foresight, scenario planning (Phase 6)
-    32. DevSecOps - CI/CD security gates, vulnerability scanning, compliance (Phase 6)
+    28. AI Ethics & Governance - Bias detection, fairness auditing, explainability (Phase 6)
+    29. Supply Chain Analyst - Logistics optimization, route planning, inventory (Phase 6)
+    30. Data Scientist - Advanced ML pipelines, feature engineering, model training (Phase 6)
+    31. Business Intelligence - Dashboarding, KPI tracking, metric analysis (Phase 6)
+    32. Innovation Strategist - Trend analysis, technology foresight, scenario planning (Phase 6)
+    33. DevSecOps - CI/CD security gates, vulnerability scanning, compliance (Phase 6)
 
 Each app uses:
 - SDK for agent/tool/workflow definitions
@@ -94,6 +94,7 @@ APPS = {
     "business-intelligence": _load_app("business_intelligence"),
     "innovation-strategist": _load_app("innovation_strategist"),
     "devsecops": _load_app("devsecops"),
+    "cybersecurity-analyst": _load_app("cybersecurity_analyst"),
 }
 
 
