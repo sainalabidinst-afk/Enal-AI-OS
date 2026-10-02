@@ -1,0 +1,69 @@
+{
+    "test_id": "ds-001",
+    "category": "model_training",
+    "name": "Golden Test 1 for data_scientist",
+    "inputs": {
+        "operation": "model_training",
+        "business_context": {
+            "project_name": "customer-churn-prediction",
+            "domain": "saas",
+            "team_size": 8
+        },
+        "inputs": {
+            "task": "classification",
+            "datasets": [
+                {"name": "churn_data", "path": "/data/churn.csv", "n_samples": 10000, "n_features": 15, "target_column": "churned"}
+            ],
+            "features": [
+                {"name": "tenure_months", "type": "numerical", "transformation": "scaling"},
+                {"name": "monthly_fee", "type": "numerical", "transformation": "scaling"},
+                {"name": "plan_type", "type": "categorical", "transformation": "encoding"}
+            ],
+            "model": {
+                "algorithm": "random_forest",
+                "task": "classification",
+                "hyperparameters": {"n_estimators": 100, "max_depth": 10}
+            },
+            "metrics": ["accuracy", "precision", "recall", "f1"],
+            "operation": "model_training",
+            "constraints": {"max_training_time_seconds": 300}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 1024,
+        "token_budget": 8000,
+        "latency_p95_ms": 10000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Model training results must include feature importance",
+        "Evaluation results must include classification metrics",
+        "Execution time must be < 10000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "zero_features",
+        "single_class_target"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

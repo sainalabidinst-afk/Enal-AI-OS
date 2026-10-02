@@ -5,15 +5,12 @@ Knowledge Engineer Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.knowledge_engineer.knowledge_designer import KnowledgeModeler
 from apps.knowledge_engineer.schemas import (
-    BusinessContext,
     KnowledgeConfig,
     KnowledgeEngineerReport,
     KnowledgeEngineerRequest,
-    KnowledgeOperation,
 )
 
 logger = logging.getLogger(__name__)

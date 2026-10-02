@@ -1,0 +1,80 @@
+{
+    "test_id": "bi-005",
+    "category": "trend_analysis",
+    "name": "Golden Test 5 for business_intelligence",
+    "inputs": {
+        "report_type": "metric_analysis",
+        "business_context": {
+            "project_name": "product-growth",
+            "domain": "mobile_app",
+            "team_size": 15
+        },
+        "inputs": {
+            "metrics": [
+                {"id": "m1", "name": "DAU", "type": "engagement_score", "description": "Daily Active Users", "target": 100000, "unit": "users", "aggregation": "avg"},
+                {"id": "m2", "name": "LTV", "type": "lifetime_value", "description": "Average Lifetime Value", "target": 150, "unit": "USD", "aggregation": "avg"}
+            ],
+            "kpi_targets": [
+                {"metric_id": "m1", "target_value": 100000, "current_value": 95000, "threshold_warning": 80000, "threshold_critical": 60000},
+                {"metric_id": "m2", "target_value": 150, "current_value": 155, "threshold_warning": 120, "threshold_critical": 100}
+            ],
+            "historical_data": {
+                "m1": [
+                    {"timestamp": "2025-01", "value": 85000, "dimension": {"region": "US"}},
+                    {"timestamp": "2025-02", "value": 88000, "dimension": {"region": "US"}},
+                    {"timestamp": "2025-03", "value": 90000, "dimension": {"region": "US"}},
+                    {"timestamp": "2025-04", "value": 92000, "dimension": {"region": "US"}},
+                    {"timestamp": "2025-05", "value": 95000, "dimension": {"region": "US"}}
+                ],
+                "m2": [
+                    {"timestamp": "2025-01", "value": 140, "dimension": {"segment": "premium"}},
+                    {"timestamp": "2025-02", "value": 142, "dimension": {"segment": "premium"}},
+                    {"timestamp": "2025-03", "value": 145, "dimension": {"segment": "premium"}},
+                    {"timestamp": "2025-04", "value": 148, "dimension": {"segment": "premium"}},
+                    {"timestamp": "2025-05", "value": 155, "dimension": {"segment": "premium"}}
+                ]
+            },
+            "time_range": "last_5_months",
+            "operation": "metric_analysis",
+            "constraints": {"include_forecast": true}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 6000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Trend analyses must include forecast and confidence intervals",
+        "KPI tracking must include trajectory direction",
+        "Overall health must be computed",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "single_data_point",
+        "negative_values"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

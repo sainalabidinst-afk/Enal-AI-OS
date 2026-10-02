@@ -214,8 +214,7 @@ class AttackVectorGenerator:
         existing_hardening: list[str],
     ) -> list[AttackVector]:
         """Generate attack vectors using LLM for creative, contextual attacks."""
-        from backend.app.runtime import settings
-        from backend.app.runtime import model_router
+        from backend.app.runtime import model_router, settings
 
         categories_str = ", ".join(categories) if categories else "all categories"
 
@@ -244,8 +243,7 @@ class AttackVectorGenerator:
         try:
             if os.environ.get("TESTING", "").lower() in ("true", "1", "yes"):
                 raise RuntimeError("Skipping LLM calls in test mode")
-            from backend.app.runtime import settings
-            from backend.app.runtime import model_router
+            from backend.app.runtime import model_router, settings
 
             response = model_router.complete(
                 [{"role": "user", "content": prompt}],

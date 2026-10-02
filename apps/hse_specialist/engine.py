@@ -5,15 +5,13 @@ HSE Specialist Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.hse_specialist.hse_engine import HSERiskEngineer
 from apps.hse_specialist.schemas import (
-    BusinessContext,
     HSEInputs,
+    HSEOperation,
     HSESpecialistReport,
     HSESpecialistRequest,
-    HSEOperation,
 )
 
 logger = logging.getLogger(__name__)

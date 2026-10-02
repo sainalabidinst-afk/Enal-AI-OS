@@ -8,7 +8,7 @@ from apps.base import BaseReferenceApp
 
 def test_all_registered_capabilities_expose_valid_entrypoints() -> None:
     """Every canonical capability must load as a concrete reference app."""
-    assert len(APPS) == 19
+    assert len(APPS) == 28
 
     for capability_id, registered_app in APPS.items():
         module = import_module(f"apps.{capability_id.replace('-', '_')}")

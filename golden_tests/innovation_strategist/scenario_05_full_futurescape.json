@@ -1,0 +1,76 @@
+{
+    "test_id": "is-005",
+    "category": "full_futurescape",
+    "name": "Golden Test 5 for innovation_strategist",
+    "inputs": {
+        "operation": "scenario_planning",
+        "business_context": {
+            "project_name": "future-tech-investment",
+            "domain": "venture_capital",
+            "team_size": 8
+        },
+        "inputs": {
+            "trend_categories": ["emerging_technology", "market_dynamics", "regulatory_change", "sustainability"],
+            "technology_domains": [
+                {"name": "agi", "description": "Artificial General Intelligence", "maturity_level": "experimental"},
+                {"name": "fusion-energy", "description": "Nuclear fusion power generation", "maturity_level": "emerging"},
+                {"name": "brain-computer-interface", "description": "Direct neural interfaces", "maturity_level": "experimental"}
+            ],
+            "competitors": [
+                {"name": "TechCorp", "market_share": 0.35, "strengths": ["R&D budget", "talent"], "weaknesses": ["slow adoption"]},
+                {"name": "StartupXYZ", "market_share": 0.12, "strengths": ["agility", "innovation"], "weaknesses": ["limited capital"]}
+            ],
+            "historical_trends": {
+                "agi": [
+                    {"timestamp": "2024", "value": 0.1, "source": "industry_report"},
+                    {"timestamp": "2025", "value": 0.25, "source": "industry_report"},
+                    {"timestamp": "2026", "value": 0.45, "source": "industry_report"}
+                ]
+            },
+            "time_horizon": "long_term",
+            "confidence_level": 0.85,
+            "operation": "scenario_planning",
+            "constraints": {"include_opportunities": true, "max_scenarios": 5}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 6000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Trend signals must span all requested categories",
+        "Competitive insights must be generated for all competitors",
+        "Scenarios must be generated with likelihood classifications",
+        "Opportunities must be identified for high-impact trends",
+        "Strategic narrative must be non-empty",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "max_input_size",
+        "no_competitors_data"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

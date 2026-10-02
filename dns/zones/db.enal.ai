@@ -1,0 +1,37 @@
+$ORIGIN enal.ai.
+$TTL    30
+
+@       IN  SOA ns1.enal.ai. admin.enal.ai. (
+                        2024010101  ; serial
+                        7200        ; refresh
+                        3600        ; retry
+                        1209600     ; expire
+                        300 )       ; minimum
+
+        IN  NS  ns1.enal.ai.
+        IN  NS  dns.enal.ai.
+
+; Core services
+backend         IN  A     127.0.0.1
+frontend        IN  A     127.0.0.1
+api             IN  CNAME backend
+
+; Infrastructure
+postgres        IN  A     127.0.0.1
+redis           IN  A     127.0.0.1
+qdrant          IN  A     127.0.0.1
+ollama          IN  A     127.0.0.1
+minio           IN  A     127.0.0.1
+minio-console   IN  A     127.0.0.1
+kafka           IN  A     127.0.0.1
+zookeeper       IN  A     127.0.0.1
+
+; Load balancer and gateway
+lb              IN  A     127.0.0.1
+gateway         IN  CNAME lb
+nginx           IN  A     127.0.0.1
+coredns         IN  A     127.0.0.1
+
+; Internal records
+dns             IN  A     127.0.0.1
+ns1             IN  A     127.0.0.1

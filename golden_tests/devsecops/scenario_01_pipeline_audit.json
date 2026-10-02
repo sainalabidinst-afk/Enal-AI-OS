@@ -1,0 +1,68 @@
+{
+    "test_id": "dso-001",
+    "category": "pipeline_security_audit",
+    "name": "Golden Test 1 for devsecops",
+    "inputs": {
+        "operation": "pipeline_security_audit",
+        "business_context": {
+            "project_name": "web-app-deployment",
+            "domain": "saas",
+            "team_size": 8
+        },
+        "inputs": {
+            "pipeline": {
+                "name": "ci-cd-main",
+                "stages": [
+                    {"name": "build", "order": 1, "gates": ["sast", "sca", "secrets_detection"]},
+                    {"name": "test", "order": 2, "gates": ["dast"]},
+                    {"name": "deploy", "order": 3, "gates": ["container_scan", "policy_enforcement"]}
+                ],
+                "repository_url": "https://github.com/org/web-app",
+                "branch": "main",
+                "environment": "production",
+                "compliance_standards": ["soc2", "iso27001"],
+                "policy_thresholds": {"max_critical": 0, "max_high": 2}
+            },
+            "operation": "pipeline_security_audit",
+            "constraints": {"fail_on_critical": true}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 6000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "All configured gates must be scanned",
+        "Overall status must reflect critical/high vulnerabilities",
+        "Compliance results must include all standards",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "no_gates_configured",
+        "no_compliance_standards"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

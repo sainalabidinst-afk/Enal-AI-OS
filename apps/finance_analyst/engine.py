@@ -5,16 +5,14 @@ Finance Analyst Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.finance_analyst.finance_engine import FinanceAnalysisEngine
 from apps.finance_analyst.schemas import (
-    BusinessContext,
+    EvidenceCheckResult,
     FinanceAnalystReport,
     FinanceAnalystRequest,
     FinanceInputs,
     FinanceOperation,
-    EvidenceCheckResult,
     FinancialMetric,
     RiskScenario,
     SensitivityScenario,
@@ -52,10 +50,10 @@ class FinanceAnalystEngine:
             limitations.append(f"Input validation failed: {validation['validation_errors']}")
             if inputs.operation == FinanceOperation.cash_flow:
                 if inputs.cash_balance is None or inputs.monthly_net_burn is None:
-                    limitations.append("Missing cash_balance or monthly_net_burn for cash flow calculation")
+                    limitations.append("Missing cash_balance or monthly_net_burn for cash flow calculation")  # noqa: E501
             elif inputs.operation == FinanceOperation.financial_summary:
-                if inputs.current_assets is not None and inputs.current_liabilities is None:
-                    limitations.append("current_liabilities missing - current ratio cannot be calculated")
+                if inputs.current_assets is not None and inputs.current_liabilities is None:  # noqa: E501
+                    limitations.append("current_liabilities missing - current ratio cannot be calculated")  # noqa: E501
 
         if inputs.operation in [FinanceOperation.financial_summary, FinanceOperation.control_check]:
             metrics = self.engine.financial_summary(inputs)

@@ -4,6 +4,7 @@ Knowledge Engineer — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.knowledge_engineer.engine import KnowledgeEngineerEngine
 from apps.knowledge_engineer.schemas import (
     BusinessContext,
@@ -18,7 +19,6 @@ from apps.knowledge_engineer.schemas import (
     RelationshipType,
 )
 from apps.knowledge_engineer.worker import KnowledgeEngineerWorker
-from apps.base import BaseReferenceApp
 
 
 class KnowledgeEngineerApp(BaseReferenceApp):

@@ -178,7 +178,7 @@ class ArchitectureMetrics(BaseModel):
     testability_score: float = Field(default=0.0, ge=0.0, le=100.0, description="Testability score (0-100)")  # noqa: E501
     p95_latency_ms: float = Field(default=0.0, ge=0.0, description="P95 latency in milliseconds")
     memory_mb: float = Field(default=0.0, ge=0.0, description="Memory consumption in MB")
-    max_concurrent_requests: int = Field(default=0, description="Maximum concurrent request capacity")
+    max_concurrent_requests: int = Field(default=0, description="Maximum concurrent request capacity")  # noqa: E501
     database_connections: int = Field(default=0, description="Database connection pool size")
 
 
@@ -188,10 +188,10 @@ class PerformanceAssessment(BaseModel):
     latency_p95_ms: float = Field(default=0.0, ge=0.0, description="P95 latency in milliseconds")
     memory_mb: float = Field(default=0.0, ge=0.0, description="Peak memory consumption in MB")
     max_concurrent_requests: int = Field(default=0, description="Max concurrent request capacity")
-    database_connections: int = Field(default=0, description="Database connection pool size")
-    throughput_qps: float = Field(default=0.0, ge=0.0, description="Estimated queries per second at baseline")
-    bottlenecks: list[str] = Field(default_factory=list, description="Identified performance bottlenecks")
-    recommendations: list[str] = Field(default_factory=list, description="Performance improvement recommendations")
+    database_connections: int = Field(default=0, description="Database connection pool size")  # noqa: E501
+    throughput_qps: float = Field(default=0.0, ge=0.0, description="Estimated queries per second at baseline")  # noqa: E501
+    bottlenecks: list[str] = Field(default_factory=list, description="Identified performance bottlenecks")  # noqa: E501
+    recommendations: list[str] = Field(default_factory=list, description="Performance improvement recommendations")  # noqa: E501
 
 
 class Recommendation(BaseModel):

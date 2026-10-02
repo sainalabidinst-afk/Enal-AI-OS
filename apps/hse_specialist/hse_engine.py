@@ -59,7 +59,7 @@ class HSERiskEngineer:
         # Check for contradictory site conditions
         contradiction_flagged = False
         qualified_verification = False
-        if inputs.site_context and "isolated" in inputs.site_context.lower() and "energized" in inputs.site_context.lower():
+        if inputs.site_context and "isolated" in inputs.site_context.lower() and "energized" in inputs.site_context.lower():  # noqa: E501
             contradiction_flagged = True
             qualified_verification = True
 
@@ -122,8 +122,8 @@ class HSERiskEngineer:
     def analyze_incident(self, inputs: HSEInputs) -> IncidentAnalysis:
         """Analyze incident narrative for timeline and contributing factors."""
         narrative = inputs.narrative or ""
-
-        timeline_present = bool(re.search(r"\b(first|then|after|before|when)\b", narrative, re.IGNORECASE))
+  # noqa: E501
+        timeline_present = bool(re.search(r"\b(first|then|after|before|when)\b", narrative, re.IGNORECASE))  # noqa: E501
         return IncidentAnalysis(
             incident_id_preserved=inputs.incident_id is not None,
             timeline_present=timeline_present,

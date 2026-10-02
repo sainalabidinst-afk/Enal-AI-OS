@@ -1,0 +1,263 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "cybersecurity-analyst",
+  "version": "2.4.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {
+          "id": "CS-GT-001",
+          "description": "Run STRIDE threat model and produce findings with categories, mitigations, and severity.",
+          "input": {
+            "operation": "threat_model",
+            "business_context": {"project_name": "auth-service", "domain": "identity", "team_size": 6},
+            "inputs": {
+              "operation": "threat_model",
+              "system_description": "User authenticates via OAuth2 tokens issued by an identity provider. Tokens are stored in a database and accessed through REST APIs. Admin endpoints require privilege-based role assignment.",
+              "assets": ["user_tokens", "identity_provider", "admin_api"],
+              "trust_boundaries": ["internal_network", "external_internet"],
+              "data_flows": ["user -> api -> identity_provider -> database"],
+              "source_id": "threat-model-1"
+            }
+          },
+          "expected": {
+            "threat_count": {"min": 4, "type": "range"},
+            "all_findings_have_mitigation": true,
+            "stride_categories_covered": ["spoofing", "information_disclosure", "tampering", "elevation_of_privilege"],
+            "inputs_traced_includes_description": true
+          }
+        },
+        {
+          "id": "CS-GT-002",
+          "description": "Assess vulnerabilities and classify by CVSS-based severity with source preservation.",
+          "input": {
+            "operation": "vulnerability_assess",
+            "business_context": {"project_name": "webapp", "domain": "saas", "team_size": 10},
+            "inputs": {
+              "operation": "vulnerability_assess",
+              "vulnerabilities": [
+                {"id": "VULN-001", "title": "SQL Injection in login endpoint", "cvss_score": 9.8, "description": "Unsanitized input allows SQL injection.", "affected_component": "auth/login", "remediation": "Use parameterized queries", "severity": "critical"},
+                {"id": "VULN-002", "title": "XSS in search results", "cvss_score": 6.1, "description": "Reflected XSS vulnerability.", "affected_component": "search/results", "remediation": "Escape output encoding", "severity": "medium"},
+                {"id": "VULN-003", "title": "Outdated dependency", "cvss_score": 7.5, "description": "Deprecated library with known CVE.", "affected_component": "dependencies/libfoo", "remediation": "Upgrade to latest version", "severity": "high"}
+              ],
+              "source_id": "vuln-scan-1"
+            }
+          },
+          "expected": {
+            "vulnerability_count": 3,
+            "severity_counts": {"critical": 1, "high": 1, "medium": 1},
+            "cvss_score_preserved": true,
+            "source_id_preserved": true
+          }
+        },
+        {
+          "id": "CS-GT-003",
+          "description": "Detect incident anomaly from baseline deviation above threshold.",
+          "input": {
+            "operation": "incident_detect",
+            "business_context": {"project_name": "api-gateway", "domain": "saas", "team_size": 12},
+            "inputs": {
+              "operation": "incident_detect",
+              "baseline_events": [100.0, 110.0, 95.0, 105.0, 98.0],
+              "current_event_count": 500.0,
+              "anomaly_threshold_pct": 50.0,
+              "source_id": "incident-1"
+            }
+          },
+          "expected": {
+            "anomaly_detected": true,
+            "deviation_pct": {"min": 250, "type": "range"},
+            "formula_disclosed": true,
+            "baseline_event_count": 5
+          }
+        },
+        {
+          "id": "CS-GT-004",
+          "description": "Map evidence to compliance requirements and compute coverage percentage.",
+          "input": {
+            "operation": "compliance_map",
+            "business_context": {"project_name": "data-platform", "domain": "healthcare", "team_size": 7},
+            "inputs": {
+              "operation": "compliance_map",
+              "framework": "ISO 27001",
+              "requirements": [
+                {"id": "A.9.2.1", "name": "User registration and de-registration"},
+                {"id": "A.9.2.2", "name": "User access provisioning"},
+                {"id": "A.9.2.3", "name": "Information transfer"},
+                {"id": "A.9.2.4", "name": "Management of privileged sessions"}
+              ],
+              "evidence": [
+                {"requirement_id": "A.9.2.1", "status": "documented", "source": "audit-1"},
+                {"requirement_id": "A.9.2.2", "status": "documented", "source": "audit-1"}
+              ],
+              "checklist_version": "iso-27001-v1",
+              "source_id": "compliance-1"
+            }
+          },
+          "expected": {
+            "total_requirements": 4,
+            "covered_requirements": 2,
+            "coverage_pct": 50.0,
+            "gaps_present": true,
+            "framework_preserved": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "CS-GT-005",
+          "description": "Do not generate threat findings when system_description is missing.",
+          "input": {
+            "operation": "threat_model",
+            "business_context": {"project_name": "api", "domain": "saas", "team_size": 4},
+            "inputs": {
+              "operation": "threat_model",
+              "system_description": null,
+              "assets": ["api_endpoint"],
+              "source_id": "threat-model-3"
+            }
+          },
+          "expected": {
+            "missing_input_reported": true,
+            "silent_default": false,
+            "limitations_present": true,
+            "quality_score_below": 0.86
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "tests": [
+        {
+          "id": "CS-GT-006",
+          "description": "Handle threat model with no assets or trust boundaries gracefully.",
+          "input": {
+            "operation": "threat_model",
+            "business_context": {"project_name": "minimal-app", "domain": "internal", "team_size": 2},
+            "inputs": {
+              "operation": "threat_model",
+              "system_description": "A simple API endpoint that returns static data.",
+              "assets": [],
+              "trust_boundaries": [],
+              "source_id": "threat-model-4"
+            }
+          },
+          "expected": {
+            "all_stride_categories_represented": true,
+            "threat_count": {"min": 1, "type": "range"},
+            "findings_have_mitigation": true,
+            "inputs_traced_preserved": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Explainability",
+      "tests": [
+        {
+          "id": "CS-GT-007",
+          "description": "Preserve source reference id across all analysis operations.",
+          "input": {
+            "operation": "vulnerability_assess",
+            "business_context": {"project_name": "api-service", "domain": "enterprise", "team_size": 5},
+            "inputs": {
+              "operation": "vulnerability_assess",
+              "vulnerabilities": [
+                {"id": "VULN-004", "title": "Critical privilege escalation", "cvss_score": 9.1, "affected_component": "auth/core", "remediation": "Apply latest patch", "severity": "critical"}
+              ],
+              "source_id": "vuln-scan-pipeline-42"
+            }
+          },
+          "expected": {
+            "source_reference_preserved": true,
+            "source_id_in_findings": "vuln-scan-pipeline-42",
+            "formula_disclosed": true
+          }
+        },
+        {
+          "id": "CS-GT-008",
+          "description": "Expose input lineage and formula for incident detection calculations.",
+          "input": {
+            "operation": "incident_detect",
+            "business_context": {"project_name": "monitoring", "domain": "platform", "team_size": 3},
+            "inputs": {
+              "operation": "incident_detect",
+              "baseline_events": [100.0, 100.0, 100.0, 90.0],
+              "current_event_count": 300.0,
+              "anomaly_threshold_pct": 50.0,
+              "source_id": "alert-42"
+            }
+          },
+          "expected": {
+            "inputs_traced_contains_baseline": true,
+            "inputs_traced_contains_current": true,
+            "inputs_traced_contains_source_id": true,
+            "formula_disclosed": true,
+            "deviation_pct_calculated": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Safety Boundary",
+      "tests": [
+        {
+          "id": "CS-GT-009",
+          "description": "Incident detection outputs must not assert root-cause attribution.",
+          "input": {
+            "operation": "incident_detect",
+            "business_context": {"project_name": "api", "domain": "saas", "team_size": 10},
+            "inputs": {
+              "operation": "incident_detect",
+              "baseline_events": [50.0, 50.0, 50.0],
+              "current_event_count": 500.0,
+              "anomaly_threshold_pct": 50.0
+            }
+          },
+          "expected": {
+            "root_cause_attribution": false,
+            "incident_detection_claim": false,
+            "anomaly_detected": true,
+            "advisory_only": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compliance Boundary",
+      "tests": [
+        {
+          "id": "CS-GT-010",
+          "description": "Insufficient evidence must not be reported as a compliance certification claim.",
+          "input": {
+            "operation": "compliance_map",
+            "business_context": {"project_name": "web-app", "domain": "finance", "team_size": 5},
+            "inputs": {
+              "operation": "compliance_map",
+              "framework": "SOC 2",
+              "requirements": [
+                {"id": "CC5.1", "name": "Security incident response"},
+                {"id": "CC5.2", "name": "Incident management procedures"},
+                {"id": "CC6.1", "name": "Logical access controls"}
+              ],
+              "evidence": [],
+              "checklist_version": "soc2-v1"
+            }
+          },
+          "expected": {
+            "coverage_pct": 0.0,
+            "gaps_present": true,
+            "compliance_certification_claim": false,
+            "missing_evidence_reported": true
+          }
+        }
+      ]
+    }
+  ]
+}

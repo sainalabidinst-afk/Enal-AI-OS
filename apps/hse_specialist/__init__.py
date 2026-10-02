@@ -4,6 +4,7 @@ HSE Specialist — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.hse_specialist.engine import HSESpecialistEngine
 from apps.hse_specialist.schemas import (
     BusinessContext,
@@ -18,13 +19,12 @@ from apps.hse_specialist.schemas import (
     RiskScore,
 )
 from apps.hse_specialist.worker import HSESpecialistWorker
-from apps.base import BaseReferenceApp
 
 
 class HSESpecialistApp(BaseReferenceApp):
     name = "hse-specialist"
     version = "1.0.0"
-    description = "Hazard identification, risk assessment, control review, and incident analysis for safety operations"
+    description = "Hazard identification, risk assessment, control review, and incident analysis for safety operations"  # noqa: E501
     category = "safety"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 

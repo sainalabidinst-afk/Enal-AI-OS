@@ -4,6 +4,7 @@ Compliance Officer — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.compliance_officer.engine import ComplianceOfficerEngine
 from apps.compliance_officer.schemas import (
     AuditEvidence,
@@ -18,13 +19,12 @@ from apps.compliance_officer.schemas import (
     RiskItem,
 )
 from apps.compliance_officer.worker import ComplianceOfficerWorker
-from apps.base import BaseReferenceApp
 
 
 class ComplianceOfficerApp(BaseReferenceApp):
     name = "compliance-officer"
     version = "1.0.0"
-    description = "Compliance assessment, audit planning, risk management across ISO 27001, NIST, PCI-DSS, GDPR, SOC2"
+    description = "Compliance assessment, audit planning, risk management across ISO 27001, NIST, PCI-DSS, GDPR, SOC2"  # noqa: E501
     category = "security"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 

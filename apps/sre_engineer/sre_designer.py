@@ -12,10 +12,9 @@ from apps.sre_engineer.schemas import (
     IncidentSeverity,
     MonitoringStack,
     RunbookSpec,
+    ServiceLevelIndicator,
     SLOSpec,
     SREConfig,
-    SREOperation,
-    ServiceLevelIndicator,
 )
 
 logger = logging.getLogger(__name__)

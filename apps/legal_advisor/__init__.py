@@ -4,6 +4,7 @@ Legal Advisor — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.legal_advisor.engine import LegalAdvisorEngine
 from apps.legal_advisor.schemas import (
     BusinessContext,
@@ -18,13 +19,12 @@ from apps.legal_advisor.schemas import (
     SourceSummary,
 )
 from apps.legal_advisor.worker import LegalAdvisorWorker
-from apps.base import BaseReferenceApp
 
 
 class LegalAdvisorApp(BaseReferenceApp):
     name = "legal-advisor"
     version = "1.0.0"
-    description = "Legal document analysis, clause comparison, obligation tracking, and source grounding"
+    description = "Legal document analysis, clause comparison, obligation tracking, and source grounding"  # noqa: E501
     category = "legal"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 

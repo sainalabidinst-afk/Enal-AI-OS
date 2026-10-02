@@ -1,0 +1,71 @@
+{
+    "test_id": "dso-005",
+    "category": "full_security_scan",
+    "name": "Golden Test 5 for devsecops",
+    "inputs": {
+        "operation": "pipeline_security_audit",
+        "business_context": {
+            "project_name": "financial-api",
+            "domain": "fintech",
+            "team_size": 12
+        },
+        "inputs": {
+            "pipeline": {
+                "name": "fintech-ci-cd",
+                "stages": [
+                    {"name": "pre-commit", "order": 1, "gates": ["secrets_detection", "sast"]},
+                    {"name": "build", "order": 2, "gates": ["sca", "container_scan"]},
+                    {"name": "test", "order": 3, "gates": ["dast"]},
+                    {"name": "staging", "order": 4, "gates": ["infrastructure_scan", "policy_enforcement", "compliance_check"]}
+                ],
+                "repository_url": "https://github.com/org/fintech-api",
+                "branch": "main",
+                "environment": "production",
+                "compliance_standards": ["soc2", "iso27001", "pci_dss", "nist_csf", "cis_docker"],
+                "policy_thresholds": {"max_critical": 0, "max_high": 0, "max_medium": 5}
+            },
+            "operation": "pipeline_security_audit",
+            "constraints": {"fail_on_critical": true, "fail_on_high": true}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 6000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "All 5 stages with gates must be scanned",
+        "Vulnerabilities must include CVE and CVSS scores",
+        "Compliance results must cover all 5 standards",
+        "Security score must be computed with correct weighting",
+        "Recommendations must be prioritized",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "max_input_size",
+        "no_vulnerabilities"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

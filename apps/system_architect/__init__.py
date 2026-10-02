@@ -30,8 +30,8 @@ Pipeline:
 from typing import Any
 
 from apps.base import BaseReferenceApp
-from apps.system_architect.performance_architecture import PerformanceArchitect
 from apps.system_architect.engine import SystemArchitectEngine
+from apps.system_architect.performance_architecture import PerformanceArchitect
 from apps.system_architect.schemas import (
     ADRDraft,
     ADRStatus,

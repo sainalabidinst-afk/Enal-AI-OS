@@ -10,7 +10,6 @@ from typing import Any
 from apps.knowledge_engineer.schemas import (
     EntityMapping,
     KnowledgeConfig,
-    KnowledgeOperation,
     OntologyClass,
     RelationshipType,
 )
@@ -26,16 +25,16 @@ class KnowledgeModeler:
 
     DOMAIN_ONTOLOGIES: dict[str, list[dict[str, Any]]] = {
         "finance": [
-            {"class": "Instrument", "properties": ["symbol", "name", "type", "currency"], "parent": None},
-            {"class": "Portfolio", "properties": ["id", "value", "holdings"], "parent": None},
-            {"class": "Transaction", "properties": ["id", "timestamp", "amount", "instrument"], "parent": None},
+            {"class": "Instrument", "properties": ["symbol", "name", "type", "currency"], "parent": None},  # noqa: E501
+            {"class": "Portfolio", "properties": ["id", "value", "holdings"], "parent": None},  # noqa: E501
+            {"class": "Transaction", "properties": ["id", "timestamp", "amount", "instrument"], "parent": None},  # noqa: E501
             {"class": "Account", "properties": ["id", "type", "balance"], "parent": None},
-        ],
+        ],  # noqa: E501
         "healthcare": [
-            {"class": "Patient", "properties": ["id", "age", "gender", "conditions"], "parent": None},
+            {"class": "Patient", "properties": ["id", "age", "gender", "conditions"], "parent": None},  # noqa: E501
             {"class": "Condition", "properties": ["code", "name", "severity"], "parent": None},
             {"class": "Treatment", "properties": ["code", "name", "protocol"], "parent": None},
-            {"class": "Observation", "properties": ["code", "value", "unit", "timestamp"], "parent": None},
+            {"class": "Observation", "properties": ["code", "value", "unit", "timestamp"], "parent": None},  # noqa: E501
         ],
         "general": [
             {"class": "Entity", "properties": ["id", "name", "type"], "parent": None},

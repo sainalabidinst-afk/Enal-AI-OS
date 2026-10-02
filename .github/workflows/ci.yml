@@ -93,10 +93,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e backend/
           pip install -e ".[dev]"
-      - name: Run System Architect benchmarks
+  - name: Run System Architect benchmarks
         run: python benchmarks/system_architect_benchmark.py
       - name: Run Full Stack Engineer benchmarks
         run: python benchmarks/full_stack_engineer_benchmark.py
+      - name: Run Phase 5 benchmarks (Cloud Architect, SRE, Compliance, Knowledge)
+        run: |
+          python benchmarks/cloud_architect_benchmark.py
+          python benchmarks/sre_engineer_benchmark.py
+          python benchmarks/compliance_officer_benchmark.py
+          python benchmarks/knowledge_engineer_benchmark.py
+      - name: Run Phase 6 benchmarks (Finance Analyst, Legal Advisor, HSE Specialist)
+        run: |
+          python benchmarks/finance_analyst_benchmark.py
+          python benchmarks/legal_advisor_benchmark.py
+          python benchmarks/hse_specialist_benchmark.py
       - name: Run provider-backed benchmarks (opt-in)
         if: ${{ vars.RUN_PROVIDER_BENCHMARK == 'true' }}
         run: python benchmarks/performance_benchmark.py
@@ -109,6 +120,20 @@ jobs:
     steps:
       - name: Benchmark gate passed
         run: echo "All system benchmarks passed"
+
+  frontend-type-check:
+    name: Frontend Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install --prefix frontend
+      - name: Run TypeScript check
+        run: npx tsc --noEmit --skipLibCheck
+        working-directory: frontend
 
   sdk-compatibility:
     name: SDK Compatibility

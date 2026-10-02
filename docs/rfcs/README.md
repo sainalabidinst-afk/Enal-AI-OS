@@ -97,6 +97,9 @@ RFC terkait, dokumentasi, dll.
 - RFC-0027: SRE Engineer Capability Pack (Diterima — Phase 5)
 - RFC-0028: Compliance Officer Capability Pack (Diterima — Phase 5)
 - RFC-0029: Knowledge Engineer Capability Pack (Diterima — Phase 5)
+- RFC-0030: Finance Analyst Capability Pack (Diterima — Phase 6)
+- RFC-0031: Legal Advisor Capability Pack (Diterima — Phase 6)
+- RFC-0032: HSE Specialist Capability Pack (Diterima — Phase 6)
 
 ## Indeks RFC
 
@@ -131,3 +134,6 @@ RFC terkait, dokumentasi, dll.
 |RFC-0027|SRE Engineer Capability Pack|Diterima|SRE Engineer|
 |RFC-0028|Compliance Officer Capability Pack|Diterima|Compliance Officer|
 |RFC-0029|Knowledge Engineer Capability Pack|Diterima|Knowledge Engineer|
+|RFC-0030|Finance Analyst Capability Pack|Diterima|Finance Analyst|
+|RFC-0031|Legal Advisor Capability Pack|Diterima|Legal Advisor|
+|RFC-0032|HSE Specialist Capability Pack|Diterima|HSE Specialist|

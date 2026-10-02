@@ -213,7 +213,7 @@ class ScalabilityAnalyzer:
                 problem="Database bottleneck restricts horizontal scaling",
                 solution="Horizontal: implement read replicas and sharding. Vertical: increase instance resources temporarily",  # noqa: E501
                 effort=Effort.high,
-                impact="Horizontal scaling via database read replicas; vertical scaling as interim relief",
+                impact="Horizontal scaling via database read replicas; vertical scaling as interim relief",  # noqa: E501
             ))
 
         return recs

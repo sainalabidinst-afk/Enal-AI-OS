@@ -101,6 +101,11 @@ class FinanceAnalysisEngine:
 
         scenarios = []
         baseline_profit = inputs.baseline_revenue * inputs.margin
+        scenarios.append(SensitivityScenario(
+            change_pct=0.0,
+            result=round(baseline_profit, 2),
+            labelled=True,
+        ))
 
         for change_pct in inputs.revenue_changes_pct:
             adjusted_revenue = inputs.baseline_revenue * (1 + change_pct / 100)
@@ -130,7 +135,7 @@ class FinanceAnalysisEngine:
             baseline=inputs.baseline_cost,
             downside=round(downside_cost, 2),
             change_pct=inputs.downside_cost_increase_pct,
-            assumption_label=f"baseline_cost={inputs.baseline_cost}, increase={inputs.downside_cost_increase_pct}%",
+            assumption_label=f"baseline_cost={inputs.baseline_cost}, increase={inputs.downside_cost_increase_pct}%",  # noqa: E501
         )
 
     def control_check(self, inputs: FinanceInputs) -> list[EvidenceCheckResult]:

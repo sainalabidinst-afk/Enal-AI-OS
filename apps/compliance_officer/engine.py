@@ -5,15 +5,12 @@ Compliance Officer Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.compliance_officer.compliance_engine import ComplianceAssessmentEngine
 from apps.compliance_officer.schemas import (
-    BusinessContext,
     ComplianceConfig,
     ComplianceOfficerReport,
     ComplianceOfficerRequest,
-    ComplianceOperation,
 )
 
 logger = logging.getLogger(__name__)
@@ -52,7 +49,6 @@ class ComplianceOfficerEngine:
             risks=risks,
             recommendations=recommendations,
             compliance_score=compliance_score,
-            quality_score=max(compliance_score, 0.85),
         )
 
 

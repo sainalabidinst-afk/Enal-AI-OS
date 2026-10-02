@@ -77,7 +77,7 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         recommended_index_types=["btree", "bitmap", "function_based", "cluster"],
         partitioning_strategies=["range", "list", "hash", "composite"],
         ha_strategies=["dataguard", "rac", "standby"],
-        tuning_parameters=["sga_target", "pga_aggregate_target", "db_cache_size", "shared_pool_size"],
+        tuning_parameters=["sga_target", "pga_aggregate_target", "db_cache_size", "shared_pool_size"],  # noqa: E501
         security_considerations=["advanced_security", "data_redaction", "audit_trail"],
     ),
     "sqlserver": DatabaseVendorKnowledge(
@@ -85,8 +85,8 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         recommended_index_types=["clustered", "non_clustered", "columnstore", "xml"],
         partitioning_strategies=["range", "list", "hash"],
         ha_strategies=["always_on_availability_groups", "log_shipping", "clustered_columnstore"],
-        tuning_parameters=["max_server_memory", "cost_threshold_for_caching", "maxdop"],
-        security_considerations=["transparent_data_encryption", "row_level_security", "dynamic_data_masking"],
+        tuning_parameters=["max_server_memory", "cost_threshold_for_caching", "maxdop"],  # noqa: E501
+        security_considerations=["transparent_data_encryption", "row_level_security", "dynamic_data_masking"],  # noqa: E501
     ),
     "sqlite": DatabaseVendorKnowledge(
         vendor="sqlite",

@@ -1,0 +1,70 @@
+{
+    "test_id": "bi-001",
+    "category": "dashboard_generation",
+    "name": "Golden Test 1 for business_intelligence",
+    "inputs": {
+        "report_type": "dashboard",
+        "business_context": {
+            "project_name": "sales-performance",
+            "domain": "saas",
+            "team_size": 10
+        },
+        "inputs": {
+            "metrics": [
+                {"id": "m1", "name": "Monthly Revenue", "type": "revenue", "description": "Total monthly recurring revenue", "target": 500000, "unit": "USD", "aggregation": "sum"},
+                {"id": "m2", "name": "Churn Rate", "type": "churn_rate", "description": "Customer churn rate", "target": 0.05, "unit": "percent", "aggregation": "avg"},
+                {"id": "m3", "name": "Conversion Rate", "type": "conversion_rate", "description": "Lead to customer conversion", "target": 0.12, "unit": "percent", "aggregation": "avg"}
+            ],
+            "kpi_targets": [
+                {"metric_id": "m1", "target_value": 500000, "current_value": 450000, "threshold_warning": 400000, "threshold_critical": 300000},
+                {"metric_id": "m2", "target_value": 0.05, "current_value": 0.06, "threshold_warning": 0.07, "threshold_critical": 0.10},
+                {"metric_id": "m3", "target_value": 0.12, "current_value": 0.11, "threshold_warning": 0.08, "threshold_critical": 0.05}
+            ],
+            "widgets": [
+                {"id": "w1", "title": "Revenue Trend", "visualization_type": "line_chart", "metric_ids": ["m1"], "query": "SELECT date, revenue FROM metrics", "width": 6, "height": 4},
+                {"id": "w2", "title": "Revenue KPI", "visualization_type": "kpi_card", "metric_ids": ["m1"], "query": "", "width": 2, "height": 2},
+                {"id": "w3", "title": "Churn by Region", "visualization_type": "bar_chart", "metric_ids": ["m2"], "query": "", "width": 4, "height": 3}
+            ],
+            "time_range": "last_30_days",
+            "operation": "dashboard_generation",
+            "constraints": {"max_widgets": 20}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 6000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Dashboard must include all configured widgets",
+        "KPI tracking must include status classification",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "no_kpi_targets",
+        "zero_target_values"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

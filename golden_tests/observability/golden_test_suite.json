@@ -1,0 +1,261 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "observability",
+  "version": "2.3.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Functional",
+      "tests": [
+        {
+          "id": "OBS-GT-001",
+          "description": "Collect metric summary with averages and thresholds from complete inputs.",
+          "input": {
+            "operation": "metrics_collect",
+            "business_context": {"project_name": "api-gateway", "domain": "platform", "team_size": 8},
+            "inputs": {
+              "operation": "metrics_collect",
+              "metric_name": "cpu_util",
+              "metric_type": "gauge",
+              "aggregation": "avg",
+              "time_window": "5m",
+              "current_value": 62.5,
+              "historical_values": [50.0, 55.0, 60.0, 65.0],
+              "metric_samples": [{"name": "cpu_util", "value": 62.5, "unit": "percent"}],
+              "threshold": 80.0,
+              "threshold_direction": "above"
+            }
+          },
+          "expected": {
+            "metric_name": "cpu_util",
+            "current_value": 62.5,
+            "average": 62.5,
+            "threshold": 80.0,
+            "breached": false,
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        },
+        {
+          "id": "OBS-GT-002",
+          "description": "Analyze distributed trace health from spans and error rate.",
+          "input": {
+            "operation": "trace_analyze",
+            "business_context": {"project_name": "checkout", "domain": "ecommerce", "team_size": 6},
+            "inputs": {
+              "operation": "trace_analyze",
+              "service_name": "payment",
+              "trace_id": "trace-2002",
+              "spans": [
+                {"trace_id": "trace-2002", "span_id": "s1", "service": "payment", "operation": "charge", "duration_ms": 1500.0, "status": "error"},
+                {"trace_id": "trace-2002", "span_id": "s2", "service": "card", "operation": "validate", "duration_ms": 300.0, "status": "ok"}
+              ],
+              "error_rate": 0.12
+            }
+          },
+          "expected": {
+            "service_name": "payment",
+            "trace_id": "trace-2002",
+            "healthy": false,
+            "p95_latency_ms_present": true,
+            "formula_disclosed": true
+          }
+        },
+        {
+          "id": "OBS-GT-003",
+          "description": "Group log entries into patterns by matched pattern and level.",
+          "input": {
+            "operation": "log_analyze",
+            "business_context": {"project_name": "db-tier", "domain": "platform", "team_size": 4},
+            "inputs": {
+              "operation": "log_analyze",
+              "pattern": "connection",
+              "log_entries": [
+                {"timestamp": "t1", "level": "error", "message": "DB connection failed", "service": "db"},
+                {"timestamp": "t2", "level": "error", "message": "DB connection refused", "service": "db"},
+                {"timestamp": "t3", "level": "error", "message": "DB connection timeout", "service": "db"},
+                {"timestamp": "t4", "level": "info", "message": "started", "service": "api"}
+              ]
+            }
+          },
+          "expected": {
+            "pattern_count": 1,
+            "matched_count": 3,
+            "level": "error",
+            "services": ["db"],
+            "severity": "high"
+          }
+        },
+        {
+          "id": "OBS-GT-004",
+          "description": "Detect anomaly from baseline deviation with threshold breach.",
+          "input": {
+            "operation": "anomaly_detect",
+            "business_context": {"project_name": "api", "domain": "saas", "team_size": 10},
+            "inputs": {
+              "operation": "anomaly_detect",
+              "metric_name": "request_latency_p95",
+              "baseline": 100.0,
+              "current_value": 400.0,
+              "data_points": [100.0, 110.0, 95.0, 105.0],
+              "threshold": 300.0,
+              "threshold_direction": "above",
+              "source_id": "alert-9"
+            }
+          },
+          "expected": {
+            "metric_name": "request_latency_p95",
+            "baseline": 100.0,
+            "current_value": 400.0,
+            "deviation_pct": 300.0,
+            "severity": "critical",
+            "detected": true,
+            "finding_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Input",
+      "tests": [
+        {
+          "id": "OBS-GT-005",
+          "description": "Do not calculate metrics when required metric_name is missing.",
+          "input": {
+            "operation": "metrics_collect",
+            "business_context": {"project_name": "api", "domain": "platform", "team_size": 3},
+            "inputs": {"operation": "metrics_collect"}
+          },
+          "expected": {
+            "metric_summary": null,
+            "missing_input_reported": true,
+            "silent_default": false,
+            "quality_score_below": 0.86
+          }
+        },
+        {
+          "id": "OBS-GT-006",
+          "description": "Reject anomaly detection without baseline or data points.",
+          "input": {
+            "operation": "anomaly_detect",
+            "business_context": {"project_name": "api", "domain": "saas", "team_size": 5},
+            "inputs": {"operation": "anomaly_detect", "metric_name": "error_rate"}
+          },
+          "expected": {
+            "anomaly_report": null,
+            "validation_error_reported": true,
+            "silent_default": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "Explainability",
+      "tests": [
+        {
+          "id": "OBS-GT-007",
+          "description": "Expose source id, formula, and input lineage for each modeled result.",
+          "input": {
+            "operation": "anomaly_detect",
+            "business_context": {"project_name": "worker", "domain": "saas", "team_size": 2},
+            "inputs": {
+              "operation": "anomaly_detect",
+              "metric_name": "queue_depth",
+              "baseline": 50.0,
+              "current_value": 120.0,
+              "threshold": 100.0,
+              "threshold_direction": "above",
+              "source_id": "alert-42"
+            }
+          },
+          "expected": {
+            "source_reference_preserved": true,
+            "formula_disclosed": true,
+            "inputs_traced": ["metric_name", "data_points", "baseline", "alert-42"],
+            "explanation_present": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Safety Boundary",
+      "tests": [
+        {
+          "id": "OBS-GT-008",
+          "description": "Observability outputs must not assert root-cause diagnosis.",
+          "input": {
+            "operation": "anomaly_detect",
+            "business_context": {"project_name": "api", "domain": "saas", "team_size": 10},
+            "inputs": {
+              "operation": "anomaly_detect",
+              "metric_name": "error_rate",
+              "baseline": 0.5,
+              "current_value": 12.0,
+              "threshold": 5.0,
+              "threshold_direction": "above"
+            }
+          },
+          "expected": {
+            "root_cause_attribution": false,
+            "anomaly_detection_claim": false,
+            "advisory_only": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compliance Boundary",
+      "tests": [
+        {
+          "id": "OBS-GT-009",
+          "description": "Insufficient evidence must not be reported as a certification claim.",
+          "input": {
+            "operation": "metrics_collect",
+            "business_context": {"project_name": "api", "domain": "platform", "team_size": 3},
+            "inputs": {
+              "operation": "metrics_collect",
+              "metric_name": "cpu_util",
+              "current_value": 62.5
+            }
+          },
+          "expected": {
+            "breached": false,
+            "anomaly_detection_claim": false,
+            "certification_claim": false,
+            "assumptions_disclosed": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Threshold Breach",
+      "tests": [
+        {
+          "id": "OBS-GT-010",
+          "description": "Flag a threshold breach and record the breached state with provenance.",
+          "input": {
+            "operation": "metrics_collect",
+            "business_context": {"project_name": "api-gateway", "domain": "platform", "team_size": 8},
+            "inputs": {
+              "operation": "metrics_collect",
+              "metric_name": "memory_usage",
+              "metric_type": "gauge",
+              "current_value": 92.5,
+              "historical_values": [40.0, 50.0, 60.0, 70.0],
+              "threshold": 85.0,
+              "threshold_direction": "above"
+            }
+          },
+          "expected": {
+            "breached": true,
+            "threshold": 85.0,
+            "threshold_direction": "above",
+            "current_value": 92.5,
+            "formula_disclosed": true,
+            "recommendations_present": true
+          }
+        }
+      ]
+    }
+  ]
+}

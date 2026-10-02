@@ -11,12 +11,10 @@ ADR-004: Business logic (bucket policies, lifecycle) resides in domain services.
 from __future__ import annotations
 
 import logging
-import shutil
+from io import BytesIO
 from pathlib import Path
 from typing import Any
 
-from minio import Minio
-from minio.error import S3Error
 from starlette.concurrency import run_in_threadpool
 
 from backend.app.core.config import settings
@@ -26,6 +24,17 @@ logger = logging.getLogger(__name__)
 
 class StorageError(Exception):
     """Raised when a storage operation fails."""
+
+
+def _get_minio():
+    try:
+        from minio import Minio
+        from minio.error import S3Error
+        return Minio, S3Error
+    except ImportError as e:
+        raise StorageError(
+            "The 'minio' package is not installed. Install with: pip install minio"
+        ) from e
 
 
 class MinioStorage:
@@ -42,7 +51,7 @@ class MinioStorage:
     """
 
     def __init__(self) -> None:
-        self._client: Minio | None = None
+        self._client: Any | None = None
         self._endpoint = settings.MINIO_ENDPOINT
         self._access_key = settings.MINIO_ACCESS_KEY
         self._secret_key = settings.MINIO_SECRET_KEY
@@ -50,10 +59,11 @@ class MinioStorage:
         self._default_bucket = settings.MINIO_BUCKET
 
     @property
-    def client(self) -> Minio:
+    def client(self) -> Any:
         if self._client is None:
             if not self._access_key or not self._secret_key:
                 raise StorageError("MinIO credentials not configured")
+            Minio, _ = _get_minio()  # noqa: N806
             self._client = Minio(
                 self._endpoint,
                 access_key=self._access_key,
@@ -64,6 +74,7 @@ class MinioStorage:
 
     def ensure_bucket(self, bucket_name: str | None = None) -> str:
         """Create bucket if it does not exist. Returns bucket name."""
+        _, S3Error = _get_minio()  # noqa: N806
         bucket = bucket_name or self._default_bucket
         try:
             if not self.client.bucket_exists(bucket):
@@ -81,9 +92,8 @@ class MinioStorage:
         content_type: str = "application/octet-stream",
     ) -> str:
         """Upload bytes to object storage. Returns the object path."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
-            from io import BytesIO
-
             stream = BytesIO(data)
             await run_in_threadpool(
                 self.client.put_object,
@@ -99,6 +109,7 @@ class MinioStorage:
 
     async def get_object(self, bucket: str, object_name: str) -> bytes:
         """Download an object as bytes."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
             response = await run_in_threadpool(self.client.get_object, bucket, object_name)
             try:
@@ -111,6 +122,7 @@ class MinioStorage:
 
     async def delete_object(self, bucket: str, object_name: str) -> None:
         """Delete an object from storage."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
             await run_in_threadpool(self.client.remove_object, bucket, object_name)
         except S3Error as e:
@@ -118,6 +130,7 @@ class MinioStorage:
 
     async def list_objects(self, bucket: str, prefix: str = "") -> list[dict[str, Any]]:
         """List objects in a bucket with optional prefix."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
             objects = await run_in_threadpool(
                 lambda: list(self.client.list_objects(bucket, prefix=prefix, recursive=True))
@@ -136,6 +149,7 @@ class MinioStorage:
 
     async def upload_file(self, bucket: str, object_name: str, file_path: str) -> str:
         """Upload a local file to object storage."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
             path = Path(file_path)
             if not path.exists():
@@ -152,6 +166,7 @@ class MinioStorage:
 
     async def download_file(self, bucket: str, object_name: str, dest_path: str) -> str:
         """Download an object from storage to a local file."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
             await run_in_threadpool(
                 self.client.fget_object,
@@ -165,6 +180,7 @@ class MinioStorage:
 
     def get_presigned_url(self, bucket: str, object_name: str, expires: int = 3600) -> str:
         """Generate a presigned URL for downloading an object."""
+        _, S3Error = _get_minio()  # noqa: N806
         try:
             return self.client.presigned_get_object(bucket, object_name, expires=expires)
         except S3Error as e:

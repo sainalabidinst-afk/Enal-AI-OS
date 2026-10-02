@@ -162,7 +162,7 @@ class ConnectorError(Exception):
     """Base exception for connector operations."""
 
 
-class ConnectorNotConfigured(ConnectorError):
+class ConnectorNotConfiguredError(ConnectorError):
     """Raised when connector credentials are not configured."""
 
 
@@ -340,7 +340,7 @@ class PaperTradingConnector(BaseConnector):
         if pos:
             if request.side == OrderSide.BUY:
                 pos.quantity += filled
-                pos.entry_price = (pos.entry_price * (pos.quantity - filled) + avg_price * filled) / pos.quantity
+                pos.entry_price = (pos.entry_price * (pos.quantity - filled) + avg_price * filled) / pos.quantity  # noqa: E501
                 pos.unrealized_pnl = 0.0
             else:
                 pos.quantity -= filled
@@ -429,7 +429,7 @@ class ConnectorManager:
     async def _create_connector(self, exchange: str) -> BaseConnector:
         key = exchange.lower()
         if key in ("paper", "simulation", "mock"):
-            connector = PaperTradingConnector()
+            connector: BaseConnector = PaperTradingConnector()
             self._connectors[key] = connector
             return connector
 
@@ -439,7 +439,7 @@ class ConnectorManager:
         if key in ("fix", "fixtrading"):
             from backend.app.connectors.fix_connector import FIXConnector
 
-            connector = FIXConnector(exchange_type=ExchangeType.FIX)
+            connector = FIXConnector()
             self._connectors[key] = connector
             return connector
 

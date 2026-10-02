@@ -303,8 +303,7 @@ class CrossDomainGraphEngine:
         fallback: InferenceResult,
     ) -> InferenceResult:
         """Enhance inference using LLM for natural language synthesis."""
-        from backend.app.runtime import settings
-        from backend.app.runtime import model_router
+        from backend.app.runtime import model_router, settings
 
         node_descs = [
             f"{n.name} (domain: {n.domain}, layer: {n.layer}): {n.description}"

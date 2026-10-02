@@ -33,7 +33,7 @@ class ComplianceAssessmentEngine:
             {"id": "A.10.1", "name": "Cryptographic Controls", "domain": "security"},
             {"id": "A.12.1", "name": "Secure Development Lifecycle", "domain": "development"},
             {"id": "A.13.1", "name": "Network Security Management", "domain": "network"},
-            {"id": "A.14.1", "name": "Security Requirements of Information Systems", "domain": "development"},
+            {"id": "A.14.1", "name": "Security Requirements of Information Systems", "domain": "development"},  # noqa: E501
         ],
         ComplianceFramework.nist: [
             {"id": "ID.AM-1", "name": "Resource Inventory", "domain": "assets"},

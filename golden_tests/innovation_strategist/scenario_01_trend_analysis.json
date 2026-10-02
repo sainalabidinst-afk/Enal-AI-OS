@@ -1,0 +1,63 @@
+{
+    "test_id": "is-001",
+    "category": "trend_analysis",
+    "name": "Golden Test 1 for innovation_strategist",
+    "inputs": {
+        "operation": "trend_analysis",
+        "business_context": {
+            "project_name": "ai-platform-roadmap",
+            "domain": "enterprise_software",
+            "team_size": 6
+        },
+        "inputs": {
+            "trend_categories": ["emerging_technology", "market_dynamics", "sustainability"],
+            "technology_domains": [
+                {"name": "generative-ai", "description": "Foundation models for content generation", "maturity_level": "emerging"},
+                {"name": "quantum-computing", "description": "Quantum processors for optimization", "maturity_level": "experimental"},
+                {"name": "edge-ai", "description": "AI inference on edge devices", "maturity_level": "emerging"}
+            ],
+            "time_horizon": "medium_term",
+            "confidence_level": 0.8,
+            "operation": "trend_analysis",
+            "constraints": {"max_trends": 15}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 6000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Trend signals must include impact and timeframe classification",
+        "Technology forecasts must include adoption curves",
+        "Scenarios must include likelihood and recommended actions",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "no_technology_domains",
+        "single_category"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

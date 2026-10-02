@@ -33,8 +33,7 @@ from apps.system_architect.layer_analyzer import LayerAnalyzer
 from apps.system_architect.microservices_analyzer import MicroservicesAnalyzer
 from apps.system_architect.performance_architecture import PerformanceArchitect
 from apps.system_architect.refactoring_strategy import RefactoringStrategy
-from apps.system_architect.scalability_analyzer import ScalabilityAnalyzer
-from apps.system_architect.security_architect import SecurityArchitect
+from apps.system_architect.scalability_analyzer import ScalabilityAnalyzer, ScalabilityAssessment
 from apps.system_architect.schemas import (
     ADRDraft,
     ADRStatus,
@@ -50,6 +49,7 @@ from apps.system_architect.schemas import (
     ReviewType,
     Severity,
 )
+from apps.system_architect.security_architect import SecurityArchitect
 
 logger = logging.getLogger(__name__)
 

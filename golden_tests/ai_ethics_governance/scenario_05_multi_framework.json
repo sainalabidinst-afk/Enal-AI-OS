@@ -1,0 +1,60 @@
+{
+    "test_id": "ethics-005",
+    "category": "multi_framework",
+    "name": "Golden Test 5 for ai_ethics_pack",
+    "inputs": {
+        "operation": "fairness_audit",
+        "business_context": {
+            "project_name": "hiring-platform",
+            "domain": "hr_tech",
+            "ml_use_case": "candidate_screening",
+            "team_size": 8,
+            "protected_attributes": [
+                {"name": "gender", "groups": ["male", "female", "non_binary"]},
+                {"name": "age_group", "groups": ["18-30", "31-45", "46-60"]}
+            ]
+        },
+        "inputs": {
+            "frameworks": ["fairness", "accountability", "transparency", "privacy", "safety", "sustainability"],
+            "bias_metrics": ["demographic_parity", "equalized_odds", "statistical_parity", "disparate_impact", "calibration", "equal_opportunity"],
+            "audit_targets": ["full_pipeline", "training_data", "predictions"],
+            "risk_domains": ["hiring", "employment", "hr"]
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 4000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Fairness score must be computed across all frameworks",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "max_input_size",
+        "all_bias_metrics_selected"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

@@ -5,17 +5,13 @@ Legal Advisor Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.legal_advisor.legal_engine import LegalAnalysisEngine
 from apps.legal_advisor.schemas import (
-    BusinessContext,
-    ClauseDeviation,
     LegalAdvisorReport,
     LegalAdvisorRequest,
     LegalInputs,
     LegalOperation,
-    ObligationRecord,
 )
 
 logger = logging.getLogger(__name__)
@@ -35,10 +31,10 @@ class LegalAdvisorEngine:
 
     def execute(self, request: LegalAdvisorRequest) -> LegalAdvisorReport:
         inputs: LegalInputs = request.inputs
-        limitations = ["This tool provides assistive review only and does not constitute legal advice"]
+        limitations = ["This tool provides assistive review only and does not constitute legal advice"]  # noqa: E501
         recommendations = ["Qualified human review is required for all legal conclusions"]
 
-        if inputs.operation == FinanceOperation.document_extract if False else LegalOperation.document_extract:
+        if inputs.operation == LegalOperation.document_extract:
             extraction = self.engine.extract_clauses(inputs)
             validation = self.engine.validate_extraction(inputs)
             return LegalAdvisorReport(
@@ -88,7 +84,6 @@ class LegalAdvisorEngine:
                 conflict_flagged=conflict,
                 both_sources_preserved=conflict and len(inputs.clauses) >= 2,
                 definitive_interpretation=False,
-                jurisdiction_dependent_conclusion=None if inputs.jurisdiction is None else True,
                 qualified_human_review_required=True,
                 limitations=limitations,
                 recommendations=recommendations,

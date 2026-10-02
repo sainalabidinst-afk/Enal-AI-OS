@@ -225,8 +225,7 @@ class ScenarioBuilder:
             '  "assumptions": ["assumption1", "assumption2"]\n'
             "}"
         )
-        from backend.app.runtime import settings
-        from backend.app.runtime import model_router
+        from backend.app.runtime import model_router, settings
 
         response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],

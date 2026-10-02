@@ -2,12 +2,11 @@
 
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useCognitiveStore } from "@/store/cognitive-store";
-import type { ThinkingMode } from "@/types/cognitive";
+import type { ReasoningStep, ThinkingMode } from "@/types/cognitive";
 import { CognitiveLayer } from "@/types/cognitive";
 import { cn } from "@/lib/utils";
 import { ReasoningChain } from "./reasoning-chain";
 import { ConfidenceMeter } from "./confidence-meter";
-import { ComparisonView } from "./comparison-view";
 import { ThinkingModeIndicator } from "./thinking-mode-indicator";
 import { useEffect, useState } from "react";
 import type { ExecutionSession } from "@/types/execution";
@@ -21,14 +20,20 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
   const currentLayer = useCognitiveStore((s) => s.current_layer);
   const setLayer = useCognitiveStore((s) => s.setLayer);
   const thinkingMode = useCognitiveStore((s) => s.thinking_mode);
-  const activeCapability = useCognitiveStore((s) => s.active_capability);
-  const executionContext = useCognitiveStore((s) => s.execution_context);
+   const activeCapability = useCognitiveStore((s) => s.active_capability);
   const metaFlags = useCognitiveStore((s) => s.meta_cognitive_flags);
+  const reasoningChain = useCognitiveStore((s) => thinkingMode?.reasoning_chain ?? []);
+  const confidence = useCognitiveStore((s) => thinkingMode?.confidence ?? 0);
 
   const executions = useExecutionStore((s) => s.executions);
   const activeExecutionId = useExecutionStore((s) => s.activeExecutionId);
   const loadExecutions = useExecutionStore((s) => s.loadExecutions);
+  const loadLogs = useExecutionStore((s) => s.loadLogs);
+  const loadArtifacts = useExecutionStore((s) => s.loadArtifacts);
   const [executionsList, setExecutionsList] = useState<ExecutionSession[]>([]);
+  const [activeLogs, setActiveLogs] = useState<Array<Record<string, any>>>([]);
+  const [activeArtifacts, setActiveArtifacts] = useState<any[]>([]);
+  const [isLoadingArtifacts, setIsLoadingArtifacts] = useState(false);
 
   useEffect(() => {
     void loadExecutions();
@@ -39,9 +44,28 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
     setExecutionsList(list);
   }, [executions]);
 
+  useEffect(() => {
+    if (activeExecutionId) {
+      void loadLogs(activeExecutionId);
+    }
+  }, [activeExecutionId, loadLogs]);
+
   const activeExecution = activeExecutionId
     ? executions[activeExecutionId]
     : executionsList.find((e) => ["pending", "planning", "running", "waiting_approval", "paused"].includes(e.status));
+
+  const handleArtifactLoad = async () => {
+    if (!activeExecution?.id) return;
+    setIsLoadingArtifacts(true);
+    try {
+      const artifacts = await loadArtifacts(activeExecution.id);
+      setActiveArtifacts(artifacts || []);
+    } catch {
+      setActiveArtifacts([]);
+    } finally {
+      setIsLoadingArtifacts(false);
+    }
+  };
 
   if (currentLayer !== CognitiveLayer.ANALYTICAL) {
     return (
@@ -60,6 +84,10 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
       </div>
     );
   }
+
+  const phases = activeExecution?.phases ?? [];
+  const progress = activeExecution?.progress ?? 0;
+  const eta = activeExecution?.eta_seconds;
 
   return (
     <div className={cn("grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 h-full overflow-y-auto", className)}>
@@ -83,19 +111,94 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
                 activeCapability={activeCapability ?? undefined}
                 execution={activeExecution}
               />
-              <ReasoningAnalysisCard thinkingMode={thinkingMode} />
-              <DecisionAnalysisCard thinkingMode={thinkingMode} execution={activeExecution} />
+              <ReasoningAnalysisCard steps={reasoningChain} />
+              <DecisionAnalysisCard
+                thinkingMode={thinkingMode}
+                execution={activeExecution}
+                confidence={confidence}
+              />
             </div>
           </div>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Comparison View</CardTitle>
-            <CardDescription>Side-by-side capability and reasoning comparison</CardDescription>
+            <CardTitle>Execution Timeline</CardTitle>
+            <CardDescription>
+              Phase-based progress{eta !== undefined && eta !== null ? ` • ETA: ${eta}s` : ""}
+            </CardDescription>
           </CardHeader>
           <div className="p-4">
-            <ComparisonView />
+            {phases.length > 0 ? (
+              <div className="space-y-2">
+                {phases.map((phase: any, i: number) => (
+                  <div key={phase.id ?? i} className="flex items-center gap-3 text-xs">
+                    <div className="flex-1">
+                      <div className="flex justify-between">
+                        <span className="font-medium text-[var(--color-text-primary)]">{phase.name ?? `Phase ${i + 1}`}</span>
+                        <span className={`capitalize ${
+                          phase.status === "completed" ? "text-green-600" :
+                          phase.status === "running" ? "text-blue-600" :
+                          phase.status === "failed" ? "text-red-600" : "text-[var(--color-text-secondary)]"
+                        }`}>{phase.status ?? "pending"}</span>
+                      </div>
+                      <div className="text-[var(--color-text-tertiary)] mt-1">
+                        Progress: {phase.progress ?? 0}%
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <span className="text-xs text-[var(--color-text-secondary)]">
+                {progress > 0 ? `Overall progress: ${progress}%` : "No execution phases recorded yet."}
+              </span>
+            )}
+            {progress > 0 && (
+              <div className="mt-3">
+                <div className="flex justify-between text-xs mb-1">
+                  <span>Overall Progress</span>
+                  <span>{progress}%</span>
+                </div>
+                <div className="w-full h-2 bg-[var(--color-bg-tertiary)] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[var(--color-secondary-500)] transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Execution Artifacts</CardTitle>
+            <CardDescription>Generated outputs and evidence</CardDescription>
+          </CardHeader>
+          <div className="p-4">
+            <button
+              onClick={handleArtifactLoad}
+              disabled={isLoadingArtifacts || !activeExecution?.id}
+              className="px-3 py-1.5 rounded text-xs font-medium bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-border)] disabled:opacity-50 transition-colors"
+            >
+              {isLoadingArtifacts ? "Loading..." : "Load Artifacts"}
+            </button>
+            {activeArtifacts.length > 0 && (
+              <div className="mt-3 space-y-2">
+                {activeArtifacts.map((artifact) => (
+                  <div key={artifact.id} className="text-xs">
+                    <span className="font-medium text-[var(--color-text-primary)]">{artifact.name}</span>
+                    <span className="text-[var(--color-text-tertiary)]"> ({artifact.type})</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {activeArtifacts.length === 0 && !isLoadingArtifacts && (
+              <span className="text-xs text-[var(--color-text-secondary)] mt-2 block">
+                No artifacts loaded. Click "Load Artifacts" to fetch.
+              </span>
+            )}
           </div>
         </Card>
       </div>
@@ -103,23 +206,13 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
       <div className="space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Reasoning Chain</CardTitle>
-            <CardDescription>Step-by-step analysis</CardDescription>
-          </CardHeader>
-          <div className="p-4">
-            <ReasoningChain />
-          </div>
-        </Card>
-
-        <Card>
-          <CardHeader>
             <CardTitle>Analysis Metrics</CardTitle>
             <CardDescription>Performance indicators</CardDescription>
           </CardHeader>
           <div className="p-4 space-y-3">
             <div className="grid grid-cols-2 gap-3">
-              <StatusItem label="Steps" value={thinkingMode?.reasoning_chain.length?.toString() || "0"} />
-              <StatusItem label="Confidence" value={thinkingMode ? `${Math.round(thinkingMode.confidence * 100)}%` : "—"} />
+              <StatusItem label="Steps" value={reasoningChain.length.toString()} />
+              <StatusItem label="Confidence" value={confidence > 0 ? `${Math.round(confidence * 100)}%` : "—"} />
               <StatusItem label="Alternatives" value={thinkingMode?.alternatives.length?.toString() || "0"} />
               <StatusItem label="Uncertainty" value={metaFlags.uncertainty ? "High" : "Low"} />
             </div>
@@ -129,6 +222,56 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
             <div className="pt-2">
               <ConfidenceMeter />
             </div>
+          </div>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Executions</CardTitle>
+            <CardDescription>History ({executionsList.length})</CardDescription>
+          </CardHeader>
+          <div className="p-4">
+            {executionsList.length > 0 ? (
+              <div className="space-y-2 max-h-60 overflow-y-auto">
+                {executionsList.slice(0, 5).map((exec) => (
+                  <div key={exec.id} className="text-xs">
+                    <div className="font-medium text-[var(--color-text-primary)] truncate">{exec.goal}</div>
+                    <div className="flex justify-between text-[var(--color-text-tertiary)]">
+                      <span>{new Date(exec.created_at).toLocaleTimeString()}</span>
+                      <span className={`capitalize ${
+                        exec.status === "completed" ? "text-green-600" :
+                        exec.status === "failed" ? "text-red-600" :
+                        exec.status === "running" ? "text-blue-600" : "text-[var(--color-text-tertiary)]"
+                      }`}>{exec.status}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <span className="text-xs text-[var(--color-text-secondary)]">No recent executions.</span>
+            )}
+          </div>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Execution Logs</CardTitle>
+            <CardDescription>Real-time execution output</CardDescription>
+          </CardHeader>
+          <div className="p-4">
+            {activeLogs.length > 0 ? (
+              <div className="space-y-1 max-h-40 overflow-y-auto">
+                {activeLogs.slice(-10).map((log, i) => (
+                  <div key={i} className="text-xs">
+                    <span className={`[${log.level ?? "info"}]`} /> {log.message}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <span className="text-xs text-[var(--color-text-secondary)]">
+                {activeExecutionId ? "No logs loaded." : "Select an execution to view logs."}
+              </span>
+            )}
           </div>
         </Card>
       </div>
@@ -167,8 +310,7 @@ function InputAnalysisCard({
   );
 }
 
-function ReasoningAnalysisCard({ thinkingMode }: { thinkingMode: ThinkingMode | null }) {
-  const steps = thinkingMode?.reasoning_chain ?? [];
+function ReasoningAnalysisCard({ steps }: { steps: ReasoningStep[] }) {
   const hasSteps = steps.length > 0;
 
   return (
@@ -195,20 +337,22 @@ function ReasoningAnalysisCard({ thinkingMode }: { thinkingMode: ThinkingMode | 
 function DecisionAnalysisCard({
   thinkingMode,
   execution,
+  confidence,
 }: {
   thinkingMode: ThinkingMode | null;
   execution?: ExecutionSession;
+  confidence: number;
 }) {
   const alternatives = thinkingMode?.alternatives ?? [];
-  const decisionConfidence = thinkingMode?.confidence;
   const phaseCount = execution?.phases?.length ?? 0;
   const progress = execution?.progress ?? 0;
+  const decisionConfidence = confidence;
 
   return (
     <div className="rounded-lg border border-[var(--color-border)] p-3 bg-[var(--color-bg-primary)]">
       <div className="text-xs font-medium text-[var(--color-text-primary)] mb-1">Decision Output</div>
       <div className="text-xs text-[var(--color-text-secondary)] mb-2">Selected option with confidence</div>
-      {decisionConfidence !== undefined && (
+      {decisionConfidence > 0 && (
         <div className="text-xs">
           <span className="text-[var(--color-text-secondary)]">Confidence:</span>{" "}
           <span className="text-[var(--color-text-primary)]">{Math.round(decisionConfidence * 100)}%</span>
@@ -232,7 +376,7 @@ function DecisionAnalysisCard({
           <span className="text-[var(--color-text-primary)]">{progress}%</span>
         </div>
       )}
-      {!decisionConfidence && !alternatives.length && !phaseCount && (
+      {!(decisionConfidence > 0) && !alternatives.length && !phaseCount && (
         <span className="text-xs text-[var(--color-text-secondary)]">No decision recorded yet.</span>
       )}
     </div>

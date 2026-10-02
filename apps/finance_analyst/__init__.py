@@ -4,6 +4,7 @@ Finance Analyst — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.finance_analyst.engine import FinanceAnalystEngine
 from apps.finance_analyst.schemas import (
     BusinessContext,
@@ -18,13 +19,12 @@ from apps.finance_analyst.schemas import (
     SensitivityScenario,
 )
 from apps.finance_analyst.worker import FinanceAnalystWorker
-from apps.base import BaseReferenceApp
 
 
 class FinanceAnalystApp(BaseReferenceApp):
     name = "finance-analyst"
     version = "1.0.0"
-    description = "Financial analysis, scenario modeling, risk assessment, and control compliance checking"
+    description = "Financial analysis, scenario modeling, risk assessment, and control compliance checking"  # noqa: E501
     category = "finance"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 

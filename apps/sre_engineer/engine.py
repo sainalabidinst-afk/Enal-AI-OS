@@ -5,10 +5,8 @@ SRE Engineer Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.sre_engineer.schemas import (
-    BusinessContext,
     SREConfig,
     SREEngineerReport,
     SREEngineerRequest,
@@ -35,7 +33,6 @@ class SREEngineerEngine:
     def execute(self, request: SREEngineerRequest) -> SREEngineerReport:
         config: SREConfig = request.inputs
 
-        observability = self.sre.setup_observability(config)
         slos = self.sre.design_slos(config)
         dashboards = self.sre.create_dashboards(config)
         runbooks = self.sre.generate_runbooks(config)

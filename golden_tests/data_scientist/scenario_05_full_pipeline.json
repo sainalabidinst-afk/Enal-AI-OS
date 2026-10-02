@@ -1,0 +1,71 @@
+{
+    "test_id": "ds-005",
+    "category": "full_pipeline",
+    "name": "Golden Test 5 for data_scientist",
+    "inputs": {
+        "operation": "hyperparameter_tuning",
+        "business_context": {
+            "project_name": "demand-forecasting",
+            "domain": "retail",
+            "team_size": 12
+        },
+        "inputs": {
+            "task": "time_series_forecasting",
+            "datasets": [
+                {"name": "sales_history", "path": "/data/sales.csv", "n_samples": 2400, "n_features": 5, "target_column": "sales"}
+            ],
+            "features": [
+                {"name": "price", "type": "numerical", "transformation": "none"},
+                {"name": "promo", "type": "binary", "transformation": "none"},
+                {"name": "month", "type": "categorical", "transformation": "encoding"}
+            ],
+            "model": {
+                "algorithm": "prophet",
+                "task": "time_series_forecasting",
+                "hyperparameters": {"seasonality_mode": "multiplicative"}
+            },
+            "metrics": ["mape", "rmse", "mae"],
+            "operation": "hyperparameter_tuning",
+            "constraints": {"max_iterations": 50}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 1024,
+        "token_budget": 8000,
+        "latency_p95_ms": 10000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Feature engineering results must include generated features",
+        "Training results must include model ID and feature importance",
+        "Evaluation results must include time series metrics",
+        "Hyperparameter results must include best params and score",
+        "Execution time must be < 10000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "max_input_size",
+        "no_model_config"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

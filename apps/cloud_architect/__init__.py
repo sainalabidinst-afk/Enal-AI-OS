@@ -4,6 +4,7 @@ Cloud Architect — __init__.py
 
 from typing import Any
 
+from apps.base import BaseReferenceApp
 from apps.cloud_architect.engine import CloudArchitectEngine
 from apps.cloud_architect.schemas import (
     ArchitecturePattern,
@@ -17,13 +18,12 @@ from apps.cloud_architect.schemas import (
     RegionStrategy,
 )
 from apps.cloud_architect.worker import CloudArchitectWorker
-from apps.base import BaseReferenceApp
 
 
 class CloudArchitectApp(BaseReferenceApp):
     name = "cloud-architect"
     version = "1.0.0"
-    description = "Cloud architecture design, multi-region strategy, cost optimization, and DR planning"
+    description = "Cloud architecture design, multi-region strategy, cost optimization, and DR planning"  # noqa: E501
     category = "infrastructure"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 

@@ -1,0 +1,63 @@
+{
+    "test_id": "sc-005",
+    "category": "multi_operation",
+    "name": "Golden Test 5 for supply_chain_analyst",
+    "inputs": {
+        "operation": "inventory_optimization",
+        "business_context": {
+            "project_name": "retail-fulfillment",
+            "domain": "e-commerce",
+            "team_size": 22
+        },
+        "inputs": {
+            "products": [
+                {"sku": "SKU-001", "name": "Wireless Mouse", "unit_cost": 25.0, "demand_rate": 100, "lead_time_days": 5},
+                {"sku": "SKU-002", "name": "Mechanical Keyboard", "unit_cost": 85.0, "demand_rate": 40, "lead_time_days": 10},
+                {"sku": "SKU-003", "name": "USB-C Hub", "unit_cost": 45.0, "demand_rate": 60, "lead_time_days": 7}
+            ],
+            "suppliers": [
+                {"id": "SUP-001", "name": "Tech Distributor", "location": "Singapore", "reliability_score": 0.92, "capacity": 10000, "lead_time_days": 3},
+                {"id": "SUP-002", "name": "Global Supply", "location": "Shenzhen", "reliability_score": 0.75, "capacity": 5000, "lead_time_days": 14}
+            ],
+            "operation": "inventory_optimization",
+            "constraints": {"max_inventory_value": 50000, "min_stock_level": 10}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 4000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "EOQ and reorder points must be calculated for all products",
+        "Supplier risk scores must be included",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "zero_demand_products",
+        "high_risk_suppliers"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

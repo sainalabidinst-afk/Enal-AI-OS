@@ -1,0 +1,58 @@
+{
+    "test_id": "sc-001",
+    "category": "route_optimization",
+    "name": "Golden Test 1 for supply_chain_analyst",
+    "inputs": {
+        "operation": "route_optimization",
+        "business_context": {
+            "project_name": "distribution-network",
+            "domain": "logistics",
+            "team_size": 15
+        },
+        "inputs": {
+            "routes": [
+                {"origin": "warehouse-A", "destination": "city-X", "distance_km": 120.5, "estimated_time_min": 150, "cost": 450.0},
+                {"origin": "warehouse-A", "destination": "city-Y", "distance_km": 85.3, "estimated_time_min": 110, "cost": 320.0},
+                {"origin": "warehouse-B", "destination": "city-X", "distance_km": 200.0, "estimated_time_min": 240, "cost": 750.0}
+            ],
+            "operation": "route_optimization",
+            "constraints": {"max_time_window_hours": 4, "vehicle_capacity_kg": 500}
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 4000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "Route recommendations must include all destinations",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "single_location",
+        "zero_distance_routes"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

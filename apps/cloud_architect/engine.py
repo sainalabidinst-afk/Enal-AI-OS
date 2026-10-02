@@ -5,16 +5,13 @@ Cloud Architect Engine.
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from apps.cloud_architect.cloud_designer import CloudArchitectureDesigner
 from apps.cloud_architect.schemas import (
     BusinessContext,
     CloudArchitectReport,
     CloudArchitectRequest,
-    CostOptimizationStrategy,
     LandingZoneSpec,
-    RegionStrategy,
 )
 
 logger = logging.getLogger(__name__)
@@ -38,7 +35,7 @@ class CloudArchitectEngine:
 
         landing_zone = self.designer.design_landing_zone(spec, ctx)
         multi_region = self.designer.design_multi_region(
-            spec.region_strategy if isinstance(spec.region_strategy, list) else [str(r) for r in spec.regions],
+            spec.region_strategy if isinstance(spec.region_strategy, list) else [str(r) for r in spec.regions],  # noqa: E501
             spec.region_strategy,
         ) if hasattr(spec, 'region_strategy') else {}
 

@@ -1,0 +1,60 @@
+{
+    "test_id": "ethics-001",
+    "category": "bias_detection",
+    "name": "Golden Test 1 for ai_ethics_pack",
+    "inputs": {
+        "operation": "bias_detection",
+        "business_context": {
+            "project_name": "loan-approval-model",
+            "domain": "finance",
+            "ml_use_case": "credit_scoring",
+            "team_size": 12,
+            "protected_attributes": [
+                {"name": "gender", "groups": ["male", "female"]},
+                {"name": "race", "groups": ["group_a", "group_b"]}
+            ]
+        },
+        "inputs": {
+            "frameworks": ["fairness", "accountability", "transparency"],
+            "bias_metrics": ["demographic_parity", "equalized_odds", "disparate_impact"],
+            "audit_targets": ["predictions", "training_data"],
+            "risk_domains": ["lending", "finance"]
+        }
+    },
+    "expected_output": {
+        "valid": true,
+        "quality_score": 0.9
+    },
+    "performance_targets": {
+        "memory_mb": 512,
+        "token_budget": 4000,
+        "latency_p95_ms": 5000
+    },
+    "acceptance_criteria": [
+        "Output must be valid according to pack schema",
+        "Quality score must be >= 0.9",
+        "All required fields must be present",
+        "No ethical violations below minimum fairness threshold",
+        "Execution time must be < 5000ms"
+    ],
+    "negative_cases": [
+        "invalid_schema",
+        "missing_required_fields",
+        "type_mismatch"
+    ],
+    "edge_cases": [
+        "empty_input",
+        "no_protected_attributes",
+        "all_frameworks_selected"
+    ],
+    "explainability_requirements": {
+        "confidence": true,
+        "decision": true,
+        "alternatives": true,
+        "reasoning": true,
+        "risk": true,
+        "summary": true,
+        "next_action": true,
+        "evidence": true
+    }
+}

@@ -141,7 +141,6 @@ __all__ = [
     "ControlReviewResult",
     "HSEInputs",
     "HSEOperation",
-    "HazardsFinding",
     "HazardFinding",
     "HSESpecialistRecord",
     "HSESpecialistReport",
