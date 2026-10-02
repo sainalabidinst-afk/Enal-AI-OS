@@ -63,7 +63,7 @@ class ConsentRequest:
     def is_expired(self) -> bool:
         if self.status != ConsentStatus.PENDING:
             return False
-        return datetime.now(UTC) > self.expires_at
+        return datetime.now(UTC) >= self.expires_at
 
     @property
     def is_resolved(self) -> bool:

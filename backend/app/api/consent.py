@@ -177,8 +177,5 @@ async def classify_action(
 
 @router.on_event("startup")
 async def start_consent_cleanup() -> None:
-    """Run periodic cleanup on startup (simplified — in prod use cron)."""
-    removed = consent_manager.cleanup()
-    if removed:
-
-        pass
+    """Run cleanup on startup to clear stale consent requests."""
+    consent_manager.cleanup()

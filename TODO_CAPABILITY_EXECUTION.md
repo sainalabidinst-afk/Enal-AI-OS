@@ -1400,6 +1400,12 @@ Frontend Cognitive Layer memetakan **3 tingkat pemikiran kognitif** ke layer pre
 | 2026-10-02 | Phase Q4.2 Fase 2: Action connectors exported in connectors/__init__.py and runtime/__init__.py (lazy) | ✅ |
 | 2026-10-02 | Phase Q4.2 Fase 2: RFC-0044-jenny-action-connectors.md + ADR-024-action-connector-architecture.md created | ✅ |
 | 2026-10-02 | Phase Q4.2 Fase 2: 27 connector tests passing; MyPy 0 errors, Ruff 0 errors across all connector files | ✅ |
+| 2026-10-02 | Phase Q4.3 Fase 3: consent.py created — ConsentManager, ConsentRequest, RiskLevel, ConsentStatus, classify_risk() | ✅ |
+| 2026-10-02 | Phase Q4.3 Fase 3: consent.py API created — POST /consent/request, POST /consent/respond, GET /consent/pending, GET /consent/history, GET /consent/classify | ✅ |
+| 2026-10-02 | Phase Q4.3 Fase 3: observability.py extended — anomaly_detect() (Z-score + baseline), check_span_anomaly(), AnomalyResult, AnomalyType | ✅ |
+| 2026-10-02 | Phase Q4.3 Fase 3: Consent router registered in main.py | ✅ |
+| 2026-10-02 | Phase Q4.3 Fase 3: RFC-0045-jenny-safety-observability.md + ADR-025-consent-permission-architecture.md created | ✅ |
+| 2026-10-02 | Phase Q4.3 Fase 3: 23 consent/safety tests passing; MyPy 0 errors, Ruff 0 errors | ✅ |
 
 ---
 
@@ -1568,11 +1574,11 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 
 | Komponen | File Lokasi | Status |
 |---|---|---|
-| STT Service | `backend/app/core/stt_service.py` | Rencana |
-| TTS Service | `backend/app/core/tts_service.py` | Rencana |
-| VoiceAgent (implementasi) | `backend/app/core/voice_vision_agent.py` | Rencana |
-| Voice API | `backend/app/api/voice.py` | Rencana |
-| Voice Service (frontend) | `frontend/services/voice.ts` | Rencana |
+| STT Service | `backend/app/core/stt_service.py` | ✅ Implementasi |
+| TTS Service | `backend/app/core/tts_service.py` | ✅ Implementasi |
+| VoiceAgent (implementasi) | `backend/app/core/voice_vision_agent.py` | ✅ Implementasi |
+| Voice API | `backend/app/api/voice.py` | ✅ Implementasi |
+| Voice Service (frontend) | `frontend/services/voice.ts` | ✅ Implementasi |
 | FileSystemConnector | `backend/app/connectors/file_system.py` | ✅ Implementasi |
 | EmailConnector | `backend/app/connectors/email.py` | ✅ Implementasi |
 | CalendarConnector | `backend/app/connectors/calendar.py` | ✅ Implementasi |
@@ -1580,10 +1586,10 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 | BaseActionConnector | `backend/app/connectors/base_action.py` | ✅ Implementasi |
 | Action Tool Registry | `backend/app/connectors/action_tools.py` | ✅ Implementasi |
 | Actions API | `backend/app/api/actions.py` | ✅ Implementasi |
-| Consent Manager | `backend/app/core/consent.py` | Rencana |
-| Consent API | `backend/app/api/consent.py` | Rencana |
+| Consent Manager | `backend/app/core/consent.py` | ✅ Implementasi |
+| Consent API | `backend/app/api/consent.py` | ✅ Implementasi |
 | Consent Dialog (frontend) | `frontend/components/jenny/consent-dialog.tsx` | Rencana |
-| Anomaly Detection | `apps/observability/observability_engine.py` | ✅ Ada (perlu integrasi) |
+| Anomaly Detection | `backend/app/core/observability.py` (+ anamaly_detect/check_span_anomaly) | ✅ Implementasi |
 
 ### 🎯 End-to-End Scenario
 

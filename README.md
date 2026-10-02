@@ -181,15 +181,27 @@ ECP dapat berinteraksi seperti "Jenny" melalui lapisan tambahan di atas Cognitiv
 
 | Komponen | Path | Status |
 |---|---|---|
-| VoiceAgent (STT/TTS skeleton) | `backend/app/core/voice_vision_agent.py` | ⚠️ Perlu implementasi provider |
-| Frontend voice (chatgpt-page.tsx) | `frontend/components/chat/chatgpt-page.tsx` | ⚠️ Browser-only STT/TTS, butuh backend |
+| VoiceAgent (STT/TTS provider abstraction) | `backend/app/core/voice_vision_agent.py` | ✅ Implementasi |
+| STT Service | `backend/app/core/stt_service.py` | ✅ Implementasi |
+| TTS Service | `backend/app/core/tts_service.py` | ✅ Implementasi |
+| Voice API | `backend/app/api/voice.py` | ✅ Implementasi |
+| Frontend voice (chatgpt-page.tsx) | `frontend/components/chat/chatgpt-page.tsx` | ✅ Implementasi |
+| FileSystemConnector | `backend/app/connectors/file_system.py` | ✅ Implementasi |
+| EmailConnector | `backend/app/connectors/email.py` | ✅ Implementasi |
+| CalendarConnector | `backend/app/connectors/calendar.py` | ✅ Implementasi |
+| SmartHomeConnector | `backend/app/connectors/smarthome.py` | ✅ Implementasi |
+| ActionConnectorManager | `backend/app/connectors/base_action.py` | ✅ Implementasi |
+| Action Tool Registration | `backend/app/connectors/action_tools.py` | ✅ Implementasi |
+| Actions API | `backend/app/api/actions.py` | ✅ Implementasi |
+| ConsentManager | `backend/app/core/consent.py` | ✅ Implementasi |
+| Consent API | `backend/app/api/consent.py` | ✅ Implementasi |
+| Observability (anomaly_detect) | `backend/app/core/observability.py` | ✅ Implementasi |
 | Cognitive Kernel (8 services) | `backend/app/core/cognitive_kernel.py` | ✅ Siap |
 | Adaptive Runtime | `backend/app/core/adaptive_runtime.py` | ✅ Siap |
 | Memory (7 layers) | `backend/app/core/memory_layer.py` | ✅ Siap |
 | MetaCognition | `backend/app/core/meta_cognition.py` | ✅ Siap |
 | ToolRegistry | `backend/app/core/tool_registry.py` | ✅ Siap |
-| ConnectorManager | `backend/app/connectors/__init__.py` | ✅ Siap (trading only) |
-| Observability + Anomaly Detection | `backend/app/core/observability.py`, `apps/observability/` | ✅ Siap |
+| ConnectorManager | `backend/app/connectors/__init__.py` | ✅ Siap (trading + action) |
 | Governance / ADR / Quality Gates | `docs/adr/`, `docs/quality/` | ✅ Aktif |
 
 > 📋 Lihat [`TODO_CAPABILITY_EXECUTION.md`](#fase-jenny-like-interaction) untuk roadmap implementasi 3-fase.
