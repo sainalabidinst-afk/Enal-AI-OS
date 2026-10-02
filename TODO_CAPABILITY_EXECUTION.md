@@ -1378,6 +1378,17 @@ Frontend Cognitive Layer memetakan **3 tingkat pemikiran kognitif** ke layer pre
 | 2026-10-02 | Document Processing: Registered in apps/__init__.py, docs/rfcs/README.md, README.md, skills.yaml | ✅ |
 | 2026-10-02 | Document Processing: Added to CAPABILITY_PACKS in governance_checks.py; Added to CI workflow (ci.yml) | ✅ |
 | 2026-10-02 | **Phase: Jenny-like Interaction** — 3-phase roadmap defined (voice interface, action connectors, observability & safety) | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: VoiceAgent updated with STTService/TTSService provider abstraction; stt_service.py created (whisper.cpp, openai, web_speech stub); tts_service.py created (pyttsx3, piper, elevenlabs, openai) | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: Voice config added to settings.py (STT_PROVIDER, STT_MODEL_PATH, STT_API_KEY, STT_LANGUAGE, STT_WHISPER_HOST, TTS_PROVIDER, TTS_VOICE, TTS_SPEED, TTS_API_KEY, TTS_ELEVENLABS_VOICE_ID, LOCAL_TTS_URL) | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: backend/app/api/voice.py created — POST /voice/transcribe, POST /voice/speak, GET /voice/languages, GET /voice/providers, WebSocket /voice/ws/voice | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: Voice router registered in main.py | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: Runtime facade (__init__.py) extended with lazy-loaded VoiceAgent, VoiceTranscription, VisionAgent, stt_service, tts_service, etc. | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: frontend/services/voice.ts created (transcribeAudio, speakTextBrowser, speakText, getSupportedLanguages, getVoiceProviders) | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: chatgpt-page.tsx updated — mediaDevices/mediarecorder voice input → backend STT → chat; TTS via backend + browser fallback; voice toggle in header; "Jenny" branding | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: frontend/types/chat.ts added VoiceTranscription interface | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: Tests updated (32 tests, all pass) — STTService, TTSService, VoiceAgent delegation, edge cases (unknown provider, mock providers) | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: RFC-0043-jenny-voice-interface.md + ADR-023-voice-provider-architecture.md created | ✅ |
+| 2026-10-02 | Phase Q4.1 Fase 1: MyPy 0 errors, Ruff 0 errors across all voice files | ✅ |
 
 ---
 

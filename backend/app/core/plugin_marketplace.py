@@ -1,9 +1,18 @@
-import logging  # noqa: I001
+import json
+import logging
+import os  # noqa: I001
 from dataclasses import dataclass, field
 from enum import StrEnum, Enum  # noqa: F401
+from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
+
+_DEFAULT_PLUGINS_DIR = os.path.join(
+    os.environ.get("ECP_WORKSPACE_DIR", os.getcwd()),
+    ".ecp",
+    "plugins",
+)
 
 
 class PluginStatus(StrEnum):
@@ -30,6 +39,99 @@ class PluginManifest:
     rating: float = 0.0
     metadata: dict[str, Any] = field(default_factory=dict)
 
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "version": self.version,
+            "description": self.description,
+            "author": self.author,
+            "category": self.category,
+            "tags": self.tags,
+            "dependencies": self.dependencies,
+            "permissions": self.permissions,
+            "tools": self.tools,
+            "status": self.status.value,
+            "downloads": self.downloads,
+            "rating": self.rating,
+            "metadata": self.metadata,
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "PluginManifest":
+        return cls(
+            id=data["id"],
+            name=data["name"],
+            version=data["version"],
+            description=data["description"],
+            author=data["author"],
+            category=data["category"],
+            tags=data.get("tags", []),
+            dependencies=data.get("dependencies", []),
+            permissions=data.get("permissions", []),
+            tools=data.get("tools", []),
+            status=PluginStatus(data.get("status", PluginStatus.DRAFT)),
+            downloads=data.get("downloads", 0),
+            rating=data.get("rating", 0.0),
+            metadata=data.get("metadata", {}),
+        )
+
+
+class PluginMarketplace:
+    def __init__(self, plugins_dir: str | None = None):
+        self._plugins: dict[str, PluginManifest] = {}
+        self._installed: dict[str, str] = {}
+        self._ratings: dict[str, list[float]] = {}
+        self._plugins_dir = Path(plugins_dir) if plugins_dir else Path(_DEFAULT_PLUGINS_DIR)
+        self._load_published()
+
+    def _plugin_path(self, plugin_id: str) -> Path:
+        safe_id = plugin_id.replace(":", "_").replace("@", "_")
+        return self._plugins_dir / f"{safe_id}.json"
+
+    def _load_published(self) -> None:
+        if not self._plugins_dir.exists():
+            return
+        for f in self._plugins_dir.glob("*.json"):
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                manifest = PluginManifest.from_dict(data)
+                self._plugins[manifest.id] = manifest
+                if manifest.status == PluginStatus.INSTALLED if hasattr(PluginStatus, "INSTALLED") else manifest.status == PluginStatus.PUBLISHED:
+                    self._installed[manifest.id] = manifest.version
+            except Exception as exc:
+                logger.warning("Failed to load plugin from %s: %s", f, exc)
+
+    def persist_plugin(self, manifest: PluginManifest) -> Path:
+        self._plugins_dir.mkdir(parents=True, exist_ok=True)
+        path = self._plugin_path(manifest.id)
+        path.write_text(json.dumps(manifest.to_dict(), indent=2, ensure_ascii=False), encoding="utf-8")
+        logger.info("Persisted plugin manifest: %s -> %s", manifest.id, path)
+        return path
+
+    def load_plugin_from_disk(self, plugin_id: str) -> PluginManifest | None:
+        path = self._plugin_path(plugin_id)
+        if not path.exists():
+            return None
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            return PluginManifest.from_dict(data)
+        except Exception as exc:
+            logger.warning("Failed to load plugin from %s: %s", path, exc)
+            return None
+
+    def list_persisted_plugins(self) -> list[PluginManifest]:
+        if not self._plugins_dir.exists():
+            return []
+        results: list[PluginManifest] = []
+        for f in self._plugins_dir.glob("*.json"):
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                results.append(PluginManifest.from_dict(data))
+            except Exception:
+                continue
+        return results
+
 
 class PluginMarketplace:
     def __init__(self):
@@ -43,6 +145,7 @@ class PluginMarketplace:
             self._plugins[manifest.id].status = PluginStatus.PUBLISHED
         else:
             self._plugins[manifest.id] = manifest
+        self.persist_plugin(manifest)
         logger.info(f"Plugin published: {manifest.id} v{manifest.version}")
         return manifest.id
 

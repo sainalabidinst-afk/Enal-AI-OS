@@ -11,7 +11,6 @@ ADR-023: Voice Provider Architecture — each provider is a thin adapter over th
 
 from __future__ import annotations
 
-import json
 import logging
 from dataclasses import dataclass, field
 from typing import Any
@@ -85,7 +84,6 @@ class STTService:
         language: str,
     ) -> TranscriptionResult:
         """Transcribe using local whisper.cpp server via HTTP API."""
-        import asyncio
 
         try:
             import aiohttp
@@ -98,9 +96,12 @@ class STTService:
         try:
             async with aiohttp.ClientSession() as session:
                 form = aiohttp.FormData()
-                form.add_field("file", audio_data, filename="audio.wav", content_type="audio/wav")
+                form.add_field(
+                    "file", audio_data, filename="audio.wav", content_type="audio/wav"
+                )
                 form.add_field("language", language)
-                async with session.post(url, data=form, timeout=aiohttp.ClientTimeout(total=30)) as resp:
+                timeout = aiohttp.ClientTimeout(total=30)
+                async with session.post(url, data=form, timeout=timeout) as resp:
                     if resp.status != 200:
                         raise RuntimeError(f"Whisper STT error: HTTP {resp.status}")
                     raw = await resp.json()
@@ -115,7 +116,7 @@ class STTService:
                 provider="whisper",
                 metadata=raw,
             )
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise RuntimeError("STT request timed out after 30s")
         except aiohttp.ClientError as e:
             logger.warning("Whisper STT unavailable, falling back to web_speech: %s", e)

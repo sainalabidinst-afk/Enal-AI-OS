@@ -70,7 +70,8 @@ class VoiceAgent:
         """
         from backend.app.core.tts_service import tts_service
 
-        result = await tts_service.speak(text, voice=voice if voice != "default" else None, speed=speed)
+        resolved_voice = None if voice == "default" else voice
+        result = await tts_service.speak(text, voice=resolved_voice, speed=speed)
         return result.audio_data
 
     def get_supported_languages(self) -> list[str]:

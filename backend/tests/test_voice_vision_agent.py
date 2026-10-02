@@ -39,36 +39,51 @@ class TestVoiceAgent:
 
     @pytest.mark.asyncio
     async def test_transcribe_delegates_to_stt_service(self):
-        agent = VoiceAgent()
-        result = await agent.transcribe(b"audio", language="id")
-        assert result.text is not None
-        assert hasattr(result, "confidence")
-        assert hasattr(result, "language")
+        from backend.app.core.stt_service import TranscriptionResult, stt_service
+        from unittest.mock import AsyncMock, patch
+
+        mock_result = TranscriptionResult(
+            text="halo", confidence=0.9, language="id", provider="test"
+        )
+        with patch.object(stt_service, "transcribe", new_callable=AsyncMock, return_value=mock_result):
+            agent = VoiceAgent()
+            result = await agent.transcribe(b"audio", language="id")
+            assert result.text == "halo"
+            assert hasattr(result, "confidence")
+            assert hasattr(result, "language")
 
     @pytest.mark.asyncio
     async def test_speak_delegates_to_tts_service(self):
-        agent = VoiceAgent()
-        result = await agent.speak("hello")
-        assert isinstance(result, bytes)
-        assert len(result) > 0
+        from backend.app.core.config import settings
+        from backend.app.core.tts_service import SynthesisResult, TTSService
+        from unittest.mock import AsyncMock, patch
+
+        mock_result = SynthesisResult(
+            audio_data=b"mock_audio", format="wav", sample_rate=22050, provider="mock"
+        )
+        with patch.object(TTSService, "speak", new_callable=AsyncMock, return_value=mock_result):
+            agent = VoiceAgent()
+            result = await agent.speak("hello")
+            assert isinstance(result, bytes)
+            assert len(result) > 0
 
 
 class TestVoiceAgentEdgeCases:
     @pytest.mark.asyncio
-    async def test_transcribe_empty_audio(self):
-        from backend.app.core.voice_vision_agent import VoiceAgent
+    async def test_transcribe_unknown_provider_raises(self):
         from backend.app.core.config import settings
+        from backend.app.core.stt_service import STTService
         from unittest.mock import patch
 
-        agent = VoiceAgent()
         with patch.object(settings, "STT_PROVIDER", "unknown"):
             with pytest.raises(ValueError, match="Unknown STT provider"):
-                await agent.transcribe(b"")
+                service = STTService()
+                await service.transcribe(b"", language="id")
 
     @pytest.mark.asyncio
     async def test_speak_unknown_provider_raises(self):
-        from backend.app.core.tts_service import TTSService
         from backend.app.core.config import settings
+        from backend.app.core.tts_service import TTSService
         from unittest.mock import patch
 
         with patch.object(settings, "TTS_PROVIDER", "invalid_tts"):

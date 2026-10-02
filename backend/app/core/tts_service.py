@@ -126,7 +126,6 @@ class TTSService:
                 "TTS provider 'piper' requires aiohttp. Install with: pip install aiohttp"
             ) from e
 
-        import json as _json
 
         try:
             async with aiohttp.ClientSession() as session:
@@ -234,7 +233,7 @@ class TTSService:
                 speed=speed,
                 response_format="wav",
             )
-            audio_data = await response.read()
+            audio_data = response.read()
             return SynthesisResult(
                 audio_data=audio_data,
                 format="wav",
