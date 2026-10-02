@@ -1,0 +1,270 @@
+{
+  "$schema": "../../certification/schema/golden-test-suite.schema.json",
+  "capabilityId": "document_processing",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-02T00:00:00Z",
+  "categories": [
+    {
+      "name": "Document Parsing",
+      "tests": [
+        {
+          "id": "DP-GT-001",
+          "description": "Read a DOCX document with complex tables and extract text, tables, and metadata.",
+          "input": {
+            "operation": "document_read",
+            "business_context": {"project_name": "legal-contract", "domain": "legal", "team_size": 6},
+            "inputs": {
+              "operation": "document_read",
+              "source_path": "real_cases/document_processing/dp_001/input/sample.docx",
+              "source_format": "docx",
+              "source_id": "legal-contract-1"
+            }
+          },
+          "expected": {
+            "format": "docx",
+            "formula_disclosed": true,
+            "inputs_traced": true,
+            "metadata_extracted": true,
+            "tables_extracted": true
+          }
+        },
+        {
+          "id": "DP-GT-002",
+          "description": "Read an XLSX spreadsheet and extract sheet names, cell values, and metadata.",
+          "input": {
+            "operation": "document_read",
+            "business_context": {"project_name": "financial-report", "domain": "finance", "team_size": 5},
+            "inputs": {
+              "operation": "document_read",
+              "source_path": "real_cases/document_processing/dp_001/input/sample.xlsx",
+              "source_format": "xlsx",
+              "source_id": "finance-report-1"
+            }
+          },
+          "expected": {
+            "format": "xlsx",
+            "sheet_names_present": true,
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        },
+        {
+          "id": "DP-GT-003",
+          "description": "Read a PDF document and extract text, page count, and metadata.",
+          "input": {
+            "operation": "document_read",
+            "business_context": {"project_name": "technical-spec", "domain": "technical", "team_size": 4},
+            "inputs": {
+              "operation": "document_read",
+              "source_path": "real_cases/document_processing/dp_001/input/sample.pdf",
+              "source_format": "pdf",
+              "source_id": "tech-spec-1"
+            }
+          },
+          "expected": {
+            "format": "pdf",
+            "page_count_present": true,
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Document Editing",
+      "tests": [
+        {
+          "id": "DP-GT-004",
+          "description": "Edit an Excel spreadsheet: change cell values and add metadata.",
+          "input": {
+            "operation": "document_edit",
+            "business_context": {"project_name": "financial-report", "domain": "finance", "team_size": 5},
+            "inputs": {
+              "operation": "document_edit",
+              "source_path": "real_cases/document_processing/dp_002/input/sample.xlsx",
+              "source_format": "xlsx",
+              "text_replacements": [{"find": "OldValue", "replace": "NewValue"}],
+              "table_operations": [{"row": 0, "col": 0, "value": "Updated"}],
+              "metadata": {"author": "Finance Team"},
+              "source_id": "finance-edit-1"
+            }
+          },
+          "expected": {
+            "edit_results_present": true,
+            "formula_disclosed": true,
+            "inputs_traced": true,
+            "at_least_one_success": true
+          }
+        },
+        {
+          "id": "DP-GT-005",
+          "description": "Edit a Word document: replace text and update metadata (watermark scenario).",
+          "input": {
+            "operation": "document_edit",
+            "business_context": {"project_name": "nda-doc", "domain": "legal", "team_size": 3},
+            "inputs": {
+              "operation": "document_edit",
+              "source_path": "real_cases/document_processing/dp_008/input/document.docx",
+              "source_format": "docx",
+              "text_replacements": [{"find": "DRAFT", "replace": "FINAL"}],
+              "metadata": {"author": "Legal Team", "version": "1.1"},
+              "source_id": "nda-edit-1"
+            }
+          },
+          "expected": {
+            "edit_results_present": true,
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Format Conversion",
+      "tests": [
+        {
+          "id": "DP-GT-006",
+          "description": "Convert a Word document to PDF.",
+          "input": {
+            "operation": "document_convert",
+            "business_context": {"project_name": "technical-doc", "domain": "technical", "team_size": 4},
+            "inputs": {
+              "operation": "document_convert",
+              "source_path": "real_cases/document_processing/dp_003/input/sample.docx",
+              "source_format": "docx",
+              "target_format": "pdf",
+              "source_id": "doc-convert-1"
+            }
+          },
+          "expected": {
+            "converted_files_present": true,
+            "target_format": "pdf",
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        },
+        {
+          "id": "DP-GT-007",
+          "description": "Convert a PowerPoint presentation to PDF.",
+          "input": {
+            "operation": "document_convert",
+            "business_context": {"project_name": "presentation", "domain": "technical", "team_size": 3},
+            "inputs": {
+              "operation": "document_convert",
+              "source_path": "real_cases/document_processing/dp_004/input/sample.pptx",
+              "source_format": "pptx",
+              "target_format": "pdf",
+              "source_id": "ppt-convert-1"
+            }
+          },
+          "expected": {
+            "converted_files_present": true,
+            "target_format": "pdf",
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        },
+        {
+          "id": "DP-GT-008",
+          "description": "Export an Excel spreadsheet to CSV.",
+          "input": {
+            "operation": "document_convert",
+            "business_context": {"project_name": "data-export", "domain": "finance", "team_size": 4},
+            "inputs": {
+              "operation": "document_convert",
+              "source_path": "real_cases/document_processing/dp_009/input/financials.xlsx",
+              "source_format": "xlsx",
+              "target_format": "csv",
+              "source_id": "csv-export-1"
+            }
+          },
+          "expected": {
+            "converted_files_present": true,
+            "target_format": "csv",
+            "formula_disclosed": true,
+            "inputs_traced": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "PDF Operations",
+      "tests": [
+        {
+          "id": "DP-GT-009",
+          "description": "Add watermark annotation to a PDF document.",
+          "input": {
+            "operation": "document_annotate",
+            "business_context": {"project_name": "review-doc", "domain": "legal", "team_size": 5},
+            "inputs": {
+              "operation": "document_annotate",
+              "source_path": "real_cases/document_processing/dp_007/input/document.pdf",
+              "source_format": "pdf",
+              "annotations": [
+                {"type": "watermark", "content": "DRAFT", "page": 1},
+                {"type": "comment", "content": "Please review this section", "page": 2}
+              ],
+              "source_id": "pdf-annotate-1"
+            }
+          },
+          "expected": {
+            "annotated_files_present": true,
+            "annotation_count": 2,
+            "formula_disclosed": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Safety Boundary",
+      "tests": [
+        {
+          "id": "DP-GT-010",
+          "description": "Document processing pack must not import cross-capability packs or core directly.",
+          "input": {
+            "operation": "document_read",
+            "business_context": {"project_name": "boundary-check", "domain": "platform", "team_size": 1},
+            "inputs": {
+              "operation": "document_read",
+              "source_path": null,
+              "source_format": "docx",
+              "source_id": "boundary-1"
+            }
+          },
+          "expected": {
+            "quality_score_below": 0.86,
+            "validation_error_reported": true,
+            "silent_default": false,
+            "formula_disclosed": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Explainability & Metadata",
+      "tests": [
+        {
+          "id": "DP-GT-011",
+          "description": "Validate that metadata (author, version) is extracted and traceable from a read operation.",
+          "input": {
+            "operation": "document_read",
+            "business_context": {"project_name": "metadata-check", "domain": "technical", "team_size": 2},
+            "inputs": {
+              "operation": "document_read",
+              "source_path": "real_cases/document_processing/dp_010/input/document.pdf",
+              "source_format": "pdf",
+              "source_id": "metadata-validation-1"
+            }
+          },
+          "expected": {
+            "formula_disclosed": true,
+            "inputs_traced": true,
+            "source_reference_preserved": true,
+            "metadata_extracted": true,
+            "quality_score_above": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

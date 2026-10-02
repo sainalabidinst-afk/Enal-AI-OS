@@ -43,6 +43,8 @@ export interface MetaCognitiveFlags {
   alternatives_considered: number;
   confidence_trend: "increasing" | "stable" | "decreasing";
   last_reflection: string | null;
+  translation_confidence?: number;
+  translation_warning?: boolean;
 }
 
 export type MemoryLayerType =
@@ -94,9 +96,23 @@ export interface CrossCapabilityMetric {
   value: number;
 }
 
+export interface TranslationConfidenceMetric {
+  source_lang: string;
+  target_lang: string;
+  confidence: number;
+  quality_score: number;
+  latency_ms: number;
+  glossary_terms_used: number;
+  throughput_cps: number;
+  model_used: string;
+  domain?: string;
+  timestamp: string;
+}
+
 export interface OrchestrationState {
   capabilities: CapabilityStatusInfo[];
   active_execution: string | null;
   cross_capability_metrics: CrossCapabilityMetric[];
   last_sync: string;
+  translation_confidences?: TranslationConfidenceMetric[];
 }

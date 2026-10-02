@@ -1,9 +1,9 @@
-# RFC-0037: Capability Pack Innovation Strategist
+# RFC-0039: Capability Pack Innovation Strategist
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0037|
-|**Status**|Draf|
+|**ID RFC**|RFC-0039|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.4.0 (Platform Enterprise)|

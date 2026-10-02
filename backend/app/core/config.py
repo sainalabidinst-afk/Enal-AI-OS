@@ -30,6 +30,19 @@ class Settings(BaseSettings):
     LM_STUDIO_BASE_URL: str = "http://localhost:1234/v1"
     LM_STUDIO_API_KEY: str = "lm-studio"
 
+    STT_PROVIDER: str = "whisper"
+    STT_MODEL_PATH: str = ""
+    STT_API_KEY: str = ""
+    STT_LANGUAGE: str = "id"
+    STT_WHISPER_HOST: str = "http://localhost:8082"
+
+    TTS_PROVIDER: str = "pyttsx3"
+    TTS_VOICE: str = "en"
+    TTS_SPEED: float = 1.0
+    TTS_API_KEY: str = ""
+    TTS_ELEVENLABS_VOICE_ID: str = ""
+    LOCAL_TTS_URL: str = "http://localhost:8083"
+
     DEFAULT_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
     DEFAULT_REASONING_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
     DEFAULT_EMBEDDING_MODEL: str = "lmstudio/text-embedding-nomic-embed-text-v1.5"

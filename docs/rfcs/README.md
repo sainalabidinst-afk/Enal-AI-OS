@@ -102,13 +102,17 @@ RFC terkait, dokumentasi, dll.
 - RFC-0032: HSE Specialist Capability Pack (Diterima — Phase 6)
 - RFC-0033: Observability Capability Pack (Diterima — Phase 7)
 - RFC-0034: Cybersecurity Analyst Capability Pack (Diterima — Phase 7)
-- RFC-0035: AI Ethics & Governance Capability Pack (Diterima — Phase 7)
-- RFC-0036: Supply Chain Analyst Capability Pack (Diterima — Phase 7)
-- RFC-0037: Data Scientist Capability Pack (Diterima — Phase 7)
-- RFC-0038: Business Intelligence Capability Pack (Diterima — Phase 7)
-- RFC-0039: Innovation Strategist Capability Pack (Diterima — Phase 7)
-- RFC-0040: DevSecOps Capability Pack (Diterima — Phase 7)
-- RFC-0039: Translator Expert Capability Pack (Draft — Phase 7)
+- RFC-0035: AI Ethics & Governance Capability Pack (Diterima — Phase 8)
+- RFC-0036: Supply Chain Analyst Capability Pack (Diterima — Phase 8)
+- RFC-0037: Data Scientist Capability Pack (Diterima — Phase 8)
+- RFC-0038: Business Intelligence Capability Pack (Diterima — Phase 8)
+- RFC-0039: Innovation Strategist Capability Pack (Diterima — Phase 8)
+- RFC-0040: DevSecOps Capability Pack (Diterima — Phase 8)
+- RFC-0041: Translator Expert Capability Pack (Diterima)
+- RFC-0042: Document Processing Capability Pack (Draft — Phase Professional)
+- RFC-0043: Jenny Voice Interface (Draft — Platform Professional)
+- RFC-0044: Jenny Action Connectors (Draft — Platform Professional)
+- RFC-0045: Jenny Safety & Observability (Draft — Platform Professional)
 
 ## Indeks RFC
 
@@ -154,4 +158,8 @@ RFC terkait, dokumentasi, dll.
 |RFC-0038|Business Intelligence Capability Pack|Diterima|Business Intelligence|
 |RFC-0039|Innovation Strategist Capability Pack|Diterima|Innovation Strategist|
 |RFC-0040|DevSecOps Capability Pack|Diterima|DevSecOps|
-|RFC-0039|Translator Expert Capability Pack|Diterima|Translator Expert|
+|RFC-0041|Translator Expert Capability Pack|Diterima|Translator Expert|
+|RFC-0042|Document Processing Capability Pack|Diterima — Phase Professional|Document Processing|
+|RFC-0043|Jenny Voice Interface|Diterima — Phase Professional|Jenny Voice Interface|
+|RFC-0044|Jenny Action Connectors|Diterima — Phase Professional|Jenny Action Connectors|
+|RFC-0045|Jenny Safety & Observability|Diterima — Phase Professional|Jenny Safety & Observability|

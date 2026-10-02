@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from backend.app.core.plugin_marketplace import (
+from backend.app.runtime import (
     PluginManifest,
     PluginMarketplace,
     PluginStatus,

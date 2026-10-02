@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-011",
+    "name": "Legal EN→FR Translation",
+    "category": "legal_contract",
+    "source_language": "en",
+    "target_language": "fr",
+    "style": "formal",
+    "domain": "legal",
+    "inputs": {
+        "text": "The contract shall be governed by the laws of the Republic of Indonesia.",
+        "glossary_domain": "legal",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "fr",
+        "contains_terms": ["contrat"],
+        "min_confidence": 0.60,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid French",
+        "Legal terminology must be preserved",
+        "Confidence score must be >= 0.60",
+        "Formal style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["special_characters"]
+}

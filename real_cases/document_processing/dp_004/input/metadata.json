@@ -1,0 +1,13 @@
+{
+  "case_id": "dp_004",
+  "title": "Convert PowerPoint Presentation to PDF",
+  "domain": "technical",
+  "source_format": "pptx",
+  "target_format": "pdf",
+  "description": "Sales presentation with multiple slides containing bullet points and diagrams, converted to PDF for sharing.",
+  "operation": "document_convert",
+  "expected_content": {
+    "format_conversion": "pptx → pdf",
+    "slide_count": "preserve slide count"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "case_id": "dp_001",
+  "title": "Read Word Contract with Complex Tables",
+  "domain": "legal",
+  "document_type": "docx",
+  "description": "Legal contract document containing complex tables with party information, payment terms, and milestone schedules.",
+  "operation": "document_read",
+  "expected_content": {
+    "tables": 3,
+    "text_contains": ["CONTRACT AGREEMENT", "PARTIES", "TERM", "TERMINATION"],
+    "metadata_fields": ["author", "title"]
+  }
+}

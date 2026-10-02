@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-013",
+    "name": "Medical EN→RU Translation",
+    "category": "medical_guideline",
+    "source_language": "en",
+    "target_language": "ru",
+    "style": "formal",
+    "domain": "medical",
+    "inputs": {
+        "text": "Hypertension requires monitoring of blood cholesterol levels.",
+        "glossary_domain": "medical",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "ru",
+        "contains_terms": ["человек"],
+        "min_confidence": 0.60,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid Russian",
+        "Medical terminology must be preserved",
+        "Confidence score must be >= 0.60",
+        "Formal style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["special_characters"]
+}

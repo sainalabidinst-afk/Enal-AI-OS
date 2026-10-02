@@ -1,9 +1,9 @@
-# RFC-0035: Capability Pack Data Scientist
+# RFC-0037: Capability Pack Data Scientist
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0035|
-|**Status**|Draf|
+|**ID RFC**|RFC-0037|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.3.0 (Platform Enterprise)|

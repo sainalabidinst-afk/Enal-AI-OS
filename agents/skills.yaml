@@ -102,3 +102,11 @@ skills:
     capabilities: [adversarial-testing, failure-injection, hardening, assumption-auditing]
     tools: [analysis, testing]
     cost_weight: 1.3
+
+  - name: document-processing
+    category: productivity
+    description: Read, edit, produce, and convert DOCX/XLSX/PPTX/PDF documents
+    agent: document-agent
+    capabilities: [docx, xlsx, pptx, pdf, document-processing, conversion]
+    tools: [python-docx, openpyxl, pypdf, reportlab]
+    cost_weight: 0.7

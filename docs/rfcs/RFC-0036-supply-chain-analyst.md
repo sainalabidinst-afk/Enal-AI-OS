@@ -1,9 +1,9 @@
-# RFC-0034: Capability Pack Supply Chain Analyst
+# RFC-0036: Capability Pack Supply Chain Analyst
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0034|
-|**Status**|Draf|
+|**ID RFC**|RFC-0036|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.2.0 (Platform Enterprise)|

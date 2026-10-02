@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-014",
+    "name": "Finance EN→IT Translation",
+    "category": "financial_report",
+    "source_language": "en",
+    "target_language": "it",
+    "style": "technical",
+    "domain": "finance",
+    "inputs": {
+        "text": "The portfolio yield reflects market volatility and diversification.",
+        "glossary_domain": "finance",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "it",
+        "contains_terms": ["portafoglio"],
+        "min_confidence": 0.60,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid Italian",
+        "Financial terminology must be preserved",
+        "Confidence score must be >= 0.60",
+        "Technical style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["special_characters"]
+}

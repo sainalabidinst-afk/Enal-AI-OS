@@ -1,0 +1,12 @@
+{
+  "case_id": "dp_006",
+  "title": "Split Large PDF Document",
+  "domain": "legal",
+  "document_type": "pdf",
+  "description": "Split a large PDF contract (50 pages) into individual chapter files for easier review.",
+  "operation": "document_read",
+  "expected_content": {
+    "split": true,
+    "page_ranges": [[0, 10], [10, 20], [20, 30]]
+  }
+}

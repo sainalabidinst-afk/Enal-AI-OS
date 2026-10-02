@@ -1,9 +1,9 @@
-# RFC-0033: Capability Pack AI Ethics & Governance
+# RFC-0035: Capability Pack AI Ethics & Governance
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0033|
-|**Status**|Draf|
+|**ID RFC**|RFC-0035|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.2.0 (Platform Enterprise)|

@@ -1,0 +1,14 @@
+{
+  "case_id": "dp_007",
+  "title": "Annotate Legal Document with Comments and Watermarks",
+  "domain": "legal",
+  "document_type": "pdf",
+  "description": "Add DRAFT watermark and reviewer comments to a legal contract PDF before distribution.",
+  "operation": "document_annotate",
+  "expected_content": {
+    "annotations": [
+      {"type": "watermark", "content": "DRAFT"},
+      {"type": "comment", "content": "Please review this section"}
+    ]
+  }
+}

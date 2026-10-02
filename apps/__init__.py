@@ -98,6 +98,7 @@ APPS = {
     "innovation-strategist": _load_app("innovation_strategist"),
     "devsecops": _load_app("devsecops"),
     "translator-expert": _load_app("translator_expert"),
+    "document-processing": _load_app("document_processing"),
 }
 
 

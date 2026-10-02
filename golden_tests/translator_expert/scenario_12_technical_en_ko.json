@@ -1,0 +1,32 @@
+{
+    "test_id": "translator-012",
+    "name": "Technical EN→KO Translation",
+    "category": "technical_document",
+    "source_language": "en",
+    "target_language": "ko",
+    "style": "technical",
+    "domain": "technical",
+    "inputs": {
+        "text": "Container orchestration manages microservices at scale.",
+        "glossary_domain": "technical",
+        "enforce_glossary": true
+    },
+    "expected_output": {
+        "target_language": "ko",
+        "contains_terms": ["컨테이너"],
+        "min_confidence": 0.60,
+        "valid": true
+    },
+    "acceptance_criteria": [
+        "Output must be valid Korean",
+        "Technical terms must be preserved or translated",
+        "Confidence score must be >= 0.60",
+        "Technical style must be applied"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["special_characters"]
+}

@@ -77,6 +77,7 @@ CAPABILITY_PACKS = [
     "innovation_strategist",
     "devsecops",
     "translator_expert",
+    "document_processing",
 ]
 
 # ADR file pattern

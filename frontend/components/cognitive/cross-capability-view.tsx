@@ -2,7 +2,11 @@
 
 import { useEffect, useCallback } from "react";
 import { useCognitiveStore } from "@/store/cognitive-store";
-import type { CapabilityStatusInfo, CapabilityRunStatus } from "@/types/cognitive";
+import type {
+  CapabilityStatusInfo,
+  CapabilityRunStatus,
+  TranslationConfidenceMetric,
+} from "@/types/cognitive";
 import { cn } from "@/lib/utils";
 import { CAPABILITY_APPS, type CapabilityApp } from "@/components/apps/capability-registry";
 
@@ -38,6 +42,7 @@ export function CrossCapabilityView() {
       active_execution: orchestration.active_execution,
       cross_capability_metrics: orchestration.cross_capability_metrics,
       last_sync: new Date().toISOString(),
+      translation_confidences: orchestration.translation_confidences ?? [],
     });
   }, [orchestration, setOrchestration]);
 
@@ -47,6 +52,8 @@ export function CrossCapabilityView() {
 
   const grouped = groupByDomain(orchestration.capabilities);
   const activeCaps = orchestration.capabilities.filter((c) => c.status === "running");
+  const translationConfidences = orchestration.translation_confidences ?? [];
+  const translatorCap = orchestration.capabilities.find((c) => c.id === "translator");
 
   return (
     <div className="space-y-4">
@@ -74,6 +81,13 @@ export function CrossCapabilityView() {
           />
         ))}
       </div>
+
+      {translatorCap && translationConfidences.length > 0 && (
+        <TranslationCrossCapabilityView
+          confidences={translationConfidences}
+          capability={translatorCap}
+        />
+      )}
     </div>
   );
 }
@@ -86,7 +100,7 @@ function groupByDomain(caps: CapabilityStatusInfo[]): Record<string, CapabilityS
       acc[domain].push(cap);
       return acc;
     },
-    {} as Record<string, CapabilityStatusInfo[]>
+    {} as Record<string, CapabilityStatusInfo[]>,
   );
 }
 
@@ -152,6 +166,69 @@ function CapabilityStatusCard({ capability, app, onStatusChange }: CapabilitySta
           </select>
         </div>
         <div className={cn("h-2 w-2 rounded-full", dotColor)} />
+      </div>
+    </div>
+  );
+}
+
+interface TranslationCrossCapabilityViewProps {
+  confidences: TranslationConfidenceMetric[];
+  capability: CapabilityStatusInfo;
+}
+
+function TranslationCrossCapabilityView({ confidences, capability }: TranslationCrossCapabilityViewProps) {
+  const latest = confidences[confidences.length - 1];
+  if (!latest) return null;
+
+  const avgConfidence =
+    confidences.reduce((sum, m) => sum + m.confidence, 0) / confidences.length;
+  const avgLatency =
+    confidences.reduce((sum, m) => sum + m.latency_ms, 0) / confidences.length;
+  const avgThroughput =
+    confidences.reduce((sum, m) => sum + m.throughput_cps, 0) / confidences.length;
+
+  const confidenceColor =
+    avgConfidence >= 0.8
+      ? "text-green-500"
+      : avgConfidence >= 0.6
+      ? "text-yellow-500"
+      : "text-red-500";
+
+  return (
+    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-4">
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <div className="text-xs font-semibold text-[var(--color-text-primary)]">
+            {capability.name} — Translation Confidence
+          </div>
+          <div className="text-[10px] text-[var(--color-text-secondary)]">
+            {latest.source_lang}→{latest.target_lang} · {latest.domain}
+          </div>
+        </div>
+        <div className={cn("text-sm font-semibold", confidenceColor)}>
+          {Math.round(avgConfidence * 100)}%
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2 text-center">
+        <div>
+          <div className="text-[10px] text-[var(--color-text-secondary)]">Avg Latency</div>
+          <div className="text-xs font-medium text-[var(--color-text-primary)]">
+            {Math.round(avgLatency)}ms
+          </div>
+        </div>
+        <div>
+          <div className="text-[10px] text-[var(--color-text-secondary)]">Throughput</div>
+          <div className="text-xs font-medium text-[var(--color-text-primary)]">
+            {Math.round(avgThroughput)} cps
+          </div>
+        </div>
+        <div>
+          <div className="text-[10px] text-[var(--color-text-secondary)]">Samples</div>
+          <div className="text-xs font-medium text-[var(--color-text-primary)]">
+            {confidences.length}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
-# RFC-0039: Capability Pack Translator Expert
+# RFC-0041: Capability Pack Translator Expert
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0039|
-|**Status**|Draft|
+|**ID RFC**|RFC-0041|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.3.0 (Platform Enterprise)|

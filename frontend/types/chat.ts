@@ -26,3 +26,11 @@ export interface Conversation {
   conversation_id: string;
   messages: Message[];
 }
+
+export interface VoiceTranscription {
+  text: string;
+  confidence: number;
+  language: string;
+  duration_ms: number;
+  alternatives?: string[] | null;
+}

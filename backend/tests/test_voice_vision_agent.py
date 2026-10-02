@@ -37,15 +37,44 @@ class TestVoiceAgent:
         assert "en" in langs
         assert "id" in langs
 
-    async def test_transcribe_raises(self):
+    @pytest.mark.asyncio
+    async def test_transcribe_delegates_to_stt_service(self):
         agent = VoiceAgent()
-        with pytest.raises(NotImplementedError):
-            await agent.transcribe(b"audio")
+        result = await agent.transcribe(b"audio", language="id")
+        assert result.text is not None
+        assert hasattr(result, "confidence")
+        assert hasattr(result, "language")
 
-    async def test_speak_raises(self):
+    @pytest.mark.asyncio
+    async def test_speak_delegates_to_tts_service(self):
         agent = VoiceAgent()
-        with pytest.raises(NotImplementedError):
-            await agent.speak("hello")
+        result = await agent.speak("hello")
+        assert isinstance(result, bytes)
+        assert len(result) > 0
+
+
+class TestVoiceAgentEdgeCases:
+    @pytest.mark.asyncio
+    async def test_transcribe_empty_audio(self):
+        from backend.app.core.voice_vision_agent import VoiceAgent
+        from backend.app.core.config import settings
+        from unittest.mock import patch
+
+        agent = VoiceAgent()
+        with patch.object(settings, "STT_PROVIDER", "unknown"):
+            with pytest.raises(ValueError, match="Unknown STT provider"):
+                await agent.transcribe(b"")
+
+    @pytest.mark.asyncio
+    async def test_speak_unknown_provider_raises(self):
+        from backend.app.core.tts_service import TTSService
+        from backend.app.core.config import settings
+        from unittest.mock import patch
+
+        with patch.object(settings, "TTS_PROVIDER", "invalid_tts"):
+            service = TTSService()
+            with pytest.raises(ValueError, match="Unknown TTS provider"):
+                await service.speak("hello")
 
 
 class TestVisionAgent:
@@ -55,21 +84,25 @@ class TestVisionAgent:
         assert "png" in formats
         assert "jpg" in formats
 
+    @pytest.mark.asyncio
     async def test_analyze_raises_for_unsupported_format(self):
         agent = VisionAgent()
         with pytest.raises(ValueError):
             await agent.analyze(b"data", format="bmp")
 
+    @pytest.mark.asyncio
     async def test_analyze_raises_not_implemented(self):
         agent = VisionAgent()
         with pytest.raises(NotImplementedError):
             await agent.analyze(b"data", format="png")
 
+    @pytest.mark.asyncio
     async def test_detect_objects_raises(self):
         agent = VisionAgent()
         with pytest.raises(NotImplementedError):
             await agent.detect_objects(b"data")
 
+    @pytest.mark.asyncio
     async def test_ocr_raises(self):
         agent = VisionAgent()
         with pytest.raises(NotImplementedError):

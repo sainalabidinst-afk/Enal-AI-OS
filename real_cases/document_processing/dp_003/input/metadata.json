@@ -1,0 +1,13 @@
+{
+  "case_id": "dp_003",
+  "title": "Convert Word Technical Specification to PDF",
+  "domain": "technical",
+  "source_format": "docx",
+  "target_format": "pdf",
+  "description": "Technical specification document in Word format needs to be converted to PDF for distribution.",
+  "operation": "document_convert",
+  "expected_content": {
+    "format_conversion": "docx → pdf",
+    "page_count": "preserve structure"
+  }
+}

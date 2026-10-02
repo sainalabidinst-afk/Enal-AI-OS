@@ -1,0 +1,13 @@
+{
+  "case_id": "dp_009",
+  "title": "Export Financial Spreadsheet to CSV",
+  "domain": "finance",
+  "source_format": "xlsx",
+  "target_format": "csv",
+  "description": "Export quarterly financial data from Excel to CSV for data pipeline ingestion.",
+  "operation": "document_convert",
+  "expected_content": {
+    "format_conversion": "xlsx → csv",
+    "data_rows": "preserve all cell values"
+  }
+}

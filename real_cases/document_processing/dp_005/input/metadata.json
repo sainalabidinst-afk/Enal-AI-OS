@@ -1,0 +1,12 @@
+{
+  "case_id": "dp_005",
+  "title": "Merge Legal Contract Bundle",
+  "domain": "legal",
+  "document_type": "pdf",
+  "description": "Merge multiple PDF contract documents into a single bundled file for legal review.",
+  "operation": "document_read",
+  "expected_content": {
+    "merge": true,
+    "source_documents": ["doc1.pdf", "doc2.pdf"]
+  }
+}

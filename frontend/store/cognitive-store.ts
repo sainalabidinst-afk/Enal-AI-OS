@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CognitiveLayer, type ThinkingMode, type ReasoningStep, type CognitiveState, type MetaCognitiveFlags, type MemoryLayerData, type LearningInsight, type OrchestrationState, type CapabilityRunStatus } from "@/types/cognitive";
+import { CognitiveLayer, type ThinkingMode, type ReasoningStep, type CognitiveState, type MetaCognitiveFlags, type MemoryLayerData, type LearningInsight, type OrchestrationState, type CapabilityRunStatus, type TranslationConfidenceMetric } from "@/types/cognitive";
 
 interface CognitiveStore extends CognitiveState {
   thinkingHistory: ThinkingMode[];
@@ -22,6 +22,9 @@ interface CognitiveStore extends CognitiveState {
   applyInsight: (id: string) => void;
   setOrchestration: (data: OrchestrationState) => void;
   setCapabilityStatus: (id: string, status: CapabilityRunStatus) => void;
+  addTranslationConfidence: (metric: Omit<TranslationConfidenceMetric, "timestamp">) => void;
+  setTranslationConfidences: (metrics: TranslationConfidenceMetric[]) => void;
+  clearTranslationConfidences: () => void;
   reset: () => void;
 }
 
@@ -47,6 +50,7 @@ const initialOrchestration: OrchestrationState = {
   active_execution: null,
   cross_capability_metrics: [],
   last_sync: "",
+  translation_confidences: [],
 };
 
 const initialState = {
@@ -194,6 +198,41 @@ export const useCognitiveStore = create<CognitiveStore>()((set, get) => ({
           cap.id === id ? { ...cap, status, last_active: new Date().toISOString() } : cap
         ),
       },
+    }));
+  },
+
+  addTranslationConfidence: (metric: Omit<TranslationConfidenceMetric, "timestamp">) => {
+    const fullMetric: TranslationConfidenceMetric = {
+      ...metric,
+      timestamp: new Date().toISOString(),
+    };
+    set((state) => ({
+      orchestration: {
+        ...state.orchestration,
+        translation_confidences: [
+          ...(state.orchestration.translation_confidences || []),
+          fullMetric,
+        ].slice(-100),
+      },
+      meta_cognitive_flags: {
+        ...state.meta_cognitive_flags,
+        translation_confidence: fullMetric.confidence,
+        translation_warning: fullMetric.confidence < 0.7,
+      },
+    }));
+  },
+
+  setTranslationConfidences: (metrics: TranslationConfidenceMetric[]) => {
+    set({
+      orchestration: (get().orchestration
+        ? { ...get().orchestration, translation_confidences: metrics }
+        : { ...initialOrchestration, translation_confidences: metrics }),
+    });
+  },
+
+  clearTranslationConfidences: () => {
+    set((state) => ({
+      orchestration: { ...state.orchestration, translation_confidences: [] },
     }));
   },
 

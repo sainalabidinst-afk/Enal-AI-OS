@@ -1,9 +1,9 @@
-# RFC-0036: Capability Pack Business Intelligence
+# RFC-0038: Capability Pack Business Intelligence
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0036|
-|**Status**|Draf|
+|**ID RFC**|RFC-0038|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.3.0 (Platform Enterprise)|

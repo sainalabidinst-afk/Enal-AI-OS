@@ -19,7 +19,8 @@ import {
   X,
 } from "lucide-react";
 import { sendChat } from "@/services/chat";
-import type { Message } from "@/types/chat";
+import { transcribeAudio, speakTextBrowser } from "@/services/voice";
+import type { Message, VoiceTranscription as VoiceTranscriptionType } from "@/types/chat";
 
 interface SpeechRecognitionEventLike extends Event {
   results: SpeechRecognitionResultList;
@@ -55,9 +56,9 @@ const initialMessage: Message = {
   id: "welcome",
   role: "assistant",
   content:
-    "Good morning. I am ready to help you think, build, and execute. What should we work on?",
+    "Good morning. I am Jenny, your personal AI assistant. I can listen and respond by voice. What should we work on today?",
   timestamp: new Date().toISOString(),
-  agent: "Enal AI",
+  agent: "Jenny",
 };
 
 function formatTime(timestamp: string) {
@@ -72,10 +73,14 @@ export function ChatGPTPage() {
   const [conversationId, setConversationId] = useState<string>();
   const [isSending, setIsSending] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [isRecordingViaMedia, setIsRecordingViaMedia] = useState(false);
   const [speakingId, setSpeakingId] = useState<string>();
   const [showRail, setShowRail] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<BlobPart[]>([]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -85,6 +90,7 @@ export function ChatGPTPage() {
     return () => {
       recognitionRef.current?.stop();
       window.speechSynthesis?.cancel();
+      mediaRecorderRef.current?.stream?.getTracks().forEach((t) => t.stop());
     };
   }, []);
 
@@ -117,7 +123,7 @@ export function ChatGPTPage() {
           role: "assistant",
           content: response.message || "I completed the request, but no text response was returned.",
           timestamp: new Date().toISOString(),
-          agent: response.agent || "Enal AI",
+          agent: response.agent || "Jenny",
           metadata: response.metadata,
         },
       ]);
@@ -137,10 +143,100 @@ export function ChatGPTPage() {
     }
   }
 
+  async function handleVoiceViaMedia() {
+    if (!voiceEnabled) return;
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const options = { mimeType: "audio/wav;codecs=pcm" };
+      let mediaRecorder: MediaRecorder;
+
+      try {
+        mediaRecorder = new MediaRecorder(stream, options);
+      } catch {
+        mediaRecorder = new MediaRecorder(stream);
+      }
+
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        audioChunksRef.current.push(e.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
+        stream.getTracks().forEach((t) => t.stop());
+
+        try {
+          const transcription: VoiceTranscriptionType = await transcribeAudio(audioBlob, "id");
+          if (transcription.text.trim()) {
+            setDraft(transcription.text);
+            void submitMessage();
+          } else {
+            setMessages((current) => [
+              ...current,
+              {
+                id: `voice-error-${Date.now()}`,
+                role: "assistant",
+                content: "I couldn't understand that. Please try again.",
+                timestamp: new Date().toISOString(),
+                agent: "Jenny",
+              },
+            ]);
+          }
+        } catch (err) {
+          setMessages((current) => [
+            ...current,
+            {
+              id: `voice-error-${Date.now()}`,
+              role: "assistant",
+              content: `Voice input failed: ${err instanceof Error ? err.message : "Unknown error"}`,
+              timestamp: new Date().toISOString(),
+              agent: "System",
+            },
+          ]);
+        }
+      };
+
+      mediaRecorder.start();
+      setIsRecordingViaMedia(true);
+
+      setTimeout(() => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+          mediaRecorderRef.current.stop();
+          setIsRecordingViaMedia(false);
+        }
+      }, 8000);
+    } catch (err) {
+      setMessages((current) => [
+        ...current,
+        {
+          id: `voice-error-${Date.now()}`,
+          role: "assistant",
+          content: `Microphone access denied: ${err instanceof Error ? err.message : "Please allow microphone permission."}`,
+          timestamp: new Date().toISOString(),
+          agent: "System",
+        },
+      ]);
+    }
+  }
+
   function toggleListening() {
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
+      return;
+    }
+
+    if (isRecordingViaMedia) {
+      mediaRecorderRef.current?.stop();
+      setIsRecordingViaMedia(false);
+      return;
+    }
+
+    if (voiceEnabled && navigator.mediaDevices) {
+      void handleVoiceViaMedia();
       return;
     }
 
@@ -151,7 +247,7 @@ export function ChatGPTPage() {
         {
           id: `voice-${Date.now()}`,
           role: "assistant",
-          content: "Voice input is not available in this browser. Try Chrome or Edge.",
+          content: "Voice input is not available in this browser. Try Chrome or Edge, or install the voice server.",
           timestamp: new Date().toISOString(),
           agent: "System",
         },
@@ -177,17 +273,18 @@ export function ChatGPTPage() {
   }
 
   function speakMessage(message: Message) {
-    if (!window.speechSynthesis) return;
     if (speakingId === message.id) {
-      window.speechSynthesis.cancel();
+      window.speechSynthesis?.cancel();
       setSpeakingId(undefined);
       return;
     }
-    window.speechSynthesis.cancel();
+    window.speechSynthesis?.cancel();
+
+    speakTextBrowser(message.content, "en");
     const utterance = new SpeechSynthesisUtterance(message.content);
     utterance.onend = () => setSpeakingId(undefined);
     setSpeakingId(message.id);
-    window.speechSynthesis.speak(utterance);
+    window.speechSynthesis?.speak(utterance);
   }
 
   function copyMessage(content: string) {
@@ -200,7 +297,7 @@ export function ChatGPTPage() {
         <div className="chat-rail-top">
           <div className="brand-mark"><Sparkles size={16} /></div>
           <div>
-            <p className="brand-name">Enal</p>
+            <p className="brand-name">Jenny</p>
             <p className="brand-caption">Cognitive workspace</p>
           </div>
           <button className="icon-button rail-close" onClick={() => setShowRail(false)} aria-label="Close conversation list">
@@ -223,8 +320,8 @@ export function ChatGPTPage() {
           <button className="conversation-item"><span>Network architecture review</span><span>Sep 30</span></button>
         </div>
         <div className="rail-footer">
-          <div className="privacy-note"><span className="status-dot" /> Local AI connected</div>
-          <p>Gemma 4 E4B · LM Studio</p>
+          <div className="privacy-note"><span className="status-dot" /> Voice ready</div>
+          <p>Whisper STT · Browser TTS</p>
         </div>
       </aside>
 
@@ -232,10 +329,11 @@ export function ChatGPTPage() {
         <header className="chat-header">
           <div className="header-left">
             <button className="icon-button mobile-menu" onClick={() => setShowRail(true)} aria-label="Open conversation list"><Menu size={19} /></button>
-            <div className="model-selector"><span className="model-pulse" /><span>Enal Local</span><ChevronDown size={15} /></div>
+            <div className="model-selector"><span className="model-pulse" /><span>Jenny Local</span><ChevronDown size={15} /></div>
           </div>
           <div className="header-actions">
             <span className="connection-label"><span className="status-dot" /> Local</span>
+            <button className="icon-button" aria-label="Voice toggle" onClick={() => setVoiceEnabled((v) => !v)}>{voiceEnabled ? <Mic size={18} /> : <Mic size={18} className="muted" />}</button>
             <button className="icon-button" aria-label="Conversation history"><Clock3 size={18} /></button>
           </div>
         </header>
@@ -260,7 +358,7 @@ export function ChatGPTPage() {
                 <article key={message.id} className={`message-row ${message.role}`}>
                   {message.role === "assistant" && <div className="assistant-avatar"><Sparkles size={14} /></div>}
                   <div className="message-content">
-                    <div className="message-meta"><span>{message.role === "user" ? "You" : message.agent || "Enal AI"}</span><time>{formatTime(message.timestamp)}</time></div>
+                    <div className="message-meta"><span>{message.role === "user" ? "You" : message.agent || "Jenny"}</span><time>{formatTime(message.timestamp)}</time></div>
                     <p>{message.content}</p>
                     {message.role === "assistant" && (
                       <div className="message-tools">
@@ -272,6 +370,7 @@ export function ChatGPTPage() {
                 </article>
               ))}
               {isSending && <div className="message-row assistant"><div className="assistant-avatar"><Sparkles size={14} /></div><div className="thinking"><span /><span /><span /></div></div>}
+              {isRecordingViaMedia && <div className="message-row user"><div className="recording-indicator"><span className="pulse" /><span>Listening...</span></div></div>}
               <div ref={bottomRef} />
             </div>
           </div>
@@ -280,11 +379,11 @@ export function ChatGPTPage() {
         <div className="composer-wrap">
           <form className="composer" onSubmit={submitMessage}>
             <button type="button" className="composer-tool" aria-label="Attach file"><Paperclip size={19} /></button>
-            <textarea value={draft} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void submitMessage(); } }} placeholder="Message Enal..." rows={1} aria-label="Message Enal" />
-            <button type="button" className={`composer-tool ${isListening ? "recording" : ""}`} onClick={toggleListening} aria-label={isListening ? "Stop voice input" : "Start voice input"}>{isListening ? <Square size={17} /> : <Mic size={19} />}</button>
+            <textarea value={draft} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void submitMessage(); } }} placeholder={voiceEnabled ? "Message Jenny (or click mic)..." : "Message Jenny..."} rows={1} aria-label="Message Jenny" />
+            <button type="button" className={`composer-tool ${isListening || isRecordingViaMedia ? "recording" : ""}`} onClick={toggleListening} aria-label={isListening || isRecordingViaMedia ? "Stop voice input" : "Start voice input"}>{isListening || isRecordingViaMedia ? <Square size={17} /> : <Mic size={19} />}</button>
             <button type="submit" className="send-button" disabled={!draft.trim() || isSending} aria-label="Send message">{isSending ? <span className="send-spinner" /> : <Send size={17} />}</button>
           </form>
-          <p className="composer-note">Enal can make mistakes. Check important information.</p>
+          <p className="composer-note">Jenny can make mistakes. Check important information.</p>
         </div>
       </section>
     </div>

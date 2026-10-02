@@ -1,9 +1,9 @@
-# RFC-0038: Capability Pack DevSecOps
+# RFC-0040: Capability Pack DevSecOps
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID RFC**|RFC-0038|
-|**Status**|Draf|
+|**ID RFC**|RFC-0040|
+|**Status**|Diterima|
 |**Versi**|0.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v2.4.0 (Platform Enterprise)|

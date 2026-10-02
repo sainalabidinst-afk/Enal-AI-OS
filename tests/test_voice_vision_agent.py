@@ -23,18 +23,97 @@ class TestVoiceAgent:
         assert "id" in langs
 
     @pytest.mark.asyncio
-    async def test_transcribe_raises(self):
+    async def test_transcribe_delegates_to_stt_service(self):
         from backend.app.core.voice_vision_agent import VoiceAgent
         va = VoiceAgent()
-        with pytest.raises(NotImplementedError):
-            await va.transcribe(b"fake_audio")
+        result = await va.transcribe(b"fake_audio", language="id")
+        assert result.text is not None
+        assert hasattr(result, "confidence")
+        assert hasattr(result, "language")
 
     @pytest.mark.asyncio
-    async def test_speak_raises(self):
+    async def test_speak_delegates_to_tts_service(self):
         from backend.app.core.voice_vision_agent import VoiceAgent
         va = VoiceAgent()
-        with pytest.raises(NotImplementedError):
-            await va.speak("hello")
+        result = await va.speak("hello")
+        assert isinstance(result, bytes)
+        assert len(result) > 0
+
+    @pytest.mark.asyncio
+    async def test_transcribe_with_unknown_provider_raises(self):
+        from backend.app.core.stt_service import STTService
+        from unittest.mock import patch
+        from backend.app.core.config import settings
+
+        with patch.object(settings, "STT_PROVIDER", "unknown_provider"):
+            service = STTService()
+            with pytest.raises(ValueError, match="Unknown STT provider"):
+                await service.transcribe(b"fake_audio")
+
+
+class TestSTTService:
+    """Tests for STTService."""
+
+    def test_stt_service_init(self):
+        from backend.app.core.stt_service import STTService
+        service = STTService()
+        assert service._provider is not None
+
+    def test_transcription_result_fields(self):
+        from backend.app.core.stt_service import TranscriptionResult
+        result = TranscriptionResult(
+            text="hello world",
+            confidence=0.95,
+            language="en",
+            duration_ms=1500,
+            provider="test",
+        )
+        assert result.text == "hello world"
+        assert result.confidence == 0.95
+        assert result.language == "en"
+        assert result.duration_ms == 1500
+        assert result.provider == "test"
+
+    def test_transcription_result_to_voice_transcription(self):
+        from backend.app.core.stt_service import TranscriptionResult
+        result = TranscriptionResult(
+            text="hello", confidence=0.9, language="id", duration_ms=1000, provider="stub"
+        )
+        vt = result.to_voice_transcription()
+        assert vt.text == "hello"
+        assert vt.confidence == 0.9
+        assert vt.language == "id"
+        assert vt.duration_ms == 1000
+
+
+class TestTTSService:
+    """Tests for TTSService."""
+
+    def test_tts_service_init(self):
+        from backend.app.core.tts_service import TTSService
+        service = TTSService()
+        assert service._provider is not None
+
+    def test_synthesis_result_fields(self):
+        from backend.app.core.tts_service import SynthesisResult
+        result = SynthesisResult(
+            audio_data=b"fake_audio_data",
+            format="wav",
+            sample_rate=22050,
+            provider="test",
+        )
+        assert result.audio_data == b"fake_audio_data"
+        assert result.format == "wav"
+        assert result.sample_rate == 22050
+        assert result.provider == "test"
+
+    def test_synthesis_result_default_fields(self):
+        from backend.app.core.tts_service import SynthesisResult
+        result = SynthesisResult(audio_data=b"")
+        assert result.format == "wav"
+        assert result.sample_rate == 22050
+        assert result.provider == ""
+        assert result.metadata is None
 
 
 class TestVisionAgent:

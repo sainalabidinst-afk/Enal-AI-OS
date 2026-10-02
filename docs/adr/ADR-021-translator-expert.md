@@ -1,12 +1,12 @@
-# ADR-015: Translator Engine Architecture
+# ADR-021: Translator Engine Architecture
 
 |Bidang|Nilai|
 |-------|-------|
-|**ID ADR**|ADR-015|
+|**ID ADR**|ADR-021|
 |**Status**|Accepted|
 |**Date**|2026-10-02|
 |**Decision Maker**|Platform Architecture Board|
-|**Related RFC**|RFC-0039|
+|**Related RFC**|RFC-0041|
 
 ## Context
 

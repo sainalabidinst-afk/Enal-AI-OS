@@ -1,0 +1,34 @@
+{
+    "test_id": "translator-015",
+    "name": "Multilingual Stress Test (22 languages)",
+    "category": "multilingual_stress",
+    "source_language": "en",
+    "target_language": "auto",
+    "style": "formal",
+    "domain": "general",
+    "inputs": {
+        "text": "Hello world. Thank you. Goodbye. How are you? Please help. Congratulations!",
+        "glossary_domain": "general",
+        "enforce_glossary": false,
+        "stress_test_all_pairs": true
+    },
+    "expected_output": {
+        "target_language": "multiple",
+        "min_confidence": 0.40,
+        "valid": true,
+        "languages_tested": 22
+    },
+    "acceptance_criteria": [
+        "Translation must succeed for >= 18 of 22 target languages",
+        "At least 80% of languages must produce non-empty output",
+        "Rule-based fallback must handle all language pairs",
+        "No crashes or unhandled exceptions"
+    ],
+    "performance_targets": {
+        "latency_ms": 5000,
+        "token_budget": 8000,
+        "throughput_cps_min": 50
+    },
+    "negative_cases": ["empty_input", "unsupported_language"],
+    "edge_cases": ["long_text", "special_characters", "unicode_variants"]
+}

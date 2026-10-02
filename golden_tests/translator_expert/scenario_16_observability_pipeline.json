@@ -1,0 +1,35 @@
+{
+    "test_id": "translator-016",
+    "name": "Observability Pipeline Validation",
+    "category": "observability_pipeline",
+    "source_language": "en",
+    "target_language": "id",
+    "style": "formal",
+    "domain": "general",
+    "inputs": {
+        "text": "Observability test: latency, accuracy, throughput metrics for translation.",
+        "glossary_domain": "general",
+        "enforce_glossary": false
+    },
+    "expected_output": {
+        "target_language": "id",
+        "min_confidence": 0.50,
+        "valid": true,
+        "metrics_recorded": true,
+        "trace_propagated": true
+    },
+    "acceptance_criteria": [
+        "Translation must complete successfully",
+        "Latency metrics must be recorded in the observability collector",
+        "Accuracy/quality score must be captured",
+        "Throughput (chars/sec) must be calculated",
+        "Trace ID must be propagated through the execution"
+    ],
+    "performance_targets": {
+        "latency_ms": 3000,
+        "token_budget": 4000,
+        "throughput_cps_min": 50
+    },
+    "negative_cases": ["empty_input", "engine_failure"],
+    "edge_cases": ["special_characters", "long_text"]
+}

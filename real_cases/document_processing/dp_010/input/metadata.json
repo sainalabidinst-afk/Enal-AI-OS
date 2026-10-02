@@ -1,0 +1,12 @@
+{
+  "case_id": "dp_010",
+  "title": "Validate Document Metadata for Compliance",
+  "domain": "technical",
+  "document_type": "pdf",
+  "description": "Validate that PDF document metadata contains correct author, version, and subject fields for compliance tracking.",
+  "operation": "document_read",
+  "expected_content": {
+    "metadata_fields": ["author", "version", "subject"],
+    "source_id": "metadata-validation-1"
+  }
+}

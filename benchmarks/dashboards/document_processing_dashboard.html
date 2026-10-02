@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Document Processing Benchmark Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  h1 { margin: 0 0 4px; font-size: 22px; }
+  .subtitle { color: #656d76; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+  .metric { font-size: 28px; font-weight: 700; }
+  .metric-label { color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .section { background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }
+  th { color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .score-bar { width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+  .score-fill { height: 100%; background: #2da44e; border-radius: 999px; }
+  .score-text { font-weight: 600; font-size: 13px; }
+  .badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .badge-success { background: #dafbe1; color: #1a7f37; }
+  .pass { color: #1a7f37; font-weight: 700; }
+  .nav { margin-bottom: 16px; }
+  .nav a { color: #0969da; text-decoration: none; margin-right: 12px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav">
+    <a href="index.html">← All Dashboards</a>
+  </div>
+  <h1>Document Processing Benchmark Dashboard</h1>
+  <div class="subtitle">Generated: 2026-10-02 &middot; 6 dimensions &middot; 10 scenarios</div>
+  <div class="grid">
+    <div class="card">
+      <div class="metric">A</div>
+      <div class="metric-label">Grade</div>
+    </div>
+    <div class="card">
+      <div class="metric">91.0%</div>
+      <div class="metric-label">Overall Score</div>
+    </div>
+    <div class="card">
+      <div class="metric pass">PASS</div>
+      <div class="metric-label">Status</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Score Breakdown by Dimension</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Score</th><th>Grade</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>Document Parsing</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:93%"></div></div><span class="score-text">93%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+            <tr>
+              <td>Document Editing</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:91%"></div></div><span class="score-text">91%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+            <tr>
+              <td>Format Conversion</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:90%"></div></div><span class="score-text">90%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+            <tr>
+              <td>PDF Operations</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:92%"></div></div><span class="score-text">92%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+            <tr>
+              <td>Safety Boundary</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:95%"></div></div><span class="score-text">95%</span></td>
+              <td><span class="badge badge-success">A+</span></td>
+            </tr>
+            <tr>
+              <td>Explainability</td>
+              <td><div class="score-bar"><div class="score-fill" style="width:92%"></div></div><span class="score-text">92%</span></td>
+              <td><span class="badge badge-success">A</span></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Benchmark Scenarios</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Scenario</th><th>Category</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>dp-001</td><td>Read Word with complex tables</td><td>Parsing</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-002</td><td>Edit Excel (value + sheet)</td><td>Editing</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-003</td><td>Convert Word to PDF</td><td>Conversion</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-004</td><td>Convert PowerPoint to PDF</td><td>Conversion</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-005</td><td>Merge multiple PDFs</td><td>PDF Operations</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-006</td><td>Split PDF</td><td>PDF Operations</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-007</td><td>Annotate PDF</td><td>PDF Operations</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-008</td><td>Watermark Word</td><td>Editing</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-009</td><td>Export Excel to CSV</td><td>Conversion</td><td class="pass">PASS</td></tr>
+          <tr><td>dp-010</td><td>Validate metadata</td><td>Explainability</td><td class="pass">PASS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="margin-top:0;font-size:16px;">Raw Report</h2>
+    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{
+  "document_parsing": 0.93,
+  "document_editing": 0.91,
+  "format_conversion": 0.90,
+  "pdf_operations": 0.92,
+  "safety_boundary": 0.95,
+  "explainability": 0.92,
+  "overall": 0.9133,
+  "grade": "A",
+  "pass_rate": 1.0,
+  "golden_tests": 11
+}</pre>
+  </div>
+</div>
+</body>
+</html>

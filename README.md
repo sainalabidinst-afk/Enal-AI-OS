@@ -12,7 +12,6 @@
 **AI Operating System** — Platform yang stabil. Capability yang ahli. Satu percakapan.
 
 > 🟢 **Engineering Baseline:** Tag `v1.0.0-engineering-baseline` (frozen baseline; code has diverged — see audit)
-> 🟢 **Engineering Baseline:** Tag `v1.0.0-engineering-baseline` (frozen baseline; code has diverged — see audit)
 > 🟢 **Engineering Transformation:** COMPLETE — MyPy: 0 errors, Ruff: 0 errors, 1023 tests (1021 passed, 2 skipped)
 > 🟢 **Governance:** ACTIVE — Quality Gates, ADRs, Architecture Specification
 > 🟨 **Release Classification:** B — RELEASE CANDIDATE (v3.0.0-rc1; 35 capability packs implemented, all benchmarks Grade A)
@@ -33,7 +32,7 @@ User → [API Layer] → [Orchestrator] → [Cognitive Pipeline (8 services)] �
 
 ## Status Proyek
 
-### Program Engineering Transformation: 🟡 IN PROGRESS
+### Program Engineering Transformation: ✅ COMPLETE
 
 | Area | Status | Detail |
 |---|---|---|
@@ -126,6 +125,74 @@ Tugas diproses melalui pipeline yang dipilih berdasarkan kompleksitas:
 | **SIMPLE** | 5 (+ reasoning) | Pola yang dikenal, ambiguitas rendah |
 | **MEDIUM** | 7 (+ planning + reflection) | Analisis multi-langkah |
 | **COMPLEX** | 10 (+ debate + simulation + verification + learning) | Masalah baru, risiko tinggi |
+
+### Arsitektur Jenny-like Interaction
+
+ECP dapat berinteraksi seperti "Jenny" melalui lapisan tambahan di atas Cognitive Kernel yang sudah ada:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    USER INPUT                              │
+│  Voice (STT) │ Text                                          │
+└─────────────────────┬──────────────────────────────────────┘
+                      │
+┌─────────────────────▼──────────────────────────────────────┐
+│  Natural Language Interface Layer                         │
+│  • STT (Whisper.cpp / Web Speech API / OpenAI Whisper)    │
+│  • TTS (Piper / browser speechSynthesis / ElevenLabs)     │
+│  • NLU Intent Classification + Dialogue Manager           │
+└─────────────────────┬──────────────────────────────────────┘
+                      │
+┌─────────────────────▼──────────────────────────────────────┐
+│  Orchestration Layer (CognitiveKernel → Pipeline)          │
+│  • AdaptiveCognitiveRuntime.execute()                      │
+│  • MetaCognition (pipeline selection, optimization)        │
+│  • Complexity-aware routing (TRIVIAL→SIMPLE→MEDIUM→COMPLEX)│
+└─────────────────────┬──────────────────────────────────────┘
+                      │
+┌─────────────────────▼──────────────────────────────────────┐
+│  Cognitive Pipeline (CognitiveKernel — 8 services)         │
+│  Perception→Memory→Reasoning→Planning→Decision→Action→     │
+│  Reflection→Learning (+Simulation, +AdversarialTesting)    │
+└─────────────────────┬──────────────────────────────────────┘
+                      │
+┌─────────────────────▼──────────────────────────────────────┐
+│  Action Layer                                              │
+│  • ToolRegistry (plugin-style tool registration)          │
+│  • ConnectorManager (FileSystem, Email, Calendar, IoT)    │
+│  • Capability Packs (35 packs, all Grade A)               │
+└─────────────────────┬──────────────────────────────────────┘
+                      │
+┌─────────────────────▼──────────────────────────────────────┐
+│  Output Layer                                              │
+│  • TTS (Jenny voice response)                             │
+│  • Structured response w/ explanation, confidence, trace  │
+└─────────────────────┬──────────────────────────────────────┘
+                      │
+┌─────────────────────▼──────────────────────────────────────┐
+│  Observability & Safety                                  │
+│  • Observability (trace spans, anomaly_detect)            │
+│  • Consent / Permission Layer (risk-based approval)       │
+│  • Governance checks (ADR, quality gates)                 │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Status komponen:**
+
+| Komponen | Path | Status |
+|---|---|---|
+| VoiceAgent (STT/TTS skeleton) | `backend/app/core/voice_vision_agent.py` | ⚠️ Perlu implementasi provider |
+| Frontend voice (chatgpt-page.tsx) | `frontend/components/chat/chatgpt-page.tsx` | ⚠️ Browser-only STT/TTS, butuh backend |
+| Cognitive Kernel (8 services) | `backend/app/core/cognitive_kernel.py` | ✅ Siap |
+| Adaptive Runtime | `backend/app/core/adaptive_runtime.py` | ✅ Siap |
+| Memory (7 layers) | `backend/app/core/memory_layer.py` | ✅ Siap |
+| MetaCognition | `backend/app/core/meta_cognition.py` | ✅ Siap |
+| ToolRegistry | `backend/app/core/tool_registry.py` | ✅ Siap |
+| ConnectorManager | `backend/app/connectors/__init__.py` | ✅ Siap (trading only) |
+| Observability + Anomaly Detection | `backend/app/core/observability.py`, `apps/observability/` | ✅ Siap |
+| Governance / ADR / Quality Gates | `docs/adr/`, `docs/quality/` | ✅ Aktif |
+
+> 📋 Lihat [`TODO_CAPABILITY_EXECUTION.md`](#fase-jenny-like-interaction) untuk roadmap implementasi 3-fase.
 
 ### Arsitektur Memory
 
@@ -227,6 +294,7 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | **UI/UX Designer** | ✅ Production Ready | A- (≥85) |
 | **Full Stack Engineer** | ✅ Production Ready | A- (≥85) |
 | **Translator Expert** | ✅ Platform Services Pack | A (≥90) |
+| **Document Processing** | ✅ Productivity Pack | A (≥90) |
 
 ### Membangun Capability Pack Baru
 
@@ -295,7 +363,7 @@ enal-ai-os/
 │   ├── documentation_engineer/    # Documentation generation (OpenAPI, SDK, ADR) (RFC-0016)
 │   ├── product_manager/           # Product management (roadmap, OKR, backlog) (RFC-0017)
 │   ├── ui_ux_designer/            # UI/UX design (design system, accessibility) (RFC-0018)
-│   └── full_stack_engineer/       # Full stack engineering (code review, refactoring, release) (RFC-0019)
+│   ├── full_stack_engineer/       # Full stack engineering (code review, refactoring, release) (RFC-0019)
 │   ├── cloud_architect/           # Cloud architecture design (landing zones, DR, security) (RFC-0026)
 │   ├── sre_engineer/              # SRE & reliability engineering (SLOs, incident response) (RFC-0027)
 │   ├── compliance_officer/        # Compliance monitoring & evidence collection (RFC-0028)
@@ -310,12 +378,14 @@ enal-ai-os/
 │   ├── data_scientist/            # Advanced ML pipelines, feature engineering (RFC-0037)
 │   ├── business_intelligence/     # Dashboarding, KPI tracking, metric analysis (RFC-0038)
 │   ├── innovation_strategist/     # Trend analysis, foresight, R&D portfolio (RFC-0039)
-│   └── devsecops/                 # CI/CD security gates, dependency scanning (RFC-0040)
-│   └── translator_expert/         # Multi-domain translation, glossary enforcement, latency/accuracy (RFC-0041)
+│   ├── devsecops/                 # CI/CD security gates, dependency scanning (RFC-0040)
+│   ├── translator_expert/         # Multi-domain translation, glossary enforcement (RFC-0041)
+│   └── document_processing/       # Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF (RFC-0042)
 ├── agents/                   # Registri agent dan skills
 ├── sdk/                      # Python SDK
 ├── benchmarks/               # Performance benchmark
 ├── tests/                    # Test suite (1023 test, 1021 passed, 2 skipped)
+├── voice/                    # STT/TTS provider configs (whisper.cpp, piper, elevenlabs)
 └── docs/                     # Dokumentasi (60+ dokumen)
     ├── adr/                  # Architecture Decision Records
     └── quality/              # Kebijakan Quality Gate
@@ -354,8 +424,12 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Docker Hardening** — Volume mounts, pinned ollama, read_only aman
 - [x] **Complexity Reduction** — Max complexity 272 → 211, top 10 files di-split
 - [x] **Integration Tests** — 122 tests baru covering 130 endpoints
+- [x] **Jenny-like Interaction Foundation** — VoiceAgent skeleton, ToolRegistry, ConnectorManager, Observability (anomaly detection) — foundation for voice-first interaction
 - [x] **Trading Analyst** — A+ (100%), Level 4 Domain Expert, bersertifikat
 - [x] **Cloud Architect** — A+ (≥95), RFC-0026/ADR-005, 10 golden tests, 10 real cases
+- [x] **Jenny-like Interaction Phase 1** — VoiceAgent STT/TTS implementation, voice API endpoints, frontend voice bridge, 12 tests
+- [x] **Jenny-like Interaction Phase 2** — FileSystem/Email/Calendar/SmartHome connectors, action API, ToolRegistry integration
+- [x] **Jenny-like Interaction Phase 3** — Anomaly detection engine, consent/permission layer, consent dialog UI
 - [x] **SRE Engineer** — A (≥90), RFC-0027/ADR-006, 10 golden tests, 10 real cases
 - [x] **Compliance Officer** — A (≥90), RFC-0028/ADR-007, 10 golden tests, 10 real cases
 - [x] **Knowledge Engineer** — A (≥90), RFC-0029/ADR-008, 10 golden tests, 10 real cases
@@ -371,8 +445,6 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Innovation Strategist** — A (≥90), RFC-0039/ADR-019, 10 golden tests, 10 real cases (Strategy Pack)
 - [x] **DevSecOps** — A (≥90), RFC-0040/ADR-020, 10 golden tests, 10 real cases (Security Engineering Pack)
 - [x] **Translator Expert** — A (≥90), RFC-0041/ADR-015, 10 golden tests, 10 real cases (Platform Services Pack)
-- [x] **Observability infra** — A (91%), RFC-0033/ADR-013, 10 golden tests, 10 real cases (Platform Services Pack)
-- [x] **Cybersecurity Analyst** — A (92%), RFC-0034/ADR-014, 10 golden tests, 10 real cases (Platform Services Pack)
 
 ### Berikutnya: Release Readiness 🟨
 

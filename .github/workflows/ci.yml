@@ -73,7 +73,6 @@ jobs:
       - name: Run package boundary check
         run: python benchmarks/package_boundaries.py
 
-  benchmarks:
     name: Benchmark Suite
     # System Architect and Full Stack benchmarks are deterministic and must always run.
     # Provider-backed work (performance_benchmark.py) is intentionally opt-in to avoid CI failures
@@ -93,7 +92,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e backend/
           pip install -e ".[dev]"
-  - name: Run System Architect benchmarks
+      - name: Run System Architect benchmarks
         run: python benchmarks/system_architect_benchmark.py
       - name: Run Full Stack Engineer benchmarks
         run: python benchmarks/full_stack_engineer_benchmark.py
@@ -120,6 +119,8 @@ jobs:
           python benchmarks/business_intelligence_benchmark.py
           python benchmarks/innovation_strategist_benchmark.py
           python benchmarks/devsecops_benchmark.py
+      - name: Run Document Processing benchmarks
+        run: python benchmarks/document_processing_benchmark.py
       - name: Run provider-backed benchmarks (opt-in)
         if: ${{ vars.RUN_PROVIDER_BENCHMARK == 'true' }}
         run: python benchmarks/performance_benchmark.py

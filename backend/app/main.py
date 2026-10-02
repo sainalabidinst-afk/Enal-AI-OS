@@ -23,6 +23,7 @@ from .api import (
     phase3,
     telemetry,
     trading,
+    voice,
     workspace,
 )
 from .core.config import settings
@@ -149,6 +150,7 @@ app.include_router(artifact.router, prefix=settings.API_V1_STR, tags=["artifact"
 app.include_router(model_gateway.router, prefix=settings.API_V1_STR, tags=["models"])
 app.include_router(notifications.router, prefix=settings.API_V1_STR, tags=["notifications"])
 app.include_router(attachments.router, prefix=settings.API_V1_STR, tags=["attachments"])
+app.include_router(voice.router, prefix=settings.API_V1_STR, tags=["voice"])
 app.include_router(telemetry.router, prefix=settings.API_V1_STR, tags=["telemetry"])
 app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmark"])
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])

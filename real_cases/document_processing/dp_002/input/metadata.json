@@ -1,0 +1,13 @@
+{
+  "case_id": "dp_002",
+  "title": "Edit Financial Spreadsheet",
+  "domain": "finance",
+  "document_type": "xlsx",
+  "description": "Quarterly financial spreadsheet with revenue, cost, and profit data. Edit cell values and add a new summary sheet.",
+  "operation": "document_edit",
+  "expected_content": {
+    "text_replacements": [{"find": "OldValue", "replace": "NewValue"}],
+    "table_operations": [{"row": 0, "col": 0, "value": "Updated"}],
+    "metadata": {"author": "Finance Team"}
+  }
+}

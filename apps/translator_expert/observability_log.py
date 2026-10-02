@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Any
 
-from backend.app.core.observability import Observability, observability, SpanType
+from backend.app.runtime import Observability, observability, SpanType
 
 logger = logging.getLogger(__name__)
 

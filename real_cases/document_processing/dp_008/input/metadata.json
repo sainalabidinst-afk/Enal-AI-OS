@@ -1,0 +1,12 @@
+{
+  "case_id": "dp_008",
+  "title": "Add Watermark and Update Metadata in Word NDA",
+  "domain": "legal",
+  "document_type": "docx",
+  "description": "Replace DRAFT with FINAL in a Word NDA document and update author metadata.",
+  "operation": "document_edit",
+  "expected_content": {
+    "text_replacements": [{"find": "DRAFT", "replace": "FINAL"}],
+    "metadata": {"author": "Legal Team", "version": "1.1"}
+  }
+}
