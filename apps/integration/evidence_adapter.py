@@ -92,22 +92,22 @@ class EvidenceAdapter:
             id=trading_evidence.id,
             source=EvidenceSource.TRADING,
             type=EvidenceType.OBSERVATION,
-            content=trading_evidence.description,
-            confidence=trading_evidence.confidence,
-            strength=trading_evidence.strength,
-            direction=trading_evidence.direction,
-            category=getattr(trading_evidence, "category", trading_evidence.type),
+            content=getattr(trading_evidence, "description", ""),
+            confidence=getattr(trading_evidence, "confidence", 0.0),
+            strength=getattr(trading_evidence, "strength", 0.0),
+            direction=getattr(trading_evidence, "direction", None),
+            category=getattr(trading_evidence, "category", getattr(trading_evidence, "type", None)),
             metadata={
-                "timeframe": trading_evidence.timeframe,
-                "indicator": trading_evidence.source,
+                "timeframe": getattr(trading_evidence, "timeframe", ""),
+                "indicator": getattr(trading_evidence, "source", ""),
                 "symbol": getattr(trading_evidence, "symbol", None),
-                "type": trading_evidence.type,
+                "type": getattr(trading_evidence, "type", ""),
             },
             raw={
-                "strength": trading_evidence.strength,
-                "direction": trading_evidence.direction,
-                "timeframe": trading_evidence.timeframe,
-                "type": trading_evidence.type,
+                "strength": getattr(trading_evidence, "strength", 0.0),
+                "direction": getattr(trading_evidence, "direction", None),
+                "timeframe": getattr(trading_evidence, "timeframe", ""),
+                "type": getattr(trading_evidence, "type", ""),
             },
         )
 
@@ -138,11 +138,17 @@ class EvidenceAdapter:
 
     def from_reasoning_evidence(self, reasoning_evidence: Any) -> UnifiedEvidence:
         """Convert Reasoning engine evidence to unified format."""
+        description: str = (
+            getattr(reasoning_evidence, "description", None)
+            or getattr(reasoning_evidence, "content", "")
+            or getattr(reasoning_evidence, "statement", "")
+            or ""
+        )
         return UnifiedEvidence(
             id=reasoning_evidence.id,
             source=EvidenceSource.REASONING,
             type=EvidenceType(reasoning_evidence.type.value),
-            content=reasoning_evidence.description,
+            content=description,
             confidence=reasoning_evidence.confidence,
             strength=reasoning_evidence.confidence,
             category=reasoning_evidence.metadata.get("category"),
@@ -151,7 +157,7 @@ class EvidenceAdapter:
                 "source": reasoning_evidence.source,
                 "timestamp": reasoning_evidence.timestamp.isoformat()
                 if hasattr(reasoning_evidence.timestamp, "isoformat")
-                else str(reasoning_evidence.timestamp),  # noqa: E501
+                else str(reasoning_evidence.timestamp),
             },
             raw={
                 "type": reasoning_evidence.type.value,

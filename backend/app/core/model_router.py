@@ -1,4 +1,5 @@
 import logging
+from typing import Any
 
 from litellm import acompletion, completion
 
@@ -14,20 +15,37 @@ class ModelRouter:
         self.embedding_model = settings.DEFAULT_EMBEDDING_MODEL
 
     def get_provider_config(self, model: str) -> dict:
-        config = {"model": model}
+        config: dict[str, Any] = {"model": model}
+        if "/" in model:
+            provider = model.split("/", 1)[0]
+            if provider == "lmstudio":
+                config["model"] = f"openai/{model[len('lmstudio/'):]}"
+                config["api_base"] = settings.LM_STUDIO_BASE_URL
+                config["api_key"] = settings.LM_STUDIO_API_KEY
+            else:
+                config["model"] = model
+                if provider == "openai":
+                    config["api_key"] = settings.OPENAI_API_KEY
+                elif provider == "anthropic":
+                    config["api_key"] = settings.ANTHROPIC_API_KEY
+                elif provider == "gemini":
+                    config["api_key"] = (
+                        getattr(settings, "GEMINI_API_KEY", "") or settings.GOOGLE_API_KEY
+                    )
+                elif provider == "ollama":
+                    config["api_base"] = settings.OLLAMA_BASE_URL
+            return config
         if model.startswith("gpt"):
+            config["model"] = f"openai/{model}"
             config["api_key"] = settings.OPENAI_API_KEY
         elif model.startswith("claude"):
+            config["model"] = f"anthropic/{model}"
             config["api_key"] = settings.ANTHROPIC_API_KEY
         elif model.startswith("gemini"):
-            config["model"] = model if "/" in model else f"gemini/{model}"
+            config["model"] = f"gemini/{model}"
             config["api_key"] = getattr(settings, "GEMINI_API_KEY", "") or settings.GOOGLE_API_KEY
-        elif model.startswith("lmstudio/"):
-            config["model"] = f"openai/{model.removeprefix('lmstudio/')}"
-            config["api_base"] = settings.LM_STUDIO_BASE_URL
-            config["api_key"] = settings.LM_STUDIO_API_KEY
-        elif model.startswith("ollama/"):
-            config["api_base"] = settings.OLLAMA_BASE_URL
+        elif model.startswith("command"):
+            config["model"] = model
         return config
 
     def complete(

@@ -90,13 +90,19 @@ def _extract_output(result: Any) -> str:
 
 
 def _provider_for_model(model: str) -> str | None:
+    if "/" in model:
+        prefix = model.split("/", 1)[0]
+        if prefix in ("openai", "anthropic", "gemini", "ollama"):
+            return prefix
+        if prefix == "lmstudio":
+            return None
     if model.startswith("gemini"):
         return "gemini"
     if model.startswith("gpt"):
         return "openai"
     if model.startswith("claude"):
         return "anthropic"
-    if model.startswith("ollama/"):
+    if model.startswith("ollama"):
         return "ollama"
     return None
 

@@ -79,7 +79,7 @@ export function ChatGPTPage() {
   const [speakingId, setSpeakingId] = useState<string>();
   const [showRail, setShowRail] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const { ConsentDialog: ConsentDialogComponent } = useConsentDialog();
+  const { ConsentDialog: ConsentDialogComponent, open: openConsent } = useConsentDialog();
   const bottomRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);

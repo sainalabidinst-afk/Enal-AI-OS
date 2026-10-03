@@ -237,6 +237,7 @@ class IntegrationEngine:
     async def _step_knowledge_query(self, context: CapabilityContext) -> CapabilityContext:
         if not self._knowledge_store:
             context.set_intermediate("knowledge_error", "KnowledgeStore not available")
+            context.set_metadata("step.knowledge_query.error", "KnowledgeStore not available")
             return context
 
         from backend.app.runtime.schema import KnowledgeDomain
@@ -306,19 +307,28 @@ class IntegrationEngine:
         )
         try:
             reasoning_result = self._reasoning_engine.forward_chaining(
-                initial_evidence=facts,
                 goal=goal,
+                initial_evidence=facts,
             )
         except Exception as e:
             logger.warning("Reasoning engine failed: %s", e)
             raise RuntimeError("Reasoning engine failed") from e
 
+        if not reasoning_result.conclusions:
+            logger.warning(
+                "Reasoning engine produced no conclusions for goal: %s", goal
+            )
+
         reasoning_output = {
-            "conclusions": getattr(reasoning_result, "conclusions", []),
+            "conclusions": [str(c) for c in reasoning_result.conclusions],
             "confidence": getattr(reasoning_result, "confidence", 0.0),
         }
         context.set_intermediate("reasoning_output", reasoning_output)
         context.set_output("reasoning_output", reasoning_output)
+        context.set_output(
+            "analysis_summary",
+            getattr(reasoning_result, "explanation", ""),
+        )
         context.set_metadata("step.reasoning.status", "completed")
         return context
 
@@ -392,15 +402,14 @@ class IntegrationEngine:
         return context
 
     async def _step_self_improvement(self, context: CapabilityContext) -> CapabilityContext:
-        context.set_intermediate(
-            "self_improvement",
-            {
-                "project_path": context.get_input("project_path"),
-                "analysis_type": context.get_input("analysis_type", "full"),
-                "status": "roadmap",
-                "message": "Self-improvement S1 not yet implemented",
-            },
-        )
+        result = {
+            "project_path": context.get_input("project_path"),
+            "analysis_type": context.get_input("analysis_type", "full"),
+            "status": "roadmap",
+            "message": "Self-improvement S1 not yet implemented",
+        }
+        context.set_intermediate("self_improvement", result)
+        context.set_output("self_improvement", result)
         context.set_metadata("step.self_improvement.status", "completed")
         return context
 

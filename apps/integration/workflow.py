@@ -100,20 +100,34 @@ class WorkflowEngine:
                 logger.exception("Workflow step failed: %s", step.name)
                 context.set_metadata(f"step.{step.name}.status", "failed")
                 context.set_metadata(f"step.{step.name}.error", str(e))
-                return WorkflowResult(
-                    workflow_id=context.workflow_id,
-                    success=False,
-                    context=context,
-                    error=f"Step '{step.name}' failed: {e}",
-                    completed_at=datetime.now(UTC).isoformat(),
-                    latency_ms=(time.monotonic() - start) * 1000,
+                return self._fail(
+                    context, f"Step '{step.name}' failed: {e}", start
                 )
+
+        if not context.outputs:
+            return self._fail(
+                context, "Workflow completed but produced no outputs", start
+            )
 
         context.mark_completed()
         return WorkflowResult(
             workflow_id=context.workflow_id,
             success=True,
             context=context,
+            completed_at=datetime.now(UTC).isoformat(),
+            latency_ms=(time.monotonic() - start) * 1000,
+        )
+
+    def _fail(
+        self, context: CapabilityContext, error: str, start: float
+    ) -> WorkflowResult:
+        context.set_metadata("workflow.status", "failed")
+        context.mark_completed()
+        return WorkflowResult(
+            workflow_id=context.workflow_id,
+            success=False,
+            context=context,
+            error=error,
             completed_at=datetime.now(UTC).isoformat(),
             latency_ms=(time.monotonic() - start) * 1000,
         )

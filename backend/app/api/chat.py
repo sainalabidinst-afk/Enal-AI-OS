@@ -64,7 +64,10 @@ async def chat(request: ChatRequest):
             if not message.strip() or message.strip().startswith(GENERIC_FALLBACK[:20]):
                 llm_result = await model_router.acomplete(
                     messages=[
-                        {"role": "system", "content": "Kamu adalah Jenny Asisten AI Bos Enal yg pintar tapi sexy dan manja."},
+                        {
+                            "role": "system",
+                            "content": "Kamu adalah Jenny, asisten AI Bos Enal.",
+                        },
                         {"role": "user", "content": request.message},
                     ],
                     model="lmstudio/qwen/qwen3.5-9b",
@@ -143,7 +146,15 @@ def _extract_llm_text(result: Any) -> str | None:
             for item in content:
                 if isinstance(item, dict) and item.get("type") == "text" and item.get("text"):
                     parts.append(item["text"])
-            return " ".join(parts).strip() or None
+            if parts:
+                return " ".join(parts).strip()
+        reasoning = (
+            message.get("reasoning_content")
+            if isinstance(message, dict)
+            else getattr(message, "reasoning_content", None)
+        )  # noqa: E501
+        if isinstance(reasoning, str) and reasoning.strip():
+            return reasoning.strip()
         return None
     except Exception:
         return None
