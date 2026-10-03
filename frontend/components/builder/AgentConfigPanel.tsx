@@ -4,20 +4,16 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabPanel } from '@/components/ui/tabs';
 import { Select } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
 import {
   Bot,
   Save,
   Play,
   Trash2,
   Plus,
-  Settings,
   BookOpen,
   Wrench,
-  MessageSquare,
 } from 'lucide-react';
 
 interface AgentConfigPanelProps {
@@ -69,6 +65,8 @@ const AgentConfigPanel: React.FC<AgentConfigPanelProps> = ({
     { id: 'knowledge', label: 'KB' },
   ];
 
+  const [activeTab, setActiveTab] = React.useState('general');
+
   return (
     <div className="flex h-full w-96 flex-col border-l bg-white">
       <div className="flex items-center justify-between border-b px-4 py-3">
@@ -90,143 +88,139 @@ const AgentConfigPanel: React.FC<AgentConfigPanelProps> = ({
         </div>
       </div>
 
-      <ScrollArea className="flex-1 px-4 py-4">
-        <Tabs tabs={tabs} activeTab="general" onChange={() => {}} className="w-full">
-          <TabPanel>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <Input
-                  value={agent.name}
-                  onChange={(e) => update({ name: e.target.value })}
-                  placeholder="My Agent"
-                />
-              </div>
+      <div className="flex-1 overflow-y-auto px-4 py-4">
+        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} className="w-full" />
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Description</label>
-                <textarea
-                  value={agent.description}
-                  onChange={(e) => update({ description: e.target.value })}
-                  placeholder="What does this agent do?"
-                  rows={3}
-                  className="flex min-h-[60px] w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">System Prompt</label>
-                <textarea
-                  value={agent.prompt}
-                  onChange={(e) => update({ prompt: e.target.value })}
-                  placeholder="You are a helpful assistant..."
-                  rows={8}
-                  className="flex min-h-[60px] w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2 font-mono"
-                />
-              </div>
+        {activeTab === 'general' && (
+          <div className="mt-4 space-y-4">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Name</label>
+              <Input
+                value={agent.name}
+                onChange={(e) => update({ name: e.target.value })}
+                placeholder="My Agent"
+              />
             </div>
-          </TabPanel>
 
-          <TabPanel>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Model</label>
-                <Select
-                  id="model"
-                  label=""
-                  value={agent.model}
-                  onChange={(e) => update({ model: e.target.value })}
-                  options={modelOptions}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Temperature: {agent.temperature.toFixed(1)}
-                </label>
-                <input
-                  type="range"
-                  min={0}
-                  max={2}
-                  step={0.1}
-                  value={agent.temperature}
-                  onChange={(e) => update({ temperature: parseFloat(e.target.value) })}
-                  className="w-full"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Max Tokens</label>
-                <Input
-                  type="number"
-                  value={agent.maxTokens}
-                  onChange={(e) => update({ maxTokens: parseInt(e.target.value, 10) || 1024 })}
-                />
-              </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <textarea
+                value={agent.description}
+                onChange={(e) => update({ description: e.target.value })}
+                placeholder="What does this agent do?"
+                rows={3}
+                className="flex min-h-[60px] w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2"
+              />
             </div>
-          </TabPanel>
 
-          <TabPanel>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-700">Tools</label>
-                <Button variant="ghost" size="sm">
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="space-y-2">
-                {availableTools.map((tool) => (
-                  <div key={tool.id} className="flex items-center gap-2">
-                    <Checkbox
-                      id={`tool-${tool.id}`}
-                      checked={agent.tools.includes(tool.id)}
-                      onCheckedChange={(checked) => {
-                        const tools = checked
-                          ? [...agent.tools, tool.id]
-                          : agent.tools.filter((id) => id !== tool.id);
-                        update({ tools });
-                      }}
-                    />
-                    <label htmlFor={`tool-${tool.id}`} className="text-sm text-gray-700">
-                      {tool.name}
-                    </label>
-                  </div>
-                ))}
-              </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">System Prompt</label>
+              <textarea
+                value={agent.prompt}
+                onChange={(e) => update({ prompt: e.target.value })}
+                placeholder="You are a helpful assistant..."
+                rows={8}
+                className="flex min-h-[60px] w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2 font-mono"
+              />
             </div>
-          </TabPanel>
+          </div>
+        )}
 
-          <TabPanel>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-700">Knowledge Bases</label>
-                <Button variant="ghost" size="sm">
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="space-y-2">
-                {availableKnowledgeBases.map((kb) => (
-                  <div key={kb.id} className="flex items-center gap-2">
-                    <Checkbox
-                      id={`kb-${kb.id}`}
-                      checked={agent.knowledgeBaseIds.includes(kb.id)}
-                      onCheckedChange={(checked) => {
-                        const knowledgeBaseIds = checked
-                          ? [...agent.knowledgeBaseIds, kb.id]
-                          : agent.knowledgeBaseIds.filter((id) => id !== kb.id);
-                        update({ knowledgeBaseIds });
-                      }}
-                    />
-                    <label htmlFor={`kb-${kb.id}`} className="text-sm text-gray-700">
-                      {kb.name}
-                    </label>
-                  </div>
-                ))}
-              </div>
+        {activeTab === 'model' && (
+          <div className="mt-4 space-y-4">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Model</label>
+              <Select
+                id="model"
+                label=""
+                value={agent.model}
+                onChange={(e) => update({ model: e.target.value })}
+                options={modelOptions}
+              />
             </div>
-          </TabPanel>
-        </Tabs>
-      </ScrollArea>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Temperature: {agent.temperature.toFixed(1)}
+              </label>
+              <input
+                type="range"
+                min={0}
+                max={2}
+                step={0.1}
+                value={agent.temperature}
+                onChange={(e) => update({ temperature: parseFloat(e.target.value) })}
+                className="w-full"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Max Tokens</label>
+              <Input
+                type="number"
+                value={agent.maxTokens}
+                onChange={(e) => update({ maxTokens: parseInt(e.target.value, 10) || 1024 })}
+              />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'tools' && (
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium text-gray-700">Tools</label>
+              <Button variant="ghost" size="sm">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {availableTools.map((tool) => (
+                <div key={tool.id} className="flex items-center gap-2">
+                  <Checkbox
+                    id={`tool-${tool.id}`}
+                    label={tool.name}
+                    checked={agent.tools.includes(tool.id)}
+                    onChange={(e) => {
+                      const tools = e.target.checked
+                        ? [...agent.tools, tool.id]
+                        : agent.tools.filter((id) => id !== tool.id);
+                      update({ tools });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'knowledge' && (
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium text-gray-700">Knowledge Bases</label>
+              <Button variant="ghost" size="sm">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {availableKnowledgeBases.map((kb) => (
+                <div key={kb.id} className="flex items-center gap-2">
+                  <Checkbox
+                    id={`kb-${kb.id}`}
+                    label={kb.name}
+                    checked={agent.knowledgeBaseIds.includes(kb.id)}
+                    onChange={(e) => {
+                      const knowledgeBaseIds = e.target.checked
+                        ? [...agent.knowledgeBaseIds, kb.id]
+                        : agent.knowledgeBaseIds.filter((id) => id !== kb.id);
+                      update({ knowledgeBaseIds });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
