@@ -212,15 +212,71 @@ ECP dapat berinteraksi seperti "Jenny" melalui lapisan tambahan di atas Cognitiv
 |---|---|---|---|
 | Working | Redis | 1h | State sesi jangka pendek |
 | Conversation | Redis | 24h | Riwayat chat |
-| Knowledge | File (JSON) | ∞ | Pengetahuan terstruktur |
-| Long-term | File (JSON) | ∞ | Memory terkompresi |
-| Episodic | File (JSON) | ∞ | Linimasa event |
-| Session | File (JSON) | 24h | Konteks percakapan |
-| Project | File (JSON) | ∞ | Data proyek |
-
----
-
-## Memulai
+ | Knowledge | File (JSON) | ∞ | Pengetahuan terstruktur |
+ | Long-term | File (JSON) | ∞ | Memory terkompresi |
+ | Episodic | File (JSON) | ∞ | Linimasa event |
+ | Session | File (JSON) | 24h | Konteks percakapan |
+ | Project | File (JSON) | ∞ | Data proyek |
+ 
+ ---
+ 
+ ## Solusi Industri
+ 
+ Enal-AI-OS dapat disesuaikan untuk berbagai industri melalui **Vertical Industry Packs**:
+ 
+ | Industri | Capability Pack | Manfaat |
+ |----------|-----------------|---------|
+ | **Financial Services** | Finance Analyst | Analisis keuangan, pemodelan, dan kontrol |
+ | **Insurance** | Finance Analyst + Supply Chain Analyst | Underwrite, klaim, dan asuransi |
+ | **Healthcare** | HSE Specialist + Document Processing | Alur kerja pasien dan administrasi medis |
+ | **Legal, Consulting & Research** | Legal Advisor | Analisis dokumen, kewajiban, dan kepatuhan |
+ | **Telecom, Media & Entertainment** | Translator Expert + Document Processing | Layanan dan konten lintas-bahasa |
+ | **Mortgage Automation** | Finance Analyst | Aplikasi dan persetujuan pinjaman |
+ | **Life Sciences** | HSE Specialist + Document Processing | Riset, uji klinis, dan kepatuhan regulasi |
+ | **Trading & Investment** | Trading Analyst | Analisis pasar dan strategi investasi |
+ | **Supply Chain & Logistics** | Supply Chain Analyst | Optimasi logistik dan manajemen risiko |
+ 
+ ---
+ 
+ ## Bidang Keahlian
+ 
+ Enal-AI-OS mendukung berbagai bidang keahlian dan use case:
+ 
+ | Bidang Keahlian | Use Case |
+ |-----------------|----------|
+ | **Insurance** | Underwriting, klaim, asuransi |
+ | **Banking and Finance** | Analisis keuangan, pemodelan, kontrol |
+ | **Customer Support** | Chatbot, escalation, knowledge base |
+ | **HR** | Rekrutmen, onboarding, knowledge management |
+ | **Healthcare** | Alur kerja pasien, administrasi medis |
+ | **Marketing** | Konten, analisis kampanye, personalisasi |
+ | **Defence** | Intelligence, logistik, kepatuhan |
+ | **Legal** | Analisis dokumen, kewajiban, kepatuhan |
+ | **Life Sciences** | Riset, uji klinis, kepatuhan regulasi |
+ | **Procurement** | Vendor management, pengadaan, cost optimization |
+ | **Supply Chain & Logistics** | Optimasi logistik, manajemen risiko |
+ 
+ ---
+ 
+ ## Roadmap — Fitur SimplAI Parity
+ 
+ Berikut adalah fitur-fitur dari SimplAI yang direncanakan untuk diimplementasikan di Enal-AI-OS:
+ 
+ | Fitur SimplAI | Deskripsi | Prioritas |
+ |---------------|-----------|-----------|
+ | **Visual Agent Builder** | UI no-code untuk membuat dan konfigurasi agent tanpa menulis kode | High |
+ | **Visual Tool Builder** | UI drag-drop/no-code dengan step graph (LLM, Python, API, web scraper) | High |
+ | **Voice Agent** | Telephony inbound/outbound, sub-second latency, voice-specific observability | High |
+ | **Guardrails & Safety** | PII detection, toxic language, prompt injection, bias check, logic check | High |
+ | **Marketplace** | Share/clone agents, internal marketplace, pre-built templates, analytics | Medium |
+ | **A2A/MCP Integration** | Agent-to-agent invocation, MCP tool registry, external sub-agents | Medium |
+ | **Bulk & Scheduled Execution** | Batch runs, scheduled triggers, webhooks, async queues | Medium |
+ | **Evaluation Framework** | Quality scoring, scheduled evaluations, metric details, feedback loops | Medium |
+ | **Templates System** | Pre-built agent/tool templates, guided cloning, dependency resolution | Medium |
+ 
+ ---
+ 
+ ## Memulai
 
 ### Prasyarat
 

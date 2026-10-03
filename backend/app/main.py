@@ -10,6 +10,7 @@ from .api import (
     attachments,
     auth,
     benchmark,
+    blueprints,
     capability_discovery,
     capability_execution,
     capability_lifecycle,
@@ -161,6 +162,7 @@ app.include_router(telemetry.router, prefix=settings.API_V1_STR, tags=["telemetr
 app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmark"])
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
 app.include_router(integration.router, prefix=settings.API_V1_STR, tags=["integration"])
+app.include_router(blueprints.router, prefix=settings.API_V1_STR, tags=["blueprints"])
 
 
 @app.on_event("startup")

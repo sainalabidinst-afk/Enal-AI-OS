@@ -1565,6 +1565,16 @@ Berikut adalah item yang masih terbuka untuk fase paralel (FASE 6–9) dan rilis
 | 4 | Implementasi tambahan integration cases untuk Scenario Simulator | FASE 9+ | Low | — |
 | 5 | Rilis v3.1.0-rc1 — Enhanced benchmarks, additional real cases, capability packs tambahan | FASE 9+ | High | — |
 | 6 | Integrasi Consent Dialog ke `chatgpt-page.tsx` — tampilkan dialog saat action membutuhkan persetujuan | Jenny Q4.3 | High | — |
+| 7 | Visual Workflow Builder — UI drag-drop untuk membuat dan mengedit cognitive pipeline di frontend | FASE 9+ | High | — |
+| 8 | Visual Agent Builder — UI no-code untuk membuat dan konfigurasi agent tanpa menulis kode | FASE 9+ | High | — |
+| 9 | Visual Tool Builder — UI drag-drop/no-code untuk membuat tool dengan step graph (LLM, Python, API, web scraper) | FASE 9+ | High | — |
+| 10 | Voice Agent enhancements — telephony (inbound/outbound), sub-second latency, voice-specific observability | FASE 9+ | High | — |
+| 11 | Marketplace — share/clone agents, internal marketplace, pre-built templates, builder analytics | FASE 9+ | Medium | — |
+| 12 | Guardrails & Safety — PII detection, toxic language, prompt injection, bias check, logic check | FASE 9+ | High | — |
+| 13 | A2A/MCP integration — agent-to-agent invocation, MCP tool registry, external sub-agents | FASE 9+ | Medium | — |
+| 14 | Bulk & Scheduled Execution — batch runs, scheduled triggers, webhooks, async queues | FASE 9+ | Medium | — |
+| 15 | Evaluation framework — quality scoring, scheduled evaluations, metric details, feedback loops | FASE 9+ | Medium | — |
+| 16 | Templates system — pre-built agent/tool templates, cloning, guided setup, dependency resolution | FASE 9+ | Medium | — |
 
 ### 🎯 End-to-End Scenario
 

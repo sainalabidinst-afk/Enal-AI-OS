@@ -6,6 +6,7 @@ import { Badge } from "@/components/design-system/primitives/badge";
 import { Button } from "@/components/design-system/primitives/button";
 import { Input } from "@/components/design-system/primitives/input";
 import { Loader2, Send, Sparkles } from "lucide-react";
+import { api } from "@/services/api";
 import { AIWorkspacePanel } from "../ai/ai-workspace-panel";
 
 interface GenericCapabilityWorkspaceProps {
@@ -40,25 +41,12 @@ export function GenericCapabilityWorkspace({ capabilityId, capabilityName }: Gen
     setResult(null);
 
     try {
-      const response = await fetch(`/api/v1/capabilities/${capabilityId}/execute`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("enal-auth-token")}`,
-        },
-        body: JSON.stringify({
-          message: input,
-          conversation_id: `conv-${capabilityId}-${Date.now()}`,
-          workspace_id: `ws-${capabilityId}`,
-        }),
+      const data = await api.post<CapabilityResult>(`/api/v1/capabilities/${capabilityId}/execute`, {
+        message: input,
+        conversation_id: `conv-${capabilityId}-${Date.now()}`,
+        workspace_id: `ws-${capabilityId}`,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.detail || "Execution failed");
-      }
-
-      const data = await response.json();
       setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");

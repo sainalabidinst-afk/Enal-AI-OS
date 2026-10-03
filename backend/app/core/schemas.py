@@ -266,6 +266,55 @@ class ComplianceReport(BaseModel):
     methods_expected: list[str] = Field(default_factory=list)
 
 
+# ---------------------------------------------------------------------------
+# Blueprint schemas for visual builder
+# ---------------------------------------------------------------------------
+
+
+class ToolStep(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str
+    type: str
+    label: str = ""
+    config: dict[str, Any] = Field(default_factory=dict)
+
+
+class ConditionalBranch(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str
+    label: str = ""
+    condition: str = ""
+    steps: list[ToolStep] = Field(default_factory=list)
+
+
+class AgentBlueprint(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str = ""
+    description: str = ""
+    model: str = "gpt-4o"
+    tools: list[str] = Field(default_factory=list)
+    knowledge_base_ids: list[str] = Field(default_factory=list)
+    prompt: str = ""
+    temperature: float = 0.7
+    max_tokens: int = 1024
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class ToolBlueprint(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str = ""
+    description: str = ""
+    steps: list[ToolStep] = Field(default_factory=list)
+    branches: list[ConditionalBranch] = Field(default_factory=list)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
 __all__ = [
     # Version
     "ContractVersion",
@@ -295,4 +344,9 @@ __all__ = [
     "PipelineStage",
     # Reports
     "ComplianceReport",
+    # Blueprints
+    "AgentBlueprint",
+    "ToolBlueprint",
+    "ToolStep",
+    "ConditionalBranch",
 ]
