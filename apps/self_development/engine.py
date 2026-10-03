@@ -30,10 +30,14 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from apps.self_development.ecp_analyzer import ECPAnalyzer
 from apps.self_development.project_scanner import ProjectScanner, analyze_project
 from apps.self_development.risk_modeler import RiskModeler
 from apps.self_development.schemas import (
     ApprovalState,
+    CapabilityProposal,
+    ECPPlatformAnalysis,
+    ImprovementProposal,
     Patch,
     Problem,
     Solution,
@@ -58,7 +62,7 @@ class SelfDevelopmentEngine:
         self._custom_problems = problems
 
     # ------------------------------------------------------------------
-    # Public API
+    # Public API - Project Analysis
     # ------------------------------------------------------------------
 
     async def analyze_project(self, project_path: str | None = None) -> dict[str, Any]:
@@ -149,6 +153,80 @@ class SelfDevelopmentEngine:
             "message": f"Perubahan untuk {problem_id} berhasil diterapkan.",
             "tests_passed": True,
         }
+
+    # ------------------------------------------------------------------
+    # Public API - ECP Self-Improvement
+    # ------------------------------------------------------------------
+
+    async def analyze_ecp(self, ecp_root: str | None = None) -> dict[str, Any]:
+        root = Path(ecp_root) if ecp_root else Path(".").resolve()
+        analyzer = ECPAnalyzer(root=root)
+        analysis = analyzer.analyze()
+        return {
+            "core_modules": analysis.core_modules,
+            "capability_packs": analysis.capability_packs,
+            "total_files": analysis.total_files,
+            "complexity": analysis.complexity,
+            "hotspots": analysis.hotspots,
+            "governance_issues": analysis.governance_issues,
+            "pack_gaps": analysis.pack_gaps,
+            "cross_pack_patterns": [
+                {
+                    "id": p.get("id"),
+                    "pattern_type": p.get("pattern_type"),
+                    "description": p.get("description"),
+                    "source_packs": p.get("source_packs"),
+                    "target_packs": p.get("target_packs"),
+                    "reusability_score": p.get("reusability_score"),
+                    "implementation_complexity": p.get("implementation_complexity"),
+                }
+                for p in analysis.cross_pack_patterns
+            ],
+        }
+
+    async def propose_capabilities(self, ecp_root: str | None = None) -> list[dict[str, Any]]:
+        root = Path(ecp_root) if ecp_root else Path(".").resolve()
+        analyzer = ECPAnalyzer(root=root)
+        analysis = analyzer.analyze()
+        proposals = analyzer.propose_capabilities(analysis)
+        return [
+            {
+                "id": p.id,
+                "name": p.name,
+                "domain": p.domain,
+                "description": p.description,
+                "tier": p.tier,
+                "reuse_potential": p.reuse_potential,
+                "estimated_effort": p.estimated_effort,
+                "risk": p.risk,
+                "confidence": p.confidence,
+                "rationale": p.rationale,
+                "required_packs": p.required_packs,
+                "status": p.status,
+            }
+            for p in proposals
+        ]
+
+    async def propose_improvements(self, ecp_root: str | None = None) -> list[dict[str, Any]]:
+        root = Path(ecp_root) if ecp_root else Path(".").resolve()
+        analyzer = ECPAnalyzer(root=root)
+        analysis = analyzer.analyze()
+        improvements = analyzer.propose_improvements(analysis)
+        return [
+            {
+                "id": p.id,
+                "target_type": p.target_type,
+                "target_id": p.target_id,
+                "improvement_type": p.improvement_type,
+                "description": p.description,
+                "estimated_effort": p.estimated_effort,
+                "risk": p.risk,
+                "confidence": p.confidence,
+                "expected_impact": p.expected_impact,
+                "status": p.status,
+            }
+            for p in improvements
+        ]
 
     # ------------------------------------------------------------------
     # Internal helpers

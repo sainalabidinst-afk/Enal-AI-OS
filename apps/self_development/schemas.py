@@ -30,6 +30,10 @@ class ProblemType(StrEnum):
     DEPENDENCY_CYCLE = "dependency_cycle"
     LAYER_VIOLATION = "layer_violation"
     API_CONTRACT_BREAKING = "api_contract_breaking"
+    CAPABILITY_GAP = "capability_gap"
+    PACK_OVERLAP = "pack_overlap"
+    GOVERNANCE_VIOLATION = "governance_violation"
+    DOCUMENTATION_GAP = "documentation_gap"
 
 
 class ImprovementType(StrEnum):
@@ -39,6 +43,25 @@ class ImprovementType(StrEnum):
     SECURITY_HARDENING = "security_hardening"
     TESTING = "testing"
     DOCUMENTATION = "documentation"
+    NEW_CAPABILITY = "new_capability"
+    PACK_MERGE = "pack_merge"
+    PACK_SPLIT = "pack_split"
+    GOVERNANCE = "governance"
+
+
+class CapabilityTier(StrEnum):
+    TIER_A = "tier_a"
+    TIER_B = "tier_b"
+    TIER_C = "tier_c"
+    PLATFORM = "platform"
+
+
+class ProposalStatus(StrEnum):
+    DRAFT = "draft"
+    SUBMITTED = "submitted"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+    IMPLEMENTED = "implemented"
 
 
 @dataclass
@@ -85,7 +108,7 @@ class RiskScore:
     probability: float
     impact: float
     reversibility: float
-    overall: float
+    overall: float = 0.0
 
     def __post_init__(self) -> None:
         self.probability = max(0.0, min(1.0, self.probability))
@@ -115,4 +138,61 @@ class ProjectAnalysis:
     complexity: str
     language: str = "python"
     framework: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class ECPPlatformAnalysis:
+    core_modules: int
+    capability_packs: int
+    total_files: int
+    complexity: str
+    hotspots: list[str] = field(default_factory=list)
+    governance_issues: list[dict[str, Any]] = field(default_factory=list)
+    pack_gaps: list[dict[str, Any]] = field(default_factory=list)
+    cross_pack_patterns: list[dict[str, Any]] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class CapabilityProposal:
+    id: str
+    name: str
+    domain: str
+    description: str
+    tier: str
+    reuse_potential: int
+    estimated_effort: str
+    risk: str
+    confidence: float
+    rationale: str
+    required_packs: list[str] = field(default_factory=list)
+    status: str = ProposalStatus.DRAFT.value
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class ImprovementProposal:
+    id: str
+    target_type: str
+    target_id: str
+    improvement_type: str
+    description: str
+    estimated_effort: str
+    risk: str
+    confidence: float
+    expected_impact: str
+    status: str = ProposalStatus.DRAFT.value
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class CrossPackPattern:
+    id: str
+    pattern_type: str
+    description: str
+    source_packs: list[str]
+    target_packs: list[str]
+    reusability_score: float
+    implementation_complexity: str
     metadata: dict[str, Any] = field(default_factory=dict)

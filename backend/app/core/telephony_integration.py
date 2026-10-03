@@ -23,7 +23,12 @@ class TelephonyIntegration:
         self.provider = provider
         self._active_calls: dict[str, dict[str, Any]] = {}
 
-    async def handle_inbound_call(self, call_id: str, from_number: str, to_number: str) -> dict[str, Any]:
+    async def handle_inbound_call(
+        self,
+        call_id: str,
+        from_number: str,
+        to_number: str,
+    ) -> dict[str, Any]:
         logger.info("Inbound call %s from %s to %s", call_id, from_number, to_number)
         call = {
             "id": call_id,
@@ -35,7 +40,12 @@ class TelephonyIntegration:
         self._active_calls[call_id] = call
         return call
 
-    async def handle_outbound_call(self, call_id: str, from_number: str, to_number: str) -> dict[str, Any]:
+    async def handle_outbound_call(
+        self,
+        call_id: str,
+        from_number: str,
+        to_number: str,
+    ) -> dict[str, Any]:
         logger.info("Outbound call %s from %s to %s", call_id, from_number, to_number)
         call = {
             "id": call_id,

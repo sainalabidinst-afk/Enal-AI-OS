@@ -44,5 +44,14 @@ class SelfDevelopmentWorker:
     async def apply_changes(self, problem_id: str, approved: bool) -> dict[str, Any]:
         return await self.engine.apply_changes(problem_id, approved)
 
+    async def analyze_ecp(self, ecp_root: str | None = None) -> dict[str, Any]:
+        return await self.engine.analyze_ecp(ecp_root)
+
+    async def propose_capabilities(self, ecp_root: str | None = None) -> list[dict[str, Any]]:
+        return await self.engine.propose_capabilities(ecp_root)
+
+    async def propose_improvements(self, ecp_root: str | None = None) -> list[dict[str, Any]]:
+        return await self.engine.propose_improvements(ecp_root)
+
 
 self_development_worker = SelfDevelopmentWorker()

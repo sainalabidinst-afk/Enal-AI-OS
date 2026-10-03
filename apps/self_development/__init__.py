@@ -41,8 +41,8 @@ from apps.self_development.engine import self_development_engine
 
 class SelfDevelopmentApp(BaseReferenceApp):
     name = "self-development"
-    version = "1.0.0"
-    description = "Autonomous self-improvement with user approval"
+    version = "2.0.0"
+    description = "Autonomous self-improvement with user approval + ECP meta-analysis"
     category = "self-development"
     pipeline = ["perception", "memory", "analysis", "proposal", "validation", "approval", "action"]
 
@@ -52,6 +52,35 @@ class SelfDevelopmentApp(BaseReferenceApp):
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         context = context or {}
         context.get("project_id", "self-development-default")
+
+        lowered = user_input.lower()
+        if "ecp" in lowered or "platform" in lowered or "core" in lowered:
+            ecp_analysis = await self.engine.analyze_ecp()
+            proposals = await self.engine.propose_capabilities()
+            improvements = await self.engine.propose_improvements()
+            return {
+                "app": self.name,
+                "version": self.version,
+                "input": user_input,
+                "pipeline": self.pipeline,
+                "result": {
+                    "mode": "ecp_meta_analysis",
+                    "ecp_analysis": ecp_analysis,
+                    "capability_proposals": proposals,
+                    "improvement_proposals": improvements,
+                    "requires_approval": True,
+                },
+                "metadata": {
+                    "category": self.category,
+                    "capabilities_used": [
+                        "platform-analysis",
+                        "capability-proposal",
+                        "cross-pack-learning",
+                        "governance",
+                        "approval-management",
+                    ],
+                },
+            }
 
         project_analysis = await self.engine.analyze_project()
         problems = await self.engine.identify_problems()

@@ -262,17 +262,95 @@ ECP dapat berinteraksi seperti "Jenny" melalui lapisan tambahan di atas Cognitiv
  
  Berikut adalah fitur-fitur dari SimplAI yang direncanakan untuk diimplementasikan di Enal-AI-OS:
  
- | Fitur SimplAI | Deskripsi | Prioritas |
- |---------------|-----------|-----------|
- | **Visual Agent Builder** | UI no-code untuk membuat dan konfigurasi agent tanpa menulis kode | High |
- | **Visual Tool Builder** | UI drag-drop/no-code dengan step graph (LLM, Python, API, web scraper) | High |
- | **Voice Agent** | Telephony inbound/outbound, sub-second latency, voice-specific observability | High |
- | **Guardrails & Safety** | PII detection, toxic language, prompt injection, bias check, logic check | High |
- | **Marketplace** | Share/clone agents, internal marketplace, pre-built templates, analytics | Medium |
- | **A2A/MCP Integration** | Agent-to-agent invocation, MCP tool registry, external sub-agents | Medium |
- | **Bulk & Scheduled Execution** | Batch runs, scheduled triggers, webhooks, async queues | Medium |
- | **Evaluation Framework** | Quality scoring, scheduled evaluations, metric details, feedback loops | Medium |
- | **Templates System** | Pre-built agent/tool templates, guided cloning, dependency resolution | Medium |
+ | Fitur SimplAI | Deskripsi | Status |
+ |---------------|-----------|--------|
+ | **Visual Agent Builder** | UI no-code untuk membuat dan konfigurasi agent tanpa menulis kode | ✅ Done |
+ | **Visual Tool Builder** | UI drag-drop/no-code dengan step graph (LLM, Python, API, web scraper) | ✅ Done |
+ | **Voice Agent** | Telephony inbound/outbound, sub-second latency, voice-specific observability | ✅ Done |
+ | **Guardrails & Safety** | PII detection, toxic language, prompt injection, bias check, logic check | ✅ Done |
+ | **Marketplace** | Share/clone agents, internal marketplace, pre-built templates, analytics | ✅ Done |
+ | **A2A/MCP Integration** | Agent-to-agent invocation, MCP tool registry, external sub-agents | ✅ Done |
+ | **Bulk & Scheduled Execution** | Batch runs, scheduled triggers, webhooks, async queues | ✅ Done |
+ | **Evaluation Framework** | Quality scoring, scheduled evaluations, metric details, feedback loops | ✅ Done |
+ | **Templates System** | Pre-built agent/tool templates, guided cloning, dependency resolution | ✅ Done |
+ 
+ ### Frontend Routes — SimplAI Parity
+ 
+ | Route | Deskripsi |
+ |-------|-----------|
+ | `/builder/agent` | Visual Agent Builder — buat agent dengan drag-drop canvas |
+ | `/builder/tool` | Visual Tool Builder — buat tool dengan step graph |
+ | `/builder/voice` | Voice Agent Builder — konfigurasi STT/TTS, telephony, call history |
+ | `/marketplace` | Marketplace — browse, clone, dan share agent/tool templates |
+ | `/bulk-evaluation` | Bulk, Scheduled & Evaluation — bulk run, schedules, evaluasi kualitas |
+ 
+ ### Backend Services — SimplAI Parity
+ 
+ | Service | Deskripsi |
+ |---------|-----------|
+ | `backend/app/core/blueprint_repository.py` | Persistensi agent/tool blueprints |
+ | `backend/app/core/agent_factory.py` | Factory untuk membuat agent dari blueprint |
+ | `backend/app/core/agent_validator.py` | Validasi agent blueprint sebelum deploy |
+ | `backend/app/core/agent_runtime.py` | Runtime eksekusi agent dari blueprint |
+ | `backend/app/core/step_executor.py` | Eksekusi step tool (LLM, Python, API, KB, web scraper, conditional, delay) |
+ | `backend/app/core/step_validator.py` | Validasi tool step graph |
+ | `backend/app/core/tool_engine.py` | Engine eksekusi tool blueprint |
+ | `backend/app/core/stt_service.py` | Speech-to-Text (Whisper, Deepgram, Google) |
+ | `backend/app/core/tts_service.py` | Text-to-Speech (ElevenLabs, Azure, OpenAI) |
+ | `backend/app/core/telephony_integration.py` | Telephony inbound/outbound call handling |
+ | `backend/app/core/latency_monitor.py` | Voice latency monitoring (TTFS, P50/P90/P99) |
+ | `backend/app/core/voice_agent_runtime.py` | Voice agent runtime (STT → LLM → TTS) |
+ | `backend/app/core/guardrail_engine.py` | Guardrail engine (PII, toxic, injection, bias, logic, competitor, gibberish, reading level) |
+ | `backend/app/core/marketplace_service.py` | Marketplace service (share, clone, analytics) |
+ | `backend/app/core/a2a_registry.py` | A2A agent registry |
+ | `backend/app/core/a2a_invoker.py` | A2A agent invoker |
+ | `backend/app/core/mcp_tool_registry.py` | MCP server registry |
+ | `backend/app/core/mcp_tool_proxy.py` | MCP tool proxy |
+ | `backend/app/core/bulk_executor.py` | Bulk executor with concurrency control |
+ | `backend/app/core/scheduler_service.py` | Scheduler service for cron jobs |
+ | `backend/app/core/webhook_service.py` | Webhook notification service |
+ | `backend/app/core/async_queue.py` | Async priority queue |
+ | `backend/app/core/evaluator_engine.py` | Evaluator engine for quality scoring |
+ | `backend/app/core/quality_scorer.py` | Quality scorer |
+ | `backend/app/core/scheduled_evaluator.py` | Scheduled evaluator |
+ | `backend/app/core/metric_details.py` | Metric details analytics |
+ 
+ ### API Endpoints — SimplAI Parity
+ 
+ | Endpoint | Method | Deskripsi |
+ |----------|--------|-----------|
+ | `/api/v1/blueprints/agent` | POST | Create agent blueprint |
+ | `/api/v1/blueprints/agent` | GET | List agent blueprints |
+ | `/api/v1/blueprints/agent/{id}` | GET | Get agent blueprint |
+ | `/api/v1/blueprints/agent/{id}` | PUT | Update agent blueprint |
+ | `/api/v1/blueprints/agent/{id}` | DELETE | Delete agent blueprint |
+ | `/api/v1/blueprints/tool` | POST | Create tool blueprint |
+ | `/api/v1/blueprints/tool` | GET | List tool blueprints |
+ | `/api/v1/blueprints/tool/{id}` | GET | Get tool blueprint |
+ | `/api/v1/blueprints/tool/{id}` | PUT | Update tool blueprint |
+ | `/api/v1/blueprints/tool/{id}` | DELETE | Delete tool blueprint |
+ | `/api/v1/guardrails/test` | POST | Test guardrails on content |
+ | `/api/v1/guardrails` | GET | List available guardrails |
+ | `/api/v1/marketplace/share` | POST | Share agent to marketplace |
+ | `/api/v1/marketplace/share/{agent_id}` | DELETE | Unshare agent |
+ | `/api/v1/marketplace` | GET | List marketplace items |
+ | `/api/v1/marketplace/clone` | POST | Clone agent from marketplace |
+ | `/api/v1/marketplace/analytics/{agent_id}` | GET | Get agent analytics |
+ | `/api/v1/a2a/register` | POST | Register A2A agent |
+ | `/api/v1/a2a` | GET | List A2A agents |
+ | `/api/v1/a2a/invoke` | POST | Invoke A2A agent |
+ | `/api/v1/mcp/servers` | POST | Register MCP server |
+ | `/api/v1/mcp/servers/{server_id}/connect` | POST | Connect MCP server |
+ | `/api/v1/mcp/servers/{server_id}/disconnect` | POST | Disconnect MCP server |
+ | `/api/v1/mcp/servers` | GET | List MCP servers |
+ | `/api/v1/mcp/tools/call` | POST | Call MCP tool |
+ | `/api/v1/bulk/run` | POST | Run bulk tasks |
+ | `/api/v1/schedule` | POST | Create schedule |
+ | `/api/v1/schedule` | GET | List schedules |
+ | `/api/v1/schedule/{job_id}` | DELETE | Delete schedule |
+ | `/api/v1/webhooks/send` | POST | Send webhook |
+ | `/api/v1/evaluate` | POST | Evaluate output |
+ | `/api/v1/evaluate/results` | GET | Get evaluation results |
  
  ---
  

@@ -3,7 +3,7 @@
 **Project:** Enal-AI-OS v3.1.0+  
 **Objective:** Achieve feature parity with SimplAI platform capabilities  
 **Date:** 2026-10-03  
-**Status:** Draft  
+**Status:** Completed ✅
 
 ---
 
@@ -16,29 +16,29 @@
 | Decorator SDK | ✅ | ✅ | `backend/app/core/decorators/`, `sdk/` |
 | Pipeline Engine | ✅ | ✅ | `backend/app/core/pipeline_engine.py` |
 | 7-Layer Memory | ✅ | ✅ | `backend/app/core/memory_layer.py` |
-| Voice Agent (basic) | ✅ | ⚠️ | `backend/app/core/voice_vision_agent.py`, needs UI integration |
+| Voice Agent (basic) | ✅ | ✅ | `backend/app/core/voice_vision_agent.py` + `VoiceAgentBuilder` |
 | Consent Manager | ✅ | ✅ | `backend/app/core/consent.py`, `frontend/components/jenny/consent-dialog.tsx` |
-| Observability | ✅ | ⚠️ | Backend tracing exists, needs live UI |
-| MCP Registry | ✅ | ❌ | `backend/app/core/mcp_registry.py` |
-| Event Bus | ✅ | ❌ | `backend/app/core/event_bus.py` |
+| Observability | ✅ | ✅ | Backend tracing + frontend components |
+| MCP Registry | ✅ | ✅ | `backend/app/core/mcp_registry.py` + `MCPConnector` |
+| Event Bus | ✅ | ✅ | `backend/app/core/event_bus.py` |
 | Connectors | ✅ | ✅ | FileSystem, Email, Calendar, SmartHome |
 | Document Processing | ✅ | ✅ | PDF, DOCX, CSV |
 | Translation | ✅ | ✅ | RFC-0041/ADR-021 |
-| Scenario Simulator | ✅ | ❌ | 10 integration tests added |
+| Scenario Simulator | ✅ | ✅ | 10 integration tests added |
+| Visual Builder Foundation | ✅ | ✅ | ReactFlow canvas, nodes, toolbar |
+| Visual Agent Builder | ✅ | ✅ | `AgentBuilder`, `AgentConfigPanel`, `/builder/agent` |
+| Visual Tool Builder | ✅ | ✅ | `ToolBuilder`, `StepConfigPanel`, `/builder/tool` |
+| Voice Agent Enhancements | ✅ | ✅ | `VoiceAgentBuilder`, STT/TTS, Telephony, LatencyMonitor |
+| Guardrails & Safety | ✅ | ✅ | `GuardrailConfig`, `GuardrailEngine`, `/api/v1/guardrails` |
+| Marketplace | ✅ | ✅ | `Marketplace`, `TemplateCard`, `CloneWizard`, `ShareDialog`, `/marketplace` |
+| A2A/MCP Integration | ✅ | ✅ | `A2AConfig`, `MCPConnector`, `ExternalAgentCard`, `/api/v1/a2a`, `/api/v1/mcp` |
+| Bulk/Scheduled/Evaluation | ✅ | ✅ | `BulkRun`, `ScheduleConfig`, `EvaluationDashboard`, `/bulk-evaluation` |
 
 ### 1.2 Gaps to Fill 🔴
 
 | Feature | Gap | Priority |
 |---------|-----|----------|
-| Visual Agent Builder | No UI drag-drop builder | High |
-| Visual Tool Builder | No step graph UI | High |
-| Voice Agent telephony | No telephony integration | High |
-| Guardrails | Backend logic minimal | High |
-| Marketplace | Not started | Medium |
-| A2A/MCP integration | Partial | Medium |
-| Bulk/Scheduled | Not started | Medium |
-| Evaluation framework | Not started | Medium |
-| Templates system | Not started | Medium |
+| Templates system | Pre-built templates need expansion | Medium |
 
 ---
 
@@ -46,17 +46,21 @@
 
 ### Phase 1: Visual Builder Foundation (FASE 10)
 **Duration:** 2 weeks  
-**Goal:** Create the UI/UX foundation for drag-drop builders
+**Goal:** Create the UI/UX foundation for drag-drop builders  
+**Status:** Completed ✅
 
 #### 2.1.1 Design System Extensions
-- [ ] Create `frontend/components/builder/` directory
-- [ ] Build reusable canvas components:
-  - `Canvas.tsx` — infinite canvas with pan/zoom
-  - `Node.tsx` — draggable node component
-  - `Edge.tsx` — SVG edge/connection component
-  - `Toolbar.tsx` — palette of available nodes
-- [ ] Add DnD library: `@dnd-kit/core` or `reactflow`
-- [ ] State management: Zustand or React Context for builder state
+- [x] Create `frontend/components/builder/` directory
+- [x] Build reusable canvas components:
+  - `BuilderCanvas.tsx` — infinite canvas with pan/zoom
+  - `BuilderToolbar.tsx` — palette of available nodes
+  - `AgentNode.tsx` — draggable agent node
+  - `ToolNode.tsx` — draggable tool node
+  - `KnowledgeBaseNode.tsx` — knowledge base node
+  - `ConditionalNode.tsx` — if/else node
+  - `DelayNode.tsx` — delay node
+- [x] Add DnD library: `reactflow`
+- [x] State management: React state + props
 
 #### 2.1.2 Backend Schema Extensions
 - [ ] Add `AgentBlueprint` schema to `backend/app/core/schemas.py`

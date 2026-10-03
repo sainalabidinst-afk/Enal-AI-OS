@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabPanel } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Mic,
@@ -77,6 +77,7 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
   const [isRecording, setIsRecording] = useState(false);
   const [callDuration, setCallDuration] = useState(0);
   const [isInCall, setIsInCall] = useState(false);
+  const [activeTab, setActiveTab] = React.useState('config');
   const intervalRef = useRef<number | null>(null);
 
   const update = (patch: Partial<VoiceAgentBuilderProps['agent']>) => {
@@ -113,6 +114,12 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const tabs = [
+    { id: 'config', label: 'Configuration' },
+    { id: 'call', label: 'Call' },
+    { id: 'history', label: 'History' },
+  ];
+
   return (
     <div className="flex h-screen w-full flex-col bg-gray-50">
       <header className="flex items-center justify-between border-b bg-white px-4 py-2">
@@ -134,14 +141,10 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
 
       <div className="flex flex-1 overflow-hidden">
         <div className="flex-1 overflow-y-auto p-6">
-          <Tabs defaultValue="config" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="config">Configuration</TabsTrigger>
-              <TabsTrigger value="call">Call</TabsTrigger>
-              <TabsTrigger value="history">History</TabsTrigger>
-            </TabsList>
+          <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} className="w-full" />
 
-            <TabsContent value="config" className="mt-4 space-y-4">
+          {activeTab === 'config' && (
+            <div className="mt-4 space-y-4">
               <div className="rounded-lg border bg-white p-4 shadow-sm">
                 <h3 className="mb-4 text-sm font-semibold text-gray-700">General</h3>
                 <div className="space-y-4">
@@ -218,7 +221,6 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
                       Temperature: {agent.temperature.toFixed(1)}
                     </Label>
                     <Slider
-                      id="temperature"
                       min={0}
                       max={2}
                       step={0.1}
@@ -237,9 +239,11 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
                   </div>
                 </div>
               </div>
-            </TabsContent>
+            </div>
+          )}
 
-            <TabsContent value="call" className="mt-4">
+          {activeTab === 'call' && (
+            <div className="mt-4">
               <div className="rounded-lg border bg-white p-6 shadow-sm">
                 <div className="flex flex-col items-center justify-center space-y-4">
                   <div className="text-center">
@@ -259,11 +263,11 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
                       </Button>
                     ) : (
                       <>
-                        <Button
-                          size="lg"
-                          variant={isRecording ? 'destructive' : 'default'}
-                          onClick={() => setIsRecording(!isRecording)}
-                        >
+                      <Button
+                        size="lg"
+                        variant={isRecording ? 'danger' : 'primary'}
+                        onClick={() => setIsRecording(!isRecording)}
+                      >
                           {isRecording ? (
                             <>
                               <MicOff className="mr-2 h-5 w-5" />
@@ -276,7 +280,7 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
                             </>
                           )}
                         </Button>
-                        <Button size="lg" variant="destructive" onClick={endCall}>
+                        <Button size="lg" variant="danger" onClick={endCall}>
                           <PhoneOff className="mr-2 h-5 w-5" />
                           End Call
                         </Button>
@@ -292,9 +296,11 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
                   )}
                 </div>
               </div>
-            </TabsContent>
+            </div>
+          )}
 
-            <TabsContent value="history" className="mt-4">
+          {activeTab === 'history' && (
+            <div className="mt-4">
               <div className="rounded-lg border bg-white shadow-sm">
                 <div className="border-b px-4 py-3">
                   <h3 className="text-sm font-semibold text-gray-700">Call History</h3>
@@ -322,8 +328,8 @@ const VoiceAgentBuilder: React.FC<VoiceAgentBuilderProps> = ({
                   </div>
                 </ScrollArea>
               </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          )}
         </div>
       </div>
     </div>

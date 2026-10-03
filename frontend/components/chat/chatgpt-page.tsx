@@ -12,6 +12,7 @@ import {
   Plus,
   Search,
   Send,
+  ShieldCheck,
   Sparkles,
   Square,
   Volume2,
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 import { sendChat } from "@/services/chat";
 import { transcribeAudio, speakTextBrowser } from "@/services/voice";
+import { useConsentDialog } from "@/components/jenny/consent-dialog";
 import type { Message, VoiceTranscription as VoiceTranscriptionType } from "@/types/chat";
 
 interface SpeechRecognitionEventLike extends Event {
@@ -77,6 +79,7 @@ export function ChatGPTPage() {
   const [speakingId, setSpeakingId] = useState<string>();
   const [showRail, setShowRail] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const { ConsentDialog: ConsentDialogComponent, open: openConsent } = useConsentDialog();
   const bottomRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -85,6 +88,10 @@ export function ChatGPTPage() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isSending]);
+
+  useEffect(() => {
+    openConsent();
+  }, [openConsent]);
 
   useEffect(() => {
     return () => {
@@ -335,6 +342,7 @@ export function ChatGPTPage() {
             <span className="connection-label"><span className="status-dot" /> Local</span>
             <button className="icon-button" aria-label="Voice toggle" onClick={() => setVoiceEnabled((v) => !v)}>{voiceEnabled ? <Mic size={18} /> : <Mic size={18} className="muted" />}</button>
             <button className="icon-button" aria-label="Conversation history"><Clock3 size={18} /></button>
+            <button className="icon-button" aria-label="Consent requests" onClick={openConsent}><ShieldCheck size={18} /></button>
           </div>
         </header>
 
@@ -387,5 +395,6 @@ export function ChatGPTPage() {
         </div>
       </section>
     </div>
+    <ConsentDialogComponent />
   );
 }

@@ -5,20 +5,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from .api import (
+    a2a_mcp,
     actions,
     artifact,
     attachments,
     auth,
     benchmark,
     blueprints,
+    bulk_evaluation,
     capability_discovery,
     capability_execution,
     capability_lifecycle,
     chat,
     ecosystem,
     execution,
+    guardrails,
     health,
     integration,
+    marketplace,
     model_gateway,
     notifications,
     orchestrator_v2,
@@ -163,6 +167,10 @@ app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmar
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
 app.include_router(integration.router, prefix=settings.API_V1_STR, tags=["integration"])
 app.include_router(blueprints.router, prefix=settings.API_V1_STR, tags=["blueprints"])
+app.include_router(guardrails.router, prefix=settings.API_V1_STR, tags=["guardrails"])
+app.include_router(marketplace.router, prefix=settings.API_V1_STR, tags=["marketplace"])
+app.include_router(a2a_mcp.router, prefix=settings.API_V1_STR, tags=["a2a-mcp"])
+app.include_router(bulk_evaluation.router, prefix=settings.API_V1_STR, tags=["bulk-evaluation"])
 
 
 @app.on_event("startup")

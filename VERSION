@@ -2,12 +2,13 @@
 
 ## Current Version
 
-**v3.0.0** (Production Ready — Rilis Stabil)
+**v3.1.0-rc1** (Release Candidate)
 
 ## Version History
 
 | Version | Status | Date | Description |
 |---------|--------|------|-------------|
+| v3.1.0-rc1 | Release Candidate | 2026-10-03 | RC1: 44 Capability Packs (40 registered + 7 Vertical/Advanced + 4 Jenny/V2), scenario_simulator real cases sim_006-010 completed with DI/SysArchitect/Trading/Network/Innovation integrations, ConsentDialog integrated into chat UI, VERSION tracking added. |
 | v3.0.0 | Production Ready | 2026-10-02 | Production release. 43 Capability Pack (37 registered + 6 Vertical/Advanced + 4 Jenny/V2), all benchmarks Grade A, Docker hardened, LiteLLM provider configured, observability & alerting, release notes & deployment guide. |
 | v1.0.0-developer-preview | Developer Preview | 2026-08-04 | Capability Excellence complete. 13 packs at A- or higher. 19 packs registered, all loadable. |
 | v1.0.0-engineering-baseline | Frozen | 2024 | Engineering Baseline. MyPy 0 error, Pylance 0, Tests 368 passed, Python 3.11 verified. |
@@ -31,10 +32,12 @@ ECP follows Semantic Versioning.
 
 ## Current Stage
 
-**v3.0.0 — Production Ready**
+**v3.1.0-rc1 — Release Candidate**
 
-All 43 Capability Packs implemented. LiteLLM provider configured for runtime
-benchmarks. Docker runtime hardened (read-only filesystem, non-root, cap_drop).
-Observability, alerting, and failure simulation ready for production deployment.
+All 44 Capability Packs implemented (40 registered + 7 Vertical/Advanced + 4 Jenny/V2).
+LiteLLM provider configured for runtime benchmarks. Docker runtime hardened
+(read-only filesystem, non-root, cap_drop). Observability, alerting, and failure
+simulation ready for production deployment. Scenario Simulator real cases
+completed through sim_010 with cross-capability integrations.
 
 **Release Classification: A — Stable**
