@@ -29,11 +29,20 @@ async def supported_languages() -> dict[str, list[str]]:
 
 @router.get("/providers")
 async def provider_info() -> dict[str, Any]:
+    profile = voice_agent.get_voice_profile()
     return {
         "stt_provider": settings.STT_PROVIDER,
         "tts_provider": settings.TTS_PROVIDER,
         "tts_voice": settings.TTS_VOICE,
+        "tts_voice_name": settings.TTS_VOICE_NAME,
+        "tts_voice_gender": settings.TTS_VOICE_GENDER,
+        "tts_voice_tone": settings.TTS_VOICE_TONE,
+        "tts_voice_attitude": settings.TTS_VOICE_ATTITUDE,
         "stt_language": settings.STT_LANGUAGE,
+        "jenny_voice_profile": settings.JENNY_VOICE_PROFILE,
+        "jenny_tts_voice_id": settings.JENNY_TTS_VOICE_ID,
+        "jenny_language": settings.JENNY_LANGUAGE,
+        "voice_profile": profile.describe(),
         "supported_languages": voice_agent.get_supported_languages(),
     }
 

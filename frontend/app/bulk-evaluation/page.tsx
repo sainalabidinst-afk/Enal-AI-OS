@@ -1,3 +1,5 @@
+"use client";
+
 import BulkRun from '@/components/builder/BulkRun';
 import ScheduleConfig from '@/components/builder/ScheduleConfig';
 import EvaluationDashboard from '@/components/builder/EvaluationDashboard';

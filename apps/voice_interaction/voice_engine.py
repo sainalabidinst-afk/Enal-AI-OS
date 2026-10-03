@@ -260,10 +260,16 @@ class VoiceEngine:
         return self.SUPPORTED_LANGUAGES
 
     def get_provider_info(self) -> dict[str, Any]:
-        """Return current provider configuration."""
+        """Return current provider configuration including Jenny's voice profile."""
+        profile = get_voice_profile()
         return {
             "stt_provider": self._stt_available or "web_speech",
             "tts_provider": self._tts_available or "pyttsx3",
+            "voice_profile": profile.describe(),
+            "voice_gender": profile.gender,
+            "voice_tone": profile.tone,
+            "voice_attitude": profile.attitude,
+            "voice_id": profile.voice_id,
             "supported_languages": self.SUPPORTED_LANGUAGES,
         }
 

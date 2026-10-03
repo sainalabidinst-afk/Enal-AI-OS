@@ -13,7 +13,7 @@ through the VoiceProfile system configured in jenny_voice_config.py.
 
 import logging
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 from backend.app.core.config import settings
 from backend.app.core.jenny_voice_config import get_voice_profile

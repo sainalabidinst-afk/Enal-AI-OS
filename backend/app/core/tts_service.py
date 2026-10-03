@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from backend.app.core.config import settings
@@ -64,7 +64,8 @@ class ElevenLabsTTSProvider(TTSProvider):
         if voice_profile is not None:
             params = voice_profile.acoustic_params.to_provider_overrides()
             params["voice_id"] = voice_profile.voice_id
-            params["model_id"] = "eleven_multilingual_low_latency_2025-04-28" if voice else "eleven_flash_v2.5"
+            model = "eleven_multilingual_low_latency_2025" if voice else "eleven_flash_v2.5"
+            params["model_id"] = model
 
         logger.info(
             "Synthesizing speech with ElevenLabs (voice_id=%s, voice=%s, speed=%.2f, profile=%s)",
@@ -86,13 +87,12 @@ class AzureTTSProvider(TTSProvider):
         speed: float = 1.0,
         voice_profile: Any = None,
     ) -> bytes:
-        ssml = self._build_ssml(text, voice_profile)
-
+        profile_desc = voice_profile.describe() if voice_profile else "none"
         logger.info(
-            "Synthesizing speech with Azure TTS (voice=%s, speed=%.2f)%s",
+            "Synthesizing speech with Azure TTS (voice=%s, speed=%.2f, profile=%s)",
             voice,
             speed,
-            f", profile={voice_profile.describe()}" if voice_profile else "",
+            profile_desc,
         )
         return b"[Azure audio data]"
 
@@ -103,9 +103,9 @@ class AzureTTSProvider(TTSProvider):
         pitch_pct = int((p.pitch - 1.0) * 100)
         speed_pct = int((p.speed - 1.0) * 100)
         return (
-            f"<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis'>{"
-            f"<prosody rate='{speed_pct}%' pitch='{pitch_pct}%' volume='medium'>{text}"
-            f"</prosody></speak>"
+            "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis'>"
+            f"<prosody rate='{speed_pct}%' pitch='{pitch_pct}%' volume='medium'>"
+            f"{text}</prosody></speak>"
         )
 
 
@@ -182,7 +182,6 @@ class TTSService:
     def __init__(self, provider: str | None = None) -> None:
         self._provider = provider or settings.TTS_PROVIDER
         self._providers: dict[str, TTSProvider] = {}
-        self._ensure_provider(self._provider)
 
     def _ensure_provider(self, provider: str) -> None:
         if provider not in self._SUPPORTED_PROVIDERS:
@@ -218,6 +217,7 @@ class TTSService:
         voice: str | None = None,
         speed: float = 1.0,
         voice_profile: Any = None,
+        provider: str | None = None,
     ) -> SynthesisResult:
         """Synthesize text to speech and return structured result.
 

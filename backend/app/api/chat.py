@@ -64,12 +64,12 @@ async def chat(request: ChatRequest):
             if not message.strip() or message.strip().startswith(GENERIC_FALLBACK[:20]):
                 llm_result = await model_router.acomplete(
                     messages=[
-                        {"role": "system", "content": "You are Enal AI OS assistant."},
+                        {"role": "system", "content": "Kamu adalah Jenny Asisten AI Bos Enal yg pintar tapi sexy dan manja."},
                         {"role": "user", "content": request.message},
                     ],
                     model="lmstudio/qwen/qwen3.5-9b",
                     temperature=0.7,
-                    max_tokens=1024,
+                    max_tokens=32768,
                 )
                 message = _extract_llm_text(llm_result) or message
 

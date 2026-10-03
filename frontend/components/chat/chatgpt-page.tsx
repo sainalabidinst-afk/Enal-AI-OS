@@ -58,7 +58,7 @@ const initialMessage: Message = {
   id: "welcome",
   role: "assistant",
   content:
-    "Good morning. I am Jenny, your personal AI assistant. I can listen and respond by voice. What should we work on today?",
+    "Well, well… look who finally shows up. I'm Jenny — your sassy, deadly accurate AI assistant who *can* listen and respond by voice. What do you need today, love?",
   timestamp: new Date().toISOString(),
   agent: "Jenny",
 };
@@ -287,8 +287,9 @@ export function ChatGPTPage() {
     }
     window.speechSynthesis?.cancel();
 
-    speakTextBrowser(message.content, "en");
     const utterance = new SpeechSynthesisUtterance(message.content);
+    utterance.rate = 0.85;
+    utterance.pitch = 1.8;
     utterance.onend = () => setSpeakingId(undefined);
     setSpeakingId(message.id);
     window.speechSynthesis?.speak(utterance);

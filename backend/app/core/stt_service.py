@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from backend.app.core.config import settings
@@ -101,7 +101,6 @@ class STTService:
     def __init__(self, provider: str | None = None) -> None:
         self._provider = provider or settings.STT_PROVIDER
         self._providers: dict[str, STTProvider] = {}
-        self._ensure_provider(self._provider)
 
     def _ensure_provider(self, provider: str) -> None:
         if provider not in self._SUPPORTED_PROVIDERS:

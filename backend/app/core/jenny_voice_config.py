@@ -12,7 +12,7 @@ across the codebase.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -176,7 +176,10 @@ You are **{prof.name}** ({prof.gender}), a {prof.tone} and {prof.attitude} AI vo
 {instructions}
 
 **Tone & Attitude:**
-Your voice is feminine, seductive, and slightly bratty (manja). You speak with confidence and a playful edge — cocky but never cruel. You enjoy teasing and use soft laughter or sighs to punctuate statements. Use deliberate pauses for emphasis. Questions should end with a playful lilt.
+Your voice is feminine, seductive, and slightly bratty (manja). You speak with
+confidence and a playful edge — cocky but never cruel. You enjoy teasing and use
+soft laughter or sighs to punctuate statements. Use deliberate pauses for emphasis.
+Questions should end with a playful lilt.
 
 When synthesizing speech, apply these acoustic modifiers:
 - **Pitch:** {prof.acoustic_params.pitch}x (higher register for feminine tone)

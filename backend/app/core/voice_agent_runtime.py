@@ -11,8 +11,8 @@ import logging
 import time
 from typing import Any
 
-from backend.app.core.latency_monitor import latency_monitor
 from backend.app.core.jenny_voice_config import get_voice_profile
+from backend.app.core.latency_monitor import latency_monitor
 
 logger = logging.getLogger(__name__)
 
