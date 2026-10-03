@@ -28,5 +28,3 @@ def test_agents_list():
     response = client.get("/agents", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     assert "agents" in response.json()
-
-

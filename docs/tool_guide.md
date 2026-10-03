@@ -16,6 +16,7 @@ from enal_ai import Tool, EnalAI
 
 enal = EnalAI()
 
+
 @enal.tool(
     name="my_tool",
     description="Description of what this tool does",

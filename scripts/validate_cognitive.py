@@ -22,7 +22,6 @@ Exit codes:
 
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -42,7 +41,9 @@ def check_perception() -> dict[str, Any]:
     perception = _read(BACKEND / "app" / "core" / "perception_engine.py")
     return {
         "passed": "class PerceptionEngine" in perception or "async def process" in perception,
-        "detail": "Perception engine not found or incomplete" if "class PerceptionEngine" not in perception else "",
+        "detail": "Perception engine not found or incomplete"
+        if "class PerceptionEngine" not in perception
+        else "",
     }
 
 
@@ -52,7 +53,9 @@ def check_knowledge() -> dict[str, Any]:
     retrieval = knowledge_dir / "retrieval.py"
     return {
         "passed": store.exists() and retrieval.exists(),
-        "detail": "Knowledge store or retrieval module missing" if not (store.exists() and retrieval.exists()) else "",
+        "detail": "Knowledge store or retrieval module missing"
+        if not (store.exists() and retrieval.exists())
+        else "",
     }
 
 
@@ -67,8 +70,12 @@ def check_reasoning() -> dict[str, Any]:
 def check_planning() -> dict[str, Any]:
     planning = _read(BACKEND / "app" / "core" / "goal_engine.py")
     return {
-        "passed": "class AutonomousGoalEngine" in planning or "class GoalEngine" in planning or "def plan" in planning,
-        "detail": "Planning/goal engine not found" if "class AutonomousGoalEngine" not in planning else "",
+        "passed": "class AutonomousGoalEngine" in planning
+        or "class GoalEngine" in planning
+        or "def plan" in planning,
+        "detail": "Planning/goal engine not found"
+        if "class AutonomousGoalEngine" not in planning
+        else "",
     }
 
 
@@ -109,7 +116,9 @@ def check_adaptive_runtime() -> dict[str, Any]:
     runtime = _read(BACKEND / "app" / "core" / "adaptive_runtime.py")
     return {
         "passed": "class AdaptiveCognitiveRuntime" in runtime,
-        "detail": "Adaptive runtime not found" if "class AdaptiveCognitiveRuntime" not in runtime else "",
+        "detail": "Adaptive runtime not found"
+        if "class AdaptiveCognitiveRuntime" not in runtime
+        else "",
     }
 
 
@@ -153,7 +162,9 @@ def print_report(checks: list[dict[str, Any]]) -> bool:
     score = int((passed_count / total_count) * 100) if total_count > 0 else 0
 
     all_passed = all(c["passed"] for c in checks)
-    overall = "PASS — Cognitive components validated" if all_passed else "FAIL — Cognitive gaps detected"
+    overall = (
+        "PASS — Cognitive components validated" if all_passed else "FAIL — Cognitive gaps detected"
+    )
     print(f"Overall: {overall}")
     print(f"Score: {score}/100")
     print("=" * 60)

@@ -53,13 +53,15 @@ class MigrationManager:
             return MigrationPlan(
                 from_version=from_version,
                 to_version=to_version,
-                steps=[MigrationStep(
-                    step_number=1,
-                    action="COMMENT",
-                    sql="-- No schema changes detected",
-                    rollback_sql="-- No rollback needed",
-                    description="Schema unchanged between versions",
-                )],
+                steps=[
+                    MigrationStep(
+                        step_number=1,
+                        action="COMMENT",
+                        sql="-- No schema changes detected",
+                        rollback_sql="-- No rollback needed",
+                        description="Schema unchanged between versions",
+                    )
+                ],
             )
 
         # Generate migration steps from schema.
@@ -82,13 +84,15 @@ class MigrationManager:
             sql = f"CREATE TABLE IF NOT EXISTS {table.name} ({', '.join(col_defs)});"
             rollback = f"DROP TABLE IF EXISTS {table.name};"
 
-            steps.append(MigrationStep(
-                step_number=i,
-                action="CREATE",
-                sql=sql,
-                rollback_sql=rollback,
-                description=f"Create table {table.name}",
-            ))
+            steps.append(
+                MigrationStep(
+                    step_number=i,
+                    action="CREATE",
+                    sql=sql,
+                    rollback_sql=rollback,
+                    description=f"Create table {table.name}",
+                )
+            )
 
         # Detect potential conflicts.
         if from_version == to_version:
@@ -149,12 +153,16 @@ class MigrationManager:
         """Extract table names from migration steps."""
         tables: set[str] = set()
         for step in plan.steps:
-            match = re.search(r'CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(\w+)', step.sql, re.IGNORECASE)  # noqa: E501
+            match = re.search(
+                r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(\w+)", step.sql, re.IGNORECASE
+            )  # noqa: E501
             if match:
                 tables.add(match.group(1))
         return tables
 
-    def _has_conflicting_changes(self, plan_a: MigrationPlan, plan_b: MigrationPlan, table: str) -> bool:  # noqa: E501
+    def _has_conflicting_changes(
+        self, plan_a: MigrationPlan, plan_b: MigrationPlan, table: str
+    ) -> bool:  # noqa: E501
         """Check if two plans have conflicting changes on the same table."""
         steps_a = [s for s in plan_a.steps if table in s.sql]
         steps_b = [s for s in plan_b.steps if table in s.sql]

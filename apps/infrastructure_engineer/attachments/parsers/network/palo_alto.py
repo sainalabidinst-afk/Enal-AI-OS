@@ -10,10 +10,14 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class PaloAltoParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.palo_alto or meta.filename.lower().endswith((".conf", ".txt", ".xml"))  # noqa: E501
+        return meta.vendor == VendorFamily.palo_alto or meta.filename.lower().endswith(
+            (".conf", ".txt", ".xml")
+        )  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.palo_alto, format="pan_os", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.palo_alto, format="pan_os", device_role=meta.device_role
+        )  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

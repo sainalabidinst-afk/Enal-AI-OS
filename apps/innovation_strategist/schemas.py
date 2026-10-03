@@ -86,12 +86,14 @@ class InnovationStrategistReport(BaseModel):
 class InnovationStrategistRecord(BaseModel):
     pack_id: str = "innovation-strategist"
     version: str = "2.9.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "trend_analysis",
-        "portfolio_planning",
-        "foresight_scenarios",
-        "competitive_intelligence",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "trend_analysis",
+            "portfolio_planning",
+            "foresight_scenarios",
+            "competitive_intelligence",
+        ]
+    )
 
 
 class InnovationStrategistRequest(BaseModel):

@@ -51,18 +51,16 @@ WorkflowExecutor → Pipeline → Engine
 from apps.organization.ai_planner import ai_planner
 
 # Buat rencana dari tujuan
-plan = ai_planner.plan_from_goal(
-    "Audit network security and generate compliance report"
-)
+plan = ai_planner.plan_from_goal("Audit network security and generate compliance report")
 
 # Buat rencana dengan workflow eksplisit
 plan = ai_planner.plan_with_workflows(
-    "Security workflow",
-    workflow_ids=["network-audit-flow", "docs-generation-flow"]
+    "Security workflow", workflow_ids=["network-audit-flow", "docs-generation-flow"]
 )
 
 # Eksekusi rencana
 from apps.organization.workflow_executor import workflow_executor
+
 result = await ai_planner.execute_plan(plan.plan_id, workflow_executor)
 
 # Dapatkan ringkasan

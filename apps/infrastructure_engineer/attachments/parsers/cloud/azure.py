@@ -13,7 +13,9 @@ class AzureParser(BaseParser):
         return meta.vendor == VendorFamily.azure or "azurerm" in meta.text_preview.lower()
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.azure, format="cloud", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.azure, format="cloud", device_role=meta.device_role
+        )  # noqa: E501
         for line in content.splitlines()[:200]:
             if any(key in line.lower() for key in ["azurerm_", "resource ", "data "]):
                 ast.system.setdefault("cloud_resources", []).append(line.strip()[:200])

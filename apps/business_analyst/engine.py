@@ -80,7 +80,11 @@ class BusinessAnalystEngine:
             BusinessAnalysisReport with requirements, stories, use cases, etc.
         """
         started = time.monotonic()
-        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)  # noqa: E501
+        op = (
+            request.operation.value
+            if hasattr(request.operation, "value")
+            else str(request.operation)
+        )  # noqa: E501
 
         requirements: list[Requirement] = []
         user_stories: list[UserStory] = []
@@ -216,7 +220,9 @@ class BusinessAnalystEngine:
         if gaps:
             parts.append(f"Identified {len(gaps)} capability gaps.")
         if roi:
-            parts.append(f"ROI analysis: NPV ${roi.npv:,.2f}, {roi.payback_period_months} months payback.")  # noqa: E501
+            parts.append(
+                f"ROI analysis: NPV ${roi.npv:,.2f}, {roi.payback_period_months} months payback."
+            )  # noqa: E501
         return " ".join(parts)
 
     def _record(self, record: BusinessAnalysisRecord) -> str:
@@ -224,6 +230,7 @@ class BusinessAnalystEngine:
         try:
             import json
             from pathlib import Path
+
             base = Path("artifacts/business_analysis_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"

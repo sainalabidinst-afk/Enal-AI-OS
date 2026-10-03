@@ -90,7 +90,9 @@ class MutantResult(BaseModel):
 
 
 class MutationReport(BaseModel):
-    mutation_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Mutants killed / total mutants")  # noqa: E501
+    mutation_score: float = Field(
+        default=0.0, ge=0.0, le=1.0, description="Mutants killed / total mutants"
+    )  # noqa: E501
     total_mutants: int = Field(default=0)
     killed: int = Field(default=0)
     survived: int = Field(default=0)
@@ -139,8 +141,12 @@ class QATestRequestModel(BaseModel):
 
     request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     operation: QATestOperation = Field(..., description="Type of QA operation")
-    target: dict[str, Any] = Field(default_factory=dict, description="Source code, test suite, language, framework")  # noqa: E501
-    for_capability_pack: str | None = Field(default=None, description="Target pack for golden test generation")  # noqa: E501
+    target: dict[str, Any] = Field(
+        default_factory=dict, description="Source code, test suite, language, framework"
+    )  # noqa: E501
+    for_capability_pack: str | None = Field(
+        default=None, description="Target pack for golden test generation"
+    )  # noqa: E501
     coverage_target: float = Field(default=0.8, ge=0.0, le=1.0)
     mutation_target: float = Field(default=0.8, ge=0.0, le=1.0)
     performance_requirements: dict[str, Any] | None = Field(default=None)
@@ -185,7 +191,9 @@ class Finding(BaseModel):
     """A single QA finding."""
 
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    category: str = Field(..., description="unit_test|integration_test|regression|mutation|flaky|coverage|performance")  # noqa: E501
+    category: str = Field(
+        ..., description="unit_test|integration_test|regression|mutation|flaky|coverage|performance"
+    )  # noqa: E501
     severity: FindingSeverity = Field(default=FindingSeverity.medium)
     title: str = Field(..., description="Short title")
     description: str = Field(..., description="Detailed description")

@@ -151,9 +151,7 @@ async def test_engine_performance_analysis() -> None:
         operation=OperationType.performance_analysis,
         inputs={
             "source_code": (
-                "for user in users:\n"
-                "    for order in user.orders:\n"
-                "        print(order)\n"
+                "for user in users:\n    for order in user.orders:\n        print(order)\n"
             ),
             "filename": "perf.py",
         },
@@ -342,11 +340,13 @@ async def test_worker_returns_dict() -> None:
         "release_review",
     ]
     for op in operations:
-        result = await worker.execute({
-            "operation": op,
-            "inputs": {"repo_path": "."},
-            "context": {"project_id": f"worker-{op}", "language": "python"},
-        })
+        result = await worker.execute(
+            {
+                "operation": op,
+                "inputs": {"repo_path": "."},
+                "context": {"project_id": f"worker-{op}", "language": "python"},
+            }
+        )
         assert isinstance(result, dict)
         assert "operation" in result
         assert "quality_score" in result

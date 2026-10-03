@@ -238,6 +238,7 @@ Untuk mencegah impor melingkar pada waktu buka modul, komponen inti menggunakan 
 # Pattern used in: unified_orchestrator.py, event_bus.py
 _unified_orchestrator = None
 
+
 def get_unified_orchestrator() -> UnifiedOrchestrator:
     global _unified_orchestrator
     if _unified_orchestrator is None:
@@ -302,16 +303,33 @@ Komponen yang menggunakan pola ini:
 
 ```python
 PIPELINE_PRESETS = {
-    TRIVIAL:    ["perception", "memory", "decision", "action"],
-    SIMPLE:     ["perception", "memory", "reasoning", "decision", "action"],
-    MEDIUM:     ["perception", "memory", "planning", "reasoning",
-                 "decision", "reflection", "action"],
-    COMPLEX:    ["perception", "memory", "planning", "reasoning",
-                 "debate", "simulation", "decision", "verification",
-                 "reflection", "learning"],
-    VERY_COMPLEX: ["perception", "memory", "planning", "reasoning",
-                   "debate", "simulation", "decision", "verification",
-                   "reflection", "learning"],
+    TRIVIAL: ["perception", "memory", "decision", "action"],
+    SIMPLE: ["perception", "memory", "reasoning", "decision", "action"],
+    MEDIUM: ["perception", "memory", "planning", "reasoning", "decision", "reflection", "action"],
+    COMPLEX: [
+        "perception",
+        "memory",
+        "planning",
+        "reasoning",
+        "debate",
+        "simulation",
+        "decision",
+        "verification",
+        "reflection",
+        "learning",
+    ],
+    VERY_COMPLEX: [
+        "perception",
+        "memory",
+        "planning",
+        "reasoning",
+        "debate",
+        "simulation",
+        "decision",
+        "verification",
+        "reflection",
+        "learning",
+    ],
 }
 ```
 
@@ -398,19 +416,20 @@ POST /execute ──► ExecutionIntegration.execute()
 ```python
 @dataclass
 class Event:
-    event_type: str           # e.g., "task.completed"
-    payload: dict[str, Any]   # Event-specific data
-    source: str               # Publisher component
-    target: str = "*"         # Subscriber filter
-    timestamp: datetime       # UTC
+    event_type: str  # e.g., "task.completed"
+    payload: dict[str, Any]  # Event-specific data
+    source: str  # Publisher component
+    target: str = "*"  # Subscriber filter
+    timestamp: datetime  # UTC
     correlation_id: str | None = None  # Trace ID
     metadata: dict[str, Any] = field(default_factory=dict)
+
 
 @dataclass
 class EventEnvelope:
     event: Event
-    stream: str               # Redis stream name
-    id: str | None = None     # Unique envelope ID
+    stream: str  # Redis stream name
+    id: str | None = None  # Unique envelope ID
 ```
 
 ### 5.3 Jenis Peristiwa yang Diketahui
@@ -430,12 +449,14 @@ class EventEnvelope:
 
 ```python
 # Publishing
-await event_bus.publish(Event(
-    event_type="task.completed",
-    payload={"task_id": "task-1", "result": {...}},
-    source="execution_scheduler",
-    correlation_id=session.correlation_id,
-))
+await event_bus.publish(
+    Event(
+        event_type="task.completed",
+        payload={"task_id": "task-1", "result": {...}},
+        source="execution_scheduler",
+        correlation_id=session.correlation_id,
+    )
+)
 
 # Subscribing
 event_bus.subscribe("task.completed", my_handler)
@@ -624,7 +645,9 @@ Setiap paket harus menyediakan:
 # 1. Class inheriting from BaseApp
 class NetworkEngineerApp(BaseApp):
     @property
-    def capabilities(self) -> list[str]: [...]
+    def capabilities(self) -> list[str]:
+        [...]
+
 
 # 2. Factory function
 def get_app() -> BaseApp:

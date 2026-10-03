@@ -50,9 +50,11 @@ class OfficeWriter:
         """Edit an Office document based on the provided operations."""
         results: list[DocumentEditResult] = []
         if not path or not os.path.exists(path):
-            results.append(DocumentEditResult(
-                target=path, status="failed", details="Source file does not exist"
-            ))
+            results.append(
+                DocumentEditResult(
+                    target=path, status="failed", details="Source file does not exist"
+                )
+            )
             return results
 
         ext = os.path.splitext(path)[1].lower().lstrip(".")
@@ -64,10 +66,13 @@ class OfficeWriter:
         elif ext == "pptx":
             self._edit_pptx(path, inputs, results)
         else:
-            results.append(DocumentEditResult(
-                target=path, status="failed",
-                details=f"Editing not supported for format '{ext}'"
-            ))
+            results.append(
+                DocumentEditResult(
+                    target=path,
+                    status="failed",
+                    details=f"Editing not supported for format '{ext}'",
+                )
+            )
 
         return results
 
@@ -91,42 +96,55 @@ class OfficeWriter:
                             cell.text = cell.text.replace(replacement.find, replacement.replace)
                             count += 1
             status = "success" if count > 0 else "partial"
-            results.append(DocumentEditResult(
-                target=f"text_replacement:{replacement.find}",
-                status=status,
-                details=f"Replaced '{replacement.find}' in {count} locations",
-            ))
+            results.append(
+                DocumentEditResult(
+                    target=f"text_replacement:{replacement.find}",
+                    status=status,
+                    details=f"Replaced '{replacement.find}' in {count} locations",
+                )
+            )
 
         for op in inputs.table_operations:
             try:
                 table = doc.tables[0] if doc.tables else None
-                if table and op.row < len(table.rows) \
-                        and op.col < len(table.rows[op.row].cells):
+                if table and op.row < len(table.rows) and op.col < len(table.rows[op.row].cells):
                     table.rows[op.row].cells[op.col].text = op.value
-                    results.append(DocumentEditResult(
-                        target=f"table[{op.row}][{op.col}]", status="success",
-                        details=f"Set cell value to '{op.value}'",
-                    ))
+                    results.append(
+                        DocumentEditResult(
+                            target=f"table[{op.row}][{op.col}]",
+                            status="success",
+                            details=f"Set cell value to '{op.value}'",
+                        )
+                    )
                 else:
-                    results.append(DocumentEditResult(
-                        target=f"table[{op.row}][{op.col}]", status="failed",
-                        details=f"Table cell out of bounds (row={op.row}, col={op.col})",
-                    ))
+                    results.append(
+                        DocumentEditResult(
+                            target=f"table[{op.row}][{op.col}]",
+                            status="failed",
+                            details=f"Table cell out of bounds (row={op.row}, col={op.col})",
+                        )
+                    )
             except Exception as e:
-                results.append(DocumentEditResult(
-                    target=f"table[{op.row}][{op.col}]", status="failed",
-                    details=str(e),
-                ))
+                results.append(
+                    DocumentEditResult(
+                        target=f"table[{op.row}][{op.col}]",
+                        status="failed",
+                        details=str(e),
+                    )
+                )
 
         for key, value in inputs.metadata.items():
             if hasattr(doc.core_properties, key):
                 setattr(doc.core_properties, key, value)
 
         if inputs.metadata:
-            results.append(DocumentEditResult(
-                target="metadata", status="success",
-                details=f"Updated metadata keys: {list(inputs.metadata.keys())}",
-            ))
+            results.append(
+                DocumentEditResult(
+                    target="metadata",
+                    status="success",
+                    details=f"Updated metadata keys: {list(inputs.metadata.keys())}",
+                )
+            )
 
         doc.save(path)
 
@@ -146,35 +164,46 @@ class OfficeWriter:
                         cell.value = str(cell.value).replace(replacement.find, replacement.replace)
                         count += 1
             status = "success" if count > 0 else "partial"
-            results.append(DocumentEditResult(
-                target=f"text_replacement:{replacement.find}",
-                status=status,
-                details=f"Replaced '{replacement.find}' in {count} cells",
-            ))
+            results.append(
+                DocumentEditResult(
+                    target=f"text_replacement:{replacement.find}",
+                    status=status,
+                    details=f"Replaced '{replacement.find}' in {count} cells",
+                )
+            )
 
         for op in inputs.table_operations:
             try:
                 cell = ws.cell(row=op.row + 1, column=op.col + 1)
                 cell.value = op.value
-                results.append(DocumentEditResult(
-                    target=f"cell[{op.row}][{op.col}]", status="success",
-                    details=f"Set cell value to '{op.value}'",
-                ))
+                results.append(
+                    DocumentEditResult(
+                        target=f"cell[{op.row}][{op.col}]",
+                        status="success",
+                        details=f"Set cell value to '{op.value}'",
+                    )
+                )
             except Exception as e:
-                results.append(DocumentEditResult(
-                    target=f"cell[{op.row}][{op.col}]", status="failed",
-                    details=str(e),
-                ))
+                results.append(
+                    DocumentEditResult(
+                        target=f"cell[{op.row}][{op.col}]",
+                        status="failed",
+                        details=str(e),
+                    )
+                )
 
         if inputs.metadata:
             props = wb.properties
             for key, value in inputs.metadata.items():
                 if hasattr(props, key):
                     setattr(props, key, value)
-            results.append(DocumentEditResult(
-                target="metadata", status="success",
-                details=f"Updated metadata keys: {list(inputs.metadata.keys())}",
-            ))
+            results.append(
+                DocumentEditResult(
+                    target="metadata",
+                    status="success",
+                    details=f"Updated metadata keys: {list(inputs.metadata.keys())}",
+                )
+            )
 
         wb.save(path)
 
@@ -193,21 +222,26 @@ class OfficeWriter:
                         shape.text = shape.text.replace(replacement.find, replacement.replace)
                         count += 1
             status = "success" if count > 0 else "partial"
-            results.append(DocumentEditResult(
-                target=f"text_replacement:{replacement.find}",
-                status=status,
-                details=f"Replaced '{replacement.find}' in {count} shapes",
-            ))
+            results.append(
+                DocumentEditResult(
+                    target=f"text_replacement:{replacement.find}",
+                    status=status,
+                    details=f"Replaced '{replacement.find}' in {count} shapes",
+                )
+            )
 
         if inputs.metadata:
             props = prs.core_properties
             for key, value in inputs.metadata.items():
                 if hasattr(props, key):
                     setattr(props, key, value)
-            results.append(DocumentEditResult(
-                target="metadata", status="success",
-                details=f"Updated metadata keys: {list(inputs.metadata.keys())}",
-            ))
+            results.append(
+                DocumentEditResult(
+                    target="metadata",
+                    status="success",
+                    details=f"Updated metadata keys: {list(inputs.metadata.keys())}",
+                )
+            )
 
         prs.save(path)
 
@@ -235,12 +269,14 @@ class OfficeWriter:
             return produced
 
         if os.path.exists(path):
-            produced.append(ProducedFile(
-                path=path,
-                format=doc_type,
-                size_bytes=os.path.getsize(path),
-                status="generated",
-            ))
+            produced.append(
+                ProducedFile(
+                    path=path,
+                    format=doc_type,
+                    size_bytes=os.path.getsize(path),
+                    status="generated",
+                )
+            )
 
         return produced
 
@@ -261,8 +297,7 @@ class OfficeWriter:
                     table = doc.add_table(rows=rows, cols=cols)
                     for r_idx, row_data in enumerate(table_data):
                         for c_idx, cell_val in enumerate(row_data):
-                            if r_idx < len(table.rows) \
-                                    and c_idx < len(table.rows[r_idx].cells):
+                            if r_idx < len(table.rows) and c_idx < len(table.rows[r_idx].cells):
                                 table.rows[r_idx].cells[c_idx].text = cell_val
 
         doc.save(path)
@@ -308,9 +343,7 @@ class OfficeWriter:
 
         prs.save(path)
 
-    def annotate_docx(
-        self, path: str, annotations: list[AnnotationSpec]
-    ) -> list[Any]:
+    def annotate_docx(self, path: str, annotations: list[AnnotationSpec]) -> list[Any]:
         """Annotate a DOCX file with comments, highlights, and watermarks."""
         docx = _lazy_import("docx")
         doc = docx.Document(path)
@@ -327,20 +360,20 @@ class OfficeWriter:
                 if doc.sections:
                     header = doc.sections[0].header
                     paragraph = (
-                        header.paragraphs[0]
-                        if header.paragraphs
-                        else header.add_paragraph()
+                        header.paragraphs[0] if header.paragraphs else header.add_paragraph()
                     )
                     paragraph.text = ann.content
                     annotation_count += 1
 
         doc.save(path)
 
-        return [AnnotatedFile(
-            path=path,
-            annotation_count=annotation_count,
-            status="success",
-        )]
+        return [
+            AnnotatedFile(
+                path=path,
+                annotation_count=annotation_count,
+                status="success",
+            )
+        ]
 
     def add_sheet(self, path: str, sheet_name: str, rows: list[list[Any]]) -> bool:
         """Add a new worksheet to an existing XLSX file."""

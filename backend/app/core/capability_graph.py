@@ -19,6 +19,7 @@ class CapabilityGraph:
 
     async def get_required_capabilities(self, task_description: str) -> list[str]:
         from backend.app.core.model_router import model_router
+
         prompt = (
             "Given the following task description, list the capabilities required to complete it.\n"
             "Return only a comma-separated list of capability names.\n\n"

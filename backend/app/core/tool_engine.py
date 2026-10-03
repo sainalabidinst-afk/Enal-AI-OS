@@ -52,12 +52,14 @@ class ToolEngine:
                     break
             except Exception as exc:
                 logger.error("Tool engine step error: %s", exc)
-                results.append({
-                    "step_id": step.get("id"),
-                    "type": step.get("type"),
-                    "success": False,
-                    "error": str(exc),
-                })
+                results.append(
+                    {
+                        "step_id": step.get("id"),
+                        "type": step.get("type"),
+                        "success": False,
+                        "error": str(exc),
+                    }
+                )
                 break
 
         latency_ms = round((time.perf_counter() - started) * 1000, 2)

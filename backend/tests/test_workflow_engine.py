@@ -60,6 +60,7 @@ class TestWorkflowEngine:
     @pytest.fixture
     def engine(self, monkeypatch):
         import backend.app.core.workflow_engine as we_module
+
         fake_bus = FakeEventBus()
         monkeypatch.setattr(we_module, "event_bus", fake_bus)
         return WorkflowEngine(), fake_bus
@@ -93,7 +94,9 @@ class TestWorkflowEngine:
         async def fail_call(agent, action, params):
             raise RuntimeError("boom")
 
-        step = WorkflowStep(id="s1", name="Step 1", agent="agent-a", action="act", retry_policy={"max_retries": 0})  # noqa: E501
+        step = WorkflowStep(
+            id="s1", name="Step 1", agent="agent-a", action="act", retry_policy={"max_retries": 0}
+        )  # noqa: E501
         wf = Workflow(id="wf1", name="WF", description="desc", steps=[step])
         await eng.create_workflow(wf)
         monkeypatch = pytest.MonkeyPatch()

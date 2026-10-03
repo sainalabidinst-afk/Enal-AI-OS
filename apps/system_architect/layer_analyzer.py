@@ -248,20 +248,24 @@ class LayerAnalyzer:
     # Metrics & Recommendations
     # ------------------------------------------------------------------
 
-    def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:  # noqa: E501
+    def _compute_metrics(
+        self, snapshot: DependencyGraphSnapshot, findings: list[Finding]
+    ) -> ArchitectureMetrics:  # noqa: E501
         """Compute quantitative architecture metrics from analysis."""
         sum(1 for f in findings if f.category == FindingCategory.layer_violation)
         sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)
-        boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)  # noqa: E501
+        boundary_violations = sum(
+            1 for f in findings if f.category == FindingCategory.package_boundary
+        )  # noqa: E501
 
         layer_violations_count = len(snapshot.layer_violations)
         cycles_count = len(snapshot.circular_dependencies)
 
         # Maintainability: inversely proportional to violations, cycles, and unclassified modules
         unknown_count = snapshot.layer_counts.get(Layer.UNKNOWN, 0)
-        maintainability = max(0.0, 100.0 - (
-            layer_violations_count * 5.0 + cycles_count * 10.0 + unknown_count * 3.0
-        ))
+        maintainability = max(
+            0.0, 100.0 - (layer_violations_count * 5.0 + cycles_count * 10.0 + unknown_count * 3.0)
+        )
 
         # Scalability: affected by circular deps and boundary violations
         scalability = max(0.0, 100.0 - (cycles_count * 8.0 + boundary_violations * 4.0))

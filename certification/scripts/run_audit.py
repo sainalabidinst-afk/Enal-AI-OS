@@ -14,7 +14,7 @@ import json
 import os
 import subprocess
 import sys
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -164,7 +164,9 @@ def check_contract_compliance(name: str) -> AreaResult:
         score -= 1
 
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
-    return AreaResult(name="Contract Compliance", score=max(score, 0), status=status, findings=findings)
+    return AreaResult(
+        name="Contract Compliance", score=max(score, 0), status=status, findings=findings
+    )
 
 
 def check_test_coverage(name: str) -> AreaResult:
@@ -186,7 +188,13 @@ def check_documentation(name: str) -> AreaResult:
     score = 10
     doc = load_doc(name)
     if not doc:
-        findings.append(Finding("Critical", "Missing capability documentation", f"docs/capabilities/{capability_slug(name)}.md"))
+        findings.append(
+            Finding(
+                "Critical",
+                "Missing capability documentation",
+                f"docs/capabilities/{capability_slug(name)}.md",
+            )
+        )
         score -= 6
     else:
         if len(doc.strip()) < 200:
@@ -204,7 +212,9 @@ def check_observability(name: str) -> AreaResult:
     has_metrics = any(app_dir.glob("**/*metric*.py"))
     has_observability = any(app_dir.glob("**/observability*.py"))
     if not has_logs and not has_metrics and not has_observability:
-        findings.append(Finding("Minor", "No dedicated observability module detected", str(app_dir)))
+        findings.append(
+            Finding("Minor", "No dedicated observability module detected", str(app_dir))
+        )
         score -= 3
     elif not has_observability and (has_logs or has_metrics):
         score = 9
@@ -216,7 +226,11 @@ def check_security(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_security = any(app_dir.glob("**/*security*.py")) or any(app_dir.glob("**/*sanitize*.py")) or any(app_dir.glob("**/*auth*.py"))
+    has_security = (
+        any(app_dir.glob("**/*security*.py"))
+        or any(app_dir.glob("**/*sanitize*.py"))
+        or any(app_dir.glob("**/*auth*.py"))
+    )
     if not has_security:
         findings.append(Finding("Minor", "No dedicated security module detected", str(app_dir)))
         score -= 2
@@ -228,35 +242,55 @@ def check_lifecycle(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_lifecycle = any(app_dir.glob("**/*lifecycle*.py")) or any(app_dir.glob("**/*loader*.py")) or any(app_dir.glob("**/*manager*.py"))
+    has_lifecycle = (
+        any(app_dir.glob("**/*lifecycle*.py"))
+        or any(app_dir.glob("**/*loader*.py"))
+        or any(app_dir.glob("**/*manager*.py"))
+    )
     if not has_lifecycle:
         findings.append(Finding("Minor", "No dedicated lifecycle module detected", str(app_dir)))
         score -= 2
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
-    return AreaResult(name="Lifecycle Integration", score=max(score, 0), status=status, findings=findings)
+    return AreaResult(
+        name="Lifecycle Integration", score=max(score, 0), status=status, findings=findings
+    )
 
 
 def check_decision_integration(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_decision = any(app_dir.glob("**/*decision*.py")) or any(app_dir.glob("**/*evidence*.py")) or any(app_dir.glob("**/*reasoning*.py"))
+    has_decision = (
+        any(app_dir.glob("**/*decision*.py"))
+        or any(app_dir.glob("**/*evidence*.py"))
+        or any(app_dir.glob("**/*reasoning*.py"))
+    )
     if not has_decision:
         findings.append(Finding("Minor", "No decision integration module detected", str(app_dir)))
         score -= 2
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
-    return AreaResult(name="Decision Integration", score=max(score, 0), status=status, findings=findings)
+    return AreaResult(
+        name="Decision Integration", score=max(score, 0), status=status, findings=findings
+    )
 
 
 def check_explainability(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_explainability = any(app_dir.glob("**/*explain*.py")) or any(app_dir.glob("**/*reasoning*.py")) or any(app_dir.glob("**/*evidence*.py"))
+    has_explainability = (
+        any(app_dir.glob("**/*explain*.py"))
+        or any(app_dir.glob("**/*reasoning*.py"))
+        or any(app_dir.glob("**/*evidence*.py"))
+    )
     if not has_explainability:
-        findings.append(Finding("Minor", "No dedicated explainability module detected", str(app_dir)))
+        findings.append(
+            Finding("Minor", "No dedicated explainability module detected", str(app_dir))
+        )
         score -= 3
-    elif not any(app_dir.glob("**/explainability*.py")) and not any(app_dir.glob("**/*explain*.py")):
+    elif not any(app_dir.glob("**/explainability*.py")) and not any(
+        app_dir.glob("**/*explain*.py")
+    ):
         score = 8
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
     return AreaResult(name="Explainability", score=max(score, 0), status=status, findings=findings)
@@ -266,31 +300,47 @@ def check_domain_knowledge(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_knowledge = any(app_dir.glob("**/*knowledge*.py")) or any(app_dir.glob("**/*model*.py")) or any(app_dir.glob("**/*schema*.py"))
+    has_knowledge = (
+        any(app_dir.glob("**/*knowledge*.py"))
+        or any(app_dir.glob("**/*model*.py"))
+        or any(app_dir.glob("**/*schema*.py"))
+    )
     if not has_knowledge:
         findings.append(Finding("Minor", "No dedicated knowledge module detected", str(app_dir)))
         score -= 2
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
-    return AreaResult(name="Domain Knowledge", score=max(score, 0), status=status, findings=findings)
+    return AreaResult(
+        name="Domain Knowledge", score=max(score, 0), status=status, findings=findings
+    )
 
 
 def check_engine_correctness(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_engine = any(app_dir.glob("**/engine.py")) or any(app_dir.glob("**/orchestrator.py")) or any(app_dir.glob("**/execution_engine.py"))
+    has_engine = (
+        any(app_dir.glob("**/engine.py"))
+        or any(app_dir.glob("**/orchestrator.py"))
+        or any(app_dir.glob("**/execution_engine.py"))
+    )
     if not has_engine:
         findings.append(Finding("Minor", "No engine module detected", str(app_dir)))
         score -= 2
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
-    return AreaResult(name="Engine Correctness", score=max(score, 0), status=status, findings=findings)
+    return AreaResult(
+        name="Engine Correctness", score=max(score, 0), status=status, findings=findings
+    )
 
 
 def check_api_stability(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_schemas = any(app_dir.glob("**/schemas.py")) or any(app_dir.glob("**/models.py")) or any(app_dir.glob("**/contracts.py"))
+    has_schemas = (
+        any(app_dir.glob("**/schemas.py"))
+        or any(app_dir.glob("**/models.py"))
+        or any(app_dir.glob("**/contracts.py"))
+    )
     if not has_schemas:
         findings.append(Finding("Minor", "No API schema/contract module detected", str(app_dir)))
         score -= 2
@@ -302,9 +352,15 @@ def check_error_handling(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_error_handling = any(app_dir.glob("**/*error*.py")) or any(app_dir.glob("**/*exception*.py")) or any(app_dir.glob("**/*retry*.py"))
+    has_error_handling = (
+        any(app_dir.glob("**/*error*.py"))
+        or any(app_dir.glob("**/*exception*.py"))
+        or any(app_dir.glob("**/*retry*.py"))
+    )
     if not has_error_handling:
-        findings.append(Finding("Minor", "No dedicated error handling module detected", str(app_dir)))
+        findings.append(
+            Finding("Minor", "No dedicated error handling module detected", str(app_dir))
+        )
         score -= 2
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
     return AreaResult(name="Error Handling", score=max(score, 0), status=status, findings=findings)
@@ -314,14 +370,22 @@ def check_performance(name: str) -> AreaResult:
     findings: list[Finding] = []
     score = 10
     app_dir = APPS_DIR / name
-    has_performance = any(app_dir.glob("**/*performance*.py")) or any(app_dir.glob("**/*benchmark*.py")) or any(app_dir.glob("**/*worker*.py"))
+    has_performance = (
+        any(app_dir.glob("**/*performance*.py"))
+        or any(app_dir.glob("**/*benchmark*.py"))
+        or any(app_dir.glob("**/*worker*.py"))
+    )
     if not has_performance:
-        findings.append(Finding("Minor", "No performance optimization module detected", str(app_dir)))
+        findings.append(
+            Finding("Minor", "No performance optimization module detected", str(app_dir))
+        )
         score -= 3
     elif not any(app_dir.glob("**/worker*.py")):
         score = 8
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
-    return AreaResult(name="Performance Target", score=max(score, 0), status=status, findings=findings)
+    return AreaResult(
+        name="Performance Target", score=max(score, 0), status=status, findings=findings
+    )
 
 
 def check_golden_tests(name: str) -> AreaResult:
@@ -344,7 +408,13 @@ def check_golden_tests(name: str) -> AreaResult:
             score = 10
         else:
             score = 6 + (len(expected_categories) - len(missing))
-            findings.append(Finding("Minor", f"Missing golden test categories: {', '.join(missing)}", str(golden_dir)))
+            findings.append(
+                Finding(
+                    "Minor",
+                    f"Missing golden test categories: {', '.join(missing)}",
+                    str(golden_dir),
+                )
+            )
     else:
         findings.append(Finding("Minor", "No golden test directory found", str(golden_dir)))
     status = "Passed" if score >= 7 else "Failed" if score <= 3 else "Conditional"
@@ -367,7 +437,9 @@ def check_real_cases(name: str) -> AreaResult:
             elif scenario_count >= 1:
                 score = 6
             else:
-                findings.append(Finding("Minor", "No real-case scenarios defined", str(scenarios_file)))
+                findings.append(
+                    Finding("Minor", "No real-case scenarios defined", str(scenarios_file))
+                )
         except Exception:
             findings.append(Finding("Minor", "Invalid scenarios.json", str(scenarios_file)))
     else:
@@ -447,7 +519,7 @@ def audit_capability(name: str) -> AuditReport:
             "minorFindings": minor,
             "correctiveActions": corrective,
         },
-        completed_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        completed_at=datetime.datetime.now(datetime.UTC).isoformat(),
     )
 
 
@@ -465,7 +537,9 @@ def render_text_report(report: AuditReport) -> str:
     ]
     for area in report.areas:
         findings_summary = ", ".join(f.severity for f in area.findings) if area.findings else "None"
-        lines.append(f"  {area.name:<30} {area.score:>3}/{area.max_score:<3} {area.status:<12} Findings: {findings_summary}")
+        lines.append(
+            f"  {area.name:<30} {area.score:>3}/{area.max_score:<3} {area.status:<12} Findings: {findings_summary}"  # noqa: E501
+        )
 
     lines += [
         "",
@@ -504,7 +578,9 @@ def main() -> int:
         print("No capabilities discovered under apps/")
         return 1
 
-    targets = capabilities if args.all else ([args.capability] if args.capability else capabilities[:1])
+    targets = (
+        capabilities if args.all else ([args.capability] if args.capability else capabilities[:1])
+    )
 
     for name in targets:
         if name not in capabilities:

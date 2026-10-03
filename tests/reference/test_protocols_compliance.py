@@ -73,6 +73,7 @@ async def test_compliance_engine():
     app = get_app()
     await app.analyze_config(config)
     from apps.network_engineer.vendor.models import NetworkAST
+
     ast = NetworkAST(vendor="mikrotik")
     ast.system.hostname = "test-router"
     report = compliance_engine.check(ast)

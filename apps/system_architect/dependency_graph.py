@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
 # Layer classification
 # ---------------------------------------------------------------------------
 
+
 class Layer:
     """Architectural layer identifiers (Clean Architecture / hexagonal)."""
 
@@ -67,9 +68,25 @@ class Layer:
     _HINTS: list[tuple[tuple[str, ...], str]] = [
         (("domain", "entities", "models", "model"), ENTITIES),
         (("usecases", "use_cases", "services", "application", "interactors"), USE_CASES),
-        (("controllers", "presenters", "adapters", "serializers", "views", "schemas"), INTERFACE_ADAPTERS),  # noqa: E501
+        (
+            ("controllers", "presenters", "adapters", "serializers", "views", "schemas"),
+            INTERFACE_ADAPTERS,
+        ),  # noqa: E501
         (("frameworks", "web", "routes", "api", "endpoints", "cli"), FRAMEWORKS),
-        (("infrastructure", "repositories", "repos", "db", "database", "persistence", "cache", "mq", "external"), INFRASTRUCTURE),  # noqa: E501
+        (
+            (
+                "infrastructure",
+                "repositories",
+                "repos",
+                "db",
+                "database",
+                "persistence",
+                "cache",
+                "mq",
+                "external",
+            ),
+            INFRASTRUCTURE,
+        ),  # noqa: E501
     ]
 
     @classmethod
@@ -142,20 +159,87 @@ class ImportResolver:
 
     def __init__(self, repo_path: Path):
         self.repo_path = repo_path
-        self._stdlib_modules: set[str] = set(sys.stdlib_module_names) if hasattr(sys, "stdlib_module_names") else {  # noqa: E501
-            "os", "sys", "re", "json", "math", "datetime", "typing", "pathlib",
-            "collections", "itertools", "functools", "hashlib", "random", "time",
-            "uuid", "logging", "abc", "enum", "dataclasses", "io", "textwrap",
-            "copy", "inspect", "types", "fractions", "decimal", "statistics",
-            "asyncio", "concurrent", "multiprocessing", "threading", "subprocess",
-            "socket", "ssl", "http", "urllib", "email", "base64", "binascii",
-            "zlib", "gzip", "tarfile", "zipfile", "csv", "configparser",
-            "argparse", "getopt", "shlex", "tempfile", "fileinput", "fnmatch",
-            "glob", "linecache", "pickle", "shelve", "marshal", "dbm", "sqlite3",
-            "xml", "html", "webbrowser", "tkinter", "unittest", "doctest",
-            "traceback", "warnings", "contextlib", "signal", "platform",
-            "errno", "ctypes", "struct", "array", "weakref", "numbers",
-        }
+        self._stdlib_modules: set[str] = (
+            set(sys.stdlib_module_names)
+            if hasattr(sys, "stdlib_module_names")
+            else {  # noqa: E501
+                "os",
+                "sys",
+                "re",
+                "json",
+                "math",
+                "datetime",
+                "typing",
+                "pathlib",
+                "collections",
+                "itertools",
+                "functools",
+                "hashlib",
+                "random",
+                "time",
+                "uuid",
+                "logging",
+                "abc",
+                "enum",
+                "dataclasses",
+                "io",
+                "textwrap",
+                "copy",
+                "inspect",
+                "types",
+                "fractions",
+                "decimal",
+                "statistics",
+                "asyncio",
+                "concurrent",
+                "multiprocessing",
+                "threading",
+                "subprocess",
+                "socket",
+                "ssl",
+                "http",
+                "urllib",
+                "email",
+                "base64",
+                "binascii",
+                "zlib",
+                "gzip",
+                "tarfile",
+                "zipfile",
+                "csv",
+                "configparser",
+                "argparse",
+                "getopt",
+                "shlex",
+                "tempfile",
+                "fileinput",
+                "fnmatch",
+                "glob",
+                "linecache",
+                "pickle",
+                "shelve",
+                "marshal",
+                "dbm",
+                "sqlite3",
+                "xml",
+                "html",
+                "webbrowser",
+                "tkinter",
+                "unittest",
+                "doctest",
+                "traceback",
+                "warnings",
+                "contextlib",
+                "signal",
+                "platform",
+                "errno",
+                "ctypes",
+                "struct",
+                "array",
+                "weakref",
+                "numbers",
+            }
+        )
         self.allowed_packages: set[str] = self._discover_allowed_packages()
 
     def _discover_allowed_packages(self) -> set[str]:
@@ -261,12 +345,20 @@ class DependencyGraphBuilder:
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for alias in node.names:
-                    deps.append(self._build_dependency(relative, alias.name, py_file, node.lineno, source_layer))  # noqa: E501
+                    deps.append(
+                        self._build_dependency(
+                            relative, alias.name, py_file, node.lineno, source_layer
+                        )
+                    )  # noqa: E501
             elif isinstance(node, ast.ImportFrom):
                 if node.module:
                     for alias in node.names:
                         full_name = f"{node.module}.{alias.name}"
-                        deps.append(self._build_dependency(relative, full_name, py_file, node.lineno, source_layer))  # noqa: E501
+                        deps.append(
+                            self._build_dependency(
+                                relative, full_name, py_file, node.lineno, source_layer
+                            )
+                        )  # noqa: E501
         return deps
 
     def _build_dependency(
@@ -293,8 +385,12 @@ class DependencyGraphBuilder:
         # Layer violation: outer layer importing an inner-layer module is allowed;
         # inner-layer importing outer-layer is the violated direction.
         if dep_type == DependencyType.LOCAL and target_layer != Layer.UNKNOWN:
-            src_idx = Layer.ORDER.index(source_layer) if source_layer in Layer.ORDER else len(Layer.ORDER)  # noqa: E501
-            tgt_idx = Layer.ORDER.index(target_layer) if target_layer in Layer.ORDER else len(Layer.ORDER)  # noqa: E501
+            src_idx = (
+                Layer.ORDER.index(source_layer) if source_layer in Layer.ORDER else len(Layer.ORDER)
+            )  # noqa: E501
+            tgt_idx = (
+                Layer.ORDER.index(target_layer) if target_layer in Layer.ORDER else len(Layer.ORDER)
+            )  # noqa: E501
             # Violation when an inner (more stable) layer imports a more outer layer.
             if src_idx < tgt_idx:
                 dep.is_layer_violation = True
@@ -357,7 +453,10 @@ class DependencyGraphBuilder:
             for dep in mod_info.dependencies:
                 if dep.is_layer_violation:
                     layer_violations.append(dep)
-                if dep.is_boundary_violation and dep.dependency_type in (DependencyType.THIRD_PARTY, DependencyType.UNKNOWN):  # noqa: E501
+                if dep.is_boundary_violation and dep.dependency_type in (
+                    DependencyType.THIRD_PARTY,
+                    DependencyType.UNKNOWN,
+                ):  # noqa: E501
                     boundary_violations.append(dep)
         return layer_violations, boundary_violations
 
@@ -393,7 +492,7 @@ def build_graph(repo_path: str | Path) -> DependencyGraphSnapshot:
 
     if loop and loop.is_running():
         import concurrent.futures
+
         with concurrent.futures.ThreadPoolExecutor() as pool:
             return pool.submit(asyncio.run, builder.build()).result()
     return asyncio.run(builder.build())
-

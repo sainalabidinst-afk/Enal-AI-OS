@@ -149,7 +149,9 @@ class EvidenceAdapter:
             metadata={
                 "value": reasoning_evidence.value,
                 "source": reasoning_evidence.source,
-                "timestamp": reasoning_evidence.timestamp.isoformat() if hasattr(reasoning_evidence.timestamp, "isoformat") else str(reasoning_evidence.timestamp),  # noqa: E501
+                "timestamp": reasoning_evidence.timestamp.isoformat()
+                if hasattr(reasoning_evidence.timestamp, "isoformat")
+                else str(reasoning_evidence.timestamp),  # noqa: E501
             },
             raw={
                 "type": reasoning_evidence.type.value,
@@ -162,7 +164,9 @@ class EvidenceAdapter:
         from apps.organization.reasoning_engine import Evidence, EvidenceType
 
         supported_types = {item.value for item in EvidenceType}
-        evidence_type = unified.type.value if unified.type.value in supported_types else EvidenceType.FACT.value  # noqa: E501
+        evidence_type = (
+            unified.type.value if unified.type.value in supported_types else EvidenceType.FACT.value
+        )  # noqa: E501
         return Evidence(
             id=unified.id,
             type=EvidenceType(evidence_type),
@@ -176,6 +180,7 @@ class EvidenceAdapter:
     def to_knowledge_evidence(self, unified: UnifiedEvidence) -> Any:
         """Convert unified evidence back to Knowledge system format."""
         from backend.app.runtime.evidence import Evidence
+
         return Evidence(
             claim_id=unified.claim_id or unified.id,
             content=unified.content,

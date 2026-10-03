@@ -151,11 +151,27 @@ class ActionConnectorManager:
     async def _create_connector(self, connector_name: str) -> BaseActionConnector:
         key = connector_name.lower()
         connector_map: dict[str, tuple[str, str, ActionType]] = {
-            "file_system": ("backend.app.connectors.file_system", "FileSystemConnector", ActionType.FILE_SYSTEM),  # noqa: E501
+            "file_system": (
+                "backend.app.connectors.file_system",
+                "FileSystemConnector",
+                ActionType.FILE_SYSTEM,
+            ),  # noqa: E501
             "email": ("backend.app.connectors.email", "EmailConnector", ActionType.EMAIL),  # noqa: E501
-            "calendar": ("backend.app.connectors.calendar", "CalendarConnector", ActionType.CALENDAR),  # noqa: E501
-            "smart_home": ("backend.app.connectors.smarthome", "SmartHomeConnector", ActionType.SMART_HOME),  # noqa: E501
-            "paper": ("backend.app.connectors.file_system", "FileSystemConnector", ActionType.FILE_SYSTEM),  # noqa: E501
+            "calendar": (
+                "backend.app.connectors.calendar",
+                "CalendarConnector",
+                ActionType.CALENDAR,
+            ),  # noqa: E501
+            "smart_home": (
+                "backend.app.connectors.smarthome",
+                "SmartHomeConnector",
+                ActionType.SMART_HOME,
+            ),  # noqa: E501
+            "paper": (
+                "backend.app.connectors.file_system",
+                "FileSystemConnector",
+                ActionType.FILE_SYSTEM,
+            ),  # noqa: E501
         }
 
         if key not in connector_map:
@@ -202,7 +218,5 @@ def safe_path(base_path: str, requested_path: str) -> Path:
     base = Path(base_path).resolve()
     target = (base / requested_path).resolve()
     if not str(target).startswith(str(base)):
-        raise ActionConnectorError(
-            f"Path '{requested_path}' escapes base directory '{base_path}'"
-        )
+        raise ActionConnectorError(f"Path '{requested_path}' escapes base directory '{base_path}'")
     return target

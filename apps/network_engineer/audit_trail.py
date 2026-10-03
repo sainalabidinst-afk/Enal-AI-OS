@@ -41,7 +41,13 @@ class AuditTrail:
     deployment_id: str
     events: list[AuditEvent] = field(default_factory=list)
 
-    def add_event(self, event_type: AuditEventType, actor: str, details: dict[str, Any] | None = None, artifact_id: str | None = None):  # noqa: E501
+    def add_event(
+        self,
+        event_type: AuditEventType,
+        actor: str,
+        details: dict[str, Any] | None = None,
+        artifact_id: str | None = None,
+    ):  # noqa: E501
         event = AuditEvent(
             event_type=event_type,
             timestamp=datetime.now(UTC).isoformat(),
@@ -106,4 +112,3 @@ class AuditTrailManager:
 
 
 audit_trail_manager = AuditTrailManager()
-

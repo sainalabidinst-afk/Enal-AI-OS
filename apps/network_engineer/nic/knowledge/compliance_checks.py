@@ -140,7 +140,12 @@ def check_backup_configured(rule: ComplianceRule, ast: NetworkAST) -> Compliance
 
 
 def check_unused_interfaces_disabled(rule: ComplianceRule, ast: NetworkAST) -> ComplianceCheck:
-    unused = [i for i in ast.interfaces if getattr(i, "status", "enabled") == "enabled" and not any(ip.interface == i.name for ip in ast.ip_addresses)]  # noqa: E501
+    unused = [
+        i
+        for i in ast.interfaces
+        if getattr(i, "status", "enabled") == "enabled"
+        and not any(ip.interface == i.name for ip in ast.ip_addresses)
+    ]  # noqa: E501
     if unused:
         return ComplianceCheck(
             rule_id=rule.id,
@@ -166,7 +171,12 @@ def check_ha_configured(rule: ComplianceRule, ast: NetworkAST) -> ComplianceChec
     vs = getattr(ast, "vendor_specific", {}) or {}
 
     has_ha = False
-    if vendor == "cisco" and ("hsrp" in vs or "hsrp_priority" in vs) or vendor == "fortinet" and "ha_mode" in vs:  # noqa: E501
+    if (
+        vendor == "cisco"
+        and ("hsrp" in vs or "hsrp_priority" in vs)
+        or vendor == "fortinet"
+        and "ha_mode" in vs
+    ):  # noqa: E501
         has_ha = True
     elif vendor == "mikrotik":
         raw = "\n".join(ast.raw_lines).lower()
@@ -213,10 +223,28 @@ def check_firewall_rules(rule: ComplianceRule, ast: NetworkAST) -> ComplianceChe
 
 
 def check_private_addressing(rule: ComplianceRule, ast: NetworkAST) -> ComplianceCheck:
-    private_prefixes = ["10.", "172.16.", "172.17.", "172.18.", "172.19.", "172.20.", "172.21.", "172.22.", "172.23.", "172.24.", "172.25.", "172.26.", "172.27.", "172.28.", "172.29.", "172.30.", "172.31.", "192.168."]  # noqa: E501
+    private_prefixes = [
+        "10.",
+        "172.16.",
+        "172.17.",
+        "172.18.",
+        "172.19.",
+        "172.20.",
+        "172.21.",
+        "172.22.",
+        "172.23.",
+        "172.24.",
+        "172.25.",
+        "172.26.",
+        "172.27.",
+        "172.28.",
+        "172.29.",
+        "172.30.",
+        "172.31.",
+        "192.168.",
+    ]  # noqa: E501
     has_private = any(
-        any(ip.address.startswith(p) for p in private_prefixes)
-        for ip in ast.ip_addresses
+        any(ip.address.startswith(p) for p in private_prefixes) for ip in ast.ip_addresses
     )
     if has_private:
         return ComplianceCheck(

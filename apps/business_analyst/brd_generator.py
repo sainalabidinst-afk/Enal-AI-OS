@@ -51,7 +51,9 @@ class BRDGenerator:
         inputs = request.inputs
 
         lines: list[str] = []
-        lines.append(f"# Business Requirement Document: {context.project_name or 'Untitled Project'}")  # noqa: E501
+        lines.append(
+            f"# Business Requirement Document: {context.project_name or 'Untitled Project'}"
+        )  # noqa: E501
         lines.append("")
         lines.append(f"**Domain:** {context.domain}")
         lines.append(f"**Generated:** {self._timestamp()}")
@@ -161,4 +163,5 @@ class BRDGenerator:
     def _timestamp(self) -> str:
         """Get current timestamp string."""
         from datetime import datetime
+
         return datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")

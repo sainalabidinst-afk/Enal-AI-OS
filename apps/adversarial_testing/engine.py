@@ -118,15 +118,22 @@ class AdversarialTestingEngine:
 
         # Step 6: Generate explanation
         explanation = self.explainer.generate(
-            subject, subject_type, vectors, vulnerabilities,
-            hardening_actions, gate_result, assumptions,
+            subject,
+            subject_type,
+            vectors,
+            vulnerabilities,
+            hardening_actions,
+            gate_result,
+            assumptions,
         )
 
         # Build result
         result = AdversarialTestResult(
             request_id="",
             subject=subject,
-            subject_type=SubjectType(subject_type) if isinstance(subject_type, str) else subject_type,  # noqa: E501
+            subject_type=SubjectType(subject_type)
+            if isinstance(subject_type, str)
+            else subject_type,  # noqa: E501
             attack_vectors=[
                 {
                     "id": v.id,

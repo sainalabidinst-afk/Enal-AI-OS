@@ -98,6 +98,7 @@ class Evidence:
         confidence: Confidence in this evidence (0.0-1.0).
         metadata: Additional metadata.
     """
+
     id: str
     type: EvidenceType
     description: str
@@ -122,6 +123,7 @@ class ReasoningRule:
         priority: Priority for conflict resolution.
         metadata: Additional metadata.
     """
+
     rule_id: str
     name: str
     description: str
@@ -146,6 +148,7 @@ class Decision:
         urgency: Urgency level.
         consequences: Expected consequences of this decision.
     """
+
     decision_id: str
     description: str
     options: list[str] = field(default_factory=list)
@@ -168,6 +171,7 @@ class Conclusion:
         rule_id: The rule that produced this conclusion.
         derived: Whether this conclusion was derived (vs direct).
     """
+
     conclusion_id: str
     statement: str
     confidence: float = 0.0
@@ -192,6 +196,7 @@ class ReasoningResult:
         explanation: Human-readable explanation of the reasoning.
         execution_time_ms: Time taken.
     """
+
     reasoning_id: str
     method: ReasoningMethod
     status: ReasoningStatus
@@ -395,8 +400,7 @@ class ReasoningEngine:
     def query_evidence(self, description: str) -> list[Evidence]:
         """Find evidence by description (substring match)."""
         return [
-            e for e in self._knowledge_base.values()
-            if description.lower() in e.description.lower()
+            e for e in self._knowledge_base.values() if description.lower() in e.description.lower()
         ]
 
     def clear_evidence(self) -> None:
@@ -461,9 +465,7 @@ class ReasoningEngine:
                     continue
 
                 # Check if conditions are satisfied
-                conditions_satisfied = self._check_conditions(
-                    rule.conditions, working_memory
-                )
+                conditions_satisfied = self._check_conditions(rule.conditions, working_memory)
 
                 if conditions_satisfied:
                     # Apply rule
@@ -496,14 +498,16 @@ class ReasoningEngine:
 
                     # Make decisions based on conclusions
                     if "should be decomposed" in " ".join(rule.conclusions):
-                        decisions.append(Decision(
-                            decision_id=f"dec-{uuid.uuid4().hex[:6]}",
-                            description="Decompose complex goal",
-                            options=["decompose", "keep monolithic", "partial decompose"],
-                            selected="decompose",
-                            confidence=rule.confidence,
-                            reasoning=f"Rule '{rule.name}' applied: goal decomposition needed",
-                        ))
+                        decisions.append(
+                            Decision(
+                                decision_id=f"dec-{uuid.uuid4().hex[:6]}",
+                                description="Decompose complex goal",
+                                options=["decompose", "keep monolithic", "partial decompose"],
+                                selected="decompose",
+                                confidence=rule.confidence,
+                                reasoning=f"Rule '{rule.name}' applied: goal decomposition needed",
+                            )
+                        )
 
             # Check for convergence
             if len(conclusions) > 0 and not changed:
@@ -522,8 +526,7 @@ class ReasoningEngine:
         result.conclusions = conclusions
         result.decisions = decisions
         result.confidence = (
-            sum(c.confidence for c in conclusions) / len(conclusions)
-            if conclusions else 0.0
+            sum(c.confidence for c in conclusions) / len(conclusions) if conclusions else 0.0
         )
         result.explanation = "\n".join(explanation_parts)
         result.status = ReasoningStatus.COMPLETED if conclusions else ReasoningStatus.INCONCLUSIVE
@@ -588,9 +591,12 @@ class ReasoningEngine:
         result.conclusions.insert(0, conclusion)
         result.confidence = (
             sum(c.confidence for c in result.conclusions) / len(result.conclusions)
-            if result.conclusions else 0.0
+            if result.conclusions
+            else 0.0
         )
-        result.explanation = f"Backward chaining from '{desired_outcome}': found {len(prerequisites)} prerequisites"  # noqa: E501
+        result.explanation = (
+            f"Backward chaining from '{desired_outcome}': found {len(prerequisites)} prerequisites"  # noqa: E501
+        )
         result.status = ReasoningStatus.COMPLETED
         result.execution_time_ms = (__import__("time").time() - start_time) * 1000
 
@@ -640,7 +646,7 @@ class ReasoningEngine:
             attr = option.get("attributes", option)
             num_criteria = len(criteria) if criteria else 1
 
-            for criterion in (criteria or []):
+            for criterion in criteria or []:
                 value = attr.get(criterion, 0)
                 if isinstance(value, (int, float)):
                     score += float(value)
@@ -654,8 +660,15 @@ class ReasoningEngine:
         decision = Decision(
             decision_id=f"dec-{uuid.uuid4().hex[:6]}",
             description=f"Decision: {question}",
-            options=[str(o.get("name", o.get("id", f"option_{i}"))) for i, (_, o) in enumerate(scored_options)],  # noqa: E501
-            selected=str(scored_options[0][1].get("name", scored_options[0][1].get("id", "best_option"))) if scored_options else None,  # noqa: E501
+            options=[
+                str(o.get("name", o.get("id", f"option_{i}")))
+                for i, (_, o) in enumerate(scored_options)
+            ],  # noqa: E501
+            selected=str(
+                scored_options[0][1].get("name", scored_options[0][1].get("id", "best_option"))
+            )
+            if scored_options
+            else None,  # noqa: E501
             confidence=min(1.0, (scored_options[0][0] / 10.0)) if scored_options else 0.0,
             reasoning=f"Decision tree evaluated {len(options)} options against {len(criteria or [])} criteria. Best option score: {scored_options[0][0] if scored_options else 0:.2f}",  # noqa: E501
             urgency=DecisionUrgency.MEDIUM,
@@ -664,7 +677,9 @@ class ReasoningEngine:
         result.decisions = [decision]
         result.confidence = decision.confidence
         result.explanation = decision.reasoning
-        result.status = ReasoningStatus.COMPLETED if decision.selected else ReasoningStatus.INCONCLUSIVE  # noqa: E501
+        result.status = (
+            ReasoningStatus.COMPLETED if decision.selected else ReasoningStatus.INCONCLUSIVE
+        )  # noqa: E501
         result.execution_time_ms = (__import__("time").time() - start_time) * 1000
 
         self._results[reasoning_id] = result
@@ -695,7 +710,9 @@ class ReasoningEngine:
             goal="Constraint satisfaction",
         )
 
-        self._emit_started(reasoning_id, ReasoningMethod.CONSTRAINT_PROPAGATION, "Constraint satisfaction")  # noqa: E501
+        self._emit_started(
+            reasoning_id, ReasoningMethod.CONSTRAINT_PROPAGATION, "Constraint satisfaction"
+        )  # noqa: E501
 
         satisfied = 0
         violated = 0
@@ -803,14 +820,17 @@ class ReasoningEngine:
         result.conclusions = cause_conclusions
         result.confidence = (
             sum(c.confidence for c in cause_conclusions) / len(cause_conclusions)
-            if cause_conclusions else 0.0
+            if cause_conclusions
+            else 0.0
         )
         result.explanation = (
             f"Causal analysis of '{event_description}': "
             f"found {len(causes)} potential causes, "
             f"identified {len(effects)} potential effects"
         )
-        result.status = ReasoningStatus.COMPLETED if cause_conclusions else ReasoningStatus.INCONCLUSIVE  # noqa: E501
+        result.status = (
+            ReasoningStatus.COMPLETED if cause_conclusions else ReasoningStatus.INCONCLUSIVE
+        )  # noqa: E501
         result.execution_time_ms = (__import__("time").time() - start_time) * 1000
 
         self._results[reasoning_id] = result
@@ -946,19 +966,39 @@ class ReasoningEngine:
         elif operator == "equals":
             return actual_value == expected_value
         elif operator == "gt":
-            return isinstance(actual_value, (int, float)) and isinstance(expected_value, (int, float)) and actual_value > expected_value  # noqa: E501
+            return (
+                isinstance(actual_value, (int, float))
+                and isinstance(expected_value, (int, float))
+                and actual_value > expected_value
+            )  # noqa: E501
         elif operator == "gte":
-            return isinstance(actual_value, (int, float)) and isinstance(expected_value, (int, float)) and actual_value >= expected_value  # noqa: E501
+            return (
+                isinstance(actual_value, (int, float))
+                and isinstance(expected_value, (int, float))
+                and actual_value >= expected_value
+            )  # noqa: E501
         elif operator == "lt":
-            return isinstance(actual_value, (int, float)) and isinstance(expected_value, (int, float)) and actual_value < expected_value  # noqa: E501
+            return (
+                isinstance(actual_value, (int, float))
+                and isinstance(expected_value, (int, float))
+                and actual_value < expected_value
+            )  # noqa: E501
         elif operator == "lte":
-            return isinstance(actual_value, (int, float)) and isinstance(expected_value, (int, float)) and actual_value <= expected_value  # noqa: E501
+            return (
+                isinstance(actual_value, (int, float))
+                and isinstance(expected_value, (int, float))
+                and actual_value <= expected_value
+            )  # noqa: E501
         elif operator == "in":
             return isinstance(expected_value, list) and actual_value in expected_value
         elif operator == "not_in":
             return isinstance(expected_value, list) and actual_value not in expected_value
         elif operator == "contains":
-            return isinstance(actual_value, str) and isinstance(expected_value, str) and expected_value in actual_value  # noqa: E501
+            return (
+                isinstance(actual_value, str)
+                and isinstance(expected_value, str)
+                and expected_value in actual_value
+            )  # noqa: E501
         else:
             return True  # Unknown operators pass by default
 
@@ -990,7 +1030,9 @@ class ReasoningEngine:
 
     def _emit_completed(self, result: ReasoningResult) -> None:
         event = Event(
-            event_type=REASONING_COMPLETED if result.status == ReasoningStatus.COMPLETED else REASONING_FAILED,  # noqa: E501
+            event_type=REASONING_COMPLETED
+            if result.status == ReasoningStatus.COMPLETED
+            else REASONING_FAILED,  # noqa: E501
             source="reasoning_engine",
             data={
                 "reasoning_id": result.reasoning_id,
@@ -1008,4 +1050,3 @@ class ReasoningEngine:
 # ─── Singleton ───
 
 reasoning_engine = ReasoningEngine()
-

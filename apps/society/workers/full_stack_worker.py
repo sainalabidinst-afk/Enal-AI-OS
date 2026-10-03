@@ -62,7 +62,9 @@ class FullStackWorker:
             "required_skills": required_skills,
         }
 
-    async def _handle_architecture_review(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_architecture_review(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         repo_path = subtask_data.get("repo_path") or context.get("repo_path") or "."
         try:
             result = await self._app.review_architecture(repo_path, context)
@@ -79,13 +81,23 @@ class FullStackWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_code_review(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_code_review(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         code = subtask_data.get("code") or context.get("code") or ""
         filename = subtask_data.get("filename", "<unknown>")
         if not code:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No code provided for review"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No code provided for review",
+            }  # noqa: E501
         try:
             result = await self._app.review_code(code, filename, context)
             findings = result.get("findings", [])
@@ -104,13 +116,23 @@ class FullStackWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_refactoring(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_refactoring(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         code = subtask_data.get("code") or context.get("code") or ""
         filename = subtask_data.get("filename", "<unknown>")
         if not code:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No code provided for refactoring plan"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No code provided for refactoring plan",
+            }  # noqa: E501
         try:
             result = await self._app.plan_refactoring(code, filename)
             return {
@@ -123,9 +145,15 @@ class FullStackWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_test(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_test(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         source_path = subtask_data.get("source_path") or context.get("source_path") or "."
         module_path = subtask_data.get("module_path") or context.get("module_path") or ""
         try:
@@ -136,13 +164,23 @@ class FullStackWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_performance(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_performance(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         code = subtask_data.get("code") or context.get("code") or ""
         filename = subtask_data.get("filename", "<unknown>")
         if not code:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No code provided for performance analysis"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No code provided for performance analysis",
+            }  # noqa: E501
         try:
             result = await self._app.analyze_performance(code, filename)
             return {
@@ -155,11 +193,33 @@ class FullStackWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_release(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_release(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         changes = subtask_data.get("changes") or context.get("changes") or []
-        release_context = {k: v for k, v in subtask_data.items() if k not in {"id", "subtask_id", "name", "required_skills", "changes", "code", "filename", "repo_path", "source_path", "module_path"}}  # noqa: E501
+        release_context = {
+            k: v
+            for k, v in subtask_data.items()
+            if k
+            not in {
+                "id",
+                "subtask_id",
+                "name",
+                "required_skills",
+                "changes",
+                "code",
+                "filename",
+                "repo_path",
+                "source_path",
+                "module_path",
+            }
+        }  # noqa: E501
         try:
             result = await self._app.review_release(changes, {**context, **release_context})
             return {
@@ -171,7 +231,11 @@ class FullStackWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
 
 full_stack_worker = FullStackWorker()

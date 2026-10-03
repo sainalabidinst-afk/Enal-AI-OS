@@ -84,13 +84,15 @@ class DebateEngine:
             consensus = sum(v.score for v in votes) / len(votes) if votes else 0.0
             conflicts = self._detect_conflicts(votes)
             winners = [v.strategy_name for v in votes if v.score >= consensus]
-            results.append(DebateResult(
-                alternative_description=desc,
-                strategy_votes=votes,
-                consensus_score=round(consensus, 4),
-                conflict_areas=conflicts,
-                winning_strategies=winners,
-            ))
+            results.append(
+                DebateResult(
+                    alternative_description=desc,
+                    strategy_votes=votes,
+                    consensus_score=round(consensus, 4),
+                    conflict_areas=conflicts,
+                    winning_strategies=winners,
+                )
+            )
         return results
 
     def _risk_averse_strategy(

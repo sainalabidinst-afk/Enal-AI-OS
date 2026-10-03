@@ -24,6 +24,7 @@ Forbidden dependencies:
 import ast
 import logging
 from pathlib import Path
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +74,7 @@ def check_imports(file_path: str, package_name: str) -> list[str]:
 
     package_rules = PACKAGE_BOUNDARIES.get(package_name, {})
     forbidden = package_rules.get("forbidden", [])
-    file_path_obj = Path(file_path)
+    Path(file_path)
 
     file_str = str(file_path).replace("\\", "/")
     own_package_prefix = None

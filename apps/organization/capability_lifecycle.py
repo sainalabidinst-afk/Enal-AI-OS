@@ -105,9 +105,7 @@ class CapabilityLifecycleManager:
 
     def __init__(self) -> None:
         self._records: dict[str, CapabilityRecord] = {}
-        self._handlers: dict[CapabilityState, list[Any]] = {
-            state: [] for state in CapabilityState
-        }
+        self._handlers: dict[CapabilityState, list[Any]] = {state: [] for state in CapabilityState}
         self._register_defaults()
 
     def _register_defaults(self) -> None:
@@ -163,9 +161,13 @@ class CapabilityLifecycleManager:
         if record is None:
             raise ValueError(f"Capability '{capability_id}' is not registered")
 
-        dependents = [dep for dep in record.dependents if self._records[dep].state == CapabilityState.LOADED]  # noqa: E501
+        dependents = [
+            dep for dep in record.dependents if self._records[dep].state == CapabilityState.LOADED
+        ]  # noqa: E501
         if dependents:
-            raise ValueError(f"Cannot unload '{capability_id}': dependents still loaded {dependents}")  # noqa: E501
+            raise ValueError(
+                f"Cannot unload '{capability_id}': dependents still loaded {dependents}"
+            )  # noqa: E501
 
         record.state = CapabilityState.UNLOADED
         record.loaded_at = None
@@ -238,7 +240,9 @@ class CapabilityLifecycleManager:
             return True, "Compatible"
         return False, f"Contract mismatch: {record.version.contract_version} != {required_contract}"
 
-    def record_execution(self, capability_id: str, success: bool, latency_ms: float, error: str | None = None) -> None:  # noqa: E501
+    def record_execution(
+        self, capability_id: str, success: bool, latency_ms: float, error: str | None = None
+    ) -> None:  # noqa: E501
         record = self._records.get(capability_id)
         if record is None:
             return

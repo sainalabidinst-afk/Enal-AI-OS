@@ -27,22 +27,24 @@ class ContradictionDetector:
         seen: set[tuple[str, str]] = set()
 
         for i, a in enumerate(evidence_list):
-            for b in evidence_list[i + 1:]:
+            for b in evidence_list[i + 1 :]:
                 pair = (a.id, b.id)
                 if pair in seen:
                     continue
                 seen.add(pair)
 
                 if self._are_contradictory(a, b):
-                    contradictions.append(Contradiction(
-                        type=self._classify_contradiction(a, b),
-                        evidence_a=a.id,
-                        evidence_b=b.id,
-                        description=self._describe_contradiction(a, b),
-                        severity=FindingSeverity.high,
-                        confidence=0.8,
-                        resolution_suggestion="Further investigation needed; compare methodologies and sample sizes.",  # noqa: E501
-                    ))
+                    contradictions.append(
+                        Contradiction(
+                            type=self._classify_contradiction(a, b),
+                            evidence_a=a.id,
+                            evidence_b=b.id,
+                            description=self._describe_contradiction(a, b),
+                            severity=FindingSeverity.high,
+                            confidence=0.8,
+                            resolution_suggestion="Further investigation needed; compare methodologies and sample sizes.",  # noqa: E501
+                        )
+                    )
 
         return contradictions
 
@@ -51,8 +53,14 @@ class ContradictionDetector:
         b_text = b.content.lower()
 
         opposition_patterns = [
-            (r"\b(improve|increase|enhance|boost|positive)\b", r"\b(no\s+\w+.*effect|decrease|reduce|negative|ineffective|no\s+significant)\b"),  # noqa: E501
-            (r"\b(significant|strong|effective)\b", r"\b(no\s+significant|weak|ineffective|no\s+effect)\b"),  # noqa: E501
+            (
+                r"\b(improve|increase|enhance|boost|positive)\b",
+                r"\b(no\s+\w+.*effect|decrease|reduce|negative|ineffective|no\s+significant)\b",
+            ),  # noqa: E501
+            (
+                r"\b(significant|strong|effective)\b",
+                r"\b(no\s+significant|weak|ineffective|no\s+effect)\b",
+            ),  # noqa: E501
         ]
         for positive_pattern, negative_pattern in opposition_patterns:
             a_has_positive = bool(re.search(positive_pattern, a_text))

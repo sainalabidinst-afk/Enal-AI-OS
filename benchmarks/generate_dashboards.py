@@ -1,4 +1,5 @@
 """Generate missing benchmark dashboards for Phase 4 packs."""
+
 import json
 from datetime import datetime
 
@@ -9,19 +10,19 @@ DASHBOARD_TEMPLATE = """<!DOCTYPE html>
 <title>{pack_name} Benchmark Dashboard</title>
 <style>
   :root {{ color-scheme: light; }}
-  body {{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }}
+  body {{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }}  # noqa: E501
   .container {{ max-width: 1200px; margin: 0 auto; padding: 24px; }}
   h1 {{ margin: 0 0 4px; font-size: 22px; }}
   .subtitle {{ color: #656d76; margin-bottom: 16px; }}
   .grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }}
-  .card {{ background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }}
+  .card {{ background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }}  # noqa: E501
   .metric {{ font-size: 28px; font-weight: 700; }}
-  .metric-label {{ color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }}
-  .section {{ background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }}
+  .metric-label {{ color: #656d76; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }}  # noqa: E501
+  .section {{ background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; margin-top: 16px; }}  # noqa: E501
   table {{ width: 100%; border-collapse: collapse; }}
-  th, td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }}
+  th, td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }}  # noqa: E501
   th {{ color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }}
-  .score-bar {{ width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }}
+  .score-bar {{ width: 100%; height: 10px; background: #e6e8eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }}  # noqa: E501
   .score-fill {{ height: 100%; background: #2da44e; border-radius: 999px; }}
   .score-text {{ font-weight: 600; font-size: 13px; }}
   .badge {{ padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }}
@@ -34,7 +35,7 @@ DASHBOARD_TEMPLATE = """<!DOCTYPE html>
 <body>
 <div class="container">
   <h1>{pack_name} Benchmark Dashboard</h1>
-  <div class="subtitle">Generated: {timestamp} &middot; {n_dims} dimensions &middot; {golden_count} golden tests</div>
+  <div class="subtitle">Generated: {timestamp} &middot; {n_dims} dimensions &middot; {golden_count} golden tests</div>  # noqa: E501
   <div class="grid">
     <div class="card">
       <div class="metric">{grade}</div>
@@ -66,7 +67,7 @@ DASHBOARD_TEMPLATE = """<!DOCTYPE html>
 
   <div class="section">
     <h2 style="margin-top:0;font-size:16px;">Raw Report</h2>
-    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{raw_json}</pre>
+    <pre style="background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto;font-size:13px;">{raw_json}</pre>  # noqa: E501
   </div>
 </div>
 </body>
@@ -90,7 +91,7 @@ def create_dashboard(pack_name, pack_id, score, dimensions, labels):
         dim_pct = round(dim_data["score"] * 100)
         dim_grade = calculate_grade(dim_data["score"])
         label = labels.get(dim_id, dim_id)
-        rows += f'            <tr>\n              <td>{label}</td>\n              <td><div class="score-bar"><div class="score-fill" style="width:{dim_pct}%"></div></div><span class="score-text">{dim_pct}%</span></td>\n              <td><span class="badge badge-success">{dim_grade}</span></td>\n            </tr>\n'
+        rows += f'            <tr>\n              <td>{label}</td>\n              <td><div class="score-bar"><div class="score-fill" style="width:{dim_pct}%"></div></div><span class="score-text">{dim_pct}%</span></td>\n              <td><span class="badge badge-success">{dim_grade}</span></td>\n            </tr>\n'  # noqa: E501
         raw[dim_id] = round(dim_data["score"], 4)
 
     raw["overall"] = round(score, 4)
@@ -133,7 +134,9 @@ infra_labels = {
     "security_design": "Security Design",
     "explainability": "Explainability",
 }
-create_dashboard("Infrastructure Engineer", "infrastructure_engineer", 0.9033, infra_dims, infra_labels)
+create_dashboard(
+    "Infrastructure Engineer", "infrastructure_engineer", 0.9033, infra_dims, infra_labels
+)
 
 # AI Engineer
 ai_dims = {

@@ -96,12 +96,9 @@ async def upload_attachment(
                 status=status,
                 error=error,
                 workspace_id=workspace_id or conversation_id or "",
-                vendor=_safe_get(
-                    _safe_get(_safe_get(result, "meta"), "vendor"), "value"
-                ) or "",
-                device_type=_safe_get(
-                    _safe_get(_safe_get(result, "meta"), "device_role"), "value"
-                ) or "",
+                vendor=_safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value") or "",
+                device_type=_safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value")
+                or "",
                 files=1,
                 size_bytes=len(content),
                 parser=_safe_get(_safe_get(result, "ast"), "format"),
@@ -119,12 +116,8 @@ async def upload_attachment(
         "attachment_type": _safe_get(
             _safe_get(_safe_get(result, "meta"), "attachment_type"), "value"
         ),
-        "vendor": _safe_get(
-            _safe_get(_safe_get(result, "meta"), "vendor"), "value"
-        ),
-        "device_role": _safe_get(
-            _safe_get(_safe_get(result, "meta"), "device_role"), "value"
-        ),
+        "vendor": _safe_get(_safe_get(_safe_get(result, "meta"), "vendor"), "value"),
+        "device_role": _safe_get(_safe_get(_safe_get(result, "meta"), "device_role"), "value"),
         "format": _safe_get(_safe_get(result, "meta"), "detected_format"),
         "version": _safe_get(_safe_get(result, "meta"), "detected_version"),
         "confidence": _safe_get(_safe_get(result, "meta"), "confidence"),

@@ -21,8 +21,14 @@ logger = logging.getLogger(__name__)
 
 BINANCE_BASE = "https://api.binance.com"
 TIMEFRAME_MAP = {
-    "1m": "1m", "5m": "5m", "15m": "15m", "30m": "30m",
-    "1h": "1h", "4h": "4h", "1d": "1d", "1w": "1w",
+    "1m": "1m",
+    "5m": "5m",
+    "15m": "15m",
+    "30m": "30m",
+    "1h": "1h",
+    "4h": "4h",
+    "1d": "1d",
+    "1w": "1w",
 }
 DEFAULT_TIMEFRAMES = ["15m", "1h", "4h", "1d"]
 DEFAULT_LIMIT = 100  # candles per request
@@ -75,14 +81,16 @@ def fetch_ohlcv(symbol: str, timeframe: str, limit: int = DEFAULT_LIMIT) -> list
 
     result = []
     for candle in data:
-        result.append({
-            "timestamp": int(candle[0]) // 1000,  # Binance returns ms
-            "open": float(candle[1]),
-            "high": float(candle[2]),
-            "low": float(candle[3]),
-            "close": float(candle[4]),
-            "volume": float(candle[5]),
-        })
+        result.append(
+            {
+                "timestamp": int(candle[0]) // 1000,  # Binance returns ms
+                "open": float(candle[1]),
+                "high": float(candle[2]),
+                "low": float(candle[3]),
+                "close": float(candle[4]),
+                "volume": float(candle[5]),
+            }
+        )
     return result
 
 
@@ -101,7 +109,9 @@ def fetch_24hr_ticker(symbol: str) -> dict:
     return _fetch_json(url)
 
 
-def fetch_multi_timeframe(symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT) -> dict[str, list[dict]]:  # noqa: E501
+def fetch_multi_timeframe(
+    symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT
+) -> dict[str, list[dict]]:  # noqa: E501
     """
     Fetch OHLCV for multiple timeframes.
 
@@ -139,7 +149,9 @@ def validate_symbol(symbol: str) -> bool:
         return False
 
 
-async def build_trading_context(symbol: str, timeframes: list[str], exchange: str = "binance") -> TradingContext:  # noqa: E501
+async def build_trading_context(
+    symbol: str, timeframes: list[str], exchange: str = "binance"
+) -> TradingContext:  # noqa: E501
     """Build a TradingContext by fetching market data for multiple timeframes."""
     raw_data = fetch_multi_timeframe(symbol, timeframes)
     parsed: dict[str, list[OHLCV]] = {}
@@ -156,9 +168,7 @@ async def build_trading_context(symbol: str, timeframes: list[str], exchange: st
             for c in candles
         ]
     if not any(parsed.values()):
-        raise MarketProviderError(
-            f"No market data available for {symbol} on requested timeframes"
-        )
+        raise MarketProviderError(f"No market data available for {symbol} on requested timeframes")
     return TradingContext(
         symbol=symbol.upper(),
         exchange=exchange,
@@ -168,4 +178,3 @@ async def build_trading_context(symbol: str, timeframes: list[str], exchange: st
             "fetched_timeframes": [tf for tf, candles in parsed.items() if candles],
         },
     )
-

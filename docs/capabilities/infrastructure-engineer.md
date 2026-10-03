@@ -163,7 +163,12 @@ Capability Pack ini merancang klaster Kubernetes, topologi klaster HA, solusi st
 
 ```python
 from apps.infrastructure_engineer.engine import InfrastructureEngineerEngine
-from apps.infrastructure_engineer.schemas import InfrastructureEngineerRequest, OperationType, BusinessContext, QualityAttributes
+from apps.infrastructure_engineer.schemas import (
+    InfrastructureEngineerRequest,
+    OperationType,
+    BusinessContext,
+    QualityAttributes,
+)
 
 engine = InfrastructureEngineerEngine()
 request = InfrastructureEngineerRequest(

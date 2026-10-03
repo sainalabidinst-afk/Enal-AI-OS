@@ -31,7 +31,9 @@ class RuleStats:
     def recall(self) -> float:
         if (self.hit_count + self.false_negative_count) == 0:
             return 0.0
-        return (self.hit_count - self.false_positive_count) / (self.hit_count + self.false_negative_count)  # noqa: E501
+        return (self.hit_count - self.false_positive_count) / (
+            self.hit_count + self.false_negative_count
+        )  # noqa: E501
 
     @property
     def f1_score(self) -> float:
@@ -97,13 +99,17 @@ class RuleCoverageTracker:
             "total_false_positives": total_fp,
             "total_false_negatives": total_fn,
             "overall_precision": (total_hits - total_fp) / total_hits if total_hits > 0 else 0.0,
-            "overall_recall": (total_hits - total_fp) / (total_hits + total_fn) if (total_hits + total_fn) > 0 else 0.0,  # noqa: E501
+            "overall_recall": (total_hits - total_fp) / (total_hits + total_fn)
+            if (total_hits + total_fn) > 0
+            else 0.0,  # noqa: E501
         }
 
     def generate_report(self) -> str:
         """Generate coverage report."""
         lines = ["Rule Coverage Report", "=" * 80, ""]
-        lines.append(f"{'Rule':<40} {'Hits':>6} {'FP':>6} {'FN':>6} {'Precision':>10} {'Recall':>8} {'F1':>8}")  # noqa: E501
+        lines.append(
+            f"{'Rule':<40} {'Hits':>6} {'FP':>6} {'FN':>6} {'Precision':>10} {'Recall':>8} {'F1':>8}"  # noqa: E501
+        )  # noqa: E501
         lines.append("-" * 80)
 
         for rule_name in self._rule_names:

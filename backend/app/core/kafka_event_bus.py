@@ -178,7 +178,9 @@ class KafkaEventBus:
                         payload=data.get("payload", {}),
                         source=data.get("source", "system"),
                         target=data.get("target", "*"),
-                        timestamp=datetime.fromisoformat(data.get("timestamp", datetime.now(UTC).isoformat())),  # noqa: E501
+                        timestamp=datetime.fromisoformat(
+                            data.get("timestamp", datetime.now(UTC).isoformat())
+                        ),  # noqa: E501
                         correlation_id=data.get("correlation_id") or None,
                         metadata=data.get("metadata", {}),
                     )

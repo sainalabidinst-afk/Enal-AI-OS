@@ -77,12 +77,14 @@ class DatabaseEngineerWorker:
             for t in schema_data.get("tables", []):
                 columns = [ColumnDefinition(**c) for c in t.get("columns", [])]
                 fks = [ForeignKey(**fk) for fk in t.get("foreign_keys", [])]
-                tables.append(TableDefinition(
-                    name=t["name"],
-                    columns=columns,
-                    primary_key=t.get("primary_key", []),
-                    foreign_keys=fks,
-                ))
+                tables.append(
+                    TableDefinition(
+                        name=t["name"],
+                        columns=columns,
+                        primary_key=t.get("primary_key", []),
+                        foreign_keys=fks,
+                    )
+                )
             schema = SchemaDefinition(tables=tables)
 
         workload = None

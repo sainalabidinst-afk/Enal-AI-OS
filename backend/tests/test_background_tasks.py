@@ -14,10 +14,14 @@ class TestBackgroundTaskManager:
         import backend.app.core.background_tasks as bt_module
         import backend.app.core.event_bus as eb_module
 
-        fake_bus = type("Bus", (), {
-            "subscribe": lambda *a, **k: None,
-            "publish": lambda *a, **k: None,
-        })()
+        fake_bus = type(
+            "Bus",
+            (),
+            {
+                "subscribe": lambda *a, **k: None,
+                "publish": lambda *a, **k: None,
+            },
+        )()
         monkeypatch.setattr(bt_module, "event_bus", fake_bus)
         monkeypatch.setattr(eb_module, "event_bus", fake_bus)
 
@@ -27,10 +31,14 @@ class TestBackgroundTaskManager:
         async def fake_get_task(self, task_id):
             return None
 
-        fake_queue = type("Queue", (), {
-            "enqueue": fake_enqueue,
-            "get_task": fake_get_task,
-        })()
+        fake_queue = type(
+            "Queue",
+            (),
+            {
+                "enqueue": fake_enqueue,
+                "get_task": fake_get_task,
+            },
+        )()
         monkeypatch.setattr(bt_module, "task_queue", fake_queue)
         return BackgroundTaskManager()
 

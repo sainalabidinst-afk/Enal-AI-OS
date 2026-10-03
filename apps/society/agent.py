@@ -75,4 +75,3 @@ class Agent(ABC):
             total_cost=cost,
             last_active=datetime.now(UTC),
         )
-

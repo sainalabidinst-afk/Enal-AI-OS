@@ -34,6 +34,7 @@ class SecuritySeverity:
 @dataclass
 class SecurityFinding:
     """A single security finding."""
+
     category: str
     severity: str
     description: str
@@ -79,8 +80,10 @@ class OWASPDetector:
     INJECTION_PATTERNS = [
         (r"(?:exec|eval|compile)\s*\(", "Code injection via exec/eval/compile"),
         (r"os\.system\s*\(", "OS command injection via os.system"),
-        (r"subprocess\.(?:call|Popen|run|check_output)\s*\(",
-         "OS command injection via subprocess"),
+        (
+            r"subprocess\.(?:call|Popen|run|check_output)\s*\(",
+            "OS command injection via subprocess",
+        ),
         (r"shlex\.quote", "Safe command construction (positive)"),
         (r"f\"[^\"]*\{[^}]*\}", "Potential f-string injection in dangerous contexts"),
     ]
@@ -95,27 +98,40 @@ class OWASPDetector:
 
     # Hardcoded secrets patterns
     SECRET_PATTERNS = [
-        (r"(?:api_key|apikey|secret|password|token|credential)\s*=\s*[\"'][^\"']{8,}[\"']",
-         "Hardcoded secret detected"),
-        (r"(?:AWS_ACCESS_KEY|AWS_SECRET_KEY|AZURE_.*_KEY|GCP_.*_KEY)",
-         "Cloud provider credential detected"),
+        (
+            r"(?:api_key|apikey|secret|password|token|credential)\s*=\s*[\"'][^\"']{8,}[\"']",
+            "Hardcoded secret detected",
+        ),
+        (
+            r"(?:AWS_ACCESS_KEY|AWS_SECRET_KEY|AZURE_.*_KEY|GCP_.*_KEY)",
+            "Cloud provider credential detected",
+        ),
         (r"(?:sk-[a-zA-Z0-9]{20,}|pk-[a-zA-Z0-9]{20,})", "API key pattern detected"),
-        (r"(?:-----BEGIN\s+(?:RSA|EC|DSA|OPENSSH)\s+PRIVATE\s+KEY-----)",
-         "Private key detected"),
-        (r"(?:JWT|jwt)\s*=\s*[\"'][a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+[\"']",
-         "JWT token detected"),
+        (r"(?:-----BEGIN\s+(?:RSA|EC|DSA|OPENSSH)\s+PRIVATE\s+KEY-----)", "Private key detected"),
+        (
+            r"(?:JWT|jwt)\s*=\s*[\"'][a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+[\"']",
+            "JWT token detected",
+        ),
     ]
 
     # SSRF patterns
     SSRF_PATTERNS = [
-        (r"requests\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*\burl\b",
-         "Potential SSRF via requests with user-controlled URL"),
-        (r"httpx\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*\burl\b",
-         "Potential SSRF via httpx with user-controlled URL"),
-        (r"urllib\.request\.urlopen\s*\(\s*[^)]*\burl\b",
-         "Potential SSRF via urllib with user-controlled URL"),
-        (r"aiohttp\.ClientSession.*\.(?:get|post|put|delete)\s*\(\s*[^)]*\burl\b",
-         "Potential SSRF via aiohttp with user-controlled URL"),
+        (
+            r"requests\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*\burl\b",
+            "Potential SSRF via requests with user-controlled URL",
+        ),
+        (
+            r"httpx\.(?:get|post|put|delete|head|options)\s*\(\s*[^)]*\burl\b",
+            "Potential SSRF via httpx with user-controlled URL",
+        ),
+        (
+            r"urllib\.request\.urlopen\s*\(\s*[^)]*\burl\b",
+            "Potential SSRF via urllib with user-controlled URL",
+        ),
+        (
+            r"aiohttp\.ClientSession.*\.(?:get|post|put|delete)\s*\(\s*[^)]*\burl\b",
+            "Potential SSRF via aiohttp with user-controlled URL",
+        ),
     ]
 
     def analyze(self, code_ast: CodeAST) -> list[SecurityFinding]:
@@ -139,20 +155,22 @@ class OWASPDetector:
         for pattern, description in self.INJECTION_PATTERNS:
             matches = re.finditer(pattern, raw, re.IGNORECASE)
             for match in matches:
-                line_no = raw[:match.start()].count("\n") + 1
-                findings.append(SecurityFinding(
-                    category="owasp_a03_injection",
-                    severity=SecuritySeverity.CRITICAL,
-                    description=description,
-                    recommendation=(
-                        "Avoid using exec/eval/compile with user input. "
-                        "Use safe alternatives and validate all inputs."
-                    ),
-                    line_number=line_no,
-                    confidence=0.9,
-                    pattern="injection",
-                    cwe_id="CWE-77",
-                ))
+                line_no = raw[: match.start()].count("\n") + 1
+                findings.append(
+                    SecurityFinding(
+                        category="owasp_a03_injection",
+                        severity=SecuritySeverity.CRITICAL,
+                        description=description,
+                        recommendation=(
+                            "Avoid using exec/eval/compile with user input. "
+                            "Use safe alternatives and validate all inputs."
+                        ),
+                        line_number=line_no,
+                        confidence=0.9,
+                        pattern="injection",
+                        cwe_id="CWE-77",
+                    )
+                )
         return findings
 
     def _detect_sql_injection(self, raw: str) -> list[SecurityFinding]:
@@ -161,20 +179,22 @@ class OWASPDetector:
         for pattern, description in self.SQL_INJECTION_PATTERNS:
             matches = re.finditer(pattern, raw, re.IGNORECASE)
             for match in matches:
-                line_no = raw[:match.start()].count("\n") + 1
-                findings.append(SecurityFinding(
-                    category="owasp_a03_injection",
-                    severity=SecuritySeverity.CRITICAL,
-                    description=description,
-                    recommendation=(
-                        "Use parameterized queries or ORM instead of string formatting. "
-                        "Never concatenate user input into SQL queries."
-                    ),
-                    line_number=line_no,
-                    confidence=0.85,
-                    pattern="sql_injection",
-                    cwe_id="CWE-89",
-                ))
+                line_no = raw[: match.start()].count("\n") + 1
+                findings.append(
+                    SecurityFinding(
+                        category="owasp_a03_injection",
+                        severity=SecuritySeverity.CRITICAL,
+                        description=description,
+                        recommendation=(
+                            "Use parameterized queries or ORM instead of string formatting. "
+                            "Never concatenate user input into SQL queries."
+                        ),
+                        line_number=line_no,
+                        confidence=0.85,
+                        pattern="sql_injection",
+                        cwe_id="CWE-89",
+                    )
+                )
         return findings
 
     def _detect_hardcoded_secrets(self, raw: str) -> list[SecurityFinding]:
@@ -183,20 +203,22 @@ class OWASPDetector:
         for pattern, description in self.SECRET_PATTERNS:
             matches = re.finditer(pattern, raw, re.IGNORECASE)
             for match in matches:
-                line_no = raw[:match.start()].count("\n") + 1
-                findings.append(SecurityFinding(
-                    category="owasp_a02_crypto_failure",
-                    severity=SecuritySeverity.CRITICAL,
-                    description=description,
-                    recommendation=(
-                        "Use environment variables or a secrets manager. "
-                        "Never hardcode secrets in source code."
-                    ),
-                    line_number=line_no,
-                    confidence=0.95,
-                    pattern="hardcoded_secret",
-                    cwe_id="CWE-798",
-                ))
+                line_no = raw[: match.start()].count("\n") + 1
+                findings.append(
+                    SecurityFinding(
+                        category="owasp_a02_crypto_failure",
+                        severity=SecuritySeverity.CRITICAL,
+                        description=description,
+                        recommendation=(
+                            "Use environment variables or a secrets manager. "
+                            "Never hardcode secrets in source code."
+                        ),
+                        line_number=line_no,
+                        confidence=0.95,
+                        pattern="hardcoded_secret",
+                        cwe_id="CWE-798",
+                    )
+                )
         return findings
 
     def _detect_ssrf(self, raw: str) -> list[SecurityFinding]:
@@ -205,20 +227,22 @@ class OWASPDetector:
         for pattern, description in self.SSRF_PATTERNS:
             matches = re.finditer(pattern, raw, re.IGNORECASE)
             for match in matches:
-                line_no = raw[:match.start()].count("\n") + 1
-                findings.append(SecurityFinding(
-                    category="owasp_a10_ssrf",
-                    severity=SecuritySeverity.HIGH,
-                    description=description,
-                    recommendation=(
-                        "Validate and sanitize URLs before making requests. "
-                        "Use an allowlist of allowed domains and protocols."
-                    ),
-                    line_number=line_no,
-                    confidence=0.7,
-                    pattern="ssrf",
-                    cwe_id="CWE-918",
-                ))
+                line_no = raw[: match.start()].count("\n") + 1
+                findings.append(
+                    SecurityFinding(
+                        category="owasp_a10_ssrf",
+                        severity=SecuritySeverity.HIGH,
+                        description=description,
+                        recommendation=(
+                            "Validate and sanitize URLs before making requests. "
+                            "Use an allowlist of allowed domains and protocols."
+                        ),
+                        line_number=line_no,
+                        confidence=0.7,
+                        pattern="ssrf",
+                        cwe_id="CWE-918",
+                    )
+                )
         return findings
 
     def _detect_access_control_issues(self, code_ast: CodeAST) -> list[SecurityFinding]:
@@ -230,45 +254,45 @@ class OWASPDetector:
         for func in code_ast.functions:
             decorators = [d.lower() for d in func.decorators]
             has_auth = any(
-                "auth" in d or "login" in d or "permission" in d or "role" in d
-                for d in decorators
+                "auth" in d or "login" in d or "permission" in d or "role" in d for d in decorators
             )
             has_route = any(
-                "route" in d or "app" in d or "router" in d or "api" in d
-                for d in decorators
+                "route" in d or "app" in d or "router" in d or "api" in d for d in decorators
             )
             if has_route and not has_auth:
-                findings.append(SecurityFinding(
-                    category="owasp_a01_broken_access",
-                    severity=SecuritySeverity.HIGH,
-                    description=(
-                        f"API endpoint '{func.name}' has no authentication decorator"
-                    ),
-                    recommendation=(
-                        "Add authentication/authorization checks to all API endpoints. "
-                        "Use @login_required, @require_auth, or similar decorators."
-                    ),
-                    line_number=func.lineno,
-                    confidence=0.6,
-                    pattern="missing_auth",
-                    cwe_id="CWE-284",
-                ))
+                findings.append(
+                    SecurityFinding(
+                        category="owasp_a01_broken_access",
+                        severity=SecuritySeverity.HIGH,
+                        description=(f"API endpoint '{func.name}' has no authentication decorator"),
+                        recommendation=(
+                            "Add authentication/authorization checks to all API endpoints. "
+                            "Use @login_required, @require_auth, or similar decorators."
+                        ),
+                        line_number=func.lineno,
+                        confidence=0.6,
+                        pattern="missing_auth",
+                        cwe_id="CWE-284",
+                    )
+                )
 
         # Check for hardcoded roles/permissions
         if "admin" in raw.lower() and "password" in raw.lower():
-            findings.append(SecurityFinding(
-                category="owasp_a01_broken_access",
-                severity=SecuritySeverity.MEDIUM,
-                description="Hardcoded admin credentials or role checks detected",
-                recommendation=(
-                    "Use a proper authorization framework. "
-                    "Avoid hardcoded role checks and use policy-based access control."
-                ),
-                line_number=1,
-                confidence=0.5,
-                pattern="hardcoded_access",
-                cwe_id="CWE-284",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="owasp_a01_broken_access",
+                    severity=SecuritySeverity.MEDIUM,
+                    description="Hardcoded admin credentials or role checks detected",
+                    recommendation=(
+                        "Use a proper authorization framework. "
+                        "Avoid hardcoded role checks and use policy-based access control."
+                    ),
+                    line_number=1,
+                    confidence=0.5,
+                    pattern="hardcoded_access",
+                    cwe_id="CWE-284",
+                )
+            )
 
         return findings
 
@@ -284,35 +308,39 @@ class OWASPDetector:
         ]
         for pattern, description in weak_hashes:
             if re.search(pattern, raw, re.IGNORECASE):
-                findings.append(SecurityFinding(
-                    category="owasp_a02_crypto_failure",
-                    severity=SecuritySeverity.HIGH,
-                    description=description,
-                    recommendation=(
-                        "Use SHA-256 or SHA-3 for hashing, AES-256 for encryption. "
-                        "Avoid broken algorithms like MD5, SHA-1, and DES."
-                    ),
-                    line_number=1,
-                    confidence=0.9,
-                    pattern="weak_crypto",
-                    cwe_id="CWE-327",
-                ))
+                findings.append(
+                    SecurityFinding(
+                        category="owasp_a02_crypto_failure",
+                        severity=SecuritySeverity.HIGH,
+                        description=description,
+                        recommendation=(
+                            "Use SHA-256 or SHA-3 for hashing, AES-256 for encryption. "
+                            "Avoid broken algorithms like MD5, SHA-1, and DES."
+                        ),
+                        line_number=1,
+                        confidence=0.9,
+                        pattern="weak_crypto",
+                        cwe_id="CWE-327",
+                    )
+                )
 
         # Check for HTTP instead of HTTPS
         if "http://" in raw and "https://" not in raw:
-            findings.append(SecurityFinding(
-                category="owasp_a02_crypto_failure",
-                severity=SecuritySeverity.MEDIUM,
-                description="Plain HTTP usage detected (no HTTPS)",
-                recommendation=(
-                    "Use HTTPS for all network communication. "
-                    "Never transmit sensitive data over unencrypted connections."
-                ),
-                line_number=1,
-                confidence=0.8,
-                pattern="no_https",
-                cwe_id="CWE-319",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="owasp_a02_crypto_failure",
+                    severity=SecuritySeverity.MEDIUM,
+                    description="Plain HTTP usage detected (no HTTPS)",
+                    recommendation=(
+                        "Use HTTPS for all network communication. "
+                        "Never transmit sensitive data over unencrypted connections."
+                    ),
+                    line_number=1,
+                    confidence=0.8,
+                    pattern="no_https",
+                    cwe_id="CWE-319",
+                )
+            )
 
         return findings
 
@@ -322,35 +350,39 @@ class OWASPDetector:
 
         # Check for debug mode in production
         if re.search(r"debug\s*=\s*True", raw, re.IGNORECASE):
-            findings.append(SecurityFinding(
-                category="owasp_a05_misconfiguration",
-                severity=SecuritySeverity.HIGH,
-                description="Debug mode enabled (may expose sensitive information)",
-                recommendation=(
-                    "Disable debug mode in production. "
-                    "Use environment variables to control debug mode."
-                ),
-                line_number=1,
-                confidence=0.9,
-                pattern="debug_mode",
-                cwe_id="CWE-489",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="owasp_a05_misconfiguration",
+                    severity=SecuritySeverity.HIGH,
+                    description="Debug mode enabled (may expose sensitive information)",
+                    recommendation=(
+                        "Disable debug mode in production. "
+                        "Use environment variables to control debug mode."
+                    ),
+                    line_number=1,
+                    confidence=0.9,
+                    pattern="debug_mode",
+                    cwe_id="CWE-489",
+                )
+            )
 
         # Check for CORS misconfiguration
         if re.search(r"CORS|cors_origins?\s*=\s*\[\s*\"\*\"\s*\]", raw, re.IGNORECASE):
-            findings.append(SecurityFinding(
-                category="owasp_a05_misconfiguration",
-                severity=SecuritySeverity.HIGH,
-                description="CORS configured with wildcard origin (*)",
-                recommendation=(
-                    "Restrict CORS to specific origins. "
-                    "Wildcard CORS allows any website to make cross-origin requests."
-                ),
-                line_number=1,
-                confidence=0.9,
-                pattern="cors_wildcard",
-                cwe_id="CWE-942",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="owasp_a05_misconfiguration",
+                    severity=SecuritySeverity.HIGH,
+                    description="CORS configured with wildcard origin (*)",
+                    recommendation=(
+                        "Restrict CORS to specific origins. "
+                        "Wildcard CORS allows any website to make cross-origin requests."
+                    ),
+                    line_number=1,
+                    confidence=0.9,
+                    pattern="cors_wildcard",
+                    cwe_id="CWE-942",
+                )
+            )
 
         # Check for verbose error handling
         if re.search(
@@ -358,19 +390,21 @@ class OWASPDetector:
             raw,
             re.IGNORECASE,
         ):
-            findings.append(SecurityFinding(
-                category="owasp_a05_misconfiguration",
-                severity=SecuritySeverity.MEDIUM,
-                description="Verbose error messages may leak sensitive information",
-                recommendation=(
-                    "Return generic error messages to users. "
-                    "Log detailed errors internally for debugging."
-                ),
-                line_number=1,
-                confidence=0.6,
-                pattern="verbose_error",
-                cwe_id="CWE-209",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="owasp_a05_misconfiguration",
+                    severity=SecuritySeverity.MEDIUM,
+                    description="Verbose error messages may leak sensitive information",
+                    recommendation=(
+                        "Return generic error messages to users. "
+                        "Log detailed errors internally for debugging."
+                    ),
+                    line_number=1,
+                    confidence=0.6,
+                    pattern="verbose_error",
+                    cwe_id="CWE-209",
+                )
+            )
 
         return findings
 
@@ -387,11 +421,25 @@ class AuthAnalyzer:
     """
 
     AUTH_FRAMEWORKS = [
-        "flask_login", "flask_security", "flask_jwt", "flask_httpauth",
-        "django_contrib_auth", "django_rest_framework_jwt",
-        "fastapi_security", "fastapi_login", "python_jose", "jose",
-        "pyjwt", "jwt", "authlib", "oauthlib", "python_social_auth",
-        "passlib", "bcrypt", "argon2", "python_jwt",
+        "flask_login",
+        "flask_security",
+        "flask_jwt",
+        "flask_httpauth",
+        "django_contrib_auth",
+        "django_rest_framework_jwt",
+        "fastapi_security",
+        "fastapi_login",
+        "python_jose",
+        "jose",
+        "pyjwt",
+        "jwt",
+        "authlib",
+        "oauthlib",
+        "python_social_auth",
+        "passlib",
+        "bcrypt",
+        "argon2",
+        "python_jwt",
     ]
 
     def analyze_auth_usage(self, code_ast: CodeAST) -> list[SecurityFinding]:
@@ -410,18 +458,20 @@ class AuthAnalyzer:
             module_name = code_ast.metadata.get("filename", "").lower()
             if any(kw in module_name for kw in ["api", "auth", "login", "register", "user"]):
                 if "api" in module_name or "auth" in module_name:
-                    findings.append(SecurityFinding(
-                        category="auth_framework",
-                        severity=SecuritySeverity.MEDIUM,
-                        description="No authentication framework detected in API module",
-                        recommendation=(
-                            "Implement authentication using a well-tested framework. "
-                            "Consider: Flask-Login, Django Auth, FastAPI Security, or JWT."
-                        ),
-                        line_number=1,
-                        confidence=0.5,
-                        pattern="missing_auth_framework",
-                    ))
+                    findings.append(
+                        SecurityFinding(
+                            category="auth_framework",
+                            severity=SecuritySeverity.MEDIUM,
+                            description="No authentication framework detected in API module",
+                            recommendation=(
+                                "Implement authentication using a well-tested framework. "
+                                "Consider: Flask-Login, Django Auth, FastAPI Security, or JWT."
+                            ),
+                            line_number=1,
+                            confidence=0.5,
+                            pattern="missing_auth_framework",
+                        )
+                    )
 
         return findings
 
@@ -432,19 +482,21 @@ class AuthAnalyzer:
 
         # Check for password storage without hashing
         if re.search(r"password\s*=\s*[\"'][^\"']+[\"']", raw, re.IGNORECASE):
-            findings.append(SecurityFinding(
-                category="auth_password",
-                severity=SecuritySeverity.CRITICAL,
-                description="Password stored as plaintext in code",
-                recommendation=(
-                    "Never store passwords in code. Use hashed passwords with "
-                    "bcrypt, argon2, or scrypt. Never log or transmit plaintext passwords."
-                ),
-                line_number=1,
-                confidence=0.9,
-                pattern="plaintext_password",
-                cwe_id="CWE-256",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="auth_password",
+                    severity=SecuritySeverity.CRITICAL,
+                    description="Password stored as plaintext in code",
+                    recommendation=(
+                        "Never store passwords in code. Use hashed passwords with "
+                        "bcrypt, argon2, or scrypt. Never log or transmit plaintext passwords."
+                    ),
+                    line_number=1,
+                    confidence=0.9,
+                    pattern="plaintext_password",
+                    cwe_id="CWE-256",
+                )
+            )
 
         # Check for bcrypt/argon2 usage
         has_bcrypt = "bcrypt" in raw.lower()
@@ -452,19 +504,21 @@ class AuthAnalyzer:
         has_passlib = "passlib" in raw.lower()
 
         if not (has_bcrypt or has_argon2 or has_passlib) and "password" in raw.lower():
-            findings.append(SecurityFinding(
-                category="auth_password",
-                severity=SecuritySeverity.HIGH,
-                description="No strong password hashing library detected",
-                recommendation=(
-                    "Use bcrypt, argon2, or passlib for password hashing. "
-                    "Avoid weak hashes like MD5 or SHA-1 for passwords."
-                ),
-                line_number=1,
-                confidence=0.7,
-                pattern="weak_password_hashing",
-                cwe_id="CWE-916",
-            ))
+            findings.append(
+                SecurityFinding(
+                    category="auth_password",
+                    severity=SecuritySeverity.HIGH,
+                    description="No strong password hashing library detected",
+                    recommendation=(
+                        "Use bcrypt, argon2, or passlib for password hashing. "
+                        "Avoid weak hashes like MD5 or SHA-1 for passwords."
+                    ),
+                    line_number=1,
+                    confidence=0.7,
+                    pattern="weak_password_hashing",
+                    cwe_id="CWE-916",
+                )
+            )
 
         return findings
 
@@ -479,38 +533,47 @@ class AuthAnalyzer:
         ]
         for pattern, description in jwt_patterns:
             if re.search(pattern, raw, re.IGNORECASE):
-                findings.append(SecurityFinding(
-                    category="auth_session",
-                    severity=SecuritySeverity.INFO,
-                    description=description,
-                    recommendation=(
-                        "Ensure JWT tokens have: short expiration (15-60 min), "
-                        "secure secret key management, and proper token refresh mechanism."
-                    ),
-                    line_number=1,
-                    confidence=0.8,
-                    pattern="jwt_usage",
-                ))
+                findings.append(
+                    SecurityFinding(
+                        category="auth_session",
+                        severity=SecuritySeverity.INFO,
+                        description=description,
+                        recommendation=(
+                            "Ensure JWT tokens have: short expiration (15-60 min), "
+                            "secure secret key management, and proper token refresh mechanism."
+                        ),
+                        line_number=1,
+                        confidence=0.8,
+                        pattern="jwt_usage",
+                    )
+                )
 
         # Check for session configuration
         if "session" in raw.lower():
             has_session_config = any(
-                kw in raw.lower() for kw in
-                ["session_timeout", "session_expire", "permanent_session", "session_cookie"]
+                kw in raw.lower()
+                for kw in [
+                    "session_timeout",
+                    "session_expire",
+                    "permanent_session",
+                    "session_cookie",
+                ]
             )
             if not has_session_config:
-                findings.append(SecurityFinding(
-                    category="auth_session",
-                    severity=SecuritySeverity.MEDIUM,
-                    description="Session management detected but no session configuration found",
-                    recommendation=(
-                        "Configure session timeout, secure cookie flags "
-                        "(HttpOnly, Secure, SameSite), and session regeneration on login."
-                    ),
-                    line_number=1,
-                    confidence=0.5,
-                    pattern="missing_session_config",
-                ))
+                findings.append(
+                    SecurityFinding(
+                        category="auth_session",
+                        severity=SecuritySeverity.MEDIUM,
+                        description="Session management detected but no session configuration found",  # noqa: E501
+                        recommendation=(
+                            "Configure session timeout, secure cookie flags "
+                            "(HttpOnly, Secure, SameSite), and session regeneration on login."
+                        ),
+                        line_number=1,
+                        confidence=0.5,
+                        pattern="missing_session_config",
+                    )
+                )
 
         return findings
 

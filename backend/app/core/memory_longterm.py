@@ -14,19 +14,34 @@ class LongTermMemory:
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
 
-    async def store(self, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):  # noqa: E501
+    async def store(
+        self,
+        key: str,
+        value: Any,
+        ttl: int | None = None,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ):  # noqa: E501
         path = self.base_path / f"{key}.json"
         data = {"key": key, "value": value, "created_at": time.time()}
         path.write_text(json.dumps(data, default=str))
 
-    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:  # noqa: E501
+    async def retrieve(
+        self, key: str, session_id: str | None = None, project_id: str | None = None
+    ) -> Any | None:  # noqa: E501
         path = self.base_path / f"{key}.json"
         if not path.exists():
             return None
         data = json.loads(path.read_text())
         return data.get("value")
 
-    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:  # noqa: E501
+    async def search(
+        self,
+        query: str,
+        limit: int = 10,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ) -> list[dict]:  # noqa: E501
         results: list[dict] = []
         query_lower = query.lower()
         for path in self.base_path.glob("*.json"):

@@ -64,6 +64,7 @@ class ExecutionStatus(StrEnum):
                                     → FAILED
                                     → CANCELLED
     """
+
     CREATED = "created"
     QUEUED = "queued"
     RUNNING = "running"
@@ -83,6 +84,7 @@ class ExecutionRequest:
         correlation_id: Groups multiple executions under a single user request.
         metadata: Additional context (e.g., project_id, user_id, constraints).
     """
+
     capability_id: str
     input_data: dict[str, Any]
     execution_id: str = ""
@@ -99,6 +101,7 @@ class ExecutionRequest:
 @dataclass
 class TelemetryRecord:
     """Immutable telemetry record for a single execution."""
+
     execution_id: str
     correlation_id: str
     capability_id: str
@@ -126,6 +129,7 @@ class ExecutionResponse:
         correlation_id: Matches the request correlation_id.
         telemetry: Immutable telemetry snapshot.
     """
+
     status: ExecutionStatus
     result: Any
     error: str | None
@@ -185,7 +189,9 @@ class CapabilityExecutionEngine:
             capability_node = self._find_capability(request.capability_id)
             if capability_node is None:
                 return self._fail(
-                    request, start_time, telemetry,
+                    request,
+                    start_time,
+                    telemetry,
                     error=f"Capability '{request.capability_id}' not found in registry",
                     error_type="capability_not_found",
                 )
@@ -194,7 +200,9 @@ class CapabilityExecutionEngine:
             validation_error = self._validate_input(capability_node, request.input_data)
             if validation_error:
                 return self._fail(
-                    request, start_time, telemetry,
+                    request,
+                    start_time,
+                    telemetry,
                     error=validation_error,
                     error_type="validation_error",
                 )
@@ -209,8 +217,7 @@ class CapabilityExecutionEngine:
             # ── 5. Aggregate results ──
             result = self._aggregate_results(subtask_results)
             has_failure = any(
-                r.status in (SubtaskStatus.FAILED, SubtaskStatus.CANCELLED)
-                for r in subtask_results
+                r.status in (SubtaskStatus.FAILED, SubtaskStatus.CANCELLED) for r in subtask_results
             )
 
             elapsed_ms = (time.monotonic() - start_time) * 1000
@@ -221,11 +228,14 @@ class CapabilityExecutionEngine:
 
             if has_failure:
                 errors = [
-                    r.error for r in subtask_results
+                    r.error
+                    for r in subtask_results
                     if r.status in (SubtaskStatus.FAILED, SubtaskStatus.CANCELLED) and r.error
                 ]
                 return self._fail(
-                    request, start_time, telemetry,
+                    request,
+                    start_time,
+                    telemetry,
                     error="; ".join(errors) if errors else "Execution failed",
                     error_type="execution_failed",
                     result=result,
@@ -355,7 +365,9 @@ class CapabilityExecutionEngine:
         # Find the worker for this domain
         worker = self._route_to_worker(domain.value)
         if worker is None:
-            raise ValueError(f"No worker found for domain '{domain.value}' (capability: {request.capability_id})")  # noqa: E501
+            raise ValueError(
+                f"No worker found for domain '{domain.value}' (capability: {request.capability_id})"
+            )  # noqa: E501
 
         # Build a single subtask representing this capability execution
         subtask = SubTask(
@@ -539,4 +551,3 @@ class CapabilityExecutionEngine:
 
 # Singleton instance
 capability_execution_engine = CapabilityExecutionEngine()
-

@@ -106,12 +106,14 @@ class SREEngineerReport(BaseModel):
 class SREEngineerRecord(BaseModel):
     pack_id: str = "sre-engineer"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "observability_setup",
-        "slo_design",
-        "incident_response",
-        "capacity_planning",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "observability_setup",
+            "slo_design",
+            "incident_response",
+            "capacity_planning",
+        ]
+    )
 
 
 __all__ = [

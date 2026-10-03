@@ -9,6 +9,7 @@ from backend.app.core.experience import ExperienceLearning, Lesson
 class TestEmptyTags:
     def test_returns_empty_list(self):
         from backend.app.core.experience import _empty_tags
+
         assert _empty_tags() == []
 
 

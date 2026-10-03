@@ -13,7 +13,6 @@ Exit codes:
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -58,9 +57,7 @@ def check_authorization() -> dict[str, Any]:
 def check_rate_limiting() -> dict[str, Any]:
     main_py = _read(BACKEND / "app" / "main.py")
     has_rate_limit = (
-        "slowapi" in main_py
-        or "RateLimit" in main_py
-        or "rate_limit" in main_py.lower()
+        "slowapi" in main_py or "RateLimit" in main_py or "rate_limit" in main_py.lower()
     )
     return {
         "passed": has_rate_limit,
@@ -70,7 +67,12 @@ def check_rate_limiting() -> dict[str, Any]:
 
 def check_security_headers() -> dict[str, Any]:
     main_py = _read(BACKEND / "app" / "main.py")
-    headers = ["X-Frame-Options", "X-Content-Type-Options", "Strict-Transport-Security", "Content-Security-Policy"]
+    headers = [
+        "X-Frame-Options",
+        "X-Content-Type-Options",
+        "Strict-Transport-Security",
+        "Content-Security-Policy",
+    ]
     has_headers = any(h in main_py for h in headers)
     return {
         "passed": has_headers,
@@ -85,7 +87,9 @@ def check_sandbox_injection() -> dict[str, Any]:
     passed = not has_shell and has_exec
     return {
         "passed": passed,
-        "detail": "create_subprocess_shell still present (command injection risk)" if has_shell else "",
+        "detail": "create_subprocess_shell still present (command injection risk)"
+        if has_shell
+        else "",
     }
 
 
@@ -107,9 +111,7 @@ def check_ssrf_protection() -> dict[str, Any]:
 def check_directory_traversal() -> dict[str, Any]:
     benchmark = _read(BACKEND / "app" / "api" / "benchmark.py")
     workspace = _read(BACKEND / "app" / "api" / "workspace.py")
-    has_traversal_check = (
-        "resolve()" in benchmark or "resolve()" in workspace
-    ) and (
+    has_traversal_check = ("resolve()" in benchmark or "resolve()" in workspace) and (
         "parent" in benchmark or "parent" in workspace
     )
     return {
@@ -119,7 +121,7 @@ def check_directory_traversal() -> dict[str, Any]:
 
 
 def check_workspace_isolation() -> dict[str, Any]:
-    workspace_api = _read(BACKEND / "app" / "api" / "workspace.py")
+    _read(BACKEND / "app" / "api" / "workspace.py")
     workspace_service = _read(BACKEND / "app" / "core" / "workspace_service.py")
 
     has_filesystem_access = (
@@ -132,13 +134,14 @@ def check_workspace_isolation() -> dict[str, Any]:
     )
 
     if has_filesystem_access:
-        has_isolation = (
-            "resolve()" in workspace_service
-            and ("parent" in workspace_service or "is_relative_to" in workspace_service)
+        has_isolation = "resolve()" in workspace_service and (
+            "parent" in workspace_service or "is_relative_to" in workspace_service
         )
         return {
             "passed": has_isolation,
-            "detail": "Workspace service accesses filesystem without path validation" if not has_isolation else "",
+            "detail": "Workspace service accesses filesystem without path validation"
+            if not has_isolation
+            else "",
         }
 
     return {"passed": True, "detail": "Workspace service does not access filesystem (in-memory)"}
@@ -148,8 +151,8 @@ def check_secrets_scan() -> dict[str, Any]:
     config = _read(BACKEND / "app" / "core" / "config.py")
     compose = _read(ROOT / "docker-compose.yml")
     hardcoded_patterns = [
-        r'postgresql://postgres:postgres@',
-        r'POSTGRES_PASSWORD:\s*postgres',
+        r"postgresql://postgres:postgres@",
+        r"POSTGRES_PASSWORD:\s*postgres",
         r'SECRET_KEY:\s*""',
         r'OPENAI_API_KEY:\s*""',
     ]
@@ -198,7 +201,11 @@ def print_report(checks: list[dict[str, Any]]) -> bool:
             print(f"       {check['detail'][:200]}")
     print()
     all_passed = all(c["passed"] for c in checks)
-    overall = "PASS — Security hardening complete" if all_passed else "FAIL — Security hardening incomplete"
+    overall = (
+        "PASS — Security hardening complete"
+        if all_passed
+        else "FAIL — Security hardening incomplete"
+    )
     print(f"Overall: {overall}")
     print("=" * 60)
     return all_passed

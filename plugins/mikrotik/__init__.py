@@ -1,6 +1,12 @@
 import logging
-from typing import Any
-from backend.app.core.mcp_registry import MCPPlugin, MCPTool, MCPResource, MCPResourceType, mcp_registry
+
+from backend.app.core.mcp_registry import (
+    MCPPlugin,
+    MCPResource,
+    MCPResourceType,
+    MCPTool,
+    mcp_registry,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +23,10 @@ MIKROTIK_PLUGIN = MCPPlugin(
             input_schema={
                 "type": "object",
                 "properties": {
-                    "config_content": {"type": "string", "description": "RouterOS configuration content"},
+                    "config_content": {
+                        "type": "string",
+                        "description": "RouterOS configuration content",
+                    },
                 },
                 "required": ["config_content"],
             },
@@ -43,7 +52,10 @@ MIKROTIK_PLUGIN = MCPPlugin(
             input_schema={
                 "type": "object",
                 "properties": {
-                    "config_content": {"type": "string", "description": "RouterOS configuration to simulate"},
+                    "config_content": {
+                        "type": "string",
+                        "description": "RouterOS configuration to simulate",
+                    },
                 },
                 "required": ["config_content"],
             },
@@ -56,7 +68,10 @@ MIKROTIK_PLUGIN = MCPPlugin(
             input_schema={
                 "type": "object",
                 "properties": {
-                    "config_content": {"type": "string", "description": "RouterOS configuration to analyze"},
+                    "config_content": {
+                        "type": "string",
+                        "description": "RouterOS configuration to analyze",
+                    },
                 },
                 "required": ["config_content"],
             },
@@ -69,7 +84,10 @@ MIKROTIK_PLUGIN = MCPPlugin(
             input_schema={
                 "type": "object",
                 "properties": {
-                    "config_content": {"type": "string", "description": "RouterOS configuration content"},
+                    "config_content": {
+                        "type": "string",
+                        "description": "RouterOS configuration content",
+                    },
                 },
                 "required": ["config_content"],
             },
@@ -100,7 +118,16 @@ MIKROTIK_PLUGIN = MCPPlugin(
             permissions=["read"],
         ),
     ],
-    capabilities=["networking", "mikrotik", "routeros", "firewall", "hotspot", "vlan", "dhcp", "qos"],
+    capabilities=[
+        "networking",
+        "mikrotik",
+        "routeros",
+        "firewall",
+        "hotspot",
+        "vlan",
+        "dhcp",
+        "qos",
+    ],
     permissions=["read", "write", "execute"],
 )
 

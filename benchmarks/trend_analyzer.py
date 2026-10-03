@@ -75,7 +75,9 @@ class TrendAnalyzer:
 
     def save_baseline(self, summary: dict[str, Any]) -> None:
         try:
-            CCE_BASELINE_FILE.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
+            CCE_BASELINE_FILE.write_text(
+                json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
         except Exception as exc:
             logger.warning("Failed to save baseline: %s", exc)
 
@@ -90,7 +92,9 @@ class TrendAnalyzer:
             return "down"
         return "stable"
 
-    def detect_regressions(self, current_summary: dict[str, Any], threshold: float = 5.0) -> list[RegressionResult]:
+    def detect_regressions(
+        self, current_summary: dict[str, Any], threshold: float = 5.0
+    ) -> list[RegressionResult]:
         baseline = self.load_baseline()
         if not baseline:
             return []

@@ -18,20 +18,24 @@ class KnowledgeRetrieval:
         results = []
         for node, score in candidates[:limit]:
             entity = self.registry.resolve(node.id)
-            results.append({
-                "id": node.id,
-                "name": node.name,
-                "description": node.description,
-                "domain": node.domain,
-                "category": node.category,
-                "type": node.type,
-                "confidence": node.confidence,
-                "score": score,
-                "entity": entity,
-            })
+            results.append(
+                {
+                    "id": node.id,
+                    "name": node.name,
+                    "description": node.description,
+                    "domain": node.domain,
+                    "category": node.category,
+                    "type": node.type,
+                    "confidence": node.confidence,
+                    "score": score,
+                    "entity": entity,
+                }
+            )
         return results
 
-    def related(self, concept_id: str, relation: str | None = None, max_depth: int = 2) -> list[dict[str, Any]]:  # noqa: E501
+    def related(
+        self, concept_id: str, relation: str | None = None, max_depth: int = 2
+    ) -> list[dict[str, Any]]:  # noqa: E501
         paths = self.graph.traverse(concept_id, relation=relation, max_depth=max_depth)
         results: list[dict[str, Any]] = []
         seen: set[str] = set()
@@ -39,14 +43,16 @@ class KnowledgeRetrieval:
             for node in path:
                 if node.id not in seen:
                     seen.add(node.id)
-                    results.append({
-                        "id": node.id,
-                        "name": node.name,
-                        "description": node.description,
-                        "domain": node.domain,
-                        "category": node.category,
-                        "type": node.type,
-                    })
+                    results.append(
+                        {
+                            "id": node.id,
+                            "name": node.name,
+                            "description": node.description,
+                            "domain": node.domain,
+                            "category": node.category,
+                            "type": node.type,
+                        }
+                    )
         return results
 
     def hybrid(self, query: str, domain: str | None = None, limit: int = 5) -> list[dict[str, Any]]:

@@ -24,7 +24,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "product_vision",
         "inputs": {
             "business_context": {"project_name": "new-product-vision", "domain": "saas"},
-            "inputs": {"market": "SMB", "vision_horizon_years": 3, "target_users": ["startups", "freelancers"]},
+            "inputs": {
+                "market": "SMB",
+                "vision_horizon_years": 3,
+                "target_users": ["startups", "freelancers"],
+            },
         },
         "min_quality_score": 0.85,
     },
@@ -84,7 +88,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "discovery",
         "inputs": {
             "business_context": {"project_name": "discovery-auth", "domain": "saas"},
-            "inputs": {"user_segments": ["enterprise", "smb"], "research_methods": ["interview", "survey"]},
+            "inputs": {
+                "user_segments": ["enterprise", "smb"],
+                "research_methods": ["interview", "survey"],
+            },
         },
         "min_quality_score": 0.85,
     },
@@ -94,7 +101,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "release",
         "inputs": {
             "business_context": {"project_name": "release-v2", "domain": "saas"},
-            "inputs": {"features_count": 8, "rollout_strategy": "canary", "target_date": "2025-06-01"},
+            "inputs": {
+                "features_count": 8,
+                "rollout_strategy": "canary",
+                "target_date": "2025-06-01",
+            },
         },
         "min_quality_score": 0.80,
     },
@@ -114,7 +125,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "alignment",
         "inputs": {
             "business_context": {"project_name": "alignment-q2", "domain": "enterprise"},
-            "inputs": {"stakeholders": ["engineering", "sales", "support"], "conflicts": ["resource", "timeline"]},
+            "inputs": {
+                "stakeholders": ["engineering", "sales", "support"],
+                "conflicts": ["resource", "timeline"],
+            },
         },
         "min_quality_score": 0.85,
     },
@@ -202,7 +216,9 @@ class ProductManagerBenchmark:
             "pack_id": "product_manager",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

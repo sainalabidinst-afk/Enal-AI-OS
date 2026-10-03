@@ -129,9 +129,7 @@ async def run_benchmark():
                 "executive_report": result.capability_breakdown.executive_report
                 if result.capability_breakdown
                 else 0.0,
-                "total": result.capability_breakdown.total
-                if result.capability_breakdown
-                else 0.0,
+                "total": result.capability_breakdown.total if result.capability_breakdown else 0.0,
             },
             "details": result.details,
         }

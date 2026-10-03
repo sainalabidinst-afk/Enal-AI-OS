@@ -74,10 +74,13 @@ class SimulationEngine:
             f"Action: {step.action}\n"
             f"Description: {step.description}\n"
             f"Expected: {step.expected_result}\n\n"
-            "Output JSON: {\"passed\": bool, \"reason\": str}"
+            'Output JSON: {"passed": bool, "reason": str}'
         )
-        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=256)  # noqa: E501
+        response = await model_router.acomplete(
+            [{"role": "user", "content": prompt}], temperature=0.3, max_tokens=256
+        )  # noqa: E501
         import json
+
         try:
             result = json.loads(response.choices[0].message.content)
             return result.get("passed", False), result.get("reason")
@@ -86,7 +89,12 @@ class SimulationEngine:
 
     async def _execute_step(self, step: SimulationStep) -> tuple[bool, str | None]:
         try:
-            result = await sandbox_runtime.execute(language=__import__("backend.app.core.sandbox", fromlist=["SandboxLanguage"]).SandboxLanguage.PYTHON, code=step.action)  # noqa: E501
+            result = await sandbox_runtime.execute(
+                language=__import__(
+                    "backend.app.core.sandbox", fromlist=["SandboxLanguage"]
+                ).SandboxLanguage.PYTHON,
+                code=step.action,
+            )  # noqa: E501
             return result.error is None, result.error
         except Exception as e:
             return False, str(e)
@@ -102,8 +110,11 @@ class SimulationEngine:
         for step in failed_steps:
             prompt += f"- {step.description}: {step.error}\n"
         prompt += "\nOutput JSON array of improvement suggestions."
-        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512)  # noqa: E501
+        response = await model_router.acomplete(
+            [{"role": "user", "content": prompt}], temperature=0.5, max_tokens=512
+        )  # noqa: E501
         import json
+
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):

@@ -51,9 +51,7 @@ class InferenceEngine:
         source_entities: list[str] = []
 
         for node in relevant_nodes[:top_k]:
-            evidence_chain.append(
-                f"Entity: {node.name} (domain={node.domain}, layer={node.layer})"
-            )
+            evidence_chain.append(f"Entity: {node.name} (domain={node.domain}, layer={node.layer})")
             source_entities.append(node.id)
 
         paths = []

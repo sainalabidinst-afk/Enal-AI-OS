@@ -38,7 +38,14 @@ class MicroservicesAnalyzer:
         findings, recs = await analyzer.analyze()
     """
 
-    SERVICE_HINTS = ("service", "microservice", "svc", "domain_service", "module", "bounded_context")  # noqa: E501
+    SERVICE_HINTS = (
+        "service",
+        "microservice",
+        "svc",
+        "domain_service",
+        "module",
+        "bounded_context",
+    )  # noqa: E501
     SHARED_DB_HINTS = ("shared_db", "shared_database", "global_schema", "single_db")
     ORCHESTRATOR_HINTS = ("monolith", "god_module", "god_class", "god_object", "big_bang")
     API_HINTS = ("grpc", "proto", "rest", "api", "endpoint", "rpc")
@@ -135,8 +142,8 @@ class MicroservicesAnalyzer:
                     title="Shared database detected",
                     description=(
                         "Modules referencing a shared database schema were found: "
-                        + ", ".join(shared_db[:5]) +
-                        ". Shared database access couples services, limiting "
+                        + ", ".join(shared_db[:5])
+                        + ". Shared database access couples services, limiting "
                         "independent deployment and scalability."
                     ),
                     evidence={"shared_db_modules": shared_db},
@@ -160,8 +167,8 @@ class MicroservicesAnalyzer:
                     title="God module / orchestrator detected",
                     description=(
                         "Modules that may be God modules (single class/directing all logic): "
-                        + ", ".join(orchestrators[:5]) +
-                        ". These become bottlenecks and are hard to test."
+                        + ", ".join(orchestrators[:5])
+                        + ". These become bottlenecks and are hard to test."
                     ),
                     evidence={"orchestrator_modules": orchestrators},
                     recommendation=(
@@ -227,4 +234,3 @@ class MicroservicesAnalyzer:
                 )
             )
         return recs
-

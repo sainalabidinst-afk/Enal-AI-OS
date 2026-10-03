@@ -30,6 +30,7 @@ from enal_ai import Agent, EnalAI
 
 enal = EnalAI()
 
+
 class MikrotikAgent(Agent):
     name = "mikrotik"
     description = "Mikrotik network configuration"
@@ -41,6 +42,7 @@ class MikrotikAgent(Agent):
         # Your custom logic here
         return f"Configured: {task}"
 
+
 agent = MikrotikAgent()
 result = await agent.run("Configure hotspot with 3 VLANs")
 print(result)
@@ -50,6 +52,7 @@ print(result)
 
 ```python
 from enal_ai import Tool
+
 
 @enal.tool(name="docker_build", description="Build Docker image")
 async def docker_build(dockerfile_path: str, image_name: str):
@@ -67,8 +70,12 @@ workflow = Workflow(
     description="Build ERP system",
     steps=[
         WorkflowStep(id="1", name="Requirements", agent="analyst", action="analyze"),
-        WorkflowStep(id="2", name="Backend", agent="backend-dev", action="build_backend", depends_on=["1"]),
-        WorkflowStep(id="3", name="Frontend", agent="frontend-dev", action="build_frontend", depends_on=["1"]),
+        WorkflowStep(
+            id="2", name="Backend", agent="backend-dev", action="build_backend", depends_on=["1"]
+        ),
+        WorkflowStep(
+            id="3", name="Frontend", agent="frontend-dev", action="build_frontend", depends_on=["1"]
+        ),
         WorkflowStep(id="4", name="Deploy", agent="devops", action="deploy", depends_on=["2", "3"]),
     ],
 )

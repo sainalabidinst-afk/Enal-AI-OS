@@ -85,17 +85,14 @@ Pipeline    Analyst   Engineer      Risk Review    Intelligence
 {
     "title": "Interest Rate Impact",
     "description": "If suku bunga naik 1% dan kompetitor turun harga 20%",
-    "base_state": {
-        "interest_rate": 0.05,
-        "competitor_price": 100.0
-    },
+    "base_state": {"interest_rate": 0.05, "competitor_price": 100.0},
     "variable_changes": [
         {
             "variable": "interest_rate",
             "change_type": "percent_delta",
             "value": 0.01,
             "distribution": "normal",
-            "stddev": 0.001
+            "stddev": 0.001,
         },
         {
             "variable": "competitor_price",
@@ -103,13 +100,13 @@ Pipeline    Analyst   Engineer      Risk Review    Intelligence
             "value": -0.20,
             "distribution": "uniform",
             "range_min": -0.25,
-            "range_max": -0.15
-        }
+            "range_max": -0.15,
+        },
     ],
     "iterations": 100,
     "sandbox_enabled": True,
     "sandbox_code": "result = base_revenue * 1.1",
-    "seed": 42
+    "seed": 42,
 }
 ```
 
@@ -124,20 +121,26 @@ Pipeline    Analyst   Engineer      Risk Review    Intelligence
     "outcomes": {
         "best_case": {"value": ..., "variables": {...}},
         "worst_case": {"value": ..., "variables": {...}},
-        "most_likely": {"value": ..., "variables": {...}}
+        "most_likely": {"value": ..., "variables": {...}},
     },
     "distribution": {
-        "mean": ..., "median": ..., "std_dev": ...,
-        "min": ..., "max": ...,
-        "p5": ..., "p25": ..., "p75": ..., "p95": ...,
-        "histogram": [...]
+        "mean": ...,
+        "median": ...,
+        "std_dev": ...,
+        "min": ...,
+        "max": ...,
+        "p5": ...,
+        "p25": ...,
+        "p75": ...,
+        "p95": ...,
+        "histogram": [...],
     },
     "assumptions": [...],
     "key_drivers": [...],
     "confidence": 0.95,
     "explanation_chain": {...},
     "sandbox_logs": [...],
-    "raw": {"latency_ms": ..., "iterations": ..., "seed": ...}
+    "raw": {"latency_ms": ..., "iterations": ..., "seed": ...},
 }
 ```
 

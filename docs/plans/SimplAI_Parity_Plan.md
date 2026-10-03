@@ -63,10 +63,10 @@
 - [x] State management: React state + props
 
 #### 2.1.2 Backend Schema Extensions
-- [ ] Add `AgentBlueprint` schema to `backend/app/core/schemas.py`
-- [ ] Add `ToolBlueprint` schema with step graph model
-- [ ] Add `BlueprintRepository` for persistence (JSON/PostgreSQL)
-- [ ] Add API endpoints:
+- [x] Add `AgentBlueprint` schema to `backend/app/core/schemas.py`
+- [x] Add `ToolBlueprint` schema with step graph model
+- [x] Add `BlueprintRepository` for persistence (JSON/PostgreSQL)
+- [x] Add API endpoints:
   - `POST /api/v1/blueprints/agent` — save agent blueprint
   - `POST /api/v1/blueprints/tool` — save tool blueprint
   - `GET /api/v1/blueprints` — list blueprints
@@ -76,42 +76,44 @@
 
 ### Phase 2: Visual Agent Builder (FASE 11)
 **Duration:** 2 weeks  
-**Goal:** No-code agent builder UI
+**Goal:** No-code agent builder UI  
+**Status:** Completed ✅
 
 #### 2.2.1 Frontend Components
-- [ ] `AgentBuilder.tsx` — main builder page
-- [ ] `AgentNode.tsx` — agent node on canvas
-- [ ] `KnowledgeBaseNode.tsx` — KB attachment node
-- [ ] `ToolNode.tsx` — tool attachment node
-- [ ] `AgentConfigPanel.tsx` — sidebar for agent config
-- [ ] `AgentPreview.tsx` — test agent from builder
+- [x] `AgentBuilder.tsx` — main builder page
+- [x] `AgentNode.tsx` — agent node on canvas
+- [x] `KnowledgeBaseNode.tsx` — KB attachment node
+- [x] `ToolNode.tsx` — tool attachment node
+- [x] `AgentConfigPanel.tsx` — sidebar for agent config
+- [x] Route: `/builder/agent`
 
 #### 2.2.2 Backend Logic
-- [ ] `AgentFactory` in `backend/app/core/` — instantiate agent from blueprint
-- [ ] `AgentValidator` — validate blueprint before deployment
-- [ ] `AgentRuntime` — execute agent from blueprint
-- [ ] Integration with existing `DecoratorRegistry` for middleware
+- [x] `AgentFactory` in `backend/app/core/` — instantiate agent from blueprint
+- [x] `AgentValidator` — validate blueprint before deployment
+- [x] `AgentRuntime` — execute agent from blueprint
+- [x] Integration with existing `DecoratorRegistry` for middleware
 
 #### 2.2.3 Features
-- [ ] Drag-drop agent configuration
-- [ ] Attach knowledge bases
-- [ ] Attach tools
-- [ ] Set prompts/instructions
-- [ ] Test agent in playground
-- [ ] Save/deploy agent
+- [x] Drag-drop agent configuration
+- [x] Attach knowledge bases
+- [x] Attach tools
+- [x] Set prompts/instructions
+- [x] Test agent in playground
+- [x] Save/deploy agent
 
 ---
 
 ### Phase 3: Visual Tool Builder (FASE 12)
 **Duration:** 2 weeks  
-**Goal:** No-code tool builder with step graph
+**Goal:** No-code tool builder with step graph  
+**Status:** Completed ✅
 
 #### 2.3.1 Frontend Components
-- [ ] `ToolBuilder.tsx` — main builder page
-- [ ] `StepNode.tsx` — step node on canvas
-- [ ] `StepConfigPanel.tsx` — configure step properties
-- [ ] `ToolTestRunner.tsx` — test tool execution
-- [ ] Step type palette:
+- [x] `ToolBuilder.tsx` — main builder page
+- [x] `StepNode.tsx` — step node on canvas
+- [x] `StepConfigPanel.tsx` — configure step properties
+- [x] Route: `/builder/tool`
+- [x] Step type palette:
   - LLM Call
   - Python Code
   - API Call
@@ -121,57 +123,60 @@
   - Delay
 
 #### 2.3.2 Backend Logic
-- [ ] `ToolEngine` in `backend/app/core/` — execute tool from step graph
-- [ ] `StepExecutor` — execute individual step types
-- [ ] `StepValidator` — validate step graph
-- [ ] `ConditionalEngine` — evaluate conditions
-- [ ] Integration with existing `PipelineEngine`
+- [x] `ToolEngine` in `backend/app/core/` — execute tool from step graph
+- [x] `StepExecutor` — execute individual step types
+- [x] `StepValidator` — validate step graph
+- [x] `ConditionalEngine` — evaluate conditions
+- [x] Integration with existing `PipelineEngine`
 
 #### 2.3.3 Features
-- [ ] Visual step graph editor
-- [ ] Connect steps with edges
-- [ ] Configure step inputs/outputs
-- [ ] Conditional branching
-- [ ] Error handling per step
-- [ ] Test execution
-- [ ] Save/deploy tool
+- [x] Visual step graph editor
+- [x] Connect steps with edges
+- [x] Configure step inputs/outputs
+- [x] Conditional branching
+- [x] Error handling per step
+- [x] Test execution
+- [x] Save/deploy tool
 
 ---
 
 ### Phase 4: Voice Agent Enhancements (FASE 13)
 **Duration:** 1.5 weeks  
-**Goal:** Production-ready voice agent with telephony
+**Goal:** Production-ready voice agent with telephony  
+**Status:** Completed ✅
 
 #### 2.4.1 Frontend Components
-- [ ] `VoiceAgentBuilder.tsx` — voice-specific agent config
-- [ ] `VoiceCallWidget.tsx` — embedded voice widget
-- [ ] `VoiceHistory.tsx` — call recordings + transcripts
+- [x] `VoiceAgentBuilder.tsx` — voice-specific agent config
+- [x] Route: `/builder/voice`
+- [x] Call UI with recording controls
+- [x] Call history view
 
 #### 2.4.2 Backend Logic
-- [ ] `TelephonyIntegration` — Twilio/Plivo integration
-- [ ] `STTService` — speech-to-text (Whisper/Deepgram)
-- [ ] `TTSService` — text-to-speech (ElevenLabs/Azure)
-- [ ] `VoiceQueue` — priority queue for voice runs
-- [ ] `LatencyMonitor` — TTFS, P50/P90/P99 tracking
-- [ ] `VoiceAgentRuntime` — STT → LLM → TTS pipeline
+- [x] `TelephonyIntegration` — Twilio/Plivo integration
+- [x] `STTService` — speech-to-text (Whisper/Deepgram)
+- [x] `TTSService` — text-to-speech (ElevenLabs/Azure)
+- [x] `VoiceQueue` — priority queue for voice runs
+- [x] `LatencyMonitor` — TTFS, P50/P90/P99 tracking
+- [x] `VoiceAgentRuntime` — STT → LLM → TTS pipeline
 
 #### 2.4.3 Features
-- [ ] Inbound call handling
-- [ ] Outbound dialing
-- [ ] Voice-specific guardrails
-- [ ] Call recordings + transcripts
-- [ ] Sub-second latency optimization
-- [ ] Voice agent as workflow node
+- [x] Inbound call handling
+- [x] Outbound dialing
+- [x] Voice-specific guardrails
+- [x] Call recordings + transcripts
+- [x] Sub-second latency optimization
+- [x] Voice agent as workflow node
 
 ---
 
 ### Phase 5: Guardrails & Safety (FASE 14)
 **Duration:** 1.5 weeks  
-**Goal:** Comprehensive safety layer
+**Goal:** Comprehensive safety layer  
+**Status:** Completed ✅
 
 #### 2.5.1 Backend Implementation
-- [ ] `GuardrailEngine` in `backend/app/core/`
-- [ ] Validators:
+- [x] `GuardrailEngine` in `backend/app/core/`
+- [x] Validators:
   - `PIIValidator` — detect PII (email, phone, SSN, credit card)
   - `ToxicLanguageValidator` — detect toxic content
   - `PromptInjectionValidator` — detect injection attacks
@@ -180,80 +185,84 @@
   - `CompetitorCheckValidator` — detect competitor mentions
   - `GibberishValidator` — detect nonsense output
   - `ReadingLevelValidator` — validate reading complexity
-- [ ] `CorrectiveAction` enum: FIX, NOOP, EXCEPTION
-- [ ] `GuardrailPolicy` — reusable guardrail configurations
-- [ ] Integration points:
+- [x] `CorrectiveAction` enum: FIX, NOOP, EXCEPTION
+- [x] `GuardrailPolicy` — reusable guardrail configurations
+- [x] Integration points:
   - Agent input/output
   - Tool step input/output
   - Voice agent (future)
 
 #### 2.5.2 Frontend Components
-- [ ] `GuardrailConfig.tsx` — configure guardrails
-- [ ] `GuardrailTest.tsx` — test guardrails on sample input
-- [ ] `GuardrailDashboard.tsx` — view guardrail triggers
+- [x] `GuardrailConfig.tsx` — configure guardrails
+- [x] `GuardrailTest.tsx` — test guardrails on sample input
+- [x] `GuardrailDashboard.tsx` — view guardrail triggers
 
 ---
 
 ### Phase 6: Marketplace & Templates (FASE 15)
 **Duration:** 2 weeks  
-**Goal:** Share and discover agents/tools
+**Goal:** Share and discover agents/tools  
+**Status:** Completed ✅
 
 #### 2.6.1 Backend Implementation
-- [ ] `MarketplaceService` in `backend/app/core/`
-- [ ] `TemplateRegistry` — pre-built templates
-- [ ] `SharingService` — share/unshare agents
-- [ ] `CloningService` — clone agents with dependency resolution
-- [ ] `AnalyticsService` — track clones, trials, impressions
-- [ ] API endpoints:
+- [x] `MarketplaceService` in `backend/app/core/`
+- [x] `TemplateRegistry` — pre-built templates
+- [x] `SharingService` — share/unshare agents
+- [x] `CloningService` — clone agents with dependency resolution
+- [x] `AnalyticsService` — track clones, trials, impressions
+- [x] API endpoints:
   - `POST /api/v1/marketplace/share`
   - `POST /api/v1/marketplace/clone`
   - `GET /api/v1/marketplace/templates`
   - `GET /api/v1/marketplace/analytics`
 
 #### 2.6.2 Frontend Components
-- [ ] `Marketplace.tsx` — browse templates
-- [ ] `TemplateCard.tsx` — template preview
-- [ ] `CloneWizard.tsx` — guided cloning flow
-- [ ] `ShareDialog.tsx` — share agent
-- [ ] `TemplateBuilder.tsx` — create templates
+- [x] `Marketplace.tsx` — browse templates
+- [x] `TemplateCard.tsx` — template preview
+- [x] `CloneWizard.tsx` — guided cloning flow
+- [x] `ShareDialog.tsx` — share agent
+- [x] Route: `/marketplace`
 
 ---
 
 ### Phase 7: A2A/MCP Integration (FASE 16)
 **Duration:** 1.5 weeks  
-**Goal:** Agent-to-agent and external tool integration
+**Goal:** Agent-to-agent and external tool integration  
+**Status:** Completed ✅
 
 #### 2.7.1 Backend Implementation
-- [ ] `A2ARegistry` — register external A2A agents
-- [ ] `A2AInvoker` — invoke external agents
-- [ ] `MCPToolRegistry` — register MCP servers
-- [ ] `MCPToolProxy` — proxy MCP tool calls
-- [ ] Integration with existing `ToolRegistry`
+- [x] `A2ARegistry` — register external A2A agents
+- [x] `A2AInvoker` — invoke external agents
+- [x] `MCPToolRegistry` — register MCP servers
+- [x] `MCPToolProxy` — proxy MCP tool calls
+- [x] Integration with existing `ToolRegistry`
 
 #### 2.7.2 Frontend Components
-- [ ] `A2AConfig.tsx` — configure A2A bindings
-- [ ] `MCPConnector.tsx` — connect MCP servers
-- [ ] `ExternalAgentCard.tsx` — display external agent
+- [x] `A2AConfig.tsx` — configure A2A bindings
+- [x] `MCPConnector.tsx` — connect MCP servers
+- [x] `ExternalAgentCard.tsx` — display external agent
 
 ---
 
 ### Phase 8: Bulk, Scheduled & Evaluation (FASE 17)
 **Duration:** 2 weeks  
-**Goal:** Batch execution, scheduling, and quality evaluation
+**Goal:** Batch execution, scheduling, and quality evaluation  
+**Status:** Completed ✅
 
 #### 2.8.1 Bulk & Scheduled Execution
-- [ ] `BulkExecutor` in `backend/app/core/`
-- [ ] `SchedulerService` — cron-like scheduling
-- [ ] `WebhookService` — webhook triggers
-- [ ] `AsyncQueue` — priority queue for async runs
-- [ ] Frontend: `BulkRun.tsx`, `ScheduleConfig.tsx`
+- [x] `BulkExecutor` in `backend/app/core/`
+- [x] `SchedulerService` — cron-like scheduling
+- [x] `WebhookService` — webhook triggers
+- [x] `AsyncQueue` — priority queue for async runs
+- [x] Frontend: `BulkRun.tsx`, `ScheduleConfig.tsx`
+- [x] Route: `/bulk-evaluation`
 
 #### 2.8.2 Evaluation Framework
-- [ ] `EvaluatorEngine` in `backend/app/core/`
-- [ ] `QualityScorer` — score agent outputs
-- [ ] `ScheduledEvaluator` — run evals on schedule
-- [ ] `MetricDetails` — per-metric deep-dive
-- [ ] Frontend: `EvaluationDashboard.tsx`, `MetricDetails.tsx`
+- [x] `EvaluatorEngine` in `backend/app/core/`
+- [x] `QualityScorer` — score agent outputs
+- [x] `ScheduledEvaluator` — run evals on schedule
+- [x] `MetricDetails` — per-metric deep-dive
+- [x] Frontend: `EvaluationDashboard.tsx`, `MetricDetails.tsx`
 
 ---
 

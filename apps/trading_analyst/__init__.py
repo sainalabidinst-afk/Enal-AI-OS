@@ -55,8 +55,20 @@ class TradingAnalystApp(BaseReferenceApp):
         if not symbol and user_input:
             candidate = user_input.strip().upper().replace(" ", "")
             # crude symbol detection: strip common words
-            for word in ("ANALISA", "ANALYZE", "ANALISIS", "ANALYSIS", "CARA", "HOW", "TO",
-                         "MARKET", "PASAR", "SYMBOL", "PERDAGANGAN", "TRADING"):
+            for word in (
+                "ANALISA",
+                "ANALYZE",
+                "ANALISIS",
+                "ANALYSIS",
+                "CARA",
+                "HOW",
+                "TO",
+                "MARKET",
+                "PASAR",
+                "SYMBOL",
+                "PERDAGANGAN",
+                "TRADING",
+            ):
                 candidate = candidate.replace(word, "")
             if candidate:
                 symbol = candidate
@@ -96,4 +108,3 @@ def get_app() -> TradingAnalystApp:
 
 
 __all__ = ["TradingAnalystApp", "TradingEngine", "trading_engine", "get_app"]
-

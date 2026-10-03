@@ -84,17 +84,15 @@ class DocumentProcessingEngine:
 
         if inputs.operation == DocumentOperation.document_edit:
             edit_results = self.engine.edit_document(inputs)
-            assumptions.append(f"edit operations: {len(inputs.text_replacements)} replacements, "
-                               f"{len(inputs.table_operations)} table ops, "
-                               f"{len(inputs.metadata)} metadata keys")
+            assumptions.append(
+                f"edit operations: {len(inputs.text_replacements)} replacements, "
+                f"{len(inputs.table_operations)} table ops, "
+                f"{len(inputs.metadata)} metadata keys"
+            )
 
         if inputs.operation == DocumentOperation.document_produce:
             produced_files = self.engine.produce_document(inputs)
-            doc_type = (
-                inputs.produce_content.document_type
-                if inputs.produce_content
-                else "none"
-            )
+            doc_type = inputs.produce_content.document_type if inputs.produce_content else "none"
             assumptions.append(f"produce_content document_type={doc_type}")
 
         if inputs.operation == DocumentOperation.document_convert:
@@ -108,8 +106,7 @@ class DocumentProcessingEngine:
         if inputs.operation == DocumentOperation.batch_process:
             batch_summary = self.engine.run_batch(inputs)
             assumptions.append(
-                f"batch jobs: {len(inputs.batch_jobs)}, "
-                f"parallelism={inputs.parallelism}"
+                f"batch jobs: {len(inputs.batch_jobs)}, parallelism={inputs.parallelism}"
             )
 
         quality_score = 0.92 if validation["valid"] else 0.80
@@ -139,12 +136,8 @@ class DocumentProcessingEngine:
 
     def _formula_for(self, operation: DocumentOperation, validation: dict) -> str:
         formulas = {
-            DocumentOperation.document_read: (
-                "read: parse source file via lazy imported library"
-            ),
-            DocumentOperation.document_edit: (
-                "edit: text_replace + table_ops + metadata_update"
-            ),
+            DocumentOperation.document_read: ("read: parse source file via lazy imported library"),
+            DocumentOperation.document_edit: ("edit: text_replace + table_ops + metadata_update"),
             DocumentOperation.document_produce: (
                 "produce: build from content model via lazy imported library"
             ),
@@ -163,9 +156,7 @@ class DocumentProcessingEngine:
             return f"{base} | input_validation_failed: {validation['validation_errors']}"
         return base
 
-    def _trace_inputs(
-        self, inputs: DocumentProcessingInputs, validation: dict
-    ) -> list[str]:
+    def _trace_inputs(self, inputs: DocumentProcessingInputs, validation: dict) -> list[str]:
         traced: list[str] = []
         if inputs.source_path:
             traced.append("source_path")

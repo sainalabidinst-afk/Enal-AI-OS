@@ -60,7 +60,9 @@ class ProjectScanner:
             py_files = list(base.rglob("*.py"))
             files_count = len(py_files)
             modules_count = len({f.parent.name for f in py_files if f.parent != base})
-            hotspots = [name for name in HOTSPOT_CANDIDATES if any(f.name == name for f in py_files)]  # noqa: E501
+            hotspots = [
+                name for name in HOTSPOT_CANDIDATES if any(f.name == name for f in py_files)
+            ]  # noqa: E501
             if any(f.name == "orchestrator_v2.py" for f in py_files):
                 complexity = "high"
             if modules_count > 20:

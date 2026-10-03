@@ -13,8 +13,13 @@ class TrueNASParser(BaseParser):
         return meta.vendor == VendorFamily.truenas or "truenas" in meta.text_preview.lower()
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.truenas, format="truenas", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.truenas, format="truenas", device_role=meta.device_role
+        )  # noqa: E501
         for line in content.splitlines()[:200]:
-            if any(key in line.lower() for key in ["volume", "raid", "pool", "disk", "snapshot", "replication"]):  # noqa: E501
+            if any(
+                key in line.lower()
+                for key in ["volume", "raid", "pool", "disk", "snapshot", "replication"]
+            ):  # noqa: E501
                 ast.storage.append({"raw": line.strip()[:200]})
         return ast

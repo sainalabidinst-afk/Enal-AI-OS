@@ -84,6 +84,7 @@ class TaskPlanner:
             )
 
         from apps.society.intent_router import IntentComplexity
+
         complexity_map = {
             IntentComplexity.SIMPLE: 3,
             IntentComplexity.MEDIUM: 5,
@@ -103,22 +104,30 @@ class TaskPlanner:
                 for prev in subtasks
                 if not template.can_parallelize or prev.priority < template.priority
             ]
-            subtasks.append(SubTask(
-                subtask_id=template.subtask_id,
-                name=template.name,
-                description=template.description,
-                required_skills=list(template.required_skills),
-                produces_artifact=template.produces_artifact,
-                estimated_duration_minutes=template.estimated_duration_minutes,
-                priority=template.priority,
-                can_parallelize=template.can_parallelize,
-                depends_on=deps,
-            ))
+            subtasks.append(
+                SubTask(
+                    subtask_id=template.subtask_id,
+                    name=template.name,
+                    description=template.description,
+                    required_skills=list(template.required_skills),
+                    produces_artifact=template.produces_artifact,
+                    estimated_duration_minutes=template.estimated_duration_minutes,
+                    priority=template.priority,
+                    can_parallelize=template.can_parallelize,
+                    depends_on=deps,
+                )
+            )
 
         parallel_count = sum(1 for s in subtasks if s.can_parallelize)
-        strategy = "parallel" if parallel_count == len(subtasks) and len(subtasks) > 1 else ("serial" if parallel_count == 0 else "mixed")  # noqa: E501
+        strategy = (
+            "parallel"
+            if parallel_count == len(subtasks) and len(subtasks) > 1
+            else ("serial" if parallel_count == 0 else "mixed")
+        )  # noqa: E501
 
-        logger.info("TaskPlan created: domain=%s, subtasks=%d, strategy=%s", domain, len(subtasks), strategy)  # noqa: E501
+        logger.info(
+            "TaskPlan created: domain=%s, subtasks=%d, strategy=%s", domain, len(subtasks), strategy
+        )  # noqa: E501
         return TaskPlan(
             intent=intent,
             subtasks=subtasks,
@@ -130,13 +139,17 @@ class TaskPlanner:
         max_cost = feedback.get("max_cost")
         max_latency = feedback.get("max_latency_minutes")
         if max_latency is not None:
-            filtered = [s for s in task_plan.subtasks if s.estimated_duration_minutes <= max_latency]  # noqa: E501
+            filtered = [
+                s for s in task_plan.subtasks if s.estimated_duration_minutes <= max_latency
+            ]  # noqa: E501
             if filtered:
                 task_plan.subtasks = filtered
         if max_cost is not None:
             filtered = task_plan.subtasks[: max(1, len(task_plan.subtasks) // 2)]
             task_plan.subtasks = filtered
-        task_plan.estimated_total_minutes = sum(s.estimated_duration_minutes for s in task_plan.subtasks)  # noqa: E501
+        task_plan.estimated_total_minutes = sum(
+            s.estimated_duration_minutes for s in task_plan.subtasks
+        )  # noqa: E501
         return task_plan
 
 

@@ -102,9 +102,9 @@ add chain=srcnat src-address={network} out-interface=ether0 action=masquerade
         config = "# Firewall Configuration\n"
 
         config += "/ip firewall filter\n"
-        config += "add chain=input action=accept protocol=icmp comment=\"Allow ICMP\"\n"
-        config += "add chain=input action=accept connection-state=established,related comment=\"Allow established\"\n"  # noqa: E501
-        config += "add chain=input action=drop comment=\"Drop everything else\"\n"
+        config += 'add chain=input action=accept protocol=icmp comment="Allow ICMP"\n'
+        config += 'add chain=input action=accept connection-state=established,related comment="Allow established"\n'  # noqa: E501
+        config += 'add chain=input action=drop comment="Drop everything else"\n'
 
         return config
 

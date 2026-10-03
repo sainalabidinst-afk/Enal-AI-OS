@@ -38,6 +38,7 @@ class ModuleType(StrEnum):
 @dataclass
 class ModuleInfo:
     """Information about a Python module."""
+
     name: str
     path: str
     module_type: ModuleType = ModuleType.UNKNOWN
@@ -54,6 +55,7 @@ class ModuleInfo:
 @dataclass
 class ArchitectureSummary:
     """Complete architecture analysis of a repository."""
+
     project_type: ProjectType = ProjectType.UNKNOWN
     project_name: str = ""
     python_version: str = ""

@@ -24,10 +24,14 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "threat_modeling",
         "inputs": {
             "operation": "threat_model",
-            "business_context": {"project_name": "auth-service", "domain": "identity", "team_size": 6},
+            "business_context": {
+                "project_name": "auth-service",
+                "domain": "identity",
+                "team_size": 6,
+            },
             "inputs": {
                 "operation": "threat_model",
-                "system_description": "User authenticates via OAuth2 tokens issued by an identity provider. Tokens are stored in a database and accessed through REST APIs. Admin endpoints require privilege-based role assignment.",
+                "system_description": "User authenticates via OAuth2 tokens issued by an identity provider. Tokens are stored in a database and accessed through REST APIs. Admin endpoints require privilege-based role assignment.",  # noqa: E501
                 "assets": ["user_tokens", "identity_provider", "admin_api"],
                 "trust_boundaries": ["internal_network", "external_internet"],
                 "data_flows": ["user -> api -> identity_provider -> database"],
@@ -42,10 +46,14 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "threat_modeling",
         "inputs": {
             "operation": "threat_model",
-            "business_context": {"project_name": "payment-gateway", "domain": "fintech", "team_size": 8},
+            "business_context": {
+                "project_name": "payment-gateway",
+                "domain": "fintech",
+                "team_size": 8,
+            },
             "inputs": {
                 "operation": "threat_model",
-                "system_description": "Customer payments are processed via HTTPS APIs. Cardholder data is encrypted in a PCI-compliant database. Sessions are tracked via signed cookies.",
+                "system_description": "Customer payments are processed via HTTPS APIs. Cardholder data is encrypted in a PCI-compliant database. Sessions are tracked via signed cookies.",  # noqa: E501
                 "assets": ["cardholder_database", "payment_api", "session_store"],
                 "trust_boundaries": ["web_tier", "data_tier"],
                 "data_flows": ["customer -> load_balancer -> payment_api -> database"],
@@ -64,9 +72,33 @@ SCENARIOS: list[dict[str, Any]] = [
             "inputs": {
                 "operation": "vulnerability_assess",
                 "vulnerabilities": [
-                    {"id": "VULN-001", "title": "SQL Injection in login endpoint", "cvss_score": 9.8, "description": "Unsanitized input allows SQL injection.", "affected_component": "auth/login", "remediation": "Use parameterized queries", "severity": "critical"},
-                    {"id": "VULN-002", "title": "XSS in search results", "cvss_score": 6.1, "description": "Reflected XSS vulnerability.", "affected_component": "search/results", "remediation": "Escape output encoding", "severity": "medium"},
-                    {"id": "VULN-003", "title": "Outdated dependency", "cvss_score": 7.5, "description": "Deprecated library with known CVE.", "affected_component": "dependencies/libfoo", "remediation": "Upgrade to latest version", "severity": "high"},
+                    {
+                        "id": "VULN-001",
+                        "title": "SQL Injection in login endpoint",
+                        "cvss_score": 9.8,
+                        "description": "Unsanitized input allows SQL injection.",
+                        "affected_component": "auth/login",
+                        "remediation": "Use parameterized queries",
+                        "severity": "critical",
+                    },
+                    {
+                        "id": "VULN-002",
+                        "title": "XSS in search results",
+                        "cvss_score": 6.1,
+                        "description": "Reflected XSS vulnerability.",
+                        "affected_component": "search/results",
+                        "remediation": "Escape output encoding",
+                        "severity": "medium",
+                    },
+                    {
+                        "id": "VULN-003",
+                        "title": "Outdated dependency",
+                        "cvss_score": 7.5,
+                        "description": "Deprecated library with known CVE.",
+                        "affected_component": "dependencies/libfoo",
+                        "remediation": "Upgrade to latest version",
+                        "severity": "high",
+                    },
                 ],
                 "source_id": "vuln-scan-1",
             },
@@ -79,12 +111,28 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "vulnerability_assessment",
         "inputs": {
             "operation": "vulnerability_assess",
-            "business_context": {"project_name": "api-service", "domain": "enterprise", "team_size": 5},
+            "business_context": {
+                "project_name": "api-service",
+                "domain": "enterprise",
+                "team_size": 5,
+            },
             "inputs": {
                 "operation": "vulnerability_assess",
                 "vulnerabilities": [
-                    {"id": "VULN-004", "title": "Critical privilege escalation", "cvss_score": 9.1, "affected_component": "auth/core", "remediation": "Apply latest patch"},
-                    {"id": "VULN-005", "title": "Medium information disclosure", "cvss_score": 5.3, "affected_component": "api/docs", "remediation": "Restrict access to docs"},
+                    {
+                        "id": "VULN-004",
+                        "title": "Critical privilege escalation",
+                        "cvss_score": 9.1,
+                        "affected_component": "auth/core",
+                        "remediation": "Apply latest patch",
+                    },
+                    {
+                        "id": "VULN-005",
+                        "title": "Medium information disclosure",
+                        "cvss_score": 5.3,
+                        "affected_component": "api/docs",
+                        "remediation": "Restrict access to docs",
+                    },
                 ],
                 "source_id": "vuln-scan-2",
             },
@@ -114,14 +162,25 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "incident_detection",
         "inputs": {
             "operation": "incident_detect",
-            "business_context": {"project_name": "monitoring", "domain": "platform", "team_size": 4},
+            "business_context": {
+                "project_name": "monitoring",
+                "domain": "platform",
+                "team_size": 4,
+            },
             "inputs": {
                 "operation": "incident_detect",
                 "baseline_events": [50.0, 52.0, 48.0, 51.0],
                 "current_event_count": 120.0,
                 "anomaly_threshold_pct": 30.0,
                 "alerts": [
-                    {"id": "INC-001", "name": "High CPU usage", "severity": "high", "confidence": 0.85, "description": "CPU above 90% for 5 minutes", "active": True},
+                    {
+                        "id": "INC-001",
+                        "name": "High CPU usage",
+                        "severity": "high",
+                        "confidence": 0.85,
+                        "description": "CPU above 90% for 5 minutes",
+                        "active": True,
+                    },
                 ],
                 "source_id": "incident-2",
             },
@@ -134,7 +193,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "compliance_mapping",
         "inputs": {
             "operation": "compliance_map",
-            "business_context": {"project_name": "data-platform", "domain": "healthcare", "team_size": 7},
+            "business_context": {
+                "project_name": "data-platform",
+                "domain": "healthcare",
+                "team_size": 7,
+            },
             "inputs": {
                 "operation": "compliance_map",
                 "framework": "ISO 27001",
@@ -198,7 +261,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "explainability",
         "inputs": {
             "operation": "incident_detect",
-            "business_context": {"project_name": "monitoring", "domain": "platform", "team_size": 3},
+            "business_context": {
+                "project_name": "monitoring",
+                "domain": "platform",
+                "team_size": 3,
+            },
             "inputs": {
                 "operation": "incident_detect",
                 "baseline_events": [100.0, 100.0, 100.0, 90.0],
@@ -240,9 +307,7 @@ class CybersecurityAnalystBenchmark:
         start = time.perf_counter()
         score = 0.92
         latency = (time.perf_counter() - start) * 1000
-        return BenchmarkResult(
-            dimension="threat_modeling", score=score, latency_ms=latency
-        )
+        return BenchmarkResult(dimension="threat_modeling", score=score, latency_ms=latency)
 
     def run_vulnerability_assessment(self) -> BenchmarkResult:
         start = time.perf_counter()
@@ -256,33 +321,25 @@ class CybersecurityAnalystBenchmark:
         start = time.perf_counter()
         score = 0.90
         latency = (time.perf_counter() - start) * 1000
-        return BenchmarkResult(
-            dimension="incident_detection", score=score, latency_ms=latency
-        )
+        return BenchmarkResult(dimension="incident_detection", score=score, latency_ms=latency)
 
     def run_compliance_mapping(self) -> BenchmarkResult:
         start = time.perf_counter()
         score = 0.93
         latency = (time.perf_counter() - start) * 1000
-        return BenchmarkResult(
-            dimension="compliance_mapping", score=score, latency_ms=latency
-        )
+        return BenchmarkResult(dimension="compliance_mapping", score=score, latency_ms=latency)
 
     def run_safety_boundary(self) -> BenchmarkResult:
         start = time.perf_counter()
         score = 0.94
         latency = (time.perf_counter() - start) * 1000
-        return BenchmarkResult(
-            dimension="safety_boundary", score=score, latency_ms=latency
-        )
+        return BenchmarkResult(dimension="safety_boundary", score=score, latency_ms=latency)
 
     def run_explainability(self) -> BenchmarkResult:
         start = time.perf_counter()
         score = 0.92
         latency = (time.perf_counter() - start) * 1000
-        return BenchmarkResult(
-            dimension="explainability", score=score, latency_ms=latency
-        )
+        return BenchmarkResult(dimension="explainability", score=score, latency_ms=latency)
 
     def run_golden_tests(self) -> dict[str, Any]:
         if not os.path.isdir(self.golden_tests_dir):
@@ -306,8 +363,7 @@ class CybersecurityAnalystBenchmark:
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
             "dimensions": {
-                r.dimension: {"score": r.score, "latency_ms": r.latency_ms}
-                for r in self.results
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
             },
             "golden_tests": golden,
         }

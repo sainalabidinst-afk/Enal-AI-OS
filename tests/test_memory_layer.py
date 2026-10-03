@@ -15,11 +15,12 @@ class TestKnowledgeMemory:
     def _get_knowledge_memory_class(self):
         """Load KnowledgeMemory without triggering FastAPI import."""
         from backend.app.core.memory_layer import KnowledgeMemory
+
         return KnowledgeMemory
 
     @pytest.mark.asyncio
     async def test_knowledge_store_and_retrieve(self):
-        KnowledgeMemory = self._get_knowledge_memory_class()
+        KnowledgeMemory = self._get_knowledge_memory_class()  # noqa: N806
         with tempfile.TemporaryDirectory() as tmpdir:
             mem = KnowledgeMemory(base_path=tmpdir)
             await mem.store("k1", {"fact": "knowledge item"})
@@ -29,7 +30,7 @@ class TestKnowledgeMemory:
 
     @pytest.mark.asyncio
     async def test_knowledge_search(self):
-        KnowledgeMemory = self._get_knowledge_memory_class()
+        KnowledgeMemory = self._get_knowledge_memory_class()  # noqa: N806
         with tempfile.TemporaryDirectory() as tmpdir:
             mem = KnowledgeMemory(base_path=tmpdir)
             await mem.store("doc1", "This is a Python function")
@@ -45,11 +46,12 @@ class TestEpisodicMemory:
     def _get_episodic_memory_class(self):
         """Load EpisodicMemory without triggering FastAPI import."""
         from backend.app.core.memory_layer import EpisodicMemory
+
         return EpisodicMemory
 
     @pytest.mark.asyncio
     async def test_episodic_store(self):
-        EpisodicMemory = self._get_episodic_memory_class()
+        EpisodicMemory = self._get_episodic_memory_class()  # noqa: N806
         with tempfile.TemporaryDirectory() as tmpdir:
             mem = EpisodicMemory(base_path=tmpdir)
 
@@ -70,16 +72,19 @@ class TestEpisodicMemory:
 
     @pytest.mark.asyncio
     async def test_episodic_search(self):
-        EpisodicMemory = self._get_episodic_memory_class()
+        EpisodicMemory = self._get_episodic_memory_class()  # noqa: N806
         with tempfile.TemporaryDirectory() as tmpdir:
             mem = EpisodicMemory(base_path=tmpdir)
 
-            await mem.store("e1", {
-                "session_id": "s1",
-                "event_type": "error",
-                "content": {"error": "timeout"},
-                "summary": "Connection timeout occurred",
-            })
+            await mem.store(
+                "e1",
+                {
+                    "session_id": "s1",
+                    "event_type": "error",
+                    "content": {"error": "timeout"},
+                    "summary": "Connection timeout occurred",
+                },
+            )
 
             results = await mem.search("timeout", limit=5)
             assert len(results) >= 1
@@ -91,11 +96,12 @@ class TestMemoryManager:
     def _get_memory_manager_class(self):
         """Load MemoryManager without triggering FastAPI import."""
         from backend.app.core.memory_layer import EpisodicMemory, KnowledgeMemory, MemoryManager
+
         return MemoryManager, KnowledgeMemory, EpisodicMemory
 
     @pytest.mark.asyncio
     async def test_cross_layer_store(self):
-        MemoryManager, KnowledgeMemory, EpisodicMemory = self._get_memory_manager_class()
+        MemoryManager, KnowledgeMemory, EpisodicMemory = self._get_memory_manager_class()  # noqa: N806
         with tempfile.TemporaryDirectory() as tmpdir:
             manager = MemoryManager()
             manager._layers["knowledge"] = KnowledgeMemory(base_path=f"{tmpdir}/know")
@@ -112,19 +118,23 @@ class TestMemoryManager:
 
     @pytest.mark.asyncio
     async def test_cross_session_search(self):
-        MemoryManager, _, EpisodicMemory = self._get_memory_manager_class()
+        MemoryManager, _, EpisodicMemory = self._get_memory_manager_class()  # noqa: N806
         with tempfile.TemporaryDirectory() as tmpdir:
             manager = MemoryManager()
             manager._layers["episodic"] = EpisodicMemory(base_path=f"{tmpdir}/episodic")
             manager._layers["working"] = None
             manager._layers["conversation"] = None
 
-            await manager.store("episodic", "ep-1", {
-                "session_id": "session-xyz",
-                "event_type": "task",
-                "content": {"task": "analyze"},
-                "summary": "Analysis task",
-            })
+            await manager.store(
+                "episodic",
+                "ep-1",
+                {
+                    "session_id": "session-xyz",
+                    "event_type": "task",
+                    "content": {"task": "analyze"},
+                    "summary": "Analysis task",
+                },
+            )
 
             results = await manager.cross_session_search("task")
             assert len(results) >= 1

@@ -83,17 +83,21 @@ class EnterpriseKnowledgeEngine:
                 all_findings.extend(findings)
             except Exception as e:
                 import logging
+
                 logging.getLogger(__name__).error(
-                    "Enterprise knowledge analyzer %s failed: %s",
-                    type(analyzer).__name__, e
+                    "Enterprise knowledge analyzer %s failed: %s", type(analyzer).__name__, e
                 )
         return all_findings
 
-    def find_by_domain(self, findings: list[EnterpriseKnowledgeFinding], domain: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
+    def find_by_domain(
+        self, findings: list[EnterpriseKnowledgeFinding], domain: str
+    ) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         """Filter findings by domain."""
         return [f for f in findings if f.domain == domain]
 
-    def find_by_vendor(self, findings: list[EnterpriseKnowledgeFinding], vendor: str) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
+    def find_by_vendor(
+        self, findings: list[EnterpriseKnowledgeFinding], vendor: str
+    ) -> list[EnterpriseKnowledgeFinding]:  # noqa: E501
         """Filter findings by vendor."""
         return [f for f in findings if f.vendor == vendor]
 

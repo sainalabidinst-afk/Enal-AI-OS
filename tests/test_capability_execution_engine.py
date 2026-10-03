@@ -22,7 +22,6 @@ Test scenarios:
     ✅ response follows contract
 """
 
-
 import pytest
 
 from apps.organization.capability_execution_engine import (
@@ -335,4 +334,3 @@ async def test_economics_capability_execution(engine: CapabilityExecutionEngine)
     assert response.status == ExecutionStatus.COMPLETED, f"Error: {response.error}"
     assert response.result is not None
     assert_valid_response(response)
-

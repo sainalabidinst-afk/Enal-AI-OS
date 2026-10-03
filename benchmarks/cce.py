@@ -111,7 +111,9 @@ class CCEResult:
                     "executive_report": round(cap.executive_report, 2),
                     "regression": cap.regression,
                     "trend": cap.trend,
-                    "previous_score": round(cap.previous_score, 2) if cap.previous_score is not None else None,
+                    "previous_score": round(cap.previous_score, 2)
+                    if cap.previous_score is not None
+                    else None,
                 }
                 for vendor, cap in sorted(self.capabilities.items())
             },
@@ -140,6 +142,7 @@ class CCERunner:
 
         if suite is None:
             from backend.app.api.benchmark import _load_suite_from_disk
+
             suite = _load_suite_from_disk()
 
         if not suite.cases:
@@ -151,7 +154,9 @@ class CCERunner:
         result.passed_cases = sum(1 for r in suite.results if r.passed)
         result.failed_cases = result.total_cases - result.passed_cases
         result.avg_score = sum(r.score for r in suite.results) / max(result.total_cases, 1)
-        result.avg_capability_score = sum(r.capability_score for r in suite.results) / max(result.total_cases, 1)
+        result.avg_capability_score = sum(r.capability_score for r in suite.results) / max(
+            result.total_cases, 1
+        )
         result.duration_ms = int((time.perf_counter() - started) * 1000)
 
         capability_data: dict[str, dict[str, Any]] = {}
@@ -193,7 +198,8 @@ class CCERunner:
                 passed=cd["passed"],
                 failed=cd["failed"],
                 avg_score=sum(cd["scores"]) / max(len(cd["scores"]), 1),
-                avg_capability_score=sum(cd["capability_scores"]) / max(len(cd["capability_scores"]), 1),
+                avg_capability_score=sum(cd["capability_scores"])
+                / max(len(cd["capability_scores"]), 1),
                 parser=sum(cd["parser"]) / max(len(cd["parser"]), 1),
                 reasoning=sum(cd["reasoning"]) / max(len(cd["reasoning"]), 1),
                 evidence=sum(cd["evidence"]) / max(len(cd["evidence"]), 1),
@@ -204,7 +210,10 @@ class CCERunner:
             if prev is not None:
                 cap.previous_score = prev
                 cap.trend = self.trend_analyzer.compute_trend(vendor, cap.avg_capability_score)
-                if abs(cap.avg_capability_score - prev) >= self.regression_threshold and cap.avg_capability_score < prev:
+                if (
+                    abs(cap.avg_capability_score - prev) >= self.regression_threshold
+                    and cap.avg_capability_score < prev
+                ):
                     cap.regression = True
                     result.regressions.append(
                         RegressionResult(
@@ -226,7 +235,9 @@ class CCERunner:
             encoding="utf-8",
         )
         history_file = self.history_dir / f"{run_id}.json"
-        history_file.write_text(json.dumps(result.summary, indent=2, ensure_ascii=False), encoding="utf-8")
+        history_file.write_text(
+            json.dumps(result.summary, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
 
         logger.info(
             "CCE complete: run_id=%s total=%s passed=%s regressions=%s",

@@ -43,15 +43,17 @@ class BacklogManager:
                 low += 1
             else:
                 medium += 1
-            items.append({
-                "id": item.id,
-                "title": item.title,
-                "priority": priority,
-                "effort": item.effort,
-                "value": item.value,
-                "score": 0.0,
-                "rationale": f"Prioritized using {framework} framework.",
-            })
+            items.append(
+                {
+                    "id": item.id,
+                    "title": item.title,
+                    "priority": priority,
+                    "effort": item.effort,
+                    "value": item.value,
+                    "score": 0.0,
+                    "rationale": f"Prioritized using {framework} framework.",
+                }
+            )
         logger.info("Managed backlog with %d items using %s framework", len(items), framework)
         return {
             "items": items,

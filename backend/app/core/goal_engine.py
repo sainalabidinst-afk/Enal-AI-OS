@@ -32,7 +32,9 @@ class AutonomousGoalEngine:
         event_bus.subscribe("task.completed", self._on_task_completed)
         event_bus.subscribe("task.failed", self._on_task_failed)
 
-    async def create_goal(self, description: str, success_criteria: list[str], project_id: str | None = None) -> Goal:  # noqa: E501
+    async def create_goal(
+        self, description: str, success_criteria: list[str], project_id: str | None = None
+    ) -> Goal:  # noqa: E501
         goal_id = f"goal-{datetime.now(UTC).timestamp()}"
         goal = Goal(
             id=goal_id,
@@ -50,12 +52,18 @@ class AutonomousGoalEngine:
             raise ValueError(f"Goal not found: {goal_id}")
         while goal.status == "active" and goal.iterations < goal.max_iterations:
             goal.iterations += 1
-            await state_recovery.save(goal_id, f"iteration-{goal.iterations}", {"goal": goal.description, "iteration": goal.iterations})  # noqa: E501
-            task_id = await task_queue.enqueue(Task(
-                name=f"goal-{goal_id}-iter-{goal.iterations}",
-                agent="goal-executor",
-                payload={"goal": goal.description, "iteration": goal.iterations},
-            ))
+            await state_recovery.save(
+                goal_id,
+                f"iteration-{goal.iterations}",
+                {"goal": goal.description, "iteration": goal.iterations},
+            )  # noqa: E501
+            task_id = await task_queue.enqueue(
+                Task(
+                    name=f"goal-{goal_id}-iter-{goal.iterations}",
+                    agent="goal-executor",
+                    payload={"goal": goal.description, "iteration": goal.iterations},
+                )
+            )
             result = await task_queue.get_task(task_id)
             if result and result.status.value == "completed":
                 evaluation = await self._evaluate_progress(goal, result.result)
@@ -82,9 +90,11 @@ class AutonomousGoalEngine:
             f"Goal: {goal.description}\n"
             f"Success Criteria: {', '.join(goal.success_criteria)}\n"
             f"Result: {result}\n\n"
-            "Return JSON: {\"success\": bool, \"progress\": float(0-100), \"reasoning\": str}"
+            'Return JSON: {"success": bool, "progress": float(0-100), "reasoning": str}'
         )
-        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200)  # noqa: E501
+        response = await model_router.acomplete(
+            [{"role": "user", "content": prompt}], temperature=0.3, max_tokens=200
+        )  # noqa: E501
         try:
             return json.loads(response.choices[0].message.content)
         except json.JSONDecodeError:
@@ -107,4 +117,3 @@ class AutonomousGoalEngine:
 
 
 goal_engine = AutonomousGoalEngine()
-

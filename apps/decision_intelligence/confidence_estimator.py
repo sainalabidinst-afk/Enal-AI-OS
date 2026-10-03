@@ -51,8 +51,16 @@ class ConfidenceEstimator:
         else:
             avg_quality = evidence_set.avg_quality
             # Agreement = how one-sided the evidence is (0 = split, 1 = unanimous).
-            total = evidence_set.positive_weight + evidence_set.negative_weight + evidence_set.neutral_weight  # noqa: E501
-            agreement = max(evidence_set.positive_weight, evidence_set.negative_weight) / total if total > 0 else 0.0  # noqa: E501
+            total = (
+                evidence_set.positive_weight
+                + evidence_set.negative_weight
+                + evidence_set.neutral_weight
+            )  # noqa: E501
+            agreement = (
+                max(evidence_set.positive_weight, evidence_set.negative_weight) / total
+                if total > 0
+                else 0.0
+            )  # noqa: E501
 
         # Evidence coverage.
         coverage = min(1.0, evidence_count / 5.0)  # 5+ evidence items = full coverage
@@ -63,12 +71,7 @@ class ConfidenceEstimator:
             margin = min(1.0, max(0.0, top_scores[0] - top_scores[1]))
 
         # Weighted confidence.
-        confidence = (
-            0.35 * avg_quality
-            + 0.25 * agreement
-            + 0.20 * coverage
-            + 0.20 * margin
-        )
+        confidence = 0.35 * avg_quality + 0.25 * agreement + 0.20 * coverage + 0.20 * margin
         confidence = max(0.0, min(1.0, round(confidence, 4)))
 
         # Uncertainty bound widens as evidence quality drops.

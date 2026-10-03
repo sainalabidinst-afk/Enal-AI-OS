@@ -11,10 +11,16 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class RuijieReyeeParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.ruijie and ("reyee" in meta.text_preview.lower() or "reyee" in meta.filename.lower())  # noqa: E501
+        return meta.vendor == VendorFamily.ruijie and (
+            "reyee" in meta.text_preview.lower() or "reyee" in meta.filename.lower()
+        )  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.ruijie, format="ruijie_reyee", device_role=DeviceRole.wireless_controller)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.ruijie,
+            format="ruijie_reyee",
+            device_role=DeviceRole.wireless_controller,
+        )  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

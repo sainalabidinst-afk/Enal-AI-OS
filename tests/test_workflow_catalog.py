@@ -106,9 +106,7 @@ def test_register_from_json(catalog: WorkflowCatalog):
 
 
 def test_register_from_file(catalog: WorkflowCatalog):
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", delete=False, encoding="utf-8"
-    ) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, encoding="utf-8") as f:
         json.dump(SIMPLE_ENTRY_DICT, f)
         filepath = f.name
     try:
@@ -121,16 +119,24 @@ def test_register_from_file(catalog: WorkflowCatalog):
 
 def test_catalog_loading_workflow_id_required(catalog: WorkflowCatalog):
     with pytest.raises(CatalogError, match="workflow_id is required"):
-        catalog.register(WorkflowCatalogEntry(
-            workflow_id="", display_name="Bad", supported_intents=["test"],
-        ))
+        catalog.register(
+            WorkflowCatalogEntry(
+                workflow_id="",
+                display_name="Bad",
+                supported_intents=["test"],
+            )
+        )
 
 
 def test_catalog_loading_intents_required(catalog: WorkflowCatalog):
     with pytest.raises(CatalogError, match="at least one supported_intent"):
-        catalog.register(WorkflowCatalogEntry(
-            workflow_id="bad-flow", display_name="Bad", supported_intents=[],
-        ))
+        catalog.register(
+            WorkflowCatalogEntry(
+                workflow_id="bad-flow",
+                display_name="Bad",
+                supported_intents=[],
+            )
+        )
 
 
 # -- Tests: Duplicate Detection ---
@@ -138,12 +144,14 @@ def test_catalog_loading_intents_required(catalog: WorkflowCatalog):
 
 def test_duplicate_intent_detection(catalog: WorkflowCatalog):
     entry_a = WorkflowCatalogEntry(
-        workflow_id="flow-a", display_name="Flow A",
+        workflow_id="flow-a",
+        display_name="Flow A",
         supported_intents=["shared-intent", "intent-a"],
     )
     catalog.register(entry_a)
     entry_b = WorkflowCatalogEntry(
-        workflow_id="flow-b", display_name="Flow B",
+        workflow_id="flow-b",
+        display_name="Flow B",
         supported_intents=["shared-intent", "intent-b"],
     )
     with pytest.raises(CatalogError, match="Duplicate intent"):
@@ -154,7 +162,8 @@ def test_duplicate_intent_detection(catalog: WorkflowCatalog):
 
 def test_same_intent_same_workflow_allowed(catalog: WorkflowCatalog):
     entry = WorkflowCatalogEntry(
-        workflow_id="flow-x", display_name="Flow X",
+        workflow_id="flow-x",
+        display_name="Flow X",
         supported_intents=["intent-x", "intent-x"],
     )
     catalog.register(entry)

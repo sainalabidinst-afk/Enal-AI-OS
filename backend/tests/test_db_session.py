@@ -35,6 +35,7 @@ class TestDbSession:
 
         fake_config = type("Settings", (), {"DATABASE_URL": "sqlite:///:memory:"})()
         import backend.app.db.session as ds_module
+
         monkeypatch.setattr(ds_module, "settings", fake_config)
 
         assert ds_module.engine is fake_engine
@@ -49,12 +50,17 @@ class TestDbSession:
 
         fake_config = type("Settings", (), {"DATABASE_URL": "sqlite:///:memory:"})()
         import backend.app.db.session as ds_module
+
         monkeypatch.setattr(ds_module, "settings", fake_config)
 
-        fake_db = type("Db", (), {
-            "rollback": lambda self: setattr(self, "rolled_back", True),
-            "close": lambda self: setattr(self, "closed", True),
-        })()
+        fake_db = type(
+            "Db",
+            (),
+            {
+                "rollback": lambda self: setattr(self, "rolled_back", True),
+                "close": lambda self: setattr(self, "closed", True),
+            },
+        )()
         fake_db.rolled_back = False
         fake_db.closed = False
 
@@ -77,12 +83,17 @@ class TestDbSession:
 
         fake_config = type("Settings", (), {"DATABASE_URL": "sqlite:///:memory:"})()
         import backend.app.db.session as ds_module
+
         monkeypatch.setattr(ds_module, "settings", fake_config)
 
-        fake_db = type("Db", (), {
-            "rollback": lambda self: setattr(self, "rolled_back", True),
-            "close": lambda self: setattr(self, "closed", True),
-        })()
+        fake_db = type(
+            "Db",
+            (),
+            {
+                "rollback": lambda self: setattr(self, "rolled_back", True),
+                "close": lambda self: setattr(self, "closed", True),
+            },
+        )()
         fake_db.rolled_back = False
         fake_db.closed = False
 

@@ -1,4 +1,3 @@
-
 from backend.app.core.contracts import (
     AGENT_CONTRACTS,
     CapabilityContract,

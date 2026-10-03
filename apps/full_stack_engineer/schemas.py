@@ -68,7 +68,9 @@ class Grade(StrEnum):
 class ArchitectureIssue(BaseModel):
     id: str = Field(default_factory=lambda: f"ARCH-{uuid.uuid4().hex[:8]}")
     severity: str = Field(default="medium")
-    category: str = Field(default="layering", description="layering|dependency|modularity|tech_debt|circular_dep")  # noqa: E501
+    category: str = Field(
+        default="layering", description="layering|dependency|modularity|tech_debt|circular_dep"
+    )  # noqa: E501
     description: str = Field(default="")
     location: str = Field(default="")
     recommendation: str = Field(default="")
@@ -85,7 +87,10 @@ class ArchitectureReviewResult(BaseModel):
 
 class CodeReviewFinding(BaseModel):
     severity: str = Field(default="medium")
-    category: str = Field(default="maintainability", description="security|concurrency|reliability|maintainability|api")  # noqa: E501
+    category: str = Field(
+        default="maintainability",
+        description="security|concurrency|reliability|maintainability|api",
+    )  # noqa: E501
     title: str = Field(default="")
     description: str = Field(default="")
     recommendation: str = Field(default="")
@@ -115,6 +120,7 @@ class RefactoringStep(BaseModel):
 
 class RefactoringStepData(BaseModel):
     """A single migration step in a refactoring plan."""
+
     step: str = Field(default="")
     description: str = Field(default="")
 
@@ -135,7 +141,9 @@ class RefactoringPlanResult(BaseModel):
 
 
 class TestPlanItem(BaseModel):
-    test_type: str = Field(default="unit", description="unit|integration|contract|performance|regression")  # noqa: E501
+    test_type: str = Field(
+        default="unit", description="unit|integration|contract|performance|regression"
+    )  # noqa: E501
     description: str = Field(default="")
     suggested_tests: list[str] = Field(default_factory=list)
     priority: str = Field(default="medium")
@@ -152,7 +160,9 @@ class TestEngineeringResult(BaseModel):
 class PerformanceIssue(BaseModel):
     id: str = Field(default_factory=lambda: f"PERF-{uuid.uuid4().hex[:8]}")
     severity: str = Field(default="medium")
-    category: str = Field(default="n_plus_1", description="n_plus_1|blocking_io|memory|algorithm|database")  # noqa: E501
+    category: str = Field(
+        default="n_plus_1", description="n_plus_1|blocking_io|memory|algorithm|database"
+    )  # noqa: E501
     description: str = Field(default="")
     location: str = Field(default="")
     recommendation: str = Field(default="")
@@ -184,7 +194,9 @@ class FullStackRequest(BaseModel):
     request_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     operation: OperationType = Field(..., description="Type of full stack engineering operation")
     inputs: dict[str, Any] = Field(default_factory=dict, description="Operation-specific inputs")
-    context: dict[str, Any] = Field(default_factory=dict, description="Context like project_id, language, framework")  # noqa: E501
+    context: dict[str, Any] = Field(
+        default_factory=dict, description="Context like project_id, language, framework"
+    )  # noqa: E501
     quality_attributes: dict[str, Any] = Field(default_factory=dict)
     output_format: str = Field(default="json", description="json|markdown")
 

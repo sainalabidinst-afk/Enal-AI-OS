@@ -497,4 +497,3 @@ def test_decision_made_event_has_all_fields(engine: ReasoningEngine):
     assert len(dec.options) == 2
     assert dec.selected is not None
     assert len(dec.consequences) >= 0
-

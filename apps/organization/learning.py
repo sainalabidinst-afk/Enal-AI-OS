@@ -72,7 +72,16 @@ class OrganizationalLearning:
         self._mistakes: dict[str, MistakeRecord] = {}
         self._project_learnings: dict[str, list[str]] = {}
 
-    def record_lesson(self, project_id: str, category: str, description: str, impact: str, recommendation: str, confidence: float = 1.0, tags: list[str] | None = None) -> LessonLearned:  # noqa: E501
+    def record_lesson(
+        self,
+        project_id: str,
+        category: str,
+        description: str,
+        impact: str,
+        recommendation: str,
+        confidence: float = 1.0,
+        tags: list[str] | None = None,
+    ) -> LessonLearned:  # noqa: E501
         lesson_id = f"lesson-{uuid.uuid4().hex[:8]}"
         lesson = LessonLearned(
             id=lesson_id,
@@ -89,7 +98,14 @@ class OrganizationalLearning:
         logger.info("Lesson recorded: %s for project %s", category, project_id)
         return lesson
 
-    def record_best_practice(self, name: str, description: str, context: str, evidence: str, applicability: list[str] | None = None) -> BestPractice:  # noqa: E501
+    def record_best_practice(
+        self,
+        name: str,
+        description: str,
+        context: str,
+        evidence: str,
+        applicability: list[str] | None = None,
+    ) -> BestPractice:  # noqa: E501
         practice_id = f"practice-{uuid.uuid4().hex[:8]}"
         practice = BestPractice(
             id=practice_id,
@@ -103,7 +119,14 @@ class OrganizationalLearning:
         logger.info("Best practice recorded: %s", name)
         return practice
 
-    def record_reusable_asset(self, name: str, asset_type: str, content: Any, description: str, tags: list[str] | None = None) -> ReusableAsset:  # noqa: E501
+    def record_reusable_asset(
+        self,
+        name: str,
+        asset_type: str,
+        content: Any,
+        description: str,
+        tags: list[str] | None = None,
+    ) -> ReusableAsset:  # noqa: E501
         asset_id = f"asset-{uuid.uuid4().hex[:8]}"
         asset = ReusableAsset(
             id=asset_id,
@@ -117,7 +140,16 @@ class OrganizationalLearning:
         logger.info("Reusable asset recorded: %s (%s)", name, asset_type)
         return asset
 
-    def record_mistake(self, project_id: str, severity: str, description: str, root_cause: str, impact: str, remediation: str, tags: list[str] | None = None) -> MistakeRecord:  # noqa: E501
+    def record_mistake(
+        self,
+        project_id: str,
+        severity: str,
+        description: str,
+        root_cause: str,
+        impact: str,
+        remediation: str,
+        tags: list[str] | None = None,
+    ) -> MistakeRecord:  # noqa: E501
         mistake_id = f"mistake-{uuid.uuid4().hex[:8]}"
         mistake = MistakeRecord(
             id=mistake_id,
@@ -143,7 +175,9 @@ class OrganizationalLearning:
             practices = [p for p in practices if context in p.applicability or context in p.context]
         return practices
 
-    def get_reusable_assets(self, asset_type: str | None = None, tags: list[str] | None = None) -> list[ReusableAsset]:  # noqa: E501
+    def get_reusable_assets(
+        self, asset_type: str | None = None, tags: list[str] | None = None
+    ) -> list[ReusableAsset]:  # noqa: E501
         assets = list(self._reusable_assets.values())
         if asset_type:
             assets = [a for a in assets if a.asset_type == asset_type]

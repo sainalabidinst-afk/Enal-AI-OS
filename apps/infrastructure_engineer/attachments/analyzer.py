@@ -11,7 +11,9 @@ from apps.infrastructure_engineer.attachments.reasoning import InfrastructureRea
 from apps.infrastructure_engineer.attachments.report import ExecutiveReportGenerator
 
 
-def analyze_attachment(meta: AttachmentMeta, content: str, compliance_frameworks: list[str] | None = None) -> AttachmentAnalysisResult:  # noqa: E501
+def analyze_attachment(
+    meta: AttachmentMeta, content: str, compliance_frameworks: list[str] | None = None
+) -> AttachmentAnalysisResult:  # noqa: E501
     try:
         ast = parser_registry.parse(meta, content)
         ast.metadata["detected_filename"] = meta.filename
@@ -23,7 +25,12 @@ def analyze_attachment(meta: AttachmentMeta, content: str, compliance_frameworks
     frameworks = None
     if compliance_frameworks:
         from apps.infrastructure_engineer.attachments.compliance import ComplianceFramework
-        frameworks = [ComplianceFramework(value) for value in compliance_frameworks if value in ComplianceFramework.__members__]  # noqa: E501
+
+        frameworks = [
+            ComplianceFramework(value)
+            for value in compliance_frameworks
+            if value in ComplianceFramework.__members__
+        ]  # noqa: E501
 
     reasoning_result = InfrastructureReasoningEngine().reason(ast, compliance_frameworks=frameworks)
     ExecutiveReportGenerator().generate(reasoning_result)
@@ -32,12 +39,16 @@ def analyze_attachment(meta: AttachmentMeta, content: str, compliance_frameworks
         meta=meta,
         ast=reasoning_result.ast,
         summary=reasoning_result.executive_summary,
-        risk_score=reasoning_result.risk_assessment.risk_score if reasoning_result.risk_assessment else 0.0,  # noqa: E501
+        risk_score=reasoning_result.risk_assessment.risk_score
+        if reasoning_result.risk_assessment
+        else 0.0,  # noqa: E501
         recommendations=reasoning_result.recommendations,
     )
 
 
-def analyze_multi(files: list[tuple[str, bytes]], compliance_frameworks: list[str] | None = None) -> AttachmentAnalysisResult:  # noqa: E501
+def analyze_multi(
+    files: list[tuple[str, bytes]], compliance_frameworks: list[str] | None = None
+) -> AttachmentAnalysisResult:  # noqa: E501
     from apps.infrastructure_engineer.attachments.cross_file import CrossFileReasoningEngine
 
     all_results: list[AttachmentAnalysisResult] = []
@@ -50,28 +61,42 @@ def analyze_multi(files: list[tuple[str, bytes]], compliance_frameworks: list[st
         all_results.append(result)
 
     if not all_results:
-        return AttachmentAnalysisResult(meta=AttachmentMeta(filename="multi-file", attachment_type=AttachmentType.unknown), ast=InfrastructureAST(), analysis_error="No readable files")  # noqa: E501
+        return AttachmentAnalysisResult(
+            meta=AttachmentMeta(filename="multi-file", attachment_type=AttachmentType.unknown),
+            ast=InfrastructureAST(),
+            analysis_error="No readable files",
+        )  # noqa: E501
 
     combined_ast = CrossFileReasoningEngine().cross_reason([r.ast for r in all_results])
 
     frameworks = None
     if compliance_frameworks:
         from apps.infrastructure_engineer.attachments.compliance import ComplianceFramework
-        frameworks = [ComplianceFramework(value) for value in compliance_frameworks if value in ComplianceFramework.__members__]  # noqa: E501
 
-    reasoning_result = InfrastructureReasoningEngine().reason(combined_ast, compliance_frameworks=frameworks)  # noqa: E501
+        frameworks = [
+            ComplianceFramework(value)
+            for value in compliance_frameworks
+            if value in ComplianceFramework.__members__
+        ]  # noqa: E501
+
+    reasoning_result = InfrastructureReasoningEngine().reason(
+        combined_ast, compliance_frameworks=frameworks
+    )  # noqa: E501
 
     return AttachmentAnalysisResult(
         meta=all_results[0].meta,
         ast=reasoning_result.ast,
         summary=reasoning_result.executive_summary or "Multi-file analysis completed.",
-        risk_score=reasoning_result.risk_assessment.risk_score if reasoning_result.risk_assessment else 0.0,  # noqa: E501
+        risk_score=reasoning_result.risk_assessment.risk_score
+        if reasoning_result.risk_assessment
+        else 0.0,  # noqa: E501
         recommendations=reasoning_result.recommendations,
     )
 
 
 def _detect_meta(filename: str, text: str) -> AttachmentMeta:
     from apps.infrastructure_engineer.attachments.detector import detect_from_content
+
     return detect_from_content(filename, text)
 
 

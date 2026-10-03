@@ -100,12 +100,14 @@ class SupplyChainReport(BaseModel):
 class SupplyChainRecord(BaseModel):
     pack_id: str = "supply-chain-analyst"
     version: str = "2.6.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "demand_forecasting",
-        "route_optimization",
-        "inventory_analysis",
-        "risk_assessment",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "demand_forecasting",
+            "route_optimization",
+            "inventory_analysis",
+            "risk_assessment",
+        ]
+    )
 
 
 class SupplyChainRequest(BaseModel):

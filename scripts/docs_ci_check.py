@@ -24,12 +24,40 @@ MD_FILES = list(REPO_ROOT.rglob("*.md"))
 CURRENT_PACK_COUNT = 13
 EXPECTED_DATE = "2026-08-02"
 TECHNICAL_TERMS = {
-    "Capability Pack", "Golden Test", "Benchmark", "Plugin", "Runtime", "Worker",
-    "Core", "Architecture", "API", "SDK", "Docker", "FastAPI", "Redis",
-    "PostgreSQL", "Qdrant", "MinIO", "Ollama", "Claude", "Gemini", "OpenAI",
-    "RFC", "ADR", "Prompt", "Context", "Memory", "Reasoning", "Decision",
-    "Planning", "Knowledge Graph", "Capability Graph", "Execution Runtime",
-    "ECP", "Enal AI OS", "Enal Cognitive Platform",
+    "Capability Pack",
+    "Golden Test",
+    "Benchmark",
+    "Plugin",
+    "Runtime",
+    "Worker",
+    "Core",
+    "Architecture",
+    "API",
+    "SDK",
+    "Docker",
+    "FastAPI",
+    "Redis",
+    "PostgreSQL",
+    "Qdrant",
+    "MinIO",
+    "Ollama",
+    "Claude",
+    "Gemini",
+    "OpenAI",
+    "RFC",
+    "ADR",
+    "Prompt",
+    "Context",
+    "Memory",
+    "Reasoning",
+    "Decision",
+    "Planning",
+    "Knowledge Graph",
+    "Capability Graph",
+    "Execution Runtime",
+    "ECP",
+    "Enal AI OS",
+    "Enal Cognitive Platform",
 }
 
 
@@ -60,9 +88,22 @@ def check_pack_count(file_path: Path) -> list[str]:
     # Context words indicating the count is a recommendation/condition/range,
     # not a claim about current project state.
     contextual_markers = (
-        "rekomendasi", "recommend", "target", "minimal", "minimum",
-        "masing-masing", "jika", "when", "butuh", "kebutuhan", "future",
-        "diinginkan", "idealnya", "sekitar", "hingga", "sampai",
+        "rekomendasi",
+        "recommend",
+        "target",
+        "minimal",
+        "minimum",
+        "masing-masing",
+        "jika",
+        "when",
+        "butuh",
+        "kebutuhan",
+        "future",
+        "diinginkan",
+        "idealnya",
+        "sekitar",
+        "hingga",
+        "sampai",
     )
 
     if not is_roadmap:
@@ -70,19 +111,19 @@ def check_pack_count(file_path: Path) -> list[str]:
             for match in re.finditer(pattern, content, re.IGNORECASE):
                 # Verify match is on a single line (no newlines in match)
                 matched_text = match.group(0)
-                if '\n' in matched_text:
+                if "\n" in matched_text:
                     continue
                 # Skip ADR-XXX references (e.g., "ADR-002 Capability Pack Independence")
-                line_start = content.rfind('\n', 0, match.start()) + 1
-                line_text = content[line_start:content.find('\n', match.start())]
-                if re.search(r'ADR[\s-]?\d+\s+Capability Pack', line_text, re.IGNORECASE):
+                line_start = content.rfind("\n", 0, match.start()) + 1
+                line_text = content[line_start : content.find("\n", match.start())]
+                if re.search(r"ADR[\s-]?\d+\s+Capability Pack", line_text, re.IGNORECASE):
                     continue
                 # Skip counts in recommendation/condition/range context
                 if any(marker.lower() in line_text.lower() for marker in contextual_markers):
                     continue
                 count = int(match.group(1))
                 if count != CURRENT_PACK_COUNT:
-                    line_num = content[:match.start()].count("\n") + 1
+                    line_num = content[: match.start()].count("\n") + 1
                     issues.append(
                         f"Line {line_num}: {desc} = {count} (expected {CURRENT_PACK_COUNT})"
                     )
@@ -131,11 +172,11 @@ def check_metadata(file_path: Path) -> list[str]:
     """Check for Document Owner metadata on canonical docs only."""
     issues = []
     rel_path = str(file_path.relative_to(REPO_ROOT)).replace("\\", "/")
-    
+
     # Only check metadata for canonical docs
     if rel_path not in CANONICAL_DOCS:
         return issues
-    
+
     try:
         content = file_path.read_text(encoding="utf-8")
     except Exception:
@@ -169,7 +210,7 @@ def check_broken_links(file_path: Path) -> list[str]:
             resolved = file_path.parent / link_path
 
         if not resolved.exists():
-            line_num = content[:match.start()].count("\n") + 1
+            line_num = content[: match.start()].count("\n") + 1
             issues.append(f"Line {line_num}: Broken link [{match.group(1)}]({link_path})")
 
     return issues
@@ -188,7 +229,7 @@ def check_stale_dates(file_path: Path) -> list[str]:
     for match in date_pattern.finditer(content):
         date = match.group(1)
         if date < EXPECTED_DATE:
-            line_num = content[:match.start()].count("\n") + 1
+            line_num = content[: match.start()].count("\n") + 1
             issues.append(f"Line {line_num}: Stale date {date} (expected >= {EXPECTED_DATE})")
 
     return issues

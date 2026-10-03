@@ -11,10 +11,16 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class RuckusParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return "ruckus" in meta.text_preview.lower() or meta.vendor == VendorFamily.extreme and "ruckus" in meta.filename.lower()  # noqa: E501
+        return (
+            "ruckus" in meta.text_preview.lower()
+            or meta.vendor == VendorFamily.extreme
+            and "ruckus" in meta.filename.lower()
+        )  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.extreme, format="ruckus", device_role=DeviceRole.wireless_controller)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.extreme, format="ruckus", device_role=DeviceRole.wireless_controller
+        )  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

@@ -21,7 +21,6 @@ Exit codes:
 from __future__ import annotations
 
 import importlib.util
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -102,7 +101,9 @@ def run_gate(gate: dict[str, Any]) -> dict[str, Any]:
                 "id": gate["id"],
                 "name": gate["name"],
                 "passed": passed,
-                "detail": f"{failed_count} checks failed: " + "; ".join(details[:3]) if not passed else "",
+                "detail": f"{failed_count} checks failed: " + "; ".join(details[:3])
+                if not passed
+                else "",
                 "blocking": gate["blocking"],
             }
         else:
@@ -148,10 +149,14 @@ def print_final_report(results: list[dict[str, Any]]) -> str:
         blocking_failures = [r for r in failed_gates if r["blocking"]]
         if blocking_failures:
             print("Overall Status: RELEASE BLOCKED")
-            print(f"Blocking failures in: {', '.join('Gate ' + str(r['id']) for r in blocking_failures)}")
+            print(
+                f"Blocking failures in: {', '.join('Gate ' + str(r['id']) for r in blocking_failures)}"  # noqa: E501
+            )
         else:
             print("Overall Status: PASS WITH WARNING")
-            print(f"Non-blocking failures in: {', '.join('Gate ' + str(r['id']) for r in failed_gates)}")
+            print(
+                f"Non-blocking failures in: {', '.join('Gate ' + str(r['id']) for r in failed_gates)}"  # noqa: E501
+            )
         print()
         print("Action required:")
         for r in failed_gates:
@@ -160,7 +165,11 @@ def print_final_report(results: list[dict[str, Any]]) -> str:
                 print(f"    {r['detail'][:200]}")
 
     print("=" * 60)
-    return "RELEASE BLOCKED" if any(r["blocking"] and not r["passed"] for r in results) else "READY FOR RELEASE"
+    return (
+        "RELEASE BLOCKED"
+        if any(r["blocking"] and not r["passed"] for r in results)
+        else "READY FOR RELEASE"
+    )
 
 
 def main() -> int:

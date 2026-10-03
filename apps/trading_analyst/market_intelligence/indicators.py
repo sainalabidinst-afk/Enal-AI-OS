@@ -25,7 +25,7 @@ def compute_sma(prices: list[float], period: int) -> list[float]:
     """Simple Moving Average."""
     if len(prices) < period:
         return []
-    return [sum(prices[i - period:i]) / period for i in range(period, len(prices) + 1)]
+    return [sum(prices[i - period : i]) / period for i in range(period, len(prices) + 1)]
 
 
 def compute_rsi(prices: list[float], period: int = 14) -> list[float]:
@@ -66,31 +66,37 @@ def compute_macd(prices: list[float]) -> dict[str, list[float]]:
     return {"macd": macd_line, "signal": signal, "histogram": histogram}
 
 
-def compute_bollinger_bands(prices: list[float], period: int = 20, std_dev: float = 2.0) -> dict[str, list[float]]:  # noqa: E501
+def compute_bollinger_bands(
+    prices: list[float], period: int = 20, std_dev: float = 2.0
+) -> dict[str, list[float]]:  # noqa: E501
     """Bollinger Bands."""
     if len(prices) < period:
         return {"upper": [], "middle": [], "lower": []}
     middle = compute_sma(prices, period)
     upper, lower = [], []
     for i in range(len(prices) - period):
-        window = prices[i:i + period]
+        window = prices[i : i + period]
         std = statistics.stdev(window)
         upper.append(middle[i] + std_dev * std)
         lower.append(middle[i] - std_dev * std)
     return {"upper": upper, "middle": middle, "lower": lower}
 
 
-def compute_atr(highs: list[float], lows: list[float], closes: list[float], period: int = 14) -> list[float]:  # noqa: E501
+def compute_atr(
+    highs: list[float], lows: list[float], closes: list[float], period: int = 14
+) -> list[float]:  # noqa: E501
     """Average True Range."""
     if len(highs) < 2:
         return []
     tr = []
     for i in range(1, len(highs)):
-        tr.append(max(
-            highs[i] - lows[i],
-            abs(highs[i] - closes[i - 1]),
-            abs(lows[i] - closes[i - 1]),
-        ))
+        tr.append(
+            max(
+                highs[i] - lows[i],
+                abs(highs[i] - closes[i - 1]),
+                abs(lows[i] - closes[i - 1]),
+            )
+        )
     if len(tr) < period:
         return []
     atr = [sum(tr[:period]) / period]
@@ -119,15 +125,19 @@ def compute_linear_regression(prices: list[float]) -> tuple[float, float]:
     return slope, intercept
 
 
-def detect_swing_points(highs: list[float], lows: list[float], window: int = 5) -> dict[str, list[int]]:  # noqa: E501
+def detect_swing_points(
+    highs: list[float], lows: list[float], window: int = 5
+) -> dict[str, list[int]]:  # noqa: E501
     """Detect swing highs and lows. Returns dict with 'highs' and 'lows' as list of indices."""
     swing_highs, swing_lows = [], []
     for i in range(window, len(highs) - window):
-        if all(highs[i] > highs[j] for j in range(i - window, i)) and \
-           all(highs[i] > highs[j] for j in range(i + 1, i + window + 1)):
+        if all(highs[i] > highs[j] for j in range(i - window, i)) and all(
+            highs[i] > highs[j] for j in range(i + 1, i + window + 1)
+        ):
             swing_highs.append(i)
-        if all(lows[i] < lows[j] for j in range(i - window, i)) and \
-           all(lows[i] < lows[j] for j in range(i + 1, i + window + 1)):
+        if all(lows[i] < lows[j] for j in range(i - window, i)) and all(
+            lows[i] < lows[j] for j in range(i + 1, i + window + 1)
+        ):
             swing_lows.append(i)
     return {"highs": swing_highs, "lows": swing_lows}
 
@@ -144,7 +154,7 @@ def compute_volume_stats(volumes: list[float]) -> dict[str, float]:
 
 def compute_volume_trend(volumes: list[float], short_period: int = 5, long_period: int = 20) -> str:
     """Compare short-term vs long-term volume average. Returns
-        'increasing', 'decreasing', or 'stable'."""
+    'increasing', 'decreasing', or 'stable'."""
     if len(volumes) < min(short_period, long_period):
         return "stable"
     short_avg = sum(volumes[-short_period:]) / min(short_period, len(volumes))
@@ -159,8 +169,9 @@ def compute_volume_trend(volumes: list[float], short_period: int = 5, long_perio
     return "stable"
 
 
-def all_indicators(closes: list[float], highs: list[float], lows: list[float],
-                   volumes: list[float]) -> dict[str, Any]:
+def all_indicators(
+    closes: list[float], highs: list[float], lows: list[float], volumes: list[float]
+) -> dict[str, Any]:
     """Compute all indicators and return as a flat dict."""
     result: dict[str, Any] = {}
 

@@ -5,6 +5,7 @@ Trading Analyst Golden Tests
 Tests for the Trading Analyst Capability Pack:
 TradingEngine, analyzers, models, and pipeline integration.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -25,6 +26,7 @@ from apps.trading_analyst.market_intelligence.models import (
 # Fixtures
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def engine():
     return TradingEngine()
@@ -33,7 +35,14 @@ def engine():
 @pytest.fixture
 def sample_ohlcv():
     return [
-        OHLCV(timestamp=1_700_000_000 + i * 60, open=100.0, high=101.0, low=99.0, close=100.5, volume=1500.0)
+        OHLCV(
+            timestamp=1_700_000_000 + i * 60,
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.5,
+            volume=1500.0,
+        )
         for i in range(120)
     ]
 
@@ -52,6 +61,7 @@ def sample_context(sample_ohlcv):
 # Model Tests
 # ---------------------------------------------------------------------------
 
+
 class TestModels:
     def test_ohlcv_negative_close_raises(self):
         with pytest.raises(ValueError):
@@ -59,15 +69,26 @@ class TestModels:
 
     def test_market_evidence_strength_clamped(self):
         ev = MarketEvidence(
-            id="ev-1", type="test", description="test", timeframe="1h",
-            strength=1.5, direction="bullish", source="test",
+            id="ev-1",
+            type="test",
+            description="test",
+            timeframe="1h",
+            strength=1.5,
+            direction="bullish",
+            source="test",
         )
         assert ev.strength == 1.0
 
     def test_market_evidence_confidence_clamped(self):
         ev = MarketEvidence(
-            id="ev-1", type="test", description="test", timeframe="1h",
-            strength=0.5, direction="bullish", source="test", confidence=-0.5,
+            id="ev-1",
+            type="test",
+            description="test",
+            timeframe="1h",
+            strength=0.5,
+            direction="bullish",
+            source="test",
+            confidence=-0.5,
         )
         assert ev.confidence == 0.0
 
@@ -95,6 +116,7 @@ class TestModels:
 # ---------------------------------------------------------------------------
 # Engine Tests
 # ---------------------------------------------------------------------------
+
 
 class TestTradingEngine:
     def test_engine_initializes_analyzers(self, engine):
@@ -174,7 +196,9 @@ class TestTradingEngine:
             "option_chain": {"strikes": [50000, 51000, 52000], "current_price": 50000.0},
             "current_price": 50000.0,
         }
-        result = await engine.analyze_market("BTCUSDT", use_live_data=False, macro_data=macro_data, derivatives_data=derivatives_data)
+        result = await engine.analyze_market(
+            "BTCUSDT", use_live_data=False, macro_data=macro_data, derivatives_data=derivatives_data
+        )
         evidence_types = {ev.type for ev in result.evidence}
         domain_prefixes = {
             "wyckoff": "wyckoff",
@@ -271,7 +295,9 @@ class TestTradingEngine:
 
     @pytest.mark.asyncio
     async def test_multiple_timeframes_analysis(self, engine):
-        result = await engine.analyze_market("BTCUSDT", timeframes=["1h", "4h"], use_live_data=False)
+        result = await engine.analyze_market(
+            "BTCUSDT", timeframes=["1h", "4h"], use_live_data=False
+        )
         assert isinstance(result, AnalysisResult)
         assert len(result.evidence) >= 1
 

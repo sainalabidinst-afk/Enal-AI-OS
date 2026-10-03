@@ -52,6 +52,7 @@ class BenchmarkRunner:
                 max_keepalive_connections=self.concurrency,
             ),
         ) as client:
+
             async def run(case: BenchmarkCase) -> BenchmarkResult:
                 async with semaphore:
                     return await self.run_case(case, client=client, progress=progress)
@@ -200,9 +201,7 @@ class BenchmarkRunner:
         expected_path = Path(case.filename).parent / "expected.json"
         if not expected_path.exists():
             expected_path = (
-                Path("real_cases")
-                / case.vendor
-                / (Path(case.filename).stem + ".expected.json")
+                Path("real_cases") / case.vendor / (Path(case.filename).stem + ".expected.json")
             )
         if not expected_path.exists():
             vendor_dir = Path("real_cases") / case.vendor
@@ -294,9 +293,7 @@ class BenchmarkRunner:
         vendor_match = 100.0 if ast.get("vendor") == case.vendor else 50.0
         has_findings = 100.0 if ast.get("findings") else 0.0
         has_structure = (
-            100.0
-            if ast.get("interfaces") or ast.get("firewall") or ast.get("routing")
-            else 50.0
+            100.0 if ast.get("interfaces") or ast.get("firewall") or ast.get("routing") else 50.0
         )
         return round((vendor_match + has_findings + has_structure) / 3, 2)
 

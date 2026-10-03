@@ -52,25 +52,29 @@ class MonitoringConfigurator:
         features = current_config.get("features", [])
 
         if "alerting" not in features:
-            solutions.append(Solution(
-                problem_id=f"{current_config.get('service', 'unknown')}-missing-alerting",
-                solution_type=ImprovementType.MONITORING.value,
-                description="Tambahkan alerting ke monitoring stack.",
-                estimated_effort="medium",
-                risk="low",
-                tests_required=True,
-                confidence=0.9,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_config.get('service', 'unknown')}-missing-alerting",
+                    solution_type=ImprovementType.MONITORING.value,
+                    description="Tambahkan alerting ke monitoring stack.",
+                    estimated_effort="medium",
+                    risk="low",
+                    tests_required=True,
+                    confidence=0.9,
+                )
+            )
 
         if "log_aggregation" not in features:
-            solutions.append(Solution(
-                problem_id=f"{current_config.get('service', 'unknown')}-missing-logs",
-                solution_type=ImprovementType.MONITORING.value,
-                description="Tambahkan agregasi log untuk observabilitas.",
-                estimated_effort="medium",
-                risk="low",
-                tests_required=True,
-                confidence=0.85,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_config.get('service', 'unknown')}-missing-logs",
+                    solution_type=ImprovementType.MONITORING.value,
+                    description="Tambahkan agregasi log untuk observabilitas.",
+                    estimated_effort="medium",
+                    risk="low",
+                    tests_required=True,
+                    confidence=0.85,
+                )
+            )
 
         return solutions

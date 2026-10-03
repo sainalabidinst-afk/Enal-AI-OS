@@ -112,13 +112,15 @@ class FinanceAnalystReport(BaseModel):
 class FinanceAnalystRecord(BaseModel):
     pack_id: str = "finance-analyst"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "financial_summary",
-        "cash_flow",
-        "scenario_analysis",
-        "risk_model",
-        "control_check",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "financial_summary",
+            "cash_flow",
+            "scenario_analysis",
+            "risk_model",
+            "control_check",
+        ]
+    )
 
 
 __all__ = [

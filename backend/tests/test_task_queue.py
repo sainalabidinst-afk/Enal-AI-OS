@@ -1,4 +1,3 @@
-
 import pytest
 
 from backend.app.core.events import Event
@@ -61,6 +60,7 @@ class TestTaskQueue:
     @pytest.fixture
     def queue(self, monkeypatch):
         import backend.app.core.task_queue as tq_module
+
         fake_bus = FakeEventBus()
         monkeypatch.setattr(tq_module, "event_bus", fake_bus)
         return TaskQueue(), fake_bus
@@ -120,7 +120,11 @@ class TestTaskQueue:
 
     async def test_on_task_created_adds_task(self, queue):
         q, _ = queue
-        event = Event(event_type="task.created", payload={"task": q._serialize(Task(name="t1", agent="a"))}, source="test")  # noqa: E501
+        event = Event(
+            event_type="task.created",
+            payload={"task": q._serialize(Task(name="t1", agent="a"))},
+            source="test",
+        )  # noqa: E501
         await q._on_task_created(event)
         assert len(q._tasks) == 1
 
@@ -128,7 +132,9 @@ class TestTaskQueue:
         q, _ = queue
         task = Task(name="t1", agent="a")
         await q.enqueue(task)
-        event = Event(event_type="task.completed", payload={"task_id": task.id, "result": "ok"}, source="test")  # noqa: E501
+        event = Event(
+            event_type="task.completed", payload={"task_id": task.id, "result": "ok"}, source="test"
+        )  # noqa: E501
         await q._on_task_completed(event)
         assert q._tasks[task.id].status == TaskStatus.COMPLETED
         assert q._tasks[task.id].result == "ok"
@@ -137,7 +143,9 @@ class TestTaskQueue:
         q, _ = queue
         task = Task(name="t1", agent="a", max_retries=2)
         await q.enqueue(task)
-        event = Event(event_type="task.failed", payload={"task_id": task.id, "error": "boom"}, source="test")  # noqa: E501
+        event = Event(
+            event_type="task.failed", payload={"task_id": task.id, "error": "boom"}, source="test"
+        )  # noqa: E501
         await q._on_task_failed(event)
         assert q._tasks[task.id].retries == 1
         assert q._tasks[task.id].status == TaskStatus.QUEUED
@@ -146,7 +154,9 @@ class TestTaskQueue:
         q, _ = queue
         task = Task(name="t1", agent="a", max_retries=0)
         await q.enqueue(task)
-        event = Event(event_type="task.failed", payload={"task_id": task.id, "error": "boom"}, source="test")  # noqa: E501
+        event = Event(
+            event_type="task.failed", payload={"task_id": task.id, "error": "boom"}, source="test"
+        )  # noqa: E501
         await q._on_task_failed(event)
         assert q._tasks[task.id].retries == 1
         assert q._tasks[task.id].status == TaskStatus.FAILED

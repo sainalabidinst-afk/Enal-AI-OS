@@ -251,7 +251,16 @@ engine = ProductManagerEngine()
 request = ProductManagementRequest(
     operation=OperationType.backlog_management,
     product_context={"product_name": "ECP Platform", "vision": "AI-powered development platform"},
-    inputs={"backlog_items": [{"id": "BL-001", "title": "Add user authentication", "effort": "medium", "value": "high"}]},
+    inputs={
+        "backlog_items": [
+            {
+                "id": "BL-001",
+                "title": "Add user authentication",
+                "effort": "medium",
+                "value": "high",
+            }
+        ]
+    },
     options={"prioritization_framework": "rice"},
 )
 report = engine.manage(request)

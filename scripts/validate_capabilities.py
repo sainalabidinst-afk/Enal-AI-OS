@@ -15,7 +15,6 @@ Exit codes:
 
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -66,8 +65,13 @@ def check_trading_wiring() -> dict[str, Any]:
     )
 
     return {
-        "passed": (has_market_intelligence_in_app or has_market_intelligence_in_api) and has_real_import,
-        "detail": "Trading Analyst not wired to market_intelligence" if not ((has_market_intelligence_in_app or has_market_intelligence_in_api) and has_real_import) else "",
+        "passed": (has_market_intelligence_in_app or has_market_intelligence_in_api)
+        and has_real_import,
+        "detail": "Trading Analyst not wired to market_intelligence"
+        if not (
+            (has_market_intelligence_in_app or has_market_intelligence_in_api) and has_real_import
+        )
+        else "",
     }
 
 
@@ -81,7 +85,9 @@ def check_integration_wiring() -> dict[str, Any]:
 
     return {
         "passed": has_workflow_result and has_real_steps,
-        "detail": "Integration orchestrator missing WorkflowResult or workflow steps" if not (has_workflow_result and has_real_steps) else "",
+        "detail": "Integration orchestrator missing WorkflowResult or workflow steps"
+        if not (has_workflow_result and has_real_steps)
+        else "",
     }
 
 
@@ -95,7 +101,9 @@ def check_organization_exposed() -> dict[str, Any]:
 
     return {
         "passed": has_exports,
-        "detail": "apps/organization/__init__.py is empty or has no exports" if not has_exports else "",
+        "detail": "apps/organization/__init__.py is empty or has no exports"
+        if not has_exports
+        else "",
     }
 
 
@@ -116,7 +124,9 @@ def check_placeholder_markers() -> dict[str, Any]:
 
     return {
         "passed": len(unmarked_placeholders) == 0,
-        "detail": f"Capabilities with placeholder logic but no experimental marker: {unmarked_placeholders}" if unmarked_placeholders else "",
+        "detail": f"Capabilities with placeholder logic but no experimental marker: {unmarked_placeholders}"  # noqa: E501
+        if unmarked_placeholders
+        else "",
     }
 
 
@@ -127,7 +137,9 @@ def check_backend_api_routes() -> dict[str, Any]:
 
     return {
         "passed": integration_router and trading_router,
-        "detail": "Backend API not routing integration/trading" if not (integration_router and trading_router) else "",
+        "detail": "Backend API not routing integration/trading"
+        if not (integration_router and trading_router)
+        else "",
     }
 
 

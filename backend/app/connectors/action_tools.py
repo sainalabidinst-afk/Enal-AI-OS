@@ -170,8 +170,7 @@ def register_action_tools():
         Tool(
             name="send_email",
             description=(
-                "Send an email via SMTP or Gmail API. "
-                "Requires 'to' and 'subject' parameters."
+                "Send an email via SMTP or Gmail API. Requires 'to' and 'subject' parameters."
             ),
             category="action",
             agent="jenny",
@@ -256,8 +255,7 @@ def register_action_tools():
         Tool(
             name="smarthome_control",
             description=(
-                "Control a smart home device "
-                "(turn on/off, set brightness, set temperature)."
+                "Control a smart home device (turn on/off, set brightness, set temperature)."
             ),
             category="action",
             agent="jenny",
@@ -274,8 +272,7 @@ def register_action_tools():
                     "action": {
                         "type": "string",
                         "description": (
-                            "Action: turn_on, turn_off, set_brightness, "
-                            "set_temperature"
+                            "Action: turn_on, turn_off, set_brightness, set_temperature"
                         ),
                     },
                     "brightness": {"type": "integer", "minimum": 0, "maximum": 100},
@@ -310,6 +307,7 @@ def register_action_tools():
     for tool in tools:
         tool_registry = tool_registry or None
         from backend.app.core.tool_registry import tool_registry as _reg
+
         _reg.register(tool)
         registered += 1
         logger.info("Registered action tool: %s", tool.name)

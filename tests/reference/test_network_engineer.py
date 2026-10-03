@@ -28,18 +28,98 @@ def load_expected(scenario: str, name: str) -> Any:
 
 def extract_keywords(text: str) -> list[str]:
     text = text.lower()
-    stop_words = {"the", "is", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "from", "as", "are", "was", "were", "be", "been", "being", "have", "has", "had", "do", "does", "did", "will", "would", "could", "should", "may", "might", "must", "can", "shall", "not", "no", "nor", "so", "very", "just", "because", "yet", "if", "then", "than", "too", "s", "t", "don", "now"}
+    stop_words = {
+        "the",
+        "is",
+        "a",
+        "an",
+        "and",
+        "or",
+        "but",
+        "in",
+        "on",
+        "at",
+        "to",
+        "for",
+        "of",
+        "with",
+        "by",
+        "from",
+        "as",
+        "are",
+        "was",
+        "were",
+        "be",
+        "been",
+        "being",
+        "have",
+        "has",
+        "had",
+        "do",
+        "does",
+        "did",
+        "will",
+        "would",
+        "could",
+        "should",
+        "may",
+        "might",
+        "must",
+        "can",
+        "shall",
+        "not",
+        "no",
+        "nor",
+        "so",
+        "very",
+        "just",
+        "because",
+        "yet",
+        "if",
+        "then",
+        "than",
+        "too",
+        "s",
+        "t",
+        "don",
+        "now",
+    }
     words = re.findall(r"[a-z0-9\-]+", text)
     return [w for w in words if len(w) > 3 and w not in stop_words]
 
 
 SCENARIOS = [
-    "home", "office", "hotel", "rt-rw-net", "campus", "isp-small", "isp-medium",
-    "isp-large", "mpls", "ospf", "bgp", "capsman", "vlan", "wireguard",
-    "hotspot-voucher", "pppoe", "eoip", "vrrp", "dual-wan", "load-balance-pcc",
-    "failover", "queue-tree", "simple-queue", "ipv6", "dns-cache",
-    "firewall-enterprise", "broken-config", "invalid-syntax", "partial-config",
-    "old-v6", "new-v7"
+    "home",
+    "office",
+    "hotel",
+    "rt-rw-net",
+    "campus",
+    "isp-small",
+    "isp-medium",
+    "isp-large",
+    "mpls",
+    "ospf",
+    "bgp",
+    "capsman",
+    "vlan",
+    "wireguard",
+    "hotspot-voucher",
+    "pppoe",
+    "eoip",
+    "vrrp",
+    "dual-wan",
+    "load-balance-pcc",
+    "failover",
+    "queue-tree",
+    "simple-queue",
+    "ipv6",
+    "dns-cache",
+    "firewall-enterprise",
+    "broken-config",
+    "invalid-syntax",
+    "partial-config",
+    "old-v6",
+    "new-v7",
 ]
 
 
@@ -71,8 +151,14 @@ async def main() -> int:
         try:
             result = await run_scenario(scenario)
             results.append(result)
-            status = "PASS" if result["findings_count"] > 0 and result["documentation_generated"] else "FAIL"
-            print(f"[{status}] {scenario}: findings={result['findings_count']}, docs={'yes' if result['documentation_generated'] else 'no'}")
+            status = (
+                "PASS"
+                if result["findings_count"] > 0 and result["documentation_generated"]
+                else "FAIL"
+            )
+            print(
+                f"[{status}] {scenario}: findings={result['findings_count']}, docs={'yes' if result['documentation_generated'] else 'no'}"  # noqa: E501
+            )
         except Exception as e:
             print(f"[FAIL] {scenario}: {e}")
             results.append({"scenario": scenario, "error": str(e)})
@@ -88,9 +174,7 @@ async def main() -> int:
     docs_generated = sum(1 for r in successful if r.get("documentation_generated"))
     findings_generated = sum(1 for r in successful if r.get("findings_count", 0) > 0)
     pass_count = sum(
-        1
-        for r in successful
-        if r.get("findings_count", 0) > 0 and r.get("documentation_generated")
+        1 for r in successful if r.get("findings_count", 0) > 0 and r.get("documentation_generated")
     )
 
     print(f"Scenarios with findings: {findings_generated}/{len(SCENARIOS)}")

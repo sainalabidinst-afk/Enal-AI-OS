@@ -122,11 +122,13 @@ TTSService.speak(text, voice, speed)
 class VoiceAgent:
     async def transcribe(self, audio_data, language) -> VoiceTranscription:
         from backend.app.core.stt_service import stt_service
+
         result = await stt_service.transcribe(audio_data, language)
         return result.to_voice_transcription()
 
     async def speak(self, text, voice, speed) -> bytes:
         from backend.app.core.tts_service import tts_service
+
         result = await tts_service.speak(text, voice, speed)
         return result.audio_data
 ```

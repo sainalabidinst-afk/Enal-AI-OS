@@ -75,14 +75,18 @@ class AttackRequest(BaseModel):
 
     category: AttackCategory = Field(..., description="Category of attack")
     description: str | None = None
-    severity: Severity = Field(default=Severity.MEDIUM, description="Expected severity of this attack")  # noqa: E501
+    severity: Severity = Field(
+        default=Severity.MEDIUM, description="Expected severity of this attack"
+    )  # noqa: E501
     assumptions: list[str] = Field(default_factory=list, description="Worst-case assumptions")
 
 
 class AdversarialTestRequest(BaseModel):
     """Input contract for an adversarial testing request."""
 
-    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier")  # noqa: E501
+    request_id: str = Field(
+        default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier"
+    )  # noqa: E501
     subject: str = Field(..., description="The plan/strategy/recommendation to attack")
     subject_type: SubjectType = Field(..., description="Type of subject")
     context: str | None = Field(default=None, description="Additional context")
@@ -93,7 +97,9 @@ class AdversarialTestRequest(BaseModel):
         default_factory=lambda: list(AttackCategory),
         description="Categories of attacks to generate",
     )
-    existing_hardening: list[str] = Field(default_factory=list, description="Already-applied mitigations")  # noqa: E501
+    existing_hardening: list[str] = Field(
+        default_factory=list, description="Already-applied mitigations"
+    )  # noqa: E501
 
 
 # ---------------------------------------------------------------------------

@@ -32,20 +32,17 @@ class AgentReputation:
         else:
             self.failed_tasks += 1
         self.metrics[MetricType.QUALITY] = (
-            (self.metrics.get(MetricType.QUALITY, 0.0) * (self.total_tasks - 1) + quality_score)
-            / self.total_tasks
-        )
+            self.metrics.get(MetricType.QUALITY, 0.0) * (self.total_tasks - 1) + quality_score
+        ) / self.total_tasks
         self.metrics[MetricType.SUCCESS_RATE] = (
             self.successful_tasks / self.total_tasks if self.total_tasks > 0 else 0.0
         )
         self.metrics[MetricType.LATENCY] = (
-            (self.metrics.get(MetricType.LATENCY, 0.0) * (self.total_tasks - 1) + latency_ms)
-            / self.total_tasks
-        )
+            self.metrics.get(MetricType.LATENCY, 0.0) * (self.total_tasks - 1) + latency_ms
+        ) / self.total_tasks
         self.metrics[MetricType.COST] = (
-            (self.metrics.get(MetricType.COST, 0.0) * (self.total_tasks - 1) + cost)
-            / self.total_tasks
-        )
+            self.metrics.get(MetricType.COST, 0.0) * (self.total_tasks - 1) + cost
+        ) / self.total_tasks
         self.last_updated = datetime.now(UTC)
 
     def get_score(self) -> float:
@@ -100,4 +97,3 @@ class AgentReputationManager:
 
 
 agent_reputation = AgentReputationManager()
-

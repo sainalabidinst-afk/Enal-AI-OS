@@ -71,7 +71,9 @@ class ExplanationGenerator:
                 f"neutral {evidence_set.neutral_weight:.0%})."
             )
         if constraints:
-            chain.append(f"Applied {len(constraints)} hard constraint(s): " + "; ".join(constraints))  # noqa: E501
+            chain.append(
+                f"Applied {len(constraints)} hard constraint(s): " + "; ".join(constraints)
+            )  # noqa: E501
         chain.append("Generated and scored alternatives against weighted objectives.")
         chain.append("Risk profiles computed for each alternative (probability × impact).")
         chain.append(f"Selected best alternative with {confidence.score:.0%} confidence.")
@@ -100,8 +102,9 @@ class ExplanationGenerator:
             rp = best.get("risk_profile")
             if rp is not None:
                 risk_level = (
-                    "high" if rp.overall_risk >= 0.5 else
-                    ("medium" if rp.overall_risk >= 0.25 else "low")
+                    "high"
+                    if rp.overall_risk >= 0.5
+                    else ("medium" if rp.overall_risk >= 0.25 else "low")
                 )
                 risk_assessment = (
                     f"Selected alternative carries {risk_level} risk "

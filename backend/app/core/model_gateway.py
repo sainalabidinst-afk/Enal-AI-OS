@@ -30,7 +30,9 @@ class ModelGateway:
             self._health[provider] = health
             return health
 
-    async def route(self, task_type: str, capability: str, context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def route(
+        self, task_type: str, capability: str, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         routing = {
             "coding": "qwen",
             "reasoning": "deepseek",
@@ -41,7 +43,12 @@ class ModelGateway:
         }
         provider = routing.get(capability, routing["default"])
         model = self._providers.get(provider, {}).get("models", [None])[0]
-        return {"provider": provider, "model": model, "task_type": task_type, "capability": capability}  # noqa: E501
+        return {
+            "provider": provider,
+            "model": model,
+            "task_type": task_type,
+            "capability": capability,
+        }  # noqa: E501
 
     async def get_status(self) -> dict[str, Any]:
         return {"providers": self._providers, "health": self._health}

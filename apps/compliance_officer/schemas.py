@@ -96,12 +96,14 @@ class ComplianceOfficerReport(BaseModel):
 class ComplianceOfficerRecord(BaseModel):
     pack_id: str = "compliance-officer"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "compliance_assessment",
-        "audit_planning",
-        "risk_assessment",
-        "remediation_plan",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "compliance_assessment",
+            "audit_planning",
+            "risk_assessment",
+            "remediation_plan",
+        ]
+    )
 
 
 __all__ = [

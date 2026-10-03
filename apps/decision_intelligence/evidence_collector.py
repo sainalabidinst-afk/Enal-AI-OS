@@ -46,7 +46,10 @@ class EvidenceSet:
     @property
     def dominant_sentiment(self) -> str:
         """Return the sentiment carrying the most effective weight."""
-        if self.positive_weight >= self.negative_weight and self.positive_weight >= self.neutral_weight:  # noqa: E501
+        if (
+            self.positive_weight >= self.negative_weight
+            and self.positive_weight >= self.neutral_weight
+        ):  # noqa: E501
             if self.positive_weight > 0.0:
                 return "positive"
         if self.negative_weight >= self.neutral_weight:
@@ -132,9 +135,28 @@ class EvidenceCollector:
             val = payload.get(key)
             if isinstance(val, str):
                 lowered = val.lower()
-                if lowered in ("bullish", "positive", "buy", "pass", "recommend", "yes", "up", "high"):  # noqa: E501
+                if lowered in (
+                    "bullish",
+                    "positive",
+                    "buy",
+                    "pass",
+                    "recommend",
+                    "yes",
+                    "up",
+                    "high",
+                ):  # noqa: E501
                     return "positive"
-                if lowered in ("bearish", "negative", "sell", "fail", "reject", "no", "down", "low", "high risk"):  # noqa: E501
+                if lowered in (
+                    "bearish",
+                    "negative",
+                    "sell",
+                    "fail",
+                    "reject",
+                    "no",
+                    "down",
+                    "low",
+                    "high risk",
+                ):  # noqa: E501
                     return "negative"
                 if lowered in ("neutral", "hold", "wait", "unknown"):
                     return "neutral"

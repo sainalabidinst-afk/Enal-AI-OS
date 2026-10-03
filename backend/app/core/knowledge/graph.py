@@ -40,7 +40,9 @@ class KnowledgeGraph:
                 result.append(edge)
         return result
 
-    def path(self, start_id: str, end_id: str, max_depth: int = 5) -> list[list[KnowledgeEdge]] | None:  # noqa: E501
+    def path(
+        self, start_id: str, end_id: str, max_depth: int = 5
+    ) -> list[list[KnowledgeEdge]] | None:  # noqa: E501
         visited = set()
         paths: list[list[KnowledgeEdge]] = []
 
@@ -79,7 +81,9 @@ class KnowledgeGraph:
         if "min_confidence" in filters:
             results = [n for n in results if n.confidence >= filters["min_confidence"]]
         if "related_to" in filters:
-            related_ids = {e.target_id for e in self.edges.values() if e.source_id == filters["related_to"]}  # noqa: E501
+            related_ids = {
+                e.target_id for e in self.edges.values() if e.source_id == filters["related_to"]
+            }  # noqa: E501
             results = [n for n in results if n.id in related_ids]
         return results
 
@@ -96,7 +100,9 @@ class KnowledgeGraph:
         scored.sort(key=lambda item: item[1], reverse=True)
         return scored[:limit]
 
-    def traverse(self, start_id: str, relation: str | None = None, max_depth: int = 3) -> list[list[KnowledgeNode]]:  # noqa: E501
+    def traverse(
+        self, start_id: str, relation: str | None = None, max_depth: int = 3
+    ) -> list[list[KnowledgeNode]]:  # noqa: E501
         paths: list[list[KnowledgeNode]] = []
 
         def dfs(current_id: str, current_path: list[KnowledgeNode], depth: int) -> None:

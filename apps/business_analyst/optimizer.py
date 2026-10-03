@@ -21,10 +21,20 @@ logger = logging.getLogger(__name__)
 # Inefficiency patterns and their remedies.
 _INEFFICIENCY_PATTERNS: list[tuple[str, str, str, str]] = [
     ("manual", "Manual data entry", "Automate data capture with forms and integrations", "70%"),
-    ("approval", "Sequential approval chain", "Implement parallel approvals with SLA tracking", "60%"),  # noqa: E501
+    (
+        "approval",
+        "Sequential approval chain",
+        "Implement parallel approvals with SLA tracking",
+        "60%",
+    ),  # noqa: E501
     ("rework", "Error correction loop", "Add validation at source; reduce rework cycles", "50%"),
     ("wait", "Waiting for external input", "Implement SLAs and escalation paths", "40%"),
-    ("duplicate", "Duplicate data entry", "Single source of truth; eliminate redundant entries", "80%"),  # noqa: E501
+    (
+        "duplicate",
+        "Duplicate data entry",
+        "Single source of truth; eliminate redundant entries",
+        "80%",
+    ),  # noqa: E501
     ("batch", "Batch processing delay", "Move to event-driven or near-real-time processing", "65%"),
 ]
 
@@ -94,27 +104,31 @@ class ProcessOptimizer:
         # Check for too many sequential steps.
         decision_count = sum(1 for a in activities if a.type.value == "decision")
         if decision_count > 3:
-            optimizations.append(ProcessOptimization(
-                process_name="Overall Process",
-                inefficiency="Too many sequential decision points",
-                current_time=f"{len(activities)} sequential steps",
-                optimized_time=f"~{len(activities) // 2} parallel steps",
-                recommendation="Parallelize independent decisions; reduce approval chains",
-                estimated_savings="40%",
-            ))
+            optimizations.append(
+                ProcessOptimization(
+                    process_name="Overall Process",
+                    inefficiency="Too many sequential decision points",
+                    current_time=f"{len(activities)} sequential steps",
+                    optimized_time=f"~{len(activities) // 2} parallel steps",
+                    recommendation="Parallelize independent decisions; reduce approval chains",
+                    estimated_savings="40%",
+                )
+            )
 
         # Check for redundant activities.
         activity_names = [a.name.lower() for a in activities]
         duplicates = [name for name in activity_names if activity_names.count(name) > 1]
         if duplicates:
-            optimizations.append(ProcessOptimization(
-                process_name="Overall Process",
-                inefficiency="Duplicate activities detected",
-                current_time=f"{len(duplicates)} redundant steps",
-                optimized_time="0 redundant steps",
-                recommendation="Consolidate duplicate activities into single step",
-                estimated_savings="100%",
-            ))
+            optimizations.append(
+                ProcessOptimization(
+                    process_name="Overall Process",
+                    inefficiency="Duplicate activities detected",
+                    current_time=f"{len(duplicates)} redundant steps",
+                    optimized_time="0 redundant steps",
+                    recommendation="Consolidate duplicate activities into single step",
+                    estimated_savings="100%",
+                )
+            )
 
         return optimizations
 

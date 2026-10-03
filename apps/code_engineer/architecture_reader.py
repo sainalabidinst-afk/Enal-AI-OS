@@ -45,8 +45,14 @@ class ArchitectureReader:
     }
 
     ENTRY_POINT_PATTERNS: list[str] = [
-        "main.py", "app.py", "cli.py", "run.py",
-        "server.py", "manage.py", "wsgi.py", "asgi.py",
+        "main.py",
+        "app.py",
+        "cli.py",
+        "run.py",
+        "server.py",
+        "manage.py",
+        "wsgi.py",
+        "asgi.py",
         "__main__.py",
     ]
 
@@ -92,13 +98,31 @@ class ArchitectureReader:
         self._frameworks_found = self._detect_frameworks()
         self._missing_init = self._check_missing_init(python_files)
 
-        has_docker = bool(list(self.repo_path.glob("Dockerfile")) or list(self.repo_path.glob("docker-compose*")))  # noqa: E501
-        has_ci_cd = bool(list(self.repo_path.glob(".github/workflows/*")) or list(self.repo_path.glob(".gitlab-ci*")))  # noqa: E501
-        has_docs = bool((self.repo_path / "docs").exists() or (self.repo_path / "README.md").exists())  # noqa: E501
-        has_config = bool(list(self.repo_path.glob("pyproject.toml")) or list(self.repo_path.glob("setup.py")) or list(self.repo_path.glob("setup.cfg")))  # noqa: E501
+        has_docker = bool(
+            list(self.repo_path.glob("Dockerfile")) or list(self.repo_path.glob("docker-compose*"))
+        )  # noqa: E501
+        has_ci_cd = bool(
+            list(self.repo_path.glob(".github/workflows/*"))
+            or list(self.repo_path.glob(".gitlab-ci*"))
+        )  # noqa: E501
+        has_docs = bool(
+            (self.repo_path / "docs").exists() or (self.repo_path / "README.md").exists()
+        )  # noqa: E501
+        has_config = bool(
+            list(self.repo_path.glob("pyproject.toml"))
+            or list(self.repo_path.glob("setup.py"))
+            or list(self.repo_path.glob("setup.cfg"))
+        )  # noqa: E501
         has_tests = bool(self._test_modules) or (self.repo_path / "tests").exists()
 
-        for dep_file in ["pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "poetry.lock"]:  # noqa: E501
+        for dep_file in [
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+            "Pipfile",
+            "poetry.lock",
+        ]:  # noqa: E501
             if (self.repo_path / dep_file).exists():
                 self._dependency_files.append(dep_file)
 
@@ -140,7 +164,11 @@ class ArchitectureReader:
             decorators: list[str] = []
             docstring: str | None = None
 
-            if tree.body and isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Constant):  # noqa: E501
+            if (
+                tree.body
+                and isinstance(tree.body[0], ast.Expr)
+                and isinstance(tree.body[0].value, ast.Constant)
+            ):  # noqa: E501
                 docstring = ast.get_docstring(tree)
 
             for node in ast.walk(tree):
@@ -159,25 +187,37 @@ class ArchitectureReader:
                     for dec in node.decorator_list:
                         dec_name = self._extract_decorator_name(dec)
                         if dec_name and dec_name in ("router", "api_router", "app"):
-                            self._api_routes.append({
-                                "module": str(relative),
-                                "class": node.name,
-                                "decorator": dec_name,
-                                "line": node.lineno,
-                            })
+                            self._api_routes.append(
+                                {
+                                    "module": str(relative),
+                                    "class": node.name,
+                                    "decorator": dec_name,
+                                    "line": node.lineno,
+                                }
+                            )
                 elif isinstance(node, ast.FunctionDef):
                     functions.append(node.name)
                     for dec in node.decorator_list:
                         dec_name = self._extract_decorator_name(dec)
                         if dec_name:
                             decorators.append(dec_name)
-                            if dec_name in ("get", "post", "put", "delete", "patch", "route", "api_route"):  # noqa: E501
-                                self._api_routes.append({
-                                    "module": str(relative),
-                                    "function": node.name,
-                                    "method": dec_name,
-                                    "line": node.lineno,
-                                })
+                            if dec_name in (
+                                "get",
+                                "post",
+                                "put",
+                                "delete",
+                                "patch",
+                                "route",
+                                "api_route",
+                            ):  # noqa: E501
+                                self._api_routes.append(
+                                    {
+                                        "module": str(relative),
+                                        "function": node.name,
+                                        "method": dec_name,
+                                        "line": node.lineno,
+                                    }
+                                )
 
             name = str(relative)
             module_type = self._classify_module(name)
@@ -280,6 +320,7 @@ class ArchitectureReader:
             except (ImportError, tomllib.TOMLDecodeError):
                 try:
                     import toml
+
                     data = toml.loads(content)
                     if "project" in data and "name" in data["project"]:
                         return data["project"]["name"]

@@ -170,7 +170,9 @@ class MonitoringConfig(BaseModel):
     metrics_enabled: bool = Field(default=True, description="Enable metrics collection")
     logging_level: str = Field(default="INFO", description="Logging level")
     tracing_enabled: bool = Field(default=True, description="Enable distributed tracing")
-    alert_on_latency_p95: str = Field(default="1000ms", description="Alert threshold for P95 latency")  # noqa: E501
+    alert_on_latency_p95: str = Field(
+        default="1000ms", description="Alert threshold for P95 latency"
+    )  # noqa: E501
     alert_on_error_rate: str = Field(default="1%", description="Alert threshold for error rate")
     dashboard_url: str = Field(default="", description="Monitoring dashboard URL")
 
@@ -189,13 +191,25 @@ class AIEngineerReport(BaseModel):
     operation: str = Field(default="")
     agent_spec: AgentSpec | None = Field(default=None, description="Agent architecture design")
     rag_config: RAGConfig | None = Field(default=None, description="RAG configuration")
-    prompt_templates: list[PromptTemplate] = Field(default_factory=list, description="Prompt templates")  # noqa: E501
-    fine_tuning_config: FineTuningConfig | None = Field(default=None, description="Fine-tuning configuration")  # noqa: E501
-    deployment_config: DeploymentConfig | None = Field(default=None, description="Deployment configuration")  # noqa: E501
-    monitoring_config: MonitoringConfig | None = Field(default=None, description="Monitoring configuration")  # noqa: E501
-    evaluation_results: dict[str, float] = Field(default_factory=dict, description="Evaluation metrics")  # noqa: E501
+    prompt_templates: list[PromptTemplate] = Field(
+        default_factory=list, description="Prompt templates"
+    )  # noqa: E501
+    fine_tuning_config: FineTuningConfig | None = Field(
+        default=None, description="Fine-tuning configuration"
+    )  # noqa: E501
+    deployment_config: DeploymentConfig | None = Field(
+        default=None, description="Deployment configuration"
+    )  # noqa: E501
+    monitoring_config: MonitoringConfig | None = Field(
+        default=None, description="Monitoring configuration"
+    )  # noqa: E501
+    evaluation_results: dict[str, float] = Field(
+        default_factory=dict, description="Evaluation metrics"
+    )  # noqa: E501
     cost_estimate: dict[str, float] = Field(default_factory=dict, description="Cost estimate")
-    recommendations: list[str] = Field(default_factory=list, description="Improvement recommendations")  # noqa: E501
+    recommendations: list[str] = Field(
+        default_factory=list, description="Improvement recommendations"
+    )  # noqa: E501
     quality_score: float = Field(default=0.0, ge=0.0, le=1.0)
     explanation: str = Field(default="")
     generated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))

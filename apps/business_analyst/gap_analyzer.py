@@ -60,60 +60,66 @@ class GapAnalyzer:
 
         return gaps
 
-    def _check_requirement_gaps(
-        self, req_text: str, constraints: list[str]
-    ) -> list[GapItem]:
+    def _check_requirement_gaps(self, req_text: str, constraints: list[str]) -> list[GapItem]:
         """Check a requirement against technical constraints."""
         gaps: list[GapItem] = []
         lowered = req_text.lower()
 
         # Check for high-scale requirements without scale tech.
         if any(w in lowered for w in ("scale", "million", "thousand concurrent", "high volume")):
-            gaps.append(GapItem(
-                business_need="High-scale operation",
-                current_capability="Not specified in technical constraints",
-                required_capability="Distributed architecture, caching, CDN, load balancing",
-                gap_description="Requirement indicates high-scale needs but no scaling technology is mentioned in constraints",  # noqa: E501
-                priority=Priority.must_have,
-                estimated_effort="High (3-6 months)",
-                impact_if_unaddressed="System failure under load; poor user experience",
-            ))
+            gaps.append(
+                GapItem(
+                    business_need="High-scale operation",
+                    current_capability="Not specified in technical constraints",
+                    required_capability="Distributed architecture, caching, CDN, load balancing",
+                    gap_description="Requirement indicates high-scale needs but no scaling technology is mentioned in constraints",  # noqa: E501
+                    priority=Priority.must_have,
+                    estimated_effort="High (3-6 months)",
+                    impact_if_unaddressed="System failure under load; poor user experience",
+                )
+            )
 
         # Check for real-time requirements without real-time tech.
         if any(w in lowered for w in ("real-time", "live", "instant", "immediate")):
-            gaps.append(GapItem(
-                business_need="Real-time data processing",
-                current_capability="Not specified in technical constraints",
-                required_capability="WebSocket, streaming platform (Kafka), event-driven architecture",  # noqa: E501
-                gap_description="Real-time requirement lacks enabling technology in constraints",
-                priority=Priority.must_have,
-                estimated_effort="Medium (1-3 months)",
-                impact_if_unaddressed="Delayed data; stale information for users",
-            ))
+            gaps.append(
+                GapItem(
+                    business_need="Real-time data processing",
+                    current_capability="Not specified in technical constraints",
+                    required_capability="WebSocket, streaming platform (Kafka), event-driven architecture",  # noqa: E501
+                    gap_description="Real-time requirement lacks enabling technology in constraints",  # noqa: E501
+                    priority=Priority.must_have,
+                    estimated_effort="Medium (1-3 months)",
+                    impact_if_unaddressed="Delayed data; stale information for users",
+                )
+            )
 
         # Check for compliance requirements without security tech.
         if any(w in lowered for w in ("compliance", "audit", "regulation", "pci", "gdpr", "hipaa")):
-            gaps.append(GapItem(
-                business_need="Regulatory compliance",
-                current_capability="Not specified in technical constraints",
-                required_capability="Audit logging, encryption, access controls, data retention",
-                gap_description="Compliance requirement lacks security and audit technology in constraints",  # noqa: E501
-                priority=Priority.must_have,
-                estimated_effort="High (2-4 months)",
-                impact_if_unaddressed="Regulatory penalties; data breach liability",
-            ))
+            gaps.append(
+                GapItem(
+                    business_need="Regulatory compliance",
+                    current_capability="Not specified in technical constraints",
+                    required_capability="Audit logging, encryption, access controls, data retention",  # noqa: E501
+                    gap_description="Compliance requirement lacks security and audit technology in constraints",  # noqa: E501
+                    priority=Priority.must_have,
+                    estimated_effort="High (2-4 months)",
+                    impact_if_unaddressed="Regulatory penalties; data breach liability",
+                )
+            )
 
         # Check for mobile requirements without mobile tech.
         if any(w in lowered for w in ("mobile", "ios", "android", "app")):
-            gaps.append(GapItem(
-                business_need="Mobile application support",
-                current_capability="Not specified in technical constraints",
-                required_capability="Mobile SDK, responsive API, offline sync",
-                gap_description="Mobile requirement lacks mobile-specific technology in constraints",  # noqa: E501
-                priority=Priority.should_have,
-                estimated_effort="Medium (2-3 months)",
-                impact_if_unaddressed="Poor mobile UX; limited market reach",
-            ))
+            gaps.append(
+                GapItem(
+                    business_need="Mobile application support",
+                    current_capability="Not specified in technical constraints",
+                    required_capability="Mobile SDK, responsive API, offline sync",
+                    gap_description="Mobile requirement lacks mobile-specific technology in constraints",  # noqa: E501
+                    priority=Priority.should_have,
+                    estimated_effort="Medium (2-3 months)",
+                    impact_if_unaddressed="Poor mobile UX; limited market reach",
+                )
+            )
 
         return gaps
 
@@ -123,15 +129,17 @@ class GapAnalyzer:
         lowered = note.lower()
 
         if "integration" in lowered and not any("integration" in c.lower() for c in constraints):
-            gaps.append(GapItem(
-                business_need="System integration",
-                current_capability="No integration technology specified",
-                required_capability="API gateway, message broker, event streaming",
-                gap_description="Integration need mentioned but no integration tech in constraints",
-                priority=Priority.should_have,
-                estimated_effort="Medium (1-2 months)",
-                impact_if_unaddressed="Data silos; manual workarounds",
-            ))
+            gaps.append(
+                GapItem(
+                    business_need="System integration",
+                    current_capability="No integration technology specified",
+                    required_capability="API gateway, message broker, event streaming",
+                    gap_description="Integration need mentioned but no integration tech in constraints",  # noqa: E501
+                    priority=Priority.should_have,
+                    estimated_effort="Medium (1-2 months)",
+                    impact_if_unaddressed="Data silos; manual workarounds",
+                )
+            )
 
         return gaps
 
@@ -142,15 +150,19 @@ class GapAnalyzer:
 
         # Check for reporting/analytics needs.
         if any(w in lowered for w in ("report", "dashboard", "analytics", "metrics", "kpi")):
-            if not any(w in c.lower() for c in constraints for w in ("report", "dashboard", "analytics")):  # noqa: E501
-                gaps.append(GapItem(
-                    business_need="Reporting and analytics",
-                    current_capability="No analytics technology specified",
-                    required_capability="BI tool, data warehouse, ETL pipeline",
-                    gap_description="Analytics need expressed but no analytics tech in constraints",
-                    priority=Priority.should_have,
-                    estimated_effort="Medium (1-2 months)",
-                    impact_if_unaddressed="Data-driven decisions impaired",
-                ))
+            if not any(
+                w in c.lower() for c in constraints for w in ("report", "dashboard", "analytics")
+            ):  # noqa: E501
+                gaps.append(
+                    GapItem(
+                        business_need="Reporting and analytics",
+                        current_capability="No analytics technology specified",
+                        required_capability="BI tool, data warehouse, ETL pipeline",
+                        gap_description="Analytics need expressed but no analytics tech in constraints",  # noqa: E501
+                        priority=Priority.should_have,
+                        estimated_effort="Medium (1-2 months)",
+                        impact_if_unaddressed="Data-driven decisions impaired",
+                    )
+                )
 
         return gaps

@@ -51,7 +51,9 @@ def test_kernel_budget_allocation():
 
 
 def test_kernel_resource_request():
-    request = organization_kernel.request_resource("ceo-1", "worker", "Need Python developer", 1000.0)
+    request = organization_kernel.request_resource(
+        "ceo-1", "worker", "Need Python developer", 1000.0
+    )
     assert request.id is not None
     assert request.status == "pending"
     approved = organization_kernel.approve_resource(request.id, "cto-1")
@@ -60,20 +62,28 @@ def test_kernel_resource_request():
 
 
 def test_kernel_conflict_resolution():
-    conflict = organization_kernel.detect_conflict(level=2, parties=["worker-1", "worker-2"], description="Resource conflict")
+    conflict = organization_kernel.detect_conflict(
+        level=2, parties=["worker-1", "worker-2"], description="Resource conflict"
+    )
     assert conflict.status == "open"
-    resolved = organization_kernel.resolve_conflict(conflict.id, "Split resources equally", "manager-1")
+    resolved = organization_kernel.resolve_conflict(
+        conflict.id, "Split resources equally", "manager-1"
+    )
     assert resolved.status == "resolved"
     assert resolved.resolution == "Split resources equally"
     print(f"[PASS] Kernel Conflict: detected and resolved level {conflict.level}")
 
 
 def test_kernel_productivity_tracking():
-    organization_kernel.track_productivity("worker-1", task_completed=True, completion_time_seconds=120.0, quality_score=0.9)
+    organization_kernel.track_productivity(
+        "worker-1", task_completed=True, completion_time_seconds=120.0, quality_score=0.9
+    )
     metrics = organization_kernel.get_productivity("worker-1")
     assert metrics.tasks_completed == 1
     assert metrics.quality_score == 0.9
-    print(f"[PASS] Kernel Productivity: tasks={metrics.tasks_completed}, quality={metrics.quality_score}")
+    print(
+        f"[PASS] Kernel Productivity: tasks={metrics.tasks_completed}, quality={metrics.quality_score}"  # noqa: E501
+    )
 
 
 def test_economics_team_formation():
@@ -101,7 +111,10 @@ def test_economics_meeting():
 
 
 def test_optimizer_team_composition():
-    team = [SimpleAgent(f"w{i}", f"Worker {i}", AgentRole.WORKER, Department.ENGINEERING) for i in range(8)]
+    team = [
+        SimpleAgent(f"w{i}", f"Worker {i}", AgentRole.WORKER, Department.ENGINEERING)
+        for i in range(8)
+    ]
     suggestions = workforce_optimizer.optimize_team_composition(team, {"complexity": "high"})
     assert len(suggestions) > 0
     assert any(s.category == "team_composition" for s in suggestions)
@@ -109,7 +122,9 @@ def test_optimizer_team_composition():
 
 
 def test_optimizer_model_allocation():
-    suggestion = workforce_optimizer.optimize_model_allocation("worker-1", "reasoning", "gpt-4o", 0.0015, 0.7)
+    suggestion = workforce_optimizer.optimize_model_allocation(
+        "worker-1", "reasoning", "gpt-4o", 0.0015, 0.7
+    )
     assert suggestion is not None
     assert suggestion.category == "model_allocation"
     print(f"[PASS] Optimizer Model: {suggestion.description}")
@@ -123,7 +138,13 @@ def test_optimizer_budget():
 
 
 def test_learning_lessons():
-    lesson = organizational_learning.record_lesson("proj-1", "architecture", "Microservices worked well", "High", "Use microservices for future projects")
+    lesson = organizational_learning.record_lesson(
+        "proj-1",
+        "architecture",
+        "Microservices worked well",
+        "High",
+        "Use microservices for future projects",
+    )
     assert lesson.id is not None
     lessons = organizational_learning.get_project_lessons("proj-1")
     assert len(lessons) == 1
@@ -144,7 +165,14 @@ def test_learning_best_practices():
 
 
 def test_learning_mistakes():
-    mistake = organizational_learning.record_mistake("proj-1", "high", "No backup configured", "Oversight", "Data loss risk", "Always configure backup")
+    mistake = organizational_learning.record_mistake(
+        "proj-1",
+        "high",
+        "No backup configured",
+        "Oversight",
+        "Data loss risk",
+        "Always configure backup",
+    )
     assert mistake.id is not None
     mistakes = organizational_learning.get_mistakes(severity="high")
     assert len(mistakes) == 1
@@ -169,7 +197,9 @@ def test_society_kernel_integration():
     status = organization_kernel.get_budget_status()
     assert status["total"] == 50000.0
 
-    request = organization_kernel.request_resource("ceo-1", "worker", "Need backend developer", 2000.0)
+    request = organization_kernel.request_resource(
+        "ceo-1", "worker", "Need backend developer", 2000.0
+    )
     assert request.status == "pending"
 
     conflict = organization_kernel.detect_conflict(1, ["worker-1", "worker-2"], "Task conflict")

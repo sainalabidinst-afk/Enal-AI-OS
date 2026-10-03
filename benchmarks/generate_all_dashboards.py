@@ -27,23 +27,90 @@ def _slugify(name: str) -> str:
 
 def _run_devops_benchmark():
     from benchmarks.devops_assistant_benchmark import DevOpsBenchmark
+
     return DevOpsBenchmark().run()
 
 
 PACKS = [
-    {"name": "Network Engineer", "module": "benchmarks.network_engineer_benchmark_v2", "function": "run_network_benchmark_v2", "target": 0.95},
-    {"name": "Code Engineer", "module": "benchmarks.code_engineer_benchmark", "function": "run_code_engineer_benchmark", "target": 0.9},
-    {"name": "Research Assistant", "module": "benchmarks.research_assistant_benchmark", "function": "run_benchmark", "target": 0.9},
-    {"name": "DevOps Assistant", "module": None, "function": None, "target": 0.9, "runner": _run_devops_benchmark},
-    {"name": "Trading Analyst", "module": "benchmarks.trading_analyst_benchmark", "function": "run_trading_benchmark", "target": 0.9},
-    {"name": "Self Development", "module": "benchmarks.self_development_benchmark", "function": "run_self_development_benchmark", "target": 0.95},
-    {"name": "Decision Intelligence", "module": "benchmarks.decision_intelligence_benchmark", "function": "run_benchmark", "target": 0.9},
-    {"name": "System Architect", "module": "benchmarks.system_architect_benchmark", "function": "run_benchmark", "target": 0.9},
-    {"name": "Security Engineer", "module": "benchmarks.security_engineer_benchmark", "function": "run_benchmark", "target": 0.9},
-    {"name": "Data Engineer", "module": "benchmarks.data_engineer_benchmark", "function": "run_benchmark", "target": 0.85},
-    {"name": "Database Engineer", "module": "benchmarks.database_engineer_benchmark", "function": "run_benchmark", "target": 0.85},
-    {"name": "QA Engineer", "module": "benchmarks.qa_engineer_benchmark", "function": "run_benchmark", "target": 0.9},
-    {"name": "Business Analyst", "module": "benchmarks.business_analyst_benchmark", "function": "run_benchmark", "target": 0.85},
+    {
+        "name": "Network Engineer",
+        "module": "benchmarks.network_engineer_benchmark_v2",
+        "function": "run_network_benchmark_v2",
+        "target": 0.95,
+    },
+    {
+        "name": "Code Engineer",
+        "module": "benchmarks.code_engineer_benchmark",
+        "function": "run_code_engineer_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "Research Assistant",
+        "module": "benchmarks.research_assistant_benchmark",
+        "function": "run_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "DevOps Assistant",
+        "module": None,
+        "function": None,
+        "target": 0.9,
+        "runner": _run_devops_benchmark,
+    },
+    {
+        "name": "Trading Analyst",
+        "module": "benchmarks.trading_analyst_benchmark",
+        "function": "run_trading_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "Self Development",
+        "module": "benchmarks.self_development_benchmark",
+        "function": "run_self_development_benchmark",
+        "target": 0.95,
+    },
+    {
+        "name": "Decision Intelligence",
+        "module": "benchmarks.decision_intelligence_benchmark",
+        "function": "run_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "System Architect",
+        "module": "benchmarks.system_architect_benchmark",
+        "function": "run_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "Security Engineer",
+        "module": "benchmarks.security_engineer_benchmark",
+        "function": "run_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "Data Engineer",
+        "module": "benchmarks.data_engineer_benchmark",
+        "function": "run_benchmark",
+        "target": 0.85,
+    },
+    {
+        "name": "Database Engineer",
+        "module": "benchmarks.database_engineer_benchmark",
+        "function": "run_benchmark",
+        "target": 0.85,
+    },
+    {
+        "name": "QA Engineer",
+        "module": "benchmarks.qa_engineer_benchmark",
+        "function": "run_benchmark",
+        "target": 0.9,
+    },
+    {
+        "name": "Business Analyst",
+        "module": "benchmarks.business_analyst_benchmark",
+        "function": "run_benchmark",
+        "target": 0.85,
+    },
 ]
 
 
@@ -57,6 +124,7 @@ def _run_pack(pack: dict) -> dict:
             report = normalize_report(name, raw, target=pack["target"])
             output_path.parent.mkdir(parents=True, exist_ok=True)
             from benchmarks.generate_dashboard import generate_dashboard
+
             generate_dashboard(name, report, output_path)
         else:
             report = run_and_generate(
@@ -80,6 +148,7 @@ def _run_pack(pack: dict) -> dict:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             from benchmarks.generate_dashboard import generate_dashboard
+
             generate_dashboard(name, report, output_path)
         except Exception:
             pass
@@ -100,9 +169,9 @@ def generate_index(summaries: list[dict]) -> Path:
         status_text = "PASS" if s["passed"] else "FAIL"
         rows += f"""
     <tr>
-      <td><a href="{html.escape(s['output'])}">{html.escape(s['name'])}</a></td>
-      <td>{html.escape(s['grade'])}</td>
-      <td>{s['overall_score']:.1f}%</td>
+      <td><a href="{html.escape(s["output"])}">{html.escape(s["name"])}</a></td>
+      <td>{html.escape(s["grade"])}</td>
+      <td>{s["overall_score"]:.1f}%</td>
       <td class="{status_class}">{status_text}</td>
     </tr>
 """
@@ -114,13 +183,13 @@ def generate_index(summaries: list[dict]) -> Path:
 <title>Capability Pack Benchmark Dashboards</title>
 <style>
   :root {{ color-scheme: light; }}
-  body {{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }}
+  body {{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #1f2328; }}  # noqa: E501
   .container {{ max-width: 1200px; margin: 0 auto; padding: 24px; }}
   h1 {{ margin: 0 0 4px; font-size: 22px; }}
   .subtitle {{ color: #656d76; margin-bottom: 16px; }}
   .section {{ background: #ffffff; border: 1px solid #d0d7de; border-radius: 12px; padding: 16px; }}
   table {{ width: 100%; border-collapse: collapse; }}
-  th, td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }}
+  th, td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid #e6e8eb; font-size: 14px; }}  # noqa: E501
   th {{ color: #656d76; font-weight: 600; font-size: 12px; text-transform: uppercase; }}
   .pass {{ color: #1a7f37; font-weight: 700; }}
   .fail {{ color: #cf222e; font-weight: 700; }}
@@ -158,16 +227,20 @@ def main() -> int:
         try:
             summary = _run_pack(pack)
             summaries.append(summary)
-            print(f"  -> {summary['grade']} {summary['overall_score']:.1f}% {'PASS' if summary['passed'] else 'FAIL'}")
+            print(
+                f"  -> {summary['grade']} {summary['overall_score']:.1f}% {'PASS' if summary['passed'] else 'FAIL'}"  # noqa: E501
+            )
         except Exception as exc:
             print(f"  -> FAILED: {exc}", file=sys.stderr)
-            summaries.append({
-                "name": pack["name"],
-                "output": f"{_slugify(pack['name'])}_dashboard.html",
-                "overall_score": 0.0,
-                "grade": "F",
-                "passed": False,
-            })
+            summaries.append(
+                {
+                    "name": pack["name"],
+                    "output": f"{_slugify(pack['name'])}_dashboard.html",
+                    "overall_score": 0.0,
+                    "grade": "F",
+                    "passed": False,
+                }
+            )
 
     print("\nGenerating index ...")
     index_path = generate_index(summaries)

@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DomainKnowledge:
     """Specialized knowledge for a business domain."""
+
     domain: str
     common_requirements: list[str] = field(default_factory=list)
     regulatory_requirements: list[str] = field(default_factory=list)
@@ -116,14 +117,16 @@ class DomainKnowledgeEngine:
 
         for req in requirements:
             if req.get("type") == "functional":
-                findings.append(Finding(
-                    category=FindingCategory.schema,
-                    severity=Severity.info,
-                    title=f"{domain}: common requirement pattern",
-                    description=f"Consider {req.get('title', 'requirement')} in context of {domain} best practices",  # noqa: E501
-                    recommendation=f"Review {domain} common requirements: {', '.join(knowledge.common_requirements[:3])}",  # noqa: E501
-                    confidence=0.7,
-                ))
+                findings.append(
+                    Finding(
+                        category=FindingCategory.schema,
+                        severity=Severity.info,
+                        title=f"{domain}: common requirement pattern",
+                        description=f"Consider {req.get('title', 'requirement')} in context of {domain} best practices",  # noqa: E501
+                        recommendation=f"Review {domain} common requirements: {', '.join(knowledge.common_requirements[:3])}",  # noqa: E501
+                        confidence=0.7,
+                    )
+                )
 
         return findings
 

@@ -32,12 +32,10 @@ from typing import Any
 
 from apps.self_development.ecp_analyzer import ECPAnalyzer
 from apps.self_development.project_scanner import ProjectScanner, analyze_project
+from apps.self_development.proposal_repository import proposal_repository
 from apps.self_development.risk_modeler import RiskModeler
 from apps.self_development.schemas import (
     ApprovalState,
-    CapabilityProposal,
-    ECPPlatformAnalysis,
-    ImprovementProposal,
     Patch,
     Problem,
     Solution,
@@ -73,7 +71,9 @@ class SelfDevelopmentEngine:
         if self._custom_problems is not None:
             return [self._problem_to_dict(p) for p in self._custom_problems]
         scanner = ProjectScanner()
-        analysis = scanner.to_analysis(scanner.scan(project_path or str(Path(__file__).resolve().parent.parent.parent)))  # noqa: E501
+        analysis = scanner.to_analysis(
+            scanner.scan(project_path or str(Path(__file__).resolve().parent.parent.parent))
+        )  # noqa: E501
         problems = self.taxonomy.detect(analysis)
         return [self._problem_to_dict(p) for p in problems]
 
@@ -189,6 +189,7 @@ class SelfDevelopmentEngine:
         analyzer = ECPAnalyzer(root=root)
         analysis = analyzer.analyze()
         proposals = analyzer.propose_capabilities(analysis)
+        persisted = [proposal_repository.add_capability(p) for p in proposals]
         return [
             {
                 "id": p.id,
@@ -204,7 +205,7 @@ class SelfDevelopmentEngine:
                 "required_packs": p.required_packs,
                 "status": p.status,
             }
-            for p in proposals
+            for p in persisted
         ]
 
     async def propose_improvements(self, ecp_root: str | None = None) -> list[dict[str, Any]]:
@@ -212,6 +213,7 @@ class SelfDevelopmentEngine:
         analyzer = ECPAnalyzer(root=root)
         analysis = analyzer.analyze()
         improvements = analyzer.propose_improvements(analysis)
+        persisted = [proposal_repository.add_improvement(p) for p in improvements]
         return [
             {
                 "id": p.id,
@@ -225,7 +227,7 @@ class SelfDevelopmentEngine:
                 "expected_impact": p.expected_impact,
                 "status": p.status,
             }
-            for p in improvements
+            for p in persisted
         ]
 
     # ------------------------------------------------------------------
@@ -270,7 +272,9 @@ class SelfDevelopmentEngine:
                     return problem
             return None
         scanner = ProjectScanner()
-        analysis = scanner.to_analysis(scanner.scan(str(Path(__file__).resolve().parent.parent.parent)))  # noqa: E501
+        analysis = scanner.to_analysis(
+            scanner.scan(str(Path(__file__).resolve().parent.parent.parent))
+        )  # noqa: E501
         problems = self.taxonomy.detect(analysis)
         for problem in problems:
             if problem.id == problem_id:

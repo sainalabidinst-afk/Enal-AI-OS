@@ -340,7 +340,9 @@ class PaperTradingConnector(BaseConnector):
         if pos:
             if request.side == OrderSide.BUY:
                 pos.quantity += filled
-                pos.entry_price = (pos.entry_price * (pos.quantity - filled) + avg_price * filled) / pos.quantity  # noqa: E501
+                pos.entry_price = (
+                    pos.entry_price * (pos.quantity - filled) + avg_price * filled
+                ) / pos.quantity  # noqa: E501
                 pos.unrealized_pnl = 0.0
             else:
                 pos.quantity -= filled
@@ -468,12 +470,14 @@ class ConnectorManager:
         results = []
         for name, connector in self._connectors.items():
             info = await connector.get_info()
-            results.append({
-                "exchange": name,
-                "type": info.type.value,
-                "connected": info.connected,
-                "authenticated": info.authenticated,
-            })
+            results.append(
+                {
+                    "exchange": name,
+                    "type": info.type.value,
+                    "connected": info.connected,
+                    "authenticated": info.authenticated,
+                }
+            )
         return results
 
     async def close_all(self) -> None:

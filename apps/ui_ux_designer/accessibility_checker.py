@@ -98,7 +98,11 @@ class AccessibilityChecker:
                 )
             )
 
-        total_checks = len(self._wcag_checks) + max(0, len(design_system.components) if design_system else 0) + max(0, len(prototype.screens) if prototype else 0)  # noqa: E501
+        total_checks = (
+            len(self._wcag_checks)
+            + max(0, len(design_system.components) if design_system else 0)
+            + max(0, len(prototype.screens) if prototype else 0)
+        )  # noqa: E501
         violations_found = len(violations)
         compliance_score = max(0.0, 1.0 - (violations_found / max(total_checks, 1)))
 

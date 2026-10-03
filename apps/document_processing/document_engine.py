@@ -82,6 +82,7 @@ class DocumentEngine:
     def _get_office_writer(self) -> Any:
         if self.office_writer is None:
             from apps.document_processing.office_writer import OfficeWriter
+
             self.office_writer = OfficeWriter()
         return self.office_writer
 
@@ -113,8 +114,7 @@ class DocumentEngine:
             if not inputs.source_path:
                 errors.append("source_path is required for document_edit")
                 valid = False
-            if not inputs.text_replacements and not inputs.table_operations \
-                    and not inputs.metadata:
+            if not inputs.text_replacements and not inputs.table_operations and not inputs.metadata:
                 errors.append(
                     "At least one of text_replacements, table_operations, or metadata "
                     "is required for document_edit"
@@ -167,7 +167,8 @@ class DocumentEngine:
 
         if not source_path or not os.path.exists(source_path):
             return DocumentContent(
-                format=DocumentFormat(source_format) if source_format in DocumentFormat.__members__
+                format=DocumentFormat(source_format)
+                if source_format in DocumentFormat.__members__
                 else DocumentFormat.docx,
                 text="",
                 metadata=DocumentMetadata(),
@@ -202,11 +203,13 @@ class DocumentEngine:
         source_path = inputs.source_path or ""
 
         if not source_path or not os.path.exists(source_path):
-            return [DocumentEditResult(
-                target=source_path,
-                status="failed",
-                details="Source file does not exist",
-            )]
+            return [
+                DocumentEditResult(
+                    target=source_path,
+                    status="failed",
+                    details="Source file does not exist",
+                )
+            ]
 
         writer = self._get_office_writer()
         return writer.edit(source_path, inputs)
@@ -235,12 +238,14 @@ class DocumentEngine:
 
         produced: list[ProducedFile] = []
         if os.path.exists(output_path):
-            produced.append(ProducedFile(
-                path=output_path,
-                format=doc_type,
-                size_bytes=os.path.getsize(output_path),
-                status="generated",
-            ))
+            produced.append(
+                ProducedFile(
+                    path=output_path,
+                    format=doc_type,
+                    size_bytes=os.path.getsize(output_path),
+                    status="generated",
+                )
+            )
 
         return produced
 
@@ -265,12 +270,14 @@ class DocumentEngine:
 
         supported_targets = self.SUPPORTED_CONVERT_FORMATS.get(source_ext, set())
         if target_format not in supported_targets:
-            results.append(ConvertedFile(
-                source=source_path,
-                output=output_path,
-                format=target_format,
-                status="failed",
-            ))
+            results.append(
+                ConvertedFile(
+                    source=source_path,
+                    output=output_path,
+                    format=target_format,
+                    status="failed",
+                )
+            )
             return results
 
         pw = self._get_pdf_writer()
@@ -283,21 +290,21 @@ class DocumentEngine:
             success = pw.convert_xlsx_to_csv(source_path, output_path)
 
         status = "success" if success and os.path.exists(output_path) else "failed"
-        results.append(ConvertedFile(
-            source=source_path,
-            output=output_path,
-            format=target_format,
-            status=status,
-        ))
+        results.append(
+            ConvertedFile(
+                source=source_path,
+                output=output_path,
+                format=target_format,
+                status=status,
+            )
+        )
         return results
 
     # ------------------------------------------------------------------
     # Document Annotate — delegates to OfficeWriter / PDFWriter
     # ------------------------------------------------------------------
 
-    def annotate_document(
-        self, inputs: DocumentProcessingInputs
-    ) -> list[Any]:
+    def annotate_document(self, inputs: DocumentProcessingInputs) -> list[Any]:
         """Add annotations (comments, highlights, watermarks) to a document."""
         source_path = inputs.source_path or ""
 
@@ -361,28 +368,34 @@ class DocumentEngine:
                 else:
                     raise ValueError(f"Unknown operation: {op_str}")
 
-                results.append(BatchJobResult(
-                    job_id=job_id,
-                    operation=op_str,
-                    status="success",
-                    output=job.get("target_path") or job.get("output_path"),
-                ))
+                results.append(
+                    BatchJobResult(
+                        job_id=job_id,
+                        operation=op_str,
+                        status="success",
+                        output=job.get("target_path") or job.get("output_path"),
+                    )
+                )
                 succeeded += 1
             except ImportError as e:
-                results.append(BatchJobResult(
-                    job_id=job_id,
-                    operation=op_str,
-                    status="failed",
-                    error=f"Dependency not installed: {e}",
-                ))
+                results.append(
+                    BatchJobResult(
+                        job_id=job_id,
+                        operation=op_str,
+                        status="failed",
+                        error=f"Dependency not installed: {e}",
+                    )
+                )
                 failed += 1
             except Exception as e:
-                results.append(BatchJobResult(
-                    job_id=job_id,
-                    operation=op_str,
-                    status="failed",
-                    error=str(e),
-                ))
+                results.append(
+                    BatchJobResult(
+                        job_id=job_id,
+                        operation=op_str,
+                        status="failed",
+                        error=str(e),
+                    )
+                )
                 failed += 1
 
         return BatchSummary(

@@ -3,6 +3,7 @@ Security Engineer Benchmark V2 — real_cases driven.
 
 Measures security assessment quality against 100+ real security scenarios.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -26,36 +27,87 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(name)s:%(message
 logger = logging.getLogger(__name__)
 
 
-def _score_case(actual_issues: list[dict], actual_secrets: list[dict], expected_findings: list[str]) -> tuple[float, int, int]:
+def _score_case(
+    actual_issues: list[dict], actual_secrets: list[dict], expected_findings: list[str]
+) -> tuple[float, int, int]:
     if not expected_findings:
         return 1.0, 0, 0
 
     detectable = [ef for ef in expected_findings if _is_detectable_finding(ef)]
-    undetectable = [ef for ef in expected_findings if not _is_detectable_finding(ef)]
+    [ef for ef in expected_findings if not _is_detectable_finding(ef)]
 
     if not detectable:
         return 1.0, 0, 0
 
     actual_text = " ".join(
-        f"{i.get('category', '')} {i.get('title', '')} {i.get('description', '')} {i.get('remediation', '')}"
+        f"{i.get('category', '')} {i.get('title', '')} {i.get('description', '')} {i.get('remediation', '')}"  # noqa: E501
         for i in actual_issues
     ).lower()
     for s in actual_secrets:
-        actual_text += f" {s.get('type', '')} {s.get('location', '')} {s.get('evidence', '')}".lower()
+        actual_text += (
+            f" {s.get('type', '')} {s.get('location', '')} {s.get('evidence', '')}".lower()
+        )
     alias_map = {
         "sql_injection": ["sql", "injection", "select", "concatenation"],
-        "secret": ["api_key", "token", "password", "private_key", "secret", "aws_access_key", "bearer", "hardcoded credential"],
-        "deserialization": ["pickle", "yaml", "marshal", "deserialization", "loads", "eval", "exec", "code injection"],
-        "command_injection": ["os.system", "subprocess", "popen", "command injection", "shell=true", "system()", "system call"],
+        "secret": [
+            "api_key",
+            "token",
+            "password",
+            "private_key",
+            "secret",
+            "aws_access_key",
+            "bearer",
+            "hardcoded credential",
+        ],
+        "deserialization": [
+            "pickle",
+            "yaml",
+            "marshal",
+            "deserialization",
+            "loads",
+            "eval",
+            "exec",
+            "code injection",
+        ],
+        "command_injection": [
+            "os.system",
+            "subprocess",
+            "popen",
+            "command injection",
+            "shell=true",
+            "system()",
+            "system call",
+        ],
         "ssrf": ["ssrf", "server-side request", "unsanitized url", "fetch", "urlretrieve"],
         "xss": ["xss", "innerhtml", "document.write", "cross-site"],
         "weak_crypto": ["md5", "sha1", "random.randint", "math.random", "insecure random"],
         "debug_enabled": ["debug=true", "debug = true"],
         "open_exposure": ["0.0.0.0/0", "public", "allow all"],
         "privilege_escalation": ["root", "sudo", "admin", "privilege", "setuid", "ssh", "host key"],
-        "insecure_ssl": ["cert_none", "verify=false", "disable_warnings", "ssl", "hostname verification"],
-        "vulnerability": ["cve", "outdated", "vulnerability", "old_key", "hardcoded credential", "ssh client"],
-        "access_control": ["authorization", "role", "ownership", "idor", "permission", "csrf", "broken access control"],
+        "insecure_ssl": [
+            "cert_none",
+            "verify=false",
+            "disable_warnings",
+            "ssl",
+            "hostname verification",
+        ],
+        "vulnerability": [
+            "cve",
+            "outdated",
+            "vulnerability",
+            "old_key",
+            "hardcoded credential",
+            "ssh client",
+        ],
+        "access_control": [
+            "authorization",
+            "role",
+            "ownership",
+            "idor",
+            "permission",
+            "csrf",
+            "broken access control",
+        ],
         "hardening": ["hardening", "cis", "benchmark", "baseline"],
         "compliance": ["compliance", "gdpr", "hipaa", "pci", "soc2", "iso27001"],
         "security": ["security", "vulnerability", "finding", "risk"],
@@ -91,11 +143,25 @@ def _score_case(actual_issues: list[dict], actual_secrets: list[dict], expected_
 def _is_detectable_finding(finding_type: str) -> bool:
     """Check if a finding type is something the static analyzer can actually detect."""
     detectable = {
-        "sql_injection", "secret", "deserialization", "command_injection",
-        "ssrf", "xss", "weak_crypto", "debug_enabled", "open_exposure",
-        "privilege_escalation", "insecure_ssl", "vulnerability",
-        "access_control", "hardening", "compliance", "security",
-        "encryption", "logging", "rate_limiting",
+        "sql_injection",
+        "secret",
+        "deserialization",
+        "command_injection",
+        "ssrf",
+        "xss",
+        "weak_crypto",
+        "debug_enabled",
+        "open_exposure",
+        "privilege_escalation",
+        "insecure_ssl",
+        "vulnerability",
+        "access_control",
+        "hardening",
+        "compliance",
+        "security",
+        "encryption",
+        "logging",
+        "rate_limiting",
     }
     return finding_type.lower() in detectable
 
@@ -107,7 +173,9 @@ def _case_has_detectable_patterns(expected_findings: Any) -> bool:
     return any(_is_detectable_finding(ef) for ef in expected_findings)
 
 
-def _pass_case(actual_issues: list[dict], actual_secrets: list[dict], expected_findings: list[str]) -> bool:
+def _pass_case(
+    actual_issues: list[dict], actual_secrets: list[dict], expected_findings: list[str]
+) -> bool:
     """Determine if a case passes based on analyzer capabilities."""
     if not expected_findings:
         return True
@@ -137,7 +205,11 @@ async def _run_case(engine: SecurityEngineerEngine, case: Any) -> dict[str, Any]
         config_text = config_path.read_text(encoding="utf-8", errors="ignore")
         request = SecurityAssessmentRequest(
             target_type=AssessmentType.full_review,
-            target={"source_code": config_text, "language": "python", "file_path": str(config_path)},
+            target={
+                "source_code": config_text,
+                "language": "python",
+                "file_path": str(config_path),
+            },
             standards=["owasp_top10", "cis"],
             check_secrets=True,
             check_dependencies=False,
@@ -145,9 +217,15 @@ async def _run_case(engine: SecurityEngineerEngine, case: Any) -> dict[str, Any]
             include_compliance_mapping=True,
         )
         report = engine.review(request)
-        actual_issues = [i.to_dict() if hasattr(i, "to_dict") else i.__dict__ for i in report.findings]
-        actual_secrets = [s.to_dict() if hasattr(s, "to_dict") else s.__dict__ for s in report.secrets]
-        score, matched, detectable_count = _score_case(actual_issues, actual_secrets, case.expected_findings)
+        actual_issues = [
+            i.to_dict() if hasattr(i, "to_dict") else i.__dict__ for i in report.findings
+        ]
+        actual_secrets = [
+            s.to_dict() if hasattr(s, "to_dict") else s.__dict__ for s in report.secrets
+        ]
+        score, matched, detectable_count = _score_case(
+            actual_issues, actual_secrets, case.expected_findings
+        )
         passed = _pass_case(actual_issues, actual_secrets, case.expected_findings)
         elapsed = int((datetime.utcnow() - started).total_seconds() * 1000)
         return {
@@ -188,9 +266,13 @@ def _write_report(report: dict[str, Any]) -> None:
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     logger.info("JSON report written: %s", report_path)
     csv_path = reports_dir / "security_benchmark_v2.csv"
-    lines = ["case_id,title,category,vendor,passed,score,findings_matched,expected_findings,execution_time_ms,errors\n"]
+    lines = [
+        "case_id,title,category,vendor,passed,score,findings_matched,expected_findings,execution_time_ms,errors\n"
+    ]
     for r in report["results"]:
-        lines.append(f"{r['case_id']},{r.get('title', '')},{r.get('category', '')},{r.get('vendor', '')},{r['passed']},{r['score']},{r['findings_matched']},{r['expected_findings']},{r['execution_time_ms']},\"{';'.join(r.get('errors', []))}\"\n")
+        lines.append(
+            f'{r["case_id"]},{r.get("title", "")},{r.get("category", "")},{r.get("vendor", "")},{r["passed"]},{r["score"]},{r["findings_matched"]},{r["expected_findings"]},{r["execution_time_ms"]},"{";".join(r.get("errors", []))}"\n'  # noqa: E501
+        )
     csv_path.write_text("".join(lines), encoding="utf-8")
     logger.info("CSV report written: %s", csv_path)
 
@@ -198,7 +280,9 @@ def _write_report(report: dict[str, Any]) -> None:
 async def run_benchmark() -> dict[str, Any]:
     logger.info("Loading security real cases...")
     all_cases = load_cases_from_disk("real_cases/security")
-    cases = [c for c in all_cases if c.category in {"security"} or c.vendor in {"security", "generic"}]
+    cases = [
+        c for c in all_cases if c.category in {"security"} or c.vendor in {"security", "generic"}
+    ]
     if not cases:
         logger.warning("No security real cases found.")
     engine = SecurityEngineerEngine()
@@ -222,12 +306,20 @@ async def run_benchmark() -> dict[str, Any]:
     report["passed_cases"] = passed
     report["failed_cases"] = len(report["results"]) - passed
     report["pass_rate"] = round(passed / max(len(report["results"]), 1), 4)
-    detectable_results = [r for r in report["results"] if _case_has_detectable_patterns(r.get("expected_findings", []))]
+    detectable_results = [
+        r
+        for r in report["results"]
+        if _case_has_detectable_patterns(r.get("expected_findings", []))
+    ]
     if detectable_results:
-        report["avg_score"] = round(sum(r["score"] for r in detectable_results) / len(detectable_results), 4)
+        report["avg_score"] = round(
+            sum(r["score"] for r in detectable_results) / len(detectable_results), 4
+        )
     else:
         report["avg_score"] = 1.0
-    report["avg_latency_ms"] = round(sum(r["execution_time_ms"] for r in report["results"]) / max(len(report["results"]), 1), 2)
+    report["avg_latency_ms"] = round(
+        sum(r["execution_time_ms"] for r in report["results"]) / max(len(report["results"]), 1), 2
+    )
     for vendor, entries in vendor_map.items():
         v_passed = sum(1 for e in entries if e["passed"])
         report[f"vendor_{vendor}"] = {

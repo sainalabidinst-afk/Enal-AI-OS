@@ -31,13 +31,44 @@ class _ScanMixin:
     """Mixin providing repository scanning and dependency detection."""
 
     IGNORE_DIRS: set[str] = {
-        ".git", "__pycache__", "node_modules", "venv", ".venv", "env",
-        ".env", ".tox", ".nox", ".pytest_cache", ".mypy_cache", ".ruff_cache",
-        ".next", ".nuxt", "dist", "build", ".output", ".vercel",
-        ".serverless", ".terraform", ".docusaurus", ".turbo",
-        ".yarn", ".pnpm-store", "target", "vendor", ".bundle",
-        "coverage", ".coverage", "htmlcov", ".eggs", "*.egg-info",
-        ".gradle", "Pods", ".idea", ".vscode", ".DS_Store", "migrations",
+        ".git",
+        "__pycache__",
+        "node_modules",
+        "venv",
+        ".venv",
+        "env",
+        ".env",
+        ".tox",
+        ".nox",
+        ".pytest_cache",
+        ".mypy_cache",
+        ".ruff_cache",
+        ".next",
+        ".nuxt",
+        "dist",
+        "build",
+        ".output",
+        ".vercel",
+        ".serverless",
+        ".terraform",
+        ".docusaurus",
+        ".turbo",
+        ".yarn",
+        ".pnpm-store",
+        "target",
+        "vendor",
+        ".bundle",
+        "coverage",
+        ".coverage",
+        "htmlcov",
+        ".eggs",
+        "*.egg-info",
+        ".gradle",
+        "Pods",
+        ".idea",
+        ".vscode",
+        ".DS_Store",
+        "migrations",
     }
 
     MAX_FILE_SIZE = 500_000
@@ -85,9 +116,20 @@ class _ScanMixin:
                 fixme_count = content.upper().count("FIXME") + content.upper().count("HACK")
 
                 complexity = sum(
-                    1 for node in ast.walk(tree)
-                    if isinstance(node, (ast.If, ast.For, ast.While, ast.Try, ast.ExceptHandler,
-                                         ast.AsyncFor, ast.AsyncWith))
+                    1
+                    for node in ast.walk(tree)
+                    if isinstance(
+                        node,
+                        (
+                            ast.If,
+                            ast.For,
+                            ast.While,
+                            ast.Try,
+                            ast.ExceptHandler,
+                            ast.AsyncFor,
+                            ast.AsyncWith,
+                        ),
+                    )
                 )
 
                 module = ModuleInfo(
@@ -236,10 +278,12 @@ class _ScanMixin:
                             key = (m.path, path)
                             if key not in seen:
                                 seen.add(key)
-                                edges.append(DependencyEdge(
-                                    source=m.path,
-                                    target=path,
-                                ))
+                                edges.append(
+                                    DependencyEdge(
+                                        source=m.path,
+                                        target=path,
+                                    )
+                                )
                             break
         return edges
 
@@ -270,10 +314,12 @@ class _ScanMixin:
                     cycle_start = path.index(neighbor)
                     cycle_path = path[cycle_start:] + [neighbor]
                     if not any(set(cycle_path) == set(c.modules) for c in cycles):
-                        cycles.append(CircularDependency(
-                            modules=cycle_path,
-                            confidence=0.9,
-                        ))
+                        cycles.append(
+                            CircularDependency(
+                                modules=cycle_path,
+                                confidence=0.9,
+                            )
+                        )
 
             path.pop()
             rec_stack.discard(node)
@@ -288,9 +334,12 @@ class _ScanMixin:
 class _AnalysisMixin:
     """Mixin providing layer violation, coupling, and tech debt analysis."""
 
-    def _detect_layer_violations(self, modules: list[ModuleInfo], style: str) -> list[LayerViolation]:  # noqa: E501
+    def _detect_layer_violations(
+        self, modules: list[ModuleInfo], style: str
+    ) -> list[LayerViolation]:  # noqa: E501
         """Detect layer violations based on architecture style."""
         from apps.full_stack_engineer.architecture_review_models import LAYER_VIOLATION_PATTERNS
+
         violations: list[LayerViolation] = []
 
         patterns = LAYER_VIOLATION_PATTERNS.get(style, []) + DEFAULT_VIOLATION_PATTERNS
@@ -308,16 +357,18 @@ class _AnalysisMixin:
                                 target_layer = imp_parts[0]
                                 break
 
-                        violations.append(LayerViolation(
-                            module_path=m.path,
-                            violation_type=pattern["name"],
-                            description=pattern["description"],
-                            severity=pattern["severity"].value,
-                            source_layer=source_layer,
-                            target_layer=target_layer,
-                            imports=m.imports[:5],
-                            recommendation=f"Refactor to respect {pattern['rule']}",
-                        ))
+                        violations.append(
+                            LayerViolation(
+                                module_path=m.path,
+                                violation_type=pattern["name"],
+                                description=pattern["description"],
+                                severity=pattern["severity"].value,
+                                source_layer=source_layer,
+                                target_layer=target_layer,
+                                imports=m.imports[:5],
+                                recommendation=f"Refactor to respect {pattern['rule']}",
+                            )
+                        )
                 except (KeyError, AttributeError, IndexError, TypeError):
                     continue
 
@@ -357,16 +408,18 @@ class _AnalysisMixin:
 
             distance = abs(abstractness + instability - 1)
 
-            metrics.append(CouplingMetric(
-                module_path=m.path,
-                ce=ce,
-                ca=ca,
-                instability=round(instability, 3),
-                abstractness=round(abstractness, 3),
-                distance=round(distance, 3),
-                is_abstract=abstractness > 0.5,
-                is_main=distance < 0.3,
-            ))
+            metrics.append(
+                CouplingMetric(
+                    module_path=m.path,
+                    ce=ce,
+                    ca=ca,
+                    instability=round(instability, 3),
+                    abstractness=round(abstractness, 3),
+                    distance=round(distance, 3),
+                    is_abstract=abstractness > 0.5,
+                    is_main=distance < 0.3,
+                )
+            )
 
         return metrics
 
@@ -376,48 +429,58 @@ class _AnalysisMixin:
 
         for m in modules:
             if m.todo_count > 0:
-                items.append(TechDebtItem(
-                    module_path=m.path,
-                    type="todo",
-                    description=f"{m.todo_count} TODO(s) in module",
-                    estimated_effort="low" if m.todo_count < 3 else "medium",
-                    impact="low",
-                ))
+                items.append(
+                    TechDebtItem(
+                        module_path=m.path,
+                        type="todo",
+                        description=f"{m.todo_count} TODO(s) in module",
+                        estimated_effort="low" if m.todo_count < 3 else "medium",
+                        impact="low",
+                    )
+                )
             if m.fixme_count > 0:
-                items.append(TechDebtItem(
-                    module_path=m.path,
-                    type="fixme",
-                    description=f"{m.fixme_count} FIXME/HACK(s) in module",
-                    estimated_effort="medium" if m.fixme_count < 3 else "high",
-                    impact="medium",
-                ))
+                items.append(
+                    TechDebtItem(
+                        module_path=m.path,
+                        type="fixme",
+                        description=f"{m.fixme_count} FIXME/HACK(s) in module",
+                        estimated_effort="medium" if m.fixme_count < 3 else "high",
+                        impact="medium",
+                    )
+                )
 
             if not m.has_docstring and m.lines_of_code > 50:
-                items.append(TechDebtItem(
-                    module_path=m.path,
-                    type="no_docstring",
-                    description="Module missing module-level docstring",
-                    estimated_effort="low",
-                    impact="low",
-                ))
+                items.append(
+                    TechDebtItem(
+                        module_path=m.path,
+                        type="no_docstring",
+                        description="Module missing module-level docstring",
+                        estimated_effort="low",
+                        impact="low",
+                    )
+                )
 
             if m.lines_of_code > 1000:
-                items.append(TechDebtItem(
-                    module_path=m.path,
-                    type="large_module",
-                    description=f"Large module ({m.lines_of_code} LOC)",
-                    estimated_effort="medium",
-                    impact="high",
-                ))
+                items.append(
+                    TechDebtItem(
+                        module_path=m.path,
+                        type="large_module",
+                        description=f"Large module ({m.lines_of_code} LOC)",
+                        estimated_effort="medium",
+                        impact="high",
+                    )
+                )
 
             if m.complexity_score > 0.5:
-                items.append(TechDebtItem(
-                    module_path=m.path,
-                    type="complexity",
-                    description=f"High complexity score ({m.complexity_score:.2f})",
-                    estimated_effort="medium",
-                    impact="medium",
-                ))
+                items.append(
+                    TechDebtItem(
+                        module_path=m.path,
+                        type="complexity",
+                        description=f"High complexity score ({m.complexity_score:.2f})",
+                        estimated_effort="medium",
+                        impact="medium",
+                    )
+                )
 
         return items
 
@@ -443,7 +506,9 @@ class _AnalysisMixin:
                 title_match = re.search(r"#\s+(.+)", content)
                 status_match = re.search(r"##\s*Status\s*\n\s*(\w+)", content, re.IGNORECASE)
                 date_match = re.search(r"##\s*Date\s*\n\s*(\S+)", content, re.IGNORECASE)
-                context_match = re.search(r"##\s*Context\s*\n(.+?)(?=\n##)", content, re.IGNORECASE | re.DOTALL)  # noqa: E501
+                context_match = re.search(
+                    r"##\s*Context\s*\n(.+?)(?=\n##)", content, re.IGNORECASE | re.DOTALL
+                )  # noqa: E501
 
                 entry = ADREntry(
                     title=title_match.group(1) if title_match else adr_file.stem,
@@ -452,11 +517,15 @@ class _AnalysisMixin:
                     context=(context_match.group(1).strip() if context_match else ""),
                 )
 
-                decision_match = re.search(r"##\s*Decision\s*\n(.+?)(?=\n##)", content, re.IGNORECASE | re.DOTALL)  # noqa: E501
+                decision_match = re.search(
+                    r"##\s*Decision\s*\n(.+?)(?=\n##)", content, re.IGNORECASE | re.DOTALL
+                )  # noqa: E501
                 if decision_match:
                     entry.decision = decision_match.group(1).strip()
 
-                cons_match = re.search(r"##\s*Consequences\s*\n(.+?)(?=\n##|$)", content, re.IGNORECASE | re.DOTALL)  # noqa: E501
+                cons_match = re.search(
+                    r"##\s*Consequences\s*\n(.+?)(?=\n##|$)", content, re.IGNORECASE | re.DOTALL
+                )  # noqa: E501
                 if cons_match:
                     entry.consequences = cons_match.group(1).strip()
 
@@ -504,7 +573,9 @@ class _ScoringMixin:
 
         if report.circular_dependencies:
             scores["scalability"] += 2
-            factors.append(f"{len(report.circular_dependencies)} circular dependencies limit scalability")  # noqa: E501
+            factors.append(
+                f"{len(report.circular_dependencies)} circular dependencies limit scalability"
+            )  # noqa: E501
         if report.avg_instability > 0.5:
             scores["scalability"] += 1
             factors.append(f"High average instability ({report.avg_instability:.2f})")
@@ -526,11 +597,15 @@ class _ScoringMixin:
             scores["testability"] += 1
             factors.append(f"{high_coupling} modules with high outgoing coupling (Ce>20)")
 
-        if ("clean_architecture" not in report.detected_style and
-                "microservice" not in report.detected_style and
-                "hexagonal" not in report.detected_style):
+        if (
+            "clean_architecture" not in report.detected_style
+            and "microservice" not in report.detected_style
+            and "hexagonal" not in report.detected_style
+        ):
             scores["deployability"] += 1
-            factors.append(f"Architecture style ({report.detected_style}) may complicate deployment")  # noqa: E501
+            factors.append(
+                f"Architecture style ({report.detected_style}) may complicate deployment"
+            )  # noqa: E501
         if report.layer_count > 5:
             scores["deployability"] += 1
             factors.append(f"Too many layers ({report.layer_count}) increase deployment complexity")
@@ -619,9 +694,16 @@ class _ScoringMixin:
             report.test_health_grade = Grade.F
 
         grade_scores = {
-            Grade.A: 95, Grade.A_MINUS: 92, Grade.B_PLUS: 88, Grade.B: 84,
-            Grade.B_MINUS: 80, Grade.C_PLUS: 76, Grade.C: 72, Grade.C_MINUS: 68,
-            Grade.D: 60, Grade.F: 40,
+            Grade.A: 95,
+            Grade.A_MINUS: 92,
+            Grade.B_PLUS: 88,
+            Grade.B: 84,
+            Grade.B_MINUS: 80,
+            Grade.C_PLUS: 76,
+            Grade.C: 72,
+            Grade.C_MINUS: 68,
+            Grade.D: 60,
+            Grade.F: 40,
         }
         scores_list = [
             grade_scores.get(report.layering_grade, 70),
@@ -645,106 +727,124 @@ class _ReportingMixin:
         critical_violations = [v for v in report.layer_violations if v.severity == "critical"]
         if critical_violations:
             modules = list(set(v.module_path for v in critical_violations))
-            recommendations.append(RefactoringRecommendation(
-                priority=priority,
-                title=f"Resolve {len(critical_violations)} Critical Layer Violations",
-                description=f"Layer violations detected in {len(modules)} modules. These break the architectural dependency rule.",  # noqa: E501
-                rationale="Layer violations create tight coupling, making the system harder to maintain and evolve.",  # noqa: E501
-                effort="days",
-                risk="medium",
-                impact="high",
-                affected_modules=modules[:10],
-                suggested_approach="Extract shared interfaces, move cross-cutting logic to appropriate layers.",  # noqa: E501
-            ))
+            recommendations.append(
+                RefactoringRecommendation(
+                    priority=priority,
+                    title=f"Resolve {len(critical_violations)} Critical Layer Violations",
+                    description=f"Layer violations detected in {len(modules)} modules. These break the architectural dependency rule.",  # noqa: E501
+                    rationale="Layer violations create tight coupling, making the system harder to maintain and evolve.",  # noqa: E501
+                    effort="days",
+                    risk="medium",
+                    impact="high",
+                    affected_modules=modules[:10],
+                    suggested_approach="Extract shared interfaces, move cross-cutting logic to appropriate layers.",  # noqa: E501
+                )
+            )
             priority += 1
 
         if report.circular_dependencies:
             modules = list(set(m for c in report.circular_dependencies for m in c.modules))
-            recommendations.append(RefactoringRecommendation(
-                priority=priority,
-                title=f"Resolve {len(report.circular_dependencies)} Circular Dependencies",
-                description=f"Circular dependencies affect {len(modules)} modules. These create initialization problems and tight coupling.",  # noqa: E501
-                rationale="Circular dependencies make code brittle, hard to test, and can cause runtime initialization failures.",  # noqa: E501
-                effort="days",
-                risk="high",
-                impact="high",
-                affected_modules=modules[:10],
-                suggested_approach="Introduce dependency inversion (interfaces), extract shared modules, or merge related modules.",  # noqa: E501
-            ))
+            recommendations.append(
+                RefactoringRecommendation(
+                    priority=priority,
+                    title=f"Resolve {len(report.circular_dependencies)} Circular Dependencies",
+                    description=f"Circular dependencies affect {len(modules)} modules. These create initialization problems and tight coupling.",  # noqa: E501
+                    rationale="Circular dependencies make code brittle, hard to test, and can cause runtime initialization failures.",  # noqa: E501
+                    effort="days",
+                    risk="high",
+                    impact="high",
+                    affected_modules=modules[:10],
+                    suggested_approach="Introduce dependency inversion (interfaces), extract shared modules, or merge related modules.",  # noqa: E501
+                )
+            )
             priority += 1
 
         high_ce = [m for m in report.coupling_metrics if m.ce > 20]
         if high_ce:
-            recommendations.append(RefactoringRecommendation(
-                priority=priority,
-                title=f"Reduce Coupling in {len(high_ce)} Modules",
-                description=f"Modules with high efferent coupling (Ce > 20): {', '.join(m.module_path for m in high_ce[:5])}",  # noqa: E501
-                rationale="High coupling makes modules fragile to changes in their dependencies.",
-                effort="days",
-                risk="medium",
-                impact="high",
-                affected_modules=[m.module_path for m in high_ce],
-                suggested_approach="Apply interface segregation, dependency inversion, or split modules by responsibility.",  # noqa: E501
-            ))
+            recommendations.append(
+                RefactoringRecommendation(
+                    priority=priority,
+                    title=f"Reduce Coupling in {len(high_ce)} Modules",
+                    description=f"Modules with high efferent coupling (Ce > 20): {', '.join(m.module_path for m in high_ce[:5])}",  # noqa: E501
+                    rationale="High coupling makes modules fragile to changes in their dependencies.",  # noqa: E501
+                    effort="days",
+                    risk="medium",
+                    impact="high",
+                    affected_modules=[m.module_path for m in high_ce],
+                    suggested_approach="Apply interface segregation, dependency inversion, or split modules by responsibility.",  # noqa: E501
+                )
+            )
             priority += 1
 
         large_mods = [m for m in report.modules if m.lines_of_code > 1000]
         if large_mods:
-            recommendations.append(RefactoringRecommendation(
-                priority=priority,
-                title=f"Split {len(large_mods)} Large Modules",
-                description=f"Modules exceeding 1000 LOC: {', '.join(m.path for m in large_mods[:5])}",  # noqa: E501
-                rationale="Large modules violate single responsibility and are difficult to understand and test.",  # noqa: E501
-                effort="days",
-                risk="low",
-                impact="medium",
-                affected_modules=[m.path for m in large_mods],
-                suggested_approach="Extract cohesive groups of functions/classes into separate modules.",  # noqa: E501
-            ))
+            recommendations.append(
+                RefactoringRecommendation(
+                    priority=priority,
+                    title=f"Split {len(large_mods)} Large Modules",
+                    description=f"Modules exceeding 1000 LOC: {', '.join(m.path for m in large_mods[:5])}",  # noqa: E501
+                    rationale="Large modules violate single responsibility and are difficult to understand and test.",  # noqa: E501
+                    effort="days",
+                    risk="low",
+                    impact="medium",
+                    affected_modules=[m.path for m in large_mods],
+                    suggested_approach="Extract cohesive groups of functions/classes into separate modules.",  # noqa: E501
+                )
+            )
             priority += 1
 
         if report.tech_debt_items:
-            todo_items = [t for t in report.tech_debt_items if t.type == "todo" and t.estimated_effort == "medium"]  # noqa: E501
+            todo_items = [
+                t
+                for t in report.tech_debt_items
+                if t.type == "todo" and t.estimated_effort == "medium"
+            ]  # noqa: E501
             if todo_items:
-                recommendations.append(RefactoringRecommendation(
-                    priority=priority,
-                    title=f"Address {len(todo_items)} Stale TODO Items",
-                    description=f"Medium-effort TODOs in modules: {', '.join(t.module_path for t in todo_items[:5])}",  # noqa: E501
-                    rationale="Stale TODOs indicate unresolved issues that may become technical debt or bugs.",  # noqa: E501
-                    effort="hours",
-                    risk="low",
-                    impact="medium",
-                    affected_modules=list(set(t.module_path for t in todo_items)),
-                    suggested_approach="Review each TODO, either implement the feature, file a ticket, or remove if resolved.",  # noqa: E501
-                ))
+                recommendations.append(
+                    RefactoringRecommendation(
+                        priority=priority,
+                        title=f"Address {len(todo_items)} Stale TODO Items",
+                        description=f"Medium-effort TODOs in modules: {', '.join(t.module_path for t in todo_items[:5])}",  # noqa: E501
+                        rationale="Stale TODOs indicate unresolved issues that may become technical debt or bugs.",  # noqa: E501
+                        effort="hours",
+                        risk="low",
+                        impact="medium",
+                        affected_modules=list(set(t.module_path for t in todo_items)),
+                        suggested_approach="Review each TODO, either implement the feature, file a ticket, or remove if resolved.",  # noqa: E501
+                    )
+                )
                 priority += 1
 
         high_complexity = [m for m in report.modules if m.complexity_score > 0.5]
         if high_complexity:
-            recommendations.append(RefactoringRecommendation(
-                priority=priority,
-                title=f"Simplify {len(high_complexity)} High-Complexity Modules",
-                description=f"Modules with high cyclomatic complexity: {', '.join(m.path for m in high_complexity[:5])}",  # noqa: E501
-                rationale="High complexity modules are error-prone and hard to test.",
-                effort="days",
-                risk="medium",
-                impact="medium",
-                affected_modules=[m.path for m in high_complexity],
-                suggested_approach="Extract complex conditionals into well-named functions, use early returns, or apply strategy pattern.",  # noqa: E501
-            ))
+            recommendations.append(
+                RefactoringRecommendation(
+                    priority=priority,
+                    title=f"Simplify {len(high_complexity)} High-Complexity Modules",
+                    description=f"Modules with high cyclomatic complexity: {', '.join(m.path for m in high_complexity[:5])}",  # noqa: E501
+                    rationale="High complexity modules are error-prone and hard to test.",
+                    effort="days",
+                    risk="medium",
+                    impact="medium",
+                    affected_modules=[m.path for m in high_complexity],
+                    suggested_approach="Extract complex conditionals into well-named functions, use early returns, or apply strategy pattern.",  # noqa: E501
+                )
+            )
             priority += 1
 
         if not any(m.is_test for m in report.modules):
-            recommendations.append(RefactoringRecommendation(
-                priority=priority,
-                title="Add Test Suite",
-                description="No test modules detected in the repository.",
-                rationale="Without tests, regressions are hard to catch, and refactoring becomes risky.",  # noqa: E501
-                effort="weeks",
-                risk="high",
-                impact="high",
-                suggested_approach="Start with unit tests for core domain logic, then add integration tests for critical paths.",  # noqa: E501
-            ))
+            recommendations.append(
+                RefactoringRecommendation(
+                    priority=priority,
+                    title="Add Test Suite",
+                    description="No test modules detected in the repository.",
+                    rationale="Without tests, regressions are hard to catch, and refactoring becomes risky.",  # noqa: E501
+                    effort="weeks",
+                    risk="high",
+                    impact="high",
+                    suggested_approach="Start with unit tests for core domain logic, then add integration tests for critical paths.",  # noqa: E501
+                )
+            )
             priority += 1
 
         return recommendations
@@ -759,30 +859,42 @@ class _ReportingMixin:
         if not report.circular_dependencies:
             strengths.append("No circular dependencies — clean dependency direction")
         if report.avg_instability < 0.3:
-            strengths.append(f"Low average instability ({report.avg_instability:.2f}) — modules depend on stable abstractions")  # noqa: E501
+            strengths.append(
+                f"Low average instability ({report.avg_instability:.2f}) — modules depend on stable abstractions"  # noqa: E501
+            )  # noqa: E501
         if report.tech_debt_density < 0.005:
             strengths.append(f"Low technical debt density ({report.tech_debt_density:.4f})")
         if report.test_health_grade in (Grade.A, Grade.B_PLUS):
             strengths.append("Strong test coverage with healthy test-to-source ratio")
         if report.detected_style in ("clean_architecture", "hexagonal"):
-            strengths.append(f"Follows {report.detected_style.replace('_', ' ').title()} — good separation of concerns")  # noqa: E501
+            strengths.append(
+                f"Follows {report.detected_style.replace('_', ' ').title()} — good separation of concerns"  # noqa: E501
+            )  # noqa: E501
 
         if report.layering_grade in (Grade.D, Grade.F):
             weaknesses.append("Severe layer violations compromising architecture integrity")
         if report.circular_dependencies:
-            weaknesses.append(f"{len(report.circular_dependencies)} circular {'dependencies' if len(report.circular_dependencies) > 1 else 'dependency'} detected")  # noqa: E501
+            weaknesses.append(
+                f"{len(report.circular_dependencies)} circular {'dependencies' if len(report.circular_dependencies) > 1 else 'dependency'} detected"  # noqa: E501
+            )  # noqa: E501
         if report.avg_instability > 0.5:
-            weaknesses.append(f"High average instability ({report.avg_instability:.2f}) — modules depend on concrete implementations")  # noqa: E501
+            weaknesses.append(
+                f"High average instability ({report.avg_instability:.2f}) — modules depend on concrete implementations"  # noqa: E501
+            )  # noqa: E501
         if report.tech_debt_density > 0.01:
             weaknesses.append(f"Elevated technical debt density ({report.tech_debt_density:.4f})")
         if not any(m.is_test for m in report.modules):
             weaknesses.append("No test suite detected — high regression risk")
         high_coupling = [m for m in report.coupling_metrics if m.ce > 20]
         if high_coupling:
-            weaknesses.append(f"High coupling in {len(high_coupling)} module(s) — changes may cascade")  # noqa: E501
+            weaknesses.append(
+                f"High coupling in {len(high_coupling)} module(s) — changes may cascade"
+            )  # noqa: E501
         large_mods = [m for m in report.modules if m.lines_of_code > 1000]
         if large_mods:
-            weaknesses.append(f"{len(large_mods)} large module(s) >1000 LOC — potential single responsibility violations")  # noqa: E501
+            weaknesses.append(
+                f"{len(large_mods)} large module(s) >1000 LOC — potential single responsibility violations"  # noqa: E501
+            )  # noqa: E501
 
         return strengths, weaknesses
 
@@ -810,16 +922,22 @@ class _ReportingMixin:
             lines.append("significant architectural issues requiring immediate attention.")
 
         if report.layer_violations:
-            lines.append(f"\nFound **{len(report.layer_violations)}** layer violations "
-                         f"({sum(1 for v in report.layer_violations if v.severity == 'critical')} critical) — "  # noqa: E501
-                         "the most pressing architectural concern.")
+            lines.append(
+                f"\nFound **{len(report.layer_violations)}** layer violations "
+                f"({sum(1 for v in report.layer_violations if v.severity == 'critical')} critical) — "  # noqa: E501
+                "the most pressing architectural concern."
+            )
 
         if report.circular_dependencies:
-            lines.append(f"\n**{len(report.circular_dependencies)}** circular dependencies detected — "  # noqa: E501
-                         "these should be resolved to prevent initialization issues and tight coupling.")  # noqa: E501
+            lines.append(
+                f"\n**{len(report.circular_dependencies)}** circular dependencies detected — "  # noqa: E501
+                "these should be resolved to prevent initialization issues and tight coupling."
+            )  # noqa: E501
 
         if report.recommendations:
-            lines.append(f"\n**Top priority**: {report.recommendations[0].title} (effort: {report.recommendations[0].effort}).")  # noqa: E501
+            lines.append(
+                f"\n**Top priority**: {report.recommendations[0].title} (effort: {report.recommendations[0].effort})."  # noqa: E501
+            )  # noqa: E501
 
         lines.append(f"\n**Overall risk**: {report.overall_risk.upper()}.")
 
@@ -829,9 +947,12 @@ class _ReportingMixin:
 class ArchitectureReviewEngine(_ScanMixin, _AnalysisMixin, _ScoringMixin, _ReportingMixin):
     """Analyzes repository architecture and produces comprehensive review."""
 
-    async def review(self, repo_path: str | Path, context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review(
+        self, repo_path: str | Path, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         """Perform a full architecture review of the repository."""
         from apps.full_stack_engineer.architecture_review_models import ArchitectureReport
+
         repo_path = Path(repo_path)
         if not repo_path.exists():
             raise FileNotFoundError(f"Repository path not found: {repo_path}")
@@ -875,8 +996,8 @@ class ArchitectureReviewEngine(_ScanMixin, _AnalysisMixin, _ScoringMixin, _Repor
         report.tech_debt_items = debt_items
         report.todo_count = sum(m.todo_count for m in modules)
         report.fixme_count = sum(m.fixme_count for m in modules)
-        report.tech_debt_density = (
-            (report.todo_count + report.fixme_count) / max(1, report.total_lines)
+        report.tech_debt_density = (report.todo_count + report.fixme_count) / max(
+            1, report.total_lines
         )
 
         adr_entries = self._check_adr_consistency(repo_path, modules)

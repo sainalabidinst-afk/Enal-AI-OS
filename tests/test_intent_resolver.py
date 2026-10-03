@@ -67,46 +67,56 @@ def resolver(catalog: WorkflowCatalog) -> IntentResolver:
 def populated_resolver(resolver: IntentResolver) -> IntentResolver:
     """Resolver with pre-registered workflows, aliases, and task names."""
     # Register catalog entries
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="network-audit-flow",
-        display_name="Network Security Audit",
-        description="Run security audit on network devices",
-        supported_intents=["audit-network", "check-security", "network-scan"],
-        tags=["network", "security", "audit"],
-        category="network",
-        metadata={"version": "1.0", "domain": "network"},
-    ))
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="docs-generation-flow",
-        display_name="Documentation Generation",
-        description="Generate technical documentation",
-        supported_intents=["generate-docs", "write-docs", "create-manual"],
-        tags=["docs", "writing"],
-        category="code",
-    ))
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="code-review-flow",
-        display_name="Code Review",
-        description="Review source code for issues",
-        supported_intents=["review-code", "code-audit"],
-        tags=["code", "review", "quality"],
-        category="code",
-    ))
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="network-audit-flow",
+            display_name="Network Security Audit",
+            description="Run security audit on network devices",
+            supported_intents=["audit-network", "check-security", "network-scan"],
+            tags=["network", "security", "audit"],
+            category="network",
+            metadata={"version": "1.0", "domain": "network"},
+        )
+    )
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="docs-generation-flow",
+            display_name="Documentation Generation",
+            description="Generate technical documentation",
+            supported_intents=["generate-docs", "write-docs", "create-manual"],
+            tags=["docs", "writing"],
+            category="code",
+        )
+    )
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="code-review-flow",
+            display_name="Code Review",
+            description="Review source code for issues",
+            supported_intents=["review-code", "code-audit"],
+            tags=["code", "review", "quality"],
+            category="code",
+        )
+    )
 
     # Register aliases
-    resolver.register_aliases({
-        "audit": "audit-network",
-        "security-check": "check-security",
-        "docs": "generate-docs",
-        "review": "review-code",
-    })
+    resolver.register_aliases(
+        {
+            "audit": "audit-network",
+            "security-check": "check-security",
+            "docs": "generate-docs",
+            "review": "review-code",
+        }
+    )
 
     # Register task names
-    resolver.register_task_names({
-        "run security audit on network": "audit-network",
-        "generate project documentation": "generate-docs",
-        "review the source code": "review-code",
-    })
+    resolver.register_task_names(
+        {
+            "run security audit on network": "audit-network",
+            "generate project documentation": "generate-docs",
+            "review the source code": "review-code",
+        }
+    )
 
     return resolver
 
@@ -140,45 +150,55 @@ def assert_valid_resolve_result(result: ResolveResult) -> None:
 
 def test_register_workflow(resolver: IntentResolver):
     """Test registering a workflow via the resolver's catalog."""
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="test-flow",
-        display_name="Test Flow",
-        supported_intents=["test-intent"],
-    ))
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="test-flow",
+            display_name="Test Flow",
+            supported_intents=["test-intent"],
+        )
+    )
     assert resolver.get_catalog().entry_count() == 1
     assert resolver.get_catalog().intent_count() == 1
 
 
 def test_duplicate_workflow_detection(resolver: IntentResolver):
     """Test duplicate workflow_id raises CatalogError."""
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="test-flow",
-        display_name="Test Flow",
-        supported_intents=["test-intent"],
-    ))
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="test-flow",
+            display_name="Test Flow",
+            supported_intents=["test-intent"],
+        )
+    )
     # Same workflow_id with different intents should not be allowed
     # (register directly replaces, but we check duplicate intent separately)
     with pytest.raises(CatalogError, match="Duplicate intent"):
-        resolver.get_catalog().register(WorkflowCatalogEntry(
-            workflow_id="test-flow-2",
-            display_name="Test Flow 2",
-            supported_intents=["test-intent"],  # Same intent as above
-        ))
+        resolver.get_catalog().register(
+            WorkflowCatalogEntry(
+                workflow_id="test-flow-2",
+                display_name="Test Flow 2",
+                supported_intents=["test-intent"],  # Same intent as above
+            )
+        )
 
 
 def test_duplicate_intent_detection(resolver: IntentResolver):
     """Test duplicate intent across different workflows raises CatalogError."""
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="flow-a",
-        display_name="Flow A",
-        supported_intents=["shared-intent", "intent-a"],
-    ))
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="flow-a",
+            display_name="Flow A",
+            supported_intents=["shared-intent", "intent-a"],
+        )
+    )
     with pytest.raises(CatalogError, match="Duplicate intent"):
-        resolver.get_catalog().register(WorkflowCatalogEntry(
-            workflow_id="flow-b",
-            display_name="Flow B",
-            supported_intents=["shared-intent", "intent-b"],
-        ))
+        resolver.get_catalog().register(
+            WorkflowCatalogEntry(
+                workflow_id="flow-b",
+                display_name="Flow B",
+                supported_intents=["shared-intent", "intent-b"],
+            )
+        )
     assert resolver.get_catalog().entry_count() == 1
     assert resolver.get_catalog().intent_count() == 2
 
@@ -351,11 +371,13 @@ def test_resolve_or_raise_error(populated_resolver: IntentResolver):
 async def test_resolve_and_execute(resolver: IntentResolver):
     """Test end-to-end: resolve intent → execute workflow."""
     # Register a workflow
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="simple-flow",
-        display_name="Simple Flow",
-        supported_intents=["simple-intent"],
-    ))
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="simple-flow",
+            display_name="Simple Flow",
+            supported_intents=["simple-intent"],
+        )
+    )
 
     # We need to test with the executor
     from apps.organization.capability_execution_engine import CapabilityExecutionEngine
@@ -366,17 +388,19 @@ async def test_resolve_and_execute(resolver: IntentResolver):
     executor = WorkflowExecutor(pipeline=pipeline)
 
     # Register the workflow definition in executor
-    executor.register(WorkflowDefinition(
-        workflow_id="simple-flow",
-        name="Simple Flow",
-        ordered_steps=[
-            WorkflowStep(
-                capability_id="documentation",
-                input_data={"skills": ["documentation"]},
-                alias="Doc Step",
-            ),
-        ],
-    ))
+    executor.register(
+        WorkflowDefinition(
+            workflow_id="simple-flow",
+            name="Simple Flow",
+            ordered_steps=[
+                WorkflowStep(
+                    capability_id="documentation",
+                    input_data={"skills": ["documentation"]},
+                    alias="Doc Step",
+                ),
+            ],
+        )
+    )
 
     # Resolve and execute
     response = await resolver.resolve_and_execute(
@@ -483,7 +507,12 @@ class TelemetryCollector:
 def telemetry_collector() -> TelemetryCollector:
     collector = TelemetryCollector()
     # Subscribe to all resolver event types
-    for event_type in [INTENT_RESOLVED, INTENT_NOT_FOUND, WORKFLOW_SELECTED, WORKFLOW_EXECUTION_STARTED]:
+    for event_type in [
+        INTENT_RESOLVED,
+        INTENT_NOT_FOUND,
+        WORKFLOW_SELECTED,
+        WORKFLOW_EXECUTION_STARTED,
+    ]:
         event_bus.subscribe(event_type, collector.on_event)
     return collector
 
@@ -517,13 +546,17 @@ def test_telemetry_intent_not_found(populated_resolver: IntentResolver, telemetr
 
 
 @pytest.mark.asyncio
-async def test_telemetry_workflow_selected_and_execution_started(resolver: IntentResolver, telemetry_collector):
-    """Test that WorkflowSelected and WorkflowExecutionStarted telemetry is emitted during execution."""
-    resolver.get_catalog().register(WorkflowCatalogEntry(
-        workflow_id="simple-flow",
-        display_name="Simple Flow",
-        supported_intents=["simple-intent"],
-    ))
+async def test_telemetry_workflow_selected_and_execution_started(
+    resolver: IntentResolver, telemetry_collector
+):
+    """Test that WorkflowSelected and WorkflowExecutionStarted telemetry is emitted during execution."""  # noqa: E501
+    resolver.get_catalog().register(
+        WorkflowCatalogEntry(
+            workflow_id="simple-flow",
+            display_name="Simple Flow",
+            supported_intents=["simple-intent"],
+        )
+    )
 
     from apps.organization.capability_execution_engine import CapabilityExecutionEngine
 
@@ -532,17 +565,19 @@ async def test_telemetry_workflow_selected_and_execution_started(resolver: Inten
     pipeline = CapabilityPipeline(engine=engine)
     executor = WorkflowExecutor(pipeline=pipeline)
 
-    executor.register(WorkflowDefinition(
-        workflow_id="simple-flow",
-        name="Simple Flow",
-        ordered_steps=[
-            WorkflowStep(
-                capability_id="documentation",
-                input_data={"skills": ["documentation"]},
-                alias="Doc Step",
-            ),
-        ],
-    ))
+    executor.register(
+        WorkflowDefinition(
+            workflow_id="simple-flow",
+            name="Simple Flow",
+            ordered_steps=[
+                WorkflowStep(
+                    capability_id="documentation",
+                    input_data={"skills": ["documentation"]},
+                    alias="Doc Step",
+                ),
+            ],
+        )
+    )
 
     await resolver.resolve_and_execute(
         intent_id="simple-intent",
@@ -618,4 +653,3 @@ def test_catalog_integration(resolver: IntentResolver):
     catalog = resolver.get_catalog()
     assert isinstance(catalog, WorkflowCatalog)
     assert catalog is resolver._catalog
-

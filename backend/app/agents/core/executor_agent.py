@@ -13,6 +13,7 @@ async def executor_node(state: dict) -> dict:
     tasks = plan.get("tasks", [])
     if not tasks:
         from langchain_core.messages import HumanMessage
+
         messages = state.get("messages", [])
         last_msg = messages[-1].content if messages else ""
         response = await model_router.acomplete(
@@ -32,6 +33,7 @@ async def executor_node(state: dict) -> dict:
     ).bind_tools(agent_tools)
 
     from langchain_core.messages import HumanMessage
+
     messages = state.get("messages", [])
     prompt = f"You are the executor. Complete this task: {tasks[0]['description']}"
     response = llm.invoke([HumanMessage(content=prompt)] + list(messages))

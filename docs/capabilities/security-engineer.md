@@ -185,7 +185,7 @@ engine = SecurityEngineerEngine()
 request = SecurityAssessmentRequest(
     target_type=AssessmentType.full_review,
     target={
-        "source_code": "query = f\"SELECT * FROM users WHERE id = {user_id}\"",
+        "source_code": 'query = f"SELECT * FROM users WHERE id = {user_id}"',
         "language": "python",
     },
     standards=["owasp_top10", "cis"],

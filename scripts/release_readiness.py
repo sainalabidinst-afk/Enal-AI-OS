@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -144,11 +144,13 @@ def evaluate_layer(layer: dict[str, Any]) -> LayerResult:
     passed = 0
     for rel_path, label in layer["checks"]:
         exists = check_exists(rel_path)
-        checks.append({
-            "path": rel_path,
-            "label": label,
-            "status": "pass" if exists else "fail",
-        })
+        checks.append(
+            {
+                "path": rel_path,
+                "label": label,
+                "status": "pass" if exists else "fail",
+            }
+        )
         if exists:
             passed += 1
     return LayerResult(
@@ -196,7 +198,7 @@ def build_report(results: list[LayerResult]) -> dict[str, Any]:
     overall_passed = sum(r.passed for r in results)
     overall_total = sum(r.total for r in results)
     return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "overall": {
             "passed": overall_passed,
             "total": overall_total,

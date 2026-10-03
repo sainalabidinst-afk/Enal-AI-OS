@@ -14,7 +14,11 @@ class CambiumParser(BaseParser):
         return "cambium" in meta.text_preview.lower() or "cambium" in meta.filename.lower()
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.ubiquiti, format="cambium", device_role=DeviceRole.wireless_controller)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.ubiquiti,
+            format="cambium",
+            device_role=DeviceRole.wireless_controller,
+        )  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

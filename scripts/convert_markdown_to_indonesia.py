@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import List
 
 from deep_translator import GoogleTranslator
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+SKIP_DIRS = {
+    ".git",
+    ".venv",
+    "venv",
+    "node_modules",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+}
 PRESERVE_TERMS = [
     "Capability Pack",
     "Golden Test",
@@ -30,8 +38,8 @@ PRESERVE_TERMS = [
 translator = GoogleTranslator(source="en", target="id")
 
 
-def collect_markdown_files(root: Path) -> List[Path]:
-    files: List[Path] = []
+def collect_markdown_files(root: Path) -> list[Path]:
+    files: list[Path] = []
     for path in root.rglob("*.md"):
         if any(part in SKIP_DIRS for part in path.parts):
             continue
@@ -42,10 +50,12 @@ def collect_markdown_files(root: Path) -> List[Path]:
 
 def strip_bilingual_blocks(content: str) -> str:
     lines = content.splitlines()
-    cleaned: List[str] = []
+    cleaned: list[str] = []
     for line in lines:
         stripped = line.strip()
-        if stripped.startswith("<!-- BILINGUAL_DOCS_START -->") or stripped.startswith("<!-- BILINGUAL_DOCS_END -->"):
+        if stripped.startswith("<!-- BILINGUAL_DOCS_START -->") or stripped.startswith(
+            "<!-- BILINGUAL_DOCS_END -->"
+        ):
             continue
         if re.search(r"\b(Bahasa Indonesia|Terjemahan Indonesia|English)\s*:", stripped):
             continue
@@ -55,8 +65,8 @@ def strip_bilingual_blocks(content: str) -> str:
     return "\n".join(cleaned).strip() + "\n"
 
 
-def preserve_segments(text: str) -> tuple[str, List[str]]:
-    placeholders: List[str] = []
+def preserve_segments(text: str) -> tuple[str, list[str]]:
+    placeholders: list[str] = []
 
     def add_placeholder(match: re.Match[str]) -> str:
         placeholder = f"__PRESERVE_{len(placeholders)}__"
@@ -69,13 +79,18 @@ def preserve_segments(text: str) -> tuple[str, List[str]]:
 
     for term in sorted(PRESERVE_TERMS, key=len, reverse=True):
         if term.lower() in text.lower():
-            text = re.sub(rf"\b{re.escape(term)}\b", f"__PRESERVE_{len(placeholders)}__", text, flags=re.IGNORECASE)
+            text = re.sub(
+                rf"\b{re.escape(term)}\b",
+                f"__PRESERVE_{len(placeholders)}__",
+                text,
+                flags=re.IGNORECASE,
+            )
             placeholders.append(term)
 
     return text, placeholders
 
 
-def restore_segments(text: str, placeholders: List[str]) -> str:
+def restore_segments(text: str, placeholders: list[str]) -> str:
     for index, value in enumerate(placeholders):
         text = text.replace(f"__PRESERVE_{index}__", value)
     return text
@@ -130,7 +145,7 @@ def translate_line(line: str) -> str:
 def translate_content(content: str) -> str:
     content = strip_bilingual_blocks(content)
     lines = content.splitlines()
-    out: List[str] = []
+    out: list[str] = []
     in_code = False
 
     for line in lines:

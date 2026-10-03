@@ -2,11 +2,11 @@
 Smoke tests for Infrastructure Engineer capability.
 """
 
-from apps.infrastructure_engineer.disaster_recovery import *
-from apps.infrastructure_engineer.engine import *
-from apps.infrastructure_engineer.ha_cluster_designer import *
-from apps.infrastructure_engineer.kubernetes_designer import *
-from apps.infrastructure_engineer.schemas import *
+from apps.infrastructure_engineer.disaster_recovery import *  # noqa: F403
+from apps.infrastructure_engineer.engine import *  # noqa: F403
+from apps.infrastructure_engineer.ha_cluster_designer import *  # noqa: F403
+from apps.infrastructure_engineer.kubernetes_designer import *  # noqa: F403
+from apps.infrastructure_engineer.schemas import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

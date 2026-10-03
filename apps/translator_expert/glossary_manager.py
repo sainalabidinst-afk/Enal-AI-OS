@@ -200,9 +200,7 @@ class GlossaryManager:
         target_lang: str,
     ) -> tuple[str, list[str]]:
         """Replace glossary terms in source text with tagged placeholders."""
-        glossary = self.get_glossary(
-            config.domain, source_lang, target_lang
-        )
+        glossary = self.get_glossary(config.domain, source_lang, target_lang)
         glossary.update(config.custom_terms)
 
         used_terms: list[str] = []
@@ -225,9 +223,7 @@ class GlossaryManager:
         target_lang: str,
     ) -> tuple[str, list[str]]:
         """Replace tagged placeholders with approved target glossary terms."""
-        glossary = self.get_glossary(
-            config.domain, source_lang, target_lang
-        )
+        glossary = self.get_glossary(config.domain, source_lang, target_lang)
         glossary.update(config.custom_terms)
 
         used_terms: list[str] = []

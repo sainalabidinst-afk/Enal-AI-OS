@@ -60,4 +60,3 @@ class StateRecovery:
 
 
 state_recovery = StateRecovery()
-

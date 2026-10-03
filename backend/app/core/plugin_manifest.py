@@ -119,10 +119,14 @@ class PluginManifestRegistry:
     def list_manifests(self) -> list[PluginManifest]:
         return list(self._manifests.values())
 
-    def validate_compatibility(self, manifest: PluginManifest, runtime_version: str, sdk_version: str) -> dict[str, Any]:  # noqa: E501
+    def validate_compatibility(
+        self, manifest: PluginManifest, runtime_version: str, sdk_version: str
+    ) -> dict[str, Any]:  # noqa: E501
         return {
-            "runtime_compatible": manifest.required_runtime == runtime_version or runtime_version >= manifest.required_runtime,  # noqa: E501
-            "sdk_compatible": manifest.required_sdk == sdk_version or sdk_version >= manifest.required_sdk,  # noqa: E501
+            "runtime_compatible": manifest.required_runtime == runtime_version
+            or runtime_version >= manifest.required_runtime,  # noqa: E501
+            "sdk_compatible": manifest.required_sdk == sdk_version
+            or sdk_version >= manifest.required_sdk,  # noqa: E501
             "contracts": list(manifest.required_contracts.keys()),
         }
 
@@ -288,4 +292,3 @@ class HotReloadManager:
 
 plugin_manifest_registry = PluginManifestRegistry()
 hot_reload_manager = HotReloadManager(plugin_manifest_registry)
-

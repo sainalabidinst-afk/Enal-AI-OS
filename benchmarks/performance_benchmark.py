@@ -47,10 +47,16 @@ class BenchmarkMetrics:
             return {}
         return {
             "avg_latency_ms": sum(self.latencies) / len(self.latencies),
-            "p95_latency_ms": sorted(self.latencies)[int(len(self.latencies) * 0.95)] if self.latencies else 0,
+            "p95_latency_ms": sorted(self.latencies)[int(len(self.latencies) * 0.95)]
+            if self.latencies
+            else 0,
             "avg_tokens": sum(self.token_counts) / len(self.token_counts),
-            "determinism_rate": len(set(self.determinism_hashes)) / len(self.determinism_hashes) if self.determinism_hashes else 0,
-            "success_rate": sum(1 for s in self.successes if s) / len(self.successes) if self.successes else 0,
+            "determinism_rate": len(set(self.determinism_hashes)) / len(self.determinism_hashes)
+            if self.determinism_hashes
+            else 0,
+            "success_rate": sum(1 for s in self.successes if s) / len(self.successes)
+            if self.successes
+            else 0,
         }
 
 

@@ -95,12 +95,14 @@ def test_team_formation():
         )
         society.register_agent(agent)
 
-    team = society.form_team_for_task({
-        "description": "Build a web application",
-        "required_skills": ["python", "api"],
-        "team_size": 3,
-        "min_quality": 0.5,
-    })
+    team = society.form_team_for_task(
+        {
+            "description": "Build a web application",
+            "required_skills": ["python", "api"],
+            "team_size": 3,
+            "min_quality": 0.5,
+        }
+    )
 
     assert len(team.members) <= 3
     assert team.team_id is not None
@@ -111,23 +113,31 @@ async def test_project_execution():
     society = create_society("Test Corp")
 
     ceo = SimpleAgent("ceo-1", "Alice", AgentRole.CEO, Department.ENGINEERING)
-    worker = SimpleAgent("worker-1", "Bob", AgentRole.WORKER, Department.ENGINEERING, skills=["python"])
+    worker = SimpleAgent(
+        "worker-1", "Bob", AgentRole.WORKER, Department.ENGINEERING, skills=["python"]
+    )
 
     society.register_agent(ceo)
     society.register_agent(worker)
     society.assign_role("ceo-1", AgentRole.CEO, Department.ENGINEERING)
     society.assign_role("worker-1", AgentRole.WORKER, Department.ENGINEERING)
 
-    team = society.form_team_for_task({
-        "description": "Build API",
-        "required_skills": ["python"],
-        "team_size": 1,
-    })
+    team = society.form_team_for_task(
+        {
+            "description": "Build API",
+            "required_skills": ["python"],
+            "team_size": 1,
+        }
+    )
 
-    result = await society.run_project("proj-1", team.team_id, {
-        "type": "build",
-        "target": "api",
-    })
+    result = await society.run_project(
+        "proj-1",
+        team.team_id,
+        {
+            "type": "build",
+            "target": "api",
+        },
+    )
 
     assert result is not None
     assert "results" in result
@@ -194,7 +204,9 @@ def test_organization_state():
 @pytest.mark.asyncio
 async def test_process_user_request_returns_task_and_execution_plan():
     society = create_society("Enal AI OS")
-    net = SimpleAgent("net-1", "NetWorker", AgentRole.WORKER, Department.NETWORK, skills=["config-analysis"])
+    net = SimpleAgent(
+        "net-1", "NetWorker", AgentRole.WORKER, Department.NETWORK, skills=["config-analysis"]
+    )
     society.register_agent(net)
     result = await society.process_user_request("Audit network configuration")
     assert result["status"] == "completed"
@@ -208,7 +220,10 @@ async def test_process_user_request_returns_task_and_execution_plan():
 async def test_network_worker_end_to_end():
     society = create_society("Enal AI OS")
     net_worker = SimpleAgent(
-        "net-1", "MikroTikWorker", AgentRole.WORKER, Department.NETWORK,
+        "net-1",
+        "MikroTikWorker",
+        AgentRole.WORKER,
+        Department.NETWORK,
         skills=["config-analysis", "security-audit"],
     )
     society.register_agent(net_worker)
@@ -225,7 +240,10 @@ async def test_network_worker_end_to_end():
 async def test_code_worker_end_to_end():
     society = create_society("Enal AI OS")
     code_worker_agent = SimpleAgent(
-        "code-1", "CodeReviewer", AgentRole.WORKER, Department.ENGINEERING,
+        "code-1",
+        "CodeReviewer",
+        AgentRole.WORKER,
+        Department.ENGINEERING,
         skills=["python", "code-review", "security"],
     )
     society.register_agent(code_worker_agent)
@@ -242,7 +260,10 @@ async def test_code_worker_end_to_end():
 async def test_research_worker_end_to_end():
     society = create_society("Enal AI OS")
     research_agent = SimpleAgent(
-        "res-1", "Researcher", AgentRole.WORKER, Department.QUALITY,
+        "res-1",
+        "Researcher",
+        AgentRole.WORKER,
+        Department.QUALITY,
         skills=["research", "literature-review", "data-analysis"],
     )
     society.register_agent(research_agent)
@@ -259,7 +280,10 @@ async def test_research_worker_end_to_end():
 async def test_devops_worker_end_to_end():
     society = create_society("Enal AI OS")
     devops_agent = SimpleAgent(
-        "devops-1", "DevOpsEngineer", AgentRole.WORKER, Department.DEVOPS,
+        "devops-1",
+        "DevOpsEngineer",
+        AgentRole.WORKER,
+        Department.DEVOPS,
         skills=["kubernetes", "docker", "ci-cd", "terraform"],
     )
     society.register_agent(devops_agent)
@@ -276,7 +300,10 @@ async def test_devops_worker_end_to_end():
 async def test_trading_worker_end_to_end():
     society = create_society("Enal AI OS")
     trading_agent = SimpleAgent(
-        "trading-1", "TradingAnalyst", AgentRole.WORKER, Department.QUALITY,
+        "trading-1",
+        "TradingAnalyst",
+        AgentRole.WORKER,
+        Department.QUALITY,
         skills=["market-analysis", "risk-assessment", "portfolio-optimization"],
     )
     society.register_agent(trading_agent)
@@ -293,12 +320,17 @@ async def test_trading_worker_end_to_end():
 async def test_self_development_worker_end_to_end():
     society = create_society("Enal AI OS")
     dev_agent = SimpleAgent(
-        "dev-1", "SelfDeveloper", AgentRole.WORKER, Department.ENGINEERING,
+        "dev-1",
+        "SelfDeveloper",
+        AgentRole.WORKER,
+        Department.ENGINEERING,
         skills=["architecture", "code-review", "testing", "documentation"],
     )
     society.register_agent(dev_agent)
     society.register_worker("self-development", self_development_worker)
-    result = await society.process_user_request("Audit Enal AI OS for bottlenecks and propose improvements")
+    result = await society.process_user_request(
+        "Audit Enal AI OS for bottlenecks and propose improvements"
+    )
     assert result["status"] == "completed"
     assert result["intent"]["domain"] == "self-development"
     assert result["team_size"] >= 1
@@ -310,13 +342,17 @@ async def test_self_development_worker_end_to_end():
 async def test_conversation_manager_flow():
     try:
         import redis.asyncio as aioredis
+
         aioredis.from_url("redis://localhost:6379")
     except Exception:
         pytest.skip("Redis not available for conversation manager test")
     from apps.society.conversation_manager import conversation_manager
+
     conversation_id = "conv-test-1"
     await conversation_manager.clear_history(conversation_id)
-    response1 = await conversation_manager.send_message(conversation_id, "Analyze MikroTik configuration")
+    response1 = await conversation_manager.send_message(
+        conversation_id, "Analyze MikroTik configuration"
+    )
     assert response1["conversation_id"] == conversation_id
     assert response1["domain"] == "network"
     history = await conversation_manager.get_history(conversation_id)
@@ -335,11 +371,17 @@ async def test_end_to_end_user_command_flow():
     society = create_society("Test AI Corp")
 
     net_worker = SimpleAgent(
-        "net-1", "NetworkWorker", AgentRole.WORKER, Department.NETWORK,
+        "net-1",
+        "NetworkWorker",
+        AgentRole.WORKER,
+        Department.NETWORK,
         skills=["network-design", "config-analysis"],
     )
     net_worker2 = SimpleAgent(
-        "net-2", "ConfigWorker", AgentRole.WORKER, Department.NETWORK,
+        "net-2",
+        "ConfigWorker",
+        AgentRole.WORKER,
+        Department.NETWORK,
         skills=["config-analysis", "security-audit"],
     )
     society.register_agent(net_worker)

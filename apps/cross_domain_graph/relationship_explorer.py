@@ -89,15 +89,12 @@ class RelationshipExplorer:
                 src = self.builder.get_node(edge.source_id)
                 tgt = self.builder.get_node(edge.target_id)
                 if src and tgt:
-                    explanation_parts.append(
-                        f"{src.name} --{edge.relation.value}--> {tgt.name}"
-                    )
+                    explanation_parts.append(f"{src.name} --{edge.relation.value}--> {tgt.name}")
             path_explanations.append(" | ".join(explanation_parts))
 
         return {
             "explanation": (
-                f"Found {len(paths)} path(s) between '{source_entity}' "
-                f"and '{target_entity}'"
+                f"Found {len(paths)} path(s) between '{source_entity}' and '{target_entity}'"
             ),
             "paths": path_explanations,
         }
@@ -120,10 +117,9 @@ class RelationshipExplorer:
             if node_id in rec_stack:
                 cycle_start = path.index(node_id)
                 cycle = path[cycle_start:] + [node_id]
-                cycles.append([
-                    (node.name if (node := self.builder.get_node(n)) else n)
-                    for n in cycle
-                ])
+                cycles.append(
+                    [(node.name if (node := self.builder.get_node(n)) else n) for n in cycle]
+                )
                 return
             if node_id in visited:
                 return

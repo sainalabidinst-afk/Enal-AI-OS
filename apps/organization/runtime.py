@@ -30,8 +30,8 @@ class AuthorityLevel(int, Enum):
 class OrganizationChart:
     ceo_id: str
     directors: dict[str, list[str]] = field(default_factory=dict)  # director_id -> [manager_ids]
-    managers: dict[str, list[str]] = field(default_factory=dict)   # manager_id -> [lead_ids]
-    leads: dict[str, list[str]] = field(default_factory=dict)      # lead_id -> [worker_ids]
+    managers: dict[str, list[str]] = field(default_factory=dict)  # manager_id -> [lead_ids]
+    leads: dict[str, list[str]] = field(default_factory=dict)  # lead_id -> [worker_ids]
 
 
 class OrganizationRuntime:

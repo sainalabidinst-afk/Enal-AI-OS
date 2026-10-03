@@ -122,12 +122,14 @@ class LegalAdvisorReport(BaseModel):
 class LegalAdvisorRecord(BaseModel):
     pack_id: str = "legal-advisor"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "document_extract",
-        "clause_compare",
-        "obligation_register",
-        "source_summary",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "document_extract",
+            "clause_compare",
+            "obligation_register",
+            "source_summary",
+        ]
+    )
 
 
 __all__ = [

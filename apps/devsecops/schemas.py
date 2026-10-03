@@ -85,12 +85,14 @@ class DevSecOpsReport(BaseModel):
 class DevSecOpsRecord(BaseModel):
     pack_id: str = "devsecops"
     version: str = "3.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "security_gate",
-        "dependency_scan",
-        "runtime_policy",
-        "compliance_as_code",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "security_gate",
+            "dependency_scan",
+            "runtime_policy",
+            "compliance_as_code",
+        ]
+    )
 
 
 class DevSecOpsRequest(BaseModel):

@@ -45,7 +45,9 @@ class CrossDomainGraphEngine:
     def __init__(self, persist_path: str = "./workspace/cross_domain_graph") -> None:
         self.resolver = EntityResolver()
         self.extractor = EdgeExtractor(self.resolver)
-        self.builder = GraphBuilder(persist_path=persist_path, resolver=self.resolver, extractor=self.extractor)  # noqa: E501
+        self.builder = GraphBuilder(
+            persist_path=persist_path, resolver=self.resolver, extractor=self.extractor
+        )  # noqa: E501
         self.scanner = MemoryScanner()
 
     # ------------------------------------------------------------------
@@ -111,6 +113,7 @@ class CrossDomainGraphEngine:
 
         if isinstance(request, str):
             from apps.cross_domain_graph.schemas import GraphQueryRequest as _Req
+
             request = _Req(query=request)
 
         # Ensure graph has been loaded or built
@@ -172,7 +175,13 @@ class CrossDomainGraphEngine:
             query=request.query,
             answer=inference.answer if inference else "No inference available.",
             entities_discovered=[
-                {"id": n.id, "name": n.name, "domain": n.domain, "layer": n.layer, "confidence": n.confidence}  # noqa: E501
+                {
+                    "id": n.id,
+                    "name": n.name,
+                    "domain": n.domain,
+                    "layer": n.layer,
+                    "confidence": n.confidence,
+                }  # noqa: E501
                 for n in relevant_nodes
             ],
             relationships=[
@@ -228,9 +237,7 @@ class CrossDomainGraphEngine:
                 src = self.builder.get_node(edge.source_id)
                 tgt = self.builder.get_node(edge.target_id)
                 if src and tgt:
-                    explanation_parts.append(
-                        f"{src.name} --{edge.relation.value}--> {tgt.name}"
-                    )
+                    explanation_parts.append(f"{src.name} --{edge.relation.value}--> {tgt.name}")
             path_explanations.append(" | ".join(explanation_parts))
 
         return {
@@ -316,7 +323,7 @@ class CrossDomainGraphEngine:
             f"Question: {request.query}\n\n"
             f"Relevant entities:\n{context}\n\n"
             f"Fallback answer: {fallback.answer}\n\n"
-            "Output JSON: {\"answer\": str, \"confidence\": float}"
+            'Output JSON: {"answer": str, "confidence": float}'
         )
 
         response = await model_router.acomplete(
@@ -327,6 +334,7 @@ class CrossDomainGraphEngine:
         )
 
         import json
+
         try:
             data = json.loads(response.choices[0].message.content)
             return InferenceResult(

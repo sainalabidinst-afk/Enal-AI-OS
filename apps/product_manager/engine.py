@@ -180,6 +180,7 @@ class ProductManagerEngine:
         try:
             import json
             from pathlib import Path
+
             base = Path("artifacts/product_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"

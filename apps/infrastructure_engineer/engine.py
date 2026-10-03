@@ -151,9 +151,13 @@ class InfrastructureEngineerEngine:
                 aggregated[key] = aggregated.get(key, 0.0) + value
         return aggregated
 
-    def _generate_explanation(self, operation: Any, quality_score: float, recommendations: list[str]) -> str:  # noqa: E501
+    def _generate_explanation(
+        self, operation: Any, quality_score: float, recommendations: list[str]
+    ) -> str:  # noqa: E501
         op_name = operation.value if hasattr(operation, "value") else str(operation)
-        recs_summary = f"{len(recommendations)} rekomendasi" if recommendations else "tidak ada rekomendasi"  # noqa: E501
+        recs_summary = (
+            f"{len(recommendations)} rekomendasi" if recommendations else "tidak ada rekomendasi"
+        )  # noqa: E501
         return (
             f"Desain infrastruktur untuk operasi '{op_name}' telah dihasilkan dengan skor kualitas "
             f"{quality_score:.0%}. {recs_summary} disertakan untuk peningkatan."

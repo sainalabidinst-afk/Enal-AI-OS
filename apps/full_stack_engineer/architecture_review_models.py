@@ -59,15 +59,21 @@ LAYER_VIOLATION_PATTERNS: dict[str, list[dict[str, Any]]] = {
             "description": "Domain layer imports from infrastructure",
             "rule": "domain/.* should not import from infrastructure",
             "severity": Severity.CRITICAL,
-            "check": lambda f, imports: "domain" in f.lower() and any("infrastructure" in i for i in imports),  # noqa: E501
+            "check": lambda f, imports: (
+                "domain" in f.lower() and any("infrastructure" in i for i in imports)
+            ),  # noqa: E501
         },
         {
             "name": "use_case_imports_framework",
             "description": "Use case / application layer imports framework code",
             "rule": "application/.* should not import framework-specific modules",
             "severity": Severity.HIGH,
-            "check": lambda f, imports: ("application" in f.lower() or "use_case" in f.lower()) and any(  # noqa: E501
-                fw in str(imports).lower() for fw in ["fastapi", "django", "flask", "sqlalchemy", "redis"]  # noqa: E501
+            "check": lambda f, imports: (
+                ("application" in f.lower() or "use_case" in f.lower())
+                and any(  # noqa: E501
+                    fw in str(imports).lower()
+                    for fw in ["fastapi", "django", "flask", "sqlalchemy", "redis"]  # noqa: E501
+                )
             ),
         },
         {
@@ -75,8 +81,8 @@ LAYER_VIOLATION_PATTERNS: dict[str, list[dict[str, Any]]] = {
             "description": "API layer directly imports core domain instead of application",
             "rule": "api/.* should import from application not domain directly",
             "severity": Severity.MEDIUM,
-            "check": lambda f, imports: "api" in f.lower() and any(
-                "domain" in i and "entity" in i for i in imports
+            "check": lambda f, imports: (
+                "api" in f.lower() and any("domain" in i and "entity" in i for i in imports)
             ),
         },
     ],
@@ -86,8 +92,11 @@ LAYER_VIOLATION_PATTERNS: dict[str, list[dict[str, Any]]] = {
             "description": "Presentation layer imports data layer",
             "rule": "presentation/.* should not import from data/.* directly",
             "severity": Severity.CRITICAL,
-            "check": lambda f, imports: ("presentation" in f.lower() or "controller" in f.lower()) and any(  # noqa: E501
-                "data" in i or "repository" in i for i in imports
+            "check": lambda f, imports: (
+                ("presentation" in f.lower() or "controller" in f.lower())
+                and any(  # noqa: E501
+                    "data" in i or "repository" in i for i in imports
+                )
             ),
         },
         {
@@ -95,8 +104,8 @@ LAYER_VIOLATION_PATTERNS: dict[str, list[dict[str, Any]]] = {
             "description": "Service layer imports presentation layer",
             "rule": "service/.* should not import from presentation/.*",
             "severity": Severity.HIGH,
-            "check": lambda f, imports: "service" in f.lower() and any(
-                "controller" in i or "view" in i for i in imports
+            "check": lambda f, imports: (
+                "service" in f.lower() and any("controller" in i or "view" in i for i in imports)
             ),
         },
     ],
@@ -106,8 +115,8 @@ LAYER_VIOLATION_PATTERNS: dict[str, list[dict[str, Any]]] = {
             "description": "Core domain imports adapter",
             "rule": "core/.* should not import from adapter/.*",
             "severity": Severity.CRITICAL,
-            "check": lambda f, imports: "core" in f.lower() and any(
-                "adapter" in i for i in imports
+            "check": lambda f, imports: (
+                "core" in f.lower() and any("adapter" in i for i in imports)
             ),
         },
     ],
@@ -117,8 +126,11 @@ LAYER_VIOLATION_PATTERNS: dict[str, list[dict[str, Any]]] = {
             "description": "Service imports from another service's internal modules",
             "rule": "services/.* should only communicate via API contracts",
             "severity": Severity.HIGH,
-            "check": lambda f, imports: "service" in f.lower() and any(
-                "service" in i and "shared" not in i and "contract" not in i for i in imports
+            "check": lambda f, imports: (
+                "service" in f.lower()
+                and any(
+                    "service" in i and "shared" not in i and "contract" not in i for i in imports
+                )
             ),
         },
     ],
@@ -138,6 +150,7 @@ DEFAULT_VIOLATION_PATTERNS = [
 @dataclass
 class ModuleInfo:
     """Information about a single module/file in the repository."""
+
     path: str
     lines_of_code: int
     imports: list[str] = field(default_factory=list)
@@ -154,6 +167,7 @@ class ModuleInfo:
 @dataclass
 class DependencyEdge:
     """A dependency relationship between two modules."""
+
     source: str
     target: str
     is_circular: bool = False
@@ -163,6 +177,7 @@ class DependencyEdge:
 @dataclass
 class CircularDependency:
     """A detected circular dependency chain."""
+
     modules: list[str]
     confidence: float = 1.0
 
@@ -170,6 +185,7 @@ class CircularDependency:
 @dataclass
 class LayerViolation:
     """A detected layer violation."""
+
     module_path: str
     violation_type: str
     description: str
@@ -183,6 +199,7 @@ class LayerViolation:
 @dataclass
 class CouplingMetric:
     """Coupling metrics for a module."""
+
     module_path: str
     ce: int = 0
     ca: int = 0
@@ -196,6 +213,7 @@ class CouplingMetric:
 @dataclass
 class TechDebtItem:
     """A technical debt item."""
+
     module_path: str
     type: str
     description: str
@@ -207,6 +225,7 @@ class TechDebtItem:
 @dataclass
 class ADREntry:
     """An Architecture Decision Record entry."""
+
     title: str
     status: str
     date: str = ""
@@ -218,6 +237,7 @@ class ADREntry:
 @dataclass
 class RefactoringRecommendation:
     """A prioritized refactoring recommendation."""
+
     priority: int
     title: str
     description: str
@@ -417,14 +437,14 @@ class ArchitectureReport:
             "## Strengths",
             "",
         ]
-        for s in (self.strengths or ["None identified"]):
+        for s in self.strengths or ["None identified"]:
             lines.append(f"- ✅ {s}")
         lines += [
             "",
             "## Weaknesses",
             "",
         ]
-        for w in (self.weaknesses or ["None identified"]):
+        for w in self.weaknesses or ["None identified"]:
             lines.append(f"- ⚠️ {w}")
         lines += [
             "",
@@ -439,7 +459,9 @@ class ArchitectureReport:
             lines.append("| Module | Type | Severity | Source → Target |")
             lines.append("|--------|------|----------|-----------------|")
             for v in self.layer_violations[:20]:
-                lines.append(f"| `{v.module_path}` | {v.violation_type} | {v.severity} | {v.source_layer} → {v.target_layer} |")  # noqa: E501
+                lines.append(
+                    f"| `{v.module_path}` | {v.violation_type} | {v.severity} | {v.source_layer} → {v.target_layer} |"  # noqa: E501
+                )  # noqa: E501
             if len(self.layer_violations) > 20:
                 lines.append(f"| ... and {len(self.layer_violations) - 20} more |")
         else:
@@ -485,7 +507,9 @@ class ArchitectureReport:
         if self.recommendations:
             for r in sorted(self.recommendations, key=lambda x: x.priority)[:10]:
                 lines.append(f"### {r.priority}. {r.title}")
-                lines.append(f"**Effort**: {r.effort} | **Risk**: {r.risk} | **Impact**: {r.impact}")  # noqa: E501
+                lines.append(
+                    f"**Effort**: {r.effort} | **Risk**: {r.risk} | **Impact**: {r.impact}"
+                )  # noqa: E501
                 lines.append(f"**Description**: {r.description}")
                 lines.append(f"**Rationale**: {r.rationale}")
                 if r.affected_modules:

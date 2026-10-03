@@ -2,11 +2,11 @@
 Smoke tests for Data Engineer capability.
 """
 
-from apps.data_engineer.cleaner import *
-from apps.data_engineer.engine import *
-from apps.data_engineer.etl_pipeline import *
-from apps.data_engineer.feature_store import *
-from apps.data_engineer.quality_assurance import *
+from apps.data_engineer.cleaner import *  # noqa: F403
+from apps.data_engineer.engine import *  # noqa: F403
+from apps.data_engineer.etl_pipeline import *  # noqa: F403
+from apps.data_engineer.feature_store import *  # noqa: F403
+from apps.data_engineer.quality_assurance import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

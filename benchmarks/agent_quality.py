@@ -35,7 +35,7 @@ async def main():
 
     print(f"Benchmark: {benchmark.name}")
     print(f"Passed: {result.passed}/{result.total}")
-    print(f"Pass Rate: {result.passed/result.total:.2%}")
+    print(f"Pass Rate: {result.passed / result.total:.2%}")
 
 
 if __name__ == "__main__":

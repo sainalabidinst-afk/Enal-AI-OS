@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import sys
 import time
-from pathlib import Path
 
 try:
     import requests
@@ -21,7 +20,9 @@ BASE_URL = "http://localhost:8000"
 FRONTEND_URL = "http://localhost:3001"
 
 
-def check_endpoint(name: str, url: str, method: str = "GET", expected_status: int = 200, **kwargs) -> bool:
+def check_endpoint(
+    name: str, url: str, method: str = "GET", expected_status: int = 200, **kwargs
+) -> bool:
     try:
         if method.upper() == "GET":
             response = requests.get(url, timeout=10, **kwargs)
@@ -57,9 +58,17 @@ def main() -> int:
 
     print("\nAPI v1 Endpoints (authenticated):")
     headers = {"Authorization": "Bearer test-token"}
-    results.append(check_endpoint("Integration Health", f"{BASE_URL}/api/v1/integration/health", headers=headers))
-    results.append(check_endpoint("Trading Health", f"{BASE_URL}/api/v1/trading/health", headers=headers))
-    results.append(check_endpoint("Capabilities", f"{BASE_URL}/api/v1/capabilities", headers=headers))
+    results.append(
+        check_endpoint(
+            "Integration Health", f"{BASE_URL}/api/v1/integration/health", headers=headers
+        )
+    )
+    results.append(
+        check_endpoint("Trading Health", f"{BASE_URL}/api/v1/trading/health", headers=headers)
+    )
+    results.append(
+        check_endpoint("Capabilities", f"{BASE_URL}/api/v1/capabilities", headers=headers)
+    )
     results.append(check_endpoint("Agents", f"{BASE_URL}/agents", headers=headers))
 
     print("\nFrontend:")
@@ -88,7 +97,7 @@ def main() -> int:
 
     print("\nRate Limiter Check:")
     for i in range(5):
-        check_endpoint(f"Rate Limit Request {i+1}", f"{BASE_URL}/health")
+        check_endpoint(f"Rate Limit Request {i + 1}", f"{BASE_URL}/health")
         time.sleep(0.1)
 
     print()

@@ -37,27 +37,33 @@ def planner() -> AIPlanner:
 def populated_catalog() -> WorkflowCatalog:
     cat = WorkflowCatalog()
     cat.clear()
-    cat.register(WorkflowCatalogEntry(
-        workflow_id="network-audit-flow",
-        display_name="Network Security Audit",
-        description="Run security audit on network devices",
-        supported_intents=["audit-network", "check-security", "network-scan"],
-        tags=["network", "security", "audit"],
-    ))
-    cat.register(WorkflowCatalogEntry(
-        workflow_id="docs-generation-flow",
-        display_name="Documentation Generation",
-        description="Generate technical documentation",
-        supported_intents=["generate-docs", "write-docs", "create-manual"],
-        tags=["docs", "writing"],
-    ))
-    cat.register(WorkflowCatalogEntry(
-        workflow_id="code-review-flow",
-        display_name="Code Review",
-        description="Review code for quality and security",
-        supported_intents=["review-code", "audit-code", "check-code-quality"],
-        tags=["code", "review"],
-    ))
+    cat.register(
+        WorkflowCatalogEntry(
+            workflow_id="network-audit-flow",
+            display_name="Network Security Audit",
+            description="Run security audit on network devices",
+            supported_intents=["audit-network", "check-security", "network-scan"],
+            tags=["network", "security", "audit"],
+        )
+    )
+    cat.register(
+        WorkflowCatalogEntry(
+            workflow_id="docs-generation-flow",
+            display_name="Documentation Generation",
+            description="Generate technical documentation",
+            supported_intents=["generate-docs", "write-docs", "create-manual"],
+            tags=["docs", "writing"],
+        )
+    )
+    cat.register(
+        WorkflowCatalogEntry(
+            workflow_id="code-review-flow",
+            display_name="Code Review",
+            description="Review code for quality and security",
+            supported_intents=["review-code", "audit-code", "check-code-quality"],
+            tags=["code", "review"],
+        )
+    )
     return cat
 
 
@@ -145,7 +151,13 @@ def test_plan_steps_have_valid_types(planner: AIPlanner):
     plan = planner.plan_from_goal("Review and document codebase")
     assert_valid_plan(plan)
     for step in plan.steps:
-        assert step.step_type in (StepType.WORKFLOW, StepType.CAPABILITY, StepType.SUB_PLAN, StepType.DECISION, StepType.PARALLEL)
+        assert step.step_type in (
+            StepType.WORKFLOW,
+            StepType.CAPABILITY,
+            StepType.SUB_PLAN,
+            StepType.DECISION,
+            StepType.PARALLEL,
+        )
 
 
 # -- Tests: Plan Status ---
@@ -260,4 +272,3 @@ def test_plan_created_and_updated_timestamps(planner: AIPlanner):
     plan = planner.plan_from_goal("Timestamp test")
     assert plan.created_at is not None
     assert plan.updated_at is not None
-

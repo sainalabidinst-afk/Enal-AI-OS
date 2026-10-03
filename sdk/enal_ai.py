@@ -153,28 +153,35 @@ class EnalAI:
 
     def agent(self, name: str, **kwargs):
         """Decorator to register an agent."""
+
         def decorator(cls):
             agent_instance = cls(name=name, **kwargs)
             self._agents[name] = agent_instance
             return cls
+
         return decorator
 
     def tool(self, name: str, **kwargs):
         """Decorator to register a tool."""
+
         def decorator(func):
             async def wrapper(**params):
                 return await func(**params)
+
             tool_instance = Tool(name=name, handler=wrapper, **kwargs)
             self._tools[name] = tool_instance
             return wrapper
+
         return decorator
 
     def workflow(self, name: str, **kwargs):
         """Decorator to register a workflow."""
+
         def decorator(cls):
             workflow_instance = cls(name=name, **kwargs)
             self._workflows[name] = workflow_instance
             return cls
+
         return decorator
 
     def get_agent(self, name: str) -> Agent | None:

@@ -138,6 +138,7 @@ def __getattr__(name: str) -> Any:
     }
     if name in _lazy:
         import importlib
+
         mod_path, attr = _lazy[name]
         module = importlib.import_module(mod_path)
         value = getattr(module, attr)
@@ -159,6 +160,7 @@ def load_app_engine(app_module: str, class_name: str):
         The class object
     """
     import importlib
+
     module = importlib.import_module(app_module)
     return getattr(module, class_name)
 

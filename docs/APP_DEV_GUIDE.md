@@ -103,16 +103,18 @@ import asyncio
 from backend.app.core.event_bus import event_bus
 from backend.app.core.memory_layer import memory_manager
 
+
 async def verify():
     # Test Event Bus
     event = Event(event_type="test", payload={"msg": "hello"})
     msg_id = await event_bus.publish(event)
     print(f"✅ Event Bus: published {msg_id}")
-    
+
     # Test Memory
     await memory_manager.store("working", "test-key", {"data": "test"})
     val = await memory_manager.retrieve("working", "test-key")
     print(f"✅ Memory: stored/retrieved {val}")
+
 
 asyncio.run(verify())
 ```
@@ -139,6 +141,7 @@ mkdir -p apps/my_app
 """
 My App — Domain-specific capability pack for [your domain].
 """
+
 import logging
 from typing import Any
 
@@ -149,7 +152,7 @@ logger = logging.getLogger(__name__)
 
 class MyApp(BaseApp):
     """My domain application built on ECP."""
-    
+
     @property
     def capabilities(self) -> list[str]:
         return [
@@ -157,19 +160,19 @@ class MyApp(BaseApp):
             "my-domain:generate",
             "my-domain:validate",
         ]
-    
+
     @property
     def pipeline(self) -> list[str]:
         return ["perception", "memory", "reasoning", "decision", "reflection"]
-    
+
     async def analyze(self, input_data: str, context: dict | None = None) -> dict[str, Any]:
         """Analyze domain-specific input."""
         from backend.app.core.cognitive_kernel import cognitive_kernel
-        
+
         ctx = {"input": input_data, **(context or {})}
         result = await cognitive_kernel.execute_pipeline(self.pipeline, ctx)
         return result
-    
+
     async def generate(self, specification: dict) -> dict[str, Any]:
         """Generate domain artifact from specification."""
         # Custom implementation
@@ -188,25 +191,28 @@ def get_app() -> BaseApp:
 # apps/my_app/analyzer.py
 """Domain-specific analysis logic."""
 
+
 class MyDomainAnalyzer:
     """Analyzes [domain] inputs and produces structured results."""
-    
+
     def __init__(self):
         self.rules: list[dict] = []
-    
+
     def add_rule(self, name: str, pattern: str, action: str):
         self.rules.append({"name": name, "pattern": pattern, "action": action})
-    
+
     def analyze(self, input_text: str) -> list[dict]:
         """Run analysis rules against input."""
         findings = []
         for rule in self.rules:
             if rule["pattern"] in input_text:
-                findings.append({
-                    "rule": rule["name"],
-                    "action": rule["action"],
-                    "location": input_text.find(rule["pattern"]),
-                })
+                findings.append(
+                    {
+                        "rule": rule["name"],
+                        "action": rule["action"],
+                        "location": input_text.find(rule["pattern"]),
+                    }
+                )
         return findings
 ```
 
@@ -311,18 +317,16 @@ from backend.app.core.cognitive_kernel import cognitive_kernel
 
 CUSTOM_PIPELINE = [
     "perception",
-    "memory", 
-    "my_service",      # Your custom service
+    "memory",
+    "my_service",  # Your custom service
     "reasoning",
     "decision",
     "reflection",
 ]
 
+
 async def execute_custom(task: str) -> dict:
-    return await cognitive_kernel.execute_pipeline(
-        CUSTOM_PIPELINE, 
-        {"input": task}
-    )
+    return await cognitive_kernel.execute_pipeline(CUSTOM_PIPELINE, {"input": task})
 ```
 
 ---
@@ -455,18 +459,21 @@ all_results = await memory_manager.cross_session_search(
 from backend.app.core.event_bus import event_bus
 from backend.app.core.events import Event
 
+
 async def report_progress(task_id: str, progress: float):
-    await event_bus.publish(Event(
-        event_type="my_app:progress",
-        payload={
-            "task_id": task_id,
-            "progress": progress,
-            "timestamp": datetime.utcnow().isoformat(),
-        },
-        source="my_app",
-        target="*",
-        correlation_id=task_id,
-    ))
+    await event_bus.publish(
+        Event(
+            event_type="my_app:progress",
+            payload={
+                "task_id": task_id,
+                "progress": progress,
+                "timestamp": datetime.utcnow().isoformat(),
+            },
+            source="my_app",
+            target="*",
+            correlation_id=task_id,
+        )
+    )
 ```
 
 ### 7.2 Acara Berlangganan
@@ -476,11 +483,13 @@ async def report_progress(task_id: str, progress: float):
 from backend.app.core.event_bus import event_bus
 from backend.app.core.events import Event
 
+
 async def handle_completion(event: Event):
     """Handle task completion events."""
     task_id = event.payload.get("task_id")
     result = event.payload.get("result")
     print(f"Task {task_id} completed: {result}")
+
 
 # Subscribe at startup
 event_bus.subscribe("task.completed", handle_completion)
@@ -511,6 +520,7 @@ class MyAppEvents:
 """
 Tests for My App capability pack.
 """
+
 import pytest
 from unittest.mock import AsyncMock, patch
 
@@ -551,7 +561,7 @@ async def test_generate(app):
 async def test_analyze_with_mock(mock_pipeline, app):
     """Test with mocked cognitive kernel."""
     mock_pipeline.return_value = {"mock": "result"}
-    
+
     result = await app.analyze("test")
     assert result["mock"] == "result"
     mock_pipeline.assert_called_once()
@@ -577,17 +587,19 @@ from backend.app.core.memory_layer import memory_manager
 async def test_event_publish_subscribe():
     """Test event system integration."""
     received = []
-    
+
     async def handler(event: Event):
         received.append(event)
-    
+
     event_bus.subscribe("test:event", handler)
-    await event_bus.publish(Event(
-        event_type="test:event",
-        payload={"msg": "hello"},
-        source="test",
-    ))
-    
+    await event_bus.publish(
+        Event(
+            event_type="test:event",
+            payload={"msg": "hello"},
+            source="test",
+        )
+    )
+
     assert len(received) == 1
     assert received[0].payload["msg"] == "hello"
 
@@ -598,12 +610,12 @@ async def test_memory_store_retrieve():
     """Test memory system integration."""
     test_key = "test-key-123"
     test_value = {"data": "test-value"}
-    
+
     await memory_manager.store("working", test_key, test_value)
     retrieved = await memory_manager.retrieve("working", test_key)
-    
+
     assert retrieved == test_value
-    
+
     # Cleanup
     await memory_manager.delete("working", test_key)
 ```

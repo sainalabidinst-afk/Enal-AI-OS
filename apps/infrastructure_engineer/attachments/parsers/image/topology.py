@@ -6,7 +6,12 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class TopologyParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.attachment_type in {meta.attachment_type.diagram, meta.attachment_type.image} or meta.filename.lower().endswith((".svg", ".drawio", ".vsdx", ".png", ".jpg", ".jpeg", ".webp", ".bmp"))  # noqa: E501
+        return meta.attachment_type in {
+            meta.attachment_type.diagram,
+            meta.attachment_type.image,
+        } or meta.filename.lower().endswith(
+            (".svg", ".drawio", ".vsdx", ".png", ".jpg", ".jpeg", ".webp", ".bmp")
+        )  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
         ast = InfrastructureAST(format="topology")

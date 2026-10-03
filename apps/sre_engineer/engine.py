@@ -41,17 +41,21 @@ class SREEngineerEngine:
 
         recommendations = []
         if config.operation == SREOperation.observability_setup:
-            recommendations.extend([
-                "Enable distributed tracing across all services",
-                "Set up centralized log aggregation with structured logging",
-                "Configure alert routing based on service ownership",
-            ])
+            recommendations.extend(
+                [
+                    "Enable distributed tracing across all services",
+                    "Set up centralized log aggregation with structured logging",
+                    "Configure alert routing based on service ownership",
+                ]
+            )
         elif config.operation == SREOperation.slo_design:
-            recommendations.extend([
-                "Review and update SLOs quarterly",
-                "Implement error budget policies",
-                "Set up SLO-based alerting with burn rate notifications",
-            ])
+            recommendations.extend(
+                [
+                    "Review and update SLOs quarterly",
+                    "Implement error budget policies",
+                    "Set up SLO-based alerting with burn rate notifications",
+                ]
+            )
 
         return SREEngineerReport(
             request_id=request.request_id,

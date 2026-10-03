@@ -32,7 +32,7 @@ from apps.security_engineer.schemas import (
 )
 
 # Sample source code with known security issues.
-VULNERABLE_CODE = '''
+VULNERABLE_CODE = """
 import os
 import pickle
 import yaml
@@ -71,29 +71,29 @@ def get_external_data(url):
     return requests.get(url, timeout=30)
 
 DATABASE_URL = "postgresql://user:password123@db.example.com:5432/mydb"
-'''
+"""
 
 # Sample dependency manifest with known vulnerabilities.
-VULNERABLE_MANIFEST = '''
+VULNERABLE_MANIFEST = """
 django==3.2.0
 requests==2.25.0
 pyyaml==5.3.0
 sqlalchemy==1.3.0
 cryptography==39.0.0
 flask==1.0.0
-'''
+"""
 
 # Sample insecure Docker config.
-INSECURE_DOCKERFILE = '''
+INSECURE_DOCKERFILE = """
 FROM ubuntu:latest
 RUN apt-get install -y python3
 USER root
 COPY . /app
 RUN pip install -r requirements.txt
-'''
+"""
 
 # Sample insecure Kubernetes config.
-INSECURE_K8S = '''
+INSECURE_K8S = """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -109,7 +109,7 @@ spec:
       privileged: true
       runAsUser: 0
       allowPrivilegeEscalation: true
-'''
+"""
 
 
 def _quick_request(target: dict) -> SecurityAssessmentRequest:
@@ -127,7 +127,9 @@ def _quick_request(target: dict) -> SecurityAssessmentRequest:
 def test_owasp_detection() -> float:
     """OWASP Detection Accuracy: >= 95%."""
     engine = SecurityEngineerEngine()
-    req = _quick_request({"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"})
+    req = _quick_request(
+        {"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"}
+    )
     report = engine.review(req)
     # Should detect SQL injection, pickle deserialization, yaml.load, etc.
     owasp_findings = [f for f in report.findings if f.category.startswith("A")]
@@ -139,7 +141,9 @@ def test_owasp_detection() -> float:
 def test_secret_detection() -> float:
     """Secret Detection Rate: >= 90%."""
     engine = SecurityEngineerEngine()
-    req = _quick_request({"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"})
+    req = _quick_request(
+        {"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"}
+    )
     report = engine.review(req)
     # Should detect hardcoded API key and database password.
     if len(report.secrets) >= 1:
@@ -171,13 +175,15 @@ def test_dependency_audit() -> float:
 def test_vulnerability_detection() -> float:
     """Vulnerability Detection: >= 85%."""
     engine = SecurityEngineerEngine()
-    req = _quick_request({
-        "source_code": VULNERABLE_CODE,
-        "language": "python",
-        "file_path": "app.py",
-        "manifest_content": VULNERABLE_MANIFEST,
-        "manifest_type": "requirements.txt",
-    })
+    req = _quick_request(
+        {
+            "source_code": VULNERABLE_CODE,
+            "language": "python",
+            "file_path": "app.py",
+            "manifest_content": VULNERABLE_MANIFEST,
+            "manifest_type": "requirements.txt",
+        }
+    )
     report = engine.review(req)
     # Should detect vulnerabilities beyond OWASP (pickle, yaml, etc.)
     vulns = [f for f in report.findings if "vulnerability_detection" in f.category]
@@ -189,13 +195,15 @@ def test_vulnerability_detection() -> float:
 def test_threat_model() -> float:
     """Threat Model Completeness: >= 80%."""
     engine = SecurityEngineerEngine()
-    req = _quick_request({
-        "source_code": VULNERABLE_CODE,
-        "language": "python",
-        "file_path": "app.py",
-        "architecture_description": "Web API with database and external API calls. User authenticates via tokens.",
-        "components": ["API Gateway", "User Service", "Database", "External API"],
-    })
+    req = _quick_request(
+        {
+            "source_code": VULNERABLE_CODE,
+            "language": "python",
+            "file_path": "app.py",
+            "architecture_description": "Web API with database and external API calls. User authenticates via tokens.",  # noqa: E501
+            "components": ["API Gateway", "User Service", "Database", "External API"],
+        }
+    )
     report = engine.review(req)
     if len(report.threat_model.threats) >= 1 and report.threat_model.attack_surface:
         return 0.9
@@ -224,7 +232,7 @@ def test_hardening() -> float:
 def test_false_positive() -> float:
     """False Positive Rate: <= 10% on clean code."""
     engine = SecurityEngineerEngine()
-    clean_code = '''
+    clean_code = """
 import os
 
 def add(a, b):
@@ -235,7 +243,7 @@ def greet(name):
 
 MAX_USERS = 100
 DEFAULT_TIMEOUT = 30
-'''
+"""
     req = _quick_request({"source_code": clean_code, "language": "python", "file_path": "clean.py"})
     report = engine.review(req)
     # Clean code should produce few findings.
@@ -247,7 +255,9 @@ DEFAULT_TIMEOUT = 30
 def test_response_time() -> float:
     """Response Time: < 5000ms."""
     engine = SecurityEngineerEngine()
-    req = _quick_request({"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"})
+    req = _quick_request(
+        {"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"}
+    )
     start = time.monotonic()
     engine.review(req)
     elapsed = (time.monotonic() - start) * 1000.0
@@ -257,7 +267,9 @@ def test_response_time() -> float:
 def test_explainability() -> float:
     """Report Explainability: >= 90%."""
     engine = SecurityEngineerEngine()
-    req = _quick_request({"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"})
+    req = _quick_request(
+        {"source_code": VULNERABLE_CODE, "language": "python", "file_path": "app.py"}
+    )
     report = engine.review(req)
     if report.summary.total_findings > 0 and report.compliance_report.standards:
         return 0.9

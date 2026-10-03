@@ -38,9 +38,8 @@ import argparse
 import json
 import logging
 import os
-import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import requests
 
@@ -66,7 +65,7 @@ if not API_TOKEN:
 def log_event(scenario: str, status: str, detail: str = "") -> None:
     """Log a structured event for the simulation."""
     event = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "simulation": True,
         "scenario": scenario,
         "status": status,
@@ -86,6 +85,7 @@ def wait_for_recovery(seconds: int = 10) -> None:
 # Failure Scenarios
 # ============================================================================
 
+
 class BaseScenario:
     name: str = "base"
     description: str = ""
@@ -94,9 +94,7 @@ class BaseScenario:
         raise NotImplementedError
 
     def _request(self, method: str, path: str, **kwargs) -> requests.Response:
-        return requests.request(
-            method, f"{API_BASE}{path}", headers=HEADERS, timeout=10, **kwargs
-        )
+        return requests.request(method, f"{API_BASE}{path}", headers=HEADERS, timeout=10, **kwargs)
 
 
 class BackendCrashScenario(BaseScenario):
@@ -111,13 +109,19 @@ class BackendCrashScenario(BaseScenario):
             try:
                 resp = self._request("GET", "/health")
                 if resp.status_code == 500:
-                    log_event(self.name, "ALERT_TRIGGERED", f"HTTP 500 detected (attempt {i+1})")
-                    results["checks"].append({"attempt": i + 1, "status_code": resp.status_code, "alerted": True})
+                    log_event(self.name, "ALERT_TRIGGERED", f"HTTP 500 detected (attempt {i + 1})")
+                    results["checks"].append(
+                        {"attempt": i + 1, "status_code": resp.status_code, "alerted": True}
+                    )
                 else:
-                    results["checks"].append({"attempt": i + 1, "status_code": resp.status_code, "alerted": False})
+                    results["checks"].append(
+                        {"attempt": i + 1, "status_code": resp.status_code, "alerted": False}
+                    )
             except requests.exceptions.ConnectionError:
                 log_event(self.name, "ALERT_TRIGGERED", "Backend unreachable")
-                results["checks"].append({"attempt": i + 1, "error": "ConnectionError", "alerted": True})
+                results["checks"].append(
+                    {"attempt": i + 1, "error": "ConnectionError", "alerted": True}
+                )
             time.sleep(2)
 
         log_event(self.name, "COMPLETED", f"Simulated {len(results['checks'])} backend failures")
@@ -133,10 +137,11 @@ class DatabaseFailureScenario(BaseScenario):
         results = {"scenario": self.name, "checks": []}
 
         try:
-            resp = self._request("POST", "/workspaces", json={
-                "name": "test-failover-db",
-                "description": "Database failure simulation"
-            })
+            resp = self._request(
+                "POST",
+                "/workspaces",
+                json={"name": "test-failover-db", "description": "Database failure simulation"},
+            )
             if resp.status_code >= 500 or "database" in resp.text.lower():
                 log_event(self.name, "ALERT_TRIGGERED", f"DB error detected: {resp.status_code}")
                 results["checks"].append({"alerted": True, "status_code": resp.status_code})
@@ -160,16 +165,29 @@ class LLMTimeoutScenario(BaseScenario):
 
         start = time.time()
         try:
-            resp = self._request("POST", "/chat", json={
-                "message": "Test prompt for LLM timeout simulation",
-                "stream": False
-            })
+            resp = self._request(
+                "POST",
+                "/chat",
+                json={"message": "Test prompt for LLM timeout simulation", "stream": False},
+            )
             elapsed = time.time() - start
             if elapsed > 30 or resp.status_code >= 503:
-                log_event(self.name, "ALERT_TRIGGERED", f"LLM timeout/slow response: {elapsed:.1f}s or {resp.status_code}")
-                results["checks"].append({"alerted": True, "elapsed": round(elapsed, 2), "status_code": resp.status_code})
+                log_event(
+                    self.name,
+                    "ALERT_TRIGGERED",
+                    f"LLM timeout/slow response: {elapsed:.1f}s or {resp.status_code}",
+                )
+                results["checks"].append(
+                    {"alerted": True, "elapsed": round(elapsed, 2), "status_code": resp.status_code}
+                )
             else:
-                results["checks"].append({"alerted": False, "elapsed": round(elapsed, 2), "status_code": resp.status_code})
+                results["checks"].append(
+                    {
+                        "alerted": False,
+                        "elapsed": round(elapsed, 2),
+                        "status_code": resp.status_code,
+                    }
+                )
         except requests.exceptions.ReadTimeout:
             log_event(self.name, "ALERT_TRIGGERED", "LLM ReadTimeout (>10s connection timeout)")
             results["checks"].append({"alerted": True, "error": "ReadTimeout"})
@@ -188,11 +206,15 @@ class HighErrorRateScenario(BaseScenario):
 
         for i in range(20):
             try:
-                resp = self._request("POST", "/actions/execute", json={
-                    "action": "invalid_action",
-                    "params": {},
-                    "connector": "nonexistent_connector"
-                })
+                resp = self._request(
+                    "POST",
+                    "/actions/execute",
+                    json={
+                        "action": "invalid_action",
+                        "params": {},
+                        "connector": "nonexistent_connector",
+                    },
+                )
                 results["total"] += 1
                 if resp.status_code >= 400:
                     results["error_count"] += 1
@@ -203,13 +225,19 @@ class HighErrorRateScenario(BaseScenario):
 
         error_rate = (results["error_count"] / max(results["total"], 1)) * 100
         if error_rate > 5:
-            log_event(self.name, "ALERT_TRIGGERED", f"Error rate {error_rate:.1f}% exceeds 5% threshold")
+            log_event(
+                self.name, "ALERT_TRIGGERED", f"Error rate {error_rate:.1f}% exceeds 5% threshold"
+            )
             results["alerted"] = True
         else:
             results["alerted"] = False
 
         results["error_rate"] = round(error_rate, 1)
-        log_event(self.name, "COMPLETED", f"Error rate simulation: {error_rate:.1f}% ({results['error_count']}/{results['total']})")
+        log_event(
+            self.name,
+            "COMPLETED",
+            f"Error rate simulation: {error_rate:.1f}% ({results['error_count']}/{results['total']})",  # noqa: E501
+        )
         return results
 
 
@@ -229,10 +257,14 @@ class MemoryPressureScenario(BaseScenario):
                 log_event(self.name, "INFO", f"Current memory usage: {mem_usage}%")
                 results["checks"].append({"memory_usage_percent": mem_usage})
 
-            resp2 = self._request("POST", "/cognitive/process", json={
-                "user_input": "Process all available datasets simultaneously",
-                "project_id": "mem-pressure-test"
-            })
+            resp2 = self._request(
+                "POST",
+                "/cognitive/process",
+                json={
+                    "user_input": "Process all available datasets simultaneously",
+                    "project_id": "mem-pressure-test",
+                },
+            )
             log_event(self.name, "COMPLETED", "Memory pressure simulation sent")
             results["checks"].append({"status_code": resp2.status_code})
         except Exception as e:
@@ -252,24 +284,40 @@ class CapabilityLatencyScenario(BaseScenario):
 
         start = time.time()
         try:
-            resp = self._request("POST", "/capabilities/observability/execute", json={
-                "message": "Run full anomaly detection on high-cardinality log analysis",
-                "workspace_id": "latency-test",
-                "conversation_id": f"sim-{int(time.time())}"
-            })
+            resp = self._request(
+                "POST",
+                "/capabilities/observability/execute",
+                json={
+                    "message": "Run full anomaly detection on high-cardinality log analysis",
+                    "workspace_id": "latency-test",
+                    "conversation_id": f"sim-{int(time.time())}",
+                },
+            )
             elapsed = time.time() - start
             if elapsed > 30 or resp.status_code >= 504:
-                log_event(self.name, "ALERT_TRIGGERED", f"Capability latency {elapsed:.1f}s exceeds 30s threshold")
+                log_event(
+                    self.name,
+                    "ALERT_TRIGGERED",
+                    f"Capability latency {elapsed:.1f}s exceeds 30s threshold",
+                )
                 results["alerted"] = True
             else:
                 results["alerted"] = False
-            results["checks"].append({"elapsed": round(elapsed, 2), "alerted": results.get("alerted", False)})
+            results["checks"].append(
+                {"elapsed": round(elapsed, 2), "alerted": results.get("alerted", False)}
+            )
         except requests.exceptions.ReadTimeout:
             log_event(self.name, "ALERT_TRIGGERED", "Capability execution timed out (>10s)")
             results["alerted"] = True
             results["checks"].append({"error": "ReadTimeout", "alerted": True})
 
-        log_event(self.name, "COMPLETED", f"Latency simulation finished: {elapsed:.1f}s" if 'elapsed' in dir() else "Latency simulation finished")
+        log_event(
+            self.name,
+            "COMPLETED",
+            f"Latency simulation finished: {elapsed:.1f}s"
+            if "elapsed" in dir()
+            else "Latency simulation finished",
+        )
         return results
 
 
@@ -282,17 +330,29 @@ class RedisFailureScenario(BaseScenario):
         results = {"scenario": self.name, "checks": []}
 
         try:
-            resp = self._request("POST", "/workspaces", json={
-                "name": "redis-fail-test",
-                "description": "Testing workspace creation under Redis failure"
-            })
-            if resp.status_code >= 500 or "redis" in resp.text.lower() or "cache" in resp.text.lower():
-                log_event(self.name, "ALERT_TRIGGERED", f"Redis failure detected: {resp.status_code}")
+            resp = self._request(
+                "POST",
+                "/workspaces",
+                json={
+                    "name": "redis-fail-test",
+                    "description": "Testing workspace creation under Redis failure",
+                },
+            )
+            if (
+                resp.status_code >= 500
+                or "redis" in resp.text.lower()
+                or "cache" in resp.text.lower()
+            ):
+                log_event(
+                    self.name, "ALERT_TRIGGERED", f"Redis failure detected: {resp.status_code}"
+                )
                 results["checks"].append({"alerted": True, "status_code": resp.status_code})
             else:
                 results["checks"].append({"alerted": False, "status_code": resp.status_code})
         except requests.exceptions.ConnectionError:
-            log_event(self.name, "ALERT_TRIGGERED", "Connection error — possible Redis cascading failure")
+            log_event(
+                self.name, "ALERT_TRIGGERED", "Connection error — possible Redis cascading failure"
+            )
             results["checks"].append({"alerted": True, "error": "ConnectionError"})
 
         log_event(self.name, "COMPLETED", "Redis failure simulation finished")
@@ -308,12 +368,22 @@ class QdrantFailureScenario(BaseScenario):
         results = {"scenario": self.name, "checks": []}
 
         try:
-            resp = self._request("POST", "/cognitive/process", json={
-                "user_input": "Retrieve relevant context from knowledge graph",
-                "project_id": "qdrant-fail-test"
-            })
-            if resp.status_code >= 500 or "qdrant" in resp.text.lower() or "vector" in resp.text.lower():
-                log_event(self.name, "ALERT_TRIGGERED", f"Qdrant failure detected: {resp.status_code}")
+            resp = self._request(
+                "POST",
+                "/cognitive/process",
+                json={
+                    "user_input": "Retrieve relevant context from knowledge graph",
+                    "project_id": "qdrant-fail-test",
+                },
+            )
+            if (
+                resp.status_code >= 500
+                or "qdrant" in resp.text.lower()
+                or "vector" in resp.text.lower()
+            ):
+                log_event(
+                    self.name, "ALERT_TRIGGERED", f"Qdrant failure detected: {resp.status_code}"
+                )
                 results["checks"].append({"alerted": True, "status_code": resp.status_code})
             else:
                 results["checks"].append({"alerted": False, "status_code": resp.status_code})

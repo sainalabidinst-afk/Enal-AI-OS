@@ -57,13 +57,15 @@ class WorldModelEngine:
         query_lower = query.lower()
         for entity in entities:
             if query_lower in entity.name.lower() or query_lower in entity.description.lower():
-                relevant.append({
-                    "id": entity.id,
-                    "name": entity.name,
-                    "type": entity.entity_type.value,
-                    "description": entity.description,
-                    "properties": entity.properties,
-                })
+                relevant.append(
+                    {
+                        "id": entity.id,
+                        "name": entity.name,
+                        "type": entity.entity_type.value,
+                        "description": entity.description,
+                        "properties": entity.properties,
+                    }
+                )
         return relevant[:5]
 
     async def infer(self, context: str) -> dict[str, Any]:
@@ -71,9 +73,11 @@ class WorldModelEngine:
             "Given the current context and available tools, infer what entities and relationships are relevant.\n"  # noqa: E501
             f"Context: {context}\n\n"
             "Available entities: " + ", ".join(self._model.entities.keys())[:500] + "\n\n"
-            "Output JSON: {\"relevant_entities\": [str], \"suggested_actions\": [str], \"confidence\": float}"  # noqa: E501
+            'Output JSON: {"relevant_entities": [str], "suggested_actions": [str], "confidence": float}'  # noqa: E501
         )
-        response = await model_router.acomplete([{"role": "user", "content": prompt}], temperature=0.3, max_tokens=512)  # noqa: E501
+        response = await model_router.acomplete(
+            [{"role": "user", "content": prompt}], temperature=0.3, max_tokens=512
+        )  # noqa: E501
         try:
             return json.loads(response.choices[0].message.content)
         except (json.JSONDecodeError, AttributeError):

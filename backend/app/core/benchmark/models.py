@@ -16,13 +16,7 @@ class CapabilityScore:
 
     def compute_total(self) -> float:
         self.total = round(
-            (
-                self.parser
-                + self.reasoning
-                + self.evidence
-                + self.compliance
-                + self.executive_report
-            )
+            (self.parser + self.reasoning + self.evidence + self.compliance + self.executive_report)
             / 5,
             2,
         )

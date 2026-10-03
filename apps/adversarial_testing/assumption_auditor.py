@@ -51,13 +51,15 @@ class AssumptionAuditor:
         scored = []
         for i, assumption in enumerate(assumptions):
             risk = self._assess_assumption_risk(assumption, constraints or [])
-            scored.append({
-                "id": f"asm-{i:03d}",
-                "description": assumption,
-                "risk": risk["risk"],
-                "confidence": risk["confidence"],
-                "mitigatable": risk["mitigatable"],
-            })
+            scored.append(
+                {
+                    "id": f"asm-{i:03d}",
+                    "description": assumption,
+                    "risk": risk["risk"],
+                    "confidence": risk["confidence"],
+                    "mitigatable": risk["mitigatable"],
+                }
+            )
 
         return scored
 
@@ -102,7 +104,9 @@ class AssumptionAuditor:
                 max_tokens=1024,
             )
             lines = response.choices[0].message.content.strip().split("\n")
-            assumptions = [line.lstrip("- ").strip() for line in lines if line.strip().startswith("-")]  # noqa: E501
+            assumptions = [
+                line.lstrip("- ").strip() for line in lines if line.strip().startswith("-")
+            ]  # noqa: E501
 
             if assumptions:
                 return assumptions[:20]  # Cap at 20
@@ -126,9 +130,7 @@ class AssumptionAuditor:
             "User adoption follows predicted patterns",
         ]
 
-    def _assess_assumption_risk(
-        self, assumption: str, constraints: list[str]
-    ) -> dict[str, Any]:
+    def _assess_assumption_risk(self, assumption: str, constraints: list[str]) -> dict[str, Any]:
         """Assess the risk level of an assumption."""
         # Check if the assumption is already mitigated by a constraint
         for constraint in constraints:
@@ -137,8 +139,16 @@ class AssumptionAuditor:
                 return {"risk": "medium", "confidence": 0.8, "mitigatable": True}
 
         # Heuristic risk assessment based on assumption keywords
-        high_risk_keywords = ["accuracy", "no external", "dependencies behave", "stable",
-                              "do not change", "remain constant", "no critical", "do not accumulate"]  # noqa: E501
+        high_risk_keywords = [
+            "accuracy",
+            "no external",
+            "dependencies behave",
+            "stable",
+            "do not change",
+            "remain constant",
+            "no critical",
+            "do not accumulate",
+        ]  # noqa: E501
         medium_risk_keywords = ["alignment", "follow predicted", "complete"]
 
         assumption_lower = assumption.lower()

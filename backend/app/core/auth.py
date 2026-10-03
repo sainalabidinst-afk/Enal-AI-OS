@@ -1,4 +1,5 @@
 """Authentication and authorization dependencies."""
+
 import logging
 from typing import Any
 
@@ -22,6 +23,7 @@ async def get_current_user(
     token = credentials.credentials
     try:
         from backend.app.api.auth import _decode_token
+
         token_data = _decode_token(token)
     except HTTPException:
         raise
@@ -38,6 +40,7 @@ async def get_current_user(
 def require_permission(permission: Permission | str):
     if isinstance(permission, str):
         permission = Permission(permission)
+
     async def checker(current_user: dict[str, Any] = Depends(get_current_user)) -> dict[str, Any]:
         plugin_id = current_user["user_id"]
         allowed = security_model.check_permission(

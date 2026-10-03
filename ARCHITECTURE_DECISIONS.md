@@ -90,6 +90,7 @@ Contoh pola terlarang:
 ```python
 # FORBIDDEN
 from apps.trading_analyst import engine as trading_engine
+
 trading_engine.analyze(...)
 ```
 

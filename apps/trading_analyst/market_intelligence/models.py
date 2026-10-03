@@ -40,6 +40,7 @@ class Timeframe(StrEnum):
 @dataclass
 class OHLCV:
     """Single candlestick."""
+
     timestamp: int
     open: float
     high: float
@@ -48,7 +49,7 @@ class OHLCV:
     volume: float
 
     def __post_init__(self):
-        for attr in ('open', 'high', 'low', 'close', 'volume'):
+        for attr in ("open", "high", "low", "close", "volume"):
             val = getattr(self, attr)
             if isinstance(val, (int, float)) and val < 0:
                 raise ValueError(f"{attr} cannot be negative: {val}")
@@ -57,6 +58,7 @@ class OHLCV:
 @dataclass
 class TradingContext:
     """Raw market data from provider."""
+
     symbol: str
     exchange: str = "binance"
     timeframes: dict[str, list[OHLCV]] = field(default_factory=dict)
@@ -66,6 +68,7 @@ class TradingContext:
 @dataclass
 class MarketData:
     """Processed market data with computed indicators."""
+
     symbol: str
     timeframe: str
     ohlcv: list[OHLCV]
@@ -76,13 +79,14 @@ class MarketData:
 @dataclass
 class MarketEvidence:
     """A single evidence item (fact, not decision)."""
+
     id: str
-    type: str          # e.g., "market_structure", "trend", "volume", "volatility", "session"
-    description: str   # Human-readable, e.g., "Higher High formed on 1h"
+    type: str  # e.g., "market_structure", "trend", "volume", "volatility", "session"
+    description: str  # Human-readable, e.g., "Higher High formed on 1h"
     timeframe: str
-    strength: float    # 0.0 - 1.0 (how strong this evidence is)
-    direction: str     # "bullish" | "bearish" | "neutral"
-    source: str        # e.g., "analyzer.trend", "indicators.ema"
+    strength: float  # 0.0 - 1.0 (how strong this evidence is)
+    direction: str  # "bullish" | "bearish" | "neutral"
+    source: str  # e.g., "analyzer.trend", "indicators.ema"
     confidence: float = 0.0  # How reliable this evidence is (0-1)
 
     def __post_init__(self):
@@ -97,6 +101,7 @@ Evidence = MarketEvidence
 @dataclass
 class AnalysisMetadata:
     """Metadata for reproducibility and audit."""
+
     symbol: str = ""
     exchange: str = "binance"
     timeframes: list[str] = field(default_factory=list)
@@ -110,9 +115,10 @@ class AnalysisMetadata:
 @dataclass
 class AnalysisResult:
     """Final structured output from the Market Intelligence Engine."""
+
     symbol: str
     bias: Bias = Bias.NEUTRAL
-    confidence: float = 0.0        # 0.0 - 1.0
+    confidence: float = 0.0  # 0.0 - 1.0
     evidence: list[MarketEvidence] = field(default_factory=list)
     risk_level: RiskLevel = RiskLevel.MEDIUM
     counter_scenario: str = ""
@@ -157,4 +163,3 @@ class AnalysisResult:
             },
             "raw": self.raw,
         }
-

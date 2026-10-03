@@ -35,9 +35,28 @@ from typing import Any
 logger = logging.getLogger(__name__)
 
 SUPPORTED_LANGS = [
-    "en", "id", "es", "zh", "fr", "de", "ja", "ar", "pt", "ru",
-    "it", "nl", "ko", "vi", "th", "tr", "pl", "hi", "ms", "sw",
-    "ur", "bn",
+    "en",
+    "id",
+    "es",
+    "zh",
+    "fr",
+    "de",
+    "ja",
+    "ar",
+    "pt",
+    "ru",
+    "it",
+    "nl",
+    "ko",
+    "vi",
+    "th",
+    "tr",
+    "pl",
+    "hi",
+    "ms",
+    "sw",
+    "ur",
+    "bn",
 ]
 
 SCENARIOS: list[dict[str, Any]] = [
@@ -51,7 +70,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "formal",
             "domain": "legal",
             "inputs": {
-                "text": "The parties agree that this Agreement shall be governed by and construed in accordance with the laws of the Republic of Indonesia.",
+                "text": "The parties agree that this Agreement shall be governed by and construed in accordance with the laws of the Republic of Indonesia.",  # noqa: E501
                 "glossary_domain": "legal",
                 "enforce_glossary": True,
             },
@@ -69,7 +88,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "formal",
             "domain": "medical",
             "inputs": {
-                "text": "Hypertension is a chronic medical condition. Diagnosis requires repeated measurements.",
+                "text": "Hypertension is a chronic medical condition. Diagnosis requires repeated measurements.",  # noqa: E501
                 "glossary_domain": "medical",
                 "enforce_glossary": True,
             },
@@ -87,7 +106,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "technical",
             "domain": "technical",
             "inputs": {
-                "text": "The algorithm uses asynchronous containerization via microservices orchestration.",
+                "text": "The algorithm uses asynchronous containerization via microservices orchestration.",  # noqa: E501
                 "glossary_domain": "technical",
                 "enforce_glossary": True,
             },
@@ -105,7 +124,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "formal",
             "domain": "finance",
             "inputs": {
-                "text": "Portofolio investasi ini memiliki volatilitas tinggi akibat likuiditas rendah.",
+                "text": "Portofolio investasi ini memiliki volatilitas tinggi akibat likuiditas rendah.",  # noqa: E501
                 "glossary_domain": "finance",
                 "enforce_glossary": True,
             },
@@ -123,7 +142,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "casual",
             "domain": "general",
             "inputs": {
-                "text": "Este proyecto costó un brazo y una pierna, pero el resultado es un pastel.",
+                "text": "Este proyecto costó un brazo y una pierna, pero el resultado es un pastel.",  # noqa: E501
                 "glossary_domain": "general",
                 "enforce_glossary": False,
             },
@@ -159,7 +178,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "formal",
             "domain": "general",
             "inputs": {
-                "text": "First, we initialize the system. Then, we deploy the application. Finally, we monitor the services.",
+                "text": "First, we initialize the system. Then, we deploy the application. Finally, we monitor the services.",  # noqa: E501
                 "glossary_domain": "general",
                 "enforce_glossary": False,
             },
@@ -177,7 +196,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "technical",
             "domain": "finance",
             "inputs": {
-                "text": "The equity portfolio shows high volatility despite diversification efforts.",
+                "text": "The equity portfolio shows high volatility despite diversification efforts.",  # noqa: E501
                 "glossary_domain": "finance",
                 "enforce_glossary": True,
                 "custom_terms": {"equity": "ekuitas"},
@@ -196,7 +215,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "casual",
             "domain": "general",
             "inputs": {
-                "text": "Hey, can you send me the report by tomorrow? Congratulations on the promotion!",
+                "text": "Hey, can you send me the report by tomorrow? Congratulations on the promotion!",  # noqa: E501
                 "glossary_domain": "general",
                 "enforce_glossary": False,
             },
@@ -304,7 +323,7 @@ SCENARIOS: list[dict[str, Any]] = [
             "style": "formal",
             "domain": "general",
             "inputs": {
-                "text": "Hello world. Thank you. Goodbye. How are you? Please help. Congratulations!",
+                "text": "Hello world. Thank you. Goodbye. How are you? Please help. Congratulations!",  # noqa: E501
                 "glossary_domain": "general",
                 "enforce_glossary": False,
                 "stress_test_all_pairs": True,
@@ -340,9 +359,7 @@ class TranslatorExpertBenchmark:
         self.results: list[BenchmarkResult] = []
         self.golden_tests_dir = "golden_tests/translator_expert"
 
-    def _run_scenario_translation(
-        self, scenario: dict[str, Any]
-    ) -> dict[str, Any]:
+    def _run_scenario_translation(self, scenario: dict[str, Any]) -> dict[str, Any]:
         """Execute a single translation scenario using the real engine."""
         try:
             from apps.translator_expert.engine import TranslatorExpertEngine
@@ -398,7 +415,12 @@ class TranslatorExpertBenchmark:
 
     def run_translation_accuracy(self) -> BenchmarkResult:
         start = time.perf_counter()
-        domain_scenarios = [s for s in SCENARIOS if s["category"] in ("legal_contract", "medical_guideline", "technical_document", "financial_report")]
+        domain_scenarios = [
+            s
+            for s in SCENARIOS
+            if s["category"]
+            in ("legal_contract", "medical_guideline", "technical_document", "financial_report")
+        ]
         scores = []
         details: dict[str, Any] = {"scenarios": []}
         for sc in domain_scenarios:
@@ -417,7 +439,11 @@ class TranslatorExpertBenchmark:
 
     def run_context_adaptation(self) -> BenchmarkResult:
         start = time.perf_counter()
-        context_scenarios = [s for s in SCENARIOS if s["category"] in ("idiom", "context_preservation", "chat_translation")]
+        context_scenarios = [
+            s
+            for s in SCENARIOS
+            if s["category"] in ("idiom", "context_preservation", "chat_translation")
+        ]
         scores = []
         details: dict[str, Any] = {"scenarios": []}
         for sc in context_scenarios:
@@ -475,44 +501,67 @@ class TranslatorExpertBenchmark:
     def run_latency(self) -> BenchmarkResult:
         start = time.perf_counter()
         lang_pairs = [
-            ("en", "id"), ("en", "es"), ("en", "zh"), ("en", "fr"),
-            ("en", "de"), ("en", "ja"), ("en", "ar"), ("en", "pt"),
-            ("en", "ru"), ("en", "it"), ("en", "nl"), ("en", "ko"),
-            ("en", "vi"), ("en", "th"), ("en", "tr"), ("en", "pl"),
-            ("en", "hi"), ("en", "ms"), ("en", "sw"), ("en", "ur"),
+            ("en", "id"),
+            ("en", "es"),
+            ("en", "zh"),
+            ("en", "fr"),
+            ("en", "de"),
+            ("en", "ja"),
+            ("en", "ar"),
+            ("en", "pt"),
+            ("en", "ru"),
+            ("en", "it"),
+            ("en", "nl"),
+            ("en", "ko"),
+            ("en", "vi"),
+            ("en", "th"),
+            ("en", "tr"),
+            ("en", "pl"),
+            ("en", "hi"),
+            ("en", "ms"),
+            ("en", "sw"),
+            ("en", "ur"),
             ("en", "bn"),
         ]
         latencies: list[float] = []
         details: dict[str, Any] = {"language_pairs": []}
         for src, tgt in lang_pairs:
             pair_start = time.perf_counter()
-            result = self._run_scenario_translation({
-                "id": f"latency-{src}-{tgt}",
-                "category": "performance",
-                "inputs": {
-                    "source_language": src,
-                    "target_language": tgt,
-                    "style": "formal",
-                    "domain": "general",
+            result = self._run_scenario_translation(
+                {
+                    "id": f"latency-{src}-{tgt}",
+                    "category": "performance",
                     "inputs": {
-                        "text": "The quick brown fox jumps over the lazy dog.",
-                        "glossary_domain": "general",
-                        "enforce_glossary": False,
+                        "source_language": src,
+                        "target_language": tgt,
+                        "style": "formal",
+                        "domain": "general",
+                        "inputs": {
+                            "text": "The quick brown fox jumps over the lazy dog.",
+                            "glossary_domain": "general",
+                            "enforce_glossary": False,
+                        },
+                        "quality_attributes": {},
                     },
-                    "quality_attributes": {},
-                },
-                "min_quality_score": 0.0,
-            })
+                    "min_quality_score": 0.0,
+                }
+            )
             pair_latency = (time.perf_counter() - pair_start) * 1000
             latencies.append(pair_latency)
-            details["language_pairs"].append({
-                "pair": f"{src}→{tgt}",
-                "latency_ms": round(pair_latency, 2),
-                "score": result["score"],
-            })
+            details["language_pairs"].append(
+                {
+                    "pair": f"{src}→{tgt}",
+                    "latency_ms": round(pair_latency, 2),
+                    "score": result["score"],
+                }
+            )
 
         sorted_lat = sorted(latencies)
-        p95 = sorted_lat[int(len(sorted_lat) * 0.95) - 1] if len(sorted_lat) > 1 else (sorted_lat[0] if sorted_lat else 0)
+        p95 = (
+            sorted_lat[int(len(sorted_lat) * 0.95) - 1]
+            if len(sorted_lat) > 1
+            else (sorted_lat[0] if sorted_lat else 0)
+        )
         avg = statistics.mean(latencies) if latencies else 150.0
 
         score = max(0.0, min(1.0, 1.0 - (avg / 5000.0)))
@@ -532,24 +581,26 @@ class TranslatorExpertBenchmark:
     def run_explainability(self) -> BenchmarkResult:
         start = time.perf_counter()
         scores = []
-        result = self._run_scenario_translation({
-            "id": "explain-001",
-            "category": "explainability",
-            "inputs": {
-                "source_language": "en",
-                "target_language": "id",
-                "style": "formal",
-                "domain": "finance",
+        result = self._run_scenario_translation(
+            {
+                "id": "explain-001",
+                "category": "explainability",
                 "inputs": {
-                    "text": "The equity portfolio shows high volatility despite diversification efforts.",
-                    "glossary_domain": "finance",
-                    "enforce_glossary": True,
-                    "custom_terms": {"equity": "ekuitas"},
+                    "source_language": "en",
+                    "target_language": "id",
+                    "style": "formal",
+                    "domain": "finance",
+                    "inputs": {
+                        "text": "The equity portfolio shows high volatility despite diversification efforts.",  # noqa: E501
+                        "glossary_domain": "finance",
+                        "enforce_glossary": True,
+                        "custom_terms": {"equity": "ekuitas"},
+                    },
+                    "quality_attributes": {},
                 },
-                "quality_attributes": {},
-            },
-            "min_quality_score": 0.85,
-        })
+                "min_quality_score": 0.85,
+            }
+        )
         confidence = result.get("confidence", 0.0)
         score = 0.90
         if result.get("model_used") != "rule-based-fallback":
@@ -584,33 +635,37 @@ class TranslatorExpertBenchmark:
             if tgt_lang == "en":
                 continue
             total_count += 1
-            result = self._run_scenario_translation({
-                "id": f"stress-{tgt_lang}",
-                "category": "multilingual_stress",
-                "inputs": {
-                    "source_language": "en",
-                    "target_language": tgt_lang,
-                    "style": "formal",
-                    "domain": "general",
+            result = self._run_scenario_translation(
+                {
+                    "id": f"stress-{tgt_lang}",
+                    "category": "multilingual_stress",
                     "inputs": {
-                        "text": test_text,
-                        "glossary_domain": "general",
-                        "enforce_glossary": False,
+                        "source_language": "en",
+                        "target_language": tgt_lang,
+                        "style": "formal",
+                        "domain": "general",
+                        "inputs": {
+                            "text": test_text,
+                            "glossary_domain": "general",
+                            "enforce_glossary": False,
+                        },
+                        "quality_attributes": {},
                     },
-                    "quality_attributes": {},
-                },
-                "min_quality_score": 0.0,
-            })
+                    "min_quality_score": 0.0,
+                }
+            )
             total_count += 1
             if result["status"] == "ok":
                 success_count += 1
                 scores.append(result["score"])
-            pair_latency = (time.perf_counter() - start) * 1000
-            details["language_pairs"].append({
-                "target": tgt_lang,
-                "status": result["status"],
-                "score": result["score"],
-            })
+            (time.perf_counter() - start) * 1000
+            details["language_pairs"].append(
+                {
+                    "target": tgt_lang,
+                    "status": result["status"],
+                    "score": result["score"],
+                }
+            )
 
         score = statistics.mean(scores) if scores else 0.85
         avg_latency = (time.perf_counter() - start) * 1000 / max(total_count, 1)
@@ -648,29 +703,34 @@ class TranslatorExpertBenchmark:
         collector = TranslationMetricsCollector.get_instance()
         before_count = len(collector.get_metrics())
 
-        translation_result = self._run_scenario_translation({
-            "id": "obs-001",
-            "category": "performance",
-            "inputs": {
-                "source_language": "en",
-                "target_language": "id",
-                "style": "formal",
-                "domain": "general",
+        translation_result = self._run_scenario_translation(
+            {
+                "id": "obs-001",
+                "category": "performance",
                 "inputs": {
-                    "text": "Observability test: latency, accuracy, throughput.",
-                    "glossary_domain": "general",
-                    "enforce_glossary": False,
+                    "source_language": "en",
+                    "target_language": "id",
+                    "style": "formal",
+                    "domain": "general",
+                    "inputs": {
+                        "text": "Observability test: latency, accuracy, throughput.",
+                        "glossary_domain": "general",
+                        "enforce_glossary": False,
+                    },
+                    "quality_attributes": {},
                 },
-                "quality_attributes": {},
-            },
-            "min_quality_score": 0.80,
-        })
+                "min_quality_score": 0.80,
+            }
+        )
 
         after_count = len(collector.get_metrics())
         metrics_recorded = after_count > before_count
 
         summary = collector.get_summary()
-        trace_propagated = "trace_id" in (translation_result.get("model_used", "") or "") or translation_result.get("status") == "ok"
+        trace_propagated = (
+            "trace_id" in (translation_result.get("model_used", "") or "")
+            or translation_result.get("status") == "ok"
+        )
 
         score = 0.0
         if metrics_recorded:

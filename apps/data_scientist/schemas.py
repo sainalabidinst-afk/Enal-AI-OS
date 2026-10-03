@@ -88,12 +88,14 @@ class DataScientistReport(BaseModel):
 class DataScientistRecord(BaseModel):
     pack_id: str = "data-scientist"
     version: str = "2.7.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "feature_engineering",
-        "model_training",
-        "model_evaluation",
-        "pipeline_execution",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "feature_engineering",
+            "model_training",
+            "model_evaluation",
+            "pipeline_execution",
+        ]
+    )
 
 
 class DataScientistRequest(BaseModel):

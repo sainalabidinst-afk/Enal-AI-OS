@@ -104,11 +104,13 @@ class DecisionIntelligenceEngine:
                 risk_tolerance=request.risk_tolerance,
                 evidence_set=evidence_set,
             )
-            alt_dicts.append({
-                "description": alt.description,
-                "feasibility": alt.feasibility,
-                "risk_profile": risk_profile,
-            })
+            alt_dicts.append(
+                {
+                    "description": alt.description,
+                    "feasibility": alt.feasibility,
+                    "risk_profile": risk_profile,
+                }
+            )
 
         # 4. Trade-off & Scoring.
         scored = self.scorer.score_alternatives(
@@ -174,7 +176,9 @@ class DecisionIntelligenceEngine:
                 "evidence_count": evidence_set.count if evidence_set else 0,
                 "alternatives_count": len(scored),
                 "evidence_quality": round(evidence_set.avg_quality, 4) if evidence_set else 0.0,
-                "dominant_sentiment": evidence_set.dominant_sentiment if evidence_set else "neutral",  # noqa: E501
+                "dominant_sentiment": evidence_set.dominant_sentiment
+                if evidence_set
+                else "neutral",  # noqa: E501
                 "simulation_outcomes": [
                     {
                         "description": o.alternative_description,
@@ -204,7 +208,9 @@ class DecisionIntelligenceEngine:
             alternatives_count=len(scored),
             confidence_score=conf.score,
             evidence_count=len(request.evidence_sources),
-            risk_score=scored[0]["risk_profile"].overall_risk if scored and scored[0].get("risk_profile") else 0.0,  # noqa: E501
+            risk_score=scored[0]["risk_profile"].overall_risk
+            if scored and scored[0].get("risk_profile")
+            else 0.0,  # noqa: E501
             explanation=explanation.final_rationale,
             outcome=DecisionOutcome.pending,
         )

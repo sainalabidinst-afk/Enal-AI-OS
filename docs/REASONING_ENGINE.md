@@ -106,19 +106,16 @@ Event → Find Causes → Identify Effects → Generate Recommendations
 from apps.organization.reasoning_engine import (
     reasoning_engine,
     ReasoningMethod,
-    Evidence, EvidenceType,
+    Evidence,
+    EvidenceType,
 )
 
 # Forward chaining
-result = reasoning_engine.forward_chaining(
-    "Complete a complex software project"
-)
+result = reasoning_engine.forward_chaining("Complete a complex software project")
 
 # Backward chaining
 result = reasoning_engine.backward_chaining(
-    "Deploy web app",
-    "Application is running in production",
-    context={"domain": "devops"}
+    "Deploy web app", "Application is running in production", context={"domain": "devops"}
 )
 
 # Decision tree
@@ -128,7 +125,7 @@ result = reasoning_engine.decision_tree(
         {"name": "FastAPI", "attributes": {"speed": 9, "cost": 3}},
         {"name": "Django", "attributes": {"speed": 6, "cost": 5}},
     ],
-    criteria=["speed", "cost"]
+    criteria=["speed", "cost"],
 )
 
 # Constraint propagation
@@ -136,7 +133,7 @@ result = reasoning_engine.constraint_propagation(
     constraints=[
         {"name": "Budget limit", "variable": "budget", "operator": "lt", "value": 1000},
     ],
-    variables={"budget": 500}
+    variables={"budget": 500},
 )
 
 # Causal reasoning
@@ -149,13 +146,16 @@ evidence = engine.query_evidence("system")
 
 # Rule management
 from apps.organization.reasoning_engine import ReasoningRule
-engine.register_rule(ReasoningRule(
-    rule_id="my-rule",
-    name="My Rule",
-    description="Custom rule",
-    conditions=["condition met"],
-    conclusions=["conclusion reached"],
-))
+
+engine.register_rule(
+    ReasoningRule(
+        rule_id="my-rule",
+        name="My Rule",
+        description="Custom rule",
+        conditions=["condition met"],
+        conclusions=["conclusion reached"],
+    )
+)
 ```
 
 ## Peristiwa Telemetri

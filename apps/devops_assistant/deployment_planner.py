@@ -71,25 +71,29 @@ class DeploymentPlanner:
         features = current_plan.get("features", [])
 
         if strategy == "rolling" and "automated_rollback" not in features:
-            solutions.append(Solution(
-                problem_id=f"{current_plan.get('service', 'unknown')}-missing-rollback",
-                solution_type=ImprovementType.DEPLOYMENT.value,
-                description="Tambahkan automated rollback untuk rolling update strategy.",
-                estimated_effort="medium",
-                risk="low",
-                tests_required=True,
-                confidence=0.9,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_plan.get('service', 'unknown')}-missing-rollback",
+                    solution_type=ImprovementType.DEPLOYMENT.value,
+                    description="Tambahkan automated rollback untuk rolling update strategy.",
+                    estimated_effort="medium",
+                    risk="low",
+                    tests_required=True,
+                    confidence=0.9,
+                )
+            )
 
         if "metrics_validation" not in features:
-            solutions.append(Solution(
-                problem_id=f"{current_plan.get('service', 'unknown')}-missing-metrics",
-                solution_type=ImprovementType.MONITORING.value,
-                description="Tambahkan validasi metrik ke deployment plan.",
-                estimated_effort="low",
-                risk="low",
-                tests_required=True,
-                confidence=0.95,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_plan.get('service', 'unknown')}-missing-metrics",
+                    solution_type=ImprovementType.MONITORING.value,
+                    description="Tambahkan validasi metrik ke deployment plan.",
+                    estimated_effort="low",
+                    risk="low",
+                    tests_required=True,
+                    confidence=0.95,
+                )
+            )
 
         return solutions

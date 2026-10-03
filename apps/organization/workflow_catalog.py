@@ -48,6 +48,7 @@ class WorkflowCatalogEntry:
         category: Optional category for grouping workflows (e.g., "network", "code", "devops").
         metadata: Additional metadata.
     """
+
     workflow_id: str
     display_name: str
     description: str = ""
@@ -70,6 +71,7 @@ class ResolveResult:
         confidence: Confidence score (1.0 for exact match).
         reason: Human-readable reason for the resolution.
     """
+
     found: bool
     workflow_id: str | None
     entry: WorkflowCatalogEntry | None

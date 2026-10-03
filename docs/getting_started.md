@@ -49,12 +49,14 @@ pytest tests/ -v
 ```python
 from enal_ai import Agent
 
+
 class MyAgent(Agent):
     name = "my-first-agent"
     capabilities = ["custom"]
 
     async def execute(self, task: str) -> str:
         return f"Processed: {task}"
+
 
 agent = MyAgent()
 result = await agent.run("Your task here")

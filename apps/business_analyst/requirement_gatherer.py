@@ -23,16 +23,46 @@ logger = logging.getLogger(__name__)
 
 # Keywords that indicate functional requirements.
 _FUNCTIONAL_KEYWORDS = {
-    "must", "shall", "should", "will", "need", "require", "create", "generate",
-    "display", "show", "send", "receive", "process", "calculate", "validate",
-    "authenticate", "authorize", "store", "retrieve", "update", "delete",
+    "must",
+    "shall",
+    "should",
+    "will",
+    "need",
+    "require",
+    "create",
+    "generate",
+    "display",
+    "show",
+    "send",
+    "receive",
+    "process",
+    "calculate",
+    "validate",
+    "authenticate",
+    "authorize",
+    "store",
+    "retrieve",
+    "update",
+    "delete",
 }
 
 # Keywords that indicate non-functional requirements.
 _NON_FUNCTIONAL_KEYWORDS = {
-    "performance", "latency", "availability", "scalability", "security",
-    "reliability", "throughput", "capacity", "response time", "uptime",
-    "encryption", "compliance", "audit", "monitoring", "backup",
+    "performance",
+    "latency",
+    "availability",
+    "scalability",
+    "security",
+    "reliability",
+    "throughput",
+    "capacity",
+    "response time",
+    "uptime",
+    "encryption",
+    "compliance",
+    "audit",
+    "monitoring",
+    "backup",
 }
 
 
@@ -175,19 +205,29 @@ class RequirementGatherer:
         """Generate acceptance criteria from requirement text."""
         criteria: list[str] = []
         if req_type == RequirementType.functional:
-            criteria.append(f"Given a user, when they trigger the action, then the system behaves as described: {text[:80]}")  # noqa: E501
-            criteria.append("Given invalid input, when the action is triggered, then the system returns an appropriate error")  # noqa: E501
+            criteria.append(
+                f"Given a user, when they trigger the action, then the system behaves as described: {text[:80]}"  # noqa: E501
+            )  # noqa: E501
+            criteria.append(
+                "Given invalid input, when the action is triggered, then the system returns an appropriate error"  # noqa: E501
+            )  # noqa: E501
         else:
-            criteria.append(f"Given load conditions, when the system is tested, then it meets: {text[:80]}")  # noqa: E501
-            criteria.append("Given degraded conditions, when the system is tested, then it degrades gracefully")  # noqa: E501
+            criteria.append(
+                f"Given load conditions, when the system is tested, then it meets: {text[:80]}"
+            )  # noqa: E501
+            criteria.append(
+                "Given degraded conditions, when the system is tested, then it degrades gracefully"
+            )  # noqa: E501
         return criteria
 
     def _extract_from_transcript(self, transcript: str) -> list[str]:
         """Extract individual requirements from interview transcript."""
-        sentences = re.split(r'[.!?]+', transcript)
+        sentences = re.split(r"[.!?]+", transcript)
         requirements: list[str] = []
         for sentence in sentences:
             sentence = sentence.strip()
-            if len(sentence) > 20 and any(w in sentence.lower() for w in _FUNCTIONAL_KEYWORDS | _NON_FUNCTIONAL_KEYWORDS):  # noqa: E501
+            if len(sentence) > 20 and any(
+                w in sentence.lower() for w in _FUNCTIONAL_KEYWORDS | _NON_FUNCTIONAL_KEYWORDS
+            ):  # noqa: E501
                 requirements.append(sentence)
         return requirements

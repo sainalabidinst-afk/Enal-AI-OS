@@ -19,7 +19,9 @@ class ModelPricing:
     @classmethod
     def estimate_cost(cls, model: str, prompt_tokens: int, completion_tokens: int) -> float:
         pricing = cls.MODELS.get(model, {"input": 1.0, "output": 1.0})
-        return (pricing["input"] * prompt_tokens + pricing["output"] * completion_tokens) / 1_000_000  # noqa: E501
+        return (
+            pricing["input"] * prompt_tokens + pricing["output"] * completion_tokens
+        ) / 1_000_000  # noqa: E501
 
 
 class CostOptimizer:

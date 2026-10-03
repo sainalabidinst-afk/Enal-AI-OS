@@ -26,9 +26,13 @@ class LoggingDecorator(DecoratorBase):
     version = "1.0.0"
 
     def _before(self, method_name: str, args: tuple[Any, ...], kwargs: dict[str, Any]) -> None:
-        logger.info("→ %s.%s called with args=%s kwargs=%s",
-                     type(self._wrapped).__name__ if self._wrapped else "None",
-                     method_name, args, kwargs)
+        logger.info(
+            "→ %s.%s called with args=%s kwargs=%s",
+            type(self._wrapped).__name__ if self._wrapped else "None",
+            method_name,
+            args,
+            kwargs,
+        )
 
     def _after(
         self,
@@ -37,9 +41,12 @@ class LoggingDecorator(DecoratorBase):
         kwargs: dict[str, Any],
         result: Any,
     ) -> Any:
-        logger.info("← %s.%s returned: %s",
-                     type(self._wrapped).__name__ if self._wrapped else "None",
-                     method_name, result)
+        logger.info(
+            "← %s.%s returned: %s",
+            type(self._wrapped).__name__ if self._wrapped else "None",
+            method_name,
+            result,
+        )
         return result
 
     def _on_error(
@@ -49,9 +56,12 @@ class LoggingDecorator(DecoratorBase):
         kwargs: dict[str, Any],
         exc: Exception,
     ) -> Any:
-        logger.error("✗ %s.%s raised: %s",
-                      type(self._wrapped).__name__ if self._wrapped else "None",
-                      method_name, exc)
+        logger.error(
+            "✗ %s.%s raised: %s",
+            type(self._wrapped).__name__ if self._wrapped else "None",
+            method_name,
+            exc,
+        )
         raise exc
 
 
@@ -70,6 +80,7 @@ class CachingDecorator(DecoratorBase):
 
     def _cache_key(self, method_name: str, args: tuple[Any, ...], kwargs: dict[str, Any]) -> str:
         import json
+
         key_data = {
             "method": method_name,
             "args": [repr(a) for a in args],
@@ -228,12 +239,16 @@ class RetryDecorator(DecoratorBase):
                 self._retry_counts[method_name] = attempt + 1
                 if attempt < self._max_retries:
                     delay = min(
-                        self._base_delay * (self._backoff_factor ** attempt),
+                        self._base_delay * (self._backoff_factor**attempt),
                         self._max_delay,
                     )
                     logger.warning(
                         "Retry %d/%d for %s in %.3fs: %s",
-                        attempt + 1, self._max_retries, method_name, delay, exc,
+                        attempt + 1,
+                        self._max_retries,
+                        method_name,
+                        delay,
+                        exc,
                     )
                     time.sleep(delay)
                 else:

@@ -87,7 +87,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "compliance_check",
         "inputs": {"operation": "compliance_check"},
         "min_quality_score": 0.9,
-    }
+    },
 ]
 
 
@@ -114,7 +114,6 @@ class AIEthicsGovernanceBenchmark:
     def __init__(self):
         self.results: list[BenchmarkResult] = []
         self.golden_tests_dir = "golden_tests/ai-ethics-governance"
-
 
     def run_fairness_auditing(self) -> BenchmarkResult:
         start = time.perf_counter()
@@ -173,7 +172,9 @@ class AIEthicsGovernanceBenchmark:
             "pack_id": "ai_ethics_pack",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

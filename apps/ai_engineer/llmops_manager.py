@@ -63,7 +63,9 @@ class LLMOpsManager:
             memory_request=memory,
             gpu_enabled=inputs.get("gpu_enabled", False),
             gpu_count=inputs.get("gpu_count", 0),
-            rate_limit_rpm=inputs.get("rate_limit_rpm", 100 if environment == DeploymentEnvironment.production else 50),  # noqa: E501
+            rate_limit_rpm=inputs.get(
+                "rate_limit_rpm", 100 if environment == DeploymentEnvironment.production else 50
+            ),  # noqa: E501
             timeout_seconds=timeout,
         )
 
@@ -102,7 +104,10 @@ class LLMOpsManager:
     ) -> list[str]:
         recs: list[str] = []
         if deployment:
-            if deployment.scaling_min < 3 and deployment.environment == DeploymentEnvironment.production:  # noqa: E501
+            if (
+                deployment.scaling_min < 3
+                and deployment.environment == DeploymentEnvironment.production
+            ):  # noqa: E501
                 recs.append("Tingkatkan scaling_min ke ≥3 untuk produksi")
             if deployment.gpu_enabled and deployment.gpu_count < 1:
                 recs.append("GPU diaktifkan tapi gpu_count=0 — verifikasi konfigurasi")
@@ -132,7 +137,9 @@ class LLMOpsManager:
             "total_monthly": instance_cost + fine_tuning_cost,
         }
 
-    def score_quality(self, deployment: DeploymentConfig | None, monitoring: MonitoringConfig | None) -> float:  # noqa: E501
+    def score_quality(
+        self, deployment: DeploymentConfig | None, monitoring: MonitoringConfig | None
+    ) -> float:  # noqa: E501
         if not deployment or not monitoring:
             return 0.5
         score = 0.7

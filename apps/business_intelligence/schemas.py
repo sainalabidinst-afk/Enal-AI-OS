@@ -84,12 +84,14 @@ class BusinessIntelligenceReport(BaseModel):
 class BusinessIntelligenceRecord(BaseModel):
     pack_id: str = "business-intelligence"
     version: str = "2.8.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "kpi_tracking",
-        "dashboard_generation",
-        "scenario_planning",
-        "metric_analysis",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "kpi_tracking",
+            "dashboard_generation",
+            "scenario_planning",
+            "metric_analysis",
+        ]
+    )
 
 
 class BusinessIntelligenceRequest(BaseModel):

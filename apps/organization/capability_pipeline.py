@@ -55,6 +55,7 @@ class PipelineStep:
         alias: Optional friendly name for this step (used in telemetry).
         metadata: Additional metadata passed to the execution engine.
     """
+
     capability_id: str
     input_data: dict[str, Any]
     alias: str = ""
@@ -75,6 +76,7 @@ class PipelineRequest:
         correlation_id: Groups multiple pipeline runs under a single request.
         metadata: Additional context (e.g., project_id, user_id).
     """
+
     steps: list[PipelineStep]
     pipeline_id: str = ""
     correlation_id: str = ""
@@ -102,6 +104,7 @@ class StepResult:
         execution_id: The engine execution ID for this step.
         telemetry: Telemetry record from the engine.
     """
+
     step_index: int
     capability_id: str
     alias: str
@@ -128,6 +131,7 @@ class PipelineResponse:
         error: Overall error message (None on success).
         error_step: The capability_id of the step that failed (None on success).
     """
+
     pipeline_id: str
     correlation_id: str
     status: ExecutionStatus
@@ -269,9 +273,7 @@ class CapabilityPipeline:
         # ── Build unified response ──
         total_time_ms = (time.monotonic() - start_time) * 1000
         overall_status = (
-            ExecutionStatus.COMPLETED
-            if failed_step is None
-            else ExecutionStatus.FAILED
+            ExecutionStatus.COMPLETED if failed_step is None else ExecutionStatus.FAILED
         )
 
         logger.info(
@@ -336,11 +338,7 @@ class CapabilityPipeline:
 
         Useful for auditing and observability.
         """
-        return [
-            s.telemetry
-            for s in response.steps
-            if s.telemetry is not None
-        ]
+        return [s.telemetry for s in response.steps if s.telemetry is not None]
 
     def summarize(
         self,
@@ -352,10 +350,8 @@ class CapabilityPipeline:
             "status": response.status.value,
             "total_time_ms": round(response.total_time_ms, 2),
             "steps_executed": response.step_count,
-            "steps_planned": len(response.steps) + (
-                response.step_count if response.failed_step is None
-                else 0
-            ),
+            "steps_planned": len(response.steps)
+            + (response.step_count if response.failed_step is None else 0),
             "failed": response.failed_step is not None,
             "failed_step": response.error_step if response.failed_step is not None else None,
             "error": response.error,
@@ -375,4 +371,3 @@ class CapabilityPipeline:
 
 # Singleton instance
 capability_pipeline = CapabilityPipeline()
-

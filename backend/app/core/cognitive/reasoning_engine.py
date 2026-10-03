@@ -61,6 +61,7 @@ class ReasoningEngine:
             max_tokens=1024,
         )
         import json
+
         try:
             hypotheses_data = json.loads(response.choices[0].message.content)
             return [
@@ -77,18 +78,20 @@ class ReasoningEngine:
             return [Hypothesis(id="hyp-0", description=problem, confidence=0.5)]
 
     async def reason(self, problem: str, hypotheses: list[Hypothesis]) -> ReasoningChain:
-        chain = ReasoningChain(id=f"chain-{len(self._chains)}", problem=problem, hypotheses=hypotheses)  # noqa: E501
+        chain = ReasoningChain(
+            id=f"chain-{len(self._chains)}", problem=problem, hypotheses=hypotheses
+        )  # noqa: E501
         prompt = (
             f"Analyze the following problem and hypotheses using structured reasoning.\n\n"
             f"Problem: {problem}\n\n"
             "Hypotheses:\n"
         )
         for i, h in enumerate(hypotheses):
-            prompt += f"{i+1}. {h.description} (confidence: {h.confidence})\n"
+            prompt += f"{i + 1}. {h.description} (confidence: {h.confidence})\n"
         prompt += (
             "\nProvide a step-by-step reasoning chain, evaluate each hypothesis, "
             "select the best one, and state a conclusion.\n"
-            "Output JSON: {\"reasoning_steps\": [str], \"selected_id\": str, \"conclusion\": str, \"confidence\": float}"  # noqa: E501
+            'Output JSON: {"reasoning_steps": [str], "selected_id": str, "conclusion": str, "confidence": float}'  # noqa: E501
         )
         response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
@@ -97,6 +100,7 @@ class ReasoningEngine:
             max_tokens=1024,
         )
         import json
+
         try:
             result = json.loads(response.choices[0].message.content)
             chain.reasoning_steps = result.get("reasoning_steps", [])

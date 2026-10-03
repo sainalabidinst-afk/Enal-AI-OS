@@ -105,7 +105,11 @@ class RefactoringEngine:
         report.total_suggestions = len(suggestions)
 
         report.top_priorities = sorted(
-            [s for s in suggestions if s.severity in (RefactoringSeverity.CRITICAL, RefactoringSeverity.HIGH)],  # noqa: E501
+            [
+                s
+                for s in suggestions
+                if s.severity in (RefactoringSeverity.CRITICAL, RefactoringSeverity.HIGH)
+            ],  # noqa: E501
             key=lambda s: s.confidence,
             reverse=True,
         )[:10]

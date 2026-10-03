@@ -213,7 +213,11 @@ class SkillsRegistry:
                 errors=errors,
                 warnings=warnings,
                 methods_expected=[
-                    "capability_pack", "id", "version", "capabilities", "pipeline",
+                    "capability_pack",
+                    "id",
+                    "version",
+                    "capabilities",
+                    "pipeline",
                 ],
                 methods_implemented=[
                     "capability_pack",

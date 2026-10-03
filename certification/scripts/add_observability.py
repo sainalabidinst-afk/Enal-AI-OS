@@ -115,7 +115,9 @@ def record_execution(capability_id: str, duration_ms: float, success: bool = Tru
 def main() -> int:
     for capability in CAPABILITIES_NEEDING_OBSERVABILITY:
         add_observability(capability)
-    print(f"\nAdded observability modules to {len(CAPABILITIES_NEEDING_OBSERVABILITY)} capabilities.")
+    print(
+        f"\nAdded observability modules to {len(CAPABILITIES_NEEDING_OBSERVABILITY)} capabilities."
+    )
     return 0
 
 

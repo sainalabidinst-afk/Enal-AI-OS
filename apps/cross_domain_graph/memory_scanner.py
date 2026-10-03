@@ -32,6 +32,7 @@ class MemoryScanner:
         """Lazy-load memory manager to avoid import-time coupling."""
         if self._memory_manager is None:
             from backend.app.runtime import memory_manager as _mm
+
             self._memory_manager = _mm
         return self._memory_manager
 
@@ -140,9 +141,7 @@ class MemoryScanner:
     # Internal
     # ------------------------------------------------------------------
 
-    def _extract_node(
-        self, entry: dict[str, Any], layer: str, idx: int
-    ) -> GraphNode | None:
+    def _extract_node(self, entry: dict[str, Any], layer: str, idx: int) -> GraphNode | None:
         """Extract a GraphNode from a memory entry."""
         key = entry.get("key", "") if isinstance(entry, dict) else str(entry)
         value = entry.get("value", entry) if isinstance(entry, dict) else entry
@@ -153,7 +152,11 @@ class MemoryScanner:
             description = value.get("description", value.get("summary", ""))
             node_type_str = value.get("type", value.get("category", "entity"))
             domain = value.get("domain", value.get("pack", "unknown"))
-            properties = {k: v for k, v in value.items() if k not in ("name", "description", "type", "domain", "summary", "title")}  # noqa: E501
+            properties = {
+                k: v
+                for k, v in value.items()
+                if k not in ("name", "description", "type", "domain", "summary", "title")
+            }  # noqa: E501
         elif isinstance(value, str):
             name = value[:100]
             description = value[:500]

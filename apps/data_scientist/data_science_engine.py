@@ -59,20 +59,24 @@ class DataScienceEngine:
 
         # Simulate feature engineering
         engineered = [f for f in features if not f.startswith("_")]
-        results.append(PipelineResult(
-            step_name="feature_engineering",
-            status="completed",
-            output_description=f"Processed {len(engineered)} features from {len(features)} inputs",
-            artifacts=[f"features_{hash('-'.join(engineered)) % 10000}.parquet"],
-        ))
+        results.append(
+            PipelineResult(
+                step_name="feature_engineering",
+                status="completed",
+                output_description=f"Processed {len(engineered)} features from {len(features)} inputs",  # noqa: E501
+                artifacts=[f"features_{hash('-'.join(engineered)) % 10000}.parquet"],
+            )
+        )
 
         # Add transformation step
-        results.append(PipelineResult(
-            step_name="feature_transformation",
-            status="completed",
-            output_description="Applied standardization and encoding",
-            artifacts=[],
-        ))
+        results.append(
+            PipelineResult(
+                step_name="feature_transformation",
+                status="completed",
+                output_description="Applied standardization and encoding",
+                artifacts=[],
+            )
+        )
 
         return results
 
@@ -94,7 +98,11 @@ class DataScienceEngine:
         evaluations: list[ModelEvaluation] = []
 
         if not inputs.metrics:
-            inputs_copy = list(inputs.metrics) if isinstance(inputs.metrics, list) else ["accuracy", "precision", "recall"]  # noqa: E501
+            inputs_copy = (
+                list(inputs.metrics)
+                if isinstance(inputs.metrics, list)
+                else ["accuracy", "precision", "recall"]
+            )  # noqa: E501
         else:
             inputs_copy = inputs.metrics
 
@@ -113,13 +121,15 @@ class DataScienceEngine:
             seed_val = sum(ord(c) for c in metric_name + inputs.model_type) % 10
             value = 0.80 + (seed_val / 100.0)
 
-            evaluations.append(ModelEvaluation(
-                metric_name=metric_name,
-                value=round(value, 4),
-                threshold=threshold,
-                passes=value >= threshold,
-                description=f"{metric_name} {'exceeds' if value >= threshold else 'below'} threshold",  # noqa: E501
-            ))
+            evaluations.append(
+                ModelEvaluation(
+                    metric_name=metric_name,
+                    value=round(value, 4),
+                    threshold=threshold,
+                    passes=value >= threshold,
+                    description=f"{metric_name} {'exceeds' if value >= threshold else 'below'} threshold",  # noqa: E501
+                )
+            )
 
         return evaluations
 
@@ -131,12 +141,14 @@ class DataScienceEngine:
         for i, feature in enumerate(features):
             seed_val = sum(ord(c) for c in feature) % 100
             score = 0.5 + (seed_val / 200.0)
-            importance.append(FeatureImportance(
-                feature_name=feature,
-                importance_score=round(score, 4),
-                rank=i + 1,
-                description=f"Feature '{feature}' ranked #{i + 1}",
-            ))
+            importance.append(
+                FeatureImportance(
+                    feature_name=feature,
+                    importance_score=round(score, 4),
+                    rank=i + 1,
+                    description=f"Feature '{feature}' ranked #{i + 1}",
+                )
+            )
 
         importance.sort(key=lambda x: x.importance_score, reverse=True)
         for i, imp in enumerate(importance):

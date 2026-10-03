@@ -63,7 +63,11 @@ class FullStackEngineerEngine:
             FullStackReport with architecture review, code review, etc.
         """
         started = time.monotonic()
-        op = request.operation.value if hasattr(request.operation, "value") else str(request.operation)  # noqa: E501
+        op = (
+            request.operation.value
+            if hasattr(request.operation, "value")
+            else str(request.operation)
+        )  # noqa: E501
 
         inputs = request.inputs
         context = request.context
@@ -121,13 +125,22 @@ class FullStackEngineerEngine:
             release_review = await self.release_engineer.review(changes, context)
 
         quality_score = self._compute_quality_score(
-            architecture_review, code_review, refactoring_plan,
-            test_engineering, performance_analysis, release_review,
+            architecture_review,
+            code_review,
+            refactoring_plan,
+            test_engineering,
+            performance_analysis,
+            release_review,
         )
 
         explanation = self._build_explanation(
-            op, architecture_review, code_review, refactoring_plan,
-            test_engineering, performance_analysis, release_review,
+            op,
+            architecture_review,
+            code_review,
+            refactoring_plan,
+            test_engineering,
+            performance_analysis,
+            release_review,
         )
 
         report = FullStackReport(
@@ -168,7 +181,11 @@ class FullStackEngineerEngine:
     def _get_arch_score(arch: Any) -> float:
         if not arch:
             return 0.0
-        val = arch.get("architecture_score", 0.0) if isinstance(arch, dict) else getattr(arch, "architecture_score", 0.0)  # noqa: E501
+        val = (
+            arch.get("architecture_score", 0.0)
+            if isinstance(arch, dict)
+            else getattr(arch, "architecture_score", 0.0)
+        )  # noqa: E501
         return float(val or 0.0)
 
     @staticmethod
@@ -183,7 +200,11 @@ class FullStackEngineerEngine:
     def _get_release_ready(release: Any) -> bool:
         if not release:
             return False
-        val = release.get("ready", False) if isinstance(release, dict) else getattr(release, "ready", False)  # noqa: E501
+        val = (
+            release.get("ready", False)
+            if isinstance(release, dict)
+            else getattr(release, "ready", False)
+        )  # noqa: E501
         return bool(val)
 
     @staticmethod
@@ -225,7 +246,11 @@ class FullStackEngineerEngine:
             issues = self._len_of(perf, "issues")
             critical_issues = 0
             if issues:
-                items = perf.get("issues", []) if isinstance(perf, dict) else getattr(perf, "issues", [])  # noqa: E501
+                items = (
+                    perf.get("issues", [])
+                    if isinstance(perf, dict)
+                    else getattr(perf, "issues", [])
+                )  # noqa: E501
                 critical_issues = sum(1 for i in items if i.get("severity") == "critical")
             if critical_issues == 0:
                 score += 0.1
@@ -270,22 +295,16 @@ class FullStackEngineerEngine:
             )
         if code:
             findings = self._len_of(code, "findings")
-            parts.append(
-                f"Code review: {findings} detailed findings."
-            )
+            parts.append(f"Code review: {findings} detailed findings.")
         if refactor:
-            parts.append(
-                f"Refactoring: {self._len_of(refactor, 'plans')} plans generated."
-            )
+            parts.append(f"Refactoring: {self._len_of(refactor, 'plans')} plans generated.")
         if test:
             parts.append(
                 f"Test engineering: coverage {self._get_test_coverage(test):.0%}, "
                 f"{self._len_of(test, 'plans')} test plans."
             )
         if perf:
-            parts.append(
-                f"Performance: {self._len_of(perf, 'issues')} issues found."
-            )
+            parts.append(f"Performance: {self._len_of(perf, 'issues')} issues found.")
         if release:
             parts.append(
                 f"Release readiness: {'Ready' if self._get_release_ready(release) else 'Not ready'}, "  # noqa: E501
@@ -298,6 +317,7 @@ class FullStackEngineerEngine:
         try:
             import json
             from pathlib import Path
+
             base = Path("artifacts/full_stack_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"

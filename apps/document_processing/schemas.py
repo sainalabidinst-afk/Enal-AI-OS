@@ -203,14 +203,16 @@ class DocumentProcessingReport(BaseModel):
 class DocumentProcessingRecord(BaseModel):
     pack_id: str = "document-processing"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "document_read",
-        "document_edit",
-        "document_produce",
-        "document_convert",
-        "document_annotate",
-        "batch_process",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "document_read",
+            "document_edit",
+            "document_produce",
+            "document_convert",
+            "document_annotate",
+            "batch_process",
+        ]
+    )
 
 
 __all__ = [

@@ -54,6 +54,7 @@ class CodeAST:
         class _Identity:
             def __init__(self, name):
                 self.name = name
+
         return _Identity(self.metadata.get("filename", "unknown"))
 
     @property
@@ -112,7 +113,12 @@ class CodeParser:
                 names = [alias.name for alias in node.names]
                 ast_obj.imports.append(CodeImport(module=node.module or "", names=names))
 
-        logger.info("Parsed %s: %d functions, %d classes", filename, len(ast_obj.functions), len(ast_obj.classes))  # noqa: E501
+        logger.info(
+            "Parsed %s: %d functions, %d classes",
+            filename,
+            len(ast_obj.functions),
+            len(ast_obj.classes),
+        )  # noqa: E501
         return ast_obj
 
     def _get_name(self, node: ast.expr) -> str:

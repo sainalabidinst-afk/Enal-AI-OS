@@ -103,27 +103,27 @@ class EdgeExtractor:
                 matches = re.finditer(pattern, text, re.IGNORECASE)
                 for match in matches:
                     # Try to find the referenced entity in other nodes
-                    context_window = text[max(0, match.start() - 50):match.end() + 50].lower()
+                    context_window = text[max(0, match.start() - 50) : match.end() + 50].lower()
                     for j, tgt in enumerate(nodes):
                         if i == j:
                             continue
                         tgt_name = tgt.name.lower()
                         if tgt_name in context_window:
-                            edges.append(GraphEdge(
-                                id=f"edge-{src.id}-{tgt.id}-{relation.value}",
-                                source_id=src.id,
-                                target_id=tgt.id,
-                                relation=relation,
-                                weight=0.7,
-                                confidence=0.7,
-                                evidence=[f"text pattern: {match.group()}"],
-                            ))
+                            edges.append(
+                                GraphEdge(
+                                    id=f"edge-{src.id}-{tgt.id}-{relation.value}",
+                                    source_id=src.id,
+                                    target_id=tgt.id,
+                                    relation=relation,
+                                    weight=0.7,
+                                    confidence=0.7,
+                                    evidence=[f"text pattern: {match.group()}"],
+                                )
+                            )
 
         return edges
 
-    def _extract_from_query(
-        self, nodes: list[GraphNode], query: str
-    ) -> list[GraphEdge]:
+    def _extract_from_query(self, nodes: list[GraphNode], query: str) -> list[GraphEdge]:
         """Extract edges implied by the user's query."""
         edges: list[GraphEdge] = []
         query_lower = query.lower()
@@ -136,16 +136,18 @@ class EdgeExtractor:
 
         # Connect mentioned nodes with CORELATION or REFERENCE
         for i, src in enumerate(mentioned):
-            for tgt in mentioned[i + 1:]:
-                edges.append(GraphEdge(
-                    id=f"edge-query-{src.id}-{tgt.id}",
-                    source_id=src.id,
-                    target_id=tgt.id,
-                    relation=RelationType.RELATED_TO,
-                    weight=0.8,
-                    confidence=0.8,
-                    evidence=[f"query co-mention: {query[:100]}"],
-                ))
+            for tgt in mentioned[i + 1 :]:
+                edges.append(
+                    GraphEdge(
+                        id=f"edge-query-{src.id}-{tgt.id}",
+                        source_id=src.id,
+                        target_id=tgt.id,
+                        relation=RelationType.RELATED_TO,
+                        weight=0.8,
+                        confidence=0.8,
+                        evidence=[f"query co-mention: {query[:100]}"],
+                    )
+                )
 
         return edges
 
@@ -162,16 +164,18 @@ class EdgeExtractor:
             if len(group) > 1:
                 # Connect nodes within the same domain
                 for i, src in enumerate(group):
-                    for tgt in group[i + 1:]:
-                        edges.append(GraphEdge(
-                            id=f"edge-domain-{src.id}-{tgt.id}",
-                            source_id=src.id,
-                            target_id=tgt.id,
-                            relation=RelationType.RELATED_TO,
-                            weight=0.5,
-                            confidence=0.5,
-                            evidence=[f"same domain: {domain}"],
-                        ))
+                    for tgt in group[i + 1 :]:
+                        edges.append(
+                            GraphEdge(
+                                id=f"edge-domain-{src.id}-{tgt.id}",
+                                source_id=src.id,
+                                target_id=tgt.id,
+                                relation=RelationType.RELATED_TO,
+                                weight=0.5,
+                                confidence=0.5,
+                                evidence=[f"same domain: {domain}"],
+                            )
+                        )
 
         return edges
 
@@ -193,15 +197,17 @@ class EdgeExtractor:
             for dep_domain in deps:
                 for tgt in nodes:
                     if tgt.domain == dep_domain and tgt.id != node.id:
-                        edges.append(GraphEdge(
-                            id=f"edge-dep-{node.id}-{tgt.id}",
-                            source_id=node.id,
-                            target_id=tgt.id,
-                            relation=RelationType.DEPENDS_ON,
-                            weight=0.6,
-                            confidence=0.6,
-                            evidence=[f"domain dependency: {node.domain} → {dep_domain}"],
-                        ))
+                        edges.append(
+                            GraphEdge(
+                                id=f"edge-dep-{node.id}-{tgt.id}",
+                                source_id=node.id,
+                                target_id=tgt.id,
+                                relation=RelationType.DEPENDS_ON,
+                                weight=0.6,
+                                confidence=0.6,
+                                evidence=[f"domain dependency: {node.domain} → {dep_domain}"],
+                            )
+                        )
 
         return edges
 

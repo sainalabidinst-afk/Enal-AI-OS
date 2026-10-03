@@ -55,7 +55,9 @@ class PolicyEngine:
         self._policies[policy.id] = policy
         logger.info(f"Policy added: {policy.id} for {policy.agent}")
 
-    def can_execute(self, agent: str, tool: str, permission: Permission, tenant_id: str | None = None) -> bool:  # noqa: E501
+    def can_execute(
+        self, agent: str, tool: str, permission: Permission, tenant_id: str | None = None
+    ) -> bool:  # noqa: E501
         policy = next((p for p in self._policies.values() if p.agent == agent), None)
         if not policy:
             return False
@@ -71,7 +73,9 @@ class PolicyEngine:
     def get_policy(self, agent: str) -> Policy | None:
         return next((p for p in self._policies.values() if p.agent == agent), None)
 
-    def create_approval(self, agent: str, action: str, justification: str, requester: str) -> ApprovalRequest:  # noqa: E501
+    def create_approval(
+        self, agent: str, action: str, justification: str, requester: str
+    ) -> ApprovalRequest:  # noqa: E501
         approval = ApprovalRequest(
             id=f"approval-{datetime.now(UTC).timestamp()}",
             agent=agent,
@@ -111,4 +115,3 @@ class PolicyEngine:
 
 
 policy_engine = PolicyEngine()
-

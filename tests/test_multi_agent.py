@@ -321,7 +321,9 @@ async def test_execute_plan_parallel(orchestrator: MultiAgentOrchestrator):
         PlanStep(step_id="s2", step_type=StepType.CAPABILITY, description="Independent 2"),
     ]
 
-    plan = AIPlan(plan_id="parallel-test", goal="Parallel test", steps=independent_steps, total_steps=2)
+    plan = AIPlan(
+        plan_id="parallel-test", goal="Parallel test", steps=independent_steps, total_steps=2
+    )
 
     result = await orchestrator.execute_plan(plan, CoordinationStrategy.PARALLEL)
     assert result.status == PlanStatus.COMPLETED
@@ -422,4 +424,3 @@ def test_multi_agent_result_properties():
     assert result.failed_tasks == 0
     assert result.total_duration_ms == 0.0
     assert result.status == PlanStatus.DRAFT
-

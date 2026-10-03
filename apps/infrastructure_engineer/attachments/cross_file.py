@@ -29,7 +29,9 @@ class CrossFileReasoningEngine:
             combined.wireless.extend(ast.wireless)
             combined.ha.extend(ast.ha)
             combined.findings.extend(ast.findings)
-            combined.system["sources"] = combined.system.get("sources", []) + [ast.metadata.get("source")]  # noqa: E501
+            combined.system["sources"] = combined.system.get("sources", []) + [
+                ast.metadata.get("source")
+            ]  # noqa: E501
             for key, value in ast.system.items():
                 if isinstance(value, list):
                     combined.system.setdefault(key, []).extend(value)
@@ -44,8 +46,13 @@ class CrossFileReasoningEngine:
         return combined
 
     def _detect_vlan_gaps(self, combined: InfrastructureAST) -> None:
-        switch_vlans = {str(item.get("id") or item.get("raw", "")).strip() for item in combined.vlans}  # noqa: E501
-        router_vlans = {str(item.get("id") or item.get("name") or item.get("raw", "")).strip() for item in combined.routing}  # noqa: E501
+        switch_vlans = {
+            str(item.get("id") or item.get("raw", "")).strip() for item in combined.vlans
+        }  # noqa: E501
+        router_vlans = {
+            str(item.get("id") or item.get("name") or item.get("raw", "")).strip()
+            for item in combined.routing
+        }  # noqa: E501
         missing_vlans = sorted(switch_vlans - router_vlans)
         if missing_vlans:
             combined.findings.append(

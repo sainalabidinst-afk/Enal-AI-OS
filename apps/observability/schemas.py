@@ -197,12 +197,14 @@ class ObservabilityReport(BaseModel):
 class ObservabilityRecord(BaseModel):
     pack_id: str = "observability"
     version: str = "2.3.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "metrics_collect",
-        "trace_analyze",
-        "log_analyze",
-        "anomaly_detect",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "metrics_collect",
+            "trace_analyze",
+            "log_analyze",
+            "anomaly_detect",
+        ]
+    )
 
 
 __all__ = [

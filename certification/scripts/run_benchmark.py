@@ -12,8 +12,6 @@ import argparse
 import datetime
 import importlib
 import json
-import os
-import random
 import sys
 import time
 from pathlib import Path
@@ -27,7 +25,7 @@ sys.path.insert(0, str(ROOT))
 
 
 def now_iso() -> str:
-    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+    return datetime.datetime.now(datetime.UTC).isoformat()
 
 
 def score_to_grade(score: float) -> str:
@@ -132,7 +130,6 @@ def run_functional_benchmark(name: str, iterations: int = 20) -> dict[str, Any]:
 
 def run_performance_benchmark(name: str, iterations: int = 20) -> dict[str, Any]:
     latencies: list[float] = []
-    memory_samples: list[float] = []
     module = load_capability_entry(name)
     callable = get_capability_callable(module) if module else None
 
@@ -158,6 +155,7 @@ def run_performance_benchmark(name: str, iterations: int = 20) -> dict[str, Any]
     memory_mb = 0.0
     try:
         import resource
+
         memory_kb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         memory_mb = memory_kb / 1024
     except Exception:
@@ -203,18 +201,22 @@ def run_scalability_benchmark(name: str) -> dict[str, Any]:
         if latencies:
             p95 = percentile(latencies, 95)
             failure_rate = (failures / load) * 100 if load else 0
-            degradation = ((p95 - baseline_latency) / baseline_latency) * 100 if baseline_latency > 0 else 0
+            degradation = (
+                ((p95 - baseline_latency) / baseline_latency) * 100 if baseline_latency > 0 else 0
+            )
         else:
             p95 = 0
             failure_rate = 100
             degradation = 100
 
-        results.append({
-            "requests": load,
-            "latencyP95": round(p95, 3),
-            "failureRate": round(failure_rate, 2),
-            "degradation": round(degradation, 2),
-        })
+        results.append(
+            {
+                "requests": load,
+                "latencyP95": round(p95, 3),
+                "failureRate": round(failure_rate, 2),
+                "degradation": round(degradation, 2),
+            }
+        )
 
     avg_failure = sum(r["failureRate"] for r in results) / len(results) if results else 0
     avg_degradation = sum(r["degradation"] for r in results) / len(results) if results else 0
@@ -246,7 +248,13 @@ def run_reliability_benchmark(name: str) -> dict[str, Any]:
         except Exception:
             recovery_success = 0.0
 
-    score = (recovery_success + timeout_handling + retry_success + invalid_input_handling + lifecycle_transitions) / 5
+    score = (
+        recovery_success
+        + timeout_handling
+        + retry_success
+        + invalid_input_handling
+        + lifecycle_transitions
+    ) / 5
 
     return {
         "recoverySuccess": round(recovery_success, 2),
@@ -302,12 +310,16 @@ def main() -> int:
     parser.add_argument("--all", action="store_true", help="Benchmark all capabilities")
     args = parser.parse_args()
 
-    capabilities = sorted(p.name for p in APPS_DIR.iterdir() if p.is_dir() and p.name != "__pycache__")
+    capabilities = sorted(
+        p.name for p in APPS_DIR.iterdir() if p.is_dir() and p.name != "__pycache__"
+    )
     if not capabilities:
         print("No capabilities discovered under apps/")
         return 1
 
-    targets = capabilities if args.all else ([args.capability] if args.capability else capabilities[:1])
+    targets = (
+        capabilities if args.all else ([args.capability] if args.capability else capabilities[:1])
+    )
 
     for capability_id in targets:
         if capability_id not in capabilities:
@@ -319,7 +331,9 @@ def main() -> int:
         print(f"  Performance : {benchmark['performance']['score']}")
         print(f"  Scalability : {benchmark['scalability']['score']}")
         print(f"  Reliability : {benchmark['reliability']['score']}")
-        print(f"  Overall     : {benchmark['overallScore']} (grade={benchmark['grade']}, passed={benchmark['passed']})")
+        print(
+            f"  Overall     : {benchmark['overallScore']} (grade={benchmark['grade']}, passed={benchmark['passed']})"  # noqa: E501
+        )
         print(f"  Saved to    : {path}\n")
 
     return 0

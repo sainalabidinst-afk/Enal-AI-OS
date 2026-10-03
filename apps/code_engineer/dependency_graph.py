@@ -81,28 +81,32 @@ class DependencyGraphBuilder:
                 for alias in node.names:
                     dep_type = self.resolver.classify(alias.name, str(py_file))
                     resolved = self.resolver.resolve(alias.name, str(py_file))
-                    deps.append(Dependency(
-                        source=relative,
-                        target=resolved,
-                        dependency_type=dep_type,
-                        alias=alias.asname or "",
-                        line_number=node.lineno,
-                    ))
+                    deps.append(
+                        Dependency(
+                            source=relative,
+                            target=resolved,
+                            dependency_type=dep_type,
+                            alias=alias.asname or "",
+                            line_number=node.lineno,
+                        )
+                    )
             elif isinstance(node, ast.ImportFrom):
                 if node.module:
                     for alias in node.names:
                         full_name = f"{node.module}.{alias.name}"
                         dep_type = self.resolver.classify(full_name, str(py_file))
                         resolved = self.resolver.resolve(node.module, str(py_file))
-                        deps.append(Dependency(
-                            source=relative,
-                            target=resolved,
-                            dependency_type=dep_type,
-                            alias=alias.asname or "",
-                            is_from_import=True,
-                            imported_names=[alias.name],
-                            line_number=node.lineno,
-                        ))
+                        deps.append(
+                            Dependency(
+                                source=relative,
+                                target=resolved,
+                                dependency_type=dep_type,
+                                alias=alias.asname or "",
+                                is_from_import=True,
+                                imported_names=[alias.name],
+                                line_number=node.lineno,
+                            )
+                        )
 
         return deps
 
@@ -164,7 +168,9 @@ class DependencyGraphBuilder:
             return
 
         for mod_path, mod_info in self._modules.items():
-            local_deps = sum(1 for d in mod_info.dependencies if d.dependency_type == DependencyType.LOCAL)  # noqa: E501
+            local_deps = sum(
+                1 for d in mod_info.dependencies if d.dependency_type == DependencyType.LOCAL
+            )  # noqa: E501
             mod_info.dependency_count = local_deps
             mod_info.dependent_count = len(mod_info.dependents)
 
@@ -199,14 +205,18 @@ class DependencyGraphBuilder:
         )
 
         dependent_counts = [
-            (m.module_path, m.dependent_count) for m in self._modules.values() if m.dependent_count > 0  # noqa: E501
+            (m.module_path, m.dependent_count)
+            for m in self._modules.values()
+            if m.dependent_count > 0  # noqa: E501
         ]
         dependent_counts.sort(key=lambda x: x[1], reverse=True)
         most_dependent = dependent_counts[:10]
 
         orphans = [
-            m.module_path for m in self._modules.values()
-            if m.dependency_count == 0 and m.dependent_count == 0
+            m.module_path
+            for m in self._modules.values()
+            if m.dependency_count == 0
+            and m.dependent_count == 0
             and not m.module_path.startswith("__init__")
             and not m.module_path.startswith("_")
         ]
@@ -226,7 +236,10 @@ class DependencyGraphBuilder:
             total_local_imports=local,
             max_depth=max_depth,
             avg_dependencies=total_deps / len(self._modules) if self._modules else 0,
-            avg_dependents=sum(m.dependent_count for m in self._modules.values()) / len(self._modules) if self._modules else 0,  # noqa: E501
+            avg_dependents=sum(m.dependent_count for m in self._modules.values())
+            / len(self._modules)
+            if self._modules
+            else 0,  # noqa: E501
             most_dependent_modules=most_dependent,
             orphan_modules=orphans,
         )

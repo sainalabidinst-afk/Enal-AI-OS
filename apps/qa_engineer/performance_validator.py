@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PerfMetric:
     """A single performance metric observation."""
+
     name: str
     value: float
     unit: str
@@ -80,7 +81,9 @@ class PerformanceValidator:
         if not meets_lat:
             bottlenecks.append(f"Latency {observed_latency}ms exceeds target {target_latency}ms")
         if not meets_thr:
-            bottlenecks.append(f"Throughput {observed_throughput:.1f} rps below target {target_throughput} rps")  # noqa: E501
+            bottlenecks.append(
+                f"Throughput {observed_throughput:.1f} rps below target {target_throughput} rps"
+            )  # noqa: E501
         if not meets_mem:
             bottlenecks.append(f"Memory {observed_memory:.1f}MB exceeds budget {target_memory}MB")
 
@@ -99,13 +102,17 @@ class PerformanceValidator:
         metrics: dict[str, float] = {}
 
         # Count heavy operations that suggest performance characteristics.
-        loop_count = len(re.findall(r'\bfor\b|\bwhile\b', source_code))
-        io_ops = len(re.findall(r'\bopen\b|\bread\b|\bwrite\b|\brequest\.', source_code))
-        db_ops = len(re.findall(r'\bexecute\b|\bquery\b|\bfind\b|\binsert\b|\bupdate\b', source_code))  # noqa: E501
-        sleep_calls = len(re.findall(r'\bsleep\b|\bwait\b', source_code))
+        loop_count = len(re.findall(r"\bfor\b|\bwhile\b", source_code))
+        io_ops = len(re.findall(r"\bopen\b|\bread\b|\bwrite\b|\brequest\.", source_code))
+        db_ops = len(
+            re.findall(r"\bexecute\b|\bquery\b|\bfind\b|\binsert\b|\bupdate\b", source_code)
+        )  # noqa: E501
+        sleep_calls = len(re.findall(r"\bsleep\b|\bwait\b", source_code))
 
         # Heuristic metric estimation.
-        metrics["latency_p95_ms"] = 50 + loop_count * 2 + io_ops * 10 + db_ops * 15 + sleep_calls * 100  # noqa: E501
+        metrics["latency_p95_ms"] = (
+            50 + loop_count * 2 + io_ops * 10 + db_ops * 15 + sleep_calls * 100
+        )  # noqa: E501
         metrics["throughput_rps"] = max(1, 1000 - loop_count * 3 - io_ops * 5 - db_ops * 10)
         metrics["memory_mb"] = 64 + io_ops * 5 + db_ops * 10
 
@@ -118,10 +125,10 @@ class PerformanceValidator:
         if source_code.count("for") >= 5:
             bottlenecks.append("Nested loops detected — consider algorithmic optimization")
 
-        if re.search(r'\bsleep\b|\btime\.sleep\b', source_code):
+        if re.search(r"\bsleep\b|\btime\.sleep\b", source_code):
             bottlenecks.append("Sleep calls found — consider async/event-driven alternatives")
 
-        if re.search(r'\bselect\b.*\*.*', source_code, re.IGNORECASE):
+        if re.search(r"\bselect\b.*\*.*", source_code, re.IGNORECASE):
             bottlenecks.append("SELECT * detected — consider column-specific queries")
 
         if source_code.count("open(") > 5:

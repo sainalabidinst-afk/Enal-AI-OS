@@ -33,7 +33,9 @@ def parse_interfaces(ast: NetworkAST, lines: list[str]):
             iface_name = stripped.split(" ", 1)[1]
             iface = UniversalInterface(
                 name=iface_name,
-                type=__import__('apps.network_engineer.vendor.models', fromlist=['InterfaceType']).InterfaceType.ETHERNET,  # noqa: E501
+                type=__import__(
+                    "apps.network_engineer.vendor.models", fromlist=["InterfaceType"]
+                ).InterfaceType.ETHERNET,  # noqa: E501
             )
             ast.interfaces.append(iface)
             current_iface = iface
@@ -94,10 +96,12 @@ def parse_ip_addresses(ast: NetworkAST, lines: list[str]):
             if len(parts) >= 4:
                 ip = parts[2]
                 mask = parts[3]
-                ast.ip_addresses.append(UniversalIPAddress(
-                    address=f"{ip}/{mask}",
-                    interface=current_iface,
-                ))
+                ast.ip_addresses.append(
+                    UniversalIPAddress(
+                        address=f"{ip}/{mask}",
+                        interface=current_iface,
+                    )
+                )
 
 
 def parse_routes(ast: NetworkAST, lines: list[str]):
@@ -115,16 +119,21 @@ def parse_routes(ast: NetworkAST, lines: list[str]):
                         distance = int(parts[5])
                     except ValueError:
                         pass
-                prefix = __import__('apps.network_engineer.vendor.cisco_ios', fromlist=['CiscoIOSAdapter']).CiscoIOSAdapter._mask_to_prefix(mask)  # noqa: E501
-                ast.routes.append(UniversalRoute(
-                    destination=f"{dst}/{prefix}",
-                    gateway=gateway,
-                    distance=distance,
-                ))
+                prefix = __import__(
+                    "apps.network_engineer.vendor.cisco_ios", fromlist=["CiscoIOSAdapter"]
+                ).CiscoIOSAdapter._mask_to_prefix(mask)  # noqa: E501
+                ast.routes.append(
+                    UniversalRoute(
+                        destination=f"{dst}/{prefix}",
+                        gateway=gateway,
+                        distance=distance,
+                    )
+                )
 
 
 def parse_acls(ast: NetworkAST, lines: list[str]):
     from apps.network_engineer.vendor.models import RuleAction
+
     for line in lines:
         stripped = line.strip()
         if stripped.startswith(("access-list ", "ip access-list ")):
@@ -138,16 +147,19 @@ def parse_acls(ast: NetworkAST, lines: list[str]):
                     chain = "OUTPUT"
                 else:
                     chain = "FORWARD"
-                ast.firewall_rules.append(UniversalFirewallRule(
-                    id=parts[1],
-                    chain=chain,
-                    action=action,
-                    protocol=parts[3] if len(parts) > 3 else "",
-                ))
+                ast.firewall_rules.append(
+                    UniversalFirewallRule(
+                        id=parts[1],
+                        chain=chain,
+                        action=action,
+                        protocol=parts[3] if len(parts) > 3 else "",
+                    )
+                )
 
 
 def parse_nat(ast: NetworkAST, lines: list[str]):
     from apps.network_engineer.vendor.models import RuleAction
+
     for line in lines:
         stripped = line.strip()
         if stripped.startswith("ip nat inside source "):
@@ -157,11 +169,13 @@ def parse_nat(ast: NetworkAST, lines: list[str]):
                 for i, p in enumerate(parts):
                     if p == "address" and i + 1 < len(parts):
                         to_addr = parts[i + 1]
-                ast.nat_rules.append(UniversalNATRule(
-                    chain="srcnat",
-                    action=RuleAction.SNAT,
-                    to_address=to_addr,
-                ))
+                ast.nat_rules.append(
+                    UniversalNATRule(
+                        chain="srcnat",
+                        action=RuleAction.SNAT,
+                        to_address=to_addr,
+                    )
+                )
             elif "list" in stripped:
                 parts = stripped.split()
                 out_interface = ""
@@ -169,11 +183,13 @@ def parse_nat(ast: NetworkAST, lines: list[str]):
                     if p == "interface" and i + 1 < len(parts):
                         out_interface = parts[i + 1]
                         break
-                ast.nat_rules.append(UniversalNATRule(
-                    chain="srcnat",
-                    action=RuleAction.MASQUERADE,
-                    out_interface=out_interface,
-                ))
+                ast.nat_rules.append(
+                    UniversalNATRule(
+                        chain="srcnat",
+                        action=RuleAction.MASQUERADE,
+                        out_interface=out_interface,
+                    )
+                )
 
 
 def parse_dhcp(ast: NetworkAST, lines: list[str]):
@@ -217,18 +233,18 @@ def parse_hsrp(ast: NetworkAST, lines: list[str]):
                 current_group = parts[1]
                 in_hsrp = True
             if len(parts) >= 4 and parts[2] == "ip":
-                ast.vendor_specific.setdefault("hsrp", {})[
-                    f"{current_iface}_{current_group}"
-                ] = parts[3]
+                ast.vendor_specific.setdefault("hsrp", {})[f"{current_iface}_{current_group}"] = (
+                    parts[3]
+                )
             elif len(parts) >= 4 and parts[2] == "priority":
                 ast.vendor_specific.setdefault("hsrp_priority", {})[
                     f"{current_iface}_{current_group}"
                 ] = parts[3]
         elif in_hsrp and current_group:
             if stripped.startswith("ip ") and "address" in stripped:
-                ast.vendor_specific.setdefault("hsrp", {})[
-                    f"{current_iface}_{current_group}"
-                ] = stripped.split(" ", 3)[3] if len(stripped.split()) >= 4 else ""
+                ast.vendor_specific.setdefault("hsrp", {})[f"{current_iface}_{current_group}"] = (
+                    stripped.split(" ", 3)[3] if len(stripped.split()) >= 4 else ""
+                )
             elif stripped.startswith("priority "):
                 ast.vendor_specific.setdefault("hsrp_priority", {})[
                     f"{current_iface}_{current_group}"
@@ -274,12 +290,14 @@ def parse_ospf(ast: NetworkAST, lines: list[str]):
             if stripped.startswith("network "):
                 parts = stripped.split()
                 if len(parts) >= 4:
-                    ast.vendor_specific.setdefault("ospf", {}).setdefault("networks", []).append({
-                        "process": ospf_process,
-                        "network": parts[1],
-                        "wildcard": parts[2],
-                        "area": parts[3],
-                    })
+                    ast.vendor_specific.setdefault("ospf", {}).setdefault("networks", []).append(
+                        {
+                            "process": ospf_process,
+                            "network": parts[1],
+                            "wildcard": parts[2],
+                            "area": parts[3],
+                        }
+                    )
             elif stripped.startswith("area "):
                 pass
             elif stripped and not stripped.startswith(" ") and not stripped.startswith("router"):
@@ -288,6 +306,7 @@ def parse_ospf(ast: NetworkAST, lines: list[str]):
 
 def parse_bgp(ast: NetworkAST, lines: list[str]):
     from apps.network_engineer.vendor.models import UniversalBGP
+
     bgp_section = False
     bgp_as = 0
     for line in lines:
@@ -306,10 +325,12 @@ def parse_bgp(ast: NetworkAST, lines: list[str]):
                         local_as=bgp_as,
                         enabled=True,
                     )
-                ast.bgp.neighbors.append({
-                    "address": parts[1],
-                    "remote_as": parts[3],
-                })
+                ast.bgp.neighbors.append(
+                    {
+                        "address": parts[1],
+                        "remote_as": parts[3],
+                    }
+                )
         elif bgp_section and stripped.startswith("network "):
             if ast.bgp is None:
                 ast.bgp = UniversalBGP(local_as=bgp_as, enabled=True)
@@ -326,10 +347,12 @@ def parse_aaa(ast: NetworkAST, lines: list[str]):
         elif stripped.startswith("aaa authentication "):
             parts = stripped.split()
             if len(parts) >= 4:
-                ast.vendor_specific.setdefault("aaa_authentication", []).append({
-                    "type": parts[2],
-                    "method": parts[3],
-                })
+                ast.vendor_specific.setdefault("aaa_authentication", []).append(
+                    {
+                        "type": parts[2],
+                        "method": parts[3],
+                    }
+                )
 
 
 def parse_snmp(ast: NetworkAST, lines: list[str]):
@@ -356,7 +379,12 @@ def parse_logging(ast: NetworkAST, lines: list[str]):
         if stripped.startswith("logging "):
             ast.system.logging_enabled = True
             parts = stripped.split()
-            if len(parts) >= 2 and parts[1] != "on" and parts[1] != "console" and parts[1] != "monitor":  # noqa: E501
+            if (
+                len(parts) >= 2
+                and parts[1] != "on"
+                and parts[1] != "console"
+                and parts[1] != "monitor"
+            ):  # noqa: E501
                 ast.vendor_specific["logging_host"] = parts[1]
             break
 
@@ -398,7 +426,9 @@ def parse_users(ast: NetworkAST, lines: list[str]):
                 except (ValueError, IndexError):
                     pass
             elif stripped.startswith("secret "):
-                current_user.vendor_specific["secret_type"] = stripped.split(" ", 1)[1].split(" ")[0] if " " in stripped else ""  # noqa: E501
+                current_user.vendor_specific["secret_type"] = (
+                    stripped.split(" ", 1)[1].split(" ")[0] if " " in stripped else ""
+                )  # noqa: E501
             elif stripped == "!" or stripped.startswith("username "):
                 in_username = False
                 current_user = None
@@ -419,6 +449,7 @@ def parse_enable(ast: NetworkAST, lines: list[str]):
 
 def parse_dns(ast: NetworkAST, lines: list[str]):
     from apps.network_engineer.vendor.models import UniversalDNS
+
     for line in lines:
         stripped = line.strip()
         if stripped.startswith("ip name-server "):
@@ -437,7 +468,9 @@ def parse_spanning_tree(ast: NetworkAST, lines: list[str]):
         elif stripped.startswith("spanning-tree vlan "):
             parts = stripped.split()
             if len(parts) >= 4 and parts[2] == "priority":
-                ast.vendor_specific.setdefault("stp_vlan_priority", []).append({
-                    "vlan": parts[1],
-                    "priority": parts[3],
-                })
+                ast.vendor_specific.setdefault("stp_vlan_priority", []).append(
+                    {
+                        "vlan": parts[1],
+                        "priority": parts[3],
+                    }
+                )

@@ -65,9 +65,13 @@ class NodeType(StrEnum):
 class GraphQueryRequest(BaseModel):
     """Input contract for a cross-domain graph query."""
 
-    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier")  # noqa: E501
+    request_id: str = Field(
+        default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier"
+    )  # noqa: E501
     query: str = Field(..., description="Natural language cross-domain question")
-    source_domains: list[str] = Field(default_factory=list, description="Domains to search (e.g. trading, network, code)")  # noqa: E501
+    source_domains: list[str] = Field(
+        default_factory=list, description="Domains to search (e.g. trading, network, code)"
+    )  # noqa: E501
     target_memory_layers: list[str] = Field(
         default_factory=lambda: [
             MemoryLayer.KNOWLEDGE.value,
@@ -78,8 +82,12 @@ class GraphQueryRequest(BaseModel):
         description="Memory layers to scan",
     )
     max_depth: int = Field(default=3, ge=1, le=10, description="Maximum traversal depth")
-    include_explanations: bool = Field(default=True, description="Include reasoning chain in output")  # noqa: E501
-    confidence_threshold: float = Field(default=0.5, ge=0.0, le=1.0, description="Minimum confidence for relationships")  # noqa: E501
+    include_explanations: bool = Field(
+        default=True, description="Include reasoning chain in output"
+    )  # noqa: E501
+    confidence_threshold: float = Field(
+        default=0.5, ge=0.0, le=1.0, description="Minimum confidence for relationships"
+    )  # noqa: E501
 
 
 # ---------------------------------------------------------------------------

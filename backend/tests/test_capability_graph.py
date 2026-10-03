@@ -10,7 +10,13 @@ class TestCapabilityGraph:
     def test_build_graph_from_skills(self, monkeypatch):
         fake_registry = SkillRegistry.__new__(SkillRegistry)
         fake_registry.skills = {
-            "skill-a": Skill(name="skill-a", category="test", agent="a", description="desc", capabilities=["cap-x"]),  # noqa: E501
+            "skill-a": Skill(
+                name="skill-a",
+                category="test",
+                agent="a",
+                description="desc",
+                capabilities=["cap-x"],
+            ),  # noqa: E501
         }
         monkeypatch.setattr(
             "backend.app.core.capability_graph.skill_registry",
@@ -23,7 +29,13 @@ class TestCapabilityGraph:
     def test_get_skills_for_capabilities(self, monkeypatch):
         fake_registry = SkillRegistry.__new__(SkillRegistry)
         fake_registry.skills = {
-            "skill-b": Skill(name="skill-b", category="test", agent="a", description="desc", capabilities=["cap-y"]),  # noqa: E501
+            "skill-b": Skill(
+                name="skill-b",
+                category="test",
+                agent="a",
+                description="desc",
+                capabilities=["cap-y"],
+            ),  # noqa: E501
         }
         monkeypatch.setattr(
             "backend.app.core.capability_graph.skill_registry",
@@ -78,8 +90,22 @@ class TestCapabilityGraph:
     async def test_get_execution_plan(self, monkeypatch):
         fake_registry = SkillRegistry.__new__(SkillRegistry)
         fake_registry.skills = {
-            "skill-c": Skill(name="skill-c", category="test", agent="a", description="desc", capabilities=["cap-z"], cost_weight=1.0),  # noqa: E501
-            "skill-d": Skill(name="skill-d", category="test", agent="a", description="desc", capabilities=["cap-z"], cost_weight=0.5),  # noqa: E501
+            "skill-c": Skill(
+                name="skill-c",
+                category="test",
+                agent="a",
+                description="desc",
+                capabilities=["cap-z"],
+                cost_weight=1.0,
+            ),  # noqa: E501
+            "skill-d": Skill(
+                name="skill-d",
+                category="test",
+                agent="a",
+                description="desc",
+                capabilities=["cap-z"],
+                cost_weight=0.5,
+            ),  # noqa: E501
         }
         monkeypatch.setattr(
             "backend.app.core.capability_graph.skill_registry",

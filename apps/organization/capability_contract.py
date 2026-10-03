@@ -52,7 +52,9 @@ def validate_capability_node(node: CapabilityNode) -> None:
     if not node.capability_id:
         raise CapabilityContractError("capability_id is required")
     if not re.match(r"^[a-z][a-z0-9-]*$", node.capability_id):
-        raise CapabilityContractError(f"capability_id '{node.capability_id}' must match ^[a-z][a-z0-9-]*$")  # noqa: E501
+        raise CapabilityContractError(
+            f"capability_id '{node.capability_id}' must match ^[a-z][a-z0-9-]*$"
+        )  # noqa: E501
     if not node.name:
         raise CapabilityContractError("name is required")
     if not node.description:

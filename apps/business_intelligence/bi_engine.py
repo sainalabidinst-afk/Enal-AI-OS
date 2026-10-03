@@ -68,15 +68,17 @@ class BIAnalysisEngine:
                 status = "below_target"
                 trend = "down"
 
-            kpis.append(KpiMetric(
-                metric_name=metric_name,
-                current_value=current,
-                target_value=target,
-                variance_pct=round(variance, 2),
-                status=status,
-                trend=trend,
-                department=inputs.departments[0] if inputs.departments else "overall",
-            ))
+            kpis.append(
+                KpiMetric(
+                    metric_name=metric_name,
+                    current_value=current,
+                    target_value=target,
+                    variance_pct=round(variance, 2),
+                    status=status,
+                    trend=trend,
+                    department=inputs.departments[0] if inputs.departments else "overall",
+                )
+            )
 
         return kpis
 
@@ -111,15 +113,22 @@ class BIAnalysisEngine:
             for change in [-0.2, 0.0, 0.2]:
                 projected = baseline * (1 + change)
                 confidence = 0.85 if abs(change) < 0.1 else 0.75
-                scenario_label = "negative" if change < 0 else "positive" if change > 0 else "baseline"  # noqa: E501
-                scenarios.append(ScenarioAnalysis(
-                    scenario_name=f"{inputs.scenario_name}_{var}_{scenario_label}",
-                    variable_name=var,
-                    change_pct=change * 100,
-                    projected_outcome=round(projected, 2),
-                    confidence=confidence,
-                    assumptions=[f"Linear scaling assumed for {var}", "Historical correlation maintained"],  # noqa: E501
-                ))
+                scenario_label = (
+                    "negative" if change < 0 else "positive" if change > 0 else "baseline"
+                )  # noqa: E501
+                scenarios.append(
+                    ScenarioAnalysis(
+                        scenario_name=f"{inputs.scenario_name}_{var}_{scenario_label}",
+                        variable_name=var,
+                        change_pct=change * 100,
+                        projected_outcome=round(projected, 2),
+                        confidence=confidence,
+                        assumptions=[
+                            f"Linear scaling assumed for {var}",
+                            "Historical correlation maintained",
+                        ],  # noqa: E501
+                    )
+                )
 
         return scenarios
 
@@ -140,14 +149,16 @@ class BIAnalysisEngine:
             target = inputs.target_values.get(metric_name, avg)
             variance = ((recent_avg - target) / target * 100) if target != 0 else 0
 
-            kpis.append(KpiMetric(
-                metric_name=metric_name,
-                current_value=round(recent_avg, 2),
-                target_value=target,
-                variance_pct=round(variance, 2),
-                status="on_target" if abs(variance) < 10 else "deviating",
-                trend=trend,
-            ))
+            kpis.append(
+                KpiMetric(
+                    metric_name=metric_name,
+                    current_value=round(recent_avg, 2),
+                    target_value=target,
+                    variance_pct=round(variance, 2),
+                    status="on_target" if abs(variance) < 10 else "deviating",
+                    trend=trend,
+                )
+            )
 
         return kpis
 

@@ -55,25 +55,29 @@ class InfrastructureDesigner:
         infra = current_infra.get("infrastructure", {})
 
         if not infra.get("health_check"):
-            solutions.append(Solution(
-                problem_id=f"{current_infra.get('service', 'unknown')}-missing-health-check",
-                solution_type=ImprovementType.INFRASTRUCTURE.value,
-                description="Tambahkan health check ke infrastructure untuk memastikan ketersediaan layanan.",  # noqa: E501
-                estimated_effort="low",
-                risk="low",
-                tests_required=True,
-                confidence=0.95,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_infra.get('service', 'unknown')}-missing-health-check",
+                    solution_type=ImprovementType.INFRASTRUCTURE.value,
+                    description="Tambahkan health check ke infrastructure untuk memastikan ketersediaan layanan.",  # noqa: E501
+                    estimated_effort="low",
+                    risk="low",
+                    tests_required=True,
+                    confidence=0.95,
+                )
+            )
 
         if not infra.get("rollback"):
-            solutions.append(Solution(
-                problem_id=f"{current_infra.get('service', 'unknown')}-missing-rollback",
-                solution_type=ImprovementType.DEPLOYMENT.value,
-                description="Tambahkan strategi rollback otomatis untuk deployment.",
-                estimated_effort="medium",
-                risk="medium",
-                tests_required=True,
-                confidence=0.85,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_infra.get('service', 'unknown')}-missing-rollback",
+                    solution_type=ImprovementType.DEPLOYMENT.value,
+                    description="Tambahkan strategi rollback otomatis untuk deployment.",
+                    estimated_effort="medium",
+                    risk="medium",
+                    tests_required=True,
+                    confidence=0.85,
+                )
+            )
 
         return solutions

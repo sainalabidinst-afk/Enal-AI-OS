@@ -23,37 +23,43 @@ class SOLIDAnalyzer:
         for cls in code_ast.classes:
             num_methods = len(cls.methods)
             if num_methods > 15:
-                findings.append(ArchitectureFinding(
-                    category="solid",
-                    severity=ArchitectureSeverity.HIGH,
-                    description=f"Class '{cls.name}' has {num_methods} methods (SRP violation)",
-                    recommendation=(
-                        "Split class into smaller, single-responsibility classes. "
-                        "Each class should have one reason to change."
-                    ),
-                    line_number=cls.lineno,
-                    confidence=0.85,
-                    pattern="single_responsibility",
-                ))
+                findings.append(
+                    ArchitectureFinding(
+                        category="solid",
+                        severity=ArchitectureSeverity.HIGH,
+                        description=f"Class '{cls.name}' has {num_methods} methods (SRP violation)",
+                        recommendation=(
+                            "Split class into smaller, single-responsibility classes. "
+                            "Each class should have one reason to change."
+                        ),
+                        line_number=cls.lineno,
+                        confidence=0.85,
+                        pattern="single_responsibility",
+                    )
+                )
 
-            has_data = any(m.name.startswith("get_") or m.name.startswith("set_") for m in cls.methods)  # noqa: E501
+            has_data = any(
+                m.name.startswith("get_") or m.name.startswith("set_") for m in cls.methods
+            )  # noqa: E501
             has_business = any(
                 m.name in ("save", "validate", "process", "calculate", "compute", "execute")
                 for m in cls.methods
             )
             if has_data and has_business and num_methods > 8:
-                findings.append(ArchitectureFinding(
-                    category="solid",
-                    severity=ArchitectureSeverity.MEDIUM,
-                    description=f"Class '{cls.name}' mixes data and business logic (SRP concern)",
-                    recommendation=(
-                        "Separate data holders (DTOs) from business logic. "
-                        "Use service classes for business operations."
-                    ),
-                    line_number=cls.lineno,
-                    confidence=0.65,
-                    pattern="single_responsibility",
-                ))
+                findings.append(
+                    ArchitectureFinding(
+                        category="solid",
+                        severity=ArchitectureSeverity.MEDIUM,
+                        description=f"Class '{cls.name}' mixes data and business logic (SRP concern)",  # noqa: E501
+                        recommendation=(
+                            "Separate data holders (DTOs) from business logic. "
+                            "Use service classes for business operations."
+                        ),
+                        line_number=cls.lineno,
+                        confidence=0.65,
+                        pattern="single_responsibility",
+                    )
+                )
         return findings
 
     def analyze_open_closed(self, code_ast) -> list[ArchitectureFinding]:
@@ -66,19 +72,21 @@ class SOLIDAnalyzer:
                 if "elif" in raw[:2000]:
                     lines = [l for l in code_ast.raw_lines if "elif" in l]  # noqa: E741
                     if len(lines) > 3:
-                        findings.append(ArchitectureFinding(
-                            category="solid",
-                            severity=ArchitectureSeverity.MEDIUM,
-                            description=f"Method '{method.name}' in '{cls.name}' has long elif chain (OCP violation)",  # noqa: E501
-                            recommendation=(
-                                "Use Strategy pattern or polymorphic dispatch instead of "
-                                "conditional branching. New behavior should not require "
-                                "modifying existing code."
-                            ),
-                            line_number=method.lineno,
-                            confidence=0.7,
-                            pattern="open_closed",
-                        ))
+                        findings.append(
+                            ArchitectureFinding(
+                                category="solid",
+                                severity=ArchitectureSeverity.MEDIUM,
+                                description=f"Method '{method.name}' in '{cls.name}' has long elif chain (OCP violation)",  # noqa: E501
+                                recommendation=(
+                                    "Use Strategy pattern or polymorphic dispatch instead of "
+                                    "conditional branching. New behavior should not require "
+                                    "modifying existing code."
+                                ),
+                                line_number=method.lineno,
+                                confidence=0.7,
+                                pattern="open_closed",
+                            )
+                        )
                         break
         return findings
 
@@ -88,33 +96,37 @@ class SOLIDAnalyzer:
         raw = "\n".join(code_ast.raw_lines)
 
         if "= []" in raw or "= {}" in raw:
-            findings.append(ArchitectureFinding(
-                category="solid",
-                severity=ArchitectureSeverity.HIGH,
-                description="Mutable default arguments detected (LSP violation)",
-                recommendation=(
-                    "Use None as default and instantiate the mutable object inside the function. "
-                    "Mutable defaults are shared across all calls, causing unexpected behavior."
-                ),
-                line_number=1,
-                confidence=0.95,
-                pattern="liskov_substitution",
-            ))
+            findings.append(
+                ArchitectureFinding(
+                    category="solid",
+                    severity=ArchitectureSeverity.HIGH,
+                    description="Mutable default arguments detected (LSP violation)",
+                    recommendation=(
+                        "Use None as default and instantiate the mutable object inside the function. "  # noqa: E501
+                        "Mutable defaults are shared across all calls, causing unexpected behavior."
+                    ),
+                    line_number=1,
+                    confidence=0.95,
+                    pattern="liskov_substitution",
+                )
+            )
 
         for cls in code_ast.classes:
             if "pass" in raw and cls.bases:
-                findings.append(ArchitectureFinding(
-                    category="solid",
-                    severity=ArchitectureSeverity.INFO,
-                    description=f"Class '{cls.name}' inherits from {cls.bases} but only uses 'pass'",  # noqa: E501
-                    recommendation=(
-                        "Empty subclass may violate LSP if it doesn't fulfill the base class contract. "  # noqa: E501
-                        "Either implement the required methods or reconsider the inheritance."
-                    ),
-                    line_number=cls.lineno,
-                    confidence=0.5,
-                    pattern="liskov_substitution",
-                ))
+                findings.append(
+                    ArchitectureFinding(
+                        category="solid",
+                        severity=ArchitectureSeverity.INFO,
+                        description=f"Class '{cls.name}' inherits from {cls.bases} but only uses 'pass'",  # noqa: E501
+                        recommendation=(
+                            "Empty subclass may violate LSP if it doesn't fulfill the base class contract. "  # noqa: E501
+                            "Either implement the required methods or reconsider the inheritance."
+                        ),
+                        line_number=cls.lineno,
+                        confidence=0.5,
+                        pattern="liskov_substitution",
+                    )
+                )
         return findings
 
     def analyze_interface_segregation(self, code_ast) -> list[ArchitectureFinding]:
@@ -125,22 +137,25 @@ class SOLIDAnalyzer:
             cls_name = cls.name.lower()
             if is_abc or "interface" in cls_name or "protocol" in cls_name:
                 abstract_methods = sum(
-                    1 for m in cls.methods
+                    1
+                    for m in cls.methods
                     if "abstractmethod" in m.decorators or "abstract" in m.name.lower()
                 )
                 if abstract_methods > 5:
-                    findings.append(ArchitectureFinding(
-                        category="solid",
-                        severity=ArchitectureSeverity.MEDIUM,
-                        description=f"Interface '{cls.name}' has {abstract_methods} abstract methods (ISP concern)",  # noqa: E501
-                        recommendation=(
-                            "Split large interfaces into smaller, focused interfaces. "
-                            "Clients should not depend on interfaces they don't use."
-                        ),
-                        line_number=cls.lineno,
-                        confidence=0.7,
-                        pattern="interface_segregation",
-                    ))
+                    findings.append(
+                        ArchitectureFinding(
+                            category="solid",
+                            severity=ArchitectureSeverity.MEDIUM,
+                            description=f"Interface '{cls.name}' has {abstract_methods} abstract methods (ISP concern)",  # noqa: E501
+                            recommendation=(
+                                "Split large interfaces into smaller, focused interfaces. "
+                                "Clients should not depend on interfaces they don't use."
+                            ),
+                            line_number=cls.lineno,
+                            confidence=0.7,
+                            pattern="interface_segregation",
+                        )
+                    )
         return findings
 
     def analyze_dependency_inversion(self, code_ast) -> list[ArchitectureFinding]:
@@ -148,21 +163,32 @@ class SOLIDAnalyzer:
         findings: list[ArchitectureFinding] = []
         for imp in code_ast.imports:
             module = imp.module.lower()
-            if any(concrete in module for concrete in [
-                "sqlalchemy", "fastapi", "django", "redis", "kafka", "rabbitmq", "requests"
-            ]):
-                findings.append(ArchitectureFinding(
-                    category="solid",
-                    severity=ArchitectureSeverity.MEDIUM,
-                    description=f"High-level module imports concrete implementation '{imp.module}' (DIP concern)",  # noqa: E501
-                    recommendation=(
-                        "Depend on abstractions (interfaces/protocols), not concretions. "
-                        "Inject infrastructure dependencies via constructors."
-                    ),
-                    line_number=1,
-                    confidence=0.6,
-                    pattern="dependency_inversion",
-                ))
+            if any(
+                concrete in module
+                for concrete in [
+                    "sqlalchemy",
+                    "fastapi",
+                    "django",
+                    "redis",
+                    "kafka",
+                    "rabbitmq",
+                    "requests",
+                ]
+            ):
+                findings.append(
+                    ArchitectureFinding(
+                        category="solid",
+                        severity=ArchitectureSeverity.MEDIUM,
+                        description=f"High-level module imports concrete implementation '{imp.module}' (DIP concern)",  # noqa: E501
+                        recommendation=(
+                            "Depend on abstractions (interfaces/protocols), not concretions. "
+                            "Inject infrastructure dependencies via constructors."
+                        ),
+                        line_number=1,
+                        confidence=0.6,
+                        pattern="dependency_inversion",
+                    )
+                )
                 break
         return findings
 

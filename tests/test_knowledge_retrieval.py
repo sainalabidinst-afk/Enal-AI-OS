@@ -56,7 +56,12 @@ def retrieval(registry: KnowledgeRegistry, graph: KnowledgeGraph) -> KnowledgeRe
 
 
 @pytest.fixture
-def hybrid(retrieval: KnowledgeRetrieval, registry: KnowledgeRegistry, graph: KnowledgeGraph, evidence_store: EvidenceStore) -> HybridRetrieval:
+def hybrid(
+    retrieval: KnowledgeRetrieval,
+    registry: KnowledgeRegistry,
+    graph: KnowledgeGraph,
+    evidence_store: EvidenceStore,
+) -> HybridRetrieval:
     return HybridRetrieval(retrieval, registry, graph, evidence_store)
 
 

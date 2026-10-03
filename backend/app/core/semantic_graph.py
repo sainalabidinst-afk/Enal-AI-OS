@@ -64,9 +64,7 @@ class GraphNode:
     description: str
     properties: dict[str, Any] = field(default_factory=_empty_properties)
     project_id: str | None = None
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(UTC)
-    )
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 @dataclass
@@ -90,24 +88,40 @@ class SemanticProjectGraph:
         self._persist_node(node)
         return node.id
 
-    async def add_edge(self, source_id: str, target_id: str, relation: RelationType, properties: dict[str, Any] | None = None) -> str:  # noqa: E501
+    async def add_edge(
+        self,
+        source_id: str,
+        target_id: str,
+        relation: RelationType,
+        properties: dict[str, Any] | None = None,
+    ) -> str:  # noqa: E501
         edge_id = f"edge-{uuid.uuid4().hex[:8]}"
-        edge = GraphEdge(id=edge_id, source_id=source_id, target_id=target_id, relation=relation, properties=properties or {})  # noqa: E501
+        edge = GraphEdge(
+            id=edge_id,
+            source_id=source_id,
+            target_id=target_id,
+            relation=relation,
+            properties=properties or {},
+        )  # noqa: E501
         self._edges[edge_id] = edge
         self._persist_edge(edge)
         return edge_id
 
-    async def get_related(self, node_id: str, relation: RelationType | None = None) -> list[dict[str, Any]]:  # noqa: E501
+    async def get_related(
+        self, node_id: str, relation: RelationType | None = None
+    ) -> list[dict[str, Any]]:  # noqa: E501
         related: list[dict[str, Any]] = []
         for edge in self._edges.values():
             if edge.source_id == node_id or edge.target_id == node_id:
                 if relation is None or edge.relation == relation:
-                    related.append({
-                        "edge": edge.id,
-                        "relation": edge.relation.value,
-                        "source": edge.source_id,
-                        "target": edge.target_id,
-                    })
+                    related.append(
+                        {
+                            "edge": edge.id,
+                            "relation": edge.relation.value,
+                            "source": edge.source_id,
+                            "target": edge.target_id,
+                        }
+                    )
         return related
 
     async def get_dependencies(self, node_id: str) -> list[GraphNode]:
@@ -186,7 +200,9 @@ class SemanticProjectGraph:
                 citations.append(f"Source: {s['document']}")
         return "; ".join(citations) if citations else f"Internal knowledge: {node.name}"
 
-    async def query(self, query_str: str, node_type: NodeType | None = None) -> list[dict[str, Any]]:  # noqa: E501
+    async def query(
+        self, query_str: str, node_type: NodeType | None = None
+    ) -> list[dict[str, Any]]:  # noqa: E501
         """Query nodes by name/description."""
         results = []
         query_lower = query_str.lower()
@@ -194,14 +210,16 @@ class SemanticProjectGraph:
             if node_type and node.node_type != node_type:
                 continue
             if query_lower in node.name.lower() or query_lower in node.description.lower():
-                results.append({
-                    "id": node.id,
-                    "type": node.node_type.value,
-                    "name": node.name,
-                    "description": node.description,
-                    "evidence_score": self._calculate_evidence_score(node),
-                    "citation": self._format_citation(node),
-                })
+                results.append(
+                    {
+                        "id": node.id,
+                        "type": node.node_type.value,
+                        "name": node.name,
+                        "description": node.description,
+                        "evidence_score": self._calculate_evidence_score(node),
+                        "citation": self._format_citation(node),
+                    }
+                )
         return results
 
     async def get_evidence(self, node_id: str) -> dict[str, Any] | None:

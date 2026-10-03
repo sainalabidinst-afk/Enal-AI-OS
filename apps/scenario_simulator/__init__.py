@@ -46,16 +46,12 @@ class ScenarioSimulatorApp(BaseReferenceApp):
     def __init__(self) -> None:
         self.worker = ScenarioSimulatorWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("description", user_input)
         return await self.worker.execute(task)
 
-    def run_sync(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    def run_sync(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("description", user_input)
         return self.worker.execute_sync(task)

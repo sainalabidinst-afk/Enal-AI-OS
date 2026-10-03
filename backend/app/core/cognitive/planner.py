@@ -40,20 +40,31 @@ class Planner:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"Create a plan for: {user_request}"},
         ]
-        response = await model_router.acomplete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)  # noqa: E501
+        response = await model_router.acomplete(
+            messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3
+        )  # noqa: E501
         content = response.choices[0].message.content
         try:
             plan = json.loads(content)
             return plan
         except json.JSONDecodeError:
-            return {"description": "Direct response", "agents": ["planner"], "tasks": [{"description": user_request, "agent": "planner"}]}  # noqa: E501
+            return {
+                "description": "Direct response",
+                "agents": ["planner"],
+                "tasks": [{"description": user_request, "agent": "planner"}],
+            }  # noqa: E501
 
     async def review_result(self, task_description: str, result: str) -> str:
         messages = [
-            {"role": "system", "content": "You are a critical reviewer. Evaluate if the result adequately addresses the task. Output 'PASS' or 'FAIL' with brief reasoning."},  # noqa: E501
+            {
+                "role": "system",
+                "content": "You are a critical reviewer. Evaluate if the result adequately addresses the task. Output 'PASS' or 'FAIL' with brief reasoning.",  # noqa: E501
+            },  # noqa: E501
             {"role": "user", "content": f"Task: {task_description}\n\nResult:\n{result}"},
         ]
-        response = await model_router.acomplete(messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3)  # noqa: E501
+        response = await model_router.acomplete(
+            messages, model=settings.DEFAULT_REASONING_MODEL, temperature=0.3
+        )  # noqa: E501
         return response.choices[0].message.content
 
 

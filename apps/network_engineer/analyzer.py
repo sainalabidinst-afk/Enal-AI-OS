@@ -55,16 +55,22 @@ class NetworkAnalysisReport:
         references: list[str] | None = None,
     ):
         if isinstance(severity, str):
-            severity = Severity(severity.lower()) if severity.lower() in Severity._value2member_map_ else Severity.INFO  # noqa: E501
-        self.issues.append(AnalysisIssue(
-            severity=severity,
-            category=category,
-            description=description,
-            recommendation=recommendation,
-            line_number=line_number,
-            confidence=confidence,
-            references=references or [],
-        ))
+            severity = (
+                Severity(severity.lower())
+                if severity.lower() in Severity._value2member_map_
+                else Severity.INFO
+            )  # noqa: E501
+        self.issues.append(
+            AnalysisIssue(
+                severity=severity,
+                category=category,
+                description=description,
+                recommendation=recommendation,
+                line_number=line_number,
+                confidence=confidence,
+                references=references or [],
+            )
+        )
 
     def get_summary(self) -> dict[str, Any]:
         return {
@@ -76,7 +82,9 @@ class NetworkAnalysisReport:
         }
 
 
-class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRuleMixin, _VendorRuleMixin):  # noqa: E501
+class NetworkAnalyzer(
+    _SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRuleMixin, _VendorRuleMixin
+):  # noqa: E501
     """Analyzes network configurations for issues and best practices."""
 
     def __init__(self):
@@ -160,9 +168,14 @@ class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRul
                 logger.error(f"Analysis rule failed: {e}")
         try:
             from apps.network_engineer.enterprise_knowledge import enterprise_knowledge_engine
+
             findings = enterprise_knowledge_engine.analyze(config)
             for finding in findings:
-                severity = Severity(finding.severity) if finding.severity in Severity._value2member_map_ else Severity.INFO  # noqa: E501
+                severity = (
+                    Severity(finding.severity)
+                    if finding.severity in Severity._value2member_map_
+                    else Severity.INFO
+                )  # noqa: E501
                 report.add_issue(
                     severity=severity,
                     category=f"{finding.domain}.{finding.category}",
@@ -176,7 +189,9 @@ class NetworkAnalyzer(_SecurityRuleMixin, _NetworkConfigRuleMixin, _IPRoutingRul
         report.summary = report.get_summary()
         parser_errors = getattr(config, "errors", [])
         report.metadata["total_rules"] = len(self._rules)
-        report.metadata["parser_errors"] = len(parser_errors) if isinstance(parser_errors, list) else 0  # noqa: E501
+        report.metadata["parser_errors"] = (
+            len(parser_errors) if isinstance(parser_errors, list) else 0
+        )  # noqa: E501
         return report
 
 

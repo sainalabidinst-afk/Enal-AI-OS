@@ -60,7 +60,9 @@ class FindingCategory(StrEnum):
 class ColumnDefinition(BaseModel):
     name: str = Field(..., description="Column name")
     type: str = Field(..., description="SQL data type")
-    constraints: list[str] = Field(default_factory=list, description="NOT NULL, UNIQUE, DEFAULT, etc.")  # noqa: E501
+    constraints: list[str] = Field(
+        default_factory=list, description="NOT NULL, UNIQUE, DEFAULT, etc."
+    )  # noqa: E501
 
 
 class ForeignKey(BaseModel):
@@ -93,7 +95,9 @@ class Finding(BaseModel):
     severity: Severity = Field(default=Severity.medium)
     title: str = Field(..., description="Short title")
     description: str = Field(..., description="Detailed description")
-    evidence: dict[str, Any] = Field(default_factory=dict, description="Query, table, execution plan")  # noqa: E501
+    evidence: dict[str, Any] = Field(
+        default_factory=dict, description="Query, table, execution plan"
+    )  # noqa: E501
     recommendation: str = Field(default="", description="How to fix")
     estimated_improvement: str = Field(default="", description="Expected performance gain")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
@@ -132,7 +136,9 @@ class MigrationPlan(BaseModel):
 
 
 class ReplicationDesign(BaseModel):
-    strategy: str = Field(default="primary_replica", description="primary_replica | multi_primary | leaderless")  # noqa: E501
+    strategy: str = Field(
+        default="primary_replica", description="primary_replica | multi_primary | leaderless"
+    )  # noqa: E501
     topology: str = Field(default="", description="Description of replication topology")
     nodes: list[dict[str, Any]] = Field(default_factory=list)
     failover_strategy: str = Field(default="automatic")

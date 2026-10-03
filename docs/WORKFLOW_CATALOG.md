@@ -120,10 +120,12 @@ Resolver menggunakan aturan deterministik untuk mencocokkan maksud ke alur kerja
 
 ```python
 resolver.register_alias("audit", "audit-network")
-resolver.register_aliases({
-    "docs": "generate-docs",
-    "review": "review-code",
-})
+resolver.register_aliases(
+    {
+        "docs": "generate-docs",
+        "review": "review-code",
+    }
+)
 resolver.unregister_alias("audit")
 aliases = resolver.get_aliases()
 aliases_for_intent = resolver.get_alias_for_intent("audit-network")
@@ -133,9 +135,11 @@ aliases_for_intent = resolver.get_alias_for_intent("audit-network")
 
 ```python
 resolver.register_task_name("run security audit on network", "audit-network")
-resolver.register_task_names({
-    "generate project documentation": "generate-docs",
-})
+resolver.register_task_names(
+    {
+        "generate project documentation": "generate-docs",
+    }
+)
 ```
 
 ## Kontrak Respons
@@ -231,23 +235,23 @@ Acara dikirim melalui `EventBus` dari `apps.organization.communication`.
 ### Pengaturan Dasar
 
 ```python
-from apps.organization.workflow_catalog import (
-    WorkflowCatalog, WorkflowCatalogEntry
-)
+from apps.organization.workflow_catalog import WorkflowCatalog, WorkflowCatalogEntry
 from apps.organization.intent_resolver import IntentResolver
 
 # Buat resolver
 resolver = IntentResolver()
 
 # Daftarkan workflow
-resolver.get_catalog().register(WorkflowCatalogEntry(
-    workflow_id="network-audit-flow",
-    display_name="Network Security Audit",
-    description="Run security audit",
-    supported_intents=["audit-network", "check-security"],
-    tags=["network", "security"],
-    category="network",
-))
+resolver.get_catalog().register(
+    WorkflowCatalogEntry(
+        workflow_id="network-audit-flow",
+        display_name="Network Security Audit",
+        description="Run security audit",
+        supported_intents=["audit-network", "check-security"],
+        tags=["network", "security"],
+        category="network",
+    )
+)
 
 # Daftarkan alias
 resolver.register_alias("audit", "audit-network")
@@ -255,18 +259,14 @@ resolver.register_alias("audit", "audit-network")
 # Resolve
 result = resolver.resolve("audit")
 print(result.workflow_id)  # "network-audit-flow"
-print(result.confidence)   # 0.9
+print(result.confidence)  # 0.9
 ```
 
 ### Eksekusi Penuh
 
 ```python
-from apps.organization.workflow_executor import (
-    WorkflowExecutor, WorkflowDefinition, WorkflowStep
-)
-from apps.organization.capability_execution_engine import (
-    CapabilityExecutionEngine
-)
+from apps.organization.workflow_executor import WorkflowExecutor, WorkflowDefinition, WorkflowStep
+from apps.organization.capability_execution_engine import CapabilityExecutionEngine
 from apps.organization.capability_pipeline import CapabilityPipeline
 
 # Setup execution stack
@@ -275,17 +275,19 @@ pipeline = CapabilityPipeline(engine=engine)
 executor = WorkflowExecutor(pipeline=pipeline)
 
 # Daftarkan definisi workflow
-executor.register(WorkflowDefinition(
-    workflow_id="network-audit-flow",
-    name="Network Security Audit",
-    ordered_steps=[
-        WorkflowStep(
-            capability_id="documentation",
-            input_data={"skills": ["documentation"]},
-            alias="Document",
-        ),
-    ],
-))
+executor.register(
+    WorkflowDefinition(
+        workflow_id="network-audit-flow",
+        name="Network Security Audit",
+        ordered_steps=[
+            WorkflowStep(
+                capability_id="documentation",
+                input_data={"skills": ["documentation"]},
+                alias="Document",
+            ),
+        ],
+    )
+)
 
 # Resolve dan eksekusi
 response = await resolver.resolve_and_execute(

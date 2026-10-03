@@ -96,7 +96,9 @@ class TestGenerator:
                             f"Function '{node.name}' at line {node.lineno}"
                         )
         except SyntaxError:
-            regression_info["risky_changes"].append("Source has syntax errors — tests may not compile")  # noqa: E501
+            regression_info["risky_changes"].append(
+                "Source has syntax errors — tests may not compile"
+            )  # noqa: E501
 
         return artifacts, regression_info
 
@@ -107,18 +109,18 @@ class TestGenerator:
             return self._gen_python_unittest(source_code, test_type)
         return self._gen_python_pytest(source_code, test_type)
 
-    def _gen_python_pytest(
-        self, source_code: str, test_type: str
-    ) -> list[QATestArtifact]:
+    def _gen_python_pytest(self, source_code: str, test_type: str) -> list[QATestArtifact]:
         try:
             tree = ast.parse(source_code)
         except SyntaxError:
-            return [QATestArtifact(
-                file_path="test_errors.py",
-                test_type=TestType.unit,
-                test_count=0,
-                content="# Source has syntax errors; no tests generated",
-            )]
+            return [
+                QATestArtifact(
+                    file_path="test_errors.py",
+                    test_type=TestType.unit,
+                    test_count=0,
+                    content="# Source has syntax errors; no tests generated",
+                )
+            ]
 
         functions = self._extract_functions(tree)
         classes = self._extract_classes(tree)
@@ -130,46 +132,52 @@ class TestGenerator:
 
         if test_funcs:
             content = self._build_pytest_module(source_code, test_funcs, "functions")
-            artifacts.append(QATestArtifact(
-                file_path="test_functions.py",
-                test_type=TestType.unit if test_type == "unit" else TestType.integration,
-                test_count=len(test_funcs),
-                content=content,
-            ))
+            artifacts.append(
+                QATestArtifact(
+                    file_path="test_functions.py",
+                    test_type=TestType.unit if test_type == "unit" else TestType.integration,
+                    test_count=len(test_funcs),
+                    content=content,
+                )
+            )
 
         if test_classes:
             content = self._build_pytest_module(source_code, test_classes, "classes")
-            artifacts.append(QATestArtifact(
-                file_path="test_classes.py",
-                test_type=TestType.unit if test_type == "unit" else TestType.integration,
-                test_count=len(test_classes),
-                content=content,
-            ))
+            artifacts.append(
+                QATestArtifact(
+                    file_path="test_classes.py",
+                    test_type=TestType.unit if test_type == "unit" else TestType.integration,
+                    test_count=len(test_classes),
+                    content=content,
+                )
+            )
 
         return artifacts
 
-    def _gen_python_unittest(
-        self, source_code: str, test_type: str
-    ) -> list[QATestArtifact]:
+    def _gen_python_unittest(self, source_code: str, test_type: str) -> list[QATestArtifact]:
         try:
             tree = ast.parse(source_code)
         except SyntaxError:
-            return [QATestArtifact(
-                file_path="test_errors.py",
-                test_type=TestType.unit,
-                test_count=0,
-                content="# Source has syntax errors",
-            )]
+            return [
+                QATestArtifact(
+                    file_path="test_errors.py",
+                    test_type=TestType.unit,
+                    test_count=0,
+                    content="# Source has syntax errors",
+                )
+            ]
 
         functions = self._extract_functions(tree)
         tests = self._gen_unittest_methods(functions)
         content = self._build_unittest_module(tests)
-        return [QATestArtifact(
-            file_path="test_unittest.py",
-            test_type=TestType.unit if test_type == "unit" else TestType.integration,
-            test_count=len(tests),
-            content=content,
-        )]
+        return [
+            QATestArtifact(
+                file_path="test_unittest.py",
+                test_type=TestType.unit if test_type == "unit" else TestType.integration,
+                test_count=len(tests),
+                content=content,
+            )
+        ]
 
     def _gen_python_benchmark(self, source_code: str) -> list[QATestArtifact]:
         try:
@@ -182,12 +190,14 @@ class TestGenerator:
             return []
 
         content = self._build_benchmark_module(functions)
-        return [QATestArtifact(
-            file_path="test_benchmark.py",
-            test_type=TestType.benchmark,
-            test_count=len(functions),
-            content=content,
-        )]
+        return [
+            QATestArtifact(
+                file_path="test_benchmark.py",
+                test_type=TestType.benchmark,
+                test_count=len(functions),
+                content=content,
+            )
+        ]
 
     def _generate_javascript(
         self, source_code: str, framework: str, test_type: str
@@ -208,39 +218,47 @@ class TestGenerator:
         else:
             lines.append("// No functions found to test.")
         content = "\n".join(lines)
-        return [QATestArtifact(
-            file_path="test.spec.js",
-            test_type=TestType.unit if test_type == "unit" else TestType.integration,
-            test_count=len(functions),
-            content=content,
-        )]
+        return [
+            QATestArtifact(
+                file_path="test.spec.js",
+                test_type=TestType.unit if test_type == "unit" else TestType.integration,
+                test_count=len(functions),
+                content=content,
+            )
+        ]
 
-    def _generate_go(self, source_code: str, framework: str, test_type: str) -> list[QATestArtifact]:  # noqa: E501
-        funcs = re.findall(r'func\s+(\w+)\s*\(', source_code)
+    def _generate_go(
+        self, source_code: str, framework: str, test_type: str
+    ) -> list[QATestArtifact]:  # noqa: E501
+        funcs = re.findall(r"func\s+(\w+)\s*\(", source_code)
         lines: list[str] = []
         lines.append("package main")
         lines.append("")
-        lines.append("import \"testing\"")
+        lines.append('import "testing"')
         lines.append("")
         for fn in funcs:
             lines.append(f"func Test{fn.capitalize()}(t *testing.T) {{")
             lines.append(f"    // TODO: Implement test for {fn}")
             lines.append("    if true != true {")
-            lines.append(f"        t.Errorf(\"{fn} failed\")")
+            lines.append(f'        t.Errorf("{fn} failed")')
             lines.append("    }")
             lines.append("}")
             lines.append("")
         content = "\n".join(lines)
-        return [QATestArtifact(
-            file_path="test_module_test.go",
-            test_type=TestType.unit if test_type == "unit" else TestType.integration,
-            test_count=len(funcs),
-            content=content,
-        )]
+        return [
+            QATestArtifact(
+                file_path="test_module_test.go",
+                test_type=TestType.unit if test_type == "unit" else TestType.integration,
+                test_count=len(funcs),
+                content=content,
+            )
+        ]
 
-    def _generate_java(self, source_code: str, framework: str, test_type: str) -> list[QATestArtifact]:  # noqa: E501
-        classes = re.findall(r'class\s+(\w+)', source_code)
-        methods = re.findall(r'(?:public\s+)?(?:static\s+)?\w+\s+(\w+)\s*\(', source_code)
+    def _generate_java(
+        self, source_code: str, framework: str, test_type: str
+    ) -> list[QATestArtifact]:  # noqa: E501
+        classes = re.findall(r"class\s+(\w+)", source_code)
+        methods = re.findall(r"(?:public\s+)?(?:static\s+)?\w+\s+(\w+)\s*\(", source_code)
 
         lines: list[str] = []
         lines.append("import org.junit.jupiter.api.Test;")
@@ -260,12 +278,14 @@ class TestGenerator:
             lines.append("")
 
         content = "\n".join(lines)
-        return [QATestArtifact(
-            file_path="TestClass.java",
-            test_type=TestType.unit if test_type == "unit" else TestType.integration,
-            test_count=len(methods),
-            content=content,
-        )]
+        return [
+            QATestArtifact(
+                file_path="TestClass.java",
+                test_type=TestType.unit if test_type == "unit" else TestType.integration,
+                test_count=len(methods),
+                content=content,
+            )
+        ]
 
     # ------------------------------------------------------------------
     # Python extraction helpers
@@ -277,33 +297,37 @@ class TestGenerator:
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 lines = self._get_source_segment(tree, node)
                 sig = self._build_signature(node)
-                functions.append(TestFunction(
-                    name=node.name,
-                    signature=sig,
-                    body_lines=lines,
-                    node=node,
-                    lineno=node.lineno,
-                ))
+                functions.append(
+                    TestFunction(
+                        name=node.name,
+                        signature=sig,
+                        body_lines=lines,
+                        node=node,
+                        lineno=node.lineno,
+                    )
+                )
         return functions
 
     def _extract_classes(self, tree: ast.AST) -> list[TestFunction]:
         classes: list[TestFunction] = []
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
-                classes.append(TestFunction(
-                    name=node.name,
-                    signature=f"class {node.name}",
-                    body_lines=[],
-                    node=node,
-                    lineno=node.lineno,
-                ))
+                classes.append(
+                    TestFunction(
+                        name=node.name,
+                        signature=f"class {node.name}",
+                        body_lines=[],
+                        node=node,
+                        lineno=node.lineno,
+                    )
+                )
         return classes
 
     def _extract_js_functions(self, source_code: str) -> list[str]:
         patterns = [
-            r'export\s+(?:default\s+)?(?:async\s+)?function\s+(\w+)',
-            r'const\s+(\w+)\s*=\s*(?:async\s+)?\(',
-            r'(?:async\s+)?(\w+)\s*=\s*(?:async\s+)?\(',
+            r"export\s+(?:default\s+)?(?:async\s+)?function\s+(\w+)",
+            r"const\s+(\w+)\s*=\s*(?:async\s+)?\(",
+            r"(?:async\s+)?(\w+)\s*=\s*(?:async\s+)?\(",
         ]
         found: set[str] = set()
         for pattern in patterns:
@@ -311,14 +335,33 @@ class TestGenerator:
                 found.add(match.group(1))
         return list(found)
 
-    def _is_risky_function(self, node: ast.FunctionDef | ast.AsyncFunctionDef, source_code: str = "") -> bool:  # noqa: E501
+    def _is_risky_function(
+        self, node: ast.FunctionDef | ast.AsyncFunctionDef, source_code: str = ""
+    ) -> bool:  # noqa: E501
         """Heuristic: functions touching DB, network, files, or with side effects."""
-        risky_keywords = {"database", "db", "sql", "connect", "send", "write", "delete", "update", "save", "cache", "redis", "http", "request"}  # noqa: E501
+        risky_keywords = {
+            "database",
+            "db",
+            "sql",
+            "connect",
+            "send",
+            "write",
+            "delete",
+            "update",
+            "save",
+            "cache",
+            "redis",
+            "http",
+            "request",
+        }  # noqa: E501
         name_lower = node.name.lower()
         if any(k in name_lower for k in risky_keywords):
             return True
         try:
-            source = ast.get_source_segment(source_code or getattr(self, "_source_cache", ""), node) or ""  # noqa: E501
+            source = (
+                ast.get_source_segment(source_code or getattr(self, "_source_cache", ""), node)
+                or ""
+            )  # noqa: E501
         except Exception:
             source = ""
         if any(k in source.lower() for k in risky_keywords):
@@ -345,7 +388,9 @@ class TestGenerator:
     def _gen_unittest_methods(self, functions: list[TestFunction]) -> list[str]:
         return [fn.name for fn in functions]
 
-    def _build_pytest_module(self, source_code: str, names: list[str] | list[TestFunction], label: str) -> str:  # noqa: E501
+    def _build_pytest_module(
+        self, source_code: str, names: list[str] | list[TestFunction], label: str
+    ) -> str:  # noqa: E501
         name_list = [n if isinstance(n, str) else n.name for n in names]
         lines: list[str] = []
         lines.append('"""Auto-generated test module by QA Engineer."""')
@@ -355,7 +400,7 @@ class TestGenerator:
         lines.append("")
         for name in name_list:
             lines.append(f"    def test_{name}_behavior(self):")
-            lines.append(f"        \"\"\"Test {name} basic behavior.\"\"\"")
+            lines.append(f'        """Test {name} basic behavior."""')
             lines.append(f"        # TODO: Implement comprehensive test for {name}")
             lines.append("        assert True")
             lines.append("")
@@ -370,7 +415,7 @@ class TestGenerator:
         lines.append("")
         for name in method_names:
             lines.append(f"    def test_{name}(self):")
-            lines.append(f"        \"\"\"Test {name}.\"\"\"")
+            lines.append(f'        """Test {name}."""')
             lines.append("        self.assertTrue(True)")
             lines.append("")
         lines.append("")

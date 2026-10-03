@@ -185,12 +185,14 @@ class CybersecurityReport(BaseModel):
 class CybersecurityAnalystRecord(BaseModel):
     pack_id: str = "cybersecurity-analyst"
     version: str = "2.4.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "threat_model",
-        "vulnerability_assess",
-        "incident_detect",
-        "compliance_map",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "threat_model",
+            "vulnerability_assess",
+            "incident_detect",
+            "compliance_map",
+        ]
+    )
 
 
 __all__ = [

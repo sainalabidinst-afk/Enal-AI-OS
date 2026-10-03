@@ -6,7 +6,8 @@ This example shows how to create a custom workflow using the Enal AI OS SDK.
 """
 
 import asyncio
-from sdk import Workflow, WorkflowStep, EnalAI
+
+from sdk import EnalAI, Workflow, WorkflowStep
 
 enal = EnalAI()
 
@@ -20,13 +21,50 @@ class ERPBuildWorkflow(Workflow):
             name=self.name,
             description=self.description,
             steps=[
-                WorkflowStep(id="1", name="Analyze Requirements", agent="analyst", action="analyze_requirements"),
-                WorkflowStep(id="2", name="Design Architecture", agent="architect", action="design_architecture", depends_on=["1"]),
-                WorkflowStep(id="3", name="Build Backend", agent="backend-dev", action="build_backend", depends_on=["2"]),
-                WorkflowStep(id="4", name="Build Frontend", agent="frontend-dev", action="build_frontend", depends_on=["2"]),
-                WorkflowStep(id="5", name="Setup Database", agent="db-admin", action="setup_database", depends_on=["2"]),
-                WorkflowStep(id="6", name="Write Tests", agent="qa", action="write_tests", depends_on=["3", "4", "5"]),
-                WorkflowStep(id="7", name="Deploy", agent="devops", action="deploy", depends_on=["6"]),
+                WorkflowStep(
+                    id="1",
+                    name="Analyze Requirements",
+                    agent="analyst",
+                    action="analyze_requirements",
+                ),
+                WorkflowStep(
+                    id="2",
+                    name="Design Architecture",
+                    agent="architect",
+                    action="design_architecture",
+                    depends_on=["1"],
+                ),
+                WorkflowStep(
+                    id="3",
+                    name="Build Backend",
+                    agent="backend-dev",
+                    action="build_backend",
+                    depends_on=["2"],
+                ),
+                WorkflowStep(
+                    id="4",
+                    name="Build Frontend",
+                    agent="frontend-dev",
+                    action="build_frontend",
+                    depends_on=["2"],
+                ),
+                WorkflowStep(
+                    id="5",
+                    name="Setup Database",
+                    agent="db-admin",
+                    action="setup_database",
+                    depends_on=["2"],
+                ),
+                WorkflowStep(
+                    id="6",
+                    name="Write Tests",
+                    agent="qa",
+                    action="write_tests",
+                    depends_on=["3", "4", "5"],
+                ),
+                WorkflowStep(
+                    id="7", name="Deploy", agent="devops", action="deploy", depends_on=["6"]
+                ),
             ],
         )
 

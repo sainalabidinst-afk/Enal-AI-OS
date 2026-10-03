@@ -26,47 +26,139 @@ logger = logging.getLogger(__name__)
 # In production, this would query NVD, Snyk, GitHub Advisory API.
 _KNOWN_VULNERABILITIES: dict[str, list[dict[str, Any]]] = {
     "django": [
-        {"version_range": "<3.2.20", "cve": "CVE-2024-39649", "severity": "high", "description": "Potential denial of service in Django", "fix_version": ">=3.2.20"},  # noqa: E501
-        {"version_range": "<4.2.13", "cve": "CVE-2024-39649", "severity": "high", "description": "Potential denial of service in Django", "fix_version": ">=4.2.13"},  # noqa: E501
-        {"version_range": "<5.0.6", "cve": "CVE-2024-39649", "severity": "high", "description": "Potential denial of service in Django", "fix_version": ">=5.0.6"},  # noqa: E501
+        {
+            "version_range": "<3.2.20",
+            "cve": "CVE-2024-39649",
+            "severity": "high",
+            "description": "Potential denial of service in Django",
+            "fix_version": ">=3.2.20",
+        },  # noqa: E501
+        {
+            "version_range": "<4.2.13",
+            "cve": "CVE-2024-39649",
+            "severity": "high",
+            "description": "Potential denial of service in Django",
+            "fix_version": ">=4.2.13",
+        },  # noqa: E501
+        {
+            "version_range": "<5.0.6",
+            "cve": "CVE-2024-39649",
+            "severity": "high",
+            "description": "Potential denial of service in Django",
+            "fix_version": ">=5.0.6",
+        },  # noqa: E501
     ],
     "flask": [
-        {"version_range": "<2.3.2", "cve": "CVE-2023-30893", "severity": "medium", "description": "Flask cookie parsing issue", "fix_version": ">=2.3.2"},  # noqa: E501
+        {
+            "version_range": "<2.3.2",
+            "cve": "CVE-2023-30893",
+            "severity": "medium",
+            "description": "Flask cookie parsing issue",
+            "fix_version": ">=2.3.2",
+        },  # noqa: E501
     ],
     "requests": [
-        {"version_range": "<2.32.0", "cve": "CVE-2024-35195", "severity": "medium", "description": "Cookie domain bypass", "fix_version": ">=2.32.0"},  # noqa: E501
-        {"version_range": "<2.32.2", "cve": "CVE-2024-47054", "severity": "high", "description": "Unclosed connection exhaustion", "fix_version": ">=2.32.2"},  # noqa: E501
+        {
+            "version_range": "<2.32.0",
+            "cve": "CVE-2024-35195",
+            "severity": "medium",
+            "description": "Cookie domain bypass",
+            "fix_version": ">=2.32.0",
+        },  # noqa: E501
+        {
+            "version_range": "<2.32.2",
+            "cve": "CVE-2024-47054",
+            "severity": "high",
+            "description": "Unclosed connection exhaustion",
+            "fix_version": ">=2.32.2",
+        },  # noqa: E501
     ],
     "pyyaml": [
-        {"version_range": "<5.4", "cve": "CVE-2020-1747", "severity": "high", "description": "Arbitrary code execution via yaml.load", "fix_version": ">=5.4"},  # noqa: E501
-        {"version_range": "<6.0", "cve": "CVE-2020-1747", "severity": "high", "description": "Unsafe yaml.load usage", "fix_version": ">=6.0"},  # noqa: E501
+        {
+            "version_range": "<5.4",
+            "cve": "CVE-2020-1747",
+            "severity": "high",
+            "description": "Arbitrary code execution via yaml.load",
+            "fix_version": ">=5.4",
+        },  # noqa: E501
+        {
+            "version_range": "<6.0",
+            "cve": "CVE-2020-1747",
+            "severity": "high",
+            "description": "Unsafe yaml.load usage",
+            "fix_version": ">=6.0",
+        },  # noqa: E501
     ],
     "sqlalchemy": [
-        {"version_range": "<1.4.49", "cve": "CVE-2022-40682", "severity": "medium", "description": "SQL injection in raw SQL", "fix_version": ">=1.4.49"},  # noqa: E501
+        {
+            "version_range": "<1.4.49",
+            "cve": "CVE-2022-40682",
+            "severity": "medium",
+            "description": "SQL injection in raw SQL",
+            "fix_version": ">=1.4.49",
+        },  # noqa: E501
     ],
     "cryptography": [
-        {"version_range": "<41.0.7", "cve": "CVE-2023-48073", "severity": "medium", "description": "NULL pointer dereference", "fix_version": ">=41.0.7"},  # noqa: E501
+        {
+            "version_range": "<41.0.7",
+            "cve": "CVE-2023-48073",
+            "severity": "medium",
+            "description": "NULL pointer dereference",
+            "fix_version": ">=41.0.7",
+        },  # noqa: E501
     ],
     "lodash": [
-        {"version_range": "<4.17.21", "cve": "CVE-2021-23337", "severity": "high", "description": "Prototype pollution", "fix_version": ">=4.17.21"},  # noqa: E501
+        {
+            "version_range": "<4.17.21",
+            "cve": "CVE-2021-23337",
+            "severity": "high",
+            "description": "Prototype pollution",
+            "fix_version": ">=4.17.21",
+        },  # noqa: E501
     ],
     "minimist": [
-        {"version_range": "<1.2.6", "cve": "CVE-2020-7598", "severity": "high", "description": "Prototype pollution", "fix_version": ">=1.2.6"},  # noqa: E501
+        {
+            "version_range": "<1.2.6",
+            "cve": "CVE-2020-7598",
+            "severity": "high",
+            "description": "Prototype pollution",
+            "fix_version": ">=1.2.6",
+        },  # noqa: E501
     ],
     "axios": [
-        {"version_range": "<0.27.2", "cve": "CVE-2021-3749", "severity": "medium", "description": "SSRF via URL adapter", "fix_version": ">=0.27.2"},  # noqa: E501
+        {
+            "version_range": "<0.27.2",
+            "cve": "CVE-2021-3749",
+            "severity": "medium",
+            "description": "SSRF via URL adapter",
+            "fix_version": ">=0.27.2",
+        },  # noqa: E501
     ],
 }
 
 # Known vulnerable versions of express.
-_KNOWN_VULNERABILITIES.update({
-    "express": [
-        {"version_range": "<4.17.23", "cve": "CVE-2024-29057", "severity": "medium", "description": "Open redirect", "fix_version": ">=4.17.23"},  # noqa: E501
-    ],
-    "express-session": [
-        {"version_range": "<1.17.3", "cve": "CVE-2020-13829", "severity": "medium", "description": "Session data leakage", "fix_version": ">=1.17.3"},  # noqa: E501
-    ],
-})
+_KNOWN_VULNERABILITIES.update(
+    {
+        "express": [
+            {
+                "version_range": "<4.17.23",
+                "cve": "CVE-2024-29057",
+                "severity": "medium",
+                "description": "Open redirect",
+                "fix_version": ">=4.17.23",
+            },  # noqa: E501
+        ],
+        "express-session": [
+            {
+                "version_range": "<1.17.3",
+                "cve": "CVE-2020-13829",
+                "severity": "medium",
+                "description": "Session data leakage",
+                "fix_version": ">=1.17.3",
+            },  # noqa: E501
+        ],
+    }
+)
 
 # Risky licenses.
 _RISKY_LICENSES = {
@@ -77,12 +169,13 @@ _RISKY_LICENSES = {
 }
 
 # Version comparison helpers.
-_VERSION_PATTERN = re.compile(r'(\d+)\.(\d+)(?:\.(\d+))?')
+_VERSION_PATTERN = re.compile(r"(\d+)\.(\d+)(?:\.(\d+))?")
 
 
 @dataclass
 class ParsedDependency:
     """A parsed dependency entry."""
+
     name: str
     version: str
     source: str  # "requirements.txt", "package-lock.json", etc.
@@ -125,32 +218,36 @@ class DependencyAuditor:
             for vuln in vulns:
                 if vuln["cve"] in seen_cves:
                     continue
-                if vuln["cve"] and vuln["cve"] not in ("", ):
+                if vuln["cve"] and vuln["cve"] not in ("",):
                     seen_cves.add(vuln["cve"])
-                findings.append(DependencyFinding(
-                    package=dep.name,
-                    version=dep.version,
-                    severity=DependencySeverity(vuln["severity"]),
-                    cve=vuln["cve"],
-                    description=f"{vuln['description']} (affected: {vuln['version_range']})",
-                    fix_version=vuln["fix_version"],
-                    confidence=0.9,
-                    evidence={"manifest": dep.source, "installed_version": dep.version},
-                ))
+                findings.append(
+                    DependencyFinding(
+                        package=dep.name,
+                        version=dep.version,
+                        severity=DependencySeverity(vuln["severity"]),
+                        cve=vuln["cve"],
+                        description=f"{vuln['description']} (affected: {vuln['version_range']})",
+                        fix_version=vuln["fix_version"],
+                        confidence=0.9,
+                        evidence={"manifest": dep.source, "installed_version": dep.version},
+                    )
+                )
 
             # Check license risks.
             license_risk = self._check_license_risk(dep)
             if license_risk:
-                findings.append(DependencyFinding(
-                    package=dep.name,
-                    version=dep.version,
-                    severity=DependencySeverity.low,
-                    cve="",
-                    description=f"License risk: {license_risk}",
-                    fix_version="",
-                    confidence=0.6,
-                    evidence={"manifest": dep.source},
-                ))
+                findings.append(
+                    DependencyFinding(
+                        package=dep.name,
+                        version=dep.version,
+                        severity=DependencySeverity.low,
+                        cve="",
+                        description=f"License risk: {license_risk}",
+                        fix_version="",
+                        confidence=0.6,
+                        evidence={"manifest": dep.source},
+                    )
+                )
 
         return findings
 
@@ -169,18 +266,22 @@ class DependencyAuditor:
                 # Mark as potentially outdated (no vulnerability data = may be old).
                 pass
 
-            latest = current_versions.get(dep.name, dep.version) if current_versions else dep.version  # noqa: E501
+            latest = (
+                current_versions.get(dep.name, dep.version) if current_versions else dep.version
+            )  # noqa: E501
             if self._is_outdated(dep.version, latest):
-                findings.append(DependencyFinding(
-                    package=dep.name,
-                    version=dep.version,
-                    severity=DependencySeverity.medium,
-                    cve="",
-                    description=f"Version {dep.version} may be outdated (latest: {latest})",
-                    fix_version=latest,
-                    confidence=0.7,
-                    evidence={"manifest": dep.source},
-                ))
+                findings.append(
+                    DependencyFinding(
+                        package=dep.name,
+                        version=dep.version,
+                        severity=DependencySeverity.medium,
+                        cve="",
+                        description=f"Version {dep.version} may be outdated (latest: {latest})",
+                        fix_version=latest,
+                        confidence=0.7,
+                        evidence={"manifest": dep.source},
+                    )
+                )
 
         return findings
 
@@ -208,7 +309,9 @@ class DependencyAuditor:
             if not line or line.startswith("#") or line.startswith("-"):
                 continue
             # Parse: package==1.2.3 or package>=1.2.3 or package
-            match = re.match(r'^([a-zA-Z0-9_-]+)\s*(?:==|>=|<=|~=|!=|>=|<|>)?\s*([0-9a-zA-Z._+*-]*)?', line)  # noqa: E501
+            match = re.match(
+                r"^([a-zA-Z0-9_-]+)\s*(?:==|>=|<=|~=|!=|>=|<|>)?\s*([0-9a-zA-Z._+*-]*)?", line
+            )  # noqa: E501
             if match:
                 name = match.group(1)
                 version = match.group(2) or "unknown"
@@ -227,7 +330,9 @@ class DependencyAuditor:
                     if not name or name == "root":
                         continue
                     version = info.get("version", "unknown")
-                    deps.append(ParsedDependency(name=name, version=version, source="package-lock.json"))  # noqa: E501
+                    deps.append(
+                        ParsedDependency(name=name, version=version, source="package-lock.json")
+                    )  # noqa: E501
                     if len(deps) > 100:
                         break
         except (json.JSONDecodeError, AttributeError):
@@ -241,9 +346,11 @@ class DependencyAuditor:
             line = line.strip()
             if line.startswith("require"):
                 continue
-            match = re.match(r'^(\S+)\s+v([0-9a-zA-Z.-]+)', line)
+            match = re.match(r"^(\S+)\s+v([0-9a-zA-Z.-]+)", line)
             if match:
-                deps.append(ParsedDependency(name=match.group(1), version=match.group(2), source="go.mod"))  # noqa: E501
+                deps.append(
+                    ParsedDependency(name=match.group(1), version=match.group(2), source="go.mod")
+                )  # noqa: E501
         return deps
 
     def _parse_pyproject(self, content: str) -> list[ParsedDependency]:
@@ -280,12 +387,12 @@ class DependencyAuditor:
 
         # Parse version numbers.
         version_parts = self._parse_version(version)
-        range_match = re.match(r'<\s*(.+)', version_range.strip())
+        range_match = re.match(r"<\s*(.+)", version_range.strip())
         if range_match:
             threshold = self._parse_version(range_match.group(1))
             return version_parts < threshold
 
-        range_match = re.match(r'>=\s*(.+)', version_range.strip())
+        range_match = re.match(r">=\s*(.+)", version_range.strip())
         if range_match:
             threshold = self._parse_version(range_match.group(1))
             return version_parts >= threshold

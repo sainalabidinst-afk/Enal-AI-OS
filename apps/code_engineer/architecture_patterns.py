@@ -33,6 +33,7 @@ class ArchitectureSeverity:
 @dataclass
 class ArchitectureFinding:
     """A single architecture pattern finding."""
+
     category: str
     severity: str
     description: str

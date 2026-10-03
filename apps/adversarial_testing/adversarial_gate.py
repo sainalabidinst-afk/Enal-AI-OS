@@ -75,14 +75,16 @@ class AdversarialGate:
         confidence = round(min(1.0, attack_budget / 10.0), 4)
 
         high_critical_actions = [
-            a for a in hardening_actions
-            if a.priority in (Priority.CRITICAL, Priority.HIGH)
+            a for a in hardening_actions if a.priority in (Priority.CRITICAL, Priority.HIGH)
         ]
         applied_count = sum(
-            1 for action in high_critical_actions
-            if any(existing.lower() in action.recommendation.lower() or
-                   action.recommendation.lower() in existing.lower()
-                   for existing in existing)
+            1
+            for action in high_critical_actions
+            if any(
+                existing.lower() in action.recommendation.lower()
+                or action.recommendation.lower() in existing.lower()
+                for existing in existing
+            )
         )
 
         hardening_completion = (
@@ -90,8 +92,7 @@ class AdversarialGate:
         )
 
         gate_result, reason = self._determine_gate(
-            score, critical_count, high_count, high_critical_actions,
-            hardening_completion, existing
+            score, critical_count, high_count, high_critical_actions, hardening_completion, existing
         )
 
         return {
@@ -138,7 +139,9 @@ class AdversarialGate:
             )
 
         if high_critical_actions and hardening_completion < self.MIN_HARDENING_COMPLETION:
-            remaining = len(high_critical_actions) - int(hardening_completion * len(high_critical_actions))  # noqa: E501
+            remaining = len(high_critical_actions) - int(
+                hardening_completion * len(high_critical_actions)
+            )  # noqa: E501
             return (
                 GateResult.REVIEW_REQUIRED,
                 f"{remaining} high/critical hardening action(s) not yet applied. "

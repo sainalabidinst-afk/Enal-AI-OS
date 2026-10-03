@@ -13,10 +13,16 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class ExtremeNetworksParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.extreme or "extreme" in meta.text_preview.lower() or "extremexos" in meta.text_preview.lower()  # noqa: E501
+        return (
+            meta.vendor == VendorFamily.extreme
+            or "extreme" in meta.text_preview.lower()
+            or "extremexos" in meta.text_preview.lower()
+        )  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.extreme, format="extremexos", device_role=DeviceRole.switch)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.extreme, format="extremexos", device_role=DeviceRole.switch
+        )  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()
@@ -25,5 +31,14 @@ class ExtremeNetworksParser(BaseParser):
             if stripped.startswith("configure ports "):
                 ast.interfaces.append({"raw": stripped[:200]})
             if "stp" in stripped.lower():
-                ast.findings.append(InfrastructureFinding(Severity.low, "switch", "STP detected", "Verify spanning-tree protection", confidence=0.7, evidence=[stripped]))  # noqa: E501
+                ast.findings.append(
+                    InfrastructureFinding(
+                        Severity.low,
+                        "switch",
+                        "STP detected",
+                        "Verify spanning-tree protection",
+                        confidence=0.7,
+                        evidence=[stripped],
+                    )
+                )  # noqa: E501
         return ast

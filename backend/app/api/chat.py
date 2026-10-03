@@ -104,6 +104,7 @@ async def chat(request: ChatRequest):
 @router.get("/conversations/{conversation_id}")
 async def get_conversation(conversation_id: str) -> dict[str, Any]:
     from apps.society.conversation_manager import conversation_manager
+
     messages = await conversation_manager.get_history(conversation_id)
     return {"conversation_id": conversation_id, "messages": messages}
 
@@ -111,6 +112,7 @@ async def get_conversation(conversation_id: str) -> dict[str, Any]:
 @router.delete("/conversations/{conversation_id}")
 async def delete_conversation(conversation_id: str) -> dict[str, Any]:
     from apps.society.conversation_manager import conversation_manager
+
     await conversation_manager.clear_history(conversation_id)
     return {"deleted": True}
 
@@ -175,8 +177,8 @@ async def chat_stream(
                         yield f"data: {json.dumps(payload)}\n\n"
                     for artifact_id in getattr(execution, "artifacts", []) or []:
                         artifact_module = __import__(
-                            'backend.app.core.artifact_service',
-                            fromlist=['artifact_service'],
+                            "backend.app.core.artifact_service",
+                            fromlist=["artifact_service"],
                         )
                         art = await artifact_module.artifact_service.get_artifact(artifact_id)
                         if art:
@@ -203,8 +205,19 @@ async def chat_stream(
 
 def _looks_like_goal(message: str) -> bool:
     goal_keywords = [
-        "bangun", "build", "audit", "review", "scan", "create", "generate",
-        "deploy", "setup", "install", "configure", "analisa", "analysis",
+        "bangun",
+        "build",
+        "audit",
+        "review",
+        "scan",
+        "create",
+        "generate",
+        "deploy",
+        "setup",
+        "install",
+        "configure",
+        "analisa",
+        "analysis",
     ]
     lowered = message.lower()
     return any(keyword in lowered for keyword in goal_keywords)

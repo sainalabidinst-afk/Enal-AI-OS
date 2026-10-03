@@ -5,12 +5,12 @@ Tests for feedback loop integration and iterative improvement.
 """
 
 
-
 class TestSelfReflection:
     """Tests for SelfReflection - standalone."""
 
     def test_self_reflection_dataclass(self):
         from dataclasses import dataclass
+
         @dataclass
         class TestReview:
             passed: bool = True

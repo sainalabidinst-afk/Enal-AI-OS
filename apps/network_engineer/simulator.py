@@ -54,11 +54,33 @@ class NetworkSimulator:
         result = SimulationResult(id=sim_id, config=config)
 
         steps = [
-            SimulationStep(id="1", description="Validate syntax", action="validate", expected_result="Valid"),  # noqa: E501
-            SimulationStep(id="2", description="Check for conflicts", action="conflict_check", expected_result="No conflicts"),  # noqa: E501
-            SimulationStep(id="3", description="Verify IP addressing", action="ip_check", expected_result="Valid IP plan"),  # noqa: E501
-            SimulationStep(id="4", description="Check firewall rules", action="firewall_check", expected_result="Secure"),  # noqa: E501
-            SimulationStep(id="5", description="Verify routing", action="routing_check", expected_result="Valid routes"),  # noqa: E501
+            SimulationStep(
+                id="1", description="Validate syntax", action="validate", expected_result="Valid"
+            ),  # noqa: E501
+            SimulationStep(
+                id="2",
+                description="Check for conflicts",
+                action="conflict_check",
+                expected_result="No conflicts",
+            ),  # noqa: E501
+            SimulationStep(
+                id="3",
+                description="Verify IP addressing",
+                action="ip_check",
+                expected_result="Valid IP plan",
+            ),  # noqa: E501
+            SimulationStep(
+                id="4",
+                description="Check firewall rules",
+                action="firewall_check",
+                expected_result="Secure",
+            ),  # noqa: E501
+            SimulationStep(
+                id="5",
+                description="Verify routing",
+                action="routing_check",
+                expected_result="Valid routes",
+            ),  # noqa: E501
         ]
 
         for step in steps:
@@ -108,7 +130,8 @@ class NetworkSimulator:
     def _check_ip_addressing(self, config: str) -> tuple[bool, str]:
         """Check IP addressing plan."""
         import re
-        ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
+
+        ip_pattern = r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b"
         ips = re.findall(ip_pattern, config)
         if not ips:
             return False, "No IP addresses found"

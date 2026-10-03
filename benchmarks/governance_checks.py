@@ -6,10 +6,10 @@ Implements CI/CD checks for ECP governance rules per docs/GOVERNANCE.md:
 
 1. Core Change Protection (Section 4, 6)
    - Detects modifications to core directories without ADR reference
-   
+
 2. Capability First Rule (Section 1)
    - Detects capability packs importing from other capability packs
-   
+
 3. ADR Reference Check (Section 6)
    - Ensures core changes reference an approved ADR
 
@@ -108,9 +108,7 @@ def get_changed_files() -> list[str]:
 def check_core_changes(files: list[str]) -> list[dict[str, str]]:
     """Check if core directories are modified without ADR reference."""
     violations = []
-    core_files_changed = [
-        f for f in files if CORE_FILE_PATTERN.match(f) or f.startswith("sdk/")
-    ]
+    core_files_changed = [f for f in files if CORE_FILE_PATTERN.match(f) or f.startswith("sdk/")]
 
     if not core_files_changed:
         return violations
@@ -120,12 +118,14 @@ def check_core_changes(files: list[str]) -> list[dict[str, str]]:
 
     if not has_adr_reference:
         for f in core_files_changed:
-            violations.append({
-                "rule": "core_change_protection",
-                "file": f,
-                "message": f"Core file '{f}' modified without ADR reference. "
-                f"Add an ADR in docs/adr/ and reference it in your commit message.",
-            })
+            violations.append(
+                {
+                    "rule": "core_change_protection",
+                    "file": f,
+                    "message": f"Core file '{f}' modified without ADR reference. "
+                    f"Add an ADR in docs/adr/ and reference it in your commit message.",
+                }
+            )
 
     return violations
 
@@ -169,15 +169,17 @@ def check_cross_capability_imports(root_path: str = ".") -> list[dict[str, str]]
                             for pack in CAPABILITY_PACKS:
                                 if module == f"apps.{pack}" or module.startswith(f"apps.{pack}."):
                                     if pack != source_pack:
-                                        violations.append({
-                                            "rule": "capability_first_rule",
-                                            "source_pack": source_pack,
-                                            "target_pack": pack,
-                                            "file": str(py_file.relative_to(root)),
-                                            "line": node.lineno,
-                                            "message": f"Capability '{source_pack}' imports from capability '{pack}'. "
-                                            f"Use Execution Runtime and shared contracts instead.",
-                                        })
+                                        violations.append(
+                                            {
+                                                "rule": "capability_first_rule",
+                                                "source_pack": source_pack,
+                                                "target_pack": pack,
+                                                "file": str(py_file.relative_to(root)),
+                                                "line": node.lineno,
+                                                "message": f"Capability '{source_pack}' imports from capability '{pack}'. "  # noqa: E501
+                                                f"Use Execution Runtime and shared contracts instead.",  # noqa: E501
+                                            }
+                                        )
 
                 elif isinstance(node, ast.ImportFrom):
                     module = node.module or ""
@@ -185,15 +187,17 @@ def check_cross_capability_imports(root_path: str = ".") -> list[dict[str, str]]
                         for pack in CAPABILITY_PACKS:
                             if module == f"apps.{pack}" or module.startswith(f"apps.{pack}."):
                                 if pack != source_pack:
-                                    violations.append({
-                                        "rule": "capability_first_rule",
-                                        "source_pack": source_pack,
-                                        "target_pack": pack,
-                                        "file": str(py_file.relative_to(root)),
-                                        "line": node.lineno,
-                                        "message": f"Capability '{source_pack}' imports from capability '{pack}'. "
-                                        f"Use Execution Runtime and shared contracts instead.",
-                                    })
+                                    violations.append(
+                                        {
+                                            "rule": "capability_first_rule",
+                                            "source_pack": source_pack,
+                                            "target_pack": pack,
+                                            "file": str(py_file.relative_to(root)),
+                                            "line": node.lineno,
+                                            "message": f"Capability '{source_pack}' imports from capability '{pack}'. "  # noqa: E501
+                                            f"Use Execution Runtime and shared contracts instead.",
+                                        }
+                                    )
 
     return violations
 
@@ -209,18 +213,21 @@ def check_package_boundaries() -> list[dict[str, str]]:
             cwd=Path("."),
         )
         if result.returncode != 0:
-            return [{
-                "rule": "package_boundary",
-                "file": "backend/",
-                "message": "Package boundary violations detected. Run `python benchmarks/package_boundaries.py` for details.",
-            }]
+            return [
+                {
+                    "rule": "package_boundary",
+                    "file": "backend/",
+                    "message": "Package boundary violations detected. Run `python benchmarks/package_boundaries.py` for details.",  # noqa: E501
+                }
+            ]
     except Exception as e:
         logger.debug(f"Could not run package_boundaries.py: {e}")
     return []
 
 
-def run_governance_checks(check_core: bool = True, check_imports: bool = True,
-                          check_boundaries: bool = True) -> dict:
+def run_governance_checks(
+    check_core: bool = True, check_imports: bool = True, check_boundaries: bool = True
+) -> dict:
     """Run all governance checks and return results."""
     results = {
         "passed": True,
@@ -253,12 +260,24 @@ def run_governance_checks(check_core: bool = True, check_imports: bool = True,
 
 def main():
     parser = argparse.ArgumentParser(description="ECP Governance Enforcement")
-    parser.add_argument("--check-core", action="store_true", default=True,
-                        help="Check for unauthorized Core changes")
-    parser.add_argument("--check-imports", action="store_true", default=True,
-                        help="Check for cross-capability imports")
-    parser.add_argument("--check-boundaries", action="store_true", default=True,
-                        help="Check for package boundary violations")
+    parser.add_argument(
+        "--check-core",
+        action="store_true",
+        default=True,
+        help="Check for unauthorized Core changes",
+    )
+    parser.add_argument(
+        "--check-imports",
+        action="store_true",
+        default=True,
+        help="Check for cross-capability imports",
+    )
+    parser.add_argument(
+        "--check-boundaries",
+        action="store_true",
+        default=True,
+        help="Check for package boundary violations",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)

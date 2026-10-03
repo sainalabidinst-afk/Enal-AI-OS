@@ -41,12 +41,14 @@ class ModelRouter:
     ):
         model = model or self.default_model
         config = self.get_provider_config(model)
-        config.update({
-            "messages": messages,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "stream": stream,
-        })
+        config.update(
+            {
+                "messages": messages,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+                "stream": stream,
+            }
+        )
         if tools:
             config["tools"] = tools
 
@@ -69,12 +71,14 @@ class ModelRouter:
     ):
         model = model or self.default_model
         config = self.get_provider_config(model)
-        config.update({
-            "messages": messages,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "stream": stream,
-        })
+        config.update(
+            {
+                "messages": messages,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+                "stream": stream,
+            }
+        )
         if tools:
             config["tools"] = tools
 

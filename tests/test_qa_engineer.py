@@ -2,11 +2,11 @@
 Smoke tests for Qa Engineer capability.
 """
 
-from apps.qa_engineer.coverage_analyzer import *
-from apps.qa_engineer.engine import *
-from apps.qa_engineer.flaky_detector import *
-from apps.qa_engineer.golden_test_gen import *
-from apps.qa_engineer.mutation_tester import *
+from apps.qa_engineer.coverage_analyzer import *  # noqa: F403
+from apps.qa_engineer.engine import *  # noqa: F403
+from apps.qa_engineer.flaky_detector import *  # noqa: F403
+from apps.qa_engineer.golden_test_gen import *  # noqa: F403
+from apps.qa_engineer.mutation_tester import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

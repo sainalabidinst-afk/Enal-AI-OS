@@ -70,16 +70,18 @@ class WyckoffAnalyzer:
             support_level = min(lows[-20:-5])
             current_low = lows[-5:]
             if min(current_low) < support_level and closes[-1] > support_level:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_spring_{tf}",
-                    type="wyckoff",
-                    description=f"Spring detected on {tf} - false breakdown below {support_level:.2f}",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.75,
-                    direction="bullish",
-                    source="wyckoff.accumulation",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_spring_{tf}",
+                        type="wyckoff",
+                        description=f"Spring detected on {tf} - false breakdown below {support_level:.2f}",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.75,
+                        direction="bullish",
+                        source="wyckoff.accumulation",
+                        confidence=0.70,
+                    )
+                )
 
         # 4. SOS (Sign of Strength) detection
         if len(highs) >= 15:
@@ -89,16 +91,18 @@ class WyckoffAnalyzer:
             prev_vol = sum(volumes[-10:-5]) / 5 if len(volumes) >= 10 else 0
 
             if current_high > recent_swing_high and current_vol > prev_vol * 1.3:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_sos_{tf}",
-                    type="wyckoff",
-                    description=f"Sign of Strength (SOS) on {tf} - breakout above {recent_swing_high:.2f} with volume",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bullish",
-                    source="wyckoff.accumulation",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_sos_{tf}",
+                        type="wyckoff",
+                        description=f"Sign of Strength (SOS) on {tf} - breakout above {recent_swing_high:.2f} with volume",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bullish",
+                        source="wyckoff.accumulation",
+                        confidence=0.75,
+                    )
+                )
 
         # 5. Preliminary Support (PS) after downtrend
         if len(lows) >= 50:
@@ -108,32 +112,36 @@ class WyckoffAnalyzer:
                 # Potential downtrend exhaustion
                 vol_at_low = volumes[lows.index(min(lows[-20:]))]
                 if vol_at_low > vol_avg * 1.5:
-                    evidence.append(MarketEvidence(
-                        id=f"wyckoff_ps_{tf}",
-                        type="wyckoff",
-                        description=f"Preliminary Support (PS) on {tf} - high volume at low",
-                        timeframe=tf,
-                        strength=0.65,
-                        direction="bullish",
-                        source="wyckoff.accumulation",
-                        confidence=0.60,
-                    ))
+                    evidence.append(
+                        MarketEvidence(
+                            id=f"wyckoff_ps_{tf}",
+                            type="wyckoff",
+                            description=f"Preliminary Support (PS) on {tf} - high volume at low",
+                            timeframe=tf,
+                            strength=0.65,
+                            direction="bullish",
+                            source="wyckoff.accumulation",
+                            confidence=0.60,
+                        )
+                    )
 
         # 6. Secondary Test (ST) with lower volume
         if len(volumes) >= 30:
             recent_vol_trend = sum(volumes[-10:]) / 10
             prior_vol = sum(volumes[-20:-10]) / 10
             if recent_vol_trend < prior_vol * 0.7 and current_price >= recent_low * 1.02:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_st_{tf}",
-                    type="wyckoff",
-                    description=f"Secondary Test (ST) on {tf} - lower volume at support",
-                    timeframe=tf,
-                    strength=0.70,
-                    direction="bullish",
-                    source="wyckoff.accumulation",
-                    confidence=0.65,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_st_{tf}",
+                        type="wyckoff",
+                        description=f"Secondary Test (ST) on {tf} - lower volume at support",
+                        timeframe=tf,
+                        strength=0.70,
+                        direction="bullish",
+                        source="wyckoff.accumulation",
+                        confidence=0.65,
+                    )
+                )
 
         return evidence
 
@@ -165,16 +173,18 @@ class WyckoffAnalyzer:
             resistance_level = max(highs[-20:-5])
             current_high = max(highs[-5:])
             if current_high > resistance_level * 1.01 and current_price < resistance_level:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_utad_{tf}",
-                    type="wyckoff",
-                    description=f"Upthrust After Distribution (UTAD) on {tf} - false breakout above {resistance_level:.2f}",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bearish",
-                    source="wyckoff.distribution",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_utad_{tf}",
+                        type="wyckoff",
+                        description=f"Upthrust After Distribution (UTAD) on {tf} - false breakout above {resistance_level:.2f}",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bearish",
+                        source="wyckoff.distribution",
+                        confidence=0.75,
+                    )
+                )
 
         # 2. Sign of Weakness (SOW)
         if len(lows) >= 15:
@@ -184,32 +194,36 @@ class WyckoffAnalyzer:
             prev_vol = sum(volumes[-10:-5]) / 5 if len(volumes) >= 10 else 0
 
             if current_low < recent_swing_low and current_vol > prev_vol * 1.3:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_sow_{tf}",
-                    type="wyckoff",
-                    description=f"Sign of Weakness (SOW) on {tf} - breakdown below {recent_swing_low:.2f} with volume",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bearish",
-                    source="wyckoff.distribution",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_sow_{tf}",
+                        type="wyckoff",
+                        description=f"Sign of Weakness (SOW) on {tf} - breakdown below {recent_swing_low:.2f} with volume",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bearish",
+                        source="wyckoff.distribution",
+                        confidence=0.75,
+                    )
+                )
 
         # 3. Buying Climax (BC) - high volume at top
         if len(highs) >= 20 and len(volumes) >= 20:
             max_high_idx = highs.index(max(highs[-20:]))
             max_vol_idx = volumes.index(max(volumes[-20:]))
             if abs(max_high_idx - max_vol_idx) <= 3:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_bc_{tf}",
-                    type="wyckoff",
-                    description=f"Buying Climax (BC) on {tf} - high volume at price high",
-                    timeframe=tf,
-                    strength=0.70,
-                    direction="bearish",
-                    source="wyckoff.distribution",
-                    confidence=0.65,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_bc_{tf}",
+                        type="wyckoff",
+                        description=f"Buying Climax (BC) on {tf} - high volume at price high",
+                        timeframe=tf,
+                        strength=0.70,
+                        direction="bearish",
+                        source="wyckoff.distribution",
+                        confidence=0.65,
+                    )
+                )
 
         # 4. LPSY (Last Point of Supply) - rally that fails
         if len(highs) >= 15:
@@ -219,16 +233,18 @@ class WyckoffAnalyzer:
             decline_vol = sum(volumes[-15:-10]) / 5 if len(volumes) >= 15 else 0
 
             if bounce > recent_decline * 1.02 and bounce_vol < decline_vol * 0.7:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_lpsy_{tf}",
-                    type="wyckoff",
-                    description=f"Last Point of Supply (LPSY) on {tf} - weak rally",
-                    timeframe=tf,
-                    strength=0.70,
-                    direction="bearish",
-                    source="wyckoff.distribution",
-                    confidence=0.65,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_lpsy_{tf}",
+                        type="wyckoff",
+                        description=f"Last Point of Supply (LPSY) on {tf} - weak rally",
+                        timeframe=tf,
+                        strength=0.70,
+                        direction="bearish",
+                        source="wyckoff.distribution",
+                        confidence=0.65,
+                    )
+                )
 
         return evidence
 
@@ -262,48 +278,62 @@ class WyckoffAnalyzer:
         overall_vol_avg = sum(volumes) / len(volumes)
 
         if overall_vol_avg > 0 and recent_vol_avg > overall_vol_avg * 1.5 and price_range < 0.05:
-            evidence.append(MarketEvidence(
-                id=f"wyckoff_absorption_{tf}",
-                type="wyckoff",
-                description=f"Composite Operator absorption on {tf} - high volume, narrow range",
-                timeframe=tf,
-                strength=0.75,
-                direction="neutral",
-                source="wyckoff.composite_operator",
-                confidence=0.70,
-            ))
+            evidence.append(
+                MarketEvidence(
+                    id=f"wyckoff_absorption_{tf}",
+                    type="wyckoff",
+                    description=f"Composite Operator absorption on {tf} - high volume, narrow range",  # noqa: E501
+                    timeframe=tf,
+                    strength=0.75,
+                    direction="neutral",
+                    source="wyckoff.composite_operator",
+                    confidence=0.70,
+                )
+            )
 
         # 2. Markup phase: consistent higher highs + higher lows
         if len(highs) >= 20:
-            swing_highs_flag = all(highs[i] > highs[i-5] for i in range(-5, 0) if abs(i) <= len(highs))  # noqa: E501
-            swing_lows_flag = all(lows[i] > lows[i-5] for i in range(-5, 0) if abs(i) <= len(lows))
+            swing_highs_flag = all(
+                highs[i] > highs[i - 5] for i in range(-5, 0) if abs(i) <= len(highs)
+            )  # noqa: E501
+            swing_lows_flag = all(
+                lows[i] > lows[i - 5] for i in range(-5, 0) if abs(i) <= len(lows)
+            )
             if swing_highs_flag and swing_lows_flag:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_markup_{tf}",
-                    type="wyckoff",
-                    description=f"Markup phase detected on {tf} - consistent Higher Highs and Higher Lows",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bullish",
-                    source="wyckoff.composite_operator",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_markup_{tf}",
+                        type="wyckoff",
+                        description=f"Markup phase detected on {tf} - consistent Higher Highs and Higher Lows",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bullish",
+                        source="wyckoff.composite_operator",
+                        confidence=0.75,
+                    )
+                )
 
         # 3. Markdown phase: consistent lower highs + lower lows
         if len(highs) >= 20:
-            swing_highs_flag = all(highs[i] < highs[i-5] for i in range(-5, 0) if abs(i) <= len(highs))  # noqa: E501
-            swing_lows_flag = all(lows[i] < lows[i-5] for i in range(-5, 0) if abs(i) <= len(lows))
+            swing_highs_flag = all(
+                highs[i] < highs[i - 5] for i in range(-5, 0) if abs(i) <= len(highs)
+            )  # noqa: E501
+            swing_lows_flag = all(
+                lows[i] < lows[i - 5] for i in range(-5, 0) if abs(i) <= len(lows)
+            )
             if swing_highs_flag and swing_lows_flag:
-                evidence.append(MarketEvidence(
-                    id=f"wyckoff_markdown_{tf}",
-                    type="wyckoff",
-                    description=f"Markdown phase detected on {tf} - consistent Lower Highs and Lower Lows",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bearish",
-                    source="wyckoff.composite_operator",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"wyckoff_markdown_{tf}",
+                        type="wyckoff",
+                        description=f"Markdown phase detected on {tf} - consistent Lower Highs and Lower Lows",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bearish",
+                        source="wyckoff.composite_operator",
+                        confidence=0.75,
+                    )
+                )
 
         return evidence
 

@@ -70,6 +70,7 @@ PIPELINE_DESCRIPTIONS = {
 class AdaptiveCognitiveRuntime:
     def __init__(self):
         from backend.app.core.cognitive_kernel import cognitive_kernel
+
         self.kernel = cognitive_kernel
         self.budget = cognitive_budget
         self.model_router = model_router

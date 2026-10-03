@@ -84,9 +84,7 @@ def test_assumption_auditing() -> float:
 def test_vulnerability_detection() -> float:
     """Vulnerabilities are detected and scored."""
     engine = AdversarialTestingEngine()
-    vectors = engine.generator.generate(
-        subject=SAMPLE_PLAN, subject_type="plan", budget=10
-    )
+    vectors = engine.generator.generate(subject=SAMPLE_PLAN, subject_type="plan", budget=10)
     vulns = engine.scanner.scan(SAMPLE_PLAN, vectors, evidence=None, constraints=None)
     if len(vulns) >= 1:
         for v in vulns:
@@ -99,9 +97,7 @@ def test_vulnerability_detection() -> float:
 def test_hardening_recommendations() -> float:
     """Hardening actions are generated."""
     engine = AdversarialTestingEngine()
-    vectors = engine.generator.generate(
-        subject=SAMPLE_PLAN, subject_type="plan", budget=10
-    )
+    vectors = engine.generator.generate(subject=SAMPLE_PLAN, subject_type="plan", budget=10)
     vulns = engine.scanner.scan(SAMPLE_PLAN, vectors, {}, [])
     actions = engine.advisor.recommend(vulns, vectors, constraints=[], existing_hardening=[])
     if len(actions) >= 1:
@@ -151,8 +147,7 @@ def test_critical_detection() -> float:
         attack_budget=15,
     )
     has_critical = any(
-        v.get("severity") == Severity.CRITICAL.value
-        for v in result.vulnerabilities_found
+        v.get("severity") == Severity.CRITICAL.value for v in result.vulnerabilities_found
     )
     if has_critical or result.gate_result == GateResult.FAIL:
         return 1.0

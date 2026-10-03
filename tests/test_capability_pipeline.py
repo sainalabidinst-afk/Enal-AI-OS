@@ -25,7 +25,6 @@ Test scenarios:
     ✅ resolve input passthrough
 """
 
-
 import pytest
 
 from apps.organization.capability_execution_engine import (
@@ -467,4 +466,3 @@ async def test_summary_output(pipeline: CapabilityPipeline):
     assert len(summary["details"]) == 1
     assert summary["details"][0]["capability"] == "documentation"
     assert summary["details"][0]["status"] == "completed"
-

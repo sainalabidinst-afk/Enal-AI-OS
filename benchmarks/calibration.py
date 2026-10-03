@@ -40,14 +40,16 @@ class CalibrationBin:
 @dataclass
 class ConfidenceCalibration:
     results: list[Any]
-    bins: list[CalibrationBin] = field(default_factory=lambda: [
-        CalibrationBin("0.90-1.00", 0.90, 1.00),
-        CalibrationBin("0.80-0.89", 0.80, 0.89),
-        CalibrationBin("0.70-0.79", 0.70, 0.79),
-        CalibrationBin("0.60-0.69", 0.60, 0.69),
-        CalibrationBin("0.50-0.59", 0.50, 0.59),
-        CalibrationBin("0.00-0.49", 0.00, 0.49),
-    ])
+    bins: list[CalibrationBin] = field(
+        default_factory=lambda: [
+            CalibrationBin("0.90-1.00", 0.90, 1.00),
+            CalibrationBin("0.80-0.89", 0.80, 0.89),
+            CalibrationBin("0.70-0.79", 0.70, 0.79),
+            CalibrationBin("0.60-0.69", 0.60, 0.69),
+            CalibrationBin("0.50-0.59", 0.50, 0.59),
+            CalibrationBin("0.00-0.49", 0.00, 0.49),
+        ]
+    )
 
     def __post_init__(self) -> None:
         self._build()
@@ -85,14 +87,22 @@ class ConfidenceCalibration:
 
     def _overconfident_bins(self) -> list[dict[str, Any]]:
         return [
-            {"label": b.label, "confidence": round((b.confidence_min + b.confidence_max) / 2, 2), "accuracy": b.accuracy}
+            {
+                "label": b.label,
+                "confidence": round((b.confidence_min + b.confidence_max) / 2, 2),
+                "accuracy": b.accuracy,
+            }
             for b in self.bins
             if b.count > 0 and b.accuracy < (b.confidence_min + b.confidence_max) / 2 - 0.05
         ]
 
     def _underconfident_bins(self) -> list[dict[str, Any]]:
         return [
-            {"label": b.label, "confidence": round((b.confidence_min + b.confidence_max) / 2, 2), "accuracy": b.accuracy}
+            {
+                "label": b.label,
+                "confidence": round((b.confidence_min + b.confidence_max) / 2, 2),
+                "accuracy": b.accuracy,
+            }
             for b in self.bins
             if b.count > 0 and b.accuracy > (b.confidence_min + b.confidence_max) / 2 + 0.05
         ]

@@ -211,13 +211,15 @@ async def run_execution(goal: str, workspace_id: str, conversation_id: str | Non
             for artifact_id in execution.artifacts:
                 art = await artifact_service.get_artifact(artifact_id)
                 if art:
-                    artifacts.append({
-                        "id": art.id,
-                        "name": getattr(art, 'name', artifact_id),
-                        "type": getattr(art, 'type', ''),
-                        "execution_id": execution.id,
-                        "metadata": getattr(art, 'metadata', {}),
-                    })
+                    artifacts.append(
+                        {
+                            "id": art.id,
+                            "name": getattr(art, "name", artifact_id),
+                            "type": getattr(art, "type", ""),
+                            "execution_id": execution.id,
+                            "metadata": getattr(art, "metadata", {}),
+                        }
+                    )
         return {
             "execution": execution,
             "artifacts": artifacts,

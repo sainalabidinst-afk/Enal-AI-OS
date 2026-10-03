@@ -56,7 +56,9 @@ class DevOpsWorker:
             "required_skills": required_skills,
         }
 
-    async def _handle_infrastructure(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_infrastructure(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         service = task_context.get("intent", task_context.get("name", "unknown-service"))
         try:
@@ -67,9 +69,15 @@ class DevOpsWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_cicd(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_cicd(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         service = task_context.get("intent", task_context.get("name", "unknown-service"))
         try:
@@ -80,9 +88,15 @@ class DevOpsWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_monitoring(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_monitoring(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         return {
             "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
             "status": "completed",
@@ -93,7 +107,9 @@ class DevOpsWorker:
             },
         }
 
-    async def _handle_deployment(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_deployment(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         service = task_context.get("intent", task_context.get("name", "unknown-service"))
         try:
@@ -104,7 +120,11 @@ class DevOpsWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
 
 devops_worker = DevOpsWorker()

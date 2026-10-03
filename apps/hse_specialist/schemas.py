@@ -127,13 +127,15 @@ class HSESpecialistReport(BaseModel):
 class HSESpecialistRecord(BaseModel):
     pack_id: str = "hse-specialist"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "hazard_analysis",
-        "risk_register",
-        "control_review",
-        "incident_analysis",
-        "compliance_gap_check",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "hazard_analysis",
+            "risk_register",
+            "control_review",
+            "incident_analysis",
+            "compliance_gap_check",
+        ]
+    )
 
 
 __all__ = [

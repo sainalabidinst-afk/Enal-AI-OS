@@ -5,12 +5,12 @@ Tests for audit logging and policy management.
 """
 
 
-
 class TestSecurityModelAudit:
     """Tests for SecurityModel audit logging."""
 
     def test_audit_log_initialization(self):
         from backend.app.core.security_model import SecurityModel
+
         sm = SecurityModel()
         assert isinstance(sm._audit_log, list)
 
@@ -21,6 +21,7 @@ class TestSecurityModelAudit:
             SecurityModel,
             SecurityPolicy,
         )
+
         sm = SecurityModel()
         policy = SecurityPolicy(
             plugin_id="test-plugin",
@@ -34,6 +35,7 @@ class TestSecurityModelAudit:
 
     def test_get_audit_log(self):
         from backend.app.core.security_model import SecurityModel
+
         sm = SecurityModel()
         log = sm.get_audit_log()
         assert isinstance(log, list)
@@ -44,6 +46,7 @@ class TestSecurityPolicy:
 
     def test_policy_creation(self):
         from backend.app.core.security_model import Permission, SecurityLevel, SecurityPolicy
+
         policy = SecurityPolicy(
             plugin_id="my-plugin",
             security_level=SecurityLevel.RESTRICTED,
@@ -58,6 +61,7 @@ class TestPolicyEvaluator:
 
     def test_rbac_evaluation(self):
         from backend.app.core.security_model import Permission, PolicyEvaluator, SecurityPolicy
+
         evaluator = PolicyEvaluator()
         policy = SecurityPolicy(
             plugin_id="test",
@@ -74,6 +78,7 @@ class TestPolicyEvaluator:
             PolicyEvaluator,
             SecurityPolicy,
         )
+
         evaluator = PolicyEvaluator()
         policy = SecurityPolicy(
             plugin_id="test",

@@ -47,14 +47,16 @@ class LegalAnalysisEngine:
                 match = re.search(pattern, inputs.text, re.IGNORECASE)
                 if match:
                     start = max(0, match.start() - 20)
-                    quoted = inputs.text[start:match.end() + 20].strip()
-                    clauses.append(ClauseExtraction(
-                        clause_type=clause_type,
-                        source_document=inputs.document_id or "unknown",
-                        page=inputs.page,
-                        quoted_text=quoted,
-                        confidence=0.95 if match else 0.85,
-                    ))
+                    quoted = inputs.text[start : match.end() + 20].strip()
+                    clauses.append(
+                        ClauseExtraction(
+                            clause_type=clause_type,
+                            source_document=inputs.document_id or "unknown",
+                            page=inputs.page,
+                            quoted_text=quoted,
+                            confidence=0.95 if match else 0.85,
+                        )
+                    )
                     break
 
         return clauses

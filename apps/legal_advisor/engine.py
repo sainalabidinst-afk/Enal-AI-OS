@@ -31,7 +31,9 @@ class LegalAdvisorEngine:
 
     def execute(self, request: LegalAdvisorRequest) -> LegalAdvisorReport:
         inputs: LegalInputs = request.inputs
-        limitations = ["This tool provides assistive review only and does not constitute legal advice"]  # noqa: E501
+        limitations = [
+            "This tool provides assistive review only and does not constitute legal advice"
+        ]  # noqa: E501
         recommendations = ["Qualified human review is required for all legal conclusions"]
 
         if inputs.operation == LegalOperation.document_extract:

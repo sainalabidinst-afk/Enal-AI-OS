@@ -131,11 +131,13 @@ class FileSystemConnector(BaseActionConnector):
 
         entries = []
         for entry in sorted(target.iterdir()):
-            entries.append({
-                "name": entry.name,
-                "type": "directory" if entry.is_dir() else "file",
-                "size_bytes": entry.stat().st_size if entry.is_file() else 0,
-            })
+            entries.append(
+                {
+                    "name": entry.name,
+                    "type": "directory" if entry.is_dir() else "file",
+                    "size_bytes": entry.stat().st_size if entry.is_file() else 0,
+                }
+            )
         return {"path": str(target), "entries": entries}
 
     async def _search_files(self, params: dict[str, Any]) -> dict[str, Any]:
@@ -149,11 +151,13 @@ class FileSystemConnector(BaseActionConnector):
             if len(results) >= max_results:
                 break
             stat = match.stat()
-            results.append({
-                "path": str(match.relative_to(target)),
-                "size_bytes": stat.st_size,
-                "modified_at": datetime.fromtimestamp(stat.st_mtime, UTC).isoformat(),
-            })
+            results.append(
+                {
+                    "path": str(match.relative_to(target)),
+                    "size_bytes": stat.st_size,
+                    "modified_at": datetime.fromtimestamp(stat.st_mtime, UTC).isoformat(),
+                }
+            )
         return {
             "query": pattern,
             "base_path": str(target),

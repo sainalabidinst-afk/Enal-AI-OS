@@ -52,7 +52,9 @@ class ExecutionPlan:
 
     def __post_init__(self) -> None:
         if not self.total_duration_minutes:
-            self.total_duration_minutes = float(sum(s.estimated_duration_minutes for s in self.stages))  # noqa: E501
+            self.total_duration_minutes = float(
+                sum(s.estimated_duration_minutes for s in self.stages)
+            )  # noqa: E501
         if not self.parallelism_factor and self.stages:
             serial_sum = sum(s.estimated_duration_minutes for s in self.stages)
             if serial_sum > 0:
@@ -69,38 +71,46 @@ class ExecutionPlanner:
         stages: list[ExecutionStage] = []
         if strategy == "serial":
             for idx, subtask in enumerate(subtasks):
-                stages.append(ExecutionStage(
-                    stage_id=f"stage-{idx+1}-{subtask.subtask_id[:6]}",
-                    stage_index=idx + 1,
-                    subtasks=[subtask],
-                    mode="serial",
-                ))
+                stages.append(
+                    ExecutionStage(
+                        stage_id=f"stage-{idx + 1}-{subtask.subtask_id[:6]}",
+                        stage_index=idx + 1,
+                        subtasks=[subtask],
+                        mode="serial",
+                    )
+                )
         elif strategy == "parallel":
-            stages.append(ExecutionStage(
-                stage_id=f"stage-1-{uuid.uuid4().hex[:6]}",
-                stage_index=1,
-                subtasks=subtasks,
-                mode="parallel",
-            ))
+            stages.append(
+                ExecutionStage(
+                    stage_id=f"stage-1-{uuid.uuid4().hex[:6]}",
+                    stage_index=1,
+                    subtasks=subtasks,
+                    mode="parallel",
+                )
+            )
         else:
             serial_subtasks = [s for s in subtasks if not s.can_parallelize]
             parallel_subtasks = [s for s in subtasks if s.can_parallelize]
             stage_idx = 1
             if serial_subtasks:
-                stages.append(ExecutionStage(
-                    stage_id=f"stage-{stage_idx}-serial",
-                    stage_index=stage_idx,
-                    subtasks=serial_subtasks,
-                    mode="serial",
-                ))
+                stages.append(
+                    ExecutionStage(
+                        stage_id=f"stage-{stage_idx}-serial",
+                        stage_index=stage_idx,
+                        subtasks=serial_subtasks,
+                        mode="serial",
+                    )
+                )
                 stage_idx += 1
             if parallel_subtasks:
-                stages.append(ExecutionStage(
-                    stage_id=f"stage-{stage_idx}-parallel",
-                    stage_index=stage_idx,
-                    subtasks=parallel_subtasks,
-                    mode="parallel",
-                ))
+                stages.append(
+                    ExecutionStage(
+                        stage_id=f"stage-{stage_idx}-parallel",
+                        stage_index=stage_idx,
+                        subtasks=parallel_subtasks,
+                        mode="parallel",
+                    )
+                )
 
         logger.info(
             "ExecutionPlan created: stages=%d, parallel_factor=%.2f, strategy=%s",

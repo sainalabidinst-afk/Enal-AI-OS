@@ -93,13 +93,15 @@ class SchemaDesigner:
             List of SchemaRecommendation objects.
         """
         if not schema or not schema.tables:
-            return [SchemaRecommendation(
-                table="",
-                action="add_table",
-                details={"message": "No schema provided — cannot analyze"},
-                priority=Severity.low,
-                rationale="Provide a schema definition for analysis",
-            )]
+            return [
+                SchemaRecommendation(
+                    table="",
+                    action="add_table",
+                    details={"message": "No schema provided — cannot analyze"},
+                    priority=Severity.low,
+                    rationale="Provide a schema definition for analysis",
+                )
+            ]
 
         recs: list[SchemaRecommendation] = []
         db_key = database_type.value
@@ -119,13 +121,20 @@ class SchemaDesigner:
 
         # Check for missing primary key.
         if not table.primary_key and not any(c.name == "id" for c in table.columns):
-            recs.append(SchemaRecommendation(
-                table=table.name,
-                action="add_column",
-                details={"column": "id", "type": _TYPE_RECOMMENDATIONS.get(db_key, {}).get("id", "SERIAL PRIMARY KEY")},  # noqa: E501
-                priority=Severity.high,
-                rationale="Tables should have a primary key for unique row identification and indexing",  # noqa: E501
-            ))
+            recs.append(
+                SchemaRecommendation(
+                    table=table.name,
+                    action="add_column",
+                    details={
+                        "column": "id",
+                        "type": _TYPE_RECOMMENDATIONS.get(db_key, {}).get(
+                            "id", "SERIAL PRIMARY KEY"
+                        ),
+                    },  # noqa: E501
+                    priority=Severity.high,
+                    rationale="Tables should have a primary key for unique row identification and indexing",  # noqa: E501
+                )
+            )
 
         # Check column types.
         _TYPE_RECOMMENDATIONS.get(db_key, {})
@@ -135,25 +144,40 @@ class SchemaDesigner:
                 try:
                     size = int(col_type_lower.split("(")[1].split(")")[0])
                     if size > 500:
-                        recs.append(SchemaRecommendation(
-                            table=table.name,
-                            action="modify_column",
-                            details={"column": col.name, "old_type": col.type, "new_type": "TEXT"},
-                            priority=Severity.low,
-                            rationale=f"VARCHAR({size}) is large — consider TEXT for variable-length content",  # noqa: E501
-                        ))
+                        recs.append(
+                            SchemaRecommendation(
+                                table=table.name,
+                                action="modify_column",
+                                details={
+                                    "column": col.name,
+                                    "old_type": col.type,
+                                    "new_type": "TEXT",
+                                },
+                                priority=Severity.low,
+                                rationale=f"VARCHAR({size}) is large — consider TEXT for variable-length content",  # noqa: E501
+                            )
+                        )
                 except (IndexError, ValueError):
                     pass
 
-            if "text" in col_type_lower and "json" not in col_type_lower and "timestamp" not in col_type_lower:  # noqa: E501
+            if (
+                "text" in col_type_lower
+                and "json" not in col_type_lower
+                and "timestamp" not in col_type_lower
+            ):  # noqa: E501
                 if not any("fulltext" in c.lower() for c in col.constraints):
-                    recs.append(SchemaRecommendation(
-                        table=table.name,
-                        action="add_constraint",
-                        details={"column": col.name, "constraint": "consider full-text index if searching"},  # noqa: E501
-                        priority=Severity.low,
-                        rationale="TEXT column without index may cause slow searches",
-                    ))
+                    recs.append(
+                        SchemaRecommendation(
+                            table=table.name,
+                            action="add_constraint",
+                            details={
+                                "column": col.name,
+                                "constraint": "consider full-text index if searching",
+                            },  # noqa: E501
+                            priority=Severity.low,
+                            rationale="TEXT column without index may cause slow searches",
+                        )
+                    )
 
         return recs
 
@@ -172,13 +196,15 @@ class SchemaDesigner:
 
         for prefix, count in prefixes.items():
             if count >= 3:
-                recs.append(SchemaRecommendation(
-                    table=table.name,
-                    action="normalize",
-                    details={"prefix": prefix, "count": count},
-                    priority=Severity.medium,
-                    rationale=f"Possible repeating group '{prefix}_*' — consider normalizing to separate table",  # noqa: E501
-                ))
+                recs.append(
+                    SchemaRecommendation(
+                        table=table.name,
+                        action="normalize",
+                        details={"prefix": prefix, "count": count},
+                        priority=Severity.medium,
+                        rationale=f"Possible repeating group '{prefix}_*' — consider normalizing to separate table",  # noqa: E501
+                    )
+                )
 
         return recs
 
@@ -188,23 +214,31 @@ class SchemaDesigner:
 
         for col in table.columns:
             # Check for nullable columns that should be NOT NULL.
-            if "not null" not in [c.lower() for c in col.constraints] and col.name in ("email", "username", "id"):  # noqa: E501
-                recs.append(SchemaRecommendation(
-                    table=table.name,
-                    action="add_constraint",
-                    details={"column": col.name, "constraint": "NOT NULL"},
-                    priority=Severity.medium,
-                    rationale=f"Column '{col.name}' should be NOT NULL for data integrity",
-                ))
+            if "not null" not in [c.lower() for c in col.constraints] and col.name in (
+                "email",
+                "username",
+                "id",
+            ):  # noqa: E501
+                recs.append(
+                    SchemaRecommendation(
+                        table=table.name,
+                        action="add_constraint",
+                        details={"column": col.name, "constraint": "NOT NULL"},
+                        priority=Severity.medium,
+                        rationale=f"Column '{col.name}' should be NOT NULL for data integrity",
+                    )
+                )
 
             # Check for missing UNIQUE on email-like columns.
             if "email" in col.name.lower() and "unique" not in [c.lower() for c in col.constraints]:
-                recs.append(SchemaRecommendation(
-                    table=table.name,
-                    action="add_constraint",
-                    details={"column": col.name, "constraint": "UNIQUE"},
-                    priority=Severity.high,
-                    rationale=f"Column '{col.name}' should be UNIQUE to prevent duplicates",
-                ))
+                recs.append(
+                    SchemaRecommendation(
+                        table=table.name,
+                        action="add_constraint",
+                        details={"column": col.name, "constraint": "UNIQUE"},
+                        priority=Severity.high,
+                        rationale=f"Column '{col.name}' should be UNIQUE to prevent duplicates",
+                    )
+                )
 
         return recs

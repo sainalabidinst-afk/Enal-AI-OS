@@ -9,6 +9,7 @@ Platform RC (2026-07-27) — 426 test lulus
 ```python
 from enal_ai import Agent
 
+
 class MyWorker(Agent):
     name = "my-worker"
     description = "Description of what this worker does"
@@ -17,6 +18,7 @@ class MyWorker(Agent):
 
     async def execute(self, task: str, context: dict | None = None) -> str:
         return f"Processed: {task}"
+
 
 agent = MyWorker()
 result = await agent.run("Do something")

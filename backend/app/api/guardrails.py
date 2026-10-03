@@ -44,9 +44,7 @@ async def test_guardrails(request: GuardrailTestRequest):
                     "guardrail": r.guardrail,
                     "triggered": r.triggered,
                     "action": (
-                        r.action.value
-                        if isinstance(r.action, CorrectiveAction)
-                        else str(r.action)
+                        r.action.value if isinstance(r.action, CorrectiveAction) else str(r.action)
                     ),
                     "details": r.details,
                     "modified_content": r.modified_content,

@@ -71,12 +71,22 @@ if __name__ == "__main__":
 FLAKY_TEST_RESULTS = [
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 50, "build_id": "b1"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 48, "build_id": "b2"},
-    {"test_name": "test_calculate_total", "passed": False, "duration_ms": 0,
-     "build_id": "b3", "error_message": "Connection refused — network timeout"},
+    {
+        "test_name": "test_calculate_total",
+        "passed": False,
+        "duration_ms": 0,
+        "build_id": "b3",
+        "error_message": "Connection refused — network timeout",
+    },
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 52, "build_id": "b4"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 50, "build_id": "b5"},
-    {"test_name": "test_calculate_total", "passed": False, "duration_ms": 0,
-     "build_id": "b6", "error_message": "HTTP 503 — service unavailable"},
+    {
+        "test_name": "test_calculate_total",
+        "passed": False,
+        "duration_ms": 0,
+        "build_id": "b6",
+        "error_message": "HTTP 503 — service unavailable",
+    },
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 49, "build_id": "b7"},
     {"test_name": "test_calculate_total", "passed": True, "duration_ms": 51, "build_id": "b8"},
 ]
@@ -138,6 +148,7 @@ def test_golden_gen() -> float:
 def test_flaky() -> float:
     """Flaky Test Detection: ≥90%."""
     from apps.qa_engineer.flaky_detector import FlakyDetector
+
     detector = FlakyDetector()
     findings = detector.detect(FLAKY_TEST_RESULTS)
     if len(findings) >= 1 and findings[0]["failure_rate"] >= 0.1:

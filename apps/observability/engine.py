@@ -107,9 +107,7 @@ class ObservabilityAnalystEngine:
         if inputs.metric_type:
             assumptions.append(f"metric_type={inputs.metric_type}")
         if inputs.threshold is not None and inputs.threshold_direction:
-            assumptions.append(
-                f"threshold={inputs.threshold} ({inputs.threshold_direction})"
-            )
+            assumptions.append(f"threshold={inputs.threshold} ({inputs.threshold_direction})")
         return assumptions
 
 

@@ -54,7 +54,12 @@ class VolumeProfileAnalyzer:
         price_range = price_max - price_min
 
         if price_range == 0:
-            return {"bins": {}, "poc": price_min, "value_area_high": price_min, "value_area_low": price_min}  # noqa: E501
+            return {
+                "bins": {},
+                "poc": price_min,
+                "value_area_high": price_min,
+                "value_area_low": price_min,
+            }  # noqa: E501
 
         bin_size = price_range / self.num_bins
 
@@ -192,38 +197,44 @@ class VolumeProfileAnalyzer:
         if current_price > 0 and poc > 0:
             dist_from_poc = (current_price - poc) / poc * 100
             if abs(dist_from_poc) < 0.5:
-                evidence.append(MarketEvidence(
-                    id=f"poc_proximity_{tf}",
-                    type="volume_profile",
-                    description=f"Price at Point of Control ({poc:.2f}) on {tf}",
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="neutral",
-                    source="volume_profile.poc",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"poc_proximity_{tf}",
+                        type="volume_profile",
+                        description=f"Price at Point of Control ({poc:.2f}) on {tf}",
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="neutral",
+                        source="volume_profile.poc",
+                        confidence=0.75,
+                    )
+                )
             elif dist_from_poc > 2:
-                evidence.append(MarketEvidence(
-                    id=f"price_above_poc_{tf}",
-                    type="volume_profile",
-                    description=f"Price above POC ({poc:.2f}) on {tf} by {dist_from_poc:.1f}%",
-                    timeframe=tf,
-                    strength=min(dist_from_poc / 5, 0.85),
-                    direction="bullish",
-                    source="volume_profile.poc",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"price_above_poc_{tf}",
+                        type="volume_profile",
+                        description=f"Price above POC ({poc:.2f}) on {tf} by {dist_from_poc:.1f}%",
+                        timeframe=tf,
+                        strength=min(dist_from_poc / 5, 0.85),
+                        direction="bullish",
+                        source="volume_profile.poc",
+                        confidence=0.70,
+                    )
+                )
             elif dist_from_poc < -2:
-                evidence.append(MarketEvidence(
-                    id=f"price_below_poc_{tf}",
-                    type="volume_profile",
-                    description=f"Price below POC ({poc:.2f}) on {tf} by {abs(dist_from_poc):.1f}%",
-                    timeframe=tf,
-                    strength=min(abs(dist_from_poc) / 5, 0.85),
-                    direction="bearish",
-                    source="volume_profile.poc",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"price_below_poc_{tf}",
+                        type="volume_profile",
+                        description=f"Price below POC ({poc:.2f}) on {tf} by {abs(dist_from_poc):.1f}%",  # noqa: E501
+                        timeframe=tf,
+                        strength=min(abs(dist_from_poc) / 5, 0.85),
+                        direction="bearish",
+                        source="volume_profile.poc",
+                        confidence=0.70,
+                    )
+                )
 
         # 2. Value Area boundaries as support/resistance
         if current_price > 0:
@@ -231,52 +242,60 @@ class VolumeProfileAnalyzer:
             dist_to_va_low = abs(current_price - va_low) / current_price * 100
 
             if dist_to_va_high < 0.5:
-                evidence.append(MarketEvidence(
-                    id=f"va_high_proximity_{tf}",
-                    type="volume_profile",
-                    description=f"Price at Value Area high ({va_high:.2f}) on {tf} (resistance)",
-                    timeframe=tf,
-                    strength=0.75,
-                    direction="bearish",
-                    source="volume_profile.value_area",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"va_high_proximity_{tf}",
+                        type="volume_profile",
+                        description=f"Price at Value Area high ({va_high:.2f}) on {tf} (resistance)",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.75,
+                        direction="bearish",
+                        source="volume_profile.value_area",
+                        confidence=0.70,
+                    )
+                )
             if dist_to_va_low < 0.5:
-                evidence.append(MarketEvidence(
-                    id=f"va_low_proximity_{tf}",
-                    type="volume_profile",
-                    description=f"Price at Value Area low ({va_low:.2f}) on {tf} (support)",
-                    timeframe=tf,
-                    strength=0.75,
-                    direction="bullish",
-                    source="volume_profile.value_area",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"va_low_proximity_{tf}",
+                        type="volume_profile",
+                        description=f"Price at Value Area low ({va_low:.2f}) on {tf} (support)",
+                        timeframe=tf,
+                        strength=0.75,
+                        direction="bullish",
+                        source="volume_profile.value_area",
+                        confidence=0.70,
+                    )
+                )
 
         # 3. Profile shape interpretation
         shape = profile.get("shape", "flat")
         if shape == "P":
-            evidence.append(MarketEvidence(
-                id=f"profile_shape_P_{tf}",
-                type="volume_profile",
-                description=f"P-shaped profile on {tf} - POC at top (selling pressure, potential rejection)",  # noqa: E501
-                timeframe=tf,
-                strength=0.65,
-                direction="bearish",
-                source="volume_profile.shape",
-                confidence=0.60,
-            ))
+            evidence.append(
+                MarketEvidence(
+                    id=f"profile_shape_P_{tf}",
+                    type="volume_profile",
+                    description=f"P-shaped profile on {tf} - POC at top (selling pressure, potential rejection)",  # noqa: E501
+                    timeframe=tf,
+                    strength=0.65,
+                    direction="bearish",
+                    source="volume_profile.shape",
+                    confidence=0.60,
+                )
+            )
         elif shape == "b":
-            evidence.append(MarketEvidence(
-                id=f"profile_shape_b_{tf}",
-                type="volume_profile",
-                description=f"b-shaped profile on {tf} - POC at bottom (buying pressure, potential support)",  # noqa: E501
-                timeframe=tf,
-                strength=0.65,
-                direction="bullish",
-                source="volume_profile.shape",
-                confidence=0.60,
-            ))
+            evidence.append(
+                MarketEvidence(
+                    id=f"profile_shape_b_{tf}",
+                    type="volume_profile",
+                    description=f"b-shaped profile on {tf} - POC at bottom (buying pressure, potential support)",  # noqa: E501
+                    timeframe=tf,
+                    strength=0.65,
+                    direction="bullish",
+                    source="volume_profile.shape",
+                    confidence=0.60,
+                )
+            )
 
         # 4. HVN/LVN levels near current price
         hvn_levels = profile.get("hvn_levels", [])
@@ -285,29 +304,33 @@ class VolumeProfileAnalyzer:
         for hvn in hvn_levels[:3]:
             dist = abs(current_price - hvn) / current_price * 100 if current_price > 0 else 0
             if dist < 1:
-                evidence.append(MarketEvidence(
-                    id=f"hvn_proximity_{tf}_{hvn:.0f}",
-                    type="volume_profile",
-                    description=f"High Volume Node at {hvn:.2f} on {tf} (strong support/resistance)",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.70,
-                    direction="neutral",
-                    source="volume_profile.hvn",
-                    confidence=0.65,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"hvn_proximity_{tf}_{hvn:.0f}",
+                        type="volume_profile",
+                        description=f"High Volume Node at {hvn:.2f} on {tf} (strong support/resistance)",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.70,
+                        direction="neutral",
+                        source="volume_profile.hvn",
+                        confidence=0.65,
+                    )
+                )
 
         for lvn in lvn_levels[:3]:
             dist = abs(current_price - lvn) / current_price * 100 if current_price > 0 else 0
             if dist < 1:
-                evidence.append(MarketEvidence(
-                    id=f"lvn_proximity_{tf}_{lvn:.0f}",
-                    type="volume_profile",
-                    description=f"Low Volume Node at {lvn:.2f} on {tf} (potential gap fill)",
-                    timeframe=tf,
-                    strength=0.60,
-                    direction="neutral",
-                    source="volume_profile.lvn",
-                    confidence=0.55,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"lvn_proximity_{tf}_{lvn:.0f}",
+                        type="volume_profile",
+                        description=f"Low Volume Node at {lvn:.2f} on {tf} (potential gap fill)",
+                        timeframe=tf,
+                        strength=0.60,
+                        direction="neutral",
+                        source="volume_profile.lvn",
+                        confidence=0.55,
+                    )
+                )
 
         return evidence

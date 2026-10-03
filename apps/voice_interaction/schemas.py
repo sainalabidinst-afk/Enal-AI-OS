@@ -117,12 +117,14 @@ class VoiceInteractionRequest(BaseModel):
 class VoiceInteractionRecord(BaseModel):
     pack_id: str = "voice-interaction"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "speech_to_text",
-        "text_to_speech",
-        "voice_conversation",
-        "language_detection",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "speech_to_text",
+            "text_to_speech",
+            "voice_conversation",
+            "language_detection",
+        ]
+    )
 
 
 __all__ = [

@@ -13,6 +13,7 @@ class TestWorkflowEngineBasic:
     @pytest.mark.asyncio
     async def test_create_workflow(self):
         from backend.app.core.workflow_engine import Workflow, WorkflowEngine, WorkflowStep
+
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-1",
@@ -28,6 +29,7 @@ class TestWorkflowEngineBasic:
     @pytest.mark.asyncio
     async def test_get_workflow(self):
         from backend.app.core.workflow_engine import Workflow, WorkflowEngine
+
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-2",
@@ -43,6 +45,7 @@ class TestWorkflowEngineBasic:
     @pytest.mark.asyncio
     async def test_run_workflow_no_steps(self):
         from backend.app.core.workflow_engine import Workflow, WorkflowEngine
+
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-3",
@@ -61,6 +64,7 @@ class TestWorkflowEngineDependencies:
     @pytest.mark.asyncio
     async def test_run_workflow_with_dependencies(self):
         from backend.app.core.workflow_engine import Workflow, WorkflowEngine, WorkflowStep
+
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-4",
@@ -90,6 +94,7 @@ class TestWorkflowEngineCancel:
     @pytest.mark.asyncio
     async def test_cancel_workflow(self):
         from backend.app.core.workflow_engine import Workflow, WorkflowEngine
+
         engine = WorkflowEngine()
         workflow = Workflow(
             id="test-wf-5",
@@ -106,6 +111,7 @@ class TestWorkflowEngineCancel:
     @pytest.mark.asyncio
     async def test_cancel_nonexistent(self):
         from backend.app.core.workflow_engine import WorkflowEngine
+
         engine = WorkflowEngine()
         cancelled = await engine.cancel("nonexistent")
         assert cancelled is False
@@ -117,12 +123,13 @@ class TestWorkflowEngineList:
     @pytest.mark.asyncio
     async def test_list_workflows(self):
         from backend.app.core.workflow_engine import Workflow, WorkflowEngine
+
         engine = WorkflowEngine()
-        await engine.create_workflow(Workflow(
-            id="list-wf-1", name="List Test 1", description="Test", steps=[]
-        ))
-        await engine.create_workflow(Workflow(
-            id="list-wf-2", name="List Test 2", description="Test", steps=[]
-        ))
+        await engine.create_workflow(
+            Workflow(id="list-wf-1", name="List Test 1", description="Test", steps=[])
+        )
+        await engine.create_workflow(
+            Workflow(id="list-wf-2", name="List Test 2", description="Test", steps=[])
+        )
         workflows = engine.list_workflows()
         assert len(workflows) >= 2

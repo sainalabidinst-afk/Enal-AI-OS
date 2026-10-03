@@ -33,9 +33,7 @@ class AIEthicsGovernanceApp(BaseReferenceApp):
     def __init__(self) -> None:
         self.worker = AIEthicsGovernanceWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("user_input", user_input)
         return self.worker.execute(task)

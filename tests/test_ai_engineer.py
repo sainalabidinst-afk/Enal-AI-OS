@@ -2,11 +2,11 @@
 Smoke tests for Ai Engineer capability.
 """
 
-from apps.ai_engineer.agent_designer import *
-from apps.ai_engineer.engine import *
-from apps.ai_engineer.llmops_manager import *
-from apps.ai_engineer.prompt_engineer import *
-from apps.ai_engineer.rag_engine import *
+from apps.ai_engineer.agent_designer import *  # noqa: F403
+from apps.ai_engineer.engine import *  # noqa: F403
+from apps.ai_engineer.llmops_manager import *  # noqa: F403
+from apps.ai_engineer.prompt_engineer import *  # noqa: F403
+from apps.ai_engineer.rag_engine import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

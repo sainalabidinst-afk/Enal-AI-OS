@@ -170,13 +170,15 @@ class InferenceEngine:
             if confidence < hypothesis.min_confidence:
                 continue
 
-            chains.append(ReasoningChain(
-                hypothesis_id=hypothesis.id,
-                evidence_found=matched,
-                confidence=confidence,
-                conclusion=hypothesis.description,
-                recommendation=hypothesis.recommendation,
-            ))
+            chains.append(
+                ReasoningChain(
+                    hypothesis_id=hypothesis.id,
+                    evidence_found=matched,
+                    confidence=confidence,
+                    conclusion=hypothesis.description,
+                    recommendation=hypothesis.recommendation,
+                )
+            )
 
         chains.sort(key=lambda c: c.confidence, reverse=True)
         return chains

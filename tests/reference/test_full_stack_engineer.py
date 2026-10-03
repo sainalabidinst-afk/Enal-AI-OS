@@ -35,6 +35,7 @@ import os
 def unsafe():
     return eval(input("Enter code: "))
 """
+
     async def run():
         result = await code_review_engine.review(code, filename="test.py")
         findings = result.get("findings", [])
@@ -52,6 +53,7 @@ def append(item, items=[]):
     items.append(item)
     return items
 """
+
     async def run():
         result = await code_review_engine.review(code, filename="test.py")
         findings = result.get("findings", [])
@@ -77,6 +79,7 @@ def qux():
 def quux():
     pass
 """
+
     async def run():
         result = await refactoring_planner.plan(code, filename="test.py")
         assert "plans" in result
@@ -110,6 +113,7 @@ def get_users():
         result.append({"user": user, "orders": orders})
     return result
 """
+
     async def run():
         result = await performance_engineer.analyze(code, filename="test.py")
         issues = result.get("issues", [])
@@ -129,6 +133,7 @@ async def slow():
     time.sleep(1)
     return "done"
 """
+
     async def run():
         result = await performance_engineer.analyze(code, filename="test.py")
         issues = result.get("issues", [])
@@ -141,7 +146,13 @@ async def slow():
 
 def test_release_engineer_validates_missing_changelog():
     changes = [{"file": "main.py", "type": "modified"}]
-    context = {"version": "1.2.3", "rollback_plan": "restore backup", "deployment_checklist": ["build", "test"], "post_deployment_verification": ["health_check"]}
+    context = {
+        "version": "1.2.3",
+        "rollback_plan": "restore backup",
+        "deployment_checklist": ["build", "test"],
+        "post_deployment_verification": ["health_check"],
+    }
+
     async def run():
         result = await release_engineer.review(changes, context)
         assert "ready" in result
@@ -155,7 +166,14 @@ def test_release_engineer_validates_missing_changelog():
 
 def test_release_engineer_validates_present_changelog():
     changes = [{"file": "main.py", "type": "modified"}]
-    context = {"version": "1.2.3", "changelog": "Added feature X and fixed bug Y. Improved performance and updated dependencies.", "rollback_plan": "restore backup", "deployment_checklist": ["build", "test"], "post_deployment_verification": ["health_check"]}
+    context = {
+        "version": "1.2.3",
+        "changelog": "Added feature X and fixed bug Y. Improved performance and updated dependencies.",  # noqa: E501
+        "rollback_plan": "restore backup",
+        "deployment_checklist": ["build", "test"],
+        "post_deployment_verification": ["health_check"],
+    }
+
     async def run():
         result = await release_engineer.review(changes, context)
         checks = result.get("checks", [])

@@ -84,6 +84,7 @@ class FindingCategory(StrEnum):
 
 class Finding(BaseModel):
     """A single business analysis finding."""
+
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     category: FindingCategory = Field(default=FindingCategory.schema)
     severity: Severity = Field(default=Severity.medium)

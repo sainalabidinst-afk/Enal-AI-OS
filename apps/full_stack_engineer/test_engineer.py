@@ -84,7 +84,11 @@ class TestEngineer:
         for py_file in py_files:
             try:
                 tree = ast.parse(py_file.read_text(encoding="utf-8"), filename=str(py_file))
-                funcs = [node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and not node.name.startswith("_")]  # noqa: E501
+                funcs = [
+                    node
+                    for node in ast.walk(tree)
+                    if isinstance(node, ast.FunctionDef) and not node.name.startswith("_")
+                ]  # noqa: E501
                 total_functions += len(funcs)
             except SyntaxError:
                 continue
@@ -93,7 +97,11 @@ class TestEngineer:
         for test_file in test_files:
             try:
                 tree = ast.parse(test_file.read_text(encoding="utf-8"), filename=str(test_file))
-                funcs = [node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and node.name.startswith("test_")]  # noqa: E501
+                funcs = [
+                    node
+                    for node in ast.walk(tree)
+                    if isinstance(node, ast.FunctionDef) and node.name.startswith("test_")
+                ]  # noqa: E501
                 tested_functions += len(funcs)
             except SyntaxError:
                 continue
@@ -109,34 +117,48 @@ class TestEngineer:
 
     def _generate_plans(self, report: TestEngineerReport):
         if report.missing_tests:
-            report.plans.append(TestPlan(
-                test_type="Unit Test",
-                description="Create unit tests for core functions.",
-                suggested_tests=["test_<module>_<function>_returns_expected", "test_<module>_<function>_handles_error"],  # noqa: E501
-                priority="high",
-                estimated_coverage=0.7,
-            ))
-            report.plans.append(TestPlan(
-                test_type="Integration Test",
-                description="Test module interactions and API contracts.",
-                suggested_tests=["test_api_<endpoint>_returns_200", "test_service_<name>_calls_repository"],  # noqa: E501
-                priority="medium",
-                estimated_coverage=0.5,
-            ))
-            report.plans.append(TestPlan(
-                test_type="Regression Test",
-                description="Run full test suite after changes.",
-                suggested_tests=["test_full_suite_passes", "test_no_breaking_changes"],
-                priority="medium",
-                estimated_coverage=0.3,
-            ))
-        report.plans.append(TestPlan(
-            test_type="Performance Test",
-            description="Benchmark critical paths.",
-            suggested_tests=["benchmark_<critical_path>", "profile_memory_usage"],
-            priority="low",
-            estimated_coverage=0.2,
-        ))
+            report.plans.append(
+                TestPlan(
+                    test_type="Unit Test",
+                    description="Create unit tests for core functions.",
+                    suggested_tests=[
+                        "test_<module>_<function>_returns_expected",
+                        "test_<module>_<function>_handles_error",
+                    ],  # noqa: E501
+                    priority="high",
+                    estimated_coverage=0.7,
+                )
+            )
+            report.plans.append(
+                TestPlan(
+                    test_type="Integration Test",
+                    description="Test module interactions and API contracts.",
+                    suggested_tests=[
+                        "test_api_<endpoint>_returns_200",
+                        "test_service_<name>_calls_repository",
+                    ],  # noqa: E501
+                    priority="medium",
+                    estimated_coverage=0.5,
+                )
+            )
+            report.plans.append(
+                TestPlan(
+                    test_type="Regression Test",
+                    description="Run full test suite after changes.",
+                    suggested_tests=["test_full_suite_passes", "test_no_breaking_changes"],
+                    priority="medium",
+                    estimated_coverage=0.3,
+                )
+            )
+        report.plans.append(
+            TestPlan(
+                test_type="Performance Test",
+                description="Benchmark critical paths.",
+                suggested_tests=["benchmark_<critical_path>", "profile_memory_usage"],
+                priority="low",
+                estimated_coverage=0.2,
+            )
+        )
 
 
 test_engineer = TestEngineer()

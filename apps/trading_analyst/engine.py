@@ -265,15 +265,22 @@ class TradingEngine:
         timeframes_out: dict[str, list[OHLCV]] = {}
 
         base_candles = {
-            "15m": 120, "30m": 120, "1h": 120, "4h": 120, "1d": 120, "1w": 120,
+            "15m": 120,
+            "30m": 120,
+            "1h": 120,
+            "4h": 120,
+            "1d": 120,
+            "1w": 120,
         }
         for tf in timeframes:
             n = base_candles.get(tf, 100)
             candles: list[OHLCV] = []
             price = 100.0
             ts = 1_700_000_000
-            step = 60 * ({"m": 1, "h": 60, "d": 1440}.get(tf[-1], 60)
-                         * int("".join(c for c in tf if c.isdigit()) or 1))
+            step = 60 * (
+                {"m": 1, "h": 60, "d": 1440}.get(tf[-1], 60)
+                * int("".join(c for c in tf if c.isdigit()) or 1)
+            )
 
             range_end = int(n * 0.60)
             trend_end = int(n * 0.85)
@@ -399,13 +406,9 @@ class TradingEngine:
         for cat, ev_list in categories.items():
             raw.setdefault(cat, []).extend(ev_list)
 
-    def _count_evidence_type(
-        self, raw: dict[str, list[MarketEvidence]], prefix: str
-    ) -> int:
+    def _count_evidence_type(self, raw: dict[str, list[MarketEvidence]], prefix: str) -> int:
         """Count evidence items whose type starts with a prefix."""
-        return sum(
-            1 for ev_list in raw.values() for ev in ev_list if ev.type.startswith(prefix)
-        )
+        return sum(1 for ev_list in raw.values() for ev in ev_list if ev.type.startswith(prefix))
 
     def _evidence_counts(self, raw: dict[str, list[MarketEvidence]]) -> dict[str, int]:
         """Return {category: count} for the raw evidence dict."""

@@ -25,7 +25,9 @@ def retry(max_attempts: int = 3):
             if last_error is not None:
                 raise last_error
             raise RuntimeError("retry failed without error")
+
         return wrapper
+
     return decorator
 
 

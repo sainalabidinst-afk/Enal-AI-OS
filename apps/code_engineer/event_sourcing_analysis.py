@@ -22,40 +22,51 @@ class EventSourcingAnalyzer:
         raw = "\n".join(code_ast.raw_lines)
 
         event_store_signals = [
-            "event_store", "eventstore", "append", "event_stream",
-            "event_repository", "event_log", "journal",
+            "event_store",
+            "eventstore",
+            "append",
+            "event_stream",
+            "event_repository",
+            "event_log",
+            "journal",
         ]
         for signal in event_store_signals:
             if signal in raw.lower():
-                findings.append(ArchitectureFinding(
-                    category="event_sourcing",
-                    severity=ArchitectureSeverity.INFO,
-                    description=f"Event Store pattern detected (signal: '{signal}')",
-                    recommendation=(
-                        "Event Store is an append-only log. Events are never modified or deleted. "
-                        "Use snapshots for performance optimization on long streams."
-                    ),
-                    line_number=1,
-                    confidence=0.8,
-                    pattern="event_store",
-                ))
+                findings.append(
+                    ArchitectureFinding(
+                        category="event_sourcing",
+                        severity=ArchitectureSeverity.INFO,
+                        description=f"Event Store pattern detected (signal: '{signal}')",
+                        recommendation=(
+                            "Event Store is an append-only log. Events are never modified or deleted. "  # noqa: E501
+                            "Use snapshots for performance optimization on long streams."
+                        ),
+                        line_number=1,
+                        confidence=0.8,
+                        pattern="event_store",
+                    )
+                )
                 break
 
         for cls in code_ast.classes:
             cls_name = cls.name.lower()
-            if "event" in cls_name and ("store" in cls_name or "repository" in cls_name or "log" in cls_name):  # noqa: E501
-                findings.append(ArchitectureFinding(
-                    category="event_sourcing",
-                    severity=ArchitectureSeverity.INFO,
-                    description=f"Event Store class detected: '{cls.name}'",
-                    recommendation=(
-                        "Event Store implementation should handle: append (write), "
-                        "read_stream (get events by aggregate), and snapshot management."
-                    ),
-                    line_number=cls.lineno,
-                    confidence=0.85,
-                    pattern="event_store",
-                ))
+            if "event" in cls_name and (
+                "store" in cls_name or "repository" in cls_name or "log" in cls_name
+            ):  # noqa: E501
+                findings.append(
+                    ArchitectureFinding(
+                        category="event_sourcing",
+                        severity=ArchitectureSeverity.INFO,
+                        description=f"Event Store class detected: '{cls.name}'",
+                        recommendation=(
+                            "Event Store implementation should handle: append (write), "
+                            "read_stream (get events by aggregate), and snapshot management."
+                        ),
+                        line_number=cls.lineno,
+                        confidence=0.85,
+                        pattern="event_store",
+                    )
+                )
         return findings
 
     def analyze_projections(self, code_ast) -> list[ArchitectureFinding]:
@@ -64,20 +75,24 @@ class EventSourcingAnalyzer:
         for cls in code_ast.classes:
             cls_name = cls.name.lower()
             if "projection" in cls_name or "projector" in cls_name or "read_model" in cls_name:
-                has_when = any(m.name == "when" or m.name.startswith("project") for m in cls.methods)  # noqa: E501
+                has_when = any(
+                    m.name == "when" or m.name.startswith("project") for m in cls.methods
+                )  # noqa: E501
                 if has_when:
-                    findings.append(ArchitectureFinding(
-                        category="event_sourcing",
-                        severity=ArchitectureSeverity.INFO,
-                        description=f"Projection detected: '{cls.name}'",
-                        recommendation=(
-                            "Projections build read models from events. Each projection "
-                            "handles specific event types. Rebuild from scratch by replaying all events."  # noqa: E501
-                        ),
-                        line_number=cls.lineno,
-                        confidence=0.85,
-                        pattern="projection",
-                    ))
+                    findings.append(
+                        ArchitectureFinding(
+                            category="event_sourcing",
+                            severity=ArchitectureSeverity.INFO,
+                            description=f"Projection detected: '{cls.name}'",
+                            recommendation=(
+                                "Projections build read models from events. Each projection "
+                                "handles specific event types. Rebuild from scratch by replaying all events."  # noqa: E501
+                            ),
+                            line_number=cls.lineno,
+                            confidence=0.85,
+                            pattern="projection",
+                        )
+                    )
         return findings
 
     def analyze(self, code_ast) -> list[ArchitectureFinding]:

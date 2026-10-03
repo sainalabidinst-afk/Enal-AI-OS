@@ -56,11 +56,13 @@ class WorkflowEngine:
     async def _publish_event(self, event_type: str, payload: dict, source: str = "workflow-engine"):
         """Publish event safely, ignoring Redis errors."""
         try:
-            await event_bus.publish(Event(
-                event_type=event_type,
-                payload=payload,
-                source=source,
-            ))
+            await event_bus.publish(
+                Event(
+                    event_type=event_type,
+                    payload=payload,
+                    source=source,
+                )
+            )
         except Exception:
             pass  # Silently ignore event bus errors
 
@@ -97,7 +99,8 @@ class WorkflowEngine:
 
         while len(executed) < len(workflow.steps):
             runnable = [
-                s for s in workflow.steps
+                s
+                for s in workflow.steps
                 if s.id not in executed and all(d in executed for d in s.depends_on)
             ]
             if not runnable:
@@ -120,7 +123,11 @@ class WorkflowEngine:
                             "workflow.failed",
                             {"workflow_id": workflow_id, "failed_step": step.id},
                         )
-                        return {"status": "failed", "results": results, "error": f"Step {step.id} failed"}  # noqa: E501
+                        return {
+                            "status": "failed",
+                            "results": results,
+                            "error": f"Step {step.id} failed",
+                        }  # noqa: E501
                 else:
                     executed.add(step.id)
                     await self._publish_event(
@@ -157,6 +164,7 @@ class WorkflowEngine:
         """Call a tool/capability by agent and action name."""
         # Import inside to avoid circular import
         from backend.app.core.tool_registry import tool_registry
+
         tool = tool_registry.get(action)
         if tool and tool.handler:
             return await tool.handler(**params)
@@ -192,4 +200,3 @@ class WorkflowEngine:
 
 
 workflow_engine = WorkflowEngine()
-

@@ -183,9 +183,7 @@ class PDFWriter:
     # Annotate operations
     # ------------------------------------------------------------------
 
-    def annotate_pdf(
-        self, path: str, annotations: list[AnnotationSpec]
-    ) -> list[AnnotatedFile]:
+    def annotate_pdf(self, path: str, annotations: list[AnnotationSpec]) -> list[AnnotatedFile]:
         """Annotate a PDF file with watermarks via reportlab overlay."""
         pypdf = _lazy_import("pypdf")
         from reportlab.pdfgen import canvas
@@ -223,11 +221,13 @@ class PDFWriter:
         with open(output_path, "wb") as f:
             writer.write(f)
 
-        return [AnnotatedFile(
-            path=output_path,
-            annotation_count=annotation_count,
-            status="success",
-        )]
+        return [
+            AnnotatedFile(
+                path=output_path,
+                annotation_count=annotation_count,
+                status="success",
+            )
+        ]
 
     # ------------------------------------------------------------------
     # PDF merge / split

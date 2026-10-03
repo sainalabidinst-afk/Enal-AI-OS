@@ -54,7 +54,11 @@ class NetworkAdvisor:
 
         if "500 cabang" in query_lower or "500 branch" in query_lower or "branch" in query_lower:
             proposals.append(self._design_multi_branch(context))
-        if "ha datacenter" in query_lower or "high availability datacenter" in query_lower or "datacenter" in query_lower:  # noqa: E501
+        if (
+            "ha datacenter" in query_lower
+            or "high availability datacenter" in query_lower
+            or "datacenter" in query_lower
+        ):  # noqa: E501
             proposals.append(self._design_ha_datacenter(context))
         if "security" in query_lower and "zero trust" in query_lower:
             proposals.append(self._design_zero_trust(context))

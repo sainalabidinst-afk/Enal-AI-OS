@@ -217,6 +217,7 @@ python -m pytest tests/test_self_development_ecp.py -v
 ### 7.3 Manual Verification
 ```python
 from apps.self_development import get_app
+
 app = get_app()
 
 # ECP mode

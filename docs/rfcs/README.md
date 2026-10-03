@@ -113,6 +113,14 @@ RFC terkait, dokumentasi, dll.
 - RFC-0043: Jenny Voice Interface (Diterima — Phase Professional)
 - RFC-0044: Jenny Action Connectors (Diterima — Phase Professional)
 - RFC-0045: Jenny Safety & Observability (Diterima — Phase Professional)
+- RFC-0046: Visual Builder Foundation (Diterima — FASE 10)
+- RFC-0047: Visual Agent Builder (Diterima — FASE 11)
+- RFC-0048: Visual Tool Builder (Diterima — FASE 12)
+- RFC-0049: Voice Agent Enhancements (Diterima — FASE 13)
+- RFC-0050: Guardrails & Safety (Diterima — FASE 14)
+- RFC-0051: Marketplace & Templates (Diterima — FASE 15)
+- RFC-0052: A2A/MCP Integration (Diterima — FASE 16)
+- RFC-0053: Bulk, Scheduled & Evaluation (Diterima — FASE 17)
 
 ## Indeks RFC
 
@@ -163,3 +171,11 @@ RFC terkait, dokumentasi, dll.
 |RFC-0043|Jenny Voice Interface|Diterima — Phase Professional|Jenny Voice Interface|
 |RFC-0044|Jenny Action Connectors|Diterima — Phase Professional|Jenny Action Connectors|
 |RFC-0045|Jenny Safety & Observability|Diterima — Phase Professional|Jenny Safety & Observability|
+|RFC-0046|Visual Builder Foundation|Diterima — FASE 10|Platform|
+|RFC-0047|Visual Agent Builder|Diterima — FASE 11|Platform|
+|RFC-0048|Visual Tool Builder|Diterima — FASE 12|Platform|
+|RFC-0049|Voice Agent Enhancements|Diterima — FASE 13|Platform|
+|RFC-0050|Guardrails & Safety|Diterima — FASE 14|Platform|
+|RFC-0051|Marketplace & Templates|Diterima — FASE 15|Platform|
+|RFC-0052|A2A/MCP Integration|Diterima — FASE 16|Platform|
+|RFC-0053|Bulk, Scheduled & Evaluation|Diterima — FASE 17|Platform|

@@ -164,10 +164,10 @@ engine = CodeEngineerEngine()
 report = engine.review(
     code="def get_user(user_id): query = f'SELECT * FROM users WHERE id = {user_id}'",
     filename="user_service.py",
-    language="python"
+    language="python",
 )
 print(f"Found {len(report['issues'])} issues")
-for issue in report['issues']:
+for issue in report["issues"]:
     print(f"  [{issue['severity']}] {issue['category']}: {issue['description']}")
 ```
 

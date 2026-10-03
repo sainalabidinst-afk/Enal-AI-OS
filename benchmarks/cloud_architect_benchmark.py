@@ -23,7 +23,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "AWS Landing Zone Design",
         "category": "landing_zone",
         "inputs": {
-            "business_context": {"project_name": "aws-landing", "domain": "fintech", "budget_monthly_usd": 15000},
+            "business_context": {
+                "project_name": "aws-landing",
+                "domain": "fintech",
+                "budget_monthly_usd": 15000,
+            },
             "inputs": {
                 "provider": "aws",
                 "regions": ["us-east-1", "us-west-2"],
@@ -40,7 +44,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Azure Hybrid Cloud",
         "category": "hybrid_cloud",
         "inputs": {
-            "business_context": {"project_name": "azure-hybrid", "domain": "enterprise", "budget_monthly_usd": 25000},
+            "business_context": {
+                "project_name": "azure-hybrid",
+                "domain": "enterprise",
+                "budget_monthly_usd": 25000,
+            },
             "inputs": {
                 "provider": "azure",
                 "regions": ["eastus", "westeurope"],
@@ -57,7 +65,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "GCP Multi-Region DR",
         "category": "disaster_recovery",
         "inputs": {
-            "business_context": {"project_name": "gcp-dr", "domain": "healthcare", "budget_monthly_usd": 10000},
+            "business_context": {
+                "project_name": "gcp-dr",
+                "domain": "healthcare",
+                "budget_monthly_usd": 10000,
+            },
             "inputs": {
                 "provider": "gcp",
                 "regions": ["us-central1", "europe-west1"],
@@ -74,7 +86,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Cost Optimization Plan",
         "category": "cost_optimization",
         "inputs": {
-            "business_context": {"project_name": "cost-opt", "domain": "saas", "budget_monthly_usd": 8000},
+            "business_context": {
+                "project_name": "cost-opt",
+                "domain": "saas",
+                "budget_monthly_usd": 8000,
+            },
             "inputs": {
                 "provider": "aws",
                 "regions": ["us-east-1"],
@@ -91,7 +107,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Zero-Trust Landing Zone",
         "category": "security",
         "inputs": {
-            "business_context": {"project_name": "secure-lz", "domain": "government", "budget_monthly_usd": 30000},
+            "business_context": {
+                "project_name": "secure-lz",
+                "domain": "government",
+                "budget_monthly_usd": 30000,
+            },
             "inputs": {
                 "provider": "azure",
                 "regions": ["usgovvirginia"],
@@ -108,7 +128,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Serverless Architecture",
         "category": "serverless",
         "inputs": {
-            "business_context": {"project_name": "serverless-app", "domain": "saas", "budget_monthly_usd": 5000},
+            "business_context": {
+                "project_name": "serverless-app",
+                "domain": "saas",
+                "budget_monthly_usd": 5000,
+            },
             "inputs": {
                 "provider": "gcp",
                 "regions": ["us-central1"],
@@ -125,7 +149,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Multi-Cloud Strategy",
         "category": "hybrid_cloud",
         "inputs": {
-            "business_context": {"project_name": "multi-cloud", "domain": "enterprise", "budget_monthly_usd": 50000},
+            "business_context": {
+                "project_name": "multi-cloud",
+                "domain": "enterprise",
+                "budget_monthly_usd": 50000,
+            },
             "inputs": {
                 "provider": "hybrid",
                 "regions": ["us-east-1", "eastus", "europe-west1"],
@@ -142,7 +170,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Containerized K8s Deployment",
         "category": "kubernetes",
         "inputs": {
-            "business_context": {"project_name": "k8s-deploy", "domain": "saas", "budget_monthly_usd": 12000},
+            "business_context": {
+                "project_name": "k8s-deploy",
+                "domain": "saas",
+                "budget_monthly_usd": 12000,
+            },
             "inputs": {
                 "provider": "aws",
                 "regions": ["us-west-2"],
@@ -159,7 +191,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Compliance Landing Zone",
         "category": "compliance",
         "inputs": {
-            "business_context": {"project_name": "compliance-lz", "domain": "healthcare", "budget_monthly_usd": 20000},
+            "business_context": {
+                "project_name": "compliance-lz",
+                "domain": "healthcare",
+                "budget_monthly_usd": 20000,
+            },
             "inputs": {
                 "provider": "aws",
                 "regions": ["us-east-1"],
@@ -176,7 +212,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "name": "Global CDN Setup",
         "category": "cdn",
         "inputs": {
-            "business_context": {"project_name": "global-cdn", "domain": "e-commerce", "budget_monthly_usd": 15000},
+            "business_context": {
+                "project_name": "global-cdn",
+                "domain": "e-commerce",
+                "budget_monthly_usd": 15000,
+            },
             "inputs": {
                 "provider": "hybrid",
                 "regions": ["us-east-1", "eu-west-1", "ap-southeast-1"],
@@ -272,7 +312,9 @@ class CloudArchitectBenchmark:
             "pack_id": "cloud_architect",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

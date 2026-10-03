@@ -58,7 +58,9 @@ class Mailbox:
     def send(self, message: Message) -> None:
         self._inboxes.setdefault(message.recipient_id, []).append(message)
         self._sent.setdefault(message.sender_id, []).append(message)
-        logger.debug(f"Message sent: {message.sender_id} -> {message.recipient_id}: {message.subject}")  # noqa: E501
+        logger.debug(
+            f"Message sent: {message.sender_id} -> {message.recipient_id}: {message.subject}"
+        )  # noqa: E501
 
     def receive(self, agent_id: str) -> list[Message]:
         messages = self._inboxes.get(agent_id, [])
@@ -107,30 +109,39 @@ class Blackboard:
         self._lock: bool = False
         self._history: list[dict] = []
 
-    async def write(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:  # noqa: E501
+    async def write(
+        self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None
+    ) -> None:  # noqa: E501
         self._entries[key] = value
-        self._history.append({
-            "key": key,
-            "agent": agent_id,
-            "timestamp": datetime.now(UTC).isoformat(),
-            "action": "write",
-        })
+        self._history.append(
+            {
+                "key": key,
+                "agent": agent_id,
+                "timestamp": datetime.now(UTC).isoformat(),
+                "action": "write",
+            }
+        )
         # Store in shared memory if available
         try:
             from backend.app.runtime import memory_manager
+
             await memory_manager.store("blackboard", f"{key}:{agent_id or 'anon'}", value, ttl=ttl)
         except Exception:
             pass
         logger.debug(f"Blackboard write: {key}")
 
-    def write_sync(self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None) -> None:  # noqa: E501
+    def write_sync(
+        self, key: str, value: Any, agent_id: str | None = None, ttl: int | None = None
+    ) -> None:  # noqa: E501
         self._entries[key] = value
-        self._history.append({
-            "key": key,
-            "agent": agent_id,
-            "timestamp": datetime.now(UTC).isoformat(),
-            "action": "write",
-        })
+        self._history.append(
+            {
+                "key": key,
+                "agent": agent_id,
+                "timestamp": datetime.now(UTC).isoformat(),
+                "action": "write",
+            }
+        )
 
     async def read(self, key: str) -> Any:
         return self._entries.get(key)

@@ -61,14 +61,10 @@ class CybersecurityAnalystEngine:
         source_reference_preserved = inputs.source_id is not None
 
         if not validation["valid"]:
-            limitations.append(
-                f"Input validation failed: {validation['validation_errors']}"
-            )
+            limitations.append(f"Input validation failed: {validation['validation_errors']}")
             if inputs.operation == CybersecurityOperation.threat_model:
                 if not inputs.system_description:
-                    limitations.append(
-                        "system_description is required for threat modeling"
-                    )
+                    limitations.append("system_description is required for threat modeling")
             if inputs.operation == CybersecurityOperation.vulnerability_assess:
                 if not inputs.vulnerabilities:
                     limitations.append(
@@ -83,17 +79,17 @@ class CybersecurityAnalystEngine:
                 if not inputs.framework:
                     limitations.append("framework is required for compliance mapping")
                 if not inputs.requirements:
-                    limitations.append(
-                        "requirements list is required for compliance mapping"
-                    )
+                    limitations.append("requirements list is required for compliance mapping")
 
         if inputs.operation == CybersecurityOperation.threat_model:
             threat_model = self.engine.threat_model(inputs)
             findings = self.engine.build_findings(inputs, threat_model)
-            assumptions.extend([
-                f"STRIDE analysis for {ctx.project_name}",
-                f"trust boundaries: {len(inputs.trust_boundaries)}",
-            ])
+            assumptions.extend(
+                [
+                    f"STRIDE analysis for {ctx.project_name}",
+                    f"trust boundaries: {len(inputs.trust_boundaries)}",
+                ]
+            )
 
         if inputs.operation == CybersecurityOperation.vulnerability_assess:
             vulnerability_assessment = self.engine.vulnerability_assess(inputs)
@@ -110,9 +106,7 @@ class CybersecurityAnalystEngine:
         if inputs.operation == CybersecurityOperation.compliance_map:
             compliance = self.engine.compliance_map(inputs)
             findings = self.engine.build_findings(inputs, compliance)
-            assumptions.append(
-                f"framework={inputs.framework} for {ctx.project_name}"
-            )
+            assumptions.append(f"framework={inputs.framework} for {ctx.project_name}")
 
         quality_score = 0.93 if validation["valid"] else 0.80
 

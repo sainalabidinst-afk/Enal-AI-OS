@@ -64,20 +64,20 @@ class ToolRegistry:
             agent_types.append("reviewer_extra")
         result = [self.to_openai_schema(t) for t in self._tools.values() if t.agent in agent_types]
         if agent_type in ["coding-agent", "qa-agent", "reviewer"]:
-            result.append({
-                "type": "function",
-                "function": {
-                    "name": "run_tests",
-                    "description": "Run tests for code",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "path": {"type": "string", "description": "Test path"}
+            result.append(
+                {
+                    "type": "function",
+                    "function": {
+                        "name": "run_tests",
+                        "description": "Run tests for code",
+                        "parameters": {
+                            "type": "object",
+                            "properties": {"path": {"type": "string", "description": "Test path"}},
+                            "required": ["path"],
                         },
-                        "required": ["path"],
                     },
-                },
-            })
+                }
+            )
         return result
 
     def find_by_capability(self, capability: str) -> list[Tool]:
@@ -105,7 +105,8 @@ class ToolRegistry:
     def search(self, query: str) -> list[Tool]:
         query_lower = query.lower()
         return [
-            t for t in self._tools.values()
+            t
+            for t in self._tools.values()
             if query_lower in t.name.lower() or query_lower in t.description.lower()
         ]
 

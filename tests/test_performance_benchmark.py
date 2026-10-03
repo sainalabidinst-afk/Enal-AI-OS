@@ -9,7 +9,6 @@ And NOT the stale assumption:
 - result["decision"]["decision"]
 """
 
-
 import pytest
 
 from benchmarks.performance_benchmark import BenchmarkMetrics, run_with_metrics
@@ -75,8 +74,6 @@ class TestBenchmarkAdapterRuntimeContract:
             decision={"decision": "stale value"},
             action={"action": "real action"},
         )
-
-        captured_output = None
 
         async def fake_execute(user_input: str):
             return fake_result

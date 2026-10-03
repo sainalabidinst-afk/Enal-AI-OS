@@ -195,9 +195,7 @@ class TestSmartHomeConnector:
         """SmartHomeConnector initializes with HA config."""
         from backend.app.connectors.smarthome import SmartHomeConnector
 
-        connector = SmartHomeConnector(
-            ha_url="http://ha:8123", ha_token="token"
-        )
+        connector = SmartHomeConnector(ha_url="http://ha:8123", ha_token="token")
         assert connector.connector_type.value == "smart_home"
         assert connector._ha_url == "http://ha:8123"
         assert connector.connected

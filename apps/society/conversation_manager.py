@@ -23,6 +23,7 @@ from apps.society.society import SocietyRuntime, create_society
 
 try:
     from backend.app.runtime import conversation_store as _memory
+
     _MEMORY_AVAILABLE = True
 except Exception:
     _MEMORY_AVAILABLE = False
@@ -66,38 +67,45 @@ class ConversationManager:
             stored = await self._get_conversation(conversation_id)
             turns = []
             for msg in stored:
-                turns.append(ConversationTurn(
-                    role=msg.get("role", "user"),
-                    content=msg.get("content", ""),
-                    timestamp=datetime.fromisoformat(msg.get("timestamp", datetime.now(UTC).isoformat())),  # noqa: E501
-                    metadata=msg.get("metadata", {}),
-                ))
+                turns.append(
+                    ConversationTurn(
+                        role=msg.get("role", "user"),
+                        content=msg.get("content", ""),
+                        timestamp=datetime.fromisoformat(
+                            msg.get("timestamp", datetime.now(UTC).isoformat())
+                        ),  # noqa: E501
+                        metadata=msg.get("metadata", {}),
+                    )
+                )
             state = ConversationState(conversation_id=conversation_id, turns=turns)
             if turns:
                 state.current_domain = turns[-1].metadata.get("domain")
             self._states[conversation_id] = state
         return self._states[conversation_id]
 
-    async def send_message(self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def send_message(
+        self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         state = await self.get_state(conversation_id)
         context = context or {}
 
         if state.current_domain:
             context["previous_domain"] = state.current_domain
         if len(state.turns) > 0:
-            context["history"] = [
-                {"role": t.role, "content": t.content} for t in state.turns[-6:]
-            ]
+            context["history"] = [{"role": t.role, "content": t.content} for t in state.turns[-6:]]
 
         events: list[dict[str, Any]] = []
         events.append({"type": "status", "message": "Understanding your request..."})
 
         society = self._get_society()
-        result = await society.process_user_request(user_message, context={
-            "conversation_id": conversation_id,
-            "history": context.get("history", []),
-            "previous_domain": context.get("previous_domain"),
-        })
+        result = await society.process_user_request(
+            user_message,
+            context={
+                "conversation_id": conversation_id,
+                "history": context.get("history", []),
+                "previous_domain": context.get("previous_domain"),
+            },
+        )
 
         intent_domain = result.get("intent", {}).get("domain", "general")
         state.current_domain = intent_domain
@@ -142,30 +150,36 @@ class ConversationManager:
             response["analysis"] = analysis_payload
         return response
 
-    async def stream_message(self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None) -> AsyncGenerator[dict[str, Any], None]:  # noqa: E501
+    async def stream_message(
+        self, conversation_id: str, user_message: str, context: dict[str, Any] | None = None
+    ) -> AsyncGenerator[dict[str, Any], None]:  # noqa: E501
         state = await self.get_state(conversation_id)
         context = context or {}
 
         if state.current_domain:
             context["previous_domain"] = state.current_domain
         if len(state.turns) > 0:
-            context["history"] = [
-                {"role": t.role, "content": t.content} for t in state.turns[-6:]
-            ]
+            context["history"] = [{"role": t.role, "content": t.content} for t in state.turns[-6:]]
 
         lowered = user_message.lower()
-        if any(keyword in lowered for keyword in ["what can you do", "capabilities", "list capability", "apa yang bisa"]):  # noqa: E501
+        if any(
+            keyword in lowered
+            for keyword in ["what can you do", "capabilities", "list capability", "apa yang bisa"]
+        ):  # noqa: E501
             yield {"type": "capabilities", "capabilities": self._get_capability_summary()}
             return
 
         yield {"type": "status", "message": "Understanding your request..."}
 
         society = self._get_society()
-        result = await society.process_user_request(user_message, context={
-            "conversation_id": conversation_id,
-            "history": context.get("history", []),
-            "previous_domain": context.get("previous_domain"),
-        })
+        result = await society.process_user_request(
+            user_message,
+            context={
+                "conversation_id": conversation_id,
+                "history": context.get("history", []),
+                "previous_domain": context.get("previous_domain"),
+            },
+        )
 
         intent_domain = result.get("intent", {}).get("domain", "general")
         state.current_domain = intent_domain
@@ -195,7 +209,11 @@ class ConversationManager:
 
         if execution_plan:
             for stage in execution_plan.get("stages", []):
-                yield {"type": "stage", "mode": stage.get("mode"), "subtasks": stage.get("subtasks", [])}  # noqa: E501
+                yield {
+                    "type": "stage",
+                    "mode": stage.get("mode"),
+                    "subtasks": stage.get("subtasks", []),
+                }  # noqa: E501
 
         analysis_payload = await self._maybe_analyze_attachments(user_message, context)
         if analysis_payload:
@@ -242,6 +260,7 @@ class ConversationManager:
     @staticmethod
     def _format_assistant_message(result: dict[str, Any], results_raw: Any) -> str:
         """Convert society output into user-facing text without leaking raw containers."""
+
         def extract_text(value: Any, depth: int = 0) -> str | None:
             if depth > 4 or value is None:
                 return None
@@ -281,10 +300,12 @@ class ConversationManager:
             "Saya memahami permintaan Anda, tetapi belum ada hasil yang dapat ditindaklanjuti. "
             "Tambahkan sedikit konteks agar saya dapat melanjutkan."
         )
+
     def _get_capability_summary(self) -> dict[str, Any]:
         try:
             from apps.organization.capability_graph import capability_graph
             from apps.society.intent_router import intent_router
+
             domains = {}
             for domain, pack in intent_router._capability_packs.items():
                 if domain.value == "general":
@@ -367,9 +388,22 @@ class ConversationManager:
         except Exception:
             pass
 
-    async def _maybe_analyze_attachments(self, user_message: str, context: dict[str, Any]) -> dict[str, Any] | None:  # noqa: E501
+    async def _maybe_analyze_attachments(
+        self, user_message: str, context: dict[str, Any]
+    ) -> dict[str, Any] | None:  # noqa: E501
         lowered = user_message.lower()
-        attachment_triggers = ["audit", "analyze", "analysis", "review", "cek", "periksa", "upload", "file", "config", "configuration"]  # noqa: E501
+        attachment_triggers = [
+            "audit",
+            "analyze",
+            "analysis",
+            "review",
+            "cek",
+            "periksa",
+            "upload",
+            "file",
+            "config",
+            "configuration",
+        ]  # noqa: E501
         if not any(trigger in lowered for trigger in attachment_triggers):
             return None
 
@@ -393,7 +427,11 @@ class ConversationManager:
                     continue
                 items.append((filename, content))
 
-            compliance = [value for value in context.get("compliance_frameworks", []) if value in {"cis", "nist_csf", "zero_trust", "vendor_best_practice"}]  # noqa: E501
+            compliance = [
+                value
+                for value in context.get("compliance_frameworks", [])
+                if value in {"cis", "nist_csf", "zero_trust", "vendor_best_practice"}
+            ]  # noqa: E501
             analysis = analyze_multi(items, compliance_frameworks=compliance or None)
 
             payload = analysis.ast.to_dict()
@@ -409,4 +447,3 @@ class ConversationManager:
 
 
 conversation_manager = ConversationManager()
-

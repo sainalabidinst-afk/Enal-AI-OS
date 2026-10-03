@@ -54,7 +54,11 @@ class DoctorReport:
 def run_command(cmd: list[str], cwd: Path = PROJECT_ROOT, timeout: int = 120) -> tuple[bool, str]:
     try:
         proc = subprocess.run(
-            cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout,
+            cmd,
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
         )
         output = proc.stdout + proc.stderr
         return proc.returncode == 0, output
@@ -100,9 +104,13 @@ def check_black() -> CheckResult:
 
 def check_mypy() -> CheckResult:
     cmd = [
-        "python", "-m", "mypy",
-        str(PROJECT_ROOT / "apps"), str(PROJECT_ROOT / "backend" / "app" / "core"),
-        "--ignore-missing-imports", "--explicit-package-bases",
+        "python",
+        "-m",
+        "mypy",
+        str(PROJECT_ROOT / "apps"),
+        str(PROJECT_ROOT / "backend" / "app" / "core"),
+        "--ignore-missing-imports",
+        "--explicit-package-bases",
     ]
     start = time.perf_counter()
     passed, output = run_command(cmd)

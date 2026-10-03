@@ -1,4 +1,3 @@
-
 import pytest
 from apps.integration.context import CapabilityContext
 from apps.integration.evidence_adapter import (
@@ -108,8 +107,20 @@ def test_workflow_engine_stops_on_failure():
 def test_evidence_adapter_aggregate():
     adapter = EvidenceAdapter()
     evidences = [
-        UnifiedEvidence(id="e1", source=EvidenceSource.TRADING, type=EvidenceType.OBSERVATION, content="a", confidence=0.8),  # noqa: E501
-        UnifiedEvidence(id="e2", source=EvidenceSource.KNOWLEDGE, type=EvidenceType.FACT, content="b", confidence=0.6),  # noqa: E501
+        UnifiedEvidence(
+            id="e1",
+            source=EvidenceSource.TRADING,
+            type=EvidenceType.OBSERVATION,
+            content="a",
+            confidence=0.8,
+        ),  # noqa: E501
+        UnifiedEvidence(
+            id="e2",
+            source=EvidenceSource.KNOWLEDGE,
+            type=EvidenceType.FACT,
+            content="b",
+            confidence=0.6,
+        ),  # noqa: E501
     ]
     aggregated = adapter.aggregate(evidences)
     assert aggregated.confidence == pytest.approx(0.7)

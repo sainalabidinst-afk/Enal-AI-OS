@@ -39,6 +39,7 @@ class UnifiedOrchestrator:
 
     def _get_kernel(self):
         from backend.app.core.cognitive_kernel import cognitive_kernel
+
         return cognitive_kernel
 
     def _get_runtime(self):
@@ -47,14 +48,17 @@ class UnifiedOrchestrator:
             TaskComplexity,
             adaptive_runtime,
         )
+
         return adaptive_runtime, PIPELINE_PRESETS, TaskComplexity
 
     def _get_planner(self):
         from apps.organization.ai_planner import PlanStatus, ai_planner
+
         return ai_planner, PlanStatus
 
     def _get_multi_agent(self):
         from apps.organization.multi_agent import multi_agent_orchestrator
+
         return multi_agent_orchestrator
 
     async def execute(
@@ -65,7 +69,9 @@ class UnifiedOrchestrator:
         context: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         context = context or {}
-        mode = OrchestrationMode(mode) if isinstance(mode, str) else mode or OrchestrationMode.DIRECT  # noqa: E501
+        mode = (
+            OrchestrationMode(mode) if isinstance(mode, str) else mode or OrchestrationMode.DIRECT
+        )  # noqa: E501
 
         if mode == OrchestrationMode.COGNITIVE:
             return await self._execute_cognitive(task, project_id, context)
@@ -76,7 +82,9 @@ class UnifiedOrchestrator:
         else:
             return await self._execute_direct(task, project_id, context)
 
-    async def _execute_cognitive(self, task: str, project_id: str | None, context: dict) -> dict[str, Any]:  # noqa: E501
+    async def _execute_cognitive(
+        self, task: str, project_id: str | None, context: dict
+    ) -> dict[str, Any]:  # noqa: E501
         kernel = self._get_kernel()
         runtime_obj, pipeline_presets, task_complexity = self._get_runtime()
 
@@ -95,10 +103,14 @@ class UnifiedOrchestrator:
         exec_context["pipeline"] = pipeline
         return exec_context
 
-    async def _execute_direct(self, task: str, project_id: str | None, context: dict) -> dict[str, Any]:  # noqa: E501
+    async def _execute_direct(
+        self, task: str, project_id: str | None, context: dict
+    ) -> dict[str, Any]:  # noqa: E501
         return await self._execute_cognitive(task, project_id, context)
 
-    async def _execute_multi_agent(self, task: str, project_id: str | None, context: dict) -> dict[str, Any]:  # noqa: E501
+    async def _execute_multi_agent(
+        self, task: str, project_id: str | None, context: dict
+    ) -> dict[str, Any]:  # noqa: E501
         multi_agent = self._get_multi_agent()
         planner, PlanStatus = self._get_planner()  # noqa: N806
 
@@ -110,20 +122,24 @@ class UnifiedOrchestrator:
         return {
             "team_id": team.team_id,
             "plan_id": plan.plan_id,
-            "status": result.status.value if hasattr(result, 'status') else str(result.status),
-            "aggregated_result": result.aggregated_result if hasattr(result, 'aggregated_result') else {},  # noqa: E501
+            "status": result.status.value if hasattr(result, "status") else str(result.status),
+            "aggregated_result": result.aggregated_result
+            if hasattr(result, "aggregated_result")
+            else {},  # noqa: E501
         }
 
-    async def _execute_workflow(self, task: str, project_id: str | None, context: dict) -> dict[str, Any]:  # noqa: E501
+    async def _execute_workflow(
+        self, task: str, project_id: str | None, context: dict
+    ) -> dict[str, Any]:  # noqa: E501
         multi_agent = self._get_multi_agent()
 
         plan = self._get_planner()[0].plan_from_goal(task, context)
         result = await multi_agent.execute_plan(plan)
         return {
             "plan_id": plan.plan_id,
-            "status": result.status.value if hasattr(result, 'status') else str(result.status),
+            "status": result.status.value if hasattr(result, "status") else str(result.status),
             "steps": len(plan.steps),
-            "result": result.aggregated_result if hasattr(result, 'aggregated_result') else {},
+            "result": result.aggregated_result if hasattr(result, "aggregated_result") else {},
         }
 
     async def _form_team(self, task: str, context: dict) -> TeamFormation:
@@ -133,14 +149,17 @@ class UnifiedOrchestrator:
         agents = []
 
         from backend.app.core.organization import organization_tree
+
         for skill in required_skills[:4]:
             existing_agent = self._find_agent_by_skill(skill, organization_tree)
             if existing_agent:
-                agents.append({
-                    "agent_id": existing_agent.id,
-                    "skill": skill,
-                    "status": "assigned",
-                })
+                agents.append(
+                    {
+                        "agent_id": existing_agent.id,
+                        "skill": skill,
+                        "status": "assigned",
+                    }
+                )
 
         team = TeamFormation(
             team_id=team_id,

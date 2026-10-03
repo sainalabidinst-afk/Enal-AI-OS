@@ -68,10 +68,13 @@ await bus.publish(Event(event_type="test.event", payload={"msg": "hello"}))
 
 # Pipeline
 engine = PipelineEngine(bus)
-engine.define_pipeline("my_pack", [
-    PipelineStage(name="parse", capability="parse"),
-    PipelineStage(name="output", capability="output"),
-])
+engine.define_pipeline(
+    "my_pack",
+    [
+        PipelineStage(name="parse", capability="parse"),
+        PipelineStage(name="output", capability="output"),
+    ],
+)
 ```
 
 ## Lint/Format

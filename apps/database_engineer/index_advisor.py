@@ -103,13 +103,15 @@ class IndexAdvisor:
                         if workload and workload.read_write_ratio < 0.5:
                             impact = "Medium (write-heavy workload)"
                             priority = Severity.medium
-                        recs.append(IndexRecommendation(
-                            table=actual_table,
-                            columns=sorted(valid_cols),
-                            index_type="btree",
-                            estimated_impact=impact,
-                            priority=priority,
-                        ))
+                        recs.append(
+                            IndexRecommendation(
+                                table=actual_table,
+                                columns=sorted(valid_cols),
+                                index_type="btree",
+                                estimated_impact=impact,
+                                priority=priority,
+                            )
+                        )
                 continue
 
             actual_table = alias_map.get(alias_or_table, alias_or_table)
@@ -125,20 +127,22 @@ class IndexAdvisor:
                 impact = "Medium (write-heavy workload)"
                 priority = Severity.medium
 
-            recs.append(IndexRecommendation(
-                table=actual_table,
-                columns=sorted(valid_cols),
-                index_type="btree",
-                estimated_impact=impact,
-                priority=priority,
-            ))
+            recs.append(
+                IndexRecommendation(
+                    table=actual_table,
+                    columns=sorted(valid_cols),
+                    index_type="btree",
+                    estimated_impact=impact,
+                    priority=priority,
+                )
+            )
 
         return recs
 
     def _extract_aliases(self, query: str) -> dict[str, str]:
         """Extract table aliases from FROM/JOIN clauses."""
         aliases: dict[str, str] = {}
-        for match in re.finditer(r'\b(?:from|join)\s+(\w+)(?:\s+(\w+))?\b', query, re.IGNORECASE):
+        for match in re.finditer(r"\b(?:from|join)\s+(\w+)(?:\s+(\w+))?\b", query, re.IGNORECASE):
             table = match.group(1)
             alias = match.group(2)
             if alias:
@@ -157,24 +161,26 @@ class IndexAdvisor:
     def _extract_tables(self, query: str) -> set[str]:
         """Extract table names from a query."""
         tables: set[str] = set()
-        for match in re.finditer(r'\bfrom\s+(\w+)', query):
+        for match in re.finditer(r"\bfrom\s+(\w+)", query):
             tables.add(match.group(1))
-        for match in re.finditer(r'\bjoin\s+(\w+)', query):
+        for match in re.finditer(r"\bjoin\s+(\w+)", query):
             tables.add(match.group(1))
         return tables
 
     def _extract_where_columns(self, query: str) -> dict[str, set[str]]:
         """Extract columns used in WHERE clauses by table."""
         result: dict[str, set[str]] = {}
-        for match in re.finditer(r'\bwhere\s+(.+?)(?:\bgroup\b|\border\b|\blimit\b|$)', query, re.IGNORECASE):  # noqa: E501
+        for match in re.finditer(
+            r"\bwhere\s+(.+?)(?:\bgroup\b|\border\b|\blimit\b|$)", query, re.IGNORECASE
+        ):  # noqa: E501
             where_clause = match.group(1)
             # Extract qualified columns (table.column).
-            for col_match in re.finditer(r'(\w+)\.(\w+)\s*[=<>!]', where_clause):
+            for col_match in re.finditer(r"(\w+)\.(\w+)\s*[=<>!]", where_clause):
                 table = col_match.group(1)
                 col = col_match.group(2)
                 result.setdefault(table, set()).add(col)
             # Extract unqualified columns and map to FROM tables.
-            for col_match in re.finditer(r'(?<!\.)\b(\w+)\s*[=<>!]', where_clause):
+            for col_match in re.finditer(r"(?<!\.)\b(\w+)\s*[=<>!]", where_clause):
                 col = col_match.group(1)
                 if col.lower() not in ("and", "or", "not", "null", "true", "false"):
                     result.setdefault("_unqualified", set()).add(col)
@@ -183,7 +189,9 @@ class IndexAdvisor:
     def _extract_join_columns(self, query: str) -> dict[str, set[str]]:
         """Extract columns used in JOIN conditions."""
         result: dict[str, set[str]] = {}
-        for match in re.finditer(r'\bjoin\s+(\w+)\s+\w+\s+on\s+(\w+)\.(\w+)\s*=\s*(\w+)\.(\w+)', query, re.IGNORECASE):  # noqa: E501
+        for match in re.finditer(
+            r"\bjoin\s+(\w+)\s+\w+\s+on\s+(\w+)\.(\w+)\s*=\s*(\w+)\.(\w+)", query, re.IGNORECASE
+        ):  # noqa: E501
             table1 = match.group(2)
             col1 = match.group(3)
             table2 = match.group(4)
@@ -195,9 +203,9 @@ class IndexAdvisor:
     def _extract_order_columns(self, query: str) -> dict[str, set[str]]:
         """Extract columns used in ORDER BY."""
         result: dict[str, set[str]] = {}
-        for match in re.finditer(r'\border\s+by\s+(.+?)(?:\blimit\b|$)', query, re.IGNORECASE):
+        for match in re.finditer(r"\border\s+by\s+(.+?)(?:\blimit\b|$)", query, re.IGNORECASE):
             order_clause = match.group(1)
-            for col_match in re.finditer(r'(\w+)\.(\w+)', order_clause):
+            for col_match in re.finditer(r"(\w+)\.(\w+)", order_clause):
                 table = col_match.group(1)
                 col = col_match.group(2)
                 result.setdefault(table, set()).add(col)

@@ -22,7 +22,9 @@ ROOT = Path(__file__).resolve().parent.parent
 BACKEND = ROOT / "backend"
 
 
-def _run(cmd: list[str], cwd: Path | None = None, timeout: int = 300) -> subprocess.CompletedProcess | None:
+def _run(
+    cmd: list[str], cwd: Path | None = None, timeout: int = 300
+) -> subprocess.CompletedProcess | None:
     try:
         return subprocess.run(
             cmd,
@@ -38,7 +40,9 @@ def _run(cmd: list[str], cwd: Path | None = None, timeout: int = 300) -> subproc
 
 
 def check_tests() -> dict[str, Any]:
-    result = _run([sys.executable, "-m", "pytest", "backend/tests/", "tests/", "-v", "--tb=short", "-q"])
+    result = _run(
+        [sys.executable, "-m", "pytest", "backend/tests/", "tests/", "-v", "--tb=short", "-q"]
+    )
     if result is None:
         return {"passed": False, "detail": "pytest not available"}
     passed = result.returncode == 0
@@ -50,14 +54,24 @@ def check_tests() -> dict[str, Any]:
 
 
 def check_mypy() -> dict[str, Any]:
-    result = _run([sys.executable, "-m", "mypy", "backend/app/core", "--ignore-missing-imports", "--explicit-package-bases"])
+    result = _run(
+        [
+            sys.executable,
+            "-m",
+            "mypy",
+            "backend/app/core",
+            "--ignore-missing-imports",
+            "--explicit-package-bases",
+        ]
+    )
     if result is None:
         return {"passed": True, "detail": "mypy not available (informational only)"}
-    passed = result.returncode == 0
     error_count = result.stdout.count("error:")
     return {
         "passed": True,  # informational for baseline
-        "detail": f"mypy: {error_count} errors (informational)" if error_count > 0 else "mypy clean",
+        "detail": f"mypy: {error_count} errors (informational)"
+        if error_count > 0
+        else "mypy clean",
         "info": result.stdout[-500:] if error_count > 0 else "",
     }
 
@@ -69,7 +83,9 @@ def check_ruff() -> dict[str, Any]:
     issue_count = result.stdout.count("error")
     return {
         "passed": True,  # informational for baseline
-        "detail": f"ruff: {issue_count} issues (informational)" if issue_count > 0 else "ruff clean",
+        "detail": f"ruff: {issue_count} issues (informational)"
+        if issue_count > 0
+        else "ruff clean",
         "info": result.stdout[-500:] if issue_count > 0 else "",
     }
 
@@ -97,7 +113,9 @@ def check_docker() -> dict[str, Any]:
 
 
 def check_golden_tests() -> dict[str, Any]:
-    result = _run([sys.executable, "-m", "pytest", "benchmarks/golden_test_set.py", "-v", "--tb=short", "-q"])
+    result = _run(
+        [sys.executable, "-m", "pytest", "benchmarks/golden_test_set.py", "-v", "--tb=short", "-q"]
+    )
     if result is None:
         return {"passed": True, "detail": "golden test runner not available (non-blocking)"}
     passed = result.returncode == 0

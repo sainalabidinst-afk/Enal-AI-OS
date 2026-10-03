@@ -50,10 +50,14 @@ class FinanceAnalystEngine:
             limitations.append(f"Input validation failed: {validation['validation_errors']}")
             if inputs.operation == FinanceOperation.cash_flow:
                 if inputs.cash_balance is None or inputs.monthly_net_burn is None:
-                    limitations.append("Missing cash_balance or monthly_net_burn for cash flow calculation")  # noqa: E501
+                    limitations.append(
+                        "Missing cash_balance or monthly_net_burn for cash flow calculation"
+                    )  # noqa: E501
             elif inputs.operation == FinanceOperation.financial_summary:
                 if inputs.current_assets is not None and inputs.current_liabilities is None:  # noqa: E501
-                    limitations.append("current_liabilities missing - current ratio cannot be calculated")  # noqa: E501
+                    limitations.append(
+                        "current_liabilities missing - current ratio cannot be calculated"
+                    )  # noqa: E501
 
         if inputs.operation in [FinanceOperation.financial_summary, FinanceOperation.control_check]:
             metrics = self.engine.financial_summary(inputs)
@@ -61,12 +65,14 @@ class FinanceAnalystEngine:
         if inputs.operation == FinanceOperation.cash_flow:
             validation_result = self.engine.cash_flow_runway(inputs)
             if validation_result.get("runway_months") is not None:
-                metrics.append(FinancialMetric(
-                    name="cash_runway_months",
-                    value=validation_result["runway_months"],
-                    formula="cash_balance / monthly_net_burn",
-                    inputs_traced=["cash_balance", "monthly_net_burn"],
-                ))
+                metrics.append(
+                    FinancialMetric(
+                        name="cash_runway_months",
+                        value=validation_result["runway_months"],
+                        formula="cash_balance / monthly_net_burn",
+                        inputs_traced=["cash_balance", "monthly_net_burn"],
+                    )
+                )
                 assumptions.extend(validation_result.get("assumptions_disclosed", []))
         if inputs.operation == FinanceOperation.scenario_analysis:
             scenarios = self.engine.scenario_analysis(inputs)

@@ -104,8 +104,7 @@ class DecoratorIsolationTester:
 
         return {
             "transparent": (
-                actual["result"] == expected["result"]
-                and actual["task"] == expected["task"]
+                actual["result"] == expected["result"] and actual["task"] == expected["task"]
             ),
             "expected": expected,
             "actual": actual,

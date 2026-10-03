@@ -96,6 +96,7 @@ def cmd_chain(args: argparse.Namespace) -> int:
 def _get_mock_app_class() -> type:
     """Import MockBaseApp lazily to avoid circular imports."""
     from backend.app.core.decorators.testing import MockBaseApp
+
     return MockBaseApp
 
 

@@ -1,4 +1,3 @@
-
 from backend.app.core.plugin_manifest import (
     PluginManifest,
     PluginManifestSecurityLevel,

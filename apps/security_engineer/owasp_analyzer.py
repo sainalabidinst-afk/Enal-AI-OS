@@ -30,82 +30,97 @@ logger = logging.getLogger(__name__)
 
 # SQL injection patterns — string formatting/concatenation with SQL keywords.
 _SQL_INJECTION_PATTERNS = [
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*["\'].*["\']', "string concatenation in SQL"),  # noqa: E501
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*\w', "string concatenation with variable in SQL"),  # noqa: E501
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*%s.*%', "format string in SQL"),
+    (
+        r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*["\'].*["\']',
+        "string concatenation in SQL",
+    ),  # noqa: E501
+    (
+        r"(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*\+\s*\w",
+        "string concatenation with variable in SQL",
+    ),  # noqa: E501
+    (r"(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*%s.*%", "format string in SQL"),
     (r'execute\s*\(\s*["\'].*\{.*\}.*["\']', "f-string in SQL execute"),
     (r'execute\s*\(\s*["\'].*%s.*["\']', "%s formatting in SQL execute"),
     (r'f["\'].*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION).*\{.*\}.*["\']', "f-string SQL query"),
-    (r'\+\s*["\'<]\s*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)', "string concatenation with SQL keyword"),  # noqa: E501
-    (r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*"[^"]*"\s*\+\s*', "string + variable in SQL context"),  # noqa: E501
+    (
+        r'\+\s*["\'<]\s*(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)',
+        "string concatenation with SQL keyword",
+    ),  # noqa: E501
+    (
+        r'(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\s+.*"[^"]*"\s*\+\s*',
+        "string + variable in SQL context",
+    ),  # noqa: E501
 ]
 
 # XSS patterns — unescaped output, innerHTML assignment.
 _XSS_PATTERNS = [
-    (r'\.innerHTML\s*=', "innerHTML assignment (potential XSS)"),
-    (r'document\.write\s*\(', "document.write (potential XSS)"),
-    (r'v-html\s*=', "v-html directive (Vue XSS)"),
-    (r'\{\{.*\}\}\s*$', "unescaped template output"),
-    (r'dangerouslySetInnerHTML', "dangerouslySetInnerHTML (React XSS)"),
+    (r"\.innerHTML\s*=", "innerHTML assignment (potential XSS)"),
+    (r"document\.write\s*\(", "document.write (potential XSS)"),
+    (r"v-html\s*=", "v-html directive (Vue XSS)"),
+    (r"\{\{.*\}\}\s*$", "unescaped template output"),
+    (r"dangerouslySetInnerHTML", "dangerouslySetInnerHTML (React XSS)"),
 ]
 
 # Command injection patterns.
 _CMD_INJECTION_PATTERNS = [
-    (r'os\.system\s*\(', "os.system call (command injection)"),
-    (r'subprocess\.(call|Popen|run)\s*\(.*shell\s*=\s*True', "subprocess with shell=True"),
-    (r'subprocess\.(call|Popen|run)\s*\(.*\+.*\)', "subprocess with string concatenation"),
-    (r'os\.popen\s*\(', "os.popen call"),
-    (r'eval\s*\(', "eval call (code injection)"),
-    (r'exec\s*\(', "exec call (code injection)"),
+    (r"os\.system\s*\(", "os.system call (command injection)"),
+    (r"subprocess\.(call|Popen|run)\s*\(.*shell\s*=\s*True", "subprocess with shell=True"),
+    (r"subprocess\.(call|Popen|run)\s*\(.*\+.*\)", "subprocess with string concatenation"),
+    (r"os\.popen\s*\(", "os.popen call"),
+    (r"eval\s*\(", "eval call (code injection)"),
+    (r"exec\s*\(", "exec call (code injection)"),
 ]
 
 # SSRF patterns.
 _SSRF_PATTERNS = [
-    (r'requests\.(get|post|put|delete)\s*\(.*\+', "unsanitized URL in HTTP request"),
-    (r'urllib\.request\.urlopen\s*\(.*\+', "unsanitized URL in urlopen"),
-    (r'fetch\s*\(.*\+', "unsanitized URL in fetch"),
-    (r'requests\.(get|post|put|delete)\s*\(\s*\w+\s*\)', "unsanitized URL in HTTP request"),
-    (r'urllib\.request\.urlopen\s*\(\s*\w+\s*\)', "unsanitized URL in urlopen"),
+    (r"requests\.(get|post|put|delete)\s*\(.*\+", "unsanitized URL in HTTP request"),
+    (r"urllib\.request\.urlopen\s*\(.*\+", "unsanitized URL in urlopen"),
+    (r"fetch\s*\(.*\+", "unsanitized URL in fetch"),
+    (r"requests\.(get|post|put|delete)\s*\(\s*\w+\s*\)", "unsanitized URL in HTTP request"),
+    (r"urllib\.request\.urlopen\s*\(\s*\w+\s*\)", "unsanitized URL in urlopen"),
     (r'requests\.post\s*\(\s*["\']https?://', "unsanitized URL in HTTP POST request"),
-    (r'urllib\.request\.urlretrieve\s*\(', "unsanitized URL in urlretrieve"),
+    (r"urllib\.request\.urlretrieve\s*\(", "unsanitized URL in urlretrieve"),
     (r'requests\.(get|post|put|delete)\s*\(\s*["\']http', "unsanitized URL in HTTP request"),
 ]
 
 # CSRF patterns — missing CSRF token.
 _CSRF_PATTERNS = [
-    (r'@app\.(get|post|put|delete)\s*\(.*methods\s*=\s*\[.*POST', "POST route without CSRF protection"),  # noqa: E501
-    (r'\.post\s*\(.*method:', "AJAX POST without CSRF token"),
+    (
+        r"@app\.(get|post|put|delete)\s*\(.*methods\s*=\s*\[.*POST",
+        "POST route without CSRF protection",
+    ),  # noqa: E501
+    (r"\.post\s*\(.*method:", "AJAX POST without CSRF token"),
 ]
 
 # Insecure deserialization patterns (A08:2021).
 _DESERIALIZATION_PATTERNS = [
-    (r'(?i)\bpickle\.loads?\b', "pickle deserialization (arbitrary code execution)"),
-    (r'(?i)\bmarshal\.loads?\b', "marshal deserialization (unsafe)"),
-    (r'(?i)\byaml\.load\s*\(\s*$', "yaml.load without safe_load"),
-    (r'(?i)\bcPickle\.(load|loads)\b', "cPickle deserialization"),
-    (r'(?i)\bos\.system\s*\(', "os.system call (command injection)"),
-    (r'(?i)\beval\s*\(', "eval call (code injection)"),
-    (r'(?i)\bexec\s*\(', "exec call (code injection)"),
+    (r"(?i)\bpickle\.loads?\b", "pickle deserialization (arbitrary code execution)"),
+    (r"(?i)\bmarshal\.loads?\b", "marshal deserialization (unsafe)"),
+    (r"(?i)\byaml\.load\s*\(\s*$", "yaml.load without safe_load"),
+    (r"(?i)\bcPickle\.(load|loads)\b", "cPickle deserialization"),
+    (r"(?i)\bos\.system\s*\(", "os.system call (command injection)"),
+    (r"(?i)\beval\s*\(", "eval call (code injection)"),
+    (r"(?i)\bexec\s*\(", "exec call (code injection)"),
 ]
 
 # Insecure crypto patterns (A02:2021).
 _INSECURE_CRYPTO_PATTERNS = [
-    (r'(?i)\bhashlib\.md5\b', "MD5 hash usage (cryptographically broken)"),
-    (r'(?i)\bhashlib\.sha1\b', "SHA-1 hash usage (cryptographically weak)"),
-    (r'(?i)\brandom\.(random|randint|choice)\s*\(', "insecure random for security (use secrets)"),
+    (r"(?i)\bhashlib\.md5\b", "MD5 hash usage (cryptographically broken)"),
+    (r"(?i)\bhashlib\.sha1\b", "SHA-1 hash usage (cryptographically weak)"),
+    (r"(?i)\brandom\.(random|randint|choice)\s*\(", "insecure random for security (use secrets)"),
 ]
 
 # Open redirect patterns (A01:2021).
 _OPEN_REDIRECT_PATTERNS = [
-    (r'(?i)\bredirect\s*\(\s*\w+\)', "unvalidated redirect"),
+    (r"(?i)\bredirect\s*\(\s*\w+\)", "unvalidated redirect"),
 ]
 
 # Insecure SSL/TLS patterns.
 _INSECURE_SSL_PATTERNS = [
-    (r'(?i)\bverify_mode\s*=\s*ssl\.CERT_NONE', "SSL verification disabled"),
-    (r'(?i)\bverify\s*=\s*False', "SSL verification disabled"),
-    (r'(?i)\bcheck_hostname\s*=\s*False', "SSL hostname verification disabled"),
-    (r'(?i)\bdisable_warnings\s*\(\s*\)', "SSL warnings disabled"),
+    (r"(?i)\bverify_mode\s*=\s*ssl\.CERT_NONE", "SSL verification disabled"),
+    (r"(?i)\bverify\s*=\s*False", "SSL verification disabled"),
+    (r"(?i)\bcheck_hostname\s*=\s*False", "SSL hostname verification disabled"),
+    (r"(?i)\bdisable_warnings\s*\(\s*\)", "SSL warnings disabled"),
 ]
 
 # SQLi in Python AST.
@@ -172,75 +187,175 @@ class OWASPAnalyzer:
                 for target in node.targets:
                     if isinstance(target, ast.Name) and isinstance(node.value, ast.JoinedStr):
                         if self._is_fstring_sql_injection(node.value):
-                            findings.append(Finding(
-                                category="A03:2021-Injection",
-                                severity=Severity.high,
-                                title="SQL injection via f-string in assignment",
-                                description="SQL query constructed using f-string interpolation in variable assignment.",  # noqa: E501
-                                evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},  # noqa: E501
-                                remediation="Use parameterized queries with placeholders.",
-                                owasp_mapping="A03:2021-Injection",
-                                confidence=0.85,
-                            ))
+                            findings.append(
+                                Finding(
+                                    category="A03:2021-Injection",
+                                    severity=Severity.high,
+                                    title="SQL injection via f-string in assignment",
+                                    description="SQL query constructed using f-string interpolation in variable assignment.",  # noqa: E501
+                                    evidence={
+                                        "file": file_path,
+                                        "line": node.lineno,
+                                        "ast_type": "JoinedStr",
+                                    },  # noqa: E501
+                                    remediation="Use parameterized queries with placeholders.",
+                                    owasp_mapping="A03:2021-Injection",
+                                    confidence=0.85,
+                                )
+                            )
 
         # AST-based eval/exec detection.
         for node in ast.walk(tree):
             if isinstance(node, ast.Call):
                 func_name = self._get_func_name(node)
                 if func_name == "eval":
-                    findings.append(Finding(
-                        category="A03:2021-Injection",
-                        severity=Severity.high,
-                        title="Use of eval() detected",
-                        description="eval() allows arbitrary code execution.",
-                        evidence={"file": file_path, "line": node.lineno},
-                        remediation="Replace eval() with ast.literal_eval() or a safe parser.",
-                        owasp_mapping="A03:2021-Injection",
-                        confidence=0.95,
-                    ))
+                    findings.append(
+                        Finding(
+                            category="A03:2021-Injection",
+                            severity=Severity.high,
+                            title="Use of eval() detected",
+                            description="eval() allows arbitrary code execution.",
+                            evidence={"file": file_path, "line": node.lineno},
+                            remediation="Replace eval() with ast.literal_eval() or a safe parser.",
+                            owasp_mapping="A03:2021-Injection",
+                            confidence=0.95,
+                        )
+                    )
                 elif func_name == "exec":
-                    findings.append(Finding(
-                        category="A03:2021-Injection",
-                        severity=Severity.high,
-                        title="Use of exec() detected",
-                        description="exec() allows arbitrary code execution.",
-                        evidence={"file": file_path, "line": node.lineno},
-                        remediation="Remove exec() or use safer alternatives.",
-                        owasp_mapping="A03:2021-Injection",
-                        confidence=0.95,
-                    ))
+                    findings.append(
+                        Finding(
+                            category="A03:2021-Injection",
+                            severity=Severity.high,
+                            title="Use of exec() detected",
+                            description="exec() allows arbitrary code execution.",
+                            evidence={"file": file_path, "line": node.lineno},
+                            remediation="Remove exec() or use safer alternatives.",
+                            owasp_mapping="A03:2021-Injection",
+                            confidence=0.95,
+                        )
+                    )
                 if func_name == "system" and self._get_module_name(node) == "os":
-                    findings.append(Finding(
-                        category="A03:2021-Injection",
-                        severity=Severity.critical,
-                        title="os.system() call detected",
-                        description="os.system() enables command injection.",
-                        evidence={"file": file_path, "line": node.lineno},
-                        remediation="Use subprocess with shell=False and argument list.",
-                        owasp_mapping="A03:2021-Injection",
-                        confidence=0.95,
-                    ))
+                    findings.append(
+                        Finding(
+                            category="A03:2021-Injection",
+                            severity=Severity.critical,
+                            title="os.system() call detected",
+                            description="os.system() enables command injection.",
+                            evidence={"file": file_path, "line": node.lineno},
+                            remediation="Use subprocess with shell=False and argument list.",
+                            owasp_mapping="A03:2021-Injection",
+                            confidence=0.95,
+                        )
+                    )
 
         # Regex-based detection (covers both languages).
-        findings.extend(self._regex_patterns(source_code, file_path, _CMD_INJECTION_PATTERNS, "A03:2021-Injection", Severity.critical))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _SQL_INJECTION_PATTERNS, "A03:2021-Injection", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _SSRF_PATTERNS, "A10:2021-Server-Side Request Forgery", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _CSRF_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _DESERIALIZATION_PATTERNS, "A08:2021-Software and Data Integrity Failures", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_CRYPTO_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _OPEN_REDIRECT_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _INSECURE_SSL_PATTERNS, "A02:2021-Cryptographic Failures", Severity.high))  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _CMD_INJECTION_PATTERNS,
+                "A03:2021-Injection",
+                Severity.critical,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code, file_path, _SQL_INJECTION_PATTERNS, "A03:2021-Injection", Severity.high
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _SSRF_PATTERNS,
+                "A10:2021-Server-Side Request Forgery",
+                Severity.high,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _CSRF_PATTERNS,
+                "A01:2021-Broken Access Control",
+                Severity.medium,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _DESERIALIZATION_PATTERNS,
+                "A08:2021-Software and Data Integrity Failures",
+                Severity.high,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _INSECURE_CRYPTO_PATTERNS,
+                "A02:2021-Cryptographic Failures",
+                Severity.high,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _OPEN_REDIRECT_PATTERNS,
+                "A01:2021-Broken Access Control",
+                Severity.medium,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _INSECURE_SSL_PATTERNS,
+                "A02:2021-Cryptographic Failures",
+                Severity.high,
+            )
+        )  # noqa: E501
 
         return findings
 
     def _analyze_javascript(self, source_code: str, file_path: str) -> list[Finding]:
         """Analyze JavaScript/TypeScript code using regex."""
         findings: list[Finding] = []
-        findings.extend(self._regex_patterns(source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _CMD_INJECTION_PATTERNS, "A03:2021-Injection", Severity.critical))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _SSRF_PATTERNS, "A10:2021-SSRF", Severity.high))  # noqa: E501
-        findings.extend(self._regex_patterns(source_code, file_path, _CSRF_PATTERNS, "A01:2021-Broken Access Control", Severity.medium))  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code, file_path, _XSS_PATTERNS, "A03:2021-Injection", Severity.high
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _CMD_INJECTION_PATTERNS,
+                "A03:2021-Injection",
+                Severity.critical,
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code, file_path, _SSRF_PATTERNS, "A10:2021-SSRF", Severity.high
+            )
+        )  # noqa: E501
+        findings.extend(
+            self._regex_patterns(
+                source_code,
+                file_path,
+                _CSRF_PATTERNS,
+                "A01:2021-Broken Access Control",
+                Severity.medium,
+            )
+        )  # noqa: E501
         return findings
 
     def _check_sql_injection_call(
@@ -259,46 +374,56 @@ class OWASPAnalyzer:
             for value in first_arg.values:
                 if isinstance(value, ast.Constant) and isinstance(value.value, str):
                     if any(kw in value.value.upper() for kw in _SQLI_KEYWORDS):
-                        findings.append(Finding(
-                            category="A03:2021-Injection",
-                            severity=Severity.critical,
-                            title="SQL injection via f-string in execute()",
-                            description="SQL query constructed using f-string interpolation.",
-                            evidence={"file": file_path, "line": node.lineno, "ast_type": "JoinedStr"},  # noqa: E501
-                            remediation="Use parameterized queries with placeholders.",
-                            owasp_mapping="A03:2021-Injection",
-                            confidence=0.95,
-                        ))
+                        findings.append(
+                            Finding(
+                                category="A03:2021-Injection",
+                                severity=Severity.critical,
+                                title="SQL injection via f-string in execute()",
+                                description="SQL query constructed using f-string interpolation.",
+                                evidence={
+                                    "file": file_path,
+                                    "line": node.lineno,
+                                    "ast_type": "JoinedStr",
+                                },  # noqa: E501
+                                remediation="Use parameterized queries with placeholders.",
+                                owasp_mapping="A03:2021-Injection",
+                                confidence=0.95,
+                            )
+                        )
                         break
 
         # Check for .format() calls.
         if isinstance(first_arg, ast.Call):
             func_name = self._get_func_name(first_arg)
             if func_name == "format":
-                findings.append(Finding(
-                    category="A03:2021-Injection",
-                    severity=Severity.critical,
-                    title="SQL injection via .format() in execute()",
-                    description="SQL query constructed using string.format().",
-                    evidence={"file": file_path, "line": node.lineno},
-                    remediation="Use parameterized queries with placeholders.",
-                    owasp_mapping="A03:2021-Injection",
-                    confidence=0.9,
-                ))
+                findings.append(
+                    Finding(
+                        category="A03:2021-Injection",
+                        severity=Severity.critical,
+                        title="SQL injection via .format() in execute()",
+                        description="SQL query constructed using string.format().",
+                        evidence={"file": file_path, "line": node.lineno},
+                        remediation="Use parameterized queries with placeholders.",
+                        owasp_mapping="A03:2021-Injection",
+                        confidence=0.9,
+                    )
+                )
 
         # Check for string concatenation with SQL keywords.
         if isinstance(first_arg, ast.BinOp):
             if self._is_binop_sql_injection(first_arg):
-                findings.append(Finding(
-                    category="A03:2021-Injection",
-                    severity=Severity.critical,
-                    title="SQL injection via string concatenation in execute()",
-                    description="SQL query constructed using string concatenation.",
-                    evidence={"file": file_path, "line": node.lineno},
-                    remediation="Use parameterized queries with placeholders.",
-                    owasp_mapping="A03:2021-Injection",
-                    confidence=0.9,
-                ))
+                findings.append(
+                    Finding(
+                        category="A03:2021-Injection",
+                        severity=Severity.critical,
+                        title="SQL injection via string concatenation in execute()",
+                        description="SQL query constructed using string concatenation.",
+                        evidence={"file": file_path, "line": node.lineno},
+                        remediation="Use parameterized queries with placeholders.",
+                        owasp_mapping="A03:2021-Injection",
+                        confidence=0.9,
+                    )
+                )
 
         return findings
 
@@ -332,22 +457,24 @@ class OWASPAnalyzer:
 
         for pattern, description in patterns:
             for match in re.finditer(pattern, source_code, re.IGNORECASE | re.MULTILINE):
-                line_num = source_code[:match.start()].count("\n") + 1
+                line_num = source_code[: match.start()].count("\n") + 1
                 key = f"{file_path}:{line_num}:{pattern}"
                 if key in seen:
                     continue
                 seen.add(key)
 
-                findings.append(Finding(
-                    category=category,
-                    severity=severity,
-                    title=f"{category} — {description}",
-                    description=f"{description} at line {line_num}.",
-                    evidence={"file": file_path, "line": line_num, "pattern": pattern},
-                    remediation=self._get_remediation(category),
-                    owasp_mapping=category,
-                    confidence=0.85,
-                ))
+                findings.append(
+                    Finding(
+                        category=category,
+                        severity=severity,
+                        title=f"{category} — {description}",
+                        description=f"{description} at line {line_num}.",
+                        evidence={"file": file_path, "line": line_num, "pattern": pattern},
+                        remediation=self._get_remediation(category),
+                        owasp_mapping=category,
+                        confidence=0.85,
+                    )
+                )
 
         return findings
 
@@ -372,4 +499,6 @@ class OWASPAnalyzer:
             "A01:2021-Broken Access Control": "Implement proper CSRF tokens, access control checks, and ensure proper session management.",  # noqa: E501
             "A10:2021-Server-Side Request Forgery": "Validate and sanitize URL inputs, use allowlists for target hosts, and disable unnecessary URL schemes.",  # noqa: E501
         }
-        return remediations.get(category, "Review OWASP Top 10 guidance for this category and apply mitigations.")  # noqa: E501
+        return remediations.get(
+            category, "Review OWASP Top 10 guidance for this category and apply mitigations."
+        )  # noqa: E501

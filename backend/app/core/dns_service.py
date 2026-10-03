@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DNSService:
     """Represents a service registered in internal DNS."""
+
     name: str
     host: str
     port: int
@@ -53,7 +54,9 @@ class DNSServiceDiscovery:
         self.dns_server = dns_server
         self._services: dict[str, DNSService] = {}
 
-    def register(self, name: str, host: str, port: int, protocol: str = "tcp", ttl: int = 30) -> None:  # noqa: E501
+    def register(
+        self, name: str, host: str, port: int, protocol: str = "tcp", ttl: int = 30
+    ) -> None:  # noqa: E501
         """Register a service in internal DNS."""
         self._services[name] = DNSService(
             name=name,

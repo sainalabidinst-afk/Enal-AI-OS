@@ -73,7 +73,9 @@ class CodeReviewReport:
 class FullStackCodeReviewEngine:
     """Reviews code for quality, security, and maintainability."""
 
-    async def review(self, code: str, filename: str = "<unknown>", context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review(
+        self, code: str, filename: str = "<unknown>", context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         context = context or {}
         findings: list[ReviewFinding] = []
         try:
@@ -91,7 +93,14 @@ class FullStackCodeReviewEngine:
                         "confidence": 1.0,
                     }
                 ],
-                "summary": {"total_findings": 1, "critical": 1, "high": 0, "medium": 0, "low": 0, "info": 0},  # noqa: E501
+                "summary": {
+                    "total_findings": 1,
+                    "critical": 1,
+                    "high": 0,
+                    "medium": 0,
+                    "low": 0,
+                    "info": 0,
+                },  # noqa: E501
             }
 
         raw = code
@@ -116,70 +125,250 @@ class FullStackCodeReviewEngine:
 
     def _check_security_injection(self, raw: str, lines: list[str], findings: list[ReviewFinding]):
         if "eval(" in raw:
-            self._add_finding(raw, lines, findings, Severity.CRITICAL, "Security", "Use of eval()", "Replace eval() with ast.literal_eval or safer alternatives.", "CWE-94")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.CRITICAL,
+                "Security",
+                "Use of eval()",
+                "Replace eval() with ast.literal_eval or safer alternatives.",
+                "CWE-94",
+            )  # noqa: E501
         if "exec(" in raw:
-            self._add_finding(raw, lines, findings, Severity.CRITICAL, "Security", "Use of exec()", "Avoid exec(). Use function dispatch or configuration instead.", "CWE-94")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.CRITICAL,
+                "Security",
+                "Use of exec()",
+                "Avoid exec(). Use function dispatch or configuration instead.",
+                "CWE-94",
+            )  # noqa: E501
         if "pickle.loads" in raw:
-            self._add_finding(raw, lines, findings, Severity.HIGH, "Security", "Unsafe deserialization", "Use JSON or trusted serialization formats instead of pickle.", "CWE-502")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.HIGH,
+                "Security",
+                "Unsafe deserialization",
+                "Use JSON or trusted serialization formats instead of pickle.",
+                "CWE-502",
+            )  # noqa: E501
         if "cursor.execute(" in raw and "%s" not in raw and "?" not in raw:
-            self._add_finding(raw, lines, findings, Severity.HIGH, "Security", "Possible SQL injection", "Use parameterized queries instead of string formatting.", "CWE-89")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.HIGH,
+                "Security",
+                "Possible SQL injection",
+                "Use parameterized queries instead of string formatting.",
+                "CWE-89",
+            )  # noqa: E501
         if "render_template_string" in raw or "dangerouslySetInnerHTML" in raw:
-            self._add_finding(raw, lines, findings, Severity.HIGH, "Security", "Possible XSS", "Escape user input before rendering HTML.", "CWE-79")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.HIGH,
+                "Security",
+                "Possible XSS",
+                "Escape user input before rendering HTML.",
+                "CWE-79",
+            )  # noqa: E501
         if "os.system(" in raw or "subprocess.call(" in raw:
-            self._add_finding(raw, lines, findings, Severity.HIGH, "Security", "Command injection risk", "Use subprocess.run with list args instead of shell=True.", "CWE-78")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.HIGH,
+                "Security",
+                "Command injection risk",
+                "Use subprocess.run with list args instead of shell=True.",
+                "CWE-78",
+            )  # noqa: E501
 
-    def _check_concurrency(self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]):  # noqa: E501
+    def _check_concurrency(
+        self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]
+    ):  # noqa: E501
         if "threading." in raw and "Lock()" not in raw:
-            self._add_finding(raw, lines, findings, Severity.HIGH, "Concurrency", "Possible race condition", "Shared state accessed without lock protection.", "CWE-362")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.HIGH,
+                "Concurrency",
+                "Possible race condition",
+                "Shared state accessed without lock protection.",
+                "CWE-362",
+            )  # noqa: E501
         if "asyncio." in raw and "asyncio.Lock()" not in raw and "asyncio.Semaphore()" not in raw:
             if raw.count("await ") > 5 and "lock" not in raw.lower():
-                self._add_finding(raw, lines, findings, Severity.MEDIUM, "Concurrency", "Possible async race condition", "Consider asyncio.Lock for shared mutable state.", "CWE-362")  # noqa: E501
+                self._add_finding(
+                    raw,
+                    lines,
+                    findings,
+                    Severity.MEDIUM,
+                    "Concurrency",
+                    "Possible async race condition",
+                    "Consider asyncio.Lock for shared mutable state.",
+                    "CWE-362",
+                )  # noqa: E501
         if "multiprocessing." in raw and "Lock()" not in raw:
-            self._add_finding(raw, lines, findings, Severity.MEDIUM, "Concurrency", "Possible process-level race condition", "Use multiprocessing.Lock or manager for shared state.", "CWE-362")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.MEDIUM,
+                "Concurrency",
+                "Possible process-level race condition",
+                "Use multiprocessing.Lock or manager for shared state.",
+                "CWE-362",
+            )  # noqa: E501
 
-    def _check_resource(self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]):  # noqa: E501
+    def _check_resource(
+        self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]
+    ):  # noqa: E501
         if "open(" in raw and "with " not in raw:
-            self._add_finding(raw, lines, findings, Severity.MEDIUM, "Reliability", "Unclosed file resource", "Use context manager (`with` statement) to ensure file is closed.", "CWE-772")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.MEDIUM,
+                "Reliability",
+                "Unclosed file resource",
+                "Use context manager (`with` statement) to ensure file is closed.",
+                "CWE-772",
+            )  # noqa: E501
         if "while True:" in raw and "break" not in raw:
-            self._add_finding(raw, lines, findings, Severity.MEDIUM, "Reliability", "Infinite loop without break", "Ensure loop has a termination condition to avoid CPU exhaustion.", "")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.MEDIUM,
+                "Reliability",
+                "Infinite loop without break",
+                "Ensure loop has a termination condition to avoid CPU exhaustion.",
+                "",
+            )  # noqa: E501
         if "except:" in raw and "except Exception:" not in raw:
-            self._add_finding(raw, lines, findings, Severity.MEDIUM, "Maintainability", "Bare except clause", "Catch specific exceptions instead of bare `except:`.", "CWE-396")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.MEDIUM,
+                "Maintainability",
+                "Bare except clause",
+                "Catch specific exceptions instead of bare `except:`.",
+                "CWE-396",
+            )  # noqa: E501
 
-    def _check_maintainability(self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]):  # noqa: E501
+    def _check_maintainability(
+        self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]
+    ):  # noqa: E501
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef):
                 if node.end_lineno and node.lineno and (node.end_lineno - node.lineno) > 50:
-                    self._add_finding(raw, lines, findings, Severity.MEDIUM, "Maintainability", f"Long function '{node.name}'", "Break into smaller functions with single responsibility.", "", node.lineno)  # noqa: E501
+                    self._add_finding(
+                        raw,
+                        lines,
+                        findings,
+                        Severity.MEDIUM,
+                        "Maintainability",
+                        f"Long function '{node.name}'",
+                        "Break into smaller functions with single responsibility.",
+                        "",
+                        node.lineno,
+                    )  # noqa: E501
                 for default in node.args.defaults + node.args.kw_defaults:
                     if isinstance(default, (ast.List, ast.Dict, ast.Set)):
-                        self._add_finding(raw, lines, findings, Severity.HIGH, "Maintainability", f"Mutable default argument in '{node.name}'", "Replace mutable default with None and instantiate inside function.", "CWE-371", node.lineno)  # noqa: E501
+                        self._add_finding(
+                            raw,
+                            lines,
+                            findings,
+                            Severity.HIGH,
+                            "Maintainability",
+                            f"Mutable default argument in '{node.name}'",
+                            "Replace mutable default with None and instantiate inside function.",
+                            "CWE-371",
+                            node.lineno,
+                        )  # noqa: E501
                         break
         if "global " in raw:
-            self._add_finding(raw, lines, findings, Severity.LOW, "Maintainability", "Use of global variables", "Avoid global state; use dependency injection or closures.", "")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.LOW,
+                "Maintainability",
+                "Use of global variables",
+                "Avoid global state; use dependency injection or closures.",
+                "",
+            )  # noqa: E501
 
-    def _check_api_surface(self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]):  # noqa: E501
+    def _check_api_surface(
+        self, tree: ast.AST, raw: str, lines: list[str], findings: list[ReviewFinding]
+    ):  # noqa: E501
         if raw.count("def ") > 20 and len(raw) < 5000:
-            self._add_finding(raw, lines, findings, Severity.LOW, "Maintainability", "High function density", "Consider splitting into multiple modules.", "")  # noqa: E501
+            self._add_finding(
+                raw,
+                lines,
+                findings,
+                Severity.LOW,
+                "Maintainability",
+                "High function density",
+                "Consider splitting into multiple modules.",
+                "",
+            )  # noqa: E501
 
-    def _add_finding(self, raw: str, lines: list[str], findings: list[ReviewFinding], severity: Severity, category: str, title: str, recommendation: str, cwe: str = "", line_number: int = 0):  # noqa: E501
+    def _add_finding(
+        self,
+        raw: str,
+        lines: list[str],
+        findings: list[ReviewFinding],
+        severity: Severity,
+        category: str,
+        title: str,
+        recommendation: str,
+        cwe: str = "",
+        line_number: int = 0,
+    ):  # noqa: E501
         evidence = ""
         if line_number <= 0:
             for idx, line in enumerate(lines, start=1):
-                if title.lower() in line.lower() or any(k in line.lower() for k in ["eval(", "exec(", "pickle", "os.system", "open(", "global ", "while true:", "= []", "= {}"]):  # noqa: E501
+                if title.lower() in line.lower() or any(
+                    k in line.lower()
+                    for k in [
+                        "eval(",
+                        "exec(",
+                        "pickle",
+                        "os.system",
+                        "open(",
+                        "global ",
+                        "while true:",
+                        "= []",
+                        "= {}",
+                    ]
+                ):  # noqa: E501
                     evidence = line.strip()
                     line_number = idx
                     break
-        findings.append(ReviewFinding(
-            severity=severity.value if isinstance(severity, Severity) else severity,
-            category=category,
-            title=title,
-            description=title,
-            recommendation=recommendation,
-            evidence=evidence,
-            line_number=line_number,
-            confidence=0.9,
-            cwe=cwe,
-        ))
+        findings.append(
+            ReviewFinding(
+                severity=severity.value if isinstance(severity, Severity) else severity,
+                category=category,
+                title=title,
+                description=title,
+                recommendation=recommendation,
+                evidence=evidence,
+                line_number=line_number,
+                confidence=0.9,
+                cwe=cwe,
+            )
+        )
 
 
 code_review_engine = FullStackCodeReviewEngine()

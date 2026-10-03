@@ -17,7 +17,14 @@ class EpisodicMemory:
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._episodes: dict[str, EpisodicMemoryEntry] = {}
 
-    async def store(self, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):  # noqa: E501
+    async def store(
+        self,
+        key: str,
+        value: Any,
+        ttl: int | None = None,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ):  # noqa: E501
         if isinstance(value, dict) and "event_type" in value:
             entry = EpisodicMemoryEntry(
                 episode_id=key,
@@ -32,10 +39,18 @@ class EpisodicMemory:
             self._episodes[key] = entry
             self._persist(entry)
 
-    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:  # noqa: E501
+    async def retrieve(
+        self, key: str, session_id: str | None = None, project_id: str | None = None
+    ) -> Any | None:  # noqa: E501
         return self._episodes.get(key).__dict__ if key in self._episodes else None
 
-    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:  # noqa: E501
+    async def search(
+        self,
+        query: str,
+        limit: int = 10,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ) -> list[dict]:  # noqa: E501
         results: list[dict] = []
         query_lower = query.lower()
         entries = list(self._episodes.values())

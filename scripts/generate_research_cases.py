@@ -1,5 +1,5 @@
 """Generate research real cases."""
-import os
+
 import random
 import re
 from pathlib import Path
@@ -111,10 +111,10 @@ QUESTIONS = [
 ]
 
 SYNTHESIS_TEMPLATES = [
-    "The evidence suggests that {topic} has a significant positive impact on software development outcomes.",
-    "Research indicates mixed results for {topic}, with benefits varying by context and implementation.",
-    "The literature shows emerging consensus that {topic} is becoming essential in modern software engineering.",
-    "Studies reveal that {topic} improves efficiency but introduces new challenges in quality assurance.",
+    "The evidence suggests that {topic} has a significant positive impact on software development outcomes.",  # noqa: E501
+    "Research indicates mixed results for {topic}, with benefits varying by context and implementation.",  # noqa: E501
+    "The literature shows emerging consensus that {topic} is becoming essential in modern software engineering.",  # noqa: E501
+    "Studies reveal that {topic} improves efficiency but introduces new challenges in quality assurance.",  # noqa: E501
     "The evidence base for {topic} is growing, though gaps remain in long-term impact assessment.",
 ]
 
@@ -135,16 +135,22 @@ for idx, question in enumerate(QUESTIONS, start=1):
     input_dir.mkdir(parents=True, exist_ok=True)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    (input_dir / "question.md").write_text(f"# Research Question {idx}\n\n{question}\n", encoding="utf-8")
+    (input_dir / "question.md").write_text(
+        f"# Research Question {idx}\n\n{question}\n", encoding="utf-8"
+    )
 
-    topic = question.split(" of ")[-1].split("?")[0].strip() if " of " in question else question.split(" ")[0]
+    topic = (
+        question.split(" of ")[-1].split("?")[0].strip()
+        if " of " in question
+        else question.split(" ")[0]
+    )
     template = random.choice(SYNTHESIS_TEMPLATES)
     synthesis_text = template.format(topic=topic)
 
     (output_dir / "literature_review.md").write_text(
         f"# Literature Review: {question}\n\n"
         f"## Summary\n\n"
-        f"This literature review examines {len(QUESTIONS)} sources related to the research question.\n\n"
+        f"This literature review examines {len(QUESTIONS)} sources related to the research question.\n\n"  # noqa: E501
         f"## Key Sources\n\n"
         f"- Smith et al. (2024) - Primary findings on {topic}\n"
         f"- Johnson & Williams (2023) - Supporting evidence with methodology analysis\n"
@@ -158,16 +164,16 @@ for idx, question in enumerate(QUESTIONS, start=1):
 
     (output_dir / "synthesis.md").write_text(
         f"# Synthesis: {question}\n\n{synthesis_text}\n\n"
-        f"## Research Gaps\n- Long-term studies are limited.\n- Cross-context validation is needed.\n\n"
-        f"## Future Work\n- Longitudinal studies\n- Multi-site replications\n- Standardized metrics\n",
+        f"## Research Gaps\n- Long-term studies are limited.\n- Cross-context validation is needed.\n\n"  # noqa: E501
+        f"## Future Work\n- Longitudinal studies\n- Multi-site replications\n- Standardized metrics\n",  # noqa: E501
         encoding="utf-8",
     )
 
     (output_dir / "citations.md").write_text(
-        f"# Citations\n\n"
-        f"1. Smith, J., Doe, A., & Lee, K. (2024). Artificial Intelligence in Software Engineering: A Systematic Mapping Study. Journal of AI Research, 45(3), 123-145.\n"
-        f"2. Johnson, M., & Williams, R. (2023). The Impact of Large Language Models on Code Quality. Proceedings of ICSE 2023, 456-467.\n"
-        f"3. Chen, L., Patel, S., & Garcia, M. (2022). Machine Learning for Requirements Engineering: A Comprehensive Review. Requirements Engineering Journal, 28(2), 89-112.\n",
+        "# Citations\n\n"
+        "1. Smith, J., Doe, A., & Lee, K. (2024). Artificial Intelligence in Software Engineering: A Systematic Mapping Study. Journal of AI Research, 45(3), 123-145.\n"  # noqa: E501
+        "2. Johnson, M., & Williams, R. (2023). The Impact of Large Language Models on Code Quality. Proceedings of ICSE 2023, 456-467.\n"  # noqa: E501
+        "3. Chen, L., Patel, S., & Garcia, M. (2022). Machine Learning for Requirements Engineering: A Comprehensive Review. Requirements Engineering Journal, 28(2), 89-112.\n",  # noqa: E501
         encoding="utf-8",
     )
 

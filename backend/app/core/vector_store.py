@@ -26,14 +26,17 @@ class VectorStore:
 
     def embed(self, text: str) -> list[float]:
         from litellm import embedding
+
         model = self.embedding_model
         config = {"model": model, "input": text}
         if model.startswith("lmstudio/"):
-            config.update({
-                "model": f"openai/{model.removeprefix('lmstudio/')}",
-                "api_base": settings.LM_STUDIO_BASE_URL,
-                "api_key": settings.LM_STUDIO_API_KEY,
-            })
+            config.update(
+                {
+                    "model": f"openai/{model.removeprefix('lmstudio/')}",
+                    "api_base": settings.LM_STUDIO_BASE_URL,
+                    "api_key": settings.LM_STUDIO_API_KEY,
+                }
+            )
         response = embedding(**config)
         return response.data[0]["embedding"]
 
@@ -42,11 +45,13 @@ class VectorStore:
         points = []
         for i, doc in enumerate(documents):
             vector = self.embed(doc["content"])
-            points.append(PointStruct(
-                id=i,
-                vector=vector,
-                payload={"content": doc["content"], "metadata": doc.get("metadata", {})},
-            ))
+            points.append(
+                PointStruct(
+                    id=i,
+                    vector=vector,
+                    payload={"content": doc["content"], "metadata": doc.get("metadata", {})},
+                )
+            )
         self.client.upsert(collection_name=self.collection_name, points=points)
 
     def search(self, query: str, limit: int = 5) -> list[dict]:

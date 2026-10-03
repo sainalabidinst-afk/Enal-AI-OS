@@ -64,26 +64,30 @@ class SpecGenerator:
         # Build user journey from user stories.
         journeys: list[dict[str, Any]] = []
         for story in user_stories:
-            journeys.append({
-                "id": story.id,
-                "title": story.title,
-                "acceptance_criteria": story.acceptance_criteria,
-                "priority": story.priority.value,
-                "story_points": story.story_points,
-            })
+            journeys.append(
+                {
+                    "id": story.id,
+                    "title": story.title,
+                    "acceptance_criteria": story.acceptance_criteria,
+                    "priority": story.priority.value,
+                    "story_points": story.story_points,
+                }
+            )
 
         # Build actor-system interactions from use cases.
         interactions: list[dict[str, Any]] = []
         for uc in use_cases:
-            interactions.append({
-                "id": uc.id,
-                "name": uc.name,
-                "primary_actor": uc.primary_actor,
-                "preconditions": uc.preconditions,
-                "postconditions": uc.postconditions,
-                "main_scenario_steps": len(uc.main_scenario),
-                "exception_count": len(uc.exceptions),
-            })
+            interactions.append(
+                {
+                    "id": uc.id,
+                    "name": uc.name,
+                    "primary_actor": uc.primary_actor,
+                    "preconditions": uc.preconditions,
+                    "postconditions": uc.postconditions,
+                    "main_scenario_steps": len(uc.main_scenario),
+                    "exception_count": len(uc.exceptions),
+                }
+            )
 
         return {
             "project": context.project_name,
@@ -167,10 +171,18 @@ class SpecGenerator:
     def _extract_entity(self, text: str) -> str | None:
         """Extract entity name from requirement text."""
         entity_keywords = {
-            "user": "User", "customer": "Customer", "order": "Order",
-            "product": "Product", "invoice": "Invoice", "payment": "Payment",
-            "account": "Account", "transaction": "Transaction", "report": "Report",
-            "notification": "Notification", "session": "Session", "file": "File",
+            "user": "User",
+            "customer": "Customer",
+            "order": "Order",
+            "product": "Product",
+            "invoice": "Invoice",
+            "payment": "Payment",
+            "account": "Account",
+            "transaction": "Transaction",
+            "report": "Report",
+            "notification": "Notification",
+            "session": "Session",
+            "file": "File",
         }
         lowered = text.lower()
         for keyword, entity in entity_keywords.items():
@@ -202,4 +214,5 @@ class SpecGenerator:
     def _timestamp(self) -> str:
         """Get current timestamp string."""
         from datetime import datetime
+
         return datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")

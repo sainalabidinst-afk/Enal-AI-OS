@@ -190,11 +190,13 @@ class GoldenTestGenerator:
                 f"    # TODO: Implement golden test for {target_pack}\n"
                 f"    assert True\n"
             )
-            templates = [{
-                "name": f"test_{target_pack}_basic",
-                "description": f"Verify {target_pack} basic functionality",
-                "template": template,
-            }]
+            templates = [
+                {
+                    "name": f"test_{target_pack}_basic",
+                    "description": f"Verify {target_pack} basic functionality",
+                    "template": template,
+                }
+            ]
 
         artifacts: list[QATestArtifact] = []
         for tpl in templates:

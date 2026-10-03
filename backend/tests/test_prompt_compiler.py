@@ -1,4 +1,3 @@
-
 import pytest
 
 from backend.app.core.prompt_compiler import PromptCompiler
@@ -13,15 +12,36 @@ class TestPromptCompiler:
     @pytest.mark.asyncio
     async def test_compile_returns_string(self, monkeypatch):
         import backend.app.core.prompt_compiler as pc_module
+
         monkeypatch.setattr(pc_module, "settings", FakeConfig)
 
         async def fake_acomplete(*args, **kwargs):
-            return type("Resp", (), {"choices": [type("Choice", (), {"message": type("Message", (), {"content": "{}"})()})]})()  # noqa: E501
+            return type(
+                "Resp",
+                (),
+                {
+                    "choices": [
+                        type("Choice", (), {"message": type("Message", (), {"content": "{}"})()})
+                    ]
+                },
+            )()  # noqa: E501
 
-        monkeypatch.setattr(pc_module, "model_router", type("M", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
-        monkeypatch.setattr(pc_module, "memory_manager", type("MM", (), {"search": staticmethod(lambda *a, **k: [])})())  # noqa: E501
-        monkeypatch.setattr(pc_module, "skill_registry", type("SR", (), {"list_all": staticmethod(lambda: [])})())  # noqa: E501
-        monkeypatch.setattr(pc_module, "experience_learning", type("EL", (), {"gather": staticmethod(lambda *a, **k: [])})())  # noqa: E501
+        monkeypatch.setattr(
+            pc_module, "model_router", type("M", (), {"acomplete": staticmethod(fake_acomplete)})()
+        )  # noqa: E501
+        monkeypatch.setattr(
+            pc_module,
+            "memory_manager",
+            type("MM", (), {"search": staticmethod(lambda *a, **k: [])})(),
+        )  # noqa: E501
+        monkeypatch.setattr(
+            pc_module, "skill_registry", type("SR", (), {"list_all": staticmethod(lambda: [])})()
+        )  # noqa: E501
+        monkeypatch.setattr(
+            pc_module,
+            "experience_learning",
+            type("EL", (), {"gather": staticmethod(lambda *a, **k: [])})(),
+        )  # noqa: E501
         compiler = PromptCompiler()
         result = await compiler.compile("do something", "test-agent")
         assert isinstance(result, str)
@@ -30,6 +50,7 @@ class TestPromptCompiler:
     @pytest.mark.asyncio
     async def test_extract_intent_returns_fallback_on_bad_json(self, monkeypatch):
         import backend.app.core.prompt_compiler as pc_module
+
         monkeypatch.setattr(pc_module, "settings", FakeConfig)
 
         class FakeResponse:
@@ -41,7 +62,9 @@ class TestPromptCompiler:
         async def fake_acomplete(*args, **kwargs):
             return FakeResponse()
 
-        monkeypatch.setattr(pc_module, "model_router", type("M", (), {"acomplete": staticmethod(fake_acomplete)})())  # noqa: E501
+        monkeypatch.setattr(
+            pc_module, "model_router", type("M", (), {"acomplete": staticmethod(fake_acomplete)})()
+        )  # noqa: E501
         compiler = PromptCompiler()
         intent = await compiler._extract_intent("test input")
         assert intent["primary_intent"] == "test input"
@@ -49,8 +72,11 @@ class TestPromptCompiler:
 
     def test_get_constraints_returns_dict(self, monkeypatch):
         import backend.app.core.prompt_compiler as pc_module
+
         monkeypatch.setattr(pc_module, "settings", FakeConfig)
-        monkeypatch.setattr(pc_module, "skill_registry", type("SR", (), {"list_all": staticmethod(lambda: [])})())  # noqa: E501
+        monkeypatch.setattr(
+            pc_module, "skill_registry", type("SR", (), {"list_all": staticmethod(lambda: [])})()
+        )  # noqa: E501
         compiler = PromptCompiler()
         constraints = compiler._get_constraints("test-agent")
         assert constraints["agent_type"] == "test-agent"
@@ -60,8 +86,17 @@ class TestPromptCompiler:
     @pytest.mark.asyncio
     async def test_gather_memory_handles_exceptions(self, monkeypatch):
         import backend.app.core.prompt_compiler as pc_module
+
         monkeypatch.setattr(pc_module, "settings", FakeConfig)
-        monkeypatch.setattr(pc_module, "memory_manager", type("MM", (), {"search": staticmethod(lambda *a, **k: (_ for _ in ()).throw(Exception("fail")))})())  # noqa: E501
+        monkeypatch.setattr(
+            pc_module,
+            "memory_manager",
+            type(
+                "MM",
+                (),
+                {"search": staticmethod(lambda *a, **k: (_ for _ in ()).throw(Exception("fail")))},
+            )(),
+        )  # noqa: E501
         compiler = PromptCompiler()
         memories = await compiler._gather_memory("test")
         assert memories == []
@@ -74,7 +109,11 @@ class TestPromptCompiler:
             Skill(name="s1", category="test", agent="agent-a", description="d", tools=["tool1"]),
             Skill(name="s2", category="test", agent="agent-b", description="d", tools=["tool2"]),
         ]
-        monkeypatch.setattr(pc_module, "skill_registry", type("SR", (), {"list_all": staticmethod(lambda: fake_skills)})())  # noqa: E501
+        monkeypatch.setattr(
+            pc_module,
+            "skill_registry",
+            type("SR", (), {"list_all": staticmethod(lambda: fake_skills)})(),
+        )  # noqa: E501
         compiler = PromptCompiler()
         tools = compiler._get_tools_for_agent("agent-a")
         assert tools == ["tool1"]
@@ -82,7 +121,12 @@ class TestPromptCompiler:
     @pytest.mark.asyncio
     async def test_gather_experience_returns_list(self, monkeypatch):
         import backend.app.core.prompt_compiler as pc_module
-        monkeypatch.setattr(pc_module, "experience_learning", type("EL", (), {"gather": staticmethod(lambda *a, **k: [])})())  # noqa: E501
+
+        monkeypatch.setattr(
+            pc_module,
+            "experience_learning",
+            type("EL", (), {"gather": staticmethod(lambda *a, **k: [])})(),
+        )  # noqa: E501
         compiler = PromptCompiler()
         experience = await compiler._gather_experience("test", "proj-1")
         assert experience == []

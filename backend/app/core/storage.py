@@ -30,6 +30,7 @@ def _get_minio():
     try:
         from minio import Minio
         from minio.error import S3Error
+
         return Minio, S3Error
     except ImportError as e:
         raise StorageError(

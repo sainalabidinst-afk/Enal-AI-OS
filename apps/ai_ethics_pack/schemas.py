@@ -99,12 +99,14 @@ class AIEthicsGovernanceReport(BaseModel):
 class AIEthicsRecord(BaseModel):
     pack_id: str = "ai-ethics-governance"
     version: str = "2.5.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "fairness_auditing",
-        "bias_detection",
-        "explainability",
-        "compliance_check",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "fairness_auditing",
+            "bias_detection",
+            "explainability",
+            "compliance_check",
+        ]
+    )
 
 
 __all__ = [

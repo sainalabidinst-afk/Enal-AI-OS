@@ -264,7 +264,9 @@ class ResearchEngine:
                 "title": e.title,
                 "content": e.content,
                 "confidence": e.confidence,
-                "source_type": e.source_type.value if hasattr(e.source_type, "value") else str(e.source_type),  # noqa: E501
+                "source_type": e.source_type.value
+                if hasattr(e.source_type, "value")
+                else str(e.source_type),  # noqa: E501
             }
             for e in report.evidence
         ]
@@ -273,13 +275,15 @@ class ResearchEngine:
         """Analyze findings from evidence. Compatibility shim for society workers."""
         findings: list[dict[str, Any]] = []
         for i, ev in enumerate(evidence[:5]):
-            findings.append({
-                "id": f"finding-{i+1}",
-                "title": f"Finding for {query}",
-                "description": (ev.get("content") or "")[:200],
-                "confidence": ev.get("confidence", 0.5),
-                "evidence_ids": [ev.get("id", "")],
-            })
+            findings.append(
+                {
+                    "id": f"finding-{i + 1}",
+                    "title": f"Finding for {query}",
+                    "description": (ev.get("content") or "")[:200],
+                    "confidence": ev.get("confidence", 0.5),
+                    "evidence_ids": [ev.get("id", "")],
+                }
+            )
         return {
             "query": query,
             "findings_count": len(findings),
@@ -305,25 +309,51 @@ class ResearchEngine:
             lines.append(f"- {finding.get('title', '')}: {finding.get('description', '')}")
         return "\n".join(lines)
 
-    async def _literature_review(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _literature_review(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         evidence = self._gather_evidence(request, query_terms)
         findings = self._generate_findings(evidence, request.query)
-        contradictions = self._contradiction_detector.detect(evidence) if request.include_contradictions else []  # noqa: E501
-        citations = self._citation_assessor.assess(evidence, request.citation_style) if request.include_citations else []  # noqa: E501
-        confidence, level, uncertainty = self._confidence_estimator.estimate(evidence, contradictions)  # noqa: E501
-        synthesis = self._synthesis_engine.synthesize(request.query, evidence, findings, contradictions)  # noqa: E501
+        contradictions = (
+            self._contradiction_detector.detect(evidence) if request.include_contradictions else []
+        )  # noqa: E501
+        citations = (
+            self._citation_assessor.assess(evidence, request.citation_style)
+            if request.include_citations
+            else []
+        )  # noqa: E501
+        confidence, level, uncertainty = self._confidence_estimator.estimate(
+            evidence, contradictions
+        )  # noqa: E501
+        synthesis = self._synthesis_engine.synthesize(
+            request.query, evidence, findings, contradictions
+        )  # noqa: E501
 
         report = self._build_report(
-            request, evidence, findings, contradictions, citations, synthesis, confidence, uncertainty, started  # noqa: E501
+            request,
+            evidence,
+            findings,
+            contradictions,
+            citations,
+            synthesis,
+            confidence,
+            uncertainty,
+            started,  # noqa: E501
         )
         self._record_quality(request, evidence, findings, contradictions, citations, confidence)
         return report
 
-    async def _evidence_gathering(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _evidence_gathering(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         evidence = self._gather_evidence(request, query_terms)
         findings = self._generate_findings(evidence, request.query)
-        contradictions = self._contradiction_detector.detect(evidence) if request.include_contradictions else []  # noqa: E501
-        confidence, level, uncertainty = self._confidence_estimator.estimate(evidence, contradictions)  # noqa: E501
+        contradictions = (
+            self._contradiction_detector.detect(evidence) if request.include_contradictions else []
+        )  # noqa: E501
+        confidence, level, uncertainty = self._confidence_estimator.estimate(
+            evidence, contradictions
+        )  # noqa: E501
 
         report = ResearchReport(
             request_id=request.request_id,
@@ -334,16 +364,26 @@ class ResearchEngine:
             contradictions=contradictions,
             confidence=confidence,
             uncertainty_factors=uncertainty,
-            report_markdown=self._generate_evidence_report(request.query, evidence, findings, contradictions, confidence, uncertainty),  # noqa: E501
-            raw={"evidence_count": len(evidence), "finding_count": len(findings), "contradiction_count": len(contradictions)},  # noqa: E501
+            report_markdown=self._generate_evidence_report(
+                request.query, evidence, findings, contradictions, confidence, uncertainty
+            ),  # noqa: E501
+            raw={
+                "evidence_count": len(evidence),
+                "finding_count": len(findings),
+                "contradiction_count": len(contradictions),
+            },  # noqa: E501
         )
         self._record_quality(request, evidence, findings, contradictions, [], confidence)
         return report
 
-    async def _contradiction_analysis(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _contradiction_analysis(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         evidence = self._gather_evidence(request, query_terms)
         contradictions = self._contradiction_detector.detect(evidence)
-        confidence, level, uncertainty = self._confidence_estimator.estimate(evidence, contradictions)  # noqa: E501
+        confidence, level, uncertainty = self._confidence_estimator.estimate(
+            evidence, contradictions
+        )  # noqa: E501
 
         report = ResearchReport(
             request_id=request.request_id,
@@ -353,13 +393,17 @@ class ResearchEngine:
             contradictions=contradictions,
             confidence=confidence,
             uncertainty_factors=uncertainty,
-            report_markdown=self._generate_contradiction_report(request.query, evidence, contradictions, confidence, uncertainty),  # noqa: E501
+            report_markdown=self._generate_contradiction_report(
+                request.query, evidence, contradictions, confidence, uncertainty
+            ),  # noqa: E501
             raw={"contradiction_count": len(contradictions)},
         )
         self._record_quality(request, evidence, [], contradictions, [], confidence)
         return report
 
-    async def _citation_assessment(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _citation_assessment(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         evidence = self._gather_evidence(request, query_terms)
         citations = self._citation_assessor.assess(evidence, request.citation_style)
         avg_quality = sum(c.overall_quality for c in citations) / max(1, len(citations))
@@ -378,11 +422,17 @@ class ResearchEngine:
         self._record_quality(request, evidence, [], [], citations, avg_quality)
         return report
 
-    async def _confidence_estimation(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _confidence_estimation(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         evidence = self._gather_evidence(request, query_terms)
         findings = self._generate_findings(evidence, request.query)
-        contradictions = self._contradiction_detector.detect(evidence) if request.include_contradictions else []  # noqa: E501
-        confidence, level, uncertainty = self._confidence_estimator.estimate(evidence, contradictions)  # noqa: E501
+        contradictions = (
+            self._contradiction_detector.detect(evidence) if request.include_contradictions else []
+        )  # noqa: E501
+        confidence, level, uncertainty = self._confidence_estimator.estimate(
+            evidence, contradictions
+        )  # noqa: E501
 
         report = ResearchReport(
             request_id=request.request_id,
@@ -393,18 +443,32 @@ class ResearchEngine:
             contradictions=contradictions,
             confidence=confidence,
             uncertainty_factors=uncertainty,
-            report_markdown=self._generate_confidence_report(request.query, confidence, level, uncertainty, evidence, findings),  # noqa: E501
-            raw={"confidence": confidence, "level": level.value, "uncertainty_count": len(uncertainty)},  # noqa: E501
+            report_markdown=self._generate_confidence_report(
+                request.query, confidence, level, uncertainty, evidence, findings
+            ),  # noqa: E501
+            raw={
+                "confidence": confidence,
+                "level": level.value,
+                "uncertainty_count": len(uncertainty),
+            },  # noqa: E501
         )
         self._record_quality(request, evidence, findings, contradictions, [], confidence)
         return report
 
-    async def _synthesis(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _synthesis(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         evidence = self._gather_evidence(request, query_terms)
         findings = self._generate_findings(evidence, request.query)
-        contradictions = self._contradiction_detector.detect(evidence) if request.include_contradictions else []  # noqa: E501
-        confidence, level, uncertainty = self._confidence_estimator.estimate(evidence, contradictions)  # noqa: E501
-        synthesis = self._synthesis_engine.synthesize(request.query, evidence, findings, contradictions)  # noqa: E501
+        contradictions = (
+            self._contradiction_detector.detect(evidence) if request.include_contradictions else []
+        )  # noqa: E501
+        confidence, level, uncertainty = self._confidence_estimator.estimate(
+            evidence, contradictions
+        )  # noqa: E501
+        synthesis = self._synthesis_engine.synthesize(
+            request.query, evidence, findings, contradictions
+        )  # noqa: E501
 
         report = ResearchReport(
             request_id=request.request_id,
@@ -422,7 +486,9 @@ class ResearchEngine:
         self._record_quality(request, evidence, findings, contradictions, [], confidence)
         return report
 
-    async def _report_generation(self, request: ResearchRequest, query_terms: list[str], started: datetime) -> ResearchReport:  # noqa: E501
+    async def _report_generation(
+        self, request: ResearchRequest, query_terms: list[str], started: datetime
+    ) -> ResearchReport:  # noqa: E501
         return await self._literature_review(request, query_terms, started)
 
     def _gather_evidence(self, request: ResearchRequest, query_terms: list[str]) -> list[Evidence]:
@@ -431,7 +497,7 @@ class ResearchEngine:
         max_sources = min(request.max_sources, len(ranked))
         min_conf = request.min_confidence
         filtered = [ev for ev in ranked[:max_sources] if ev.confidence >= min_conf]
-        return filtered or ranked[:max(1, max_sources)]
+        return filtered or ranked[: max(1, max_sources)]
 
     def _generate_findings(self, evidence_list: list[Evidence], query: str) -> list[Finding]:
         findings: list[Finding] = []
@@ -439,25 +505,29 @@ class ResearchEngine:
             return findings
 
         primary = evidence_list[0]
-        findings.append(Finding(
-            title=f"Primary Finding: {query}",
-            description=primary.content[:280],
-            evidence_ids=[primary.id],
-            confidence=primary.confidence,
-            severity=FindingSeverity.high,
-            category="primary",
-        ))
+        findings.append(
+            Finding(
+                title=f"Primary Finding: {query}",
+                description=primary.content[:280],
+                evidence_ids=[primary.id],
+                confidence=primary.confidence,
+                severity=FindingSeverity.high,
+                category="primary",
+            )
+        )
 
         if len(evidence_list) > 1:
             secondary = evidence_list[1]
-            findings.append(Finding(
-                title="Supporting Evidence",
-                description=secondary.content[:220],
-                evidence_ids=[secondary.id],
-                confidence=secondary.confidence * 0.95,
-                severity=FindingSeverity.medium,
-                category="supporting",
-            ))
+            findings.append(
+                Finding(
+                    title="Supporting Evidence",
+                    description=secondary.content[:220],
+                    evidence_ids=[secondary.id],
+                    confidence=secondary.confidence * 0.95,
+                    severity=FindingSeverity.medium,
+                    category="supporting",
+                )
+            )
 
         return findings
 
@@ -487,7 +557,14 @@ class ResearchEngine:
             confidence=confidence,
             uncertainty_factors=uncertainty,
             report_markdown=self._generate_full_report(
-                request.query, evidence, findings, contradictions, citations, synthesis, confidence, uncertainty  # noqa: E501
+                request.query,
+                evidence,
+                findings,
+                contradictions,
+                citations,
+                synthesis,
+                confidence,
+                uncertainty,  # noqa: E501
             ),
             raw={
                 "latency_ms": round(latency_ms, 2),
@@ -516,10 +593,12 @@ class ResearchEngine:
         if synthesis:
             lines.append(synthesis.narrative)
         else:
-            lines.extend([
-                "## Evidence",
-                f"Retrieved {len(evidence)} sources.",
-            ])
+            lines.extend(
+                [
+                    "## Evidence",
+                    f"Retrieved {len(evidence)} sources.",
+                ]
+            )
             for ev in evidence[:5]:
                 lines.append(f"- **{ev.title}** ({ev.year}) — confidence: {ev.confidence:.0%}")
 
@@ -529,7 +608,9 @@ class ResearchEngine:
                 lines.append(f"- **{finding.title}**: {finding.description}")
 
         if contradictions:
-            lines.extend(["", "## Contradictions", f"Detected {len(contradictions)} contradictions."])  # noqa: E501
+            lines.extend(
+                ["", "## Contradictions", f"Detected {len(contradictions)} contradictions."]
+            )  # noqa: E501
             for c in contradictions[:5]:
                 lines.append(f"- {c.description}")
 
@@ -538,29 +619,64 @@ class ResearchEngine:
             for citation in citations[:10]:
                 lines.append(f"- {citation.text}")
 
-        lines.extend([
-            "",
-            "## Confidence Assessment",
-            f"- Overall confidence: {confidence:.0%}",
-            f"- Uncertainty factors: {', '.join(uncertainty) if uncertainty else 'None identified'}",  # noqa: E501
-        ])
+        lines.extend(
+            [
+                "",
+                "## Confidence Assessment",
+                f"- Overall confidence: {confidence:.0%}",
+                f"- Uncertainty factors: {', '.join(uncertainty) if uncertainty else 'None identified'}",  # noqa: E501
+            ]
+        )
 
         return "\n".join(lines)
 
-    def _generate_evidence_report(self, query: str, evidence: list[Evidence], findings: list[Finding], contradictions: list[Contradiction], confidence: float, uncertainty: list[str]) -> str:  # noqa: E501
-        return self._generate_full_report(query, evidence, findings, contradictions, [], None, confidence, uncertainty)  # noqa: E501
+    def _generate_evidence_report(
+        self,
+        query: str,
+        evidence: list[Evidence],
+        findings: list[Finding],
+        contradictions: list[Contradiction],
+        confidence: float,
+        uncertainty: list[str],
+    ) -> str:  # noqa: E501
+        return self._generate_full_report(
+            query, evidence, findings, contradictions, [], None, confidence, uncertainty
+        )  # noqa: E501
 
-    def _generate_contradiction_report(self, query: str, evidence: list[Evidence], contradictions: list[Contradiction], confidence: float, uncertainty: list[str]) -> str:  # noqa: E501
-        lines = [f"# Contradiction Analysis: {query}", "", "## Summary", f"Analyzed {len(evidence)} sources and detected {len(contradictions)} contradictions.", ""]  # noqa: E501
+    def _generate_contradiction_report(
+        self,
+        query: str,
+        evidence: list[Evidence],
+        contradictions: list[Contradiction],
+        confidence: float,
+        uncertainty: list[str],
+    ) -> str:  # noqa: E501
+        lines = [
+            f"# Contradiction Analysis: {query}",
+            "",
+            "## Summary",
+            f"Analyzed {len(evidence)} sources and detected {len(contradictions)} contradictions.",
+            "",
+        ]  # noqa: E501
         if contradictions:
             lines.extend(["## Contradictions"])
             for c in contradictions:
-                lines.append(f"- **{c.type.value}**: {c.description} (severity: {c.severity.value})")  # noqa: E501
+                lines.append(
+                    f"- **{c.type.value}**: {c.description} (severity: {c.severity.value})"
+                )  # noqa: E501
         lines.extend(["", f"## Confidence: {confidence:.0%}"])
         return "\n".join(lines)
 
-    def _generate_citation_report(self, query: str, citations: list[Citation], avg_quality: float) -> str:  # noqa: E501
-        lines = [f"# Citation Assessment: {query}", "", "## Summary", f"Assessed {len(citations)} citations with average quality {avg_quality:.0%}.", ""]  # noqa: E501
+    def _generate_citation_report(
+        self, query: str, citations: list[Citation], avg_quality: float
+    ) -> str:  # noqa: E501
+        lines = [
+            f"# Citation Assessment: {query}",
+            "",
+            "## Summary",
+            f"Assessed {len(citations)} citations with average quality {avg_quality:.0%}.",
+            "",
+        ]  # noqa: E501
         if citations:
             lines.extend(["## Citations"])
             for c in citations:
@@ -569,7 +685,15 @@ class ResearchEngine:
                     lines.append(f"  - Issues: {', '.join(c.issues)}")
         return "\n".join(lines)
 
-    def _generate_confidence_report(self, query: str, confidence: float, level: ConfidenceLevel, uncertainty: list[str], evidence: list[Evidence], findings: list[Finding]) -> str:  # noqa: E501
+    def _generate_confidence_report(
+        self,
+        query: str,
+        confidence: float,
+        level: ConfidenceLevel,
+        uncertainty: list[str],
+        evidence: list[Evidence],
+        findings: list[Finding],
+    ) -> str:  # noqa: E501
         lines = [
             f"# Confidence Estimation: {query}",
             "",

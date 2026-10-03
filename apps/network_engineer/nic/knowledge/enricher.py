@@ -48,13 +48,15 @@ class KnowledgeEnricher:
             explanation = self._build_explanation(concept, definition, ast)
             references = list(definition.references)
 
-            tags.append(ConceptTag(
-                concept=concept,
-                confidence=confidence,
-                evidence=evidence,
-                explanation=explanation,
-                references=references,
-            ))
+            tags.append(
+                ConceptTag(
+                    concept=concept,
+                    confidence=confidence,
+                    evidence=evidence,
+                    explanation=explanation,
+                    references=references,
+                )
+            )
 
         logger.info("Enriched AST with %d concept tags", len(tags))
         return tags
@@ -97,15 +99,29 @@ class KnowledgeEnricher:
             return definition.description
         return None
 
-    def get_cross_vendor_mapping(self, vendor_concept: str, source_vendor: str, target_vendor: str) -> str | None:  # noqa: E501
+    def get_cross_vendor_mapping(
+        self, vendor_concept: str, source_vendor: str, target_vendor: str
+    ) -> str | None:  # noqa: E501
         """Get the equivalent concept name in another vendor."""
         concept_map: dict[str, dict[str, str]] = {
             "hsrp": {"cisco": "hsrp", "fortinet": "ha", "mikrotik": "vrrp"},
             "vrrp": {"cisco": "hsrp", "fortinet": "ha", "mikrotik": "vrrp"},
             "ha": {"cisco": "hsrp", "fortinet": "ha", "mikrotik": "vrrp"},
-            "acl": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},  # noqa: E501
-            "firewall_policy": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},  # noqa: E501
-            "firewall_filter": {"cisco": "access-list", "fortinet": "firewall policy", "mikrotik": "firewall filter"},  # noqa: E501
+            "acl": {
+                "cisco": "access-list",
+                "fortinet": "firewall policy",
+                "mikrotik": "firewall filter",
+            },  # noqa: E501
+            "firewall_policy": {
+                "cisco": "access-list",
+                "fortinet": "firewall policy",
+                "mikrotik": "firewall filter",
+            },  # noqa: E501
+            "firewall_filter": {
+                "cisco": "access-list",
+                "fortinet": "firewall policy",
+                "mikrotik": "firewall filter",
+            },  # noqa: E501
             "nat": {"cisco": "ip nat", "fortinet": "nat", "mikrotik": "nat"},
         }
 
@@ -115,7 +131,9 @@ class KnowledgeEnricher:
             return mapping.get(target_vendor)
         return None
 
-    def _build_explanation(self, concept: UniversalConcept, definition: ConceptDefinition, ast: Any) -> str:  # noqa: E501
+    def _build_explanation(
+        self, concept: UniversalConcept, definition: ConceptDefinition, ast: Any
+    ) -> str:  # noqa: E501
         explanations = {
             UniversalConcept.HIGH_AVAILABILITY: (
                 "High Availability (HA) ensures network services remain available during failures. "

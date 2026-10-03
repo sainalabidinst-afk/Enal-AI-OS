@@ -5,6 +5,7 @@ Network Engineer Benchmark V2
 Benchmark using NetworkEngineerApp.analyze_config() directly.
 Scores cases by matching actual issues against expected findings.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -55,12 +56,14 @@ class NetworkBenchmarkV2Report:
         }
 
 
-def _score_case(actual_issues: list[dict[str, Any]], expected_findings: list[str], expected: dict[str, Any]) -> tuple[float, int, int]:
+def _score_case(
+    actual_issues: list[dict[str, Any]], expected_findings: list[str], expected: dict[str, Any]
+) -> tuple[float, int, int]:
     if not expected_findings:
         return 1.0, 0, 0
     # Build a rich text of all actual issues (severity, category, description, recommendation)
     actual_text = " ".join(
-        f"{i.get('severity', '')} {i.get('category', '')} {i.get('description', '')} {i.get('recommendation', '')}"
+        f"{i.get('severity', '')} {i.get('category', '')} {i.get('description', '')} {i.get('recommendation', '')}"  # noqa: E501
         for i in actual_issues
     ).lower()
 
@@ -97,7 +100,14 @@ def _expand_expected(expected_findings: list[str]) -> dict[str, list[str]]:
         "access list": ["access", "acl", "access-list"],
         "acl": ["access", "acl", "access-list", "access control"],
         "security issue detected": ["security", "password", "telnet", "default", "exposed", "weak"],
-        "insecure configuration": ["security", "insecure", "password", "exposed", "weak", "default"],
+        "insecure configuration": [
+            "security",
+            "insecure",
+            "password",
+            "exposed",
+            "weak",
+            "default",
+        ],
         "routing": ["routing", "route", "ospf", "bgp", "default route", "static route"],
         "ospf": ["ospf", "routing", "area"],
         "bgp": ["bgp", "peer", "routing"],
@@ -116,7 +126,14 @@ def _expand_expected(expected_findings: list[str]) -> dict[str, list[str]]:
         "traffic shaping": ["queue", "traffic", "shaping", "policy-map"],
         "priority": ["priority", "queue", "qos"],
         "ha": ["hsrp", "vrrp", "high availability", "failover", "standby", "redundancy"],
-        "high availability": ["hsrp", "vrrp", "high availability", "failover", "standby", "redundancy"],
+        "high availability": [
+            "hsrp",
+            "vrrp",
+            "high availability",
+            "failover",
+            "standby",
+            "redundancy",
+        ],
         "failover": ["hsrp", "vrrp", "failover", "standby", "redundancy", "ha"],
         "vrrp": ["vrrp", "hsrp", "standby", "high availability"],
         "hsrp": ["hsrp", "standby", "vrrp", "high availability"],
@@ -161,7 +178,9 @@ async def _run_case(app: Any, case: Any) -> dict[str, Any]:
         config_text = config_path.read_text(encoding="utf-8", errors="ignore")
         result = await app.analyze_config(config_text)
         actual_issues = result.get("issues", [])
-        score, matched, expected_count = _score_case(actual_issues, case.expected_findings, getattr(case, "expected", {}))
+        score, matched, expected_count = _score_case(
+            actual_issues, case.expected_findings, getattr(case, "expected", {})
+        )
         passed = score >= 0.8
         elapsed = int((datetime.utcnow() - started).total_seconds() * 1000)
         return {
@@ -208,8 +227,12 @@ async def run_network_benchmark_v2() -> NetworkBenchmarkV2Report:
     report.passed_cases = passed
     report.failed_cases = len(report.results) - passed
     report.pass_rate = round(passed / max(len(report.results), 1), 4)
-    report.avg_score = round(sum(r["score"] for r in report.results) / max(len(report.results), 1), 4)
-    report.avg_latency_ms = round(sum(r["execution_time_ms"] for r in report.results) / max(len(report.results), 1), 2)
+    report.avg_score = round(
+        sum(r["score"] for r in report.results) / max(len(report.results), 1), 4
+    )
+    report.avg_latency_ms = round(
+        sum(r["execution_time_ms"] for r in report.results) / max(len(report.results), 1), 2
+    )
     for vendor, entries in vendor_map.items():
         v_passed = sum(1 for e in entries if e["passed"])
         report.vendor_breakdown[vendor] = {

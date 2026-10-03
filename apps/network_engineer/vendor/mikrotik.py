@@ -105,107 +105,127 @@ class MikroTikAdapter(VendorAdapter):
 
         # Interfaces
         for iface in config.interfaces:
-            ast.interfaces.append(UniversalInterface(
-                name=iface.name,
-                type=InterfaceType.ETHERNET,
-                mac_address=iface.mac_address,
-                comment=iface.comment,
-                vendor_specific={"disabled": iface.disabled},
-            ))
+            ast.interfaces.append(
+                UniversalInterface(
+                    name=iface.name,
+                    type=InterfaceType.ETHERNET,
+                    mac_address=iface.mac_address,
+                    comment=iface.comment,
+                    vendor_specific={"disabled": iface.disabled},
+                )
+            )
 
         # IP Addresses
         for ip in config.ip_addresses:
-            ast.ip_addresses.append(UniversalIPAddress(
-                address=ip.address,
-                network=ip.network,
-                interface=ip.interface,
-                comment=ip.comment,
-            ))
+            ast.ip_addresses.append(
+                UniversalIPAddress(
+                    address=ip.address,
+                    network=ip.network,
+                    interface=ip.interface,
+                    comment=ip.comment,
+                )
+            )
 
         # Routes
         for route in config.routes:
-            ast.routes.append(UniversalRoute(
-                destination=route.dst_address,
-                gateway=route.gateway,
-                distance=int(route.distance) if route.distance else 1,
-                comment=route.comment,
-            ))
+            ast.routes.append(
+                UniversalRoute(
+                    destination=route.dst_address,
+                    gateway=route.gateway,
+                    distance=int(route.distance) if route.distance else 1,
+                    comment=route.comment,
+                )
+            )
 
         # Firewall Rules
         for rule in config.firewall_rules:
             fw_action = self._map_firewall_action(rule.action)
-            ast.firewall_rules.append(UniversalFirewallRule(
-                id=f"fw-{len(ast.firewall_rules)}",
-                chain=rule.chain,
-                action=fw_action,
-                src_address=rule.src_address,
-                dst_address=rule.dst_address,
-                protocol=rule.protocol,
-                port=rule.port,
-                in_interface=rule.in_interface,
-                out_interface=rule.out_interface,
-                comment=rule.comment,
-            ))
+            ast.firewall_rules.append(
+                UniversalFirewallRule(
+                    id=f"fw-{len(ast.firewall_rules)}",
+                    chain=rule.chain,
+                    action=fw_action,
+                    src_address=rule.src_address,
+                    dst_address=rule.dst_address,
+                    protocol=rule.protocol,
+                    port=rule.port,
+                    in_interface=rule.in_interface,
+                    out_interface=rule.out_interface,
+                    comment=rule.comment,
+                )
+            )
 
         # NAT Rules
         for nat_rule in config.nat_rules:
             nat_action = self._map_nat_action(nat_rule.action)
-            ast.nat_rules.append(UniversalNATRule(
-                id=f"nat-{len(ast.nat_rules)}",
-                chain=nat_rule.chain,
-                action=nat_action,
-                src_address=nat_rule.src_address,
-                dst_address=nat_rule.dst_address,
-                in_interface=nat_rule.in_interface,
-                out_interface=nat_rule.out_interface,
-                comment=nat_rule.comment,
-            ))
+            ast.nat_rules.append(
+                UniversalNATRule(
+                    id=f"nat-{len(ast.nat_rules)}",
+                    chain=nat_rule.chain,
+                    action=nat_action,
+                    src_address=nat_rule.src_address,
+                    dst_address=nat_rule.dst_address,
+                    in_interface=nat_rule.in_interface,
+                    out_interface=nat_rule.out_interface,
+                    comment=nat_rule.comment,
+                )
+            )
 
         # DHCP Servers
         # DHCP Servers
         for dhcp in config.dhcp_servers:
-            ast.dhcp_servers.append(UniversalDHCPServer(
-                name=dhcp.name,
-                interface=dhcp.interface,
-                address_pool=dhcp.address_pool,
-                lease_time=dhcp.lease_time,
-                comment=dhcp.comment,
-            ))
+            ast.dhcp_servers.append(
+                UniversalDHCPServer(
+                    name=dhcp.name,
+                    interface=dhcp.interface,
+                    address_pool=dhcp.address_pool,
+                    lease_time=dhcp.lease_time,
+                    comment=dhcp.comment,
+                )
+            )
 
         # Hotspots
         for hs in config.hotspot_configs:
-            ast.hotspots.append(UniversalHotspot(
-                name=hs.name,
-                interface=hs.interface,
-                profile=hs.profile,
-                comment=hs.comment,
-            ))
+            ast.hotspots.append(
+                UniversalHotspot(
+                    name=hs.name,
+                    interface=hs.interface,
+                    profile=hs.profile,
+                    comment=hs.comment,
+                )
+            )
 
         # DNS
         if config.dns_config:
             ast.dns = UniversalDNS(
                 servers=config.dns_config.servers,
                 allow_remote=config.dns_config.allow_remote_requests,
-                cache_size=int(config.dns_config.cache_size) if config.dns_config.cache_size else 2048,  # noqa: E501
+                cache_size=int(config.dns_config.cache_size)
+                if config.dns_config.cache_size
+                else 2048,  # noqa: E501
             )
 
         # Bridges
         for bridge in config.bridge_configs:
-            ast.bridges.append(UniversalBridge(
-                name=bridge.name,
-                ports=bridge.ports,
-                protocol_mode=bridge.protocol_mode,
-                comment=bridge.comment,
-            ))
+            ast.bridges.append(
+                UniversalBridge(
+                    name=bridge.name,
+                    ports=bridge.ports,
+                    protocol_mode=bridge.protocol_mode,
+                    comment=bridge.comment,
+                )
+            )
 
         # Queues
         for queue in config.queue_configs:
-            ast.queues.append(UniversalQueue(
-                name=queue.name,
-                target=queue.target,
-                max_limit=queue.max_limit,
-                comment=queue.comment,
-            ))
+            ast.queues.append(
+                UniversalQueue(
+                    name=queue.name,
+                    target=queue.target,
+                    max_limit=queue.max_limit,
+                    comment=queue.comment,
+                )
+            )
 
         # BGP
         if any("/routing bgp" in line for line in config.raw_lines):
@@ -243,11 +263,13 @@ class MikroTikAdapter(VendorAdapter):
         for line in config.raw_lines:
             if line.startswith("/interface wireguard") and "add" in line:
                 parts = dict(p.split("=", 1) for p in line.split("add ")[1].split() if "=" in p)
-                ast.wireguard.append(UniversalWireGuard(
-                    name=parts.get("name", ""),
-                    listen_port=int(parts.get("listen-port", "0")),
-                    enabled=True,
-                ))
+                ast.wireguard.append(
+                    UniversalWireGuard(
+                        name=parts.get("name", ""),
+                        listen_port=int(parts.get("listen-port", "0")),
+                        enabled=True,
+                    )
+                )
 
         ast.raw_lines = config.raw_lines
 
@@ -270,7 +292,9 @@ class MikroTikAdapter(VendorAdapter):
             lines.append("/interface ethernet")
             for iface in ast.interfaces:
                 disabled = "yes" if iface.vendor_specific.get("disabled") else "no"
-                lines.append(f"set [ find default-name={iface.name} ] name={iface.name} disabled={disabled}")  # noqa: E501
+                lines.append(
+                    f"set [ find default-name={iface.name} ] name={iface.name} disabled={disabled}"
+                )  # noqa: E501
             lines.append("")
 
         # Bridges
@@ -283,7 +307,9 @@ class MikroTikAdapter(VendorAdapter):
         if ast.ip_addresses:
             lines.append("/ip address")
             for ip in ast.ip_addresses:
-                lines.append(f"add address={ip.address} interface={ip.interface} network={ip.network}")  # noqa: E501
+                lines.append(
+                    f"add address={ip.address} interface={ip.interface} network={ip.network}"
+                )  # noqa: E501
             lines.append("")
 
         # DHCP Servers
@@ -296,7 +322,9 @@ class MikroTikAdapter(VendorAdapter):
 
             lines.append("/ip dhcp-server")
             for dhcp in ast.dhcp_servers:
-                lines.append(f"add name={dhcp.name} interface={dhcp.interface} address-pool={dhcp.name}_pool")  # noqa: E501
+                lines.append(
+                    f"add name={dhcp.name} interface={dhcp.interface} address-pool={dhcp.name}_pool"
+                )  # noqa: E501
             lines.append("")
 
         # Firewall Rules
@@ -317,7 +345,7 @@ class MikroTikAdapter(VendorAdapter):
                 if rule.out_interface:
                     line += f" out-interface={rule.out_interface}"
                 if rule.comment:
-                    line += f" comment=\"{rule.comment}\""
+                    line += f' comment="{rule.comment}"'
                 lines.append(line)
             lines.append("")
 
@@ -329,7 +357,7 @@ class MikroTikAdapter(VendorAdapter):
                 if nat_rule2.out_interface:
                     line += f" out-interface={nat_rule2.out_interface}"
                 if nat_rule2.comment:
-                    line += f" comment=\"{nat_rule2.comment}\""
+                    line += f' comment="{nat_rule2.comment}"'
                 lines.append(line)
             lines.append("")
 

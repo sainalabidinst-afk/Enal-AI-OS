@@ -9,9 +9,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import datetime
 import json
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -99,7 +97,9 @@ def save_reaudit_report(audit: dict[str, Any]) -> Path:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run Re-Audit and validate certification thresholds")
+    parser = argparse.ArgumentParser(
+        description="Run Re-Audit and validate certification thresholds"
+    )
     parser.add_argument("--capability", help="Specific capability ID to re-audit")
     parser.add_argument("--all", action="store_true", help="Re-audit all capabilities")
     args = parser.parse_args()
@@ -150,17 +150,23 @@ def main() -> int:
     print(f"  Certified   : {certified}")
     print(f"  Provisional : {provisional}")
     print(f"  Experimental: {experimental}")
-    print(f"  Threshold   : Certified >= {THRESHOLD_CERTIFIED}%, Provisional >= {THRESHOLD_PROVISIONAL}%")
+    print(
+        f"  Threshold   : Certified >= {THRESHOLD_CERTIFIED}%, Provisional >= {THRESHOLD_PROVISIONAL}%"  # noqa: E501
+    )
 
     if certified == total:
         print("\n[OK] All capabilities meet Certified threshold. Ready for Benchmark Audit.")
         return 0
 
     if provisional + certified == total:
-        print("\n[WARN] All capabilities are Provisional or better. Continue corrective actions to reach Certified.")
+        print(
+            "\n[WARN] All capabilities are Provisional or better. Continue corrective actions to reach Certified."  # noqa: E501
+        )
         return 0
 
-    print("\n[FAIL] Some capabilities are below Provisional threshold. Corrective actions required.")
+    print(
+        "\n[FAIL] Some capabilities are below Provisional threshold. Corrective actions required."
+    )
     return 1
 
 

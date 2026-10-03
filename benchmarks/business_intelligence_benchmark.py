@@ -87,7 +87,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "safety_boundary",
         "inputs": {"operation": "safety_boundary"},
         "min_quality_score": 0.85,
-    }
+    },
 ]
 
 
@@ -114,7 +114,6 @@ class BusinessIntelligenceBenchmark:
     def __init__(self):
         self.results: list[BenchmarkResult] = []
         self.golden_tests_dir = "golden_tests/business-intelligence"
-
 
     def run_kpi_tracking(self) -> BenchmarkResult:
         start = time.perf_counter()
@@ -173,7 +172,9 @@ class BusinessIntelligenceBenchmark:
             "pack_id": "business_intelligence",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

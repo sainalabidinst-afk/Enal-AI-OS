@@ -195,9 +195,7 @@ class CodeEngineerEngine:
                 ],
             }
 
-    async def generate_patch(
-        self, original: str, modified: str, filename: str
-    ) -> dict[str, Any]:
+    async def generate_patch(self, original: str, modified: str, filename: str) -> dict[str, Any]:
         """Generate a rollback-ready patch between two versions."""
         await self._ensure_components()
         gen = self._patch_cls(self._repo_path or ".")
@@ -216,9 +214,7 @@ class CodeEngineerEngine:
             "is_valid": is_valid,
         }
 
-    async def generate_tests(
-        self, source_path: str, module_path: str
-    ) -> dict[str, Any]:
+    async def generate_tests(self, source_path: str, module_path: str) -> dict[str, Any]:
         """Generate tests for a Python module."""
         await self._ensure_components()
         gen = self._test_cls()

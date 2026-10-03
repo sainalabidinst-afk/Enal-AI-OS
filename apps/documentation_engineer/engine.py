@@ -121,9 +121,7 @@ class DocumentationEngine:
             freshness=0.95,
         )
 
-        explanation = self._build_explanation(
-            op, generated_files, generated, validated
-        )
+        explanation = self._build_explanation(op, generated_files, generated, validated)
 
         report = DocumentationReport(
             request_id=request.request_id,
@@ -185,6 +183,7 @@ class DocumentationEngine:
         try:
             import json
             from pathlib import Path
+
             base = Path("artifacts/documentation_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"

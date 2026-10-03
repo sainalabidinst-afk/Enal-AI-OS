@@ -154,7 +154,7 @@ class OrderProjection:
 
 # Test cases with known security issues
 SEC_TEST_CASES = [
-{
+    {
         "name": "injection_vulnerabilities",
         "code": """
 import os
@@ -230,7 +230,9 @@ def run_code_engineer_benchmark() -> CodeEngineerBenchmarkReport:
 
         logger.info(
             "Arch test '%s': expected=%s, detected=%s",
-            case["name"], expected, detected_patterns & expected
+            case["name"],
+            expected,
+            detected_patterns & expected,
         )
 
     report.architecture_pattern_score = (arch_found / max(arch_total, 1)) * 100.0
@@ -262,7 +264,9 @@ def run_code_engineer_benchmark() -> CodeEngineerBenchmarkReport:
 
         logger.info(
             "Sec test '%s': expected=%s, detected=%s",
-            case["name"], expected, detected_patterns & expected
+            case["name"],
+            expected,
+            detected_patterns & expected,
         )
 
     report.secure_coding_score = (sec_found / max(sec_total, 1)) * 100.0
@@ -270,8 +274,9 @@ def run_code_engineer_benchmark() -> CodeEngineerBenchmarkReport:
     report.security_by_category = sec_by_category
 
     # Overall score (weighted average)
-    report.overall_score = (report.architecture_pattern_score * 0.5 +
-                            report.secure_coding_score * 0.5)
+    report.overall_score = (
+        report.architecture_pattern_score * 0.5 + report.secure_coding_score * 0.5
+    )
     report.passed = report.overall_score >= 90.0
 
     return report

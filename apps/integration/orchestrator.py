@@ -47,12 +47,14 @@ class IntegrationEngine:
         """Lazy-load dependencies to avoid circular imports."""
         try:
             from backend.app.runtime.store import KnowledgeStore
+
             self._knowledge_store = KnowledgeStore()
         except Exception as e:
             logger.warning("KnowledgeStore not available: %s", e)
 
         try:
             from apps.organization.reasoning_engine import reasoning_engine
+
             self._reasoning_engine = reasoning_engine
         except Exception as e:
             logger.warning("ReasoningEngine not available: %s", e)
@@ -60,6 +62,7 @@ class IntegrationEngine:
         try:
             from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
             from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
+
             self._trading_analyzer = MarketAnalyzer()
             self._trading_summary_generator = MarketSummaryGenerator()
         except Exception as e:
@@ -67,6 +70,7 @@ class IntegrationEngine:
 
         try:
             from apps.network_engineer.design_review import DesignReviewEngine
+
             self._network_design_engine = DesignReviewEngine()
         except Exception as e:
             logger.warning("Network DesignReviewEngine not available: %s", e)
@@ -210,17 +214,23 @@ class IntegrationEngine:
         raw_evidence = await self._trading_analyzer.analyze(ctx)
 
         evidence_builder = EvidenceBuilder()
-        built_evidences = evidence_builder.build(raw_evidence, self._trading_analyzer.get_analyzed_timeframes())  # noqa: E501
+        built_evidences = evidence_builder.build(
+            raw_evidence, self._trading_analyzer.get_analyzed_timeframes()
+        )  # noqa: E501
 
         if not built_evidences:
             raise RuntimeError("Trading analysis produced no market evidence")
 
-        trading_evidences = [self._evidence_adapter.from_trading_evidence(ev) for ev in built_evidences]  # noqa: E501
+        trading_evidences = [
+            self._evidence_adapter.from_trading_evidence(ev) for ev in built_evidences
+        ]  # noqa: E501
         context.add_evidences(trading_evidences)
         context.set_output("market_evidence", [e.to_dict() for e in trading_evidences])
         context.set_output("trading_context", ctx.metadata)
         context.set_intermediate("trading_evidence_count", len(trading_evidences))
-        context.set_intermediate("analyzed_timeframes", self._trading_analyzer.get_analyzed_timeframes())  # noqa: E501
+        context.set_intermediate(
+            "analyzed_timeframes", self._trading_analyzer.get_analyzed_timeframes()
+        )  # noqa: E501
         context.set_metadata("step.trading_analysis.status", "completed")
         return context
 
@@ -253,7 +263,9 @@ class IntegrationEngine:
             for entity in trading_entities[:5]:
                 for claim_id in entity.evidence[:3]:
                     for k_ev in self._knowledge_store.get_evidence(claim_id):
-                        knowledge_evidences.append(self._evidence_adapter.from_knowledge_evidence(k_ev))
+                        knowledge_evidences.append(
+                            self._evidence_adapter.from_knowledge_evidence(k_ev)
+                        )
 
         if topology_description and not symbol:
             network_entities = self._knowledge_store.find_by_domain(KnowledgeDomain.NETWORK)
@@ -392,7 +404,9 @@ class IntegrationEngine:
         context.set_metadata("step.self_improvement.status", "completed")
         return context
 
-    def _to_integration_result(self, workflow_result: WorkflowResult, workflow_type: str) -> WorkflowResult:  # noqa: E501
+    def _to_integration_result(
+        self, workflow_result: WorkflowResult, workflow_type: str
+    ) -> WorkflowResult:  # noqa: E501
         return workflow_result
 
 

@@ -57,7 +57,11 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "storage",
         "inputs": {
             "business_context": {"project_name": "db-storage", "domain": "fintech"},
-            "inputs": {"storage_specs": [{"name": "db-ssd", "size_gb": 500, "iops": 10000, "storage_type": "ssd"}]},
+            "inputs": {
+                "storage_specs": [
+                    {"name": "db-ssd", "size_gb": 500, "iops": 10000, "storage_type": "ssd"}
+                ]
+            },
             "quality_attributes": {"availability_target": "99.9%"},
         },
         "min_quality_score": 0.80,
@@ -123,7 +127,12 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "disaster_recovery",
         "inputs": {
             "business_context": {"project_name": "multi-region-dr", "domain": "fintech"},
-            "inputs": {"primary_region": "us-east-1", "secondary_region": "eu-west-1", "rpo_minutes": 5, "rto_minutes": 15},
+            "inputs": {
+                "primary_region": "us-east-1",
+                "secondary_region": "eu-west-1",
+                "rpo_minutes": 5,
+                "rto_minutes": 15,
+            },
             "quality_attributes": {"availability_target": "99.99%"},
         },
         "min_quality_score": 0.85,
@@ -212,7 +221,9 @@ class InfrastructureEngineerBenchmark:
             "pack_id": "infrastructure_engineer",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

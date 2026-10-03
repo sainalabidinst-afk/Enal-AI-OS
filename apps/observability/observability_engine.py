@@ -167,13 +167,15 @@ class ObservabilityAnalysisEngine:
 
         if not entries:
             if inputs.pattern:
-                patterns.append(LogPattern(
-                    pattern=inputs.pattern,
-                    level=inputs.log_level,
-                    count=0,
-                    services=[],
-                    severity="",
-                ))
+                patterns.append(
+                    LogPattern(
+                        pattern=inputs.pattern,
+                        level=inputs.log_level,
+                        count=0,
+                        services=[],
+                        severity="",
+                    )
+                )
             return patterns
 
         # Group by log level when no explicit pattern is supplied.
@@ -181,26 +183,30 @@ class ObservabilityAnalysisEngine:
             matched = [e for e in entries if inputs.pattern.lower() in e.message.lower()]
             services = sorted({e.service for e in matched if e.service})
             levels = sorted({e.level for e in matched if e.level})
-            patterns.append(LogPattern(
-                pattern=inputs.pattern,
-                level=",".join(levels) if levels else inputs.log_level,
-                count=len(matched),
-                services=services,
-                severity=self._severity_for_level(levels[0]) if levels else "",
-            ))
+            patterns.append(
+                LogPattern(
+                    pattern=inputs.pattern,
+                    level=",".join(levels) if levels else inputs.log_level,
+                    count=len(matched),
+                    services=services,
+                    severity=self._severity_for_level(levels[0]) if levels else "",
+                )
+            )
         else:
             seen: dict[str, list[LogEntry]] = {}
             for entry in entries:
                 seen.setdefault(entry.level or "unknown", []).append(entry)
             for level, group in seen.items():
                 services = sorted({e.service for e in group if e.service})
-                patterns.append(LogPattern(
-                    pattern=f"level:{level}",
-                    level=level,
-                    count=len(group),
-                    services=services,
-                    severity=self._severity_for_level(level),
-                ))
+                patterns.append(
+                    LogPattern(
+                        pattern=f"level:{level}",
+                        level=level,
+                        count=len(group),
+                        services=services,
+                        severity=self._severity_for_level(level),
+                    )
+                )
 
         return patterns
 
@@ -218,8 +224,10 @@ class ObservabilityAnalysisEngine:
     def detect_anomaly(self, inputs: ObservabilityInputs) -> AnomalyReport:
         """Detect anomalies by comparing observed values to a baseline."""
         values = self._collect_values(inputs)
-        current = inputs.current_value if inputs.current_value is not None else (
-            values[-1] if values else None
+        current = (
+            inputs.current_value
+            if inputs.current_value is not None
+            else (values[-1] if values else None)
         )
 
         baseline = inputs.baseline
@@ -282,15 +290,17 @@ class ObservabilityAnalysisEngine:
         """Derive a list of anomaly findings from a detected anomaly report."""
         if not report.detected:
             return []
-        return [AnomalyFinding(
-            metric=report.metric_name,
-            value=report.current_value,
-            baseline=report.baseline,
-            threshold=report.threshold,
-            direction=report.direction,
-            severity=report.severity,
-            explanation=report.explanation,
-        )]
+        return [
+            AnomalyFinding(
+                metric=report.metric_name,
+                value=report.current_value,
+                baseline=report.baseline,
+                threshold=report.threshold,
+                direction=report.direction,
+                severity=report.severity,
+                explanation=report.explanation,
+            )
+        ]
 
 
 __all__ = ["ObservabilityAnalysisEngine"]

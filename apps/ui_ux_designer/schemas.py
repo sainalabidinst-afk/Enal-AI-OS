@@ -49,7 +49,9 @@ class BusinessContext(BaseModel):
 
 class StakeholderInput(BaseModel):
     user_research_data: list[str] = Field(default_factory=list, description="Raw UX research data")
-    product_requirements: list[str] = Field(default_factory=list, description="Product requirement statements")  # noqa: E501
+    product_requirements: list[str] = Field(
+        default_factory=list, description="Product requirement statements"
+    )  # noqa: E501
     current_design: str = Field(default="", description="Current design documentation")
     technical_constraints: list[str] = Field(default_factory=list)
     business_goals: list[str] = Field(default_factory=list)
@@ -65,8 +67,12 @@ class Persona(BaseModel):
 
 class QualityAttributes(BaseModel):
     accessibility_target: str = Field(default="WCAG 2.1 AA", description="WCAG level target")
-    performance_target: str = Field(default="< 100ms interaction", description="UI performance target")  # noqa: E501
-    consistency_target: str = Field(default="100% design system compliance", description="Design consistency target")  # noqa: E501
+    performance_target: str = Field(
+        default="< 100ms interaction", description="UI performance target"
+    )  # noqa: E501
+    consistency_target: str = Field(
+        default="100% design system compliance", description="Design consistency target"
+    )  # noqa: E501
 
 
 class UXResearchResult(BaseModel):
@@ -91,8 +97,12 @@ class ComponentSpec(BaseModel):
     id: str = Field(default_factory=lambda: f"COMP-{uuid.uuid4().hex[:8]}")
     name: str = Field(default="")
     description: str = Field(default="")
-    component_type: str = Field(default="button", description="button|input|card|modal|nav|form|etc")  # noqa: E501
-    props_schema: dict[str, Any] = Field(default_factory=dict, description="JSON Schema for component props")  # noqa: E501
+    component_type: str = Field(
+        default="button", description="button|input|card|modal|nav|form|etc"
+    )  # noqa: E501
+    props_schema: dict[str, Any] = Field(
+        default_factory=dict, description="JSON Schema for component props"
+    )  # noqa: E501
     accessibility_requirements: list[str] = Field(default_factory=list)
     variants: list[str] = Field(default_factory=list)
     responsive_behavior: str = Field(default="")
@@ -108,7 +118,9 @@ class DesignSystem(BaseModel):
     typography_scale: dict[str, Any] = Field(default_factory=dict)
     spacing_scale: list[str] = Field(default_factory=list)
     motion_principles: list[str] = Field(default_factory=list)
-    accessibility_standards: list[str] = Field(default_factory=list, description="WCAG 2.1 AA standards")  # noqa: E501
+    accessibility_standards: list[str] = Field(
+        default_factory=list, description="WCAG 2.1 AA standards"
+    )  # noqa: E501
     version: str = Field(default="1.0.0")
 
 
@@ -117,9 +129,15 @@ class PrototypeScreen(BaseModel):
     name: str = Field(default="")
     description: str = Field(default="")
     layout: dict[str, Any] = Field(default_factory=dict, description="Layout specification")
-    components: list[dict[str, Any]] = Field(default_factory=list, description="Component placements")  # noqa: E501
-    interactions: list[dict[str, Any]] = Field(default_factory=list, description="Interaction definitions")  # noqa: E501
-    states: list[str] = Field(default_factory=list, description="default|hover|focus|disabled|error")  # noqa: E501
+    components: list[dict[str, Any]] = Field(
+        default_factory=list, description="Component placements"
+    )  # noqa: E501
+    interactions: list[dict[str, Any]] = Field(
+        default_factory=list, description="Interaction definitions"
+    )  # noqa: E501
+    states: list[str] = Field(
+        default_factory=list, description="default|hover|focus|disabled|error"
+    )  # noqa: E501
     responsive_breakpoints: list[str] = Field(default_factory=list)
 
 
@@ -165,7 +183,9 @@ class UIUXDesignerRequest(BaseModel):
     personas: list[Persona] = Field(default_factory=list)
     quality_attributes: QualityAttributes = Field(default_factory=QualityAttributes)
     output_format: OutputFormat = Field(default=OutputFormat.json)
-    target_platforms: list[str] = Field(default_factory=list, description="web|mobile|desktop|tablet")  # noqa: E501
+    target_platforms: list[str] = Field(
+        default_factory=list, description="web|mobile|desktop|tablet"
+    )  # noqa: E501
 
 
 class UIUXDesignerReport(BaseModel):

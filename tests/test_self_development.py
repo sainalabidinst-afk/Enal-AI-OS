@@ -2,11 +2,11 @@
 Smoke tests for Self Development capability.
 """
 
-from apps.self_development.engine import *
-from apps.self_development.project_scanner import *
-from apps.self_development.risk_modeler import *
-from apps.self_development.schemas import *
-from apps.self_development.smell_taxonomy import *
+from apps.self_development.engine import *  # noqa: F403
+from apps.self_development.project_scanner import *  # noqa: F403
+from apps.self_development.risk_modeler import *  # noqa: F403
+from apps.self_development.schemas import *  # noqa: F403
+from apps.self_development.smell_taxonomy import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

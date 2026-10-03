@@ -18,16 +18,18 @@ async def list_capabilities():
         if node is None:
             continue
         related = capability_graph.get_related_capabilities(node.capability_id)
-        capabilities.append({
-            "id": node.capability_id,
-            "name": node.name,
-            "description": node.description,
-            "skills": node.required_skills,
-            "dependencies": node.dependencies,
-            "complexity": node.estimated_complexity,
-            "tags": node.tags,
-            "related_capabilities": related,
-        })
+        capabilities.append(
+            {
+                "id": node.capability_id,
+                "name": node.name,
+                "description": node.description,
+                "skills": node.required_skills,
+                "dependencies": node.dependencies,
+                "complexity": node.estimated_complexity,
+                "tags": node.tags,
+                "related_capabilities": related,
+            }
+        )
     domains = []
     for domain, pack in intent_router._capability_packs.items():
         domains.append(domain.value)

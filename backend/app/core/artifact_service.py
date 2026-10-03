@@ -13,6 +13,7 @@ class ArtifactService:
 
     async def create_workspace(self, name: str, description: str = "") -> Any:
         from backend.app.models.schemas_execution import Workspace
+
         ws = Workspace(name=name, description=description)
         async with self._lock:
             self._workspaces[ws.id] = ws
@@ -22,9 +23,9 @@ class ArtifactService:
         async with self._lock:
             if workspace_id in self._workspaces:
                 ws = self._workspaces[workspace_id]
-                if hasattr(ws, 'artifact_ids'):
+                if hasattr(ws, "artifact_ids"):
                     ws.artifact_ids = []
-                if hasattr(ws, 'execution_ids'):
+                if hasattr(ws, "execution_ids"):
                     ws.execution_ids = []
                 to_delete = [
                     aid

@@ -5,7 +5,6 @@ Clean Architecture Analysis
 Clean Architecture layer analysis and entity purity checks.
 """
 
-
 from apps.code_engineer.architecture_patterns import ArchitectureFinding, ArchitectureSeverity
 
 
@@ -26,8 +25,26 @@ class CleanArchitectureAnalyzer:
     LAYER_KEYWORDS = {
         "entity": ["entity", "domain", "model", "models", "aggregate"],
         "use_case": ["use_case", "usecase", "service", "interactor", "application"],
-        "adapter": ["adapter", "controller", "presenter", "gateway", "repository_impl", "infrastructure"],  # noqa: E501
-        "framework": ["api", "router", "views", "handlers", "main", "app", "web", "db", "database", "external"],  # noqa: E501
+        "adapter": [
+            "adapter",
+            "controller",
+            "presenter",
+            "gateway",
+            "repository_impl",
+            "infrastructure",
+        ],  # noqa: E501
+        "framework": [
+            "api",
+            "router",
+            "views",
+            "handlers",
+            "main",
+            "app",
+            "web",
+            "db",
+            "database",
+            "external",
+        ],  # noqa: E501
     }
 
     def analyze_layers(self, code_ast) -> list[ArchitectureFinding]:
@@ -46,22 +63,24 @@ class CleanArchitectureAnalyzer:
                 module_layer_rank = layer_order.get(module_layer, 0)
                 imported_layer_rank = layer_order.get(imported_layer, 0)
                 if imported_layer_rank > module_layer_rank:
-                    findings.append(ArchitectureFinding(
-                        category="clean_architecture",
-                        severity=ArchitectureSeverity.HIGH,
-                        description=(
-                            f"Dependency rule violation: '{module_name}' ({module_layer} layer) "
-                            f"imports '{imp.module}' ({imported_layer} layer)"
-                        ),
-                        recommendation=(
-                            f"'{module_layer}' layer must not depend on '{imported_layer}' layer. "
-                            "Dependencies must point inward."
-                        ),
-                        line_number=1,
-                        confidence=0.7,
-                        pattern="dependency_rule",
-                        examples=[f"{module_layer} -> {imported_layer} (should point inward)"],
-                    ))
+                    findings.append(
+                        ArchitectureFinding(
+                            category="clean_architecture",
+                            severity=ArchitectureSeverity.HIGH,
+                            description=(
+                                f"Dependency rule violation: '{module_name}' ({module_layer} layer) "  # noqa: E501
+                                f"imports '{imp.module}' ({imported_layer} layer)"
+                            ),
+                            recommendation=(
+                                f"'{module_layer}' layer must not depend on '{imported_layer}' layer. "  # noqa: E501
+                                "Dependencies must point inward."
+                            ),
+                            line_number=1,
+                            confidence=0.7,
+                            pattern="dependency_rule",
+                            examples=[f"{module_layer} -> {imported_layer} (should point inward)"],
+                        )
+                    )
         return findings
 
     def _classify_module_layer(self, module_name: str) -> str | None:
@@ -86,27 +105,37 @@ class CleanArchitectureAnalyzer:
             return findings
 
         framework_imports = [
-            "fastapi", "django", "flask", "sqlalchemy", "pydantic",
-            "redis", "requests", "httpx", "kafka", "celery",
+            "fastapi",
+            "django",
+            "flask",
+            "sqlalchemy",
+            "pydantic",
+            "redis",
+            "requests",
+            "httpx",
+            "kafka",
+            "celery",
         ]
         for imp in code_ast.imports:
             for fw in framework_imports:
                 if fw in imp.module.lower():
-                    findings.append(ArchitectureFinding(
-                        category="clean_architecture",
-                        severity=ArchitectureSeverity.MEDIUM,
-                        description=(
-                            f"Domain/entity module '{module_name}' imports framework "
-                            f"dependency '{imp.module}'"
-                        ),
-                        recommendation=(
-                            "Entities must be pure Python with no framework dependencies. "
-                            "Move framework concerns to the adapter layer."
-                        ),
-                        line_number=1,
-                        confidence=0.8,
-                        pattern="entity_purity",
-                    ))
+                    findings.append(
+                        ArchitectureFinding(
+                            category="clean_architecture",
+                            severity=ArchitectureSeverity.MEDIUM,
+                            description=(
+                                f"Domain/entity module '{module_name}' imports framework "
+                                f"dependency '{imp.module}'"
+                            ),
+                            recommendation=(
+                                "Entities must be pure Python with no framework dependencies. "
+                                "Move framework concerns to the adapter layer."
+                            ),
+                            line_number=1,
+                            confidence=0.8,
+                            pattern="entity_purity",
+                        )
+                    )
                     break
         return findings
 

@@ -37,9 +37,27 @@ class CQRSEvaluator:
         findings, recs = await evaluator.analyze()
     """
 
-    COMMAND_HINTS = ("command", "write", "create", "update", "delete", "post", "put", "submit", "execute")  # noqa: E501
+    COMMAND_HINTS = (
+        "command",
+        "write",
+        "create",
+        "update",
+        "delete",
+        "post",
+        "put",
+        "submit",
+        "execute",
+    )  # noqa: E501
     QUERY_HINTS = ("query", "read", "get", "find", "list", "search", "fetch", "retrieve", "load")
-    SEPARATION_HINTS = ("command", "query", "queries", "commands", "cqrs", "write_model", "read_model")  # noqa: E501
+    SEPARATION_HINTS = (
+        "command",
+        "query",
+        "queries",
+        "commands",
+        "cqrs",
+        "write_model",
+        "read_model",
+    )  # noqa: E501
     ANTI_PATTERN_HINTS = ("write_through", "read_through", "same_model", "shared_model")
 
     def __init__(self, repo_path: str | Path):
@@ -127,8 +145,9 @@ class CQRSEvaluator:
                     title=f"{len(mixed_modules)} module(s) mix commands and queries",
                     description=(
                         "The following modules contain both command (write) and query "
-                        "(read) operations: " + ", ".join(mixed_modules[:5]) +
-                        ". Mixing commands and queries can complicate caching, "
+                        "(read) operations: "
+                        + ", ".join(mixed_modules[:5])
+                        + ". Mixing commands and queries can complicate caching, "
                         "scaling, and transaction management."
                     ),
                     evidence={
@@ -160,8 +179,7 @@ class CQRSEvaluator:
                         "query_count": len(queries),
                     },
                     recommendation=(
-                        "Maintain separation; introduce read models only if "
-                        "query load warrants it."
+                        "Maintain separation; introduce read models only if query load warrants it."
                     ),
                     impact=Impact.scalability,
                     confidence=0.7,
@@ -210,8 +228,7 @@ class CQRSEvaluator:
                     title="CQRS anti-pattern detected (write-through reads)",
                     description=(
                         "Detected modules that may use the same model for reads and "
-                        "writes (write-through reads anti-pattern): "
-                        + ", ".join(anti_patterns[:5])
+                        "writes (write-through reads anti-pattern): " + ", ".join(anti_patterns[:5])
                     ),
                     evidence={"anti_pattern_modules": anti_patterns},
                     recommendation=(
@@ -271,7 +288,10 @@ class CQRSEvaluator:
                     impact="Improves scalability and query performance",
                 )
             )
-        if any(f.category == FindingCategory.cqrs_mismatch and f.severity == Severity.low for f in findings):  # noqa: E501
+        if any(
+            f.category == FindingCategory.cqrs_mismatch and f.severity == Severity.low
+            for f in findings
+        ):  # noqa: E501
             recs.append(
                 Recommendation(
                     priority=Priority.low,
@@ -295,4 +315,3 @@ class CQRSEvaluator:
                 )
             )
         return recs
-

@@ -101,7 +101,9 @@ class TroubleshootingSession:
                 "description": self.root_cause.description,
                 "confidence": self.root_cause.confidence,
                 "status": self.root_cause.status.value,
-            } if self.root_cause else None,
+            }
+            if self.root_cause
+            else None,
             "resolution": self.resolution,
             "confidence": self.confidence,
             "status": self.status,
@@ -203,16 +205,22 @@ class TroubleshootingEngine:
 
     def create_session(self, symptom: str) -> TroubleshootingSession:
         import uuid
+
         return TroubleshootingSession(session_id=str(uuid.uuid4())[:8], symptom=symptom)
 
-    def add_evidence(self, session: TroubleshootingSession, source: str, content: str, confidence: float = 1.0) -> None:  # noqa: E501
+    def add_evidence(
+        self, session: TroubleshootingSession, source: str, content: str, confidence: float = 1.0
+    ) -> None:  # noqa: E501
         from datetime import datetime
-        session.evidence.append(EvidenceItem(
-            source=source,
-            content=content,
-            timestamp=datetime.now(UTC).isoformat() + "Z",
-            confidence=confidence,
-        ))
+
+        session.evidence.append(
+            EvidenceItem(
+                source=source,
+                content=content,
+                timestamp=datetime.now(UTC).isoformat() + "Z",
+                confidence=confidence,
+            )
+        )
 
     def generate_hypotheses(self, session: TroubleshootingSession) -> list[Hypothesis]:
         symptom_key = session.symptom.lower()
@@ -223,10 +231,14 @@ class TroubleshootingEngine:
         session.hypotheses = matched
         return matched
 
-    def add_counter_hypothesis(self, session: TroubleshootingSession, hypothesis: Hypothesis) -> None:  # noqa: E501
+    def add_counter_hypothesis(
+        self, session: TroubleshootingSession, hypothesis: Hypothesis
+    ) -> None:  # noqa: E501
         session.counter_hypotheses.append(hypothesis)
 
-    def verify_hypothesis(self, session: TroubleshootingSession, hypothesis_id: str, status: VerificationStatus) -> None:  # noqa: E501
+    def verify_hypothesis(
+        self, session: TroubleshootingSession, hypothesis_id: str, status: VerificationStatus
+    ) -> None:  # noqa: E501
         for h in session.hypotheses:
             if h.id == hypothesis_id:
                 h.status = status

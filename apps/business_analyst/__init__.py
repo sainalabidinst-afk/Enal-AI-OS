@@ -42,9 +42,7 @@ class BusinessAnalystApp(BaseReferenceApp):
     def __init__(self) -> None:
         self.worker = BusinessAnalystWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("user_input", user_input)
         return await self.worker.execute(task)
@@ -52,6 +50,7 @@ class BusinessAnalystApp(BaseReferenceApp):
 
 def get_app() -> BusinessAnalystApp:
     return BusinessAnalystApp()
+
 
 __all__ = [
     "BusinessAnalystApp",

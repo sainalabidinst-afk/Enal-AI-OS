@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class TestStrategy:
     """Test generation strategy configuration."""
+
     strategy_name: str
     pattern_type: str
     applicable_operations: list[str]
@@ -75,12 +76,14 @@ class TestGenerationStrategies:
         findings: list[Finding] = []
         strategy = self.get_strategy(operation, language)
         if strategy:
-            findings.append(Finding(
-                category="schema",
-                severity=strategy.priority,
-                title=f"Test Strategy: {strategy.strategy_name}",
-                description=f"Recommended pattern: {strategy.pattern_type} for {operation} in {language}",  # noqa: E501
-                recommendation=f"Use {strategy.strategy_name} pattern for {operation} generation",
-                confidence=0.8,
-            ))
+            findings.append(
+                Finding(
+                    category="schema",
+                    severity=strategy.priority,
+                    title=f"Test Strategy: {strategy.strategy_name}",
+                    description=f"Recommended pattern: {strategy.pattern_type} for {operation} in {language}",  # noqa: E501
+                    recommendation=f"Use {strategy.strategy_name} pattern for {operation} generation",  # noqa: E501
+                    confidence=0.8,
+                )
+            )
         return findings

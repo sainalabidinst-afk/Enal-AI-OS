@@ -103,12 +103,14 @@ class CloudArchitectReport(BaseModel):
 class CloudArchitectRecord(BaseModel):
     pack_id: str = "cloud-architect"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "landing_zone_design",
-        "multi_region_strategy",
-        "cost_optimization",
-        "disaster_recovery",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "landing_zone_design",
+            "multi_region_strategy",
+            "cost_optimization",
+            "disaster_recovery",
+        ]
+    )
 
 
 __all__ = [

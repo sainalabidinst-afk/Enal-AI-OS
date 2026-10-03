@@ -42,30 +42,36 @@ class RefactoringStrategy:
         boundaries = sum(1 for f in findings if f.category == FindingCategory.package_boundary)
 
         if layer_violations > 0:
-            recs.append(Recommendation(
-                priority=Priority.high,
-                problem=f"{layer_violations} layer violations detected",
-                solution="Apply dependency inversion and move dependencies to correct layers",
-                effort=Effort.high,
-                impact="Restores Clean Architecture dependency rule",
-            ))
+            recs.append(
+                Recommendation(
+                    priority=Priority.high,
+                    problem=f"{layer_violations} layer violations detected",
+                    solution="Apply dependency inversion and move dependencies to correct layers",
+                    effort=Effort.high,
+                    impact="Restores Clean Architecture dependency rule",
+                )
+            )
 
         if cycles > 0:
-            recs.append(Recommendation(
-                priority=Priority.high,
-                problem=f"{cycles} circular dependencies detected",
-                solution="Break cycles by extracting shared interfaces or merging modules",
-                effort=Effort.medium,
-                impact="Improves testability and reduces coupling",
-            ))
+            recs.append(
+                Recommendation(
+                    priority=Priority.high,
+                    problem=f"{cycles} circular dependencies detected",
+                    solution="Break cycles by extracting shared interfaces or merging modules",
+                    effort=Effort.medium,
+                    impact="Improves testability and reduces coupling",
+                )
+            )
 
         if boundaries > 0:
-            recs.append(Recommendation(
-                priority=Priority.medium,
-                problem=f"{boundaries} package boundary violations detected",
-                solution="Define explicit API contracts and use dependency injection",
-                effort=Effort.medium,
-                impact="Reduces coupling between packages",
-            ))
+            recs.append(
+                Recommendation(
+                    priority=Priority.medium,
+                    problem=f"{boundaries} package boundary violations detected",
+                    solution="Define explicit API contracts and use dependency injection",
+                    effort=Effort.medium,
+                    impact="Reduces coupling between packages",
+                )
+            )
 
         return recs

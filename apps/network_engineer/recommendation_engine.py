@@ -39,15 +39,17 @@ class RecommendationEngine:
         recommendations = []
         for issue in issues:
             priority = self._map_priority(issue.severity)
-            recommendations.append(Recommendation(
-                problem=issue.description,
-                why=self._explain_why(issue),
-                impact=self._assess_impact(issue),
-                recommendation=issue.recommendation,
-                confidence=issue.confidence,
-                priority=priority,
-                references=issue.references or [],
-            ))
+            recommendations.append(
+                Recommendation(
+                    problem=issue.description,
+                    why=self._explain_why(issue),
+                    impact=self._assess_impact(issue),
+                    recommendation=issue.recommendation,
+                    confidence=issue.confidence,
+                    priority=priority,
+                    references=issue.references or [],
+                )
+            )
         recommendations.sort(key=lambda r: r.priority)
         return recommendations
 

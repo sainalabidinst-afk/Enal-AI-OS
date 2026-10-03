@@ -138,6 +138,7 @@ async def get_observability_metrics(agent: str | None = None):
 async def create_policy(name: str, agent: str, permissions: list[str], tools: list[str]):
     perm_enums = [Permission(p) for p in permissions if p in [e.value for e in Permission]]
     from backend.app.core.governance import Policy
+
     policy_obj = Policy(
         id=f"policy-{__import__('uuid').uuid4().hex[:8]}",
         name=name,
@@ -158,6 +159,7 @@ async def list_checkpoints():
 async def create_benchmark(name: str, description: str, test_cases: list[dict]):
     benchmark_id = f"benchmark-{__import__('uuid').uuid4().hex[:8]}"
     from backend.app.core.evaluation import Benchmark
+
     benchmark = Benchmark(
         id=benchmark_id,
         name=name,
@@ -239,6 +241,7 @@ async def create_graph_node(
     except ValueError:
         raise HTTPException(status_code=400, detail=f"Invalid node type: {node_type}")
     from backend.app.core.semantic_graph import GraphNode
+
     node = GraphNode(
         id=f"node-{__import__('uuid').uuid4().hex[:8]}",
         node_type=n_type,
@@ -418,6 +421,7 @@ async def cognitive_strategy(goal_description: str, context: dict | None = None)
 @router.post("/cognitive/learn")
 async def cognitive_learn(benchmark_id: str):
     from backend.app.core.evaluation import evaluation_framework
+
     benchmark = evaluation_framework._benchmarks.get(benchmark_id)
     if not benchmark:
         raise HTTPException(status_code=404, detail="Benchmark not found")
@@ -462,6 +466,7 @@ async def meta_choose_pipeline(user_input: str):
 @router.post("/cognitive/decide")
 async def cognitive_decide(options: list[dict], context: dict | None = None):
     from backend.app.core.decision_engine import DecisionOption
+
     decision_options = [
         DecisionOption(
             id=o.get("id", f"opt-{i}"),

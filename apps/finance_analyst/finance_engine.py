@@ -35,38 +35,46 @@ class FinanceAnalysisEngine:
         if inputs.revenue is not None and inputs.cost_of_goods_sold is not None:
             gpm = inputs.revenue - inputs.cost_of_goods_sold
             gross_margin = gpm / inputs.revenue if inputs.revenue else None
-            metrics.append(FinancialMetric(
-                name="gross_margin",
-                value=gross_margin,
-                formula="(revenue - cogs) / revenue",
-                inputs_traced=["revenue", "cost_of_goods_sold"],
-            ))
+            metrics.append(
+                FinancialMetric(
+                    name="gross_margin",
+                    value=gross_margin,
+                    formula="(revenue - cogs) / revenue",
+                    inputs_traced=["revenue", "cost_of_goods_sold"],
+                )
+            )
 
         if inputs.current_assets is not None and inputs.current_liabilities is not None:
             if inputs.current_liabilities == 0:
-                metrics.append(FinancialMetric(
+                metrics.append(
+                    FinancialMetric(
+                        name="current_ratio",
+                        value=None,
+                        formula="current_assets / current_liabilities",
+                        inputs_traced=["current_assets", "current_liabilities"],
+                        notes="Missing denominator: current_liabilities is zero",
+                    )
+                )
+            else:
+                cr = inputs.current_assets / inputs.current_liabilities
+                metrics.append(
+                    FinancialMetric(
+                        name="current_ratio",
+                        value=cr,
+                        formula="current_assets / current_liabilities",
+                        inputs_traced=["current_assets", "current_liabilities"],
+                    )
+                )
+        else:
+            metrics.append(
+                FinancialMetric(
                     name="current_ratio",
                     value=None,
                     formula="current_assets / current_liabilities",
-                    inputs_traced=["current_assets", "current_liabilities"],
-                    notes="Missing denominator: current_liabilities is zero",
-                ))
-            else:
-                cr = inputs.current_assets / inputs.current_liabilities
-                metrics.append(FinancialMetric(
-                    name="current_ratio",
-                    value=cr,
-                    formula="current_assets / current_liabilities",
-                    inputs_traced=["current_assets", "current_liabilities"],
-                ))
-        else:
-            metrics.append(FinancialMetric(
-                name="current_ratio",
-                value=None,
-                formula="current_assets / current_liabilities",
-                inputs_traced=[],
-                notes="Missing inputs: current_assets or current_liabilities",
-            ))
+                    inputs_traced=[],
+                    notes="Missing inputs: current_assets or current_liabilities",
+                )
+            )
 
         return metrics
 
@@ -101,20 +109,24 @@ class FinanceAnalysisEngine:
 
         scenarios = []
         baseline_profit = inputs.baseline_revenue * inputs.margin
-        scenarios.append(SensitivityScenario(
-            change_pct=0.0,
-            result=round(baseline_profit, 2),
-            labelled=True,
-        ))
+        scenarios.append(
+            SensitivityScenario(
+                change_pct=0.0,
+                result=round(baseline_profit, 2),
+                labelled=True,
+            )
+        )
 
         for change_pct in inputs.revenue_changes_pct:
             adjusted_revenue = inputs.baseline_revenue * (1 + change_pct / 100)
             adjusted_profit = adjusted_revenue * inputs.margin
-            scenarios.append(SensitivityScenario(
-                change_pct=change_pct,
-                result=round(adjusted_profit, 2),
-                labelled=True,
-            ))
+            scenarios.append(
+                SensitivityScenario(
+                    change_pct=change_pct,
+                    result=round(adjusted_profit, 2),
+                    labelled=True,
+                )
+            )
 
         return scenarios
 
@@ -142,12 +154,14 @@ class FinanceAnalysisEngine:
         """Map supplied evidence to a versioned control checklist."""
         results = []
         for ev in inputs.evidence:
-            results.append(EvidenceCheckResult(
-                control_id=ev.get("control", "unknown"),
-                status=ev.get("status", "unspecified"),
-                evidence_available=True,
-                unsupported=False,
-            ))
+            results.append(
+                EvidenceCheckResult(
+                    control_id=ev.get("control", "unknown"),
+                    status=ev.get("status", "unspecified"),
+                    evidence_available=True,
+                    unsupported=False,
+                )
+            )
         return results
 
     def check_input_validation(self, inputs: FinanceInputs) -> dict[str, Any]:

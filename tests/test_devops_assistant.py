@@ -2,11 +2,11 @@
 Smoke tests for Devops Assistant capability.
 """
 
-from apps.devops_assistant.deployment_planner import *
-from apps.devops_assistant.engine import *
-from apps.devops_assistant.infrastructure_designer import *
-from apps.devops_assistant.monitoring_configurator import *
-from apps.devops_assistant.pipeline_generator import *
+from apps.devops_assistant.deployment_planner import *  # noqa: F403
+from apps.devops_assistant.engine import *  # noqa: F403
+from apps.devops_assistant.infrastructure_designer import *  # noqa: F403
+from apps.devops_assistant.monitoring_configurator import *  # noqa: F403
+from apps.devops_assistant.pipeline_generator import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

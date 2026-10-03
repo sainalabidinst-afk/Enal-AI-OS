@@ -128,29 +128,33 @@ class CybersecurityAnalysisEngine:
 
         # Generate threats for explicit trust boundaries (interoperability risk).
         for boundary in trust_boundaries:
-            findings.append(self._build_threat_finding(
-                "tampering",
-                boundary,
-                description,
-                assets,
-                trust_boundaries,
-                finding_counter,
-                is_boundary=True,
-            ))
+            findings.append(
+                self._build_threat_finding(
+                    "tampering",
+                    boundary,
+                    description,
+                    assets,
+                    trust_boundaries,
+                    finding_counter,
+                    is_boundary=True,
+                )
+            )
             finding_counter += 1
 
         # Generate threats for each asset (data flow risk).
         for asset in assets[:5]:
             if "information_disclosure" not in matched_categories:
-                findings.append(self._build_threat_finding(
-                    "information_disclosure",
-                    asset,
-                    description,
-                    assets,
-                    trust_boundaries,
-                    finding_counter,
-                    asset=asset,
-                ))
+                findings.append(
+                    self._build_threat_finding(
+                        "information_disclosure",
+                        asset,
+                        description,
+                        assets,
+                        trust_boundaries,
+                        finding_counter,
+                        asset=asset,
+                    )
+                )
                 finding_counter += 1
 
         # Ensure all STRIDE categories are represented when the system is
@@ -158,21 +162,23 @@ class CybersecurityAnalysisEngine:
         all_categories = {c.value for c in ThreatCategory}
         for category in sorted(all_categories - matched_categories):
             if finding_counter <= self.MAX_THREAT_FINDINGS:
-                findings.append(self._build_threat_finding(
-                    category,
-                    "system_component",
-                    description,
-                    assets,
-                    trust_boundaries,
-                    finding_counter,
-                ))
+                findings.append(
+                    self._build_threat_finding(
+                        category,
+                        "system_component",
+                        description,
+                        assets,
+                        trust_boundaries,
+                        finding_counter,
+                    )
+                )
                 finding_counter += 1
 
         # Sort by severity and cap.
         severity_order = ["critical", "high", "medium", "low", "info"]
-        findings.sort(key=lambda f: (
-            severity_order.index(f.severity) if f.severity in severity_order else 99
-        ))
+        findings.sort(
+            key=lambda f: severity_order.index(f.severity) if f.severity in severity_order else 99
+        )
         findings = findings[: self.MAX_THREAT_FINDINGS]
 
         inputs_traced = ["system_description", "assets", "trust_boundaries"]
@@ -205,7 +211,8 @@ class CybersecurityAnalysisEngine:
         likelihood = "medium" if severity in ("high", "critical") else "low"
 
         affected = asset or (
-            trust_boundaries[0] if is_boundary and trust_boundaries
+            trust_boundaries[0]
+            if is_boundary and trust_boundaries
             else (assets[0] if assets else keyword)
         )
 
@@ -274,8 +281,8 @@ class CybersecurityAnalysisEngine:
 
         for idx, vuln in enumerate(inputs.vulnerabilities, start=1):
             cvss = vuln.get("cvss_score")
-            sev = self._severity_from_cvss(cvss) if cvss is not None else vuln.get(
-                "severity", "info"
+            sev = (
+                self._severity_from_cvss(cvss) if cvss is not None else vuln.get("severity", "info")
             )
             severity_counts[sev] = severity_counts.get(sev, 0) + 1
 
@@ -350,14 +357,16 @@ class CybersecurityAnalysisEngine:
             sev = alert.get("severity", "info")
             detected = anomaly_detected or alert.get("active", False)
             confidence = alert.get("confidence", 0.0)
-            alert_findings.append(IncidentFinding(
-                id=alert.get("id", f"INC-{idx:03d}"),
-                alert_name=alert.get("name", "Unnamed alert"),
-                severity=sev,
-                description=alert.get("description", ""),
-                detected=detected,
-                confidence=confidence,
-            ))
+            alert_findings.append(
+                IncidentFinding(
+                    id=alert.get("id", f"INC-{idx:03d}"),
+                    alert_name=alert.get("name", "Unnamed alert"),
+                    severity=sev,
+                    description=alert.get("description", ""),
+                    detected=detected,
+                    confidence=confidence,
+                )
+            )
 
         inputs_traced = ["baseline_events", "current_event_count", "alerts"]
 
@@ -372,18 +381,12 @@ class CybersecurityAnalysisEngine:
             inputs_traced=inputs_traced,
         )
 
-    def compliance_map(
-        self, inputs: CybersecurityInputs
-    ) -> ComplianceMapping:
+    def compliance_map(self, inputs: CybersecurityInputs) -> ComplianceMapping:
         """Map supplied evidence to compliance requirements and report coverage."""
         requirements: list[dict[str, Any]] = list(inputs.requirements)
         evidence: list[dict[str, Any]] = list(inputs.evidence)
 
-        evidence_keys = {
-            ev.get("requirement_id")
-            for ev in evidence
-            if ev.get("requirement_id")
-        }
+        evidence_keys = {ev.get("requirement_id") for ev in evidence if ev.get("requirement_id")}
         evidence_status = {
             ev.get("requirement_id"): ev.get("status", "unknown")
             for ev in evidence
@@ -399,21 +402,25 @@ class CybersecurityAnalysisEngine:
             if req_id in evidence_keys:
                 covered += 1
                 status = evidence_status.get(req_id, "unknown")
-                gaps.append(ComplianceGap(
-                    requirement_id=req_id,
-                    requirement_name=req_name,
-                    status=status,
-                    evidence_available=True,
-                    gap="",
-                ))
+                gaps.append(
+                    ComplianceGap(
+                        requirement_id=req_id,
+                        requirement_name=req_name,
+                        status=status,
+                        evidence_available=True,
+                        gap="",
+                    )
+                )
             else:
-                gaps.append(ComplianceGap(
-                    requirement_id=req_id,
-                    requirement_name=req_name,
-                    status="missing",
-                    evidence_available=False,
-                    gap=f"No evidence supplied for requirement {req_id}",
-                ))
+                gaps.append(
+                    ComplianceGap(
+                        requirement_id=req_id,
+                        requirement_name=req_name,
+                        status="missing",
+                        evidence_available=False,
+                        gap=f"No evidence supplied for requirement {req_id}",
+                    )
+                )
 
         total = len(requirements)
         coverage_pct = round((covered / total) * 100, 2) if total > 0 else 0.0

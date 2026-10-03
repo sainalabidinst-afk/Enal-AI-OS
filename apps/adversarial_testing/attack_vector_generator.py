@@ -27,7 +27,11 @@ _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
         {
             "template": "Market crash: A sudden market downturn eliminates 30% of projected revenue",  # noqa: E501
             "severity": Severity.HIGH,
-            "assumptions": ["Market moves faster than expected", "No early warning indicators", "Liquidity dries up"],  # noqa: E501
+            "assumptions": [
+                "Market moves faster than expected",
+                "No early warning indicators",
+                "Liquidity dries up",
+            ],  # noqa: E501
         },
         {
             "template": "Geopolitical crisis: War, sanctions, or political upheaval disrupts supply chains",  # noqa: E501
@@ -37,7 +41,11 @@ _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
         {
             "template": "Natural disaster: Localized event (fire, flood, earthquake) halts operations",  # noqa: E501
             "severity": Severity.HIGH,
-            "assumptions": ["Single-region deployment", "No disaster recovery", "Critical dependency on location"],  # noqa: E501
+            "assumptions": [
+                "Single-region deployment",
+                "No disaster recovery",
+                "Critical dependency on location",
+            ],  # noqa: E501
         },
     ],
     AttackCategory.DEPENDENCY_FAILURE: [
@@ -61,12 +69,20 @@ _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
         {
             "template": "Budget overrun: Project costs exceed budget by 200%",
             "severity": Severity.HIGH,
-            "assumptions": ["No budget monitoring", "Fixed-cost commitments", "No cost optimization"],  # noqa: E501
+            "assumptions": [
+                "No budget monitoring",
+                "Fixed-cost commitments",
+                "No cost optimization",
+            ],  # noqa: E501
         },
         {
             "template": "Team turnover: 80% of key personnel leave mid-project",
             "severity": Severity.HIGH,
-            "assumptions": ["No documentation", "No knowledge transfer", "Single-person dependencies"],  # noqa: E501
+            "assumptions": [
+                "No documentation",
+                "No knowledge transfer",
+                "Single-person dependencies",
+            ],  # noqa: E501
         },
         {
             "template": "Compute exhaustion: Cloud costs or resource limits are exceeded",
@@ -88,19 +104,31 @@ _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
         {
             "template": "New entrant disruption: A startup with innovative technology enters the market",  # noqa: E501
             "severity": Severity.MEDIUM,
-            "assumptions": ["No market monitoring", "No response plan", "High entry barriers assumed"],  # noqa: E501
+            "assumptions": [
+                "No market monitoring",
+                "No response plan",
+                "High entry barriers assumed",
+            ],  # noqa: E501
         },
     ],
     AttackCategory.REGULATORY_CHANGE: [
         {
             "template": "New compliance requirement: Sudden regulatory change requires architecture redesign",  # noqa: E501
             "severity": Severity.HIGH,
-            "assumptions": ["No compliance monitoring", "Hard-coded compliance", "No modular design"],  # noqa: E501
+            "assumptions": [
+                "No compliance monitoring",
+                "Hard-coded compliance",
+                "No modular design",
+            ],  # noqa: E501
         },
         {
             "template": "Data privacy crackdown: Stricter GDPR/CCPA enforcement blocks current practices",  # noqa: E501
             "severity": Severity.CRITICAL,
-            "assumptions": ["No data governance", "No regional compliance", "No consent management"],  # noqa: E501
+            "assumptions": [
+                "No data governance",
+                "No regional compliance",
+                "No consent management",
+            ],  # noqa: E501
         },
     ],
     AttackCategory.DATA_CORRUPTION: [
@@ -112,7 +140,11 @@ _ATTACK_TEMPLATES: dict[AttackCategory, list[dict[str, Any]]] = {
         {
             "template": "Model drift: LLM output quality degrades due to prompt injection or drift",
             "severity": Severity.HIGH,
-            "assumptions": ["No output validation", "No model monitoring", "No fallback to deterministic logic"],  # noqa: E501
+            "assumptions": [
+                "No output validation",
+                "No model monitoring",
+                "No fallback to deterministic logic",
+            ],  # noqa: E501
         },
     ],
     AttackCategory.INFORMATION_WARFARE: [
@@ -184,7 +216,13 @@ class AttackVectorGenerator:
 
         # Try LLM generation first for contextual attacks
         llm_vectors = self._generate_with_llm(
-            subject, subject_type, categories, budget, context, constraints or [], existing_hardening  # noqa: E501
+            subject,
+            subject_type,
+            categories,
+            budget,
+            context,
+            constraints or [],
+            existing_hardening,  # noqa: E501
         )
 
         # Supplement with template-based attacks
@@ -220,11 +258,15 @@ class AttackVectorGenerator:
 
         hardening_note = ""
         if existing_hardening:
-            hardening_note = f"\n\nAlready applied mitigations (do NOT reuse): {', '.join(existing_hardening)}"  # noqa: E501
+            hardening_note = (
+                f"\n\nAlready applied mitigations (do NOT reuse): {', '.join(existing_hardening)}"  # noqa: E501
+            )
 
         constraints_note = ""
         if constraints:
-            constraints_note = f"\n\nHard constraints (attacks must NOT violate these): {', '.join(constraints)}"  # noqa: E501
+            constraints_note = (
+                f"\n\nHard constraints (attacks must NOT violate these): {', '.join(constraints)}"  # noqa: E501
+            )
 
         prompt = (
             f"You are a Devil's Advocate agent. Your job is to find weaknesses in plans and strategies.\n\n"  # noqa: E501
@@ -252,6 +294,7 @@ class AttackVectorGenerator:
                 max_tokens=2048,
             )
             import json
+
             data = json.loads(response.choices[0].message.content)
 
             vectors: list[AttackVector] = []
@@ -267,20 +310,20 @@ class AttackVectorGenerator:
                 except ValueError:
                     severity = Severity.MEDIUM
 
-                vectors.append(AttackVector(
-                    id=f"atk-{uuid.uuid4().hex[:8]}",
-                    category=category,
-                    description=item.get("description", ""),
-                    severity=severity,
-                    assumptions=item.get("assumptions", []),
-                    worst_case_impact=item.get("worst_case_impact", ""),
-                ))
+                vectors.append(
+                    AttackVector(
+                        id=f"atk-{uuid.uuid4().hex[:8]}",
+                        category=category,
+                        description=item.get("description", ""),
+                        severity=severity,
+                        assumptions=item.get("assumptions", []),
+                        worst_case_impact=item.get("worst_case_impact", ""),
+                    )
+                )
             return vectors
         except Exception as e:
             logger.warning(f"LLM attack generation failed, falling back to templates: {e}")
-            return self._generate_from_templates(
-                subject, categories, budget, existing_hardening
-            )
+            return self._generate_from_templates(subject, categories, budget, existing_hardening)
 
     def _generate_from_templates(
         self,
@@ -318,13 +361,15 @@ class AttackVectorGenerator:
             except (ValueError, TypeError):
                 severity = Severity.MEDIUM
 
-            vectors.append(AttackVector(
-                id=f"atk-{uuid.uuid4().hex[:8]}",
-                category=cat_enum,
-                description=f"{template['template']} (applied to: {subject[:80]})",
-                severity=severity,
-                assumptions=template.get("assumptions", []),
-                worst_case_impact=f"Subject may fail due to {template['template'].lower().split(':')[0]}",  # noqa: E501
-            ))
+            vectors.append(
+                AttackVector(
+                    id=f"atk-{uuid.uuid4().hex[:8]}",
+                    category=cat_enum,
+                    description=f"{template['template']} (applied to: {subject[:80]})",
+                    severity=severity,
+                    assumptions=template.get("assumptions", []),
+                    worst_case_impact=f"Subject may fail due to {template['template'].lower().split(':')[0]}",  # noqa: E501
+                )
+            )
 
         return vectors

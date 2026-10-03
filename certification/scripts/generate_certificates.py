@@ -11,7 +11,6 @@ from __future__ import annotations
 import argparse
 import datetime
 import json
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -70,7 +69,9 @@ def derive_benchmark_metrics(audit: dict[str, Any]) -> dict[str, Any]:
 
 
 def derive_golden_test_categories(audit: dict[str, Any]) -> list[dict[str, Any]]:
-    golden = next((area for area in audit.get("areas", []) if area.get("name") == "Golden Tests"), None)
+    golden = next(
+        (area for area in audit.get("areas", []) if area.get("name") == "Golden Tests"), None
+    )
     score = golden.get("score", 0) if golden else 0
     max_score = golden.get("max_score", 10) if golden else 10
     pct = percentage(score, max_score)
@@ -129,7 +130,9 @@ def derive_golden_test_categories(audit: dict[str, Any]) -> list[dict[str, Any]]
 
 
 def derive_real_case_scenarios(audit: dict[str, Any]) -> list[dict[str, Any]]:
-    real_cases = next((area for area in audit.get("areas", []) if area.get("name") == "Real Cases"), None)
+    real_cases = next(
+        (area for area in audit.get("areas", []) if area.get("name") == "Real Cases"), None
+    )
     score = real_cases.get("score", 0) if real_cases else 0
     max_score = real_cases.get("max_score", 10) if real_cases else 10
     pct = percentage(score, max_score)
@@ -163,7 +166,7 @@ def build_certificate(audit: dict[str, Any]) -> dict[str, Any]:
     level = grade_to_level(grade)
     status = "Active" if level != "Experimental" else "Suspended"
 
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.datetime.now(datetime.UTC)
     expiration = now + datetime.timedelta(days=CERT_VALIDITY_DAYS)
 
     return {
@@ -224,9 +227,13 @@ def save_certificate(certificate: dict[str, Any]) -> Path:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate Capability Certificates from audit reports")
+    parser = argparse.ArgumentParser(
+        description="Generate Capability Certificates from audit reports"
+    )
     parser.add_argument("--capability", help="Specific capability ID")
-    parser.add_argument("--all", action="store_true", help="Generate certificates for all audited capabilities")
+    parser.add_argument(
+        "--all", action="store_true", help="Generate certificates for all audited capabilities"
+    )
     args = parser.parse_args()
 
     if not args.all and not args.capability:
@@ -252,7 +259,9 @@ def main() -> int:
         certificate = build_certificate(audit)
         path = save_certificate(certificate)
         print(f"Generated certificate for {capability_id}: {path}")
-        print(f"  Grade: {certificate['grade']} | Level: {certificate['certificationLevel']} | Score: {certificate['overallScore']}%")
+        print(
+            f"  Grade: {certificate['grade']} | Level: {certificate['certificationLevel']} | Score: {certificate['overallScore']}%"  # noqa: E501
+        )
 
     return 0
 

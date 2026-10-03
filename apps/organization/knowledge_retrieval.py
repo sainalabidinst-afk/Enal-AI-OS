@@ -199,7 +199,9 @@ class ContextBuilder:
 
         confidence = 0.0
         if primary_concepts:
-            confidence = sum(c.get("confidence", 0.0) for c in primary_concepts) / len(primary_concepts)  # noqa: E501
+            confidence = sum(c.get("confidence", 0.0) for c in primary_concepts) / len(
+                primary_concepts
+            )  # noqa: E501
 
         return KnowledgeContext(
             query=query,
@@ -219,6 +221,7 @@ class ContextBuilder:
 
 
 # ─── Singleton ───
+
 
 def create_knowledge_retrieval() -> HybridRetrieval:
     """Factory for HybridRetrieval with default knowledge components."""

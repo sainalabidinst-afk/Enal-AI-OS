@@ -14,6 +14,7 @@ async def reviewer_node(state: dict) -> dict:
     review = await planner.review_result(last_result["task"], last_result["result"])
 
     from langchain_core.messages import SystemMessage
+
     return {
         "messages": [SystemMessage(content=f"Review: {review}")],
         "final_result": last_result["result"],

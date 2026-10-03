@@ -645,6 +645,7 @@ class GoldenTestRunner:
         checks.append({"name": "pack_in_loaded_list", "passed": "test_hot_reload_pack" in loaded})
 
         import backend.app.core.plugin_manifest as pm
+
         has_changed = manager.check_for_updates("test_hot_reload_pack", pm.__file__)
         checks.append({"name": "no_changes_detected", "passed": not has_changed})
 
@@ -653,10 +654,12 @@ class GoldenTestRunner:
         checks.append({"name": "latency_under_100ms", "passed": result.latency_ms < 100})
 
         err_result = manager.reload_pack("nonexistent_pack", "backend.app.core.plugin_manifest")
-        checks.append({
-            "name": "error_on_unregistered",
-            "passed": not err_result.success and err_result.error is not None,
-        })
+        checks.append(
+            {
+                "name": "error_on_unregistered",
+                "passed": not err_result.success and err_result.error is not None,
+            }
+        )
 
         return checks
 

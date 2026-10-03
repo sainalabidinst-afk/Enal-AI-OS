@@ -13,12 +13,15 @@ services with multi-provider fallback, language detection, and conversation turn
 from apps.voice_interaction import get_app
 
 app = get_app()
-result = await app.run("transcribe my voice memo", {
-    "operation": "transcribe",
-    "audio_data": "<base64-encoded-audio>",
-    "source_language": "auto",
-    "stt_provider": "whisper",
-})
+result = await app.run(
+    "transcribe my voice memo",
+    {
+        "operation": "transcribe",
+        "audio_data": "<base64-encoded-audio>",
+        "source_language": "auto",
+        "stt_provider": "whisper",
+    },
+)
 ```
 
 ### Synchronous Execution
@@ -27,12 +30,14 @@ result = await app.run("transcribe my voice memo", {
 from apps.voice_interaction.worker import VoiceInteractionWorker
 
 worker = VoiceInteractionWorker()
-result = worker.execute({
-    "operation": "synthesize",
-    "text": "Hello from Jenny, your AI assistant.",
-    "target_language": "en",
-    "tts_provider": "pyttsx3",
-})
+result = worker.execute(
+    {
+        "operation": "synthesize",
+        "text": "Hello from Jenny, your AI assistant.",
+        "target_language": "en",
+        "tts_provider": "pyttsx3",
+    }
+)
 print(result["syntheses"])
 ```
 

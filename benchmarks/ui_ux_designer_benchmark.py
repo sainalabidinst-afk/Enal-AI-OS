@@ -94,7 +94,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "design_review",
         "inputs": {
             "business_context": {"project_name": "design-review", "domain": "e-commerce"},
-            "inputs": {"screens": 20, "review_criteria": ["consistency", "accessibility", "usability"]},
+            "inputs": {
+                "screens": 20,
+                "review_criteria": ["consistency", "accessibility", "usability"],
+            },
         },
         "min_quality_score": 0.80,
     },
@@ -114,7 +117,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "design_system",
         "inputs": {
             "business_context": {"project_name": "props-schema", "domain": "developer-tools"},
-            "inputs": {"component_types": ["button", "input", "modal"], "variants_per_component": 4},
+            "inputs": {
+                "component_types": ["button", "input", "modal"],
+                "variants_per_component": 4,
+            },
         },
         "min_quality_score": 0.85,
     },
@@ -202,7 +208,9 @@ class UIUXDesignerBenchmark:
             "pack_id": "ui_ux_designer",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

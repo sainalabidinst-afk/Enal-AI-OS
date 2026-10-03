@@ -189,10 +189,12 @@ class DecoratorContractValidator:
 # Register a custom decorator
 from backend.app.core.decorators import DecoratorBase, DecoratorRegistry
 
+
 class RateLimitDecorator(DecoratorBase):
     name = "rate_limit"
     version = "1.0.0"
     # ... implementation ...
+
 
 DecoratorRegistry.register("rate_limit", RateLimitDecorator)
 

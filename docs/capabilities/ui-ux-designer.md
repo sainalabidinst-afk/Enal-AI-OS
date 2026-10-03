@@ -249,7 +249,14 @@ request = UIUXDesignerRequest(
     operation=OperationType.full_design,
     business_context={"domain": "e-commerce", "project_name": "TokoOnline"},
     inputs={"product_requirements": ["Users must checkout in 3 steps"]},
-    personas=[{"name": "Rina", "role": "Customer", "goals": ["Fast checkout"], "pain_points": ["Complex forms"]}],
+    personas=[
+        {
+            "name": "Rina",
+            "role": "Customer",
+            "goals": ["Fast checkout"],
+            "pain_points": ["Complex forms"],
+        }
+    ],
 )
 report = engine.design(request)
 print(f"Personas: {len(report.ux_research.user_personas)}")

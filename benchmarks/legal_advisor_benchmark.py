@@ -26,7 +26,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "inputs": {
             "operation": "document_extract",
             "document_id": "contract-1",
-            "text": "Supplier shall notify Customer within five business days of a security incident.",
+            "text": "Supplier shall notify Customer within five business days of a security incident.",  # noqa: E501
             "page": 4,
         },
         "min_quality_score": 0.85,
@@ -75,7 +75,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "source_summarize",
         "inputs": {
             "operation": "source_summarize",
-            "content": "Article 30: Controllers must maintain records. Article 32: Security measures required.",
+            "content": "Article 30: Controllers must maintain records. Article 32: Security measures required.",  # noqa: E501
             "source_id": "gdpr-chapter-4",
         },
         "min_quality_score": 0.85,
@@ -218,7 +218,9 @@ class LegalAdvisorBenchmark:
             "pack_id": "legal_advisor",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

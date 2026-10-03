@@ -25,18 +25,46 @@ class CapabilityKnowledgeBridge:
     def register_finding(self, entity: KnowledgeEntity) -> KnowledgeEntity:
         return self.store.register(entity)
 
-    def add_evidence(self, claim_id: str, content: str, source: str, confidence: float, capability: str | None = None, metadata: dict[str, Any] | None = None) -> EvidenceBuilder:  # noqa: E501
+    def add_evidence(
+        self,
+        claim_id: str,
+        content: str,
+        source: str,
+        confidence: float,
+        capability: str | None = None,
+        metadata: dict[str, Any] | None = None,
+    ) -> EvidenceBuilder:  # noqa: E501
         builder = EvidenceBuilder(claim_id=claim_id, capability=capability)
         builder.add(content=content, source=source, confidence=confidence, metadata=metadata)
         for item in builder.build():
             self.evidence.add(item)
         return builder
 
-    def record_experience(self, domain: str, context: dict[str, Any], action: str, outcome: str, success: bool, confidence: float = 0.0) -> None:  # noqa: E501
+    def record_experience(
+        self,
+        domain: str,
+        context: dict[str, Any],
+        action: str,
+        outcome: str,
+        success: bool,
+        confidence: float = 0.0,
+    ) -> None:  # noqa: E501
         if success:
-            self.learning.record_success(domain=domain, context=context, action_taken=action, outcome=outcome, confidence=confidence)  # noqa: E501
+            self.learning.record_success(
+                domain=domain,
+                context=context,
+                action_taken=action,
+                outcome=outcome,
+                confidence=confidence,
+            )  # noqa: E501
         else:
-            self.learning.record_failure(domain=domain, context=context, action_taken=action, failure_reason=outcome, confidence=confidence)  # noqa: E501
+            self.learning.record_failure(
+                domain=domain,
+                context=context,
+                action_taken=action,
+                failure_reason=outcome,
+                confidence=confidence,
+            )  # noqa: E501
 
     def recommend(self, domain: str, context: dict[str, Any]) -> dict[str, Any] | None:
         rec = self.learning.recommend(domain=domain, context=context)
@@ -52,17 +80,32 @@ class CapabilityKnowledgeBridge:
             "based_on_lessons": rec.based_on_lessons,
         }
 
-    def search_knowledge(self, query: str, domain: str | None = None, limit: int = 5) -> list[dict[str, Any]]:  # noqa: E501
+    def search_knowledge(
+        self, query: str, domain: str | None = None, limit: int = 5
+    ) -> list[dict[str, Any]]:  # noqa: E501
         return self.retrieval.search(query, domain=domain, limit=limit)
 
-    def related_concepts(self, concept_id: str, relation: str | None = None, max_depth: int = 2) -> list[dict[str, Any]]:  # noqa: E501
+    def related_concepts(
+        self, concept_id: str, relation: str | None = None, max_depth: int = 2
+    ) -> list[dict[str, Any]]:  # noqa: E501
         return self.retrieval.related(concept_id, relation=relation, max_depth=max_depth)
 
-    def hybrid_query(self, query: str, domain: str | None = None, limit: int = 5) -> list[dict[str, Any]]:  # noqa: E501
+    def hybrid_query(
+        self, query: str, domain: str | None = None, limit: int = 5
+    ) -> list[dict[str, Any]]:  # noqa: E501
         return self.retrieval.hybrid(query, domain=domain, limit=limit)
 
-    def add_reference(self, reference_id: str, title: str, source: str, content: str, source_type: str = "standard", tags: list[str] | None = None) -> Reference:  # noqa: E501
+    def add_reference(
+        self,
+        reference_id: str,
+        title: str,
+        source: str,
+        content: str,
+        source_type: str = "standard",
+        tags: list[str] | None = None,
+    ) -> Reference:  # noqa: E501
         from backend.app.core.knowledge.reference import Reference
+
         ref = Reference(
             reference_id=reference_id,
             title=title,
@@ -73,7 +116,9 @@ class CapabilityKnowledgeBridge:
         )
         return self.references.add(ref)
 
-    def find_references(self, tag: str | None = None, source: str | None = None) -> list[dict[str, Any]]:  # noqa: E501
+    def find_references(
+        self, tag: str | None = None, source: str | None = None
+    ) -> list[dict[str, Any]]:  # noqa: E501
         if tag:
             refs = self.references.find_by_tag(tag)
         elif source:

@@ -86,7 +86,7 @@ class TestContradictionDetection:
                 year=2024,
                 source_type=SourceType.journal,
                 source_quality=SourceQuality.peer_reviewed,
-                content="AI tools significantly improve developer productivity by automating repetitive tasks.",
+                content="AI tools significantly improve developer productivity by automating repetitive tasks.",  # noqa: E501
                 recency_score=0.9,
                 methodology_score=0.9,
                 relevance_score=0.9,
@@ -98,7 +98,7 @@ class TestContradictionDetection:
                 year=2023,
                 source_type=SourceType.journal,
                 source_quality=SourceQuality.peer_reviewed,
-                content="Our study found no statistically significant effect of AI tools on developer productivity.",
+                content="Our study found no statistically significant effect of AI tools on developer productivity.",  # noqa: E501
                 recency_score=0.8,
                 methodology_score=0.85,
                 relevance_score=0.9,
@@ -225,18 +225,24 @@ class TestReportGeneration:
 class TestWorker:
     async def test_worker_executes_task(self):
         from apps.research_assistant.worker import ResearchAssistantWorker
+
         worker = ResearchAssistantWorker()
-        result = await worker.execute({
-            "query": "test query",
-            "operation": "literature_review",
-        })
+        result = await worker.execute(
+            {
+                "query": "test query",
+                "operation": "literature_review",
+            }
+        )
         assert "evidence" in result or "error" in result
 
     async def test_worker_returns_dict(self):
         from apps.research_assistant.worker import ResearchAssistantWorker
+
         worker = ResearchAssistantWorker()
-        result = await worker.execute({
-            "query": "test",
-            "operation": "evidence_gathering",
-        })
+        result = await worker.execute(
+            {
+                "query": "test",
+                "operation": "evidence_gathering",
+            }
+        )
         assert isinstance(result, dict)

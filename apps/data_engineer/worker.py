@@ -84,9 +84,7 @@ class DataEngineerWorker:
             for qr in task.get("quality_rules", [])
         ]
 
-        feature_defs = [
-            FeatureSpec(**fd) for fd in task.get("feature_definitions", [])
-        ]
+        feature_defs = [FeatureSpec(**fd) for fd in task.get("feature_definitions", [])]
 
         request = DataEngineeringRequest(
             job_type=job_type,

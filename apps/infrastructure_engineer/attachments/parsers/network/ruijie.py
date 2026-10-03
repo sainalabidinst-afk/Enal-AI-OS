@@ -15,17 +15,37 @@ class RuijieParser(BaseParser):
         return meta.vendor == VendorFamily.ruijie
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.ruijie, format="ruijie_os", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.ruijie, format="ruijie_os", device_role=meta.device_role
+        )  # noqa: E501
         for idx, line in enumerate(content.splitlines()):
             stripped = line.strip()
             if stripped.startswith("interface "):
                 ast.interfaces.append({"raw": stripped[:200]})
                 if "trunk" in stripped.lower() or "port trunk" in stripped.lower():
                     evidence = [stripped]
-                    ast.findings.append(InfrastructureFinding(Severity.low, "switch", "Trunk detected", "Validate allowed VLANs and native VLAN", confidence=0.7, evidence=evidence))  # noqa: E501
+                    ast.findings.append(
+                        InfrastructureFinding(
+                            Severity.low,
+                            "switch",
+                            "Trunk detected",
+                            "Validate allowed VLANs and native VLAN",
+                            confidence=0.7,
+                            evidence=evidence,
+                        )
+                    )  # noqa: E501
                 if "poe" in stripped.lower():
                     evidence = [stripped]
-                    ast.findings.append(InfrastructureFinding(Severity.low, "switch", "PoE detected", "Review PoE allocation and redundancy", confidence=0.6, evidence=evidence))  # noqa: E501
+                    ast.findings.append(
+                        InfrastructureFinding(
+                            Severity.low,
+                            "switch",
+                            "PoE detected",
+                            "Review PoE allocation and redundancy",
+                            confidence=0.6,
+                            evidence=evidence,
+                        )
+                    )  # noqa: E501
             if "vlan" in stripped.lower():
                 ast.vlans.append({"raw": stripped[:200]})
             if any(key in stripped.lower() for key in ["acl", "firewall", "policy"]):

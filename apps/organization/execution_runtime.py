@@ -83,7 +83,9 @@ class ExecutionRuntime:
                 break
         return results
 
-    async def _run_stage(self, stage: ExecutionStage, context: ExecutionContext) -> list[SubtaskResult]:  # noqa: E501
+    async def _run_stage(
+        self, stage: ExecutionStage, context: ExecutionContext
+    ) -> list[SubtaskResult]:  # noqa: E501
         if stage.mode == "parallel":
             tasks = [self._run_subtask(subtask, context) for subtask in stage.subtasks]
             return list(await asyncio.gather(*tasks, return_exceptions=False))
@@ -123,15 +125,23 @@ class ExecutionRuntime:
                 result.status = SubtaskStatus.COMPLETED
                 result.result = worker_output
                 result.finished_at = datetime.now(UTC)
-                logger.info("Subtask completed: %s duration=%.2fs", subtask.subtask_id, result.duration_seconds)  # noqa: E501
+                logger.info(
+                    "Subtask completed: %s duration=%.2fs",
+                    subtask.subtask_id,
+                    result.duration_seconds,
+                )  # noqa: E501
                 return result
             except TimeoutError:
                 logger.warning("Subtask timeout: %s attempt=%d", subtask.subtask_id, attempt)
                 result.error = "timeout"
             except (ValueError, RuntimeError, ConnectionError) as exc:
-                logger.error("Subtask failed: %s attempt=%d error=%s", subtask.subtask_id, attempt, exc)  # noqa: E501
+                logger.error(
+                    "Subtask failed: %s attempt=%d error=%s", subtask.subtask_id, attempt, exc
+                )  # noqa: E501
                 result.error = str(exc)
-            result.status = SubtaskStatus.RETRYING if attempt < context.retry_limit else SubtaskStatus.FAILED  # noqa: E501
+            result.status = (
+                SubtaskStatus.RETRYING if attempt < context.retry_limit else SubtaskStatus.FAILED
+            )  # noqa: E501
             result.finished_at = datetime.now(UTC)
             if result.status == SubtaskStatus.RETRYING:
                 await asyncio.sleep(context.retry_delay_seconds)

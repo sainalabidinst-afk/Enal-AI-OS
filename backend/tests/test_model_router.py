@@ -19,6 +19,7 @@ class FakeConfig:
 class TestModelRouter:
     def test_get_provider_config_gpt(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("gpt-4")
@@ -26,6 +27,7 @@ class TestModelRouter:
 
     def test_get_provider_config_claude(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("claude-3")
@@ -33,6 +35,7 @@ class TestModelRouter:
 
     def test_get_provider_config_gemini(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("gemini-pro")
@@ -41,6 +44,7 @@ class TestModelRouter:
 
     def test_get_provider_config_prefers_gemini_key(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("gemini/gemini-2.5-flash")
@@ -49,6 +53,7 @@ class TestModelRouter:
 
     def test_get_provider_config_ollama(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("ollama/llama2")
@@ -56,6 +61,7 @@ class TestModelRouter:
 
     def test_get_provider_config_lm_studio(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
         router = ModelRouter()
         config = router.get_provider_config("lmstudio/qwen2.5-coder-7b-instruct")
@@ -65,8 +71,11 @@ class TestModelRouter:
 
     def test_complete_raises_on_failure(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
-        monkeypatch.setattr(mr_module, "completion", lambda **kwargs: (_ for _ in ()).throw(ValueError("fail")))  # noqa: E501
+        monkeypatch.setattr(
+            mr_module, "completion", lambda **kwargs: (_ for _ in ()).throw(ValueError("fail"))
+        )  # noqa: E501
         router = ModelRouter()
         with pytest.raises(ValueError):
             router.complete([{"role": "user", "content": "hi"}])
@@ -74,6 +83,7 @@ class TestModelRouter:
     @pytest.mark.asyncio
     async def test_acomplete_raises_on_failure(self, monkeypatch):
         import backend.app.core.model_router as mr_module
+
         monkeypatch.setattr(mr_module, "settings", FakeConfig)
 
         async def fake_acompletion(**kwargs):

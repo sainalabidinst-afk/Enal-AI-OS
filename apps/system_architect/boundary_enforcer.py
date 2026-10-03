@@ -54,8 +54,15 @@ class BoundaryEnforcer:
 
         # Patterns that should never be imported (e.g., test utilities in production code)
         self.forbidden_patterns = forbidden_patterns or [
-            "test", "tests", "mock", "mocks", "fixture", "fixtures",
-            "_test", "_smoke", "_diag",
+            "test",
+            "tests",
+            "mock",
+            "mocks",
+            "fixture",
+            "fixtures",
+            "_test",
+            "_smoke",
+            "_diag",
         ]
 
         self.graph_builder = DependencyGraphBuilder(self.repo_path)
@@ -223,22 +230,36 @@ class BoundaryEnforcer:
                 findings.append(finding)
         return findings
 
-    def _compute_metrics(self, snapshot: DependencyGraphSnapshot, findings: list[Finding]) -> ArchitectureMetrics:  # noqa: E501
+    def _compute_metrics(
+        self, snapshot: DependencyGraphSnapshot, findings: list[Finding]
+    ) -> ArchitectureMetrics:  # noqa: E501
         """Compute boundary enforcement metrics."""
-        boundary_violations = sum(1 for f in findings if f.category == FindingCategory.package_boundary)  # noqa: E501
-        cycle_violations = sum(1 for f in findings if f.category == FindingCategory.dependency_cycle)  # noqa: E501
+        boundary_violations = sum(
+            1 for f in findings if f.category == FindingCategory.package_boundary
+        )  # noqa: E501
+        cycle_violations = sum(
+            1 for f in findings if f.category == FindingCategory.dependency_cycle
+        )  # noqa: E501
         layer_violations = len(snapshot.layer_violations)
 
         return ArchitectureMetrics(
             dependency_cycles=cycle_violations,
             layer_violations=layer_violations,
             package_boundaries_crossed=boundary_violations,
-            maintainability_score=max(0.0, 100.0 - (layer_violations * 5.0 + cycle_violations * 10.0 + boundary_violations * 4.0)),  # noqa: E501
-            scalability_score=max(0.0, 100.0 - (cycle_violations * 8.0 + boundary_violations * 3.0)),  # noqa: E501
+            maintainability_score=max(
+                0.0,
+                100.0
+                - (layer_violations * 5.0 + cycle_violations * 10.0 + boundary_violations * 4.0),
+            ),  # noqa: E501
+            scalability_score=max(
+                0.0, 100.0 - (cycle_violations * 8.0 + boundary_violations * 3.0)
+            ),  # noqa: E501
             testability_score=max(0.0, 100.0 - (cycle_violations * 6.0 + layer_violations * 3.0)),
         )
 
-    def _generate_recommendations(self, findings: list[Finding], metrics: ArchitectureMetrics) -> list[Recommendation]:  # noqa: E501
+    def _generate_recommendations(
+        self, findings: list[Finding], metrics: ArchitectureMetrics
+    ) -> list[Recommendation]:  # noqa: E501
         recs: list[Recommendation] = []
         if metrics.package_boundaries_crossed > 0:
             recs.append(

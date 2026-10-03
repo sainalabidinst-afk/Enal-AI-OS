@@ -2,11 +2,11 @@
 Smoke tests for Code Engineer capability.
 """
 
-from apps.code_engineer.analyzer import *
-from apps.code_engineer.architecture_models import *
-from apps.code_engineer.architecture_patterns import *
-from apps.code_engineer.architecture_reader import *
-from apps.code_engineer.clean_architecture import *
+from apps.code_engineer.analyzer import *  # noqa: F403
+from apps.code_engineer.architecture_models import *  # noqa: F403
+from apps.code_engineer.architecture_patterns import *  # noqa: F403
+from apps.code_engineer.architecture_reader import *  # noqa: F403
+from apps.code_engineer.clean_architecture import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

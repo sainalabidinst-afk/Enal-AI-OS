@@ -37,6 +37,7 @@ class BrowserAgent:
         if self.session is None:
             try:
                 import aiohttp
+
                 self.session = aiohttp.ClientSession(
                     timeout=aiohttp.ClientTimeout(total=30),
                     headers={"User-Agent": "Mozilla/5.0 (compatible; ECP-Bot/1.0)"},
@@ -86,6 +87,7 @@ class BrowserAgent:
 
         # Simple HTML parsing without BeautifulSoup
         import re
+
         for line in html.split("\n"):
             if "<title>" in line:
                 match = re.search(r"<title>(.*?)</title>", line, re.IGNORECASE)
@@ -104,6 +106,7 @@ class BrowserAgent:
 
         # Extract text content (basic)
         import re
+
         text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL | re.IGNORECASE)
         text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.DOTALL | re.IGNORECASE)
         text = re.sub(r"<[^>]+>", " ", text)
@@ -126,16 +129,19 @@ class BrowserAgent:
         result = await self.browse(search_url)
         if result.content:
             import re
+
             # Extract result URLs from DuckDuckGo
             urls = re.findall(r'https?://[^\s"\'<>]+\.[^\s"\'<>]+', result.content)
             for url in urls[:max_results]:
                 if "duckduckgo" not in url.lower():
-                    results.append({
-                        "url": url,
-                        "title": url,
-                        "snippet": url,
-                        "source": "duckduckgo",
-                    })
+                    results.append(
+                        {
+                            "url": url,
+                            "title": url,
+                            "snippet": url,
+                            "source": "duckduckgo",
+                        }
+                    )
 
         self._search_history.append({"query": query, "results": len(results)})
         return results
@@ -154,11 +160,13 @@ class BrowserAgent:
         results = []
         for url in sources:
             result = await self.browse(url)
-            results.append({
-                "url": result.url,
-                "title": result.title,
-                "content": result.content[:1000],
-            })
+            results.append(
+                {
+                    "url": result.url,
+                    "title": result.title,
+                    "content": result.content[:1000],
+                }
+            )
 
         # Basic summarization
         all_content = " ".join(r["content"] for r in results)

@@ -20,7 +20,13 @@ logger = logging.getLogger(__name__)
 class SynthesisEngine:
     """Synthesizes multi-source findings into coherent narrative."""
 
-    def synthesize(self, query: str, evidence_list: list[Evidence], findings: list[Finding], contradictions: list[Contradiction]) -> Synthesis:  # noqa: E501
+    def synthesize(
+        self,
+        query: str,
+        evidence_list: list[Evidence],
+        findings: list[Finding],
+        contradictions: list[Contradiction],
+    ) -> Synthesis:  # noqa: E501
         narrative_parts = [
             f"## Synthesis: {query}",
             "",
@@ -31,26 +37,32 @@ class SynthesisEngine:
         ]
 
         for finding in findings[:5]:
-            narrative_parts.append(f"- **{finding.title}**: {finding.description} (confidence: {finding.confidence:.0%})")  # noqa: E501
+            narrative_parts.append(
+                f"- **{finding.title}**: {finding.description} (confidence: {finding.confidence:.0%})"  # noqa: E501
+            )  # noqa: E501
 
         if contradictions:
-            narrative_parts.extend([
-                "",
-                "### Contradictions and Uncertainties",
-                f"{len(contradictions)} contradictions were identified:",
-            ])
+            narrative_parts.extend(
+                [
+                    "",
+                    "### Contradictions and Uncertainties",
+                    f"{len(contradictions)} contradictions were identified:",
+                ]
+            )
             for c in contradictions[:3]:
                 narrative_parts.append(f"- {c.description}")
 
-        narrative_parts.extend([
-            "",
-            "### Research Gaps",
-            "- Further validation needed for conflicting results",
-            "- Additional longitudinal studies recommended",
-            "",
-            "### Conclusion",
-            "The evidence suggests moderate-to-high confidence in the primary findings, with noted uncertainties that warrant further investigation.",  # noqa: E501
-        ])
+        narrative_parts.extend(
+            [
+                "",
+                "### Research Gaps",
+                "- Further validation needed for conflicting results",
+                "- Additional longitudinal studies recommended",
+                "",
+                "### Conclusion",
+                "The evidence suggests moderate-to-high confidence in the primary findings, with noted uncertainties that warrant further investigation.",  # noqa: E501
+            ]
+        )
 
         narrative = "\n".join(narrative_parts)
 

@@ -60,7 +60,11 @@ class NetworkWorker:
             return await self._handle_analysis(subtask_data, context)
         if "explain" in name.lower():
             return await self._handle_explain(subtask_data, context)
-        if "design review" in name.lower() or "review_design" in name.lower() or "design" in name.lower():  # noqa: E501
+        if (
+            "design review" in name.lower()
+            or "review_design" in name.lower()
+            or "design" in name.lower()
+        ):  # noqa: E501
             return await self._handle_design_review(subtask_data, context)
         if "troubleshoot" in name.lower() or "troubleshooting" in name.lower():
             return await self._handle_troubleshoot(subtask_data, context)
@@ -75,11 +79,17 @@ class NetworkWorker:
             "required_skills": required_skills,
         }
 
-    async def _handle_parse(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_parse(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         config_content = task_context.get("intent", "")
         if not config_content:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No config content provided for parsing"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No config content provided for parsing",
+            }  # noqa: E501
         try:
             config = self._app._parse_config(config_content)
             return {
@@ -95,13 +105,23 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_analysis(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_analysis(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         config_content = task_context.get("intent", "")
         if not config_content:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No config content provided for analysis"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No config content provided for analysis",
+            }  # noqa: E501
         try:
             analysis = await self._app.analyze_config(config_content)
             issues = analysis.get("issues", [])
@@ -117,13 +137,23 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_compliance(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_compliance(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         config_content = task_context.get("intent", "")
         if not config_content:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No config content provided for compliance check"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No config content provided for compliance check",
+            }  # noqa: E501
         try:
             report = await self._app.check_compliance(config_content)
             return {
@@ -136,13 +166,23 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_documentation(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_documentation(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         config_content = task_context.get("intent", "")
         if not config_content:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No config content provided for documentation"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No config content provided for documentation",
+            }  # noqa: E501
         try:
             markdown = await self._app.generate_documentation(config_content)
             return {
@@ -154,14 +194,24 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_explain(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_explain(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         config_content = task_context.get("intent", "")
         category = subtask_data.get("category", "")
         if not config_content or not category:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "Missing config or category for explanation"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "Missing config or category for explanation",
+            }  # noqa: E501
         try:
             explanation = await self._app.explain_finding(config_content, category)
             return {
@@ -173,13 +223,23 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_design_review(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_design_review(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         topology_json = task_context.get("topology") or subtask_data.get("topology") or {}
         if not topology_json:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No topology provided for design review"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No topology provided for design review",
+            }  # noqa: E501
         try:
             review = await self._app.review_design(topology_json, context)
             return {
@@ -195,14 +255,28 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_troubleshoot(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_troubleshoot(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
-        symptom = task_context.get("intent") or subtask_data.get("symptom") or subtask_data.get("name", "")  # noqa: E501
+        symptom = (
+            task_context.get("intent")
+            or subtask_data.get("symptom")
+            or subtask_data.get("name", "")
+        )  # noqa: E501
         evidence = subtask_data.get("evidence", [])
         if not symptom:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No symptom provided for troubleshooting"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No symptom provided for troubleshooting",
+            }  # noqa: E501
         try:
             session = await self._app.troubleshoot(symptom, evidence)
             return {
@@ -218,15 +292,25 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_migration(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_migration(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         source_vendor = task_context.get("source_vendor") or subtask_data.get("source_vendor", "")
         target_vendor = task_context.get("target_vendor") or subtask_data.get("target_vendor", "")
         source_config = task_context.get("intent") or subtask_data.get("source_config", "")
         if not source_vendor or not target_vendor:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "Missing source or target vendor for migration"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "Missing source or target vendor for migration",
+            }  # noqa: E501
         try:
             plan = await self._app.plan_migration(source_vendor, target_vendor, source_config)
             return {
@@ -242,13 +326,25 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_advise(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_advise(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
-        query = task_context.get("intent") or subtask_data.get("query") or subtask_data.get("name", "")  # noqa: E501
+        query = (
+            task_context.get("intent") or subtask_data.get("query") or subtask_data.get("name", "")
+        )  # noqa: E501
         if not query:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No query provided for advisory"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No query provided for advisory",
+            }  # noqa: E501
         try:
             advice = await self._app.advise(query, context)
             return {
@@ -261,7 +357,11 @@ class NetworkWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
 
 network_worker = NetworkWorker()

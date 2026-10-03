@@ -17,7 +17,10 @@ def load_config(scenario: str) -> str:
 
 def test_diff_engine():
     current = load_config("home")
-    proposed = current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22 comment=\"Allow SSH\"\n"
+    proposed = (
+        current
+        + '\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22 comment="Allow SSH"\n'  # noqa: E501
+    )
     diff = semantic_diff_engine.diff(current, proposed)
     assert diff.summary["added"] >= 1, "Expected at least 1 added rule"
     assert "Firewall" in [e.category for e in diff.entries], "Expected firewall category in diff"
@@ -52,7 +55,9 @@ async def test_verification_engine():
 @pytest.mark.asyncio
 async def test_controlled_deployment_approved():
     current = load_config("campus")
-    proposed = current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22\n"
+    proposed = (
+        current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22\n"
+    )
     report = await controlled_deployment.run_pipeline(
         device_id="test-router-1",
         current_config=current,
@@ -70,7 +75,9 @@ async def test_controlled_deployment_approved():
 @pytest.mark.asyncio
 async def test_controlled_deployment_rejected():
     current = load_config("campus")
-    proposed = current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22\n"
+    proposed = (
+        current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22\n"
+    )
     report = await controlled_deployment.run_pipeline(
         device_id="test-router-2",
         current_config=current,
@@ -86,7 +93,9 @@ async def test_controlled_deployment_rejected():
 @pytest.mark.asyncio
 async def test_explain_before_deploy():
     current = load_config("home")
-    proposed = current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22\n"
+    proposed = (
+        current + "\n/ip firewall filter\nadd action=accept chain=input protocol=tcp port=22\n"
+    )
     plan = await controlled_deployment.analyze("test-device", current, proposed, "test-explain")
     plan = await controlled_deployment.diff(plan)
     plan = await controlled_deployment.score_risk(plan)
@@ -95,7 +104,9 @@ async def test_explain_before_deploy():
     runbook = controlled_deployment.generate_runbook(plan)
     assert runbook.changes, "Should have changes"
     assert runbook.risk_level, "Should have risk level"
-    assert runbook.rollback_status == RollbackStatus.READY, "Should have rollback ready after backup"
+    assert runbook.rollback_status == RollbackStatus.READY, (
+        "Should have rollback ready after backup"
+    )
 
     timeline = controlled_deployment.generate_timeline(plan)
     timeline_markdown = timeline.to_markdown()

@@ -33,7 +33,7 @@ async def execute_action(
             "action": "read_file",
             "params": {"path": "docs/README.md"},
             "connector": "file_system",
-        }
+        },
     ),
 ) -> ActionResult:
     """Execute an action on a specified connector.

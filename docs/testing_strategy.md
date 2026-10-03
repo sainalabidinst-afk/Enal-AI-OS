@@ -79,10 +79,9 @@ async def test_plugin_contract_compliance():
 ```python
 async def test_network_analysis_workflow():
     app = NetworkEngineerApp()
-    result = await app.run("Analyze this MikroTik config", {
-        "config": sample_config,
-        "project_id": "test-001"
-    })
+    result = await app.run(
+        "Analyze this MikroTik config", {"config": sample_config, "project_id": "test-001"}
+    )
     assert result["result"]["analysis"]["issues"] is not None
     assert result["result"]["documentation"] is not None
 ```

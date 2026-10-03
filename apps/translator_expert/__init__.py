@@ -31,16 +31,16 @@ from apps.translator_expert.worker import TranslatorExpertWorker
 class TranslatorExpertApp(BaseReferenceApp):
     name = "translator-expert"
     version = "1.0.0"
-    description = "Multilingual translation with domain context, style control, and glossary enforcement"  # noqa: E501
+    description = (
+        "Multilingual translation with domain context, style control, and glossary enforcement"  # noqa: E501
+    )
     category = "language"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
     def __init__(self) -> None:
         self.worker = TranslatorExpertWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("user_input", user_input)
         return self.worker.execute(task)

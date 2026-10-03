@@ -1,4 +1,5 @@
 """AI Studio - observability, debug, and management interface."""
+
 import logging
 from typing import Any
 
@@ -36,7 +37,14 @@ class AIStudio:
             if project_id is None or node.project_id == project_id:
                 nodes.append({"id": node.id, "type": node.node_type.value, "name": node.name})
         for edge in semantic_graph._edges.values():
-            edges.append({"id": edge.id, "source": edge.source_id, "target": edge.target_id, "relation": edge.relation.value})  # noqa: E501
+            edges.append(
+                {
+                    "id": edge.id,
+                    "source": edge.source_id,
+                    "target": edge.target_id,
+                    "relation": edge.relation.value,
+                }
+            )  # noqa: E501
         return {"nodes": nodes, "edges": edges}
 
     async def get_memory(self, layer: str, query: str, limit: int = 10) -> list[dict[str, Any]]:
@@ -52,9 +60,14 @@ class AIStudio:
 
     async def get_pipeline_presets(self) -> dict[str, Any]:
         from backend.app.core.cognitive_budget import TaskComplexity
+
         return {
             "presets": [
-                {"complexity": c.value, "pipeline": adaptive_runtime.get_pipeline_for_complexity(c), "description": adaptive_runtime.describe_pipeline(c)}  # noqa: E501
+                {
+                    "complexity": c.value,
+                    "pipeline": adaptive_runtime.get_pipeline_for_complexity(c),
+                    "description": adaptive_runtime.describe_pipeline(c),
+                }  # noqa: E501
                 for c in TaskComplexity
             ]
         }
@@ -68,9 +81,9 @@ class AIStudio:
         graph = await self.get_graph(workspace_id)
         artifact_dicts: list[dict[str, Any]] = []
         for a in artifacts:
-            if hasattr(a, 'model_dump'):
+            if hasattr(a, "model_dump"):
                 artifact_dicts.append(a.model_dump())
-            elif hasattr(a, '__dict__'):
+            elif hasattr(a, "__dict__"):
                 artifact_dicts.append(a.__dict__)
             else:
                 artifact_dicts.append({"id": a.id, "name": a.name, "type": a.type})
@@ -78,14 +91,22 @@ class AIStudio:
 
     async def create_workspace(self, name: str, description: str = "") -> dict[str, Any]:
         workspace = await artifact_service.create_workspace(name=name, description=description)
-        if hasattr(workspace, 'created_at'):
-            created = workspace.created_at.isoformat() if hasattr(workspace.created_at, 'isoformat') else str(workspace.created_at)  # noqa: E501
+        if hasattr(workspace, "created_at"):
+            created = (
+                workspace.created_at.isoformat()
+                if hasattr(workspace.created_at, "isoformat")
+                else str(workspace.created_at)
+            )  # noqa: E501
         else:
             created = ""
         return {"id": workspace.id, "name": workspace.name, "created_at": created}
 
-    async def create_artifact(self, workspace_id: str, name: str, content: str, artifact_type: str = "text") -> dict[str, Any]:  # noqa: E501
-        artifact = await artifact_service.create_artifact(workspace_id=workspace_id, name=name, content=content, artifact_type=artifact_type)  # noqa: E501
+    async def create_artifact(
+        self, workspace_id: str, name: str, content: str, artifact_type: str = "text"
+    ) -> dict[str, Any]:  # noqa: E501
+        artifact = await artifact_service.create_artifact(
+            workspace_id=workspace_id, name=name, content=content, artifact_type=artifact_type
+        )  # noqa: E501
         return {"id": artifact.id, "name": artifact.name, "type": artifact.type}
 
     async def execute_task(self, task: str, workspace_id: str | None = None) -> dict[str, Any]:

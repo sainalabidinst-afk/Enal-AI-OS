@@ -55,6 +55,7 @@ class WebhookRequest(BaseModel):
 async def run_bulk(request: BulkRunRequest):
     started = time.perf_counter()
     try:
+
         async def executor(task: dict[str, Any]) -> dict[str, Any]:
             return {"task_id": task.get("id"), "result": "simulated"}
 

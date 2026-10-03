@@ -17,9 +17,37 @@ from apps.infrastructure_engineer.attachments.models import (
 MAX_ANALYSIS_TEXT = 1_000_000
 MAX_ARCHIVE_MEMBERS = 200
 ALLOWED_EXTENSIONS = {
-    ".rsc", ".backup", ".export", ".cfg", ".conf", ".txt", ".cli", ".xml", ".json", ".yaml", ".yml",
-    ".tf", ".ps1", ".sh", ".pdf", ".docx", ".xlsx", ".csv", ".pptx", ".drawio", ".vsdx", ".svg",
-    ".png", ".jpg", ".jpeg", ".webp", ".bmp", ".zip", ".tar.gz", ".gz", ".log",
+    ".rsc",
+    ".backup",
+    ".export",
+    ".cfg",
+    ".conf",
+    ".txt",
+    ".cli",
+    ".xml",
+    ".json",
+    ".yaml",
+    ".yml",
+    ".tf",
+    ".ps1",
+    ".sh",
+    ".pdf",
+    ".docx",
+    ".xlsx",
+    ".csv",
+    ".pptx",
+    ".drawio",
+    ".vsdx",
+    ".svg",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".bmp",
+    ".zip",
+    ".tar.gz",
+    ".gz",
+    ".log",
 }
 
 
@@ -35,6 +63,7 @@ def validate_filename(filename: str) -> AttachmentMeta:
 def _make_infra(vendor, device_role, fmt, **kwargs):
     """Create InfrastructureAST inline to avoid import order issues."""
     import apps.infrastructure_engineer.attachments.models as m
+
     ast = m.InfrastructureAST(vendor=vendor, device_role=device_role, format=fmt)
     for k, v in kwargs.items():
         ast.metadata[k] = v
@@ -84,7 +113,9 @@ def analyze_bytes(filename: str, content: bytes) -> AttachmentAnalysisResult:
 
     text = text[:MAX_ANALYSIS_TEXT]
     if meta.attachment_type == AttachmentType.document:
-        ast = _make_infra(meta.vendor, meta.device_role, meta.detected_format, text_preview=text[:500])  # noqa: E501
+        ast = _make_infra(
+            meta.vendor, meta.device_role, meta.detected_format, text_preview=text[:500]
+        )  # noqa: E501
         return AttachmentAnalysisResult(
             meta=meta,
             ast=ast,

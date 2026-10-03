@@ -46,7 +46,13 @@ class SecurityPolicy:
 
 
 class PolicyEvaluator:
-    def evaluate(self, policy: SecurityPolicy, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:  # noqa: E501
+    def evaluate(
+        self,
+        policy: SecurityPolicy,
+        permission: Permission,
+        capability: str | None = None,
+        context: dict[str, Any] | None = None,
+    ) -> bool:  # noqa: E501
         if policy.access_model == AccessModel.RBAC:
             return self._evaluate_rbac(policy, permission)
         elif policy.access_model == AccessModel.ABAC:
@@ -60,7 +66,9 @@ class PolicyEvaluator:
             return False
         return permission in policy.allowed_permissions
 
-    def _evaluate_abac(self, policy: SecurityPolicy, permission: Permission, context: dict[str, Any]) -> bool:  # noqa: E501
+    def _evaluate_abac(
+        self, policy: SecurityPolicy, permission: Permission, context: dict[str, Any]
+    ) -> bool:  # noqa: E501
         if permission in policy.denied_permissions:
             return False
         if permission not in policy.allowed_permissions:
@@ -87,16 +95,24 @@ class SecurityModel:
         self._max_audit_log_size = 10000
         self._max_pending_approval_size = 100
 
-    def _log_audit(self, action: str, plugin_id: str, permission: Permission | None = None, allowed: bool | None = None):  # noqa: E501
-        self._audit_log.append({
-            "timestamp": datetime.now(UTC).isoformat(),
-            "action": action,
-            "plugin_id": plugin_id,
-            "permission": permission.value if permission else None,
-            "allowed": allowed,
-        })
+    def _log_audit(
+        self,
+        action: str,
+        plugin_id: str,
+        permission: Permission | None = None,
+        allowed: bool | None = None,
+    ):  # noqa: E501
+        self._audit_log.append(
+            {
+                "timestamp": datetime.now(UTC).isoformat(),
+                "action": action,
+                "plugin_id": plugin_id,
+                "permission": permission.value if permission else None,
+                "allowed": allowed,
+            }
+        )
         if len(self._audit_log) > self._max_audit_log_size:
-            self._audit_log = self._audit_log[-self._max_audit_log_size:]
+            self._audit_log = self._audit_log[-self._max_audit_log_size :]
 
     def register_policy(self, policy: SecurityPolicy) -> bool:
         if policy.security_level == SecurityLevel.PRIVILEGED and not policy.approved:
@@ -120,7 +136,13 @@ class SecurityModel:
             return True
         return False
 
-    def check_permission(self, plugin_id: str, permission: Permission, capability: str | None = None, context: dict[str, Any] | None = None) -> bool:  # noqa: E501
+    def check_permission(
+        self,
+        plugin_id: str,
+        permission: Permission,
+        capability: str | None = None,
+        context: dict[str, Any] | None = None,
+    ) -> bool:  # noqa: E501
         policy = self._policies.get(plugin_id)
         if not policy:
             self._log_audit("check_permission", plugin_id, permission, False)
@@ -146,4 +168,3 @@ class SecurityModel:
 
 
 security_model = SecurityModel()
-

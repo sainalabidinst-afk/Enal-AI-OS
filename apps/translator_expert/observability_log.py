@@ -27,9 +27,7 @@ def start_translation_trace(
 
     Returns (trace_id, span) so the caller can end the span later.
     """
-    trace_id = observability.start_trace(
-        f"translation:{source_lang}→{target_lang}"
-    )
+    trace_id = observability.start_trace(f"translation:{source_lang}→{target_lang}")
     span = observability.start_span(
         name=f"translate:{domain}:{style}",
         span_type=SpanType.AGENT,
@@ -111,6 +109,7 @@ def record_translation_metric(
     from apps.translator_expert.observability_metrics import (
         TranslationMetricsCollector,
     )
+
     collector = TranslationMetricsCollector.get_instance()
     return collector.record(
         source_lang=source_lang,
@@ -133,6 +132,7 @@ def get_translation_metrics(
     from apps.translator_expert.observability_metrics import (
         TranslationMetricsCollector,
     )
+
     collector = TranslationMetricsCollector.get_instance()
     return collector.get_metrics(
         source_lang=source_lang,
@@ -147,6 +147,7 @@ def get_translation_summary() -> dict[str, Any]:
     from apps.translator_expert.observability_metrics import (
         TranslationMetricsCollector,
     )
+
     collector = TranslationMetricsCollector.get_instance()
     return collector.get_summary()
 

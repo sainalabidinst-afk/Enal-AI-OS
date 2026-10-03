@@ -52,61 +52,73 @@ class DevOpsSmellTaxonomy:
         for pattern, description in secret_patterns:
             matches = re.findall(pattern, content, re.IGNORECASE)
             if matches:
-                problems.append(Problem(
-                    id=f"devops-hardcoded-secret-{len(problems)+1}",
-                    type=ProblemType.HARDCODED_SECRET.value,
-                    severity="critical",
-                    location=artifact.get("path", "unknown"),
-                    description=description,
-                    impact="Secrets exposed in source code",
-                    confidence=0.9,
-                    evidence=matches[:3],
-                ))
+                problems.append(
+                    Problem(
+                        id=f"devops-hardcoded-secret-{len(problems) + 1}",
+                        type=ProblemType.HARDCODED_SECRET.value,
+                        severity="critical",
+                        location=artifact.get("path", "unknown"),
+                        description=description,
+                        impact="Secrets exposed in source code",
+                        confidence=0.9,
+                        evidence=matches[:3],
+                    )
+                )
         return problems
 
     def _detect_missing_health_check(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
-        if "health" not in content.lower() and "readiness" not in content.lower() and "liveness" not in content.lower():  # noqa: E501
-            problems.append(Problem(
-                id=f"devops-missing-health-check-{len(problems)+1}",
-                type=ProblemType.MISSING_HEALTH_CHECK.value,
-                severity="medium",
-                location=artifact.get("path", "unknown"),
-                description="Health check tidak ditemukan dalam konfigurasi",
-                impact="Pod dapat dianggap healthy meskipun aplikasi gagal",
-                confidence=0.8,
-            ))
+        if (
+            "health" not in content.lower()
+            and "readiness" not in content.lower()
+            and "liveness" not in content.lower()
+        ):  # noqa: E501
+            problems.append(
+                Problem(
+                    id=f"devops-missing-health-check-{len(problems) + 1}",
+                    type=ProblemType.MISSING_HEALTH_CHECK.value,
+                    severity="medium",
+                    location=artifact.get("path", "unknown"),
+                    description="Health check tidak ditemukan dalam konfigurasi",
+                    impact="Pod dapat dianggap healthy meskipun aplikasi gagal",
+                    confidence=0.8,
+                )
+            )
         return problems
 
     def _detect_missing_resource_limit(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
         if "resources:" not in content and "limits:" not in content:
-            problems.append(Problem(
-                id=f"devops-missing-resource-limit-{len(problems)+1}",
-                type=ProblemType.MISSING_RESOURCE_LIMIT.value,
-                severity="medium",
-                location=artifact.get("path", "unknown"),
-                description="Resource limit tidak ditemukan",
-                impact="Pod dapat mengonsumsi sumber daya tanpa batas",
-                confidence=0.85,
-            ))
+            problems.append(
+                Problem(
+                    id=f"devops-missing-resource-limit-{len(problems) + 1}",
+                    type=ProblemType.MISSING_RESOURCE_LIMIT.value,
+                    severity="medium",
+                    location=artifact.get("path", "unknown"),
+                    description="Resource limit tidak ditemukan",
+                    impact="Pod dapat mengonsumsi sumber daya tanpa batas",
+                    confidence=0.85,
+                )
+            )
         return problems
 
     def _detect_missing_rollback(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
         if "rollback" not in content.lower() and "revisionHistoryLimit" not in content:
-            problems.append(Problem(
-                id=f"devops-missing-rollback-{len(problems)+1}",
-                type=ProblemType.MISSING_ROLLBACK.value,
-                severity="medium",
-                location=artifact.get("path", "unknown"),
-                description="Rollback strategy tidak ditemukan",
-                impact="Deployment gagal tanpa cara kembali ke versi sebelumnya",
-                confidence=0.8,
-            ))
+            problems.append(
+                Problem(
+                    id=f"devops-missing-rollback-{len(problems) + 1}",
+                    type=ProblemType.MISSING_ROLLBACK.value,
+                    severity="medium",
+                    location=artifact.get("path", "unknown"),
+                    description="Rollback strategy tidak ditemukan",
+                    impact="Deployment gagal tanpa cara kembali ke versi sebelumnya",
+                    confidence=0.8,
+                )
+            )
         return problems
 
     def _detect_outdated_image(self, artifact: dict[str, Any]) -> list[Problem]:
@@ -115,15 +127,17 @@ class DevOpsSmellTaxonomy:
         outdated_patterns = [r":latest", r":alpine-\d+\.\d+", r":\d+\.\d+\.\d+-(old|legacy)"]
         for pattern in outdated_patterns:
             if re.search(pattern, content, re.IGNORECASE):
-                problems.append(Problem(
-                    id=f"devops-outdated-image-{len(problems)+1}",
-                    type=ProblemType.OUTDATED_IMAGE.value,
-                    severity="low",
-                    location=artifact.get("path", "unknown"),
-                    description="Gambar container yang sudah outdated digunakan",
-                    impact="Vulnerabilitas keamanan dan masalah kompatibilitas",
-                    confidence=0.7,
-                ))
+                problems.append(
+                    Problem(
+                        id=f"devops-outdated-image-{len(problems) + 1}",
+                        type=ProblemType.OUTDATED_IMAGE.value,
+                        severity="low",
+                        location=artifact.get("path", "unknown"),
+                        description="Gambar container yang sudah outdated digunakan",
+                        impact="Vulnerabilitas keamanan dan masalah kompatibilitas",
+                        confidence=0.7,
+                    )
+                )
                 break
         return problems
 
@@ -137,73 +151,87 @@ class DevOpsSmellTaxonomy:
         ]
         for pattern, description in insecure_patterns:
             if re.search(pattern, content, re.IGNORECASE):
-                problems.append(Problem(
-                    id=f"devops-insecure-config-{len(problems)+1}",
-                    type=ProblemType.INSECURE_CONFIG.value,
-                    severity="high",
-                    location=artifact.get("path", "unknown"),
-                    description=description,
-                    impact="Increased attack surface",
-                    confidence=0.85,
-                ))
+                problems.append(
+                    Problem(
+                        id=f"devops-insecure-config-{len(problems) + 1}",
+                        type=ProblemType.INSECURE_CONFIG.value,
+                        severity="high",
+                        location=artifact.get("path", "unknown"),
+                        description=description,
+                        impact="Increased attack surface",
+                        confidence=0.85,
+                    )
+                )
         return problems
 
     def _detect_missing_monitoring(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
-        if "prometheus" not in content.lower() and "metrics" not in content.lower() and "monitoring" not in content.lower():  # noqa: E501
-            problems.append(Problem(
-                id=f"devops-missing-monitoring-{len(problems)+1}",
-                type=ProblemType.MISSING_MONITORING.value,
-                severity="low",
-                location=artifact.get("path", "unknown"),
-                description="Monitoring tidak dikonfigurasi",
-                impact="Tidak ada visibilitas terhadap kesehatan layanan",
-                confidence=0.75,
-            ))
+        if (
+            "prometheus" not in content.lower()
+            and "metrics" not in content.lower()
+            and "monitoring" not in content.lower()
+        ):  # noqa: E501
+            problems.append(
+                Problem(
+                    id=f"devops-missing-monitoring-{len(problems) + 1}",
+                    type=ProblemType.MISSING_MONITORING.value,
+                    severity="low",
+                    location=artifact.get("path", "unknown"),
+                    description="Monitoring tidak dikonfigurasi",
+                    impact="Tidak ada visibilitas terhadap kesehatan layanan",
+                    confidence=0.75,
+                )
+            )
         return problems
 
     def _detect_pipeline_break(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
         if "on:" not in content and "trigger" not in content.lower():
-            problems.append(Problem(
-                id=f"devops-pipeline-break-{len(problems)+1}",
-                type=ProblemType.PIPELINE_BREAK.value,
-                severity="high",
-                location=artifact.get("path", "unknown"),
-                description="Pipeline trigger tidak ditemukan",
-                impact="CI/CD pipeline tidak akan berjalan otomatis",
-                confidence=0.8,
-            ))
+            problems.append(
+                Problem(
+                    id=f"devops-pipeline-break-{len(problems) + 1}",
+                    type=ProblemType.PIPELINE_BREAK.value,
+                    severity="high",
+                    location=artifact.get("path", "unknown"),
+                    description="Pipeline trigger tidak ditemukan",
+                    impact="CI/CD pipeline tidak akan berjalan otomatis",
+                    confidence=0.8,
+                )
+            )
         return problems
 
     def _detect_missing_backup(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
         if "backup" not in content.lower() and "snapshot" not in content.lower():
-            problems.append(Problem(
-                id=f"devops-missing-backup-{len(problems)+1}",
-                type=ProblemType.MISSING_BACKUP.value,
-                severity="medium",
-                location=artifact.get("path", "unknown"),
-                description="Backup strategy tidak ditemukan",
-                impact="Data loss in case of failure",
-                confidence=0.7,
-            ))
+            problems.append(
+                Problem(
+                    id=f"devops-missing-backup-{len(problems) + 1}",
+                    type=ProblemType.MISSING_BACKUP.value,
+                    severity="medium",
+                    location=artifact.get("path", "unknown"),
+                    description="Backup strategy tidak ditemukan",
+                    impact="Data loss in case of failure",
+                    confidence=0.7,
+                )
+            )
         return problems
 
     def _detect_policy_violation(self, artifact: dict[str, Any]) -> list[Problem]:
         problems: list[Problem] = []
         content = artifact.get("content", "")
         if "policy" not in content.lower() and "opa" not in content.lower():
-            problems.append(Problem(
-                id=f"devops-policy-violation-{len(problems)+1}",
-                type=ProblemType.POLICY_VIOLATION.value,
-                severity="low",
-                location=artifact.get("path", "unknown"),
-                description="Policy-as-code tidak diimplementasikan",
-                impact="Tidak ada enforcement terhadap kebijakan organisasi",
-                confidence=0.6,
-            ))
+            problems.append(
+                Problem(
+                    id=f"devops-policy-violation-{len(problems) + 1}",
+                    type=ProblemType.POLICY_VIOLATION.value,
+                    severity="low",
+                    location=artifact.get("path", "unknown"),
+                    description="Policy-as-code tidak diimplementasikan",
+                    impact="Tidak ada enforcement terhadap kebijakan organisasi",
+                    confidence=0.6,
+                )
+            )
         return problems

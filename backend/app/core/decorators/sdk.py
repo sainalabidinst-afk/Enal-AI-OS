@@ -171,7 +171,9 @@ class HotSwapManager:
             self._active[app_id] = new_chain
             logger.info(
                 "Hot-swapped decorator for %s in %.3fms (chain: %d decorators)",
-                app_id, latency_ms, len(new_specs),
+                app_id,
+                latency_ms,
+                len(new_specs),
             )
             return new_chain
 

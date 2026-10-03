@@ -90,7 +90,9 @@ class ChangeType(StrEnum):
 class DataSource(BaseModel):
     type: SourceType = Field(..., description="Type of data source")
     location: str = Field(..., description="File path, URL, or connection string")
-    schema_definition: dict[str, Any] | None = Field(default=None, description="Expected schema definition")  # noqa: E501
+    schema_definition: dict[str, Any] | None = Field(
+        default=None, description="Expected schema definition"
+    )  # noqa: E501
 
 
 class TransformOperation(BaseModel):

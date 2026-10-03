@@ -17,28 +17,19 @@ GOLDEN_DIR = Path(__file__).resolve().parents[2] / "golden" / "mikrotik"
 
 def generate_large_config(lines: int) -> str:
     """Generate a large RouterOS config for benchmarking."""
-    config_lines = [
-        "/system identity",
-        "set name=benchmark-router",
-        "",
-        "/interface ethernet"
-    ]
+    config_lines = ["/system identity", "set name=benchmark-router", "", "/interface ethernet"]
 
     for i in range(lines // 10):
         config_lines.append(f"set [ find default-name=ether{(i % 10) + 1} ] name=iface{i}")
 
-    config_lines.extend([
-        "",
-        "/ip address"
-    ])
+    config_lines.extend(["", "/ip address"])
 
     for i in range(lines // 20):
-        config_lines.append(f"add address=192.168.{i // 256}.{i % 256}/24 interface=iface{i} network=192.168.{i // 256}.0")
+        config_lines.append(
+            f"add address=192.168.{i // 256}.{i % 256}/24 interface=iface{i} network=192.168.{i // 256}.0"  # noqa: E501
+        )
 
-    config_lines.extend([
-        "",
-        "/ip firewall filter"
-    ])
+    config_lines.extend(["", "/ip firewall filter"])
 
     for i in range(lines // 15):
         config_lines.append(f"add action=accept chain=input protocol=tcp port={1000 + i}")
@@ -51,7 +42,7 @@ async def benchmark_scenario(name: str, config_content: str) -> dict[str, Any]:
     app = get_app()
 
     start_parse = time.perf_counter()
-    config = app.parser.parse(config_content)
+    app.parser.parse(config_content)
     parse_time = time.perf_counter() - start_parse
 
     start_analyze = time.perf_counter()
@@ -91,11 +82,13 @@ async def main():
         try:
             result = await benchmark_scenario(name, config)
             results.append(result)
-            print(f"[{name}] Size: {result['config_size']:,} bytes | "
-                  f"Parse: {result['parse_time_ms']:.1f}ms | "
-                  f"Analyze: {result['analyze_time_ms']:.1f}ms | "
-                  f"Docs: {result['docs_time_ms']:.1f}ms | "
-                  f"Total: {result['total_time_ms']:.1f}ms")
+            print(
+                f"[{name}] Size: {result['config_size']:,} bytes | "
+                f"Parse: {result['parse_time_ms']:.1f}ms | "
+                f"Analyze: {result['analyze_time_ms']:.1f}ms | "
+                f"Docs: {result['docs_time_ms']:.1f}ms | "
+                f"Total: {result['total_time_ms']:.1f}ms"
+            )
         except Exception as e:
             print(f"[FAIL] {name}: {e}")
 

@@ -88,6 +88,7 @@ class ScenarioBuilder:
         Falls back to regex-based parsing if LLM is unavailable.
         """
         import asyncio
+
         try:
             return asyncio.run(self._parse_with_llm(description, base_state, iterations, seed))
         except Exception as e:
@@ -113,7 +114,9 @@ class ScenarioBuilder:
         for competitor_key in base_state:
             if "competitor" in competitor_key.lower() or "kompetitor" in competitor_key.lower():
                 if competitor_key.replace("_", " ") in text or competitor_key in text:
-                    change = self._detect_change(text, competitor_key, base_state.get(competitor_key))  # noqa: E501
+                    change = self._detect_change(
+                        text, competitor_key, base_state.get(competitor_key)
+                    )  # noqa: E501
                     if change:
                         changes.append(change)
 
@@ -124,12 +127,14 @@ class ScenarioBuilder:
         # If no changes detected from text, create a generic change
         if not changes and base_state:
             first_var = list(base_state.keys())[0]
-            changes.append(VariableChange(
-                variable=first_var,
-                change_type=ChangeType.ABSOLUTE_DELTA,
-                value=0.0,
-                distribution=DistributionType.FIXED,
-            ))
+            changes.append(
+                VariableChange(
+                    variable=first_var,
+                    change_type=ChangeType.ABSOLUTE_DELTA,
+                    value=0.0,
+                    distribution=DistributionType.FIXED,
+                )
+            )
 
         return changes
 
@@ -168,7 +173,9 @@ class ScenarioBuilder:
 
         return None
 
-    def _detect_generic_changes(self, text: str, base_state: dict[str, Any]) -> list[VariableChange]:  # noqa: E501
+    def _detect_generic_changes(
+        self, text: str, base_state: dict[str, Any]
+    ) -> list[VariableChange]:  # noqa: E501
         """Detect generic variable changes from any numeric patterns."""
         changes: list[VariableChange] = []
         for var_name, value in base_state.items():
@@ -194,7 +201,9 @@ class ScenarioBuilder:
     def _generate_title(self, description: str) -> str:
         """Generate a title from the description."""
         words = description.split()[:8]
-        return " ".join(words).rstrip(".,;:") + "..." if len(description.split()) > 8 else description  # noqa: E501
+        return (
+            " ".join(words).rstrip(".,;:") + "..." if len(description.split()) > 8 else description
+        )  # noqa: E501
 
     async def _parse_with_llm(
         self,
@@ -212,7 +221,7 @@ class ScenarioBuilder:
             "{\n"
             '  "title": "short scenario title",\n'
             '  "variable_changes": [\n'
-            '    {\n'
+            "    {\n"
             '      "variable": "variable_name",\n'
             '      "change_type": "absolute_delta | percent_delta | set_value",\n'
             '      "value": float,\n'
@@ -220,8 +229,8 @@ class ScenarioBuilder:
             '      "range_min": float_or_null,\n'
             '      "range_max": float_or_null,\n'
             '      "stddev": float_or_null\n'
-            '    }\n'
-            '  ],\n'
+            "    }\n"
+            "  ],\n"
             '  "assumptions": ["assumption1", "assumption2"]\n'
             "}"
         )

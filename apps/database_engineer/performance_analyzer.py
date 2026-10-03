@@ -23,20 +23,24 @@ logger = logging.getLogger(__name__)
 
 # Patterns indicating slow or problematic queries.
 _SLOW_QUERY_PATTERNS: list[tuple[str, str, Severity]] = [
-    (r'(?i)full\s+table\s+scan', "Full table scan detected", Severity.high),
-    (r'(?i)filesort', "Filesort operation (temp table)", Severity.medium),
-    (r'(?i)temporary\s+table', "Temporary table created", Severity.medium),
-    (r'(?i)lock\s+wait\s+timeout', "Lock wait timeout", Severity.high),
-    (r'(?i)deadlock\s+detected', "Deadlock detected", Severity.critical),
-    (r'(?i)too\s+many\s+connections', "Connection pool exhaustion", Severity.high),
-    (r'(?i)low\s+memory', "Memory pressure", Severity.high),
+    (r"(?i)full\s+table\s+scan", "Full table scan detected", Severity.high),
+    (r"(?i)filesort", "Filesort operation (temp table)", Severity.medium),
+    (r"(?i)temporary\s+table", "Temporary table created", Severity.medium),
+    (r"(?i)lock\s+wait\s+timeout", "Lock wait timeout", Severity.high),
+    (r"(?i)deadlock\s+detected", "Deadlock detected", Severity.critical),
+    (r"(?i)too\s+many\s+connections", "Connection pool exhaustion", Severity.high),
+    (r"(?i)low\s+memory", "Memory pressure", Severity.high),
 ]
 
 # Patterns indicating inefficient joins or subqueries.
 _INEFFICIENT_PATTERNS: list[tuple[str, str, Severity]] = [
-    (r'(?i)\bjoin\b.*\bjoin\b.*\bjoin\b', "3+ table JOIN — consider denormalization", Severity.medium),  # noqa: E501
-    (r'(?i)in\s*\(select', "IN with subquery — consider EXISTS or JOIN", Severity.medium),
-    (r'(?i)union\s+all\s+select', "UNION ALL — verify deduplication not needed", Severity.low),
+    (
+        r"(?i)\bjoin\b.*\bjoin\b.*\bjoin\b",
+        "3+ table JOIN — consider denormalization",
+        Severity.medium,
+    ),  # noqa: E501
+    (r"(?i)in\s*\(select", "IN with subquery — consider EXISTS or JOIN", Severity.medium),
+    (r"(?i)union\s+all\s+select", "UNION ALL — verify deduplication not needed", Severity.low),
 ]
 
 
@@ -76,7 +80,9 @@ class PerformanceAnalyzer:
             query_findings = self._analyze_query(query, i)
             findings.extend(query_findings)
 
-            if any("slow" in f.title.lower() or "deadlock" in f.title.lower() for f in query_findings):  # noqa: E501
+            if any(
+                "slow" in f.title.lower() or "deadlock" in f.title.lower() for f in query_findings
+            ):  # noqa: E501
                 slow_count += 1
                 if "deadlock" in str(query_findings).lower():
                     deadlock_count += 1
@@ -104,30 +110,36 @@ class PerformanceAnalyzer:
             if re.search(pattern, query, re.IGNORECASE):
                 if description not in seen:
                     seen.add(description)
-                    findings.append(Finding(
-                        category=FindingCategory.deadlock if "deadlock" in description.lower() else FindingCategory.query_performance,  # noqa: E501
-                        severity=severity,
-                        title=f"Query {index + 1}: {description}",
-                        description=f"Query: {query[:200]}...",
-                        evidence={"query": query, "pattern": pattern},
-                        recommendation=self._get_recommendation(description),
-                        confidence=0.8,
-                    ))
+                    findings.append(
+                        Finding(
+                            category=FindingCategory.deadlock
+                            if "deadlock" in description.lower()
+                            else FindingCategory.query_performance,  # noqa: E501
+                            severity=severity,
+                            title=f"Query {index + 1}: {description}",
+                            description=f"Query: {query[:200]}...",
+                            evidence={"query": query, "pattern": pattern},
+                            recommendation=self._get_recommendation(description),
+                            confidence=0.8,
+                        )
+                    )
 
         # Check inefficient patterns.
         for pattern, description, severity in _INEFFICIENT_PATTERNS:
             if re.search(pattern, query, re.IGNORECASE):
                 if description not in seen:
                     seen.add(description)
-                    findings.append(Finding(
-                        category=FindingCategory.query_performance,
-                        severity=severity,
-                        title=f"Query {index + 1}: {description}",
-                        description=f"Query: {query[:200]}...",
-                        evidence={"query": query},
-                        recommendation=self._get_recommendation(description),
-                        confidence=0.75,
-                    ))
+                    findings.append(
+                        Finding(
+                            category=FindingCategory.query_performance,
+                            severity=severity,
+                            title=f"Query {index + 1}: {description}",
+                            description=f"Query: {query[:200]}...",
+                            evidence={"query": query},
+                            recommendation=self._get_recommendation(description),
+                            confidence=0.75,
+                        )
+                    )
 
         return findings
 

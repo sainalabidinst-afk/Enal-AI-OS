@@ -18,6 +18,7 @@ class DependencyType:
 @dataclass
 class Dependency:
     """A single dependency edge between modules."""
+
     source: str
     target: str
     dependency_type: str = DependencyType.UNKNOWN
@@ -30,6 +31,7 @@ class Dependency:
 @dataclass
 class ModuleDependencies:
     """Dependency information for a single module."""
+
     module_path: str
     dependencies: list[Dependency] = field(default_factory=list)
     dependents: list[str] = field(default_factory=list)
@@ -43,6 +45,7 @@ class ModuleDependencies:
 @dataclass
 class DependencyGraphSummary:
     """Complete dependency analysis of a repository."""
+
     modules: dict[str, ModuleDependencies] = field(default_factory=dict)
     circular_dependencies: list[list[str]] = field(default_factory=list)
     total_modules: int = 0

@@ -56,31 +56,35 @@ class SMCAnalyzer:
             if c1.high < c3.low:
                 gap_size = c3.low - c1.high
                 fvg_price = (c1.high + c3.low) / 2
-                evidence.append(MarketEvidence(
-                    id=f"fvg_bullish_{tf}_{i}",
-                    type="smc_fvg",
-                    description=f"Bullish FVG on {tf} at {fvg_price:.2f} (gap: {gap_size:.2f})",
-                    timeframe=tf,
-                    strength=min(gap_size / c1.high * 100, 0.9) if c1.high > 0 else 0.5,
-                    direction="bullish",
-                    source="smc.fvg",
-                    confidence=0.65,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"fvg_bullish_{tf}_{i}",
+                        type="smc_fvg",
+                        description=f"Bullish FVG on {tf} at {fvg_price:.2f} (gap: {gap_size:.2f})",
+                        timeframe=tf,
+                        strength=min(gap_size / c1.high * 100, 0.9) if c1.high > 0 else 0.5,
+                        direction="bullish",
+                        source="smc.fvg",
+                        confidence=0.65,
+                    )
+                )
 
             # Bearish FVG: c1 low > c3 high (gap down)
             if c1.low > c3.high:
                 gap_size = c1.low - c3.high
                 fvg_price = (c1.low + c3.high) / 2
-                evidence.append(MarketEvidence(
-                    id=f"fvg_bearish_{tf}_{i}",
-                    type="smc_fvg",
-                    description=f"Bearish FVG on {tf} at {fvg_price:.2f} (gap: {gap_size:.2f})",
-                    timeframe=tf,
-                    strength=min(gap_size / c1.high * 100, 0.9) if c1.high > 0 else 0.5,
-                    direction="bearish",
-                    source="smc.fvg",
-                    confidence=0.65,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"fvg_bearish_{tf}_{i}",
+                        type="smc_fvg",
+                        description=f"Bearish FVG on {tf} at {fvg_price:.2f} (gap: {gap_size:.2f})",
+                        timeframe=tf,
+                        strength=min(gap_size / c1.high * 100, 0.9) if c1.high > 0 else 0.5,
+                        direction="bearish",
+                        source="smc.fvg",
+                        confidence=0.65,
+                    )
+                )
 
         return evidence
 
@@ -104,34 +108,46 @@ class SMCAnalyzer:
             ohlcv[i + 2]
 
             # Bullish OB: c_prev bearish, c_curr and c_next bullish
-            if c_prev.close < c_prev.open and c_curr.close > c_prev.high and c_next.close > c_curr.high:  # noqa: E501
+            if (
+                c_prev.close < c_prev.open
+                and c_curr.close > c_prev.high
+                and c_next.close > c_curr.high
+            ):  # noqa: E501
                 ob_high = c_prev.high
                 ob_low = c_prev.low
-                evidence.append(MarketEvidence(
-                    id=f"ob_bullish_{tf}_{i}",
-                    type="smc_order_block",
-                    description=f"Bullish Order Block on {tf} at {ob_low:.2f}-{ob_high:.2f}",
-                    timeframe=tf,
-                    strength=0.75,
-                    direction="bullish",
-                    source="smc.order_block",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"ob_bullish_{tf}_{i}",
+                        type="smc_order_block",
+                        description=f"Bullish Order Block on {tf} at {ob_low:.2f}-{ob_high:.2f}",
+                        timeframe=tf,
+                        strength=0.75,
+                        direction="bullish",
+                        source="smc.order_block",
+                        confidence=0.70,
+                    )
+                )
 
             # Bearish OB: c_prev bullish, c_curr and c_next bearish
-            if c_prev.close > c_prev.open and c_curr.close < c_prev.low and c_next.close < c_curr.low:  # noqa: E501
+            if (
+                c_prev.close > c_prev.open
+                and c_curr.close < c_prev.low
+                and c_next.close < c_curr.low
+            ):  # noqa: E501
                 ob_high = c_prev.high
                 ob_low = c_prev.low
-                evidence.append(MarketEvidence(
-                    id=f"ob_bearish_{tf}_{i}",
-                    type="smc_order_block",
-                    description=f"Bearish Order Block on {tf} at {ob_low:.2f}-{ob_high:.2f}",
-                    timeframe=tf,
-                    strength=0.75,
-                    direction="bearish",
-                    source="smc.order_block",
-                    confidence=0.70,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"ob_bearish_{tf}_{i}",
+                        type="smc_order_block",
+                        description=f"Bearish Order Block on {tf} at {ob_low:.2f}-{ob_high:.2f}",
+                        timeframe=tf,
+                        strength=0.75,
+                        direction="bearish",
+                        source="smc.order_block",
+                        confidence=0.70,
+                    )
+                )
 
         return evidence
 
@@ -161,16 +177,18 @@ class SMCAnalyzer:
 
             if max(last_highs) > recent_high and min(last_closes) < recent_high:
                 sweep_high = max(last_highs)
-                evidence.append(MarketEvidence(
-                    id=f"liq_sweep_high_{tf}",
-                    type="smc_liquidity",
-                    description=f"Liquidity sweep above {recent_high:.2f} to {sweep_high:.2f} on {tf}",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bearish",
-                    source="smc.liquidity",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"liq_sweep_high_{tf}",
+                        type="smc_liquidity",
+                        description=f"Liquidity sweep above {recent_high:.2f} to {sweep_high:.2f} on {tf}",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bearish",
+                        source="smc.liquidity",
+                        confidence=0.75,
+                    )
+                )
 
         # 2. Liquidity sweep below recent low (bullish)
         if len(lows) >= 10:
@@ -180,16 +198,18 @@ class SMCAnalyzer:
 
             if min(last_lows) < recent_low and max(last_closes) > recent_low:
                 sweep_low = min(last_lows)
-                evidence.append(MarketEvidence(
-                    id=f"liq_sweep_low_{tf}",
-                    type="smc_liquidity",
-                    description=f"Liquidity sweep below {recent_low:.2f} to {sweep_low:.2f} on {tf}",  # noqa: E501
-                    timeframe=tf,
-                    strength=0.80,
-                    direction="bullish",
-                    source="smc.liquidity",
-                    confidence=0.75,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"liq_sweep_low_{tf}",
+                        type="smc_liquidity",
+                        description=f"Liquidity sweep below {recent_low:.2f} to {sweep_low:.2f} on {tf}",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.80,
+                        direction="bullish",
+                        source="smc.liquidity",
+                        confidence=0.75,
+                    )
+                )
 
         return evidence
 
@@ -225,40 +245,46 @@ class SMCAnalyzer:
         range_position = (current_price - range_low) / (range_high - range_low)
 
         if range_position > 0.788:
-            evidence.append(MarketEvidence(
-                id=f"premium_zone_{tf}",
-                type="smc_fvg",
-                description=f"Price in Premium zone on {tf} (78.8%+ of range) - sell zone",
-                timeframe=tf,
-                strength=0.70,
-                direction="bearish",
-                source="smc.premium_discount",
-                confidence=0.65,
-            ))
+            evidence.append(
+                MarketEvidence(
+                    id=f"premium_zone_{tf}",
+                    type="smc_fvg",
+                    description=f"Price in Premium zone on {tf} (78.8%+ of range) - sell zone",
+                    timeframe=tf,
+                    strength=0.70,
+                    direction="bearish",
+                    source="smc.premium_discount",
+                    confidence=0.65,
+                )
+            )
         elif range_position < 0.212:
-            evidence.append(MarketEvidence(
-                id=f"discount_zone_{tf}",
-                type="smc_fvg",
-                description=f"Price in Discount zone on {tf} (21.2%- of range) - buy zone",
-                timeframe=tf,
-                strength=0.70,
-                direction="bullish",
-                source="smc.premium_discount",
-                confidence=0.65,
-            ))
+            evidence.append(
+                MarketEvidence(
+                    id=f"discount_zone_{tf}",
+                    type="smc_fvg",
+                    description=f"Price in Discount zone on {tf} (21.2%- of range) - buy zone",
+                    timeframe=tf,
+                    strength=0.70,
+                    direction="bullish",
+                    source="smc.premium_discount",
+                    confidence=0.65,
+                )
+            )
 
         # OTE (Optimal Trade Entry) zone: 70-80% pullback
         if 0.20 <= range_position <= 0.30 or 0.70 <= range_position <= 0.80:
-            evidence.append(MarketEvidence(
-                id=f"ote_zone_{tf}",
-                type="smc_fvg",
-                description=f"Optimal Trade Entry (OTE) zone on {tf}",
-                timeframe=tf,
-                strength=0.75,
-                direction="neutral",
-                source="smc.premium_discount",
-                confidence=0.70,
-            ))
+            evidence.append(
+                MarketEvidence(
+                    id=f"ote_zone_{tf}",
+                    type="smc_fvg",
+                    description=f"Optimal Trade Entry (OTE) zone on {tf}",
+                    timeframe=tf,
+                    strength=0.75,
+                    direction="neutral",
+                    source="smc.premium_discount",
+                    confidence=0.70,
+                )
+            )
 
         return evidence
 

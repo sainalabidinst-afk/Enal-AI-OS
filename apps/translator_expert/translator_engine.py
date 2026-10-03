@@ -901,11 +901,28 @@ class TranslationEngine:
         """Fallback language detection using word-pattern heuristics."""
         text_lower = text.lower()
         scores: dict[str, float] = {
-            "en": 0, "id": 0, "es": 0, "zh": 0, "fr": 0,
-            "de": 0, "ja": 0, "ar": 0, "pt": 0, "ru": 0,
-            "it": 0, "nl": 0, "ko": 0, "vi": 0, "th": 0,
-            "tr": 0, "pl": 0, "hi": 0, "ms": 0, "sw": 0,
-            "ur": 0, "bn": 0,
+            "en": 0,
+            "id": 0,
+            "es": 0,
+            "zh": 0,
+            "fr": 0,
+            "de": 0,
+            "ja": 0,
+            "ar": 0,
+            "pt": 0,
+            "ru": 0,
+            "it": 0,
+            "nl": 0,
+            "ko": 0,
+            "vi": 0,
+            "th": 0,
+            "tr": 0,
+            "pl": 0,
+            "hi": 0,
+            "ms": 0,
+            "sw": 0,
+            "ur": 0,
+            "bn": 0,
         }
 
         if re.search(r"[\u4e00-\u9fff]", text):
@@ -1102,15 +1119,17 @@ class TranslationEngine:
                 model_used="passthrough",
             )
 
-        return self.translate_with_model(
-            text, detected_lang, target_lang, style, glossary_config
-        ) if detected_lang != target_lang else TranslationResult(
-            translated_text=text,
-            detected_source_language=detected_lang,
-            confidence=round(detected_confidence, 2),
-            glossary_terms_used=[],
-            style_applied=style,
-            model_used="passthrough",
+        return (
+            self.translate_with_model(text, detected_lang, target_lang, style, glossary_config)
+            if detected_lang != target_lang
+            else TranslationResult(
+                translated_text=text,
+                detected_source_language=detected_lang,
+                confidence=round(detected_confidence, 2),
+                glossary_terms_used=[],
+                style_applied=style,
+                model_used="passthrough",
+            )
         )
 
 

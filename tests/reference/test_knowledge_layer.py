@@ -54,11 +54,21 @@ def test_cross_vendor_ha_mapping():
 
 def test_cross_vendor_firewall_mapping():
     cisco_fw = knowledge_enricher.get_cross_vendor_mapping("acl", "cisco", "mikrotik")
-    fortinet_fw = knowledge_enricher.get_cross_vendor_mapping("firewall_policy", "fortinet", "mikrotik")
-    mikrotik_fw = knowledge_enricher.get_cross_vendor_mapping("firewall_filter", "mikrotik", "cisco")
-    assert cisco_fw == "firewall filter", f"Cisco ACL should map to MikroTik firewall filter, got {cisco_fw}"
-    assert fortinet_fw == "firewall filter", f"Fortinet policy should map to MikroTik firewall filter, got {fortinet_fw}"
-    assert mikrotik_fw == "access-list", f"MikroTik filter should map to Cisco ACL, got {mikrotik_fw}"
+    fortinet_fw = knowledge_enricher.get_cross_vendor_mapping(
+        "firewall_policy", "fortinet", "mikrotik"
+    )
+    mikrotik_fw = knowledge_enricher.get_cross_vendor_mapping(
+        "firewall_filter", "mikrotik", "cisco"
+    )
+    assert cisco_fw == "firewall filter", (
+        f"Cisco ACL should map to MikroTik firewall filter, got {cisco_fw}"
+    )
+    assert fortinet_fw == "firewall filter", (
+        f"Fortinet policy should map to MikroTik firewall filter, got {fortinet_fw}"
+    )
+    assert mikrotik_fw == "access-list", (
+        f"MikroTik filter should map to Cisco ACL, got {mikrotik_fw}"
+    )
 
 
 def test_compliance_cis_cisco():

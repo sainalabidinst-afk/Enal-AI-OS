@@ -16,7 +16,9 @@ client = TestClient(app)
 
 
 def _auth_headers() -> dict[str, str]:
-    token = _create_access_token({"sub": "test-user", "roles": ["default"], "permissions": ["default"]})  # noqa: E501
+    token = _create_access_token(
+        {"sub": "test-user", "roles": ["default"], "permissions": ["default"]}
+    )  # noqa: E501
     return {"Authorization": f"Bearer {token}"}
 
 

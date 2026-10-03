@@ -37,32 +37,34 @@ from apps.database_engineer.schemas import (
 
 
 def _make_schema() -> SchemaDefinition:
-    return SchemaDefinition(tables=[
-        TableDefinition(
-            name="users",
-            columns=[
-                ColumnDefinition(name="id", type="INTEGER", constraints=["PRIMARY KEY"]),
-                ColumnDefinition(name="email", type="VARCHAR(255)", constraints=["NOT NULL"]),
-                ColumnDefinition(name="name", type="VARCHAR(255)", constraints=[]),
-                ColumnDefinition(name="created_at", type="TIMESTAMP", constraints=[]),
-            ],
-            primary_key=["id"],
-            foreign_keys=[],
-        ),
-        TableDefinition(
-            name="orders",
-            columns=[
-                ColumnDefinition(name="id", type="INTEGER", constraints=["PRIMARY KEY"]),
-                ColumnDefinition(name="user_id", type="INTEGER", constraints=["NOT NULL"]),
-                ColumnDefinition(name="total", type="DECIMAL(10,2)", constraints=[]),
-                ColumnDefinition(name="status", type="VARCHAR(50)", constraints=[]),
-            ],
-            primary_key=["id"],
-            foreign_keys=[
-                ForeignKey(column="user_id", references="users", references_column="id"),
-            ],
-        ),
-    ])
+    return SchemaDefinition(
+        tables=[
+            TableDefinition(
+                name="users",
+                columns=[
+                    ColumnDefinition(name="id", type="INTEGER", constraints=["PRIMARY KEY"]),
+                    ColumnDefinition(name="email", type="VARCHAR(255)", constraints=["NOT NULL"]),
+                    ColumnDefinition(name="name", type="VARCHAR(255)", constraints=[]),
+                    ColumnDefinition(name="created_at", type="TIMESTAMP", constraints=[]),
+                ],
+                primary_key=["id"],
+                foreign_keys=[],
+            ),
+            TableDefinition(
+                name="orders",
+                columns=[
+                    ColumnDefinition(name="id", type="INTEGER", constraints=["PRIMARY KEY"]),
+                    ColumnDefinition(name="user_id", type="INTEGER", constraints=["NOT NULL"]),
+                    ColumnDefinition(name="total", type="DECIMAL(10,2)", constraints=[]),
+                    ColumnDefinition(name="status", type="VARCHAR(50)", constraints=[]),
+                ],
+                primary_key=["id"],
+                foreign_keys=[
+                    ForeignKey(column="user_id", references="users", references_column="id"),
+                ],
+            ),
+        ]
+    )
 
 
 def _quick_request(operation: str) -> DatabaseRequest:

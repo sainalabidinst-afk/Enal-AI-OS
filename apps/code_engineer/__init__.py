@@ -122,6 +122,7 @@ class CodeEngineerApp(BaseReferenceApp):
     def parse_code(self, code: str, filename: str = "<unknown>") -> Any:
         """Parse Python code into AST."""
         import asyncio
+
         if not self._components_loaded:
             try:
                 loop = asyncio.get_running_loop()
@@ -133,6 +134,7 @@ class CodeEngineerApp(BaseReferenceApp):
     def analyze_code(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:
         """Analyze Python code for issues, architecture patterns, and security."""
         import asyncio
+
         if not self._components_loaded:
             try:
                 loop = asyncio.get_running_loop()
@@ -148,30 +150,34 @@ class CodeEngineerApp(BaseReferenceApp):
         arch_findings = []
         for category, findings in arch_results.items():
             for finding in findings:
-                arch_findings.append({
-                    "category": f"architecture.{finding.category}",
-                    "pattern": finding.pattern,
-                    "severity": finding.severity,
-                    "description": finding.description,
-                    "recommendation": finding.recommendation,
-                    "line": finding.line_number,
-                    "confidence": finding.confidence,
-                })
+                arch_findings.append(
+                    {
+                        "category": f"architecture.{finding.category}",
+                        "pattern": finding.pattern,
+                        "severity": finding.severity,
+                        "description": finding.description,
+                        "recommendation": finding.recommendation,
+                        "line": finding.line_number,
+                        "confidence": finding.confidence,
+                    }
+                )
 
         # Secure coding analysis
         sec_results = self.secure_coding_analyzer.analyze(code_ast)
         sec_findings = []
         for category, findings in sec_results.items():
             for finding in findings:
-                sec_findings.append({
-                    "category": f"security.{finding.category}",
-                    "pattern": finding.pattern,
-                    "severity": finding.severity,
-                    "description": finding.description,
-                    "recommendation": finding.recommendation,
-                    "line": finding.line_number,
-                    "confidence": finding.confidence,
-                })
+                sec_findings.append(
+                    {
+                        "category": f"security.{finding.category}",
+                        "pattern": finding.pattern,
+                        "severity": finding.severity,
+                        "description": finding.description,
+                        "recommendation": finding.recommendation,
+                        "line": finding.line_number,
+                        "confidence": finding.confidence,
+                    }
+                )
 
         return {
             "filename": filename,
@@ -203,12 +209,15 @@ class CodeEngineerApp(BaseReferenceApp):
         await self._ensure_components()
         return self.analyze_code(code, filename)
 
-    async def get_refactoring_suggestions(self, code: str, filename: str = "<unknown>") -> dict[str, Any]:  # noqa: E501
+    async def get_refactoring_suggestions(
+        self, code: str, filename: str = "<unknown>"
+    ) -> dict[str, Any]:  # noqa: E501
         """Get refactoring suggestions for code."""
         await self._ensure_components()
         self.parser.parse(code, filename=filename)
         import asyncio
         import os as _os
+
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_file = _os.path.join(tmpdir, filename)
             await asyncio.to_thread(self._write_file_sync, tmp_file, code)
@@ -231,7 +240,7 @@ class CodeEngineerApp(BaseReferenceApp):
 
     def _write_file_sync(self, path: str, content: str) -> None:
         """Synchronous file write helper."""
-        with open(path, 'w') as f:
+        with open(path, "w") as f:
             f.write(content)
 
     async def generate_patch(self, original: str, modified: str, filename: str) -> dict[str, Any]:

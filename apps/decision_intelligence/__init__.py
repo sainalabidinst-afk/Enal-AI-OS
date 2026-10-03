@@ -62,9 +62,7 @@ class DecisionIntelligenceApp(BaseReferenceApp):
     def __init__(self) -> None:
         self.worker = DecisionIntelligenceWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("context", user_input)
         return await self.worker.execute(task)
@@ -72,6 +70,7 @@ class DecisionIntelligenceApp(BaseReferenceApp):
 
 def get_app() -> DecisionIntelligenceApp:
     return DecisionIntelligenceApp()
+
 
 __all__ = [
     "Alternative",

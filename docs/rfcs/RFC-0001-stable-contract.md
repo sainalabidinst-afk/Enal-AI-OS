@@ -229,33 +229,34 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List
 from pydantic import BaseModel
 
+
 class BaseApp(ABC):
     """Kontrak abstrak yang harus diimplementasikan semua Capability Pack."""
-    
+
     def __init__(self, config: Dict[str, Any]):
         self.config = config
         self._event_bus = None
         self._experience_memory = None
-        
+
     @abstractmethod
     def get_capabilities(self) -> List[Dict[str, Any]]:
         """Kembalikan daftar kemampuan yang disediakan pack."""
         pass
-    
+
     @abstractmethod
     def execute(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Jalankan tugas dengan konteks yang diberikan."""
         pass
-    
+
     @abstractmethod
     def validate_input(self, task: Dict[str, Any]) -> bool:
         """Validasi bahwa input memenuhi skema yang diharapkan."""
         pass
-    
+
     def register_event_handlers(self) -> None:
         """Daftarkan handler untuk event yang didengarkan pack."""
         pass
-    
+
     def shutdown(self) -> None:
         """Bersihkan sumber daya sebelum pack dimatikan."""
         pass

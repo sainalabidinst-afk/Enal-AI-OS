@@ -41,6 +41,7 @@ class ImpactSeverity:
 @dataclass
 class Change:
     """Representation of a code change."""
+
     module_path: str
     change_type: str
     target_name: str  # Function, class, or module name
@@ -53,6 +54,7 @@ class Change:
 @dataclass
 class ImpactedItem:
     """An item impacted by a change."""
+
     module_path: str
     item_name: str
     item_type: str  # "function", "class", "module"
@@ -66,6 +68,7 @@ class ImpactedItem:
 @dataclass
 class ImpactAnalysisResult:
     """Complete impact analysis result."""
+
     changes: list[Change] = field(default_factory=list)
     impacted_items: list[ImpactedItem] = field(default_factory=list)
     impacted_tests: list[str] = field(default_factory=list)
@@ -108,17 +111,22 @@ class ImpactAnalyzer:
         result.impacted_items = unique_impacted
 
         # Extract impacted tests
-        result.impacted_tests = list(set(
-            item.module_path for item in unique_impacted
-            if item.item_type == "test"
-        ))
+        result.impacted_tests = list(
+            set(item.module_path for item in unique_impacted if item.item_type == "test")
+        )
 
         # Compute stats
         result.total_impacted = len(unique_impacted)
         result.total_tests_impacted = len(result.impacted_tests)
 
         # Determine max severity
-        severity_order = [ImpactSeverity.NONE, ImpactSeverity.LOW, ImpactSeverity.MEDIUM, ImpactSeverity.HIGH, ImpactSeverity.CRITICAL]  # noqa: E501
+        severity_order = [
+            ImpactSeverity.NONE,
+            ImpactSeverity.LOW,
+            ImpactSeverity.MEDIUM,
+            ImpactSeverity.HIGH,
+            ImpactSeverity.CRITICAL,
+        ]  # noqa: E501
         max_sev = ImpactSeverity.NONE
         for item in unique_impacted:
             if severity_order.index(item.severity) > severity_order.index(max_sev):
@@ -159,7 +167,7 @@ class ImpactAnalyzer:
             impacted.extend(self._analyze_import_impact(change, tree))
 
         # Add transitive impact from dependency graph
-        if dependency_summary and hasattr(dependency_summary, 'modules'):
+        if dependency_summary and hasattr(dependency_summary, "modules"):
             trans = self._get_transitive_impact(change.module_path, dependency_summary)
             impacted.extend(trans)
 
@@ -175,34 +183,44 @@ class ImpactAnalyzer:
                 if node.name == change.target_name:
                     for caller_node in ast.walk(tree):
                         if isinstance(caller_node, ast.Call):
-                            if isinstance(caller_node.func, ast.Name) and caller_node.func.id == change.target_name:  # noqa: E501
-                                impacted.append(ImpactedItem(
-                                    module_path=change.module_path,
-                                    item_name=f"{change.target_name}() caller",
-                                    item_type="function",
-                                    impact_type="direct",
-                                    severity=self._severity_for_change(change),
-                                    confidence=0.9,
-                                    reason=f"Calls modified function {change.target_name}()",
-                                    line_number=caller_node.lineno,
-                                ))
+                            if (
+                                isinstance(caller_node.func, ast.Name)
+                                and caller_node.func.id == change.target_name
+                            ):  # noqa: E501
+                                impacted.append(
+                                    ImpactedItem(
+                                        module_path=change.module_path,
+                                        item_name=f"{change.target_name}() caller",
+                                        item_type="function",
+                                        impact_type="direct",
+                                        severity=self._severity_for_change(change),
+                                        confidence=0.9,
+                                        reason=f"Calls modified function {change.target_name}()",
+                                        line_number=caller_node.lineno,
+                                    )
+                                )
                     break
 
                 # Methods in classes
                 for cls_node in ast.walk(tree):
                     if isinstance(cls_node, ast.ClassDef):
                         for method in cls_node.body:
-                            if isinstance(method, ast.FunctionDef) and method.name == change.target_name:  # noqa: E501
+                            if (
+                                isinstance(method, ast.FunctionDef)
+                                and method.name == change.target_name
+                            ):  # noqa: E501
                                 # All usages of this class method
-                                impacted.append(ImpactedItem(
-                                    module_path=change.module_path,
-                                    item_name=f"{cls_node.name}.{change.target_name}()",
-                                    item_type="function",
-                                    impact_type="direct",
-                                    severity=self._severity_for_change(change),
-                                    confidence=0.85,
-                                    reason=f"Method {change.target_name} in class {cls_node.name} modified",  # noqa: E501
-                                ))
+                                impacted.append(
+                                    ImpactedItem(
+                                        module_path=change.module_path,
+                                        item_name=f"{cls_node.name}.{change.target_name}()",
+                                        item_type="function",
+                                        impact_type="direct",
+                                        severity=self._severity_for_change(change),
+                                        confidence=0.85,
+                                        reason=f"Method {change.target_name} in class {cls_node.name} modified",  # noqa: E501
+                                    )
+                                )
 
         return impacted
 
@@ -217,15 +235,17 @@ class ImpactAnalyzer:
                     if isinstance(other_node, ast.ClassDef) and other_node != node:
                         for base in other_node.bases:
                             if isinstance(base, ast.Name) and base.id == change.target_name:
-                                impacted.append(ImpactedItem(
-                                    module_path=change.module_path,
-                                    item_name=other_node.name,
-                                    item_type="class",
-                                    impact_type="direct",
-                                    severity=ImpactSeverity.HIGH,
-                                    confidence=0.9,
-                                    reason=f"Inherits from modified class {change.target_name}",
-                                ))
+                                impacted.append(
+                                    ImpactedItem(
+                                        module_path=change.module_path,
+                                        item_name=other_node.name,
+                                        item_type="class",
+                                        impact_type="direct",
+                                        severity=ImpactSeverity.HIGH,
+                                        confidence=0.9,
+                                        reason=f"Inherits from modified class {change.target_name}",
+                                    )
+                                )
                 break
 
         return impacted
@@ -237,28 +257,36 @@ class ImpactAnalyzer:
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for alias in node.names:
-                    if change.target_name in alias.name or (change.module_path and change.module_path in str(alias.name)):  # noqa: E501
-                        impacted.append(ImpactedItem(
-                            module_path=change.module_path,
-                            item_name=alias.name,
-                            item_type="module",
-                            impact_type="direct",
-                            severity=ImpactSeverity.HIGH,
-                            confidence=0.8,
-                            reason=f"Depends on modified module {change.module_path}",
-                        ))
+                    if change.target_name in alias.name or (
+                        change.module_path and change.module_path in str(alias.name)
+                    ):  # noqa: E501
+                        impacted.append(
+                            ImpactedItem(
+                                module_path=change.module_path,
+                                item_name=alias.name,
+                                item_type="module",
+                                impact_type="direct",
+                                severity=ImpactSeverity.HIGH,
+                                confidence=0.8,
+                                reason=f"Depends on modified module {change.module_path}",
+                            )
+                        )
             elif isinstance(node, ast.ImportFrom):
-                if node.module and (change.target_name in node.module or change.module_path in str(node.module)):  # noqa: E501
+                if node.module and (
+                    change.target_name in node.module or change.module_path in str(node.module)
+                ):  # noqa: E501
                     for alias in node.names:
-                        impacted.append(ImpactedItem(
-                            module_path=change.module_path,
-                            item_name=f"{node.module}.{alias.name}",
-                            item_type="function",
-                            impact_type="direct",
-                            severity=ImpactSeverity.HIGH,
-                            confidence=0.8,
-                            reason=f"Imports from modified module {change.module_path}",
-                        ))
+                        impacted.append(
+                            ImpactedItem(
+                                module_path=change.module_path,
+                                item_name=f"{node.module}.{alias.name}",
+                                item_type="function",
+                                impact_type="direct",
+                                severity=ImpactSeverity.HIGH,
+                                confidence=0.8,
+                                reason=f"Imports from modified module {change.module_path}",
+                            )
+                        )
 
         return impacted
 
@@ -270,16 +298,20 @@ class ImpactAnalyzer:
             # Check for usage of the imported name
             for child in ast.walk(node):
                 if isinstance(child, ast.Name) and child.id == change.target_name:
-                    impacted.append(ImpactedItem(
-                        module_path=change.module_path,
-                        item_name=child.id,
-                        item_type="module",
-                        impact_type="direct",
-                        severity=ImpactSeverity.CRITICAL if change.change_type == ChangeType.REMOVED else ImpactSeverity.HIGH,  # noqa: E501
-                        confidence=0.95,
-                        reason=f"Uses {change.target_name} which was {change.change_type}",
-                        line_number=child.lineno,
-                    ))
+                    impacted.append(
+                        ImpactedItem(
+                            module_path=change.module_path,
+                            item_name=child.id,
+                            item_type="module",
+                            impact_type="direct",
+                            severity=ImpactSeverity.CRITICAL
+                            if change.change_type == ChangeType.REMOVED
+                            else ImpactSeverity.HIGH,  # noqa: E501
+                            confidence=0.95,
+                            reason=f"Uses {change.target_name} which was {change.change_type}",
+                            line_number=child.lineno,
+                        )
+                    )
         return impacted
 
     def _get_transitive_impact(self, module_path: str, dep_summary) -> list[ImpactedItem]:
@@ -290,27 +322,31 @@ class ImpactAnalyzer:
 
         mod_info = dep_summary.modules[module_path]
         for dependent in mod_info.dependents:
-            impacted.append(ImpactedItem(
-                module_path=dependent,
-                item_name=Path(dependent).stem,
-                item_type="module",
-                impact_type="transitive",
-                severity=ImpactSeverity.MEDIUM,
-                confidence=0.6,
-                reason=f"Transitively depends on changed module {module_path}",
-            ))
+            impacted.append(
+                ImpactedItem(
+                    module_path=dependent,
+                    item_name=Path(dependent).stem,
+                    item_type="module",
+                    impact_type="transitive",
+                    severity=ImpactSeverity.MEDIUM,
+                    confidence=0.6,
+                    reason=f"Transitively depends on changed module {module_path}",
+                )
+            )
 
             # If dependent is a test, tag it
             if "test" in dependent.lower():
-                impacted.append(ImpactedItem(
-                    module_path=dependent,
-                    item_name=Path(dependent).stem,
-                    item_type="test",
-                    impact_type="transitive",
-                    severity=ImpactSeverity.MEDIUM,
-                    confidence=0.7,
-                    reason=f"Test for module affected by changes to {module_path}",
-                ))
+                impacted.append(
+                    ImpactedItem(
+                        module_path=dependent,
+                        item_name=Path(dependent).stem,
+                        item_type="test",
+                        impact_type="transitive",
+                        severity=ImpactSeverity.MEDIUM,
+                        confidence=0.7,
+                        reason=f"Test for module affected by changes to {module_path}",
+                    )
+                )
 
         return impacted
 
@@ -336,7 +372,7 @@ class ImpactAnalyzer:
         high_count = sum(1 for i in impacted if i.severity == ImpactSeverity.HIGH)
         medium_count = sum(1 for i in impacted if i.severity == ImpactSeverity.MEDIUM)
 
-        total_weighted = (critical_count * 10 + high_count * 5 + medium_count * 2)
+        total_weighted = critical_count * 10 + high_count * 5 + medium_count * 2
         max_possible = len(impacted) * 10
 
         # Normalize to 0-1
@@ -353,16 +389,24 @@ class ImpactAnalyzer:
         recommendations = []
 
         if result.max_severity in (ImpactSeverity.CRITICAL, ImpactSeverity.HIGH):
-            recommendations.append("⚠️  High-risk change detected. Consider splitting into smaller changes.")  # noqa: E501
+            recommendations.append(
+                "⚠️  High-risk change detected. Consider splitting into smaller changes."
+            )  # noqa: E501
 
         if result.total_tests_impacted > 0:
-            recommendations.append(f"🧪 Run {result.total_tests_impacted} impacted test(s) after applying changes.")  # noqa: E501
+            recommendations.append(
+                f"🧪 Run {result.total_tests_impacted} impacted test(s) after applying changes."
+            )  # noqa: E501
 
         if result.risk_score > 0.5:
-            recommendations.append("🔍 Risk score is above 0.5. Consider adding more tests before deployment.")  # noqa: E501
+            recommendations.append(
+                "🔍 Risk score is above 0.5. Consider adding more tests before deployment."
+            )  # noqa: E501
 
         if any(i.impact_type == "transitive" for i in result.impacted_items):
-            recommendations.append("📦 Transitive dependencies affected. Verify integration points.")  # noqa: E501
+            recommendations.append(
+                "📦 Transitive dependencies affected. Verify integration points."
+            )  # noqa: E501
 
         if not recommendations:
             recommendations.append("✅ Low-risk change. No special actions required.")
@@ -383,7 +427,12 @@ class ImpactAnalyzer:
         ]
 
         # Group by severity
-        for severity in [ImpactSeverity.CRITICAL, ImpactSeverity.HIGH, ImpactSeverity.MEDIUM, ImpactSeverity.LOW]:  # noqa: E501
+        for severity in [
+            ImpactSeverity.CRITICAL,
+            ImpactSeverity.HIGH,
+            ImpactSeverity.MEDIUM,
+            ImpactSeverity.LOW,
+        ]:  # noqa: E501
             items = [i for i in result.impacted_items if i.severity == severity]
             if items:
                 lines.append(f"## {severity.upper()} ({len(items)})")
@@ -434,4 +483,3 @@ class ImpactAnalyzer:
             line_number=line_number,
             description=description,
         )
-

@@ -69,15 +69,11 @@ class TranslatorExpertEngine:
             else:
                 detected_lang = source_lang or "en"
 
-            quality_score = self._compute_quality_score(
-                result, config.domain, config.enforce
-            )
+            quality_score = self._compute_quality_score(result, config.domain, config.enforce)
 
             duration_ms = (time.perf_counter() - start_time) * 1000
             throughput = (
-                round(len(request.text) / (duration_ms / 1000), 2)
-                if duration_ms > 0
-                else 0.0
+                round(len(request.text) / (duration_ms / 1000), 2) if duration_ms > 0 else 0.0
             )
 
             log_translation_complete(

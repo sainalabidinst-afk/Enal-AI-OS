@@ -8,6 +8,7 @@ class TestBackgroundTaskManager:
     async def test_submit_returns_task_id(self):
         try:
             import redis
+
             redis_client = redis.Redis(host="localhost", port=6379)
             redis_client.ping()
         except Exception:

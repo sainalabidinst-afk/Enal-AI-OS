@@ -34,16 +34,18 @@ class CitationQualityAssessor:
             if provenance < 0.8:
                 issues.append("Weak provenance traceability")
 
-            citations.append(Citation(
-                evidence_id=ev.id,
-                style=style,
-                text=text,
-                completeness=completeness,
-                format_accuracy=format_accuracy,
-                provenance_traceability=provenance,
-                overall_quality=overall,
-                issues=issues,
-            ))
+            citations.append(
+                Citation(
+                    evidence_id=ev.id,
+                    style=style,
+                    text=text,
+                    completeness=completeness,
+                    format_accuracy=format_accuracy,
+                    provenance_traceability=provenance,
+                    overall_quality=overall,
+                    issues=issues,
+                )
+            )
 
         return citations
 

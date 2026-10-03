@@ -46,9 +46,9 @@ class CrossDomainGraphWorker:
         request = GraphQueryRequest(
             query=task.get("query", ""),
             source_domains=task.get("source_domains", []),
-            target_memory_layers=task.get("target_memory_layers", [
-                "knowledge", "episodic", "project", "longterm"
-            ]),
+            target_memory_layers=task.get(
+                "target_memory_layers", ["knowledge", "episodic", "project", "longterm"]
+            ),
             max_depth=task.get("max_depth", 3),
             include_explanations=task.get("include_explanations", True),
             confidence_threshold=task.get("confidence_threshold", 0.5),

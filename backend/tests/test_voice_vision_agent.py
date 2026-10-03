@@ -26,7 +26,13 @@ class TestVisionAnalysis:
         assert va.metadata is None
 
     def test_with_metadata(self):
-        va = VisionAnalysis(description="a cat", objects=["cat"], text_detected=[], confidence=0.8, metadata={"size": "large"})  # noqa: E501
+        va = VisionAnalysis(
+            description="a cat",
+            objects=["cat"],
+            text_detected=[],
+            confidence=0.8,
+            metadata={"size": "large"},
+        )  # noqa: E501
         assert va.metadata == {"size": "large"}
 
 

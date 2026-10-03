@@ -58,11 +58,13 @@ class ElliottWaveAnalyzer:
         swing_lows = []
 
         for i in range(5, len(ohlcv) - 5):
-            if all(highs[i] > highs[j] for j in range(i - 5, i)) and \
-               all(highs[i] > highs[j] for j in range(i + 1, i + 6)):
+            if all(highs[i] > highs[j] for j in range(i - 5, i)) and all(
+                highs[i] > highs[j] for j in range(i + 1, i + 6)
+            ):
                 swing_highs.append((i, highs[i]))
-            if all(lows[i] < lows[j] for j in range(i - 5, i)) and \
-               all(lows[i] < lows[j] for j in range(i + 1, i + 6)):
+            if all(lows[i] < lows[j] for j in range(i - 5, i)) and all(
+                lows[i] < lows[j] for j in range(i + 1, i + 6)
+            ):
                 swing_lows.append((i, lows[i]))
 
         # Need at least 5 swing points for a wave count
@@ -75,48 +77,52 @@ class ElliottWaveAnalyzer:
             last_lows = [l for _, l in swing_lows[-2:]]  # noqa: E741
 
             # Impulse: higher highs and higher lows
-            if last_highs[-1] > last_highs[-2] > last_highs[-3] and \
-               last_lows[-1] > last_lows[-2]:
-                evidence.append(MarketEvidence(
-                    id=f"impulse_wave_{tf}",
-                    type="elliott_wave",
-                    description=f"Impulse wave structure detected on {tf} (5-wave pattern)",
-                    timeframe=tf,
-                    strength=0.70,
-                    direction="bullish",
-                    source="elliott_wave.impulse",
-                    confidence=0.65,
-                ))
+            if last_highs[-1] > last_highs[-2] > last_highs[-3] and last_lows[-1] > last_lows[-2]:
+                evidence.append(
+                    MarketEvidence(
+                        id=f"impulse_wave_{tf}",
+                        type="elliott_wave",
+                        description=f"Impulse wave structure detected on {tf} (5-wave pattern)",
+                        timeframe=tf,
+                        strength=0.70,
+                        direction="bullish",
+                        source="elliott_wave.impulse",
+                        confidence=0.65,
+                    )
+                )
 
                 # Check if wave 3 is the strongest (volume confirmation)
                 recent_volumes = [c.volume for c in ohlcv[-30:]]
                 if recent_volumes:
                     vol_mid = len(recent_volumes) // 2
                     if sum(recent_volumes[vol_mid:]) > sum(recent_volumes[:vol_mid]):
-                        evidence.append(MarketEvidence(
-                            id=f"impulse_wave3_strong_{tf}",
-                            type="elliott_wave",
-                            description=f"Wave 3 appears strongest on {tf} (volume confirmation)",
-                            timeframe=tf,
-                            strength=0.75,
-                            direction="bullish",
-                            source="elliott_wave.impulse",
-                            confidence=0.70,
-                        ))
+                        evidence.append(
+                            MarketEvidence(
+                                id=f"impulse_wave3_strong_{tf}",
+                                type="elliott_wave",
+                                description=f"Wave 3 appears strongest on {tf} (volume confirmation)",  # noqa: E501
+                                timeframe=tf,
+                                strength=0.75,
+                                direction="bullish",
+                                source="elliott_wave.impulse",
+                                confidence=0.70,
+                            )
+                        )
 
             # Corrective: lower highs and lower lows
-            if last_highs[-1] < last_highs[-2] < last_highs[-3] and \
-               last_lows[-1] < last_lows[-2]:
-                evidence.append(MarketEvidence(
-                    id=f"corrective_wave_{tf}",
-                    type="elliott_wave",
-                    description=f"Corrective wave structure detected on {tf} (A-B-C pattern)",
-                    timeframe=tf,
-                    strength=0.70,
-                    direction="bearish",
-                    source="elliott_wave.corrective",
-                    confidence=0.65,
-                ))
+            if last_highs[-1] < last_highs[-2] < last_highs[-3] and last_lows[-1] < last_lows[-2]:
+                evidence.append(
+                    MarketEvidence(
+                        id=f"corrective_wave_{tf}",
+                        type="elliott_wave",
+                        description=f"Corrective wave structure detected on {tf} (A-B-C pattern)",
+                        timeframe=tf,
+                        strength=0.70,
+                        direction="bearish",
+                        source="elliott_wave.corrective",
+                        confidence=0.65,
+                    )
+                )
 
         # Check for wave 4 and wave 1 overlap (invalid if they overlap)
         if len(swing_lows) >= 2 and len(swing_highs) >= 2:
@@ -126,16 +132,18 @@ class ElliottWaveAnalyzer:
 
             if wave_4_start < wave_3_high and wave_4_start > wave_1_start:
                 if wave_4_start < wave_1_start * 1.1:  # Close to overlapping
-                    evidence.append(MarketEvidence(
-                        id=f"wave_overlap_warning_{tf}",
-                        type="elliott_wave",
-                        description=f"Wave 4 near Wave 1 on {tf} - potential wave count violation",
-                        timeframe=tf,
-                        strength=0.50,
-                        direction="neutral",
-                        source="elliott_wave.validation",
-                        confidence=0.45,
-                    ))
+                    evidence.append(
+                        MarketEvidence(
+                            id=f"wave_overlap_warning_{tf}",
+                            type="elliott_wave",
+                            description=f"Wave 4 near Wave 1 on {tf} - potential wave count violation",  # noqa: E501
+                            timeframe=tf,
+                            strength=0.50,
+                            direction="neutral",
+                            source="elliott_wave.validation",
+                            confidence=0.45,
+                        )
+                    )
 
         return evidence
 
@@ -161,26 +169,28 @@ class ElliottWaveAnalyzer:
 
             # Higher highs getting smaller
             high_rising_slowing = all(
-                recent_highs[i] >= recent_highs[i-1] for i in range(1, len(recent_highs))
+                recent_highs[i] >= recent_highs[i - 1] for i in range(1, len(recent_highs))
             ) and (recent_highs[-1] - recent_highs[0]) < (recent_highs[5] - recent_highs[0])
 
             # Lower lows slowing
             low_rising = all(
-                recent_lows[i] >= recent_lows[i-1] for i in range(1, len(recent_lows))
+                recent_lows[i] >= recent_lows[i - 1] for i in range(1, len(recent_lows))
             )
 
             current_close = ohlcv[-1].close if ohlcv else 0
             if high_rising_slowing and low_rising:
-                evidence.append(MarketEvidence(
-                    id=f"ending_diagonal_{tf}",
-                    type="elliott_wave",
-                    description=f"Possible Ending Diagonal on {tf} - wedge pattern at trend end",
-                    timeframe=tf,
-                    strength=0.65,
-                    direction="bearish" if current_close > 0 else "neutral",
-                    source="elliott_wave.diagonal",
-                    confidence=0.55,
-                ))
+                evidence.append(
+                    MarketEvidence(
+                        id=f"ending_diagonal_{tf}",
+                        type="elliott_wave",
+                        description=f"Possible Ending Diagonal on {tf} - wedge pattern at trend end",  # noqa: E501
+                        timeframe=tf,
+                        strength=0.65,
+                        direction="bearish" if current_close > 0 else "neutral",
+                        source="elliott_wave.diagonal",
+                        confidence=0.55,
+                    )
+                )
 
         return evidence
 

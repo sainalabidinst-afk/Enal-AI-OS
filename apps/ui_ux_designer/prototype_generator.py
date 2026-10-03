@@ -98,10 +98,12 @@ class PrototypeGenerator:
         ]
 
         if "mobile" in target_platforms:
-            base_screens.extend([
-                ("MobileHome", "Versi mobile dari halaman utama"),
-                ("MobileDetail", "Versi mobile dari halaman detail"),
-            ])
+            base_screens.extend(
+                [
+                    ("MobileHome", "Versi mobile dari halaman utama"),
+                    ("MobileDetail", "Versi mobile dari halaman detail"),
+                ]
+            )
 
         for i, (name, description) in enumerate(base_screens):
             screen = PrototypeScreen(
@@ -155,33 +157,64 @@ class PrototypeGenerator:
                 {"type": "Select", "position": "list", "props": {}},
             ],
         }
-        return component_map.get(screen_name, [
-            {"type": "Navigation", "position": "top", "props": {}},
-            {"type": "Content", "position": "center", "props": {}},
-        ])
+        return component_map.get(
+            screen_name,
+            [
+                {"type": "Navigation", "position": "top", "props": {}},
+                {"type": "Content", "position": "center", "props": {}},
+            ],
+        )
 
     def _screen_interactions(self, screen_name: str) -> list[dict[str, Any]]:
         """Generate interaction definitions for a screen."""
         interaction_map: dict[str, list[dict[str, Any]]] = {
             "Home": [
-                {"trigger": "click", "target": "cta-button", "action": "navigate", "destination": "Form"},  # noqa: E501
-                {"trigger": "hover", "target": "card", "action": "elevate", "params": {"shadow": "md"}},  # noqa: E501
+                {
+                    "trigger": "click",
+                    "target": "cta-button",
+                    "action": "navigate",
+                    "destination": "Form",
+                },  # noqa: E501
+                {
+                    "trigger": "hover",
+                    "target": "card",
+                    "action": "elevate",
+                    "params": {"shadow": "md"},
+                },  # noqa: E501
             ],
             "List": [
-                {"trigger": "click", "target": "filter-toggle", "action": "toggle", "target_component": "FilterPanel"},  # noqa: E501
-                {"trigger": "search", "target": "search-bar", "action": "filter", "params": {"debounce": "300ms"}},  # noqa: E501
+                {
+                    "trigger": "click",
+                    "target": "filter-toggle",
+                    "action": "toggle",
+                    "target_component": "FilterPanel",
+                },  # noqa: E501
+                {
+                    "trigger": "search",
+                    "target": "search-bar",
+                    "action": "filter",
+                    "params": {"debounce": "300ms"},
+                },  # noqa: E501
             ],
             "Form": [
                 {"trigger": "submit", "target": "form", "action": "validate", "then": "submit_api"},
                 {"trigger": "blur", "target": "input", "action": "validate_field"},
             ],
             "Dashboard": [
-                {"trigger": "click", "target": "metric-card", "action": "drill_down", "destination": "Detail"},  # noqa: E501
+                {
+                    "trigger": "click",
+                    "target": "metric-card",
+                    "action": "drill_down",
+                    "destination": "Detail",
+                },  # noqa: E501
             ],
         }
-        return interaction_map.get(screen_name, [
-            {"trigger": "click", "target": "navigation-link", "action": "navigate"},
-        ])
+        return interaction_map.get(
+            screen_name,
+            [
+                {"trigger": "click", "target": "navigation-link", "action": "navigate"},
+            ],
+        )
 
     def _generate_user_flows(
         self,
@@ -219,7 +252,9 @@ class PrototypeGenerator:
 
         for template in flow_templates:
             flow = dict(template)
-            flow["screens_involved"] = [s for s in screen_names if s in [step["screen"] for step in flow["steps"]]]  # noqa: E501
+            flow["screens_involved"] = [
+                s for s in screen_names if s in [step["screen"] for step in flow["steps"]]
+            ]  # noqa: E501
             flows.append(flow)
 
         return flows
@@ -237,7 +272,11 @@ class PrototypeGenerator:
             "gestures": [
                 {"gesture": "swipe_left", "action": "next_item", "context": "List, Detail"},
                 {"gesture": "swipe_right", "action": "previous_item", "context": "List, Detail"},
-                {"gesture": "pull_to_refresh", "action": "refresh_data", "context": "List, Dashboard"},  # noqa: E501
+                {
+                    "gesture": "pull_to_refresh",
+                    "action": "refresh_data",
+                    "context": "List, Dashboard",
+                },  # noqa: E501
             ],
             "keyboard_shortcuts": [
                 {"key": "Ctrl+K", "action": "open_search", "context": "global"},

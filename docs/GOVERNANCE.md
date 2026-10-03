@@ -91,6 +91,7 @@ Semua komunikasi lintas-pack mengalir melalui **Execution Runtime dan kontrak be
 ```python
 # DILARANG
 from apps.trading_analyst import engine as trading_engine
+
 trading_engine.analyze(...)
 ```
 

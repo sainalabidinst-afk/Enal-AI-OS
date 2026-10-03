@@ -130,8 +130,8 @@ class CalendarConnector(BaseActionConnector):
                     ) as resp:
                         if resp.status != 200:
                             raise ActionConnectorError(
-    f"Google Calendar API error: HTTP {resp.status}"
-)
+                                f"Google Calendar API error: HTTP {resp.status}"
+                            )
                         result = await resp.json()
                 return {"event_id": result.get("id"), **event}
             except ImportError:
@@ -158,8 +158,10 @@ class CalendarConnector(BaseActionConnector):
 
                 async with aiohttp.ClientSession() as session:
                     async with session.get(
-                        url, headers=headers, params=query_params,
-                        timeout=aiohttp.ClientTimeout(total=15)
+                        url,
+                        headers=headers,
+                        params=query_params,
+                        timeout=aiohttp.ClientTimeout(total=15),
                     ) as resp:
                         if resp.status != 200:
                             raise ActionConnectorError(
@@ -183,7 +185,8 @@ class CalendarConnector(BaseActionConnector):
             raise ActionConnectorError("'event_id' is required for update_event")
 
         update_fields = {
-            k: v for k, v in params.items()
+            k: v
+            for k, v in params.items()
             if k in ("summary", "start", "end", "description", "location", "attendees")
         }
 
@@ -212,8 +215,8 @@ class CalendarConnector(BaseActionConnector):
                     ) as resp:
                         if resp.status != 200:
                             raise ActionConnectorError(
-    f"Google Calendar API error: HTTP {resp.status}"
-)
+                                f"Google Calendar API error: HTTP {resp.status}"
+                            )
                         result = await resp.json()
                 return {"event_id": event_id, "updated": True, "result": result}
             except ImportError:
@@ -243,8 +246,8 @@ class CalendarConnector(BaseActionConnector):
                     ) as resp:
                         if resp.status != 204:
                             raise ActionConnectorError(
-    f"Google Calendar API error: HTTP {resp.status}"
-)
+                                f"Google Calendar API error: HTTP {resp.status}"
+                            )
                 return {"event_id": event_id, "deleted": True}
             except ImportError:
                 raise ActionConnectorError("aiohttp required for Google Calendar API")

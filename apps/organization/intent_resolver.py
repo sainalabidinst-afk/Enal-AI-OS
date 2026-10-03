@@ -335,9 +335,7 @@ class IntentResolver:
         # 1. Resolve intent to workflow
         result = self.resolve(intent_id)
         if not result.found:
-            raise IntentResolverError(
-                f"Cannot execute: {result.error}"
-            )
+            raise IntentResolverError(f"Cannot execute: {result.error}")
 
         # 2. Emit WorkflowSelected telemetry
         self._emit_workflow_selected(result)
@@ -439,4 +437,3 @@ class IntentResolver:
 # ─── Singleton ───
 
 intent_resolver = IntentResolver()
-

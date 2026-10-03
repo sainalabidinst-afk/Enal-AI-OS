@@ -17,6 +17,7 @@ class CognitiveService(ABC):
 class PerceptionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from backend.app.core.cognitive.world_model import world_model
+
         user_input = context.get("input", "")
         project_id = context.get("project_id")
         memories = []
@@ -45,23 +46,32 @@ class MemoryService(CognitiveService):
                 relevant_memories = await memory_manager.search("knowledge", user_input, limit=5)
             except Exception:
                 pass
-        return {"relevant_memories": relevant_memories, "working_memory": perception.get("memories", [])}  # noqa: E501
+        return {
+            "relevant_memories": relevant_memories,
+            "working_memory": perception.get("memories", []),
+        }  # noqa: E501
 
 
 class ReasoningService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from backend.app.core.cognitive.reasoning_engine import reasoning_engine
+
         perception = context.get("perception", {})
         problem = perception.get("input", "")
         hypotheses = await reasoning_engine.generate_hypotheses(problem)
         chain = await reasoning_engine.reason(problem, hypotheses)
         decision = await reasoning_engine.decide(chain)
-        return {"hypotheses": [h.__dict__ for h in hypotheses], "chain": chain.__dict__, "decision": decision}  # noqa: E501
+        return {
+            "hypotheses": [h.__dict__ for h in hypotheses],
+            "chain": chain.__dict__,
+            "decision": decision,
+        }  # noqa: E501
 
 
 class PlanningService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from backend.app.core.cognitive.strategic_planner import strategic_planner
+
         perception = context.get("perception", {})
         problem = perception.get("input", "")
         roadmap = await strategic_planner.create_strategy(problem, context)
@@ -71,6 +81,7 @@ class PlanningService(CognitiveService):
 class DecisionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from backend.app.core.decision_engine import DecisionOption, decision_engine
+
         options_raw = context.get("options", [])
         options = []
         for opt in options_raw:
@@ -106,11 +117,16 @@ class ActionService(CognitiveService):
 class ReflectionService(CognitiveService):
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from backend.app.core.reflection import self_reflection
+
         decision = context.get("decision", {})
         task = context.get("perception", {}).get("input", "")
         result = decision.get("decision", "") if isinstance(decision, dict) else decision
         review = await self_reflection.review(task, result)
-        return {"review": review, "score": review.get("score", 0), "passed": review.get("passed", False)}  # noqa: E501
+        return {
+            "review": review,
+            "score": review.get("score", 0),
+            "passed": review.get("passed", False),
+        }  # noqa: E501
 
 
 class LearningService(CognitiveService):
@@ -118,7 +134,11 @@ class LearningService(CognitiveService):
         reflection = context.get("reflection", {})
         review = reflection.get("review", {})
         score = review.get("score", 0)
-        return {"learned": score >= 7, "quality_score": score, "suggestions": review.get("suggestions", [])}  # noqa: E501
+        return {
+            "learned": score >= 7,
+            "quality_score": score,
+            "suggestions": review.get("suggestions", []),
+        }  # noqa: E501
 
 
 class SimulationService(CognitiveService):
@@ -129,10 +149,14 @@ class SimulationService(CognitiveService):
 
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from apps.scenario_simulator.engine import ScenarioSimulatorEngine
+
         engine = ScenarioSimulatorEngine()
         simulation_ctx = context.get("simulation", context)
         request = engine.build_scenario(
-            description=simulation_ctx.get("description", simulation_ctx.get("input", context.get("perception", {}).get("input", ""))),  # noqa: E501
+            description=simulation_ctx.get(
+                "description",
+                simulation_ctx.get("input", context.get("perception", {}).get("input", "")),
+            ),  # noqa: E501
             base_state=simulation_ctx.get("base_state", {}),
             iterations=simulation_ctx.get("iterations", 50),
             seed=simulation_ctx.get("seed"),
@@ -150,6 +174,7 @@ class AdversarialTestingService(CognitiveService):
 
     async def process(self, context: dict[str, Any]) -> dict[str, Any]:
         from apps.adversarial_testing.engine import AdversarialTestingEngine
+
         engine = AdversarialTestingEngine()
         adversarial_ctx = context.get("adversarial_testing", context)
         subject = adversarial_ctx.get(
@@ -198,7 +223,9 @@ class CognitiveKernel:
     def list_services(self) -> list[str]:
         return list(self.services.keys())
 
-    async def execute_pipeline(self, pipeline: list[str], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def execute_pipeline(
+        self, pipeline: list[str], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         result = dict(context)
         pipeline_results: dict[str, Any] = {}
         for service_name in pipeline:

@@ -411,7 +411,10 @@ def test_attachments_analyze(token, auth_headers):
         response = client.post(
             "/api/v1/attachments/analyze",
             headers=auth_headers,
-            files=[("files", ("test1.txt", b"config1", "text/plain")), ("files", ("test2.txt", b"config2", "text/plain"))],  # noqa: E501
+            files=[
+                ("files", ("test1.txt", b"config1", "text/plain")),
+                ("files", ("test2.txt", b"config2", "text/plain")),
+            ],  # noqa: E501
         )
         assert response.status_code in (200, 400, 422, 500)
     except Exception:
@@ -543,12 +546,17 @@ def test_ecosystem_studio_graph(token, auth_headers):
 def test_ecosystem_studio_memory(token, auth_headers):
     try:
         import redis
+
         redis_client = redis.Redis(host="localhost", port=6379)
         redis_client.ping()
     except Exception:
         pytest.skip("Redis not available in test environment")
 
-    response = client.get("/api/v1/studio/memory", headers=auth_headers, params={"layer": "working", "query": "test", "limit": 5})  # noqa: E501
+    response = client.get(
+        "/api/v1/studio/memory",
+        headers=auth_headers,
+        params={"layer": "working", "query": "test", "limit": 5},
+    )  # noqa: E501
     assert response.status_code in (200, 404, 422, 500)
 
 
@@ -599,7 +607,9 @@ def test_ecosystem_marketplace_list_plugins(token, auth_headers):
 
 
 def test_ecosystem_marketplace_search(token, auth_headers):
-    response = client.get("/api/v1/marketplace/plugins/search", headers=auth_headers, params={"query": "test"})  # noqa: E501
+    response = client.get(
+        "/api/v1/marketplace/plugins/search", headers=auth_headers, params={"query": "test"}
+    )  # noqa: E501
     assert response.status_code in (200, 404, 422, 500)
 
 
@@ -790,7 +800,9 @@ def test_integration_network_design_review(token, auth_headers):
     response = client.post(
         "/api/v1/integration/network-design-review",
         headers=auth_headers,
-        json={"topology_description": "A simple network with 2 routers and 3 switches connected via fiber"},  # noqa: E501
+        json={
+            "topology_description": "A simple network with 2 routers and 3 switches connected via fiber"  # noqa: E501
+        },  # noqa: E501
     )
     assert response.status_code in (200, 404, 422, 500)
 
@@ -850,7 +862,9 @@ def test_phase3_reputation_record(token, auth_headers):
 
 
 def test_phase3_experience_search(token, auth_headers):
-    response = client.get("/api/v1/experience/search", headers=auth_headers, params={"query": "test"})  # noqa: E501
+    response = client.get(
+        "/api/v1/experience/search", headers=auth_headers, params={"query": "test"}
+    )  # noqa: E501
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
@@ -925,7 +939,12 @@ def test_phase3_artifacts_create(token, auth_headers):
     response = client.post(
         "/api/v1/artifacts",
         headers=auth_headers,
-        json={"project_id": "proj-1", "name": "Phase3 Artifact", "artifact_type": "file", "content": "content"},  # noqa: E501
+        json={
+            "project_id": "proj-1",
+            "name": "Phase3 Artifact",
+            "artifact_type": "file",
+            "content": "content",
+        },  # noqa: E501
     )
     assert response.status_code in (200, 404, 422, 500)
 
@@ -1050,7 +1069,9 @@ def test_phase3_cognitive_simulate(token, auth_headers):
 
 
 def test_phase3_cognitive_world_query(token, auth_headers):
-    response = client.get("/api/v1/cognitive/world/query", headers=auth_headers, params={"query": "test"})  # noqa: E501
+    response = client.get(
+        "/api/v1/cognitive/world/query", headers=auth_headers, params={"query": "test"}
+    )  # noqa: E501
     assert response.status_code in (200, 404, 422, 500)
 
 
@@ -1114,7 +1135,18 @@ def test_phase3_cognitive_decide(token, auth_headers):
     response = client.post(
         "/api/v1/cognitive/decide",
         headers=auth_headers,
-        json={"options": [{"id": "opt-1", "description": "option 1", "utility": 0.5, "risk": 0.5, "cost": 0.5, "confidence": 0.5}]},  # noqa: E501
+        json={
+            "options": [
+                {
+                    "id": "opt-1",
+                    "description": "option 1",
+                    "utility": 0.5,
+                    "risk": 0.5,
+                    "cost": 0.5,
+                    "confidence": 0.5,
+                }
+            ]
+        },  # noqa: E501
     )
     assert response.status_code in (200, 404, 422, 500)
 

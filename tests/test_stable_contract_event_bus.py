@@ -45,6 +45,7 @@ class TestStableEventBus:
     @pytest.mark.asyncio
     async def test_publish_invalid_payload_raises(self, bus):
         from pydantic import ValidationError
+
         with pytest.raises((ValidationError, ValueError, TypeError)):
             await bus.publish({"payload": {"x": 1}})
 

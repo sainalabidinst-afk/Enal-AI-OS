@@ -72,25 +72,43 @@ class VariableChange(BaseModel):
     variable: str = Field(..., description="Name of the variable to change")
     change_type: ChangeType = Field(..., description="How the variable changes")
     value: float = Field(..., description="Magnitude of change")
-    distribution: DistributionType = Field(default=DistributionType.FIXED, description="Distribution for Monte Carlo")  # noqa: E501
-    range_min: float | None = Field(default=None, description="Minimum value for distribution range")  # noqa: E501
-    range_max: float | None = Field(default=None, description="Maximum value for distribution range")  # noqa: E501
-    stddev: float | None = Field(default=None, description="Standard deviation for normal distribution")  # noqa: E501
+    distribution: DistributionType = Field(
+        default=DistributionType.FIXED, description="Distribution for Monte Carlo"
+    )  # noqa: E501
+    range_min: float | None = Field(
+        default=None, description="Minimum value for distribution range"
+    )  # noqa: E501
+    range_max: float | None = Field(
+        default=None, description="Maximum value for distribution range"
+    )  # noqa: E501
+    stddev: float | None = Field(
+        default=None, description="Standard deviation for normal distribution"
+    )  # noqa: E501
     mode: float | None = Field(default=None, description="Mode for triangular distribution")
 
 
 class ScenarioRequest(BaseModel):
     """Input contract for a scenario simulation request."""
 
-    request_id: str = Field(default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier")  # noqa: E501
+    request_id: str = Field(
+        default_factory=lambda: str(uuid.uuid4()), description="Unique request identifier"
+    )  # noqa: E501
     title: str = Field(..., description="Scenario name/title")
     description: str = Field(..., description="What-if description in natural language")
     base_state: dict[str, Any] = Field(default_factory=dict, description="Base state variables")
-    variable_changes: list[VariableChange] = Field(default_factory=list, description="Variables to change")  # noqa: E501
-    iterations: int = Field(default=100, ge=1, le=10000, description="Number of Monte Carlo iterations")  # noqa: E501
+    variable_changes: list[VariableChange] = Field(
+        default_factory=list, description="Variables to change"
+    )  # noqa: E501
+    iterations: int = Field(
+        default=100, ge=1, le=10000, description="Number of Monte Carlo iterations"
+    )  # noqa: E501
     sandbox_enabled: bool = Field(default=True, description="Whether to run sandbox experiments")
-    sandbox_code: str | None = Field(default=None, description="Optional code/logic to execute in sandbox")  # noqa: E501
-    context: dict[str, Any] = Field(default_factory=dict, description="Additional context from capability packs")  # noqa: E501
+    sandbox_code: str | None = Field(
+        default=None, description="Optional code/logic to execute in sandbox"
+    )  # noqa: E501
+    context: dict[str, Any] = Field(
+        default_factory=dict, description="Additional context from capability packs"
+    )  # noqa: E501
     seed: int | None = Field(default=None, description="Random seed for reproducibility")
 
 

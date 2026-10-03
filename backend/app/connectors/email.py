@@ -182,17 +182,17 @@ class EmailConnector(BaseActionConnector):
 
                 msg: EmailMessage
                 if raw_bytes:
-                    msg = BytesParser(
-                        policy=default_policy
-                    ).parsebytes(raw_bytes)  # type: ignore[assignment]
+                    msg = BytesParser(policy=default_policy).parsebytes(raw_bytes)  # type: ignore[assignment]
                 else:
                     msg = EmailMessage()
-                emails.append({
-                    "id": eid.decode("utf-8"),
-                    "from": msg.get("From", ""),
-                    "subject": msg.get("Subject", ""),
-                    "sent_date": msg.get("Date", ""),
-                })
+                emails.append(
+                    {
+                        "id": eid.decode("utf-8"),
+                        "from": msg.get("From", ""),
+                        "subject": msg.get("Subject", ""),
+                        "sent_date": msg.get("Date", ""),
+                    }
+                )
 
             mail.close()
             mail.logout()

@@ -182,9 +182,7 @@ def test_register_workflow_from_json(executor: WorkflowExecutor):
 
 
 def test_register_workflow_from_file(executor: WorkflowExecutor):
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", delete=False, encoding="utf-8"
-    ) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, encoding="utf-8") as f:
         json.dump(SIMPLE_WORKFLOW_DICT, f)
         filepath = f.name
     try:
@@ -215,22 +213,26 @@ def test_register_workflow_directly(executor: WorkflowExecutor):
 
 def test_register_invalid_workflow_empty_steps(executor: WorkflowExecutor):
     with pytest.raises(ValueError, match="at least one step"):
-        executor.register(WorkflowDefinition(
-            workflow_id="empty-wf",
-            name="Empty",
-            ordered_steps=[],
-        ))
+        executor.register(
+            WorkflowDefinition(
+                workflow_id="empty-wf",
+                name="Empty",
+                ordered_steps=[],
+            )
+        )
 
 
 def test_register_invalid_workflow_empty_capability_id(executor: WorkflowExecutor):
     with pytest.raises(ValueError, match="empty capability_id"):
-        executor.register(WorkflowDefinition(
-            workflow_id="bad-step-wf",
-            name="Bad Step",
-            ordered_steps=[
-                WorkflowStep(capability_id="", input_data={}),
-            ],
-        ))
+        executor.register(
+            WorkflowDefinition(
+                workflow_id="bad-step-wf",
+                name="Bad Step",
+                ordered_steps=[
+                    WorkflowStep(capability_id="", input_data={}),
+                ],
+            )
+        )
 
 
 def test_list_workflows(executor: WorkflowExecutor):

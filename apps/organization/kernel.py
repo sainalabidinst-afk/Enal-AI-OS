@@ -102,14 +102,21 @@ class OrganizationKernel:
 
     def allocate_budget(self, amount: float, recipient_id: str, purpose: str) -> bool:
         if self._budget.allocated + amount > self._budget.total:
-            logger.warning("Budget exceeded: requested %s, available %s", amount, self._budget.total - self._budget.allocated)  # noqa: E501
+            logger.warning(
+                "Budget exceeded: requested %s, available %s",
+                amount,
+                self._budget.total - self._budget.allocated,
+            )  # noqa: E501
             return False
         self._budget.allocated += amount
-        self._publish_event(OrgEventType.BUDGET_ALLOCATED, {
-            "amount": amount,
-            "recipient_id": recipient_id,
-            "purpose": purpose,
-        })
+        self._publish_event(
+            OrgEventType.BUDGET_ALLOCATED,
+            {
+                "amount": amount,
+                "recipient_id": recipient_id,
+                "purpose": purpose,
+            },
+        )
         logger.info("Budget allocated: %s to %s for %s", amount, recipient_id, purpose)
         return True
 
@@ -119,7 +126,9 @@ class OrganizationKernel:
         if metrics:
             metrics.total_cost += amount
 
-    def request_resource(self, requester_id: str, resource_type: str, description: str, estimated_cost: float = 0.0) -> ResourceRequest:  # noqa: E501
+    def request_resource(
+        self, requester_id: str, resource_type: str, description: str, estimated_cost: float = 0.0
+    ) -> ResourceRequest:  # noqa: E501
         request_id = f"res-{uuid.uuid4().hex[:8]}"
         request = ResourceRequest(
             id=request_id,
@@ -129,11 +138,14 @@ class OrganizationKernel:
             estimated_cost=estimated_cost,
         )
         self._resource_requests[request_id] = request
-        self._publish_event(OrgEventType.RESOURCE_REQUESTED, {
-            "request_id": request_id,
-            "requester_id": requester_id,
-            "resource_type": resource_type,
-        })
+        self._publish_event(
+            OrgEventType.RESOURCE_REQUESTED,
+            {
+                "request_id": request_id,
+                "requester_id": requester_id,
+                "resource_type": resource_type,
+            },
+        )
         logger.info("Resource requested: %s by %s", resource_type, requester_id)
         return request
 
@@ -145,10 +157,13 @@ class OrganizationKernel:
             return None
         request.status = "approved"
         request.approved_by = approver_id
-        self._publish_event(OrgEventType.BUDGET_ALLOCATED, {
-            "request_id": request_id,
-            "approved_by": approver_id,
-        })
+        self._publish_event(
+            OrgEventType.BUDGET_ALLOCATED,
+            {
+                "request_id": request_id,
+                "approved_by": approver_id,
+            },
+        )
         logger.info("Resource approved: %s by %s", request_id, approver_id)
         return request
 
@@ -161,38 +176,56 @@ class OrganizationKernel:
             description=description,
         )
         self._conflicts[conflict_id] = conflict
-        self._publish_event(OrgEventType.CONFLICT_DETECTED, {
-            "conflict_id": conflict_id,
-            "level": level,
-            "parties": parties,
-            "description": description,
-        })
+        self._publish_event(
+            OrgEventType.CONFLICT_DETECTED,
+            {
+                "conflict_id": conflict_id,
+                "level": level,
+                "parties": parties,
+                "description": description,
+            },
+        )
         logger.warning("Conflict detected: %s (level %d)", description, level)
         return conflict
 
-    def resolve_conflict(self, conflict_id: str, resolution: str, resolved_by: str) -> ConflictRecord | None:  # noqa: E501
+    def resolve_conflict(
+        self, conflict_id: str, resolution: str, resolved_by: str
+    ) -> ConflictRecord | None:  # noqa: E501
         conflict = self._conflicts.get(conflict_id)
         if not conflict:
             return None
         conflict.status = "resolved"
         conflict.resolution = resolution
         conflict.resolved_by = resolved_by
-        self._publish_event(OrgEventType.CONFLICT_RESOLVED, {
-            "conflict_id": conflict_id,
-            "resolution": resolution,
-            "resolved_by": resolved_by,
-        })
+        self._publish_event(
+            OrgEventType.CONFLICT_RESOLVED,
+            {
+                "conflict_id": conflict_id,
+                "resolution": resolution,
+                "resolved_by": resolved_by,
+            },
+        )
         logger.info("Conflict resolved: %s by %s", conflict_id, resolved_by)
         return conflict
 
-    def track_productivity(self, worker_id: str, task_completed: bool, completion_time_seconds: float = 0.0, quality_score: float = 0.0) -> None:  # noqa: E501
+    def track_productivity(
+        self,
+        worker_id: str,
+        task_completed: bool,
+        completion_time_seconds: float = 0.0,
+        quality_score: float = 0.0,
+    ) -> None:  # noqa: E501
         if worker_id not in self._productivity:
             self._productivity[worker_id] = ProductivityMetrics(worker_id=worker_id)
         metrics = self._productivity[worker_id]
         if task_completed:
             metrics.tasks_completed += 1
             metrics.avg_completion_time_seconds = (
-                (metrics.avg_completion_time_seconds * (metrics.tasks_completed - 1) + completion_time_seconds) / metrics.tasks_completed  # noqa: E501
+                (
+                    metrics.avg_completion_time_seconds * (metrics.tasks_completed - 1)
+                    + completion_time_seconds
+                )
+                / metrics.tasks_completed  # noqa: E501
             )
         else:
             metrics.tasks_failed += 1
@@ -208,7 +241,9 @@ class OrganizationKernel:
             "allocated": self._budget.allocated,
             "spent": self._budget.spent,
             "available": self._budget.total - self._budget.allocated,
-            "utilization": (self._budget.spent / self._budget.total * 100) if self._budget.total > 0 else 0,  # noqa: E501
+            "utilization": (self._budget.spent / self._budget.total * 100)
+            if self._budget.total > 0
+            else 0,  # noqa: E501
         }
 
     def get_conflicts(self, status: str | None = None) -> list[ConflictRecord]:
@@ -236,36 +271,44 @@ class OrganizationKernel:
     def _on_worker_created(self, event: Any) -> None:
         data = event.data if hasattr(event, "data") else event
         worker_id = data.get("worker_id", "")
-        self._worker_lifecycle.setdefault(worker_id, []).append({
-            "event": "created",
-            "timestamp": datetime.now(UTC).isoformat(),
-        })
+        self._worker_lifecycle.setdefault(worker_id, []).append(
+            {
+                "event": "created",
+                "timestamp": datetime.now(UTC).isoformat(),
+            }
+        )
 
     def _on_worker_completed(self, event: Any) -> None:
         data = event.data if hasattr(event, "data") else event
         worker_id = data.get("worker_id", "")
-        self._worker_lifecycle.setdefault(worker_id, []).append({
-            "event": "completed",
-            "timestamp": datetime.now(UTC).isoformat(),
-        })
+        self._worker_lifecycle.setdefault(worker_id, []).append(
+            {
+                "event": "completed",
+                "timestamp": datetime.now(UTC).isoformat(),
+            }
+        )
 
     def _on_worker_failed(self, event: Any) -> None:
         data = event.data if hasattr(event, "data") else event
         worker_id = data.get("worker_id", "")
-        self._worker_lifecycle.setdefault(worker_id, []).append({
-            "event": "failed",
-            "timestamp": datetime.now(UTC).isoformat(),
-        })
+        self._worker_lifecycle.setdefault(worker_id, []).append(
+            {
+                "event": "failed",
+                "timestamp": datetime.now(UTC).isoformat(),
+            }
+        )
 
     def _on_project_completed(self, event: Any) -> None:
         data = event.data if hasattr(event, "data") else event
         project_id = data.get("project_id", "")
-        self._publish_event(OrgEventType.PROJECT_COMPLETED, {
-            "project_id": project_id,
-            "budget_spent": self._budget.spent,
-            "workers_active": len(self._productivity),
-        })
+        self._publish_event(
+            OrgEventType.PROJECT_COMPLETED,
+            {
+                "project_id": project_id,
+                "budget_spent": self._budget.spent,
+                "workers_active": len(self._productivity),
+            },
+        )
 
 
 organization_kernel = OrganizationKernel()
-

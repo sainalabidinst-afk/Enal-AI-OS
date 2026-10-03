@@ -53,7 +53,9 @@ class ConfigurationDiffEngine:
             summary=summary,
         )
 
-    def _diff_sections(self, before: InfrastructureAST, after: InfrastructureAST) -> list[ConfigDiffItem]:  # noqa: E501
+    def _diff_sections(
+        self, before: InfrastructureAST, after: InfrastructureAST
+    ) -> list[ConfigDiffItem]:  # noqa: E501
         diffs: list[ConfigDiffItem] = []
         self._compare_list(before.firewall, after.firewall, "firewall", diffs)
         self._compare_list(before.interfaces, after.interfaces, "interface", diffs)
@@ -63,7 +65,13 @@ class ConfigurationDiffEngine:
         self._compare_list(before.ha, after.ha, "ha", diffs)
         return diffs
 
-    def _compare_list(self, before_items: list[dict[str, Any]], after_items: list[dict[str, Any]], section: str, diffs: list[ConfigDiffItem]) -> None:  # noqa: E501
+    def _compare_list(
+        self,
+        before_items: list[dict[str, Any]],
+        after_items: list[dict[str, Any]],
+        section: str,
+        diffs: list[ConfigDiffItem],
+    ) -> None:  # noqa: E501
         before_texts = {str(item.get("raw", "")): item for item in before_items if item.get("raw")}
         after_texts = {str(item.get("raw", "")): item for item in after_items if item.get("raw")}
 
@@ -78,23 +86,27 @@ class ConfigurationDiffEngine:
         for text in common:
             diffs.extend(self._compare_detail(section, before_texts[text], after_texts[text]))
 
-    def _compare_detail(self, section: str, before_item: dict[str, Any], after_item: dict[str, Any]) -> list[ConfigDiffItem]:  # noqa: E501
+    def _compare_detail(
+        self, section: str, before_item: dict[str, Any], after_item: dict[str, Any]
+    ) -> list[ConfigDiffItem]:  # noqa: E501
         diffs: list[ConfigDiffItem] = []
         before_raw = str(before_item.get("raw", ""))
         after_raw = str(after_item.get("raw", ""))
         if before_raw != after_raw:
             risk = self._estimate_change_risk(section, before_raw, after_raw)
-            diffs.append(ConfigDiffItem(
-                section=section,
-                before=before_raw,
-                after=after_raw,
-                change_type="modified",
-                risk=risk,
-                risk_score=self._risk_to_score(risk),
-                recommendation=self._recommendation_for_change(section, after_raw),
-                rollback=f"Restore previous {section} configuration from backup.",
-                evidence=[before_raw, after_raw],
-            ))
+            diffs.append(
+                ConfigDiffItem(
+                    section=section,
+                    before=before_raw,
+                    after=after_raw,
+                    change_type="modified",
+                    risk=risk,
+                    risk_score=self._risk_to_score(risk),
+                    recommendation=self._recommendation_for_change(section, after_raw),
+                    rollback=f"Restore previous {section} configuration from backup.",
+                    evidence=[before_raw, after_raw],
+                )
+            )
         return diffs
 
     def _added(self, section: str, before: str, after: str, item: dict[str, Any]) -> ConfigDiffItem:
@@ -111,7 +123,9 @@ class ConfigurationDiffEngine:
             evidence=[after],
         )
 
-    def _removed(self, section: str, before: str, after: str, item: dict[str, Any]) -> ConfigDiffItem:  # noqa: E501
+    def _removed(
+        self, section: str, before: str, after: str, item: dict[str, Any]
+    ) -> ConfigDiffItem:  # noqa: E501
         risk = self._estimate_change_risk(section, before, after)
         return ConfigDiffItem(
             section=section,
@@ -127,7 +141,9 @@ class ConfigurationDiffEngine:
 
     def _estimate_change_risk(self, section: str, before: str, after: str) -> str:
         lowered = f"{before} {after}".lower()
-        if any(key in lowered for key in ["vpn", "firewall", "acl", "access-list", "policy", "nat"]):  # noqa: E501
+        if any(
+            key in lowered for key in ["vpn", "firewall", "acl", "access-list", "policy", "nat"]
+        ):  # noqa: E501
             return "high"
         if any(key in lowered for key in ["routing", "ospf", "bgp", "static", "route"]):
             return "medium"

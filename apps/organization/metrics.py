@@ -73,7 +73,9 @@ class OrganizationalMetrics:
             self._update_team_metrics(metrics)
         return metrics
 
-    def record_task(self, project_id: str, success: bool, tokens: int = 0, cost: float = 0.0) -> None:  # noqa: E501
+    def record_task(
+        self, project_id: str, success: bool, tokens: int = 0, cost: float = 0.0
+    ) -> None:  # noqa: E501
         metrics = self._project_metrics.get(project_id)
         if metrics:
             if success:
@@ -103,14 +105,10 @@ class OrganizationalMetrics:
 
         n = team.projects_completed + team.projects_failed
         team.average_duration_seconds = (
-            (team.average_duration_seconds * (n - 1) + project_metrics.duration_seconds) / n
-        )
-        team.average_quality = (
-            (team.average_quality * (n - 1) + project_metrics.quality_score) / n
-        )
-        team.average_cost = (
-            (team.average_cost * (n - 1) + project_metrics.total_cost) / n
-        )
+            team.average_duration_seconds * (n - 1) + project_metrics.duration_seconds
+        ) / n
+        team.average_quality = (team.average_quality * (n - 1) + project_metrics.quality_score) / n
+        team.average_cost = (team.average_cost * (n - 1) + project_metrics.total_cost) / n
 
 
 organizational_metrics = OrganizationalMetrics()

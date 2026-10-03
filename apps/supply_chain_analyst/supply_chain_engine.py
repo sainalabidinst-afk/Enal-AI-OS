@@ -72,14 +72,18 @@ class SupplyChainAnalysisEngine:
             ci_lower = max(0, predicted - 1.96 * std_dev)
             ci_upper = predicted + 1.96 * std_dev
 
-            forecasts.append(DemandForecast(
-                period=period,
-                predicted_demand=round(predicted, 2),
-                confidence_interval_lower=round(ci_lower, 2),
-                confidence_interval_upper=round(ci_upper, 2),
-                method="moving_average_with_trend",
-                assumptions=[f"Assumed demand pattern based on {len(historical)} historical points"],  # noqa: E501
-            ))
+            forecasts.append(
+                DemandForecast(
+                    period=period,
+                    predicted_demand=round(predicted, 2),
+                    confidence_interval_lower=round(ci_lower, 2),
+                    confidence_interval_upper=round(ci_upper, 2),
+                    method="moving_average_with_trend",
+                    assumptions=[
+                        f"Assumed demand pattern based on {len(historical)} historical points"
+                    ],  # noqa: E501
+                )
+            )
 
         return forecasts
 
@@ -90,12 +94,22 @@ class SupplyChainAnalysisEngine:
         if not inputs.product_id:
             return results
 
-        avg_demand = sum(inputs.historical_demand) / len(inputs.historical_demand) if inputs.historical_demand else 1.0  # noqa: E501
+        avg_demand = (
+            sum(inputs.historical_demand) / len(inputs.historical_demand)
+            if inputs.historical_demand
+            else 1.0
+        )  # noqa: E501
         daily_demand = avg_demand
 
         holding_cost = inputs.holding_cost_rate * inputs.ordering_cost / 365
         if holding_cost > 0:
-            eoq = math.sqrt(2 * inputs.ordering_cost * daily_demand * 365 / (inputs.holding_cost_rate * inputs.ordering_cost))  # noqa: E501
+            eoq = math.sqrt(
+                2
+                * inputs.ordering_cost
+                * daily_demand
+                * 365
+                / (inputs.holding_cost_rate * inputs.ordering_cost)
+            )  # noqa: E501
         else:
             eoq = 0
 
@@ -106,17 +120,21 @@ class SupplyChainAnalysisEngine:
         status = "ok" if inputs.current_inventory >= reorder_point else "reorder_needed"
         recommendation = ""
         if status == "reorder_needed":
-            recommendation = f"Order {max(0, eoq - inputs.current_inventory):.0f} units to reach EOQ"  # noqa: E501
+            recommendation = (
+                f"Order {max(0, eoq - inputs.current_inventory):.0f} units to reach EOQ"  # noqa: E501
+            )
 
-        results.append(InventoryOptimization(
-            product_id=inputs.product_id,
-            eoq=round(eoq, 2),
-            reorder_point=round(reorder_point, 2),
-            safety_stock=round(max(0, safety_stock), 2),
-            current_stock=inputs.current_inventory,
-            status=status,
-            recommendation=recommendation,
-        ))
+        results.append(
+            InventoryOptimization(
+                product_id=inputs.product_id,
+                eoq=round(eoq, 2),
+                reorder_point=round(reorder_point, 2),
+                safety_stock=round(max(0, safety_stock), 2),
+                current_stock=inputs.current_inventory,
+                status=status,
+                recommendation=recommendation,
+            )
+        )
 
         return results
 
@@ -128,29 +146,33 @@ class SupplyChainAnalysisEngine:
             supplier_hash = sum(ord(c) for c in supplier)
             risk_score = (supplier_hash % 10) / 10.0
 
-            risks.append(RiskAssessment(
-                risk_id=f"risk-{supplier[:8]}",
-                risk_type="supplier_concentration",
-                description=f"Single-source dependency on {supplier}",
-                likelihood=risk_score if risk_score > 0.3 else 0.2,
-                impact=0.7,
-                risk_score=round(risk_score * 0.7 + 0.2, 2),
-                mitigation=f"Diversify suppliers for {supplier} or establish backup contracts",
-            ))
+            risks.append(
+                RiskAssessment(
+                    risk_id=f"risk-{supplier[:8]}",
+                    risk_type="supplier_concentration",
+                    description=f"Single-source dependency on {supplier}",
+                    likelihood=risk_score if risk_score > 0.3 else 0.2,
+                    impact=0.7,
+                    risk_score=round(risk_score * 0.7 + 0.2, 2),
+                    mitigation=f"Diversify suppliers for {supplier} or establish backup contracts",
+                )
+            )
 
         for route in inputs.routes:
             route_hash = sum(ord(c) for c in route)
             risk_score = (route_hash % 10) / 10.0
 
-            risks.append(RiskAssessment(
-                risk_id=f"route-{route[:8]}",
-                risk_type="logistics_disruption",
-                description=f"Disruption risk on route {route}",
-                likelihood=risk_score if risk_score > 0.3 else 0.2,
-                impact=0.6,
-                risk_score=round(risk_score * 0.6 + 0.1, 2),
-                mitigation=f"Identify alternative routes for {route}",
-            ))
+            risks.append(
+                RiskAssessment(
+                    risk_id=f"route-{route[:8]}",
+                    risk_type="logistics_disruption",
+                    description=f"Disruption risk on route {route}",
+                    likelihood=risk_score if risk_score > 0.3 else 0.2,
+                    impact=0.6,
+                    risk_score=round(risk_score * 0.6 + 0.1, 2),
+                    mitigation=f"Identify alternative routes for {route}",
+                )
+            )
 
         return risks
 

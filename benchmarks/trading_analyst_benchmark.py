@@ -32,12 +32,12 @@ REPORT_DIR.mkdir(parents=True, exist_ok=True)
 # 9 knowledge domains per RFC-0005
 DOMAINS = [
     "wyckoff",
-    "smc",              # ICT + SMC
+    "smc",  # ICT + SMC
     "elliott_wave",
     "volume_profile",
     "psychology",
     "macro",
-    "derivatives",      # Options + Futures
+    "derivatives",  # Options + Futures
 ]
 
 # Timeframes used in benchmark scenarios
@@ -241,10 +241,13 @@ def _score_consistency(results_a: list[dict[str, Any]], results_b: list[dict[str
     return total / max(count, 1)
 
 
-async def _run_scenario(engine: TradingEngine, symbol: str,
-                        macro_data: dict[str, Any],
-                        derivatives_data: dict[str, Any],
-                        timeframes: list[str]) -> dict[str, Any]:
+async def _run_scenario(
+    engine: TradingEngine,
+    symbol: str,
+    macro_data: dict[str, Any],
+    derivatives_data: dict[str, Any],
+    timeframes: list[str],
+) -> dict[str, Any]:
     """Run a single benchmark scenario through the full pipeline."""
     return await engine.analyze_full(
         symbol=symbol,
@@ -315,9 +318,7 @@ async def run_trading_benchmark(
     report.explainability_score = total_explainability / report.scenarios_run
     report.safety_score = total_safety / report.scenarios_run
     report.domains_detected = [d for d in DOMAINS if domain_counts_all.get(d, 0) > 0]
-    report.domain_evidence_count = {
-        d: domain_counts_all.get(d, 0) for d in DOMAINS
-    }
+    report.domain_evidence_count = {d: domain_counts_all.get(d, 0) for d in DOMAINS}
 
     # Consistency: re-run first `consistency_pairs` scenarios.
     for i in range(1, consistency_pairs + 1):
@@ -332,11 +333,11 @@ async def run_trading_benchmark(
 
     # Overall weighted score.
     report.overall_score = (
-        report.reasoning_score * 0.25 +
-        report.coverage_score * 0.25 +
-        report.explainability_score * 0.15 +
-        report.consistency_score * 0.20 +
-        report.safety_score * 0.15
+        report.reasoning_score * 0.25
+        + report.coverage_score * 0.25
+        + report.explainability_score * 0.15
+        + report.consistency_score * 0.20
+        + report.safety_score * 0.15
     )
     report.passed = report.overall_score >= 90.0
 
@@ -344,7 +345,17 @@ async def run_trading_benchmark(
 
 
 def print_summary(report: TradingBenchmarkReport) -> None:
-    grade = "A+" if report.overall_score >= 95.0 else "A" if report.overall_score >= 90.0 else "B" if report.overall_score >= 80.0 else "C" if report.overall_score >= 70.0 else "F"
+    grade = (
+        "A+"
+        if report.overall_score >= 95.0
+        else "A"
+        if report.overall_score >= 90.0
+        else "B"
+        if report.overall_score >= 80.0
+        else "C"
+        if report.overall_score >= 70.0
+        else "F"
+    )
     print("\n" + "=" * 60)
     print("  Trading Analyst Benchmark Report")
     print("=" * 60)
@@ -376,12 +387,18 @@ def main() -> int:
     json_path.write_text(json.dumps(report.to_dict(), indent=2), encoding="utf-8")
     print(f"JSON report written: {json_path}")
 
-    rows = [{
-        "dimension": k,
-        "score": round(v, 2) if isinstance(v, float) else v,
-        "passed": v >= 90.0 if isinstance(v, float) else v,
-    } for k, v in report.to_dict().items() if k not in ("generated_at", "grade", "domains_detected", "domain_evidence_count", "passed")]
-    rows.append({"dimension": "overall", "score": round(report.overall_score, 2), "passed": report.passed})
+    rows = [
+        {
+            "dimension": k,
+            "score": round(v, 2) if isinstance(v, float) else v,
+            "passed": v >= 90.0 if isinstance(v, float) else v,
+        }
+        for k, v in report.to_dict().items()
+        if k not in ("generated_at", "grade", "domains_detected", "domain_evidence_count", "passed")
+    ]
+    rows.append(
+        {"dimension": "overall", "score": round(report.overall_score, 2), "passed": report.passed}
+    )
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["dimension", "score", "passed"])
         writer.writeheader()
@@ -393,4 +410,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -72,6 +72,7 @@ class ComplianceReport:
 
 class ComplianceProfile:
     """Base class for compliance profiles."""
+
     name: str = "base"
     description: str = "Base compliance profile"
 

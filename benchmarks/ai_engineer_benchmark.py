@@ -94,7 +94,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "observability",
         "inputs": {
             "business_context": {"project_name": "ai-observability", "domain": "ml-platform"},
-            "inputs": {"metrics": ["latency", "token_usage", "drift"], "alert_threshold": "p95 > 2000ms"},
+            "inputs": {
+                "metrics": ["latency", "token_usage", "drift"],
+                "alert_threshold": "p95 > 2000ms",
+            },
         },
         "min_quality_score": 0.90,
     },
@@ -114,7 +117,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "agent_architecture",
         "inputs": {
             "business_context": {"project_name": "research-pipeline", "domain": "research"},
-            "inputs": {"agent_type": "pipeline", "steps": ["search", "filter", "summarize", "synthesize"]},
+            "inputs": {
+                "agent_type": "pipeline",
+                "steps": ["search", "filter", "summarize", "synthesize"],
+            },
         },
         "min_quality_score": 0.90,
     },
@@ -202,7 +208,9 @@ class AIEngineerBenchmark:
             "pack_id": "ai_engineer",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

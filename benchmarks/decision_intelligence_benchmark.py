@@ -47,7 +47,8 @@ def _quick_request(
         context=context,
         evidence_sources=evidence_sources or [],
         constraints=constraints or [],
-        objectives=objectives or [
+        objectives=objectives
+        or [
             Objective(name="Accuracy", weight=0.35, goal=ObjectiveGoal.maximize),
             Objective(name="Risk", weight=0.30, goal=ObjectiveGoal.minimize),
             Objective(name="Cost", weight=0.20, goal=ObjectiveGoal.minimize),
@@ -69,10 +70,34 @@ def test_accuracy() -> float:
     req = _quick_request(
         context="Should I deploy the new release to production?",
         evidence_sources=[
-            EvidenceSource(source_id="devops", evidence_type=EvidenceSourceType.analysis, payload={"sentiment": "positive", "test_pass_rate": 0.95}, quality_score=0.9, weight=1.5),
-            EvidenceSource(source_id="qa", evidence_type=EvidenceSourceType.recommendation, payload={"recommendation": "proceed", "coverage": 0.88}, quality_score=0.85, weight=1.2),
-            EvidenceSource(source_id="security", evidence_type=EvidenceSourceType.recommendation, payload={"recommendation": "hold", "vulnerabilities": 2}, quality_score=0.8, weight=1.0),
-            EvidenceSource(source_id="monitoring", evidence_type=EvidenceSourceType.data, payload={"sentiment": "neutral", "error_rate": 0.01}, quality_score=0.7, weight=0.8),
+            EvidenceSource(
+                source_id="devops",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"sentiment": "positive", "test_pass_rate": 0.95},
+                quality_score=0.9,
+                weight=1.5,
+            ),
+            EvidenceSource(
+                source_id="qa",
+                evidence_type=EvidenceSourceType.recommendation,
+                payload={"recommendation": "proceed", "coverage": 0.88},
+                quality_score=0.85,
+                weight=1.2,
+            ),
+            EvidenceSource(
+                source_id="security",
+                evidence_type=EvidenceSourceType.recommendation,
+                payload={"recommendation": "hold", "vulnerabilities": 2},
+                quality_score=0.8,
+                weight=1.0,
+            ),
+            EvidenceSource(
+                source_id="monitoring",
+                evidence_type=EvidenceSourceType.data,
+                payload={"sentiment": "neutral", "error_rate": 0.01},
+                quality_score=0.7,
+                weight=0.8,
+            ),
         ],
     )
     result = engine.evaluate(req)
@@ -97,7 +122,13 @@ def test_completeness() -> float:
     req = _quick_request(
         context="Choose a cloud provider for the new service.",
         evidence_sources=[
-            EvidenceSource(source_id="devops", evidence_type=EvidenceSourceType.data, payload={"cost": 0.4, "latency": 0.3}, quality_score=0.6, weight=1.0),
+            EvidenceSource(
+                source_id="devops",
+                evidence_type=EvidenceSourceType.data,
+                payload={"cost": 0.4, "latency": 0.3},
+                quality_score=0.6,
+                weight=1.0,
+            ),
         ],
     )
     result = engine.evaluate(req)
@@ -117,7 +148,13 @@ def test_explainability() -> float:
     req = _quick_request(
         context="Should we upgrade the database?",
         evidence_sources=[
-            EvidenceSource(source_id="dba", evidence_type=EvidenceSourceType.analysis, payload={"sentiment": "positive", "performance_gain": 0.3}, quality_score=0.8, weight=1.0),
+            EvidenceSource(
+                source_id="dba",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"sentiment": "positive", "performance_gain": 0.3},
+                quality_score=0.8,
+                weight=1.0,
+            ),
         ],
     )
     result = engine.evaluate(req)
@@ -143,7 +180,13 @@ def test_safety() -> float:
     req = _quick_request(
         context="Apply firewall changes to production.",
         evidence_sources=[
-            EvidenceSource(source_id="network", evidence_type=EvidenceSourceType.analysis, payload={"sentiment": "positive", "risk": 0.8}, quality_score=0.7, weight=1.0),
+            EvidenceSource(
+                source_id="network",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"sentiment": "positive", "risk": 0.8},
+                quality_score=0.7,
+                weight=1.0,
+            ),
         ],
         constraints=["no downtime", "must have rollback plan"],
     )
@@ -166,7 +209,13 @@ def test_efficiency() -> float:
     req = _quick_request(
         context="Choose a logging framework.",
         evidence_sources=[
-            EvidenceSource(source_id="research", evidence_type=EvidenceSourceType.analysis, payload={"sentiment": "positive", "score": 0.85}, quality_score=0.8, weight=1.0),
+            EvidenceSource(
+                source_id="research",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"sentiment": "positive", "score": 0.85},
+                quality_score=0.8,
+                weight=1.0,
+            ),
         ],
     )
     start = time.monotonic()
@@ -184,7 +233,13 @@ def test_consistency() -> float:
     req = _quick_request(
         context="Should I refactor the authentication module?",
         evidence_sources=[
-            EvidenceSource(source_id="code", evidence_type=EvidenceSourceType.analysis, payload={"sentiment": "positive", "complexity": 0.7}, quality_score=0.8, weight=1.0),
+            EvidenceSource(
+                source_id="code",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"sentiment": "positive", "complexity": 0.7},
+                quality_score=0.8,
+                weight=1.0,
+            ),
         ],
     )
     results = [engine.evaluate(req).recommended_decision for _ in range(3)]
@@ -200,8 +255,20 @@ def test_confidence_calibration() -> float:
     req = _quick_request(
         context="Deploy the hotfix?",
         evidence_sources=[
-            EvidenceSource(source_id="qa", evidence_type=EvidenceSourceType.analysis, payload={"sentiment": "positive", "score": 0.95}, quality_score=0.9, weight=1.5),
-            EvidenceSource(source_id="devops", evidence_type=EvidenceSourceType.data, payload={"sentiment": "positive", "test_pass_rate": 0.98}, quality_score=0.95, weight=1.5),
+            EvidenceSource(
+                source_id="qa",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"sentiment": "positive", "score": 0.95},
+                quality_score=0.9,
+                weight=1.5,
+            ),
+            EvidenceSource(
+                source_id="devops",
+                evidence_type=EvidenceSourceType.data,
+                payload={"sentiment": "positive", "test_pass_rate": 0.98},
+                quality_score=0.95,
+                weight=1.5,
+            ),
         ],
     )
     result = engine.evaluate(req)
@@ -217,7 +284,13 @@ def test_risk_detection() -> float:
     req = _quick_request(
         context="Rewrite the entire backend from scratch.",
         evidence_sources=[
-            EvidenceSource(source_id="architect", evidence_type=EvidenceSourceType.recommendation, payload={"recommendation": "proceed_with_caution", "risk": 0.8}, quality_score=0.7, weight=1.0),
+            EvidenceSource(
+                source_id="architect",
+                evidence_type=EvidenceSourceType.recommendation,
+                payload={"recommendation": "proceed_with_caution", "risk": 0.8},
+                quality_score=0.7,
+                weight=1.0,
+            ),
         ],
         risk_tolerance="low",
     )

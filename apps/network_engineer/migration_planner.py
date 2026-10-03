@@ -118,109 +118,121 @@ VENDOR_ALIGNMENT = {
 class MigrationPlanner:
     """Generates cross-vendor migration plans."""
 
-    async def plan(self, source_config: str, source_vendor: str, target_vendor: str, config_content: str = "") -> MigrationPlan:  # noqa: E501
+    async def plan(
+        self, source_config: str, source_vendor: str, target_vendor: str, config_content: str = ""
+    ) -> MigrationPlan:  # noqa: E501
         plan = MigrationPlan(source_vendor=source_vendor, target_vendor=target_vendor)
         alignment = VENDOR_ALIGNMENT.get((source_vendor, target_vendor), {})
 
         if source_vendor == target_vendor:
-            plan.warnings.append("Source and target vendor are identical; migration plan is a no-op.")  # noqa: E501
-            plan.recommendations.append("Consider refactoring or version upgrade instead of full migration.")  # noqa: E501
-            plan.tasks.append(MigrationTask(
-                phase=MigrationPhase.PLANNING,
-                title="Validate Same-Vendor Migration",
-                description="Verify whether a same-vendor migration is truly needed.",
-                risk=MigrationRisk.LOW,
-            ))
+            plan.warnings.append(
+                "Source and target vendor are identical; migration plan is a no-op."
+            )  # noqa: E501
+            plan.recommendations.append(
+                "Consider refactoring or version upgrade instead of full migration."
+            )  # noqa: E501
+            plan.tasks.append(
+                MigrationTask(
+                    phase=MigrationPhase.PLANNING,
+                    title="Validate Same-Vendor Migration",
+                    description="Verify whether a same-vendor migration is truly needed.",
+                    risk=MigrationRisk.LOW,
+                )
+            )
             return plan
 
         plan.device_count = 1
         plan.overall_risk = MigrationRisk.MEDIUM
 
-        plan.tasks.extend([
-            MigrationTask(
-                phase=MigrationPhase.DISCOVERY,
-                title="Discover Source Configuration",
-                description="Parse source configuration and extract all features, interfaces, routing, and security rules.",  # noqa: E501
-                estimated_duration_minutes=30,
-                rollback_steps=["No rollback needed during discovery."],
-                validation_steps=["Verify parsed config matches source file."],
-                risk=MigrationRisk.LOW,
-            ),
-            MigrationTask(
-                phase=MigrationPhase.PLANNING,
-                title="Map Features to Target Vendor",
-                description=f"Map {source_vendor} concepts to {target_vendor} equivalents. Alignment coverage: {len(alignment)} concepts.",  # noqa: E501
-                estimated_duration_minutes=60,
-                dependencies=["Discover Source Configuration"],
-                rollback_steps=["No rollback needed during planning."],
-                validation_steps=["Review mapping table with network team."],
-                risk=MigrationRisk.LOW,
-            ),
-            MigrationTask(
-                phase=MigrationPhase.PREPARATION,
-                title="Prepare Target Device",
-                description=f"Provision {target_vendor} device with baseline configuration: management, NTP, logging, and AAA.",  # noqa: E501
-                estimated_duration_minutes=45,
-                dependencies=["Map Features to Target Vendor"],
-                rollback_steps=[
-                    "Keep source device online until validation completes.",
-                    "Document rollback commands.",
-                ],
-                validation_steps=["Verify management access to target device."],
-                risk=MigrationRisk.LOW,
-            ),
-            MigrationTask(
-                phase=MigrationPhase.EXECUTION,
-                title="Migrate Firewall and Security",
-                description=f"Translate firewall and security policies from {source_vendor} to {target_vendor}.",  # noqa: E501
-                estimated_duration_minutes=90,
-                dependencies=["Prepare Target Device"],
-                rollback_steps=[
-                    "Revert to source device configuration.",
-                    "Restore original routing and firewall rules.",
-                ],
-                validation_steps=[
-                    "Test firewall rules in lab before production.",
-                    "Verify security policy parity.",
-                ],
-                risk=MigrationRisk.HIGH,
-            ),
-            MigrationTask(
-                phase=MigrationPhase.EXECUTION,
-                title="Migrate Routing and Services",
-                description=f"Translate static routes, dynamic routing, DHCP, and DNS from {source_vendor} to {target_vendor}.",  # noqa: E501
-                estimated_duration_minutes=120,
-                dependencies=["Migrate Firewall and Security"],
-                rollback_steps=[
-                    "Restore source routing configuration.",
-                    "Verify rollback route propagation.",
-                ],
-                validation_steps=[
-                    "Validate end-to-end connectivity.",
-                    "Run routing protocol adjacency checks.",
-                ],
-                risk=MigrationRisk.MEDIUM,
-            ),
-            MigrationTask(
-                phase=MigrationPhase.VALIDATION,
-                title="Validate Migration",
-                description="Run full validation suite: connectivity, performance, security, and compliance.",  # noqa: E501
-                estimated_duration_minutes=60,
-                dependencies=["Migrate Routing and Services"],
-                rollback_steps=[
-                    "Execute rollback plan if critical issues found.",
-                    "Notify stakeholders of rollback.",
-                ],
-                validation_steps=[
-                    "Ping and traceroute all critical paths.",
-                    "Run golden test suite.",
-                    "Verify compliance posture.",
-                ],
-                risk=MigrationRisk.MEDIUM,
-            ),
-        ])
+        plan.tasks.extend(
+            [
+                MigrationTask(
+                    phase=MigrationPhase.DISCOVERY,
+                    title="Discover Source Configuration",
+                    description="Parse source configuration and extract all features, interfaces, routing, and security rules.",  # noqa: E501
+                    estimated_duration_minutes=30,
+                    rollback_steps=["No rollback needed during discovery."],
+                    validation_steps=["Verify parsed config matches source file."],
+                    risk=MigrationRisk.LOW,
+                ),
+                MigrationTask(
+                    phase=MigrationPhase.PLANNING,
+                    title="Map Features to Target Vendor",
+                    description=f"Map {source_vendor} concepts to {target_vendor} equivalents. Alignment coverage: {len(alignment)} concepts.",  # noqa: E501
+                    estimated_duration_minutes=60,
+                    dependencies=["Discover Source Configuration"],
+                    rollback_steps=["No rollback needed during planning."],
+                    validation_steps=["Review mapping table with network team."],
+                    risk=MigrationRisk.LOW,
+                ),
+                MigrationTask(
+                    phase=MigrationPhase.PREPARATION,
+                    title="Prepare Target Device",
+                    description=f"Provision {target_vendor} device with baseline configuration: management, NTP, logging, and AAA.",  # noqa: E501
+                    estimated_duration_minutes=45,
+                    dependencies=["Map Features to Target Vendor"],
+                    rollback_steps=[
+                        "Keep source device online until validation completes.",
+                        "Document rollback commands.",
+                    ],
+                    validation_steps=["Verify management access to target device."],
+                    risk=MigrationRisk.LOW,
+                ),
+                MigrationTask(
+                    phase=MigrationPhase.EXECUTION,
+                    title="Migrate Firewall and Security",
+                    description=f"Translate firewall and security policies from {source_vendor} to {target_vendor}.",  # noqa: E501
+                    estimated_duration_minutes=90,
+                    dependencies=["Prepare Target Device"],
+                    rollback_steps=[
+                        "Revert to source device configuration.",
+                        "Restore original routing and firewall rules.",
+                    ],
+                    validation_steps=[
+                        "Test firewall rules in lab before production.",
+                        "Verify security policy parity.",
+                    ],
+                    risk=MigrationRisk.HIGH,
+                ),
+                MigrationTask(
+                    phase=MigrationPhase.EXECUTION,
+                    title="Migrate Routing and Services",
+                    description=f"Translate static routes, dynamic routing, DHCP, and DNS from {source_vendor} to {target_vendor}.",  # noqa: E501
+                    estimated_duration_minutes=120,
+                    dependencies=["Migrate Firewall and Security"],
+                    rollback_steps=[
+                        "Restore source routing configuration.",
+                        "Verify rollback route propagation.",
+                    ],
+                    validation_steps=[
+                        "Validate end-to-end connectivity.",
+                        "Run routing protocol adjacency checks.",
+                    ],
+                    risk=MigrationRisk.MEDIUM,
+                ),
+                MigrationTask(
+                    phase=MigrationPhase.VALIDATION,
+                    title="Validate Migration",
+                    description="Run full validation suite: connectivity, performance, security, and compliance.",  # noqa: E501
+                    estimated_duration_minutes=60,
+                    dependencies=["Migrate Routing and Services"],
+                    rollback_steps=[
+                        "Execute rollback plan if critical issues found.",
+                        "Notify stakeholders of rollback.",
+                    ],
+                    validation_steps=[
+                        "Ping and traceroute all critical paths.",
+                        "Run golden test suite.",
+                        "Verify compliance posture.",
+                    ],
+                    risk=MigrationRisk.MEDIUM,
+                ),
+            ]
+        )
 
-        plan.estimated_downtime_minutes = sum(t.estimated_duration_minutes for t in plan.tasks if t.phase == MigrationPhase.EXECUTION)  # noqa: E501
+        plan.estimated_downtime_minutes = sum(
+            t.estimated_duration_minutes for t in plan.tasks if t.phase == MigrationPhase.EXECUTION
+        )  # noqa: E501
         plan.warnings.append("Always maintain rollback capability during execution phase.")
         plan.warnings.append("Test migration in lab environment before production cutover.")
         plan.recommendations.append("Use maintenance window for execution phase.")

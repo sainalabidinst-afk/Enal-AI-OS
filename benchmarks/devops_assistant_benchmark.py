@@ -20,7 +20,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "ci-cd",
         "artifact": {
             "path": ".github/workflows/ci.yml",
-            "content": "name: CI\non: [push, pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n      - run: pip install -e .[dev]\n      - run: pytest tests/\n      - run: docker build -t app .\n",
+            "content": "name: CI\non: [push, pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n      - run: pip install -e .[dev]\n      - run: pytest tests/\n      - run: docker build -t app .\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -31,7 +31,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "infrastructure",
         "artifact": {
             "path": "k8s/deployment.yaml",
-            "content": "apiVersion: apps/v1\nkind: Deployment\nspec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name: app\n        image: app:latest\n        ports:\n        - containerPort: 8080\n        resources:\n          requests:\n            cpu: 500m\n            memory: 256Mi\n          limits:\n            cpu: 1000m\n            memory: 512Mi\n",
+            "content": "apiVersion: apps/v1\nkind: Deployment\nspec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name: app\n        image: app:latest\n        ports:\n        - containerPort: 8080\n        resources:\n          requests:\n            cpu: 500m\n            memory: 256Mi\n          limits:\n            cpu: 1000m\n            memory: 512Mi\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -42,7 +42,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "infrastructure",
         "artifact": {
             "path": "terraform/main.tf",
-            "content": 'provider "aws" {\n  region = "us-east-1"\n}\nresource "aws_instance" "app" {\n  ami           = "ami-0c55b159cbfafe1f0"\n  instance_type = "t3.micro"\n  tags = {\n    Name = "app-server"\n  }\n}\n',
+            "content": 'provider "aws" {\n  region = "us-east-1"\n}\nresource "aws_instance" "app" {\n  ami           = "ami-0c55b159cbfafe1f0"\n  instance_type = "t3.micro"\n  tags = {\n    Name = "app-server"\n  }\n}\n',  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -53,7 +53,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "ci-cd",
         "artifact": {
             "path": ".gitlab-ci.yml",
-            "content": "stages:\n  - test\n  - build\n  - deploy\ntest:\n  stage: test\n  script:\n    - pytest tests/\nbuild:\n  stage: build\n  script:\n    - docker build -t app .\n",
+            "content": "stages:\n  - test\n  - build\n  - deploy\ntest:\n  stage: test\n  script:\n    - pytest tests/\nbuild:\n  stage: build\n  script:\n    - docker build -t app .\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -64,7 +64,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "monitoring",
         "artifact": {
             "path": "monitoring/prometheus.yml",
-            "content": "global:\n  scrape_interval: 15s\nscrape_configs:\n  - job_name: 'app'\n    static_configs:\n      - targets: ['localhost:8080']\n",
+            "content": "global:\n  scrape_interval: 15s\nscrape_configs:\n  - job_name: 'app'\n    static_configs:\n      - targets: ['localhost:8080']\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -75,7 +75,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "security",
         "artifact": {
             "path": "helm/values.yaml",
-            "content": "image:\n  repository: app\n  tag: latest\ncontainer:\n  securityContext:\n    privileged: true\n    runAsUser: 0\n",
+            "content": "image:\n  repository: app\n  tag: latest\ncontainer:\n  securityContext:\n    privileged: true\n    runAsUser: 0\n",  # noqa: E501
         },
         "min_problems": 2,
         "min_solutions": 2,
@@ -86,7 +86,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "deployment",
         "artifact": {
             "path": "deploy/staging.yaml",
-            "content": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: app-staging\nspec:\n  replicas: 2\n  strategy:\n    type: RollingUpdate\n    rollingUpdate:\n      maxSurge: 1\n      maxUnavailable: 0\n",
+            "content": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: app-staging\nspec:\n  replicas: 2\n  strategy:\n    type: RollingUpdate\n    rollingUpdate:\n      maxSurge: 1\n      maxUnavailable: 0\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -97,7 +97,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "gitops",
         "artifact": {
             "path": "argocd/application.yaml",
-            "content": "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: app\nspec:\n  project: default\n  source:\n    repoURL: https://github.com/org/app.git\n    targetRevision: main\n    path: k8s\n  destination:\n    server: https://kubernetes.default.svc\n    namespace: default\n  syncPolicy:\n    automated:\n      prune: true\n",
+            "content": "apiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: app\nspec:\n  project: default\n  source:\n    repoURL: https://github.com/org/app.git\n    targetRevision: main\n    path: k8s\n  destination:\n    server: https://kubernetes.default.svc\n    namespace: default\n  syncPolicy:\n    automated:\n      prune: true\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -108,7 +108,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "policy",
         "artifact": {
             "path": "policy/opa.rego",
-            "content": 'package kubernetes.admission\nviolation[{"msg": msg}] {\n  input.request.kind.kind == "Pod"\n  container := input.request.object.spec.containers[_]\n  container.securityContext.privileged == true\n  msg := sprintf("Container %v is privileged", [container.name])\n}\n',
+            "content": 'package kubernetes.admission\nviolation[{"msg": msg}] {\n  input.request.kind.kind == "Pod"\n  container := input.request.object.spec.containers[_]\n  container.securityContext.privileged == true\n  msg := sprintf("Container %v is privileged", [container.name])\n}\n',  # noqa: E501
         },
         "min_problems": 0,
         "min_solutions": 0,
@@ -119,7 +119,7 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "chaos",
         "artifact": {
             "path": "chaos/experiment.yaml",
-            "content": "apiVersion: chaos-mesh.org/v1alpha1\nkind: NetworkChaos\nmetadata:\n  name: network-delay\nspec:\n  action: delay\n  mode: one\n  selector:\n    namespaces:\n      - default\n  delay:\n    latency: 10ms\n  duration: 30s\n",
+            "content": "apiVersion: chaos-mesh.org/v1alpha1\nkind: NetworkChaos\nmetadata:\n  name: network-delay\nspec:\n  action: delay\n  mode: one\n  selector:\n    namespaces:\n      - default\n  delay:\n    latency: 10ms\n  duration: 30s\n",  # noqa: E501
         },
         "min_problems": 1,
         "min_solutions": 1,
@@ -156,16 +156,18 @@ class DevOpsBenchmark:
             if scenario_passed:
                 passed += 1
 
-            self.results.append({
-                "scenario_id": scenario["id"],
-                "name": scenario["name"],
-                "category": scenario["category"],
-                "passed": scenario_passed,
-                "problems_detected": problems_count,
-                "solutions_proposed": solutions_count,
-                "min_problems_required": min_problems,
-                "min_solutions_required": min_solutions,
-            })
+            self.results.append(
+                {
+                    "scenario_id": scenario["id"],
+                    "name": scenario["name"],
+                    "category": scenario["category"],
+                    "passed": scenario_passed,
+                    "problems_detected": problems_count,
+                    "solutions_proposed": solutions_count,
+                    "min_problems_required": min_problems,
+                    "min_solutions_required": min_solutions,
+                }
+            )
 
         overall_percentage = (passed / total) * 100 if total > 0 else 0.0
         grade = self._calculate_grade(overall_percentage)

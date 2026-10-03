@@ -98,7 +98,9 @@ class ScenarioSimulatorEngine:
 
         # Step 1: Run Monte Carlo iterations
         iterations = self.runner.run(request, outcome_fn)
-        logger.info(f"Monte Carlo: {len(iterations)} iterations in {time.monotonic() - started:.2f}s")  # noqa: E501
+        logger.info(
+            f"Monte Carlo: {len(iterations)} iterations in {time.monotonic() - started:.2f}s"
+        )  # noqa: E501
 
         # Step 2: Optional sandbox experiment
         sandbox_logs: list[dict[str, Any]] = []
@@ -108,7 +110,7 @@ class ScenarioSimulatorEngine:
             async def _run_sandbox():
                 return await self.executor.run_sandbox_batch(
                     request.sandbox_code,
-                    [it.state for it in iterations[:min(10, len(iterations))]],
+                    [it.state for it in iterations[: min(10, len(iterations))]],
                 )
 
             try:
@@ -137,7 +139,9 @@ class ScenarioSimulatorEngine:
         result.raw["seed"] = request.seed
         result.raw["sandbox_enabled"] = request.sandbox_enabled
 
-        logger.info(f"Scenario simulation complete: {total_ms:.1f}ms for {request.iterations} iterations")  # noqa: E501
+        logger.info(
+            f"Scenario simulation complete: {total_ms:.1f}ms for {request.iterations} iterations"
+        )  # noqa: E501
 
         return result
 
@@ -166,7 +170,7 @@ class ScenarioSimulatorEngine:
         if request.sandbox_enabled and request.sandbox_code:
             sandbox_logs = await self.executor.run_sandbox_batch(
                 request.sandbox_code,
-                [it.state for it in iterations[:min(10, len(iterations))]],
+                [it.state for it in iterations[: min(10, len(iterations))]],
             )
 
         # Step 3: Analyze outcomes

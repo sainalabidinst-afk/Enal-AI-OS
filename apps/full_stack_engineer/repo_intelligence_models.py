@@ -280,17 +280,49 @@ ARCHITECTURE_SIGNATURES: dict[str, list[dict[str, Any]]] = {
 }
 
 IGNORE_DIRS: set[str] = {
-    ".git", "__pycache__", "node_modules", "venv", ".venv", "env",
-    ".env", ".tox", ".nox", ".pytest_cache", ".mypy_cache", ".ruff_cache",
-    ".next", ".nuxt", "dist", "build", ".output", ".vercel",
-    ".serverless", ".terraform", ".docusaurus", ".turbo",
-    ".yarn", ".pnpm-store", "target", "vendor", ".bundle",
-    "coverage", ".coverage", "htmlcov", ".eggs", "*.egg-info",
-    ".gradle", "Pods", ".idea", ".vscode", ".DS_Store",
+    ".git",
+    "__pycache__",
+    "node_modules",
+    "venv",
+    ".venv",
+    "env",
+    ".env",
+    ".tox",
+    ".nox",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".next",
+    ".nuxt",
+    "dist",
+    "build",
+    ".output",
+    ".vercel",
+    ".serverless",
+    ".terraform",
+    ".docusaurus",
+    ".turbo",
+    ".yarn",
+    ".pnpm-store",
+    "target",
+    "vendor",
+    ".bundle",
+    "coverage",
+    ".coverage",
+    "htmlcov",
+    ".eggs",
+    "*.egg-info",
+    ".gradle",
+    "Pods",
+    ".idea",
+    ".vscode",
+    ".DS_Store",
 }
 
 IGNORE_FILES: set[str] = {
-    ".DS_Store", "Thumbs.db", "desktop.ini",
+    ".DS_Store",
+    "Thumbs.db",
+    "desktop.ini",
 }
 
 BUILD_SYSTEM_FILES: dict[str, str] = {
@@ -340,6 +372,7 @@ TEST_PATTERNS: dict[str, list[str]] = {
 
 class LanguageStat:
     """Statistics for a single language in the repository."""
+
     files: int = 0
     lines: int = 0
     percentage: float = 0.0
@@ -403,8 +436,14 @@ class RepositoryIntelligence:
     def to_dict(self) -> dict[str, Any]:
         base = asdict(self)
         base["languages"] = {
-            lang: {"files": stat.files, "lines": stat.lines, "percentage": round(stat.percentage, 1)}  # noqa: E501
-            for lang, stat in sorted(self.languages.items(), key=lambda x: x[1].percentage, reverse=True)  # noqa: E501
+            lang: {
+                "files": stat.files,
+                "lines": stat.lines,
+                "percentage": round(stat.percentage, 1),
+            }  # noqa: E501
+            for lang, stat in sorted(
+                self.languages.items(), key=lambda x: x[1].percentage, reverse=True
+            )  # noqa: E501
         }
         return base
 
@@ -423,7 +462,9 @@ class RepositoryIntelligence:
             "| Language | Files | Lines | % |",
             "|----------|-------|-------|---|",
         ]
-        for lang, stat in sorted(self.languages.items(), key=lambda x: x[1].percentage, reverse=True):  # noqa: E501
+        for lang, stat in sorted(
+            self.languages.items(), key=lambda x: x[1].percentage, reverse=True
+        ):  # noqa: E501
             lines.append(f"| {lang} | {stat.files} | {stat.lines:,} | {stat.percentage:.1f}% |")
 
         lines += [
@@ -434,10 +475,18 @@ class RepositoryIntelligence:
             "",
         ]
         if self.frameworks:
-            lines.append(f"**Frontend**: {', '.join(self.frontend_frameworks) if self.frontend_frameworks else 'None detected'}")  # noqa: E501
-            lines.append(f"**Backend**: {', '.join(self.backend_frameworks) if self.backend_frameworks else 'None detected'}")  # noqa: E501
-            lines.append(f"**Database**: {', '.join(self.database_frameworks) if self.database_frameworks else 'None detected'}")  # noqa: E501
-            lines.append(f"**Testing**: {', '.join(self.testing_frameworks) if self.testing_frameworks else 'None detected'}")  # noqa: E501
+            lines.append(
+                f"**Frontend**: {', '.join(self.frontend_frameworks) if self.frontend_frameworks else 'None detected'}"  # noqa: E501
+            )  # noqa: E501
+            lines.append(
+                f"**Backend**: {', '.join(self.backend_frameworks) if self.backend_frameworks else 'None detected'}"  # noqa: E501
+            )  # noqa: E501
+            lines.append(
+                f"**Database**: {', '.join(self.database_frameworks) if self.database_frameworks else 'None detected'}"  # noqa: E501
+            )  # noqa: E501
+            lines.append(
+                f"**Testing**: {', '.join(self.testing_frameworks) if self.testing_frameworks else 'None detected'}"  # noqa: E501
+            )  # noqa: E501
         else:
             lines.append("No frameworks detected.")
 

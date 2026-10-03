@@ -116,13 +116,15 @@ class TranslationReport(BaseModel):
 class TranslatorExpertRecord(BaseModel):
     pack_id: str = "translator-expert"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "language_detection",
-        "multilingual_translation",
-        "contextual_adaptation",
-        "style_control",
-        "glossary_enforcement",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "language_detection",
+            "multilingual_translation",
+            "contextual_adaptation",
+            "style_control",
+            "glossary_enforcement",
+        ]
+    )
 
 
 __all__ = [

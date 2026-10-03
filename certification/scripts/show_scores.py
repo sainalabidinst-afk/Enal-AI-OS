@@ -1,7 +1,9 @@
 import json
 from pathlib import Path
 
-audits = [json.loads(p.read_text()) for p in sorted(Path("certification/audits").glob("*-audit.json"))]
+audits = [
+    json.loads(p.read_text()) for p in sorted(Path("certification/audits").glob("*-audit.json"))
+]
 for a in audits:
     score = a["overall_score"]
     pct = score / 150 * 100
@@ -11,4 +13,6 @@ for a in audits:
     contract = next((x["score"] for x in a["areas"] if x["name"] == "Contract Compliance"), 0)
     golden = next((x["score"] for x in a["areas"] if x["name"] == "Golden Tests"), 0)
     real = next((x["score"] for x in a["areas"] if x["name"] == "Real Cases"), 0)
-    print(f"{a['capability_id']:<20} {score:>3}/150 ({pct:5.1f}%) {grade:<12} test={test_cov} obs={obs} contract={contract} golden={golden} real={real}")
+    print(
+        f"{a['capability_id']:<20} {score:>3}/150 ({pct:5.1f}%) {grade:<12} test={test_cov} obs={obs} contract={contract} golden={golden} real={real}"  # noqa: E501
+    )

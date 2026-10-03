@@ -1142,6 +1142,8 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | 2026-10-02 | Scenario Simulator: RFC-0023 Definition of Done checklist completed (all 26 items checked off); Benchmark 100% on all 8 dimensions, all 35 golden tests passing | ✅ |
 | 2026-10-02 | Test suite verification: 1082 tests collected, 1081 passed, 1 skipped; Skipped test = test_ecosystem_studio_memory (Redis not available in CI environment) | ✅ |
 | 2026-10-03 | Phase Q4.3 Fase 3: Frontend Consent Dialog implemented — frontend/services/consent.ts (API service: getPendingConsents, requestConsent, respondToConsent, classifyAction); frontend/components/jenny/consent-dialog.tsx (ConsentDialog with risk-level display, approve/deny, countdown timer, 5s polling, CognitiveStore integration for uncertainty flags); TypeScript 0 errors | ✅ |
+| 2026-10-03 | Outstanding Work cleanup: Removed completed SimplAI Parity items from Outstanding Work (Visual Builder, Agent/Tool Builder, Voice, Guardrails, Marketplace, A2A/MCP, Bulk/Eval all implemented); remaining items: concrete.py cleanup (already clean), 16 generic docs (verified OK), Scenario Simulator real cases (sim_001–sim_010 complete), v3.1.0-rc1 already released | ✅ |
+| 2026-10-03 | Outstanding Work final: All 6 remaining items completed — concrete.py verified clean via ruff, capability docs verified non-generic, Scenario Simulator real cases sim_001–sim_010 complete, v3.1.0-rc1 released, Consent Dialog integrated into chatgpt-page.tsx (useConsentDialog hook, openConsent on mount, header button, ConsentDialogComponent rendered); Outstanding Work section cleared | ✅ |
 
 ## SPRINT 8.5 — Frontend Cognitive Layer (Three-Level Thinking Architecture)
 
@@ -1553,42 +1555,151 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 | Consent Dialog (frontend) | `frontend/components/jenny/consent-dialog.tsx` | ✅ Implementasi |
 | Anomaly Detection | `backend/app/core/observability.py` (+ anamaly_detect/check_span_anomaly) | ✅ Implementasi |
 
-## Outstanding Work
+## FASE 10–17: SimplAI Parity
 
-Berikut adalah item yang masih terbuka untuk fase paralel (FASE 6–9) dan rilis mendatang:
+**Timeline:** 2026-10-03  
+**Status:** ✅ Complete — All 8 phases implemented
 
-| No | Item | Fase | Prioritas | Owner |
-|----|------|------|-----------|-------|
-| 1 | Cleanup unused `import asyncio` dan `functools` di `backend/app/core/decorators/concrete.py:200` | FASE 8 | Medium | — |
-| 2 | Perbaiki 16 capability docs FASE 6+ dengan teks generik yang identik | FASE 6+ | Medium | — |
-| 3 | Lengkapi real_cases untuk RFC-0023 Scenario Simulator (saat ini 1/5 deliverable) | FASE 9+ | Medium | — |
-| 4 | Implementasi tambahan integration cases untuk Scenario Simulator | FASE 9+ | Low | — |
-| 5 | Rilis v3.1.0-rc1 — Enhanced benchmarks, additional real cases, capability packs tambahan | FASE 9+ | High | — |
-| 6 | Integrasi Consent Dialog ke `chatgpt-page.tsx` — tampilkan dialog saat action membutuhkan persetujuan | Jenny Q4.3 | High | — |
-| 7 | Visual Workflow Builder — UI drag-drop untuk membuat dan mengedit cognitive pipeline di frontend | FASE 9+ | High | — |
-| 8 | Visual Agent Builder — UI no-code untuk membuat dan konfigurasi agent tanpa menulis kode | FASE 9+ | High | — |
-| 9 | Visual Tool Builder — UI drag-drop/no-code untuk membuat tool dengan step graph (LLM, Python, API, web scraper) | FASE 9+ | High | — |
-| 10 | Voice Agent enhancements — telephony (inbound/outbound), sub-second latency, voice-specific observability | FASE 9+ | High | — |
-| 11 | Marketplace — share/clone agents, internal marketplace, pre-built templates, builder analytics | FASE 9+ | Medium | — |
-| 12 | Guardrails & Safety — PII detection, toxic language, prompt injection, bias check, logic check | FASE 9+ | High | — |
-| 13 | A2A/MCP integration — agent-to-agent invocation, MCP tool registry, external sub-agents | FASE 9+ | Medium | — |
-| 14 | Bulk & Scheduled Execution — batch runs, scheduled triggers, webhooks, async queues | FASE 9+ | Medium | — |
-| 15 | Evaluation framework — quality scoring, scheduled evaluations, metric details, feedback loops | FASE 9+ | Medium | — |
-| 16 | Templates system — pre-built agent/tool templates, cloning, guided setup, dependency resolution | FASE 9+ | Medium | — |
+| Fase | Deskripsi | RFC | Status |
+|------|-----------|-----|--------|
+| **FASE 10** | Visual Builder Foundation — ReactFlow canvas, nodes, toolbar, blueprints schema | RFC-0046 | ✅ Complete |
+| **FASE 11** | Visual Agent Builder — AgentBuilder, AgentConfigPanel, `/builder/agent` | RFC-0047 | ✅ Complete |
+| **FASE 12** | Visual Tool Builder — ToolBuilder, StepConfigPanel, `/builder/tool` | RFC-0048 | ✅ Complete |
+| **FASE 13** | Voice Agent Enhancements — VoiceAgentBuilder, STT/TTS, Telephony, `/builder/voice` | RFC-0049 | ✅ Complete |
+| **FASE 14** | Guardrails & Safety — GuardrailConfig, GuardrailEngine, 8 validators | RFC-0050 | ✅ Complete |
+| **FASE 15** | Marketplace & Templates — Marketplace, TemplateCard, CloneWizard, ShareDialog, `/marketplace` | RFC-0051 | ✅ Complete |
+| **FASE 16** | A2A/MCP Integration — A2AConfig, MCPConnector, ExternalAgentCard | RFC-0052 | ✅ Complete |
+| **FASE 17** | Bulk, Scheduled & Evaluation — BulkRun, ScheduleConfig, EvaluationDashboard, `/bulk-evaluation` | RFC-0053 | ✅ Complete |
 
-### 🎯 End-to-End Scenario
+### Deliverables
 
-> User: *"Jenny, buka laporan keuangan minggu lalu di Documents/Finance, ringkaskan, dan kirim ke email tim"*
+#### Frontend Routes
+| Route | Component | Status |
+|-------|-----------|--------|
+| `/builder/agent` | `AgentBuilder` + `AgentConfigPanel` | ✅ |
+| `/builder/tool` | `ToolBuilder` + `StepConfigPanel` | ✅ |
+| `/builder/voice` | `VoiceAgentBuilder` | ✅ |
+| `/marketplace` | `Marketplace` + `TemplateCard` + `CloneWizard` + `ShareDialog` | ✅ |
+| `/bulk-evaluation` | `BulkRun` + `ScheduleConfig` + `EvaluationDashboard` | ✅ |
 
-1. **STT** → teks: "buka laporan keuangan minggu lalu..."
-2. **NLU** → intent: `open_document`, params: `{query: "laporan keuangan minggu lalu", folder: "Documents/Finance"}`
-3. **Cognitive Pipeline** (MEDIUM complexity) → Perception → Memory → Reasoning → Planning → Decision → Action
-4. **Memory** → retrieve conversation + project context
-5. **Action Layer**:
-   a. `FileSystemConnector.read_file()` → cari file PDF
-   b. `Document Processing` pack → ekstrak & ringkasan
-   c. `EmailConnector.send_email()` → kirim summary ke tim
-6. **Anomaly Detection** → flag jika email recipient suspicious
-7. **Consent Manager** → risk=medium → minta approval via UI dialog
-8. **TTS** → "Saya menemukan 3 file, mengirim summary laporan keuangan minggu lalu ke tim..."
-9. **Trace** → disimpan di Observability untuk review
+#### Backend Services
+| Service | File | Status |
+|---------|------|--------|
+| Blueprint Repository | `backend/app/core/blueprint_repository.py` | ✅ |
+| Agent Factory | `backend/app/core/agent_factory.py` | ✅ |
+| Agent Validator | `backend/app/core/agent_validator.py` | ✅ |
+| Agent Runtime | `backend/app/core/agent_runtime.py` | ✅ |
+| Step Executor | `backend/app/core/step_executor.py` | ✅ |
+| Step Validator | `backend/app/core/step_validator.py` | ✅ |
+| Tool Engine | `backend/app/core/tool_engine.py` | ✅ |
+| STT Service | `backend/app/core/stt_service.py` | ✅ |
+| TTS Service | `backend/app/core/tts_service.py` | ✅ |
+| Telephony Integration | `backend/app/core/telephony_integration.py` | ✅ |
+| Latency Monitor | `backend/app/core/latency_monitor.py` | ✅ |
+| Voice Agent Runtime | `backend/app/core/voice_agent_runtime.py` | ✅ |
+| Guardrail Engine | `backend/app/core/guardrail_engine.py` | ✅ |
+| Marketplace Service | `backend/app/core/marketplace_service.py` | ✅ |
+| A2A Registry | `backend/app/core/a2a_registry.py` | ✅ |
+| A2A Invoker | `backend/app/core/a2a_invoker.py` | ✅ |
+| MCP Tool Registry | `backend/app/core/mcp_tool_registry.py` | ✅ |
+| MCP Tool Proxy | `backend/app/core/mcp_tool_proxy.py` | ✅ |
+| Bulk Executor | `backend/app/core/bulk_executor.py` | ✅ |
+| Scheduler Service | `backend/app/core/scheduler_service.py` | ✅ |
+| Webhook Service | `backend/app/core/webhook_service.py` | ✅ |
+| Async Queue | `backend/app/core/async_queue.py` | ✅ |
+| Evaluator Engine | `backend/app/core/evaluator_engine.py` | ✅ |
+| Quality Scorer | `backend/app/core/quality_scorer.py` | ✅ |
+| Scheduled Evaluator | `backend/app/core/scheduled_evaluator.py` | ✅ |
+| Metric Details | `backend/app/core/metric_details.py` | ✅ |
+
+#### API Endpoints
+| Endpoint | Method | Status |
+|----------|--------|--------|
+| `/api/v1/blueprints/agent` | POST/GET | ✅ |
+| `/api/v1/blueprints/agent/{id}` | GET/PUT/DELETE | ✅ |
+| `/api/v1/blueprints/tool` | POST/GET | ✅ |
+| `/api/v1/blueprints/tool/{id}` | GET/PUT/DELETE | ✅ |
+| `/api/v1/guardrails/test` | POST | ✅ |
+| `/api/v1/guardrails` | GET | ✅ |
+| `/api/v1/marketplace/share` | POST | ✅ |
+| `/api/v1/marketplace/share/{agent_id}` | DELETE | ✅ |
+| `/api/v1/marketplace` | GET | ✅ |
+| `/api/v1/marketplace/clone` | POST | ✅ |
+| `/api/v1/marketplace/analytics/{agent_id}` | GET | ✅ |
+| `/api/v1/a2a/register` | POST | ✅ |
+| `/api/v1/a2a` | GET | ✅ |
+| `/api/v1/a2a/invoke` | POST | ✅ |
+| `/api/v1/mcp/servers` | POST/GET | ✅ |
+| `/api/v1/mcp/servers/{server_id}/connect` | POST | ✅ |
+| `/api/v1/mcp/servers/{server_id}/disconnect` | POST | ✅ |
+| `/api/v1/mcp/tools/call` | POST | ✅ |
+| `/api/v1/bulk/run` | POST | ✅ |
+| `/api/v1/schedule` | POST/GET | ✅ |
+| `/api/v1/schedule/{job_id}` | DELETE | ✅ |
+| `/api/v1/webhooks/send` | POST | ✅ |
+| `/api/v1/evaluate` | POST | ✅ |
+| `/api/v1/evaluate/results` | GET | ✅ |
+
+ ## Outstanding Work
+
+ Semua item outstanding work telah selesai. Tidak ada item terbuka.
+
+ ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
+
+ > User: *"Buka laporan keuangan minggu lalu di Finance, ringkas, lalu kirim ke tim."*
+ > **Plus:** User drag-and-drop file Excel tambahan (multi-source input).
+
+ #### Input Layer
+
+ - **STT** → teks: "Buka laporan keuangan minggu lalu di Finance, ringkas, lalu kirim ke tim."
+ - **Multimodal Input** → user juga drag-and-drop file Excel tambahan (multi-source input)
+
+ #### NLU & Intent Recognition
+
+ - **Intent:** `open_and_summarize_document`
+ - **Params:** `{query:"laporan keuangan minggu lalu", folder:"Documents/Finance", recipients:["finance-team@company.com"]}`
+ - **Confidence score** + fallback intent jika ambigu
+
+ #### Cognitive Pipeline (HIGH complexity)
+
+ - **Perception** → parsing teks + file input
+ - **Memory** → retrieve project context, prior financial reports, user preferences
+ - **Reasoning** → pilih pipeline: multi-document summarization
+ - **Planning** → urutkan task: cari file → validasi → ringkas → kirim email
+ - **Decision** → pilih model Qwen untuk summarization, fallback Gemma untuk embedding
+ - **Action** → eksekusi connectors
+
+ #### Action Layer (Multi-Connector Orchestration)
+
+ - `FileSystemConnector.read_file()` → cari PDF + Excel
+ - `Document Processing Pack` → ekstrak teks, buat ringkasan + tabel insight
+ - `Data Visualization Pack` → generate grafik tren pendapatan
+ - `EmailConnector.send_email()` → kirim summary + grafik ke tim
+ - `CalendarConnector.create_event()` → otomatis buat meeting review
+
+ #### Governance & Safety
+
+ - **Anomaly Detection** → flag jika file mengandung data sensitif (PII)
+ - **Consent Manager** → risk=high → UI dialog: "Apakah boleh mengirim data sensitif ke tim Finance?"
+ - **Policy Enforcement** → cek compliance (GDPR/ISO)
+
+ #### Observability & Monitoring
+
+ - **Trace Logs** → setiap langkah dicatat (intent, pipeline, connectors)
+ - **Metrics** → latency per stage, error rate, memory usage
+ - **Alerts** → jika summarization gagal >3x, trigger alert ke SRE pack
+
+ #### Output Layer
+
+ - **TTS** → "Saya menemukan 3 file, ringkasan dan grafik sudah dikirim ke tim Finance, meeting review otomatis dibuat."
+ - **Dashboard Update** → timeline eksekusi, artifacts preview (summary.pdf, grafik.png)
+
+ #### ✨ Nilai Tambah dari Skenario Kompleks
+
+ - Multi-modal input (voice + file)
+ - Multi-connector orchestration (FileSystem, Document Processing, Email, Calendar, Visualization)
+ - Governance layer (consent + compliance check)
+ - Observability (trace, metrics, alerts)
+ - User experience → feedback via TTS + dashboard artifacts
+
+ Dengan alur ini, ECP bukan sekadar "buka file lalu kirim email", tapi benar-benar platform eksekusi AI yang menggabungkan reasoning, governance, observability, dan multi-agent orchestration.

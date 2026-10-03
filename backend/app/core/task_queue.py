@@ -78,11 +78,13 @@ class TaskQueue:
     async def enqueue(self, task: Task) -> str:
         task.status = TaskStatus.QUEUED
         self._tasks[task.id] = task
-        await event_bus.publish(Event(
-            event_type="task.created",
-            payload={"task": self._serialize(task)},
-            source="task-queue",
-        ))
+        await event_bus.publish(
+            Event(
+                event_type="task.created",
+                payload={"task": self._serialize(task)},
+                source="task-queue",
+            )
+        )
         return task.id
 
     async def execute(self, task: Task) -> Task:
@@ -94,18 +96,22 @@ class TaskQueue:
         try:
             task.result = await handler(task)  # type: ignore[func-returns-value]
             task.status = TaskStatus.COMPLETED
-            await event_bus.publish(Event(
-                event_type="task.completed",
-                payload={"task_id": task.id, "result": task.result},
-                source="task-queue",
-            ))
+            await event_bus.publish(
+                Event(
+                    event_type="task.completed",
+                    payload={"task_id": task.id, "result": task.result},
+                    source="task-queue",
+                )
+            )
         except Exception as e:
             task.error = str(e)
-            await event_bus.publish(Event(
-                event_type="task.failed",
-                payload={"task_id": task.id, "error": str(e)},
-                source="task-queue",
-            ))
+            await event_bus.publish(
+                Event(
+                    event_type="task.failed",
+                    payload={"task_id": task.id, "error": str(e)},
+                    source="task-queue",
+                )
+            )
         task.finished_at = datetime.now(UTC)
         return task
 
@@ -141,4 +147,3 @@ class TaskQueue:
 
 
 task_queue = TaskQueue()
-

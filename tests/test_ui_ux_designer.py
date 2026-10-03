@@ -2,11 +2,11 @@
 Smoke tests for Ui Ux Designer capability.
 """
 
-from apps.ui_ux_designer.accessibility_checker import *
-from apps.ui_ux_designer.design_system import *
-from apps.ui_ux_designer.engine import *
-from apps.ui_ux_designer.prototype_generator import *
-from apps.ui_ux_designer.schemas import *
+from apps.ui_ux_designer.accessibility_checker import *  # noqa: F403
+from apps.ui_ux_designer.design_system import *  # noqa: F403
+from apps.ui_ux_designer.engine import *  # noqa: F403
+from apps.ui_ux_designer.prototype_generator import *  # noqa: F403
+from apps.ui_ux_designer.schemas import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

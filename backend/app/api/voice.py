@@ -104,18 +104,22 @@ async def voice_websocket(ws: WebSocket):
                             bytes(audio_buffer),
                             language=settings.STT_LANGUAGE,
                         )
-                        await ws.send_json({
-                            "text": result.text,
-                            "confidence": result.confidence,
-                            "language": result.language,
-                            "final": bool(result.text),
-                        })
+                        await ws.send_json(
+                            {
+                                "text": result.text,
+                                "confidence": result.confidence,
+                                "language": result.language,
+                                "final": bool(result.text),
+                            }
+                        )
                         audio_buffer.clear()
                     except Exception as e:
-                        await ws.send_json({
-                            "error": str(e),
-                            "final": True,
-                        })
+                        await ws.send_json(
+                            {
+                                "error": str(e),
+                                "final": True,
+                            }
+                        )
                         audio_buffer.clear()
 
             elif isinstance(data, str):

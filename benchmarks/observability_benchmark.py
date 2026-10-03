@@ -32,13 +32,15 @@ SCENARIOS: list[dict[str, Any]] = [
                 "time_window": "5m",
                 "current_value": 62.5,
                 "historical_values": [50.0, 55.0, 60.0, 65.0],
-                "metric_samples": [
-                    {"name": "cpu_util", "value": 62.5, "unit": "percent"}
-                ],
+                "metric_samples": [{"name": "cpu_util", "value": 62.5, "unit": "percent"}],
                 "threshold": 80.0,
                 "threshold_direction": "above",
             },
-            "business_context": {"project_name": "api-gateway", "domain": "platform", "team_size": 8},
+            "business_context": {
+                "project_name": "api-gateway",
+                "domain": "platform",
+                "team_size": 8,
+            },
         },
         "min_quality_score": 0.90,
     },
@@ -57,7 +59,11 @@ SCENARIOS: list[dict[str, Any]] = [
                 "threshold": 85.0,
                 "threshold_direction": "above",
             },
-            "business_context": {"project_name": "api-gateway", "domain": "platform", "team_size": 8},
+            "business_context": {
+                "project_name": "api-gateway",
+                "domain": "platform",
+                "team_size": 8,
+            },
         },
         "min_quality_score": 0.85,
     },
@@ -91,8 +97,22 @@ SCENARIOS: list[dict[str, Any]] = [
                 "service_name": "payment",
                 "trace_id": "trace-2002",
                 "spans": [
-                    {"trace_id": "trace-2002", "span_id": "s1", "service": "payment", "operation": "charge", "duration_ms": 1500.0, "status": "error"},
-                    {"trace_id": "trace-2002", "span_id": "s2", "service": "card", "operation": "validate", "duration_ms": 300.0, "status": "ok"},
+                    {
+                        "trace_id": "trace-2002",
+                        "span_id": "s1",
+                        "service": "payment",
+                        "operation": "charge",
+                        "duration_ms": 1500.0,
+                        "status": "error",
+                    },
+                    {
+                        "trace_id": "trace-2002",
+                        "span_id": "s2",
+                        "service": "card",
+                        "operation": "validate",
+                        "duration_ms": 300.0,
+                        "status": "ok",
+                    },
                 ],
                 "error_rate": 0.12,
             },
@@ -110,9 +130,24 @@ SCENARIOS: list[dict[str, Any]] = [
                 "operation": "log_analyze",
                 "pattern": "connection",
                 "log_entries": [
-                    {"timestamp": "t1", "level": "error", "message": "DB connection failed", "service": "db"},
-                    {"timestamp": "t2", "level": "error", "message": "DB connection refused", "service": "db"},
-                    {"timestamp": "t3", "level": "error", "message": "DB connection timeout", "service": "db"},
+                    {
+                        "timestamp": "t1",
+                        "level": "error",
+                        "message": "DB connection failed",
+                        "service": "db",
+                    },
+                    {
+                        "timestamp": "t2",
+                        "level": "error",
+                        "message": "DB connection refused",
+                        "service": "db",
+                    },
+                    {
+                        "timestamp": "t3",
+                        "level": "error",
+                        "message": "DB connection timeout",
+                        "service": "db",
+                    },
                     {"timestamp": "t4", "level": "info", "message": "started", "service": "api"},
                 ],
             },
@@ -130,8 +165,18 @@ SCENARIOS: list[dict[str, Any]] = [
                 "operation": "log_analyze",
                 "log_level": "warning",
                 "log_entries": [
-                    {"timestamp": "t1", "level": "warning", "message": "latency above p95", "service": "search"},
-                    {"timestamp": "t2", "level": "error", "message": "index rebuild failed", "service": "search"},
+                    {
+                        "timestamp": "t1",
+                        "level": "warning",
+                        "message": "latency above p95",
+                        "service": "search",
+                    },
+                    {
+                        "timestamp": "t2",
+                        "level": "error",
+                        "message": "index rebuild failed",
+                        "service": "search",
+                    },
                 ],
             },
             "business_context": {"project_name": "search", "domain": "saas", "team_size": 5},
@@ -294,7 +339,9 @@ class ObservabilityBenchmark:
             "pack_id": "observability",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

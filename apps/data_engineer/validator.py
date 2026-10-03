@@ -53,14 +53,16 @@ class DatasetValidator:
         if not data:
             return QualityReport(
                 overall_score=0.0,
-                issues=[QualityIssue(
-                    type=IssueType.invalid_format,
-                    column="",
-                    severity=IssueSeverity.critical,
-                    count=0,
-                    remediation="Dataset is empty — cannot validate",
-                    confidence=1.0,
-                )],
+                issues=[
+                    QualityIssue(
+                        type=IssueType.invalid_format,
+                        column="",
+                        severity=IssueSeverity.critical,
+                        count=0,
+                        remediation="Dataset is empty — cannot validate",
+                        confidence=1.0,
+                    )
+                ],
             )
 
         # Schema validation.
@@ -83,7 +85,9 @@ class DatasetValidator:
             issues=issues,
         )
 
-    def _validate_schema(self, data: list[dict[str, Any]], schema: dict[str, Any]) -> list[QualityIssue]:  # noqa: E501
+    def _validate_schema(
+        self, data: list[dict[str, Any]], schema: dict[str, Any]
+    ) -> list[QualityIssue]:  # noqa: E501
         """Validate data against expected schema."""
         issues: list[QualityIssue] = []
         if not data:
@@ -95,14 +99,16 @@ class DatasetValidator:
         # Missing columns.
         missing = expected_cols - actual_cols
         for col in missing:
-            issues.append(QualityIssue(
-                type=IssueType.invalid_format,
-                column=col,
-                severity=IssueSeverity.high,
-                count=len(data),
-                remediation=f"Add missing column '{col}' to dataset",
-                confidence=0.95,
-            ))
+            issues.append(
+                QualityIssue(
+                    type=IssueType.invalid_format,
+                    column=col,
+                    severity=IssueSeverity.high,
+                    count=len(data),
+                    remediation=f"Add missing column '{col}' to dataset",
+                    confidence=0.95,
+                )
+            )
 
         # Type mismatches.
         for col, expected_type in schema.items():
@@ -114,14 +120,16 @@ class DatasetValidator:
                 if val is not None and not self._type_matches(val, expected_type):
                     mismatches += 1
             if mismatches > 0:
-                issues.append(QualityIssue(
-                    type=IssueType.invalid_format,
-                    column=col,
-                    severity=IssueSeverity.medium,
-                    count=mismatches,
-                    remediation=f"Convert column '{col}' to {expected_type}",
-                    confidence=0.85,
-                ))
+                issues.append(
+                    QualityIssue(
+                        type=IssueType.invalid_format,
+                        column=col,
+                        severity=IssueSeverity.medium,
+                        count=mismatches,
+                        remediation=f"Convert column '{col}' to {expected_type}",
+                        confidence=0.85,
+                    )
+                )
 
         return issues
 
@@ -142,14 +150,16 @@ class DatasetValidator:
                 missing = sum(1 for row in data if row.get(col) is None or row.get(col) == "")
                 completeness = 1 - (missing / len(data))
                 if completeness < min_completeness:
-                    issues.append(QualityIssue(
-                        type=IssueType.missing_values,
-                        column=col,
-                        severity=IssueSeverity.high,
-                        count=missing,
-                        remediation=f"Impute or remove missing values in '{col}'",
-                        confidence=0.9,
-                    ))
+                    issues.append(
+                        QualityIssue(
+                            type=IssueType.missing_values,
+                            column=col,
+                            severity=IssueSeverity.high,
+                            count=missing,
+                            remediation=f"Impute or remove missing values in '{col}'",
+                            confidence=0.9,
+                        )
+                    )
 
         elif rule_name == "uniqueness":
             min_uniqueness = thresholds.get("min", 0.9)
@@ -158,27 +168,31 @@ class DatasetValidator:
                 unique_count = len(set(values))
                 uniqueness = unique_count / len(values) if values else 1.0
                 if uniqueness < min_uniqueness:
-                    issues.append(QualityIssue(
-                        type=IssueType.duplicate_rows,
-                        column=col,
-                        severity=IssueSeverity.medium,
-                        count=len(values) - unique_count,
-                        remediation=f"Remove duplicates in '{col}'",
-                        confidence=0.8,
-                    ))
+                    issues.append(
+                        QualityIssue(
+                            type=IssueType.duplicate_rows,
+                            column=col,
+                            severity=IssueSeverity.medium,
+                            count=len(values) - unique_count,
+                            remediation=f"Remove duplicates in '{col}'",
+                            confidence=0.8,
+                        )
+                    )
 
         elif rule_name == "validity":
             for col in data[0].keys():
                 invalid = sum(1 for row in data if not self._is_valid_value(row.get(col)))
                 if invalid > 0:
-                    issues.append(QualityIssue(
-                        type=IssueType.invalid_format,
-                        column=col,
-                        severity=IssueSeverity.medium,
-                        count=invalid,
-                        remediation=f"Fix invalid values in '{col}'",
-                        confidence=0.8,
-                    ))
+                    issues.append(
+                        QualityIssue(
+                            type=IssueType.invalid_format,
+                            column=col,
+                            severity=IssueSeverity.medium,
+                            count=invalid,
+                            remediation=f"Fix invalid values in '{col}'",
+                            confidence=0.8,
+                        )
+                    )
 
         return issues
 
@@ -201,9 +215,15 @@ class DatasetValidator:
 
     def _is_valid_value(self, value: Any) -> bool:
         """Check if a value is valid (not None, not empty)."""
-        return value is not None and value != "" and not (isinstance(value, float) and (value != value))  # NaN check  # noqa: E501
+        return (
+            value is not None
+            and value != ""
+            and not (isinstance(value, float) and (value != value))
+        )  # NaN check  # noqa: E501
 
-    def _compute_scores(self, data: list[dict[str, Any]], issues: list[QualityIssue]) -> dict[str, float]:  # noqa: E501
+    def _compute_scores(
+        self, data: list[dict[str, Any]], issues: list[QualityIssue]
+    ) -> dict[str, float]:  # noqa: E501
         """Compute quality dimension scores."""
         if not data:
             return {"overall": 0.0}

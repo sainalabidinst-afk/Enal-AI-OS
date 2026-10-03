@@ -70,7 +70,11 @@ class OutcomeAnalyzer:
         confidence = self._compute_confidence(values, len(iterations))
 
         explanation_chain = self._build_explanation_chain(
-            title, description, assumptions or [], key_drivers, distribution,
+            title,
+            description,
+            assumptions or [],
+            key_drivers,
+            distribution,
         )
 
         return SimulationResult(
@@ -140,7 +144,14 @@ class OutcomeAnalyzer:
         min_val = sorted_values[0]
         max_val = sorted_values[-1]
         if max_val == min_val:
-            return [{"bucket": f"[{min_val:.2f}]", "count": len(sorted_values), "range_start": min_val, "range_end": max_val}]  # noqa: E501
+            return [
+                {
+                    "bucket": f"[{min_val:.2f}]",
+                    "count": len(sorted_values),
+                    "range_start": min_val,
+                    "range_end": max_val,
+                }
+            ]  # noqa: E501
 
         bucket_size = (max_val - min_val) / self.HISTOGRAM_BUCKETS
         buckets: list[dict[str, Any]] = []
@@ -148,13 +159,19 @@ class OutcomeAnalyzer:
         for i in range(self.HISTOGRAM_BUCKETS):
             lo = min_val + i * bucket_size
             hi = min_val + (i + 1) * bucket_size
-            count = sum(1 for v in sorted_values if lo <= v < hi or (i == self.HISTOGRAM_BUCKETS - 1 and v == hi))  # noqa: E501
-            buckets.append({
-                "bucket": f"[{lo:.2f}, {hi:.2f}]",
-                "count": count,
-                "range_start": round(lo, 4),
-                "range_end": round(hi, 4),
-            })
+            count = sum(
+                1
+                for v in sorted_values
+                if lo <= v < hi or (i == self.HISTOGRAM_BUCKETS - 1 and v == hi)
+            )  # noqa: E501
+            buckets.append(
+                {
+                    "bucket": f"[{lo:.2f}, {hi:.2f}]",
+                    "count": count,
+                    "range_start": round(lo, 4),
+                    "range_end": round(hi, 4),
+                }
+            )
 
         return buckets
 

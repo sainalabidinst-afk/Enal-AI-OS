@@ -97,36 +97,42 @@ class ConsentRequest:
 
 
 # Action definitions for risk classification
-LOW_RISK_ACTIONS = frozenset([
-    "read_file",
-    "list_directory",
-    "search_files",
-    "file_info",
-    "list_events",
-    "list_emails",
-    "search_emails",
-    "read_emails",
-    "get_state",
-])
+LOW_RISK_ACTIONS = frozenset(
+    [
+        "read_file",
+        "list_directory",
+        "search_files",
+        "file_info",
+        "list_events",
+        "list_emails",
+        "search_emails",
+        "read_emails",
+        "get_state",
+    ]
+)
 
-MEDIUM_RISK_ACTIONS = frozenset([
-    "write_file",
-    "delete_file",
-    "send_email",
-    "create_event",
-    "update_event",
-    "delete_event",
-    "set_brightness",
-    "set_temperature",
-])
+MEDIUM_RISK_ACTIONS = frozenset(
+    [
+        "write_file",
+        "delete_file",
+        "send_email",
+        "create_event",
+        "update_event",
+        "delete_event",
+        "set_brightness",
+        "set_temperature",
+    ]
+)
 
-HIGH_RISK_ACTIONS = frozenset([
-    "trading",
-    "system_config",
-    "iot_control",
-    "system_restart",
-    "factory_reset",
-])
+HIGH_RISK_ACTIONS = frozenset(
+    [
+        "trading",
+        "system_config",
+        "iot_control",
+        "system_restart",
+        "factory_reset",
+    ]
+)
 
 # Connector type permissions
 SYSTEM_CONNECTORS = frozenset(["file_system", "calendar", "smart_home"])
@@ -266,7 +272,8 @@ class ConsentManager:
     def cleanup(self) -> int:
         """Remove expired PENDING requests. Returns count removed."""
         expired_ids = [
-            rid for rid, r in self._requests.items()
+            rid
+            for rid, r in self._requests.items()
             if r.status == ConsentStatus.PENDING and r.is_expired
         ]
         for rid in expired_ids:

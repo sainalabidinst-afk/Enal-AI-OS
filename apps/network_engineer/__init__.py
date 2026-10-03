@@ -45,7 +45,7 @@ from apps.network_engineer.nic import (
     ReasoningChain,  # noqa: F401
     get_compliance_engine,
     inference_engine,
-    knowledge_enricher
+    knowledge_enricher,
 )
 from apps.network_engineer.recommendation_engine import recommendation_engine
 from apps.network_engineer.simulator import network_simulator
@@ -53,7 +53,7 @@ from apps.network_engineer.topology import (
     NetworkConnection,
     NetworkDevice,
     NetworkInterface,
-    NetworkSegment
+    NetworkSegment,
 )
 from apps.network_engineer.troubleshooting import troubleshooting_engine
 
@@ -77,13 +77,12 @@ class NetworkEngineerApp(BaseReferenceApp):
     async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         """Run the Network Engineer app."""
         from backend.app.core.adaptive_runtime import adaptive_runtime
+
         context = context or {}
         project_id = context.get("project_id", "network-engineer-default")
 
         result = await adaptive_runtime.execute(
-            user_input,
-            project_id=project_id,
-            force_pipeline=self.pipeline
+            user_input, project_id=project_id, force_pipeline=self.pipeline
         )
 
         return {
@@ -126,6 +125,7 @@ class NetworkEngineerApp(BaseReferenceApp):
 
     def _detect_vendor(self, config_content: str) -> str | None:
         from apps.network_engineer.vendor.detector import detect_vendor
+
         return detect_vendor(config_content)
 
     async def analyze_config(self, config_content: str) -> dict[str, Any]:
@@ -205,7 +205,9 @@ class NetworkEngineerApp(BaseReferenceApp):
         """Translate configuration between vendors (placeholder for future implementation)."""
         config = self._parse_config(config_content)
         concept_tags = knowledge_enricher.enrich(config)
-        source_vendor = getattr(config, "vendor", None) or self._detect_vendor(config_content) or "unknown"  # noqa: E501
+        source_vendor = (
+            getattr(config, "vendor", None) or self._detect_vendor(config_content) or "unknown"
+        )  # noqa: E501
 
         translation = {
             "source_vendor": source_vendor,
@@ -218,7 +220,11 @@ class NetworkEngineerApp(BaseReferenceApp):
 
         if source_vendor == "mikrotik" and target_vendor == "cisco":
             translation["mappings"] = [
-                {"concept": "firewall_filter", "mikrotik": "/ip firewall filter", "cisco": "access-list"},  # noqa: E501
+                {
+                    "concept": "firewall_filter",
+                    "mikrotik": "/ip firewall filter",
+                    "cisco": "access-list",
+                },  # noqa: E501
                 {"concept": "vrrp", "mikrotik": "/interface vrrp", "cisco": "standby"},
             ]
         elif source_vendor == "cisco" and target_vendor == "fortinet":
@@ -228,7 +234,11 @@ class NetworkEngineerApp(BaseReferenceApp):
             ]
         elif source_vendor == "fortinet" and target_vendor == "mikrotik":
             translation["mappings"] = [
-                {"concept": "firewall_policy", "fortinet": "config firewall policy", "mikrotik": "/ip firewall filter"},  # noqa: E501
+                {
+                    "concept": "firewall_policy",
+                    "fortinet": "config firewall policy",
+                    "mikrotik": "/ip firewall filter",
+                },  # noqa: E501
                 {"concept": "ha", "fortinet": "config system ha", "mikrotik": "/interface vrrp"},
             ]
 
@@ -286,18 +296,23 @@ class NetworkEngineerApp(BaseReferenceApp):
             for chain in reasoning_chains:
                 markdown += f"### {chain.conclusion}\n\n"
                 markdown += f"**Confidence:** {chain.confidence:.0%}\n\n"
-                markdown += f"**Evidence:** {', '.join(e.concept.value for e in chain.evidence_found)}\n\n"  # noqa: E501
+                markdown += (
+                    f"**Evidence:** {', '.join(e.concept.value for e in chain.evidence_found)}\n\n"  # noqa: E501
+                )
                 markdown += f"**Recommendation:** {chain.recommendation}\n\n"
 
         return markdown
 
-    async def review_design(self, topology_json: dict[str, Any], context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review_design(
+        self, topology_json: dict[str, Any], context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         """Perform design review on a network topology."""
         from apps.network_engineer.topology import NetworkTopology
 
         topology = NetworkTopology()
         for device_id, device_data in topology_json.get("devices", {}).items():
             from apps.network_engineer.topology import DeviceType, InterfaceType, RedundancyRole
+
             interfaces = [
                 NetworkInterface(
                     name=i.get("name", ""),
@@ -305,7 +320,7 @@ class NetworkEngineerApp(BaseReferenceApp):
                     ip_address=i.get("ip_address", ""),
                     vlan_id=i.get("vlan_id"),
                     bandwidth=i.get("bandwidth", ""),
-                    redundancy_role=RedundancyRole(i.get("redundancy_role", "none"))
+                    redundancy_role=RedundancyRole(i.get("redundancy_role", "none")),
                 )
                 for i in device_data.get("interfaces", [])
             ]
@@ -316,38 +331,44 @@ class NetworkEngineerApp(BaseReferenceApp):
                 vendor=device_data.get("vendor", ""),
                 model=device_data.get("model", ""),
                 interfaces=interfaces,
-                zone=device_data.get("zone", "")
+                zone=device_data.get("zone", ""),
             )
             topology.add_device(device)
 
         for conn in topology_json.get("connections", []):
-            topology.add_connection(NetworkConnection(
-                source_device=conn.get("source_device", ""),
-                source_interface=conn.get("source_interface", ""),
-                target_device=conn.get("target_device", ""),
-                target_interface=conn.get("target_interface", ""),
-                connection_type=conn.get("connection_type", "ethernet"),
-                bandwidth=conn.get("bandwidth", "1Gbps"),
-                latency=conn.get("latency", "0ms"),
-                redundancy_path=conn.get("redundancy_path", False),
-                protocol=conn.get("protocol", "")
-            ))
+            topology.add_connection(
+                NetworkConnection(
+                    source_device=conn.get("source_device", ""),
+                    source_interface=conn.get("source_interface", ""),
+                    target_device=conn.get("target_device", ""),
+                    target_interface=conn.get("target_interface", ""),
+                    connection_type=conn.get("connection_type", "ethernet"),
+                    bandwidth=conn.get("bandwidth", "1Gbps"),
+                    latency=conn.get("latency", "0ms"),
+                    redundancy_path=conn.get("redundancy_path", False),
+                    protocol=conn.get("protocol", ""),
+                )
+            )
 
         for segment_id, segment_data in topology_json.get("segments", {}).items():
-            topology.add_segment(NetworkSegment(
-                id=segment_data.get("id", segment_id),
-                name=segment_data.get("name", segment_id),
-                cidr=segment_data.get("cidr", ""),
-                vlan_id=segment_data.get("vlan_id"),
-                devices=segment_data.get("devices", []),
-                purpose=segment_data.get("purpose", ""),
-                security_level=segment_data.get("security_level", "standard")
-            ))
+            topology.add_segment(
+                NetworkSegment(
+                    id=segment_data.get("id", segment_id),
+                    name=segment_data.get("name", segment_id),
+                    cidr=segment_data.get("cidr", ""),
+                    vlan_id=segment_data.get("vlan_id"),
+                    devices=segment_data.get("devices", []),
+                    purpose=segment_data.get("purpose", ""),
+                    security_level=segment_data.get("security_level", "standard"),
+                )
+            )
 
         report = await design_review_engine.review(topology, context)
         return report.to_dict()
 
-    async def troubleshoot(self, symptom: str, evidence: list[dict[str, Any]] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def troubleshoot(
+        self, symptom: str, evidence: list[dict[str, Any]] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         """Start or continue a troubleshooting session."""
         session = troubleshooting_engine.create_session(symptom)
         if evidence:
@@ -356,12 +377,14 @@ class NetworkEngineerApp(BaseReferenceApp):
                     session,
                     source=item.get("source", "user"),
                     content=item.get("content", ""),
-                    confidence=item.get("confidence", 1.0)
+                    confidence=item.get("confidence", 1.0),
                 )
         troubleshooting_engine.generate_hypotheses(session)
         return session.to_dict()
 
-    async def plan_migration(self, source_vendor: str, target_vendor: str, source_config: str = "") -> dict[str, Any]:  # noqa: E501
+    async def plan_migration(
+        self, source_vendor: str, target_vendor: str, source_config: str = ""
+    ) -> dict[str, Any]:  # noqa: E501
         """Generate a cross-vendor migration plan."""
         plan = await migration_planner.plan(source_config, source_vendor, target_vendor)
         return plan.to_dict()
@@ -372,12 +395,13 @@ class NetworkEngineerApp(BaseReferenceApp):
 
     def _build_evidence(self, concept_tags: list[ConceptTag]) -> list[Any]:
         from apps.network_engineer.nic.inference import Evidence
+
         return [
             Evidence(
                 concept=tag.concept,
                 present=True,
                 details=tag.explanation,
-                confidence=tag.confidence
+                confidence=tag.confidence,
             )
             for tag in concept_tags
         ]

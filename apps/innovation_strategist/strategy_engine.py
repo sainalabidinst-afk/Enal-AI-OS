@@ -31,7 +31,9 @@ class InnovationStrategyEngine:
                 valid = False
         elif inputs.operation == InnovationStrategistOperation.portfolio_planning:
             if not inputs.existing_portfolio and not inputs.research_areas:
-                errors.append("at least one of existing_portfolio or research_areas is required for portfolio_planning")  # noqa: E501
+                errors.append(
+                    "at least one of existing_portfolio or research_areas is required for portfolio_planning"  # noqa: E501
+                )  # noqa: E501
                 valid = False
         elif inputs.operation == InnovationStrategistOperation.foresight_scenarios:
             if not inputs.timeframe_months or inputs.timeframe_months < 1:
@@ -68,14 +70,16 @@ class InnovationStrategyEngine:
             if relevance < 0.7:
                 risks.append("low strategic alignment")
 
-            trends.append(TechTrend(
-                technology=tech,
-                maturity=maturity,
-                growth_rate_pct=round(growth_rate, 1),
-                relevance_score=round(relevance, 2),
-                adoption_timeline=f"{3 if maturity == 'emerging' else 1}-{5 if maturity != 'mature' else 2} years",  # noqa: E501
-                risks=risks,
-            ))
+            trends.append(
+                TechTrend(
+                    technology=tech,
+                    maturity=maturity,
+                    growth_rate_pct=round(growth_rate, 1),
+                    relevance_score=round(relevance, 2),
+                    adoption_timeline=f"{3 if maturity == 'emerging' else 1}-{5 if maturity != 'mature' else 2} years",  # noqa: E501
+                    risks=risks,
+                )
+            )
 
         return trends
 
@@ -90,16 +94,18 @@ class InnovationStrategyEngine:
             timeline = 12 + (area_hash % 12)
             priority = "high" if roi > 1.8 else "medium" if roi > 1.4 else "low"
 
-            items.append(PortfolioItem(
-                initiative_name=f"R&D: {area}",
-                category="research",
-                estimated_cost=cost,
-                expected_roi=round(roi, 2),
-                timeline_months=timeline,
-                priority=priority,
-                risk_level="medium" if timeline > 18 else "low",
-                strategic_alignment=0.7 + (area_hash % 30) / 100.0,
-            ))
+            items.append(
+                PortfolioItem(
+                    initiative_name=f"R&D: {area}",
+                    category="research",
+                    estimated_cost=cost,
+                    expected_roi=round(roi, 2),
+                    timeline_months=timeline,
+                    priority=priority,
+                    risk_level="medium" if timeline > 18 else "low",
+                    strategic_alignment=0.7 + (area_hash % 30) / 100.0,
+                )
+            )
 
         return items
 
@@ -110,47 +116,53 @@ class InnovationStrategyEngine:
         risk_map = {"low": 0.8, "medium": 0.5, "high": 0.2}
         base_prob = risk_map.get(inputs.risk_tolerance, 0.5)
 
-        scenarios.append(ForesightScenario(
-            scenario_name=f"Optimistic_{inputs.domain}",
-            description=f"Rapid innovation in {inputs.domain} drives market expansion",
-            probability=base_prob + 0.1,
-            timeline_years=inputs.timeframe_months / 12,
-            strategic_impact="high",
-            triggers=["increased funding", "breakthrough discovery", "market demand surge"],
-            recommended_actions=[
-                "Increase R&D investment",
-                "Form strategic partnerships",
-                "Accelerate hiring in key areas",
-            ],
-        ))
+        scenarios.append(
+            ForesightScenario(
+                scenario_name=f"Optimistic_{inputs.domain}",
+                description=f"Rapid innovation in {inputs.domain} drives market expansion",
+                probability=base_prob + 0.1,
+                timeline_years=inputs.timeframe_months / 12,
+                strategic_impact="high",
+                triggers=["increased funding", "breakthrough discovery", "market demand surge"],
+                recommended_actions=[
+                    "Increase R&D investment",
+                    "Form strategic partnerships",
+                    "Accelerate hiring in key areas",
+                ],
+            )
+        )
 
-        scenarios.append(ForesightScenario(
-            scenario_name=f"Pessimistic_{inputs.domain}",
-            description=f"Market contraction and regulatory challenges in {inputs.domain}",
-            probability=0.3 if base_prob > 0.4 else 0.5,
-            timeline_years=inputs.timeframe_months / 12,
-            strategic_impact="high",
-            triggers=["economic downturn", "regulatory intervention", "talent shortage"],
-            recommended_actions=[
-                "Diversify technology portfolio",
-                "Reduce non-critical R&D spend",
-                "Focus on core competencies",
-            ],
-        ))
+        scenarios.append(
+            ForesightScenario(
+                scenario_name=f"Pessimistic_{inputs.domain}",
+                description=f"Market contraction and regulatory challenges in {inputs.domain}",
+                probability=0.3 if base_prob > 0.4 else 0.5,
+                timeline_years=inputs.timeframe_months / 12,
+                strategic_impact="high",
+                triggers=["economic downturn", "regulatory intervention", "talent shortage"],
+                recommended_actions=[
+                    "Diversify technology portfolio",
+                    "Reduce non-critical R&D spend",
+                    "Focus on core competencies",
+                ],
+            )
+        )
 
-        scenarios.append(ForesightScenario(
-            scenario_name=f"Expected_{inputs.domain}",
-            description=f"Steady progress with gradual adoption in {inputs.domain}",
-            probability=0.4,
-            timeline_years=inputs.timeframe_months / 12,
-            strategic_impact="medium",
-            triggers=["normal market conditions", "steady adoption", "moderate funding"],
-            recommended_actions=[
-                "Maintain current trajectory",
-                "Monitor key indicators",
-                "Execute planned initiatives",
-            ],
-        ))
+        scenarios.append(
+            ForesightScenario(
+                scenario_name=f"Expected_{inputs.domain}",
+                description=f"Steady progress with gradual adoption in {inputs.domain}",
+                probability=0.4,
+                timeline_years=inputs.timeframe_months / 12,
+                strategic_impact="medium",
+                triggers=["normal market conditions", "steady adoption", "moderate funding"],
+                recommended_actions=[
+                    "Maintain current trajectory",
+                    "Monitor key indicators",
+                    "Execute planned initiatives",
+                ],
+            )
+        )
 
         return scenarios
 

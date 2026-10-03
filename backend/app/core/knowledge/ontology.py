@@ -60,7 +60,12 @@ class Ontology:
     def get_entity(self, entity_id: str) -> OntologyEntity | None:
         return self._entities.get(entity_id)
 
-    def get_relations(self, source_id: str | None = None, target_id: str | None = None, relation_type: str | None = None) -> list[OntologyRelation]:  # noqa: E501
+    def get_relations(
+        self,
+        source_id: str | None = None,
+        target_id: str | None = None,
+        relation_type: str | None = None,
+    ) -> list[OntologyRelation]:  # noqa: E501
         results = list(self._relations.values())
         if source_id is not None:
             results = [r for r in results if r.source_id == source_id]

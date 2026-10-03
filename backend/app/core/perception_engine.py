@@ -1,4 +1,5 @@
 """Perception Engine - Process and extract meaning from various input sources."""
+
 import logging
 from dataclasses import dataclass, field
 from typing import Any
@@ -9,6 +10,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PerceptionInput:
     """Input to the perception engine."""
+
     source: str
     content: str | bytes
     content_type: str = "text/plain"
@@ -18,6 +20,7 @@ class PerceptionInput:
 @dataclass
 class PerceptionResult:
     """Result from perception processing."""
+
     source: str
     entities: list[str] = field(default_factory=list)
     intents: list[str] = field(default_factory=list)
@@ -39,13 +42,17 @@ class PerceptionEngine:
         content = perception_input.content
 
         if perception_input.content_type == "text/plain":
-            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")  # noqa: E501
+            text_content = (
+                content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+            )  # noqa: E501
             result = await self._process_text(text_content, result)
         elif perception_input.content_type.startswith("image/"):
             bytes_content = content if isinstance(content, bytes) else content.encode("utf-8")
             result = await self._process_image(bytes_content, result)
         elif perception_input.content_type == "application/json":
-            text_content = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")  # noqa: E501
+            text_content = (
+                content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+            )  # noqa: E501
             result = await self._process_json(text_content, result)
 
         result.metadata.update(perception_input.metadata)
@@ -70,6 +77,7 @@ class PerceptionEngine:
     async def _process_json(self, content: str, result: PerceptionResult) -> PerceptionResult:
         """Extract from JSON structure."""
         import json
+
         try:
             data = json.loads(content)
             result.entities = list(data.keys())[:10]

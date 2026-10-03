@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class TestImpact:
     """Impact assessment for a single test."""
+
     test_path: str
     test_name: str
     risk_score: float
@@ -44,12 +45,18 @@ class TestImpact:
 @dataclass
 class RegressionReport:
     """Complete regression risk report for a set of changes."""
+
     changes: list[dict[str, Any]]
     total_tests: int = 0
     affected_tests: list[TestImpact] = field(default_factory=list)
-    risk_distribution: dict[str, int] = field(default_factory=lambda: {
-        "critical": 0, "high": 0, "medium": 0, "low": 0,
-    })
+    risk_distribution: dict[str, int] = field(
+        default_factory=lambda: {
+            "critical": 0,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
+        }
+    )
     recommended_order: list[str] = field(default_factory=list)
     skip_recommended: list[str] = field(default_factory=list)
     coverage_gaps: list[str] = field(default_factory=list)
@@ -103,10 +110,12 @@ class RegressionAnalyzer:
         """Lazy-load dependency graph and impact analyzer classes."""
         if self._dependency_graph_builder_cls is None:
             from apps.code_engineer.dependency_graph import DependencyGraphBuilder
+
             self._dependency_graph_builder_cls = DependencyGraphBuilder
 
         if self._impact_analyzer_cls is None:
             from apps.code_engineer.impact_analyzer import ImpactAnalyzer
+
             self._impact_analyzer_cls = ImpactAnalyzer
 
     async def analyze_changes(
@@ -171,14 +180,16 @@ class RegressionAnalyzer:
                     total_coverage=len(covered_modules),
                 )
 
-                report.affected_tests.append(TestImpact(
-                    test_path=str(test_path_obj),
-                    test_name=test_name,
-                    risk_score=risk_score,
-                    affected_by=matched_modules,
-                    is_direct=is_direct,
-                    reason=self._generate_reason(change, matched_modules, is_direct),
-                ))
+                report.affected_tests.append(
+                    TestImpact(
+                        test_path=str(test_path_obj),
+                        test_name=test_name,
+                        risk_score=risk_score,
+                        affected_by=matched_modules,
+                        is_direct=is_direct,
+                        reason=self._generate_reason(change, matched_modules, is_direct),
+                    )
+                )
 
         # Deduplicate tests
         seen: set[str] = set()
@@ -206,13 +217,13 @@ class RegressionAnalyzer:
 
         # Generate recommended test order
         report.recommended_order = [
-            f"{t.test_path}::{t.test_name}" for t in report.affected_tests
-            if t.risk_score >= 0.3
+            f"{t.test_path}::{t.test_name}" for t in report.affected_tests if t.risk_score >= 0.3
         ]
 
         # Generate skip recommendations
         report.skip_recommended = [
-            f"{t.test_path}::{t.test_name}" for t in report.affected_tests
+            f"{t.test_path}::{t.test_name}"
+            for t in report.affected_tests
             if t.risk_score < 0.2 and not t.is_direct
         ]
 
@@ -391,7 +402,7 @@ class RegressionAnalyzer:
 
         if total_coverage > 0:
             coverage_ratio = matched_count / total_coverage
-            base_score *= (0.5 + 0.5 * coverage_ratio)
+            base_score *= 0.5 + 0.5 * coverage_ratio
 
         return min(1.0, max(0.0, base_score))
 
@@ -424,19 +435,13 @@ class RegressionAnalyzer:
         change_type = change.get("change_type", "modified")
 
         if is_direct:
-            return (
-                f"Directly tests changed file '{file_path}' "
-                f"({change_type})"
-            )
+            return f"Directly tests changed file '{file_path}' ({change_type})"
         else:
             modules_str = ", ".join(matched_modules[:3])
             remaining = len(matched_modules) - 3
             if remaining > 0:
                 modules_str += f" and {remaining} more"
-            return (
-                f"Depends on modules affected by change to "
-                f"'{file_path}': {modules_str}"
-            )
+            return f"Depends on modules affected by change to '{file_path}': {modules_str}"
 
 
 regression_analyzer = RegressionAnalyzer()

@@ -76,9 +76,7 @@ class NetworkEngineerEngine:
             "metadata": report.metadata,
         }
 
-    async def analyze_topology(
-        self, config: str, vendor: str = "auto-detect"
-    ) -> dict[str, Any]:
+    async def analyze_topology(self, config: str, vendor: str = "auto-detect") -> dict[str, Any]:
         """Infer network topology from configuration."""
         parsed = parse_config(config, vendor if vendor != "auto-detect" else None)
         from apps.network_engineer.graph_builder import network_graph_builder
@@ -127,28 +125,32 @@ class NetworkEngineerEngine:
             topology.add_device(device)
 
         for conn in topology_json.get("connections", []):
-            topology.add_connection(NetworkConnection(
-                source_device=conn.get("source_device", ""),
-                source_interface=conn.get("source_interface", ""),
-                target_device=conn.get("target_device", ""),
-                target_interface=conn.get("target_interface", ""),
-                connection_type=conn.get("connection_type", "ethernet"),
-                bandwidth=conn.get("bandwidth", "1Gbps"),
-                latency=conn.get("latency", "0ms"),
-                redundancy_path=conn.get("redundancy_path", False),
-                protocol=conn.get("protocol", ""),
-            ))
+            topology.add_connection(
+                NetworkConnection(
+                    source_device=conn.get("source_device", ""),
+                    source_interface=conn.get("source_interface", ""),
+                    target_device=conn.get("target_device", ""),
+                    target_interface=conn.get("target_interface", ""),
+                    connection_type=conn.get("connection_type", "ethernet"),
+                    bandwidth=conn.get("bandwidth", "1Gbps"),
+                    latency=conn.get("latency", "0ms"),
+                    redundancy_path=conn.get("redundancy_path", False),
+                    protocol=conn.get("protocol", ""),
+                )
+            )
 
         for segment_id, segment_data in topology_json.get("segments", {}).items():
-            topology.add_segment(NetworkSegment(
-                id=segment_data.get("id", segment_id),
-                name=segment_data.get("name", segment_id),
-                cidr=segment_data.get("cidr", ""),
-                vlan_id=segment_data.get("vlan_id"),
-                devices=segment_data.get("devices", []),
-                purpose=segment_data.get("purpose", ""),
-                security_level=segment_data.get("security_level", "standard"),
-            ))
+            topology.add_segment(
+                NetworkSegment(
+                    id=segment_data.get("id", segment_id),
+                    name=segment_data.get("name", segment_id),
+                    cidr=segment_data.get("cidr", ""),
+                    vlan_id=segment_data.get("vlan_id"),
+                    devices=segment_data.get("devices", []),
+                    purpose=segment_data.get("purpose", ""),
+                    security_level=segment_data.get("security_level", "standard"),
+                )
+            )
 
         report = await self.design_review.review(topology, context)
         return report.to_dict()
@@ -187,9 +189,7 @@ class NetworkEngineerEngine:
         )
         return plan.to_dict()
 
-    async def advise(
-        self, query: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def advise(self, query: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         """Provide network design advisory."""
         return await self.advisor.advise(query, context or {})
 

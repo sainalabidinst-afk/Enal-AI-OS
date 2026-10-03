@@ -112,4 +112,3 @@ class DecisionHistoryStore:
     def _path_for(self, record_id: str) -> Path:
         safe = "".join(c for c in record_id if c.isalnum() or c in "-_")
         return self.base_dir / f"{safe}.json"
-

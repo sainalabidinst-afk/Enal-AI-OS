@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class EpisodicMemoryEntry:
     """A single episode / event stored in episodic memory."""
+
     episode_id: str
     session_id: str
     timestamp: float
@@ -24,6 +25,7 @@ class EpisodicMemoryEntry:
 @dataclass
 class ConsolidatedBlock:
     """Result of compressing several related memories into one."""
+
     block_id: str
     source_ids: list[str]
     consolidated_content: dict[str, Any]
@@ -35,15 +37,30 @@ class ConsolidatedBlock:
 
 class MemoryLayer(ABC):
     @abstractmethod
-    async def store(self, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):  # noqa: E501
+    async def store(
+        self,
+        key: str,
+        value: Any,
+        ttl: int | None = None,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ):  # noqa: E501
         raise NotImplementedError
 
     @abstractmethod
-    async def retrieve(self, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:  # noqa: E501
+    async def retrieve(
+        self, key: str, session_id: str | None = None, project_id: str | None = None
+    ) -> Any | None:  # noqa: E501
         raise NotImplementedError
 
     @abstractmethod
-    async def search(self, query: str, limit: int = 10, session_id: str | None = None, project_id: str | None = None) -> list[dict]:  # noqa: E501
+    async def search(
+        self,
+        query: str,
+        limit: int = 10,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ) -> list[dict]:  # noqa: E501
         raise NotImplementedError
 
     @abstractmethod
@@ -80,23 +97,33 @@ class MemoryManager:
             "project": ProjectMemory(),
         }
 
-    async def get_session_context(self, session_id: str, query: str | None = None) -> dict[str, Any]:  # noqa: E501
+    async def get_session_context(
+        self, session_id: str, query: str | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         context: dict[str, Any] = {"session_id": session_id, "entries": [], "summary": ""}
         session_results = await self._layers["session"].search("", limit=100, session_id=session_id)
         context["entries"] = session_results
         if query:
-            context["entries"] = [e for e in session_results if query.lower() in str(e.get("value", "")).lower()]  # noqa: E501
+            context["entries"] = [
+                e for e in session_results if query.lower() in str(e.get("value", "")).lower()
+            ]  # noqa: E501
         return context
 
-    async def get_project_context(self, project_id: str, query: str | None = None) -> dict[str, Any]:  # noqa: E501
+    async def get_project_context(
+        self, project_id: str, query: str | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         context: dict[str, Any] = {"project_id": project_id, "entries": [], "summary": ""}
         proj_results = await self._layers["project"].search("", limit=100, project_id=project_id)
         context["entries"] = proj_results
         if query:
-            context["entries"] = [e for e in proj_results if query.lower() in str(e.get("value", "")).lower()]  # noqa: E501
+            context["entries"] = [
+                e for e in proj_results if query.lower() in str(e.get("value", "")).lower()
+            ]  # noqa: E501
         return context
 
-    async def rank_memories(self, candidates: list[dict], importance_factor: float = 1.0) -> list[dict]:  # noqa: E501
+    async def rank_memories(
+        self, candidates: list[dict], importance_factor: float = 1.0
+    ) -> list[dict]:  # noqa: E501
         scored: list[dict] = []
         now = time.time()
         for c in candidates:
@@ -121,14 +148,24 @@ class MemoryManager:
                 return block.block_id
         return None
 
-    async def store(self, layer: str, key: str, value: Any, ttl: int | None = None, session_id: str | None = None, project_id: str | None = None):  # noqa: E501
+    async def store(
+        self,
+        layer: str,
+        key: str,
+        value: Any,
+        ttl: int | None = None,
+        session_id: str | None = None,
+        project_id: str | None = None,
+    ):  # noqa: E501
         mem = self._layers.get(layer)
         if not mem:
             return
         await mem.store(key, value, ttl, session_id=session_id, project_id=project_id)
         logger.info(f"Stored in {layer} memory: {key}")
 
-    async def retrieve(self, layer: str, key: str, session_id: str | None = None, project_id: str | None = None) -> Any | None:  # noqa: E501
+    async def retrieve(
+        self, layer: str, key: str, session_id: str | None = None, project_id: str | None = None
+    ) -> Any | None:  # noqa: E501
         mem = self._layers.get(layer)
         if not mem:
             return None
@@ -152,7 +189,9 @@ class MemoryManager:
             return await mem.list_keys(pattern)
         return []
 
-    async def consolidate(self, layer: str, query: str, max_entries: int = 100) -> ConsolidatedBlock | None:  # noqa: E501
+    async def consolidate(
+        self, layer: str, query: str, max_entries: int = 100
+    ) -> ConsolidatedBlock | None:  # noqa: E501
         import uuid
 
         from backend.app.core.model_router import model_router
@@ -191,7 +230,9 @@ class MemoryManager:
         )
         return block
 
-    async def cross_session_search(self, query: str, session_pattern: str | None = None) -> list[dict]:  # noqa: E501
+    async def cross_session_search(
+        self, query: str, session_pattern: str | None = None
+    ) -> list[dict]:  # noqa: E501
         results: list[dict] = []
         for layer_name, mem in self._layers.items():
             if mem is None:

@@ -1,4 +1,4 @@
-﻿"""
+"""
 Verification Engine
 ====================
 
@@ -60,7 +60,9 @@ class VerificationResult:
 class VerificationEngine:
     """Verifies device state after deployment."""
 
-    async def verify(self, device_id: str, config_content: str, checks: list[str] | None = None) -> VerificationResult:  # noqa: E501
+    async def verify(
+        self, device_id: str, config_content: str, checks: list[str] | None = None
+    ) -> VerificationResult:  # noqa: E501
         """Run verification checks against a device."""
         result = VerificationResult()
 
@@ -92,7 +94,11 @@ class VerificationEngine:
 
     def _check_interface_status(self, config: str) -> VerificationCheck:
         """Simulate interface status check."""
-        interfaces = [l for l in config.splitlines() if l.strip().startswith("add ") and "interface" in l.lower()]  # noqa: E741, E501
+        interfaces = [
+            line
+            for line in config.splitlines()
+            if line.strip().startswith("add ") and "interface" in line.lower()
+        ]
         if interfaces:
             return VerificationCheck(
                 name="Interface Status",
@@ -116,7 +122,13 @@ class VerificationEngine:
         has_pppoe = "/interface pppoe-client" in config.lower() or "pppoe" in config.lower()
 
         if has_static_gateway or has_dhcp_client or has_pppoe:
-            source = "static gateway" if has_static_gateway else "dhcp client" if has_dhcp_client else "pppoe"  # noqa: E501
+            source = (
+                "static gateway"
+                if has_static_gateway
+                else "dhcp client"
+                if has_dhcp_client
+                else "pppoe"
+            )  # noqa: E501
             return VerificationCheck(
                 name="Gateway Reachable",
                 status=VerificationStatus.PASSED,
@@ -135,7 +147,9 @@ class VerificationEngine:
     def _check_dns_resolution(self, config: str) -> VerificationCheck:
         """Simulate DNS resolution check."""
         has_static_dns = "/ip dns" in config.lower()
-        has_dns_from_dhcp = "dns-nameserver" in config.lower() or "dhcp-server network" in config.lower()  # noqa: E501
+        has_dns_from_dhcp = (
+            "dns-nameserver" in config.lower() or "dhcp-server network" in config.lower()
+        )  # noqa: E501
         has_dns_keyword = "dns" in config.lower()
 
         if has_static_dns or has_dns_from_dhcp:
@@ -201,4 +215,3 @@ class VerificationEngine:
 
 
 verification_engine = VerificationEngine()
-

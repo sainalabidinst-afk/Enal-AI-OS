@@ -107,23 +107,27 @@ class SemanticDiffEngine:
 
         for iface in after:
             if iface.name not in before_names:
-                entries.append(DiffEntry(
-                    category="Interface",
-                    diff_type=DiffType.ADDED,
-                    path=f"interface/{iface.name}",
-                    after=iface.name,
-                    description=f"Interface {iface.name} added",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Interface",
+                        diff_type=DiffType.ADDED,
+                        path=f"interface/{iface.name}",
+                        after=iface.name,
+                        description=f"Interface {iface.name} added",
+                    )
+                )
 
         for iface in before:
             if iface.name not in after_names:
-                entries.append(DiffEntry(
-                    category="Interface",
-                    diff_type=DiffType.REMOVED,
-                    path=f"interface/{iface.name}",
-                    before=iface.name,
-                    description=f"Interface {iface.name} removed",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Interface",
+                        diff_type=DiffType.REMOVED,
+                        path=f"interface/{iface.name}",
+                        before=iface.name,
+                        description=f"Interface {iface.name} removed",
+                    )
+                )
 
         return entries
 
@@ -135,53 +139,65 @@ class SemanticDiffEngine:
         for ip in after:
             key = f"{ip.interface}:{ip.address}"
             if key not in before_map:
-                entries.append(DiffEntry(
-                    category="IP Address",
-                    diff_type=DiffType.ADDED,
-                    path=f"ip/address/{ip.interface}",
-                    after=ip.address,
-                    description=f"IP {ip.address} added on {ip.interface}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="IP Address",
+                        diff_type=DiffType.ADDED,
+                        path=f"ip/address/{ip.interface}",
+                        after=ip.address,
+                        description=f"IP {ip.address} added on {ip.interface}",
+                    )
+                )
 
         for ip in before:
             key = f"{ip.interface}:{ip.address}"
             if key not in after_map:
-                entries.append(DiffEntry(
-                    category="IP Address",
-                    diff_type=DiffType.REMOVED,
-                    path=f"ip/address/{ip.interface}",
-                    before=ip.address,
-                    description=f"IP {ip.address} removed from {ip.interface}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="IP Address",
+                        diff_type=DiffType.REMOVED,
+                        path=f"ip/address/{ip.interface}",
+                        before=ip.address,
+                        description=f"IP {ip.address} removed from {ip.interface}",
+                    )
+                )
 
         return entries
 
     def _diff_firewall(self, before, after) -> list[DiffEntry]:
         entries = []
-        before_set = {(r.chain, r.action, r.protocol, r.port, r.in_interface, r.out_interface) for r in before}  # noqa: E501
-        after_set = {(r.chain, r.action, r.protocol, r.port, r.in_interface, r.out_interface) for r in after}  # noqa: E501
+        before_set = {
+            (r.chain, r.action, r.protocol, r.port, r.in_interface, r.out_interface) for r in before
+        }  # noqa: E501
+        after_set = {
+            (r.chain, r.action, r.protocol, r.port, r.in_interface, r.out_interface) for r in after
+        }  # noqa: E501
 
         for r in after:
             key = (r.chain, r.action, r.protocol, r.port, r.in_interface, r.out_interface)
             if key not in before_set:
-                entries.append(DiffEntry(
-                    category="Firewall",
-                    diff_type=DiffType.ADDED,
-                    path=f"firewall/filter/{r.chain}",
-                    after=key,
-                    description=f"Firewall rule added: {r.action} on {r.chain}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Firewall",
+                        diff_type=DiffType.ADDED,
+                        path=f"firewall/filter/{r.chain}",
+                        after=key,
+                        description=f"Firewall rule added: {r.action} on {r.chain}",
+                    )
+                )
 
         for r in before:
             key = (r.chain, r.action, r.protocol, r.port, r.in_interface, r.out_interface)
             if key not in after_set:
-                entries.append(DiffEntry(
-                    category="Firewall",
-                    diff_type=DiffType.REMOVED,
-                    path=f"firewall/filter/{r.chain}",
-                    before=key,
-                    description=f"Firewall rule removed: {r.action} on {r.chain}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Firewall",
+                        diff_type=DiffType.REMOVED,
+                        path=f"firewall/filter/{r.chain}",
+                        before=key,
+                        description=f"Firewall rule removed: {r.action} on {r.chain}",
+                    )
+                )
 
         return entries
 
@@ -193,24 +209,28 @@ class SemanticDiffEngine:
         for r in after:
             key = (r.chain, r.action, r.out_interface)
             if key not in before_set:
-                entries.append(DiffEntry(
-                    category="NAT",
-                    diff_type=DiffType.ADDED,
-                    path=f"firewall/nat/{r.chain}",
-                    after=key,
-                    description=f"NAT rule added: {r.action} on {r.out_interface}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="NAT",
+                        diff_type=DiffType.ADDED,
+                        path=f"firewall/nat/{r.chain}",
+                        after=key,
+                        description=f"NAT rule added: {r.action} on {r.out_interface}",
+                    )
+                )
 
         for r in before:
             key = (r.chain, r.action, r.out_interface)
             if key not in after_set:
-                entries.append(DiffEntry(
-                    category="NAT",
-                    diff_type=DiffType.REMOVED,
-                    path=f"firewall/nat/{r.chain}",
-                    before=key,
-                    description=f"NAT rule removed: {r.action} on {r.out_interface}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="NAT",
+                        diff_type=DiffType.REMOVED,
+                        path=f"firewall/nat/{r.chain}",
+                        before=key,
+                        description=f"NAT rule removed: {r.action} on {r.out_interface}",
+                    )
+                )
 
         return entries
 
@@ -222,24 +242,28 @@ class SemanticDiffEngine:
         for r in after:
             key = (r.dst_address, r.gateway)
             if key not in before_set:
-                entries.append(DiffEntry(
-                    category="Route",
-                    diff_type=DiffType.ADDED,
-                    path=f"ip/route/{r.dst_address}",
-                    after=key,
-                    description=f"Route added: {r.dst_address} via {r.gateway}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Route",
+                        diff_type=DiffType.ADDED,
+                        path=f"ip/route/{r.dst_address}",
+                        after=key,
+                        description=f"Route added: {r.dst_address} via {r.gateway}",
+                    )
+                )
 
         for r in before:
             key = (r.dst_address, r.gateway)
             if key not in after_set:
-                entries.append(DiffEntry(
-                    category="Route",
-                    diff_type=DiffType.REMOVED,
-                    path=f"ip/route/{r.dst_address}",
-                    before=key,
-                    description=f"Route removed: {r.dst_address} via {r.gateway}",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Route",
+                        diff_type=DiffType.REMOVED,
+                        path=f"ip/route/{r.dst_address}",
+                        before=key,
+                        description=f"Route removed: {r.dst_address} via {r.gateway}",
+                    )
+                )
 
         return entries
 
@@ -250,23 +274,27 @@ class SemanticDiffEngine:
 
         for d in after:
             if d.name not in before_names:
-                entries.append(DiffEntry(
-                    category="DHCP",
-                    diff_type=DiffType.ADDED,
-                    path=f"dhcp-server/{d.name}",
-                    after=d.name,
-                    description=f"DHCP server {d.name} added",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="DHCP",
+                        diff_type=DiffType.ADDED,
+                        path=f"dhcp-server/{d.name}",
+                        after=d.name,
+                        description=f"DHCP server {d.name} added",
+                    )
+                )
 
         for d in before:
             if d.name not in after_names:
-                entries.append(DiffEntry(
-                    category="DHCP",
-                    diff_type=DiffType.REMOVED,
-                    path=f"dhcp-server/{d.name}",
-                    before=d.name,
-                    description=f"DHCP server {d.name} removed",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="DHCP",
+                        diff_type=DiffType.REMOVED,
+                        path=f"dhcp-server/{d.name}",
+                        before=d.name,
+                        description=f"DHCP server {d.name} removed",
+                    )
+                )
 
         return entries
 
@@ -277,23 +305,27 @@ class SemanticDiffEngine:
 
         for h in after:
             if h.name not in before_names:
-                entries.append(DiffEntry(
-                    category="Hotspot",
-                    diff_type=DiffType.ADDED,
-                    path=f"hotspot/{h.name}",
-                    after=h.name,
-                    description=f"Hotspot {h.name} added",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Hotspot",
+                        diff_type=DiffType.ADDED,
+                        path=f"hotspot/{h.name}",
+                        after=h.name,
+                        description=f"Hotspot {h.name} added",
+                    )
+                )
 
         for h in before:
             if h.name not in after_names:
-                entries.append(DiffEntry(
-                    category="Hotspot",
-                    diff_type=DiffType.REMOVED,
-                    path=f"hotspot/{h.name}",
-                    before=h.name,
-                    description=f"Hotspot {h.name} removed",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Hotspot",
+                        diff_type=DiffType.REMOVED,
+                        path=f"hotspot/{h.name}",
+                        before=h.name,
+                        description=f"Hotspot {h.name} removed",
+                    )
+                )
 
         return entries
 
@@ -303,26 +335,30 @@ class SemanticDiffEngine:
         after_servers = set(after.servers) if after else set()
 
         if before_servers != after_servers:
-            entries.append(DiffEntry(
-                category="DNS",
-                diff_type=DiffType.MODIFIED,
-                path="ip/dns/servers",
-                before=sorted(before_servers),
-                after=sorted(after_servers),
-                description="DNS servers changed",
-            ))
+            entries.append(
+                DiffEntry(
+                    category="DNS",
+                    diff_type=DiffType.MODIFIED,
+                    path="ip/dns/servers",
+                    before=sorted(before_servers),
+                    after=sorted(after_servers),
+                    description="DNS servers changed",
+                )
+            )
 
         before_remote = before.allow_remote_requests if before else False
         after_remote = after.allow_remote_requests if after else False
         if before_remote != after_remote:
-            entries.append(DiffEntry(
-                category="DNS",
-                diff_type=DiffType.MODIFIED,
-                path="ip/dns/allow-remote-requests",
-                before=before_remote,
-                after=after_remote,
-                description=f"DNS allow-remote-requests changed: {before_remote} -> {after_remote}",
-            ))
+            entries.append(
+                DiffEntry(
+                    category="DNS",
+                    diff_type=DiffType.MODIFIED,
+                    path="ip/dns/allow-remote-requests",
+                    before=before_remote,
+                    after=after_remote,
+                    description=f"DNS allow-remote-requests changed: {before_remote} -> {after_remote}",  # noqa: E501
+                )
+            )
 
         return entries
 
@@ -333,23 +369,27 @@ class SemanticDiffEngine:
 
         for q in after:
             if q.name not in before_names:
-                entries.append(DiffEntry(
-                    category="Queue",
-                    diff_type=DiffType.ADDED,
-                    path=f"queue/{q.name}",
-                    after=q.name,
-                    description=f"Queue {q.name} added",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Queue",
+                        diff_type=DiffType.ADDED,
+                        path=f"queue/{q.name}",
+                        after=q.name,
+                        description=f"Queue {q.name} added",
+                    )
+                )
 
         for q in before:
             if q.name not in after_names:
-                entries.append(DiffEntry(
-                    category="Queue",
-                    diff_type=DiffType.REMOVED,
-                    path=f"queue/{q.name}",
-                    before=q.name,
-                    description=f"Queue {q.name} removed",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Queue",
+                        diff_type=DiffType.REMOVED,
+                        path=f"queue/{q.name}",
+                        before=q.name,
+                        description=f"Queue {q.name} removed",
+                    )
+                )
 
         return entries
 
@@ -360,23 +400,27 @@ class SemanticDiffEngine:
 
         for b in after:
             if b.name not in before_names:
-                entries.append(DiffEntry(
-                    category="Bridge",
-                    diff_type=DiffType.ADDED,
-                    path=f"bridge/{b.name}",
-                    after=b.name,
-                    description=f"Bridge {b.name} added",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Bridge",
+                        diff_type=DiffType.ADDED,
+                        path=f"bridge/{b.name}",
+                        after=b.name,
+                        description=f"Bridge {b.name} added",
+                    )
+                )
 
         for b in before:
             if b.name not in after_names:
-                entries.append(DiffEntry(
-                    category="Bridge",
-                    diff_type=DiffType.REMOVED,
-                    path=f"bridge/{b.name}",
-                    before=b.name,
-                    description=f"Bridge {b.name} removed",
-                ))
+                entries.append(
+                    DiffEntry(
+                        category="Bridge",
+                        diff_type=DiffType.REMOVED,
+                        path=f"bridge/{b.name}",
+                        before=b.name,
+                        description=f"Bridge {b.name} removed",
+                    )
+                )
 
         return entries
 

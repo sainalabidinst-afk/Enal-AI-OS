@@ -60,7 +60,9 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "validation",
         "inputs": {
             "business_context": {"project_name": "docs-validation", "domain": "enterprise"},
-            "inputs": {"validation_rules": ["broken_links", "missing_sections", "outdated_examples"]},
+            "inputs": {
+                "validation_rules": ["broken_links", "missing_sections", "outdated_examples"]
+            },
         },
         "min_quality_score": 0.90,
     },
@@ -100,7 +102,10 @@ SCENARIOS: list[dict[str, Any]] = [
         "category": "sync",
         "inputs": {
             "business_context": {"project_name": "docs-sync", "domain": "enterprise"},
-            "inputs": {"packs": ["code_engineer", "devops_assistant", "security_engineer"], "sync_frequency": "daily"},
+            "inputs": {
+                "packs": ["code_engineer", "devops_assistant", "security_engineer"],
+                "sync_frequency": "daily",
+            },
         },
         "min_quality_score": 0.85,
     },

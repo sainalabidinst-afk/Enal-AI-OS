@@ -39,10 +39,14 @@ class EvidenceRanker:
             if query_terms:
                 title_lower = ev.title.lower()
                 content_lower = ev.content.lower()
-                keyword_hits = sum(1 for term in query_terms if term in title_lower or term in content_lower)  # noqa: E501
+                keyword_hits = sum(
+                    1 for term in query_terms if term in title_lower or term in content_lower
+                )  # noqa: E501
                 relevance = max(relevance, min(1.0, keyword_hits / max(1, len(query_terms))))
 
-            composite = (source_quality * 0.4) + (recency * 0.25) + (methodology * 0.2) + (relevance * 0.15)  # noqa: E501
+            composite = (
+                (source_quality * 0.4) + (recency * 0.25) + (methodology * 0.2) + (relevance * 0.15)
+            )  # noqa: E501
             scored.append((composite, ev))
 
         scored.sort(key=lambda pair: pair[0], reverse=True)

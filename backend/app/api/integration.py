@@ -70,9 +70,7 @@ def _workflow_result_to_response(result: Any) -> dict[str, Any]:
 
     reasoning_output = intermediate.get("reasoning_output", {})
     conclusions = (
-        reasoning_output.get("conclusions", [])
-        if isinstance(reasoning_output, dict)
-        else []
+        reasoning_output.get("conclusions", []) if isinstance(reasoning_output, dict) else []
     )
 
     legacy_reasoning_chain = metadata.get("legacy_reasoning_chain", [])

@@ -38,7 +38,9 @@ REPORT_DIR = Path(__file__).resolve().parent.parent / "benchmarks" / "reports"
 REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def _make_request(query: str, operation: str = "literature_review", **kwargs: object) -> ResearchRequest:
+def _make_request(
+    query: str, operation: str = "literature_review", **kwargs: object
+) -> ResearchRequest:
     max_sources = 10
     min_confidence = 0.5
     include_contradictions = True
@@ -160,7 +162,7 @@ def test_efficiency() -> float:
     request = _make_request("AI software engineering", max_sources=10)
 
     start = time.perf_counter()
-    report = asyncio.run(engine.analyze(request))
+    asyncio.run(engine.analyze(request))
     latency_ms = (time.perf_counter() - start) * 1000.0
 
     if latency_ms < 1000:
@@ -245,7 +247,9 @@ def main() -> int:
     report_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(f"JSON report written: {report_path}")
 
-    rows = [{"dimension": k, "score": v, "passed": v >= 0.7} for k, v in payload["dimensions"].items()]
+    rows = [
+        {"dimension": k, "score": v, "passed": v >= 0.7} for k, v in payload["dimensions"].items()
+    ]
     rows.append({"dimension": "overall", "score": payload["overall"], "passed": payload["passed"]})
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["dimension", "score", "passed"])

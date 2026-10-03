@@ -6,7 +6,14 @@ from backend.app.core.memory_layer import MemoryManager
 
 
 class FakeMemory:
-    def __init__(self, store_result=None, retrieve_result=None, search_result=None, list_keys_result=None, delete_result=None):  # noqa: E501
+    def __init__(
+        self,
+        store_result=None,
+        retrieve_result=None,
+        search_result=None,
+        list_keys_result=None,
+        delete_result=None,
+    ):  # noqa: E501
         self._store_result = store_result
         self._retrieve_result = retrieve_result
         self._search_result = search_result or []
@@ -43,10 +50,12 @@ class TestMemoryManager:
         assert context["entries"] == []
 
     async def test_get_session_context_with_query(self, manager):
-        manager._layers["session"] = FakeMemory(search_result=[
-            {"value": "hello world"},
-            {"value": "foo bar"},
-        ])
+        manager._layers["session"] = FakeMemory(
+            search_result=[
+                {"value": "hello world"},
+                {"value": "foo bar"},
+            ]
+        )
         context = await manager.get_session_context("sess-1", query="hello")
         assert len(context["entries"]) == 1
         assert context["entries"][0]["value"] == "hello world"
@@ -96,15 +105,19 @@ class TestMemoryManager:
 
     async def test_cross_session_search(self, manager):
         for layer in manager._layers:
-            manager._layers[layer] = FakeMemory(search_result=[{"value": {"session_id": "s1", "text": "a"}}])  # noqa: E501
+            manager._layers[layer] = FakeMemory(
+                search_result=[{"value": {"session_id": "s1", "text": "a"}}]
+            )  # noqa: E501
         results = await manager.cross_session_search("query")
         assert len(results) == len(manager._layers)
 
     async def test_cross_session_search_with_pattern(self, manager):
         for layer in manager._layers:
-            manager._layers[layer] = FakeMemory(search_result=[
-                {"value": {"session_id": "s1", "text": "a"}},
-                {"value": {"session_id": "s2", "text": "b"}},
-            ])
+            manager._layers[layer] = FakeMemory(
+                search_result=[
+                    {"value": {"session_id": "s1", "text": "a"}},
+                    {"value": {"session_id": "s2", "text": "b"}},
+                ]
+            )
         results = await manager.cross_session_search("query", session_pattern="s1")
         assert len(results) == len(manager._layers)

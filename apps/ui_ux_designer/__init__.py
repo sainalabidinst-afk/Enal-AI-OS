@@ -39,9 +39,7 @@ class UIUXDesignerApp(BaseReferenceApp):
     def __init__(self) -> None:
         self.worker = UIUXDesignerWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("user_input", user_input)
         return await self.worker.execute(task)
@@ -49,6 +47,7 @@ class UIUXDesignerApp(BaseReferenceApp):
 
 def get_app() -> UIUXDesignerApp:
     return UIUXDesignerApp()
+
 
 __all__ = [
     "UIUXDesignerApp",

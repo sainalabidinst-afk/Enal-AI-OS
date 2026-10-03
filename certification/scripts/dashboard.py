@@ -45,16 +45,18 @@ def build_dashboard(certificates: list[dict[str, Any]]) -> dict[str, Any]:
 
     capabilities = []
     for c in certificates:
-        capabilities.append({
-            "capabilityId": c.get("capabilityId"),
-            "capabilityName": c.get("capabilityName"),
-            "grade": c.get("grade"),
-            "certificationLevel": c.get("certificationLevel"),
-            "overallScore": c.get("overallScore"),
-            "status": c.get("status"),
-            "certificationDate": c.get("certificationDate"),
-            "expirationDate": c.get("expirationDate"),
-        })
+        capabilities.append(
+            {
+                "capabilityId": c.get("capabilityId"),
+                "capabilityName": c.get("capabilityName"),
+                "grade": c.get("grade"),
+                "certificationLevel": c.get("certificationLevel"),
+                "overallScore": c.get("overallScore"),
+                "status": c.get("status"),
+                "certificationDate": c.get("certificationDate"),
+                "expirationDate": c.get("expirationDate"),
+            }
+        )
 
     return {
         "generatedAt": "",
@@ -73,7 +75,8 @@ def build_dashboard(certificates: list[dict[str, Any]]) -> dict[str, Any]:
 
 def save_dashboard(dashboard: dict[str, Any]) -> Path:
     import datetime
-    dashboard["generatedAt"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+    dashboard["generatedAt"] = datetime.datetime.now(datetime.UTC).isoformat()
     DASHBOARD_FILE.write_text(json.dumps(dashboard, indent=2), encoding="utf-8")
     return DASHBOARD_FILE
 

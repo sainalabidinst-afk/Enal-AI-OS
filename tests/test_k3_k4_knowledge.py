@@ -66,8 +66,12 @@ def test_conflict_detection_within_claim():
 
 def test_cross_capability_conflict_exposure():
     engine = EvidenceIntelligenceEngine()
-    trading_bullish = engine.create("claim-1", "Bullish", confidence=0.85, source=EvidenceSource.TRADING)
-    knowledge_bearish = engine.create("claim-1", "Bearish divergence detected", confidence=0.75, source=EvidenceSource.KNOWLEDGE)
+    trading_bullish = engine.create(
+        "claim-1", "Bullish", confidence=0.85, source=EvidenceSource.TRADING
+    )
+    knowledge_bearish = engine.create(
+        "claim-1", "Bearish divergence detected", confidence=0.75, source=EvidenceSource.KNOWLEDGE
+    )
     engine.register_conflict(trading_bullish.id, knowledge_bearish.id)
     enriched = engine.enrich_for_reasoning("claim-1")
     assert enriched["contradicting_count"] >= 1

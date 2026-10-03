@@ -167,9 +167,10 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Callable
 from core.base_app import BaseApp, Task
 
+
 class DecoratorBase(BaseApp, ABC):
     """Kelas dasar abstrak untuk semua decorator pack."""
-    
+
     def __init__(self, wrapped_pack: BaseApp, config: Dict[str, Any]):
         super().__init__(config)
         self._wrapped_pack = wrapped_pack
@@ -177,31 +178,31 @@ class DecoratorBase(BaseApp, ABC):
             "before_execute": [],
             "after_execute": [],
             "around_execute": [],
-            "on_error": []
+            "on_error": [],
         }
-    
+
     def register_before(self, callback: Callable[[Task], None]) -> None:
         """Daftarkan callback yang dijalankan sebelum execute."""
         self._augmentation_points["before_execute"].append(callback)
-    
+
     def register_after(self, callback: Callable[[Task, Dict], None]) -> None:
         """Daftarkan callback yang dijalankan setelah execute."""
         self._augmentation_points["after_execute"].append(callback)
-    
+
     def register_around(self, callback: Callable[[Task, Callable], Dict]) -> None:
         """Daftarkan callback yang membungkus execute."""
         self._augmentation_points["around_execute"].append(callback)
-    
+
     def register_on_error(self, callback: Callable[[Task, Exception], None]) -> None:
         """Daftarkan callback yang dijalankan saat execute gagal."""
         self._augmentation_points["on_error"].append(callback)
-    
+
     def execute(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Eksekusi pack yang dibungkus dengan augmentasi."""
         # Execute before hooks
         for hook in self._augmentation_points["before_execute"]:
             hook(task)
-        
+
         try:
             # Execute around hooks (can modify or skip execution)
             result = None
@@ -209,17 +210,17 @@ class DecoratorBase(BaseApp, ABC):
                 result = hook(task, self._wrapped_pack.execute)
             if result is None:
                 result = self._wrapped_pack.execute(task)
-            
+
             # Execute after hooks
             for hook in self._augmentation_points["after_execute"]:
                 hook(task, result)
-            
+
             return result
         except Exception as e:
             for hook in self._augmentation_points["on_error"]:
                 hook(task, e)
             raise
-    
+
     @abstractmethod
     def get_capabilities(self) -> List[Dict[str, Any]]:
         """Kembalikan kemampuan yang diperluas dari pack yang dibungkus."""
@@ -228,35 +229,35 @@ class DecoratorBase(BaseApp, ABC):
 
 class LoggingDecorator(DecoratorBase):
     """Decorator yang menambahkan logging ke pack."""
-    
+
     def get_capabilities(self) -> List[Dict[str, Any]]:
         return self._wrapped_pack.get_capabilities()
 
 
 class CachingDecorator(DecoratorBase):
     """Decorator yang menambahkan caching ke pack."""
-    
+
     def get_capabilities(self) -> List[Dict[str, Any]]:
         return self._wrapped_pack.get_capabilities()
 
 
 class MetricsDecorator(DecoratorBase):
     """Decorator yang menambahkan metrics ke pack."""
-    
+
     def get_capabilities(self) -> List[Dict[str, Any]]:
         return self._wrapped_pack.get_capabilities()
 
 
 class RetryDecorator(DecoratorBase):
     """Decorator yang menambahkan retry logic ke pack."""
-    
+
     def get_capabilities(self) -> List[Dict[str, Any]]:
         return self._wrapped_pack.get_capabilities()
 
 
 class CircuitBreakerDecorator(DecoratorBase):
     """Decorator yang menambahkan circuit breaker ke pack."""
-    
+
     def get_capabilities(self) -> List[Dict[str, Any]]:
         return self._wrapped_pack.get_capabilities()
 ```

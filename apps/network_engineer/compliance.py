@@ -149,12 +149,14 @@ class ComplianceEngine:
         for rule in self._rules:
             if rule.vendor != "all" and rule.vendor != ast.vendor:
                 report.skipped += 1
-                report.checks.append(ComplianceCheck(
-                    rule_id=rule.id,
-                    rule_name=rule.name,
-                    status=ComplianceStatus.SKIP,
-                    detail=f"Rule not applicable for vendor {ast.vendor}",
-                ))
+                report.checks.append(
+                    ComplianceCheck(
+                        rule_id=rule.id,
+                        rule_name=rule.name,
+                        status=ComplianceStatus.SKIP,
+                        detail=f"Rule not applicable for vendor {ast.vendor}",
+                    )
+                )
                 continue
 
             check = self._check_rule(rule, ast, raw)
@@ -240,7 +242,9 @@ class ComplianceEngine:
             detail="Admin password check requires live system",
         )
 
-    def _check_ntp_enabled(self, rule: ComplianceRule, ast: NetworkAST, raw: str) -> ComplianceCheck:  # noqa: E501
+    def _check_ntp_enabled(
+        self, rule: ComplianceRule, ast: NetworkAST, raw: str
+    ) -> ComplianceCheck:  # noqa: E501
         if ast.system.ntp_enabled or "ntp" in raw:
             return ComplianceCheck(
                 rule_id=rule.id,
@@ -301,8 +305,14 @@ class ComplianceEngine:
             detail="No default password detected",
         )
 
-    def _check_unused_interfaces_disabled(self, rule: ComplianceRule, ast: NetworkAST) -> ComplianceCheck:  # noqa: E501
-        unused = [i for i in ast.interfaces if i.status == "enabled" and not any(ip.interface == i.name for ip in ast.ip_addresses)]  # noqa: E501
+    def _check_unused_interfaces_disabled(
+        self, rule: ComplianceRule, ast: NetworkAST
+    ) -> ComplianceCheck:  # noqa: E501
+        unused = [
+            i
+            for i in ast.interfaces
+            if i.status == "enabled" and not any(ip.interface == i.name for ip in ast.ip_addresses)
+        ]  # noqa: E501
         if unused:
             return ComplianceCheck(
                 rule_id=rule.id,

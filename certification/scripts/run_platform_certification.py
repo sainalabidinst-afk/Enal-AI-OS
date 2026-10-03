@@ -7,10 +7,8 @@ Usage:
 
 from __future__ import annotations
 
-import argparse
 import datetime
 import json
-import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -22,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 
 
 def now_iso() -> str:
-    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+    return datetime.datetime.now(datetime.UTC).isoformat()
 
 
 def score_to_grade(score: float) -> str:
@@ -66,11 +64,13 @@ def check_core_platform() -> dict[str, Any]:
         if exists:
             score += weight
         else:
-            findings.append({
-                "severity": "Major",
-                "description": f"Missing core component: {name}",
-                "component": str(paths[0]),
-            })
+            findings.append(
+                {
+                    "severity": "Major",
+                    "description": f"Missing core component: {name}",
+                    "component": str(paths[0]),
+                }
+            )
 
     percentage = pct(score, max_score)
     passed = percentage >= 80
@@ -208,25 +208,37 @@ def run_platform_certification() -> dict[str, Any]:
     operational = check_operational()
 
     overall_score = (
-        core["score"]
-        + cross["score"]
-        + runtime["score"]
-        + e2e["score"]
-        + operational["score"]
+        core["score"] + cross["score"] + runtime["score"] + e2e["score"] + operational["score"]
     )
-    max_score = core["maxScore"] + cross["maxScore"] + runtime["maxScore"] + e2e["maxScore"] + operational["maxScore"]
+    max_score = (
+        core["maxScore"]
+        + cross["maxScore"]
+        + runtime["maxScore"]
+        + e2e["maxScore"]
+        + operational["maxScore"]
+    )
     overall_pct = pct(overall_score, max_score)
 
-    all_passed = all([
-        core["passed"],
-        cross["passed"],
-        runtime["passed"],
-        e2e["passed"],
-        operational["passed"],
-    ])
+    all_passed = all(
+        [
+            core["passed"],
+            cross["passed"],
+            runtime["passed"],
+            e2e["passed"],
+            operational["passed"],
+        ]
+    )
 
-    grade = score_to_grade(overall_pct)
-    level = "Enterprise Platform" if overall_pct >= 90 else "Certified Platform" if overall_pct >= 80 else "Provisional Platform" if overall_pct >= 70 else "Experimental Platform"
+    score_to_grade(overall_pct)
+    level = (
+        "Enterprise Platform"
+        if overall_pct >= 90
+        else "Certified Platform"
+        if overall_pct >= 80
+        else "Provisional Platform"
+        if overall_pct >= 70
+        else "Experimental Platform"
+    )
 
     return {
         "platform": "ENAL AI OS",

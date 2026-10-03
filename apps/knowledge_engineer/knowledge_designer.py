@@ -25,16 +25,32 @@ class KnowledgeModeler:
 
     DOMAIN_ONTOLOGIES: dict[str, list[dict[str, Any]]] = {
         "finance": [
-            {"class": "Instrument", "properties": ["symbol", "name", "type", "currency"], "parent": None},  # noqa: E501
+            {
+                "class": "Instrument",
+                "properties": ["symbol", "name", "type", "currency"],
+                "parent": None,
+            },  # noqa: E501
             {"class": "Portfolio", "properties": ["id", "value", "holdings"], "parent": None},  # noqa: E501
-            {"class": "Transaction", "properties": ["id", "timestamp", "amount", "instrument"], "parent": None},  # noqa: E501
+            {
+                "class": "Transaction",
+                "properties": ["id", "timestamp", "amount", "instrument"],
+                "parent": None,
+            },  # noqa: E501
             {"class": "Account", "properties": ["id", "type", "balance"], "parent": None},
         ],  # noqa: E501
         "healthcare": [
-            {"class": "Patient", "properties": ["id", "age", "gender", "conditions"], "parent": None},  # noqa: E501
+            {
+                "class": "Patient",
+                "properties": ["id", "age", "gender", "conditions"],
+                "parent": None,
+            },  # noqa: E501
             {"class": "Condition", "properties": ["code", "name", "severity"], "parent": None},
             {"class": "Treatment", "properties": ["code", "name", "protocol"], "parent": None},
-            {"class": "Observation", "properties": ["code", "value", "unit", "timestamp"], "parent": None},  # noqa: E501
+            {
+                "class": "Observation",
+                "properties": ["code", "value", "unit", "timestamp"],
+                "parent": None,
+            },  # noqa: E501
         ],
         "general": [
             {"class": "Entity", "properties": ["id", "name", "type"], "parent": None},
@@ -67,12 +83,14 @@ class KnowledgeModeler:
 
         classes = []
         for cls in domain_classes:
-            classes.append(OntologyClass(
-                name=cls["class"],
-                description=f"{cls['class']} class in {domain} ontology",
-                properties=cls["properties"],
-                parent_class=cls["parent"],
-            ))
+            classes.append(
+                OntologyClass(
+                    name=cls["class"],
+                    description=f"{cls['class']} class in {domain} ontology",
+                    properties=cls["properties"],
+                    parent_class=cls["parent"],
+                )
+            )
         return classes
 
     def design_relationships(self, config: KnowledgeConfig) -> list[RelationshipType]:
@@ -82,12 +100,14 @@ class KnowledgeModeler:
 
         relationships = []
         for rel in domain_rels:
-            relationships.append(RelationshipType(
-                name=rel["name"],
-                source_class=rel["source"],
-                target_class=rel["target"],
-                cardinality="n:m",
-            ))
+            relationships.append(
+                RelationshipType(
+                    name=rel["name"],
+                    source_class=rel["source"],
+                    target_class=rel["target"],
+                    cardinality="n:m",
+                )
+            )
         return relationships
 
     def resolve_entities(self, config: KnowledgeConfig) -> list[EntityMapping]:
@@ -95,13 +115,15 @@ class KnowledgeModeler:
         entities = []
         for entity_name in config.entities:
             confidence = 0.95 if len(entity_name) > 3 else 0.85
-            entities.append(EntityMapping(
-                entity_id=f"ent_{hash(entity_name) % 10000}",
-                name=entity_name,
-                type=config.domain,
-                confidence=confidence,
-                aliases=[entity_name.lower(), entity_name.title()],
-            ))
+            entities.append(
+                EntityMapping(
+                    entity_id=f"ent_{hash(entity_name) % 10000}",
+                    name=entity_name,
+                    type=config.domain,
+                    confidence=confidence,
+                    aliases=[entity_name.lower(), entity_name.title()],
+                )
+            )
         return entities
 
     def build_semantic_model(self, config: KnowledgeConfig) -> dict[str, Any]:

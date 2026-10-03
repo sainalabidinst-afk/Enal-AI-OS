@@ -60,9 +60,7 @@ class FullStackEngineerApp(BaseReferenceApp):
         context = context or {}
         project_id = context.get("project_id", "full-stack-engineer-default")
         result = await adaptive_runtime.execute(
-            user_input,
-            project_id=project_id,
-            force_pipeline=self.pipeline
+            user_input, project_id=project_id, force_pipeline=self.pipeline
         )
         return {
             "app": self.name,
@@ -75,12 +73,16 @@ class FullStackEngineerApp(BaseReferenceApp):
             },
         }
 
-    async def review_architecture(self, repo_path: str, context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review_architecture(
+        self, repo_path: str, context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         await self._ensure_components()
         engine = self.architecture_review_engine_cls()
         return await engine.review(repo_path, context)
 
-    async def review_code(self, code: str, filename: str = "<unknown>", context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review_code(
+        self, code: str, filename: str = "<unknown>", context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         await self._ensure_components()
         engine = self.code_review_engine_cls()
         return await engine.review(code, filename, context)
@@ -100,7 +102,9 @@ class FullStackEngineerApp(BaseReferenceApp):
         engine = self.performance_engineer_cls()
         return await engine.analyze(code, filename)
 
-    async def review_release(self, changes: list[dict[str, Any]], context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review_release(
+        self, changes: list[dict[str, Any]], context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         await self._ensure_components()
         engine = self.release_engineer_cls()
         return await engine.review(changes, context)

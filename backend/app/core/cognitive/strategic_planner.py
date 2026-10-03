@@ -35,7 +35,9 @@ class StrategicPlanner:
         self._goals: dict[str, StrategicGoal] = {}
         self._roadmaps: dict[str, Roadmap] = {}
 
-    def _serialize_context(self, context: dict[str, Any], visited: set[int] | None = None) -> dict[str, Any]:  # noqa: E501
+    def _serialize_context(
+        self, context: dict[str, Any], visited: set[int] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         if visited is None:
             visited = set()
         obj_id = id(context)
@@ -46,8 +48,7 @@ class StrategicPlanner:
         for key, value in context.items():
             if dataclasses.is_dataclass(value) and not isinstance(value, type):
                 serializable[key] = {
-                    f.name: getattr(value, f.name)
-                    for f in dataclasses.fields(value)
+                    f.name: getattr(value, f.name) for f in dataclasses.fields(value)
                 }
             elif isinstance(value, dict):
                 serializable[key] = self._serialize_context(value, visited)
@@ -55,7 +56,9 @@ class StrategicPlanner:
                 serializable[key] = value
         return serializable
 
-    async def create_strategy(self, goal_description: str, context: dict[str, Any] | None = None) -> Roadmap:  # noqa: E501
+    async def create_strategy(
+        self, goal_description: str, context: dict[str, Any] | None = None
+    ) -> Roadmap:  # noqa: E501
         safe_context = self._serialize_context(context or {})
         prompt = (
             "You are a strategic planner. Create a detailed roadmap for the following goal.\n\n"
@@ -75,6 +78,7 @@ class StrategicPlanner:
             max_tokens=1024,
         )
         import uuid
+
         roadmap_id = f"roadmap-{uuid.uuid4().hex[:8]}"
         try:
             roadmap_data = json.loads(response.choices[0].message.content)
@@ -89,8 +93,17 @@ class StrategicPlanner:
             roadmap = Roadmap(
                 id=roadmap_id,
                 goal_id=roadmap_id,
-                phases=[{"name": "Execution", "description": goal_description, "duration": "1 week", "deliverables": [goal_description]}],  # noqa: E501
-                milestones=[{"name": "Complete", "criteria": [goal_description], "deadline": "1 week"}],  # noqa: E501
+                phases=[
+                    {
+                        "name": "Execution",
+                        "description": goal_description,
+                        "duration": "1 week",
+                        "deliverables": [goal_description],
+                    }
+                ],  # noqa: E501
+                milestones=[
+                    {"name": "Complete", "criteria": [goal_description], "deadline": "1 week"}
+                ],  # noqa: E501
                 estimated_duration="1 week",
             )
         self._roadmaps[roadmap_id] = roadmap
@@ -100,11 +113,13 @@ class StrategicPlanner:
         workflow_steps = []
         for phase in roadmap.phases:
             for deliverable in phase.get("deliverables", []):
-                workflow_steps.append({
-                    "name": deliverable,
-                    "description": phase.get("description", ""),
-                    "phase": phase.get("name", ""),
-                })
+                workflow_steps.append(
+                    {
+                        "name": deliverable,
+                        "description": phase.get("description", ""),
+                        "phase": phase.get("name", ""),
+                    }
+                )
         return workflow_steps
 
     def get_roadmap(self, roadmap_id: str) -> Roadmap | None:

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Generate self_development benchmark report matching project conventions."""
+
 import sys
 
-sys.stdout.reconfigure(encoding='utf-8')
-import json
-from datetime import datetime
-from pathlib import Path
+sys.stdout.reconfigure(encoding="utf-8")
+import json  # noqa: E402
+from datetime import datetime  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 bench_dir = Path("benchmarks/reports")
 bench_dir.mkdir(parents=True, exist_ok=True)
@@ -22,7 +23,7 @@ dimensions = {
     "architecture_debt_detection": 0.98,
     "cross_domain_resolution": 0.96,
     "refactoring_recommendation_quality": 0.95,
-    "knowledge_transfer_effectiveness": 0.95
+    "knowledge_transfer_effectiveness": 0.95,
 }
 
 total = sum(dimensions.values())
@@ -42,7 +43,7 @@ report = {
     "passed": passed,
     "total_scenarios": total_scenarios,
     "passed_scenarios": scenarios_passed,
-    "grade": "A+" if overall >= 0.95 else "A" if overall >= 0.90 else "B"
+    "grade": "A+" if overall >= 0.95 else "A" if overall >= 0.90 else "B",
 }
 
 report_path = bench_dir / "self_development_benchmark.json"

@@ -66,7 +66,9 @@ class DisasterRecoveryPlanner:
     def get_recommendations(self, plan: DRPlan) -> list[str]:
         recs: list[str] = []
         if plan.strategy == DisasterRecoveryStrategy.backup_restore:
-            recs.append("Pertimbangkan upgrade ke pilot_light atau warm_standby untuk RPO/RTO yang lebih baik")  # noqa: E501
+            recs.append(
+                "Pertimbangkan upgrade ke pilot_light atau warm_standby untuk RPO/RTO yang lebih baik"  # noqa: E501
+            )  # noqa: E501
         if plan.rpo.rpo_minutes > 60:
             recs.append("RPO target lebih tinggi dari 1 jam — evaluasi toleransi data loss")
         if plan.rpo.rto_minutes > 240:

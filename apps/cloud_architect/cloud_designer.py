@@ -32,18 +32,46 @@ class CloudArchitectureDesigner:
 
     PROVIDER_SERVICES: dict[CloudProvider, list[str]] = {
         CloudProvider.aws: [
-            "VPC", "EC2", "S3", "RDS", "Lambda", "CloudFront",
-            "Route53", "IAM", "CloudWatch", "EKS", "ALB", "Auto Scaling",
+            "VPC",
+            "EC2",
+            "S3",
+            "RDS",
+            "Lambda",
+            "CloudFront",
+            "Route53",
+            "IAM",
+            "CloudWatch",
+            "EKS",
+            "ALB",
+            "Auto Scaling",
         ],
         CloudProvider.azure: [
-            "Virtual Network", "VM", "Storage Account", "SQL DB",
-            "Functions", "Front Door", "DNS", "Azure AD", "Monitor",
-            "AKS", "Load Balancer", "VMSS",
+            "Virtual Network",
+            "VM",
+            "Storage Account",
+            "SQL DB",
+            "Functions",
+            "Front Door",
+            "DNS",
+            "Azure AD",
+            "Monitor",
+            "AKS",
+            "Load Balancer",
+            "VMSS",
         ],
         CloudProvider.gcp: [
-            "VPC", "Compute Engine", "Cloud Storage", "Cloud SQL",
-            "Cloud Functions", "Cloud CDN", "Cloud DNS", "IAM",
-            "Cloud Monitoring", "GKE", "Cloud Load Balancing", "Autoscaler",
+            "VPC",
+            "Compute Engine",
+            "Cloud Storage",
+            "Cloud SQL",
+            "Cloud Functions",
+            "Cloud CDN",
+            "Cloud DNS",
+            "IAM",
+            "Cloud Monitoring",
+            "GKE",
+            "Cloud Load Balancing",
+            "Autoscaler",
         ],
     }
 
@@ -108,7 +136,9 @@ class CloudArchitectureDesigner:
             "passive_regions": passive_regions,
             "replication": {
                 "enabled": len(regions) > 1,
-                "type": "synchronous" if strategy == RegionStrategy.active_active else "asynchronous",  # noqa: E501
+                "type": "synchronous"
+                if strategy == RegionStrategy.active_active
+                else "asynchronous",  # noqa: E501
             },
         }
 
@@ -122,11 +152,15 @@ class CloudArchitectureDesigner:
         savings_estimates: dict[str, float] = {}
 
         if CostOptimizationStrategy.reserved_instances in strategy:  # noqa: E501
-            recommendations.append("Purchase reserved instances for steady-state workloads (save 30-60%)")  # noqa: E501
+            recommendations.append(
+                "Purchase reserved instances for steady-state workloads (save 30-60%)"
+            )  # noqa: E501
             savings_estimates["reserved_instances"] = 0.40
-  # noqa: E501
+        # noqa: E501
         if CostOptimizationStrategy.spot_instances in strategy:
-            recommendations.append("Use spot instances for fault-tolerant batch workloads (save 60-90%)")  # noqa: E501
+            recommendations.append(
+                "Use spot instances for fault-tolerant batch workloads (save 60-90%)"
+            )  # noqa: E501
             savings_estimates["spot_instances"] = 0.70
 
         if CostOptimizationStrategy.autoscaling in strategy:
@@ -162,7 +196,9 @@ class CloudArchitectureDesigner:
             30: "hourly incremental backups",  # noqa: E501
             5: "continuous backup with cross-region replication",
         }
-        backup_key = min(backup_strategies, key=lambda k: abs(k - rpo_minutes)) if rpo_minutes > 60 else 60  # noqa: E501
+        backup_key = (
+            min(backup_strategies, key=lambda k: abs(k - rpo_minutes)) if rpo_minutes > 60 else 60
+        )  # noqa: E501
         backup_strat = backup_strategies.get(backup_key, backup_strategies[5])
 
         return {
@@ -175,7 +211,9 @@ class CloudArchitectureDesigner:
             "cross_region_replication": len(regions) >= 2,
         }
 
-    def generate_architecture_diagram(self, pattern: ArchitecturePattern, regions: list[str]) -> str:  # noqa: E501
+    def generate_architecture_diagram(
+        self, pattern: ArchitecturePattern, regions: list[str]
+    ) -> str:  # noqa: E501
         """Generate a text-based architecture diagram."""
         region_count = len(regions)
         return (

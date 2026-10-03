@@ -90,6 +90,7 @@ class SandboxExecutor:
                 injection_lines.append(f"{key} = {value}")
             elif isinstance(value, dict):
                 import json as _json
+
                 injection_lines.append(f"{key} = {_json.dumps(value)}")
             else:
                 injection_lines.append(f"{key} = {repr(value)}")

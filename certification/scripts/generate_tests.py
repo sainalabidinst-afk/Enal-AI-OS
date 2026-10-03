@@ -4,7 +4,6 @@ Generate smoke tests for capabilities that are missing test files.
 
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]

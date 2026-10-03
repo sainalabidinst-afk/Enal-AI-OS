@@ -61,13 +61,15 @@ class SREReliabilityEngineer:
         for service in config.services:
             for sli in config.slis:
                 defaults = self.SLI_DEFAULTS.get(sli, {})
-                slos.append(SLOSpec(
-                    service=service,
-                    indicator=sli.value,
-                    target=defaults.get("target", 0.99),
-                    window="28d",
-                    alert_threshold=defaults.get("threshold_ms", 0),
-                ))
+                slos.append(
+                    SLOSpec(
+                        service=service,
+                        indicator=sli.value,
+                        target=defaults.get("target", 0.99),
+                        window="28d",
+                        alert_threshold=defaults.get("threshold_ms", 0),
+                    )
+                )
         return slos
 
     def create_dashboards(self, config: SREConfig) -> list[DashboardSpec]:
@@ -75,11 +77,13 @@ class SREReliabilityEngineer:
         dashboards = []
         for service in config.services:
             panels = len(config.slis) * 2
-            dashboards.append(DashboardSpec(
-                name=f"{service}-sre-dashboard",
-                metrics=[sli.value for sli in config.slis],
-                panels=panels,
-            ))
+            dashboards.append(
+                DashboardSpec(
+                    name=f"{service}-sre-dashboard",
+                    metrics=[sli.value for sli in config.slis],
+                    panels=panels,
+                )
+            )
         return dashboards
 
     def generate_runbooks(self, config: SREConfig) -> list[RunbookSpec]:
@@ -132,12 +136,14 @@ class SREReliabilityEngineer:
         """Generate alert rules for SLO violations."""
         alerts = []
         for slo in slos:
-            alerts.append({
-                "name": f"{slo.service}-{slo.indicator}-slo-burn",
-                "expr": f"slo_{slo.indicator}_burn_rate > {slo.alert_threshold}",
-                "severity": "warning" if slo.target >= 0.99 else "critical",
-                "description": f"SLO burn rate for {slo.service} {slo.indicator}",
-            })
+            alerts.append(
+                {
+                    "name": f"{slo.service}-{slo.indicator}-slo-burn",
+                    "expr": f"slo_{slo.indicator}_burn_rate > {slo.alert_threshold}",
+                    "severity": "warning" if slo.target >= 0.99 else "critical",
+                    "description": f"SLO burn rate for {slo.service} {slo.indicator}",
+                }
+            )
         return alerts
 
 

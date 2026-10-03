@@ -91,6 +91,7 @@ class AgentInfo:
         task_history: List of completed task IDs.
         capabilities: List of capabilities this agent can execute.
     """
+
     agent_id: str
     name: str
     skills: list[str] = field(default_factory=list)
@@ -115,6 +116,7 @@ class AgentTask:
         started_at: When execution started.
         completed_at: When execution completed.
     """
+
     task_id: str
     agent_id: str
     step: PlanStep
@@ -142,6 +144,7 @@ class MultiAgentResult:
         total_duration_ms: Total execution time.
         status: Overall status.
     """
+
     execution_id: str
     plan_id: str
     strategy: CoordinationStrategy
@@ -296,7 +299,9 @@ class MultiAgentOrchestrator:
 
         logger.info(
             "Task %s assigned to agent %s: %s",
-            task_id, agent_id, step.description,
+            task_id,
+            agent_id,
+            step.description,
         )
         return task
 
@@ -474,10 +479,12 @@ class MultiAgentOrchestrator:
         successful_results = []
         for i, result in enumerate(results):
             if not isinstance(result, Exception) and tasks[i].status == PlanStatus.COMPLETED:
-                successful_results.append({
-                    "agent_id": tasks[i].agent_id,
-                    "result": tasks[i].result,
-                })
+                successful_results.append(
+                    {
+                        "agent_id": tasks[i].agent_id,
+                        "result": tasks[i].result,
+                    }
+                )
 
         agreement = len(successful_results) / len(agent_ids) if agent_ids else 0
         consensus_reached = agreement >= agreement_threshold
@@ -548,8 +555,7 @@ class MultiAgentOrchestrator:
                         raise ValueError("No available agents for hierarchical execution")
 
                 worker_ids = [
-                    a.agent_id for a in self.get_available_agents()
-                    if a.agent_id != lead_agent_id
+                    a.agent_id for a in self.get_available_agents() if a.agent_id != lead_agent_id
                 ]
                 agent_tasks = await self.execute_hierarchical(plan, lead_agent_id, worker_ids)
 
@@ -603,7 +609,12 @@ class MultiAgentOrchestrator:
 
         logger.info(
             "Multi-agent execution %s: strategy=%s, tasks=%d, completed=%d, failed=%d, time=%.0fms",
-            execution_id, strategy.value, len(agent_tasks), completed, failed, duration_ms,
+            execution_id,
+            strategy.value,
+            len(agent_tasks),
+            completed,
+            failed,
+            duration_ms,
         )
 
         return result
@@ -674,14 +685,16 @@ class MultiAgentOrchestrator:
 
         step_results = []
         for task in tasks:
-            step_results.append({
-                "task_id": task.task_id,
-                "agent_id": task.agent_id,
-                "step_id": task.step.step_id,
-                "description": task.step.description,
-                "status": task.status.value,
-                "error": task.error,
-            })
+            step_results.append(
+                {
+                    "task_id": task.task_id,
+                    "agent_id": task.agent_id,
+                    "step_id": task.step.step_id,
+                    "description": task.step.description,
+                    "status": task.status.value,
+                    "error": task.error,
+                }
+            )
 
         aggregated["steps"] = step_results
 
@@ -805,4 +818,3 @@ class MultiAgentOrchestrator:
 # ─── Singleton ───
 
 multi_agent_orchestrator = MultiAgentOrchestrator()
-

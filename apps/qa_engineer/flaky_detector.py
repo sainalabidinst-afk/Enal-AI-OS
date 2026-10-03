@@ -43,7 +43,18 @@ class FlakyFinding:
 
 
 # Keywords for classification.
-_NETWORK_KEYWORDS = {"timeout", "connection", "socket", "network", "request", "api", "http", "503", "502", "504"}  # noqa: E501
+_NETWORK_KEYWORDS = {
+    "timeout",
+    "connection",
+    "socket",
+    "network",
+    "request",
+    "api",
+    "http",
+    "503",
+    "502",
+    "504",
+}  # noqa: E501
 _TIMING_KEYWORDS = {"sleep", "wait", "timing", "delay", "race", "async", "concurrent", "thread"}
 _SHARED_STATE_KEYWORDS = {"shared", "global", "fixture", "singleton", "static", "cache", "state"}
 _ORDER_KEYWORDS = {"order", "sequence", "before", "after", "setup", "teardown", "depend"}
@@ -107,16 +118,18 @@ class FlakyDetector:
             evidence = [e.error_message or "Failed" for e in failures[:5]]
             confidence = min(1.0, failure_rate * 1.2)
 
-            findings.append({
-                "test_name": test_name,
-                "failure_rate": round(failure_rate, 4),
-                "classification": classification.value,
-                "severity": severity.value,
-                "evidence": evidence,
-                "total_executions": len(executions),
-                "total_failures": len(failures),
-                "confidence": round(confidence, 4),
-            })
+            findings.append(
+                {
+                    "test_name": test_name,
+                    "failure_rate": round(failure_rate, 4),
+                    "classification": classification.value,
+                    "severity": severity.value,
+                    "evidence": evidence,
+                    "total_executions": len(executions),
+                    "total_failures": len(failures),
+                    "confidence": round(confidence, 4),
+                }
+            )
 
         # Sort by failure rate descending.
         findings.sort(key=lambda f: f["failure_rate"], reverse=True)
@@ -139,25 +152,27 @@ class FlakyDetector:
 
         for line in lines:
             # Track build IDs.
-            build_match = re.search(r'build[#:\s]+(\S+)', line, re.IGNORECASE)
+            build_match = re.search(r"build[#:\s]+(\S+)", line, re.IGNORECASE)
             if build_match:
                 current_build = build_match.group(1)
 
             # Pytest format: "PASSED tests/test_foo.py::TestBar::test_baz" or "FAILED ..."
             test_match = re.match(
-                r'\s*(PASSED|FAILED|ERROR|SKIPPED)\s+(.+?)(?:\s+\[.*?\])?$',
+                r"\s*(PASSED|FAILED|ERROR|SKIPPED)\s+(.+?)(?:\s+\[.*?\])?$",
                 line.strip(),
             )
             if test_match:
                 status, test_name = test_match.group(1), test_match.group(2)
-                parsed.append({
-                    "test_name": test_name.strip(),
-                    "passed": status in ("PASSED", "SKIPPED"),
-                    "duration_ms": 0,
-                    "error_message": None if status == "PASSED" else f"{status} in {test_name}",
-                    "build_id": current_build,
-                    "timestamp": None,
-                })
+                parsed.append(
+                    {
+                        "test_name": test_name.strip(),
+                        "passed": status in ("PASSED", "SKIPPED"),
+                        "duration_ms": 0,
+                        "error_message": None if status == "PASSED" else f"{status} in {test_name}",
+                        "build_id": current_build,
+                        "timestamp": None,
+                    }
+                )
 
             # JUnit format: <testcase ...> or <failure ...>
             tc_match = re.match(r'\s*<testcase[^>]*name="([^"]+)"[^>]*>', line)
@@ -165,14 +180,16 @@ class FlakyDetector:
                 test_name = tc_match.group(1)
                 # Look ahead for failure in the same block (simplified).
                 passed = "failure" not in line.lower() and "error" not in line.lower()
-                parsed.append({
-                    "test_name": test_name,
-                    "passed": passed,
-                    "duration_ms": 0,
-                    "error_message": None if passed else "Test failure in JUnit report",
-                    "build_id": current_build,
-                    "timestamp": None,
-                })
+                parsed.append(
+                    {
+                        "test_name": test_name,
+                        "passed": passed,
+                        "duration_ms": 0,
+                        "error_message": None if passed else "Test failure in JUnit report",
+                        "build_id": current_build,
+                        "timestamp": None,
+                    }
+                )
 
         return parsed
 

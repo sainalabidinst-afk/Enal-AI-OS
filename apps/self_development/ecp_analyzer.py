@@ -12,7 +12,6 @@ Analyzes the ECP platform itself to detect:
 
 from __future__ import annotations
 
-import ast
 import logging
 import uuid
 from pathlib import Path
@@ -21,11 +20,9 @@ from typing import Any
 from apps.self_development.schemas import (
     CapabilityProposal,
     CapabilityTier,
-    CrossPackPattern,
     ECPPlatformAnalysis,
     ImprovementProposal,
     ImprovementType,
-    Problem,
     ProblemType,
     ProposalStatus,
 )
@@ -64,15 +61,26 @@ class ECPAnalyzer:
 
     def __init__(self, root: Path | None = None) -> None:
         self.root = (root or Path(".").resolve()).resolve()
+        apps_dir = self.root / "apps"
+        if not apps_dir.exists():
+            for parent in [self.root.parent, *list(self.root.parents)[:3]]:
+                if (parent / "apps").exists():
+                    self.root = parent.resolve()
+                    break
 
     def _pack_dirs(self) -> list[Path]:
         apps_dir = (self.root / "apps").resolve()
         if not apps_dir.exists():
             return []
-        return sorted([
-            d for d in apps_dir.iterdir()
-            if d.is_dir() and not d.name.startswith("__pycache__") and d.name not in {"society", "organization", "integration"}
-        ])
+        return sorted(
+            [
+                d
+                for d in apps_dir.iterdir()
+                if d.is_dir()
+                and not d.name.startswith("__pycache__")
+                and d.name not in {"society", "organization", "integration"}
+            ]
+        )
 
     def analyze(self) -> ECPPlatformAnalysis:
         hotspots = self._find_hotspots()
@@ -82,7 +90,9 @@ class ECPAnalyzer:
 
         py_files = list(self.root.rglob("*.py"))
         core_dir = self.root / "backend" / "app" / "core"
-        core_modules = len([f for f in py_files if f.is_relative_to(core_dir)]) if core_dir.exists() else 0
+        core_modules = (
+            len([f for f in py_files if f.is_relative_to(core_dir)]) if core_dir.exists() else 0
+        )
         capability_packs = len(self._pack_dirs())
 
         complexity = "medium"
@@ -109,17 +119,72 @@ class ECPAnalyzer:
         existing = {d.name.lower().replace("_", "-") for d in self._pack_dirs()}
 
         candidates = [
-            ("observability", "Observability Engineer", "Metrics, tracing, logging, anomaly detection", CapabilityTier.TIER_A),
-            ("cybersecurity_analyst", "Cybersecurity Analyst", "Threat modeling, incident detection, compliance mapping", CapabilityTier.TIER_A),
-            ("ai_ethics", "AI Ethics & Governance", "Fairness, bias detection, explainability, regulatory compliance", CapabilityTier.TIER_B),
-            ("supply_chain", "Supply Chain Analyst", "Logistics optimization, demand forecasting, risk management", CapabilityTier.TIER_C),
-            ("data_scientist", "Data Scientist", "Advanced ML pipelines, feature engineering, model evaluation", CapabilityTier.TIER_B),
-            ("business_intelligence", "Business Intelligence", "Dashboarding, KPI tracking, scenario planning", CapabilityTier.TIER_B),
-            ("innovation_strategist", "Innovation Strategist", "Trend analysis, R&D portfolio, foresight modeling", CapabilityTier.TIER_C),
-            ("devsecops", "DevSecOps", "Security-by-design, shift-left, compliance-as-code", CapabilityTier.TIER_B),
-            ("translator", "Translator Expert", "Document translation, multilingual support, localization", CapabilityTier.TIER_C),
-            ("document_processing", "Document Processing", "PDF, DOCX, CSV parsing, extraction, OCR", CapabilityTier.TIER_C),
-            ("voice_interaction", "Voice Interaction", "STT, TTS, voice commands, telephony", CapabilityTier.TIER_C),
+            (
+                "observability",
+                "Observability Engineer",
+                "Metrics, tracing, logging, anomaly detection",
+                CapabilityTier.TIER_A,
+            ),
+            (
+                "cybersecurity_analyst",
+                "Cybersecurity Analyst",
+                "Threat modeling, incident detection, compliance mapping",
+                CapabilityTier.TIER_A,
+            ),
+            (
+                "ai_ethics",
+                "AI Ethics & Governance",
+                "Fairness, bias detection, explainability, regulatory compliance",
+                CapabilityTier.TIER_B,
+            ),
+            (
+                "supply_chain",
+                "Supply Chain Analyst",
+                "Logistics optimization, demand forecasting, risk management",
+                CapabilityTier.TIER_C,
+            ),
+            (
+                "data_scientist",
+                "Data Scientist",
+                "Advanced ML pipelines, feature engineering, model evaluation",
+                CapabilityTier.TIER_B,
+            ),
+            (
+                "business_intelligence",
+                "Business Intelligence",
+                "Dashboarding, KPI tracking, scenario planning",
+                CapabilityTier.TIER_B,
+            ),
+            (
+                "innovation_strategist",
+                "Innovation Strategist",
+                "Trend analysis, R&D portfolio, foresight modeling",
+                CapabilityTier.TIER_C,
+            ),
+            (
+                "devsecops",
+                "DevSecOps",
+                "Security-by-design, shift-left, compliance-as-code",
+                CapabilityTier.TIER_B,
+            ),
+            (
+                "translator",
+                "Translator Expert",
+                "Document translation, multilingual support, localization",
+                CapabilityTier.TIER_C,
+            ),
+            (
+                "document_processing",
+                "Document Processing",
+                "PDF, DOCX, CSV parsing, extraction, OCR",
+                CapabilityTier.TIER_C,
+            ),
+            (
+                "voice_interaction",
+                "Voice Interaction",
+                "STT, TTS, voice commands, telephony",
+                CapabilityTier.TIER_C,
+            ),
         ]
 
         for domain, name, description, tier in candidates:
@@ -128,7 +193,7 @@ class ECPAnalyzer:
                 effort = self._estimate_effort(tier)
                 risk = "low" if tier == CapabilityTier.TIER_C else "medium"
                 confidence = 0.85 if reuse >= 3 else 0.7
-                rationale = f"Gap identified: {name} capabilities not covered by existing packs. Reuse potential: {reuse} packs."
+                rationale = f"Gap identified: {name} capabilities not covered by existing packs. Reuse potential: {reuse} packs."  # noqa: E501
 
                 proposals.append(
                     CapabilityProposal(
@@ -213,29 +278,37 @@ class ECPAnalyzer:
         for pack_dir in self._pack_dirs():
             has_benchmark = (pack_dir / "benchmarks").exists() or (pack_dir / "benchmark").exists()
             has_real_cases = (pack_dir / "real_cases").exists() or (pack_dir / "cases").exists()
-            has_docs = (pack_dir / "docs").exists() or (self.root / "docs" / "capabilities" / f"{pack_dir.name}.md").exists()
+            has_docs = (pack_dir / "docs").exists() or (
+                self.root / "docs" / "capabilities" / f"{pack_dir.name}.md"
+            ).exists()
 
             if not has_benchmark:
-                issues.append({
-                    "type": ProblemType.TEST_COVERAGE_GAP.value,
-                    "location": str(pack_dir),
-                    "description": f"Pack {pack_dir.name} missing benchmark",
-                    "severity": "medium",
-                })
+                issues.append(
+                    {
+                        "type": ProblemType.TEST_COVERAGE_GAP.value,
+                        "location": str(pack_dir),
+                        "description": f"Pack {pack_dir.name} missing benchmark",
+                        "severity": "medium",
+                    }
+                )
             if not has_real_cases:
-                issues.append({
-                    "type": ProblemType.TEST_COVERAGE_GAP.value,
-                    "location": str(pack_dir),
-                    "description": f"Pack {pack_dir.name} missing real_cases",
-                    "severity": "medium",
-                })
+                issues.append(
+                    {
+                        "type": ProblemType.TEST_COVERAGE_GAP.value,
+                        "location": str(pack_dir),
+                        "description": f"Pack {pack_dir.name} missing real_cases",
+                        "severity": "medium",
+                    }
+                )
             if not has_docs:
-                issues.append({
-                    "type": ProblemType.DOCUMENTATION_GAP.value,
-                    "location": str(pack_dir),
-                    "description": f"Pack {pack_dir.name} missing capability docs",
-                    "severity": "low",
-                })
+                issues.append(
+                    {
+                        "type": ProblemType.DOCUMENTATION_GAP.value,
+                        "location": str(pack_dir),
+                        "description": f"Pack {pack_dir.name} missing capability docs",
+                        "severity": "low",
+                    }
+                )
 
         return issues
 
@@ -244,8 +317,16 @@ class ECPAnalyzer:
         existing = {d.name.lower().replace("_", "-") for d in self._pack_dirs()}
 
         expected = [
-            ("observability", "Observability Engineer", "Metrics, tracing, logging, anomaly detection"),
-            ("cybersecurity-analyst", "Cybersecurity Analyst", "Threat modeling, incident detection"),
+            (
+                "observability",
+                "Observability Engineer",
+                "Metrics, tracing, logging, anomaly detection",
+            ),
+            (
+                "cybersecurity-analyst",
+                "Cybersecurity Analyst",
+                "Threat modeling, incident detection",
+            ),
             ("ai-ethics", "AI Ethics & Governance", "Fairness, bias detection, explainability"),
             ("supply-chain", "Supply Chain Analyst", "Logistics optimization, demand forecasting"),
             ("data-scientist", "Data Scientist", "Advanced ML pipelines, model evaluation"),
@@ -259,12 +340,14 @@ class ECPAnalyzer:
 
         for domain, name, description in expected:
             if domain not in existing:
-                gaps.append({
-                    "pack": name,
-                    "domain": domain,
-                    "description": description,
-                    "tier": "tier_b",
-                })
+                gaps.append(
+                    {
+                        "pack": name,
+                        "domain": domain,
+                        "description": description,
+                        "tier": "tier_b",
+                    }
+                )
 
         return gaps
 
@@ -280,17 +363,19 @@ class ECPAnalyzer:
         }
 
         for pattern_type, packs in common_tools.items():
-            pack_dirs = [p for p in packs if any(d.name == p for d in PACK_DIRS)]
+            pack_dirs = [p for p in packs if any(d.name == p for d in self._pack_dirs())]
             if len(pack_dirs) >= 2:
-                patterns.append({
-                    "id": f"pattern-{uuid.uuid4().hex[:8]}",
-                    "pattern_type": pattern_type,
-                    "description": f"Shared {pattern_type} pattern across multiple packs",
-                    "source_packs": pack_dirs,
-                    "target_packs": pack_dirs,
-                    "reusability_score": min(1.0, len(pack_dirs) / 5.0),
-                    "implementation_complexity": "medium",
-                })
+                patterns.append(
+                    {
+                        "id": f"pattern-{uuid.uuid4().hex[:8]}",
+                        "pattern_type": pattern_type,
+                        "description": f"Shared {pattern_type} pattern across multiple packs",
+                        "source_packs": pack_dirs,
+                        "target_packs": pack_dirs,
+                        "reusability_score": min(1.0, len(pack_dirs) / 5.0),
+                        "implementation_complexity": "medium",
+                    }
+                )
 
         return patterns
 

@@ -49,10 +49,10 @@ class PIIGuardrail(BaseGuardrail):
     name = "pii"
 
     _patterns = [
-        (r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', 'email'),
-        (r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b', 'phone'),
-        (r'\b\d{3}-\d{2}-\d{4}\b', 'ssn'),
-        (r'\b\d{4}[-\s]\d{4}[-\s]\d{4}[-\s]\d{4}\b', 'credit_card'),
+        (r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", "email"),
+        (r"\b\d{3}[-.]?\d{3}[-.]?\d{4}\b", "phone"),
+        (r"\b\d{3}-\d{2}-\d{4}\b", "ssn"),
+        (r"\b\d{4}[-\s]\d{4}[-\s]\d{4}[-\s]\d{4}\b", "credit_card"),
     ]
 
     def check(self, content: str, context: dict[str, Any] | None = None) -> GuardrailResult:
@@ -63,7 +63,7 @@ class PIIGuardrail(BaseGuardrail):
                     triggered=True,
                     action=self.action,
                     details=f"Detected {pii_type}",
-                    modified_content=re.sub(pattern, '[REDACTED]', content),
+                    modified_content=re.sub(pattern, "[REDACTED]", content),
                 )
         return GuardrailResult(guardrail=self.name, triggered=False, action=self.action)
 
@@ -71,7 +71,7 @@ class PIIGuardrail(BaseGuardrail):
 class ToxicLanguageGuardrail(BaseGuardrail):
     name = "toxic_language"
 
-    _words = {'badword1', 'badword2', 'badword3'}
+    _words = {"badword1", "badword2", "badword3"}
 
     def check(self, content: str, context: dict[str, Any] | None = None) -> GuardrailResult:
         lower = content.lower()
@@ -82,7 +82,7 @@ class ToxicLanguageGuardrail(BaseGuardrail):
                 triggered=True,
                 action=self.action,
                 details=f"Toxic words: {', '.join(found)}",
-                modified_content='',
+                modified_content="",
             )
         return GuardrailResult(guardrail=self.name, triggered=False, action=self.action)
 
@@ -91,12 +91,12 @@ class PromptInjectionGuardrail(BaseGuardrail):
     name = "prompt_injection"
 
     _patterns = [
-        r'ignore previous instructions',
-        r'ignore all previous',
-        r'disregard all',
-        r'forget everything',
-        r'you are now',
-        r'new instructions',
+        r"ignore previous instructions",
+        r"ignore all previous",
+        r"disregard all",
+        r"forget everything",
+        r"you are now",
+        r"new instructions",
     ]
 
     def check(self, content: str, context: dict[str, Any] | None = None) -> GuardrailResult:
@@ -115,7 +115,7 @@ class PromptInjectionGuardrail(BaseGuardrail):
 class BiasCheckGuardrail(BaseGuardrail):
     name = "bias_check"
 
-    _biased_terms = ['biased_term1', 'biased_term2']
+    _biased_terms = ["biased_term1", "biased_term2"]
 
     def check(self, content: str, context: dict[str, Any] | None = None) -> GuardrailResult:
         lower = content.lower()
@@ -134,7 +134,7 @@ class LogicCheckGuardrail(BaseGuardrail):
     name = "logic_check"
 
     def check(self, content: str, context: dict[str, Any] | None = None) -> GuardrailResult:
-        if 'contradiction' in content.lower() or 'impossible' in content.lower():
+        if "contradiction" in content.lower() or "impossible" in content.lower():
             return GuardrailResult(
                 guardrail=self.name,
                 triggered=True,
@@ -147,7 +147,7 @@ class LogicCheckGuardrail(BaseGuardrail):
 class CompetitorCheckGuardrail(BaseGuardrail):
     name = "competitor_check"
 
-    _competitors = ['competitor1', 'competitor2']
+    _competitors = ["competitor1", "competitor2"]
 
     def check(self, content: str, context: dict[str, Any] | None = None) -> GuardrailResult:
         lower = content.lower()

@@ -55,9 +55,7 @@ class QAEngineerApp(BaseReferenceApp):
     def __init__(self) -> None:
         self.worker = QAEngineerWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("user_input", user_input)
         return await self.worker.execute(task)
@@ -65,6 +63,7 @@ class QAEngineerApp(BaseReferenceApp):
 
 def get_app() -> QAEngineerApp:
     return QAEngineerApp()
+
 
 __all__ = [
     "QAEngineerApp",

@@ -33,7 +33,11 @@ class ComplianceAssessmentEngine:
             {"id": "A.10.1", "name": "Cryptographic Controls", "domain": "security"},
             {"id": "A.12.1", "name": "Secure Development Lifecycle", "domain": "development"},
             {"id": "A.13.1", "name": "Network Security Management", "domain": "network"},
-            {"id": "A.14.1", "name": "Security Requirements of Information Systems", "domain": "development"},  # noqa: E501
+            {
+                "id": "A.14.1",
+                "name": "Security Requirements of Information Systems",
+                "domain": "development",
+            },  # noqa: E501
         ],
         ComplianceFramework.nist: [
             {"id": "ID.AM-1", "name": "Resource Inventory", "domain": "assets"},
@@ -89,15 +93,17 @@ class ComplianceAssessmentEngine:
             for req in framework_reqs:
                 sev = "high" if req["domain"] in ("access", "data", "security") else "medium"
                 evidence = self.EVIDENCE_REQUIREMENTS.get(framework, []) if sev == "high" else []
-                requirements.append(ControlRequirement(
-                    id=req["id"],
-                    name=req["name"],
-                    framework=framework,
-                    description=f"{req['name']} for {framework.value}",
-                    severity=sev,
-                    status="pending",
-                    evidence_needed=evidence,
-                ))
+                requirements.append(
+                    ControlRequirement(
+                        id=req["id"],
+                        name=req["name"],
+                        framework=framework,
+                        description=f"{req['name']} for {framework.value}",
+                        severity=sev,
+                        status="pending",
+                        evidence_needed=evidence,
+                    )
+                )
         return requirements
 
     def collect_evidence(self, requirements: list[ControlRequirement]) -> list[AuditEvidence]:
@@ -105,12 +111,14 @@ class ComplianceAssessmentEngine:
         evidence_items = []
         for req in requirements:
             for evidence_type in req.evidence_needed:
-                evidence_items.append(AuditEvidence(
-                    control_id=req.id,
-                    evidence_type=evidence_type,
-                    collected=False,
-                    description=f"Evidence needed for {req.name}",
-                ))
+                evidence_items.append(
+                    AuditEvidence(
+                        control_id=req.id,
+                        evidence_type=evidence_type,
+                        collected=False,
+                        description=f"Evidence needed for {req.name}",
+                    )
+                )
         return evidence_items
 
     def assess_risks(self, config: ComplianceConfig) -> list[RiskItem]:

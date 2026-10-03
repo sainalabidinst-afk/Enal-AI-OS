@@ -110,7 +110,9 @@ class SecretFinding(BaseModel):
     severity: Severity = Field(default=Severity.high)
     remediation: str = Field(default="", description="Rotation guidance")
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
-    evidence: dict[str, Any] = Field(default_factory=dict, description="Supporting evidence for the finding")  # noqa: E501
+    evidence: dict[str, Any] = Field(
+        default_factory=dict, description="Supporting evidence for the finding"
+    )  # noqa: E501
 
 
 class DependencyFinding(BaseModel):
@@ -168,8 +170,13 @@ class SecurityAssessmentRequest(BaseModel):
 
     assessment_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     target_type: AssessmentType = Field(..., description="Type of artifact to assess")
-    target: dict[str, Any] = Field(default_factory=dict, description="Source code, config files, dependencies")  # noqa: E501
-    standards: list[str] = Field(default_factory=lambda: ["owasp_top10", "cis"], description="Security standards to check against")  # noqa: E501
+    target: dict[str, Any] = Field(
+        default_factory=dict, description="Source code, config files, dependencies"
+    )  # noqa: E501
+    standards: list[str] = Field(
+        default_factory=lambda: ["owasp_top10", "cis"],
+        description="Security standards to check against",
+    )  # noqa: E501
     include_remediation: bool = Field(default=True)
     include_compliance_mapping: bool = Field(default=True)
     check_secrets: bool = Field(default=True)

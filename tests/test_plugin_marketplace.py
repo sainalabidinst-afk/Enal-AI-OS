@@ -5,12 +5,12 @@ Tests for plugin discovery, installation, and management.
 """
 
 
-
 class TestPluginManifest:
     """Tests for PluginManifest."""
 
     def test_manifest_creation(self):
         from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
+
         manifest = PluginManifest(
             id="test-plugin",
             name="Test Plugin",
@@ -32,6 +32,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="test-plugin",
@@ -43,6 +44,7 @@ class TestPluginMarketplace:
             status=PluginStatus.PUBLISHED,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         assert mp.get_plugin("test-plugin") is not None
 
@@ -52,6 +54,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="test-plugin",
@@ -63,6 +66,7 @@ class TestPluginMarketplace:
             status=PluginStatus.PUBLISHED,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         result = asyncio.run(mp.install("test-plugin"))
         assert result is True
@@ -74,6 +78,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="draft-plugin",
@@ -85,6 +90,7 @@ class TestPluginMarketplace:
             status=PluginStatus.DRAFT,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         result = asyncio.run(mp.install("draft-plugin"))
         assert result is False
@@ -95,6 +101,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="test-plugin",
@@ -106,6 +113,7 @@ class TestPluginMarketplace:
             status=PluginStatus.PUBLISHED,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         asyncio.run(mp.install("test-plugin"))
         result = asyncio.run(mp.uninstall("test-plugin"))
@@ -118,6 +126,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="network-plugin",
@@ -130,6 +139,7 @@ class TestPluginMarketplace:
             status=PluginStatus.PUBLISHED,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         results = mp.search("network")
         assert len(results) == 1
@@ -140,6 +150,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="net-plugin",
@@ -151,6 +162,7 @@ class TestPluginMarketplace:
             status=PluginStatus.PUBLISHED,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         categories = mp.get_categories()
         assert "network" in categories
@@ -161,6 +173,7 @@ class TestPluginMarketplace:
             PluginMarketplace,
             PluginStatus,
         )
+
         mp = PluginMarketplace()
         manifest = PluginManifest(
             id="rated-plugin",
@@ -172,6 +185,7 @@ class TestPluginMarketplace:
             status=PluginStatus.PUBLISHED,
         )
         import asyncio
+
         asyncio.run(mp.publish(manifest))
         asyncio.run(mp.rate("rated-plugin", 4.0))
         asyncio.run(mp.rate("rated-plugin", 5.0))

@@ -1,4 +1,3 @@
-
 from backend.app.core.tool_registry import Tool, ToolRegistry
 
 

@@ -218,11 +218,11 @@ Exclusions: Network monitoring real-time, traffic analysis
 
 ```python
 required_blocks = [
-    "perception",    # Parse teks konfigurasi
-    "memory",        # Panggil kembali pengetahuan vendor
-    "reasoning",     # Analisis pola konfigurasi
-    "decision",      # Pilih perbaikan
-    "reflection",    # Verifikasi kualitas output
+    "perception",  # Parse teks konfigurasi
+    "memory",  # Panggil kembali pengetahuan vendor
+    "reasoning",  # Analisis pola konfigurasi
+    "decision",  # Pilih perbaikan
+    "reflection",  # Verifikasi kualitas output
 ]
 ```
 
@@ -232,6 +232,7 @@ required_blocks = [
 # apps/my_app/__init__.py
 from apps.base import BaseApp
 
+
 class MyApp(BaseApp):
     @property
     def capabilities(self) -> list[str]:
@@ -240,6 +241,7 @@ class MyApp(BaseApp):
     @property
     def pipeline(self) -> list[str]:
         return ["perception", "memory", "reasoning", "decision"]
+
 
 def get_app() -> BaseApp:
     return MyApp()
@@ -276,6 +278,7 @@ apps/my_app/
 import pytest
 from apps.my_app import get_app
 
+
 @pytest.mark.asyncio
 async def test_my_app_analyze():
     app = get_app()
@@ -291,6 +294,7 @@ from fastapi import APIRouter
 from apps.my_app import get_app
 
 router = APIRouter(prefix="/my-app")
+
 
 @router.post("/analyze")
 async def analyze(input: str):
@@ -384,6 +388,7 @@ event_bus = EventBus()  # ❌ Dapat menyebabkan circular imports
 # Gunakan inisialisasi lazy:
 _event_bus = None
 
+
 def get_event_bus() -> EventBus:
     global _event_bus
     if _event_bus is None:
@@ -442,11 +447,13 @@ vendor_config → [Vendor Parser] → UniversalAST → [Analisis/Generasi]
 
 ```python
 # Publisher: Tidak tahu subscriber
-await event_bus.publish(Event(
-    event_type="task.completed",
-    payload={"task_id": task.id, "result": result},
-    source="execution_scheduler",
-))
+await event_bus.publish(
+    Event(
+        event_type="task.completed",
+        payload={"task_id": task.id, "result": result},
+        source="execution_scheduler",
+    )
+)
 
 # Subscriber: Tidak tahu publisher
 event_bus.subscribe("task.completed", handle_task_completed)
@@ -496,16 +503,19 @@ pipeline = PIPELINE_PRESETS[complexity]
 ```python
 # ❌ ANTI-POLAR: Import langsung antar capability packs
 from apps.code_engineer import CodeEngineerApp
+
 network_app = NetworkEngineerApp()
 network_app._code_engineer = CodeEngineerApp()  # Tight coupling!
 
 # ✅ BENAR: Gunakan Event Bus
-await event_bus.publish(Event(
-    event_type="code:analyze",
-    payload={"code": config_script},
-    source="network_engineer",
-    target="code_engineer",
-))
+await event_bus.publish(
+    Event(
+        event_type="code:analyze",
+        payload={"code": config_script},
+        source="network_engineer",
+        target="code_engineer",
+    )
+)
 ```
 
 ### Anti-Pola 2: Aplikasi Inti Mengimpor
@@ -524,10 +534,12 @@ from backend.app.core.adaptive_runtime import adaptive_runtime
 ```python
 # ❌ ANTI-POLAR: App mengakses infrastruktur langsung
 import redis.asyncio as aioredis
+
 redis = aioredis.from_url("redis://localhost")
 
 # ✅ BENAR: Gunakan abstraksi platform
 from backend.app.core.memory_layer import memory_manager
+
 await memory_manager.store("working", key, value)
 ```
 
@@ -536,14 +548,15 @@ await memory_manager.store("working", key, value)
 ```python
 # ❌ ANTI-POLAR: Panggilan layanan langsung melewati pipeline
 from backend.app.core.decision_engine import decision_engine
+
 result = await decision_engine.decide(options, context)
 # Melewati perception, memory, reasoning, planning
 
 # ✅ BENAR: Gunakan pipeline
 from backend.app.core.cognitive_kernel import cognitive_kernel
+
 result = await cognitive_kernel.execute_pipeline(
-    ["perception", "memory", "reasoning", "decision"],
-    {"input": task}
+    ["perception", "memory", "reasoning", "decision"], {"input": task}
 )
 ```
 

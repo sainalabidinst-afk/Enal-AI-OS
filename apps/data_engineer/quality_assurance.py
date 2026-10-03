@@ -53,13 +53,15 @@ class DataQualityAssurance:
         if not data:
             return QualityReport(
                 overall_score=0.0,
-                issues=[QualityIssue(
-                    type=IssueType.invalid_format,
-                    column="",
-                    severity=IssueSeverity.critical,
-                    remediation="Dataset is empty",
-                    confidence=1.0,
-                )],
+                issues=[
+                    QualityIssue(
+                        type=IssueType.invalid_format,
+                        column="",
+                        severity=IssueSeverity.critical,
+                        remediation="Dataset is empty",
+                        confidence=1.0,
+                    )
+                ],
             )
 
         # Start from validation report.
@@ -85,8 +87,14 @@ class DataQualityAssurance:
 
         # Recompute overall score.
         report.overall_score = round(
-            (report.completeness + report.uniqueness + report.validity +
-             report.freshness + report.consistency) / 5,
+            (
+                report.completeness
+                + report.uniqueness
+                + report.validity
+                + report.freshness
+                + report.consistency
+            )
+            / 5,
             4,
         )
 
@@ -104,14 +112,16 @@ class DataQualityAssurance:
         recommendations = self._generate_recommendations(report)
         if recommendations:
             for rec in recommendations:
-                report.issues.append(QualityIssue(
-                    type=IssueType.invalid_format,
-                    column="",
-                    severity=IssueSeverity.low,
-                    count=0,
-                    remediation=rec,
-                    confidence=0.7,
-                ))
+                report.issues.append(
+                    QualityIssue(
+                        type=IssueType.invalid_format,
+                        column="",
+                        severity=IssueSeverity.low,
+                        count=0,
+                        remediation=rec,
+                        confidence=0.7,
+                    )
+                )
 
         return report
 

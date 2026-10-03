@@ -33,46 +33,113 @@ _BASE64_PATTERNS = [
 # Explicit secret assignment patterns.
 _SECRET_ASSIGNMENT_PATTERNS = [
     # API keys
-    (r'(?i)(api[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "api_key", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'(?i)(apikey\s*=\s*["\'])([^"\']{8,})(["\'])', "apikey", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'(?i)(secret[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "secret_key", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'(?i)(access[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])', "access_key", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'(?i)(bearer\s+)([A-Za-z0-9._-]{20,})', "Bearer token", SecretType.token, Severity.critical),
-
+    (
+        r'(?i)(api[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])',
+        "api_key",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (
+        r'(?i)(apikey\s*=\s*["\'])([^"\']{8,})(["\'])',
+        "apikey",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (
+        r'(?i)(secret[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])',
+        "secret_key",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (
+        r'(?i)(access[_-]?key\s*=\s*["\'])([^"\']{8,})(["\'])',
+        "access_key",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (r"(?i)(bearer\s+)([A-Za-z0-9._-]{20,})", "Bearer token", SecretType.token, Severity.critical),
     # AWS credentials
-    (r'(?i)(aws[_-]?access[_-]?key[_-]?id\s*=\s*["\'])([A-Z0-9]{20})(["\'])', "AWS access key ID", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'(?i)(aws[_-]?secret[_-]?access[_-]?key\s*=\s*["\'])([^"\']{40})(["\'])', "AWS secret access key", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'AKIA[0-9A-Z]{16}', "AWS access key ID pattern", SecretType.api_key, Severity.critical),
-
+    (
+        r'(?i)(aws[_-]?access[_-]?key[_-]?id\s*=\s*["\'])([A-Z0-9]{20})(["\'])',
+        "AWS access key ID",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (
+        r'(?i)(aws[_-]?secret[_-]?access[_-]?key\s*=\s*["\'])([^"\']{40})(["\'])',
+        "AWS secret access key",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (r"AKIA[0-9A-Z]{16}", "AWS access key ID pattern", SecretType.api_key, Severity.critical),
     # GitHub tokens
-    (r'ghp_[A-Za-z0-9]{36}', "GitHub personal access token", SecretType.token, Severity.critical),
-    (r'gho_[A-Za-z0-9]{36}', "GitHub OAuth token", SecretType.token, Severity.critical),
-    (r'github_pat_[A-Za-z0-9_]{22,}', "GitHub fine-grained PAT", SecretType.token, Severity.critical),  # noqa: E501
-
+    (r"ghp_[A-Za-z0-9]{36}", "GitHub personal access token", SecretType.token, Severity.critical),
+    (r"gho_[A-Za-z0-9]{36}", "GitHub OAuth token", SecretType.token, Severity.critical),
+    (
+        r"github_pat_[A-Za-z0-9_]{22,}",
+        "GitHub fine-grained PAT",
+        SecretType.token,
+        Severity.critical,
+    ),  # noqa: E501
     # Private keys
-    (r'-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----', "Private key block", SecretType.private_key, Severity.critical),  # noqa: E501
-    (r'-----BEGIN CERTIFICATE-----', "Certificate block", SecretType.certificate, Severity.high),
-
+    (
+        r"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----",
+        "Private key block",
+        SecretType.private_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (r"-----BEGIN CERTIFICATE-----", "Certificate block", SecretType.certificate, Severity.high),
     # Passwords
-    (r'(?i)(password\s*=\s*["\'])([^"\']{4,})(["\'])', "password", SecretType.password, Severity.high),  # noqa: E501
+    (
+        r'(?i)(password\s*=\s*["\'])([^"\']{4,})(["\'])',
+        "password",
+        SecretType.password,
+        Severity.high,
+    ),  # noqa: E501
     (r'(?i)(passwd\s*=\s*["\'])([^"\']{4,})(["\'])', "passwd", SecretType.password, Severity.high),
     (r'(?i)(pwd\s*=\s*["\'])([^"\']{4,})(["\'])', "pwd", SecretType.password, Severity.high),
-    (r'(?i)(password|passwd|pwd)["\']\s*:\s*["\']([^"\']{4,})["\']', "password_in_dict", SecretType.password, Severity.high),  # noqa: E501
-
+    (
+        r'(?i)(password|passwd|pwd)["\']\s*:\s*["\']([^"\']{4,})["\']',
+        "password_in_dict",
+        SecretType.password,
+        Severity.high,
+    ),  # noqa: E501
     # Database passwords
-    (r'\bpostgres://[^:]+:([^@]+)@', "PostgreSQL connection string with password", SecretType.password, Severity.high),  # noqa: E501
-    (r'\bmongodb(\+srv)?://[^:]+:([^@]+)@', "MongoDB connection string with password", SecretType.password, Severity.high),  # noqa: E501
-
+    (
+        r"\bpostgres://[^:]+:([^@]+)@",
+        "PostgreSQL connection string with password",
+        SecretType.password,
+        Severity.high,
+    ),  # noqa: E501
+    (
+        r"\bmongodb(\+srv)?://[^:]+:([^@]+)@",
+        "MongoDB connection string with password",
+        SecretType.password,
+        Severity.high,
+    ),  # noqa: E501
     # Generic token patterns
     (r'(?i)(token\s*=\s*["\'])([^"\']{20,})(["\'])', "token", SecretType.token, Severity.high),
-    (r'(?i)(auth[_-]?token\s*=\s*["\'])([^"\']{20,})(["\'])', "auth_token", SecretType.token, Severity.high),  # noqa: E501
-
+    (
+        r'(?i)(auth[_-]?token\s*=\s*["\'])([^"\']{20,})(["\'])',
+        "auth_token",
+        SecretType.token,
+        Severity.high,
+    ),  # noqa: E501
     # Slack tokens
-    (r'xox[baprs]-[A-Za-z0-9-]+', "Slack API token", SecretType.token, Severity.critical),
-
+    (r"xox[baprs]-[A-Za-z0-9-]+", "Slack API token", SecretType.token, Severity.critical),
     # Generic cloud credentials
-    (r'(?i)(gcp[_-]?service[_-]?account[_-]?key)', "GCP service account key", SecretType.api_key, Severity.critical),  # noqa: E501
-    (r'(?i)(client[_-]?secret\s*=\s*["\'])([^"\']{8,})(["\'])', "client_secret", SecretType.api_key, Severity.high),  # noqa: E501
+    (
+        r"(?i)(gcp[_-]?service[_-]?account[_-]?key)",
+        "GCP service account key",
+        SecretType.api_key,
+        Severity.critical,
+    ),  # noqa: E501
+    (
+        r'(?i)(client[_-]?secret\s*=\s*["\'])([^"\']{8,})(["\'])',
+        "client_secret",
+        SecretType.api_key,
+        Severity.high,
+    ),  # noqa: E501
 ]
 
 # False positive filter patterns — things that look like secrets but aren't.
@@ -90,6 +157,7 @@ _FALSE_POSITIVE_FILTERS = [
 @dataclass
 class DetectionResult:
     """Result of a secret detection sweep."""
+
     findings: list[SecretFinding]
     raw_matches: list[tuple[str, str, str]]
 
@@ -145,7 +213,7 @@ class SecretDetector:
                 if self._is_placeholder(secret_value):
                     continue
 
-                line_num = source_code[:match.start()].count("\n") + 1
+                line_num = source_code[: match.start()].count("\n") + 1
                 key = f"{file_path}:{line_num}:{label}"
                 if key in seen:
                     continue
@@ -153,25 +221,27 @@ class SecretDetector:
 
                 redacted = self._redact(secret_value)
 
-                findings.append(SecretFinding(
-                    type=secret_type,
-                    location=f"{file_path}:{line_num}",
-                    severity=severity,
-                    remediation=self._get_rotation_guidance(secret_type, label),
-                    confidence=0.9,
-                    id=f"secret-{line_num}-{label}",
-                    evidence={
-                        "type": label,
-                        "redacted_value": redacted,
-                        "line": line_num,
-                        "file": file_path,
-                    },
-                ))
+                findings.append(
+                    SecretFinding(
+                        type=secret_type,
+                        location=f"{file_path}:{line_num}",
+                        severity=severity,
+                        remediation=self._get_rotation_guidance(secret_type, label),
+                        confidence=0.9,
+                        id=f"secret-{line_num}-{label}",
+                        evidence={
+                            "type": label,
+                            "redacted_value": redacted,
+                            "line": line_num,
+                            "file": file_path,
+                        },
+                    )
+                )
 
         # Check high-entropy hex strings.
         for pattern, description in _HEX_PATTERNS:
             for match in re.finditer(pattern, source_code):
-                line_num = source_code[:match.start()].count("\n") + 1
+                line_num = source_code[: match.start()].count("\n") + 1
                 value = match.group(0).strip("\"'")
 
                 if self._is_false_positive(value, match.group(0)):
@@ -184,23 +254,25 @@ class SecretDetector:
                     continue
                 seen.add(key)
 
-                findings.append(SecretFinding(
-                    type=SecretType.other,
-                    location=f"{file_path}:{line_num}",
-                    severity=Severity.high,
-                    remediation="If this is a secret, rotate it immediately and move to a secure vault.",  # noqa: E501
-                    confidence=0.7,
-                    evidence={
-                        "description": description,
-                        "redacted_value": self._redact(value),
-                        "entropy_score": self._estimate_entropy(value),
-                    },
-                ))
+                findings.append(
+                    SecretFinding(
+                        type=SecretType.other,
+                        location=f"{file_path}:{line_num}",
+                        severity=Severity.high,
+                        remediation="If this is a secret, rotate it immediately and move to a secure vault.",  # noqa: E501
+                        confidence=0.7,
+                        evidence={
+                            "description": description,
+                            "redacted_value": self._redact(value),
+                            "entropy_score": self._estimate_entropy(value),
+                        },
+                    )
+                )
 
         # Check base64 patterns.
         for pattern, description in _BASE64_PATTERNS:
             for match in re.finditer(pattern, source_code):
-                line_num = source_code[:match.start()].count("\n") + 1
+                line_num = source_code[: match.start()].count("\n") + 1
                 value = match.group(0).strip("\"'")
 
                 if self._is_false_positive(value, match.group(0)):
@@ -213,31 +285,35 @@ class SecretDetector:
                     continue
                 seen.add(key)
 
-                findings.append(SecretFinding(
-                    type=SecretType.token,
-                    location=f"{file_path}:{line_num}",
-                    severity=Severity.high,
-                    remediation="If this is a credential, rotate and store in a secrets manager.",
-                    confidence=0.65,
-                    evidence={
-                        "description": description,
-                        "redacted_value": self._redact(value),
-                        "entropy_score": self._estimate_entropy(value),
-                    },
-                ))
+                findings.append(
+                    SecretFinding(
+                        type=SecretType.token,
+                        location=f"{file_path}:{line_num}",
+                        severity=Severity.high,
+                        remediation="If this is a credential, rotate and store in a secrets manager.",  # noqa: E501
+                        confidence=0.65,
+                        evidence={
+                            "description": description,
+                            "redacted_value": self._redact(value),
+                            "entropy_score": self._estimate_entropy(value),
+                        },
+                    )
+                )
 
         # Check environment variables for insecure defaults.
         if env_vars:
             for key, value in env_vars.items():
                 if self._looks_like_secret_name(key) and not self._is_placeholder(value):
-                    findings.append(SecretFinding(
-                        type=SecretType.api_key,
-                        location=f"env:{key}",
-                        severity=Severity.high,
-                        remediation="Move environment variable to a secrets manager.",
-                        confidence=0.8,
-                        evidence={"env_key": key, "has_value": bool(value)},
-                    ))
+                    findings.append(
+                        SecretFinding(
+                            type=SecretType.api_key,
+                            location=f"env:{key}",
+                            severity=Severity.high,
+                            remediation="Move environment variable to a secrets manager.",
+                            confidence=0.8,
+                            evidence={"env_key": key, "has_value": bool(value)},
+                        )
+                    )
 
         return findings
 
@@ -252,11 +328,28 @@ class SecretDetector:
         """Check if a value is a placeholder or template."""
         lowered = value.lower().strip().strip("\"'")
         placeholders = {
-            "none", "null", "true", "false", "yes", "no",
-            "placeholder", "example", "test", "dummy", "fake",
-            "xxx", "xxxx", "your_key_here", "your_key",
-            "<key>", "<secret>", "<password>", "<token>",
-            "changeme", "change_me", "your-secret-here",
+            "none",
+            "null",
+            "true",
+            "false",
+            "yes",
+            "no",
+            "placeholder",
+            "example",
+            "test",
+            "dummy",
+            "fake",
+            "xxx",
+            "xxxx",
+            "your_key_here",
+            "your_key",
+            "<key>",
+            "<secret>",
+            "<password>",
+            "<token>",
+            "changeme",
+            "change_me",
+            "your-secret-here",
         }
         if lowered in placeholders:
             return True
@@ -275,9 +368,18 @@ class SecretDetector:
     def _looks_like_secret_name(self, key: str) -> bool:
         """Check if an environment variable name suggests it holds a secret."""
         lowered = key.lower()
-        return any(kw in lowered for kw in (
-            "key", "secret", "token", "password", "pwd", "credential", "auth",
-        ))
+        return any(
+            kw in lowered
+            for kw in (
+                "key",
+                "secret",
+                "token",
+                "password",
+                "pwd",
+                "credential",
+                "auth",
+            )
+        )
 
     def _redact(self, value: str) -> str:
         """Redact a secret value for safe display."""

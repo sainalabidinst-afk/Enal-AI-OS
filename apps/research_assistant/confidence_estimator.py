@@ -20,7 +20,9 @@ logger = logging.getLogger(__name__)
 class ConfidenceEstimator:
     """Estimates confidence with uncertainty quantification."""
 
-    def estimate(self, evidence_list: list[Evidence], contradictions: list[Contradiction]) -> tuple[float, ConfidenceLevel, list[str]]:  # noqa: E501
+    def estimate(
+        self, evidence_list: list[Evidence], contradictions: list[Contradiction]
+    ) -> tuple[float, ConfidenceLevel, list[str]]:  # noqa: E501
         if not evidence_list:
             return 0.0, ConfidenceLevel.very_low, ["No evidence available"]
 
@@ -38,7 +40,11 @@ class ConfidenceEstimator:
 
         contradiction_penalty = min(0.3, len(contradictions) * 0.05)
 
-        confidence = (avg_evidence_conf * 0.5) + (avg_quality * 0.35) + (0.15 * (1.0 - contradiction_penalty))  # noqa: E501
+        confidence = (
+            (avg_evidence_conf * 0.5)
+            + (avg_quality * 0.35)
+            + (0.15 * (1.0 - contradiction_penalty))
+        )  # noqa: E501
         confidence = max(0.0, min(1.0, confidence))
 
         if confidence >= 0.9:

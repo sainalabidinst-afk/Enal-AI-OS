@@ -110,14 +110,16 @@ class HardeningAdvisor:
 
             priority = self._severity_to_priority(vuln.severity)
 
-            actions.append(HardeningAction(
-                id=f"harden-{vuln.id}",
-                attack_id=vuln.attack_id,
-                recommendation=mitigation,
-                priority=priority,
-                estimated_effort=_EFFORT_BY_SEVERITY.get(vuln.severity, "medium"),
-                applies_to_constraint=self._find_constraint(mitigation, constraints),
-            ))
+            actions.append(
+                HardeningAction(
+                    id=f"harden-{vuln.id}",
+                    attack_id=vuln.attack_id,
+                    recommendation=mitigation,
+                    priority=priority,
+                    estimated_effort=_EFFORT_BY_SEVERITY.get(vuln.severity, "medium"),
+                    applies_to_constraint=self._find_constraint(mitigation, constraints),
+                )
+            )
 
         # Sort by priority (highest first)
         priority_rank = {"critical": 4, "high": 3, "medium": 2, "low": 1}

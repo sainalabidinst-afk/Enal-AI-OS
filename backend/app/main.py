@@ -69,6 +69,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         import time
 
         from backend.app.core.config import settings
+
         if getattr(settings, "TESTING", False):
             return await call_next(request)
         client_ip = request.client.host if request.client else "unknown"
@@ -77,6 +78,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         requests = [t for t in self._requests.get(client_ip, []) if t > window_start]
         if len(requests) >= self.max_requests:
             from fastapi.responses import JSONResponse
+
             return JSONResponse(status_code=429, content={"detail": "Too many requests"})
         requests.append(now)
         self._requests[client_ip] = requests
@@ -100,14 +102,19 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
         auth = request.headers.get("Authorization")
         if not auth or not auth.startswith("Bearer "):
             from fastapi.responses import JSONResponse
-            return JSONResponse(status_code=401, content={"detail": "Missing or invalid authorization header"})  # noqa: E501
+
+            return JSONResponse(
+                status_code=401, content={"detail": "Missing or invalid authorization header"}
+            )  # noqa: E501
 
         token = auth.split(" ", 1)[1]
         try:
             from backend.app.api.auth import _decode_token
+
             _decode_token(token)
         except HTTPException:
             from fastapi.responses import JSONResponse
+
             return JSONResponse(status_code=401, content={"detail": "Invalid or expired token"})
         return await call_next(request)
 
@@ -115,6 +122,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
 class AuditLoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         import time
+
         start = time.perf_counter()
         response = await call_next(request)
         elapsed_ms = (time.perf_counter() - start) * 1000
@@ -150,9 +158,15 @@ app.include_router(chat.router, prefix=settings.API_V1_STR, tags=["chat"])
 app.include_router(orchestrator_v2.router, prefix=settings.API_V1_STR, tags=["orchestrator-v2"])
 app.include_router(phase3.router, prefix=settings.API_V1_STR, tags=["phase3"])
 app.include_router(ecosystem.router, prefix=settings.API_V1_STR, tags=["ecosystem"])
-app.include_router(capability_discovery.router, prefix=settings.API_V1_STR, tags=["capability-discovery"])  # noqa: E501
-app.include_router(capability_execution.router, prefix=settings.API_V1_STR, tags=["capability-execution"])  # noqa: E501
-app.include_router(capability_lifecycle.router, prefix=settings.API_V1_STR, tags=["capability-lifecycle"])  # noqa: E501
+app.include_router(
+    capability_discovery.router, prefix=settings.API_V1_STR, tags=["capability-discovery"]
+)  # noqa: E501
+app.include_router(
+    capability_execution.router, prefix=settings.API_V1_STR, tags=["capability-execution"]
+)  # noqa: E501
+app.include_router(
+    capability_lifecycle.router, prefix=settings.API_V1_STR, tags=["capability-lifecycle"]
+)  # noqa: E501
 app.include_router(execution.router, prefix=settings.API_V1_STR, tags=["execution"])
 app.include_router(workspace.router, prefix=settings.API_V1_STR, tags=["workspace"])
 app.include_router(artifact.router, prefix=settings.API_V1_STR, tags=["artifact"])
@@ -178,6 +192,7 @@ async def register_action_tools_startup():
     """Register action connector tools with ToolRegistry on startup."""
     try:
         from backend.app.connectors.action_tools import register_action_tools
+
         count = register_action_tools()
         logger.info("Registered %d action tools on startup", count)
     except Exception as e:

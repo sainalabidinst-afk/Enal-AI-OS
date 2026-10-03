@@ -23,16 +23,16 @@ from apps.cloud_architect.worker import CloudArchitectWorker
 class CloudArchitectApp(BaseReferenceApp):
     name = "cloud-architect"
     version = "1.0.0"
-    description = "Cloud architecture design, multi-region strategy, cost optimization, and DR planning"  # noqa: E501
+    description = (
+        "Cloud architecture design, multi-region strategy, cost optimization, and DR planning"  # noqa: E501
+    )
     category = "infrastructure"
     pipeline = ["perception", "memory", "reasoning", "planning", "decision", "action"]
 
     def __init__(self) -> None:
         self.worker = CloudArchitectWorker()
 
-    async def run(
-        self, user_input: str, context: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    async def run(self, user_input: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
         task = dict(context or {})
         task.setdefault("user_input", user_input)
         return self.worker.execute(task)

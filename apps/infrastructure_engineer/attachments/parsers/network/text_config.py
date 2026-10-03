@@ -17,20 +17,46 @@ class TextConfigParser(BaseParser):
 
     def can_parse(self, meta: AttachmentMeta) -> bool:
         from apps.infrastructure_engineer.attachments.models import AttachmentType
-        return meta.attachment_type in {AttachmentType.config, AttachmentType.backup, AttachmentType.log}  # noqa: E501
+
+        return meta.attachment_type in {
+            AttachmentType.config,
+            AttachmentType.backup,
+            AttachmentType.log,
+        }  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
         ast = InfrastructureAST(format="text", version="")
         lowered = content.lower()
-        if any(key in lowered for key in ["routeros", "/interface", "/ip firewall", "/routing ospf", "/routing bgp"]):  # noqa: E501
+        if any(
+            key in lowered
+            for key in ["routeros", "/interface", "/ip firewall", "/routing ospf", "/routing bgp"]
+        ):  # noqa: E501
             ast.vendor = VendorFamily.mikrotik
             ast.format = "routeros"
             self._parse_routeros(ast, content)
-        elif any(key in lowered for key in ["building configuration", "version ", "hostname", "access-list", "ip route", "interface "]):  # noqa: E501
+        elif any(
+            key in lowered
+            for key in [
+                "building configuration",
+                "version ",
+                "hostname",
+                "access-list",
+                "ip route",
+                "interface ",
+            ]
+        ):  # noqa: E501
             ast.vendor = VendorFamily.cisco
             ast.format = "cisco_ios"
             self._parse_cisco(ast, content)
-        elif any(key in lowered for key in ["config system global", "config system interface", "config firewall policy", "fortios"]):  # noqa: E501
+        elif any(
+            key in lowered
+            for key in [
+                "config system global",
+                "config system interface",
+                "config firewall policy",
+                "fortios",
+            ]
+        ):  # noqa: E501
             ast.vendor = VendorFamily.fortinet
             ast.format = "fortios"
             self._parse_fortinet(ast, content)
@@ -66,11 +92,27 @@ class TextConfigParser(BaseParser):
         for section in self._section(content, "/ip firewall"):
             ast.firewall.append({"raw": section[:200]})
             if "input" in section and "accept" not in section:
-                ast.findings.append(InfrastructureFinding(Severity.high, "firewall", "Restrictive input chain", "Review firewall input chain policy", confidence=0.7))  # noqa: E501
+                ast.findings.append(
+                    InfrastructureFinding(
+                        Severity.high,
+                        "firewall",
+                        "Restrictive input chain",
+                        "Review firewall input chain policy",
+                        confidence=0.7,
+                    )
+                )  # noqa: E501
         for section in self._section(content, "/routing ospf"):
             ast.routing.append({"protocol": "ospf", "raw": section[:200]})
         for section in self._section(content, "/interface bridge"):
-            ast.findings.append(InfrastructureFinding(Severity.low, "bridge", "Bridge configuration detected", "Verify bridge security and port security", confidence=0.8))  # noqa: E501
+            ast.findings.append(
+                InfrastructureFinding(
+                    Severity.low,
+                    "bridge",
+                    "Bridge configuration detected",
+                    "Verify bridge security and port security",
+                    confidence=0.8,
+                )
+            )  # noqa: E501
 
     def _parse_cisco(self, ast: InfrastructureAST, content: str) -> None:
         for line in content.splitlines():
@@ -101,7 +143,11 @@ class TextConfigParser(BaseParser):
                 ast.interfaces.append({"raw": stripped[:200]})
             if stripped.startswith("set security "):
                 ast.firewall.append({"raw": stripped[:200]})
-            if stripped.startswith("set routing-instances ") or stripped.startswith("set protocols ospf") or stripped.startswith("set protocols bgp"):  # noqa: E501
+            if (
+                stripped.startswith("set routing-instances ")
+                or stripped.startswith("set protocols ospf")
+                or stripped.startswith("set protocols bgp")
+            ):  # noqa: E501
                 ast.routing.append({"raw": stripped[:200]})
 
     def _parse_generic(self, ast: InfrastructureAST, content: str) -> None:

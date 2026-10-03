@@ -60,7 +60,11 @@ class UIUXDesignerEngine:
             UIUXDesignerReport with research, design system, prototype, accessibility.
         """
         started = time.monotonic()
-        op = request.operation.value if hasattr(request.operation, 'value') else str(request.operation)  # noqa: E501
+        op = (
+            request.operation.value
+            if hasattr(request.operation, "value")
+            else str(request.operation)
+        )  # noqa: E501
 
         ux_research: UXResearchResult | None = None
         design_system: DesignSystem | None = None
@@ -119,7 +123,9 @@ class UIUXDesignerEngine:
                 "latency_ms": round((time.monotonic() - started) * 1000.0, 2),
                 "personas_generated": len(ux_research.user_personas) if ux_research else 0,
                 "screens_designed": len(prototype.screens) if prototype else 0,
-                "accessibility_violations": accessibility_report.violations_found if accessibility_report else 0,  # noqa: E501
+                "accessibility_violations": accessibility_report.violations_found
+                if accessibility_report
+                else 0,  # noqa: E501
                 "components_designed": len(design_system.components) if design_system else 0,
             },
         )
@@ -130,7 +136,9 @@ class UIUXDesignerEngine:
             project_name=request.business_context.project_name,
             personas_count=len(ux_research.user_personas) if ux_research else 0,
             screens_designed=len(prototype.screens) if prototype else 0,
-            accessibility_score=accessibility_report.compliance_score if accessibility_report else 0.0,  # noqa: E501
+            accessibility_score=accessibility_report.compliance_score
+            if accessibility_report
+            else 0.0,  # noqa: E501
             outcome="accepted" if quality_score >= 0.7 else "revised",
         )
         self._record(record)
@@ -201,6 +209,7 @@ class UIUXDesignerEngine:
         try:
             import json
             from pathlib import Path
+
             base = Path("artifacts/ux_design_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"

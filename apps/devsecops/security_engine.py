@@ -57,7 +57,13 @@ class DevSecOpsSecurityEngine:
         checks = []
         failure_reasons = []
 
-        required_checks = ["static_analysis", "secret_scan", "dependency_check", "container_scan", "policy_check"]  # noqa: E501
+        required_checks = [
+            "static_analysis",
+            "secret_scan",
+            "dependency_check",
+            "container_scan",
+            "policy_check",
+        ]  # noqa: E501
 
         for check in required_checks:
             checks.append(check)
@@ -83,20 +89,28 @@ class DevSecOpsSecurityEngine:
         """Simulate vulnerability scanning for dependencies."""
         result: list[VulnerableDependency] = []
         severity_order = ["critical", "high", "medium", "low"]
-        target_idx = severity_order.index(inputs.severity_threshold) if inputs.severity_threshold in severity_order else 1  # noqa: E501
+        target_idx = (
+            severity_order.index(inputs.severity_threshold)
+            if inputs.severity_threshold in severity_order
+            else 1
+        )  # noqa: E501
 
         for dep in inputs.dependencies:
             dep_hash = sum(ord(c) for c in dep)
             vuln_severity_idx = dep_hash % len(severity_order)
             if vuln_severity_idx <= target_idx:
-                result.append(VulnerableDependency(
-                    name=dep,
-                    current_version=inputs.dependency_versions.get(dep, "1.0.0"),
-                    latest_version=f"{(int(inputs.dependency_versions.get(dep, '1.0.0').split('.')[0]) + 1)}.0.0" if inputs.dependency_versions.get(dep) else "1.0.0",  # noqa: E501
-                    cve_count=(dep_hash % 5) + 1,
-                    severity=severity_order[vuln_severity_idx],
-                    remediation=f"Update {dep} to latest patched version",
-                ))
+                result.append(
+                    VulnerableDependency(
+                        name=dep,
+                        current_version=inputs.dependency_versions.get(dep, "1.0.0"),
+                        latest_version=f"{(int(inputs.dependency_versions.get(dep, '1.0.0').split('.')[0]) + 1)}.0.0"  # noqa: E501
+                        if inputs.dependency_versions.get(dep)
+                        else "1.0.0",  # noqa: E501
+                        cve_count=(dep_hash % 5) + 1,
+                        severity=severity_order[vuln_severity_idx],
+                        remediation=f"Update {dep} to latest patched version",
+                    )
+                )
 
         return result
 
@@ -138,14 +152,16 @@ class DevSecOpsSecurityEngine:
         for dep in inputs.dependencies:
             dep_hash = sum(ord(c) for c in dep)
             if dep_hash % 4 == 0:
-                findings.append(SecurityFinding(
-                    finding_id=f"DSOP-{hash(dep) % 10000}",
-                    severity=["critical", "high", "medium", "low"][dep_hash % 4],
-                    category="dependency_confusion" if dep_hash % 2 == 0 else "supply_chain",
-                    description=f"Malicious package risk detected for {dep}",
-                    cwe_id=cwe_list[dep_hash % len(cwe_list)],
-                    remediation=f"Verify package integrity and source for {dep}",
-                ))
+                findings.append(
+                    SecurityFinding(
+                        finding_id=f"DSOP-{hash(dep) % 10000}",
+                        severity=["critical", "high", "medium", "low"][dep_hash % 4],
+                        category="dependency_confusion" if dep_hash % 2 == 0 else "supply_chain",
+                        description=f"Malicious package risk detected for {dep}",
+                        cwe_id=cwe_list[dep_hash % len(cwe_list)],
+                        remediation=f"Verify package integrity and source for {dep}",
+                    )
+                )
 
         return findings
 

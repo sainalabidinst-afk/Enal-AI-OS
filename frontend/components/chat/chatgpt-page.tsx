@@ -299,7 +299,8 @@ export function ChatGPTPage() {
   }
 
   return (
-    <div className="chat-shell">
+    <>
+      <div className="chat-shell">
       <aside className={`chat-rail ${showRail ? "chat-rail-open" : ""}`}>
         <div className="chat-rail-top">
           <div className="brand-mark"><Sparkles size={16} /></div>
@@ -395,6 +396,7 @@ export function ChatGPTPage() {
         </div>
       </section>
     </div>
-    <ConsentDialogComponent />
+      <ConsentDialogComponent />
+    </>
   );
 }

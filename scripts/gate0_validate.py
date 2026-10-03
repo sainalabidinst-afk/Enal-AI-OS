@@ -57,20 +57,26 @@ def gate(name: str, gate_id: str):
             try:
                 result = fn(*args, **kwargs)
                 status = "PASS" if result.get("passed") else "FAIL"
-                GATE_RESULTS[gate_id].append({
-                    "name": name,
-                    "status": status,
-                    "detail": result.get("detail", ""),
-                })
+                GATE_RESULTS[gate_id].append(
+                    {
+                        "name": name,
+                        "status": status,
+                        "detail": result.get("detail", ""),
+                    }
+                )
                 return result.get("passed", False)
             except Exception as exc:
-                GATE_RESULTS[gate_id].append({
-                    "name": name,
-                    "status": "ERROR",
-                    "detail": str(exc),
-                })
+                GATE_RESULTS[gate_id].append(
+                    {
+                        "name": name,
+                        "status": "ERROR",
+                        "detail": str(exc),
+                    }
+                )
                 return False
+
         return wrapper
+
     return decorator
 
 
@@ -85,6 +91,7 @@ def run(cmd: list[str], **kwargs) -> subprocess.CompletedProcess | None:
 
 
 # ===== Gate 0: Infrastructure =====
+
 
 @gate("python installed", "Gate 0")
 def python_installed() -> dict[str, Any]:
@@ -172,7 +179,10 @@ def ruff_lint_passes() -> dict[str, Any]:
 
 @gate("mypy type check passes", "Gate 0")
 def mypy_passes() -> dict[str, Any]:
-    result = run(["mypy", "backend/app/core", "--ignore-missing-imports", "--explicit-package-bases"], cwd=ROOT)
+    result = run(
+        ["mypy", "backend/app/core", "--ignore-missing-imports", "--explicit-package-bases"],
+        cwd=ROOT,
+    )
     ok = result is not None and result.returncode == 0
     return {"passed": ok, "detail": result.stdout if result and not ok else ""}
 
@@ -186,9 +196,11 @@ def pytest_passes() -> dict[str, Any]:
 
 # ===== Gate 1: Functional =====
 
+
 @gate("telemetry endpoint returns data", "Gate 1")
 def telemetry_endpoint_works() -> dict[str, Any]:
     import urllib.request
+
     try:
         req = urllib.request.Request("http://localhost:8000/api/v1/metrics", method="GET")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -202,6 +214,7 @@ def telemetry_endpoint_works() -> dict[str, Any]:
 @gate("capabilities endpoint returns data", "Gate 1")
 def capabilities_endpoint_works() -> dict[str, Any]:
     import urllib.request
+
     try:
         req = urllib.request.Request("http://localhost:8000/api/v1/capabilities", method="GET")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -215,6 +228,7 @@ def capabilities_endpoint_works() -> dict[str, Any]:
 @gate("workspace API reachable", "Gate 1")
 def workspace_api_works() -> dict[str, Any]:
     import urllib.request
+
     try:
         req = urllib.request.Request("http://localhost:8000/api/v1/workspaces", method="GET")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -227,6 +241,7 @@ def workspace_api_works() -> dict[str, Any]:
 @gate("executions API reachable", "Gate 1")
 def executions_api_works() -> dict[str, Any]:
     import urllib.request
+
     try:
         req = urllib.request.Request("http://localhost:8000/api/v1/executions", method="GET")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -239,6 +254,7 @@ def executions_api_works() -> dict[str, Any]:
 @gate("artifacts API reachable", "Gate 1")
 def artifacts_api_works() -> dict[str, Any]:
     import urllib.request
+
     try:
         req = urllib.request.Request("http://localhost:8000/api/v1/artifacts", method="GET")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -250,16 +266,24 @@ def artifacts_api_works() -> dict[str, Any]:
 
 # ===== Gate 2: AI =====
 
+
 @gate("telemetry mutable", "Gate 2")
 def telemetry_mutable() -> dict[str, Any]:
     import urllib.request
+
     try:
         req1 = urllib.request.Request("http://localhost:8000/api/v1/metrics", method="GET")
         with urllib.request.urlopen(req1, timeout=5) as resp:
             before = json.loads(resp.read())
-        req2 = urllib.request.Request("http://localhost:8000/api/v1/chat", method="POST", headers={"Content-Type": "application/json"})
-        with urllib.request.urlopen(req2, timeout=5, data=json.dumps({"message": "gate2 ping", "stream": False}).encode()) as resp:
-            post_data = json.loads(resp.read())
+        req2 = urllib.request.Request(
+            "http://localhost:8000/api/v1/chat",
+            method="POST",
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(
+            req2, timeout=5, data=json.dumps({"message": "gate2 ping", "stream": False}).encode()
+        ) as resp:
+            json.loads(resp.read())
         time.sleep(1)
         req3 = urllib.request.Request("http://localhost:8000/api/v1/metrics", method="GET")
         with urllib.request.urlopen(req3, timeout=5) as resp:
@@ -267,14 +291,19 @@ def telemetry_mutable() -> dict[str, Any]:
         before_count = before.get("chat", {}).get("count", 0)
         after_count = after.get("chat", {}).get("count", 0)
         ok = after_count > before_count
-        return {"passed": ok, "detail": f"count unchanged: {before_count} -> {after_count}" if not ok else ""}
+        return {
+            "passed": ok,
+            "detail": f"count unchanged: {before_count} -> {after_count}" if not ok else "",
+        }
     except Exception as exc:
         return {"passed": False, "detail": str(exc)}
 
 
 @gate("network benchmark passes", "Gate 2")
 def network_benchmark_passes() -> dict[str, Any]:
-    result = run([sys.executable, "benchmarks/network_engineer_benchmark.py"], cwd=ROOT, timeout=300)
+    result = run(
+        [sys.executable, "benchmarks/network_engineer_benchmark.py"], cwd=ROOT, timeout=300
+    )
     if result is None:
         return {"passed": False, "detail": "benchmark script not runnable"}
     ok = result.returncode == 0

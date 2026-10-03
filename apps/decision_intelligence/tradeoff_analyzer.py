@@ -46,7 +46,14 @@ class TradeoffAnalyzer:
             TradeOff with dimension scores (0-1).
         """
         lowered = description.lower()
-        dominance = "positive" if (evidence_set is not None and evidence_set.positive_weight > evidence_set.negative_weight) else ("negative" if evidence_set is not None else "neutral")  # noqa: E501
+        dominance = (
+            "positive"
+            if (
+                evidence_set is not None
+                and evidence_set.positive_weight > evidence_set.negative_weight
+            )
+            else ("negative" if evidence_set is not None else "neutral")
+        )  # noqa: E501
 
         # Per-dimension heuristics.
         accuracy = 0.5
@@ -73,13 +80,19 @@ class TradeoffAnalyzer:
         # Latency modifiers (time-to-implement for simplicity).
         if any(w in lowered for w in ("full", "rewrite", "overhaul", "migration")):
             latency += 0.2
-        if any(w in lowered for w in ("incremental", "subset", "pilot", "small", "partial", "immediately")):  # noqa: E501
+        if any(
+            w in lowered
+            for w in ("incremental", "subset", "pilot", "small", "partial", "immediately")
+        ):  # noqa: E501
             latency -= 0.15
 
         # Risk dimension (lower is better).
         if any(w in lowered for w in ("rewrite", "migration", "downtime", "new_system")):
             risk += 0.2
-        if any(w in lowered for w in ("incremental", "staged", "pilot", "subset", "rollback", "monitoring")):  # noqa: E501
+        if any(
+            w in lowered
+            for w in ("incremental", "staged", "pilot", "subset", "rollback", "monitoring")
+        ):  # noqa: E501
             risk -= 0.15
 
         # Evidence alignment boosts the dominant objective.
@@ -153,9 +166,7 @@ class TradeoffAnalyzer:
 
         return max(0.0, min(1.0, round(total_score, 4)))
 
-    def identify_pareto_optimal(
-        self, alternatives: list[tuple[str, TradeOff]]
-    ) -> list[int]:
+    def identify_pareto_optimal(self, alternatives: list[tuple[str, TradeOff]]) -> list[int]:
         """
         Identify Pareto-optimal indices among alternatives.
 

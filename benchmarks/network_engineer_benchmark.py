@@ -55,9 +55,15 @@ class NetworkBenchmarkReport:
 
 def run_network_benchmark() -> NetworkBenchmarkReport:
     logger.info("Loading network real cases...")
-    cases = [case for case in load_cases_from_disk() if case.category in {"network", "mikrotik", "cisco", "fortinet"}]
+    cases = [
+        case
+        for case in load_cases_from_disk()
+        if case.category in {"network", "mikrotik", "cisco", "fortinet"}
+    ]
     if not cases:
-        logger.warning("No network real cases found. Run real_cases/collector.py to populate cases.")
+        logger.warning(
+            "No network real cases found. Run real_cases/collector.py to populate cases."
+        )
 
     harness = BenchmarkHarness()
     report = NetworkBenchmarkReport(total_cases=len(cases))
@@ -85,9 +91,15 @@ def run_network_benchmark() -> NetworkBenchmarkReport:
     report.passed_cases = passed
     report.failed_cases = len(report.results) - passed
     report.pass_rate = round(passed / max(len(report.results), 1), 4)
-    report.avg_score = round(sum(r["score"] for r in report.results) / max(len(report.results), 1), 4)
-    report.avg_latency_ms = round(sum(r["execution_time_ms"] for r in report.results) / max(len(report.results), 1), 2)
-    report.avg_capability_score = round(sum(r["capability_score"] for r in report.results) / max(len(report.results), 1), 4)
+    report.avg_score = round(
+        sum(r["score"] for r in report.results) / max(len(report.results), 1), 4
+    )
+    report.avg_latency_ms = round(
+        sum(r["execution_time_ms"] for r in report.results) / max(len(report.results), 1), 2
+    )
+    report.avg_capability_score = round(
+        sum(r["capability_score"] for r in report.results) / max(len(report.results), 1), 4
+    )
 
     for vendor, entries in vendor_map.items():
         v_passed = sum(1 for e in entries if e["passed"])

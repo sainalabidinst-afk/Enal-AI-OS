@@ -134,7 +134,10 @@ class GraphBuilder:
             if node.confidence < min_confidence:
                 continue
             if query_lower:
-                if query_lower not in node.name.lower() and query_lower not in node.description.lower():  # noqa: E501
+                if (
+                    query_lower not in node.name.lower()
+                    and query_lower not in node.description.lower()
+                ):  # noqa: E501
                     continue
             results.append(node)
 
@@ -313,25 +316,31 @@ class GraphBuilder:
     def _persist(self) -> None:
         """Persist graph to disk."""
         graph_data = {
-            "nodes": [{
-                "id": n.id,
-                "name": n.name,
-                "node_type": n.node_type.value,
-                "domain": n.domain,
-                "layer": n.layer,
-                "description": n.description,
-                "properties": n.properties,
-                "confidence": n.confidence,
-            } for n in self._nodes.values()],
-            "edges": [{
-                "id": e.id,
-                "source_id": e.source_id,
-                "target_id": e.target_id,
-                "relation": e.relation.value,
-                "weight": e.weight,
-                "confidence": e.confidence,
-                "evidence": e.evidence,
-            } for e in self._edges.values()],
+            "nodes": [
+                {
+                    "id": n.id,
+                    "name": n.name,
+                    "node_type": n.node_type.value,
+                    "domain": n.domain,
+                    "layer": n.layer,
+                    "description": n.description,
+                    "properties": n.properties,
+                    "confidence": n.confidence,
+                }
+                for n in self._nodes.values()
+            ],
+            "edges": [
+                {
+                    "id": e.id,
+                    "source_id": e.source_id,
+                    "target_id": e.target_id,
+                    "relation": e.relation.value,
+                    "weight": e.weight,
+                    "confidence": e.confidence,
+                    "evidence": e.evidence,
+                }
+                for e in self._edges.values()
+            ],
         }
 
         path = self.persist_path / "graph.json"

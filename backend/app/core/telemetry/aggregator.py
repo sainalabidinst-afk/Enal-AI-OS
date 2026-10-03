@@ -81,7 +81,9 @@ class Aggregator:
             }
         )
 
-    def record_execution(self, execution_id: str, status: str, goal: str, error: str | None, total_time_ms: float) -> None:  # noqa: E501
+    def record_execution(
+        self, execution_id: str, status: str, goal: str, error: str | None, total_time_ms: float
+    ) -> None:  # noqa: E501
         self._execution_events.append(
             {
                 "execution_id": execution_id,
@@ -103,7 +105,9 @@ class Aggregator:
             }
         )
 
-    def record_reasoning(self, query_id: str, step_count: int, success: bool, duration_ms: float) -> None:  # noqa: E501
+    def record_reasoning(
+        self, query_id: str, step_count: int, success: bool, duration_ms: float
+    ) -> None:  # noqa: E501
         self._reasoning_events.append(
             {
                 "query_id": query_id,
@@ -122,7 +126,8 @@ class Aggregator:
             "total_analyses": len(events),
             "avg_findings": round(sum(e["findings"] for e in events) / len(events), 2),
             "avg_risk_score": round(
-                sum(e["compliance_score"] for e in events if e["compliance_score"] is not None) / max(len([e for e in events if e["compliance_score"] is not None]), 1),  # noqa: E501
+                sum(e["compliance_score"] for e in events if e["compliance_score"] is not None)
+                / max(len([e for e in events if e["compliance_score"] is not None]), 1),  # noqa: E501
                 2,
             ),
         }
@@ -133,7 +138,9 @@ class Aggregator:
             return {"total_messages": 0, "avg_latency_ms": 0.0}
         return {
             "total_messages": sum(e["message_length"] for e in events),
-            "avg_latency_ms": round(sum(e["total_time_ms"] for e in events) / max(len(events), 1), 2),  # noqa: E501
+            "avg_latency_ms": round(
+                sum(e["total_time_ms"] for e in events) / max(len(events), 1), 2
+            ),  # noqa: E501
         }
 
     def parser_kpis(self) -> dict[str, Any]:

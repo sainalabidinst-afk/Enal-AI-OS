@@ -33,8 +33,12 @@ def test_design_review_detects_spof():
         name="core-router",
         device_type=DeviceType.ROUTER,
         interfaces=[
-            NetworkInterface(name="ether1", interface_type=InterfaceType.ETHERNET, ip_address="203.0.113.1/24"),
-            NetworkInterface(name="ether2", interface_type=InterfaceType.ETHERNET, ip_address="10.0.0.1/24"),
+            NetworkInterface(
+                name="ether1", interface_type=InterfaceType.ETHERNET, ip_address="203.0.113.1/24"
+            ),
+            NetworkInterface(
+                name="ether2", interface_type=InterfaceType.ETHERNET, ip_address="10.0.0.1/24"
+            ),
         ],
     )
     topology.add_device(router)

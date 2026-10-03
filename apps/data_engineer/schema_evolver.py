@@ -59,32 +59,38 @@ class SchemaEvolver:
         if new_schema:
             for col in new_cols - old_cols:
                 if col in current_cols:
-                    changes.append(SchemaChange(
-                        column=col,
-                        change_type=ChangeType.added,
-                        new_type=new_schema.get(col, "unknown"),
-                    ))
+                    changes.append(
+                        SchemaChange(
+                            column=col,
+                            change_type=ChangeType.added,
+                            new_type=new_schema.get(col, "unknown"),
+                        )
+                    )
 
         # Detect removed columns.
         if old_schema:
             for col in old_cols - new_cols:
                 if col in current_cols:
-                    changes.append(SchemaChange(
-                        column=col,
-                        change_type=ChangeType.removed,
-                        old_type=old_schema.get(col, "unknown"),
-                    ))
+                    changes.append(
+                        SchemaChange(
+                            column=col,
+                            change_type=ChangeType.removed,
+                            old_type=old_schema.get(col, "unknown"),
+                        )
+                    )
 
         # Detect type changes.
         if old_schema and new_schema:
             for col in old_cols & new_cols:
                 if old_schema.get(col) != new_schema.get(col):
-                    changes.append(SchemaChange(
-                        column=col,
-                        change_type=ChangeType.type_changed,
-                        old_type=old_schema.get(col, "unknown"),
-                        new_type=new_schema.get(col, "unknown"),
-                    ))
+                    changes.append(
+                        SchemaChange(
+                            column=col,
+                            change_type=ChangeType.type_changed,
+                            old_type=old_schema.get(col, "unknown"),
+                            new_type=new_schema.get(col, "unknown"),
+                        )
+                    )
 
         # Detect renamed columns (heuristic: similar values).
         if old_schema and new_schema:
@@ -95,12 +101,14 @@ class SchemaEvolver:
             for old_name in list(unmatched_old):
                 for new_name in list(unmatched_new):
                     if self._is_similar(old_name, new_name):
-                        changes.append(SchemaChange(
-                            column=new_name,
-                            change_type=ChangeType.renamed,
-                            old_type=old_schema.get(old_name, "unknown"),
-                            new_type=new_schema.get(new_name, "unknown"),
-                        ))
+                        changes.append(
+                            SchemaChange(
+                                column=new_name,
+                                change_type=ChangeType.renamed,
+                                old_type=old_schema.get(old_name, "unknown"),
+                                new_type=new_schema.get(new_name, "unknown"),
+                            )
+                        )
                         unmatched_new.discard(new_name)
                         break
 

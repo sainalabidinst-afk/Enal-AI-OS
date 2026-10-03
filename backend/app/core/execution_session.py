@@ -16,9 +16,13 @@ class ExecutionSessionManager:
         self._execution_artifacts: dict[str, ExecutionArtifact] = {}
         self._lock = asyncio.Lock()
 
-    async def create_session(self, goal: str, conversation_id: str | None = None, workspace_id: str | None = None) -> ExecutionSession:  # noqa: E501
+    async def create_session(
+        self, goal: str, conversation_id: str | None = None, workspace_id: str | None = None
+    ) -> ExecutionSession:  # noqa: E501
         async with self._lock:
-            session = ExecutionSession(goal=goal, conversation_id=conversation_id, workspace_id=workspace_id)  # noqa: E501
+            session = ExecutionSession(
+                goal=goal, conversation_id=conversation_id, workspace_id=workspace_id
+            )  # noqa: E501
             self._sessions[session.id] = session
             return session
 
@@ -30,7 +34,9 @@ class ExecutionSessionManager:
             return [s for s in self._sessions.values() if s.workspace_id == workspace_id]
         return list(self._sessions.values())
 
-    async def update_status(self, session_id: str, status: ExecutionStatus, error: str | None = None) -> ExecutionSession | None:  # noqa: E501
+    async def update_status(
+        self, session_id: str, status: ExecutionStatus, error: str | None = None
+    ) -> ExecutionSession | None:  # noqa: E501
         session = self._sessions.get(session_id)
         if not session:
             return None
@@ -43,7 +49,9 @@ class ExecutionSessionManager:
             session.error = error
         return session
 
-    async def update_progress(self, session_id: str, progress: float, eta_seconds: int | None = None) -> ExecutionSession | None:  # noqa: E501
+    async def update_progress(
+        self, session_id: str, progress: float, eta_seconds: int | None = None
+    ) -> ExecutionSession | None:  # noqa: E501
         session = self._sessions.get(session_id)
         if not session:
             return None
@@ -57,12 +65,16 @@ class ExecutionSessionManager:
         session = self._sessions.get(session_id)
         if not session:
             return None
-        phase = ExecutionPhase(id=f"{session_id}-{len(session.phases)+1}", name=name, status=ExecutionStatus.pending)  # noqa: E501
+        phase = ExecutionPhase(
+            id=f"{session_id}-{len(session.phases) + 1}", name=name, status=ExecutionStatus.pending
+        )  # noqa: E501
         session.phases.append(phase.model_dump())
         session.updated_at = datetime.now(UTC)
         return phase.model_dump()
 
-    async def update_phase(self, session_id: str, phase_id: str, status: ExecutionStatus, progress: float | None = None) -> dict[str, Any] | None:  # noqa: E501
+    async def update_phase(
+        self, session_id: str, phase_id: str, status: ExecutionStatus, progress: float | None = None
+    ) -> dict[str, Any] | None:  # noqa: E501
         session = self._sessions.get(session_id)
         if not session:
             return None
@@ -82,22 +94,47 @@ class ExecutionSessionManager:
                 return updated
         return None
 
-    async def add_log(self, session_id: str, message: str, level: str = "info", metadata: dict[str, Any] | None = None) -> dict[str, Any] | None:  # noqa: E501
+    async def add_log(
+        self,
+        session_id: str,
+        message: str,
+        level: str = "info",
+        metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any] | None:  # noqa: E501
         session = self._sessions.get(session_id)
         if not session:
             return None
-        entry: dict[str, Any] = {"timestamp": datetime.now(UTC).isoformat(), "level": level, "message": message}  # noqa: E501
+        entry: dict[str, Any] = {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "level": level,
+            "message": message,
+        }  # noqa: E501
         if metadata:
             entry["metadata"] = metadata
         session.logs.append(entry)
         session.updated_at = datetime.now(UTC)
         return entry
 
-    async def add_artifact(self, session_id: str, name: str, artifact_type: str, content: str | None = None, path: str | None = None, metadata: dict[str, Any] | None = None) -> ExecutionArtifact | None:  # noqa: E501
+    async def add_artifact(
+        self,
+        session_id: str,
+        name: str,
+        artifact_type: str,
+        content: str | None = None,
+        path: str | None = None,
+        metadata: dict[str, Any] | None = None,
+    ) -> ExecutionArtifact | None:  # noqa: E501
         session = self._sessions.get(session_id)
         if not session:
             return None
-        artifact = ExecutionArtifact(execution_id=session_id, name=name, type=artifact_type, content=content, path=path, metadata=metadata or {})  # noqa: E501
+        artifact = ExecutionArtifact(
+            execution_id=session_id,
+            name=name,
+            type=artifact_type,
+            content=content,
+            path=path,
+            metadata=metadata or {},
+        )  # noqa: E501
         session.artifacts.append(artifact.id)
         self._execution_artifacts[artifact.id] = artifact
         session.updated_at = datetime.now(UTC)

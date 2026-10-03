@@ -65,7 +65,9 @@ class SelfDevelopmentWorker:
             "required_skills": required_skills,
         }
 
-    async def _handle_analyze_project(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_analyze_project(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         try:
             result = await self._app.engine.analyze_project()
             return {
@@ -74,9 +76,15 @@ class SelfDevelopmentWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_identify_problems(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_identify_problems(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         try:
             result = await self._app.engine.identify_problems()
             return {
@@ -88,9 +96,15 @@ class SelfDevelopmentWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_propose_solution(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_propose_solution(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         problem_id = (context.get("task", {}) or {}).get("intent", "problem-1")
         try:
             result = await self._app.engine.propose_solution(problem_id)
@@ -100,9 +114,15 @@ class SelfDevelopmentWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_generate_patch(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_generate_patch(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         problem_id = (context.get("task", {}) or {}).get("intent", "problem-1")
         try:
             result = await self._app.engine.generate_patch(problem_id)
@@ -112,9 +132,15 @@ class SelfDevelopmentWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_run_tests(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_run_tests(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         try:
             result = await self._app.engine.run_tests()
             return {
@@ -123,9 +149,15 @@ class SelfDevelopmentWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_approval(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_approval(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         problem_id = (context.get("task", {}) or {}).get("intent", "problem-1")
         try:
             result = await self._app.engine.get_approval_status(problem_id)
@@ -135,9 +167,15 @@ class SelfDevelopmentWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_apply_changes(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_apply_changes(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         problem_id = (context.get("task", {}) or {}).get("intent", "problem-1")
         try:
             approved = context.get("approved", False)
@@ -148,7 +186,11 @@ class SelfDevelopmentWorker:
                 "result": result,
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
 
 self_development_worker = SelfDevelopmentWorker()

@@ -132,12 +132,17 @@ class SecurityEngineerEngine:
             severity_counts[s.severity.value] = severity_counts.get(s.severity.value, 0) + 1
 
         overall_risk = self._compute_overall_risk(
-            len(all_findings), len(all_secrets), len(dep_findings),
-            severity_counts, threat_model.risk_rating,
+            len(all_findings),
+            len(all_secrets),
+            len(dep_findings),
+            severity_counts,
+            threat_model.risk_rating,
             source_code,
         )
         compliance_score = self._compute_compliance_score(
-            severity_counts, compliance, threat_model,
+            severity_counts,
+            compliance,
+            threat_model,
         )
 
         recommendations = self._generate_recommendations(
@@ -246,9 +251,13 @@ class SecurityEngineerEngine:
         recs: list[str] = []
 
         if severity_counts.get("critical", 0) > 0:
-            recs.append(f"Address {severity_counts['critical']} critical security finding(s) immediately")  # noqa: E501
+            recs.append(
+                f"Address {severity_counts['critical']} critical security finding(s) immediately"
+            )  # noqa: E501
         if secrets:
-            recs.append(f"Rotate and remove {len(secrets)} hardcoded secret(s) — store in a secrets manager")  # noqa: E501
+            recs.append(
+                f"Rotate and remove {len(secrets)} hardcoded secret(s) — store in a secrets manager"
+            )  # noqa: E501
         if dep_findings:
             recs.append(f"Upgrade {len(dep_findings)} vulnerable dependency package(s)")
         if severity_counts.get("high", 0) > 0:
@@ -263,6 +272,7 @@ class SecurityEngineerEngine:
         try:
             import json
             from pathlib import Path
+
             base = Path("artifacts/security_history")
             base.mkdir(parents=True, exist_ok=True)
             path = base / f"{record.record_id}.json"

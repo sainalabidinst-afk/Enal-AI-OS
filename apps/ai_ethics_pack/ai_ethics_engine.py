@@ -83,13 +83,15 @@ class AIEthicsGovernanceEngine:
             metrics.append(metric)
 
         if not metrics:
-            metrics.append(FairnessMetric(
-                metric_name="overall_fairness",
-                value=inputs.threshold,
-                threshold=inputs.threshold,
-                passes=True,
-                description="No protected attributes specified, baseline check",
-            ))
+            metrics.append(
+                FairnessMetric(
+                    metric_name="overall_fairness",
+                    value=inputs.threshold,
+                    threshold=inputs.threshold,
+                    passes=True,
+                    description="No protected attributes specified, baseline check",
+                )
+            )
 
         return metrics
 
@@ -107,13 +109,15 @@ class AIEthicsGovernanceEngine:
             # Simulate bias detection
             attr_hash = sum(ord(c) for c in attr + inputs.dataset_description)
             if attr_hash % 3 == 0:
-                findings.append(BiasFinding(
-                    attribute=attr,
-                    bias_type="representation_bias",
-                    severity="medium",
-                    impact_score=0.6,
-                    recommendation=f"Rebalance {attr} representation in training data",
-                ))
+                findings.append(
+                    BiasFinding(
+                        attribute=attr,
+                        bias_type="representation_bias",
+                        severity="medium",
+                        impact_score=0.6,
+                        recommendation=f"Rebalance {attr} representation in training data",
+                    )
+                )
 
         return findings
 
@@ -122,20 +126,24 @@ class AIEthicsGovernanceEngine:
         assessments: list[EthicsAssessment] = []
 
         transparency_score = 0.9 if inputs.model_type == "linear" else 0.7
-        assessments.append(EthicsAssessment(
-            principle="Transparency",
-            status="pass" if transparency_score >= 0.7 else "fail",
-            score=transparency_score,
-            notes=f"Model type '{inputs.model_type}' explainability assessed",
-        ))
+        assessments.append(
+            EthicsAssessment(
+                principle="Transparency",
+                status="pass" if transparency_score >= 0.7 else "fail",
+                score=transparency_score,
+                notes=f"Model type '{inputs.model_type}' explainability assessed",
+            )
+        )
 
         consent_score = 0.85 if "consent" in inputs.dataset_description.lower() else 0.5
-        assessments.append(EthicsAssessment(
-            principle="Consent & Control",
-            status="pass" if consent_score >= 0.7 else "fail",
-            score=consent_score,
-            notes="Data subject consent tracking assessed",
-        ))
+        assessments.append(
+            EthicsAssessment(
+                principle="Consent & Control",
+                status="pass" if consent_score >= 0.7 else "fail",
+                score=consent_score,
+                notes="Data subject consent tracking assessed",
+            )
+        )
 
         return assessments
 
@@ -156,12 +164,14 @@ class AIEthicsGovernanceEngine:
             applicable_regs = ["GDPR"]
 
         for reg in applicable_regs:
-            mappings.append(ComplianceMapping(
-                regulation=reg,
-                requirement="data_minimization" if "gdpr" in reg.lower() else "risk_management",
-                status="compliant" if inputs.threshold >= 0.8 else "non_compliant",
-                evidence=f"Threshold {inputs.threshold} verified against {reg} requirements",
-            ))
+            mappings.append(
+                ComplianceMapping(
+                    regulation=reg,
+                    requirement="data_minimization" if "gdpr" in reg.lower() else "risk_management",
+                    status="compliant" if inputs.threshold >= 0.8 else "non_compliant",
+                    evidence=f"Threshold {inputs.threshold} verified against {reg} requirements",
+                )
+            )
 
         return mappings
 

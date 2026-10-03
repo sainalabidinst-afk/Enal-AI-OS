@@ -48,20 +48,38 @@ _TIMESERIES_CSV = os.path.join(_TEMP_DIR, "timeseries.csv")
 with open(_BENCHMARK_CSV, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=["id", "name", "age", "salary", "department"])
     writer.writeheader()
-    writer.writerow({"id": "1", "name": "Alice", "age": "30", "salary": "50000", "department": "Engineering"})
+    writer.writerow(
+        {"id": "1", "name": "Alice", "age": "30", "salary": "50000", "department": "Engineering"}
+    )
     writer.writerow({"id": "2", "name": "Bob", "age": "", "salary": "60000", "department": "Sales"})
-    writer.writerow({"id": "3", "name": "Alice", "age": "30", "salary": "50000", "department": "Engineering"})
-    writer.writerow({"id": "4", "name": "Charlie", "age": "35", "salary": "", "department": "Engineering"})
-    writer.writerow({"id": "5", "name": "Diana", "age": "28", "salary": "45000", "department": "Marketing"})
-    writer.writerow({"id": "6", "name": "Eve", "age": "42", "salary": "120000", "department": "Sales"})
-    writer.writerow({"id": "", "name": "Frank", "age": "33", "salary": "55000", "department": "Engineering"})
+    writer.writerow(
+        {"id": "3", "name": "Alice", "age": "30", "salary": "50000", "department": "Engineering"}
+    )
+    writer.writerow(
+        {"id": "4", "name": "Charlie", "age": "35", "salary": "", "department": "Engineering"}
+    )
+    writer.writerow(
+        {"id": "5", "name": "Diana", "age": "28", "salary": "45000", "department": "Marketing"}
+    )
+    writer.writerow(
+        {"id": "6", "name": "Eve", "age": "42", "salary": "120000", "department": "Sales"}
+    )
+    writer.writerow(
+        {"id": "", "name": "Frank", "age": "33", "salary": "55000", "department": "Engineering"}
+    )
 
 # Write time series CSV.
 with open(_TIMESERIES_CSV, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=["timestamp", "value", "sensor_id"])
     writer.writeheader()
     for i in range(20):
-        writer.writerow({"timestamp": f"2024-01-01T{i:02d}:00:00", "value": str(100 + i * 10), "sensor_id": "S1"})
+        writer.writerow(
+            {
+                "timestamp": f"2024-01-01T{i:02d}:00:00",
+                "value": str(100 + i * 10),
+                "sensor_id": "S1",
+            }
+        )
 
 
 def _make_source(location: str = _BENCHMARK_CSV) -> DataSource:
@@ -168,8 +186,15 @@ def test_quality_coverage() -> float:
     req = _quick_request("clean")
     report = engine.process(req)
     qr = report.quality_report
-    if all([qr.completeness >= 0.0, qr.uniqueness >= 0.0, qr.validity >= 0.0,
-            qr.freshness >= 0.0, qr.consistency >= 0.0]):
+    if all(
+        [
+            qr.completeness >= 0.0,
+            qr.uniqueness >= 0.0,
+            qr.validity >= 0.0,
+            qr.freshness >= 0.0,
+            qr.consistency >= 0.0,
+        ]
+    ):
         return 0.9
     return 0.3
 

@@ -20,13 +20,15 @@ async def list_capabilities():
     for app_id, app in APPS.items():
         if app is None:
             continue
-        capabilities.append({
-            "id": app_id,
-            "name": app.name,
-            "version": app.version,
-            "description": app.description,
-            "category": app.category,
-        })
+        capabilities.append(
+            {
+                "id": app_id,
+                "name": app.name,
+                "version": app.version,
+                "description": app.description,
+                "category": app.category,
+            }
+        )
     return {"capabilities": capabilities}
 
 
@@ -78,6 +80,7 @@ async def execute_capability(capability_id: str, request: ChatRequest):
         total_ms = (time.perf_counter() - started) * 1000
         try:
             from backend.app.core.telemetry.service import record_execution_event
+
             record_execution_event(
                 execution_id=capability_id,
                 goal=capability_id,

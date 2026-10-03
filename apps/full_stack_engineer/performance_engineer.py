@@ -99,66 +99,86 @@ class PerformanceEngineer:
                     if j > len(lines):
                         break
                     next_line = lines[j - 1]
-                    if next_line.strip() and not next_line.startswith(" " * (loop_indent + 1)) and not next_line.strip().startswith("#"):  # noqa: E501
+                    if (
+                        next_line.strip()
+                        and not next_line.startswith(" " * (loop_indent + 1))
+                        and not next_line.strip().startswith("#")
+                    ):  # noqa: E501
                         break
                     if any(kw in next_line for kw in query_keywords):
-                        issues.append(PerformanceIssue(
-                            severity=Severity.HIGH.value,
-                            category="Database",
-                            title="Possible N+1 Query",
-                            description="Database query appears inside a loop.",
-                            recommendation="Use eager loading (join/subquery) or batch fetching.",
-                            line_number=j,
-                            confidence=0.85,
-                        ))
+                        issues.append(
+                            PerformanceIssue(
+                                severity=Severity.HIGH.value,
+                                category="Database",
+                                title="Possible N+1 Query",
+                                description="Database query appears inside a loop.",
+                                recommendation="Use eager loading (join/subquery) or batch fetching.",  # noqa: E501
+                                line_number=j,
+                                confidence=0.85,
+                            )
+                        )
                         break
 
-    def _check_loop_complexity(self, tree: ast.AST, raw: str, lines: list[str], issues: list[PerformanceIssue]):  # noqa: E501
+    def _check_loop_complexity(
+        self, tree: ast.AST, raw: str, lines: list[str], issues: list[PerformanceIssue]
+    ):  # noqa: E501
         for node in ast.walk(tree):
             if isinstance(node, ast.For):
                 for child in ast.walk(node):
                     if isinstance(child, ast.For):
-                        issues.append(PerformanceIssue(
-                            severity=Severity.MEDIUM.value,
-                            category="Algorithm",
-                            title="Nested Loop",
-                            description="Nested loops may indicate O(n^2) complexity.",
-                            recommendation="Consider using dictionary/set lookup to reduce complexity.",  # noqa: E501
-                            line_number=node.lineno,
-                            confidence=0.7,
-                        ))
+                        issues.append(
+                            PerformanceIssue(
+                                severity=Severity.MEDIUM.value,
+                                category="Algorithm",
+                                title="Nested Loop",
+                                description="Nested loops may indicate O(n^2) complexity.",
+                                recommendation="Consider using dictionary/set lookup to reduce complexity.",  # noqa: E501
+                                line_number=node.lineno,
+                                confidence=0.7,
+                            )
+                        )
                         break
 
-    def _check_memory(self, tree: ast.AST, raw: str, lines: list[str], issues: list[PerformanceIssue]):  # noqa: E501
+    def _check_memory(
+        self, tree: ast.AST, raw: str, lines: list[str], issues: list[PerformanceIssue]
+    ):  # noqa: E501
         if "list(" in raw and "range(" in raw:
-            issues.append(PerformanceIssue(
-                severity=Severity.INFO.value,
-                category="Memory",
-                title="List Comprehension Alternative",
-                description="Large list comprehensions may consume excess memory.",
-                recommendation="Consider generator expressions for large datasets.",
-                confidence=0.6,
-            ))
+            issues.append(
+                PerformanceIssue(
+                    severity=Severity.INFO.value,
+                    category="Memory",
+                    title="List Comprehension Alternative",
+                    description="Large list comprehensions may consume excess memory.",
+                    recommendation="Consider generator expressions for large datasets.",
+                    confidence=0.6,
+                )
+            )
 
-    def _check_io_blocking(self, tree: ast.AST, raw: str, lines: list[str], issues: list[PerformanceIssue]):  # noqa: E501
+    def _check_io_blocking(
+        self, tree: ast.AST, raw: str, lines: list[str], issues: list[PerformanceIssue]
+    ):  # noqa: E501
         if "time.sleep(" in raw:
-            issues.append(PerformanceIssue(
-                severity=Severity.MEDIUM.value,
-                category="Blocking I/O",
-                title="Blocking sleep in async context",
-                description="time.sleep() blocks the event loop.",
-                recommendation="Use asyncio.sleep() in async functions.",
-                confidence=0.9,
-            ))
+            issues.append(
+                PerformanceIssue(
+                    severity=Severity.MEDIUM.value,
+                    category="Blocking I/O",
+                    title="Blocking sleep in async context",
+                    description="time.sleep() blocks the event loop.",
+                    recommendation="Use asyncio.sleep() in async functions.",
+                    confidence=0.9,
+                )
+            )
         if "requests.get(" in raw and "asyncio" in raw:
-            issues.append(PerformanceIssue(
-                severity=Severity.HIGH.value,
-                category="Blocking I/O",
-                title="Blocking HTTP request in async code",
-                description="requests library blocks the event loop.",
-                recommendation="Use aiohttp or httpx for async HTTP.",
-                confidence=0.9,
-            ))
+            issues.append(
+                PerformanceIssue(
+                    severity=Severity.HIGH.value,
+                    category="Blocking I/O",
+                    title="Blocking HTTP request in async code",
+                    description="requests library blocks the event loop.",
+                    recommendation="Use aiohttp or httpx for async HTTP.",
+                    confidence=0.9,
+                )
+            )
 
 
 performance_engineer = PerformanceEngineer()

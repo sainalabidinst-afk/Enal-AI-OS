@@ -7,6 +7,7 @@ OWASP analyzer, secret detector, vulnerability scanner,
 threat modeler, hardening reviewer, compliance mapper,
 dependency auditor, and the full engine pipeline.
 """
+
 from __future__ import annotations
 
 import pytest
@@ -38,33 +39,41 @@ from apps.security_engineer.vulnerability_scanner import VulnerabilityScanner
 # Fixtures
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def engine():
     return SecurityEngineerEngine()
+
 
 @pytest.fixture
 def owasp():
     return OWASPAnalyzer()
 
+
 @pytest.fixture
 def secret_detector():
     return SecretDetector()
+
 
 @pytest.fixture
 def vuln_scanner():
     return VulnerabilityScanner()
 
+
 @pytest.fixture
 def threat_modeler():
     return ThreatModeler()
+
 
 @pytest.fixture
 def hardening():
     return HardeningReviewer()
 
+
 @pytest.fixture
 def compliance():
     return ComplianceMapper()
+
 
 @pytest.fixture
 def dep_auditor():
@@ -74,6 +83,7 @@ def dep_auditor():
 # ---------------------------------------------------------------------------
 # OWASP Analyzer Tests
 # ---------------------------------------------------------------------------
+
 
 class TestOWASPAnalyzer:
     def test_sql_injection_fstring(self, owasp):
@@ -98,7 +108,12 @@ class TestOWASPAnalyzer:
         code = "import requests\nrequests.get(url)"
         findings = owasp.analyze(code, language="python")
         assert len(findings) >= 1
-        assert any("A10:2021" in f.category or "Server-Side Request Forgery" in f.category or "unsanitized URL" in f.title for f in findings)
+        assert any(
+            "A10:2021" in f.category
+            or "Server-Side Request Forgery" in f.category
+            or "unsanitized URL" in f.title
+            for f in findings
+        )
 
     def test_weak_crypto_md5(self, owasp):
         code = "import hashlib\nhashlib.md5(data)"
@@ -146,6 +161,7 @@ class TestOWASPAnalyzer:
 # Secret Detector Tests
 # ---------------------------------------------------------------------------
 
+
 class TestSecretDetector:
     def test_api_key_assignment(self, secret_detector):
         code = 'API_KEY = "sk-1234567890abcdef"'
@@ -154,7 +170,7 @@ class TestSecretDetector:
         assert any(f.type == SecretType.api_key for f in findings)
 
     def test_bearer_token(self, secret_detector):
-        code = 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U'
+        code = "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"  # noqa: E501
         findings = secret_detector.scan(code)
         assert len(findings) >= 1
         assert any(f.type == SecretType.token for f in findings)
@@ -208,6 +224,7 @@ class TestSecretDetector:
 # Vulnerability Scanner Tests
 # ---------------------------------------------------------------------------
 
+
 class TestVulnerabilityScanner:
     def test_pickle_deserialization(self, vuln_scanner):
         code = "import pickle\ndata = pickle.loads(user_input)"
@@ -252,6 +269,7 @@ class TestVulnerabilityScanner:
 # Threat Modeler Tests
 # ---------------------------------------------------------------------------
 
+
 class TestThreatModeler:
     def test_stride_analysis_returns_threats(self, threat_modeler):
         result = threat_modeler.model(
@@ -266,7 +284,7 @@ class TestThreatModeler:
     def test_threat_entries_have_stride_categories(self, threat_modeler):
         result = threat_modeler.model(
             architecture_description="E-commerce platform with payment processing",
-            source_code="def delete_user(user_id): db.users.delete(user_id)\ndef process_payment(amount): charge(amount)",
+            source_code="def delete_user(user_id): db.users.delete(user_id)\ndef process_payment(amount): charge(amount)",  # noqa: E501
             components=["web", "api", "payment", "database"],
             data_flows=["web -> api -> payment -> database"],
         )
@@ -291,6 +309,7 @@ class TestThreatModeler:
 # Hardening Reviewer Tests
 # ---------------------------------------------------------------------------
 
+
 class TestHardeningReviewer:
     def test_docker_debug_mode(self, hardening):
         config = "FROM python:3.9\nENV DEBUG=true\nUSER root"
@@ -311,6 +330,7 @@ class TestHardeningReviewer:
 # ---------------------------------------------------------------------------
 # Compliance Mapper Tests
 # ---------------------------------------------------------------------------
+
 
 class TestComplianceMapper:
     def test_map_findings_to_standards(self, compliance):
@@ -356,6 +376,7 @@ class TestComplianceMapper:
 # Dependency Auditor Tests
 # ---------------------------------------------------------------------------
 
+
 class TestDependencyAuditor:
     def test_audit_requirements_txt(self, dep_auditor):
         manifest = "django==1.11.0\nrequests==2.6.0"
@@ -377,6 +398,7 @@ class TestDependencyAuditor:
 # ---------------------------------------------------------------------------
 # Schemas Tests
 # ---------------------------------------------------------------------------
+
 
 class TestSchemas:
     def test_finding_defaults(self):
@@ -439,6 +461,7 @@ class TestSchemas:
 # ---------------------------------------------------------------------------
 # Engine Integration Tests
 # ---------------------------------------------------------------------------
+
 
 class TestSecurityEngineerEngine:
     def test_full_review_returns_report(self, engine):
@@ -560,7 +583,7 @@ class TestSecurityEngineerEngine:
                 "architecture_description": "Web app with payment processing",
                 "components": ["web", "api", "payment", "database"],
                 "data_flows": ["web -> payment service"],
-                "source_code": "def process_payment(amount):\n    charge(amount)\ndef delete_order(order_id):\n    db.orders.delete(order_id)",
+                "source_code": "def process_payment(amount):\n    charge(amount)\ndef delete_order(order_id):\n    db.orders.delete(order_id)",  # noqa: E501
             },
             standards=["owasp_top10"],
             check_secrets=False,

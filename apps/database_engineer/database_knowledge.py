@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DatabaseVendorKnowledge:
     """Specialized knowledge for a database vendor."""
+
     vendor: str
     recommended_index_types: list[str] = field(default_factory=list)
     partitioning_strategies: list[str] = field(default_factory=list)
@@ -37,7 +38,12 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         recommended_index_types=["btree", "gin", "gist", "brin"],
         partitioning_strategies=["range", "list", "hash"],
         ha_strategies=["streaming_replication", "logical_replication", "patroni"],
-        tuning_parameters=["shared_buffers", "work_mem", "maintenance_work_mem", "effective_cache_size"],  # noqa: E501
+        tuning_parameters=[
+            "shared_buffers",
+            "work_mem",
+            "maintenance_work_mem",
+            "effective_cache_size",
+        ],  # noqa: E501
         security_considerations=["row_level_security", "ssl_enforcement", "password_encryption"],
     ),
     "mysql": DatabaseVendorKnowledge(
@@ -77,7 +83,12 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         recommended_index_types=["btree", "bitmap", "function_based", "cluster"],
         partitioning_strategies=["range", "list", "hash", "composite"],
         ha_strategies=["dataguard", "rac", "standby"],
-        tuning_parameters=["sga_target", "pga_aggregate_target", "db_cache_size", "shared_pool_size"],  # noqa: E501
+        tuning_parameters=[
+            "sga_target",
+            "pga_aggregate_target",
+            "db_cache_size",
+            "shared_pool_size",
+        ],  # noqa: E501
         security_considerations=["advanced_security", "data_redaction", "audit_trail"],
     ),
     "sqlserver": DatabaseVendorKnowledge(
@@ -86,7 +97,11 @@ _VENDOR_KNOWLEDGE: dict[str, DatabaseVendorKnowledge] = {
         partitioning_strategies=["range", "list", "hash"],
         ha_strategies=["always_on_availability_groups", "log_shipping", "clustered_columnstore"],
         tuning_parameters=["max_server_memory", "cost_threshold_for_caching", "maxdop"],  # noqa: E501
-        security_considerations=["transparent_data_encryption", "row_level_security", "dynamic_data_masking"],  # noqa: E501
+        security_considerations=[
+            "transparent_data_encryption",
+            "row_level_security",
+            "dynamic_data_masking",
+        ],  # noqa: E501
     ),
     "sqlite": DatabaseVendorKnowledge(
         vendor="sqlite",
@@ -123,41 +138,53 @@ class DatabaseKnowledgeEngine:
 
         return findings
 
-    def _performance_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:  # noqa: E501
+    def _performance_recommendations(
+        self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]
+    ) -> list[Finding]:  # noqa: E501
         findings: list[Finding] = []
         for param in knowledge.tuning_parameters[:3]:
-            findings.append(Finding(
-                category=FindingCategory.schema,
-                severity=Severity.info,
-                title=f"{vendor}: tune {param}",
-                description=f"Consider tuning {param} for {vendor} performance",
-                recommendation=f"Review {param} configuration for {vendor}",
-                confidence=0.7,
-            ))
+            findings.append(
+                Finding(
+                    category=FindingCategory.schema,
+                    severity=Severity.info,
+                    title=f"{vendor}: tune {param}",
+                    description=f"Consider tuning {param} for {vendor} performance",
+                    recommendation=f"Review {param} configuration for {vendor}",
+                    confidence=0.7,
+                )
+            )
         return findings
 
-    def _schema_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:  # noqa: E501
+    def _schema_recommendations(
+        self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]
+    ) -> list[Finding]:  # noqa: E501
         findings: list[Finding] = []
         if knowledge.recommended_index_types:
-            findings.append(Finding(
-                category=FindingCategory.index,
-                severity=Severity.info,
-                title=f"{vendor}: consider index types {', '.join(knowledge.recommended_index_types[:2])}",  # noqa: E501
-                description=f"{vendor} supports specialized index types for better performance",
-                recommendation=f"Evaluate {', '.join(knowledge.recommended_index_types[:2])} indexes for your workload",  # noqa: E501
-                confidence=0.75,
-            ))
+            findings.append(
+                Finding(
+                    category=FindingCategory.index,
+                    severity=Severity.info,
+                    title=f"{vendor}: consider index types {', '.join(knowledge.recommended_index_types[:2])}",  # noqa: E501
+                    description=f"{vendor} supports specialized index types for better performance",
+                    recommendation=f"Evaluate {', '.join(knowledge.recommended_index_types[:2])} indexes for your workload",  # noqa: E501
+                    confidence=0.75,
+                )
+            )
         return findings
 
-    def _replication_recommendations(self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]) -> list[Finding]:  # noqa: E501
+    def _replication_recommendations(
+        self, vendor: str, knowledge: DatabaseVendorKnowledge, context: dict[str, Any]
+    ) -> list[Finding]:  # noqa: E501
         findings: list[Finding] = []
         if knowledge.ha_strategies:
-            findings.append(Finding(
-                category=FindingCategory.replication,
-                severity=Severity.info,
-                title=f"{vendor}: HA strategy options",
-                description=f"Common HA strategies for {vendor}: {', '.join(knowledge.ha_strategies)}",  # noqa: E501
-                recommendation=f"Evaluate {knowledge.ha_strategies[0]} for your HA requirements",
-                confidence=0.8,
-            ))
+            findings.append(
+                Finding(
+                    category=FindingCategory.replication,
+                    severity=Severity.info,
+                    title=f"{vendor}: HA strategy options",
+                    description=f"Common HA strategies for {vendor}: {', '.join(knowledge.ha_strategies)}",  # noqa: E501
+                    recommendation=f"Evaluate {knowledge.ha_strategies[0]} for your HA requirements",  # noqa: E501
+                    confidence=0.8,
+                )
+            )
         return findings

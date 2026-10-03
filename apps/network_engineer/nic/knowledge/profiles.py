@@ -101,7 +101,12 @@ class ComplianceEngine:
                 else:
                     check = check_fn(rule, raw)
             else:
-                check = ComplianceCheck(rule_id=rule.id, rule_name=rule.name, status="skip", detail="Rule not implemented")  # noqa: E501
+                check = ComplianceCheck(
+                    rule_id=rule.id,
+                    rule_name=rule.name,
+                    status="skip",
+                    detail="Rule not implemented",
+                )  # noqa: E501
             report.checks.append(check)
 
             if check.status == "pass":

@@ -140,7 +140,7 @@ class ComplianceMapper:
 
             # Check if finding has explicit compliance_mapping
             for finding in findings:
-                for c in (finding.compliance_mapping or []):
+                for c in finding.compliance_mapping or []:
                     if self._normalize_standard(c) == std_key:
                         mapped_findings += 1
                     mapped_controls.add(c)

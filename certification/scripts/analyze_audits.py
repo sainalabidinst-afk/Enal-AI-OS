@@ -24,7 +24,7 @@ def analyze() -> None:
     # Overall scores
     scores = [a["overall_score"] for a in audits]
     avg = sum(scores) / len(scores) if scores else 0
-    print(f"Average score: {avg:.1f}/150 ({avg/150*100:.1f}%)")
+    print(f"Average score: {avg:.1f}/150 ({avg / 150 * 100:.1f}%)")
     print(f"Min score: {min(scores)}/150")
     print(f"Max score: {max(scores)}/150")
     print()
@@ -50,7 +50,9 @@ def analyze() -> None:
         min_score = min(scores)
         max_score = max(scores)
         below_7 = sum(1 for s in scores if s < 7)
-        print(f"  {name:<30} avg={avg_score:5.1f}/10  min={min_score}  max={max_score}  below_7={below_7}/{len(scores)}")
+        print(
+            f"  {name:<30} avg={avg_score:5.1f}/10  min={min_score}  max={max_score}  below_7={below_7}/{len(scores)}"  # noqa: E501
+        )
     print()
 
     # Findings analysis
@@ -58,13 +60,15 @@ def analyze() -> None:
     for audit in audits:
         for area in audit.get("areas", []):
             for finding in area.get("findings", []):
-                all_findings.append({
-                    "capability": audit["capability_id"],
-                    "area": area["name"],
-                    "severity": finding["severity"],
-                    "description": finding["description"],
-                    "location": finding.get("location", ""),
-                })
+                all_findings.append(
+                    {
+                        "capability": audit["capability_id"],
+                        "area": area["name"],
+                        "severity": finding["severity"],
+                        "description": finding["description"],
+                        "location": finding.get("location", ""),
+                    }
+                )
 
     print(f"Total findings: {len(all_findings)}")
     severity_counts = Counter(f["severity"] for f in all_findings)
@@ -82,7 +86,9 @@ def analyze() -> None:
     print("Capabilities needing most improvement:")
     for audit in sorted(audits, key=lambda a: a["overall_score"])[:10]:
         pct = audit["overall_score"] / 150 * 100
-        print(f"  {audit['capability_id']:<20} {audit['overall_score']:>3}/150 ({pct:5.1f}%)  grade={audit['grade']}")
+        print(
+            f"  {audit['capability_id']:<20} {audit['overall_score']:>3}/150 ({pct:5.1f}%)  grade={audit['grade']}"  # noqa: E501
+        )
     print()
 
     # Corrective actions summary

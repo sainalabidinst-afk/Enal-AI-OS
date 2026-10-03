@@ -21,15 +21,45 @@ logger = logging.getLogger(__name__)
 
 # Keywords indicating process steps.
 _ACTION_KEYWORDS = {
-    "create", "generate", "send", "receive", "process", "validate", "approve",
-    "reject", "submit", "review", "notify", "calculate", "store", "retrieve",
-    "update", "delete", "escalate", "complete", "start", "end", "log",
+    "create",
+    "generate",
+    "send",
+    "receive",
+    "process",
+    "validate",
+    "approve",
+    "reject",
+    "submit",
+    "review",
+    "notify",
+    "calculate",
+    "store",
+    "retrieve",
+    "update",
+    "delete",
+    "escalate",
+    "complete",
+    "start",
+    "end",
+    "log",
 }
 
 # Keywords indicating decisions.
 _DECISION_KEYWORDS = {
-    "if", "check", "validate", "verify", "approved", "rejected", "pass", "fail",
-    "success", "failure", "error", "valid", "invalid", "eligible",
+    "if",
+    "check",
+    "validate",
+    "verify",
+    "approved",
+    "rejected",
+    "pass",
+    "fail",
+    "success",
+    "failure",
+    "error",
+    "valid",
+    "invalid",
+    "eligible",
 }
 
 
@@ -78,7 +108,7 @@ class ProcessModeler:
     def _extract_activities(self, description: str) -> list[ProcessActivity]:
         """Extract activities from process description."""
         activities: list[ProcessActivity] = []
-        sentences = re.split(r'[.!?\n]+', description)
+        sentences = re.split(r"[.!?\n]+", description)
         activity_id = 1
 
         for sentence in sentences:
@@ -122,9 +152,28 @@ class ProcessModeler:
 
     def _extract_activity_name(self, text: str) -> str:
         """Extract short activity name from text."""
-        verbs = ["create", "generate", "send", "receive", "process", "validate", "approve",
-                 "reject", "submit", "review", "notify", "calculate", "store", "update",
-                 "check", "verify", "escalate", "complete", "start", "end"]
+        verbs = [
+            "create",
+            "generate",
+            "send",
+            "receive",
+            "process",
+            "validate",
+            "approve",
+            "reject",
+            "submit",
+            "review",
+            "notify",
+            "calculate",
+            "store",
+            "update",
+            "check",
+            "verify",
+            "escalate",
+            "complete",
+            "start",
+            "end",
+        ]
         words = text.split()
         for word in words:
             if word.lower() in verbs:
@@ -134,10 +183,10 @@ class ProcessModeler:
     def _extract_actor(self, text: str) -> str:
         """Extract actor from text."""
         patterns = [
-            r'by (\w+)',
-            r'from (\w+)',
-            r'to (\w+)',
-            r'(\w+) (?:will|shall|must|should|can)',
+            r"by (\w+)",
+            r"from (\w+)",
+            r"to (\w+)",
+            r"(\w+) (?:will|shall|must|should|can)",
         ]
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
@@ -148,9 +197,9 @@ class ProcessModeler:
     def _extract_io(self, text: str, io_type: str) -> list[str]:
         """Extract inputs or outputs from text."""
         if io_type == "input":
-            patterns = [r'from (\w+)', r'receive (\w+)', r'given (\w+)']
+            patterns = [r"from (\w+)", r"receive (\w+)", r"given (\w+)"]
         else:
-            patterns = [r'to (\w+)', r'send (\w+)', r'produce (\w+)', r'generate (\w+)']
+            patterns = [r"to (\w+)", r"send (\w+)", r"produce (\w+)", r"generate (\w+)"]
 
         results: list[str] = []
         for pattern in patterns:

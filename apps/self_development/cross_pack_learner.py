@@ -11,9 +11,8 @@ from __future__ import annotations
 import logging
 import uuid
 from pathlib import Path
-from typing import Any
 
-from apps.self_development.schemas import CrossPackPattern, ImprovementProposal, ProposalStatus
+from apps.self_development.schemas import CrossPackPattern, ImprovementProposal
 
 logger = logging.getLogger(__name__)
 
@@ -27,10 +26,15 @@ class CrossPackLearner:
     def learn(self) -> list[CrossPackPattern]:
         patterns: list[CrossPackPattern] = []
 
-        pack_dirs = sorted([
-            d for d in (self.root / "apps").iterdir()
-            if d.is_dir() and not d.name.startswith("__pycache__") and d.name not in {"society", "organization", "integration"}
-        ])
+        pack_dirs = sorted(
+            [
+                d
+                for d in (self.root / "apps").iterdir()
+                if d.is_dir()
+                and not d.name.startswith("__pycache__")
+                and d.name not in {"society", "organization", "integration"}
+            ]
+        )
 
         common_modules = self._find_common_modules(pack_dirs)
         for module_name, packs in common_modules.items():
@@ -78,7 +82,7 @@ class CrossPackLearner:
                         estimated_effort="medium",
                         risk="low",
                         confidence=0.8,
-                        expected_impact=f"Reduce duplication across {len(pattern.source_packs)} packs",
+                        expected_impact=f"Reduce duplication across {len(pattern.source_packs)} packs",  # noqa: E501
                     )
                 )
         return proposals

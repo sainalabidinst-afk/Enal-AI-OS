@@ -30,6 +30,7 @@ class RefactoringSeverity:
 @dataclass
 class RefactoringSuggestion:
     """A single refactoring suggestion."""
+
     category: str
     severity: str
     module_path: str
@@ -48,6 +49,7 @@ class RefactoringSuggestion:
 @dataclass
 class RefactoringReport:
     """Complete refactoring analysis report."""
+
     suggestions: list[RefactoringSuggestion] = field(default_factory=list)
     total_suggestions: int = 0
     by_category: dict[str, int] = field(default_factory=dict)

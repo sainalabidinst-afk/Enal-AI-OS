@@ -73,6 +73,7 @@ class DebateEngine:
             max_tokens=512,
         )
         import json
+
         try:
             data = json.loads(response.choices[0].message.content)
             return DebateArgument(
@@ -91,15 +92,12 @@ class DebateEngine:
         topic: str,
         arguments: list[DebateArgument],
     ) -> tuple[str | None, str, float]:
-        prompt = (
-            f"Judge the debate on: {topic}\n\n"
-            "Proposals:\n"
-        )
+        prompt = f"Judge the debate on: {topic}\n\nProposals:\n"
         for arg in arguments:
             prompt += f"- {arg.agent}: {arg.proposal} (confidence: {arg.confidence})\n"
         prompt += (
             "\nSelect the best proposal and provide a synthesis.\n"
-            "Output JSON: {\"winner\": str, \"synthesis\": str, \"confidence\": float}"
+            'Output JSON: {"winner": str, "synthesis": str, "confidence": float}'
         )
         response = await model_router.acomplete(
             [{"role": "user", "content": prompt}],
@@ -108,6 +106,7 @@ class DebateEngine:
             max_tokens=512,
         )
         import json
+
         try:
             data = json.loads(response.choices[0].message.content)
             return data.get("winner"), data.get("synthesis", ""), data.get("confidence", 0.0)

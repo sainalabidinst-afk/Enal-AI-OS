@@ -77,13 +77,15 @@ class MonteCarloRunner:
             state = self._apply_changes(base_state, changed_vars)
             outcome_value = self._compute_outcome(state, outcome_fn)
 
-            outcomes.append(IterationResult(
-                iteration=i,
-                state=dict(state),
-                outcome_value=outcome_value,
-                changed_variables=changed_vars,
-                assumptions_met=[],
-            ))
+            outcomes.append(
+                IterationResult(
+                    iteration=i,
+                    state=dict(state),
+                    outcome_value=outcome_value,
+                    changed_variables=changed_vars,
+                    assumptions_met=[],
+                )
+            )
 
         return outcomes
 

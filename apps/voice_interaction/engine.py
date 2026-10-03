@@ -56,9 +56,7 @@ class VoiceInteractionEngine:
         try:
             import asyncio
 
-            report = asyncio.get_event_loop().run_until_complete(
-                process_voice_interaction(request)
-            )
+            report = asyncio.get_event_loop().run_until_complete(process_voice_interaction(request))
         except Exception as exc:
             elapsed_ms = (time.perf_counter() - start_time) * 1000
             log_voice_error(span, exc, elapsed_ms)

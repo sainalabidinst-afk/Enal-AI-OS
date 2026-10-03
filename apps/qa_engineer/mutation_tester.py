@@ -174,36 +174,42 @@ class MutationTester:
             for old_op, new_op, mtype in self._PYTHON_OPERATORS:
                 if old_op in line:
                     mutated_line = line.replace(old_op, new_op, 1)
-                    mutants.append(Mutant(
-                        id=f"M-{i}-{mtype}",
-                        original=stripped,
-                        mutated=mutated_line.strip(),
-                        location=f"line:{i}",
-                        mutation_type=mtype,
-                        confidence=0.9,
-                    ))
+                    mutants.append(
+                        Mutant(
+                            id=f"M-{i}-{mtype}",
+                            original=stripped,
+                            mutated=mutated_line.strip(),
+                            location=f"line:{i}",
+                            mutation_type=mtype,
+                            confidence=0.9,
+                        )
+                    )
                     if len(mutants) >= self.MAX_MUTANTS:
                         return mutants
 
             # Negation swap for boolean returns
             if "return True" in line:
-                mutants.append(Mutant(
-                    id=f"M-{i}-return_false",
-                    original=stripped,
-                    mutated=line.replace("return True", "return False"),
-                    location=f"line:{i}",
-                    mutation_type="return_value_swap",
-                    confidence=0.9,
-                ))
+                mutants.append(
+                    Mutant(
+                        id=f"M-{i}-return_false",
+                        original=stripped,
+                        mutated=line.replace("return True", "return False"),
+                        location=f"line:{i}",
+                        mutation_type="return_value_swap",
+                        confidence=0.9,
+                    )
+                )
             elif "return False" in line:
-                mutants.append(Mutant(
-                    id=f"M-{i}-return_true",
-                    original=stripped,
-                    mutated=line.replace("return False", "return True"),
-                    location=f"line:{i}",
-                    mutation_type="return_value_swap",
-                    confidence=0.9,
-                ))
+                mutants.append(
+                    Mutant(
+                        id=f"M-{i}-return_true",
+                        original=stripped,
+                        mutated=line.replace("return False", "return True"),
+                        location=f"line:{i}",
+                        mutation_type="return_value_swap",
+                        confidence=0.9,
+                    )
+                )
 
             if len(mutants) >= self.MAX_MUTANTS:
                 return mutants

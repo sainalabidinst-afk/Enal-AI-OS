@@ -58,7 +58,9 @@ class ROICalculator:
         payback_months = self._compute_payback(cost_estimate, benefit_estimate)
 
         # Calculate ROI percentage.
-        roi_pct = ((benefit_estimate - cost_estimate) / cost_estimate * 100) if cost_estimate > 0 else 0.0  # noqa: E501
+        roi_pct = (
+            ((benefit_estimate - cost_estimate) / cost_estimate * 100) if cost_estimate > 0 else 0.0
+        )  # noqa: E501
 
         return ROIResult(
             npv=round(npv, 2),
@@ -84,7 +86,7 @@ class ROICalculator:
         base_cost = 5000.0  # base project cost
         functional_cost = req_count * 8000.0
         non_functional_cost = constraint_count * 5000.0
-        overhead = (note_count * 2000.0)
+        overhead = note_count * 2000.0
 
         return base_cost + functional_cost + non_functional_cost + overhead
 

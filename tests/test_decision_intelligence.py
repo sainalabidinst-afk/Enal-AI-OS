@@ -69,7 +69,13 @@ def base_request():
 class TestEvidenceCollection:
     def test_collect_returns_evidence_set(self, engine):
         sources = [
-            EvidenceSource(source_id="test", evidence_type=EvidenceSourceType.data, payload={"score": 0.8}, quality_score=0.8, weight=1.0),
+            EvidenceSource(
+                source_id="test",
+                evidence_type=EvidenceSourceType.data,
+                payload={"score": 0.8},
+                quality_score=0.8,
+                weight=1.0,
+            ),
         ]
         req = DecisionRequest(context="test", evidence_sources=sources)
         result = engine.evaluate(req)
@@ -77,8 +83,20 @@ class TestEvidenceCollection:
 
     def test_evidence_weights_normalized(self, engine):
         sources = [
-            EvidenceSource(source_id="a", evidence_type=EvidenceSourceType.data, payload={"score": 0.9}, quality_score=0.9, weight=2.0),
-            EvidenceSource(source_id="b", evidence_type=EvidenceSourceType.data, payload={"score": 0.5}, quality_score=0.5, weight=1.0),
+            EvidenceSource(
+                source_id="a",
+                evidence_type=EvidenceSourceType.data,
+                payload={"score": 0.9},
+                quality_score=0.9,
+                weight=2.0,
+            ),
+            EvidenceSource(
+                source_id="b",
+                evidence_type=EvidenceSourceType.data,
+                payload={"score": 0.5},
+                quality_score=0.5,
+                weight=1.0,
+            ),
         ]
         req = DecisionRequest(context="test", evidence_sources=sources)
         result = engine.evaluate(req)
@@ -155,7 +173,13 @@ class TestConfidenceEstimation:
 
     def test_high_quality_evidence_high_confidence(self, engine):
         sources = [
-            EvidenceSource(source_id="test", evidence_type=EvidenceSourceType.analysis, payload={"score": 0.95}, quality_score=0.95, weight=2.0),
+            EvidenceSource(
+                source_id="test",
+                evidence_type=EvidenceSourceType.analysis,
+                payload={"score": 0.95},
+                quality_score=0.95,
+                weight=2.0,
+            ),
         ]
         req = DecisionRequest(context="test", evidence_sources=sources)
         result = engine.evaluate(req)

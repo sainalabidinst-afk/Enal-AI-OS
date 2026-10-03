@@ -19,11 +19,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import os
 import re
 import sys
 from pathlib import Path
-
 
 REQUIRED_VARS = {
     "POSTGRES_PASSWORD": "Database password must be set",
@@ -106,9 +104,13 @@ def validate_env(filepath: str, strict: bool = False) -> bool:
 
     if not llm_providers:
         if strict:
-            errors.append("No LLM provider API key configured. At least one required for production.")
+            errors.append(
+                "No LLM provider API key configured. At least one required for production."
+            )
         else:
-            warnings.append("No LLM provider API key configured. Runtime benchmarks will be BLOCKED.")
+            warnings.append(
+                "No LLM provider API key configured. Runtime benchmarks will be BLOCKED."
+            )
 
     # Check TESTING flag should be false in production
     testing = env_vars.get("TESTING", "")
@@ -126,9 +128,14 @@ def validate_env(filepath: str, strict: bool = False) -> bool:
     # Print results
     for var, msg in REQUIRED_VARS.items():
         value = env_vars.get(var, "")
-        status = "OK" if value and not any(
-            re.search(p, value, re.IGNORECASE) for p, _ in PLACEHOLDER_PATTERNS
-        ) else "MISSING" if not value else "INVALID"
+        status = (
+            "OK"
+            if value
+            and not any(re.search(p, value, re.IGNORECASE) for p, _ in PLACEHOLDER_PATTERNS)
+            else "MISSING"
+            if not value
+            else "INVALID"
+        )
         print(f"  {var:25s} [{status}]")
 
     print()

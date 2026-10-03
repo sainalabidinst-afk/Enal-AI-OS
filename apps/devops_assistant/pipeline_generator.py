@@ -24,12 +24,19 @@ PIPELINE_TEMPLATES: dict[str, dict[str, Any]] = {
         "file": ".github/workflows/ci.yml",
         "steps": [
             {"name": "Checkout", "uses": "actions/checkout@v4"},
-            {"name": "Setup Python", "uses": "actions/setup-python@v5", "with": {"python-version": "3.11"}},  # noqa: E501
+            {
+                "name": "Setup Python",
+                "uses": "actions/setup-python@v5",
+                "with": {"python-version": "3.11"},
+            },  # noqa: E501
             {"name": "Install", "run": "pip install -e .[dev]"},
             {"name": "Lint", "run": "ruff check ."},
             {"name": "Type Check", "run": "mypy ."},
             {"name": "Test", "run": "pytest tests/ -v"},
-            {"name": "Build", "run": "docker build -t ${{ github.repository }}:${{ github.sha }} ."},  # noqa: E501
+            {
+                "name": "Build",
+                "run": "docker build -t ${{ github.repository }}:${{ github.sha }} .",
+            },  # noqa: E501
             {"name": "Security Scan", "uses": "trivy-action/trivy-scan@master"},
         ],
     },
@@ -82,25 +89,29 @@ class PipelineGenerator:
         step_names = [s.get("name", s.get("stage", "")).lower() for s in steps]
 
         if not any("security" in name for name in step_names):
-            solutions.append(Solution(
-                problem_id=f"{current_pipeline.get('service', 'unknown')}-security-scan",
-                solution_type=ImprovementType.SECURITY_HARDENING.value,
-                description="Tambahkan pemindaian keamanan ke pipeline CI/CD.",
-                estimated_effort="medium",
-                risk="low",
-                tests_required=True,
-                confidence=0.9,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_pipeline.get('service', 'unknown')}-security-scan",
+                    solution_type=ImprovementType.SECURITY_HARDENING.value,
+                    description="Tambahkan pemindaian keamanan ke pipeline CI/CD.",
+                    estimated_effort="medium",
+                    risk="low",
+                    tests_required=True,
+                    confidence=0.9,
+                )
+            )
 
         if not any("rollback" in name or "deploy" in name for name in step_names):
-            solutions.append(Solution(
-                problem_id=f"{current_pipeline.get('service', 'unknown')}-rollback",
-                solution_type=ImprovementType.DEPLOYMENT.value,
-                description="Tambahkan strategi rollback otomatis ke pipeline deployment.",
-                estimated_effort="medium",
-                risk="medium",
-                tests_required=True,
-                confidence=0.85,
-            ))
+            solutions.append(
+                Solution(
+                    problem_id=f"{current_pipeline.get('service', 'unknown')}-rollback",
+                    solution_type=ImprovementType.DEPLOYMENT.value,
+                    description="Tambahkan strategi rollback otomatis ke pipeline deployment.",
+                    estimated_effort="medium",
+                    risk="medium",
+                    tests_required=True,
+                    confidence=0.85,
+                )
+            )
 
         return solutions

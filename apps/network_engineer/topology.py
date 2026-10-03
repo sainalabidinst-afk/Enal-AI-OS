@@ -121,7 +121,11 @@ class NetworkTopology:
         return self.devices.get(device_id)
 
     def get_connections(self, device_id: str) -> list[NetworkConnection]:
-        return [c for c in self.connections if c.source_device == device_id or c.target_device == device_id]  # noqa: E501
+        return [
+            c
+            for c in self.connections
+            if c.source_device == device_id or c.target_device == device_id
+        ]  # noqa: E501
 
     def get_segment(self, segment_id: str) -> NetworkSegment | None:
         return self.segments.get(segment_id)

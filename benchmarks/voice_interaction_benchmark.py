@@ -206,17 +206,22 @@ class VoiceInteractionBenchmark:
                 continue
             score = 0.91
             scores.append(score)
-            details["scenarios"].append({
-                "id": sc["id"],
-                "operation": sc["inputs"]["operation"],
-                "provider": sc["inputs"].get("stt_provider", "whisper"),
-                "score": score,
-            })
+            details["scenarios"].append(
+                {
+                    "id": sc["id"],
+                    "operation": sc["inputs"]["operation"],
+                    "provider": sc["inputs"].get("stt_provider", "whisper"),
+                    "score": score,
+                }
+            )
 
         score = round(sum(scores) / max(len(scores), 1), 4)
         latency = (time.perf_counter() - start) * 1000
         return BenchmarkResult(
-            dimension="stt_accuracy", score=score, latency_ms=latency, details=details,
+            dimension="stt_accuracy",
+            score=score,
+            latency_ms=latency,
+            details=details,
         )
 
     def _test_tts_quality(self) -> BenchmarkResult:
@@ -229,25 +234,34 @@ class VoiceInteractionBenchmark:
                 continue
             score = 0.93
             scores.append(score)
-            details["scenarios"].append({
-                "id": sc["id"],
-                "operation": sc["inputs"]["operation"],
-                "provider": sc["inputs"].get("tts_provider", "pyttsx3"),
-                "format": "wav",
-                "score": score,
-            })
+            details["scenarios"].append(
+                {
+                    "id": sc["id"],
+                    "operation": sc["inputs"]["operation"],
+                    "provider": sc["inputs"].get("tts_provider", "pyttsx3"),
+                    "format": "wav",
+                    "score": score,
+                }
+            )
 
         score = round(sum(scores) / max(len(scores), 1), 4)
         latency = (time.perf_counter() - start) * 1000
         return BenchmarkResult(
-            dimension="tts_quality", score=score, latency_ms=latency, details=details,
+            dimension="tts_quality",
+            score=score,
+            latency_ms=latency,
+            details=details,
         )
 
     def _test_latency(self) -> BenchmarkResult:
         start = time.perf_counter()
         lang_pairs = [
-            ("en", "whisper"), ("id", "whisper"), ("es", "openai"),
-            ("fr", "whisper"), ("de", "whisper"), ("zh", "whisper"),
+            ("en", "whisper"),
+            ("id", "whisper"),
+            ("es", "openai"),
+            ("fr", "whisper"),
+            ("de", "whisper"),
+            ("zh", "whisper"),
         ]
         latencies: list[float] = []
         details: dict[str, Any] = {"language_pairs": []}
@@ -257,12 +271,14 @@ class VoiceInteractionBenchmark:
             score = 0.91
             pair_latency = (time.perf_counter() - pair_start) * 1000
             latencies.append(pair_latency)
-            details["language_pairs"].append({
-                "lang": lang,
-                "provider": provider,
-                "latency_ms": round(pair_latency, 2),
-                "score": score,
-            })
+            details["language_pairs"].append(
+                {
+                    "lang": lang,
+                    "provider": provider,
+                    "latency_ms": round(pair_latency, 2),
+                    "score": score,
+                }
+            )
 
         sorted_lat = sorted(latencies)
         avg = sum(latencies) / max(len(latencies), 1)

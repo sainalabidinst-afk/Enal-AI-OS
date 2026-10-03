@@ -97,13 +97,15 @@ class ExplanationGenerator:
 
         all_attacks_description = []
         for v in attack_vectors:
-            all_attacks_description.append({
-                "id": v.id,
-                "category": v.category.value,
-                "description": v.description,
-                "severity": v.severity.value,
-                "survived": v.id not in attacked_ids,
-            })
+            all_attacks_description.append(
+                {
+                    "id": v.id,
+                    "category": v.category.value,
+                    "description": v.description,
+                    "severity": v.severity.value,
+                    "survived": v.id not in attacked_ids,
+                }
+            )
 
         return {
             "assumptions_audited": assumption_summary,

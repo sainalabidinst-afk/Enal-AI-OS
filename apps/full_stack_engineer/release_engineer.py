@@ -45,7 +45,10 @@ class ReleaseReport:
     def to_dict(self) -> dict[str, Any]:
         return {
             "ready": self.ready,
-            "checks": [{"name": c.name, "status": c.status, "detail": c.detail, "severity": c.severity} for c in self.checks],  # noqa: E501
+            "checks": [
+                {"name": c.name, "status": c.status, "detail": c.detail, "severity": c.severity}
+                for c in self.checks
+            ],  # noqa: E501
             "summary": self.summary,
         }
 
@@ -53,7 +56,9 @@ class ReleaseReport:
 class ReleaseEngineer:
     """Validates release readiness."""
 
-    async def review(self, changes: list[dict[str, Any]], context: dict[str, Any] | None = None) -> dict[str, Any]:  # noqa: E501
+    async def review(
+        self, changes: list[dict[str, Any]], context: dict[str, Any] | None = None
+    ) -> dict[str, Any]:  # noqa: E501
         context = context or {}
         report = ReleaseReport()
         self._check_changelog(changes, context, report)
@@ -65,121 +70,163 @@ class ReleaseEngineer:
         self._compute_readiness(report)
         return report.to_dict()
 
-    def _check_changelog(self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport):  # noqa: E501
+    def _check_changelog(
+        self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport
+    ):  # noqa: E501
         changelog = context.get("changelog", "")
         if not changelog:
-            report.checks.append(ReleaseCheck(
-                name="Changelog",
-                status="missing",
-                detail="No changelog provided.",
-                severity=Severity.HIGH,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Changelog",
+                    status="missing",
+                    detail="No changelog provided.",
+                    severity=Severity.HIGH,
+                )
+            )
         elif len(changelog) < 50:
-            report.checks.append(ReleaseCheck(
-                name="Changelog",
-                status="insufficient",
-                detail="Changelog is too short to be useful.",
-                severity=Severity.MEDIUM,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Changelog",
+                    status="insufficient",
+                    detail="Changelog is too short to be useful.",
+                    severity=Severity.MEDIUM,
+                )
+            )
         else:
-            report.checks.append(ReleaseCheck(
-                name="Changelog",
-                status="present",
-                detail="Changelog found.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Changelog",
+                    status="present",
+                    detail="Changelog found.",
+                    severity=Severity.INFO,
+                )
+            )
 
-    def _check_semver(self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport):  # noqa: E501
+    def _check_semver(
+        self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport
+    ):  # noqa: E501
         version = context.get("version", "")
         if not version:
-            report.checks.append(ReleaseCheck(
-                name="Semantic Version",
-                status="missing",
-                detail="No version specified.",
-                severity=Severity.HIGH,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Semantic Version",
+                    status="missing",
+                    detail="No version specified.",
+                    severity=Severity.HIGH,
+                )
+            )
         elif not re.match(r"^\d+\.\d+\.\d+", version):
-            report.checks.append(ReleaseCheck(
-                name="Semantic Version",
-                status="invalid",
-                detail=f"Version '{version}' does not follow semver.",
-                severity=Severity.MEDIUM,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Semantic Version",
+                    status="invalid",
+                    detail=f"Version '{version}' does not follow semver.",
+                    severity=Severity.MEDIUM,
+                )
+            )
         else:
-            report.checks.append(ReleaseCheck(
-                name="Semantic Version",
-                status="valid",
-                detail=f"Version {version} is valid semver.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Semantic Version",
+                    status="valid",
+                    detail=f"Version {version} is valid semver.",
+                    severity=Severity.INFO,
+                )
+            )
 
-    def _check_migration(self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport):  # noqa: E501
-        has_migration = any("migration" in str(c).lower() or "schema" in str(c).lower() for c in changes)  # noqa: E501
+    def _check_migration(
+        self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport
+    ):  # noqa: E501
+        has_migration = any(
+            "migration" in str(c).lower() or "schema" in str(c).lower() for c in changes
+        )  # noqa: E501
         if has_migration:
-            report.checks.append(ReleaseCheck(
-                name="Migration",
-                status="present",
-                detail="Database/schema migration changes detected.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Migration",
+                    status="present",
+                    detail="Database/schema migration changes detected.",
+                    severity=Severity.INFO,
+                )
+            )
         else:
-            report.checks.append(ReleaseCheck(
-                name="Migration",
-                status="not_required",
-                detail="No migration changes detected.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Migration",
+                    status="not_required",
+                    detail="No migration changes detected.",
+                    severity=Severity.INFO,
+                )
+            )
 
-    def _check_rollback(self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport):  # noqa: E501
+    def _check_rollback(
+        self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport
+    ):  # noqa: E501
         rollback = context.get("rollback_plan", "")
         if not rollback:
-            report.checks.append(ReleaseCheck(
-                name="Rollback Plan",
-                status="missing",
-                detail="No rollback plan provided.",
-                severity=Severity.HIGH,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Rollback Plan",
+                    status="missing",
+                    detail="No rollback plan provided.",
+                    severity=Severity.HIGH,
+                )
+            )
         else:
-            report.checks.append(ReleaseCheck(
-                name="Rollback Plan",
-                status="present",
-                detail="Rollback plan documented.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Rollback Plan",
+                    status="present",
+                    detail="Rollback plan documented.",
+                    severity=Severity.INFO,
+                )
+            )
 
-    def _check_deployment_checklist(self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport):  # noqa: E501
+    def _check_deployment_checklist(
+        self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport
+    ):  # noqa: E501
         checklist = context.get("deployment_checklist", [])
         if not checklist:
-            report.checks.append(ReleaseCheck(
-                name="Deployment Checklist",
-                status="missing",
-                detail="No deployment checklist provided.",
-                severity=Severity.MEDIUM,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Deployment Checklist",
+                    status="missing",
+                    detail="No deployment checklist provided.",
+                    severity=Severity.MEDIUM,
+                )
+            )
         else:
-            report.checks.append(ReleaseCheck(
-                name="Deployment Checklist",
-                status="present",
-                detail=f"{len(checklist)} checklist items found.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Deployment Checklist",
+                    status="present",
+                    detail=f"{len(checklist)} checklist items found.",
+                    severity=Severity.INFO,
+                )
+            )
 
-    def _check_post_deployment(self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport):  # noqa: E501
+    def _check_post_deployment(
+        self, changes: list[dict[str, Any]], context: dict[str, Any], report: ReleaseReport
+    ):  # noqa: E501
         verification = context.get("post_deployment_verification", [])
         if not verification:
-            report.checks.append(ReleaseCheck(
-                name="Post-Deployment Verification",
-                status="missing",
-                detail="No post-deployment verification steps.",
-                severity=Severity.MEDIUM,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Post-Deployment Verification",
+                    status="missing",
+                    detail="No post-deployment verification steps.",
+                    severity=Severity.MEDIUM,
+                )
+            )
         else:
-            report.checks.append(ReleaseCheck(
-                name="Post-Deployment Verification",
-                status="present",
-                detail=f"{len(verification)} verification steps found.",
-                severity=Severity.INFO,
-            ))
+            report.checks.append(
+                ReleaseCheck(
+                    name="Post-Deployment Verification",
+                    status="present",
+                    detail=f"{len(verification)} verification steps found.",
+                    severity=Severity.INFO,
+                )
+            )
 
     def _compute_readiness(self, report: ReleaseReport):
         critical = [c for c in report.checks if c.severity == Severity.CRITICAL]

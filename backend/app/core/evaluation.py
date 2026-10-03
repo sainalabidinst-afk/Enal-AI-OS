@@ -76,15 +76,17 @@ class EvaluationFramework:
         for gate in benchmark.quality_gates:
             gate_passed = pass_rate >= gate.threshold
             result.gate_results[gate.name] = gate_passed
-            self._gate_history.append({
-                "benchmark_id": benchmark_id,
-                "gate_name": gate.name,
-                "metric": gate.metric,
-                "threshold": gate.threshold,
-                "actual": pass_rate,
-                "passed": gate_passed,
-                "timestamp": datetime.now(UTC).isoformat(),
-            })
+            self._gate_history.append(
+                {
+                    "benchmark_id": benchmark_id,
+                    "gate_name": gate.name,
+                    "metric": gate.metric,
+                    "threshold": gate.threshold,
+                    "actual": pass_rate,
+                    "passed": gate_passed,
+                    "timestamp": datetime.now(UTC).isoformat(),
+                }
+            )
         return result
 
     def _evaluate(self, case: dict[str, Any], output: Any) -> bool:
@@ -111,4 +113,3 @@ class EvaluationFramework:
 
 
 evaluation_framework = EvaluationFramework()
-

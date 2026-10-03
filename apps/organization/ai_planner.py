@@ -102,6 +102,7 @@ class PlanStep:
         error: Error message if failed.
         metadata: Additional metadata.
     """
+
     step_id: str
     step_type: StepType
     description: str
@@ -138,6 +139,7 @@ class AIPlan:
         updated_at: When the plan was last updated.
         metadata: Additional metadata (domain, complexity, etc.).
     """
+
     plan_id: str
     goal: str
     steps: list[PlanStep] = field(default_factory=list)
@@ -214,8 +216,12 @@ class AIPlanner:
         intent = intent_router.route(goal, context)
         domain = intent.domain.value
 
-        logger.info("Planning for goal: '%s' (domain=%s, complexity=%s)",
-                     goal[:80], domain, intent.complexity.value)
+        logger.info(
+            "Planning for goal: '%s' (domain=%s, complexity=%s)",
+            goal[:80],
+            domain,
+            intent.complexity.value,
+        )
 
         # 2. Decompose into sub-goals (derived from task planner templates)
         sub_goals = self._decompose_goal(intent, context)
@@ -225,7 +231,7 @@ class AIPlanner:
         previous_step_id: str | None = None
 
         for i, sub_goal in enumerate(sub_goals):
-            step_id = f"step-{i+1}-{uuid.uuid4().hex[:6]}"
+            step_id = f"step-{i + 1}-{uuid.uuid4().hex[:6]}"
 
             # Try to resolve intent to a workflow
             result = self._resolver.resolve(sub_goal.get("intent_id", ""))
@@ -318,7 +324,7 @@ class AIPlanner:
         previous_step_id: str | None = None
 
         for i, wf_id in enumerate(workflow_ids):
-            step_id = f"step-{i+1}-{uuid.uuid4().hex[:6]}"
+            step_id = f"step-{i + 1}-{uuid.uuid4().hex[:6]}"
             entry = self._catalog.get_entry(wf_id)
 
             step = PlanStep(
@@ -375,9 +381,7 @@ class AIPlanner:
         for dep_id in step.depends_on:
             dep_step = next((s for s in plan.steps if s.step_id == dep_id), None)
             if dep_step and dep_step.status != PlanStatus.COMPLETED:
-                raise ValueError(
-                    f"Step {step.step_id} depends on {dep_id} which is not completed"
-                )
+                raise ValueError(f"Step {step.step_id} depends on {dep_id} which is not completed")
 
         # Execute based on step type
         step.status = PlanStatus.IN_PROGRESS
@@ -401,6 +405,7 @@ class AIPlanner:
                     PipelineStep,
                     capability_pipeline,
                 )
+
                 pipeline_step = PipelineStep(
                     capability_id=step.capability_id,
                     input_data=step.input_data,
@@ -562,12 +567,14 @@ class AIPlanner:
             # Fallback: use intent entities
             entities = intent.entities if intent.entities else [domain]
             for entity in entities[:5]:
-                sub_goals.append({
-                    "description": f"Process {entity}",
-                    "intent_id": entity,
-                    "capability_id": entity,
-                    "input_data": {"skills": [entity]},
-                })
+                sub_goals.append(
+                    {
+                        "description": f"Process {entity}",
+                        "intent_id": entity,
+                        "capability_id": entity,
+                        "input_data": {"skills": [entity]},
+                    }
+                )
 
         # Limit based on complexity
         complexity_limits = {
@@ -623,7 +630,9 @@ class AIPlanner:
             if step.step_type == StepType.CAPABILITY:
                 # Capability steps without input validation are risky
                 if not step.input_data:
-                    risk_factors.append({"step": step.step_id, "factor": "missing_input_validation"})  # noqa: E501
+                    risk_factors.append(
+                        {"step": step.step_id, "factor": "missing_input_validation"}
+                    )  # noqa: E501
         # Determine risk level
         high_risk_count = len([r for r in risk_factors if r["factor"] == "many_dependencies"])
         risk_level = "high" if high_risk_count > 2 else "medium" if high_risk_count > 0 else "low"
@@ -635,17 +644,15 @@ class AIPlanner:
                 "Add checkpoint after complex steps",
                 "Validate input before capability execution",
                 "Consider parallel execution for independent steps",
-            ] if risk_level != "low" else [],
+            ]
+            if risk_level != "low"
+            else [],
         }
 
     def _update_plan_status(self, plan: AIPlan) -> None:
         """Update the overall plan status based on step statuses."""
-        all_completed = all(
-            s.status == PlanStatus.COMPLETED for s in plan.steps
-        )
-        any_failed = any(
-            s.status == PlanStatus.FAILED for s in plan.steps
-        )
+        all_completed = all(s.status == PlanStatus.COMPLETED for s in plan.steps)
+        any_failed = any(s.status == PlanStatus.FAILED for s in plan.steps)
 
         if all_completed:
             plan.status = PlanStatus.COMPLETED
@@ -729,4 +736,3 @@ class AIPlanner:
 # ─── Singleton ───
 
 ai_planner = AIPlanner()
-

@@ -17,7 +17,9 @@ class LinuxParser(BaseParser):
         )
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.linux, format="linux", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.linux, format="linux", device_role=meta.device_role
+        )  # noqa: E501
         lowered = content.lower()
         lines = content.splitlines()
         for idx, line in enumerate(lines):
@@ -26,16 +28,36 @@ class LinuxParser(BaseParser):
                 ast.interfaces.append({"raw": stripped[:200]})
             if any(key in stripped.lower() for key in ["iptables", "nft", "firewall"]):
                 ast.firewall.append({"raw": stripped[:200]})
-            if any(key in stripped.lower() for key in ["systemctl", "service ", "active ", "running"]):  # noqa: E501
+            if any(
+                key in stripped.lower() for key in ["systemctl", "service ", "active ", "running"]
+            ):  # noqa: E501
                 ast.services.append({"raw": stripped[:200]})
             if any(key in stripped.lower() for key in ["user ", "group ", "sudo", "password"]):
                 ast.security.append({"raw": stripped[:200]})
             if "permit rootlogin" in lowered and "no" not in lowered:
                 evidence = [line for line in lines if "permit rootlogin" in line.lower()][:3]
-                ast.findings.append(InfrastructureFinding(Severity.high, "security", "SSH root login may be permitted", "Disable PermitRootLogin in sshd_config", confidence=0.8, evidence=evidence))  # noqa: E501
+                ast.findings.append(
+                    InfrastructureFinding(
+                        Severity.high,
+                        "security",
+                        "SSH root login may be permitted",
+                        "Disable PermitRootLogin in sshd_config",
+                        confidence=0.8,
+                        evidence=evidence,
+                    )
+                )  # noqa: E501
             if "password authentication" in lowered and "no" not in lowered:
                 evidence = [line for line in lines if "passwordauthentication" in line.lower()][:3]
-                ast.findings.append(InfrastructureFinding(Severity.high, "security", "SSH password authentication may be enabled", "Disable PasswordAuthentication in sshd_config", confidence=0.8, evidence=evidence))  # noqa: E501
+                ast.findings.append(
+                    InfrastructureFinding(
+                        Severity.high,
+                        "security",
+                        "SSH password authentication may be enabled",
+                        "Disable PasswordAuthentication in sshd_config",
+                        confidence=0.8,
+                        evidence=evidence,
+                    )
+                )  # noqa: E501
         if "journalctl" in lowered or "syslog" in lowered:
             ast.system["log_source"] = "journalctl/syslog"
         return ast

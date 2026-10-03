@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class LineInfo:
     """Information about a single source line."""
+
     lineno: int
     code: str
     is_executable: bool
@@ -30,6 +31,7 @@ class LineInfo:
 @dataclass
 class FunctionInfo:
     """Information about a function for coverage analysis."""
+
     name: str
     lineno: int
     covered: bool = False
@@ -81,11 +83,14 @@ class CoverageAnalyzer:
         functions = self._extract_functions(tree)
 
         # Estimate coverage from test artifacts.
-        covered_lines = self._estimate_covered_lines(test_artifacts, source_code, lines_info, functions)  # noqa: E501
+        covered_lines = self._estimate_covered_lines(
+            test_artifacts, source_code, lines_info, functions
+        )  # noqa: E501
 
         total_executable = sum(1 for l in lines_info if l.is_executable)  # noqa: E741
         covered_executable = sum(
-            1 for l in lines_info  # noqa: E741
+            1
+            for l in lines_info  # noqa: E741
             if l.is_executable and l.lineno in covered_lines
         )
 
@@ -153,13 +158,15 @@ class CoverageAnalyzer:
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 func_lines = set()
                 for child in ast.walk(node):
-                    if isinstance(child, ast.stmt) and hasattr(child, 'lineno'):
+                    if isinstance(child, ast.stmt) and hasattr(child, "lineno"):
                         func_lines.add(child.lineno)
-                functions.append(FunctionInfo(
-                    name=node.name,
-                    lineno=node.lineno,
-                    lines=func_lines,
-                ))
+                functions.append(
+                    FunctionInfo(
+                        name=node.name,
+                        lineno=node.lineno,
+                        lines=func_lines,
+                    )
+                )
         return functions
 
     def _estimate_covered_lines(
@@ -245,10 +252,21 @@ def re_match_branch(stripped: str) -> bool:
 
 def re_is_executable(stripped: str) -> bool:
     """Check if a line is executable code."""
-    exec_prefixes = ("return", "yield", "raise", "=", "assert", "import", "from", "pass", "break", "continue")  # noqa: E501
+    exec_prefixes = (
+        "return",
+        "yield",
+        "raise",
+        "=",
+        "assert",
+        "import",
+        "from",
+        "pass",
+        "break",
+        "continue",
+    )  # noqa: E501
     if any(stripped.startswith(p) for p in exec_prefixes):
         return True
-    if "(" in stripped and "=" not in stripped[:stripped.index("(")]:
+    if "(" in stripped and "=" not in stripped[: stripped.index("(")]:
         return True
     if stripped.endswith("()") or stripped.endswith(")"):
         return True
@@ -258,5 +276,6 @@ def re_is_executable(stripped: str) -> bool:
 def random_check(probability: float) -> bool:
     """Deterministic pseudo-random check for coverage simulation."""
     import hashlib
+
     h = int(hashlib.md5(str(probability).encode()).hexdigest(), 16)
     return (h % 1000) / 1000.0 < probability

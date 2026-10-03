@@ -50,11 +50,13 @@ class AutonomousLongTask:
         task_id = f"longtask-{uuid.uuid4().hex[:8]}"
         long_task = LongTask(id=task_id, name=name, workflow=workflow)
         self._tasks[task_id] = long_task
-        await event_bus.publish(Event(
-            event_type="longtask.created",
-            payload={"task_id": task_id, "name": name},
-            source="longtask-manager",
-        ))
+        await event_bus.publish(
+            Event(
+                event_type="longtask.created",
+                payload={"task_id": task_id, "name": name},
+                source="longtask-manager",
+            )
+        )
         return task_id
 
     async def start(self, task_id: str):
@@ -69,43 +71,59 @@ class AutonomousLongTask:
             task.checkpoint_data = checkpoint.get("state")
         while task.current_step < len(task.workflow) and task.status == LongTaskStatus.RUNNING:
             step = task.workflow[task.current_step]
-            await event_bus.publish(Event(
-                event_type="longtask.step.started",
-                payload={"task_id": task_id, "step": task.current_step},
-                source="longtask-manager",
-            ))
+            await event_bus.publish(
+                Event(
+                    event_type="longtask.step.started",
+                    payload={"task_id": task_id, "step": task.current_step},
+                    source="longtask-manager",
+                )
+            )
             try:
                 result = await self._execute_step(step, task.checkpoint_data)
                 task.result = result
                 task.current_step += 1
                 task.progress = (task.current_step / len(task.workflow)) * 100
-                await state_recovery.save(task_id, f"step-{task.current_step}", {
-                    "step": task.current_step,
-                    "state": result,
-                    "progress": task.progress,
-                })
-                await event_bus.publish(Event(
-                    event_type="longtask.step.completed",
-                    payload={"task_id": task_id, "step": task.current_step - 1, "result": result},
-                    source="longtask-manager",
-                ))
+                await state_recovery.save(
+                    task_id,
+                    f"step-{task.current_step}",
+                    {
+                        "step": task.current_step,
+                        "state": result,
+                        "progress": task.progress,
+                    },
+                )
+                await event_bus.publish(
+                    Event(
+                        event_type="longtask.step.completed",
+                        payload={
+                            "task_id": task_id,
+                            "step": task.current_step - 1,
+                            "result": result,
+                        },
+                        source="longtask-manager",
+                    )
+                )
             except Exception as e:
                 task.error = str(e)
                 task.status = LongTaskStatus.FAILED
-                await event_bus.publish(Event(
-                    event_type="longtask.failed",
-                    payload={"task_id": task_id, "error": str(e)},
-                    source="longtask-manager",
-                ))
+                await event_bus.publish(
+                    Event(
+                        event_type="longtask.failed",
+                        payload={"task_id": task_id, "error": str(e)},
+                        source="longtask-manager",
+                    )
+                )
                 break
         if task.status == LongTaskStatus.RUNNING:
             task.status = LongTaskStatus.COMPLETED
             task.progress = 100.0
-            await event_bus.publish(Event(
-                event_type="longtask.completed",
-                payload={"task_id": task_id, "result": task.result},
-                source="longtask-manager",
-            ))
+            await event_bus.publish(
+                Event(
+                    event_type="longtask.completed",
+                    payload={"task_id": task_id, "result": task.result},
+                    source="longtask-manager",
+                )
+            )
         task.finished_at = datetime.now(UTC)
         return task
 
@@ -113,7 +131,9 @@ class AutonomousLongTask:
         task = self._tasks.get(task_id)
         if task:
             task.status = LongTaskStatus.PAUSED
-            await state_recovery.save(task_id, "paused", {"step": task.current_step, "state": task.checkpoint_data})  # noqa: E501
+            await state_recovery.save(
+                task_id, "paused", {"step": task.current_step, "state": task.checkpoint_data}
+            )  # noqa: E501
 
     async def resume(self, task_id: str):
         task = self._tasks.get(task_id)
@@ -140,7 +160,11 @@ class AutonomousLongTask:
     async def _execute_step(self, step: dict[str, Any], context: Any) -> Any:
         step_type = step.get("type", "task")
         if step_type == "task":
-            task = Task(name=step.get("name", ""), agent=step.get("agent", "system"), payload=step.get("payload", {}))  # noqa: E501
+            task = Task(
+                name=step.get("name", ""),
+                agent=step.get("agent", "system"),
+                payload=step.get("payload", {}),
+            )  # noqa: E501
             result = await task_queue.execute(task)
             return result.result
         elif step_type == "checkpoint":
@@ -155,4 +179,3 @@ class AutonomousLongTask:
 
 
 long_task_manager = AutonomousLongTask()
-

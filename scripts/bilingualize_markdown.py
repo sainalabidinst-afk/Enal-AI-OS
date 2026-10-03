@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 import re
-import time
 from pathlib import Path
-from typing import List
 
 from deep_translator import GoogleTranslator
 
@@ -109,7 +107,9 @@ def translate_with_dictionary(text: str) -> str:
     result = text.strip()
     if not result:
         return ""
-    for source, target in sorted(COMMON_TRANSLATIONS.items(), key=lambda item: len(item[0]), reverse=True):
+    for source, target in sorted(
+        COMMON_TRANSLATIONS.items(), key=lambda item: len(item[0]), reverse=True
+    ):
         result = re.sub(rf"\b{re.escape(source)}\b", target, result, flags=re.IGNORECASE)
     result = re.sub(r"\s+", " ", result).strip()
     if result:
@@ -118,7 +118,7 @@ def translate_with_dictionary(text: str) -> str:
 
 
 def normalize_duplicate_prefixes(text: str) -> str:
-    pattern = r"(?i)(\b(?:bahasa indonesia|terjemahan indonesia)\s*:\s*)(?:(?:bahasa indonesia|terjemahan indonesia)\s*:)+"
+    pattern = r"(?i)(\b(?:bahasa indonesia|terjemahan indonesia)\s*:\s*)(?:(?:bahasa indonesia|terjemahan indonesia)\s*:)+"  # noqa: E501
     cleaned = text
     for _ in range(3):
         new_text = re.sub(pattern, r"\1", cleaned)
@@ -128,8 +128,8 @@ def normalize_duplicate_prefixes(text: str) -> str:
     return cleaned
 
 
-def collect_markdown_files(root: Path) -> List[Path]:
-    files: List[Path] = []
+def collect_markdown_files(root: Path) -> list[Path]:
+    files: list[Path] = []
     for path in root.rglob("*.md"):
         if any(part in SKIP_DIRS for part in path.parts):
             continue
@@ -144,10 +144,10 @@ def build_header(relative_path: Path) -> str:
 ## Bahasa Indonesia / English
 
 ### Ringkasan / Summary
-Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.
+Dokumen ini telah disiapkan dalam format bilingual agar mudah dibaca oleh pengguna Indonesia dan pembaca internasional.  # noqa: E501
 
 - Bahasa Indonesia: isi utama dokumen disajikan dalam versi Indonesia di bawah konten asli.
-- English: the main prose content is presented in an Indonesian bilingual section below the original content.
+- English: the main prose content is presented in an Indonesian bilingual section below the original content.  # noqa: E501
 
 ### Informasi Dokumen / Document Info
 - File: `{relative_path.as_posix()}`
@@ -180,10 +180,12 @@ def insert_header(content: str, relative_path: Path) -> str:
 
 def strip_existing_translations(content: str) -> str:
     lines = content.splitlines()
-    cleaned: List[str] = []
+    cleaned: list[str] = []
     for line in lines:
         stripped = line.strip()
-        if stripped.startswith("> Bahasa Indonesia:") or stripped.startswith("> Terjemahan Indonesia:"):
+        if stripped.startswith("> Bahasa Indonesia:") or stripped.startswith(
+            "> Terjemahan Indonesia:"
+        ):
             continue
         cleaned.append(line)
     return "\n".join(cleaned).strip() + "\n"
@@ -293,9 +295,9 @@ def bilingualize_content(content: str) -> str:
     content = normalize_duplicate_prefixes(content)
     content = strip_existing_translations(content)
     lines = content.splitlines()
-    out: List[str] = []
+    out: list[str] = []
     in_code = False
-    block: List[str] = []
+    block: list[str] = []
 
     def flush_block() -> None:
         if block:
@@ -314,7 +316,16 @@ def bilingualize_content(content: str) -> str:
             continue
 
         if line.strip():
-            if line.startswith("#") or line.startswith("-") or line.startswith("*") or line.startswith("+") or re.match(r"^\d+\.", line) or re.match(r"^\s*\|", line) or line.startswith(">") or re.match(r"^\s*[-*_]{3,}\s*$", line):
+            if (
+                line.startswith("#")
+                or line.startswith("-")
+                or line.startswith("*")
+                or line.startswith("+")
+                or re.match(r"^\d+\.", line)
+                or re.match(r"^\s*\|", line)
+                or line.startswith(">")
+                or re.match(r"^\s*[-*_]{3,}\s*$", line)
+            ):
                 flush_block()
                 out.append(line)
             else:
@@ -327,7 +338,7 @@ def bilingualize_content(content: str) -> str:
     return "\n".join(out).strip() + "\n"
 
 
-def write_index(files: List[Path]) -> None:
+def write_index(files: list[Path]) -> None:
     index_path = REPO_ROOT / "docs" / "BILINGUAL_DOCUMENTATION.md"
     index_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
@@ -335,7 +346,7 @@ def write_index(files: List[Path]) -> None:
         "",
         "## Ringkasan / Summary",
         "",
-        "Dokumen Markdown di repositori ini kini diberi header bilingual dan terjemahan isi prose yang lebih natural dalam bahasa Indonesia.",
+        "Dokumen Markdown di repositori ini kini diberi header bilingual dan terjemahan isi prose yang lebih natural dalam bahasa Indonesia.",  # noqa: E501
         "",
         "## Daftar Dokumen / Document List",
         "",

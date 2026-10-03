@@ -32,12 +32,14 @@ class Prioritizer:
         ranked: list[dict[str, Any]] = []
         for idx, item in enumerate(backlog_input.items):
             score = self._compute_score(item, framework)
-            ranked.append({
-                "id": item.id,
-                "rank": idx + 1,
-                "score": round(score, 2),
-                "rationale": f"Scored using {framework} framework.",
-            })
+            ranked.append(
+                {
+                    "id": item.id,
+                    "rank": idx + 1,
+                    "score": round(score, 2),
+                    "rationale": f"Scored using {framework} framework.",
+                }
+            )
         ranked.sort(key=lambda x: float(x["score"]), reverse=True)
         logger.info("Prioritized %d items using %s framework", len(ranked), framework)
         return {

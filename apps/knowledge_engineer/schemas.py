@@ -91,12 +91,14 @@ class KnowledgeEngineerReport(BaseModel):
 class KnowledgeEngineerRecord(BaseModel):
     pack_id: str = "knowledge-engineer"
     version: str = "1.0.0"
-    capabilities: list[str] = Field(default_factory=lambda: [
-        "ontology_design",
-        "knowledge_graph",
-        "semantic_search",
-        "entity_resolution",
-    ])
+    capabilities: list[str] = Field(
+        default_factory=lambda: [
+            "ontology_design",
+            "knowledge_graph",
+            "semantic_search",
+            "entity_resolution",
+        ]
+    )
 
 
 __all__ = [

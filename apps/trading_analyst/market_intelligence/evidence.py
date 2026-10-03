@@ -40,7 +40,9 @@ class EvidenceBuilder:
         self._all_evidence: list[MarketEvidence] = []
         self._timeframes_analyzed: list[str] = []
 
-    def build(self, raw: dict[str, list[MarketEvidence]], timeframes: list[str]) -> list[MarketEvidence]:  # noqa: E501
+    def build(
+        self, raw: dict[str, list[MarketEvidence]], timeframes: list[str]
+    ) -> list[MarketEvidence]:  # noqa: E501
         """
         Build structured evidence from raw analyzer output.
 

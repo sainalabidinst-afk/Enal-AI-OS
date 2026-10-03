@@ -141,7 +141,8 @@ class TimeSeriesHandler:
 
         # Get numeric columns.
         numeric_cols = [
-            col for col in (sorted_data[0].keys() if sorted_data else [])
+            col
+            for col in (sorted_data[0].keys() if sorted_data else [])
             if col != ts_col and any(isinstance(row.get(col), (int, float)) for row in sorted_data)
         ]
 
@@ -194,8 +195,14 @@ class TimeSeriesHandler:
         """Nearest neighbor interpolation."""
         for i, row in enumerate(data):
             if row.get(col) is None:
-                prev_val = next((data[j][col] for j in range(i - 1, -1, -1) if data[j].get(col) is not None), None)  # noqa: E501
-                next_val = next((data[j][col] for j in range(i + 1, len(data)) if data[j].get(col) is not None), None)  # noqa: E501
+                prev_val = next(
+                    (data[j][col] for j in range(i - 1, -1, -1) if data[j].get(col) is not None),
+                    None,
+                )  # noqa: E501
+                next_val = next(
+                    (data[j][col] for j in range(i + 1, len(data)) if data[j].get(col) is not None),
+                    None,
+                )  # noqa: E501
                 if prev_val is not None and next_val is not None:
                     row[col] = prev_val if abs(i - (i - 1)) <= abs(i - (i + 1)) else next_val
                 elif prev_val is not None:

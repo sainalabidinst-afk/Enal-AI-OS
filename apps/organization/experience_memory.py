@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ExecutionRecord:
     """Single execution event with inputs, outputs, and outcomes."""
+
     execution_id: str
     capability_id: str
     subtask_id: str
@@ -73,6 +74,7 @@ class ExecutionRecord:
 @dataclass
 class LessonLearned:
     """Derived lesson from execution experience."""
+
     id: str
     execution_id: str
     capability_id: str
@@ -196,12 +198,16 @@ class ExperienceMemory:
         return self._executions.get(execution_id)
 
     def get_lessons_for_capability(self, capability_id: str) -> list[LessonLearned]:
-        return [lesson for lesson in self._lessons.values() if lesson.capability_id == capability_id]  # noqa: E501
+        return [
+            lesson for lesson in self._lessons.values() if lesson.capability_id == capability_id
+        ]  # noqa: E501
 
     def get_lessons_for_execution(self, execution_id: str) -> list[LessonLearned]:
         return [lesson for lesson in self._lessons.values() if lesson.execution_id == execution_id]
 
-    def get_recent_executions(self, capability_id: str | None = None, limit: int = 10) -> list[ExecutionRecord]:  # noqa: E501
+    def get_recent_executions(
+        self, capability_id: str | None = None, limit: int = 10
+    ) -> list[ExecutionRecord]:  # noqa: E501
         if capability_id:
             ids = self._capability_index.get(capability_id, [])
             records = [self._executions[eid] for eid in ids if eid in self._executions]
@@ -210,7 +216,9 @@ class ExperienceMemory:
         records.sort(key=lambda r: r.started_at, reverse=True)
         return records[:limit]
 
-    def get_recent_lessons(self, capability_id: str | None = None, limit: int = 10) -> list[LessonLearned]:  # noqa: E501
+    def get_recent_lessons(
+        self, capability_id: str | None = None, limit: int = 10
+    ) -> list[LessonLearned]:  # noqa: E501
         if capability_id:
             lessons = self.get_lessons_for_capability(capability_id)
         else:
@@ -231,12 +239,18 @@ class ExperienceMemory:
             "max": round(max(scores), 3),
         }
 
-    def search(self, query: str, capability_id: str | None = None, limit: int = 5) -> list[dict[str, Any]]:  # noqa: E501
+    def search(
+        self, query: str, capability_id: str | None = None, limit: int = 5
+    ) -> list[dict[str, Any]]:  # noqa: E501
         q = query.lower()
         results: list[tuple[float, ExecutionRecord | LessonLearned]] = []
         candidates = list(self._executions.values()) + list(self._lessons.values())
         for item in candidates:
-            if capability_id and hasattr(item, "capability_id") and item.capability_id != capability_id:  # noqa: E501
+            if (
+                capability_id
+                and hasattr(item, "capability_id")
+                and item.capability_id != capability_id
+            ):  # noqa: E501
                 continue
             text = str(item.to_dict()).lower()
             score = 0
@@ -257,18 +271,20 @@ class ExperienceMemory:
         updates = []
         for lesson in lessons:
             if lesson.quality_score >= 0.7:
-                updates.append({
-                    "type": "lesson_learned",
-                    "source": "experience_memory",
-                    "capability_id": lesson.capability_id,
-                    "category": lesson.category,
-                    "content": lesson.outcome,
-                    "recommendation": lesson.recommendation,
-                    "confidence": lesson.quality_score,
-                    "evidence_ids": lesson.evidence_ids,
-                    "tags": lesson.tags,
-                    "timestamp": lesson.timestamp.isoformat(),
-                })
+                updates.append(
+                    {
+                        "type": "lesson_learned",
+                        "source": "experience_memory",
+                        "capability_id": lesson.capability_id,
+                        "category": lesson.category,
+                        "content": lesson.outcome,
+                        "recommendation": lesson.recommendation,
+                        "confidence": lesson.quality_score,
+                        "evidence_ids": lesson.evidence_ids,
+                        "tags": lesson.tags,
+                        "timestamp": lesson.timestamp.isoformat(),
+                    }
+                )
         return updates
 
 

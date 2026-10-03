@@ -15,8 +15,6 @@ Exit codes:
 
 from __future__ import annotations
 
-import ast
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -37,16 +35,25 @@ def check_circular_imports() -> dict[str, Any]:
     adaptive_runtime = _read(BACKEND / "app" / "core" / "adaptive_runtime.py")
     cognitive_kernel = _read(BACKEND / "app" / "core" / "cognitive_kernel.py")
 
-    init_import_at_top = "from backend.app.core.adaptive_runtime import adaptive_runtime" in cognitive_init.split("class ")[0]
-    runtime_import_at_top = "from backend.app.core.cognitive_kernel import cognitive_kernel" in adaptive_runtime.split("class ")[0]
-    kernel_import_at_top = "from backend.app.core.cognitive.world_model import world_model" in cognitive_kernel.split("class ")[0]
+    init_import_at_top = (
+        "from backend.app.core.adaptive_runtime import adaptive_runtime"
+        in cognitive_init.split("class ")[0]
+    )
+    runtime_import_at_top = (
+        "from backend.app.core.cognitive_kernel import cognitive_kernel"
+        in adaptive_runtime.split("class ")[0]
+    )
+    kernel_import_at_top = (
+        "from backend.app.core.cognitive.world_model import world_model"
+        in cognitive_kernel.split("class ")[0]
+    )
 
     circular = init_import_at_top and runtime_import_at_top and kernel_import_at_top
 
     if circular:
         return {
             "passed": False,
-            "detail": "Circular import detected: cognitive/__init__.py -> adaptive_runtime.py -> cognitive_kernel.py -> cognitive/__init__.py",
+            "detail": "Circular import detected: cognitive/__init__.py -> adaptive_runtime.py -> cognitive_kernel.py -> cognitive/__init__.py",  # noqa: E501
         }
 
     return {"passed": True, "detail": ""}
@@ -62,7 +69,9 @@ def check_backend_imports_apps() -> dict[str, Any]:
             stripped = line.strip()
             if not stripped.startswith("from apps.") and not stripped.startswith("import apps."):
                 continue
-            if stripped.startswith("from apps.integration") or stripped.startswith("import apps.integration"):
+            if stripped.startswith("from apps.integration") or stripped.startswith(
+                "import apps.integration"
+            ):
                 continue
             indent = len(line) - len(line.lstrip())
             if indent > 0:
@@ -71,7 +80,9 @@ def check_backend_imports_apps() -> dict[str, Any]:
 
     return {
         "passed": len(violations) == 0,
-        "detail": f"Backend importing apps/ (boundary violation): {violations[:3]}" if violations else "",
+        "detail": f"Backend importing apps/ (boundary violation): {violations[:3]}"
+        if violations
+        else "",
     }
 
 
@@ -87,7 +98,7 @@ def check_phase3_god_object() -> dict[str, Any]:
     if line_count > 400:
         return {
             "passed": False,
-            "detail": f"phase3.py is {line_count} lines (threshold: 400). Consider splitting into smaller routers.",
+            "detail": f"phase3.py is {line_count} lines (threshold: 400). Consider splitting into smaller routers.",  # noqa: E501
         }
 
     return {"passed": True, "detail": ""}
@@ -141,7 +152,7 @@ def check_no_duplicate_workflow_files() -> dict[str, Any]:
         if content1 == content2:
             return {
                 "passed": False,
-                "detail": "test_integration.py and test_integration_api.py are identical (duplicate)",
+                "detail": "test_integration.py and test_integration_api.py are identical (duplicate)",  # noqa: E501
             }
 
     return {"passed": True, "detail": ""}
@@ -179,7 +190,9 @@ def print_report(checks: list[dict[str, Any]]) -> bool:
             print(f"       {check['detail'][:200]}")
     print()
     all_passed = all(c["passed"] for c in checks)
-    overall = "PASS — Architecture converged" if all_passed else "FAIL — Architecture violations detected"
+    overall = (
+        "PASS — Architecture converged" if all_passed else "FAIL — Architecture violations detected"
+    )
     print(f"Overall: {overall}")
     print("=" * 60)
     return all_passed

@@ -108,13 +108,17 @@ class SystemArchitectEngine:
         review_types = self._resolve_review_types(request.review_type)
 
         if ReviewType.clean_architecture in review_types or ReviewType.full_review in review_types:
-            layer_findings, layer_metrics, layer_recs = await self._get_layer_analyzer(workspace_path).analyze()  # noqa: E501
+            layer_findings, layer_metrics, layer_recs = await self._get_layer_analyzer(
+                workspace_path
+            ).analyze()  # noqa: E501
             findings.extend(layer_findings)
             metrics = self._merge_metrics(metrics, layer_metrics)
             recommendations.extend(layer_recs)
 
         if ReviewType.ddd in review_types or ReviewType.full_review in review_types:
-            ddd_findings, assessment, ddd_recs = await self._get_ddd_analyzer(workspace_path).analyze()  # noqa: E501
+            ddd_findings, assessment, ddd_recs = await self._get_ddd_analyzer(
+                workspace_path
+            ).analyze()  # noqa: E501
             findings.extend(ddd_findings)
             ddd_assessment = assessment
             recommendations.extend(ddd_recs)
@@ -135,7 +139,9 @@ class SystemArchitectEngine:
             recommendations.extend(ms_recs)
 
         if ReviewType.package_boundary in review_types or ReviewType.full_review in review_types:
-            boundary_findings, boundary_metrics, boundary_recs = await self._get_boundary_enforcer(workspace_path).enforce()  # noqa: E501
+            boundary_findings, boundary_metrics, boundary_recs = await self._get_boundary_enforcer(
+                workspace_path
+            ).enforce()  # noqa: E501
             findings.extend(boundary_findings)
             metrics = self._merge_metrics(metrics, boundary_metrics)
             recommendations.extend(boundary_recs)
@@ -148,6 +154,7 @@ class SystemArchitectEngine:
 
         # Deeper knowledge expansion — build graph lazily when needed
         from apps.system_architect.dependency_graph import build_graph
+
         performance_assessment: PerformanceAssessment | None = None
         scalability: ScalabilityAssessment | None = None
         security_findings: list[Finding] = []
@@ -180,7 +187,9 @@ class SystemArchitectEngine:
 
             performance_assessment = self._get_performance_architect().assess(metrics)
             findings.extend(self._get_performance_architect().to_findings(performance_assessment))
-            recommendations.extend(self._get_performance_architect().to_recommendations(performance_assessment))
+            recommendations.extend(
+                self._get_performance_architect().to_recommendations(performance_assessment)
+            )
 
         # Individual review types
         if ReviewType.scalability_review in review_types:
@@ -223,6 +232,7 @@ class SystemArchitectEngine:
 
         # Ensure ddd_assessment is never None
         from apps.system_architect.schemas import DDDAssessment as DDAssess
+
         safe_ddd = ddd_assessment if ddd_assessment is not None else DDAssess()
 
         report = ArchitectureReviewReport(
@@ -280,7 +290,9 @@ class SystemArchitectEngine:
         return self._cqrs_evaluator
 
     def _get_microservices_analyzer(self, workspace_path: Path) -> MicroservicesAnalyzer:
-        self._microservices_analyzer = self._microservices_analyzer or MicroservicesAnalyzer(workspace_path)  # noqa: E501
+        self._microservices_analyzer = self._microservices_analyzer or MicroservicesAnalyzer(
+            workspace_path
+        )  # noqa: E501
         self._microservices_analyzer.repo_path = workspace_path
         return self._microservices_analyzer
 
@@ -314,18 +326,29 @@ class SystemArchitectEngine:
     # Consolidation helpers
     # ------------------------------------------------------------------
 
-    def _merge_metrics(self, base: ArchitectureMetrics, add: ArchitectureMetrics) -> ArchitectureMetrics:  # noqa: E501
+    def _merge_metrics(
+        self, base: ArchitectureMetrics, add: ArchitectureMetrics
+    ) -> ArchitectureMetrics:  # noqa: E501
         """Merge metrics from multiple analyzers (taking worst-case / max)."""
         return ArchitectureMetrics(
             dependency_cycles=base.dependency_cycles + add.dependency_cycles,
             layer_violations=base.layer_violations + add.layer_violations,
-            package_boundaries_crossed=base.package_boundaries_crossed + add.package_boundaries_crossed,  # noqa: E501
-            maintainability_score=min(base.maintainability_score, add.maintainability_score) if base.maintainability_score and add.maintainability_score else max(base.maintainability_score, add.maintainability_score),  # noqa: E501
-            scalability_score=min(base.scalability_score, add.scalability_score) if base.scalability_score and add.scalability_score else max(base.scalability_score, add.scalability_score),  # noqa: E501
-            testability_score=min(base.testability_score, add.testability_score) if base.testability_score and add.testability_score else max(base.testability_score, add.testability_score),  # noqa: E501
+            package_boundaries_crossed=base.package_boundaries_crossed
+            + add.package_boundaries_crossed,  # noqa: E501
+            maintainability_score=min(base.maintainability_score, add.maintainability_score)
+            if base.maintainability_score and add.maintainability_score
+            else max(base.maintainability_score, add.maintainability_score),  # noqa: E501
+            scalability_score=min(base.scalability_score, add.scalability_score)
+            if base.scalability_score and add.scalability_score
+            else max(base.scalability_score, add.scalability_score),  # noqa: E501
+            testability_score=min(base.testability_score, add.testability_score)
+            if base.testability_score and add.testability_score
+            else max(base.testability_score, add.testability_score),  # noqa: E501
         )
 
-    def _finalize_metrics(self, metrics: ArchitectureMetrics, findings: list[Finding]) -> ArchitectureMetrics:  # noqa: E501
+    def _finalize_metrics(
+        self, metrics: ArchitectureMetrics, findings: list[Finding]
+    ) -> ArchitectureMetrics:  # noqa: E501
         """Ensure metrics reflect all findings."""
         layer_count = sum(1 for f in findings if f.category.value == "layer_violation")
         cycle_count = sum(1 for f in findings if f.category.value == "dependency_cycle")
@@ -393,12 +416,9 @@ class SystemArchitectEngine:
             review_id=report.review_id,
             review_type=report.review_type,
             total_findings=report.summary.total_findings,
-            violations_detected=(
-                report.summary.critical_count + report.summary.high_count
-            ),
+            violations_detected=(report.summary.critical_count + report.summary.high_count),
             adr_generated=bool(report.adr_draft.title),
             recommendations_count=len(report.recommendations),
             outcome=outcome,
             adr_status=ADRStatus.proposed,
         )
-

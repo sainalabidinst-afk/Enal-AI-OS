@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class HATopology:
     """High availability topology design."""
+
     strategy: str
     nodes: list[dict[str, Any]]
     failover_strategy: str
@@ -68,12 +69,14 @@ class HADesigner:
     def to_findings(self, topology: HATopology) -> list[Finding]:
         """Convert topology to findings."""
         findings: list[Finding] = []
-        findings.append(Finding(
-            category=FindingCategory.replication,
-            severity=Severity.info,
-            title=f"HA Topology: {topology.strategy}",
-            description=f"Strategy: {topology.strategy}, Failover: {topology.failover_strategy}, RTO: {topology.rto_minutes}m, RPO: {topology.rpo_minutes}m",  # noqa: E501
-            recommendation=f"Deploy {topology.strategy} with automatic failover",
-            confidence=0.8,
-        ))
+        findings.append(
+            Finding(
+                category=FindingCategory.replication,
+                severity=Severity.info,
+                title=f"HA Topology: {topology.strategy}",
+                description=f"Strategy: {topology.strategy}, Failover: {topology.failover_strategy}, RTO: {topology.rto_minutes}m, RPO: {topology.rpo_minutes}m",  # noqa: E501
+                recommendation=f"Deploy {topology.strategy} with automatic failover",
+                confidence=0.8,
+            )
+        )
         return findings

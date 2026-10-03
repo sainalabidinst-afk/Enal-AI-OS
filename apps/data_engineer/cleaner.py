@@ -59,15 +59,17 @@ class DataCleaner:
 
         # Apply remediation based on operations.
         for op in operations:
-            op_name = op.operation.value if hasattr(op, 'operation') else str(op)
+            op_name = op.operation.value if hasattr(op, "operation") else str(op)
             if op_name == "fill_missing":
-                result = self._fill_missing(result, op.parameters if hasattr(op, 'parameters') else {})  # noqa: E501
+                result = self._fill_missing(
+                    result, op.parameters if hasattr(op, "parameters") else {}
+                )  # noqa: E501
             elif op_name == "drop_duplicates":
                 result = self._drop_duplicates(result)
             elif op_name == "remove_outliers":
                 result = self._remove_outliers(result)
             elif op_name == "normalize":
-                result = self._normalize(result, op.parameters if hasattr(op, 'parameters') else {})
+                result = self._normalize(result, op.parameters if hasattr(op, "parameters") else {})
 
         return result, issues
 
@@ -82,15 +84,21 @@ class DataCleaner:
             missing_count = sum(1 for row in data if row.get(col) is None or row.get(col) == "")
             if missing_count > 0:
                 pct = missing_count / len(data)
-                severity = IssueSeverity.critical if pct > 0.3 else (IssueSeverity.high if pct > 0.1 else IssueSeverity.medium)  # noqa: E501
-                issues.append(QualityIssue(
-                    type=IssueType.missing_values,
-                    column=col,
-                    severity=severity,
-                    count=missing_count,
-                    remediation="Fill missing values using mean/median imputation or drop rows",
-                    confidence=0.9,
-                ))
+                severity = (
+                    IssueSeverity.critical
+                    if pct > 0.3
+                    else (IssueSeverity.high if pct > 0.1 else IssueSeverity.medium)
+                )  # noqa: E501
+                issues.append(
+                    QualityIssue(
+                        type=IssueType.missing_values,
+                        column=col,
+                        severity=severity,
+                        count=missing_count,
+                        remediation="Fill missing values using mean/median imputation or drop rows",
+                        confidence=0.9,
+                    )
+                )
         return issues
 
     def _detect_duplicates(self, data: list[dict[str, Any]]) -> list[QualityIssue]:
@@ -109,14 +117,16 @@ class DataCleaner:
                 seen.add(key)
 
         if dup_count > 0:
-            issues.append(QualityIssue(
-                type=IssueType.duplicate_rows,
-                column="",
-                severity=IssueSeverity.medium,
-                count=dup_count,
-                remediation="Remove duplicate rows using drop_duplicates",
-                confidence=0.95,
-            ))
+            issues.append(
+                QualityIssue(
+                    type=IssueType.duplicate_rows,
+                    column="",
+                    severity=IssueSeverity.medium,
+                    count=dup_count,
+                    remediation="Remove duplicate rows using drop_duplicates",
+                    confidence=0.95,
+                )
+            )
         return issues
 
     def _detect_outliers(self, data: list[dict[str, Any]]) -> list[QualityIssue]:
@@ -138,14 +148,16 @@ class DataCleaner:
             upper = q3 + 1.5 * iqr
             outliers = [v for v in values if v < lower or v > upper]
             if outliers:
-                issues.append(QualityIssue(
-                    type=IssueType.outlier,
-                    column=col,
-                    severity=IssueSeverity.medium,
-                    count=len(outliers),
-                    remediation=f"Review outliers in {col} (range: {lower:.2f} - {upper:.2f})",
-                    confidence=0.8,
-                ))
+                issues.append(
+                    QualityIssue(
+                        type=IssueType.outlier,
+                        column=col,
+                        severity=IssueSeverity.medium,
+                        count=len(outliers),
+                        remediation=f"Review outliers in {col} (range: {lower:.2f} - {upper:.2f})",
+                        confidence=0.8,
+                    )
+                )
         return issues
 
     def _detect_format_issues(self, data: list[dict[str, Any]]) -> list[QualityIssue]:
@@ -161,17 +173,23 @@ class DataCleaner:
 
             types = Counter(type(v).__name__ for v in values)
             if len(types) > 1:
-                issues.append(QualityIssue(
-                    type=IssueType.invalid_format,
-                    column=col,
-                    severity=IssueSeverity.low,
-                    count=sum(1 for v in values if type(v).__name__ != types.most_common(1)[0][0]),
-                    remediation=f"Normalize types in column '{col}' to consistent type",
-                    confidence=0.7,
-                ))
+                issues.append(
+                    QualityIssue(
+                        type=IssueType.invalid_format,
+                        column=col,
+                        severity=IssueSeverity.low,
+                        count=sum(
+                            1 for v in values if type(v).__name__ != types.most_common(1)[0][0]
+                        ),
+                        remediation=f"Normalize types in column '{col}' to consistent type",
+                        confidence=0.7,
+                    )
+                )
         return issues
 
-    def _fill_missing(self, data: list[dict[str, Any]], params: dict[str, Any]) -> list[dict[str, Any]]:  # noqa: E501
+    def _fill_missing(
+        self, data: list[dict[str, Any]], params: dict[str, Any]
+    ) -> list[dict[str, Any]]:  # noqa: E501
         """Fill missing values."""
         strategy = params.get("strategy", "zero")
         fill_value = params.get("fill_value", 0)
@@ -180,7 +198,7 @@ class DataCleaner:
 
         for row in data:
             new_row = dict(row)
-            for col in (columns or row.keys()):
+            for col in columns or row.keys():
                 if new_row.get(col) is None or new_row.get(col) == "":
                     if strategy == "zero":
                         new_row[col] = 0
@@ -207,7 +225,11 @@ class DataCleaner:
     def _remove_outliers(self, data: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Remove outliers using IQR method."""
         result = data
-        columns = [col for col in data[0].keys() if any(isinstance(row.get(col), (int, float)) for row in data)]  # noqa: E501
+        columns = [
+            col
+            for col in data[0].keys()
+            if any(isinstance(row.get(col), (int, float)) for row in data)
+        ]  # noqa: E501
 
         for col in columns:
             values = [row[col] for row in data if isinstance(row.get(col), (int, float))]
@@ -220,11 +242,20 @@ class DataCleaner:
             iqr = q3 - q1
             lower = q1 - 1.5 * iqr
             upper = q3 + 1.5 * iqr
-            result = [row for row in result if not (isinstance(row.get(col), (int, float)) and (row[col] < lower or row[col] > upper))]  # noqa: E501
+            result = [
+                row
+                for row in result
+                if not (
+                    isinstance(row.get(col), (int, float))
+                    and (row[col] < lower or row[col] > upper)
+                )
+            ]  # noqa: E501
 
         return result
 
-    def _normalize(self, data: list[dict[str, Any]], params: dict[str, Any]) -> list[dict[str, Any]]:  # noqa: E501
+    def _normalize(
+        self, data: list[dict[str, Any]], params: dict[str, Any]
+    ) -> list[dict[str, Any]]:  # noqa: E501
         """Normalize numeric columns to 0-1 range."""
         columns = params.get("columns", [])
         result = []

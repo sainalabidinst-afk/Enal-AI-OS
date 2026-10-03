@@ -1,4 +1,4 @@
-﻿"""
+"""
 Patch Generator
 =================
 
@@ -36,6 +36,7 @@ class PatchStatus:
 @dataclass
 class PatchHunk:
     """A single contiguous block of changes within a file."""
+
     old_start: int
     old_count: int
     new_start: int
@@ -60,6 +61,7 @@ class PatchHunk:
 @dataclass
 class PatchFile:
     """Changes for a single file."""
+
     file_path: str
     hunks: list[PatchHunk] = field(default_factory=list)
     old_hash: str = ""
@@ -86,6 +88,7 @@ class PatchFile:
 @dataclass
 class PatchBundle:
     """A complete patch bundle with multiple file changes."""
+
     patch_id: str
     title: str
     description: str = ""
@@ -119,8 +122,18 @@ class PatchBundle:
             lines.append(f"## Description\n\n{self.description}\n")
 
         for pf in self.files:
-            added = sum(1 for h in pf.hunks for l in h.new_content.splitlines() if l.strip() and not l.strip().startswith('-'))  # noqa: E741, E501
-            removed = sum(1 for h in pf.hunks for l in h.old_content.splitlines() if l.strip() and not l.strip().startswith('+'))  # noqa: E741, E501
+            added = sum(
+                1
+                for h in pf.hunks
+                for line in h.new_content.splitlines()
+                if line.strip() and not line.strip().startswith("-")
+            )
+            removed = sum(
+                1
+                for h in pf.hunks
+                for line in h.old_content.splitlines()
+                if line.strip() and not line.strip().startswith("+")
+            )
             lines.append(f"## {pf.file_path}")
             lines.append(f"  - {len(pf.hunks)} hunks, +{added}/-{removed} lines")
             lines.append(f"  - Status: {pf.status}")
@@ -161,7 +174,9 @@ class PatchGenerator:
             return None
 
         # Create a hunk that replaces the target lines
-        old_content = "".join(lines[line_number - 1:line_number]) if line_number <= len(lines) else ""  # noqa: E501
+        old_content = (
+            "".join(lines[line_number - 1 : line_number]) if line_number <= len(lines) else ""
+        )  # noqa: E501
 
         bundle = self._create_bundle(title or f"Patch for {file_path}", description)
         patch_file = PatchFile(file_path=str(file_path))
@@ -192,19 +207,21 @@ class PatchGenerator:
         old_lines = old_content.splitlines(keepends=True)
         new_lines = new_content.splitlines(keepends=True)
 
-        diff = list(difflib.unified_diff(
-            old_lines,
-            new_lines,
-            fromfile=f"a/{file_path}",
-            tofile=f"b/{file_path}",
-            n=3,
-        ))
+        diff = list(
+            difflib.unified_diff(
+                old_lines,
+                new_lines,
+                fromfile=f"a/{file_path}",
+                tofile=f"b/{file_path}",
+                n=3,
+            )
+        )
 
         bundle = self._create_bundle(title or f"Patch for {file_path}", description)
         patch_file = PatchFile(file_path=str(file_path))
 
         # Parse diff into hunks
-        hunk_pattern = re.compile(r'^@@ -(\d+),?(\d*) \+(\d+),?(\d*) @@(.*)$')
+        hunk_pattern = re.compile(r"^@@ -(\d+),?(\d*) \+(\d+),?(\d*) @@(.*)$")
         current_hunk: PatchHunk | None = None
         old_lines_buffer: list[str] = []
         new_lines_buffer: list[str] = []
@@ -236,9 +253,9 @@ class PatchGenerator:
                 old_lines_buffer = []
                 new_lines_buffer = []
             elif current_hunk:
-                if line.startswith('-') and not line.startswith('--'):
+                if line.startswith("-") and not line.startswith("--"):
                     old_lines_buffer.append(line[1:])
-                elif line.startswith('+') and not line.startswith('++'):
+                elif line.startswith("+") and not line.startswith("++"):
                     new_lines_buffer.append(line[1:])
                 else:
                     old_lines_buffer.append(line)
@@ -332,7 +349,7 @@ class PatchGenerator:
             old_count = hunk.old_count
 
             # Verify the old content matches
-            old_lines = "".join(lines[old_start:old_start + old_count]).rstrip()
+            old_lines = "".join(lines[old_start : old_start + old_count]).rstrip()
             if old_lines != hunk.old_content.rstrip():
                 logger.warning(
                     f"Content mismatch at line {hunk.old_start}: "
@@ -342,7 +359,7 @@ class PatchGenerator:
 
             # Replace old lines with new lines
             new_lines_list = hunk.new_content.splitlines(keepends=True)
-            lines[old_start:old_start + old_count] = new_lines_list
+            lines[old_start : old_start + old_count] = new_lines_list
 
         return "".join(lines)
 
@@ -466,4 +483,3 @@ class PatchGenerator:
             lines.append("")
 
         return "\n".join(lines)
-

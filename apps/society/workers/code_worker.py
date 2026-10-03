@@ -44,7 +44,12 @@ class CodeWorker:
         lowered = name.lower()
         if "parse" in lowered or "ast" in lowered or "syntax" in lowered:
             return await self._handle_parse(subtask_data, context)
-        if "analysis" in lowered or "analyze" in lowered or "review" in lowered or "security" in lowered:  # noqa: E501
+        if (
+            "analysis" in lowered
+            or "analyze" in lowered
+            or "review" in lowered
+            or "security" in lowered
+        ):  # noqa: E501
             return await self._handle_analysis(subtask_data, context)
         if "documentation" in lowered or "doc" in lowered:
             return await self._handle_documentation(subtask_data, context)
@@ -55,11 +60,17 @@ class CodeWorker:
             "required_skills": required_skills,
         }
 
-    async def _handle_parse(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_parse(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         code_content = task_context.get("intent", "")
         if not code_content:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No code content provided for parsing"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No code content provided for parsing",
+            }  # noqa: E501
         try:
             code_ast = self._app.parse_code(code_content)
             return {
@@ -74,13 +85,23 @@ class CodeWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_analysis(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_analysis(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         task_context = context.get("task", {})
         code_content = task_context.get("intent", "")
         if not code_content:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "completed", "result": "No code content provided for analysis"}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "completed",
+                "result": "No code content provided for analysis",
+            }  # noqa: E501
         try:
             analysis = self._app.analyze_code(code_content)
             issues = analysis.get("issues", [])
@@ -99,9 +120,15 @@ class CodeWorker:
                 },
             }
         except Exception as exc:
-            return {"subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")), "status": "failed", "error": str(exc)}  # noqa: E501
+            return {
+                "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),
+                "status": "failed",
+                "error": str(exc),
+            }  # noqa: E501
 
-    async def _handle_documentation(self, subtask_data: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:  # noqa: E501
+    async def _handle_documentation(
+        self, subtask_data: dict[str, Any], context: dict[str, Any]
+    ) -> dict[str, Any]:  # noqa: E501
         code_content = (context.get("task", {}) or {}).get("intent", "")
         return {
             "subtask_id": subtask_data.get("subtask_id", subtask_data.get("id", "")),

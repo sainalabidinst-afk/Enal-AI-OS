@@ -28,7 +28,7 @@ class Greeter:
         self.greetings.append(greeting)
 '''
 
-COMPLEX_CODE = '''
+COMPLEX_CODE = """
 import os
 import pickle
 
@@ -40,9 +40,9 @@ class DataProcessor:
     def load(self, path):
         with open(path, "rb") as f:
             return pickle.loads(f.read())
-'''
+"""
 
-INSECURE_CODE = '''
+INSECURE_CODE = """
 import os
 
 def run_command(cmd):
@@ -50,7 +50,7 @@ def run_command(cmd):
 
 def unsafe_load(data):
     return pickle.loads(data)
-'''
+"""
 
 
 def test_parse_simple_code():
@@ -60,7 +60,9 @@ def test_parse_simple_code():
     assert len(ast_obj.classes) == 1
     assert top_level_functions[0].name == "hello"
     assert ast_obj.classes[0].name == "Greeter"
-    print(f"[PASS] Parse Simple: {len(top_level_functions)} top-level functions, {len(ast_obj.classes)} classes")
+    print(
+        f"[PASS] Parse Simple: {len(top_level_functions)} top-level functions, {len(ast_obj.classes)} classes"  # noqa: E501
+    )
 
 
 def test_analyze_docstrings():
@@ -167,7 +169,7 @@ def test_architecture_pattern_ddd_entity():
 
 def test_architecture_pattern_solid_srp():
     """Test SOLIDAnalyzer detects Single Responsibility violations."""
-    BIG_CLASS_CODE = """
+    big_class_code = """
 class MegaService:
     def method01(self): pass
     def method02(self): pass
@@ -186,7 +188,7 @@ class MegaService:
     def method15(self): pass
     def method16(self): pass
 """
-    ast_obj = code_parser.parse(BIG_CLASS_CODE, "big.py")
+    ast_obj = code_parser.parse(big_class_code, "big.py")
     results = architecture_pattern_analyzer.analyze(ast_obj)
     solid_findings = results.get("solid", [])
     srp_findings = [f for f in solid_findings if f.pattern == "single_responsibility"]
@@ -196,7 +198,7 @@ class MegaService:
 
 def test_architecture_pattern_cqrs():
     """Test CQRSAnalyzer detects Command/Query patterns."""
-    CQRS_CODE = """
+    cqrs_code = """
 class CreateOrderCommand:
     def execute(self):
         pass
@@ -204,7 +206,7 @@ class CreateOrderCommand:
 class GetOrderByIdQuery:
     pass
 """
-    ast_obj = code_parser.parse(CQRS_CODE, "cqrs.py")
+    ast_obj = code_parser.parse(cqrs_code, "cqrs.py")
     results = architecture_pattern_analyzer.analyze(ast_obj)
     cqrs_findings = results.get("cqrs", [])
     patterns = [f.pattern for f in cqrs_findings]
@@ -215,7 +217,7 @@ class GetOrderByIdQuery:
 
 def test_architecture_pattern_event_sourcing():
     """Test EventSourcingAnalyzer detects Event Store patterns."""
-    ES_CODE = """
+    es_code = """
 class EventStore:
     def append(self, event):
         pass
@@ -226,7 +228,7 @@ class OrderProjection:
     def when(self, event):
         pass
 """
-    ast_obj = code_parser.parse(ES_CODE, "events.py")
+    ast_obj = code_parser.parse(es_code, "events.py")
     results = architecture_pattern_analyzer.analyze(ast_obj)
     es_findings = results.get("event_sourcing", [])
     patterns = [f.pattern for f in es_findings]
@@ -264,11 +266,11 @@ def test_secure_coding_owasp_injection():
 
 def test_secure_coding_owasp_secrets():
     """Test OWASPDetector detects hardcoded secrets."""
-    SECRET_CODE = """
+    secret_code = """
 ADMIN_PASSWORD = "supersecret123"
 AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
 """
-    ast_obj = code_parser.parse(SECRET_CODE, "secrets.py")
+    ast_obj = code_parser.parse(secret_code, "secrets.py")
     results = secure_coding_analyzer.analyze(ast_obj)
     owasp_findings = results.get("owasp", [])
     patterns = [f.pattern for f in owasp_findings]
@@ -278,10 +280,10 @@ AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
 
 def test_secure_coding_auth_password():
     """Test AuthAnalyzer detects plaintext passwords."""
-    PW_CODE = """
+    pw_code = """
 password = "admin123"
 """
-    ast_obj = code_parser.parse(PW_CODE, "pw.py")
+    ast_obj = code_parser.parse(pw_code, "pw.py")
     results = secure_coding_analyzer.analyze(ast_obj)
     auth_findings = results.get("auth", [])
     patterns = [f.pattern for f in auth_findings]
@@ -291,7 +293,7 @@ password = "admin123"
 
 def test_secure_coding_api_missing_auth():
     """Test AuthAnalyzer flags missing auth in API modules."""
-    API_CODE = """
+    api_code = """
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -300,7 +302,7 @@ router = APIRouter()
 def list_users():
     return []
 """
-    ast_obj = code_parser.parse(API_CODE, "api/users.py")
+    ast_obj = code_parser.parse(api_code, "api/users.py")
     results = secure_coding_analyzer.analyze(ast_obj)
     auth_findings = results.get("auth", [])
     print(f"[PASS] Auth API: {len(auth_findings)} findings")

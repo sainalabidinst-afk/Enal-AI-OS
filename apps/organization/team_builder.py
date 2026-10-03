@@ -83,11 +83,13 @@ class TeamBuilder:
         selected = [agent for _, agent in scored[: requirement.team_size]]
 
         for i, agent in enumerate(selected):
-            members.append(TeamMember(
-                agent=agent,
-                role_in_team=f"role_{i}",
-                reason=f"matched {len(set(agent.skills) & set(requirement.required_skills))} skills",  # noqa: E501
-            ))
+            members.append(
+                TeamMember(
+                    agent=agent,
+                    role_in_team=f"role_{i}",
+                    reason=f"matched {len(set(agent.skills) & set(requirement.required_skills))} skills",  # noqa: E501
+                )
+            )
 
         total_cost = sum(a.cost_per_token for a in selected)
         total_latency = max(a.latency_ms for a in selected) if selected else 0.0

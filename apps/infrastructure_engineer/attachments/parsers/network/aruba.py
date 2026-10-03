@@ -15,7 +15,9 @@ class ArubaParser(BaseParser):
         return meta.vendor in {VendorFamily.aruba, VendorFamily.ubiquiti}
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=meta.vendor, format="aruba_aos", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=meta.vendor, format="aruba_aos", device_role=meta.device_role
+        )  # noqa: E501
         lowered = content.lower()
         for idx, line in enumerate(content.splitlines()):
             stripped = line.strip()
@@ -28,14 +30,40 @@ class ArubaParser(BaseParser):
                     ast.interfaces.append({"raw": stripped[:200]})
                 if "trunk" in stripped.lower():
                     evidence = [stripped]
-                    ast.findings.append(InfrastructureFinding(Severity.low, "switch", "Trunk detected", "Validate allowed VLANs and native VLAN", confidence=0.7, evidence=evidence))  # noqa: E501
+                    ast.findings.append(
+                        InfrastructureFinding(
+                            Severity.low,
+                            "switch",
+                            "Trunk detected",
+                            "Validate allowed VLANs and native VLAN",
+                            confidence=0.7,
+                            evidence=evidence,
+                        )
+                    )  # noqa: E501
                 if "poe" in stripped.lower():
                     evidence = [stripped]
-                    ast.findings.append(InfrastructureFinding(Severity.low, "switch", "PoE detected", "Review PoE allocation and redundancy", confidence=0.6, evidence=evidence))  # noqa: E501
+                    ast.findings.append(
+                        InfrastructureFinding(
+                            Severity.low,
+                            "switch",
+                            "PoE detected",
+                            "Review PoE allocation and redundancy",
+                            confidence=0.6,
+                            evidence=evidence,
+                        )
+                    )  # noqa: E501
             if any(key in stripped.lower() for key in ["firewall", "policy", "acl"]):
                 ast.firewall.append({"raw": stripped[:200]})
             if any(key in stripped.lower() for key in ["router ", "ospf", "bgp", "static-route"]):
                 ast.routing.append({"raw": stripped[:200]})
         if not ast.wireless and meta.device_role.value == "wireless_controller":
-            ast.findings.append(InfrastructureFinding(Severity.low, "wireless", "No wireless profiles detected", "Verify WLAN/SSID export coverage", confidence=0.5))  # noqa: E501
+            ast.findings.append(
+                InfrastructureFinding(
+                    Severity.low,
+                    "wireless",
+                    "No wireless profiles detected",
+                    "Verify WLAN/SSID export coverage",
+                    confidence=0.5,
+                )
+            )  # noqa: E501
         return ast

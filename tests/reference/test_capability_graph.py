@@ -23,7 +23,11 @@ def reset_graph():
     capability_graph._register_defaults()
 
 
-def build_intent(domain: IntentDomain, raw_input: str = "Build a web app", complexity: IntentComplexity = IntentComplexity.MEDIUM) -> Intent:
+def build_intent(
+    domain: IntentDomain,
+    raw_input: str = "Build a web app",
+    complexity: IntentComplexity = IntentComplexity.MEDIUM,
+) -> Intent:
     return Intent(
         raw_input=raw_input,
         domain=domain,
@@ -34,7 +38,7 @@ def build_intent(domain: IntentDomain, raw_input: str = "Build a web app", compl
     )
 
 
-#region CapabilityGraph
+# region CapabilityGraph
 
 
 def test_get_subtask_templates_returns_coding_templates():
@@ -83,10 +87,10 @@ def test_get_all_capabilities_returns_nonempty_list():
     assert "config-analysis" in caps
 
 
-#endregion
+# endregion
 
 
-#region TaskPlanner
+# region TaskPlanner
 
 
 def test_task_planner_returns_plan_for_coding_intent():
@@ -128,17 +132,31 @@ def test_task_planner_refine_limits_by_latency():
     assert all(s.estimated_duration_minutes <= 30 for s in refined.subtasks)
 
 
-#endregion
+# endregion
 
 
-#region ExecutionPlanner
+# region ExecutionPlanner
 
 
 def test_execution_planner_serial_strategy_produces_serial_stages():
     plan = TaskPlan(intent=build_intent(IntentDomain.CODE), subtasks=[], strategy="serial")
     plan.subtasks = [
-        SubTask(subtask_id="a", name="A", description="A", priority=1, can_parallelize=False, depends_on=[]),
-        SubTask(subtask_id="b", name="B", description="B", priority=2, can_parallelize=False, depends_on=["a"]),
+        SubTask(
+            subtask_id="a",
+            name="A",
+            description="A",
+            priority=1,
+            can_parallelize=False,
+            depends_on=[],
+        ),
+        SubTask(
+            subtask_id="b",
+            name="B",
+            description="B",
+            priority=2,
+            can_parallelize=False,
+            depends_on=["a"],
+        ),
     ]
     plan.estimated_total_minutes = sum(s.estimated_duration_minutes for s in plan.subtasks)
     result = execution_planner.plan(plan)
@@ -173,4 +191,4 @@ def test_execution_planner_mixed_strategy_groups_serial_then_parallel():
     assert "parallel" in modes
 
 
-#endregion
+# endregion

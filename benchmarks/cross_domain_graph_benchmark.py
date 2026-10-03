@@ -40,10 +40,12 @@ from apps.cross_domain_graph.schemas import (
 def test_entity_discovery() -> float:
     """Entities are discovered across memory layers."""
     engine = CrossDomainGraphEngine()
-    nodes = asyncio.run(engine.scanner.scan_all(
-        query="database",
-        limit_per_layer=50,
-    ))
+    asyncio.run(
+        engine.scanner.scan_all(
+            query="database",
+            limit_per_layer=50,
+        )
+    )
     return 1.0
 
 
@@ -51,10 +53,22 @@ def test_entity_resolution() -> float:
     """Entity resolver merges duplicate entities."""
     engine = CrossDomainGraphEngine()
     nodes = [
-        GraphNode(id="n1", name="Federal Reserve", domain="trading", layer="knowledge",
-                  node_type=NodeType.ENTITY, description="Central bank"),
-        GraphNode(id="n2", name="Federal Reserve", domain="macro", layer="episodic",
-                  node_type=NodeType.ENTITY, description="Central bank"),
+        GraphNode(
+            id="n1",
+            name="Federal Reserve",
+            domain="trading",
+            layer="knowledge",
+            node_type=NodeType.ENTITY,
+            description="Central bank",
+        ),
+        GraphNode(
+            id="n2",
+            name="Federal Reserve",
+            domain="macro",
+            layer="episodic",
+            node_type=NodeType.ENTITY,
+            description="Central bank",
+        ),
     ]
     resolved = engine.resolver.resolve_all(nodes)
     if len(resolved) >= 1:
@@ -66,12 +80,24 @@ def test_edge_extraction() -> float:
     """Relationships are extracted between entities."""
     engine = CrossDomainGraphEngine()
     nodes = [
-        GraphNode(id="n1", name="Interest Rate", domain="trading", layer="knowledge",
-                  node_type=NodeType.CONCEPT, description="Interest rate policy"),
-        GraphNode(id="n2", name="Bond Prices", domain="trading", layer="knowledge",
-                  node_type=NodeType.CONCEPT, description="Bond market data"),
+        GraphNode(
+            id="n1",
+            name="Interest Rate",
+            domain="trading",
+            layer="knowledge",
+            node_type=NodeType.CONCEPT,
+            description="Interest rate policy",
+        ),
+        GraphNode(
+            id="n2",
+            name="Bond Prices",
+            domain="trading",
+            layer="knowledge",
+            node_type=NodeType.CONCEPT,
+            description="Bond market data",
+        ),
     ]
-    edges = engine.extractor.extract_edges(nodes, {"query": "relationship"})
+    engine.extractor.extract_edges(nodes, {"query": "relationship"})
     return 1.0
 
 
@@ -79,8 +105,14 @@ def test_graph_persistence() -> float:
     """Graph persists and loads from disk."""
     test_path = "./workspace/cross_domain_graph_test_bench"
     engine = CrossDomainGraphEngine(persist_path=test_path)
-    n = GraphNode(id="persist_test", name="Test", domain="test", layer="knowledge",
-                  node_type=NodeType.ENTITY, description="Test")
+    n = GraphNode(
+        id="persist_test",
+        name="Test",
+        domain="test",
+        layer="knowledge",
+        node_type=NodeType.ENTITY,
+        description="Test",
+    )
     engine.builder.add_nodes([n])
     engine.builder._persist()
     new_engine = CrossDomainGraphEngine(persist_path=test_path)
@@ -92,13 +124,25 @@ def test_graph_persistence() -> float:
 def test_path_finding() -> float:
     """Path finding between connected nodes."""
     engine = CrossDomainGraphEngine()
-    n1 = GraphNode(id="p1", name="Start", domain="d", layer="k", node_type=NodeType.ENTITY, description="Start")
-    n2 = GraphNode(id="p2", name="End", domain="d", layer="k", node_type=NodeType.ENTITY, description="End")
+    n1 = GraphNode(
+        id="p1", name="Start", domain="d", layer="k", node_type=NodeType.ENTITY, description="Start"
+    )
+    n2 = GraphNode(
+        id="p2", name="End", domain="d", layer="k", node_type=NodeType.ENTITY, description="End"
+    )
     engine.builder.add_nodes([n1, n2])
-    engine.builder.add_edges([GraphEdge(
-        id="e1", source_id="p1", target_id="p2",
-        relation=RelationType.RELATED_TO, weight=0.8, confidence=0.9,
-    )])
+    engine.builder.add_edges(
+        [
+            GraphEdge(
+                id="e1",
+                source_id="p1",
+                target_id="p2",
+                relation=RelationType.RELATED_TO,
+                weight=0.8,
+                confidence=0.9,
+            )
+        ]
+    )
     paths = engine.builder.find_path("p1", "p2", max_depth=5)
     if paths and len(paths) > 0:
         return 1.0

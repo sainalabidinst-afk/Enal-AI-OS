@@ -2,11 +2,11 @@
 Smoke tests for Database Engineer capability.
 """
 
-from apps.database_engineer.backup_planner import *
-from apps.database_engineer.database_knowledge import *
-from apps.database_engineer.engine import *
-from apps.database_engineer.ha_designer import *
-from apps.database_engineer.index_advisor import *
+from apps.database_engineer.backup_planner import *  # noqa: F403
+from apps.database_engineer.database_knowledge import *  # noqa: F403
+from apps.database_engineer.engine import *  # noqa: F403
+from apps.database_engineer.ha_designer import *  # noqa: F403
+from apps.database_engineer.index_advisor import *  # noqa: F403
 
 
 def test_capability_imports() -> None:

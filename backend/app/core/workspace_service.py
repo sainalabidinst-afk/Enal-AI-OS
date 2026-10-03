@@ -30,11 +30,26 @@ class WorkspaceService:
     async def list_workspaces(self) -> list[Workspace]:
         return list(self._workspaces.values())
 
-    async def add_file(self, workspace_id: str, filename: str, path: str, size: int, metadata: dict[str, Any] | None = None) -> Workspace | None:  # noqa: E501
+    async def add_file(
+        self,
+        workspace_id: str,
+        filename: str,
+        path: str,
+        size: int,
+        metadata: dict[str, Any] | None = None,
+    ) -> Workspace | None:  # noqa: E501
         ws = self._workspaces.get(workspace_id)
         if not ws:
             return None
-        ws.files.append({"filename": filename, "path": path, "size": size, "uploaded_at": datetime.now(UTC).isoformat(), "metadata": metadata or {}})  # noqa: E501
+        ws.files.append(
+            {
+                "filename": filename,
+                "path": path,
+                "size": size,
+                "uploaded_at": datetime.now(UTC).isoformat(),
+                "metadata": metadata or {},
+            }
+        )  # noqa: E501
         ws.updated_at = datetime.now(UTC)
         return ws
 
@@ -86,4 +101,3 @@ class WorkspaceService:
 
 
 workspace_service = WorkspaceService()
-

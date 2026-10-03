@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PartitioningRecommendation:
     """Recommendation for table partitioning."""
+
     table: str
     strategy: str
     partition_key: str
@@ -60,30 +61,38 @@ class PartitioningAdvisor:
 
         return recs
 
-    def _analyze_table(self, table: TableDefinition, workload: WorkloadProfile | None) -> list[PartitioningRecommendation]:  # noqa: E501
+    def _analyze_table(
+        self, table: TableDefinition, workload: WorkloadProfile | None
+    ) -> list[PartitioningRecommendation]:  # noqa: E501
         recs: list[PartitioningRecommendation] = []
-        date_columns = [c.name for c in table.columns if c.type.upper() in ("DATE", "TIMESTAMP", "DATETIME")]  # noqa: E501
+        date_columns = [
+            c.name for c in table.columns if c.type.upper() in ("DATE", "TIMESTAMP", "DATETIME")
+        ]  # noqa: E501
         if date_columns:
-            recs.append(PartitioningRecommendation(
-                table=table.name,
-                strategy="range",
-                partition_key=date_columns[0],
-                estimated_partitions=12,
-                rationale=f"Time-based partitioning on {date_columns[0]} for {table.name}",
-                priority=Severity.medium,
-            ))
+            recs.append(
+                PartitioningRecommendation(
+                    table=table.name,
+                    strategy="range",
+                    partition_key=date_columns[0],
+                    estimated_partitions=12,
+                    rationale=f"Time-based partitioning on {date_columns[0]} for {table.name}",
+                    priority=Severity.medium,
+                )
+            )
         return recs
 
     def to_findings(self, recs: list[PartitioningRecommendation]) -> list[Finding]:
         """Convert recommendations to findings."""
         findings: list[Finding] = []
         for rec in recs:
-            findings.append(Finding(
-                category=FindingCategory.schema,
-                severity=rec.priority,
-                title=f"Partition {rec.table} by {rec.partition_key} ({rec.strategy})",
-                description=rec.rationale,
-                recommendation=f"Partition {rec.table} using {rec.strategy} strategy on {rec.partition_key}",  # noqa: E501
-                confidence=0.7,
-            ))
+            findings.append(
+                Finding(
+                    category=FindingCategory.schema,
+                    severity=rec.priority,
+                    title=f"Partition {rec.table} by {rec.partition_key} ({rec.strategy})",
+                    description=rec.rationale,
+                    recommendation=f"Partition {rec.table} using {rec.strategy} strategy on {rec.partition_key}",  # noqa: E501
+                    confidence=0.7,
+                )
+            )
         return findings

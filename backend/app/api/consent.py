@@ -115,14 +115,16 @@ async def list_pending_consents() -> list[dict[str, Any]]:
     results = []
     for r in consent_manager._requests.values():
         if r.status == ConsentStatus.PENDING and not r.is_expired:
-            results.append({
-                "request_id": r.request_id,
-                "action_type": r.action_type,
-                "description": r.description,
-                "risk_level": r.risk_level.value,
-                "created_at": r.created_at.isoformat(),
-                "expires_at": r.expires_at.isoformat(),
-            })
+            results.append(
+                {
+                    "request_id": r.request_id,
+                    "action_type": r.action_type,
+                    "description": r.description,
+                    "risk_level": r.risk_level.value,
+                    "created_at": r.created_at.isoformat(),
+                    "expires_at": r.expires_at.isoformat(),
+                }
+            )
     return results
 
 

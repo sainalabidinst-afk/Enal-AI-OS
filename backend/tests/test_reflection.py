@@ -90,7 +90,9 @@ class TestSelfReflection:
 
         class FakeResponse:
             def __init__(self, content):
-                self.choices = [type("Choice", (), {"message": type("Message", (), {"content": content})()})]  # noqa: E501
+                self.choices = [
+                    type("Choice", (), {"message": type("Message", (), {"content": content})()})
+                ]  # noqa: E501
 
         class FakeRouter:
             async def acomplete(self, messages, **kwargs):

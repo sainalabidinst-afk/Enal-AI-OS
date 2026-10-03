@@ -1,4 +1,3 @@
-
 from backend.app.core.unified_orchestrator import (
     OrchestrationMode,
     TeamFormation,
@@ -79,19 +78,23 @@ class TestUnifiedOrchestrator:
 
     def test_find_agent_by_skill_found(self):
         orch = UnifiedOrchestrator()
-        tree = FakeOrgTree({
-            "1": FakeNode("agent-1", ["coding", "python"]),
-            "2": FakeNode("agent-2", ["research", "analysis"]),
-        })
+        tree = FakeOrgTree(
+            {
+                "1": FakeNode("agent-1", ["coding", "python"]),
+                "2": FakeNode("agent-2", ["research", "analysis"]),
+            }
+        )
         node = orch._find_agent_by_skill("python", tree)
         assert node is not None
         assert node.id == "agent-1"
 
     def test_find_agent_by_skill_not_found(self):
         orch = UnifiedOrchestrator()
-        tree = FakeOrgTree({
-            "1": FakeNode("agent-1", ["coding", "python"]),
-        })
+        tree = FakeOrgTree(
+            {
+                "1": FakeNode("agent-1", ["coding", "python"]),
+            }
+        )
         node = orch._find_agent_by_skill("network", tree)
         assert node is None
 
@@ -122,9 +125,11 @@ class TestUnifiedOrchestrator:
     async def test_form_team_creates_team(self, monkeypatch):
         orch = UnifiedOrchestrator()
         monkeypatch.setattr(orch, "_extract_skills", lambda task, context: ["coding"])
-        tree = FakeOrgTree({
-            "1": FakeNode("agent-1", ["coding", "python"]),
-        })
+        tree = FakeOrgTree(
+            {
+                "1": FakeNode("agent-1", ["coding", "python"]),
+            }
+        )
         monkeypatch.setattr("backend.app.core.organization.organization_tree", tree)
         team = await orch._form_team("write python code", {})
         assert team.team_id.startswith("team-")
@@ -194,7 +199,11 @@ class TestUnifiedOrchestrator:
                 self.budget = FakeBudget()
 
         monkeypatch.setattr(orch, "_get_kernel", lambda: FakeKernel())
-        monkeypatch.setattr(orch, "_get_runtime", lambda: (FakeRuntime(), {"medium": ["p1"]}, type("TC", (), {"MEDIUM": "medium"})()))  # noqa: E501
+        monkeypatch.setattr(
+            orch,
+            "_get_runtime",
+            lambda: (FakeRuntime(), {"medium": ["p1"]}, type("TC", (), {"MEDIUM": "medium"})()),
+        )  # noqa: E501
         result = await orch.execute("do something", mode="cognitive")
         assert result["input"] == "do something"
         assert "pipeline" in result
@@ -202,6 +211,7 @@ class TestUnifiedOrchestrator:
     def test_get_kernel_returns_cognitive_kernel(self, monkeypatch):
         orch = UnifiedOrchestrator()
         import backend.app.core.cognitive_kernel as ck_module
+
         monkeypatch.setattr(ck_module, "cognitive_kernel", "fake-kernel")
         kernel = orch._get_kernel()
         assert kernel == "fake-kernel"
@@ -209,6 +219,7 @@ class TestUnifiedOrchestrator:
     def test_get_runtime_returns_adaptive_runtime(self, monkeypatch):
         orch = UnifiedOrchestrator()
         import backend.app.core.adaptive_runtime as ar_module
+
         fake_runtime = "fake-runtime"
         fake_presets = {"medium": ["p1"]}
         fake_complexity = type("TC", (), {"MEDIUM": "medium"})()
@@ -222,6 +233,7 @@ class TestUnifiedOrchestrator:
     def test_get_planner_returns_ai_planner(self, monkeypatch):
         orch = UnifiedOrchestrator()
         import apps.organization.ai_planner as ap_module
+
         fake_planner = "fake-planner"
         fake_status = type("PS", (), {})()
         monkeypatch.setattr(ap_module, "ai_planner", fake_planner)
@@ -232,6 +244,7 @@ class TestUnifiedOrchestrator:
     def test_get_multi_agent_returns_orchestrator(self, monkeypatch):
         orch = UnifiedOrchestrator()
         import apps.organization.multi_agent as ma_module
+
         fake_multi = "fake-multi"
         monkeypatch.setattr(ma_module, "multi_agent_orchestrator", fake_multi)
         multi_agent = orch._get_multi_agent()
@@ -240,9 +253,11 @@ class TestUnifiedOrchestrator:
     async def test_list_teams_returns_teams(self, monkeypatch):
         orch = UnifiedOrchestrator()
         monkeypatch.setattr(orch, "_extract_skills", lambda task, context: ["coding"])
-        tree = FakeOrgTree({
-            "1": FakeNode("agent-1", ["coding", "python"]),
-        })
+        tree = FakeOrgTree(
+            {
+                "1": FakeNode("agent-1", ["coding", "python"]),
+            }
+        )
         monkeypatch.setattr("backend.app.core.organization.organization_tree", tree)
         await orch._form_team("write python code", {})
         teams = orch.list_teams()

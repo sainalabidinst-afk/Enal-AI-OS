@@ -247,6 +247,7 @@ class UniversalSystem:
 @dataclass
 class NetworkAST:
     """Universal Abstract Syntax Tree for network configurations."""
+
     vendor: str = ""
     vendor_version: str = ""
     device_id: str = ""
@@ -374,7 +375,9 @@ class NetworkAST:
                 "servers": self.dns.servers if self.dns else [],
                 "allow_remote": self.dns.allow_remote if self.dns else False,
                 "cache_size": self.dns.cache_size if self.dns else 0,
-            } if self.dns else None,
+            }
+            if self.dns
+            else None,
             "vpns": [
                 {
                     "name": v.name,
@@ -444,17 +447,23 @@ class NetworkAST:
                 "neighbors": self.bgp.neighbors,
                 "networks": self.bgp.networks,
                 "enabled": self.bgp.enabled,
-            } if self.bgp else None,
+            }
+            if self.bgp
+            else None,
             "mpls": {
                 "enabled": self.mpls.enabled,
                 "ldp_enabled": self.mpls.ldp_enabled,
                 "interfaces": self.mpls.interfaces,
-            } if self.mpls else None,
+            }
+            if self.mpls
+            else None,
             "capsman": {
                 "enabled": self.capsman.enabled,
                 "interfaces": self.capsman.interfaces,
                 "security_profiles": self.capsman.security_profiles,
-            } if self.capsman else None,
+            }
+            if self.capsman
+            else None,
             "wireguard": [
                 {
                     "name": w.name,
@@ -473,6 +482,7 @@ class NetworkAST:
         class _Identity:
             def __init__(self, hostname):
                 self.name = hostname
+
         return _Identity(self.system.hostname) if self.system.hostname else None
 
     @property
@@ -487,11 +497,13 @@ class NetworkAST:
     def dns_config(self):
         if not self.dns:
             return None
+
         class _DNSConfig:
             def __init__(self, dns):
                 self.servers = dns.servers
                 self.allow_remote_requests = dns.allow_remote
                 self.cache_size = str(dns.cache_size)
+
         return _DNSConfig(self.dns)
 
     @property

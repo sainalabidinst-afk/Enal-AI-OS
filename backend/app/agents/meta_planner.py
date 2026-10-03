@@ -60,15 +60,18 @@ class MetaPlanner:
 
     async def assign_agents(self, task_description: str) -> list[dict[str, Any]]:
         from backend.app.core.capability_graph import capability_graph
+
         skills = await capability_graph.get_execution_plan(task_description)
         assignments = []
         for skill in skills:
             best_agent = agent_reputation.get_best_agent(skill.agent, [skill.agent])
-            assignments.append({
-                "skill": skill.name,
-                "agent": best_agent or skill.agent,
-                "capabilities": skill.capabilities,
-            })
+            assignments.append(
+                {
+                    "skill": skill.name,
+                    "agent": best_agent or skill.agent,
+                    "capabilities": skill.capabilities,
+                }
+            )
         return assignments
 
 

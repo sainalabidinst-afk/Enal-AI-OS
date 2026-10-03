@@ -169,11 +169,14 @@ class EntityResolver:
     def _select_canonical(self, group: list[GraphNode]) -> GraphNode:
         """Select the canonical node from a group of similar nodes."""
         # Prefer knowledge layer nodes as canonical
-        for node in sorted(group, key=lambda n: (
-            n.layer != "knowledge",  # knowledge first
-            n.layer != "project",    # project second
-            -n.confidence,           # higher confidence first
-        )):
+        for node in sorted(
+            group,
+            key=lambda n: (
+                n.layer != "knowledge",  # knowledge first
+                n.layer != "project",  # project second
+                -n.confidence,  # higher confidence first
+            ),
+        ):
             return node
         return group[0]
 

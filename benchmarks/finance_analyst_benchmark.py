@@ -77,7 +77,13 @@ SCENARIOS: list[dict[str, Any]] = [
         "inputs": {
             "operation": "control_check",
             "checklist_version": "project-v1",
-            "evidence": [{"control": "monthly_reconciliation", "status": "documented", "source": "evidence-1"}],
+            "evidence": [
+                {
+                    "control": "monthly_reconciliation",
+                    "status": "documented",
+                    "source": "evidence-1",
+                }
+            ],
         },
         "min_quality_score": 0.85,
     },
@@ -222,7 +228,9 @@ class FinanceAnalystBenchmark:
             "pack_id": "finance_analyst",
             "overall_score": avg,
             "grade": "A+" if avg >= 0.95 else "A" if avg >= 0.90 else "A-",
-            "dimensions": {r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results},
+            "dimensions": {
+                r.dimension: {"score": r.score, "latency_ms": r.latency_ms} for r in self.results
+            },
             "golden_tests": golden,
         }
 

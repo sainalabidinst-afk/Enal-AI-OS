@@ -10,10 +10,16 @@ from apps.infrastructure_engineer.attachments.parsers.base import BaseParser
 
 class CiscoASAParser(BaseParser):
     def can_parse(self, meta: AttachmentMeta) -> bool:
-        return meta.vendor == VendorFamily.cisco and "asa" in meta.text_preview.lower() or meta.filename.lower().startswith("asa")  # noqa: E501
+        return (
+            meta.vendor == VendorFamily.cisco
+            and "asa" in meta.text_preview.lower()
+            or meta.filename.lower().startswith("asa")
+        )  # noqa: E501
 
     def parse(self, meta: AttachmentMeta, content: str) -> InfrastructureAST:
-        ast = InfrastructureAST(vendor=VendorFamily.cisco, format="cisco_asa", device_role=meta.device_role)  # noqa: E501
+        ast = InfrastructureAST(
+            vendor=VendorFamily.cisco, format="cisco_asa", device_role=meta.device_role
+        )  # noqa: E501
         lines = content.splitlines()
         for idx, line in enumerate(lines):
             stripped = line.strip()

@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class GeneratedTest:
     """A single generated test function."""
+
     name: str
     source_code: str
     target_function: str = ""
@@ -36,6 +37,7 @@ class GeneratedTest:
 @dataclass
 class TestFile:
     """A complete generated test file."""
+
     file_path: str
     module_path: str
     imports: list[str] = field(default_factory=list)
@@ -69,6 +71,7 @@ class TestFile:
 @dataclass
 class TestGenerationReport:
     """Report of all generated tests."""
+
     source_path: str
     test_files: list[TestFile] = field(default_factory=list)
     total_tests: int = 0
@@ -139,9 +142,7 @@ class TestGenerator:
 
         if all_names:
             if len(all_names) <= 8:
-                test_file.imports.append(
-                    f"from {module_path} import {', '.join(all_names)}"
-                )
+                test_file.imports.append(f"from {module_path} import {', '.join(all_names)}")
             else:
                 test_file.imports.append(f"from {module_path} import (")
                 for name in all_names:
@@ -197,9 +198,11 @@ class TestGenerator:
         total_cls_methods = 0
         for cls in classes:
             total_cls_methods += sum(
-                1 for m in cls.body
+                1
+                for m in cls.body
                 if isinstance(m, (ast.FunctionDef, ast.AsyncFunctionDef))
-                and not m.name.startswith("_") and not m.name == "__init__"
+                and not m.name.startswith("_")
+                and not m.name == "__init__"
             )
         total_items = total_fns + total_cls_methods
         total_gen = len(test_file.tests) + len(test_file.edge_case_tests)
@@ -230,9 +233,7 @@ class TestGenerator:
         else:
             parent = source.parent
             test_dir = (
-                parent.parent / "tests"
-                if parent.name in ("app", "apps")
-                else parent / "tests"
+                parent.parent / "tests" if parent.name in ("app", "apps") else parent / "tests"
             )
             if not test_dir.exists():
                 test_dir = parent
@@ -390,54 +391,64 @@ class TestGenerator:
                 src += f'    """Test {name} with empty {param.arg}."""\n'
                 src += f"    result = {name}({param.arg}='')\n"
                 src += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{name}_empty_{param.arg}",
-                    source_code=src,
-                    target_function=name,
-                    test_type="edge_case",
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{name}_empty_{param.arg}",
+                        source_code=src,
+                        target_function=name,
+                        test_type="edge_case",
+                    )
+                )
                 src2 = f"def test_{name}_none_{param.arg}(self):\n"
                 src2 += f'    """Test {name} with None {param.arg}."""\n'
                 src2 += f"    result = {name}({param.arg}=None)\n"
                 src2 += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{name}_none_{param.arg}",
-                    source_code=src2,
-                    target_function=name,
-                    test_type="edge_case",
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{name}_none_{param.arg}",
+                        source_code=src2,
+                        target_function=name,
+                        test_type="edge_case",
+                    )
+                )
             elif t.replace("Optional[", "").replace("]", "") in ("int", "float"):
                 src = f"def test_{name}_zero_{param.arg}(self):\n"
                 src += f'    """Test {name} with zero {param.arg}."""\n'
                 src += f"    result = {name}({param.arg}=0)\n"
                 src += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{name}_zero_{param.arg}",
-                    source_code=src,
-                    target_function=name,
-                    test_type="edge_case",
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{name}_zero_{param.arg}",
+                        source_code=src,
+                        target_function=name,
+                        test_type="edge_case",
+                    )
+                )
                 src2 = f"def test_{name}_negative_{param.arg}(self):\n"
                 src2 += f'    """Test {name} with negative {param.arg}."""\n'
                 src2 += f"    result = {name}({param.arg}=-1)\n"
                 src2 += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{name}_negative_{param.arg}",
-                    source_code=src2,
-                    target_function=name,
-                    test_type="edge_case",
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{name}_negative_{param.arg}",
+                        source_code=src2,
+                        target_function=name,
+                        test_type="edge_case",
+                    )
+                )
             elif "list" in t.lower():
                 src = f"def test_{name}_empty_{param.arg}(self):\n"
                 src += f'    """Test {name} with empty {param.arg}."""\n'
                 src += f"    result = {name}({param.arg}=[])\n"
                 src += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{name}_empty_{param.arg}",
-                    source_code=src,
-                    target_function=name,
-                    test_type="edge_case",
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{name}_empty_{param.arg}",
+                        source_code=src,
+                        target_function=name,
+                        test_type="edge_case",
+                    )
+                )
         return results
 
     def _gen_edge_method_tests(
@@ -460,51 +471,59 @@ class TestGenerator:
                 src += f"    inst = {inst}\n"
                 src += f"    result = inst.{name}({param.arg}='')\n"
                 src += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{prefix}_empty_{param.arg}",
-                    source_code=src,
-                    target_function=name,
-                    target_class=cls.name,
-                    test_type="edge_case",
-                    fixtures_needed=[inst],
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{prefix}_empty_{param.arg}",
+                        source_code=src,
+                        target_function=name,
+                        target_class=cls.name,
+                        test_type="edge_case",
+                        fixtures_needed=[inst],
+                    )
+                )
                 src2 = f"def test_{prefix}_none_{param.arg}(self, {inst}):\n"
                 src2 += f"    inst = {inst}\n"
                 src2 += f"    result = inst.{name}({param.arg}=None)\n"
                 src2 += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{prefix}_none_{param.arg}",
-                    source_code=src2,
-                    target_function=name,
-                    target_class=cls.name,
-                    test_type="edge_case",
-                    fixtures_needed=[inst],
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{prefix}_none_{param.arg}",
+                        source_code=src2,
+                        target_function=name,
+                        target_class=cls.name,
+                        test_type="edge_case",
+                        fixtures_needed=[inst],
+                    )
+                )
             elif t.replace("Optional[", "").replace("]", "") in ("int", "float"):
                 src = f"def test_{prefix}_zero_{param.arg}(self, {inst}):\n"
                 src += f"    inst = {inst}\n"
                 src += f"    result = inst.{name}({param.arg}=0)\n"
                 src += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{prefix}_zero_{param.arg}",
-                    source_code=src,
-                    target_function=name,
-                    target_class=cls.name,
-                    test_type="edge_case",
-                    fixtures_needed=[inst],
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{prefix}_zero_{param.arg}",
+                        source_code=src,
+                        target_function=name,
+                        target_class=cls.name,
+                        test_type="edge_case",
+                        fixtures_needed=[inst],
+                    )
+                )
                 src2 = f"def test_{prefix}_negative_{param.arg}(self, {inst}):\n"
                 src2 += f"    inst = {inst}\n"
                 src2 += f"    result = inst.{name}({param.arg}=-1)\n"
                 src2 += "    assert result is not None\n"
-                results.append(GeneratedTest(
-                    name=f"test_{prefix}_negative_{param.arg}",
-                    source_code=src2,
-                    target_function=name,
-                    target_class=cls.name,
-                    test_type="edge_case",
-                    fixtures_needed=[inst],
-                ))
+                results.append(
+                    GeneratedTest(
+                        name=f"test_{prefix}_negative_{param.arg}",
+                        source_code=src2,
+                        target_function=name,
+                        target_class=cls.name,
+                        test_type="edge_case",
+                        fixtures_needed=[inst],
+                    )
+                )
         return results
 
     def _has_return(self, func: ast.FunctionDef | ast.AsyncFunctionDef) -> bool:

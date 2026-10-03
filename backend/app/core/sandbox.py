@@ -39,7 +39,9 @@ class SandboxRuntime:
         self._allowed_tools: list[str] = []
         self._max_execution_time = 30
 
-    async def execute(self, language: SandboxLanguage, code: str, tools: list[str] | None = None) -> SandboxExecution:  # noqa: E501
+    async def execute(
+        self, language: SandboxLanguage, code: str, tools: list[str] | None = None
+    ) -> SandboxExecution:  # noqa: E501
         execution_id = f"sandbox-{datetime.now(UTC).timestamp()}"
         execution = SandboxExecution(id=execution_id, language=language, code=code)
         start = datetime.now(UTC)
@@ -58,22 +60,27 @@ class SandboxRuntime:
             execution.exit_code = 1
         execution.finished_at = datetime.now(UTC)
         execution.duration_ms = (execution.finished_at - start).total_seconds() * 1000
-        logger.info(f"Sandbox execution {execution.id}: {execution.duration_ms:.2f}ms, exit={execution.exit_code}")  # noqa: E501
+        logger.info(
+            f"Sandbox execution {execution.id}: {execution.duration_ms:.2f}ms, exit={execution.exit_code}"  # noqa: E501
+        )  # noqa: E501
         return execution
 
     async def _execute_python(self, code: str, tools: list[str]) -> tuple[str, str | None]:
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
             temp_path = f.name
         try:
             proc = await asyncio.create_subprocess_exec(
-                'python', temp_path,
+                "python",
+                temp_path,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
             )
-            stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=self._max_execution_time)  # noqa: E501
-            return stdout.decode('utf-8'), stderr.decode('utf-8') if stderr else None
+            stdout, stderr = await asyncio.wait_for(
+                proc.communicate(), timeout=self._max_execution_time
+            )  # noqa: E501
+            return stdout.decode("utf-8"), stderr.decode("utf-8") if stderr else None
         except TimeoutError:
             return "", f"Execution timeout after {self._max_execution_time}s"
         finally:
@@ -81,6 +88,7 @@ class SandboxRuntime:
 
     async def _execute_bash(self, code: str, tools: list[str]) -> tuple[str, str | None]:
         import shlex
+
         allowed = set(self._allowed_tools) if self._allowed_tools else None
         if allowed:
             parts = shlex.split(code)
@@ -96,8 +104,10 @@ class SandboxRuntime:
             cwd=str(self.base_path),
         )
         try:
-            stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=self._max_execution_time)  # noqa: E501
-            return stdout.decode('utf-8'), stderr.decode('utf-8') if stderr else None
+            stdout, stderr = await asyncio.wait_for(
+                proc.communicate(), timeout=self._max_execution_time
+            )  # noqa: E501
+            return stdout.decode("utf-8"), stderr.decode("utf-8") if stderr else None
         except TimeoutError:
             proc.kill()
             return "", f"Execution timeout after {self._max_execution_time}s"
@@ -110,4 +120,3 @@ class SandboxRuntime:
 
 
 sandbox_runtime = SandboxRuntime()
-

@@ -34,7 +34,9 @@ class HAClusterDesigner:
 
     def design_cluster(self, request: InfrastructureEngineerRequest) -> ClusterSpec:
         inputs = request.inputs
-        cluster_name = inputs.get("cluster_name", request.business_context.project_name or "ha-cluster")  # noqa: E501
+        cluster_name = inputs.get(
+            "cluster_name", request.business_context.project_name or "ha-cluster"
+        )  # noqa: E501
         availability = request.quality_attributes.availability_target
         node_count = inputs.get("node_count", 3)
         node_type = inputs.get("instance_type", "t3.large")
@@ -94,7 +96,9 @@ class HAClusterDesigner:
         if spec.ha_mode == HighAvailabilityMode.active_active:
             recs.append("Verifikasi aplikasi mendukung konkurensi stateful untuk active-active")
         if spec.failover.failover_timeout_seconds > 60:
-            recs.append("Failover timeout terlalu tinggi — pertimbangkan heartbeat interval lebih pendek")  # noqa: E501
+            recs.append(
+                "Failover timeout terlalu tinggi — pertimbangkan heartbeat interval lebih pendek"
+            )  # noqa: E501
         if not spec.failover.quorum_required and spec.nodes[0].count > 2:
             recs.append("Aktifkan quorum untuk mencegah split-brain pada cluster dengan >2 node")
         if "ceph" not in spec.shared_storage and spec.ha_mode != HighAvailabilityMode.n_plus_1:

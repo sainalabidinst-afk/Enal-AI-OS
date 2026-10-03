@@ -12,6 +12,7 @@ class TestVectorStore:
         import importlib
 
         import backend.app.core.vector_store as vs_module
+
         importlib.reload(vs_module)
         store = vs_module.VectorStore.__new__(vs_module.VectorStore)
         store.embedding_model = "test-model"
@@ -38,12 +39,16 @@ class TestVectorStore:
             def upsert(self, collection_name, points):
                 self.upserted.append(points)
 
-        fake_qdrant = type("module", (), {
-            "QdrantClient": FakeClient,
-            "Distance": type("Distance", (), {"COSINE": "COSINE"}),
-            "PointStruct": FakePoint,
-            "VectorParams": lambda *args, **kwargs: None,
-        })()
+        fake_qdrant = type(
+            "module",
+            (),
+            {
+                "QdrantClient": FakeClient,
+                "Distance": type("Distance", (), {"COSINE": "COSINE"}),
+                "PointStruct": FakePoint,
+                "VectorParams": lambda *args, **kwargs: None,
+            },
+        )()
         fake_litellm = type("module", (), {"embedding": staticmethod(fake_embedding)})()
         monkeypatch.setitem(sys.modules, "qdrant_client", fake_qdrant)
         monkeypatch.setitem(sys.modules, "qdrant_client.models", fake_qdrant)
@@ -51,6 +56,7 @@ class TestVectorStore:
         import importlib
 
         import backend.app.core.vector_store as vs_module
+
         importlib.reload(vs_module)
         store = vs_module.VectorStore()
         store.index([{"content": "doc1", "metadata": {"source": "test"}}])
@@ -81,6 +87,7 @@ class TestVectorStore:
         import importlib
 
         import backend.app.core.vector_store as vs_module
+
         importlib.reload(vs_module)
         store = vs_module.VectorStore()
         results = store.search("query", limit=1)

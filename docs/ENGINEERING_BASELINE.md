@@ -139,7 +139,7 @@ Pola yang tidak berlaku:
 f"{expr_with_backslash}"
 
 # ✅ Semua f-string menggunakan variabel yang telah dihitung sebelumnya:
-fixed = value.replace('\\n', '')
+fixed = value.replace("\\n", "")
 f"{fixed}"
 ```
 

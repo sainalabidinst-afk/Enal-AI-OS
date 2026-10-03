@@ -3,7 +3,9 @@ from apps.integration.orchestrator import IntegrationEngine
 from apps.trading_analyst.market_intelligence import provider as market_provider
 
 
-def _fake_market_data(symbol: str, timeframes: list[str], limit: int = 100) -> dict[str, list[dict]]:  # noqa: E501
+def _fake_market_data(
+    symbol: str, timeframes: list[str], limit: int = 100
+) -> dict[str, list[dict]]:  # noqa: E501
     candles = []
     for index in range(max(30, limit)):
         price = 100.0 + index
