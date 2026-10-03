@@ -1,44 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getTrace, type TraceSpan } from "@/services/observability";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
-import { useParams, useRouter } from "next/navigation";
 
 function TracePageContent() {
-  const router = useRouter();
-  const params = useParams<{ traceId?: string }>();
-  const traceId = params?.traceId;
   const [spans, setSpans] = useState<TraceSpan[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [inputId, setInputId] = useState("");
+  const [traceId, setTraceId] = useState("");
 
-  const handleFetch = async (id: string) => {
-    if (!id.trim()) return;
+  const handleFetch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!traceId.trim()) return;
     setLoading(true);
     setError(null);
+    setSpans([]);
     try {
-      const data = await getTrace(id.trim());
+      const data = await getTrace(traceId.trim());
       setSpans(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load trace");
-      setSpans([]);
     } finally {
       setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (traceId) {
-      void handleFetch(traceId);
-    }
-  }, [traceId]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (inputId.trim()) {
-      router.push(`/observability/trace/${encodeURIComponent(inputId.trim())}`);
     }
   };
 
@@ -53,17 +37,17 @@ function TracePageContent() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex gap-3">
+      <form onSubmit={handleFetch} className="flex gap-3">
         <input
           type="text"
-          value={inputId}
-          onChange={(e) => setInputId(e.target.value)}
+          value={traceId}
+          onChange={(e) => setTraceId(e.target.value)}
           placeholder="Enter trace ID..."
           className="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-3 py-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-accent)] focus:outline-none"
         />
         <button
           type="submit"
-          disabled={!inputId.trim() || loading}
+          disabled={!traceId.trim() || loading}
           className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "Loading..." : "Fetch Trace"}
@@ -79,7 +63,7 @@ function TracePageContent() {
       {!spans.length && !loading && !error && (
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-5">
           <p className="text-xs text-[var(--color-text-secondary)]">
-            Enter a trace ID above or navigate via a trace link to view spans.
+            Enter a trace ID below and click the button to load trace spans.
           </p>
         </div>
       )}

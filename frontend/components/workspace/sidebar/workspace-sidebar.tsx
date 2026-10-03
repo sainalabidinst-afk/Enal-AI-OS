@@ -14,7 +14,7 @@ import {
   FileText,
   BarChart3,
   Activity,
-  LogOut,
+  GitBranch,
 } from "lucide-react";
 import { useWorkspaceStore } from "@/components/workspace/stores/workspace-store";
 import { SidebarItem } from "@/components/workspace/sidebar/sidebar-item";
@@ -44,7 +44,7 @@ const ARTIFACT_ITEMS = [
 const OBSERVABILITY_ITEMS = [
   { label: "Metrics", icon: BarChart3, href: "/metrics" },
   { label: "Logs", icon: Activity, href: "/observability/logs" },
-  { label: "Trace", icon: LogOut, href: "/observability/trace" },
+  { label: "Trace", icon: GitBranch, href: "/observability/trace" },
 ];
 
 export function WorkspaceSidebar({ activeApp }: { activeApp: string }) {
