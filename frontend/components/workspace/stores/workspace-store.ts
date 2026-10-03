@@ -8,16 +8,53 @@ export interface PanelState {
   bottom: { open: boolean; size: number };
 }
 
+export interface WorkspaceInfo {
+  id: string;
+  name: string;
+  active: boolean;
+}
+
+export interface ConsentRequest {
+  id: string;
+  title: string;
+  description: string;
+  severity: "low" | "medium" | "high";
+  timestamp: string;
+}
+
+export interface TaskInfo {
+  id: string;
+  label: string;
+  status: "running" | "pending" | "completed" | "failed";
+}
+
+export interface SystemStatus {
+  online: boolean;
+  model: string;
+  latencyMs: number;
+}
+
 export interface WorkspaceState {
   activeApp: WorkspaceApp;
   panel: PanelState;
   sidebarCollapsed: boolean;
+  workspaces: WorkspaceInfo[];
+  activeWorkspace: string;
+  consents: ConsentRequest[];
+  tasks: TaskInfo[];
+  system: SystemStatus;
   setActiveApp: (app: WorkspaceApp) => void;
   toggleRightPanel: () => void;
   toggleBottomPanel: () => void;
   toggleSidebar: () => void;
   setPanelSize: (panel: keyof PanelState, size: number) => void;
   resetLayout: () => void;
+  setActiveWorkspace: (id: string) => void;
+  addConsent: (req: ConsentRequest) => void;
+  dismissConsent: (id: string) => void;
+  addTask: (task: TaskInfo) => void;
+  updateTask: (id: string, status: TaskInfo["status"]) => void;
+  setLatency: (ms: number) => void;
 }
 
 const DEFAULT_PANEL: PanelState = {
@@ -30,6 +67,15 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
   activeApp: "trading",
   panel: DEFAULT_PANEL,
   sidebarCollapsed: false,
+  workspaces: [
+    { id: "ws-main", name: "Main Workspace", active: true },
+    { id: "ws-research", name: "Research Lab", active: false },
+    { id: "ws-trading", name: "Trading Desk", active: false },
+  ],
+  activeWorkspace: "ws-main",
+  consents: [],
+  tasks: [],
+  system: { online: true, model: "Qwen 3.5-9B", latencyMs: 0 },
 
   setActiveApp: (activeApp) => set({ activeApp }),
 
@@ -74,4 +120,29 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
     })),
 
   resetLayout: () => set({ panel: DEFAULT_PANEL, sidebarCollapsed: false }),
+
+  setActiveWorkspace: (id) =>
+    set((state) => ({
+      workspaces: state.workspaces.map((w) => ({ ...w, active: w.id === id })),
+      activeWorkspace: id,
+    })),
+
+  addConsent: (req) =>
+    set((state) => ({ consents: [req, ...state.consents] })),
+
+  dismissConsent: (id) =>
+    set((state) => ({ consents: state.consents.filter((c) => c.id !== id) })),
+
+  addTask: (task) =>
+    set((state) => ({ tasks: [task, ...state.tasks] })),
+
+  updateTask: (id, status) =>
+    set((state) => ({
+      tasks: state.tasks.map((t) => (t.id === id ? { ...t, status } : t)),
+    })),
+
+  setLatency: (ms) =>
+    set((state) => ({
+      system: { ...state.system, latencyMs: ms },
+    })),
 }));
