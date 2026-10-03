@@ -18,6 +18,7 @@ from .api import (
     capability_lifecycle,
     chat,
     ecosystem,
+    end_to_end,
     execution,
     guardrails,
     health,
@@ -185,6 +186,7 @@ app.include_router(guardrails.router, prefix=settings.API_V1_STR, tags=["guardra
 app.include_router(marketplace.router, prefix=settings.API_V1_STR, tags=["marketplace"])
 app.include_router(a2a_mcp.router, prefix=settings.API_V1_STR, tags=["a2a-mcp"])
 app.include_router(bulk_evaluation.router, prefix=settings.API_V1_STR, tags=["bulk-evaluation"])
+app.include_router(end_to_end.router, prefix=settings.API_V1_STR, tags=["end-to-end"])
 
 
 @app.on_event("startup")

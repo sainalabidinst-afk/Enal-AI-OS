@@ -10,6 +10,7 @@ from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 
 from backend.app.core.execution_integration import execution_integration
+from backend.app.core.model_router import model_router
 from backend.app.core.telemetry.service import record_chat_event
 from backend.app.core.workspace_service import workspace_service
 
@@ -18,6 +19,8 @@ from ..models.schemas_execution import ExecutionSession
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+GENERIC_FALLBACK = "Saya memahami permintaan Anda, tetapi belum ada hasil yang dapat ditindaklanjuti."
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -55,7 +58,19 @@ async def chat(request: ChatRequest):
                     conversation_id=conversation_id,
                 )
 
-            message = response.get("message", "")
+            message = response.get("message", "") or ""
+            if not message.strip() or message.strip().startswith(GENERIC_FALLBACK[:20]):
+                llm_result = await model_router.acomplete(
+                    messages=[
+                        {"role": "system", "content": "You are Enal AI OS assistant."},
+                        {"role": "user", "content": request.message},
+                    ],
+                    model="lmstudio/qwen/qwen3.5-9b",
+                    temperature=0.7,
+                    max_tokens=1024,
+                )
+                message = _extract_llm_text(llm_result) or message
+
             tasks_completed = 0
             if execution:
                 tasks_completed = len(getattr(execution, "phases", []) or [])
@@ -99,6 +114,29 @@ async def chat(request: ChatRequest):
             )
         except Exception as telemetry_error:
             logger.debug("Chat telemetry recording failed: %s", telemetry_error)
+
+
+def _extract_llm_text(result: Any) -> str | None:
+    try:
+        choices = result.get("choices") if isinstance(result, dict) else getattr(result, "choices", None)
+        if not choices:
+            return None
+        choice = choices[0]
+        message = choice.get("message") if isinstance(choice, dict) else getattr(choice, "message", None)
+        if not message:
+            return None
+        content = message.get("content") if isinstance(message, dict) else getattr(message, "content", None)
+        if isinstance(content, str) and content.strip():
+            return content.strip()
+        if isinstance(content, list):
+            parts = []
+            for item in content:
+                if isinstance(item, dict) and item.get("type") == "text" and item.get("text"):
+                    parts.append(item["text"])
+            return " ".join(parts).strip() or None
+        return None
+    except Exception:
+        return None
 
 
 @router.get("/conversations/{conversation_id}")
