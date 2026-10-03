@@ -1,8 +1,8 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Terakhir Diverifikasi:** 2026-10-02
-**Version:** 1.2.0
+**Terakhir Diverifikasi:** 2026-10-03
+**Version:** 1.3.0
 **Status:** Active
 **SSOT:** Capability Pack execution plan and rollout milestones
 <!-- DOCUMENT_METADATA_END -->
@@ -1640,11 +1640,23 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 | `/api/v1/evaluate` | POST | ✅ |
 | `/api/v1/evaluate/results` | GET | ✅ |
 
- ## Outstanding Work
+  ## Outstanding Work
 
- Semua item outstanding work telah selesai. Tidak ada item terbuka.
+  Semua item outstanding work sebelumnya telah selesai. Item baru untuk v3.1.0-rc2:
 
- ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
+  ### v3.1.0-rc2 — Android PWA & Integration
+
+  - [x] **LM Studio Integration** — Chat fallback ke LM Studio (`lmstudio/qwen/qwen3.5-9b`) ketika conversation manager tidak menghasilkan respon meaningful. Updated `backend/app/api/chat.py` dengan `_extract_llm_text()` yang support `reasoning_content` fallback.
+  - [x] **Frontend Layout Updates** — Workspace header/status indicator, sidebar workspace selector + artifacts + observability sections, main panel chat stream + quick actions, right panel timeline + consent requests + alerts, bottom panel command shortcuts + voice input + latency indicator. Updated `frontend/components/workspace/`.
+  - [x] **Self-Development ECP Meta-Analysis** — Extended `apps/self_development/` dengan `ECPAnalyzer`, `proposal_repository.py`, dan routing ECP meta-analysis. Support `analyze_ecp`, `propose_capabilities`, `propose_improvements`.
+  - [x] **Android PWA Stage 1** — `manifest.json`, service worker (`public/sw.js`), PWA metadata di `layout.tsx`, service worker registration di `app-client.tsx`.
+  - [x] **Android CI/CD Pipeline** — `.github/workflows/android-ci.yml` dengan jobs: build, sign, governance check, deploy staging, smoke test, promote beta/production.
+  - [x] **React Native Stage 2** — Expo project structure (`enal-ai-os-mobile/`), API bridge, chat UI ported, consent dialog, observability panel, STT/TTS hooks, navigation, screens.
+  - [ ] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
+  - [ ] **Android Testing** — Test Add to Home Screen, offline caching, dan push notifications di Android device.
+  - [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
+
+  ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
 
  > User: *"Buka laporan keuangan minggu lalu di Finance, ringkas, lalu kirim ke tim."*
  > **Plus:** User drag-and-drop file Excel tambahan (multi-source input).

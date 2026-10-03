@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Enal AI OS",
+    "slug": "enal-ai-os-mobile",
+    "version": "3.2.0-beta.1",
+    "orientation": "portrait",
+    "icon": "./assets/icons/icon-192x192.png",
+    "userInterfaceStyle": "adaptive",
+    "splash": {
+      "image": "./assets/icons/icon-512x512.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0a0a0a"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.enalai.os.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icons/icon-192x192.png",
+        "backgroundColor": "#0a0a0a"
+      },
+      "package": "com.enalai.os.mobile",
+      "versionCode": 1
+    },
+    "plugins": [
+      "expo-speech",
+      "expo-av",
+      "expo-file-system",
+      "expo-notifications"
+    ],
+    "scheme": "enal-ai-os",
+    "description": "AI Operating System - Mobile Beta"
+  }
+}

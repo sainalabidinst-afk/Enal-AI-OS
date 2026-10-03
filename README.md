@@ -1,8 +1,8 @@
 ﻿<!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Canonical Owner:** Pimpinan Tata Kelola Dokumentasi
-**Terakhir Diverifikasi:** 2026-10-02
-**Versi:** v3.0.0
+**Terakhir Diverifikasi:** 2026-10-03
+**Versi:** v3.1.0-rc2
 **Status:** Aktif
 **SSOT:** Ikhtisar proyek, instalasi, quick start, dan registri Capability Pack
 <!-- DOCUMENT_METADATA_END -->
@@ -641,15 +641,21 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Decorator SDK** — RFC-0003, 26 golden tests, 30 real cases, 100% benchmark score, 0 wrapping overhead
 - [x] **Jenny-like Interaction Phase 3** — Anomaly detection engine, consent/permission layer, consent dialog UI (frontend)
 
-### Berikutnya: v3.1.0-rc1 🟨
+### Berikutnya: v3.1.0-rc2 🟨
 
-> ⚠️ **Production Release v3.0.0 — COMPLETE.** Semua 37 capability packs ter-implementasi, semua benchmark Grade A, TypeScript 0 errors, MyPy 0 errors, Ruff 0 errors. Rilis v3.1.0-rc1 direncanakan untuk: enhanced benchmarks, additional real cases, Decorator SDK runtime integration, dan integrasi Consent Dialog ke chatgpt-page.tsx. Lihat [`docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`](docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md) dan [`TODO_CAPABILITY_EXECUTION.md`](TODO_CAPABILITY_EXECUTION.md) → Outstanding Work.
+> ⚠️ **Production Release v3.0.0 — COMPLETE.** Semua 37 capability packs ter-implementasi, semua benchmark Grade A, TypeScript 0 errors, MyPy 0 errors, Ruff 0 errors. Rilis v3.1.0-rc2 direncanakan untuk: Android PWA (Stage 1), CI/CD pipeline Android, LM Studio integration, frontend layout updates, dan Self-Development ECP meta-analysis. Lihat [`TODO_CAPABILITY_EXECUTION.md`](TODO_CAPABILITY_EXECUTION.md) → Outstanding Work dan [`docs/plans/Android_Release_Plan.md`](docs/plans/Android_Release_Plan.md).
 
-Siklus pengembangan capability yang disarankan:
+### Outstanding Work (v3.1.0-rc2)
 
-```
-Business Need → Capability Spec → Architecture Review → Implementation → Quality Gates → Documentation → Release
-```
+- [x] **LM Studio Integration** — Chat fallback ke LM Studio (`lmstudio/qwen/qwen3.5-9b`) ketika conversation manager tidak menghasilkan respon meaningful. Updated `backend/app/api/chat.py` dengan `_extract_llm_text()` yang support `reasoning_content` fallback.
+- [x] **Frontend Layout Updates** — Workspace header/status indicator, sidebar workspace selector + artifacts + observability sections, main panel chat stream + quick actions, right panel timeline + consent requests + alerts, bottom panel command shortcuts + voice input + latency indicator. Updated `frontend/components/workspace/`.
+- [x] **Self-Development ECP Meta-Analysis** — Extended `apps/self_development/` dengan `ECPAnalyzer`, `proposal_repository.py`, dan routing ECP meta-analysis. Support `analyze_ecp`, `propose_capabilities`, `propose_improvements`.
+- [x] **Android PWA Stage 1** — `manifest.json`, service worker (`public/sw.js`), PWA metadata di `layout.tsx`, service worker registration di `app-client.tsx`.
+- [x] **Android CI/CD Pipeline** — `.github/workflows/android-ci.yml` dengan jobs: build, sign, governance check, deploy staging, smoke test, promote beta/production.
+- [x] **React Native Stage 2** — Expo project structure (`enal-ai-os-mobile/`), API bridge, chat UI ported, consent dialog, observability panel, STT/TTS hooks, navigation, screens.
+- [ ] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
+- [ ] **Android Testing** — Test Add to Home Screen, offline caching, dan push notifications di Android device.
+- [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
 
 ---
 

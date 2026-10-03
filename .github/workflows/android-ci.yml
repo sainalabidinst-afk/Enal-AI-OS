@@ -1,0 +1,269 @@
+name: Enal AI OS - Android CI/CD
+
+on:
+  push:
+    branches: [main, develop, release/*]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      track:
+        description: "Play Console track"
+        required: true
+        default: "internal"
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+
+permissions:
+  contents: read
+  id-token: write
+  packages: read
+
+jobs:
+  android-build:
+    name: Android Build
+    runs-on: ubuntu-latest
+    outputs:
+      version_code: ${{ steps.version.outputs.version_code }}
+      version_name: ${{ steps.version.outputs.version_name }}
+      apk_path: ${{ steps.build.outputs.apk_path }}
+      aab_path: ${{ steps.build.outputs.aab_path }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Install dependencies
+        run: npm ci --prefix frontend
+
+      - name: Lint & Type Check
+        run: |
+          npx tsc --noEmit --skipLibCheck
+          npm run lint --if-present
+        working-directory: frontend
+
+      - name: Run tests
+        run: npm test --if-present
+        working-directory: frontend
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION_NAME=$(node -p "require('./frontend/package.json').version")
+          BUILD_NUMBER=${{ github.run_number }}
+          VERSION_CODE=$((BUILD_NUMBER))
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+
+      - name: Build Android App Bundle
+        id: build
+        run: |
+          cd frontend/android
+          ./gradlew bundleRelease
+          APK_PATH=frontend/android/app/build/outputs/apk/release/app-release.apk
+          AAB_PATH=frontend/android/app/build/outputs/bundle/release/app-release.aab
+          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+          echo "aab_path=$AAB_PATH" >> $GITHUB_OUTPUT
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab-${{ github.sha }}
+          path: ${{ steps.build.outputs.aab_path }}
+          retention-days: 30
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk-${{ github.sha }}
+          path: ${{ steps.build.outputs.apk_path }}
+          retention-days: 30
+
+      - name: Upload build metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-metadata-${{ github.sha }}
+          path: |
+            frontend/android/app/build/outputs/mapping/release/mapping.txt
+          retention-days: 30
+          if-no-files-found: warn
+
+  android-sign:
+    name: Sign & Package
+    needs: android-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download AAB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: android-aab-${{ github.sha }}
+          path: signed/
+
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apk-${{ github.sha }}
+          path: signed/
+
+      - name: Sign AAB with keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > signed/keystore.jks
+          cd frontend/android
+          ./gradlew signReleaseBundle \
+            -Pandroid.injected.signing.store.file=signed/keystore.jks \
+            -Pandroid.injected.signing.store.password="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
+            -Pandroid.injected.signing.key.alias="${{ secrets.ANDROID_KEY_ALIAS }}" \
+            -Pandroid.injected.signing.key.password="${{ secrets.ANDROID_KEY_PASSWORD }}"
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+
+      - name: Re-upload signed artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab-signed-${{ github.sha }}
+          path: frontend/android/app/build/outputs/bundle/release/app-release.aab
+          retention-days: 30
+
+  governance-check:
+    name: Governance & Compliance Check
+    needs: android-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e backend/
+          pip install -e ".[dev]"
+
+      - name: Consent Manager check
+        run: |
+          python -c "from apps.society.conversation_manager import conversation_manager; print('Consent manager OK')"
+
+      - name: Policy enforcement
+        run: python benchmarks/governance_checks.py
+
+      - name: Security scan
+        run: |
+          npm audit --prefix frontend --audit-level=high || true
+
+  deploy-staging:
+    name: Deploy to Internal Testing
+    needs: [android-sign, governance-check]
+    if: github.ref == 'refs/heads/main' || github.event.inputs.track == 'internal'
+    runs-on: ubuntu-latest
+    environment:
+      name: android-internal
+      url: https://play.google.com/console
+    steps:
+      - name: Download signed AAB
+        uses: actions/download-artifact@v4
+        with:
+          name: android-aab-signed-${{ github.sha }}
+          path: deploy/
+
+      - name: Setup Google Cloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          service_account_key: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.GOOGLE_PLAY_PROJECT_ID }}
+
+      - name: Deploy to Internal Testing
+        run: |
+          gcloud auth activate-service-account --key-file=${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_KEY }}
+          gcloud auth print-access-token > /tmp/access_token
+          curl -X POST \
+            -H "Authorization: Bearer $(cat /tmp/access_token)" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @deploy/app-release.aab \
+            "https://androidpublisher.googleapis.com/upload/androidpublisher/v3/applications/${{ secrets.GOOGLE_PLAY_PACKAGE_NAME }}/edits/upload"
+        env:
+          GOOGLE_PLAY_PACKAGE_NAME: ${{ secrets.GOOGLE_PLAY_PACKAGE_NAME }}
+
+      - name: Notify QA team
+        if: always()
+        run: |
+          echo "Android build ${{ github.sha }} deployed to Internal Testing"
+          echo "Version: ${{ needs.android-build.outputs.version_name }} (${{ needs.android-build.outputs.version_code }})"
+        # TODO: Add Slack/Teams notification
+
+  smoke-test:
+    name: Smoke Test
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: android-apk-${{ github.sha }}
+          path: test/
+
+      - name: Run Firebase Test Lab
+        uses: firebase/runtests-action@v1
+        with:
+          apk: test/app-release.apk
+          device-model: pixel-7
+          android-orchestrator: true
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+  promote-beta:
+    name: Promote to Closed Beta
+    needs: smoke-test
+    if: github.ref == 'refs/heads/main' || github.event.inputs.track == 'beta'
+    runs-on: ubuntu-latest
+    environment:
+      name: android-beta
+      url: https://play.google.com/console
+    steps:
+      - name: Promote build
+        run: |
+          echo "Promoting build ${{ github.sha }} to Closed Beta"
+          # TODO: Implement promotion via Google Play API
+
+  promote-production:
+    name: Promote to Production
+    needs: [smoke-test, promote-beta]
+    if: github.ref == 'refs/heads/main' && github.event.inputs.track == 'production'
+    runs-on: ubuntu-latest
+    environment:
+      name: android-production
+      url: https://play.google.com/console
+    steps:
+      - name: Manual approval gate
+        run: echo "Waiting for Release Manager approval"
+
+      - name: Promote to Production
+        run: |
+          echo "Promoting build ${{ github.sha }} to Production"
+          # TODO: Implement promotion via Google Play API
