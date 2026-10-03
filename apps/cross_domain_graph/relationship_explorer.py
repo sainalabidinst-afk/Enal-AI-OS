@@ -53,7 +53,7 @@ class RelationshipExplorer:
             target_nodes[0].id,
             max_depth=max_depth,
         )
-        return paths
+        return paths if paths is not None else []
 
     def explain(
         self,
@@ -114,14 +114,14 @@ class RelationshipExplorer:
         cycles = []
         visited = set()
         rec_stack = set()
-        path = []
+        path: list[str] = []
 
         def dfs(node_id: str) -> None:
             if node_id in rec_stack:
                 cycle_start = path.index(node_id)
                 cycle = path[cycle_start:] + [node_id]
                 cycles.append([
-                    self.builder.get_node(n).name if self.builder.get_node(n) else n
+                    (node.name if (node := self.builder.get_node(n)) else n)
                     for n in cycle
                 ])
                 return

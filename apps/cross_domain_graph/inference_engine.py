@@ -91,7 +91,7 @@ class InferenceEngine:
 
         return InferenceResult(
             answer=answer,
-            evidence_chain=" | ".join(evidence_chain) if evidence_chain else "No evidence",
+            evidence_chain=list(evidence_chain) if evidence_chain else ["No evidence"],
             source_entities=source_entities,
             confidence=confidence,
         )

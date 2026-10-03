@@ -76,8 +76,8 @@ class DocumentEngine:
     def __init__(self) -> None:
         self.office_reader = OfficeReader()
         self.pdf_reader = PDFReader()
-        self.office_writer = None
-        self.pdf_writer = None
+        self.office_writer: Any = None
+        self.pdf_writer: Any = None
 
     def _get_office_writer(self) -> Any:
         if self.office_writer is None:
