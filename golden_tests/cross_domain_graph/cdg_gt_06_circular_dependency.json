@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_06_circular_dependency",
+  "title": "Circular dependency detection",
+  "description": "RelationshipExplorer detects circular dependencies in the graph.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "knowledge_graph",
+  "expected_behavior": "RelationshipExplorer.circular_dependency_check finds and reports cycles in the knowledge graph.",
+  "acceptance_criteria": {
+    "cycle_detection": "100% detection of injected cycles",
+    "no_false_positives": "0 false positives on acyclic graphs"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Create cyclic edges (A->B->C->A)",
+      "expected": "Cycle detected"
+    },
+    {
+      "step": 2,
+      "action": "Create acyclic edges (A->B->C)",
+      "expected": "No cycle reported"
+    }
+  ],
+  "golden_output": {
+    "cycle_detected": true,
+    "no_false_positives": true
+  }
+}

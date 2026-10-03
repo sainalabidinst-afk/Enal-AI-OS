@@ -1,0 +1,54 @@
+{
+  "scenario_id": "gt_11_hot_reload",
+  "title": "Hot-Reload Manager zero-downtime pack updates",
+  "description": "Plugin Manifest Hot-Reload Manager performs hot reload of capability pack modules without core restart.",
+  "rfc_reference": "RFC-0002 §Definisi Selesai — Hot-Reload Manager",
+  "category": "manifest",
+  "expected_behavior": "HotReloadManager registers a pack module, detects file changes via checksum, and performs an atomic module swap with latency < 100ms.",
+  "acceptance_criteria": {
+    "zero_downtime": "Reload completes with old module still accessible",
+    "latency": "P95 < 100ms",
+    "validation": "Reload validates against manifest registry",
+    "rollback": "Failed reload returns error without losing old module"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Create HotReloadManager with PluginManifestRegistry",
+      "expected": "Manager initializes successfully"
+    },
+    {
+      "step": 2,
+      "action": "Register pack module via register_pack()",
+      "expected": "Pack tracked in loaded_modules"
+    },
+    {
+      "step": 3,
+      "action": "Call check_for_updates() on unmodified file",
+      "expected": "Returns False (no changes)"
+    },
+    {
+      "step": 4,
+      "action": "Call reload_pack() to test hot-swap",
+      "expected": "Returns HotReloadResult with success=True"
+    },
+    {
+      "step": 5,
+      "action": "Verify latency < 100ms",
+      "expected": "latency_ms < 100"
+    },
+    {
+      "step": 6,
+      "action": "Call reload_pack() with unregistered pack_id",
+      "expected": "Returns HotReloadResult with success=False and error set"
+    }
+  ],
+  "golden_output": {
+    "manager_initializes": true,
+    "pack_registered": true,
+    "no_changes_detected": true,
+    "reload_successful": true,
+    "latency_under_100ms": true,
+    "error_on_unregistered": true
+  }
+}

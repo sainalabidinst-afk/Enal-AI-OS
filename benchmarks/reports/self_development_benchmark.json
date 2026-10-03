@@ -1,95 +1,22 @@
 {
-  "capability": "self_development",
-  "rfc": "RFC-0022",
-  "target_grade": "A+ (≥95)",
-  "status": "Accepted — Level 4 Domain Expert (A+)",
-  "date": "2026-10-03T00:37:32Z",
+  "generated_at": "2026-10-03T00:38:40.181Z",
+  "dimensions": {
+    "architecture_analysis_accuracy": 1.0,
+    "pattern_mining_completeness": 1.0,
+    "impact_prediction_precision": 0.98,
+    "risk_scoring_accuracy": 0.97,
+    "bug_trend_forecasting": 0.95,
+    "approval_workflow_reliability": 1.0,
+    "architecture_debt_detection": 0.98,
+    "cross_domain_resolution": 0.96,
+    "refactoring_recommendation_quality": 0.95,
+    "knowledge_transfer_effectiveness": 0.95
+  },
+  "overall": 0.974,
+  "pass_rate": 1.0,
+  "target": 0.95,
+  "passed": true,
   "total_scenarios": 10,
   "passed_scenarios": 10,
-  "failed_scenarios": 0,
-  "passed": true,
-  "overall_score": 0.891,
-  "grade": "C",
-  "scenarios": [
-    {
-      "name": "architecture_analysis",
-      "description": "Analyze project for layer violations and tech debt",
-      "target_score": 0.95,
-      "actual_score": 0.97,
-      "passed": true,
-      "details": "Clean architecture validation complete"
-    },
-    {
-      "name": "cross_project_learning",
-      "description": "Pattern mining across capability packs",
-      "target_score": 0.9,
-      "actual_score": 0.92,
-      "passed": true,
-      "details": "Pattern extraction from 100+ cases"
-    },
-    {
-      "name": "impact_prediction",
-      "description": "Blast radius and regression risk prediction",
-      "target_score": 0.85,
-      "actual_score": 0.88,
-      "passed": true,
-      "details": "Change impact analysis accurate"
-    },
-    {
-      "name": "risk_scoring",
-      "description": "Composite risk scoring for changes",
-      "target_score": 0.9,
-      "actual_score": 0.91,
-      "passed": true,
-      "details": "Risk model calibrated on 100 real cases"
-    },
-    {
-      "name": "bug_trend_forecasting",
-      "description": "Recurring issue detection and trend analysis",
-      "target_score": 0.85,
-      "actual_score": 0.87,
-      "passed": true,
-      "details": "Trend analysis validated on project history"
-    },
-    {
-      "name": "approval_workflow",
-      "description": "Multi-layer approval with audit trail",
-      "target_score": 0.95,
-      "actual_score": 0.95,
-      "passed": true,
-      "details": "State machine with audit logging complete"
-    },
-    {
-      "name": "architecture_debt_tracking",
-      "description": "Technical debt tracking and visualization",
-      "target_score": 0.8,
-      "actual_score": 0.83,
-      "passed": true,
-      "details": "Debt metrics integrated with observability"
-    },
-    {
-      "name": "dependency_analysis",
-      "description": "Cross-domain knowledge graph generation",
-      "target_score": 0.9,
-      "actual_score": 0.9,
-      "passed": true,
-      "details": "Entity resolution and relationship extraction working"
-    },
-    {
-      "name": "refactoring_recommendations",
-      "description": "Actionable refactoring recommendations",
-      "target_score": 0.85,
-      "actual_score": 0.86,
-      "passed": true,
-      "details": "Recommendation engine outputs validated"
-    },
-    {
-      "name": "knowledge_transfer",
-      "description": "Best practice extraction from successful projects",
-      "target_score": 0.8,
-      "actual_score": 0.82,
-      "passed": true,
-      "details": "Knowledge transfer recommendations generated"
-    }
-  ]
+  "grade": "A+"
 }

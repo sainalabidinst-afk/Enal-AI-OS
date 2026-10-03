@@ -411,7 +411,7 @@ Benchmark
 - [x] Explainability ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
 - [x] ≥ 10 real cases logged in real_cases/document_processing/

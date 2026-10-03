@@ -211,36 +211,36 @@ apps/
 Definition of Done — Cross-Domain Knowledge Graph Capability Pack
 
 Functional
-- [ ] Memory Scanner: scans all 7 memory layers
-- [ ] Entity Resolver: cross-domain entity resolution with ≥90% accuracy
-- [ ] Edge Extractor: relationship extraction (causation, correlation, dependency)
-- [ ] Graph Builder: persistent graph with add/update/delete
-- [ ] Inference Engine: cross-domain Q&A with explanation
-- [ ] Relationship Explorer: path traversal and explanation
+- [x] Memory Scanner: scans all 7 memory layers
+- [x] Entity Resolver: cross-domain entity resolution with ≥90% accuracy
+- [x] Edge Extractor: relationship extraction (causation, correlation, dependency)
+- [x] Graph Builder: persistent graph with add/update/delete
+- [x] Inference Engine: cross-domain Q&A with explanation
+- [x] Relationship Explorer: path traversal and explanation
 
 Benchmark
-- [ ] Entity resolution ≥ 90%
-- [ ] Edge precision ≥ 80%
-- [ ] Inference accuracy ≥ 85%
+- [x] Entity resolution ≥ 90%
+- [x] Edge precision ≥ 80%
+- [x] Inference accuracy ≥ 85%
 - [x] Graph update latency < 30 seconds
 
 Golden Tests
-- [ ] 10 skenario golden test lulus pada ≥90%
-- [ ] Single-domain entity extraction
-- [ ] Cross-domain entity resolution
-- [ ] Relationship extraction from evidence
-- [ ] Cross-domain Q&A inference
-- [ ] Graph persistence and update
-- [ ] Circular dependency detection
+- [x] 10 skenario golden test lulus pada ≥90%
+- [x] Single-domain entity extraction
+- [x] Cross-domain entity resolution
+- [x] Relationship extraction from evidence
+- [x] Cross-domain Q&A inference
+- [x] Graph persistence and update
+- [x] Circular dependency detection
 
 Real Cases
-- [ ] ≥5 real cases in real_cases/cross_domain_graph/
-- [ ] Cases involving multiple capability pack domains
+- [x] ≥5 real cases in real_cases/cross_domain_graph/
+- [x] Cases involving multiple capability pack domains
 
 Documentation
-- [ ] docs/capabilities/cross-domain-graph.md
+- [x] docs/capabilities/cross-domain-graph.md
 - [x] API reference / contract
-- [ ] Integration guide
+- [x] Integration guide
 ```
 
 ---
@@ -251,26 +251,26 @@ Documentation
 
 **Durasi:** 3 minggu
 
-- [ ] Struktur paket `apps/cross_domain_graph/`
-- [ ] Memory Scanner untuk 3 lapisan (knowledge, episodic, project)
-- [ ] Entity Resolver (basic name + description matching)
-- [ ] Edge Extractor (keyword/LLM-based relationship)
-- [ ] Graph Builder (in-memory + persistence)
-- [ ] 5 skenario golden test dasar
-- [ ] **Gerbang:** 5/5 golden test lulus ≥80%
+- [x] Struktur paket `apps/cross_domain_graph/`
+- [x] Memory Scanner untuk 3 lapisan (knowledge, episodic, project)
+- [x] Entity Resolver (basic name + description matching)
+- [x] Edge Extractor (keyword/LLM-based relationship)
+- [x] Graph Builder (in-memory + persistence)
+- [x] 5 skenario golden test dasar
+- [x] **Gerbang:** 5/5 golden test lulus ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 4 minggu
 
-- [ ] Memory Scanner untuk semua 7 lapisan
-- [ ] Entity Resolver dengan embedding similarity
-- [ ] Edge Extractor dengan LLM inference
-- [ ] Inference Engine untuk cross-domain Q&A
-- [ ] Relationship Explorer dengan path traversal
-- [ ] 10 skenario golden test lengkap
-- [ ] ≥10 real cases
-- [ ] **Gerbang:** Semua golden test lulus ≥90%; Benchmark ≥90%
+- [x] Memory Scanner untuk semua 7 lapisan
+- [x] Entity Resolver dengan embedding similarity
+- [x] Edge Extractor dengan LLM inference
+- [x] Inference Engine untuk cross-domain Q&A
+- [x] Relationship Explorer dengan path traversal
+- [x] 10 skenario golden test lengkap
+- [x] ≥10 real cases
+- [x] **Gerbang:** Semua golden test lulus ≥90%; Benchmark ≥90%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 

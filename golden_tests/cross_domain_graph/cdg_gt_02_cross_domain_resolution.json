@@ -1,0 +1,23 @@
+{
+  "scenario_id": "cdg_gt_02_cross_domain_resolution",
+  "title": "Cross-domain entity resolution",
+  "description": "EntityResolver merges same entity across different domains.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "knowledge_graph",
+  "expected_behavior": "EntityResolver.resolve_all merges nodes with same name/description across domains into ResolvedEntity with canonical_id.",
+  "acceptance_criteria": {
+    "resolution_accuracy": ">= 80% entities correctly resolved",
+    "canonical_id": "Each resolved entity has a canonical_id"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Create two nodes with same name 'Federal Reserve' in domains 'trading' and 'network'",
+      "expected": "Both resolved to same canonical_id"
+    }
+  ],
+  "golden_output": {
+    "cross_domain_resolved": true,
+    "canonical_ids_assigned": true
+  }
+}

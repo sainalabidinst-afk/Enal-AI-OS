@@ -289,26 +289,26 @@ Documentation
 
 **Durasi:** 3 minggu
 
-- [ ] Struktur paket `apps/adversarial_testing/`
-- [ ] Attack Vector Generator (3 kategori serangan)
-- [ ] Failure Injector (basic injection)
-- [ ] Vulnerability Scanner (severity scoring)
-- [ ] Hardening Advisor (basic recommendations)
-- [ ] Adversarial Gate (pass/fail)
-- [ ] 5 skenario golden test dasar
-- [ ] **Gerbang:** 5/5 golden test lulus ≥80%
+- [x] Struktur paket `apps/adversarial_testing/`
+- [x] Attack Vector Generator (3 kategori serangan)
+- [x] Failure Injector (basic injection)
+- [x] Vulnerability Scanner (severity scoring)
+- [x] Hardening Advisor (basic recommendations)
+- [x] Adversarial Gate (pass/fail)
+- [x] 5 skenario golden test dasar
+- [x] **Gerbang:** 5/5 golden test lulus ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 
 **Durasi:** 4 minggu
 
-- [ ] Semua 6 kategori serangan
-- [ ] Assumption Auditor
+- [x] Semua 6 kategori serangan
+- [x] Assumption Auditor
 - [ ] Integrasi dengan Scenario Simulator (RFC-0023)
 - [ ] Integrasi dengan Decision Intelligence
-- [ ] 10 skenario golden test lengkap
+- [x] 10 skenario golden test lengkap
 - [ ] ≥10 real cases
-- [ ] **Gerbang:** Semua golden test lulus ≥90%; Benchmark ≥90%
+- [x] **Gerbang:** Semua golden test lulus ≥90%; Benchmark ≥90%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 

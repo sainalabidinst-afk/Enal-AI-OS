@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_03_relationship_extraction",
+  "title": "Relationship extraction from evidence",
+  "description": "EdgeExtractor discovers relationships between entities.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "knowledge_graph",
+  "expected_behavior": "EdgeExtractor.extract_edges returns GraphEdge objects with source_id, target_id, relation from RelationType, weight, and confidence.",
+  "acceptance_criteria": {
+    "edge_types": "Multiple RelationType values represented",
+    "edge_structure": "All edges have required fields"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Extract edges from sample nodes",
+      "expected": "Returns list of GraphEdge"
+    },
+    {
+      "step": 2,
+      "action": "Check relation type is valid RelationType",
+      "expected": "All edges valid"
+    }
+  ],
+  "golden_output": {
+    "edges_extracted": true,
+    "relation_types_valid": true
+  }
+}

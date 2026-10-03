@@ -1,0 +1,4 @@
+{
+  "query": "Detect circular dependencies in module dependency graph",
+  "check_cycles": true
+}

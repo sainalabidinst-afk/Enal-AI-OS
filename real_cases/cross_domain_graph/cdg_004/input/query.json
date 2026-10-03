@@ -1,0 +1,5 @@
+{
+  "source": "interest_rate",
+  "target": "revenue",
+  "max_depth": 5
+}

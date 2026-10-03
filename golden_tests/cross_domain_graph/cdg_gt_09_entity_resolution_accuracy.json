@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_09_entity_resolution_accuracy",
+  "title": "Entity resolution accuracy benchmark",
+  "description": "EntityResolver achieves >= 90% accuracy on cross-domain entity matching.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Entity resolution >= 90%",
+  "category": "benchmark",
+  "expected_behavior": "EntityResolver correctly identifies duplicates and merges entities with >= 90% precision.",
+  "acceptance_criteria": {
+    "precision": ">= 90% correct resolutions",
+    "recall": ">= 85% entities processed"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Run resolver on mixed-domain entities",
+      "expected": "Duplicates merged correctly"
+    },
+    {
+      "step": 2,
+      "action": "Measure precision against known pairs",
+      "expected": ">= 90%"
+    }
+  ],
+  "golden_output": {
+    "resolution_accuracy_met": true,
+    "precision_above_target": true
+  }
+}

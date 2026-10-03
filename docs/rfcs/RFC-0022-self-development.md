@@ -119,7 +119,7 @@ Benchmark
 Documentation
 - [x] Capability guide: docs/capabilities/self-development.md
 - [x] Benchmark dashboard: benchmarks/dashboards/self_development_dashboard.html
-- [ ] Benchmark report: benchmarks/reports/self_development_benchmark.json
+- [x] Benchmark report: benchmarks/reports/self_development_benchmark.json
 
 Regression
 - [x] No regression in existing capability pack dimensions

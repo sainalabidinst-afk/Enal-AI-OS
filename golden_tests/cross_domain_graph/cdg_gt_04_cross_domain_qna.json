@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_04_cross_domain_qna",
+  "title": "Cross-domain Q&A inference",
+  "description": "InferenceEngine answers cross-domain questions with confidence score.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "knowledge_graph",
+  "expected_behavior": "InferenceEngine.infer_answer returns InferenceResult with answer, evidence_chain, source_entities, and confidence >= 0.0.",
+  "acceptance_criteria": {
+    "inference_accuracy": ">= 85% correct answers",
+    "confidence_score": ">= 0.5 for non-trivial queries"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Run infer_answer on cross-domain query",
+      "expected": "Returns InferenceResult"
+    },
+    {
+      "step": 2,
+      "action": "Verify confidence in [0, 1]",
+      "expected": "0.0 <= confidence <= 1.0"
+    }
+  ],
+  "golden_output": {
+    "inference_returns_result": true,
+    "confidence_valid": true
+  }
+}

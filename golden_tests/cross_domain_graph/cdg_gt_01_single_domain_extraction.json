@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_01_single_domain_extraction",
+  "title": "Single-domain entity extraction",
+  "description": "MemoryScanner extracts entities from a single memory layer.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "knowledge_graph",
+  "expected_behavior": "MemoryScanner.scan_layer returns GraphNode objects with id, name, domain, node_type, and description from the specified layer.",
+  "acceptance_criteria": {
+    "entity_count": ">= 1 entities extracted per scan",
+    "structure_valid": "All nodes have required GraphNode fields"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Scan MemoryLayer.KNOWLEDGE for 'interest rate'",
+      "expected": "Returns list of GraphNode"
+    },
+    {
+      "step": 2,
+      "action": "Verify each node has id, name, node_type, domain",
+      "expected": "All fields populated"
+    }
+  ],
+  "golden_output": {
+    "entities_extracted": true,
+    "structure_valid": true
+  }
+}

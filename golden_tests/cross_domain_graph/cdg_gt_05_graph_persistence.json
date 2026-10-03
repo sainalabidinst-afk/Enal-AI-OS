@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_05_graph_persistence",
+  "title": "Graph persistence and update",
+  "description": "GraphBuilder persists nodes and edges, supports reload.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "knowledge_graph",
+  "expected_behavior": "GraphBuilder._persist writes graph to disk; load() reconstructs it with all nodes and edges.",
+  "acceptance_criteria": {
+    "persistence_success": "100% round-trip success",
+    "update_latency": "< 30000ms"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Add nodes and edges, persist graph",
+      "expected": "Graph saved to disk"
+    },
+    {
+      "step": 2,
+      "action": "Load graph in new instance",
+      "expected": "All nodes and edges restored"
+    }
+  ],
+  "golden_output": {
+    "persistence_roundtrip": true,
+    "load_restores_graph": true
+  }
+}

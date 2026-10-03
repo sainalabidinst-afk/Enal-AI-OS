@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_10_engine_integration",
+  "title": "End-to-end engine query",
+  "description": "Full engine.query pipeline returns valid GraphQueryResult.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Golden Tests",
+  "category": "integration",
+  "expected_behavior": "CrossDomainGraphEngine.query accepts string or GraphQueryRequest, returns GraphQueryResult with answer, entities, relationships, and explanation.",
+  "acceptance_criteria": {
+    "end_to_end": "100% successful queries",
+    "result_structure": "All required fields populated"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Query engine with cross-domain question",
+      "expected": "Returns GraphQueryResult"
+    },
+    {
+      "step": 2,
+      "action": "Verify result has answer, entities, relationships",
+      "expected": "All fields present"
+    }
+  ],
+  "golden_output": {
+    "engine_query_works": true,
+    "result_structure_valid": true
+  }
+}

@@ -35,6 +35,11 @@ from backend.app.core.observability import (
     StructuredLogger,
 )
 from backend.app.core.pipeline_engine import PipelineEngine, PipelineStage
+from backend.app.core.plugin_manifest import (
+    HotReloadManager,
+    PluginManifest,
+    PluginManifestRegistry,
+)
 from backend.app.core.schemas import (
     CapabilityPackConfig,
     Event,
@@ -118,6 +123,8 @@ class GoldenTestRunner:
                 checks = await self._test_version_resolution()
             elif scenario_id == "gt_10_observability_standards":
                 checks = await self._test_observability()
+            elif scenario_id == "gt_11_hot_reload":
+                checks = await self._test_hot_reload()
 
             all_passed = all(c["passed"] for c in checks)
         except Exception as e:
@@ -610,6 +617,49 @@ class GoldenTestRunner:
 
         return checks
 
+    async def _test_hot_reload(self) -> list[dict[str, Any]]:
+        checks = []
+
+        registry = PluginManifestRegistry()
+        manager = HotReloadManager(registry)
+        checks.append({"name": "manager_initializes", "passed": manager is not None})
+
+        manifest = PluginManifest(
+            id="test_hot_reload_pack",
+            name="Test Hot Reload Pack",
+            version="1.0.0",
+            description="Test pack for hot reload",
+            author="ECP",
+            license="MIT",
+            capabilities=["test"],
+            permissions=["read"],
+            required_contracts={"test": "1.0.0"},
+            entrypoint="backend.app.core.plugin_manifest",
+        )
+        registry.register(manifest)
+
+        success = manager.register_pack("test_hot_reload_pack", "backend.app.core.plugin_manifest")
+        checks.append({"name": "pack_registered", "passed": success})
+
+        loaded = manager.list_loaded_packs()
+        checks.append({"name": "pack_in_loaded_list", "passed": "test_hot_reload_pack" in loaded})
+
+        import backend.app.core.plugin_manifest as pm
+        has_changed = manager.check_for_updates("test_hot_reload_pack", pm.__file__)
+        checks.append({"name": "no_changes_detected", "passed": not has_changed})
+
+        result = manager.reload_pack("test_hot_reload_pack", "backend.app.core.plugin_manifest")
+        checks.append({"name": "reload_successful", "passed": result.success})
+        checks.append({"name": "latency_under_100ms", "passed": result.latency_ms < 100})
+
+        err_result = manager.reload_pack("nonexistent_pack", "backend.app.core.plugin_manifest")
+        checks.append({
+            "name": "error_on_unregistered",
+            "passed": not err_result.success and err_result.error is not None,
+        })
+
+        return checks
+
 
 if __name__ == "__main__":
     runner = GoldenTestRunner()
@@ -638,6 +688,7 @@ async def test_all_golden_scenarios():
         "gt_08_trace_propagation",
         "gt_09_version_resolution",
         "gt_10_observability_standards",
+        "gt_11_hot_reload",
     ],
 )
 async def test_golden_scenario(scenario_id):

@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_08_path_traversal",
+  "title": "Path traversal and relationship explanation",
+  "description": "RelationshipExplorer finds and explains paths between entities.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Relationship Explorer path traversal",
+  "category": "knowledge_graph",
+  "expected_behavior": "RelationshipExplorer.explain returns explanation with path descriptions between connected entities.",
+  "acceptance_criteria": {
+    "traversal_success": ">= 90% of connected pairs have paths",
+    "explanation_quality": "Paths include node names and relation types"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Find paths between connected nodes",
+      "expected": "Paths returned"
+    },
+    {
+      "step": 2,
+      "action": "Generate explanation",
+      "expected": "Explanation with readable path"
+    }
+  ],
+  "golden_output": {
+    "path_traversal_works": true,
+    "explanation_generated": true
+  }
+}

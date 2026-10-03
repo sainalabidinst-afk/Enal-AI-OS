@@ -1,0 +1,28 @@
+{
+  "scenario_id": "cdg_gt_07_memory_layer_scan",
+  "title": "Memory layer scanning (all 7 layers)",
+  "description": "MemoryScanner scans all 7 memory layers and returns entities.",
+  "rfc_reference": "RFC-0024 §Definisi Selesai — Memory Scanner scans all 7 memory layers",
+  "category": "knowledge_graph",
+  "expected_behavior": "MemoryScanner.scan_all returns GraphNode objects from all 7 MemoryLayer values: working, conversation, knowledge, longterm, episodic, session, project.",
+  "acceptance_criteria": {
+    "layer_coverage": "All 7 layers scanned",
+    "entity_quality": "Entities have valid types"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "Call scan_all without layer filter",
+      "expected": "All 7 layers attempted"
+    },
+    {
+      "step": 2,
+      "action": "Verify MemoryLayer enum has 7 values",
+      "expected": "7 memory layers"
+    }
+  ],
+  "golden_output": {
+    "all_layers_scanned": true,
+    "memory_layer_count": 7
+  }
+}
