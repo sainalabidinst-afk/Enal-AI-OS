@@ -79,7 +79,7 @@ export function ChatGPTPage() {
   const [speakingId, setSpeakingId] = useState<string>();
   const [showRail, setShowRail] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const { ConsentDialog: ConsentDialogComponent, open: openConsent } = useConsentDialog();
+  const { ConsentDialog: ConsentDialogComponent } = useConsentDialog();
   const bottomRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -88,10 +88,6 @@ export function ChatGPTPage() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isSending]);
-
-  useEffect(() => {
-    openConsent();
-  }, [openConsent]);
 
   useEffect(() => {
     return () => {
