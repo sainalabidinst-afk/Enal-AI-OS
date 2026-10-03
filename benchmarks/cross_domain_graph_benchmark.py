@@ -29,8 +29,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from apps.cross_domain_graph.engine import CrossDomainGraphEngine
 from apps.cross_domain_graph.schemas import (
-    GraphNode,
     GraphEdge,
+    GraphNode,
     GraphQueryResult,
     NodeType,
     RelationType,

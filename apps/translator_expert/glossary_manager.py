@@ -251,7 +251,9 @@ class GlossaryManager:
         self.custom_glossaries[key] = existing
         logger.info("Added %d custom terms for %s", len(terms), key)
 
-    def load_from_plugin(self, domain: str, language_pairs: dict[str, dict[str, str]]) -> DomainGlossary:
+    def load_from_plugin(
+        self, domain: str, language_pairs: dict[str, dict[str, str]]
+    ) -> DomainGlossary:
         """Merge a glossary domain loaded from a marketplace plugin into custom glossaries.
 
         Args:
@@ -291,7 +293,9 @@ class GlossaryManager:
             count += 1
         return count
 
-    def export_glossary(self, domain: DomainGlossary, source_lang: str, target_lang: str) -> dict[str, str]:
+    def export_glossary(
+        self, domain: DomainGlossary, source_lang: str, target_lang: str
+    ) -> dict[str, str]:
         """Export the full merged glossary for a domain and language pair."""
         return self.get_glossary(domain, source_lang, target_lang)
 

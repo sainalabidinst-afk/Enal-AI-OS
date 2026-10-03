@@ -29,7 +29,6 @@ os.environ.setdefault("TESTING", "true")
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from apps.scenario_simulator.engine import ScenarioSimulatorEngine
-from apps.scenario_simulator.schemas import ChangeType, DistributionType
 
 
 def _base_state():

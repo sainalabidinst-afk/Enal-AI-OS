@@ -18,9 +18,11 @@ Example:
     result = await agent.run("Configure hotspot")
 """
 
-from typing import Any, Callable, Awaitable, Optional
-from pydantic import BaseModel, Field
 import logging
+from collections.abc import Awaitable, Callable
+from typing import Any
+
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +31,7 @@ class AgentConfig(BaseModel):
     name: str = Field(..., description="Unique agent name")
     description: str = Field("", description="Agent description")
     capabilities: list[str] = Field(default_factory=list, description="Agent capabilities")
-    model: Optional[str] = Field(None, description="LLM model to use")
+    model: str | None = Field(None, description="LLM model to use")
     temperature: float = Field(0.7, description="Model temperature")
     max_tokens: int = Field(4096, description="Max tokens")
     tools: list[str] = Field(default_factory=list, description="Allowed tools")
@@ -40,7 +42,7 @@ class ToolConfig(BaseModel):
     name: str = Field(..., description="Tool name")
     description: str = Field("", description="Tool description")
     parameters: dict[str, Any] = Field(default_factory=dict, description="Tool parameters schema")
-    handler: Optional[Callable[..., Awaitable[Any]]] = Field(None, description="Tool handler function")
+    handler: Callable[..., Awaitable[Any]] | None = Field(None, description="Tool handler function")
     sandbox: bool = Field(False, description="Run in sandbox")
     permissions: list[str] = Field(default_factory=list, description="Required permissions")
 
@@ -52,7 +54,7 @@ class WorkflowStep(BaseModel):
     action: str
     parameters: dict[str, Any] = Field(default_factory=dict)
     depends_on: list[str] = Field(default_factory=list)
-    condition: Optional[str] = Field(None, description="Conditional execution")
+    condition: str | None = Field(None, description="Conditional execution")
 
 
 class WorkflowConfig(BaseModel):
@@ -77,6 +79,7 @@ class Agent:
         raise NotImplementedError
 
     async def run(self, task: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
+        assert self.config is not None
         try:
             result = await self.execute(task, context)
             return {"agent": self.config.name, "task": task, "result": result, "success": True}
@@ -85,6 +88,7 @@ class Agent:
             return {"agent": self.config.name, "task": task, "result": str(e), "success": False}
 
     def to_dict(self) -> dict[str, Any]:
+        assert self.config is not None
         return self.config.model_dump()
 
 
@@ -100,12 +104,14 @@ class Tool:
             self.config = ToolConfig(**self.config.model_dump(), **kwargs)
 
     async def invoke(self, parameters: dict[str, Any]) -> dict[str, Any]:
+        assert self.config is not None
         if self.config.handler:
             result = await self.config.handler(**parameters)
             return {"tool": self.config.name, "result": result, "success": True}
         return {"tool": self.config.name, "result": None, "success": False}
 
     def to_dict(self) -> dict[str, Any]:
+        assert self.config is not None
         return self.config.model_dump()
 
 
@@ -121,6 +127,7 @@ class Workflow:
             self.config = WorkflowConfig(**self.config.model_dump(), **kwargs)
 
     async def execute(self, context: dict[str, Any] | None = None) -> dict[str, Any]:
+        assert self.config is not None
         context = context or {}
         results = {}
         for step in self.config.steps:
@@ -131,6 +138,7 @@ class Workflow:
         return {"workflow": self.config.name, "results": results}
 
     def to_dict(self) -> dict[str, Any]:
+        assert self.config is not None
         return self.config.model_dump()
 
 

@@ -9,8 +9,8 @@ dashboard or export to the Observability pack.
 import threading
 import time
 from collections import defaultdict
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
+from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -30,7 +30,7 @@ class TranslationMetricSample:
     throughput_chars_per_sec: float
     model_used: str
     glossary_terms_used: int
-    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

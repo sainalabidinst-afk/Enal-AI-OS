@@ -167,7 +167,7 @@ class HotReloadManager:
         except ImportError as e:
             logger.error(f"Cannot import module for pack {pack_id}: {e}")
             return False
-        checksum = self._compute_checksum(module.__file__)
+        checksum = self._compute_checksum(module.__file__ or "")
         self._loaded_modules[pack_id] = (module_path, module, checksum, 0.0)
         self._checksums[pack_id] = checksum
         return True
@@ -211,7 +211,7 @@ class HotReloadManager:
             new_module = importlib.import_module(module_path)
             importlib.reload(new_module)
 
-            new_checksum = self._compute_checksum(new_module.__file__)
+            new_checksum = self._compute_checksum(new_module.__file__ or "")
 
             if new_checksum == old_checksum:
                 result = HotReloadResult(

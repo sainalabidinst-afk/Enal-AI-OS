@@ -100,7 +100,10 @@ def __getattr__(name: str) -> Any:
         "FIXConnector": ("backend.app.connectors.fix_connector", "FIXConnector"),
         "BaseActionConnector": ("backend.app.connectors.base_action", "BaseActionConnector"),
         "ActionConnectorManager": ("backend.app.connectors.base_action", "ActionConnectorManager"),
-        "action_connector_manager": ("backend.app.connectors.base_action", "action_connector_manager"),
+        "action_connector_manager": (
+            "backend.app.connectors.base_action",
+            "action_connector_manager",
+        ),
         "ActionResult": ("backend.app.connectors.base_action", "ActionResult"),
         "ActionRequest": ("backend.app.connectors.base_action", "ActionRequest"),
         "ActionType": ("backend.app.connectors.base_action", "ActionType"),

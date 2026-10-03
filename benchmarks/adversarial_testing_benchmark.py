@@ -32,7 +32,6 @@ from apps.adversarial_testing.schemas import (
     GateResult,
     Priority,
     Severity,
-    SubjectType,
 )
 
 SAMPLE_PLAN = (

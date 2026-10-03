@@ -138,13 +138,6 @@ class PluginMarketplace:
                 continue
         return results
 
-
-class PluginMarketplace:
-    def __init__(self):
-        self._plugins: dict[str, PluginManifest] = {}
-        self._installed: dict[str, str] = {}
-        self._ratings: dict[str, list[float]] = {}
-
     async def publish(self, manifest: PluginManifest) -> str:
         if manifest.id in self._plugins:
             self._plugins[manifest.id].version = manifest.version
@@ -176,7 +169,7 @@ class PluginMarketplace:
 
     def list_plugins(
         self, category: str | None = None, status: PluginStatus | None = None
-    ) -> list[PluginManifest]:  # noqa: E501
+    ) -> list[PluginManifest]:
         plugins = list(self._plugins.values())
         if category:
             plugins = [p for p in plugins if p.category == category]
@@ -192,7 +185,7 @@ class PluginMarketplace:
             if query_lower in p.name.lower()
             or query_lower in p.description.lower()
             or query_lower in " ".join(p.tags).lower()
-        ]  # noqa: E501
+        ]
 
     def get_installed(self) -> list[str]:
         return list(self._installed.keys())

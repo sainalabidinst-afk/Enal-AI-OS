@@ -74,7 +74,11 @@ class TranslatorExpertEngine:
             )
 
             duration_ms = (time.perf_counter() - start_time) * 1000
-            throughput = round(len(request.text) / (duration_ms / 1000), 2) if duration_ms > 0 else 0.0
+            throughput = (
+                round(len(request.text) / (duration_ms / 1000), 2)
+                if duration_ms > 0
+                else 0.0
+            )
 
             log_translation_complete(
                 span=span,

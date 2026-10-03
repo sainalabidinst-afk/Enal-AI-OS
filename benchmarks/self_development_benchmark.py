@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Generate self_development benchmark report matching project conventions."""
 import sys
+
 sys.stdout.reconfigure(encoding='utf-8')
-from pathlib import Path
 import json
 from datetime import datetime
+from pathlib import Path
 
 bench_dir = Path("benchmarks/reports")
 bench_dir.mkdir(parents=True, exist_ok=True)

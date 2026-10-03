@@ -23,21 +23,13 @@ from __future__ import annotations
 import json
 import logging
 import os
-import tempfile
 import time
 from dataclasses import dataclass, field
 from typing import Any
 
 from apps.document_processing.engine import DocumentProcessingEngine
 from apps.document_processing.schemas import (
-    DocumentOperation,
-    DocumentProcessingInputs,
     DocumentProcessingRequest,
-    ProduceContent,
-    ProduceSection,
-    TextReplacement,
-    AnnotationSpec,
-    AnnotationType,
 )
 
 logger = logging.getLogger(__name__)

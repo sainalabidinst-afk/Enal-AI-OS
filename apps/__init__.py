@@ -33,7 +33,8 @@ Apps:
   25. Legal Advisor - Legal document analysis and clause review
   26. HSE Specialist - Health safety environment hazard analysis
   27. Observability - Metrics collection, tracing, log analysis, anomaly detection
-  28. Cybersecurity Analyst - Threat modeling, vulnerability assessment, incident detection, compliance mapping
+  28. Cybersecurity Analyst - Threat modeling, vulnerability assessment, incident detection,
+     compliance mapping
   29. AI Ethics & Governance - Fairness auditing, bias detection, explainability
   30. Supply Chain Analyst - Logistics optimization, demand forecasting, risk management
   31. Data Scientist - Advanced ML pipelines, feature engineering, model training

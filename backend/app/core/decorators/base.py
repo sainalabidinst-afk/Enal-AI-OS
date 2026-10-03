@@ -90,7 +90,7 @@ class DecoratorBase(BaseApp):
         """Proxy method that invokes wrapped app's method with hooks."""
         self._before(method_name, args, kwargs)
         try:
-            func: Callable[..., Any] = getattr(self._wrapped, method_name, None)
+            func: Callable[..., Any] | None = getattr(self._wrapped, method_name, None)
             if func is None:
                 raise AttributeError(f"Method '{method_name}' not found on wrapped app")
             result = self._around(method_name, func, args, kwargs)
@@ -102,13 +102,13 @@ class DecoratorBase(BaseApp):
         """Proxy execute to wrapped app with augmentation."""
         if self._wrapped is not None:
             return self._invoke("execute", task)
-        return super().execute(task)
+        return super().execute(task)  # type: ignore[safe-super]
 
     def validate_input(self, task: dict[str, Any]) -> bool:
         """Proxy validate_input to wrapped app."""
         if self._wrapped is not None:
             return cast(bool, self._invoke("validate_input", task))
-        return super().validate_input(task)
+        return super().validate_input(task)  # type: ignore[safe-super]
 
     def get_capabilities(self) -> list[dict[str, Any]]:
         """Proxy get_capabilities to wrapped app."""
@@ -137,7 +137,7 @@ def decorate(cls: type[T]) -> type[T]:
         if isinstance(self, DecoratorBase):
             self._wrapped = wrapped
 
-    cls.__init__ = new_init  # type: ignore[method-assign]
+    cls.__init__ = new_init  # type: ignore[method-assign,assignment]
     return cls
 
 

@@ -14,7 +14,7 @@ import json
 import logging
 import os
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from backend.app.runtime import (
@@ -35,7 +35,7 @@ class GlossaryPluginData:
     language_pairs: dict[str, dict[str, str]] = field(default_factory=dict)
     version: str = "1.0.0"
     source: str = "translator-expert"
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,7 +49,7 @@ class GlossaryPluginData:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "GlossaryPluginData":
+    def from_dict(cls, data: dict[str, Any]) -> GlossaryPluginData:
         return cls(
             domain=data["domain"],
             language_pairs=data.get("language_pairs", {}),
@@ -92,7 +92,9 @@ class GlossaryPluginRegistry:
             id=plugin_id,
             name=f"Glossary: {domain.title()}",
             version=version,
-            description=f"Domain glossary for '{domain}' with {len(language_pairs)} language pair(s)",
+            description=(
+                f"Domain glossary for '{domain}' with {len(language_pairs)} language pair(s)"
+            ),
             author="Translator Expert",
             category="glossary",
             tags=["translator", "glossary", domain, "localization", "i18n"],
@@ -144,7 +146,9 @@ class GlossaryPluginRegistry:
 
     def list_glossary_plugins(self) -> list[PluginManifest]:
         """List all published glossary plugins."""
-        return self._get_marketplace().list_plugins(category="glossary", status=PluginStatus.PUBLISHED)
+        return self._get_marketplace().list_plugins(
+            category="glossary", status=PluginStatus.PUBLISHED
+        )
 
     def get_installed_glossaries(self) -> list[GlossaryPluginData]:
         """Return data for all installed glossary plugins."""
@@ -175,7 +179,7 @@ def persist_glossary_to_file(plugin_data: GlossaryPluginData, directory: str) ->
 
 def load_glossary_from_file(path: str) -> GlossaryPluginData:
     """Load glossary plugin data from a JSON file."""
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return GlossaryPluginData.from_dict(data)
 

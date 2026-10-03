@@ -56,7 +56,6 @@ def cmd_decorate(args: argparse.Namespace) -> int:
     for name in decorator_names:
         builder.add(name)
 
-    registry = DecoratorRegistry.__dict__["_registry"] if "_registry" in DecoratorRegistry.__dict__ else {}
     mock_app_cls = _get_mock_app_class()
     app = mock_app_cls(config={})
 
@@ -81,7 +80,7 @@ def cmd_chain(args: argparse.Namespace) -> int:
         return 0
 
     print(f"Active Decorator Chain for '{args.app_id}':")
-    current = active
+    current: object | None = active
     depth = 0
     while current is not None:
         name = getattr(current, "name", type(current).__name__)

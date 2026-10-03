@@ -347,9 +347,9 @@ class TranslatorExpertBenchmark:
         try:
             from apps.translator_expert.engine import TranslatorExpertEngine
             from apps.translator_expert.schemas import (
+                BusinessContext,
                 GlossaryConfig,
                 TranslationRequest,
-                BusinessContext,
             )
         except Exception:
             return {

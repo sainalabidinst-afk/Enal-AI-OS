@@ -236,7 +236,7 @@ services:
       TESTING: ${TESTING:-false}
       DEBUG: ${DEBUG:-false}
       ENABLE_BENCHMARK_RUNTIME: ${ENABLE_BENCHMARK_RUNTIME:-true}
-      healthcheck:
+    healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 10s
       timeout: 5s
@@ -245,7 +245,6 @@ services:
     read_only: true
     tmpfs:
       - /tmp
-      - /app/workspace
     volumes:
       - backend_workspace:/app/workspace
     security_opt:

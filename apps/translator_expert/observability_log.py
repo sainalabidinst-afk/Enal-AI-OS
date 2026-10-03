@@ -7,12 +7,9 @@ Observability tracing system.
 """
 
 import logging
-import time
-import uuid
-from datetime import datetime, timezone
 from typing import Any
 
-from backend.app.runtime import Observability, observability, SpanType
+from backend.app.runtime import SpanType, observability
 
 logger = logging.getLogger(__name__)
 
