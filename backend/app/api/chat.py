@@ -20,7 +20,9 @@ from ..models.schemas_execution import ExecutionSession
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-GENERIC_FALLBACK = "Saya memahami permintaan Anda, tetapi belum ada hasil yang dapat ditindaklanjuti."
+GENERIC_FALLBACK = (
+    "Saya memahami permintaan Anda, tetapi belum ada hasil yang dapat ditindaklanjuti."  # noqa: E501
+)
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -118,14 +120,22 @@ async def chat(request: ChatRequest):
 
 def _extract_llm_text(result: Any) -> str | None:
     try:
-        choices = result.get("choices") if isinstance(result, dict) else getattr(result, "choices", None)
+        choices = (
+            result.get("choices") if isinstance(result, dict) else getattr(result, "choices", None)
+        )  # noqa: E501
         if not choices:
             return None
         choice = choices[0]
-        message = choice.get("message") if isinstance(choice, dict) else getattr(choice, "message", None)
+        message = (
+            choice.get("message") if isinstance(choice, dict) else getattr(choice, "message", None)
+        )  # noqa: E501
         if not message:
             return None
-        content = message.get("content") if isinstance(message, dict) else getattr(message, "content", None)
+        content = (
+            message.get("content")
+            if isinstance(message, dict)
+            else getattr(message, "content", None)
+        )  # noqa: E501
         if isinstance(content, str) and content.strip():
             return content.strip()
         if isinstance(content, list):

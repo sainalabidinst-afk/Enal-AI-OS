@@ -56,6 +56,7 @@ class AgentBlueprint(BaseModel):
     max_tokens: int
     metadata: dict[str, Any]
 
+
 class ToolBlueprint(BaseModel):
     id: str
     name: str

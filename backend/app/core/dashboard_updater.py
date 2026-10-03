@@ -109,9 +109,7 @@ class DashboardUpdaterService:
             quality_score=0.93,
         )
 
-    def append_artifact(
-        self, update: DashboardUpdate, artifact: dict[str, Any]
-    ) -> DashboardUpdate:
+    def append_artifact(self, update: DashboardUpdate, artifact: dict[str, Any]) -> DashboardUpdate:
         """Append a new artifact to an existing dashboard update."""
         update.artifacts.append(
             ArtifactPreview(
@@ -133,9 +131,7 @@ class DashboardUpdaterService:
                 entry.completed_at = datetime.now(UTC).isoformat()
                 break
         update.status = (
-            "completed"
-            if all(t.status == "completed" for t in update.timeline)
-            else "running"
+            "completed" if all(t.status == "completed" for t in update.timeline) else "running"
         )
         return update
 
