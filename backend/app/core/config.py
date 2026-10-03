@@ -38,10 +38,24 @@ class Settings(BaseSettings):
 
     TTS_PROVIDER: str = "pyttsx3"
     TTS_VOICE: str = "en"
+    TTS_VOICE_NAME: str = ""
+    TTS_VOICE_GENDER: str = "female"
+    TTS_VOICE_TONE: str = "sexy"
+    TTS_VOICE_ATTITUDE: str = "bratty"
     TTS_SPEED: float = 1.0
     TTS_API_KEY: str = ""
     TTS_ELEVENLABS_VOICE_ID: str = ""
+    TTS_PITCH: float = 1.25
+    TTS_EMPHASIS: float = 1.4
+    TTS_PAUSE_SCALE: float = 1.2
+    TTS_STYLE_EXAGGERATION: float = 0.85
+    TTS_STABILITY: float = 0.35
+    TTS_SIMILARITY_BOOST: float = 0.85
     LOCAL_TTS_URL: str = "http://localhost:8083"
+
+    JENNY_VOICE_PROFILE: str = "jenny"
+    JENNY_TTS_VOICE_ID: str = "2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5"
+    JENNY_LANGUAGE: str = "id"
 
     DEFAULT_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
     DEFAULT_REASONING_MODEL: str = "lmstudio/qwen/qwen3.5-9b"

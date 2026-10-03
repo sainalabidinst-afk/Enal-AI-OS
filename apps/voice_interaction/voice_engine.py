@@ -31,6 +31,7 @@ from apps.voice_interaction.schemas import (
     VoiceInteractionRequest,
     VoiceLanguage,
 )
+from backend.app.core.jenny_voice_config import get_voice_profile
 
 logger = logging.getLogger(__name__)
 
@@ -182,7 +183,13 @@ class VoiceEngine:
                 tts = self._get_tts_service()
                 if getattr(tts, "_provider", None) != provider:
                     tts._provider = provider
-                result = await tts.speak(text, voice=language, speed=speed)
+                voice_profile = get_voice_profile()
+                result = await tts.speak(
+                    text,
+                    voice=language,
+                    speed=speed,
+                    voice_profile=voice_profile,
+                )
                 elapsed_ms = (time.perf_counter() - start_time) * 1000
 
                 synthesis = SpeechSynthesis(
