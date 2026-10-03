@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 
-interface Message {
+export interface Message {
   role: "user" | "assistant";
   content: string;
 }

@@ -40,9 +40,26 @@
 
 ---
 
+### Ringkasan Fase
+
+| Fase | Packs (Target) | Status | Avg Grade | Real Cases |
+|------|----------------|--------|-----------|------------|
+| FASE 1: Capability Excellence | 13 | ✅ Complete | A+/A- | 1,350 |
+| FASE 2: Decision + Security + Data | 16 | ✅ Complete | A | 2,000+ |
+| FASE 3: Enterprise | 17 | ✅ Complete | A/A- | 3,000+ |
+| FASE 4: Platform Professional | 18 | ✅ Complete | A | 3,000+ |
+| FASE 5: Platform Enterprise | 22 | ✅ Complete | A | 3,000+ |
+| FASE 6: Vertical Industry | 26 | ✅ Complete | A | 3,090+ |
+| FASE 7: Platform Vertical Expansion | 28 | ✅ Complete | A (91%) | 3,090+ |
+| FASE 8: Enterprise Specialization | 35 | ✅ Complete | A (91%) | 3,220+ |
+| FASE 9+: Translator + Document + Voice | 37+ | ✅ Complete | A (92%) | 3,220+ |
+| Jenny-like Interaction | — | ✅ Complete | — | 50+ tests |
+
+---
+
 ## FASE 1: Capability Excellence (13 Pack Existing)
 
-### ☑️ 1.1 Network Engineer (A → A+)
+### ✅ 1.1 Network Engineer (A → A+)
 
 **Target:** A+ (≥95), Domain Expert (L4)
 
@@ -68,7 +85,7 @@
 
 ---
 
-### ☑️ 1.2 Code Engineer (A- → A+)
+### ✅ 1.2 Code Engineer (A- → A+)
 
 **Target:** A+ (≥95), Domain Expert (L4) — SELESAI
 
@@ -93,7 +110,7 @@
 
 ---
 
-### ☑️ 1.3 Research Assistant (A- → A+)
+### ✅ 1.3 Research Assistant (A- → A+)
 
 **Target:** A+ (≥90), Domain Expert (L4) — **SELESAI**
 
@@ -117,7 +134,7 @@
 
 ---
 
-### ☑️ 1.4 DevOps Assistant (B+ → A+)
+### ✅ 1.4 DevOps Assistant (B+ → A+)
 
 **Target:** A+ (≥90), Domain Expert (L4) — **SELESAI**
 
@@ -149,7 +166,7 @@
 
 ---
 
-### ☑️ 1.5 Trading Analyst (A/A+ + L4 Domain Expert) — SELESAI
+### ✅ 1.5 Trading Analyst (A/A+ + L4 Domain Expert) — SELESAI
 
 **Target:** A/A+ (≥90/≥95), Domain Expert (L4) — **PRIORITAS UTAMA**
 
@@ -184,7 +201,7 @@
 
 ---
 
-### ☑ 1.6 Self Development (A → A+)
+### ✅ 1.6 Self Development (A → A+)
 
 **Target:** A+ (≥95), Domain Expert (L4) — SELESAI
 
@@ -208,7 +225,7 @@
 
 ---
 
-### ☑️ 1.7 Cross-Cutting Deliverables (Fase 1)
+### ✅ 1.7 Cross-Cutting Deliverables (Fase 1)
 
 - [x] 1,000+ real cases across all 13 packs — **1,350 total** (network: 100, code: 100, research: 150, devops: 100, trading: 100, self_development: 100, decision: 100, system: 100, security: 100, data: 100, database: 100, qa: 100, business: 100)
 - [x] All packs at grade A- or higher — **Verified** (13/13 packs meet target)
@@ -221,7 +238,7 @@
 
 ## FASE 2: Decision Intelligence + Security + Data (3 Pack Baru)
 
-### ☑️ 2.1 Decision Intelligence (Prioritas Tertinggi ⭐⭐⭐⭐⭐)
+### ✅ 2.1 Decision Intelligence (Prioritas Tertinggi ⭐⭐⭐⭐⭐)
 
 **Timeline:** 12–18 bulan (setelah Fase 1 complete)
 **Pipeline:** Evidence → Reasoning → Simulation → Debate → Risk → Decision → Explanation — **SELESAI**
@@ -261,7 +278,7 @@
 
 ---
 
-### ☑️ 2.2 Security Engineer (Prioritas Tinggi ⭐⭐⭐⭐)
+### ✅ 2.2 Security Engineer (Prioritas Tinggi ⭐⭐⭐⭐)
 
 **Timeline:** 12–18 bulan (setelah Fase 1 complete) — **SELESAI**
 
@@ -298,7 +315,7 @@
 
 ---
 
-### ☑️ 2.3 Data Engineer (Prioritas Tinggi ⭐⭐⭐⭐)
+### ✅ 2.3 Data Engineer (Prioritas Tinggi ⭐⭐⭐⭐)
 
 **Timeline:** 12–18 bulan (setelah Fase 1 complete) — **SELESAI**
 
@@ -538,7 +555,7 @@
 
 > **Tier A/B — hanya dikembangkan setelah 13 pack inti mencapai target grade A/A- dan memenuhi aturan Governance.**
 
-### ☑️ 4.1 Infrastructure Engineer (Tier A ⭐⭐⭐⭐⭐)
+### ✅ 4.1 Infrastructure Engineer (Tier A ⭐⭐⭐⭐⭐)
 
 **Timeline:** 24–36 bulan
 **Target:** A (≥90)
@@ -572,7 +589,7 @@
 
 ---
 
-### ☑️ 4.2 AI Engineer (Tier A ⭐⭐⭐⭐⭐)
+### ✅ 4.2 AI Engineer (Tier A ⭐⭐⭐⭐⭐)
 
 **Timeline:** 24–36 bulan
 **Target:** A+ (≥95)
@@ -609,7 +626,7 @@
 
 ---
 
-### ☑️ 4.3 Documentation Engineer (Tier A ⭐⭐⭐⭐⭐)
+### ✅ 4.3 Documentation Engineer (Tier A ⭐⭐⭐⭐⭐)
 
 **Timeline:** 24–36 bulan
 **Target:** A (≥90)
@@ -644,7 +661,7 @@
 
 ---
 
-### ☑️ 4.4 Product Manager (Tier B ⭐⭐⭐⭐)
+### ✅ 4.4 Product Manager (Tier B ⭐⭐⭐⭐)
 
 **Timeline:** 24–36 bulan
 **Target:** A- (≥85)
@@ -681,7 +698,7 @@
 
 ---
 
-### ☑ 4.5 UI/UX Designer (Tier B ⭐⭐⭐⭐)
+### ✅ 4.5 UI/UX Designer (Tier B ⭐⭐⭐⭐)
 
 **Timeline:** 24–36 bulan
 **Target:** A- (≥85)
@@ -716,7 +733,7 @@
 
 ---
 
-### ☑ 4.6 Full Stack Engineer (Tier B ⭐⭐⭐⭐ — sudah ada di `apps/`)
+### ✅ 4.6 Full Stack Engineer (Tier B ⭐⭐⭐⭐ — sudah ada di `apps/`)
 
 **Timeline:** 24–36 bulan (promosi ke Capability Pack resmi)
 **Target:** A- (≥85)
@@ -1535,6 +1552,19 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 | Consent API | `backend/app/api/consent.py` | ✅ Implementasi |
 | Consent Dialog (frontend) | `frontend/components/jenny/consent-dialog.tsx` | ✅ Implementasi |
 | Anomaly Detection | `backend/app/core/observability.py` (+ anamaly_detect/check_span_anomaly) | ✅ Implementasi |
+
+## Outstanding Work
+
+Berikut adalah item yang masih terbuka untuk fase paralel (FASE 6–9) dan rilis mendatang:
+
+| No | Item | Fase | Prioritas | Owner |
+|----|------|------|-----------|-------|
+| 1 | Cleanup unused `import asyncio` dan `functools` di `backend/app/core/decorators/concrete.py:200` | FASE 8 | Medium | — |
+| 2 | Perbaiki 16 capability docs FASE 6+ dengan teks generik yang identik | FASE 6+ | Medium | — |
+| 3 | Lengkapi real_cases untuk RFC-0023 Scenario Simulator (saat ini 1/5 deliverable) | FASE 9+ | Medium | — |
+| 4 | Implementasi tambahan integration cases untuk Scenario Simulator | FASE 9+ | Low | — |
+| 5 | Rilis v3.1.0-rc1 — Enhanced benchmarks, additional real cases, capability packs tambahan | FASE 9+ | High | — |
+| 6 | Integrasi Consent Dialog ke `chatgpt-page.tsx` — tampilkan dialog saat action membutuhkan persetujuan | Jenny Q4.3 | High | — |
 
 ### 🎯 End-to-End Scenario
 

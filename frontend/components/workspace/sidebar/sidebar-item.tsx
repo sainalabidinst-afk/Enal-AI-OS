@@ -9,11 +9,12 @@ interface SidebarItemProps {
   label: string;
   active?: boolean;
   disabled?: boolean;
+  collapsed?: boolean;
   onClick?: () => void;
   className?: string;
 }
 
-export function SidebarItem({ icon, label, active, disabled, onClick, className }: SidebarItemProps) {
+export function SidebarItem({ icon, label, active, disabled, collapsed, onClick, className }: SidebarItemProps) {
   return (
     <Button
       variant="ghost"
@@ -31,7 +32,7 @@ export function SidebarItem({ icon, label, active, disabled, onClick, className 
       )}
     >
       {icon && <span className="h-4 w-4">{icon}</span>}
-      <span className="text-[10px] leading-none">{label}</span>
+      <span className={cn("text-[10px] leading-none transition-all", collapsed && "sr-only")}>{label}</span>
     </Button>
   );
 }

@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 import { useWorkspaceStore } from "@/components/workspace/stores/workspace-store";
-import { Button } from "@/components/design-system/primitives/button";
-import { Avatar } from "@/components/design-system/primitives/avatar";
+import { Button } from "@/components/ui/button";
+import { Avatar } from "@/components/ui/avatar";
 import { Breadcrumb } from "@/components/workspace/header/breadcrumb";
 import { WorkspaceSearch } from "@/components/workspace/header/workspace-search";
 import { WorkspaceActions } from "@/components/workspace/header/workspace-actions";
@@ -21,6 +21,7 @@ export function WorkspaceHeader({
   const logout = useAuthStore((s) => s.logout);
   const activeApp = useWorkspaceStore((s) => s.activeApp);
   const panel = useWorkspaceStore((s) => s.panel);
+  const system = useWorkspaceStore((s) => s.system);
 
   const handleLogout = async () => {
     await logout();
@@ -28,7 +29,7 @@ export function WorkspaceHeader({
   };
 
   return (
-    <header className="flex h-12 shrink-0 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)] px-4">
+    <header className="flex h-12 shrink-0 items-center justify-between gap-3 border-b border-[var(--color-border)] bg-[var(--color-surface)] px-4">
       <div className="flex items-center gap-4">
         <button
           onClick={() => router.push("/dashboard")}
@@ -38,10 +39,30 @@ export function WorkspaceHeader({
           <span className="text-lg">🧠</span>
           <span className="text-sm font-semibold">Enal AI OS</span>
         </button>
+
+        <div className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)]">
+          <span
+            className={`inline-block h-2 w-2 rounded-full ${
+              system.online
+                ? "bg-[var(--color-success)] animate-pulse"
+                : "bg-[var(--color-danger)]"
+            }`}
+          />
+          <span>{system.online ? "Online" : "Offline"}</span>
+          <span>•</span>
+          <span>Model: {system.model}</span>
+          {system.latencyMs > 0 && (
+            <>
+              <span>•</span>
+              <span>{system.latencyMs}ms</span>
+            </>
+          )}
+        </div>
+
         <Breadcrumb />
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <WorkspaceSearch />
         <Button
           variant="ghost"
@@ -63,7 +84,9 @@ export function WorkspaceHeader({
         </Button>
         <WorkspaceActions />
         <Avatar fallback={user?.username || "U"} size="sm" />
-        <span className="text-xs text-[var(--color-secondary-500)]">{user?.username || "User"}</span>
+        <span className="text-xs text-[var(--color-secondary-500)]">
+          {user?.username || "User"}
+        </span>
         <Button
           variant="ghost"
           size="sm"

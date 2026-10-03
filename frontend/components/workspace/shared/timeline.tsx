@@ -3,7 +3,7 @@
 import { type ReactNode } from "react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
-interface TimelineEvent {
+export interface TimelineEvent {
   id: string;
   title: string;
   description?: string;

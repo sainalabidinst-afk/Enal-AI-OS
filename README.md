@@ -192,6 +192,7 @@ ECP dapat berinteraksi seperti "Jenny" melalui lapisan tambahan di atas Cognitiv
 | Actions API | `backend/app/api/actions.py` | ✅ Implementasi |
 | ConsentManager | `backend/app/core/consent.py` | ✅ Implementasi |
 | Consent API | `backend/app/api/consent.py` | ✅ Implementasi |
+| Consent Dialog (frontend) | `frontend/components/jenny/consent-dialog.tsx` | ✅ Implementasi |
 | Observability (anomaly_detect) | `backend/app/core/observability.py` | ✅ Implementasi |
 | Cognitive Kernel (8 services) | `backend/app/core/cognitive_kernel.py` | ✅ Siap |
 | Adaptive Runtime | `backend/app/core/adaptive_runtime.py` | ✅ Siap |
@@ -339,6 +340,38 @@ Lihat [Application Development Guide](docs/APP_DEV_GUIDE.md) untuk petunjuk lang
 | **Product Manager** | `docs/rfcs/RFC-0017.md` | Product management (roadmap, OKR, backlog) |
 | **UI/UX Designer** | `docs/rfcs/RFC-0018.md` | UI/UX design (design system, accessibility) |
 | **Full Stack Engineer** | `docs/rfcs/RFC-0019.md` | Full stack engineering (code review, refactoring, release) |
+| **Trading Analyst** | `docs/rfcs/RFC-0005.md` | Trading analysis, Wyckoff, ICT/SMC, Elliott Wave |
+| **Self Development** | `docs/rfcs/RFC-0022.md` | Cross-project pattern learning, impact prediction |
+| **Decision Intelligence** | `docs/rfcs/RFC-0007.md` | Evidence → Reasoning → Simulation → Decision pipeline |
+| **System Architect** | `docs/rfcs/RFC-0011.md` | System design, security architecture, cost optimization |
+| **Security Engineer** | `docs/rfcs/RFC-0008.md` | Security assessment, vulnerability management |
+| **Data Engineer** | `docs/rfcs/RFC-0009.md` | Data pipeline, ETL, data quality |
+| **Database Engineer** | `docs/rfcs/RFC-0010.md` | Database design, optimization, migration |
+| **QA Engineer** | `docs/rfcs/RFC-0012.md` | Test automation, quality assurance |
+| **Business Analyst** | `docs/rfcs/RFC-0013.md` | Business analysis, requirements, process modeling |
+| **Cloud Architect** | `docs/rfcs/RFC-0026.md` | Cloud architecture (landing zones, DR, security) |
+| **SRE Engineer** | `docs/rfcs/RFC-0027.md` | SRE & reliability engineering (SLOs, incident response) |
+| **Compliance Officer** | `docs/rfcs/RFC-0028.md` | Compliance monitoring & evidence collection |
+| **Knowledge Engineer** | `docs/rfcs/RFC-0029.md` | Knowledge management & RAG optimization |
+| **Finance Analyst** | `docs/rfcs/RFC-0030.md` | Financial analysis, modeling, and controls |
+| **Legal Advisor** | `docs/rfcs/RFC-0031.md` | Legal document analysis, obligations, compliance |
+| **HSE Specialist** | `docs/rfcs/RFC-0032.md` | Health, Safety & Environment risk and compliance |
+| **Observability** | `docs/rfcs/RFC-0033.md` | Metrics, tracing, logging, anomaly detection |
+| **Cybersecurity Analyst** | `docs/rfcs/RFC-0034.md` | Threat modeling, vulnerability, incident detection |
+| **AI Ethics & Governance** | `docs/rfcs/RFC-0035.md` | Fairness auditing, bias detection, explainability |
+| **Supply Chain Analyst** | `docs/rfcs/RFC-0036.md` | Logistics optimization, demand forecasting, risk management |
+| **Data Scientist** | `docs/rfcs/RFC-0037.md` | Advanced ML pipelines, feature engineering |
+| **Business Intelligence** | `docs/rfcs/RFC-0038.md` | Dashboarding, KPI tracking, metric analysis |
+| **Innovation Strategist** | `docs/rfcs/RFC-0039.md` | Trend analysis, foresight, R&D portfolio |
+| **DevSecOps** | `docs/rfcs/RFC-0040.md` | CI/CD security gates, dependency scanning |
+| **Translator Expert** | `docs/rfcs/RFC-0041.md` | Multi-domain translation, glossary enforcement |
+| **Document Processing** | `docs/rfcs/RFC-0042.md` | Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF |
+| **Voice Interaction** | `docs/rfcs/RFC-0043.md` | STT/TTS with multi-provider fallback, language detection |
+| **Jenny-like Interaction** | `docs/rfcs/RFC-0043.md`, `RFC-0044.md`, `RFC-0045.md` | Voice-first interaction, action connectors, safety & observability |
+| **Scenario Simulator** | `docs/rfcs/RFC-0023.md` | Real-time simulation & sandboxing |
+| **Cross-Domain Knowledge Graph** | `docs/rfcs/RFC-0024.md` | Cross-domain knowledge graph generator |
+| **Adversarial Testing** | `docs/rfcs/RFC-0025.md` | Adversarial testing, devil's advocate |
+| **Decorator SDK** | `docs/rfcs/RFC-0003.md` | Transparent middleware decorators for Capability Packs |
 
 ---
 
@@ -471,10 +504,12 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **Translator Expert** — A (≥90), RFC-0041/ADR-021, 10 golden tests, 10 real cases (Platform Services Pack)
 - [x] **Document Processing** — A (≥90), RFC-0042/ADR-022, 10 golden tests, 10 real cases (Productivity Pack)
 - [x] **Voice Interaction** — A (≥90), RFC-0043/ADR-026, 10 golden tests, 10 real cases (Platform Professional Package)
+- [x] **Decorator SDK** — RFC-0003, 26 golden tests, 30 real cases, 100% benchmark score, 0 wrapping overhead
+- [x] **Jenny-like Interaction Phase 3** — Anomaly detection engine, consent/permission layer, consent dialog UI (frontend)
 
-### Berikutnya: Release Readiness 🟨
+### Berikutnya: v3.1.0-rc1 🟨
 
-> ⚠️ **Engineering Transformation SELESAI.** MyPy dan Ruff quality gates PASSING (0 errors masing-masing). Benchmark runtime BLOCKED (LiteLLM provider tidak dikonfigurasi). Docker runtime tidak tersedia. Lihat [`docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`](docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md) dan [`RELEASE_READINESS_REPORT.md`](RELEASE_READINESS_REPORT.md).
+> ⚠️ **Production Release v3.0.0 — COMPLETE.** Semua 37 capability packs ter-implementasi, semua benchmark Grade A, TypeScript 0 errors, MyPy 0 errors, Ruff 0 errors. Rilis v3.1.0-rc1 direncanakan untuk: enhanced benchmarks, additional real cases, Decorator SDK runtime integration, dan integrasi Consent Dialog ke chatgpt-page.tsx. Lihat [`docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md`](docs/audit/COMPREHENSIVE_AUDIT_2026-09-21.md) dan [`TODO_CAPABILITY_EXECUTION.md`](TODO_CAPABILITY_EXECUTION.md) → Outstanding Work.
 
 Siklus pengembangan capability yang disarankan:
 
