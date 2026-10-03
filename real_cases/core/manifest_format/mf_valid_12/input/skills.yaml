@@ -1,0 +1,35 @@
+capability_pack:
+  id: "database_engineer"
+  version: "1.0.0"
+  display_name: "Database Engineer"
+  description: "Capability Pack manifest for Database Engineer"
+  entry_point: "apps.database_engineer.engine.DatabaseEngineerEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "database_engineer.main"
+      name: "Primary Capability"
+      description: "Main capability for Database Engineer"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "database_engineer.parse"
+    - stage: "process"
+      capability: "database_engineer.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/database_engineer"

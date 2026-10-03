@@ -1,0 +1,37 @@
+{
+  "scenario_id": "gt_04_circular_import_detection",
+  "title": "Circular import detection",
+  "description": "Detect circular imports between packs before they cause runtime failures.",
+  "rfc_reference": "RFC-0001 §Pernyataan Masalah, Skills Registry",
+  "category": "integration",
+  "expected_behavior": "SkillsRegistry.detect_circular_dependencies() finds cycles in the dependency graph. FactoryRegistry._check_circular detects import cycles.",
+  "acceptance_criteria": {
+    "detection": "100% deteksi"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "register two packs with circular capability dependencies (A depends on B, B depends on A)",
+      "expected": "both packs registered"
+    },
+    {
+      "step": 2,
+      "action": "call SkillsRegistry.detect_circular_dependencies()",
+      "expected": "cycle [pack_a, pack_b] returned"
+    },
+    {
+      "step": 3,
+      "action": "register a pack with no circular deps and run detection",
+      "expected": "no cycles returned"
+    },
+    {
+      "step": 4,
+      "action": "run ContractValidator.detect_circular_imports",
+      "expected": "returns list (may be empty or contain cycles)"
+    }
+  ],
+  "golden_output": {
+    "cycle_detection_100pct": true,
+    "no_false_positives": true
+  }
+}

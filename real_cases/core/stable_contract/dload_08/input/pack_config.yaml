@@ -1,0 +1,6 @@
+capability_pack:
+  id: full_stack_engineer
+  version: "1.0.0"
+  display_name: Full Stack Engineer
+  description: Real case dload_08 for dynamic_load
+  category: dynamic_load

@@ -1,0 +1,35 @@
+capability_pack:
+  id: "translator_expert"
+  version: "1.0.0"
+  display_name: "Translator Expert"
+  description: "Capability Pack manifest for Translator Expert"
+  entry_point: "apps.translator_expert.engine.TranslatorExpertEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "translator_expert.main"
+      name: "Primary Capability"
+      description: "Main capability for Translator Expert"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "translator_expert.parse"
+    - stage: "process"
+      capability: "translator_expert.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/translator_expert"

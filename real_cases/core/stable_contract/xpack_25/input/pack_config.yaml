@@ -1,0 +1,6 @@
+capability_pack:
+  id: supply_chain_analyst
+  version: "1.0.0"
+  display_name: Supply_Chain_Analyst Forecast
+  description: Real case xpack_25 for cross_pack
+  category: cross_pack

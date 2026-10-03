@@ -1,0 +1,38 @@
+{
+  "task_id": "task-fail_failure_04",
+  "intent": "pipeline.stage.timeout",
+  "status": "failure",
+  "result": {
+    "output_type": "report",
+    "payload": {
+      "case_id": "fail_failure_04",
+      "category": "failure_pipeline"
+    },
+    "artifacts": [],
+    "confidence_score": 0.0
+  },
+  "events_emitted": [
+    {
+      "event_type": "pipeline.stage.started",
+      "payload": {
+        "stage": "perception"
+      },
+      "timestamp": "2026-10-02"
+    },
+    {
+      "event_type": "pipeline.started",
+      "payload": {},
+      "timestamp": "2026-10-02"
+    }
+  ],
+  "metrics": {
+    "latency_ms": 50.0,
+    "tokens_used": 150,
+    "memory_mb": 128.0
+  },
+  "error": {
+    "code": "PACK_FAILURE",
+    "message": "Simulated failure for failure_pipeline case",
+    "recoverable": true
+  }
+}

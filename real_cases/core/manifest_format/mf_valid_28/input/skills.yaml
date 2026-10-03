@@ -1,0 +1,35 @@
+capability_pack:
+  id: "cybersecurity_analyst"
+  version: "1.0.0"
+  display_name: "Cybersecurity Analyst"
+  description: "Capability Pack manifest for Cybersecurity Analyst"
+  entry_point: "apps.cybersecurity_analyst.engine.CybersecurityAnalystEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "cybersecurity_analyst.main"
+      name: "Primary Capability"
+      description: "Main capability for Cybersecurity Analyst"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "cybersecurity_analyst.parse"
+    - stage: "process"
+      capability: "cybersecurity_analyst.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/cybersecurity_analyst"

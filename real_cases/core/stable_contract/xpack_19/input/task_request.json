@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_19",
+  "intent": "knowledge_engineer.graph",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Knowledge_Engineer Graph"
+  },
+  "capabilities_required": [
+    "knowledge_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_19",
+    "correlation_id": "corr-xpack_19"
+  }
+}

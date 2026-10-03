@@ -1,0 +1,6 @@
+capability_pack:
+  id: devops_assistant
+  version: "1.0.0"
+  display_name: Devops_Assistant Deploy
+  description: Real case xpack_06 for cross_pack
+  category: cross_pack

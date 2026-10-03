@@ -1,0 +1,12 @@
+{
+  "pack_id": "mf_invalid_03",
+  "version": "1.0.0",
+  "status": "failed",
+  "capabilities_registered": [],
+  "dependencies_resolved": [],
+  "warnings": [],
+  "errors": [
+    "Validation failed"
+  ],
+  "timestamp": "2026-10-02"
+}

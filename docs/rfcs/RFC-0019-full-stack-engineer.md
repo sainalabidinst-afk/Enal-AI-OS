@@ -468,60 +468,60 @@ real_cases/full_stack/<case_id>/
 Definition of Done — Full Stack Engineer Capability Pack
 
 Functional
-- [ ] F1 Architecture Review detects layer violations, tech debt, modularity issues
-- [ ] F2 Code Review finds security, concurrency, reliability, maintainability issues
-- [ ] F3 Refactoring Planner produces actionable plans without code modification
-- [ ] F4 Test Engineer analyzes coverage and produces test plans
-- [ ] F5 Performance Engineer detects N+1, blocking I/O, memory issues
-- [ ] F6 Release Engineer validates changelog, versioning, migration, rollback
+- [x] F1 Architecture Review detects layer violations, tech debt, modularity issues
+<x>F2 Code Review finds security, concurrency, reliability, maintainability issues
+<x>F3 Refactoring Planner produces actionable plans without code modification
+<x>F4 Test Engineer analyzes coverage and produces test plans
+- [x] F5 Performance Engineer detects N+1, blocking I/O, memory issues
+- [x] F6 Release Engineer validates changelog, versioning, migration, rollback
 
 Benchmark
-- [ ] Architecture Review Accuracy ≥ 90%
-- [ ] Code Review Precision ≥ 95%
-- [ ] Refactoring Plan Usability ≥ 85%
-- [ ] Test Coverage Estimation Accuracy ±10%
-- [ ] Performance Detection Recall ≥ 90%
-- [ ] Release Readiness Precision ≥ 95%
-- [ ] Explainability ≥ 90%
-- [ ] Consistency ≥ 85%
+- [x] Architecture Review Accuracy ≥ 90%
+- [x] Code Review Precision ≥ 95%
+- [x] Refactoring Plan Usability ≥ 85%
+- [x] Test Coverage Estimation Accuracy ±10%
+- [x] Performance Detection Recall ≥ 90%
+- [x] Release Readiness Precision ≥ 95%
+- [x] Explainability ≥ 90%
+- [x] Consistency ≥ 85%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria
+- [x] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria
 
 Real Cases
-- [ ] ≥ 10 real cases logged in real_cases/full_stack/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with architecture review
-- [ ] ≥ 5 cases with code review
-- [ ] ≥ 3 cases with refactoring plan
-- [ ] ≥ 3 cases with test engineering
-- [ ] ≥ 3 cases with performance analysis
-- [ ] ≥ 3 cases with release review
+- [x] ≥ 10 real cases logged in real_cases/full_stack/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with architecture review
+- [x] ≥ 5 cases with code review
+- [x] ≥ 3 cases with refactoring plan
+- [x] ≥ 3 cases with test engineering
+- [x] ≥ 3 cases with performance analysis
+- [x] ≥ 3 cases with release review
 
 Documentation
-- [ ] Capability Guide updated (docs/capabilities/full-stack-engineer.md)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (docs/capabilities/full-stack-engineer.md)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Full Stack Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Full Stack Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 5000ms for architecture review
-- [ ] Latency P95 < 3000ms for code review
-- [ ] Latency P95 < 10000ms for full stack review
+- [x] Latency P95 < 5000ms for architecture review
+- [x] Latency P95 < 3000ms for code review
+- [x] Latency P95 < 10000ms for full stack review
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Code review findings validated against OWASP Top 10
+- [x] No known P0/P1 security issues
+- [x] Code review findings validated against OWASP Top 10
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

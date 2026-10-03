@@ -426,61 +426,61 @@ real_cases/qa_engineer/<case_id>/
 Definition of Done — QA Engineer Capability Pack
 
 Functional
-- [ ] Unit Test Generation for Python, JavaScript/TypeScript, Go, Java
-- [ ] Integration Test Generation covering API endpoints and component interactions
-- [ ] Regression Test Automation with maintenance plan
-- [ ] Mutation Testing with mutation score reporting
-- [ ] Golden Test Generation for Code Engineer, Network Engineer, Trading Analyst, DevOps Assistant
-- [ ] Benchmark Test Generation for performance/load testing
-- [ ] Flaky Test Detection with classification
-- [ ] Test Coverage Analysis across all target languages
-- [ ] Performance Validation against latency/throughput/budget requirements
+- [x] Unit Test Generation for Python, JavaScript/TypeScript, Go, Java
+- [x] Integration Test Generation covering API endpoints and component interactions
+- [x] Regression Test Automation with maintenance plan
+- [x] Mutation Testing with mutation score reporting
+- [x] Golden Test Generation for Code Engineer, Network Engineer, Trading Analyst, DevOps Assistant
+- [x] Benchmark Test Generation for performance/load testing
+- [x] Flaky Test Detection with classification
+- [x] Test Coverage Analysis across all target languages
+- [x] Performance Validation against latency/throughput/budget requirements
 
 Benchmark
-- [ ] Test Generation Coverage ≥ 95% (grade A)
-- [ ] Mutation Score ≥ 80%
-- [ ] Regression Detection ≥ 95%
-- [ ] Golden Test Generation ≥ 90%
-- [ ] Flaky Test Detection ≥ 90%
-- [ ] Coverage Analysis ≥ 85%
-- [ ] Performance Validation ≥ 90%
-- [ ] Explainability ≥ 90%
-- [ ] Consistency ≥ 90%
+- [x] Test Generation Coverage ≥ 95% (grade A)
+- [x] Mutation Score ≥ 80%
+- [x] Regression Detection ≥ 95%
+- [x] Golden Test Generation ≥ 90%
+- [x] Flaky Test Detection ≥ 90%
+- [x] Coverage Analysis ≥ 85%
+- [x] Performance Validation ≥ 90%
+- [x] Explainability ≥ 90%
+- [x] Consistency ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/qa_engineer/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 10 cases with mutation testing
-- [ ] ≥ 5 cases with flaky test detection
-- [ ] ≥ 15 cases with coverage analysis
-- [ ] ≥ 10 cases with golden test generation for other packs
+- [x] ≥ 20 real cases logged in real_cases/qa_engineer/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 10 cases with mutation testing
+- [x] ≥ 5 cases with flaky test detection
+- [x] ≥ 15 cases with coverage analysis
+- [x] ≥ 10 cases with golden test generation for other packs
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — QA Engineer section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — QA Engineer section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] QA Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] QA Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for single repository test generation
-- [ ] Latency P95 < 10000ms for multi-module project with mutation testing
+- [x] Latency P95 < 3000ms for single repository test generation
+- [x] Latency P95 < 10000ms for multi-module project with mutation testing
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated test content does not include vulnerabilities
+- [x] No known P0/P1 security issues
+- [x] Generated test content does not include vulnerabilities
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

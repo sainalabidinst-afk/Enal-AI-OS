@@ -3,10 +3,13 @@
 **Version:** 2.5.0
 **Target Grade:** A (>=90%)
 **Status:** Implemented
+**Phase:** 7
+**RFC:** [RFC-0035](docs/rfcs/RFC-0035-ai-ethics-pack.md)
+**ADR:** [ADR-015](docs/adr/ADR-015-ai-ethics-governance.md)
 
 ## Ringkasan
 
-AI Ethics & Governance provides advanced capabilities for platform observability and governance.
+AI Ethics & Governance Capability Pack menyediakan framework untuk mendeteksi bias, melepas ketimpangan, dan menjelaskan keputusan yang dibuat oleh sistem AI. Pack ini mencakup fairness auditing terhadap output model, deteksi bias pada data dan hasil, serta explainability yang dapat dilacak untuk kepatuhan regulatif dan audit transparansi.
 
 ## Kemampuan Inti
 

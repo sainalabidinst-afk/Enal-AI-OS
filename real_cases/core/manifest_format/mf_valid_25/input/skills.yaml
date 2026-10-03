@@ -1,0 +1,35 @@
+capability_pack:
+  id: "legal_advisor"
+  version: "1.0.0"
+  display_name: "Legal Advisor"
+  description: "Capability Pack manifest for Legal Advisor"
+  entry_point: "apps.legal_advisor.engine.LegalAdvisorEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "legal_advisor.main"
+      name: "Primary Capability"
+      description: "Main capability for Legal Advisor"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "legal_advisor.parse"
+    - stage: "process"
+      capability: "legal_advisor.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/legal_advisor"

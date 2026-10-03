@@ -1,0 +1,6 @@
+capability_pack:
+  id: contract
+  version: "1.0.0"
+  display_name: BaseApp Contract Violation
+  description: Real case fail_failure_13 for failure_contract
+  category: failure_contract

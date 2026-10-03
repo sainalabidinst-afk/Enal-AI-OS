@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    "mf_valid_10",
+    "code_engineer"
+  ],
+  "edges": [
+    {
+      "from": "mf_valid_10",
+      "to": "code_engineer",
+      "type": "required"
+    }
+  ]
+}

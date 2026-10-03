@@ -1,0 +1,43 @@
+{
+  "scenario_id": "gt_03_dynamic_pack_loading",
+  "title": "Dynamic pack loading without static imports",
+  "description": "New packs are discovered and loaded at runtime via FactoryRegistry.get_app().",
+  "rfc_reference": "RFC-0001 §2.4 Factory Registration",
+  "category": "integration",
+  "expected_behavior": "FactoryRegistry discovers packs by scanning directories, loads them via importlib, and caches instances. No static imports required.",
+  "acceptance_criteria": {
+    "dynamic_loading": "> 99% pemuatan dinamis"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "create a temporary pack directory with __init__.py and get_app()",
+      "expected": "directory created"
+    },
+    {
+      "step": 2,
+      "action": "call FactoryRegistry.discover_packs with temp dir",
+      "expected": "pack name returned in discovered list"
+    },
+    {
+      "step": 3,
+      "action": "call FactoryRegistry.get_app with discovered pack name",
+      "expected": "app instance returned without static import"
+    },
+    {
+      "step": 4,
+      "action": "call get_app again for same pack",
+      "expected": "cached instance returned (same object)"
+    },
+    {
+      "step": 5,
+      "action": "call get_app for unknown pack",
+      "expected": "None returned"
+    }
+  ],
+  "golden_output": {
+    "dynamic_loading_pct": 99,
+    "no_static_import_required": true,
+    "caching_works": true
+  }
+}

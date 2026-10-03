@@ -1,0 +1,45 @@
+{
+  "scenario_id": "gt_09_version_resolution",
+  "title": "Contract version resolution and fallback",
+  "description": "Packs targeting different contract versions are resolved via VersionManager.",
+  "rfc_reference": "RFC-0001 §2.7 Version Management, §Tujuan #7",
+  "category": "contract",
+  "expected_behavior": "VersionManager checks backward compatibility, resolves best matching version, and provides fallback handlers for incompatible versions.",
+  "acceptance_criteria": {
+    "automatic_resolution": ">= 95% resolusi otomatis"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "check is_backward_compatible('1.0.0', '1.0.0')",
+      "expected": "True"
+    },
+    {
+      "step": 2,
+      "action": "check is_backward_compatible('1.1.0', '1.0.0')",
+      "expected": "True"
+    },
+    {
+      "step": 3,
+      "action": "check is_backward_compatible('2.0.0', '1.0.0')",
+      "expected": "False"
+    },
+    {
+      "step": 4,
+      "action": "register fallback handler for v2.0.0 and check compatibility",
+      "expected": "action='fallback' when incompatible but has fallback"
+    },
+    {
+      "step": 5,
+      "action": "resolve_version('1.0.0', ['1.1.0', '2.0.0'])",
+      "expected": "'1.1.0' returned (best compatible)"
+    }
+  ],
+  "golden_output": {
+    "backward_compatible_same_version": true,
+    "backward_compatible_minor": true,
+    "backward_incompatible_major": false,
+    "fallback_handler_works": true,
+    "version_resolution": true
+  }
+}

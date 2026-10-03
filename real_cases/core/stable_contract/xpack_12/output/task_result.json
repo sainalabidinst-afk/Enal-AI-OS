@@ -1,0 +1,34 @@
+{
+  "task_id": "task-xpack_12",
+  "intent": "business_analyst.transcribe",
+  "status": "success",
+  "result": {
+    "output_type": "analysis",
+    "payload": {
+      "case_id": "xpack_12",
+      "category": "cross_pack"
+    },
+    "artifacts": [],
+    "confidence_score": 0.95
+  },
+  "events_emitted": [
+    {
+      "event_type": "pipeline.stage.started",
+      "payload": {
+        "stage": "perception"
+      },
+      "timestamp": "2026-10-02"
+    },
+    {
+      "event_type": "pipeline.started",
+      "payload": {},
+      "timestamp": "2026-10-02"
+    }
+  ],
+  "metrics": {
+    "latency_ms": 51.0,
+    "tokens_used": 150,
+    "memory_mb": 128.0
+  },
+  "error": null
+}

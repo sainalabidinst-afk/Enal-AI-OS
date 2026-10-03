@@ -371,57 +371,57 @@ real_cases/documentation/<case_id>/
 Definition of Done — Documentation Engineer Capability Pack
 
 Functional
-- [ ] OpenAPI Generation produces valid specs from source code
-- [ ] SDK Documentation generates working code examples with explanations
-- [ ] Architecture Documentation generates diagrams and descriptions from ADRs/RFCs
-- [ ] Documentation Validation detects broken links, wrong examples, and contract violations
-- [ ] Release Notes Generation produces structured changelogs from commits
+- [x] OpenAPI Generation produces valid specs from source code
+- [x] SDK Documentation generates working code examples with explanations
+- [x] Architecture Documentation generates diagrams and descriptions from ADRs/RFCs
+- [x] Documentation Validation detects broken links, wrong examples, and contract violations
+- [x] Release Notes Generation produces structured changelogs from commits
 
 Benchmark
-- [ ] OpenAPI Accuracy ≥ 95%
-- [ ] SDK Documentation Quality ≥ 90%
-- [ ] Architecture Docs Completeness ≥ 90%
-- [ ] Validation Rate ≥ 95%
-- [ ] Release Notes Completeness ≥ 90%
-- [ ] Consistency ≥ 90%
-- [ ] Freshness ≥ 95%
-- [ ] Explainability ≥ 90%
+- [x] OpenAPI Accuracy ≥ 95%
+- [x] SDK Documentation Quality ≥ 90%
+- [x] Architecture Docs Completeness ≥ 90%
+- [x] Validation Rate ≥ 95%
+- [x] Release Notes Completeness ≥ 90%
+- [x] Consistency ≥ 90%
+- [x] Freshness ≥ 95%
+- [x] Explainability ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/documentation/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 20 cases with generated API documentation
-- [ ] ≥ 10 cases with generated SDK documentation
-- [ ] ≥ 10 cases with generated architecture documentation
-- [ ] ≥ 15 cases with documentation validation
-- [ ] ≥ 10 cases with generated release notes
+- [x] ≥ 20 real cases logged in real_cases/documentation/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 20 cases with generated API documentation
+- [x] ≥ 10 cases with generated SDK documentation
+- [x] ≥ 10 cases with generated architecture documentation
+- [x] ≥ 15 cases with documentation validation
+- [x] ≥ 10 cases with generated release notes
 
 Documentation
-- [ ] Capability Guide updated (documentation-engineer.md)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (documentation-engineer.md)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Documentation Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Documentation Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for standard documentation generation
-- [ ] Latency P95 < 10000ms for full project documentation
+- [x] Latency P95 < 3000ms for standard documentation generation
+- [x] Latency P95 < 10000ms for full project documentation
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated documentation does not expose secrets or credentials
+- [x] No known P0/P1 security issues
+- [x] Generated documentation does not expose secrets or credentials
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

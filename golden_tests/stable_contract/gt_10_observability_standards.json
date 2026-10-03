@@ -1,0 +1,45 @@
+{
+  "scenario_id": "gt_10_observability_standards",
+  "title": "Observability standards compliance",
+  "description": "All events, tasks, and spans are recorded in standard formats.",
+  "rfc_reference": "RFC-0001 §2.8 Observability Standard, §Tujuan #8",
+  "category": "observability",
+  "expected_behavior": "StructuredLogger produces JSON logs with sensitive data redacted. MetricsCollector tracks counters, gauges, and histograms. Observability traces track latency, tokens, and cost.",
+  "acceptance_criteria": {
+    "observability_compliance": "100% observability compliance"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "log a structured message with fields via StructuredLogger",
+      "expected": "JSON log with timestamp, level, message, fields"
+    },
+    {
+      "step": 2,
+      "action": "log a message containing 'password' field",
+      "expected": "password value redacted as '***REDACTED***'"
+    },
+    {
+      "step": 3,
+      "action": "increment a counter via MetricsCollector",
+      "expected": "counter value retrievable via get_metrics()"
+    },
+    {
+      "step": 4,
+      "action": "record a histogram value via MetricsCollector",
+      "expected": "histogram stats (count, min, max, avg, p95) available"
+    },
+    {
+      "step": 5,
+      "action": "start trace, run span, end span, retrieve trace",
+      "expected": "trace contains span with latency_ms and success status"
+    }
+  ],
+  "golden_output": {
+    "structured_logging_json": true,
+    "sensitive_data_redacted": true,
+    "metrics_collected": true,
+    "tracing_works": true,
+    "all_events_recorded": true
+  }
+}

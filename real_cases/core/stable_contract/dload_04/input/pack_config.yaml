@@ -1,0 +1,6 @@
+capability_pack:
+  id: cloud_architect
+  version: "1.0.0"
+  display_name: Cloud Architect
+  description: Real case dload_04 for dynamic_load
+  category: dynamic_load

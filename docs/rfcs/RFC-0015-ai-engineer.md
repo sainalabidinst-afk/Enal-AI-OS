@@ -376,47 +376,47 @@ real_cases/ai_engineer/<case_id>/
 Definition of Done — AI Engineer Capability Pack
 
 Functional
-- [ ] Agent Design generates AgentSpec with tools, orchestration, guardrails
-- [ ] RAG Engine Design generates RAGConfig with chunking and retrieval
-- [ ] Prompt Engineering generates PromptTemplate with variables
-- [ ] LLMOps Setup generates DeploymentConfig, MonitoringConfig, FineTuningConfig
-- [ ] AI Assessment produces gap analysis and recommendations
+- [x] Agent Design generates AgentSpec with tools, orchestration, guardrails
+- [x] RAG Engine Design generates RAGConfig with chunking and retrieval
+- [x] Prompt Engineering generates PromptTemplate with variables
+- [x] LLMOps Setup generates DeploymentConfig, MonitoringConfig, FineTuningConfig
+- [x] AI Assessment produces gap analysis and recommendations
 
 Benchmark
-- [ ] Agent Accuracy ≥ 95%
-- [ ] RAG Faithfulness ≥ 92%
-- [ ] Hallucination Rate < 5%
-- [ ] Latency P95 < 500ms
-- [ ] Quality Score ≥ 95%
-- [ ] Cost Accuracy ±10%
-- [ ] Compliance ≥ 95%
-- [ ] Consistency ≥ 95%
+- [x] Agent Accuracy ≥ 95%
+- [x] RAG Faithfulness ≥ 92%
+- [x] Hallucination Rate < 5%
+- [x] Latency P95 < 500ms
+- [x] Quality Score ≥ 95%
+- [x] Cost Accuracy ±10%
+- [x] Compliance ≥ 95%
+- [x] Consistency ≥ 95%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90%
+- [x] All 10 pack golden test scenarios pass at ≥90%
 
 Real Cases
-- [ ] ≥ 3 sample cases in real_cases/ai_engineer/
-- [ ] Evaluation notes recorded for each case
+- [x] ≥ 3 sample cases in real_cases/ai_engineer/
+- [x] Evaluation notes recorded for each case
 
 Documentation
-- [ ] docs/capabilities/ai-engineer.md
-- [ ] API reference / contract (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] docs/capabilities/ai-engineer.md
+- [x] API reference / contract (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] AI Engineer callable via Execution Runtime
+- [x] Pack accessible via SDK without Core changes
+- [x] AI Engineer callable via Execution Runtime
 
 Performance
-- [ ] Latency P95 < 3000ms for standard AI engineering design
+- [x] Latency P95 < 3000ms for standard AI engineering design
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated specs do not expose API keys or credentials
+- [x] No known P0/P1 security issues
+- [x] Generated specs do not expose API keys or credentials
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
+- [x] No regression in existing Capability Pack benchmark dimensions
 ```
 
 ---
@@ -458,7 +458,7 @@ AI Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/ai_engineer/`
+- [x] Membuat struktur paket `apps/ai_engineer/`
 - [x] Mengimplementasikan Agent Designer
 - [x] Mengimplementasikan RAG Engine
 - [x] Mengimplementasikan Prompt Engineer
@@ -467,7 +467,7 @@ AI Engineer adalah **Capability Pack baru** yang mengikuti pola yang sudah ada:
 - [x] Mengimplementasikan adaptor Worker tipis
 - [x] Membuat 10 skenario Golden Test
 - [x] Integrasi: Trading Analyst ← AI Engineer (spesifikasi agent)
-- [ ] **Gerbang:** 10 Golden Test lulus pada ≥80%
+- [x] **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 

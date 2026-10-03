@@ -1,0 +1,18 @@
+{
+  "task_id": "task-dload_12",
+  "intent": "business_analyst.load",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Business Analyst"
+  },
+  "capabilities_required": [
+    "business_analyst"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-dload_12",
+    "correlation_id": "corr-dload_12"
+  }
+}

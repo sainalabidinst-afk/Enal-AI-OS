@@ -1,0 +1,5 @@
+capability_pack:
+  id: "test_pack"
+  display_name: "No Version"
+  entry_point: "apps.test.engine.TestEngine"
+  capabilities: []

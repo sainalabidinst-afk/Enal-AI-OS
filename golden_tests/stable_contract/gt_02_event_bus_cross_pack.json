@@ -1,0 +1,44 @@
+{
+  "scenario_id": "gt_02_event_bus_cross_pack",
+  "title": "Cross-pack communication via Event Bus",
+  "description": "Packs communicate through the typed Event Bus with Pydantic-validated payloads.",
+  "rfc_reference": "RFC-0001 §2.1 Event Bus",
+  "category": "integration",
+  "expected_behavior": "Publishing an event triggers all subscribers. Payloads are validated via Pydantic. Trace IDs propagate across pack boundaries.",
+  "acceptance_criteria": {
+    "delivery": "100% delivery",
+    "typed_payload": "Pydantic-validated"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "subscribe to 'pack.task.started' event",
+      "expected": "handler registered"
+    },
+    {
+      "step": 2,
+      "action": "publish a typed Event with payload and trace_id",
+      "expected": "handler receives validated event"
+    },
+    {
+      "step": 3,
+      "action": "publish a dict event (auto-validated to Pydantic Event)",
+      "expected": "handler receives typed Event"
+    },
+    {
+      "step": 4,
+      "action": "publish invalid payload (missing event_type)",
+      "expected": "ValidationError raised"
+    },
+    {
+      "step": 5,
+      "action": "verify trace_id in received events",
+      "expected": "trace_id preserved across publish/subscribe"
+    }
+  ],
+  "golden_output": {
+    "delivery_100pct": true,
+    "payload_typed": true,
+    "trace_id_propagated": true
+  }
+}

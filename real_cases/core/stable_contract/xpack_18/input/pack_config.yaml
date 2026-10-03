@@ -1,0 +1,6 @@
+capability_pack:
+  id: compliance_officer
+  version: "1.0.0"
+  display_name: Compliance_Officer Audit
+  description: Real case xpack_18 for cross_pack
+  category: cross_pack

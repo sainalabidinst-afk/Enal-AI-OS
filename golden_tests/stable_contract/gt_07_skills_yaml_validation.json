@@ -1,0 +1,43 @@
+{
+  "scenario_id": "gt_07_skills_yaml_validation",
+  "title": "skills.yaml manifest validation",
+  "description": "Skills.yaml manifests are validated against the RFC schema.",
+  "rfc_reference": "RFC-0001 §2.5 Capability Declaration, §Skema Skills.yaml",
+  "category": "contract",
+  "expected_behavior": "SkillsRegistry.load_manifest parses YAML and validates with Pydantic. Invalid manifests produce clear error messages.",
+  "acceptance_criteria": {
+    "schema_validation": "100% validasi skema"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "create a valid skills.yaml with all required fields",
+      "expected": "manifest loaded successfully"
+    },
+    {
+      "step": 2,
+      "action": "create a skills.yaml missing 'capability_pack' key",
+      "expected": "load returns None, validation logs warning"
+    },
+    {
+      "step": 3,
+      "action": "create a skills.yaml missing 'id' field",
+      "expected": "ValidationError raised"
+    },
+    {
+      "step": 4,
+      "action": "create a skills.yaml with invalid priority type",
+      "expected": "ValidationError raised"
+    },
+    {
+      "step": 5,
+      "action": "validate manifest via SkillsRegistry.validate_manifest",
+      "expected": "ComplianceReport with passes=True for valid manifest"
+    }
+  ],
+  "golden_output": {
+    "valid_manifest_loads": true,
+    "invalid_manifest_rejected": true,
+    "field_errors_reported": true
+  }
+}

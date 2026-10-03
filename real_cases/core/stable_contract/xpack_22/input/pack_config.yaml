@@ -1,0 +1,6 @@
+capability_pack:
+  id: hse_specialist
+  version: "1.0.0"
+  display_name: Hse_Specialist Assess
+  description: Real case xpack_22 for cross_pack
+  category: cross_pack

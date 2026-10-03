@@ -1,0 +1,6 @@
+capability_pack:
+  id: code_engineer
+  version: "1.0.0"
+  display_name: Code Engineer
+  description: Real case dload_01 for dynamic_load
+  category: dynamic_load

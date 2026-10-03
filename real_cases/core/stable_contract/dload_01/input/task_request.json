@@ -1,0 +1,18 @@
+{
+  "task_id": "task-dload_01",
+  "intent": "code_engineer.load",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Code Engineer"
+  },
+  "capabilities_required": [
+    "code_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-dload_01",
+    "correlation_id": "corr-dload_01"
+  }
+}

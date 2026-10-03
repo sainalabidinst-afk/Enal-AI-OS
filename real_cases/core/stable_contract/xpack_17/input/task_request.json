@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_17",
+  "intent": "sre_engineer.operate",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Sre_Engineer Operate"
+  },
+  "capabilities_required": [
+    "sre_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_17",
+    "correlation_id": "corr-xpack_17"
+  }
+}

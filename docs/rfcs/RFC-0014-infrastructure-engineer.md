@@ -363,49 +363,49 @@ real_cases/infrastructure/<case_id>/
 Definition of Done — Infrastructure Engineer Capability Pack
 
 Functional
-- [ ] Kubernetes Design generates cluster specs with nodes, network, RBAC
-- [ ] HA Cluster Design generates cluster specs with failover and quorum
-- [ ] Storage Design generates VolumeSpec and StorageClassSpec
-- [ ] Disaster Recovery Planning generates DRPlan with RPO/RTO
-- [ ] Infrastructure Assessment produces gap analysis and recommendations
-- [ ] Security hardening checklist generated for each design
-- [ ] Cost estimation provided per component
+- [x] Kubernetes Design generates cluster specs with nodes, network, RBAC
+- [x] HA Cluster Design generates cluster specs with failover and quorum
+- [x] Storage Design generates VolumeSpec and StorageClassSpec
+- [x] Disaster Recovery Planning generates DRPlan with RPO/RTO
+- [x] Infrastructure Assessment produces gap analysis and recommendations
+- [x] Security hardening checklist generated for each design
+- [x] Cost estimation provided per component
 
 Benchmark
-- [ ] K8s Design Quality ≥ 90%
-- [ ] Cluster Availability ≥ 99.9%
-- [ ] Storage Quality ≥ 90%
-- [ ] DR Plan Accuracy RPO/RTO ±5%
-- [ ] Security Score ≥ 95%
-- [ ] Cost Accuracy ±10%
-- [ ] Compliance ≥ 95%
-- [ ] Consistency ≥ 90%
+- [x] K8s Design Quality ≥ 90%
+- [x] Cluster Availability ≥ 99.9%
+- [x] Storage Quality ≥ 90%
+- [x] DR Plan Accuracy RPO/RTO ±5%
+- [x] Security Score ≥ 95%
+- [x] Cost Accuracy ±10%
+- [x] Compliance ≥ 95%
+- [x] Consistency ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90%
+- [x] All 10 pack golden test scenarios pass at ≥90%
 
 Real Cases
-- [ ] ≥ 3 sample cases in real_cases/infrastructure/
-- [ ] Evaluation notes recorded for each case
+- [x] ≥ 3 sample cases in real_cases/infrastructure/
+- [x] Evaluation notes recorded for each case
 
 Documentation
-- [ ] docs/capabilities/infrastructure-engineer.md
-- [ ] API reference / contract (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] docs/capabilities/infrastructure-engineer.md
+- [x] API reference / contract (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Infrastructure Engineer callable via Execution Runtime
+- [x] Pack accessible via SDK without Core changes
+- [x] Infrastructure Engineer callable via Execution Runtime
 
 Performance
-- [ ] Latency P95 < 3000ms for standard infrastructure design
+- [x] Latency P95 < 3000ms for standard infrastructure design
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated designs do not expose credentials
+- [x] No known P0/P1 security issues
+- [x] Generated designs do not expose credentials
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
+- [x] No regression in existing Capability Pack benchmark dimensions
 ```
 
 ---
@@ -447,7 +447,7 @@ Infrastructure Engineer adalah **Capability Pack baru** yang mengikuti pola yang
 
 **Durasi:** 5 minggu
 
-- [ ] Membuat struktur paket `apps/infrastructure_engineer/`
+- [x] Membuat struktur paket `apps/infrastructure_engineer/`
 - [x] Mengimplementasikan Kubernetes Designer
 - [x] Mengimplementasikan HA Cluster Designer
 - [x] Mengimplementasikan Storage Designer
@@ -456,7 +456,7 @@ Infrastructure Engineer adalah **Capability Pack baru** yang mengikuti pola yang
 - [x] Mengimplementasikan adaptor Worker tipis
 - [x] Membuat 10 skenario Golden Test
 - [x] Integrasi: DevOps Assistant ← Infrastructure Engineer (konsumsi spec untuk provisioning)
-- [ ] **Gerbang:** 10 Golden Test lulus pada ≥80%
+- [x] **Gerbang:** 10 Golden Test lulus pada ≥80%
 
 ### Fase 2: Kapabilitas Lengkap (Eksperimental → Stabil)
 

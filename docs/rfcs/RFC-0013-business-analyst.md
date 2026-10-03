@@ -462,62 +462,62 @@ real_cases/business_analyst/<case_id>/
 Definition of Done — Business Analyst Capability Pack
 
 Functional
-- [ ] Requirement Gathering collects, structures, and validates requirements with quality scoring
-- [ ] Business Process Modeling produces BPMN-like models from workflow descriptions
-- [ ] User Story Generation produces INVEST-compliant stories with acceptance criteria
-- [ ] Use Case Modeling generates detailed use cases with actors and flows
-- [ ] BRD Generation produces complete Business Requirement Documents
-- [ ] Functional Specification generates structured specs consumable by downstream packs
-- [ ] Gap Analysis identifies and prioritizes business-technical gaps
-- [ ] ROI Analysis calculates NPV, payback period, and IRR with confidence scoring
-- [ ] Process Optimization identifies inefficiencies and recommends improvements
+- [x] Requirement Gathering collects, structures, and validates requirements with quality scoring
+- [x] Business Process Modeling produces BPMN-like models from workflow descriptions
+- [x] User Story Generation produces INVEST-compliant stories with acceptance criteria
+- [x] Use Case Modeling generates detailed use cases with actors and flows
+- [x] BRD Generation produces complete Business Requirement Documents
+- [x] Functional Specification generates structured specs consumable by downstream packs
+- [x] Gap Analysis identifies and prioritizes business-technical gaps
+- [x] ROI Analysis calculates NPV, payback period, and IRR with confidence scoring
+- [x] Process Optimization identifies inefficiencies and recommends improvements
 
 Benchmark
-- [ ] Requirement Clarity ≥ 90% (grade A)
-- [ ] User Story Quality ≥ 95%
-- [ ] Gap Analysis Coverage ≥ 90%
-- [ ] ROI Accuracy ≥ 85%
-- [ ] Process Optimization ≥ 80%
-- [ ] BRD Completeness ≥ 95%
-- [ ] Stakeholder Consistency ≥ 90%
-- [ ] Explainability ≥ 95%
-- [ ] Consistency ≥ 90%
+- [x] Requirement Clarity ≥ 90% (grade A)
+- [x] User Story Quality ≥ 95%
+- [x] Gap Analysis Coverage ≥ 90%
+- [x] ROI Accuracy ≥ 85%
+- [x] Process Optimization ≥ 80%
+- [x] BRD Completeness ≥ 95%
+- [x] Stakeholder Consistency ≥ 90%
+- [x] Explainability ≥ 95%
+- [x] Consistency ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/business_analyst/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with ambiguous requirements
-- [ ] ≥ 5 cases with conflicting stakeholder needs
-- [ ] ≥ 5 cases with missing acceptance criteria
-- [ ] ≥ 10 cases with ROI analysis
-- [ ] ≥ 5 cases with process optimization
+- [x] ≥ 20 real cases logged in real_cases/business_analyst/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with ambiguous requirements
+- [x] ≥ 5 cases with conflicting stakeholder needs
+- [x] ≥ 5 cases with missing acceptance criteria
+- [x] ≥ 10 cases with ROI analysis
+- [x] ≥ 5 cases with process optimization
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Business Analyst section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Business Analyst section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Business Analyst callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Business Analyst callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for standard business analysis
-- [ ] Latency P95 < 8000ms for multi-stakeholder ROI analysis
+- [x] Latency P95 < 3000ms for standard business analysis
+- [x] Latency P95 < 8000ms for multi-stakeholder ROI analysis
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated documents do not expose confidential stakeholder information
+- [x] No known P0/P1 security issues
+- [x] Generated documents do not expose confidential stakeholder information
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

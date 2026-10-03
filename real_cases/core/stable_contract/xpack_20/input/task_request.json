@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_20",
+  "intent": "finance_analyst.model",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Finance_Analyst Model"
+  },
+  "capabilities_required": [
+    "finance_analyst"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_20",
+    "correlation_id": "corr-xpack_20"
+  }
+}

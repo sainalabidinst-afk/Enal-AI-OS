@@ -3,16 +3,16 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Tim Dokumentasi
 **Pemilik Canonical:** Pimpinan Tata Kelola Dokumentasi
-**Diverifikasi Terakhir:** 2026-08-05
-**Versi:** 1.0.0
+**Diverifikasi Terakhir:** 2026-10-02
+**Versi:** 1.1.0
 **Status:** Aktif
 <!-- DOCUMENT_METADATA_END -->
 
 |Bidang|Nilai|
 |-------|-------|
 |**ID RFC**|RFC-0020|
-|**Status**|Draf|
-|**Versi**|0.1.0|
+|**Status**|Diterima — Level 4 Domain Expert (A+)|
+|**Versi**|1.1.0|
 |**Penulis**|Tim Inti AI OS Akhir|
 |**Target Rilis**|v1.3.0 (fase Keunggulan Kemampuan)|
 |**Capability Pack**|Asisten Peneliti|
@@ -26,27 +26,18 @@
 
 ## Motivasi
 
-Capability Pack Research Assistant saat ini memiliki fondasi penelitian yang solid tetapi kedalaman domainnya masih terbatas pada sintesis dasar dan penilaian kualitas sitasi. Saat ini:
+Capability Pack Research Assistant memiliki fondasi penelitian yang solid dengan kedalaman domain yang telah ditingkatkan ke Level 4. RFC-0020 mengangkat Research Assistant ke Level 4 — Pakar Domain dengan fondasi metodologi penelitian yang lebih dalam, deteksi kontradiksi yang lebih canggih, dan estimasi keyakinan yang lebih akurat.
 
-1. **Peringkat bukti terbatas** — Evidence Ranker menggunakan composite scoring sederhana tanpa mempertimbangkan metodologi penelitian secara mendalam.
-2. **Deteksi kontradiksi terbatas** — Hanya mendeteksi konflik faktual, bukan metodologis atau interpretatif.
-3. **Sintesis multi-sumber terbatas** — Tidak ada identifikasi area konsensus dan konflik secara eksplisit.
-4. **Estimasi keyakinan terbatas** — Tidak ada kuantifikasi ketidakpastian yang komprehensif.
-5. **Kepatuhan riset tidak diimplementasikan** — Tidak ada penilaian etik atau bias dalam penelitian.
-
-RFC-0020 mengangkat Research Assistant ke Level 4 — Pakar Domain dengan fondasi metodologi penelitian yang lebih dalam, deteksi kontradiksi yang lebih canggih, dan estimasi keyakinan yang lebih akurat.
+Saat ini:
+1. **Peringkat bukti lanjutan** — Evidence Ranker menggunakan composite scoring dengan mempertimbangkan metodologi penelitian.
+2. **Deteksi kontradiksi lanjutan** — Mendeteksi konflik faktual, metodologis, dan interpretatif.
+3. **Sintesis multi-sumber** — Identifikasi area konsensus dan konflik secara eksplisit.
+4. **Estimasi keyakinan** — Kuantifikasi ketidakpastian secara komprehensif.
+5. **Kepatuhan riset** — Penilaian etik, bias, dan PII redaction.
 
 ---
 
 ## Pernyataan Masalah
-
-Tanpa sertifikasi Level 4:
-
-- **Sintesis penelitian tidak dapat diandalkan** — Research Assistant hanya menggabungkan temuan tanpa menilai kualitas metodologi.
-- **Kontradiksi tidak terdeteksi dengan baik** — Konflik metodologis dan interpretatif terlewatkan.
-- **Keyakinan tidak terkuantifikasi** — Tidak ada ukuran ketidakpastian dalam temuan.
-- **Bias penelitian tidak terdeteksi** — Tidak ada mekanisme untuk mengidentifikasi bias dalam sumber.
-- **Kualitas sitasi tidak dinilai** — Tidak ada penilaian kualitas sitasi berdasarkan standar akademis.
 
 ---
 
@@ -90,11 +81,45 @@ Tanpa sertifikasi Level 4:
 
 ## Kriteria Penerimaan
 
-- Golden Test Suite: 10 skenario (sudah dibuat)
+- Golden Test Suite: 10 skenario
 - Real Cases: 150 kasus di `real_cases/research/`
-- Benchmark: ≥95% akurasi pada semua 6 dimensi
+- Benchmark: `benchmarks/research_assistant_benchmark.py` — ≥95% akurasi pada semua 6 dimensi (A+ certifikat)
 - Security Audit: OWASP Top 10, bias detection, PII redaction
 - Performance: < 2s per query penelitian
+
+---
+
+## Definisi Selesai
+
+```text
+Definition of Done — Research Assistant Certification RFC
+
+Functional
+- [x] Evidence Ranker with methodology assessment
+- [x] Contradiction detection (factual, methodological, interpretative)
+- [x] Multi-source synthesis with consensus/conflict identification
+- [x] Confidence estimation with uncertainty quantification
+- [x] Security audit: bias detection, PII redaction, source verification
+- [x] RAG-powered research with citation quality scoring
+
+Benchmark
+- [x] ≥95% accuracy on all 6 dimensions (A+)
+- [x] 150+ real cases in real_cases/research/
+- [x] Golden test suite: 10 scenarios passing
+- [x] Performance: < 2s per query
+
+Documentation
+- [x] Capability guide: docs/capabilities/research-assistant.md
+- [x] Benchmark dashboard: benchmarks/dashboards/research_assistant_dashboard.html
+- [x] Contract schemas: apps/research_assistant/schemas.py
+
+Regression
+- [x] No regression in existing capability pack dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
+
+Release Notes
+- [x] Capability Changelog updated
+```
 
 ---
 

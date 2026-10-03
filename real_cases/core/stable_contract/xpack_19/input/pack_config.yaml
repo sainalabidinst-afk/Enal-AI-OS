@@ -1,0 +1,6 @@
+capability_pack:
+  id: knowledge_engineer
+  version: "1.0.0"
+  display_name: Knowledge_Engineer Graph
+  description: Real case xpack_19 for cross_pack
+  category: cross_pack

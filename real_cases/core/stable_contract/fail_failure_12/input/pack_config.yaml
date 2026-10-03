@@ -1,0 +1,6 @@
+capability_pack:
+  id: factory
+  version: "1.0.0"
+  display_name: Pack Config Corrupted
+  description: Real case fail_failure_12 for failure_factory
+  category: failure_factory

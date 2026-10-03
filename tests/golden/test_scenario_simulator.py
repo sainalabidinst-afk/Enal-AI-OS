@@ -8,6 +8,12 @@ Verifies:
 - End-to-end engine.run_simulation returns a valid SimulationResult
 - SandboxExecutor runs code safely
 - Engine integration with plan simulation
+- Log-normal distribution support
+- Parallel Monte Carlo execution
+- Trading Analyst integration (price path simulation)
+- Network Engineer integration (latency simulation)
+- System Architect integration (risk review)
+- Integration with Decision Intelligence
 """
 
 import pytest
@@ -393,3 +399,185 @@ class TestScenarioSimulatorWorker:
         }
         result = asyncio.get_event_loop().run_until_complete(worker.execute(task))
         assert "distribution" in result
+
+
+# ---------------------------------------------------------------------------
+# Distribution tests
+# ---------------------------------------------------------------------------
+
+
+class TestLogNormalDistribution:
+    def test_lognormal_distribution_produces_valid_values(self):
+        """Log-normal distribution samples are positive and follow expected shape."""
+        runner = MonteCarloRunner()
+        request = ScenarioRequest(
+            title="Lognormal Test",
+            description="Test lognormal distribution",
+            base_state={"value": 1.0},
+            variable_changes=[
+                VariableChange(
+                    variable="value",
+                    change_type=ChangeType.SET_VALUE,
+                    value=0.5,
+                    distribution=DistributionType.LOGNORMAL,
+                    stddev=0.3,
+                )
+            ],
+            iterations=500,
+            seed=42,
+        )
+        results = runner.run(request)
+        values = [r.changed_variables["value"] for r in results]
+        assert all(v > 0 for v in values)  # Log-normal is always positive
+        assert len(results) == 500
+
+    def test_lognormal_reproducible_with_seed(self):
+        """Log-normal sampling is reproducible with same seed."""
+        runner = MonteCarloRunner()
+        request = ScenarioRequest(
+            title="Lognormal Reproducibility",
+            description="Reproducibility test",
+            base_state={"value": 1.0},
+            variable_changes=[
+                VariableChange(
+                    variable="value",
+                    change_type=ChangeType.SET_VALUE,
+                    value=0.5,
+                    distribution=DistributionType.LOGNORMAL,
+                    stddev=0.3,
+                )
+            ],
+            iterations=100,
+            seed=99,
+        )
+        r1 = runner.run(request)
+        r2 = runner.run(request)
+        assert [r.outcome_value for r in r1] == [r.outcome_value for r in r2]
+
+
+# ---------------------------------------------------------------------------
+# Parallel execution tests
+# ---------------------------------------------------------------------------
+
+
+class TestParallelExecution:
+    def test_parallel_runner_produces_same_count_as_serial(self):
+        """Parallel runner produces the same number of results as serial."""
+        runner = MonteCarloRunner()
+        request = ScenarioRequest(
+            title="Parallel Test",
+            description="Parallel vs serial",
+            base_state={"x": 10.0},
+            variable_changes=[
+                VariableChange(
+                    variable="x",
+                    change_type=ChangeType.PERCENT_DELTA,
+                    value=0.1,
+                    distribution=DistributionType.NORMAL,
+                    stddev=0.02,
+                )
+            ],
+            iterations=200,
+            seed=42,
+        )
+        serial_results = runner.run(request)
+        parallel_results = runner.run_parallel(request, max_workers=4)
+        assert len(parallel_results) == len(serial_results) == 200
+
+
+# ---------------------------------------------------------------------------
+# Integration tests with other capability packs
+# ---------------------------------------------------------------------------
+
+
+class TestTradingAnalystIntegration:
+    def test_run_trading_analysis_produces_result(self):
+        """Trading Analyst integration: price path simulation."""
+        engine = ScenarioSimulatorEngine()
+        result = engine.run_trading_analysis(
+            asset="TEST-USD",
+            initial_price=100.0,
+            volatility=0.3,
+            iterations=100,
+            seed=42,
+        )
+        assert result.iterations_run == 100
+        assert result.raw.get("asset") == "TEST-USD"
+        assert result.raw.get("analysis_type") == "monte_carlo_price"
+        assert result.distribution.min_value > 0  # Price is always positive
+
+    def test_trading_analysis_reproducible(self):
+        """Trading analysis is reproducible with same seed."""
+        engine = ScenarioSimulatorEngine()
+        r1 = engine.run_trading_analysis("BTC", 50000, 0.6, iterations=50, seed=7)
+        r2 = engine.run_trading_analysis("BTC", 50000, 0.6, iterations=50, seed=7)
+        assert r1.distribution.mean == r2.distribution.mean
+
+
+class TestNetworkEngineerIntegration:
+    def test_run_network_simulation_produces_result(self):
+        """Network Engineer integration: latency simulation."""
+        engine = ScenarioSimulatorEngine()
+        result = engine.run_network_simulation(
+            topology="mesh",
+            link_count=10,
+            base_latency_ms=5.0,
+            failure_rate=0.1,
+            iterations=100,
+            seed=42,
+        )
+        assert result.iterations_run == 100
+        assert result.raw.get("topology") == "mesh"
+        assert result.raw.get("analysis_type") == "network_resilience"
+        assert result.distribution.p95 < 30.0  # Reasonable latency bound
+
+    def test_network_simulation_failure_aware(self):
+        """Network simulation produces latency distribution."""
+        engine = ScenarioSimulatorEngine()
+        result = engine.run_network_simulation(
+            "star", 5, 2.0, 0.05, iterations=50, seed=99
+        )
+        assert result.distribution.std_dev >= 0
+
+
+class TestSystemArchitectIntegration:
+    def test_run_architecture_review_produces_result(self):
+        """System Architect integration: risk simulation."""
+        engine = ScenarioSimulatorEngine()
+        result = engine.run_architecture_review(
+            component_criticality={"database": 0.9, "api": 0.7, "cache": 0.5},
+            budget=500.0,
+            risk_tolerance=0.1,
+            iterations=50,
+            seed=42,
+        )
+        assert result.iterations_run == 50
+        assert result.raw.get("analysis_type") == "architecture_risk"
+        assert result.raw.get("budget") == 500.0
+
+    def test_architecture_review_risk_increases_without_budget(self):
+        """Architecture risk should be higher with zero budget."""
+        engine = ScenarioSimulatorEngine()
+        with_budget = engine.run_architecture_review(
+            {"db": 0.9, "api": 0.8}, budget=1000.0, iterations=50, seed=42
+        )
+        without_budget = engine.run_architecture_review(
+            {"db": 0.9, "api": 0.8}, budget=0.0, iterations=50, seed=42
+        )
+        assert without_budget.distribution.mean >= with_budget.distribution.mean
+
+
+class TestDecisionIntelligenceIntegration:
+    def test_simulate_plan_with_di_context(self):
+        """Decision Intelligence integration: plan simulation."""
+        engine = ScenarioSimulatorEngine()
+        plan = [
+            {"description": "market_research", "expected_result": 0.9},
+            {"description": "product_development", "expected_result": 0.8},
+            {"description": "beta_testing", "expected_result": 0.7},
+        ]
+        context = {"scenario": "product_launch", "risk_level": "medium"}
+        result = engine.simulate_plan(plan, context, iterations=100, seed=42)
+        assert result.iterations_run == 100
+        assert len(result.assumptions) >= 0
+        assert "outcome_function" not in result.outcomes

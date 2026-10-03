@@ -1,0 +1,6 @@
+capability_pack:
+  id: observability
+  version: "1.0.0"
+  display_name: Metrics Export Failure
+  description: Real case fail_failure_14 for failure_observability
+  category: failure_observability

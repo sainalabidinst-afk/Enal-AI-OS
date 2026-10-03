@@ -441,58 +441,58 @@ real_cases/database_engineer/<case_id>/
 Definition of Done — Database Engineer Capability Pack
 
 Functional
-- [ ] Schema Design produces optimized DDL with appropriate data types and constraints
-- [ ] Query Optimization identifies and fixes slow/inefficient queries
-- [ ] Migration Management generates forward + rollback scripts with conflict analysis
-- [ ] Index Recommendation identifies missing indexes based on query patterns
-- [ ] Replication Planning designs strategies for HA and performance
-- [ ] Backup and Recovery plans with RTO/RPO alignment
-- [ ] Performance Analysis detects slow queries, deadlocks, and contention
+- [x] Schema Design produces optimized DDL with appropriate data types and constraints
+- [x] Query Optimization identifies and fixes slow/inefficient queries
+- [x] Migration Management generates forward + rollback scripts with conflict analysis
+- [x] Index Recommendation identifies missing indexes based on query patterns
+- [x] Replication Planning designs strategies for HA and performance
+- [x] Backup and Recovery plans with RTO/RPO alignment
+- [x] Performance Analysis detects slow queries, deadlocks, and contention
 
 Benchmark
-- [ ] Schema Quality ≥ 90% (grade A-)
-- [ ] Query Optimization ≥ 85%
-- [ ] Migration Safety ≥ 95%
-- [ ] Index Recommendation ≥ 90%
-- [ ] Performance Detection ≥ 90%
-- [ ] Backup Coverage ≥ 95%
-- [ ] Explainability ≥ 90%
-- [ ] Consistency ≥ 90%
+- [x] Schema Quality ≥ 90% (grade A-)
+- [x] Query Optimization ≥ 85%
+- [x] Migration Safety ≥ 95%
+- [x] Index Recommendation ≥ 90%
+- [x] Performance Detection ≥ 90%
+- [x] Backup Coverage ≥ 95%
+- [x] Explainability ≥ 90%
+- [x] Consistency ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/database_engineer/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with slow query optimization
-- [ ] ≥ 5 cases with migration and rollback planning
-- [ ] ≥ 3 cases with deadlock analysis
-- [ ] ≥ 5 cases with index recommendations
+- [x] ≥ 20 real cases logged in real_cases/database_engineer/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with slow query optimization
+- [x] ≥ 5 cases with migration and rollback planning
+- [x] ≥ 3 cases with deadlock analysis
+- [x] ≥ 5 cases with index recommendations
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Database Engineer section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Database Engineer section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Database Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Database Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for single database analysis
-- [ ] Latency P95 < 8000ms for multi-table schema with 50+ queries
+- [x] Latency P95 < 3000ms for single database analysis
+- [x] Latency P95 < 8000ms for multi-table schema with 50+ queries
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated DDL does not contain unsafe permissions
+- [x] No known P0/P1 security issues
+- [x] Generated DDL does not contain unsafe permissions
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

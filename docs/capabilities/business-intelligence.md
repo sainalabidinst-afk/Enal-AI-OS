@@ -3,10 +3,13 @@
 **Version:** 2.8.0
 **Target Grade:** A (>=90%)
 **Status:** Implemented
+**Phase:** 7
+**RFC:** [RFC-0038](docs/rfcs/RFC-0038-business-intelligence.md)
+**ADR:** [ADR-018](docs/adr/ADR-018-business-intelligence.md)
 
 ## Ringkasan
 
-Business Intelligence provides advanced capabilities for platform observability and governance.
+Business Intelligence Capability Pack menyediakan analisis data bisnis, pembuatan dashboard interaktif, dan perencanaan skenario untuk pengambilan keputusan strategis. Pack ini mengintegrasikan sumber data terdistribusi, melacak KPI secara real-time, dan menghasilkan visualisasi yang dapat diekspor untuk laporan eksekutif dan perencanaan foresight.
 
 ## Kemampuan Inti
 

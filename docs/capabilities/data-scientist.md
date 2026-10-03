@@ -3,10 +3,13 @@
 **Version:** 2.7.0
 **Target Grade:** A (>=90%)
 **Status:** Implemented
+**Phase:** 7
+**RFC:** [RFC-0037](docs/rfcs/RFC-0037-data-scientist.md)
+**ADR:** [ADR-017](docs/adr/ADR-017-data-scientist.md)
 
 ## Ringkasan
 
-Data Scientist provides advanced capabilities for platform observability and governance.
+Data Scientist Capability Pack menyediakan pipeline end-to-end untuk feature engineering, pelatihan model machine learning, dan evaluasi kualitas model. Pack ini mendukung data ingestion dari berbagai sumber, transformasi fitur otomatis, hyperparameter tuning, dan validasi silang (cross-validation) dengan metrik yang dapat dilacak.
 
 ## Kemampuan Inti
 

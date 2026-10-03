@@ -1,0 +1,35 @@
+capability_pack:
+  id: "decision_intelligence"
+  version: "1.0.0"
+  display_name: "Decision Intelligence"
+  description: "Capability Pack manifest for Decision Intelligence"
+  entry_point: "apps.decision_intelligence.engine.DecisionIntelligenceEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "decision_intelligence.main"
+      name: "Primary Capability"
+      description: "Main capability for Decision Intelligence"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "decision_intelligence.parse"
+    - stage: "process"
+      capability: "decision_intelligence.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/decision_intelligence"

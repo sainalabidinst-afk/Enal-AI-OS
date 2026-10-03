@@ -480,57 +480,57 @@ real_cases/product/<case_id>/
 Definition of Done — Product Manager Capability Pack
 
 Functional
-- [ ] Roadmap Management creates and maintains product roadmaps with milestones and releases
-- [ ] Backlog Management structures and prioritizes backlog items with clear rationale
-- [ ] Sprint Planning creates realistic sprint plans with capacity estimation
-- [ ] OKR/KPI Tracking sets measurable objectives and tracks progress
-- [ ] Prioritization applies consistent frameworks (RICE, MoSCoW, etc.)
-- [ ] Release Coordination manages dependencies across capability packs
+- [x] Roadmap Management creates and maintains product roadmaps with milestones and releases
+- [x] Backlog Management structures and prioritizes backlog items with clear rationale
+- [x] Sprint Planning creates realistic sprint plans with capacity estimation
+- [x] OKR/KPI Tracking sets measurable objectives and tracks progress
+- [x] Prioritization applies consistent frameworks (RICE, MoSCoW, etc.)
+- [x] Release Coordination manages dependencies across capability packs
 
 Benchmark
-- [ ] Roadmap Accuracy ≥ 85%
-- [ ] Backlog Quality ≥ 90%
-- [ ] OKR Achievement ≥ 90%
-- [ ] Priority Consistency ≥ 85%
-- [ ] Release Adherence ≥ 90%
-- [ ] Stakeholder Alignment ≥ 85%
-- [ ] Explainability ≥ 85%
+- [x] Roadmap Accuracy ≥ 85%
+- [x] Backlog Quality ≥ 90%
+- [x] OKR Achievement ≥ 90%
+- [x] Priority Consistency ≥ 85%
+- [x] Release Adherence ≥ 90%
+- [x] Stakeholder Alignment ≥ 85%
+- [x] Explainability ≥ 85%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/product/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 10 cases with roadmap management
-- [ ] ≥ 10 cases with backlog management
-- [ ] ≥ 10 cases with OKR tracking
-- [ ] ≥ 10 cases with prioritization
-- [ ] ≥ 5 cases with release coordination
+- [x] ≥ 20 real cases logged in real_cases/product/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 10 cases with roadmap management
+- [x] ≥ 10 cases with backlog management
+- [x] ≥ 10 cases with OKR tracking
+- [x] ≥ 10 cases with prioritization
+- [x] ≥ 5 cases with release coordination
 
 Documentation
-- [ ] Capability Guide updated (product-manager.md)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (product-manager.md)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Product Manager callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Product Manager callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 2000ms for standard product management operations
-- [ ] Latency P95 < 5000ms for complex prioritization analysis
+- [x] Latency P95 < 2000ms for standard product management operations
+- [x] Latency P95 < 5000ms for complex prioritization analysis
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated documents do not expose confidential product information
+- [x] No known P0/P1 security issues
+- [x] Generated documents do not expose confidential product information
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

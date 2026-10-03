@@ -1,0 +1,35 @@
+capability_pack:
+  id: "knowledge_engineer"
+  version: "1.0.0"
+  display_name: "Knowledge Engineer"
+  description: "Capability Pack manifest for Knowledge Engineer"
+  entry_point: "apps.knowledge_engineer.engine.KnowledgeEngineerEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "knowledge_engineer.main"
+      name: "Primary Capability"
+      description: "Main capability for Knowledge Engineer"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "knowledge_engineer.parse"
+    - stage: "process"
+      capability: "knowledge_engineer.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/knowledge_engineer"

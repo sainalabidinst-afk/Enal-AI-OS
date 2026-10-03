@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_24",
+  "intent": "ai_ethics_governance.audit",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Ai_Ethics_Governance Audit"
+  },
+  "capabilities_required": [
+    "ai_ethics_governance"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_24",
+    "correlation_id": "corr-xpack_24"
+  }
+}

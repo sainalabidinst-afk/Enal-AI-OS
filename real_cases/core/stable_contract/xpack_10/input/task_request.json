@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_10",
+  "intent": "database_engineer.optimize",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Database_Engineer Optimize"
+  },
+  "capabilities_required": [
+    "database_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_10",
+    "correlation_id": "corr-xpack_10"
+  }
+}

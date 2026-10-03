@@ -1,0 +1,6 @@
+capability_pack:
+  id: full_stack_engineer
+  version: "1.0.0"
+  display_name: Full_Stack_Engineer Build
+  description: Real case xpack_08 for cross_pack
+  category: cross_pack

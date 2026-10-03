@@ -461,58 +461,58 @@ real_cases/core/stable_contract/<case_id>/
 Definition of Done — Kontrak Stabil Core RFC
 
 Functional
-- [ ] Event Bus supports typed publish-subscribe with Pydantic validation
-- [ ] BaseApp abstract class defines uniform interface for all packs
-- [ ] Factory Registry provides dynamic pack loading via get_app()
-- [ ] Pipeline Engine orchestrates cognitive pipeline stages
-- [ ] Skills Registry parses and validates skills.yaml manifests
-- [ ] Contract Validator enforces pack contract compliance
-- [ ] Version Manager handles backward-compatible contract changes
-- [ ] Observability Layer provides structured logging, metrics, and tracing
+- [x] Event Bus supports typed publish-subscribe with Pydantic validation
+- [x] BaseApp abstract class defines uniform interface for all packs
+- [x] Factory Registry provides dynamic pack loading via get_app()
+- [x] Pipeline Engine orchestrates cognitive pipeline stages
+- [x] Skills Registry parses and validates skills.yaml manifests
+- [x] Contract Validator enforces pack contract compliance
+- [x] Version Manager handles backward-compatible contract changes
+- [x] Observability Layer provides structured logging, metrics, and tracing
 
 Benchmark
-- [ ] Contract Compatibility = 100% (all packs validated)
-- [ ] Circular Import Detection = 100%
-- [ ] Dynamic Loading = ≥99%
-- [ ] Interface Uniformity = ≥95%
-- [ ] Failure Isolation = ≥90%
-- [ ] Orchestration Latency P95 < 100ms
-- [ ] Observability = 100%
-- [ ] Documentation = 100%
+- [x] Contract Compatibility = 100% (all packs validated)
+- [x] Circular Import Detection = 100%
+- [x] Dynamic Loading = ≥99%
+- [x] Interface Uniformity = ≥95%
+- [x] Failure Isolation = ≥90%
+- [x] Orchestration Latency P95 < 100ms
+- [x] Observability = 100%
+- [x] Documentation = 100%
 
 Golden Tests
-- [ ] All 10 core golden test scenarios pass at ≥95% of acceptance criteria (100% pass)
+- [x] All 10 core golden test scenarios pass at ≥95% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 50 real cases logged in real_cases/core/stable_contract/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 20 cases with cross-pack communication
-- [ ] ≥ 10 cases with dynamic pack loading
-- [ ] ≥ 10 cases with failure isolation
+- [x] ≥ 50 real cases logged in real_cases/core/stable_contract/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 20 cases with cross-pack communication
+- [x] ≥ 10 cases with dynamic pack loading
+- [x] ≥ 10 cases with failure isolation
 
 Documentation
-- [ ] Core architecture guide updated
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Core architecture guide updated
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] BaseApp usable for new pack development
-- [ ] Event Bus accessible via Execution Runtime task routing
+- [x] BaseApp usable for new pack development
+- [x] Event Bus accessible via Execution Runtime task routing
 
 Performance
-- [ ] Event Bus latency P95 < 100ms for standard events
-- [ ] Event Bus latency P95 < 500ms for multi-pack orchestration
+- [x] Event Bus latency P95 < 100ms for standard events
+- [x] Event Bus latency P95 < 500ms for multi-pack orchestration
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Event payloads do not leak sensitive data in logs
+- [x] No known P0/P1 security issues
+- [x] Event payloads do not leak sensitive data in logs
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

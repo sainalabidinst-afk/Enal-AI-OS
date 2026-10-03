@@ -1,0 +1,18 @@
+{
+  "task_id": "task-fail_failure_01",
+  "intent": "code_engineer.generate",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Pipeline Stage Crash"
+  },
+  "capabilities_required": [
+    "code_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-fail_failure_01",
+    "correlation_id": "corr-fail_failure_01"
+  }
+}

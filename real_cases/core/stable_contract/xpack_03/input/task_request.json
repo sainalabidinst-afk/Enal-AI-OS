@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_03",
+  "intent": "trading_analyst.analysis",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Trading_Analyst Analysis"
+  },
+  "capabilities_required": [
+    "trading_analyst"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_03",
+    "correlation_id": "corr-xpack_03"
+  }
+}

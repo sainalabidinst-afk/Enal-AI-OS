@@ -102,6 +102,7 @@
 
 | Version | Date | Description |
 |---------|------|-------------|
+| **v3.0.0** | **2026-10-02** | **Production Release — 37 Capability Packs + 6 infrastructure apps, all benchmarks Grade A. DevSecOps, Translator Expert, Document Processing, Voice Interaction packs included. Governance: 0 violations. TypeScript: 0 errors. MyPy: 0 errors. Ruff: 0 errors.** |
 | v1.0.0-developer-preview | 2026-08-04 | Fase 1 Capability Excellence complete. 13 packs at A- or higher. 19 packs registered, all loadable. |
 | v1.0.0-engineering-baseline | 2024 | Engineering Baseline frozen. MyPy 0 error, Pylance 0, Tests 368 passed, Python 3.11 verified. |
 | Product Intelligence v1.0.0-dev | 2026-07-14 | Telemetry, Benchmark Framework, Capability Scoring, Quality Intelligence, CCE, Confidence Calibration complete. |

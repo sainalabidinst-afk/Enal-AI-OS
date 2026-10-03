@@ -1,0 +1,35 @@
+capability_pack:
+  id: "ui_ux_designer"
+  version: "1.0.0"
+  display_name: "UI/UX Designer"
+  description: "Capability Pack manifest for UI/UX Designer"
+  entry_point: "apps.ui_ux_designer.engine.UI/UXDesignerEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "ui_ux_designer.main"
+      name: "Primary Capability"
+      description: "Main capability for UI/UX Designer"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "ui_ux_designer.parse"
+    - stage: "process"
+      capability: "ui_ux_designer.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/ui_ux_designer"

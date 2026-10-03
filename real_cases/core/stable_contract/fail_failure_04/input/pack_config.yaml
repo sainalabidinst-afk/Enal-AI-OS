@@ -1,0 +1,6 @@
+capability_pack:
+  id: pipeline
+  version: "1.0.0"
+  display_name: Timeout in Stage
+  description: Real case fail_failure_04 for failure_pipeline
+  category: failure_pipeline

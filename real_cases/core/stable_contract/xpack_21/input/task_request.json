@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_21",
+  "intent": "legal_advisor.review",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Legal_Advisor Review"
+  },
+  "capabilities_required": [
+    "legal_advisor"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_21",
+    "correlation_id": "corr-xpack_21"
+  }
+}

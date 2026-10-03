@@ -1,0 +1,4 @@
+capability_pack:
+  id: "test_pack"
+  version: "1.0.0
+  display_name: "Broken"

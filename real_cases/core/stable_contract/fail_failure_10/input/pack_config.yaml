@@ -1,0 +1,6 @@
+capability_pack:
+  id: eventbus
+  version: "1.0.0"
+  display_name: Event Bus Disconnected
+  description: Real case fail_failure_10 for failure_eventbus
+  category: failure_eventbus

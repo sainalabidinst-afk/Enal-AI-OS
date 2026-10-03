@@ -1,0 +1,6 @@
+capability_pack:
+  id: data_engineer
+  version: "1.0.0"
+  display_name: Data Engineer
+  description: Real case dload_09 for dynamic_load
+  category: dynamic_load

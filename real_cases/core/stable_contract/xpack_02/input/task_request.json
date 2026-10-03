@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_02",
+  "intent": "network_engineer.audit",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Network_Engineer Audit"
+  },
+  "capabilities_required": [
+    "network_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_02",
+    "correlation_id": "corr-xpack_02"
+  }
+}

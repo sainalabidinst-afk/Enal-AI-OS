@@ -1,0 +1,18 @@
+{
+  "task_id": "task-fail_failure_02",
+  "intent": "eventbus.handler.error",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Handler Exception"
+  },
+  "capabilities_required": [
+    "eventbus"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-fail_failure_02",
+    "correlation_id": "corr-fail_failure_02"
+  }
+}

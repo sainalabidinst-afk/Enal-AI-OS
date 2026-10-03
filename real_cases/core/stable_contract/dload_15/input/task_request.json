@@ -1,0 +1,18 @@
+{
+  "task_id": "task-dload_15",
+  "intent": "ai_engineer.load",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: AI Engineer"
+  },
+  "capabilities_required": [
+    "ai_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-dload_15",
+    "correlation_id": "corr-dload_15"
+  }
+}

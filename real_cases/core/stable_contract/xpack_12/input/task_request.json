@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_12",
+  "intent": "business_analyst.transcribe",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Business_Analyst Transcribe"
+  },
+  "capabilities_required": [
+    "business_analyst"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_12",
+    "correlation_id": "corr-xpack_12"
+  }
+}

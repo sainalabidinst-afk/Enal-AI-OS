@@ -1,0 +1,35 @@
+capability_pack:
+  id: "qa_engineer"
+  version: "1.0.0"
+  display_name: "QA Engineer"
+  description: "Capability Pack manifest for QA Engineer"
+  entry_point: "apps.qa_engineer.engine.QAEngineerEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "qa_engineer.main"
+      name: "Primary Capability"
+      description: "Main capability for QA Engineer"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "qa_engineer.parse"
+    - stage: "process"
+      capability: "qa_engineer.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/qa_engineer"

@@ -1,0 +1,6 @@
+capability_pack:
+  id: security_engineer
+  version: "1.0.0"
+  display_name: Security_Engineer Harden
+  description: Real case xpack_05 for cross_pack
+  category: cross_pack

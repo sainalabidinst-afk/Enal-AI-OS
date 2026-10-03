@@ -1,0 +1,6 @@
+capability_pack:
+  id: business_analyst
+  version: "1.0.0"
+  display_name: Business_Analyst Transcribe
+  description: Real case xpack_12 for cross_pack
+  category: cross_pack

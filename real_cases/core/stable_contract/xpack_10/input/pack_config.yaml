@@ -1,0 +1,6 @@
+capability_pack:
+  id: database_engineer
+  version: "1.0.0"
+  display_name: Database_Engineer Optimize
+  description: Real case xpack_10 for cross_pack
+  category: cross_pack

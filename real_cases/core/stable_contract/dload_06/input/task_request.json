@@ -1,0 +1,18 @@
+{
+  "task_id": "task-dload_06",
+  "intent": "devops_assistant.load",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: DevOps Assistant"
+  },
+  "capabilities_required": [
+    "devops_assistant"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-dload_06",
+    "correlation_id": "corr-dload_06"
+  }
+}

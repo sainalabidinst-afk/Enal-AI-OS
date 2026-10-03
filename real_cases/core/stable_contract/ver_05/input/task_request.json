@@ -1,0 +1,18 @@
+{
+  "task_id": "task-ver_05",
+  "intent": "version.compat.5",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Version Contract 5"
+  },
+  "capabilities_required": [
+    "version"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-ver_05",
+    "correlation_id": "corr-ver_05"
+  }
+}

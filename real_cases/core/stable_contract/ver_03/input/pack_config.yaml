@@ -1,0 +1,6 @@
+capability_pack:
+  id: version
+  version: "1.0.0"
+  display_name: Version Contract 3
+  description: Real case ver_03 for version
+  category: version

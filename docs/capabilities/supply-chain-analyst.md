@@ -3,10 +3,13 @@
 **Version:** 2.6.0
 **Target Grade:** A (>=90%)
 **Status:** Implemented
+**Phase:** 7
+**RFC:** [RFC-0036](docs/rfcs/RFC-0036-supply-chain-analyst.md)
+**ADR:** [ADR-016](docs/adr/ADR-016-supply-chain-analyst.md)
 
 ## Ringkasan
 
-Supply Chain Analyst provides advanced capabilities for platform observability and governance.
+Supply Chain Analyst Capability Pack menyediakan analisis permintaan, optimasi inventaris, dan penilaian risiko untuk rantai pasok dinamis. Pack ini memprediksi tren permintaan menggunakan model forecasting, mengoptimalkan tingkat stok berdasarkan lead time dan variabilitas, dan mengidentifikasi titik lemah rantai pasok berdasarkan skenario risiko.
 
 ## Kemampuan Inti
 

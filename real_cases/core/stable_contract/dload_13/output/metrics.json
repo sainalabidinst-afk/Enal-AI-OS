@@ -1,0 +1,7 @@
+{
+  "latency_ms": 38.9,
+  "p95_latency_ms": 38.9,
+  "tokens_used": 150,
+  "memory_mb": 128.0,
+  "throughput_chars_per_sec": 1000.0
+}

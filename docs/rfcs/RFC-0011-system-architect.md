@@ -415,59 +415,59 @@ real_cases/system_architect/<case_id>/
 Definition of Done — System Architect Capability Pack
 
 Functional
-- [ ] Clean Architecture Review detects layer violations and dependency rule breaches
-- [ ] DDD Analysis evaluates bounded contexts, aggregates, and anti-corruption layers
-- [ ] Event-Driven Design reviews event schemas and saga patterns
-- [ ] CQRS Evaluation assesses command/query separation appropriateness
-- [ ] Microservices/Monolith Review evaluates decomposition strategies
-- [ ] Architecture Governance enforces architectural rules and constraints
-- [ ] ADR Generation produces structured ADR drafts for architectural decisions
-- [ ] Package Boundary Enforcement detects unauthorized cross-package imports
+- [x] Clean Architecture Review detects layer violations and dependency rule breaches
+- [x] DDD Analysis evaluates bounded contexts, aggregates, and anti-corruption layers
+- [x] Event-Driven Design reviews event schemas and saga patterns
+- [x] CQRS Evaluation assesses command/query separation appropriateness
+- [x] Microservices/Monolith Review evaluates decomposition strategies
+- [x] Architecture Governance enforces architectural rules and constraints
+- [x] ADR Generation produces structured ADR drafts for architectural decisions
+- [x] Package Boundary Enforcement detects unauthorized cross-package imports
 
 Benchmark
-- [ ] Architecture Review Completeness ≥ 95% (grade A)
-- [ ] Dependency Violation Detection ≥ 95%
-- [ ] Package Boundary Enforcement ≥ 90%
-- [ ] ADR Coverage ≥ 90%
-- [ ] Design Pattern Application ≥ 85%
-- [ ] Scalability Assessment ≥ 90%
-- [ ] Maintainability ≥ 90%
-- [ ] Explainability ≥ 95%
-- [ ] Consistency ≥ 90%
+- [x] Architecture Review Completeness ≥ 95% (grade A)
+- [x] Dependency Violation Detection ≥ 95%
+- [x] Package Boundary Enforcement ≥ 90%
+- [x] ADR Coverage ≥ 90%
+- [x] Design Pattern Application ≥ 85%
+- [x] Scalability Assessment ≥ 90%
+- [x] Maintainability ≥ 90%
+- [x] Explainability ≥ 95%
+- [x] Consistency ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/system_architect/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 10 cases with dependency violations
-- [ ] ≥ 10 cases with package boundary violations
-- [ ] ≥ 10 cases with ADR generation
+- [x] ≥ 20 real cases logged in real_cases/system_architect/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 10 cases with dependency violations
+- [x] ≥ 10 cases with package boundary violations
+- [x] ≥ 10 cases with ADR generation
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — System Architect section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — System Architect section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] System Architect callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] System Architect callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for single project review
-- [ ] Latency P95 < 8000ms for multi-module monorepo
+- [x] Latency P95 < 3000ms for single project review
+- [x] Latency P95 < 8000ms for multi-module monorepo
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated ADRs do not expose sensitive implementation details
+- [x] No known P0/P1 security issues
+- [x] Generated ADRs do not expose sensitive implementation details
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

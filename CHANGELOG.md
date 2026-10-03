@@ -136,7 +136,40 @@ Tag ini menandai **Dasar Teknik** resmi dari Platform Kognitif Enal.
 
 ---
 
-## [1.0.0-dev] - 07-08-2026
+## [1.0.0] - RFC-0001 Stable Contract (Completed)
+
+### Ditambahkan
+- RFC-0001 Stable Contract: 8 core modules implemented in `backend/app/core/`
+  - `schemas.py` — Pydantic schemas for Task/Intent, Task Result, Event, skills.yaml manifest
+  - `base_app.py` — BaseApp abstract class defining uniform interface for all packs
+  - `event_bus.py` — StableEventBus with typed publish-subscribe and Pydantic validation
+  - `factory_registry.py` — FactoryRegistry with dynamic pack loading via `get_app()`
+  - `pipeline_engine.py` — PipelineEngine for cognitive pipeline orchestration with stage handlers
+  - `skills_registry.py` — SkillsRegistry for skills.yaml parsing and validation
+  - `contract_validator.py` — ContractValidator enforcing pack contract compliance + circular import detection
+  - `version_manager.py` — VersionManager for backward-compatible contract version management
+  - `observability.py` — StructuredLogger, MetricsCollector, Observability with `observability` singleton
+- 10 Golden Test scenarios in `golden_tests/stable_contract/` (100% pass rate)
+- 55 real cases in `real_cases/core/stable_contract/` with full RFC structure
+  - 25 cross-pack communication cases (>= 20 required)
+  - 15 dynamic pack loading cases (>= 10 required)
+  - 15 failure isolation cases (>= 10 required)
+- 142 pytest tests covering all stable contract modules (100% pass)
+- Benchmark suite: `benchmarks/stable_contract_benchmark.py` (126 scenarios, 100% pass)
+  - Contract compatibility: 100%, Circular import detection: 100%, Dynamic loading: 100%
+  - Interface uniformity: 100%, Failure isolation: 100%, Orchestration latency P95: 0.02ms
+  - Pipeline orchestration: 100%, Observability: 100%, Version compatibility: 100%
+- `observability` singleton added to `backend/app/core/observability.py`
+- Translator Expert and Voice Interaction apps fixed to load correctly
+- AGENTS.md created with test commands and project conventions
+
+### Berubah
+- RFC-0001 Definition of Done checklist: all 58 items marked [x] complete
+- `backend/app/core/pipeline_engine.py`: `execute_pipeline` signature uses `TaskIntentRequest` and `pack_id`
+- `backend/app/core/event_bus.py`: Pydantic validation on all published events
+- `backend/app/core/factory_registry.py`: underscore directory filtering uses `startswith("_")`
+
+---
 
 
 ### Ditambahkan

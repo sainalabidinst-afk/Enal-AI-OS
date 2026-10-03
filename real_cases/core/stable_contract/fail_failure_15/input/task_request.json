@@ -1,0 +1,18 @@
+{
+  "task_id": "task-fail_failure_15",
+  "intent": "observability.trace.bad",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Trace Corruption"
+  },
+  "capabilities_required": [
+    "observability"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-fail_failure_15",
+    "correlation_id": "corr-fail_failure_15"
+  }
+}

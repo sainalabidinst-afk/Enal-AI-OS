@@ -1,0 +1,6 @@
+capability_pack:
+  id: base_app
+  version: "1.0.0"
+  display_name: BaseApp Implementation 5
+  description: Real case app_05 for baseapp
+  category: baseapp

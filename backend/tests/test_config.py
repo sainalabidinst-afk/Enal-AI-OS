@@ -10,7 +10,7 @@ def test_settings_defaults():
 
     settings = Settings()
     assert settings.PROJECT_NAME == "Enal AI OS"
-    assert settings.VERSION == "1.0.0-dev"
+    assert settings.VERSION == "3.0.0"
     assert settings.API_V1_STR == "/api/v1"
     assert settings.DEFAULT_MODEL == "lmstudio/qwen/qwen3.5-9b"
     assert settings.MAX_TOKENS == 4096

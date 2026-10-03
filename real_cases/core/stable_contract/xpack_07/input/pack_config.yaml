@@ -1,0 +1,6 @@
+capability_pack:
+  id: research_assistant
+  version: "1.0.0"
+  display_name: Research_Assistant Synthesize
+  description: Real case xpack_07 for cross_pack
+  category: cross_pack

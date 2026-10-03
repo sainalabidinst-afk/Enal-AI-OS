@@ -1,0 +1,6 @@
+capability_pack:
+  id: observability
+  version: "1.0.0"
+  display_name: Trace Corruption
+  description: Real case fail_failure_15 for failure_trace
+  category: failure_trace

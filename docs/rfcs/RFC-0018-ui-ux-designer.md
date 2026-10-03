@@ -469,54 +469,54 @@ real_cases/ui_ux/<case_id>/
 Definition of Done — UI/UX Designer Capability Pack
 
 Functional
-- [ ] UX Research analyzes user data and produces personas, journeys, pain points, opportunities
-- [ ] Design System builds tokens, palette, typography, spacing, and component specs
-- [ ] Prototyping generates screen layouts, interaction maps, and user flows
-- [ ] Accessibility Audit validates WCAG 2.1 AA compliance with violations and priority
+- [x] UX Research analyzes user data and produces personas, journeys, pain points, opportunities
+- [x] Design System builds tokens, palette, typography, spacing, and component specs
+- [x] Prototyping generates screen layouts, interaction maps, and user flows
+- [x] Accessibility Audit validates WCAG 2.1 AA compliance with violations and priority
 
 Benchmark
-- [ ] UX Research Quality ≥ 85% (grade A-)
-- [ ] Design System Completeness ≥ 90%
-- [ ] Prototype Completeness ≥ 85%
-- [ ] Accessibility Compliance ≥ 85%
-- [ ] Design Consistency ≥ 90%
-- [ ] Explainability ≥ 90%
-- [ ] Consistency ≥ 85%
+- [x] UX Research Quality ≥ 85% (grade A-)
+- [x] Design System Completeness ≥ 90%
+- [x] Prototype Completeness ≥ 85%
+- [x] Accessibility Compliance ≥ 85%
+- [x] Design Consistency ≥ 90%
+- [x] Explainability ≥ 90%
+- [x] Consistency ≥ 85%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria
+- [x] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria
 
 Real Cases
-- [ ] ≥ 10 real cases logged in real_cases/ui_ux/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with UX research
-- [ ] ≥ 5 cases with accessibility audit
-- [ ] ≥ 3 cases with full design system
-- [ ] ≥ 3 cases with interactive prototype
+- [x] ≥ 10 real cases logged in real_cases/ui_ux/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with UX research
+- [x] ≥ 5 cases with accessibility audit
+- [x] ≥ 3 cases with full design system
+- [x] ≥ 3 cases with interactive prototype
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — UI/UX Designer section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — UI/UX Designer section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] UI/UX Designer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] UI/UX Designer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for standard UI/UX analysis
-- [ ] Latency P95 < 8000ms for full design pipeline
+- [x] Latency P95 < 3000ms for standard UI/UX analysis
+- [x] Latency P95 < 8000ms for full design pipeline
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated designs do not expose confidential user research data
+- [x] No known P0/P1 security issues
+- [x] Generated designs do not expose confidential user research data
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

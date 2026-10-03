@@ -1,0 +1,6 @@
+capability_pack:
+  id: network_engineer
+  version: "1.0.0"
+  display_name: Network_Engineer Audit
+  description: Real case xpack_02 for cross_pack
+  category: cross_pack

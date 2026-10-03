@@ -244,41 +244,41 @@ apps/
 Definition of Done — Adversarial Testing Capability Pack
 
 Functional
-- [ ] Attack Vector Generator: 6+ attack categories
-- [ ] Failure Injector: scenario-based failure simulation
-- [ ] Assumption Auditor: hidden assumption detection
-- [ ] Vulnerability Scanner: severity-scored vulnerability report
-- [ ] Hardening Advisor: prioritized mitigation recommendations
-- [ ] Adversarial Gate: pass/fail decision with confidence
+- [x] Attack Vector Generator: 6+ attack categories
+- [x] Failure Injector: scenario-based failure simulation
+- [x] Assumption Auditor: hidden assumption detection
+- [x] Vulnerability Scanner: severity-scored vulnerability report
+- [x] Hardening Advisor: prioritized mitigation recommendations
+- [x] Adversarial Gate: pass/fail decision with confidence
 
 Benchmark
-- [ ] Attack coverage: 6+ categories
-- [ ] Vulnerability detection ≥ 90%
-- [ ] Hardening effectiveness ≥ 80%
-- [ ] False positive rate < 5%
-- [ ] Pass rate ≥ 95%
+- [x] Attack coverage: 6+ categories
+- [x] Vulnerability detection ≥ 90%
+- [x] Hardening effectiveness ≥ 80%
+- [x] False positive rate < 5%
+- [x] Pass rate ≥ 95%
 
 Golden Tests
-- [ ] 10 skenario golden test lulus pada ≥90%
-- [ ] External shock scenario (competitor price war)
-- [ ] Dependency failure (payment system down)
-- [ ] Resource exhaustion (budget overrun)
-- [ ] Competitive response (new entrant)
-- [ ] Regulatory change (compliance shift)
-- [ ] Data corruption scenario
-- [ ] Assumption audit on trading strategy
-- [ ] Hardening recommendation verification
-- [ ] Gate pass/fail logic
-- [ ] Multi-attack vector on single plan
+- [x] 10 skenario golden test lulus pada ≥90%
+- [x] External shock scenario (competitor price war)
+- [x] Dependency failure (payment system down)
+- [x] Resource exhaustion (budget overrun)
+- [x] Competitive response (new entrant)
+- [x] Regulatory change (compliance shift)
+- [x] Data corruption scenario
+- [x] Assumption audit on trading strategy
+- [x] Hardening recommendation verification
+- [x] Gate pass/fail logic
+- [x] Multi-attack vector on single plan
 
 Real Cases
-- [ ] ≥5 real cases in real_cases/adversarial_testing/
-- [ ] Cases from Trading Analyst, Network Engineer, Decision Intelligence
+- [x] ≥5 real cases in real_cases/adversarial_testing/
+- [x] Cases from Trading Analyst, Network Engineer, Decision Intelligence
 
 Documentation
-- [ ] docs/capabilities/adversarial-testing.md
-- [ ] API reference / contract
-- [ ] Integration guide
+- [x] docs/capabilities/adversarial-testing.md
+- [x] API reference / contract
+- [x] Integration guide
 ```
 
 ---

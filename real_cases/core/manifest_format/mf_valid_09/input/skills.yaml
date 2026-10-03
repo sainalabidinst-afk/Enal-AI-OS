@@ -1,0 +1,35 @@
+capability_pack:
+  id: "system_architect"
+  version: "1.0.0"
+  display_name: "System Architect"
+  description: "Capability Pack manifest for System Architect"
+  entry_point: "apps.system_architect.engine.SystemArchitectEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "system_architect.main"
+      name: "Primary Capability"
+      description: "Main capability for System Architect"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "system_architect.parse"
+    - stage: "process"
+      capability: "system_architect.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/system_architect"

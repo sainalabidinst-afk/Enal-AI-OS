@@ -1,0 +1,43 @@
+{
+  "scenario_id": "gt_08_trace_propagation",
+  "title": "Distributed trace ID propagation",
+  "description": "Trace IDs flow through all packs in a workflow for end-to-end observability.",
+  "rfc_reference": "RFC-0001 §Kontrak Masukan (trace_id), §Observability Standard",
+  "category": "observability",
+  "expected_behavior": "TaskIntentRequest has metadata.trace_id. Events published with trace_id are retrievable via StableEventBus.get_events(trace_id=...).",
+  "acceptance_criteria": {
+    "trace_propagation": "100% trace propagation"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "create TaskIntentRequest with metadata.trace_id='trace-abc'",
+      "expected": "trace_id stored in metadata"
+    },
+    {
+      "step": 2,
+      "action": "publish Event with trace_id='trace-abc' to the Event Bus",
+      "expected": "event stored in event log with trace_id"
+    },
+    {
+      "step": 3,
+      "action": "publish another Event with trace_id='trace-abc' but different event_type",
+      "expected": "event also stored"
+    },
+    {
+      "step": 4,
+      "action": "call stable_event_bus.get_events(trace_id='trace-abc')",
+      "expected": "both events returned"
+    },
+    {
+      "step": 5,
+      "action": "call get_events with different trace_id",
+      "expected": "no events returned"
+    }
+  ],
+  "golden_output": {
+    "trace_id_in_task_request": true,
+    "events_retrievable_by_trace_id": true,
+    "filtering_works": true
+  }
+}

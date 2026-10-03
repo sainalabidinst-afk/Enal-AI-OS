@@ -1,0 +1,6 @@
+capability_pack:
+  id: skills
+  version: "1.0.0"
+  display_name: Manifest Corruption
+  description: Real case fail_failure_08 for failure_skills
+  category: failure_skills

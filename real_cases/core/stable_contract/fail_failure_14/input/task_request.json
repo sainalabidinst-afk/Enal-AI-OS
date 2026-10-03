@@ -1,0 +1,18 @@
+{
+  "task_id": "task-fail_failure_14",
+  "intent": "observability.metrics.fail",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Metrics Export Failure"
+  },
+  "capabilities_required": [
+    "observability"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-fail_failure_14",
+    "correlation_id": "corr-fail_failure_14"
+  }
+}

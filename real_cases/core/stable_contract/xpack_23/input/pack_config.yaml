@@ -1,0 +1,6 @@
+capability_pack:
+  id: cybersecurity_analyst
+  version: "1.0.0"
+  display_name: Cybersecurity_Analyst Threat
+  description: Real case xpack_23 for cross_pack
+  category: cross_pack

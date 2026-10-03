@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_09",
+  "intent": "data_engineer.pipeline",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Data_Engineer Pipeline"
+  },
+  "capabilities_required": [
+    "data_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_09",
+    "correlation_id": "corr-xpack_09"
+  }
+}

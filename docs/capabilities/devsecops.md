@@ -3,10 +3,13 @@
 **Version:** 3.0.0
 **Target Grade:** A (>=90%)
 **Status:** Implemented
+**Phase:** 7
+**RFC:** [RFC-0040](docs/rfcs/RFC-0040-devsecops.md)
+**ADR:** [ADR-020](docs/adr/ADR-020-devsecops.md)
 
 ## Ringkasan
 
-DevSecOps provides advanced capabilities for platform observability and governance.
+DevSecOps Capability Pack mengintegrasikan keamanan ke dalam pipeline CI/CD dengan security gates yang otomatis, dependency vulnerability scanning, dan runtime policy enforcement. Pack ini memindai supply chain dependensi, memutuskan konsekuensi keamanan secara real-time, dan mencegah deployment yang tidak aman sebelum mencapai production environment.
 
 ## Kemampuan Inti
 

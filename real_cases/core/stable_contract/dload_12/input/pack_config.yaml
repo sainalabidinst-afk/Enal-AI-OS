@@ -1,0 +1,6 @@
+capability_pack:
+  id: business_analyst
+  version: "1.0.0"
+  display_name: Business Analyst
+  description: Real case dload_12 for dynamic_load
+  category: dynamic_load

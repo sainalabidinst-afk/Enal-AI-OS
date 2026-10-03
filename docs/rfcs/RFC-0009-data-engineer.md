@@ -430,59 +430,59 @@ real_cases/data_engineer/<case_id>/
 Definition of Done — Data Engineer Capability Pack
 
 Functional
-- [ ] ETL Pipeline extracts from CSV, JSON, API, and database sources
-- [ ] ELT Pipeline supports transform-after-load patterns
-- [ ] Data Cleaning handles missing values, duplicates, outliers, and invalid formats
-- [ ] Dataset Validation checks completeness, uniqueness, validity, freshness, consistency
-- [ ] Schema Evolution detects column type changes, additions, removals
-- [ ] Feature Engineering generates derived features from raw data
-- [ ] Time Series Handling aligns, interpolates, and resamples time-series data
-- [ ] Data Quality Assurance produces measurable quality metrics
+- [x] ETL Pipeline extracts from CSV, JSON, API, and database sources
+- [x] ELT Pipeline supports transform-after-load patterns
+- [x] Data Cleaning handles missing values, duplicates, outliers, and invalid formats
+- [x] Dataset Validation checks completeness, uniqueness, validity, freshness, consistency
+- [x] Schema Evolution detects column type changes, additions, removals
+- [x] Feature Engineering generates derived features from raw data
+- [x] Time Series Handling aligns, interpolates, and resamples time-series data
+- [x] Data Quality Assurance produces measurable quality metrics
 
 Benchmark
-- [ ] Data Cleaning Accuracy ≥ 95% (grade A)
-- [ ] Dataset Validation Rate ≥ 98%
-- [ ] Schema Drift Detection ≥ 90%
-- [ ] Quality Coverage ≥ 95%
-- [ ] Time Series Integrity ≥ 95%
-- [ ] Feature Consistency ≥ 95%
-- [ ] Explainability ≥ 90%
-- [ ] Efficiency: P95 < 3000ms for 10K rows
+- [x] Data Cleaning Accuracy ≥ 95% (grade A)
+- [x] Dataset Validation Rate ≥ 98%
+- [x] Schema Drift Detection ≥ 90%
+- [x] Quality Coverage ≥ 95%
+- [x] Time Series Integrity ≥ 95%
+- [x] Feature Consistency ≥ 95%
+- [x] Explainability ≥ 90%
+- [x] Efficiency: P95 < 3000ms for 10K rows
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/data_engineer/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with missing values remediation
-- [ ] ≥ 5 cases with time series gap handling
-- [ ] ≥ 5 cases with schema drift detection
-- [ ] ≥ 10 cases with feature engineering
+- [x] ≥ 20 real cases logged in real_cases/data_engineer/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with missing values remediation
+- [x] ≥ 5 cases with time series gap handling
+- [x] ≥ 5 cases with schema drift detection
+- [x] ≥ 10 cases with feature engineering
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Data Engineer section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Data Engineer section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Data Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Data Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for 10K row datasets
-- [ ] Latency P95 < 10000ms for 100K row datasets
+- [x] Latency P95 < 3000ms for 10K row datasets
+- [x] Latency P95 < 10000ms for 100K row datasets
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Data processing does not persist sensitive data beyond workspace scope
+- [x] No known P0/P1 security issues
+- [x] Data processing does not persist sensitive data beyond workspace scope
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

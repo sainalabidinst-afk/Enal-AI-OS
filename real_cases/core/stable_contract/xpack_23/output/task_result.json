@@ -1,0 +1,34 @@
+{
+  "task_id": "task-xpack_23",
+  "intent": "cybersecurity_analyst.threat",
+  "status": "success",
+  "result": {
+    "output_type": "analysis",
+    "payload": {
+      "case_id": "xpack_23",
+      "category": "cross_pack"
+    },
+    "artifacts": [],
+    "confidence_score": 0.95
+  },
+  "events_emitted": [
+    {
+      "event_type": "pipeline.stage.started",
+      "payload": {
+        "stage": "perception"
+      },
+      "timestamp": "2026-10-02"
+    },
+    {
+      "event_type": "pipeline.started",
+      "payload": {},
+      "timestamp": "2026-10-02"
+    }
+  ],
+  "metrics": {
+    "latency_ms": 56.5,
+    "tokens_used": 150,
+    "memory_mb": 128.0
+  },
+  "error": null
+}

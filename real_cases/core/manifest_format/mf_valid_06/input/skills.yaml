@@ -1,0 +1,35 @@
+capability_pack:
+  id: "full_stack_engineer"
+  version: "1.0.0"
+  display_name: "Full Stack Engineer"
+  description: "Capability Pack manifest for Full Stack Engineer"
+  entry_point: "apps.full_stack_engineer.engine.FullStackEngineerEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "full_stack_engineer.main"
+      name: "Primary Capability"
+      description: "Main capability for Full Stack Engineer"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "full_stack_engineer.parse"
+    - stage: "process"
+      capability: "full_stack_engineer.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/full_stack_engineer"

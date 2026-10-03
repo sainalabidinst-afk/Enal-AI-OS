@@ -1,0 +1,35 @@
+capability_pack:
+  id: "voice_interaction"
+  version: "1.0.0"
+  display_name: "Voice Interaction"
+  description: "Capability Pack manifest for Voice Interaction"
+  entry_point: "apps.voice_interaction.engine.VoiceInteractionEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "voice_interaction.main"
+      name: "Primary Capability"
+      description: "Main capability for Voice Interaction"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "voice_interaction.parse"
+    - stage: "process"
+      capability: "voice_interaction.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/voice_interaction"

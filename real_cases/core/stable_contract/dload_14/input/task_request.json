@@ -1,0 +1,18 @@
+{
+  "task_id": "task-dload_14",
+  "intent": "infrastructure_engineer.load",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Infrastructure Engineer"
+  },
+  "capabilities_required": [
+    "infrastructure_engineer"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-dload_14",
+    "correlation_id": "corr-dload_14"
+  }
+}

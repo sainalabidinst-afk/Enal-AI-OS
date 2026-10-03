@@ -1,0 +1,18 @@
+{
+  "task_id": "task-xpack_22",
+  "intent": "hse_specialist.assess",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Hse_Specialist Assess"
+  },
+  "capabilities_required": [
+    "hse_specialist"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-xpack_22",
+    "correlation_id": "corr-xpack_22"
+  }
+}

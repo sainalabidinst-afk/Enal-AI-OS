@@ -421,59 +421,59 @@ real_cases/security_engineer/<case_id>/
 Definition of Done — Security Engineer Capability Pack
 
 Functional
-- [ ] OWASP Top 10 Analysis detects all 10 categories in code and configs
-- [ ] Threat Modeling produces STRIDE analysis with trust boundaries and data flows
-- [ ] Secret Detection identifies hardcoded credentials, API keys, tokens
-- [ ] Vulnerability Analysis detects known CVEs in application code
-- [ ] Dependency Audit covers pip, npm, Go, and Maven dependencies
-- [ ] Security Review produces prioritized findings with remediation
-- [ ] Configuration Hardening provides CIS-aligned recommendations
-- [ ] Compliance Mapping maps findings to SOC 2, ISO 27001, HIPAA, PCI-DSS
+- [x] OWASP Top 10 Analysis detects all 10 categories in code and configs
+- [x] Threat Modeling produces STRIDE analysis with trust boundaries and data flows
+- [x] Secret Detection identifies hardcoded credentials, API keys, tokens
+- [x] Vulnerability Analysis detects known CVEs in application code
+- [x] Dependency Audit covers pip, npm, Go, and Maven dependencies
+- [x] Security Review produces prioritized findings with remediation
+- [x] Configuration Hardening provides CIS-aligned recommendations
+- [x] Compliance Mapping maps findings to SOC 2, ISO 27001, HIPAA, PCI-DSS
 
 Benchmark
-- [ ] Detection Rate ≥ 95% (grade A-)
-- [ ] False Positive Rate < 5%
-- [ ] Threat Coverage ≥ 90%
-- [ ] Secret Detection ≥ 95%
-- [ ] Dependency CVE Coverage ≥ 90%
-- [ ] Compliance Mapping ≥ 95%
-- [ ] Explainability ≥ 90%
-- [ ] Consistency ≥ 90%
+- [x] Detection Rate ≥ 95% (grade A-)
+- [x] False Positive Rate < 5%
+- [x] Threat Coverage ≥ 90%
+- [x] Secret Detection ≥ 95%
+- [x] Dependency CVE Coverage ≥ 90%
+- [x] Compliance Mapping ≥ 95%
+- [x] Explainability ≥ 90%
+- [x] Consistency ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/security_engineer/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with secret exposure findings
-- [ ] ≥ 5 cases with dependency CVE findings
-- [ ] ≥ 10 cases with compliance mapping
-- [ ] ≥ 10 cases with threat modeling
+- [x] ≥ 20 real cases logged in real_cases/security_engineer/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with secret exposure findings
+- [x] ≥ 5 cases with dependency CVE findings
+- [x] ≥ 10 cases with compliance mapping
+- [x] ≥ 10 cases with threat modeling
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Security Engineer section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Security Engineer section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Security Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Security Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for standard assessments
-- [ ] Latency P95 < 8000ms for full architecture review
+- [x] Latency P95 < 3000ms for standard assessments
+- [x] Latency P95 < 8000ms for full architecture review
 
 Security
-- [ ] No known P0/P1 security issues in the pack itself
-- [ ] Security assessments do not execute payloads or exploit vulnerabilities
+- [x] No known P0/P1 security issues in the pack itself
+- [x] Security assessments do not execute payloads or exploit vulnerabilities
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

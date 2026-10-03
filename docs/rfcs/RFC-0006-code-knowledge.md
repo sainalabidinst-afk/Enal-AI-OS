@@ -554,63 +554,63 @@ real_cases/code/<case_id>/
 Definition of Done — Code Engineer Knowledge Expansion RFC
 
 Functional
-- [ ] Clean Architecture Design produces layered architecture with dependency rules
-- [ ] DDD Modeling produces bounded contexts, aggregates, domain events
-- [ ] SOLID Review detects all 5 principle violations
-- [ ] CQRS Design produces command/query separation with event sourcing
-- [ ] Event Sourcing Design produces event store schema with replay
-- [ ] Secure Code Generation produces OWASP Top 10 compliant code
-- [ ] Code Review produces violation report with refactoring suggestions
+- [x] Clean Architecture Design produces layered architecture with dependency rules
+- [x] DDD Modeling produces bounded contexts, aggregates, domain events
+- [x] SOLID Review detects all 5 principle violations
+- [x] CQRS Design produces command/query separation with event sourcing
+- [x] Event Sourcing Design produces event store schema with replay
+- [x] Secure Code Generation produces OWASP Top 10 compliant code
+- [x] Code Review produces violation report with refactoring suggestions
 
 Benchmark
-- [ ] Clean Architecture Accuracy ≥ 95% (grade A)
-- [ ] DDD Accuracy ≥ 90%
-- [ ] SOLID Review Accuracy ≥ 95%
-- [ ] CQRS Accuracy ≥ 90%
-- [ ] Event Sourcing Accuracy ≥ 90%
-- [ ] Secure Coding Accuracy ≥ 95%
-- [ ] Code Quality ≥ 90%
-- [ ] Explainability ≥ 90%
-- [ ] Consistency ≥ 95%
+- [x] Clean Architecture Accuracy ≥ 95% (grade A)
+- [x] DDD Accuracy ≥ 90%
+- [x] SOLID Review Accuracy ≥ 95%
+- [x] CQRS Accuracy ≥ 90%
+- [x] Event Sourcing Accuracy ≥ 90%
+- [x] Secure Coding Accuracy ≥ 95%
+- [x] Code Quality ≥ 90%
+- [x] Explainability ≥ 90%
+- [x] Consistency ≥ 95%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 100 real cases logged in real_cases/code/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 20 cases with Clean Architecture design
-- [ ] ≥ 15 cases with DDD modeling
-- [ ] ≥ 20 cases with SOLID review
-- [ ] ≥ 10 cases with CQRS design
-- [ ] ≥ 10 cases with Event Sourcing design
-- [ ] ≥ 20 cases with secure code generation
-- [ ] ≥ 15 cases with refactoring
-- [ ] ≥ 20 cases with expert review
+- [x] ≥ 100 real cases logged in real_cases/code/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 20 cases with Clean Architecture design
+- [x] ≥ 15 cases with DDD modeling
+- [x] ≥ 20 cases with SOLID review
+- [x] ≥ 10 cases with CQRS design
+- [x] ≥ 10 cases with Event Sourcing design
+- [x] ≥ 20 cases with secure code generation
+- [x] ≥ 15 cases with refactoring
+- [x] ≥ 20 cases with expert review
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Code Engineer section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Code Engineer section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Code Engineer callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Code Engineer callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for standard code generation
-- [ ] Latency P95 < 8000ms for multi-module architecture design
+- [x] Latency P95 < 3000ms for standard code generation
+- [x] Latency P95 < 8000ms for multi-module architecture design
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated code passes static analysis (pylint, mypy, eslint)
+- [x] No known P0/P1 security issues
+- [x] Generated code passes static analysis (pylint, mypy, eslint)
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

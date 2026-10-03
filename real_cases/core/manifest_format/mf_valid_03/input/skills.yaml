@@ -1,0 +1,35 @@
+capability_pack:
+  id: "devops_assistant"
+  version: "1.0.0"
+  display_name: "DevOps Assistant"
+  description: "Capability Pack manifest for DevOps Assistant"
+  entry_point: "apps.devops_assistant.engine.DevOpsAssistantEngine"
+  category: "engineering"
+  maturity_level: 3
+  quality_target: "A+"
+
+  capabilities:
+    - id: "devops_assistant.main"
+      name: "Primary Capability"
+      description: "Main capability for DevOps Assistant"
+      input_schema: "TaskIntentRequest"
+      output_schema: "TaskResult"
+
+  dependencies:
+    capabilities:
+      - id: "execution_runtime"
+        version: ">=1.0.0"
+      - id: "shared_contract"
+        version: ">=1.0.0"
+        optional: true
+
+  pipeline:
+    - stage: "parse"
+      capability: "devops_assistant.parse"
+    - stage: "process"
+      capability: "devops_assistant.process"
+
+  metadata:
+    author: "ECP Core Team"
+    license: "MIT"
+    repository: "https://github.com/enal-ai-os/devops_assistant"

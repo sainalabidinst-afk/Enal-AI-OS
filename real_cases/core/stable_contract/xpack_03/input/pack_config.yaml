@@ -1,0 +1,6 @@
+capability_pack:
+  id: trading_analyst
+  version: "1.0.0"
+  display_name: Trading_Analyst Analysis
+  description: Real case xpack_03 for cross_pack
+  category: cross_pack

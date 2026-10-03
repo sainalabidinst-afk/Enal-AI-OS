@@ -1,0 +1,18 @@
+{
+  "task_id": "task-app_05",
+  "intent": "base_app.5",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: BaseApp Implementation 5"
+  },
+  "capabilities_required": [
+    "base_app"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-app_05",
+    "correlation_id": "corr-app_05"
+  }
+}

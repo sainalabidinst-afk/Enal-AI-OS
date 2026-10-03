@@ -1,0 +1,6 @@
+capability_pack:
+  id: ai_ethics_governance
+  version: "1.0.0"
+  display_name: Ai_Ethics_Governance Audit
+  description: Real case xpack_24 for cross_pack
+  category: cross_pack

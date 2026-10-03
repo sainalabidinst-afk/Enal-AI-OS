@@ -1,0 +1,6 @@
+capability_pack:
+  id: devops_assistant
+  version: "1.0.0"
+  display_name: DevOps Assistant
+  description: Real case dload_06 for dynamic_load
+  category: dynamic_load

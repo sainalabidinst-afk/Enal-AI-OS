@@ -222,7 +222,7 @@ Benchmark
 - [ ] Entity resolution ≥ 90%
 - [ ] Edge precision ≥ 80%
 - [ ] Inference accuracy ≥ 85%
-- [ ] Graph update latency < 30 seconds
+- [x] Graph update latency < 30 seconds
 
 Golden Tests
 - [ ] 10 skenario golden test lulus pada ≥90%
@@ -239,7 +239,7 @@ Real Cases
 
 Documentation
 - [ ] docs/capabilities/cross-domain-graph.md
-- [ ] API reference / contract
+- [x] API reference / contract
 - [ ] Integration guide
 ```
 

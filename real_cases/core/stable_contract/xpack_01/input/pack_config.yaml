@@ -1,0 +1,6 @@
+capability_pack:
+  id: code_engineer
+  version: "1.0.0"
+  display_name: Code_Engineer Generate
+  description: Real case xpack_01 for cross_pack
+  category: cross_pack

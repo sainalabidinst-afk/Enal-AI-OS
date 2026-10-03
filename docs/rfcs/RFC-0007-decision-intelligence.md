@@ -426,54 +426,54 @@ real_cases/decision_intelligence/<case_id>/
 Definition of Done — Decision Intelligence Capability Pack
 
 Functional
-- [ ] Evidence Collection accepts evidence from ≥3 source types (analysis, recommendation, data, benchmark, historical)
-- [ ] Alternative Generation produces ≥2 viable alternatives for any decision context
-- [ ] Risk Analysis produces probability × impact score per alternative with ≥3 risk factor categories
-- [ ] Trade-off Analysis supports ≥3 simultaneous objectives with weighted scoring
-- [ ] Decision Scoring ranks alternatives and produces a recommended decision
-- [ ] Confidence Estimation produces 0–100% confidence with uncertainty bounds
-- [ ] Explainable Decision produces full evidence→reasoning→simulation→alternatives→risk→decision→rationale chain
-- [ ] Decision History records every decision to Experience Memory
+- [x] Evidence Collection accepts evidence from ≥3 source types (analysis, recommendation, data, benchmark, historical)
+- [x] Alternative Generation produces ≥2 viable alternatives for any decision context
+- [x] Risk Analysis produces probability × impact score per alternative with ≥3 risk factor categories
+- [x] Trade-off Analysis supports ≥3 simultaneous objectives with weighted scoring
+- [x] Decision Scoring ranks alternatives and produces a recommended decision
+- [x] Confidence Estimation produces 0–100% confidence with uncertainty bounds
+- [x] Explainable Decision produces full evidence→reasoning→simulation→alternatives→risk→decision→rationale chain
+- [x] Decision History records every decision to Experience Memory
 
 Benchmark
-- [ ] Benchmark score ≥ 90% (grade A) across all 13 standard dimensions + confidence calibration
-- [ ] Decision accuracy ≥ 90%
-- [ ] Explainability ≥ 95%
-- [ ] Consistency ≥ 90%
-- [ ] Confidence calibration within ±5%
+- [x] Benchmark score ≥ 90% (grade A) across all 13 standard dimensions + confidence calibration
+- [x] Decision accuracy ≥ 90%
+- [x] Explainability ≥ 95%
+- [x] Consistency ≥ 90%
+- [x] Confidence calibration within ±5%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 20 real cases logged in real_cases/decision_intelligence/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 5 cases with decision revision history
-- [ ] ≥ 5 cases with rollback recommendations
+- [x] ≥ 20 real cases logged in real_cases/decision_intelligence/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 5 cases with decision revision history
+- [x] ≥ 5 cases with rollback recommendations
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Decision Intelligence section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Decision Intelligence section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Decision Intelligence callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Decision Intelligence callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 2000ms for standard scenarios
-- [ ] Latency P95 < 5000ms for multi-source evidence scenarios
+- [x] Latency P95 < 2000ms for standard scenarios
+- [x] Latency P95 < 5000ms for multi-source evidence scenarios
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Decision explanations do not leak sensitive evidence payloads
+- [x] No known P0/P1 security issues
+- [x] Decision explanations do not leak sensitive evidence payloads
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

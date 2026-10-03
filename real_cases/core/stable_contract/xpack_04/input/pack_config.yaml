@@ -1,0 +1,6 @@
+capability_pack:
+  id: cloud_architect
+  version: "1.0.0"
+  display_name: Cloud_Architect Design
+  description: Real case xpack_04 for cross_pack
+  category: cross_pack

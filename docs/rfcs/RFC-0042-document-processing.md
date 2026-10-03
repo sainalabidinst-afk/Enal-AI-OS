@@ -395,53 +395,53 @@ real_cases/document_processing/<case_id>/
 Definition of Done — Document Processing Capability Pack
 
 Functional
-- [ ] Document Read parses DOCX/XLSX/PPTX/PDF (text, tables, slides, metadata)
-- [ ] Document Edit modifies text, tables, metadata
-- [ ] Document Produce generates new DOCX/XLSX/PPTX/PDF
-- [ ] Document Convert converts Word→PDF, PPTX→PDF, Excel→CSV
-- [ ] Document Annotate adds comments, highlights, watermarks
-- [ ] Batch Processing processes multiple documents with parallelism
+- [x] Document Read parses DOCX/XLSX/PPTX/PDF (text, tables, slides, metadata)
+- [x] Document Edit modifies text, tables, metadata
+- [x] Document Produce generates new DOCX/XLSX/PPTX/PDF
+- [x] Document Convert converts Word→PDF, PPTX→PDF, Excel→CSV
+- [x] Document Annotate adds comments, highlights, watermarks
+- [x] Batch Processing processes multiple documents with parallelism
 
 Benchmark
-- [ ] Document Parsing ≥ 95%
-- [ ] Document Editing ≥ 95%
-- [ ] Format Conversion ≥ 90%
-- [ ] PDF Operations ≥ 90%
-- [ ] Safety Boundary ≥ 100% (lazy import, 0 cross-pack imports)
-- [ ] Explainability ≥ 90%
+- [x] Document Parsing ≥ 95%
+- [x] Document Editing ≥ 95%
+- [x] Format Conversion ≥ 90%
+- [x] PDF Operations ≥ 90%
+- [x] Safety Boundary ≥ 100% (lazy import, 0 cross-pack imports)
+- [x] Explainability ≥ 90%
 
 Golden Tests
 - [ ] All 10 pack golden test scenarios pass at ≥90% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 10 real cases logged in real_cases/document_processing/
-- [ ] Evaluation notes recorded for each case
+- [x] ≥ 10 real cases logged in real_cases/document_processing/
+- [x] Evaluation notes recorded for each case
 
 Documentation
-- [ ] Capability Guide updated (document-processing.md)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (document-processing.md)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Document Processing callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Document Processing callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 5000ms for standard document read
-- [ ] Latency P95 < 10000ms for document conversion
-- [ ] Batch throughput ≥ 5 documents/second
+- [x] Latency P95 < 5000ms for standard document read
+- [x] Latency P95 < 10000ms for document conversion
+- [x] Batch throughput ≥ 5 documents/second
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated documents do not expose secrets or credentials
-- [ ] All optional dependencies are lazily imported (100% compliance)
+- [x] No known P0/P1 security issues
+- [x] Generated documents do not expose secrets or credentials
+- [x] All optional dependencies are lazily imported (100% compliance)
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---
@@ -534,6 +534,4 @@ Document Processing adalah **Capability Pack baru** yang mengikuti pola yang sud
 | Release | Target | Isi |
 |---------|--------|-----|
 | v3.0.0-rc1 | Q4 2026 | 35 packs Grade A, benchmarks passing |
-| v3.0.0 | 2026-10-02 | DevSecOps + Translator Expert |
-| **v3.0.1** | 2026-10 | **Document Processing Pack (RFC-0042)** |
-| v3.1.0 | 2027-Q1 | Release Candidate — All 36 packs complete |
+| **v3.0.0** | 2026-10-02 | **Production Release — 37 packs complete (DevSecOps + Translator Expert + Document Processing + Voice Interaction)** |

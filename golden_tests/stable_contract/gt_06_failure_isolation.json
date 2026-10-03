@@ -1,0 +1,43 @@
+{
+  "scenario_id": "gt_06_failure_isolation",
+  "title": "Pack failure isolation",
+  "description": "When a pack fails, the core and other packs continue running.",
+  "rfc_reference": "RFC-0001 §Pernyataan Masalah #5, §Tujuan #6",
+  "category": "resilience",
+  "expected_behavior": "Pipeline failure in one stage stops only that pipeline. The Event Bus isolates handler errors. The factory registry returns None for failed packs without crashing.",
+  "acceptance_criteria": {
+    "isolation": ">= 90% isolasi kegagalan"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "register a pack whose handler raises an exception",
+      "expected": "handler registered"
+    },
+    {
+      "step": 2,
+      "action": "execute pipeline with failing handler",
+      "expected": "TaskResult.status == 'failure', error populated"
+    },
+    {
+      "step": 3,
+      "action": "execute a separate pipeline with successful handler",
+      "expected": "TaskResult.status == 'success'"
+    },
+    {
+      "step": 4,
+      "action": "register a bad event handler that raises",
+      "expected": "bad handler error logged, other handlers still receive event"
+    },
+    {
+      "step": 5,
+      "action": "attempt to load a pack that doesn't exist",
+      "expected": "None returned, no crash"
+    }
+  ],
+  "golden_output": {
+    "pipeline_failure_isolated": true,
+    "event_handler_error_isolated": true,
+    "core_remains_operational": true
+  }
+}

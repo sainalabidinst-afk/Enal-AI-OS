@@ -1,0 +1,6 @@
+capability_pack:
+  id: security_engineer
+  version: "1.0.0"
+  display_name: Security Engineer
+  description: Real case dload_05 for dynamic_load
+  category: dynamic_load

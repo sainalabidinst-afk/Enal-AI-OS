@@ -1,0 +1,6 @@
+capability_pack:
+  id: infrastructure_engineer
+  version: "1.0.0"
+  display_name: Infrastructure Engineer
+  description: Real case dload_14 for dynamic_load
+  category: dynamic_load

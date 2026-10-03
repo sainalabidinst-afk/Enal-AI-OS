@@ -1,0 +1,45 @@
+{
+  "scenario_id": "gt_01_baseapp_contract",
+  "title": "Pack implements BaseApp contract",
+  "description": "Every Capability Pack must implement all abstract BaseApp methods.",
+  "rfc_reference": "RFC-0001 §2.3 BaseApp Contract",
+  "category": "contract",
+  "expected_behavior": "A pack extending BaseApp must implement all abstract methods (get_capabilities, execute, validate_input). Optional hooks (register_event_handlers, shutdown) have no-op defaults.",
+  "acceptance_criteria": {
+    "contract_compliance": "All required methods implemented",
+    "passing_threshold": "100% kontrak dipenuhi"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "import BaseApp from backend.app.core.base_app",
+      "expected": "BaseApp is an ABC with abstract methods"
+    },
+    {
+      "step": 2,
+      "action": "attempt to instantiate BaseApp directly",
+      "expected": "TypeError raised"
+    },
+    {
+      "step": 3,
+      "action": "create a concrete subclass with all abstract methods implemented",
+      "expected": "Instantiation succeeds"
+    },
+    {
+      "step": 4,
+      "action": "create a subclass missing one abstract method",
+      "expected": "TypeError raised at instantiation"
+    },
+    {
+      "step": 5,
+      "action": "validate a real pack class via ContractValidator.validate_baseapp",
+      "expected": "ComplianceReport.passes is True for a valid pack"
+    }
+  ],
+  "golden_output": {
+    "abstract_instantiation_raises": true,
+    "partial_implementation_raises": true,
+    "full_implementation_succeeds": true,
+    "contract_compliance_100pct": true
+  }
+}

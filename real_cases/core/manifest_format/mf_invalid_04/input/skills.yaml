@@ -1,0 +1,6 @@
+capability_pack:
+  id: "test_pack"
+  version: "1.0.0"
+  display_name: "Type Error"
+  maturity_level: "not_a_number"
+  capabilities: []

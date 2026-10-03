@@ -1,0 +1,16 @@
+[
+  {
+    "event_type": "pipeline.stage.started",
+    "payload": {
+      "stage": "perception"
+    },
+    "trace_id": "trace-xpack_23",
+    "timestamp": "2026-10-02"
+  },
+  {
+    "event_type": "pipeline.started",
+    "payload": {},
+    "trace_id": "trace-xpack_23",
+    "timestamp": "2026-10-02"
+  }
+]

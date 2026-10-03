@@ -1,0 +1,6 @@
+capability_pack:
+  id: code_engineer
+  version: "1.0.0"
+  display_name: Pipeline Stage Crash
+  description: Real case fail_failure_01 for failure_pipeline
+  category: failure_pipeline

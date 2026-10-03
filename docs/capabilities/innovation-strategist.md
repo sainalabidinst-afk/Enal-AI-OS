@@ -3,10 +3,13 @@
 **Version:** 2.9.0
 **Target Grade:** A (>=90%)
 **Status:** Implemented
+**Phase:** 7
+**RFC:** [RFC-0039](docs/rfcs/RFC-0039-innovation-strategist.md)
+**ADR:** [ADR-019](docs/adr/ADR-019-innovation-strategist.md)
 
 ## Ringkasan
 
-Innovation Strategist provides advanced capabilities for platform observability and governance.
+Innovation Strategist Capability Pack menyediakan analisis tren pasar, perencanaan portfolio R&D, dan model skenario foresight untuk pengambilan keputusan inovasi jangka panjang. Pack ini menggabungkan intelligence dari sumber eksternal, mengidentifikasi peluang inovasi yang dapat dieksekusi, dan menghasilkan roadmap inovasi yang terukur.
 
 ## Kemampuan Inti
 

@@ -1,0 +1,6 @@
+capability_pack:
+  id: finance_analyst
+  version: "1.0.0"
+  display_name: Finance_Analyst Model
+  description: Real case xpack_20 for cross_pack
+  category: cross_pack

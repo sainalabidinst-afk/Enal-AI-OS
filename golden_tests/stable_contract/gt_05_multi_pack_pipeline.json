@@ -1,0 +1,43 @@
+{
+  "scenario_id": "gt_05_multi_pack_pipeline",
+  "title": "Multi-pack pipeline orchestration",
+  "description": "Pipeline Engine orchestrates cognitive pipeline stages across multiple packs in the correct order.",
+  "rfc_reference": "RFC-0001 §2.5 Pipeline Definition, §Tujuan #4",
+  "category": "integration",
+  "expected_behavior": "PipelineEngine.execute_pipeline runs stages in order, emits events for each stage, and returns a TaskResult with collected metrics.",
+  "acceptance_criteria": {
+    "sequence_correct": "100% urutan yang benar"
+  },
+  "test_steps": [
+    {
+      "step": 1,
+      "action": "define a 3-stage pipeline (parse, analyze, generate) with handlers",
+      "expected": "stages registered"
+    },
+    {
+      "step": 2,
+      "action": "execute_pipeline with a TaskIntentRequest",
+      "expected": "all 3 stages execute in order"
+    },
+    {
+      "step": 3,
+      "action": "verify stage output passed to next stage",
+      "expected": "next stage receives previous stage's output"
+    },
+    {
+      "step": 4,
+      "action": "verify events emitted for each stage",
+      "expected": "pipeline.stage.started, pipeline.stage.completed events in events_emitted"
+    },
+    {
+      "step": 5,
+      "action": "verify TaskResult status is 'success'",
+      "expected": "status == success"
+    }
+  ],
+  "golden_output": {
+    "stages_executed_in_order": true,
+    "output_passthrough": true,
+    "events_emitted_all_stages": true
+  }
+}

@@ -549,70 +549,70 @@ real_cases/trading/<case_id>/
 Definition of Done — Trading Analyst Knowledge Expansion RFC
 
 Functional
-- [ ] Wyckoff Analysis identifies accumulation/markup/distribution phases
-- [ ] ICT Analysis identifies FVG, order blocks, liquidity zones
-- [ ] SMC Analysis identifies smart money flow, premium/discount zones
-- [ ] Elliott Wave Analysis performs wave count and Fibonacci targets
-- [ ] Volume Profile Analysis identifies POC, VAH, VAL
-- [ ] Macro Analysis interprets economic indicators and Fed policy
-- [ ] Options Analysis interprets Greeks, IV, and unusual activity
-- [ ] Futures Analysis interprets term structure, basis, and COT
-- [ ] Psychology Analysis identifies cognitive biases and emotional risks
+- [x] Wyckoff Analysis identifies accumulation/markup/distribution phases
+- [x] ICT Analysis identifies FVG, order blocks, liquidity zones
+- [x] SMC Analysis identifies smart money flow, premium/discount zones
+- [x] Elliott Wave Analysis performs wave count and Fibonacci targets
+- [x] Volume Profile Analysis identifies POC, VAH, VAL
+- [x] Macro Analysis interprets economic indicators and Fed policy
+- [x] Options Analysis interprets Greeks, IV, and unusual activity
+- [x] Futures Analysis interprets term structure, basis, and COT
+- [x] Psychology Analysis identifies cognitive biases and emotional risks
 
 Benchmark
-- [ ] Signal Accuracy ≥ 85% (grade A-)
-- [ ] Wyckoff Accuracy ≥ 85%
-- [ ] ICT Accuracy ≥ 85%
-- [ ] SMC Accuracy ≥ 85%
-- [ ] Elliott Wave Accuracy ≥ 80%
-- [ ] Volume Profile Accuracy ≥ 85%
-- [ ] Macro Accuracy ≥ 80%
-- [ ] Options Accuracy ≥ 80%
-- [ ] Futures Accuracy ≥ 80%
-- [ ] Explainability ≥ 85%
-- [ ] Consistency ≥ 85%
-- [ ] Risk Management ≥ 90%
+- [x] Signal Accuracy ≥ 85% (grade A-)
+- [x] Wyckoff Accuracy ≥ 85%
+- [x] ICT Accuracy ≥ 85%
+- [x] SMC Accuracy ≥ 85%
+- [x] Elliott Wave Accuracy ≥ 80%
+- [x] Volume Profile Accuracy ≥ 85%
+- [x] Macro Accuracy ≥ 80%
+- [x] Options Accuracy ≥ 80%
+- [x] Futures Accuracy ≥ 80%
+- [x] Explainability ≥ 85%
+- [x] Consistency ≥ 85%
+- [x] Risk Management ≥ 90%
 
 Golden Tests
-- [ ] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria (100% pass)
+- [x] All 10 pack golden test scenarios pass at ≥85% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 100 real cases logged in real_cases/trading/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 15 cases with Wyckoff analysis
-- [ ] ≥ 15 cases with ICT analysis
-- [ ] ≥ 15 cases with SMC analysis
-- [ ] ≥ 10 cases with Elliott Wave analysis
-- [ ] ≥ 10 cases with Volume Profile analysis
-- [ ] ≥ 10 cases with Macro analysis
-- [ ] ≥ 10 cases with Options analysis
-- [ ] ≥ 10 cases with Futures analysis
-- [ ] ≥ 10 cases with Psychology analysis
-- [ ] ≥ 20 cases with expert review
+- [x] ≥ 100 real cases logged in real_cases/trading/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 15 cases with Wyckoff analysis
+- [x] ≥ 15 cases with ICT analysis
+- [x] ≥ 15 cases with SMC analysis
+- [x] ≥ 10 cases with Elliott Wave analysis
+- [x] ≥ 10 cases with Volume Profile analysis
+- [x] ≥ 10 cases with Macro analysis
+- [x] ≥ 10 cases with Options analysis
+- [x] ≥ 10 cases with Futures analysis
+- [x] ≥ 10 cases with Psychology analysis
+- [x] ≥ 20 cases with expert review
 
 Documentation
-- [ ] Capability Guide updated (CAPABILITY_GUIDE.md — Trading Analyst section)
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Capability Guide updated (CAPABILITY_GUIDE.md — Trading Analyst section)
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] Pack accessible via SDK without Core changes
-- [ ] Trading Analyst callable via Execution Runtime task routing
+- [x] Pack accessible via SDK without Core changes
+- [x] Trading Analyst callable via Execution Runtime task routing
 
 Performance
-- [ ] Latency P95 < 3000ms for standard analysis
-- [ ] Latency P95 < 8000ms for multi-methodology analysis
+- [x] Latency P95 < 3000ms for standard analysis
+- [x] Latency P95 < 8000ms for multi-methodology analysis
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Generated signals do not expose proprietary methodology details
+- [x] No known P0/P1 security issues
+- [x] Generated signals do not expose proprietary methodology details
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---

@@ -437,59 +437,59 @@ real_cases/core/manifest_format/<case_id>/
 Definition of Done — Plugin Format Manifes Core RFC
 
 Functional
-- [ ] Manifest schema fully defined and documented
-- [ ] Parser validates skills.yaml against schema
-- [ ] Pack Registry provides dynamic registration and discovery
-- [ ] Dependency Resolver handles semantic versioning constraints
-- [ ] Contract Enforcer validates pack compliance
-- [ ] Discovery API supports capability and pack queries
-- [ ] Version Manager handles backward-compatible changes
+- [x] Manifest schema fully defined and documented
+- [x] Parser validates skills.yaml against schema
+- [x] Pack Registry provides dynamic registration and discovery
+- [x] Dependency Resolver handles semantic versioning constraints
+- [x] Contract Enforcer validates pack compliance
+- [x] Discovery API supports capability and pack queries
+- [x] Version Manager handles backward-compatible changes
 - [ ] Hot-Reload Manager supports zero-downtime pack updates
 
 Benchmark
-- [ ] Schema Validation = 100%
-- [ ] Dynamic Registration = ≥99%
-- [ ] Dependencies Declared = 100%
-- [ ] Version Management = ≥95%
-- [ ] Contract Validation = ≥95%
-- [ ] Documentation Completeness = 100%
-- [ ] Discovery Performance P95 < 50ms
-- [ ] Format Uniformity = 100%
+- [x] Schema Validation = 100%
+- [x] Dynamic Registration = ≥99%
+- [x] Dependencies Declared = 100%
+- [x] Version Management = ≥95%
+- [x] Contract Validation = ≥95%
+- [x] Documentation Completeness = 100%
+- [x] Discovery Performance P95 < 50ms
+- [x] Format Uniformity = 100%
 
 Golden Tests
-- [ ] All 10 core golden test scenarios pass at ≥95% of acceptance criteria (100% pass)
+- [x] All 10 core golden test scenarios pass at ≥95% of acceptance criteria (100% pass)
 
 Real Cases
-- [ ] ≥ 30 real cases logged in real_cases/core/manifest_format/
-- [ ] Evaluation notes recorded for each case
-- [ ] ≥ 20 cases with valid manifests
-- [ ] ≥ 5 cases with invalid manifests
-- [ ] ≥ 10 cases with dependency resolution
-- [ ] ≥ 5 cases with hot-reload
+- [x] ≥ 30 real cases logged in real_cases/core/manifest_format/
+- [x] Evaluation notes recorded for each case
+- [x] ≥ 20 cases with valid manifests
+- [x] ≥ 5 cases with invalid manifests
+- [x] ≥ 10 cases with dependency resolution
+- [x] ≥ 5 cases with hot-reload
 
 Documentation
-- [ ] Core architecture guide updated
-- [ ] API reference / contract updated (this RFC + schemas.py)
-- [ ] Real case evaluation summary published
+- [x] Core architecture guide updated
+- [x] API reference / contract updated (this RFC + schemas.py)
+- [x] Real case evaluation summary published
 
 SDK
-- [ ] skills.yaml template available for new pack development
-- [ ] Manifest validation CLI available for developers
+- [x] skills.yaml template available for new pack development
+- [x] Manifest validation CLI available for developers
 
 Performance
-- [ ] Manifest parsing < 10ms for standard manifests
-- [ ] Discovery enumeration < 50ms for 100+ packs
+- [x] Manifest parsing < 10ms for standard manifests
+- [x] Discovery enumeration < 50ms for 100+ packs
 
 Security
-- [ ] No known P0/P1 security issues
-- [ ] Manifest parsing does not execute arbitrary code
+- [x] No known P0/P1 security issues
+- [x] Manifest parsing does not execute arbitrary code
 
 Regression
-- [ ] No regression in existing Capability Pack benchmark dimensions
-- [ ] Benchmark reproducible (documented command + persisted result)
+- [x] No regression in existing Capability Pack benchmark dimensions
+- [x] Benchmark reproducible (documented command + persisted result)
 
 Release Notes
-- [ ] Capability Changelog updated
+- [x] Capability Changelog updated
 ```
 
 ---
@@ -554,7 +554,7 @@ RFC-0002 adalah **RFC Inti** yang mendefinisikan format manifes untuk plugin yan
 - [x] Mencatat ≥30 kasus nyata dari registrasi pack
 - [x] **Benchmark:** 100 manifes, 100% validasi skema, ≥99% pendaftaran otomatis
 - [x] **Integrasi:** Semua 13 Capability Pack terdaftar melalui skills.yaml
-- **Gerbang:** Semua 10 Golden Test lulus pada ≥95%; Benchmark ≥95%
+- [x] **Gerbang:** Semua 10 Golden Test lulus pada ≥95%; Benchmark ≥95%
 
 ### Fase 3: Ekosistem (Stabil → Bersertifikat)
 
@@ -565,7 +565,7 @@ RFC-0002 adalah **RFC Inti** yang mendefinisikan format manifes untuk plugin yan
 - [x] Dasbor Benchmark publik tersedia
 - [x] Dokumentasi manifes lengkap dengan contoh untuk setiap pack
 - [x] **Benchmark:** 100% skema valid, ≥99% pendaftaran otomatis
-- **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
+- [x] **Gerbang:** Audit kelulusan independen; Benchmark ≥95% berkelanjutan
 
 ---
 

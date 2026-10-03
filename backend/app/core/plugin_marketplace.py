@@ -2,7 +2,7 @@ import json
 import logging
 import os  # noqa: I001
 from dataclasses import dataclass, field
-from enum import StrEnum, Enum  # noqa: F401
+from enum import Enum, StrEnum  # noqa: F401
 from pathlib import Path
 from typing import Any
 
@@ -97,7 +97,11 @@ class PluginMarketplace:
                 data = json.loads(f.read_text(encoding="utf-8"))
                 manifest = PluginManifest.from_dict(data)
                 self._plugins[manifest.id] = manifest
-                if manifest.status == PluginStatus.INSTALLED if hasattr(PluginStatus, "INSTALLED") else manifest.status == PluginStatus.PUBLISHED:
+                if (
+                    manifest.status == PluginStatus.INSTALLED
+                    if hasattr(PluginStatus, "INSTALLED")
+                    else manifest.status == PluginStatus.PUBLISHED
+                ):
                     self._installed[manifest.id] = manifest.version
             except Exception as exc:
                 logger.warning("Failed to load plugin from %s: %s", f, exc)
@@ -105,7 +109,9 @@ class PluginMarketplace:
     def persist_plugin(self, manifest: PluginManifest) -> Path:
         self._plugins_dir.mkdir(parents=True, exist_ok=True)
         path = self._plugin_path(manifest.id)
-        path.write_text(json.dumps(manifest.to_dict(), indent=2, ensure_ascii=False), encoding="utf-8")
+        path.write_text(
+            json.dumps(manifest.to_dict(), indent=2, ensure_ascii=False), encoding="utf-8"
+        )
         logger.info("Persisted plugin manifest: %s -> %s", manifest.id, path)
         return path
 
@@ -168,7 +174,9 @@ class PluginMarketplace:
     def get_plugin(self, plugin_id: str) -> PluginManifest | None:
         return self._plugins.get(plugin_id)
 
-    def list_plugins(self, category: str | None = None, status: PluginStatus | None = None) -> list[PluginManifest]:  # noqa: E501
+    def list_plugins(
+        self, category: str | None = None, status: PluginStatus | None = None
+    ) -> list[PluginManifest]:  # noqa: E501
         plugins = list(self._plugins.values())
         if category:
             plugins = [p for p in plugins if p.category == category]
@@ -178,7 +186,13 @@ class PluginMarketplace:
 
     def search(self, query: str) -> list[PluginManifest]:
         query_lower = query.lower()
-        return [p for p in self._plugins.values() if query_lower in p.name.lower() or query_lower in p.description.lower() or query_lower in " ".join(p.tags).lower()]  # noqa: E501
+        return [
+            p
+            for p in self._plugins.values()
+            if query_lower in p.name.lower()
+            or query_lower in p.description.lower()
+            or query_lower in " ".join(p.tags).lower()
+        ]  # noqa: E501
 
     def get_installed(self) -> list[str]:
         return list(self._installed.keys())

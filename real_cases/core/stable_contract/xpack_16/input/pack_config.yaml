@@ -1,0 +1,6 @@
+capability_pack:
+  id: ui_ux_designer
+  version: "1.0.0"
+  display_name: Ui_Ux_Designer Mockup
+  description: Real case xpack_16 for cross_pack
+  category: cross_pack

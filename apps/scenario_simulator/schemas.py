@@ -41,6 +41,7 @@ class DistributionType(StrEnum):
     NORMAL = "normal"
     TRIANGULAR = "triangular"
     BETA = "beta"
+    LOGNORMAL = "lognormal"
 
 
 class OutcomeType(StrEnum):

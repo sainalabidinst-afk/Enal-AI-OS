@@ -1,0 +1,6 @@
+capability_pack:
+  id: documentation_engineer
+  version: "1.0.0"
+  display_name: Documentation_Engineer Document
+  description: Real case xpack_13 for cross_pack
+  category: cross_pack

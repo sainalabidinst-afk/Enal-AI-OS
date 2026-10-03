@@ -1,0 +1,6 @@
+capability_pack:
+  id: version
+  version: "1.0.0"
+  display_name: Version Mismatch
+  description: Real case fail_failure_09 for failure_version
+  category: failure_version

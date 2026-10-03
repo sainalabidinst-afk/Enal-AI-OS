@@ -1,0 +1,18 @@
+{
+  "task_id": "task-fail_failure_11",
+  "intent": "pipeline.missing.handler",
+  "context": {
+    "workspace_path": "/workspace",
+    "user_input": "Real case: Stage Handler Missing"
+  },
+  "capabilities_required": [
+    "pipeline"
+  ],
+  "priority": "normal",
+  "timeout_ms": 30000,
+  "metadata": {
+    "source": "real_case_recorder",
+    "trace_id": "trace-fail_failure_11",
+    "correlation_id": "corr-fail_failure_11"
+  }
+}

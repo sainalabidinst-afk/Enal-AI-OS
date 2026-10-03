@@ -1,0 +1,7 @@
+{
+  "expected_types": [
+    "pipeline.stage.started",
+    "pipeline.started"
+  ],
+  "expected_trace_id": "trace-dload_14"
+}

@@ -1,0 +1,6 @@
+capability_pack:
+  id: data_engineer
+  version: "1.0.0"
+  display_name: Data_Engineer Pipeline
+  description: Real case xpack_09 for cross_pack
+  category: cross_pack
