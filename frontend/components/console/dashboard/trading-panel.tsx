@@ -6,15 +6,8 @@ import { Panel, PanelBody, PanelHeader } from "@/components/console/ui/panel";
 import { Toggle, Field } from "@/components/console/ui/controls";
 import { useToast } from "@/components/ui/toast";
 import { useConsolePreferences } from "@/store/console-settings-store";
-import {
-  startLiveFeed,
-  stopLiveFeed,
-  getFeedStatus,
-  getLiveRegime,
-  analyzeMarket,
-  type MarketRegimeLive,
-  type FeedStatusResponse,
-} from "@/services/trading";
+import { startLiveFeed, stopLiveFeed, getFeedStatus, getLiveRegime } from "@/services/trading";
+import type { MarketRegimeLive, FeedStatusResponse } from "@/types/trading";
 
 const DEFAULT_SYMBOL = "BTCUSDT";
 const DEFAULT_TIMEFRAMES = ["15m", "1h", "4h", "1d"];

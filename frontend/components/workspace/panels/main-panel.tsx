@@ -49,11 +49,11 @@ export function MainPanel({ app, children, className }: MainPanelProps) {
   };
 
   return (
-    <main className={cn("flex h-full flex-col overflow-hidden bg-[var(--color-bg-primary)]", className)}>
+    <main className={cn("flex h-full min-w-0 flex-1 flex-col overflow-hidden bg-[var(--color-bg-primary)]", className)}>
       {children ? (
-        <div className="flex-1 overflow-hidden">{children}</div>
+        <div className="min-h-0 min-w-0 flex-1 overflow-hidden">{children}</div>
       ) : (
-        <div className="flex-1 overflow-hidden">
+        <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
           <AIChatPanel
             title={app ? `${app.charAt(0).toUpperCase() + app.slice(1)} Assistant` : "AI Assistant"}
             messages={messages}

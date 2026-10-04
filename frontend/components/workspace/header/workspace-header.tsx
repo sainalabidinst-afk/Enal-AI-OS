@@ -30,7 +30,7 @@ export function WorkspaceHeader({
 
   return (
     <header className="flex h-12 shrink-0 items-center justify-between gap-3 border-b border-[var(--color-border)] bg-[var(--color-surface)] px-4">
-      <div className="flex items-center gap-4">
+      <div className="flex min-w-0 items-center gap-4 overflow-hidden">
         <button
           onClick={() => router.push("/dashboard")}
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
@@ -62,7 +62,7 @@ export function WorkspaceHeader({
         <Breadcrumb />
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-3">
         <WorkspaceSearch />
         <Button
           variant="ghost"

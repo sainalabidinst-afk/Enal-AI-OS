@@ -55,8 +55,10 @@ export interface MarketRegimeLive {
   confidence: number;
   volatility: string;
   trend_strength: number;
-  source: string;
+  source?: string;
   timestamp?: number;
+  metadata?: Record<string, unknown>;
+  error?: string;
 }
 
 export interface FeedStatusResponse {
@@ -66,4 +68,18 @@ export interface FeedStatusResponse {
   last_update: number;
   error_count: number;
   fallback_active: boolean;
+  metadata?: Record<string, unknown>;
+}
+
+export interface FeedTick {
+  symbol: string;
+  regime: MarketRegimeLive;
+  feed: FeedStatusResponse;
+  sequence: number;
+  emitted_at: number;
+}
+
+export interface FeedTickEnvelope {
+  success: boolean;
+  data: FeedTick;
 }

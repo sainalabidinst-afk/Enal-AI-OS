@@ -9,6 +9,8 @@ import * as environmentApi from "@/services/console/environment";
 import * as builderApi from "@/services/console/builder";
 import * as settingsApi from "@/services/console/settings";
 import { getMetrics, type MetricsResponse } from "@/services/metrics";
+import * as tradingApi from "@/services/trading";
+import type { FeedStatusResponse, MarketRegimeLive } from "@/types/trading";
 import type {
   AuditEntry,
   BenchmarkRunResult,
@@ -64,6 +66,8 @@ export const RESOURCE_KEYS = [
   "policies",
   "telemetry",
   "observability",
+  "feedStatus",
+  "regime",
 ] as const;
 
 export type ResourceKey = (typeof RESOURCE_KEYS)[number];
@@ -105,10 +109,27 @@ export interface ConsoleResources {
   policies: Resource<string[]>;
   telemetry: Resource<MetricsResponse>;
   observability: Resource<settingsApi.ObservabilitySnapshot>;
+  feedStatus: Resource<FeedStatusResponse>;
+  regime: Resource<MarketRegimeLive>;
 }
+
+export interface RegimeHistoryPoint {
+  sequence: number;
+  symbol: string;
+  regime: string;
+  confidence: number;
+  volatility: string;
+  trend_strength: number;
+  timestamp: number;
+}
+
+export type StreamStatus = "idle" | "connecting" | "live" | "error";
 
 export interface ConsoleState extends ConsoleResources {
   cloneReceipts: Resource<CloneReceipt[]>;
+  regimeHistory: RegimeHistoryPoint[];
+  streamStatus: StreamStatus;
+  streamSymbol: string | null;
   lastSyncAt: string | null;
   loading: string[];
   loadEnvironment: () => Promise<void>;
@@ -124,6 +145,12 @@ export interface ConsoleState extends ConsoleResources {
   loadBlueprints: () => Promise<void>;
   saveBlueprint: (payload: builderApi.CreateAgentBlueprintPayload) => Promise<void>;
   loadSettings: () => Promise<void>;
+  loadFeedStatus: () => Promise<void>;
+  fetchLiveRegime: (symbol: string) => Promise<MarketRegimeLive | null>;
+  startFeed: (symbol: string, timeframes?: string[], pollInterval?: number) => Promise<void>;
+  stopFeed: () => Promise<void>;
+  connectRegimeStream: (symbol: string, interval?: number) => Promise<void>;
+  disconnectRegimeStream: () => void;
 }
 
 type Loaded<K extends ResourceKey> = Exclude<ConsoleResources[K]["data"], null>;

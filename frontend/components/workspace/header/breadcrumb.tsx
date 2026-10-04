@@ -42,7 +42,10 @@ export function Breadcrumb() {
   const segments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-xs text-[var(--color-text-secondary)]">
+    <nav
+      aria-label="Breadcrumb"
+      className="flex min-w-0 items-center gap-1 overflow-hidden whitespace-nowrap text-xs text-[var(--color-text-secondary)]"
+    >
       <Button
         variant="ghost"
         size="icon"

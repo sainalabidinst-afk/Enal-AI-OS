@@ -33,14 +33,14 @@ export function RightPanel() {
 
   return (
     <aside
-      className="flex w-80 flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)]"
+      className="flex h-full w-full min-w-0 flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)]"
       aria-label="Right panel"
     >
       <div className="border-b border-[var(--color-border)] px-4 py-3">
         <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">Insights</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-3 space-y-4">
+      <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-4">
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2 text-sm font-medium text-[var(--color-text-primary)]">

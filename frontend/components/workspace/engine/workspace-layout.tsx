@@ -136,11 +136,11 @@ export function WorkspaceLayout({ children }: { children: React.ReactNode }) {
     >
       <WorkspaceHeader onToggleRight={toggleRightPanel} onToggleBottom={toggleBottomPanel} />
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
         <WorkspaceSidebar activeApp={activeApp} />
 
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <div className="flex flex-1 overflow-hidden">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+          <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
             <MainPanel app={activeApp}>{children}</MainPanel>
 
             {rightMounted && (

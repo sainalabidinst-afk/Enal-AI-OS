@@ -62,7 +62,7 @@ export function WorkspaceSidebar({ activeApp }: { activeApp: string }) {
   return (
     <aside
       className={cn(
-        "flex flex-col border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] transition-all duration-200",
+        "flex shrink-0 flex-col overflow-hidden border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] transition-all duration-200",
         sidebarCollapsed ? "w-14" : "w-56"
       )}
       aria-label="Workspace sidebar"
@@ -97,7 +97,7 @@ export function WorkspaceSidebar({ activeApp }: { activeApp: string }) {
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-2">
         {!sidebarCollapsed && (
           <span className="text-[10px uppercase tracking-wide text-[var(--color-text-secondary)] mb-1">
             Apps

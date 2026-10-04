@@ -240,7 +240,7 @@ export function AIWorkspacePanel({ capabilityId = "trading" }: { capabilityId?: 
   };
 
   return (
-    <aside className="flex w-80 flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="AI Workspace panel">
+    <aside className="flex w-80 shrink-0 flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)]" aria-label="AI Workspace panel">
       <div className="border-b border-[var(--color-border)] px-4 py-3">
         <h2 className="text-sm font-semibold">AI Workspace</h2>
         <p className="text-xs text-[var(--color-secondary-500)]">Capability: {capabilityId}</p>

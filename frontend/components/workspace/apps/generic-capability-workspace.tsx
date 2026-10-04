@@ -56,9 +56,9 @@ export function GenericCapabilityWorkspace({ capabilityId, capabilityName }: Gen
   }, [capabilityId, input, isLoading]);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full min-w-0">
       {/* Main panel */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div className="min-w-0 flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">{capabilityName}</h1>
           <p className="text-sm text-[var(--color-text-secondary)]">

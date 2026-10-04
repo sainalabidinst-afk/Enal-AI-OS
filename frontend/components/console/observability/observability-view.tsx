@@ -6,6 +6,7 @@ import { EmptyBlock, Pill } from "@/components/console/ui/states";
 import { BarChart, LineChart, CHART_PALETTE } from "@/components/console/charts/charts";
 import { useConsoleStore } from "@/store/console-store";
 import { useCapabilityLatency, useConsoleHydration } from "@/features/console/use-console";
+import { TradingPanel } from "@/components/console/dashboard/trading-panel";
 import { formatNumber, formatPercent, relativeTime } from "@/lib/format";
 
 export function ObservabilityView() {
@@ -63,6 +64,8 @@ export function ObservabilityView() {
           />
         ))}
       </MetricGrid>
+
+      <TradingPanel />
 
       <div className="grid gap-4 xl:grid-cols-2">
         <Panel>
