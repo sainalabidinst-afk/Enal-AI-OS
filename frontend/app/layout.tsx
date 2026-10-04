@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import AppClient from "./app-client";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = "font-sans";
 
 export const metadata: Metadata = {
   title: "Enal AI OS",
@@ -31,7 +30,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body className={inter.className}>
+      <body className={inter}>
         <AppClient>{children}</AppClient>
       </body>
     </html>

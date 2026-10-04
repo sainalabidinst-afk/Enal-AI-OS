@@ -1144,6 +1144,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | 2026-10-03 | Phase Q4.3 Fase 3: Frontend Consent Dialog implemented — frontend/services/consent.ts (API service: getPendingConsents, requestConsent, respondToConsent, classifyAction); frontend/components/jenny/consent-dialog.tsx (ConsentDialog with risk-level display, approve/deny, countdown timer, 5s polling, CognitiveStore integration for uncertainty flags); TypeScript 0 errors | ✅ |
 | 2026-10-03 | Outstanding Work cleanup: Removed completed SimplAI Parity items from Outstanding Work (Visual Builder, Agent/Tool Builder, Voice, Guardrails, Marketplace, A2A/MCP, Bulk/Eval all implemented); remaining items: concrete.py cleanup (already clean), 16 generic docs (verified OK), Scenario Simulator real cases (sim_001–sim_010 complete), v3.1.0-rc1 already released | ✅ |
 | 2026-10-03 | Outstanding Work final: All 6 remaining items completed — concrete.py verified clean via ruff, capability docs verified non-generic, Scenario Simulator real cases sim_001–sim_010 complete, v3.1.0-rc1 released, Consent Dialog integrated into chatgpt-page.tsx (useConsentDialog hook, openConsent on mount, header button, ConsentDialogComponent rendered); Outstanding Work section cleared | ✅ |
+| 2026-10-04 | Real-Time Market Feed Adapter implemented: backend/app/core/market_feed_adapter.py (MarketFeedAdapter with polling, fallback, subscribers); trading API extended with /regime/live, /feed/status, /feed/start, /feed/stop; frontend/services/trading.ts updated with live feed service; frontend/types/trading.ts added MarketRegimeLive and FeedStatusResponse; ruff clean | ✅ |
 
 ## SPRINT 8.5 — Frontend Cognitive Layer (Three-Level Thinking Architecture)
 
@@ -1804,6 +1805,18 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 - [x] `backend/app/core/blueprint_repository.py` added `resolve_dependencies()`
 - [x] New API endpoint `GET /blueprints/{kind}/{blueprint_id}/dependencies`
 - [x] `CloneWizard.tsx` calls real backend instead of `setTimeout(1500)`
+
+### FASE 30: Real-Time Market Feed Adapter
+
+- [x] `backend/app/core/market_feed_adapter.py` — `MarketFeedAdapter` class with polling loop, fallback to synthetic data, subscriber pattern
+- [x] Trading API extended with live feed endpoints:
+  - `GET /api/v1/trading/regime/live` — real-time market regime detection
+  - `GET /api/v1/trading/feed/status` — live feed connection status
+  - `POST /api/v1/trading/feed/start` — start live market data feed
+  - `POST /api/v1/trading/feed/stop` — stop live market data feed
+- [x] `frontend/services/trading.ts` — WebSocket-like polling service with `startLiveFeed()`, `stopLiveFeed()`, `getFeedStatus()`, `getLiveRegime()`
+- [x] `frontend/types/trading.ts` — added `MarketRegimeLive` and `FeedStatusResponse` interfaces
+- [x] Ruff clean, imports verified
 
 ### FASE 30: Pilar 4 — Enterprise Autonomy & Self-Evolving Platform
 

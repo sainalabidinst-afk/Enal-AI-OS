@@ -26,16 +26,22 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   const isPublicRoute =
     pathname === "/login" || pathname === "/" || pathname === "/eula";
+  const isConsoleRoute = pathname.startsWith("/console");
 
   // Redirect to login if not authenticated (except public routes)
   useEffect(() => {
-    if (!isAuthenticated && !isPublicRoute && typeof window !== "undefined") {
+    if (
+      !isAuthenticated &&
+      !isPublicRoute &&
+      !isConsoleRoute &&
+      typeof window !== "undefined"
+    ) {
       const token = localStorage.getItem("enal-auth-token");
       if (!token) {
         router.push("/login");
       }
     }
-  }, [isAuthenticated, isPublicRoute, router, pathname]);
+  }, [isAuthenticated, isPublicRoute, isConsoleRoute, router, pathname]);
 
   // EULA guard: redirect to /eula if authenticated but EULA not accepted
   useEffect(() => {
@@ -65,6 +71,16 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   // Don't show sidebar on login/eula pages
   if (isAuthPage) {
+    return (
+      <>
+        {children}
+        <ToastContainer />
+      </>
+    );
+  }
+
+  // Console routes ship their own observability-console shell
+  if (isConsoleRoute) {
     return (
       <>
         {children}

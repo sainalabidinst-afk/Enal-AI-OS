@@ -21,6 +21,12 @@ It assumes a Linux host with Docker Engine available.
 | Docker | 24.0+ | 25.0+ |
 | Docker Compose | v2.20+ | v2.24+ |
 
+### CPU Instruction Set Requirements
+- **AVX2**: Mandatory for Ollama runtime on production hosts.
+- Some CPU models report AVX2 in `/proc/cpuinfo` but still fail to map Ollama's `cpu_avx2/libext_server.so` due to host kernel/Docker seccomp interaction.
+- **Workaround**: Set `seccomp:unconfined` and `cap_add: [SYS_ADMIN]` for the `ollama` service in `docker-compose.yml`.
+- **Model fallback**: Use `DEFAULT_MODEL=ollama/llama3:8b` with `FALLBACK_MODEL=ollama/qwen2.5:0.5b` if primary model fails to load.
+
 ## Step 1: Environment Configuration
 
 1. Copy the production environment template:

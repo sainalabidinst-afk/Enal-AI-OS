@@ -14,6 +14,9 @@ Integrates all market intelligence analyzers into a single analysis pipeline:
 - PsychologyAnalyzer    -> sentiment extremes, FOMO, volume psychology
 - MacroAnalyzer         -> policy rate, inflation, economic health, risk sentiment
 - DerivativesAnalyzer   -> IV, put/call, skew, futures basis, COT, max pain
+- RiskManager           -> position sizing, stop-loss, take-profit, risk validation
+- BacktestEngine        -> strategy backtesting and performance metrics
+- MarketRegimeDetector  -> bull/bear/sideways/high-volatility regime detection
 
 Pipeline:
     TradingContext
@@ -35,6 +38,7 @@ import random
 import time
 from typing import Any
 
+from apps.trading_analyst.backtest_engine import BacktestEngine
 from apps.trading_analyst.market_intelligence import indicators as ind
 from apps.trading_analyst.market_intelligence.analyzer import MarketAnalyzer
 from apps.trading_analyst.market_intelligence.derivatives import DerivativesAnalyzer
@@ -52,6 +56,8 @@ from apps.trading_analyst.market_intelligence.smc import SMCAnalyzer
 from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
 from apps.trading_analyst.market_intelligence.volume_profile import VolumeProfileAnalyzer
 from apps.trading_analyst.market_intelligence.wyckoff import WyckoffAnalyzer
+from apps.trading_analyst.market_regime import MarketRegimeDetector
+from apps.trading_analyst.risk_management import RiskManager
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +90,9 @@ class TradingEngine:
         self.macro = MacroAnalyzer()
         self.derivatives = DerivativesAnalyzer()
         self.summary = MarketSummaryGenerator()
+        self.risk_manager = RiskManager()
+        self.backtest_engine = BacktestEngine()
+        self.regime_detector = MarketRegimeDetector()
 
     # ------------------------------------------------------------------
     # Public API
@@ -215,6 +224,91 @@ class TradingEngine:
         strategy = self.generate_strategy_from_result(result)
         strategy["risk_tolerance"] = risk_tolerance
         return strategy
+
+    async def detect_market_regime(
+        self, symbol: str, timeframes: list[str] | None = None, exchange: str = "binance"
+    ) -> dict[str, Any]:
+        """Detect current market regime (bull/bear/sideways/high-volatility)."""
+        tf_list = timeframes or DEFAULT_TIMEFRAMES
+        ctx = await self._build_context(symbol, tf_list, exchange, use_live_data=False)
+        all_closes: list[float] = []
+        all_volumes: list[float] = []
+        for ohlcv_list in ctx.timeframes.values():
+            for c in ohlcv_list:
+                all_closes.append(c.close)
+                all_volumes.append(c.volume)
+        regime = self.regime_detector.detect(all_closes, all_volumes)
+        return {
+            "symbol": symbol,
+            "regime": regime.regime,
+            "confidence": regime.confidence,
+            "volatility": regime.volatility,
+            "trend_strength": regime.trend_strength,
+            "metadata": regime.metadata,
+        }
+
+    async def calculate_position_size(
+        self,
+        capital: float,
+        entry_price: float,
+        stop_loss: float,
+        risk_percent: float = 0.02,
+        win_rate: float | None = None,
+        avg_win: float | None = None,
+        avg_loss: float | None = None,
+    ) -> dict[str, Any]:
+        """Calculate optimal position size with Kelly criterion support."""
+        position = self.risk_manager.calculate_position_size(
+            capital, entry_price, stop_loss, risk_percent, win_rate, avg_win, avg_loss
+        )
+        validation = self.risk_manager.validate_trade(position)
+        return {
+            "units": position.units,
+            "risk_amount": position.risk_amount,
+            "risk_percent": position.risk_percent,
+            "kelly_fraction": position.kelly_fraction,
+            "method": position.method,
+            "validation_passed": validation.passed,
+            "validation_checks": validation.checks,
+            "recommendation": validation.recommendation,
+        }
+
+    async def backtest_strategy(
+        self,
+        symbol: str,
+        strategy,
+        timeframes: list[str] | None = None,
+        exchange: str = "binance",
+        initial_capital: float = 10000.0,
+    ) -> dict[str, Any]:
+        """Backtest a trading strategy on historical data."""
+        tf_list = timeframes or DEFAULT_TIMEFRAMES
+        ctx = await self._build_context(symbol, tf_list, exchange, use_live_data=False)
+        all_ohlcv: list[OHLCV] = []
+        for ohlcv_list in ctx.timeframes.values():
+            all_ohlcv.extend(ohlcv_list)
+        all_ohlcv.sort(key=lambda c: c.timestamp)
+        result = self.backtest_engine.run_backtest(all_ohlcv, strategy, initial_capital)
+        return {
+            "symbol": symbol,
+            "total_trades": result.total_trades,
+            "win_rate": round(result.win_rate * 100, 1),
+            "total_pnl": round(result.total_pnl, 2),
+            "profit_factor": round(result.profit_factor, 2),
+            "avg_win": round(result.avg_win, 2),
+            "avg_loss": round(result.avg_loss, 2),
+            "max_drawdown": round(result.max_drawdown, 2),
+            "sharpe_ratio": round(result.sharpe_ratio, 2),
+            "trades": [
+                {
+                    "entry": t.entry_price,
+                    "exit": t.exit_price,
+                    "pnl": round(t.pnl, 2),
+                    "win": t.win,
+                }
+                for t in result.trades[:20]
+            ],
+        }
 
     # ------------------------------------------------------------------
     # Internal helpers

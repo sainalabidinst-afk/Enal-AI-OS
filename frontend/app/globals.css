@@ -159,6 +159,143 @@ a {
   text-decoration: none;
 }
 
+/* ------------------------------------------------------------------
+   ECP Console scope — governance / observability console (/console)
+   Scoped to .ecp-console so the product shell above is untouched.
+   ------------------------------------------------------------------ */
+
+.ecp-console {
+  --ecp-bg: #090d15;
+  --ecp-bg-raised: #0e1420;
+  --ecp-surface: #121a28;
+  --ecp-surface-2: #16202f;
+  --ecp-surface-3: #1c2839;
+  --ecp-sidebar: #0b111c;
+  --ecp-topbar: #0d1320;
+  --ecp-border: #202b3d;
+  --ecp-border-strong: #2b3950;
+  --ecp-text: #e7ecf6;
+  --ecp-text-muted: #93a1b8;
+  --ecp-text-dim: #6b7890;
+
+  --ecp-gov: #2dd4bf;
+  --ecp-gov-soft: rgba(45, 212, 191, 0.14);
+  --ecp-sky: #38bdf8;
+  --ecp-sky-soft: rgba(56, 189, 248, 0.14);
+  --ecp-blue: #3b82f6;
+  --ecp-blue-soft: rgba(59, 130, 246, 0.14);
+  --ecp-alert: #f59e0b;
+  --ecp-alert-soft: rgba(245, 158, 11, 0.14);
+  --ecp-danger: #ef4444;
+  --ecp-danger-soft: rgba(239, 68, 68, 0.14);
+  --ecp-success: #22c55e;
+  --ecp-success-soft: rgba(34, 197, 94, 0.14);
+
+  --ecp-radius-sm: 6px;
+  --ecp-radius: 10px;
+  --ecp-radius-lg: 14px;
+  --ecp-shadow: 0 18px 40px rgba(3, 7, 18, 0.55);
+  --ecp-glow-gov: 0 0 0 1px rgba(45, 212, 191, 0.35), 0 0 24px rgba(45, 212, 191, 0.12);
+
+  background-color: var(--ecp-bg);
+  color: var(--ecp-text);
+  font-family: var(--font-family);
+}
+
+.ecp-console ::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.ecp-console ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ecp-console ::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--ecp-surface-3);
+}
+
+.ecp-console ::-webkit-scrollbar-thumb:hover {
+  background: var(--ecp-border-strong);
+}
+
+.ecp-console input,
+.ecp-console select,
+.ecp-console textarea {
+  font-family: inherit;
+}
+
+.ecp-console [data-console-grid] {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.ecp-console .ecp-metric-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.ecp-console .ecp-metric-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -60% auto;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-glow, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+.ecp-console .ecp-pulse {
+  animation: ecp-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ecp-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.86);
+  }
+}
+
+.ecp-console .ecp-flow {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.ecp-console .react-flow__attribution {
+  display: none;
+}
+
+.ecp-console .react-flow__handle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid #0b111c;
+}
+
+.ecp-console .react-flow__edge-path {
+  stroke: #33445f;
+  stroke-width: 1.4;
+}
+
+.ecp-console .react-flow__controls button {
+  background: var(--ecp-surface-2);
+  border-color: var(--ecp-border);
+  fill: var(--ecp-text-muted);
+}
+
+.ecp-console .react-flow__controls button:hover {
+  background: var(--ecp-surface-3);
+}
+
 .chat-shell {
   --chat-ink: #20231f;
   --chat-muted: #777d73;

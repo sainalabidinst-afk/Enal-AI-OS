@@ -48,3 +48,22 @@ export interface TradingAnalyzeResponse {
   data?: TradingAnalysisResult;
   error?: string;
 }
+
+export interface MarketRegimeLive {
+  symbol: string;
+  regime: string;
+  confidence: number;
+  volatility: string;
+  trend_strength: number;
+  source: string;
+  timestamp?: number;
+}
+
+export interface FeedStatusResponse {
+  running: boolean;
+  symbol: string | null;
+  timeframes: string[];
+  last_update: number;
+  error_count: number;
+  fallback_active: boolean;
+}

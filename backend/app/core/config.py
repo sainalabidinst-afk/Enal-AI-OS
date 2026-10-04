@@ -55,9 +55,12 @@ class Settings(BaseSettings):
     JENNY_TTS_VOICE_ID: str = "2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5"
     JENNY_LANGUAGE: str = "id"
 
-    DEFAULT_MODEL: str = "ollama/llama3"
-    DEFAULT_REASONING_MODEL: str = "ollama/llama3"
+    DEFAULT_MODEL: str = "ollama/llama3:8b"
+    DEFAULT_REASONING_MODEL: str = "ollama/llama3:8b"
     DEFAULT_EMBEDDING_MODEL: str = "ollama/nomic-embed-text"
+    FALLBACK_MODEL: str = "ollama/qwen2.5:0.5b"
+    FALLBACK_REASONING_MODEL: str = "ollama/qwen2.5:0.5b"
+    OLLAMA_FALLBACK_ENABLED: bool = True
 
     MAX_TOKENS: int = 4096
     TEMPERATURE: float = 0.7

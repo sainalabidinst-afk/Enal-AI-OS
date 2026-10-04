@@ -33,7 +33,10 @@ Result
 from typing import Any
 
 from apps.base import BaseReferenceApp
+from apps.trading_analyst.backtest_engine import BacktestEngine
 from apps.trading_analyst.engine import TradingEngine, trading_engine
+from apps.trading_analyst.market_regime import MarketRegimeDetector
+from apps.trading_analyst.risk_management import RiskManager
 
 
 class TradingAnalystApp(BaseReferenceApp):
@@ -107,4 +110,12 @@ def get_app() -> TradingAnalystApp:
     return TradingAnalystApp()
 
 
-__all__ = ["TradingAnalystApp", "TradingEngine", "trading_engine", "get_app"]
+__all__ = [
+    "TradingAnalystApp",
+    "TradingEngine",
+    "trading_engine",
+    "get_app",
+    "BacktestEngine",
+    "MarketRegimeDetector",
+    "RiskManager",
+]

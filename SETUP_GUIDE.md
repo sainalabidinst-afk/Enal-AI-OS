@@ -6,6 +6,19 @@
 
 ---
 
+## Hardware Requirements
+
+### CPU Instruction Sets
+- **AVX2**: Required for optimal Ollama performance. Some newer models require AVX2.
+- **Fallback**: If AVX2 is unavailable, use older GGUF models compiled without AVX2 optimization.
+- **Detection**: Check with `grep avx2 /proc/cpuinfo` on Linux or CPU-Z on Windows.
+
+### Docker Host Notes
+- Ollama container requires relaxed seccomp (`seccomp:unconfined`) and `SYS_ADMIN` capability for shared library mapping on certain hosts.
+- Minimum 4 GB RAM allocated to Docker; recommended 8+ GB for local LLM inference.
+
+---
+
 ## Status Setup Saat Ini
 
 ✅ **Python 3.11.9** - Terdeteksi  
