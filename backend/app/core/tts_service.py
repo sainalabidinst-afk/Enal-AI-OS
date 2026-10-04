@@ -66,6 +66,12 @@ class ElevenLabsTTSProvider(TTSProvider):
             params["voice_id"] = voice_profile.voice_id
             model = "eleven_multilingual_low_latency_2025" if voice else "eleven_flash_v2.5"
             params["model_id"] = model
+            logger.info(
+                "ElevenLabs voice ID: %s | Profile: %s | Params: %s",
+                voice_profile.voice_id,
+                voice_profile.describe(),
+                params,
+            )
 
         logger.info(
             "Synthesizing speech with ElevenLabs (voice_id=%s, voice=%s, speed=%.2f, profile=%s)",

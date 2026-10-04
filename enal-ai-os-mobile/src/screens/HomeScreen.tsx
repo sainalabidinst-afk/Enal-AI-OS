@@ -5,6 +5,7 @@ import { ROUTES, RootStackParamList } from '../navigation/routes';
 
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
+  onLogout?: () => void;
 };
 
 const MENU_ITEMS = [
@@ -13,7 +14,7 @@ const MENU_ITEMS = [
   { id: '3', title: 'Settings', route: ROUTES.SETTINGS as keyof RootStackParamList, description: 'App configuration' },
 ];
 
-export function HomeScreen({ navigation }: HomeScreenProps) {
+export function HomeScreen({ navigation, onLogout }: HomeScreenProps) {
   const renderItem = ({ item }: { item: typeof MENU_ITEMS[0] }) => (
     <TouchableOpacity
       className="bg-surface rounded-lg p-4 mb-3 border border-gray-800"
@@ -26,7 +27,14 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
 
   return (
     <View className="flex-1 bg-background p-4">
-      <Text className="text-text-primary text-2xl font-bold mb-2">Enal AI OS</Text>
+      <View className="flex-row justify-between items-center mb-2">
+        <Text className="text-text-primary text-2xl font-bold">Enal AI OS</Text>
+        {onLogout && (
+          <TouchableOpacity onPress={onLogout} className="bg-surface rounded-lg px-3 py-1 border border-gray-800">
+            <Text className="text-text-secondary text-xs">Logout</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       <Text className="text-text-secondary text-sm mb-6">Mobile Beta v3.2.0</Text>
       <FlatList data={MENU_ITEMS} keyExtractor={(item) => item.id} renderItem={renderItem} />
     </View>

@@ -20,7 +20,7 @@ import {
   X,
 } from "lucide-react";
 import { sendChat } from "@/services/chat";
-import { transcribeAudio, speakTextBrowser } from "@/services/voice";
+import { transcribeAudio, speakText, speakTextBrowser } from "@/services/voice";
 import { useConsentDialog } from "@/components/jenny/consent-dialog";
 import type { Message, VoiceTranscription as VoiceTranscriptionType } from "@/types/chat";
 
@@ -282,13 +282,15 @@ export function ChatGPTPage() {
       return;
     }
     window.speechSynthesis?.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(message.content);
-    utterance.rate = 0.85;
-    utterance.pitch = 1.8;
-    utterance.onend = () => setSpeakingId(undefined);
     setSpeakingId(message.id);
-    window.speechSynthesis?.speak(utterance);
+
+    void speakText(message.content, "en", 0.85).catch(() => {
+      const utterance = new SpeechSynthesisUtterance(message.content);
+      utterance.rate = 0.85;
+      utterance.pitch = 1.8;
+      utterance.onend = () => setSpeakingId(undefined);
+      window.speechSynthesis?.speak(utterance);
+    });
   }
 
   function copyMessage(content: string) {

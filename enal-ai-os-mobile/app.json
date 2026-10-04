@@ -26,6 +26,9 @@
     },
     "plugins": [],
     "scheme": "enal-ai-os",
-    "description": "AI Operating System - Mobile Beta"
+    "description": "AI Operating System - Mobile Beta",
+    "extra": {
+      "apiUrl": "http://localhost:8000/api/v1"
+    }
   }
 }

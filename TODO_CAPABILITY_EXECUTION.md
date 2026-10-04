@@ -1651,10 +1651,11 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
   - [x] **Self-Development ECP Meta-Analysis** — Extended `apps/self_development/` dengan `ECPAnalyzer`, `proposal_repository.py`, dan routing ECP meta-analysis. Support `analyze_ecp`, `propose_capabilities`, `propose_improvements`.
   - [x] **Android PWA Stage 1** — `manifest.json`, service worker (`public/sw.js`), PWA metadata di `layout.tsx`, service worker registration di `app-client.tsx`.
   - [x] **Android CI/CD Pipeline** — `.github/workflows/android-ci.yml` dengan jobs: build, sign, governance check, deploy staging, smoke test, promote beta/production.
-  - [x] **React Native Stage 2** — Expo project structure (`enal-ai-os-mobile/`), API bridge, chat UI ported, consent dialog, observability panel, STT/TTS hooks, navigation, screens.
+  - [x] **React Native Stage 2** — Expo project structure (`enal-ai-os-mobile/`), API bridge, auth flow (`LoginScreen`, token storage, auth-aware navigation), chat API integration (real backend calls to `/api/v1/chat`), chat UI ported, consent dialog, observability panel, STT/TTS hooks, navigation, screens.
   - [ ] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
   - [ ] **Android Testing** — Test Add to Home Screen, offline caching, dan push notifications di Android device.
   - [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
+  - [ ] **Native Android Stage 3** — Kotlin/Jetpack Compose project, offline AI module, native observability, Consent Manager, performance optimization.
 
   ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
 

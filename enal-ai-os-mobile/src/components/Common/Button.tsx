@@ -8,9 +8,10 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   loading?: boolean;
+  className?: string;
 }
 
-export function Button({ title, onPress, variant = 'primary', size = 'md', disabled, loading }: ButtonProps) {
+export function Button({ title, onPress, variant = 'primary', size = 'md', disabled, loading, className }: ButtonProps) {
   const baseStyles = 'rounded-lg items-center justify-center';
   const sizeStyles = {
     sm: 'px-3 py-1.5',
@@ -28,7 +29,7 @@ export function Button({ title, onPress, variant = 'primary', size = 'md', disab
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled || loading}
-      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} opacity-${disabled ? 50 : 100}`}
+      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className ?? ''}`}
     >
       {loading ? (
         <ActivityIndicator color="#fff" />

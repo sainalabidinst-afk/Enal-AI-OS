@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, FlatList, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { MessageBubble } from './MessageBubble';
 import { InputBar } from './InputBar';
@@ -25,16 +25,24 @@ export function ChatScreen() {
   ]);
   const [isSending, setIsSending] = useState(false);
   const flatListRef = useRef<FlatList>(null);
+  const [conversationId, setConversationId] = useState<string | null>(null);
   const { isListening, transcript, startListening, stopListening } = useSTT();
   const { speak } = useTTS();
+
+  useEffect(() => {
+    if (transcript && transcript !== 'Listening...') {
+      handleSend(transcript);
+    }
+  }, [transcript]);
 
   const handleSend = async (text: string) => {
     if (!text.trim() || isSending) return;
 
+    const trimmedText = text.trim();
     const userMessage: Message = {
       id: `user-${Date.now()}`,
       role: 'user',
-      content: text,
+      content: trimmedText,
       timestamp: new Date().toISOString(),
     };
 
@@ -42,8 +50,19 @@ export function ChatScreen() {
     setIsSending(true);
 
     try {
-      const response = await apiClient.post(API_ENDPOINTS.CHAT.SEND, { message: text });
-      const content = response.data?.reply ?? response.data?.message ?? 'No response.';
+      const payload: any = { message: trimmedText };
+      if (conversationId) {
+        payload.conversation_id = conversationId;
+      }
+
+      const response = await apiClient.post(API_ENDPOINTS.CHAT.SEND, payload);
+      const data = response.data || {};
+      const content = data.message || data.reply || 'No response.';
+      const newConversationId = data.conversation_id || conversationId;
+
+      if (newConversationId && !conversationId) {
+        setConversationId(newConversationId);
+      }
 
       const assistantMessage: Message = {
         id: `assistant-${Date.now()}`,
@@ -54,13 +73,14 @@ export function ChatScreen() {
 
       setMessages((prev) => [...prev, assistantMessage]);
       speak(content);
-    } catch (error) {
+    } catch (error: any) {
+      const detail = error?.response?.data?.detail || 'Failed to send message. Please try again.';
       setMessages((prev) => [
         ...prev,
         {
           id: `error-${Date.now()}`,
           role: 'system',
-          content: 'Failed to send message. Please try again.',
+          content: detail,
           timestamp: new Date().toISOString(),
         },
       ]);
@@ -80,12 +100,6 @@ export function ChatScreen() {
       }
     }
   };
-
-  React.useEffect(() => {
-    if (transcript && transcript !== 'Listening...') {
-      handleSend(transcript);
-    }
-  }, [transcript]);
 
   return (
     <KeyboardAvoidingView

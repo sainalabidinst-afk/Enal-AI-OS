@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   CHAT: {
     SEND: '/chat',
     CONVERSATIONS: '/conversations',
+    STREAM: '/chat/stream',
   },
   VOICE: {
     TRANSCRIBE: '/voice/transcribe',
