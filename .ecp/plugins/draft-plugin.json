@@ -1,0 +1,16 @@
+{
+  "id": "draft-plugin",
+  "name": "Draft Plugin",
+  "version": "1.0.0",
+  "description": "Not published",
+  "author": "test-author",
+  "category": "testing",
+  "tags": [],
+  "dependencies": [],
+  "permissions": [],
+  "tools": [],
+  "status": "draft",
+  "downloads": 0,
+  "rating": 0.0,
+  "metadata": {}
+}

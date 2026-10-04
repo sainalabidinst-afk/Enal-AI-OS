@@ -1,0 +1,16 @@
+{
+  "id": "test-plugin",
+  "name": "Test Plugin",
+  "version": "1.0.0",
+  "description": "A test plugin",
+  "author": "test-author",
+  "category": "testing",
+  "tags": [],
+  "dependencies": [],
+  "permissions": [],
+  "tools": [],
+  "status": "published",
+  "downloads": 0,
+  "rating": 0.0,
+  "metadata": {}
+}
