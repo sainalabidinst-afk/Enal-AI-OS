@@ -112,7 +112,9 @@ class RiskManager:
                 {
                     "check": "risk_limit",
                     "passed": False,
-                    "message": f"Risk {position.risk_percent:.1%} exceeds max {max_risk_percent:.1%}",
+                    "message": (
+                        f"Risk {position.risk_percent:.1%} exceeds max {max_risk_percent:.1%}"
+                    ),
                 }
             )
             passed = False
@@ -129,7 +131,9 @@ class RiskManager:
                 {
                     "check": "kelly_caution",
                     "passed": True,
-                    "message": f"Kelly fraction {position.kelly_fraction:.1%} — consider reducing size",
+                    "message": (
+                        f"Kelly fraction {position.kelly_fraction:.1%} — consider reducing size"
+                    ),
                 }
             )
         return RiskValidation(

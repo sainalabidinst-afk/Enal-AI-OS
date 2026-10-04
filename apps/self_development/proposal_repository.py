@@ -178,7 +178,7 @@ class ProposalRepository:
         before_imps = len(self._improvements)
         self._capabilities = {p.domain: p for p in self._capabilities.values()}
         self._capabilities = {p.id: p for p in self._capabilities.values()}
-        improvements: dict[str, ImprovementProposal] = {}
+        improvements: dict[tuple[str, str, str], ImprovementProposal] = {}
         for proposal in self._improvements.values():
             key = (proposal.target_type, proposal.target_id, proposal.improvement_type)
             improvements[key] = proposal
