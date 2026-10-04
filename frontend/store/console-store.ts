@@ -155,6 +155,19 @@ export interface ConsoleState extends ConsoleResources {
 
 type Loaded<K extends ResourceKey> = Exclude<ConsoleResources[K]["data"], null>;
 
+const HISTORY_LIMIT = 60;
+
+function appendHistory(
+  current: RegimeHistoryPoint[],
+  point: RegimeHistoryPoint,
+  replaceLast = false
+): RegimeHistoryPoint[] {
+  const next = replaceLast ? [point] : [...current, point];
+  return next.slice(-HISTORY_LIMIT);
+}
+
+let streamController: AbortController | null = null;
+
 export const useConsoleStore = create<ConsoleState>((set, get) => {
   async function load<K extends ResourceKey>(
     key: K,
@@ -216,6 +229,11 @@ export const useConsoleStore = create<ConsoleState>((set, get) => {
     templates: resource(),
     listings: resource(),
     cloneReceipts: resource(),
+    feedStatus: resource(),
+    regime: resource(),
+    regimeHistory: [],
+    streamStatus: "idle",
+    streamSymbol: null,
     evaluation: resource(),
     evaluationResults: resource(),
     schedules: resource(),
@@ -390,6 +408,98 @@ export const useConsoleStore = create<ConsoleState>((set, get) => {
         load("observability", () => settingsApi.getObservabilityMetrics()),
       ]);
       synced();
+    },
+
+    async loadFeedStatus() {
+      await load("feedStatus", () => tradingApi.getFeedStatus());
+    },
+
+    async fetchLiveRegime(symbol) {
+      const pair = symbol.trim().toUpperCase();
+      if (!pair) return null;
+      const result = await load("regime", () => tradingApi.getLiveRegime(pair));
+      if (result) {
+        set((state) => ({
+          regimeHistory: appendHistory(state.regimeHistory, {
+            sequence: state.regimeHistory.length,
+            symbol: result.symbol ?? pair,
+            regime: result.regime,
+            confidence: result.confidence,
+            volatility: result.volatility,
+            trend_strength: result.trend_strength,
+            timestamp: result.timestamp ?? Date.now() / 1000,
+          }),
+        }));
+      }
+      return result;
+    },
+
+    async startFeed(symbol, timeframes, pollInterval) {
+      await tradingApi.startLiveFeed({
+        symbol: symbol.trim().toUpperCase(),
+        timeframes,
+        pollInterval,
+      });
+      await get().loadFeedStatus();
+    },
+
+    async stopFeed() {
+      await tradingApi.stopLiveFeed();
+      await get().loadFeedStatus();
+    },
+
+    async connectRegimeStream(symbol, interval = 5) {
+      const pair = symbol.trim().toUpperCase();
+      if (!pair) return;
+      streamController.abort();
+      streamController = new AbortController();
+      set({ streamStatus: "connecting", streamSymbol: pair });
+      try {
+        await tradingApi.streamFeed({
+          symbol: pair,
+          interval,
+          signal: streamController.signal,
+          onTick: (tick, isSnapshot) => {
+            set((state) => ({
+              feedStatus: { ...state.feedStatus, data: tick.feed, status: "success", error: null },
+              regime: {
+                data: tick.regime,
+                status: "success",
+                error: null,
+                updatedAt: new Date().toISOString(),
+              },
+              regimeHistory: appendHistory(state.regimeHistory, {
+                sequence: tick.sequence,
+                symbol: tick.symbol,
+                regime: tick.regime.regime,
+                confidence: tick.regime.confidence,
+                volatility: tick.regime.volatility,
+                trend_strength: tick.regime.trend_strength,
+                timestamp: tick.regime.timestamp ?? tick.emitted_at,
+              }, isSnapshot),
+              streamStatus: "live",
+            }));
+          },
+          onError: () => set({ streamStatus: "error" }),
+        });
+        if (!streamController.signal.aborted) set({ streamStatus: "idle" });
+      } catch (error) {
+        set({
+          streamStatus: "error",
+          regime: {
+            data: null,
+            status: "error",
+            error: errorMessage(error),
+            updatedAt: null,
+          },
+        });
+      }
+    },
+
+    disconnectRegimeStream() {
+      streamController.abort();
+      streamController = null;
+      set({ streamStatus: "idle" });
     },
   };
 });
