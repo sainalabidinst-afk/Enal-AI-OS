@@ -6,17 +6,21 @@ Endpoints:
 - POST /api/v1/trading/analyze — Full market analysis
 - GET  /api/v1/trading/regime/live — Real-time market regime detection
 - GET  /api/v1/trading/feed/status — Live feed connection status
+- GET  /api/v1/trading/feed/stream — SSE stream of regime + feed status
 - POST /api/v1/trading/feed/start — Start live market data feed
 - POST /api/v1/trading/feed/stop — Stop live market data feed
 - GET  /api/v1/trading/health — Health check
 """
 
 import asyncio
+import json
 import logging
 import time
+from collections.abc import AsyncIterator
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)

@@ -38,6 +38,14 @@ class MarketProviderError(Exception):
     """Raised when market data provider fails."""
 
 
+class RateLimitError(Exception):
+    """Raised when market data provider rate limit is hit."""
+
+    def __init__(self, retry_after: float = 60.0, message: str = "Rate limited") -> None:
+        self.retry_after = retry_after
+        super().__init__(message)
+
+
 def _fetch_json(url: str) -> Any:
     """Fetch JSON from URL with timeout and error handling."""
     try:
@@ -45,6 +53,16 @@ def _fetch_json(url: str) -> Any:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
+        if e.code == 429:
+            retry_after = 60.0
+            try:
+                retry_header = e.headers.get("Retry-After") or e.headers.get("retry-after")
+                if retry_header:
+                    retry_after = float(retry_header)
+            except (TypeError, ValueError):
+                retry_after = 60.0
+            logger.warning("Rate limited by provider for %s. Retry-After=%s", url, retry_after)
+            raise RateLimitError(retry_after=retry_after, message=f"Rate limited: retry after {retry_after}s")
         raise MarketProviderError(f"HTTP {e.code}: {e.reason} for {url}")
     except urllib.error.URLError as e:
         raise MarketProviderError(f"Connection failed: {e.reason}")

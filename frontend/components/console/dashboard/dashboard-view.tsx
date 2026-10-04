@@ -5,6 +5,7 @@ import { DashboardMetrics, RuntimeSignalStrip } from "@/components/console/dashb
 import { PackCatalogPanel } from "@/components/console/dashboard/pack-catalog-panel";
 import { BenchmarkOverviewPanel } from "@/components/console/dashboard/benchmark-overview-panel";
 import { ActiveWorkflowPanel } from "@/components/console/dashboard/active-workflow-panel";
+import { TradingPanel } from "@/components/console/dashboard/trading-panel";
 import { EvaluationSummary } from "@/components/console/evaluation/evaluation-summary";
 import { PageHeader } from "@/components/console/ui/panel";
 import { useConsoleStore } from "@/store/console-store";

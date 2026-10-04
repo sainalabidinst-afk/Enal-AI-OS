@@ -9,12 +9,14 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import random
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
 from apps.trading_analyst.market_intelligence.provider import fetch_multi_timeframe
+from apps.trading_analyst.market_intelligence.provider import RateLimitError
 
 logger = logging.getLogger(__name__)
 
@@ -49,22 +51,34 @@ class FeedStatus:
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
+class RateLimitError(Exception):
+    """Raised when the data provider rate limit is hit."""
+
+    def __init__(self, retry_after: float = 60.0, message: str = "Rate limited") -> None:
+        self.retry_after = retry_after
+        super().__init__(message)
+
+
 class MarketFeedAdapter:
-    """Real-time market feed adapter with live polling and fallback."""
+    """Real-time market feed adapter with live polling, rate-limit handling and reconnect."""
 
     def __init__(
         self,
         poll_interval: float = 5.0,
         max_errors: int = 10,
         regime_detector=None,
+        max_backoff: float = 120.0,
     ) -> None:
         self.poll_interval = poll_interval
         self.max_errors = max_errors
         self.regime_detector = regime_detector
+        self.max_backoff = max_backoff
         self.status = FeedStatus()
         self._subscribers: list[Callable[[MarketFeedSnapshot], None]] = []
         self._task: asyncio.Task | None = None
         self._latest_snapshot: MarketFeedSnapshot | None = None
+        self._current_backoff: float = 0.0
+        self._consecutive_rate_limits: int = 0
 
     def subscribe(self, callback: Callable[[MarketFeedSnapshot], None]) -> None:
         """Subscribe to live feed updates."""
@@ -88,7 +102,14 @@ class MarketFeedAdapter:
             symbol=symbol.upper(),
             timeframes=tf_list,
             last_update=time.time(),
+            metadata={
+                "exchange": exchange,
+                "poll_interval": self.poll_interval,
+                "reconnects": 0,
+            },
         )
+        self._current_backoff = 0.0
+        self._consecutive_rate_limits = 0
         logger.info("Starting live feed for %s on %s", symbol, tf_list)
         try:
             await self._poll_loop(symbol, tf_list, exchange)
@@ -139,8 +160,9 @@ class MarketFeedAdapter:
             return {"error": str(exc), "regime": "unknown", "source": "fallback"}
 
     async def _poll_loop(self, symbol: str, timeframes: list[str], exchange: str) -> None:
-        """Main polling loop for live market data."""
+        """Main polling loop for live market data with backoff and reconnect."""
         errors = 0
+        rate_limit_hits = 0
         while self.status.running:
             try:
                 raw_data = fetch_multi_timeframe(symbol, timeframes)
@@ -163,15 +185,44 @@ class MarketFeedAdapter:
                     except Exception as exc:
                         logger.warning("Subscriber callback failed: %s", exc)
                 errors = 0
+                rate_limit_hits = 0
+                self._current_backoff = 0.0
+                await asyncio.sleep(self.poll_interval)
+            except RateLimitError as exc:
+                rate_limit_hits += 1
+                self._consecutive_rate_limits = rate_limit_hits
+                backoff = min(
+                    self._current_backoff or self.poll_interval * (2 ** min(rate_limit_hits, 6)),
+                    self.max_backoff,
+                )
+                backoff += random.uniform(0, backoff * 0.1)
+                logger.warning(
+                    "Rate limited for %s. Backing off %.1fs (hit %d). Retry after %.1fs",
+                    symbol, backoff, rate_limit_hits, exc.retry_after,
+                )
+                self.status.metadata["last_rate_limit"] = time.time()
+                self.status.metadata["rate_limit_backoff"] = backoff
+                self.status.metadata["consecutive_rate_limits"] = rate_limit_hits
+                self._current_backoff = backoff
+                await asyncio.sleep(max(backoff, exc.retry_after, 1.0))
+                if rate_limit_hits >= 20:
+                    logger.error("Too many rate limits for %s, activating fallback", symbol)
+                    self.status.fallback_active = True
+                    break
             except Exception as exc:
                 errors += 1
                 self.status.error_count = errors
+                self._consecutive_rate_limits = 0
                 logger.warning("Poll error %d/%d for %s: %s", errors, self.max_errors, symbol, exc)
                 if errors >= self.max_errors:
                     self.status.fallback_active = True
                     logger.error("Max errors reached, activating fallback for %s", symbol)
                     break
-            await asyncio.sleep(self.poll_interval)
+                backoff = min(self.poll_interval * (2 ** min(errors - 1, 6)), self.max_backoff)
+                backoff += random.uniform(0, backoff * 0.1)
+                self._current_backoff = backoff
+                logger.info("Backing off %.1fs before retry for %s", backoff, symbol)
+                await asyncio.sleep(backoff)
 
     def _build_snapshot(self, symbol: str, raw_data: dict[str, list[dict]]) -> MarketFeedSnapshot:
         """Build a MarketFeedSnapshot from raw market data."""
