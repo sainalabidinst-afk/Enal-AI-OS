@@ -2,8 +2,7 @@
 
 import pytest
 
-from backend.app.core.agent_runtime import AgentRuntime, AgentRuntimeError
-from backend.app.core.agent_validator import AgentValidationError
+from backend.app.core.agent_runtime import AgentRuntime
 
 
 class TestAgentRuntime:
@@ -59,8 +58,6 @@ class TestAgentRuntime:
 
     @pytest.mark.asyncio
     async def test_run_handles_llm_failure_gracefully(self, runtime, monkeypatch):
-        from unittest.mock import AsyncMock
-
         async def fail_router(*args, **kwargs):
             raise RuntimeError("LLM unavailable")
 

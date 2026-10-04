@@ -18,8 +18,6 @@ Exposes capabilities through the ECP pipeline:
 import logging
 from typing import Any
 
-from apps.self_development import get_app
-
 logger = logging.getLogger(__name__)
 
 
@@ -34,8 +32,17 @@ def _normalize_subtask(subtask: Any) -> dict[str, Any]:
 class SelfDevelopmentWorker:
     """Worker that executes self-development subtasks."""
 
+    _instance: "SelfDevelopmentWorker | None" = None
+
     def __init__(self):
+        from apps.self_development import get_app
         self._app = get_app()
+
+    @classmethod
+    def get_instance(cls) -> "SelfDevelopmentWorker":
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
 
     async def execute(self, subtask: Any, context: dict[str, Any]) -> dict[str, Any]:
         subtask_data = _normalize_subtask(subtask)
@@ -191,6 +198,3 @@ class SelfDevelopmentWorker:
                 "status": "failed",
                 "error": str(exc),
             }  # noqa: E501
-
-
-self_development_worker = SelfDevelopmentWorker()

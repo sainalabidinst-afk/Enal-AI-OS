@@ -23,7 +23,7 @@ from apps.society.workers.code_worker import code_worker
 from apps.society.workers.devops_worker import devops_worker
 from apps.society.workers.network_worker import network_worker
 from apps.society.workers.research_worker import research_worker
-from apps.society.workers.self_development_worker import self_development_worker
+from apps.society.workers.self_development_worker import SelfDevelopmentWorker
 from apps.society.workers.trading_worker import trading_worker
 
 
@@ -327,7 +327,7 @@ async def test_self_development_worker_end_to_end():
         skills=["architecture", "code-review", "testing", "documentation"],
     )
     society.register_agent(dev_agent)
-    society.register_worker("self-development", self_development_worker)
+    society.register_worker("self-development", SelfDevelopmentWorker.get_instance())
     result = await society.process_user_request(
         "Audit Enal AI OS for bottlenecks and propose improvements"
     )

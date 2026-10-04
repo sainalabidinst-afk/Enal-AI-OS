@@ -13,7 +13,6 @@ from apps.society.workers.network_worker import NetworkWorker, network_worker
 from apps.society.workers.research_worker import ResearchWorker, research_worker
 from apps.society.workers.self_development_worker import (
     SelfDevelopmentWorker,
-    self_development_worker,
 )
 from apps.society.workers.trading_worker import TradingWorker, trading_worker
 
@@ -30,6 +29,7 @@ __all__ = [
     "full_stack_worker",
     "network_worker",
     "research_worker",
-    "self_development_worker",
     "trading_worker",
 ]
+
+

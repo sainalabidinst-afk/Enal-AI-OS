@@ -16,7 +16,6 @@ from typing import Any
 import httpx
 
 from backend.app.core.config import settings
-from backend.app.core.model_router import model_router
 
 logger = logging.getLogger(__name__)
 
@@ -107,7 +106,12 @@ class DeepgramSTTProvider(STTProvider):
                 )
                 response.raise_for_status()
                 result = response.json()
-                return result.get("results", {}).get("channels", [{}])[0].get("alternatives", [{}])[0].get("transcript", "")
+                return (
+                    result.get("results", {})
+                    .get("channels", [{}])[0]
+                    .get("alternatives", [{}])[0]
+                    .get("transcript", "")
+                )
         except Exception as exc:
             logger.error("Deepgram transcription failed: %s", exc)
             return f"[Deepgram error: {exc}] ({language})"
@@ -140,7 +144,11 @@ class GoogleSTTProvider(STTProvider):
                 )
                 response.raise_for_status()
                 result = response.json()
-                return result.get("results", [{}])[0].get("alternatives", [{}])[0].get("transcript", "")
+                return (
+                    result.get("results", [{}])[0]
+                    .get("alternatives", [{}])[0]
+                    .get("transcript", "")
+                )
         except Exception as exc:
             logger.error("Google STT transcription failed: %s", exc)
             return f"[Google STT error: {exc}] ({language})"
@@ -151,7 +159,10 @@ class WebSpeechSTTProvider(STTProvider):
 
     async def transcribe(self, audio_data: bytes, language: str = "en-US") -> str:
         logger.info("Web Speech API requested; client-side browser handles actual transcription")
-        return f"[Web Speech API requires client-side browser; server cannot transcribe audio directly] ({language})"
+        return (
+            f"[Web Speech API requires client-side browser; "
+            f"server cannot transcribe audio directly] ({language})"
+        )
 
 
 class STTService:

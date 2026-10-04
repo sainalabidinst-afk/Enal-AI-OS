@@ -1,7 +1,7 @@
 <!-- DOCUMENT_METADATA_START -->
 **Pemilik:** Documentation Team
 **Canonical Owner:** Documentation Governance Lead
-**Terakhir Diverifikasi:** 2026-10-03
+**Terakhir Diverifikasi:** 2026-10-04
 **Version:** 1.3.0
 **Status:** Active
 **SSOT:** Capability Pack execution plan and rollout milestones
@@ -1658,7 +1658,7 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
   - [x] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules (`ChatViewModel` + `ChatScreen`), native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, Pilar 3 RFC (`RFC-0054`), design notes, Android Studio handoff checklist.
   - [ ] **Robotics & Edge AI Stage 4** — Pillar 1 RFC (`RFC-0056`), design notes, Edge Runtime, ROS 2 Connector, Vision Engine, Smart Agri Connector.
   - [ ] **Decision Intelligence & Digital Twin Stage 5** — Pillar 2 RFC (`RFC-0057`), design notes, Digital Twin Engine, Scenario Simulator, Red Team Agent, Causal Reasoner.
-  - [ ] **Self-Evolving Platform Stage 6** — Pillar 4 RFC (`RFC-0055`), design notes, Autonomous Capability Generator, Self-Healing Infrastructure, Federated Memory.
+  - [x] **Self-Evolving Platform Stage 6** — Pillar 4 RFC (`RFC-0055`), design notes, Autonomous Capability Generator, Self-Healing Infrastructure, Federated Memory.
 
   ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
 
@@ -1713,9 +1713,117 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
  #### ✨ Nilai Tambah dari Skenario Kompleks
 
  - Multi-modal input (voice + file)
- - Multi-connector orchestration (FileSystem, Document Processing, Email, Calendar, Visualization)
- - Governance layer (consent + compliance check)
- - Observability (trace, metrics, alerts)
- - User experience → feedback via TTS + dashboard artifacts
+  - Multi-connector orchestration (FileSystem, Document Processing, Email, Calendar, Visualization)
+  - Governance layer (consent + compliance check)
+  - Observability (trace, metrics, alerts)
+  - User experience → feedback via TTS + dashboard artifacts
 
- Dengan alur ini, ECP bukan sekadar "buka file lalu kirim email", tapi benar-benar platform eksekusi AI yang menggabungkan reasoning, governance, observability, dan multi-agent orchestration.
+  Dengan alur ini, ECP bukan sekadar "buka file lalu kirim email", tapi benar-benar platform eksekusi AI yang menggabungkan reasoning, governance, observability, dan multi-agent orchestration.
+
+---
+
+## FASE 18–27: Execution Deepening & Execution Gaps Closure
+
+**Timeline:** 2026-10-04
+**Status:** ✅ Complete — All phases implemented and verified
+
+| Fase | Deskripsi | Status |
+|------|-----------|--------|
+| **FASE 18** | Persistent Memory (7 Layers) — Episodic, Session, Knowledge, LongTerm, Experience, SemanticProjectGraph, MemoryManager | ✅ Complete |
+| **FASE 19** | Execution Integration — ExecutionScheduler race condition fix, dependency ordering via `next()` loop | ✅ Complete |
+| **FASE 20** | Capability Graph — Circular dependency detection (`detect_cycles()` / `has_cycles()`) | ✅ Complete |
+| **FASE 21** | Agent Builder — Real LLM execution via `model_router.acomplete()` instead of fake success | ✅ Complete |
+| **FASE 22** | Voice Agent — Real STT/TTS vendor APIs (Whisper/Deepgram/Google, ElevenLabs/OpenAI/Piper) with graceful fallback | ✅ Complete |
+| **FASE 23** | Guardrails — 25 dedicated tests covering all 8 validators + engine orchestration + corrective actions | ✅ Complete |
+| **FASE 24** | Marketplace — Backend full metadata + frontend real fetch from `/api/v1/marketplace` with loading/error/retry | ✅ Complete |
+| **FASE 25** | Bulk/Scheduled Execution — APScheduler cron triggers + real HTTP webhook delivery via `httpx` | ✅ Complete |
+| **FASE 26** | Evaluation Framework — LLM-based evaluation via `model_router.acomplete()` with heuristic fallback | ✅ Complete |
+| **FASE 27** | Visual Tool Builder — Real step execution: LLM calls, Python sandbox, HTTP API, KB search, web scraping | ✅ Complete |
+
+### FASE 18: Persistent Memory (7 Layers)
+
+- [x] EpisodicMemory — startup auto-reload from disk
+- [x] SessionMemory — operator-precedence bug fixed
+- [x] KnowledgeMemory — startup auto-reload
+- [x] LongTermMemory — TTL support added
+- [x] ExperienceLearning — startup auto-reload
+- [x] SemanticProjectGraph — startup auto-reload
+- [x] MemoryManager — forwards session_id/project_id to all layers
+- [x] Pattern support in `list_keys()` for all memory layers
+
+### FASE 19: Execution Integration
+
+- [x] ExecutionScheduler race condition fixed — locks on `next()` / `complete()` / `fail()`
+- [x] `_run` now uses scheduler `next()` loop for dependency ordering instead of flat iteration
+
+### FASE 20: Capability Graph
+
+- [x] `detect_cycles()` / `has_cycles()` added for circular dependency detection (RFC-0038)
+
+### FASE 21: Agent Builder
+
+- [x] `backend/app/core/agent_runtime.py` now calls real `model_router.acomplete()` instead of returning fake success
+
+### FASE 22: Voice Agent
+
+- [x] STT providers (Whisper/Deepgram/Google) now call real vendor APIs via `httpx` when keys configured
+- [x] TTS providers (ElevenLabs/OpenAI/Piper) now call real APIs via `httpx`
+- [x] Graceful placeholder fallback when keys missing
+
+### FASE 23: Guardrails
+
+- [x] 25 dedicated tests added covering all 8 validators + engine orchestration + corrective actions
+- [x] All guardrail tests pass
+
+### FASE 24: Marketplace
+
+- [x] Backend returns full metadata (name, description, category, author, tags, rating)
+- [x] Frontend fetches from `/api/v1/marketplace` with loading/error/retry states
+- [x] `CloneWizard.tsx` calls real backend dependency resolution instead of `setTimeout(1500)`
+
+### FASE 25: Bulk/Scheduled Execution
+
+- [x] `backend/app/core/scheduler_service.py` now uses `APScheduler` (`AsyncIOScheduler`) with real cron triggers
+- [x] `backend/app/core/webhook_service.py` now makes real HTTP POST via `httpx`
+
+### FASE 26: Evaluation Framework
+
+- [x] `backend/app/core/quality_scorer.py` now uses LLM-based evaluation via `model_router.acomplete()` with heuristic fallback
+
+### FASE 27: Visual Tool Builder
+
+- [x] `backend/app/core/step_executor.py` now executes real steps: LLM calls, Python sandbox, HTTP API, KB search, web scraping
+
+### FASE 28: A2A/MCP Integration
+
+- [x] `backend/app/core/a2a_invoker.py` now makes real HTTP calls via `httpx`
+- [x] `backend/app/core/mcp_tool_proxy.py` now makes real HTTP calls via `httpx`
+
+### FASE 29: Templates System
+
+- [x] `backend/app/core/blueprint_repository.py` added `resolve_dependencies()`
+- [x] New API endpoint `GET /blueprints/{kind}/{blueprint_id}/dependencies`
+- [x] `CloneWizard.tsx` calls real backend instead of `setTimeout(1500)`
+
+### FASE 30: Pilar 4 — Enterprise Autonomy & Self-Evolving Platform
+
+- [x] `CapabilityGapDetector` — gap detection dari user query dengan 15 domain topics (EN + ID)
+- [x] `PackSynthesizer` — generate schema/engine/worker/tests dari `CapabilityProposal`
+- [x] `AnomalyDetector` — deteksi infra/performance/security anomaly dengan threshold-based deviation
+- [x] `RemediationPlanner` + `RemediationConsentGate` — playbook generation + consent routing untuk high/critical severity
+- [x] `KnowledgeAbstractor` + `FederatedMemorySync` — PII removal (email, phone, IP, secret, card) + federated insight distribution
+- [x] Backend governance endpoints `/api/v1/governance/*` — pack CRUD, sandbox creation, quality gate evaluation, audit trail
+- [x] `GovernanceMetrics` tracker — acceptance rate, remediation success, privacy violation rate, gate latency
+- [x] ADR-035: Governance Sandbox Isolation Architecture
+- [x] ADR-036: Consent Gating for High-Risk Remediation
+- [x] 14 acceptance tests passing (`tests/test_pilar4_phase3_acceptance.py`)
+- [x] Benchmark suite + dashboard HTML (`benchmarks/pilar4_phase3_benchmark.py`, `benchmarks/generate_pilar4_dashboard.py`)
+- [x] Release notes (`docs/releases/RFC-0055-release-notes.md`)
+- [x] CI/CD integration — Pilar 4 benchmark & acceptance test otomatis di GitHub Actions
+
+### Test Verification
+
+- [x] 183+ tests pass across all modified/new files
+- [x] Ruff clean
+- [x] Mypy clean
+- [x] Frontend TypeScript clean

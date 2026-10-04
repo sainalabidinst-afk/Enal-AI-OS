@@ -2,13 +2,12 @@
 
 import pytest
 
-from backend.app.core.config import Settings
 from backend.app.core.stt_service import (
     DeepgramSTTProvider,
     GoogleSTTProvider,
     STTService,
-    WhisperSTTProvider,
     WebSpeechSTTProvider,
+    WhisperSTTProvider,
 )
 from backend.app.core.tts_service import (
     AzureTTSProvider,

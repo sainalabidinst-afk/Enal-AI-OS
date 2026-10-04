@@ -187,7 +187,9 @@ class TestGuardrailEngine:
             action=CorrectiveAction.FIX,
             modified_content="Contact [REDACTED]",
         )
-        assert engine.apply_corrective_action(result, "Contact john@example.com") == "Contact [REDACTED]"
+        assert engine.apply_corrective_action(result, "Contact john@example.com") == (
+            "Contact [REDACTED]"
+        )
 
     def test_apply_corrective_action_exception(self, engine):
         result = GuardrailResult(

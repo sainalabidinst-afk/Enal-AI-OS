@@ -80,9 +80,9 @@ def _build_worker_registry() -> dict[str, Any]:
     except Exception:
         pass
     try:
-        from apps.society.workers.self_development_worker import self_development_worker
+        from apps.society.workers.self_development_worker import SelfDevelopmentWorker
 
-        registry["self-development"] = self_development_worker
+        registry["self-development"] = SelfDevelopmentWorker.get_instance()
     except Exception:
         pass
     return registry
