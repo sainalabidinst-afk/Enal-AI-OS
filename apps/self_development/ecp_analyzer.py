@@ -37,10 +37,9 @@ def capability_proposal_id(domain: str) -> str:
 
 def improvement_proposal_id(target_type: str, target_id: str, improvement_type: str) -> str:  # noqa: E501
     """Stable id for an improvement proposal, keyed by its natural key."""
-    digest = hashlib.sha1(
-        f"{target_type}|{target_id}|{improvement_type}".encode()
-    ).hexdigest()[:8]
+    digest = hashlib.sha1(f"{target_type}|{target_id}|{improvement_type}".encode()).hexdigest()[:8]
     return f"imp-{digest}"
+
 
 CORE_DIRS = [
     "backend/app/core",

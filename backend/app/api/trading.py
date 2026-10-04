@@ -111,8 +111,7 @@ async def analyze_market(req: AnalyzeRequest):
                 correlation_type="low_confidence_trading",
                 confidence=result.confidence,
                 details=(
-                    f"Trading analysis for {symbol} returned low confidence "
-                    f"{result.confidence:.2f}"
+                    f"Trading analysis for {symbol} returned low confidence {result.confidence:.2f}"
                 ),
             )
 

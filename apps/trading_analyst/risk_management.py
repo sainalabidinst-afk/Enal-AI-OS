@@ -108,24 +108,30 @@ class RiskManager:
         checks: list[dict[str, Any]] = []
         passed = True
         if position.risk_percent > max_risk_percent:
-            checks.append({
-                "check": "risk_limit",
-                "passed": False,
-                "message": f"Risk {position.risk_percent:.1%} exceeds max {max_risk_percent:.1%}",
-            })
+            checks.append(
+                {
+                    "check": "risk_limit",
+                    "passed": False,
+                    "message": f"Risk {position.risk_percent:.1%} exceeds max {max_risk_percent:.1%}",
+                }
+            )
             passed = False
         else:
-            checks.append({
-                "check": "risk_limit",
-                "passed": True,
-                "message": f"Risk {position.risk_percent:.1%} within limit",
-            })
+            checks.append(
+                {
+                    "check": "risk_limit",
+                    "passed": True,
+                    "message": f"Risk {position.risk_percent:.1%} within limit",
+                }
+            )
         if position.kelly_fraction > 0.2:
-            checks.append({
-                "check": "kelly_caution",
-                "passed": True,
-                "message": f"Kelly fraction {position.kelly_fraction:.1%} — consider reducing size",
-            })
+            checks.append(
+                {
+                    "check": "kelly_caution",
+                    "passed": True,
+                    "message": f"Kelly fraction {position.kelly_fraction:.1%} — consider reducing size",
+                }
+            )
         return RiskValidation(
             passed=passed,
             checks=checks,

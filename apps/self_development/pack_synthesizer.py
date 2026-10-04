@@ -66,21 +66,23 @@ class PackSynthesizer:
         if schema_path.exists():
             return False
         class_name = proposal.name.replace(" ", "")
-        content = "\n".join([
-            "from pydantic import BaseModel, Field",
-            "",
-            "",
-            f"class {class_name}Request(BaseModel):",
-            '    query: str = Field(..., description="User query for ' + proposal.name + '")',
-            "    context: dict | None = None",
-            "",
-            "",
-            f"class {class_name}Response(BaseModel):",
-            '    result: str',
-            "    confidence: float = 0.0",
-            "    metadata: dict = Field(default_factory=dict)",
-            "",
-        ])
+        content = "\n".join(
+            [
+                "from pydantic import BaseModel, Field",
+                "",
+                "",
+                f"class {class_name}Request(BaseModel):",
+                '    query: str = Field(..., description="User query for ' + proposal.name + '")',
+                "    context: dict | None = None",
+                "",
+                "",
+                f"class {class_name}Response(BaseModel):",
+                "    result: str",
+                "    confidence: float = 0.0",
+                "    metadata: dict = Field(default_factory=dict)",
+                "",
+            ]
+        )
         schema_path.write_text(content, encoding="utf-8")
         return True
 
@@ -90,19 +92,21 @@ class PackSynthesizer:
             return False
         class_name = proposal.name.replace(" ", "")
         module_name = proposal.domain.replace("-", "_")
-        content = "\n".join([
-            f"class {class_name}Engine:",
-            "    async def execute(self, request) -> dict:",
-            '        return {',
-            '            "result": "TODO: implement ' + proposal.name + ' engine",',
-            '            "confidence": 0.0,',
-            '            "metadata": {},',
-            "        }",
-            "",
-            "",
-            f"{module_name}_engine = {class_name}Engine()",
-            "",
-        ])
+        content = "\n".join(
+            [
+                f"class {class_name}Engine:",
+                "    async def execute(self, request) -> dict:",
+                "        return {",
+                '            "result": "TODO: implement ' + proposal.name + ' engine",',
+                '            "confidence": 0.0,',
+                '            "metadata": {},',
+                "        }",
+                "",
+                "",
+                f"{module_name}_engine = {class_name}Engine()",
+                "",
+            ]
+        )
         engine_path.write_text(content, encoding="utf-8")
         return True
 
@@ -112,18 +116,20 @@ class PackSynthesizer:
             return False
         class_name = proposal.name.replace(" ", "")
         module_name = proposal.domain.replace("-", "_")
-        content = "\n".join([
-            f"class {class_name}Worker:",
-            "    def __init__(self, engine: object | None = None) -> None:",
-            "        self.engine = engine",
-            "",
-            "    async def run(self, task: dict) -> dict:",
-            "        return await self.engine.execute(task)",
-            "",
-            "",
-            f"{module_name}_worker = {class_name}Worker()",
-            "",
-        ])
+        content = "\n".join(
+            [
+                f"class {class_name}Worker:",
+                "    def __init__(self, engine: object | None = None) -> None:",
+                "        self.engine = engine",
+                "",
+                "    async def run(self, task: dict) -> dict:",
+                "        return await self.engine.execute(task)",
+                "",
+                "",
+                f"{module_name}_worker = {class_name}Worker()",
+                "",
+            ]
+        )
         worker_path.write_text(content, encoding="utf-8")
         return True
 
@@ -132,10 +138,12 @@ class PackSynthesizer:
         if test_path.exists():
             return False
         module_name = proposal.domain.replace("-", "_")
-        content = "\n".join([
-            f"def test_{module_name}_placeholder() -> None:",
-            "    assert True",
-            "",
-        ])
+        content = "\n".join(
+            [
+                f"def test_{module_name}_placeholder() -> None:",
+                "    assert True",
+                "",
+            ]
+        )
         test_path.write_text(content, encoding="utf-8")
         return True

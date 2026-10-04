@@ -209,7 +209,10 @@ class MarketFeedAdapter:
                 backoff += random.uniform(0, backoff * 0.1)
                 logger.warning(
                     "Rate limited for %s. Backing off %.1fs (hit %d). Retry after %.1fs",
-                    symbol, backoff, rate_limit_hits, exc.retry_after,
+                    symbol,
+                    backoff,
+                    rate_limit_hits,
+                    exc.retry_after,
                 )
                 self.status.metadata["last_rate_limit"] = time.time()
                 self.status.metadata["rate_limit_backoff"] = backoff

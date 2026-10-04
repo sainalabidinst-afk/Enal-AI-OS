@@ -89,21 +89,6 @@ ignore = []
 "certification/scripts/*" = ["E501"]
 "fix_stage2.py" = ["E501"]
 
-[tool.black]
-line-length = 100
-target-version = ["py311"]
-# Same rationale as [tool.ruff]: generated fixture trees are not production code.
-extend-exclude = """
-/(
-    real_cases
-  | golden
-  | golden_tests
-  | audit_output
-  | onboarding_output
-  | repo_inspect_output
-)/
-"""
-
 [tool.mypy]
 python_version = "3.11"
 strict = false

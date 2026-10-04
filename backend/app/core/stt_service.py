@@ -131,11 +131,13 @@ class GoogleSTTProvider(STTProvider):
             async with httpx.AsyncClient(timeout=60.0) as client:
                 params = {
                     "key": api_key,
-                    "config": json.dumps({
-                        "encoding": "LINEAR16",
-                        "sampleRateHertz": 16000,
-                        "languageCode": language,
-                    }),
+                    "config": json.dumps(
+                        {
+                            "encoding": "LINEAR16",
+                            "sampleRateHertz": 16000,
+                            "languageCode": language,
+                        }
+                    ),
                 }
                 files = {"audio": ("audio.wav", audio_data, "audio/wav")}
                 response = await client.post(

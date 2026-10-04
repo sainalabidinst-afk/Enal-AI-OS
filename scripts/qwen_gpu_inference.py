@@ -2,6 +2,7 @@
 Qwen2.5-7B GPU Inference with vLLM
 No AVX2 CPU dependency - runs entirely on GPU
 """
+
 import argparse
 
 from vllm import LLM, SamplingParams
@@ -10,7 +11,9 @@ from vllm import LLM, SamplingParams
 def main():
     parser = argparse.ArgumentParser(description="Qwen2.5-7B GPU Inference")
     parser.add_argument("--model-path", default="./models/qwen2.5-7b", help="Path to model")
-    parser.add_argument("--prompt", default="Hello, can you summarize AI governance?", help="Prompt")
+    parser.add_argument(
+        "--prompt", default="Hello, can you summarize AI governance?", help="Prompt"
+    )
     parser.add_argument("--max-tokens", type=int, default=256, help="Max tokens")
     parser.add_argument("--temperature", type=float, default=0.7, help="Temperature")
     parser.add_argument("--tensor-parallel", type=int, default=1, help="Tensor parallel size")

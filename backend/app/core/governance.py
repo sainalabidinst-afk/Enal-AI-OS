@@ -150,9 +150,7 @@ class GovernanceSandbox:
     pack_id: str
     isolated: bool = True
     environment: str = "sandbox"
-    allowed_operations: list[str] = field(
-        default_factory=lambda: ["read", "execute", "benchmark"]
-    )
+    allowed_operations: list[str] = field(default_factory=lambda: ["read", "execute", "benchmark"])
     blocked_operations: list[str] = field(
         default_factory=lambda: ["write", "network", "delete", "register"]
     )

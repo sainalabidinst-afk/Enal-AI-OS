@@ -31,5 +31,3 @@ __all__ = [
     "research_worker",
     "trading_worker",
 ]
-
-

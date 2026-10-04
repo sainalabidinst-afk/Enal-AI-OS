@@ -94,4 +94,3 @@ def test_cross_pack_runtime_invocation() -> None:
         assert len(sd_result) > 0
 
     asyncio.run(run_cross_pack())
-

@@ -217,8 +217,7 @@ class GPUInferenceService:
                 add_generation_prompt=True,
             )
         parts = [
-            f"{message.get('role', 'user')}\n{message.get('content', '')}"
-            for message in messages
+            f"{message.get('role', 'user')}\n{message.get('content', '')}" for message in messages
         ]
         parts.append("assistant")
         return "\n".join(parts)

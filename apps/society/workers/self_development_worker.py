@@ -36,6 +36,7 @@ class SelfDevelopmentWorker:
 
     def __init__(self):
         from apps.self_development import get_app
+
         self._app = get_app()
 
     @classmethod

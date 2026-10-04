@@ -61,9 +61,7 @@ def _fetch_json(url: str) -> Any:
                     retry_after = float(retry_header)
             except (TypeError, ValueError):
                 retry_after = 60.0
-            logger.warning(
-                "Rate limited by provider for %s. Retry-After=%s", url, retry_after
-            )
+            logger.warning("Rate limited by provider for %s. Retry-After=%s", url, retry_after)
             raise RateLimitError(
                 retry_after=retry_after, message=f"Rate limited: retry after {retry_after}s"
             )

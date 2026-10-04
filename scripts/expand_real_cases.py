@@ -26,7 +26,7 @@ def get_next_case_number(pack_dir: Path, prefix: str) -> int:
     for d in pack_dir.iterdir():
         if d.is_dir() and d.name.startswith(prefix):
             try:
-                num = int(d.name[len(prefix):])
+                num = int(d.name[len(prefix) :])
                 existing.append(num)
             except ValueError:
                 continue

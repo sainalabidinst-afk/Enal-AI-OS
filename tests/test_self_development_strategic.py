@@ -46,9 +46,7 @@ NOW = datetime(2026, 10, 4, 12, 0, tzinfo=UTC)
 
 class TestProposalDedup:
     def test_capability_ids_are_deterministic(self) -> None:
-        assert capability_proposal_id("cybersecurity_analyst") == (
-            "cap-cybersecurity_analyst"
-        )
+        assert capability_proposal_id("cybersecurity_analyst") == ("cap-cybersecurity_analyst")
         assert capability_proposal_id("data_scientist") == "cap-data_scientist"
 
     def test_improvement_ids_are_deterministic(self) -> None:
@@ -369,9 +367,7 @@ class TestObservabilityAlertIntegration:
             completed_at=NOW,
         )
         asyncio.run(tracker.dispatch_alerts(now=NOW))
-        drift = [
-            e for e in aggregator._growth_alert_events if e["alert_type"] == "goal_drift"
-        ]
+        drift = [e for e in aggregator._growth_alert_events if e["alert_type"] == "goal_drift"]
         assert len(drift) == 1
         assert drift[0]["severity"] == "warning"
         assert drift[0]["subject"] == "Random browsing"
@@ -400,9 +396,7 @@ class TestObservabilityAlertIntegration:
             message="drift detected",
         )
         client = TestClient(app)
-        login = client.post(
-            "/api/v1/auth/login", data={"username": "admin", "password": "secret"}
-        )
+        login = client.post("/api/v1/auth/login", data={"username": "admin", "password": "secret"})
         assert login.status_code == 200, login.text
         headers = {"Authorization": f"Bearer {login.json()['access_token']}"}
         response = client.get("/api/v1/metrics/alerts", headers=headers)
@@ -441,9 +435,7 @@ class TestExportWiring:
         from apps.self_development import engine as engine_module
 
         repo = GrowthRepository(storage_path=tmp_path / "engine.json")
-        monkeypatch.setattr(
-            engine_module, "learning_analytics", LearningAnalytics(repository=repo)
-        )
+        monkeypatch.setattr(engine_module, "learning_analytics", LearningAnalytics(repository=repo))
         monkeypatch.setattr(engine_module, "habit_tracker", HabitTracker(repository=repo))
         return engine_module.SelfDevelopmentEngine(), repo
 

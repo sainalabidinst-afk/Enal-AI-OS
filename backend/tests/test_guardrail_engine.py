@@ -165,7 +165,7 @@ class TestGuardrailEngine:
             "pii": True,
             "toxic_language": False,
             "prompt_injection": True,
-                   }
+        }
         results = engine.check("Hello world", enabled)
         assert len(results) == 2
         assert all(r.guardrail in ("pii", "prompt_injection") for r in results)

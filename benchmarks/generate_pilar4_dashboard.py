@@ -58,22 +58,22 @@ def build_dashboard(metrics: dict | None) -> str:
 <body>
     <div class="header">
         <h1>Pilar 4 Governance Metrics Dashboard</h1>
-        <p>Generated: {metrics.get('generated_at', 'N/A')}</p>
+        <p>Generated: {metrics.get("generated_at", "N/A")}</p>
     </div>
     <div class="grid">
         <div class="card">
             <div class="label">Pack Synthesis Acceptance Rate</div>
-            <div class="metric {'pass' if acceptance_rate >= 90 else 'fail'}">{acceptance_rate:.1f}%</div>
+            <div class="metric {"pass" if acceptance_rate >= 90 else "fail"}">{acceptance_rate:.1f}%</div>
             <canvas id="acceptanceChart"></canvas>
         </div>
         <div class="card">
             <div class="label">Remediation Success Rate</div>
-            <div class="metric {'pass' if remediation_rate >= 95 else 'fail'}">{remediation_rate:.1f}%</div>
+            <div class="metric {"pass" if remediation_rate >= 95 else "fail"}">{remediation_rate:.1f}%</div>
             <canvas id="remediationChart"></canvas>
         </div>
         <div class="card">
             <div class="label">Federated Sync Privacy Violation Rate</div>
-            <div class="metric {'pass' if privacy_rate == 0 else 'fail'}">{privacy_rate:.1f}%</div>
+            <div class="metric {"pass" if privacy_rate == 0 else "fail"}">{privacy_rate:.1f}%</div>
             <canvas id="privacyChart"></canvas>
         </div>
         <div class="card">
@@ -100,8 +100,8 @@ def build_dashboard(metrics: dict | None) -> str:
                 datasets: [{{
                     label: 'Actual',
                     data: [{acceptance_rate}],
-                    backgroundColor: '{'rgba(40, 167, 69, 0.8)' if acceptance_rate >= 90 else 'rgba(220, 53, 69, 0.8)'}',
-                    borderColor: '{'rgba(40, 167, 69, 1)' if acceptance_rate >= 90 else 'rgba(220, 53, 69, 1)'}',
+                    backgroundColor: '{"rgba(40, 167, 69, 0.8)" if acceptance_rate >= 90 else "rgba(220, 53, 69, 0.8)"}',
+                    borderColor: '{"rgba(40, 167, 69, 1)" if acceptance_rate >= 90 else "rgba(220, 53, 69, 1)"}',
                     borderWidth: 1
                 }},
                 {{
@@ -121,8 +121,8 @@ def build_dashboard(metrics: dict | None) -> str:
                 datasets: [{{
                     label: 'Actual',
                     data: [{remediation_rate}],
-                    backgroundColor: '{'rgba(40, 167, 69, 0.8)' if remediation_rate >= 95 else 'rgba(220, 53, 69, 0.8)'}',
-                    borderColor: '{'rgba(40, 167, 69, 1)' if remediation_rate >= 95 else 'rgba(220, 53, 69, 1)'}',
+                    backgroundColor: '{"rgba(40, 167, 69, 0.8)" if remediation_rate >= 95 else "rgba(220, 53, 69, 0.8)"}',
+                    borderColor: '{"rgba(40, 167, 69, 1)" if remediation_rate >= 95 else "rgba(220, 53, 69, 1)"}',
                     borderWidth: 1
                 }},
                 {{
@@ -142,8 +142,8 @@ def build_dashboard(metrics: dict | None) -> str:
                 datasets: [{{
                     label: 'Actual',
                     data: [{privacy_rate}],
-                    backgroundColor: '{'rgba(40, 167, 69, 0.8)' if privacy_rate == 0 else 'rgba(220, 53, 69, 0.8)'}',
-                    borderColor: '{'rgba(40, 167, 69, 1)' if privacy_rate == 0 else 'rgba(220, 53, 69, 1)'}',
+                    backgroundColor: '{"rgba(40, 167, 69, 0.8)" if privacy_rate == 0 else "rgba(220, 53, 69, 0.8)"}',
+                    borderColor: '{"rgba(40, 167, 69, 1)" if privacy_rate == 0 else "rgba(220, 53, 69, 1)"}',
                     borderWidth: 1
                 }},
                 {{
@@ -163,8 +163,8 @@ def build_dashboard(metrics: dict | None) -> str:
                 datasets: [{{
                     label: 'Actual',
                     data: [{avg_latency}],
-                    backgroundColor: '{'rgba(40, 167, 69, 0.8)' if avg_latency < 500 else 'rgba(255, 193, 7, 0.8)'}',
-                    borderColor: '{'rgba(40, 167, 69, 1)' if avg_latency < 500 else 'rgba(255, 193, 7, 1)'}',
+                    backgroundColor: '{"rgba(40, 167, 69, 0.8)" if avg_latency < 500 else "rgba(255, 193, 7, 0.8)"}',
+                    borderColor: '{"rgba(40, 167, 69, 1)" if avg_latency < 500 else "rgba(255, 193, 7, 1)"}',
                     borderWidth: 1
                 }},
                 {{

@@ -581,9 +581,7 @@ class SelfDevelopmentEngine:
         granularity: str = Granularity.WEEK.value,
     ) -> dict[str, Any]:
         """Export a JSON/HTML progress summary for the user."""
-        return export_service.export_report(
-            format=format, weeks=weeks, granularity=granularity
-        )
+        return export_service.export_report(format=format, weeks=weeks, granularity=granularity)
 
     # ------------------------------------------------------------------
     # Public API - Cross-Pack Learning Projects

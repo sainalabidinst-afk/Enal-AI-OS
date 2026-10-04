@@ -80,9 +80,7 @@ class ExportService:
             "content": content,
         }
 
-    def build_report(
-        self, weeks: int = 12, granularity: str = "week"
-    ) -> dict[str, Any]:
+    def build_report(self, weeks: int = 12, granularity: str = "week") -> dict[str, Any]:
         """Assemble the full progress report payload."""
         snapshot = self._analytics.snapshot(granularity, weeks)
         goals = self._aligner.list_goals()
@@ -179,32 +177,38 @@ class ExportService:
             "</tr>"
             for b in report["progress"]["buckets"]
         )
-        goal_items = "\n".join(
-            "<li>"
-            f"<strong>{esc(g['title'])}</strong> ({esc(g['kind'])}) — "
-            f"progress {g['progress']:.0f}%"
-            "</li>"
-            for g in report["goals"]
-        ) or "<li>No goals registered yet.</li>"
-        habit_items = "\n".join(
-            "<li>"
-            f"<strong>{esc(h['name'])}</strong> — streak {h['current_streak']}, "
-            f"{h['period_check_ins']}/{h['target_per_period']} this period"
-            + (" <em>(at risk)</em>" if h["at_risk"] else "")
-            + "</li>"
-            for h in report["habits"]
-        ) or "<li>No habits registered yet.</li>"
-        rec_items = "\n".join(
-            "<li>"
-            f"<strong>{esc(r['title'])}</strong> ({esc(r['kind'])}) — "
-            f"{esc(r['rationale'])}"
-            "</li>"
-            for r in report["recommendations"]
-        ) or "<li>No recommendations available.</li>"
-        cards = "\n".join(
-            _summary_card(value, label)
-            for value, label in _summary_cards(summary)
+        goal_items = (
+            "\n".join(
+                "<li>"
+                f"<strong>{esc(g['title'])}</strong> ({esc(g['kind'])}) — "
+                f"progress {g['progress']:.0f}%"
+                "</li>"
+                for g in report["goals"]
+            )
+            or "<li>No goals registered yet.</li>"
         )
+        habit_items = (
+            "\n".join(
+                "<li>"
+                f"<strong>{esc(h['name'])}</strong> — streak {h['current_streak']}, "
+                f"{h['period_check_ins']}/{h['target_per_period']} this period"
+                + (" <em>(at risk)</em>" if h["at_risk"] else "")
+                + "</li>"
+                for h in report["habits"]
+            )
+            or "<li>No habits registered yet.</li>"
+        )
+        rec_items = (
+            "\n".join(
+                "<li>"
+                f"<strong>{esc(r['title'])}</strong> ({esc(r['kind'])}) — "
+                f"{esc(r['rationale'])}"
+                "</li>"
+                for r in report["recommendations"]
+            )
+            or "<li>No recommendations available.</li>"
+        )
+        cards = "\n".join(_summary_card(value, label) for value, label in _summary_cards(summary))
         return f"""<!DOCTYPE html>
 <html lang="en">
 <head>

@@ -49,7 +49,7 @@ class MarketRegimeDetector:
             if returns:
                 avg_return = sum(returns) / len(returns)
                 variance = sum((r - avg_return) ** 2 for r in returns) / len(returns)
-                std_dev = variance ** 0.5
+                std_dev = variance**0.5
                 if std_dev > 0.03:
                     volatility = "high"
                 elif std_dev < 0.005:

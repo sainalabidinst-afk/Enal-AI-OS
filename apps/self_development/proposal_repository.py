@@ -59,9 +59,7 @@ class ProposalRepository:
         return None
 
     @staticmethod
-    def _merge_capability(
-        existing: CapabilityProposal, incoming: CapabilityProposal
-    ) -> None:
+    def _merge_capability(existing: CapabilityProposal, incoming: CapabilityProposal) -> None:
         existing.name = incoming.name
         existing.description = incoming.description
         existing.tier = incoming.tier
@@ -138,9 +136,7 @@ class ProposalRepository:
         return None
 
     @staticmethod
-    def _merge_improvement(
-        existing: ImprovementProposal, incoming: ImprovementProposal
-    ) -> None:
+    def _merge_improvement(existing: ImprovementProposal, incoming: ImprovementProposal) -> None:
         existing.description = incoming.description
         existing.estimated_effort = incoming.estimated_effort
         existing.risk = incoming.risk
@@ -180,12 +176,8 @@ class ProposalRepository:
         """Collapse duplicates by natural key; returns removed counts."""
         before_caps = len(self._capabilities)
         before_imps = len(self._improvements)
-        self._capabilities = {
-            p.domain: p for p in self._capabilities.values()
-        }
-        self._capabilities = {
-            p.id: p for p in self._capabilities.values()
-        }
+        self._capabilities = {p.domain: p for p in self._capabilities.values()}
+        self._capabilities = {p.id: p for p in self._capabilities.values()}
         improvements: dict[str, ImprovementProposal] = {}
         for proposal in self._improvements.values():
             key = (proposal.target_type, proposal.target_id, proposal.improvement_type)
@@ -264,9 +256,7 @@ class ProposalRepository:
                     metadata=item.get("metadata", {}),
                 )
                 self._capabilities[proposal.domain] = proposal
-            self._capabilities = {
-                p.id: p for p in self._capabilities.values()
-            }
+            self._capabilities = {p.id: p for p in self._capabilities.values()}
             improvements: dict[tuple[str, str, str], ImprovementProposal] = {}
             for item in data.get("improvements", []):
                 improvement = ImprovementProposal(

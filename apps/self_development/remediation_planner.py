@@ -84,6 +84,7 @@ class RemediationConsentGate:
     def __init__(self, consent_manager: Any | None = None) -> None:
         try:
             from backend.app.core.consent import consent_manager
+
             self.consent_manager = consent_manager
         except Exception:
             self.consent_manager = consent_manager

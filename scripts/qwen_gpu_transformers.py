@@ -2,6 +2,7 @@
 Qwen2.5-7B GPU Inference with Hugging Face Transformers
 Fallback if vLLM has issues
 """
+
 import argparse
 
 import torch
@@ -11,7 +12,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 def main():
     parser = argparse.ArgumentParser(description="Qwen2.5-7B Transformers GPU Inference")
     parser.add_argument("--model-name", default="Qwen/Qwen2.5-7B", help="Model name")
-    parser.add_argument("--prompt", default="Hello, explain observability in AI systems.", help="Prompt")
+    parser.add_argument(
+        "--prompt", default="Hello, explain observability in AI systems.", help="Prompt"
+    )
     parser.add_argument("--max-length", type=int, default=256, help="Max length")
     parser.add_argument("--temperature", type=float, default=0.7, help="Temperature")
     args = parser.parse_args()

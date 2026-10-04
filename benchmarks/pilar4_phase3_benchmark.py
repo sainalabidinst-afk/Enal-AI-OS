@@ -53,12 +53,14 @@ async def bench_gap_detector() -> dict:
         start = now_ms()
         result = detector.detect(q)
         latencies.append(now_ms() - start)
-        results.append({
-            "query": q,
-            "is_gap": result.is_gap,
-            "suggested_domain": result.suggested_domain,
-            "confidence": result.confidence,
-        })
+        results.append(
+            {
+                "query": q,
+                "is_gap": result.is_gap,
+                "suggested_domain": result.suggested_domain,
+                "confidence": result.confidence,
+            }
+        )
     return {
         "scenarios": len(queries),
         "avg_latency_ms": round(sum(latencies) / len(latencies), 2),
@@ -100,11 +102,41 @@ async def bench_pack_synthesizer() -> dict:
 async def bench_anomaly_detector() -> dict:
     detector = AnomalyDetector()
     samples = [
-        {"metric": "cpu_usage", "current_value": 95.0, "baseline": 50.0, "threshold_pct": 20.0, "category": "performance"},
-        {"metric": "memory_usage", "current_value": 55.0, "baseline": 50.0, "threshold_pct": 20.0, "category": "performance"},
-        {"metric": "error_rate", "current_value": 0.15, "baseline": 0.01, "threshold_pct": 50.0, "category": "security"},
-        {"metric": "latency_p95", "current_value": 500.0, "baseline": 100.0, "threshold_pct": 30.0, "category": "performance"},
-        {"metric": "disk_usage", "current_value": 92.0, "baseline": 80.0, "threshold_pct": 15.0, "category": "infrastructure"},
+        {
+            "metric": "cpu_usage",
+            "current_value": 95.0,
+            "baseline": 50.0,
+            "threshold_pct": 20.0,
+            "category": "performance",
+        },
+        {
+            "metric": "memory_usage",
+            "current_value": 55.0,
+            "baseline": 50.0,
+            "threshold_pct": 20.0,
+            "category": "performance",
+        },
+        {
+            "metric": "error_rate",
+            "current_value": 0.15,
+            "baseline": 0.01,
+            "threshold_pct": 50.0,
+            "category": "security",
+        },
+        {
+            "metric": "latency_p95",
+            "current_value": 500.0,
+            "baseline": 100.0,
+            "threshold_pct": 30.0,
+            "category": "performance",
+        },
+        {
+            "metric": "disk_usage",
+            "current_value": 92.0,
+            "baseline": 80.0,
+            "threshold_pct": 15.0,
+            "category": "infrastructure",
+        },
     ]
     latencies = []
     all_anomalies = []
@@ -113,11 +145,13 @@ async def bench_anomaly_detector() -> dict:
         anomaly = detector.detect(**s)
         latencies.append(now_ms() - start)
         if anomaly is not None:
-            all_anomalies.append({
-                "metric": anomaly.metric,
-                "severity": anomaly.severity,
-                "deviation_pct": anomaly.deviation_pct,
-            })
+            all_anomalies.append(
+                {
+                    "metric": anomaly.metric,
+                    "severity": anomaly.severity,
+                    "deviation_pct": anomaly.deviation_pct,
+                }
+            )
     batch_start = now_ms()
     detector.detect_batch(samples)
     batch_latency = now_ms() - batch_start
@@ -132,6 +166,7 @@ async def bench_anomaly_detector() -> dict:
 
 async def bench_remediation_planner() -> dict:
     from apps.self_development.anomaly_detector import Anomaly
+
     planner = RemediationPlanner()
     anomalies = [
         Anomaly(
@@ -161,12 +196,14 @@ async def bench_remediation_planner() -> dict:
         start = now_ms()
         playbook = planner.plan(a)
         latencies.append(now_ms() - start)
-        results.append({
-            "anomaly_id": a.anomaly_id,
-            "severity": a.severity,
-            "requires_consent": playbook.requires_consent,
-            "steps_count": len(playbook.steps),
-        })
+        results.append(
+            {
+                "anomaly_id": a.anomaly_id,
+                "severity": a.severity,
+                "requires_consent": playbook.requires_consent,
+                "steps_count": len(playbook.steps),
+            }
+        )
     return {
         "scenarios": len(anomalies),
         "avg_latency_ms": round(sum(latencies) / len(latencies), 2),
@@ -243,7 +280,9 @@ async def main() -> None:
     print("[3/6] AnomalyDetector...")
     results["benchmarks"]["anomaly_detector"] = await bench_anomaly_detector()
     print(f"  Scenarios: {results['benchmarks']['anomaly_detector']['scenarios']}")
-    print(f"  Anomalies detected: {results['benchmarks']['anomaly_detector']['anomalies_detected']}")
+    print(
+        f"  Anomalies detected: {results['benchmarks']['anomaly_detector']['anomalies_detected']}"
+    )
     print()
 
     print("[4/6] RemediationPlanner...")

@@ -1,6 +1,7 @@
 """
 Quick Qwen GPU Inference Test
 """
+
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 

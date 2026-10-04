@@ -207,9 +207,11 @@ async def test_engine_end_to_end_phase3_methods():
     assert synthesized["status"] == "synthesized"
     assert "artifacts" in synthesized
 
-    anomalies = await self_development_engine.detect_anomalies([
-        {"metric": "cpu", "current_value": 95.0, "baseline": 50.0, "threshold_pct": 20.0},
-    ])
+    anomalies = await self_development_engine.detect_anomalies(
+        [
+            {"metric": "cpu", "current_value": 95.0, "baseline": 50.0, "threshold_pct": 20.0},
+        ]
+    )
     assert len(anomalies) == 1
     assert anomalies[0]["severity"] == "high"
 
