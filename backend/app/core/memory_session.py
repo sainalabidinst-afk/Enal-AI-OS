@@ -14,6 +14,16 @@ class SessionMemory:
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._sessions: dict[str, dict] = {}
+        self._load_from_disk()
+
+    def _load_from_disk(self) -> None:
+        """Load persisted sessions from filesystem into in-memory cache."""
+        for path in self.base_path.glob("*.json"):
+            try:
+                session_id = path.stem
+                self._sessions[session_id] = json.loads(path.read_text())
+            except json.JSONDecodeError:
+                logger.warning(f"Failed to load session from {path}")
 
     async def store(
         self,
@@ -64,9 +74,19 @@ class SessionMemory:
         return False
 
     async def list_keys(self, pattern: str = "*", session_id: str | None = None) -> list[str]:
+        import fnmatch
+
         if session_id and session_id in self._sessions:
-            return list(self._sessions[session_id].keys())
-        return list(self._sessions.keys())
+            session_keys = list(self._sessions[session_id].keys())
+            return [k for k in session_keys if fnmatch.fnmatch(k, pattern)]
+        if session_id:
+            return []
+        results: list[str] = []
+        for sid, session in self._sessions.items():
+            for k in session.keys():
+                if fnmatch.fnmatch(k, pattern):
+                    results.append(k)
+        return results
 
     def _persist_session(self, session_id: str):
         path = self.base_path / f"{session_id}.json"

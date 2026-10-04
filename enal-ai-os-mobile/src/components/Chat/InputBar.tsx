@@ -4,9 +4,11 @@ import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 interface InputBarProps {
   onSend: (text: string) => void;
   isSending: boolean;
+  onMicPress?: () => void;
+  isListening?: boolean;
 }
 
-export function InputBar({ onSend, isSending }: InputBarProps) {
+export function InputBar({ onSend, isSending, onMicPress, isListening }: InputBarProps) {
   const [text, setText] = useState('');
 
   const handleSend = () => {
@@ -28,6 +30,14 @@ export function InputBar({ onSend, isSending }: InputBarProps) {
           onSubmitEditing={handleSend}
           returnKeyType="send"
         />
+        {onMicPress && (
+          <TouchableOpacity
+            onPress={onMicPress}
+            className={`rounded-lg p-2 ${isListening ? 'bg-red-500' : 'bg-primary opacity-80'}`}
+          >
+            <Text className="text-white font-bold">🎤</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={handleSend}
           disabled={!text.trim() || isSending}

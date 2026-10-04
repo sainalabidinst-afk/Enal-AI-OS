@@ -1,7 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, FlatList, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { MessageBubble } from './MessageBubble';
 import { InputBar } from './InputBar';
+import { useSTT } from '../../hooks/useSTT';
+import { useTTS } from '../../hooks/useSTT';
+import { apiClient } from '../../api/client';
+import { API_ENDPOINTS } from '../../api/endpoints';
 
 export interface Message {
   id: string;
@@ -21,6 +25,8 @@ export function ChatScreen() {
   ]);
   const [isSending, setIsSending] = useState(false);
   const flatListRef = useRef<FlatList>(null);
+  const { isListening, transcript, startListening, stopListening } = useSTT();
+  const { speak } = useTTS();
 
   const handleSend = async (text: string) => {
     if (!text.trim() || isSending) return;
@@ -36,20 +42,18 @@ export function ChatScreen() {
     setIsSending(true);
 
     try {
-      // TODO: Replace with actual API call
-      // const response = await apiClient.post('/chat', { message: text });
-      
-      // Simulated response for now
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
+      const response = await apiClient.post(API_ENDPOINTS.CHAT.SEND, { message: text });
+      const content = response.data?.reply ?? response.data?.message ?? 'No response.';
+
       const assistantMessage: Message = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content: `I received: "${text}". This is a demo response.`,
+        content,
         timestamp: new Date().toISOString(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+      speak(content);
     } catch (error) {
       setMessages((prev) => [
         ...prev,
@@ -65,6 +69,24 @@ export function ChatScreen() {
     }
   };
 
+  const handleMicPress = async () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      try {
+        await startListening();
+      } catch (error) {
+        Alert.alert('Microphone Error', 'Unable to access microphone.');
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    if (transcript && transcript !== 'Listening...') {
+      handleSend(transcript);
+    }
+  }, [transcript]);
+
   return (
     <KeyboardAvoidingView
       className="flex-1 bg-background"
@@ -78,7 +100,12 @@ export function ChatScreen() {
         contentContainerStyle={{ padding: 16 }}
         onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
       />
-      <InputBar onSend={handleSend} isSending={isSending} />
+      <InputBar
+        onSend={handleSend}
+        isSending={isSending}
+        onMicPress={handleMicPress}
+        isListening={isListening}
+      />
     </KeyboardAvoidingView>
   );
 }

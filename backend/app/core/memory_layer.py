@@ -171,22 +171,42 @@ class MemoryManager:
             return None
         return await mem.retrieve(key, session_id=session_id, project_id=project_id)
 
-    async def search(self, layer: str, query: str, limit: int = 10) -> list[dict]:
+    async def search(
+        self, layer: str, query: str, limit: int = 10, session_id: str | None = None,
+        project_id: str | None = None,
+    ) -> list[dict]:
         mem = self._layers.get(layer)
         if mem:
-            return await mem.search(query, limit)
+            return await mem.search(query, limit, session_id=session_id, project_id=project_id)
         return []
 
-    async def delete(self, layer: str, key: str) -> bool:
+    async def delete(
+        self, layer: str, key: str, session_id: str | None = None, project_id: str | None = None
+    ) -> bool:
         mem = self._layers.get(layer)
         if mem:
-            return await mem.delete(key)
+            sig = mem.delete.__code__.co_varnames[:mem.delete.__code__.co_argcount]
+            kwargs = {}
+            if "session_id" in sig and session_id is not None:
+                kwargs["session_id"] = session_id
+            if "project_id" in sig and project_id is not None:
+                kwargs["project_id"] = project_id
+            return await mem.delete(key, **kwargs)
         return False
 
-    async def list_keys(self, layer: str, pattern: str = "*") -> list[str]:
+    async def list_keys(
+        self, layer: str, pattern: str = "*", session_id: str | None = None,
+        project_id: str | None = None,
+    ) -> list[str]:
         mem = self._layers.get(layer)
         if mem:
-            return await mem.list_keys(pattern)
+            sig = mem.list_keys.__code__.co_varnames[:mem.list_keys.__code__.co_argcount]
+            kwargs = {}
+            if "session_id" in sig and session_id is not None:
+                kwargs["session_id"] = session_id
+            if "project_id" in sig and project_id is not None:
+                kwargs["project_id"] = project_id
+            return await mem.list_keys(pattern, **kwargs)
         return []
 
     async def consolidate(

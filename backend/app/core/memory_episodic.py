@@ -16,6 +16,26 @@ class EpisodicMemory:
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._episodes: dict[str, EpisodicMemoryEntry] = {}
+        self._load_from_disk()
+
+    def _load_from_disk(self) -> None:
+        """Load persisted episodes from filesystem into in-memory index."""
+        for path in self.base_path.glob("*.json"):
+            try:
+                data = json.loads(path.read_text())
+                entry = EpisodicMemoryEntry(
+                    episode_id=data.get("episode_id", path.stem),
+                    session_id=data.get("session_id", "default"),
+                    timestamp=data.get("timestamp", time.time()),
+                    event_type=data.get("event_type", "generic"),
+                    content=data.get("content", {}),
+                    tags=data.get("tags", []),
+                    importance=data.get("importance", 0.5),
+                    summary=data.get("summary", ""),
+                )
+                self._episodes[entry.episode_id] = entry
+            except (json.JSONDecodeError, KeyError):
+                logger.warning(f"Failed to load episode from {path}")
 
     async def store(
         self,
@@ -71,7 +91,9 @@ class EpisodicMemory:
         return False
 
     async def list_keys(self, pattern: str = "*") -> list[str]:
-        return list(self._episodes.keys())
+        import fnmatch
+
+        return [k for k in self._episodes if fnmatch.fnmatch(k, pattern)]
 
     def _persist(self, entry: EpisodicMemoryEntry):
         path = self.base_path / f"{entry.episode_id}.json"

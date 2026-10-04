@@ -4,10 +4,12 @@ import time
 from pathlib import Path
 from typing import Any
 
+from backend.app.core.memory_layer import MemoryLayer
+
 logger = logging.getLogger(__name__)
 
 
-class LongTermMemory:
+class LongTermMemory(MemoryLayer):
     """Persistent compressed memory stored on the filesystem."""
 
     def __init__(self, base_path: str = "./workspace/memory/longterm"):
@@ -21,18 +23,26 @@ class LongTermMemory:
         ttl: int | None = None,
         session_id: str | None = None,
         project_id: str | None = None,
-    ):  # noqa: E501
+    ):
         path = self.base_path / f"{key}.json"
-        data = {"key": key, "value": value, "created_at": time.time()}
+        data = {
+            "key": key,
+            "value": value,
+            "created_at": time.time(),
+            "expires_at": time.time() + ttl if ttl else None,
+        }
         path.write_text(json.dumps(data, default=str))
 
     async def retrieve(
         self, key: str, session_id: str | None = None, project_id: str | None = None
-    ) -> Any | None:  # noqa: E501
+    ) -> Any | None:
         path = self.base_path / f"{key}.json"
         if not path.exists():
             return None
         data = json.loads(path.read_text())
+        if data.get("expires_at") and time.time() > data["expires_at"]:
+            path.unlink(missing_ok=True)
+            return None
         return data.get("value")
 
     async def search(
@@ -41,11 +51,14 @@ class LongTermMemory:
         limit: int = 10,
         session_id: str | None = None,
         project_id: str | None = None,
-    ) -> list[dict]:  # noqa: E501
+    ) -> list[dict]:
         results: list[dict] = []
         query_lower = query.lower()
         for path in self.base_path.glob("*.json"):
             data = json.loads(path.read_text())
+            if data.get("expires_at") and time.time() > data["expires_at"]:
+                path.unlink(missing_ok=True)
+                continue
             content = str(data.get("value", ""))
             if query_lower in content.lower():
                 results.append({"key": data["key"], "value": data["value"]})

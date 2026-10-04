@@ -14,6 +14,19 @@ class KnowledgeMemory:
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._index: dict[str, list[str]] = {}
+        self._load_from_disk()
+
+    def _load_from_disk(self) -> None:
+        """Load persisted entries from filesystem into in-memory index."""
+        for path in self.base_path.glob("*.json"):
+            try:
+                data = json.loads(path.read_text())
+                key = data.get("key", path.stem)
+                value = str(data.get("value", ""))
+                words = [w for w in value.lower().split() if len(w) > 3]
+                self._index[key] = words
+            except json.JSONDecodeError:
+                logger.warning(f"Failed to load knowledge entry from {path}")
 
     async def store(
         self,

@@ -34,7 +34,7 @@ export function TraceList({ traces }: TraceListProps) {
         data={traces}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
-        ListEmptyText="No traces available"
+        ListEmptyComponent={<Text className="text-text-secondary text-center py-4">No traces available</Text>}
       />
     </View>
   );
