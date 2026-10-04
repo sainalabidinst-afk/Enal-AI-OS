@@ -1,5 +1,34 @@
 import { api } from "./api";
-import type { TradingAnalyzeResponse, MarketRegimeLive, FeedStatusResponse } from "../types/trading";
+import type { TradingAnalyzeResponse } from "../types/trading";
+
+export interface MarketRegimeLive {
+  symbol: string;
+  regime: string;
+  confidence: number;
+  volatility: string;
+  trend_strength: number;
+  source: string;
+  timestamp?: number;
+}
+
+export interface FeedStatusResponse {
+  running: boolean;
+  symbol: string | null;
+  timeframes: string[];
+  last_update: number;
+  error_count: number;
+  fallback_active: boolean;
+}
+
+export interface TradingFeedOptions {
+  symbol: string;
+  timeframes?: string[];
+  pollInterval?: number;
+  onRegimeUpdate?: (regime: MarketRegimeLive) => void;
+  onError?: (error: Error) => void;
+  onStatusChange?: (status: FeedStatusResponse) => void;
+  signal?: AbortSignal;
+}
 
 export async function analyzeMarket(
   symbol: string,
@@ -9,16 +38,6 @@ export async function analyzeMarket(
     symbol: symbol.toUpperCase().trim(),
     timeframes: timeframes,
   });
-}
-
-export interface TradingFeedOptions {
-  symbol: string;
-  timeframes?: string[];
-  pollInterval?: number;
-  onRegimeUpdate: (regime: MarketRegimeLive) => void;
-  onError?: (error: Error) => void;
-  onStatusChange?: (status: FeedStatusResponse) => void;
-  signal?: AbortSignal;
 }
 
 export async function startLiveFeed(options: TradingFeedOptions): Promise<void> {

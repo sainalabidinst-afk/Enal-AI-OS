@@ -1145,6 +1145,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | 2026-10-03 | Outstanding Work cleanup: Removed completed SimplAI Parity items from Outstanding Work (Visual Builder, Agent/Tool Builder, Voice, Guardrails, Marketplace, A2A/MCP, Bulk/Eval all implemented); remaining items: concrete.py cleanup (already clean), 16 generic docs (verified OK), Scenario Simulator real cases (sim_001–sim_010 complete), v3.1.0-rc1 already released | ✅ |
 | 2026-10-03 | Outstanding Work final: All 6 remaining items completed — concrete.py verified clean via ruff, capability docs verified non-generic, Scenario Simulator real cases sim_001–sim_010 complete, v3.1.0-rc1 released, Consent Dialog integrated into chatgpt-page.tsx (useConsentDialog hook, openConsent on mount, header button, ConsentDialogComponent rendered); Outstanding Work section cleared | ✅ |
 | 2026-10-04 | Real-Time Market Feed Adapter implemented: backend/app/core/market_feed_adapter.py (MarketFeedAdapter with polling, fallback, subscribers); trading API extended with /regime/live, /feed/status, /feed/start, /feed/stop; frontend/services/trading.ts updated with live feed service; frontend/types/trading.ts added MarketRegimeLive and FeedStatusResponse; ruff clean | ✅ |
+| 2026-10-04 | Console Dashboard Trading Panel added: frontend/components/console/dashboard/trading-panel.tsx (live feed status, regime display, start/stop controls, confidence threshold alerts, alert history); confidence-threshold alert pipeline integrated with useConsolePreferences; market_feed_adapter strengthened with rate-limit handling (RateLimitError, exponential backoff with jitter, Retry-After parsing), reconnect logic with max_backoff cap; Binance API 429 handling added to provider.py; TypeScript clean | ✅ |
 
 ## SPRINT 8.5 — Frontend Cognitive Layer (Three-Level Thinking Architecture)
 
@@ -1816,7 +1817,17 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
   - `POST /api/v1/trading/feed/stop` — stop live market data feed
 - [x] `frontend/services/trading.ts` — WebSocket-like polling service with `startLiveFeed()`, `stopLiveFeed()`, `getFeedStatus()`, `getLiveRegime()`
 - [x] `frontend/types/trading.ts` — added `MarketRegimeLive` and `FeedStatusResponse` interfaces
-- [x] Ruff clean, imports verified
+- [x] Console Dashboard Trading Panel (`frontend/components/console/dashboard/trading-panel.tsx`):
+  - Live feed status display (running, symbol, timeframes, errors, fallback)
+  - Live regime detection display (regime, confidence, volatility, trend strength)
+  - Start/stop feed controls with symbol and timeframe selection
+  - Confidence threshold alert pipeline with toast notifications
+  - Alert history log
+- [x] Confidence-threshold alert pipeline integrated with `useConsolePreferences` store
+- [x] Rate-limit handling with exponential backoff + jitter in `MarketFeedAdapter`
+- [x] Reconnect logic with `max_backoff` cap and randomized jitter
+- [x] Binance API 429 handling with `Retry-After` header parsing
+- [x] Ruff clean, imports verified, TypeScript clean
 
 ### FASE 30: Pilar 4 — Enterprise Autonomy & Self-Evolving Platform
 

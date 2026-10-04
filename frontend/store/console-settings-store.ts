@@ -14,6 +14,7 @@ export interface ConsolePreferences {
   sandboxIsolation: boolean;
   guardrails: Record<string, boolean>;
   integrations: Record<string, boolean>;
+  tradingAlertConfidenceThreshold: number;
   updatedAt: string | null;
 }
 
@@ -35,6 +36,7 @@ const DEFAULTS: ConsolePreferences = {
   sandboxIsolation: true,
   guardrails: {},
   integrations: {},
+  tradingAlertConfidenceThreshold: 80,
   updatedAt: null,
 };
 

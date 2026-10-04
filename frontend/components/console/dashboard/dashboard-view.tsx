@@ -34,6 +34,8 @@ export function DashboardView() {
 
       <DashboardMetrics />
 
+      <TradingPanel />
+
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.55fr)]">
         <PackCatalogPanel />
         <BenchmarkOverviewPanel />

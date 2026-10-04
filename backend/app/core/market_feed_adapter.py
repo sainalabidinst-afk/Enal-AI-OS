@@ -15,8 +15,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.trading_analyst.market_intelligence.provider import fetch_multi_timeframe
-from apps.trading_analyst.market_intelligence.provider import RateLimitError
+from apps.trading_analyst.market_intelligence.provider import RateLimitError, fetch_multi_timeframe
 
 logger = logging.getLogger(__name__)
 
@@ -49,14 +48,6 @@ class FeedStatus:
     error_count: int = 0
     fallback_active: bool = False
     metadata: dict[str, Any] = field(default_factory=dict)
-
-
-class RateLimitError(Exception):
-    """Raised when the data provider rate limit is hit."""
-
-    def __init__(self, retry_after: float = 60.0, message: str = "Rate limited") -> None:
-        self.retry_after = retry_after
-        super().__init__(message)
 
 
 class MarketFeedAdapter:
