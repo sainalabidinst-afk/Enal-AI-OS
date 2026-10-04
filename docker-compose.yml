@@ -190,10 +190,11 @@ services:
       timeout: 10s
       retries: 2
       start_period: 30s
-    tmpfs:
-      - /tmp
     security_opt:
       - no-new-privileges:true
+      - seccomp:unconfined
+    cap_add:
+      - SYS_ADMIN
     deploy:
       resources:
         limits:
