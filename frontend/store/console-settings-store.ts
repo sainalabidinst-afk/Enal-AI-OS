@@ -31,6 +31,7 @@ const DEFAULTS: ConsolePreferences = {
   defaultModel: "",
   autoTranscribe: true,
   alertLatencyMs: 500,
+  alertConfidence: 0.8,
   alertErrorRate: 5,
   alertThrottle: true,
   rateLimitPerMinute: 120,

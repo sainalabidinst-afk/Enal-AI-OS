@@ -9,6 +9,7 @@ export interface Series {
   label: string;
   values: number[];
   color?: string;
+  dashed?: boolean;
 }
 
 export function LineChart({
@@ -32,6 +33,7 @@ export function LineChart({
         data: item.values,
         borderColor: seriesColor(index, item.color),
         borderWidth: 1.8,
+        borderDash: item.dashed ? [5, 4] : undefined,
         pointRadius: 0,
         pointHoverRadius: 4,
         tension: 0.35,
