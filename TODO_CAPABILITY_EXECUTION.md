@@ -1655,7 +1655,7 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
   - [ ] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
   - [ ] **Android Testing** — Test Add to Home Screen, offline caching, dan push notifications di Android device.
   - [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
-  - [ ] **Native Android Stage 3** — Kotlin/Jetpack Compose project, offline AI module, native observability, Consent Manager, performance optimization.
+  - [ ] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules, native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, performance optimization.
 
   ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
 

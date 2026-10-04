@@ -33,16 +33,21 @@
 - [ ] QA checklist: chat, consent, observability, STT/TTS
 
 ## Stage 3 — Native Android (v3.3.0 Stable)
-- [ ] Setup Kotlin/Jetpack Compose project (`enal-ai-os-android/`)
-- [ ] Implement offline AI module with TensorFlow Lite
-- [ ] Native observability integration (Firebase Performance, Crashlytics)
-- [ ] Consent Manager via Android notifications
-- [ ] Performance optimization (startup time, memory, battery)
-- [ ] Integrate with existing backend API (`/api/v1/chat`, `/api/v1/auth`)
-- [ ] Implement native STT/TTS using Android Speech APIs
-- [ ] Add biometric authentication
-- [ ] Implement background sync for offline mode
-- [ ] Prepare for Google Play Store submission
+- [x] Setup Kotlin/Jetpack Compose project (`enal-ai-os-android/`)
+- [x] Base project config (`build.gradle.kts`, `settings.gradle.kts`, `AndroidManifest.xml`)
+- [x] Networking module (`EnalApi`, DTOs, Retrofit/Moshi client)
+- [x] Auth + chat domain contracts and repository implementations
+- [x] Login screen scaffold with Compose + ViewModel
+- [x] Home, Chat, Observability, Settings screens scaffold
+- [x] Native STT/TTS wrapper (`NativeVoiceModule`)
+- [x] Consent Manager via Android notifications
+- [x] Offline AI module placeholder
+- [x] Observability bootstrap
+- [ ] Connect chat screen to real backend API
+- [ ] Biometric authentication
+- [ ] WorkManager background sync
+- [ ] Firebase Crashlytics/Performance integration
+- [ ] Performance optimization and QA smoke tests
 
 ## Stage 4 — Distribution & Governance (v3.4.0 Enterprise)
 - [ ] Google Play Console setup
