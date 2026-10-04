@@ -1,11 +1,38 @@
+import asyncio
 import logging
 from typing import Any
 
 from litellm import acompletion, completion
 
 from backend.app.core.config import settings
+from backend.app.core.gpu_inference_service import get_gpu_service
 
 logger = logging.getLogger(__name__)
+
+
+def _is_gpu_model(model: str) -> bool:
+    if model.startswith("gpu/"):
+        return True
+    if model == "gpu":
+        return True
+    return False
+
+
+def _format_messages(messages: list[dict]) -> str:
+    parts = []
+    for m in messages:
+        role = m.get("role", "user")
+        content = m.get("content", "")
+        parts.append(f"{role}\n{content}")
+    return "\n".join(parts)
+
+
+def _run_async(coro):
+    try:
+        asyncio.get_running_loop()
+        raise RuntimeError("Cannot run async GPU inference inside a running event loop")
+    except RuntimeError:
+        return asyncio.run(coro)
 
 
 class ModelRouter:
@@ -29,6 +56,8 @@ class ModelRouter:
                 )
             elif provider == "ollama":
                 config["api_base"] = settings.OLLAMA_BASE_URL
+            elif provider == "gpu":
+                config.pop("model", None)
             return config
         if model.startswith("gpt"):
             config["model"] = f"openai/{model}"
@@ -43,6 +72,31 @@ class ModelRouter:
             config["model"] = model
         return config
 
+    def _gpu_completion_sync(
+        self,
+        messages: list[dict],
+        temperature: float = 0.7,
+        max_tokens: int = 4096,
+    ) -> dict[str, Any]:
+        service = get_gpu_service()
+        if service is None:
+            raise RuntimeError("GPU inference service is not available")
+        prompt = _format_messages(messages)
+        text = service.generate(prompt, max_tokens=max_tokens, temperature=temperature)
+        return {"choices": [{"message": {"content": text}}]}
+
+    async def _gpu_completion_async(
+        self,
+        messages: list[dict],
+        temperature: float = 0.7,
+        max_tokens: int = 4096,
+    ) -> dict[str, Any]:
+        service = get_gpu_service()
+        if service is None:
+            raise RuntimeError("GPU inference service is not available")
+        text = await service.chat(messages, max_tokens=max_tokens, temperature=temperature)
+        return {"choices": [{"message": {"content": text}}]}
+
     def complete(
         self,
         messages: list[dict],
@@ -53,6 +107,14 @@ class ModelRouter:
         tools: list | None = None,
     ):
         model = model or self.default_model
+        if _is_gpu_model(model):
+            if stream:
+                raise RuntimeError("GPU provider does not support streaming in sync complete()")
+            return self._gpu_completion_sync(
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
         config = self.get_provider_config(model)
         config.update(
             {
@@ -83,6 +145,14 @@ class ModelRouter:
         tools: list | None = None,
     ):
         model = model or self.default_model
+        if _is_gpu_model(model):
+            if stream:
+                raise RuntimeError("GPU provider does not support streaming in acomplete()")
+            return await self._gpu_completion_async(
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
         config = self.get_provider_config(model)
         config.update(
             {

@@ -10,11 +10,15 @@ class EventType(StrEnum):
     chat = "chat"
     parser = "parser"
     reasoning = "reasoning"
+    trading = "trading"
+    trading_regime = "trading_regime"
+    cross_pack_correlation = "cross_pack_correlation"
 
 
 class Status(StrEnum):
     success = "success"
     error = "error"
+    warning = "warning"
 
 
 @dataclass
@@ -99,4 +103,36 @@ class ReasoningEvent:
     confidence: float = 0.0
     compliance_score: float | None = None
     recommendations: int = 0
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class TradingRegimeEvent:
+    event_type: str = "trading_regime"
+    event_id: str = ""
+    timestamp: str = ""
+    status: str = Status.success
+    error: str | None = None
+    symbol: str = ""
+    timeframe: str = ""
+    regime: str = ""
+    confidence: float = 0.0
+    volatility: str = ""
+    trend_strength: float = 0.0
+    source: str = "live"
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class CrossPackCorrelationEvent:
+    event_type: str = "cross_pack_correlation"
+    event_id: str = ""
+    timestamp: str = ""
+    status: str = Status.warning
+    error: str | None = None
+    source_pack: str = "trading_analyst"
+    target_pack: str = "governance"
+    correlation_type: str = "low_confidence_trading"
+    confidence: float = 0.0
+    details: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)

@@ -62,6 +62,10 @@ class Settings(BaseSettings):
     FALLBACK_REASONING_MODEL: str = "ollama/qwen2.5:0.5b"
     OLLAMA_FALLBACK_ENABLED: bool = True
 
+    GPU_INFERENCE_ENABLED: bool = False
+    GPU_MODEL_PATH: str = "E:/Enal-AI-OS/models/qwen2.5-3b"
+    GPU_FALLBACK_ENABLED: bool = True
+
     MAX_TOKENS: int = 4096
     TEMPERATURE: float = 0.7
 

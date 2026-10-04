@@ -25,11 +25,35 @@ import json
 import sys
 from typing import Any
 
-from backend.app.core.decorators import ChainBuilder, DecoratorRegistry, HotSwapManager
+
+def _load_decorator_sdk() -> tuple[Any, Any, Any]:
+    """Import the decorator SDK lazily.
+
+    ``sdk`` is a client-side package and must not import ``backend`` at module
+    scope (package boundary rule: sdk cannot import from backend). The decorator
+    SDK ships in ``backend.app.core.decorators``, so this CLI — which is a
+    development tool for that SDK — resolves it on first use instead.
+    """
+    try:
+        from backend.app.core.decorators import (
+            ChainBuilder,
+            DecoratorRegistry,
+            HotSwapManager,
+        )
+    except ImportError as exc:  # pragma: no cover - depends on install layout
+        print(
+            f"Error: decorator SDK is unavailable ({exc}). "
+            "Run this CLI from the ECP repository root.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2) from exc
+
+    return ChainBuilder, DecoratorRegistry, HotSwapManager
 
 
 def cmd_list(args: argparse.Namespace) -> int:
     """List all available decorators."""
+    _, DecoratorRegistry, _ = _load_decorator_sdk()
     decorators = DecoratorRegistry.list_available()
     print("Available Decorators:")
     print("-" * 40)
@@ -45,6 +69,7 @@ def cmd_list(args: argparse.Namespace) -> int:
 
 def cmd_decorate(args: argparse.Namespace) -> int:
     """Build a decorator chain and execute a task."""
+    ChainBuilder, _, _ = _load_decorator_sdk()
     if not args.chain:
         print("Error: --chain is required (comma-separated decorator names)")
         return 1
@@ -73,6 +98,7 @@ def cmd_decorate(args: argparse.Namespace) -> int:
 
 def cmd_chain(args: argparse.Namespace) -> int:
     """Print the active decorator chain for an app."""
+    _, _, HotSwapManager = _load_decorator_sdk()
     manager = HotSwapManager()
     active = manager.get_active(args.app_id)
     if active is None:

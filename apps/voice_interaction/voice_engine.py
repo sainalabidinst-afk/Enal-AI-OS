@@ -31,8 +31,7 @@ from apps.voice_interaction.schemas import (
     VoiceInteractionRequest,
     VoiceLanguage,
 )
-from backend.app.core.config import settings
-from backend.app.core.jenny_voice_config import get_voice_profile
+from backend.app.runtime import get_voice_profile, settings
 
 logger = logging.getLogger(__name__)
 

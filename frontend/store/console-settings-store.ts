@@ -8,6 +8,7 @@ export interface ConsolePreferences {
   defaultModel: string;
   autoTranscribe: boolean;
   alertLatencyMs: number;
+  alertConfidence: number;
   alertErrorRate: number;
   alertThrottle: boolean;
   rateLimitPerMinute: number;

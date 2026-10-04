@@ -149,7 +149,7 @@ async def get_live_regime(
     Delegates to the market feed adapter so HTTP polling and the SSE stream
     share one detection path.
     """
-    from backend.app.core.market_feed_adapter import market_feed_adapter
+    from apps.trading_analyst.market_feed_adapter import market_feed_adapter
 
     try:
         _ensure_regime_detector(market_feed_adapter)
@@ -167,7 +167,7 @@ async def get_live_regime(
 @router.get("/feed/status")
 async def get_feed_status():
     """Get current live feed connection status."""
-    from backend.app.core.market_feed_adapter import market_feed_adapter
+    from apps.trading_analyst.market_feed_adapter import market_feed_adapter
 
     return {"success": True, "data": _feed_status_payload(market_feed_adapter)}
 
@@ -185,7 +185,7 @@ async def stream_feed(
     Emits an initial `snapshot` event, then a `tick` event every interval.
     Heartbeat comments keep intermediaries from closing the connection.
     """
-    from backend.app.core.market_feed_adapter import market_feed_adapter
+    from apps.trading_analyst.market_feed_adapter import market_feed_adapter
 
     _ensure_regime_detector(market_feed_adapter)
     pair = symbol.upper().strip()
@@ -225,7 +225,7 @@ async def stream_feed(
 @router.post("/feed/start")
 async def start_feed(req: FeedStartRequest):
     """Start live market data feed for a symbol."""
-    from backend.app.core.market_feed_adapter import FeedStatus, market_feed_adapter
+    from apps.trading_analyst.market_feed_adapter import FeedStatus, market_feed_adapter
 
     if market_feed_adapter.status.running:
         raise HTTPException(status_code=409, detail="Feed is already running")
@@ -263,7 +263,7 @@ async def start_feed(req: FeedStartRequest):
 @router.post("/feed/stop")
 async def stop_feed():
     """Stop live market data feed."""
-    from backend.app.core.market_feed_adapter import market_feed_adapter
+    from apps.trading_analyst.market_feed_adapter import market_feed_adapter
 
     if not market_feed_adapter.status.running:
         raise HTTPException(status_code=409, detail="Feed is not running")

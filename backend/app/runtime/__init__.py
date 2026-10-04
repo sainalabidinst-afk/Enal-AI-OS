@@ -135,6 +135,13 @@ def __getattr__(name: str) -> Any:
         "tts_service": ("backend.app.core.tts_service", "tts_service"),
         "TTSService": ("backend.app.core.tts_service", "TTSService"),
         "SynthesisResult": ("backend.app.core.tts_service", "SynthesisResult"),
+        # Voice persona profiles (Jenny multi-persona voice console)
+        "get_voice_profile": ("backend.app.core.jenny_voice_config", "get_voice_profile"),
+        "get_jenny_persona_prompt": (
+            "backend.app.core.jenny_voice_config",
+            "get_jenny_persona_prompt",
+        ),
+        "VoiceProfile": ("backend.app.core.jenny_voice_config", "VoiceProfile"),
     }
     if name in _lazy:
         import importlib
@@ -244,4 +251,7 @@ __all__ = [
     "tts_service",
     "TTSService",
     "SynthesisResult",
+    "get_voice_profile",
+    "get_jenny_persona_prompt",
+    "VoiceProfile",
 ]

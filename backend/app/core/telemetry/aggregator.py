@@ -18,6 +18,8 @@ class Aggregator:
         self._execution_events: list[dict[str, Any]] = []
         self._parser_events: list[dict[str, Any]] = []
         self._reasoning_events: list[dict[str, Any]] = []
+        self._trading_regime_events: list[dict[str, Any]] = []
+        self._cross_pack_correlation_events: list[dict[str, Any]] = []
 
     def record_chat(
         self,
@@ -118,6 +120,60 @@ class Aggregator:
             }
         )
 
+    def record_trading_regime(
+        self,
+        event_id: str,
+        symbol: str,
+        timeframe: str,
+        regime: str,
+        confidence: float,
+        volatility: str = "",
+        trend_strength: float = 0.0,
+        source: str = "live",
+        status: str = "success",
+        error: str | None = None,
+    ) -> None:
+        self._trading_regime_events.append(
+            {
+                "event_id": event_id,
+                "symbol": symbol,
+                "timeframe": timeframe,
+                "regime": regime,
+                "confidence": confidence,
+                "volatility": volatility,
+                "trend_strength": trend_strength,
+                "source": source,
+                "status": status,
+                "error": error,
+                "timestamp": datetime.now(UTC).isoformat(),
+            }
+        )
+
+    def record_cross_pack_correlation(
+        self,
+        event_id: str,
+        source_pack: str,
+        target_pack: str,
+        correlation_type: str,
+        confidence: float,
+        details: str = "",
+        status: str = "warning",
+        error: str | None = None,
+    ) -> None:
+        self._cross_pack_correlation_events.append(
+            {
+                "event_id": event_id,
+                "source_pack": source_pack,
+                "target_pack": target_pack,
+                "correlation_type": correlation_type,
+                "confidence": confidence,
+                "details": details,
+                "status": status,
+                "error": error,
+                "timestamp": datetime.now(UTC).isoformat(),
+            }
+        )
+
     def analysis_kpis(self) -> dict[str, Any]:
         events = self._analysis_events
         if not events:
@@ -162,6 +218,82 @@ class Aggregator:
             "avg_steps": round(sum(e["step_count"] for e in events) / len(events), 2),
             "avg_duration_ms": round(sum(e["duration_ms"] for e in events) / len(events), 2),
         }
+
+    def trading_regime_kpis(self) -> dict[str, Any]:
+        events = self._trading_regime_events
+        if not events:
+            return {
+                "total_regime_checks": 0,
+                "avg_confidence": 0.0,
+                "low_confidence_count": 0,
+                "regime_distribution": {},
+            }
+        low_confidence = sum(1 for e in events if e["confidence"] < 0.5)
+        regime_distribution: dict[str, int] = {}
+        for e in events:
+            regime_distribution[e["regime"]] = regime_distribution.get(e["regime"], 0) + 1
+        return {
+            "total_regime_checks": len(events),
+            "avg_confidence": round(sum(e["confidence"] for e in events) / len(events), 4),
+            "low_confidence_count": low_confidence,
+            "regime_distribution": regime_distribution,
+        }
+
+    def cross_pack_correlation_kpis(self) -> dict[str, Any]:
+        events = self._cross_pack_correlation_events
+        if not events:
+            return {"total_correlations": 0, "by_type": {}, "avg_confidence": 0.0}
+        by_type: dict[str, int] = {}
+        for e in events:
+            by_type[e["correlation_type"]] = by_type.get(e["correlation_type"], 0) + 1
+        return {
+            "total_correlations": len(events),
+            "by_type": by_type,
+            "avg_confidence": round(sum(e["confidence"] for e in events) / len(events), 4),
+        }
+
+    def to_prometheus(self) -> str:
+        """Export metrics in Prometheus text format."""
+        lines: list[str] = []
+        analysis_kpis = self.analysis_kpis()
+        chat_kpis = self.chat_kpis()
+        parser_kpis = self.parser_kpis()
+        reasoning_kpis = self.reasoning_kpis()
+        trading_kpis = self.trading_regime_kpis()
+        correlation_kpis = self.cross_pack_correlation_kpis()
+
+        lines.append("# HELP ecp_analysis_total Total number of analyses")
+        lines.append("# TYPE ecp_analysis_total gauge")
+        lines.append(f"ecp_analysis_total {analysis_kpis['total_analyses']}")
+        lines.append("# HELP ecp_analysis_avg_findings Average findings per analysis")
+        lines.append("# TYPE ecp_analysis_avg_findings gauge")
+        lines.append(f"ecp_analysis_avg_findings {analysis_kpis['avg_findings']}")
+        lines.append("# HELP ecp_chat_total Total chat messages")
+        lines.append("# TYPE ecp_chat_total gauge")
+        lines.append(f"ecp_chat_total {chat_kpis['total_messages']}")
+        lines.append("# HELP ecp_chat_avg_latency_ms Average chat latency in ms")
+        lines.append("# TYPE ecp_chat_avg_latency_ms gauge")
+        lines.append(f"ecp_chat_avg_latency_ms {chat_kpis['avg_latency_ms']}")
+        lines.append("# HELP ecp_parser_success_rate Parser success rate")
+        lines.append("# TYPE ecp_parser_success_rate gauge")
+        lines.append(f"ecp_parser_success_rate {parser_kpis['success_rate']}")
+        lines.append("# HELP ecp_reasoning_total Total reasoning queries")
+        lines.append("# TYPE ecp_reasoning_total gauge")
+        lines.append(f"ecp_reasoning_total {reasoning_kpis['total_queries']}")
+        lines.append("# HELP ecp_trading_regime_checks_total Total trading regime checks")
+        lines.append("# TYPE ecp_trading_regime_checks_total gauge")
+        lines.append(f"ecp_trading_regime_checks_total {trading_kpis['total_regime_checks']}")
+        lines.append("# HELP ecp_trading_regime_avg_confidence Average trading regime confidence")
+        lines.append("# TYPE ecp_trading_regime_avg_confidence gauge")
+        lines.append(f"ecp_trading_regime_avg_confidence {trading_kpis['avg_confidence']}")
+        lines.append("# HELP ecp_trading_low_confidence_total Low confidence trading regime count")
+        lines.append("# TYPE ecp_trading_low_confidence_total gauge")
+        lines.append(f"ecp_trading_low_confidence_total {trading_kpis['low_confidence_count']}")
+        lines.append("# HELP ecp_cross_pack_correlations_total Cross-pack correlations detected")
+        lines.append("# TYPE ecp_cross_pack_correlations_total gauge")
+        lines.append(f"ecp_cross_pack_correlations_total {correlation_kpis['total_correlations']}")
+
+        return "\n".join(lines) + "\n"
 
 
 aggregator = Aggregator()

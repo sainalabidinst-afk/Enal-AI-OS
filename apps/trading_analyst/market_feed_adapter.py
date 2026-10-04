@@ -3,6 +3,11 @@ Real-Time Market Feed Adapter for Trading Analyst.
 
 Provides WebSocket-like streaming market data with automatic fallback to synthetic data.
 Integrates with TradingEngine for live market regime detection.
+
+Lives inside the Trading Analyst pack (not ``backend/app/core``) because it depends on
+``market_intelligence.provider``. The Architecture Freeze Policy forbids kernel modules
+from importing capability packs, so trading-domain feed logic belongs to the pack that
+owns the domain. The HTTP layer consumes it from ``backend/app/api/trading.py``.
 """
 
 from __future__ import annotations

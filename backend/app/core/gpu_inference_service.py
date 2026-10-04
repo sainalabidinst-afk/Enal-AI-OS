@@ -1,6 +1,5 @@
 import logging
 import os
-from typing import Any
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
@@ -54,7 +53,12 @@ class GPUInferenceService:
             )
         return self._tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    async def chat(self, messages: list[dict], max_tokens: int = 256, temperature: float = 0.7) -> str:
+    def generate(self, prompt: str, max_tokens: int = 256, temperature: float = 0.7) -> str:
+        return self._generate(prompt, max_tokens=max_tokens, temperature=temperature)
+
+    async def chat(
+        self, messages: list[dict], max_tokens: int = 256, temperature: float = 0.7
+    ) -> str:
         prompt = self._format_messages(messages)
         return self._generate(prompt, max_tokens=max_tokens, temperature=temperature)
 

@@ -12,6 +12,7 @@ class ModelGateway:
             "deepseek": {"models": ["deepseek-r1", "deepseek-v3"], "available": True},
             "llama": {"models": ["llama-3.1-70b", "llama-3.1-8b"], "available": True},
             "ollama": {"models": ["local-*"], "available": True},
+            "gpu": {"models": ["qwen2.5-3b"], "available": True},
         }
         self._health: dict[str, dict[str, Any]] = {}
         self._lock = asyncio.Lock()

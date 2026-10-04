@@ -451,14 +451,15 @@ export const useConsoleStore = create<ConsoleState>((set, get) => {
     async connectRegimeStream(symbol, interval = 5) {
       const pair = symbol.trim().toUpperCase();
       if (!pair) return;
-      streamController.abort();
-      streamController = new AbortController();
+      streamController?.abort();
+      const controller = new AbortController();
+      streamController = controller;
       set({ streamStatus: "connecting", streamSymbol: pair });
       try {
         await tradingApi.streamFeed({
           symbol: pair,
           interval,
-          signal: streamController.signal,
+          signal: controller.signal,
           onTick: (tick, isSnapshot) => {
             set((state) => ({
               feedStatus: { ...state.feedStatus, data: tick.feed, status: "success", error: null },
@@ -482,7 +483,7 @@ export const useConsoleStore = create<ConsoleState>((set, get) => {
           },
           onError: () => set({ streamStatus: "error" }),
         });
-        if (!streamController.signal.aborted) set({ streamStatus: "idle" });
+        if (!controller.signal.aborted) set({ streamStatus: "idle" });
       } catch (error) {
         set({
           streamStatus: "error",
@@ -497,7 +498,7 @@ export const useConsoleStore = create<ConsoleState>((set, get) => {
     },
 
     disconnectRegimeStream() {
-      streamController.abort();
+      streamController?.abort();
       streamController = null;
       set({ streamStatus: "idle" });
     },
