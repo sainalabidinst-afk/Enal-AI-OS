@@ -35,6 +35,7 @@ from apps.self_development.anomaly_detector import AnomalyDetector
 from apps.self_development.capability_gap_detector import CapabilityGapDetector
 from apps.self_development.cross_pack_bridge import cross_pack_bridge
 from apps.self_development.ecp_analyzer import ECPAnalyzer
+from apps.self_development.export_service import export_service
 from apps.self_development.goal_aligner import goal_aligner
 from apps.self_development.growth_repository import activity_payload
 from apps.self_development.habit_tracker import habit_tracker
@@ -572,6 +573,17 @@ class SelfDevelopmentEngine:
         """Evaluate habit and goal alerts and publish them on the event bus."""
         published = await habit_tracker.dispatch_alerts()
         return {"alerts": published, "count": len(published)}
+
+    async def export_report(
+        self,
+        format: str = "json",
+        weeks: int = 12,
+        granularity: str = Granularity.WEEK.value,
+    ) -> dict[str, Any]:
+        """Export a JSON/HTML progress summary for the user."""
+        return export_service.export_report(
+            format=format, weeks=weeks, granularity=granularity
+        )
 
     # ------------------------------------------------------------------
     # Public API - Cross-Pack Learning Projects

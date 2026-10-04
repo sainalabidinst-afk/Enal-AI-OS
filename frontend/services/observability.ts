@@ -35,9 +35,22 @@ export interface CrossPackCorrelationAlert {
   timestamp: string;
 }
 
+export interface GrowthAlert {
+  event_id: string;
+  alert_type: string;
+  severity: string;
+  subject: string;
+  message: string;
+  details: Record<string, unknown>;
+  status: string;
+  source: string;
+  timestamp: string;
+}
+
 export interface AlertFeedResponse {
   trading_regime: TradingRegimeAlert[];
   cross_pack_correlations: CrossPackCorrelationAlert[];
+  growth_alerts: GrowthAlert[];
 }
 
 export interface GrowthSeries {
@@ -81,15 +94,15 @@ export async function getObservabilityMetrics(): Promise<Record<string, unknown>
 }
 
 export async function getTelemetryMetrics(): Promise<Record<string, unknown>> {
-  return api.get<Record<string, unknown>>("/api/v1/telemetry/metrics");
+  return api.get<Record<string, unknown>>("/api/v1/metrics");
 }
 
 export async function getTelemetryAlerts(): Promise<AlertFeedResponse> {
-  return api.get<AlertFeedResponse>("/api/v1/telemetry/metrics/alerts");
+  return api.get<AlertFeedResponse>("/api/v1/metrics/alerts");
 }
 
 export async function getPrometheusMetrics(): Promise<string> {
-  const response = await api.get<string>("/api/v1/telemetry/metrics/prometheus");
+  const response = await api.get<string>("/api/v1/metrics/prometheus");
   return response;
 }
 

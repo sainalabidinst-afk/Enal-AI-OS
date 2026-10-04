@@ -71,6 +71,20 @@ async def get_alert_feeds():
             }
             for e in aggregator._cross_pack_correlation_events[-50:]
         ],
+        "growth_alerts": [
+            {
+                "event_id": e["event_id"],
+                "alert_type": e["alert_type"],
+                "severity": e["severity"],
+                "subject": e["subject"],
+                "message": e["message"],
+                "details": e["details"],
+                "status": e["status"],
+                "source": e["source"],
+                "timestamp": e["timestamp"],
+            }
+            for e in aggregator._growth_alert_events[-50:]
+        ],
     }
 
 

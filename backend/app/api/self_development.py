@@ -19,6 +19,7 @@ Growth engine endpoints:
 - POST /api/v1/self-development/habits/{id}/check-in — Habit check-in
 - GET  /api/v1/self-development/habits/reminders — Due habit reminders
 - POST /api/v1/self-development/alerts/dispatch — Publish growth alerts
+- GET  /api/v1/self-development/export — Export JSON/HTML progress summary
 - GET  /api/v1/self-development/learning-projects — Cross-pack project catalog
 - POST /api/v1/self-development/learning-projects/{id}/run — Run a learning project
 """
@@ -28,6 +29,7 @@ from typing import Any
 
 from apps.self_development.worker import self_development_worker
 from fastapi import APIRouter, HTTPException, Query
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/self-development", tags=["self-development"])
@@ -213,6 +215,20 @@ async def check_in_habit(habit_id: str, req: CheckInRequest):
 async def dispatch_alerts():
     """Evaluate habit and goal alerts and publish them on the event bus."""
     return await self_development_worker.dispatch_growth_alerts()
+
+
+@router.get("/export")
+async def export_report(
+    format: str = Query(default="json", pattern="^(json|html)$"),
+    weeks: int = Query(default=12, ge=1, le=52),
+    granularity: str = Query(default="week", pattern="^(week|month)$"),
+):
+    """Export a JSON or HTML summary of learning progress for the user."""
+    result = await self_development_worker.export_report(format, weeks, granularity)
+    if format == "html":
+        return HTMLResponse(content=result["content"])
+    payload = {k: v for k, v in result.items() if k != "content"}
+    return JSONResponse(content=payload)
 
 
 @router.get("/learning-projects")

@@ -217,6 +217,7 @@ class HabitTracker:
                     **alert.metadata,
                 },
             )
+            _record_growth_alert(alert, delivered)
             published.append(
                 {
                     "alert_id": alert.id,
@@ -226,6 +227,7 @@ class HabitTracker:
                     "published": delivered,
                 }
             )
+        _record_growth_metrics(alerts)
         return published
 
     def clear_alerts(self) -> None:
@@ -396,6 +398,37 @@ def _status_payload(status: HabitStatus) -> dict[str, Any]:
         "at_risk": status.at_risk,
         "goal_id": status.goal_id,
     }
+
+
+def _record_growth_alert(alert: GrowthAlert, delivered: bool) -> None:
+    """Mirror a growth alert into the observability alert pipeline."""
+    try:
+        from backend.app.core.telemetry.aggregator import aggregator
+
+        aggregator.record_growth_alert(
+            event_id=alert.id,
+            alert_type=alert.alert_type,
+            severity=alert.severity,
+            subject=alert.subject,
+            message=alert.message,
+            details=dict(alert.metadata),
+            status="published" if delivered else "failed",
+        )
+    except Exception:
+        logger.debug("Failed to record growth alert", exc_info=True)
+
+
+def _record_growth_metrics(alerts: list[GrowthAlert]) -> None:
+    """Publish growth alert counters to the RFC-0001 metrics collector."""
+    try:
+        from backend.app.core.observability import metrics_collector
+
+        reminders = sum(1 for a in alerts if a.alert_type == "habit_reminder")
+        drift = sum(1 for a in alerts if a.alert_type == "goal_drift")
+        metrics_collector.gauge("self_development.habit_reminders", reminders)
+        metrics_collector.gauge("self_development.goal_drift_alerts", drift)
+    except Exception:
+        logger.debug("Growth alert metrics unavailable", exc_info=True)
 
 
 habit_tracker = HabitTracker()

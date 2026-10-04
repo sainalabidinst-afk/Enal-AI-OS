@@ -20,6 +20,7 @@ class Aggregator:
         self._reasoning_events: list[dict[str, Any]] = []
         self._trading_regime_events: list[dict[str, Any]] = []
         self._cross_pack_correlation_events: list[dict[str, Any]] = []
+        self._growth_alert_events: list[dict[str, Any]] = []
 
     def record_chat(
         self,
@@ -174,6 +175,34 @@ class Aggregator:
             }
         )
 
+    def record_growth_alert(
+        self,
+        event_id: str,
+        alert_type: str,
+        severity: str,
+        subject: str,
+        message: str,
+        details: dict[str, Any] | None = None,
+        status: str = "open",
+        source: str = "self_development",
+    ) -> None:
+        """Record a habit / goal-drift alert for the main dashboard feed."""
+        self._growth_alert_events.append(
+            {
+                "event_id": event_id,
+                "alert_type": alert_type,
+                "severity": severity,
+                "subject": subject,
+                "message": message,
+                "details": details or {},
+                "status": status,
+                "source": source,
+                "timestamp": datetime.now(UTC).isoformat(),
+            }
+        )
+        if len(self._growth_alert_events) > 500:
+            self._growth_alert_events = self._growth_alert_events[-500:]
+
     def analysis_kpis(self) -> dict[str, Any]:
         events = self._analysis_events
         if not events:
@@ -252,6 +281,25 @@ class Aggregator:
             "avg_confidence": round(sum(e["confidence"] for e in events) / len(events), 4),
         }
 
+    def growth_alert_kpis(self) -> dict[str, Any]:
+        events = self._growth_alert_events
+        if not events:
+            return {
+                "total_growth_alerts": 0,
+                "by_type": {},
+                "by_severity": {},
+            }
+        by_type: dict[str, int] = {}
+        by_severity: dict[str, int] = {}
+        for e in events:
+            by_type[e["alert_type"]] = by_type.get(e["alert_type"], 0) + 1
+            by_severity[e["severity"]] = by_severity.get(e["severity"], 0) + 1
+        return {
+            "total_growth_alerts": len(events),
+            "by_type": by_type,
+            "by_severity": by_severity,
+        }
+
     def to_prometheus(self) -> str:
         """Export metrics in Prometheus text format."""
         lines: list[str] = []
@@ -292,6 +340,11 @@ class Aggregator:
         lines.append("# HELP ecp_cross_pack_correlations_total Cross-pack correlations detected")
         lines.append("# TYPE ecp_cross_pack_correlations_total gauge")
         lines.append(f"ecp_cross_pack_correlations_total {correlation_kpis['total_correlations']}")
+
+        growth_kpis = self.growth_alert_kpis()
+        lines.append("# HELP ecp_growth_alerts_total Growth alerts (habit / goal drift)")
+        lines.append("# TYPE ecp_growth_alerts_total gauge")
+        lines.append(f"ecp_growth_alerts_total {growth_kpis['total_growth_alerts']}")
 
         return "\n".join(lines) + "\n"
 

@@ -120,6 +120,14 @@ class SelfDevelopmentWorker:
     async def dispatch_growth_alerts(self) -> dict[str, Any]:
         return await self.engine.dispatch_growth_alerts()
 
+    async def export_report(
+        self,
+        format: str = "json",
+        weeks: int = 12,
+        granularity: str = "week",
+    ) -> dict[str, Any]:
+        return await self.engine.export_report(format, weeks, granularity)
+
     async def learning_projects(self, goal_id: str | None = None) -> dict[str, Any]:
         return await self.engine.learning_projects(goal_id)
 

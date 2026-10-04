@@ -16,6 +16,7 @@ import {
   type AlertFeedResponse,
   type TradingRegimeAlert,
   type CrossPackCorrelationAlert,
+  type GrowthAlert,
 } from "@/services/observability";
 import { formatNumber, formatPercent, relativeTime } from "@/lib/format";
 
@@ -41,7 +42,7 @@ export function ObservabilityView() {
       ]);
       setAlertFeed(alerts);
       const base = typeof window !== "undefined" ? window.location.origin : "";
-      setPrometheusUrl(`${base}/api/v1/telemetry/metrics/prometheus`);
+      setPrometheusUrl(`${base}/api/v1/metrics/prometheus`);
     } catch (error) {
       // silent refresh
     } finally {
@@ -110,7 +111,7 @@ export function ObservabilityView() {
         <Panel>
           <PanelHeader
             title="Trading + Governance Alerts"
-            subtitle="Cross-pack correlation and trading regime alerts"
+            subtitle="Cross-pack correlation, trading regime, and self-development growth alerts"
             actions={
               prometheusUrl ? (
                 <a
@@ -188,6 +189,46 @@ export function ObservabilityView() {
                           <p className="mt-1 text-[11px] text-[var(--ecp-text-secondary)]">{alert.details}</p>
                           <p className="mt-1 text-[10px] text-[var(--ecp-text-dim)]">
                             {alert.correlation_type} · {relativeTime(alert.timestamp)}
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xs font-semibold text-[var(--ecp-text-dim)] uppercase tracking-wide">
+                    Growth alerts (habit / goal drift)
+                  </h3>
+                  <div className="mt-2 space-y-2">
+                    {(alertFeed?.growth_alerts ?? []).length === 0 ? (
+                      <p className="text-xs text-[var(--ecp-text-muted)]">No growth alerts yet.</p>
+                    ) : (
+                      alertFeed?.growth_alerts.slice(0, 10).map((alert: GrowthAlert) => (
+                        <div
+                          key={alert.event_id}
+                          className="rounded-lg border border-[var(--ecp-border)] bg-[var(--ecp-surface-2)] px-3 py-2"
+                        >
+                          <div className="flex items-center justify-between">
+                            <p className="text-xs font-medium text-[var(--ecp-text)]">
+                              {alert.subject}
+                            </p>
+                            <span
+                              className={`text-[10px] font-medium ${
+                                alert.severity === "critical"
+                                  ? "text-[var(--ecp-alert)]"
+                                  : alert.severity === "warning"
+                                    ? "text-amber-500"
+                                    : "text-green-500"
+                              }`}
+                            >
+                              {alert.severity}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-[11px] text-[var(--ecp-text-secondary)]">
+                            {alert.message}
+                          </p>
+                          <p className="mt-1 text-[10px] text-[var(--ecp-text-dim)]">
+                            {alert.alert_type} · {alert.status} · {relativeTime(alert.timestamp)}
                           </p>
                         </div>
                       ))

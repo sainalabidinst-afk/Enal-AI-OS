@@ -12,8 +12,8 @@ Analyzes the ECP platform itself to detect:
 
 from __future__ import annotations
 
+import hashlib
 import logging
-import uuid
 from pathlib import Path
 from typing import Any
 
@@ -28,6 +28,19 @@ from apps.self_development.schemas import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def capability_proposal_id(domain: str) -> str:
+    """Stable id for a capability proposal, keyed by its domain."""
+    return f"cap-{domain}"
+
+
+def improvement_proposal_id(target_type: str, target_id: str, improvement_type: str) -> str:  # noqa: E501
+    """Stable id for an improvement proposal, keyed by its natural key."""
+    digest = hashlib.sha1(
+        f"{target_type}|{target_id}|{improvement_type}".encode()
+    ).hexdigest()[:8]
+    return f"imp-{digest}"
 
 CORE_DIRS = [
     "backend/app/core",
@@ -197,7 +210,7 @@ class ECPAnalyzer:
 
                 proposals.append(
                     CapabilityProposal(
-                        id=f"cap-{uuid.uuid4().hex[:8]}",
+                        id=capability_proposal_id(domain),
                         name=name,
                         domain=domain,
                         description=description,
@@ -220,7 +233,9 @@ class ECPAnalyzer:
         for issue in analysis.governance_issues:
             improvements.append(
                 ImprovementProposal(
-                    id=f"imp-{uuid.uuid4().hex[:8]}",
+                    id=improvement_proposal_id(
+                        "governance", issue.get("location", ""), ImprovementType.GOVERNANCE.value
+                    ),
                     target_type="governance",
                     target_id=issue.get("location", ""),
                     improvement_type=ImprovementType.GOVERNANCE.value,
@@ -235,7 +250,11 @@ class ECPAnalyzer:
         for gap in analysis.pack_gaps:
             improvements.append(
                 ImprovementProposal(
-                    id=f"imp-{uuid.uuid4().hex[:8]}",
+                    id=improvement_proposal_id(
+                        "capability_pack",
+                        gap.get("pack", ""),
+                        ImprovementType.NEW_CAPABILITY.value,
+                    ),
                     target_type="capability_pack",
                     target_id=gap.get("pack", ""),
                     improvement_type=ImprovementType.NEW_CAPABILITY.value,
@@ -250,7 +269,11 @@ class ECPAnalyzer:
         for pattern in analysis.cross_pack_patterns:
             improvements.append(
                 ImprovementProposal(
-                    id=f"imp-{uuid.uuid4().hex[:8]}",
+                    id=improvement_proposal_id(
+                        "cross_pack",
+                        pattern.get("id", ""),
+                        ImprovementType.REFACTOR.value,
+                    ),
                     target_type="cross_pack",
                     target_id=pattern.get("id", ""),
                     improvement_type=ImprovementType.REFACTOR.value,
@@ -361,13 +384,12 @@ class ECPAnalyzer:
             "security": ["security_engineer", "devsecops", "network_engineer"],
             "data_processing": ["data_engineer", "data_scientist", "business_intelligence"],
         }
-
         for pattern_type, packs in common_tools.items():
             pack_dirs = [p for p in packs if any(d.name == p for d in self._pack_dirs())]
             if len(pack_dirs) >= 2:
                 patterns.append(
                     {
-                        "id": f"pattern-{uuid.uuid4().hex[:8]}",
+                        "id": f"pattern-{pattern_type}",
                         "pattern_type": pattern_type,
                         "description": f"Shared {pattern_type} pattern across multiple packs",
                         "source_packs": pack_dirs,
