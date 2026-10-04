@@ -5,8 +5,8 @@
 - [x] Service Worker (`public/sw.js`)
 - [x] Service Worker registration in `app-client.tsx`
 - [x] PWA metadata in `layout.tsx`
-- [ ] Add PWA icons (`/public/icons/`)
-- [ ] Add screenshots for store listing
+- [x] Add PWA icons (`/public/icons/`)
+- [x] Add screenshots for store listing
 - [ ] Test Add to Home Screen on Android
 - [ ] Test offline caching
 - [ ] Test push notifications
@@ -32,22 +32,23 @@
 - [ ] Firebase Test Lab integration
 - [ ] QA checklist: chat, consent, observability, STT/TTS
 
-## Stage 3 — Native Android (v3.3.0 Stable)
-- [x] Setup Kotlin/Jetpack Compose project (`enal-ai-os-android/`)
-- [x] Base project config (`build.gradle.kts`, `settings.gradle.kts`, `AndroidManifest.xml`)
-- [x] Networking module (`EnalApi`, DTOs, Retrofit/Moshi client)
-- [x] Auth + chat domain contracts and repository implementations
-- [x] Login screen scaffold with Compose + ViewModel
-- [x] Home, Chat, Observability, Settings screens scaffold
-- [x] Native STT/TTS wrapper (`NativeVoiceModule`)
-- [x] Consent Manager via Android notifications
-- [x] Offline AI module placeholder
-- [x] Observability bootstrap
-- [ ] Connect chat screen to real backend API
-- [ ] Biometric authentication
-- [ ] WorkManager background sync
-- [ ] Firebase Crashlytics/Performance integration
-- [ ] Performance optimization and QA smoke tests
+## Stage 4 — Robotics & Edge AI (v3.4.0)
+- [x] Pillar 1 RFC (`docs/rfcs/RFC-0048-robotics-edge-integration.md`)
+- [x] Pillar 1 design notes (`docs/pillar1/design/`)
+- [ ] Edge Runtime subset implementation
+- [ ] ROS 2 Connector integration
+- [ ] Vision Engine (YOLO/OpenCV/TensorRT)
+- [ ] Smart Agri Connector
+- [ ] Edge device testing (ESP32, Raspberry Pi 5, Jetson Nano)
+
+## Stage 5 — Decision Intelligence & Digital Twin (v3.5.0)
+- [x] Pillar 2 RFC (`docs/rfcs/RFC-0049-decision-intelligence-simulation.md`)
+- [x] Pillar 2 design notes (`docs/pillar2/design/`)
+- [ ] Digital Twin Engine implementation
+- [ ] Scenario Simulator + Monte Carlo Runner
+- [ ] Red Team Agent + Hardening Loop
+- [ ] Causal Reasoner + Do-Calculus Engine
+- [ ] Backend endpoints `/api/v1/simulation/*`, `/api/v1/causal/*`
 
 ## Stage 4 — Distribution & Governance (v3.4.0 Enterprise)
 - [ ] Google Play Console setup
@@ -65,6 +66,6 @@
 - [ ] Setup Datadog/Grafana observability
 
 ## Next Steps
-1. Add PWA icons to `frontend/public/icons/`
-2. Test PWA on Android device
-3. Initialize Expo project for Stage 2
+1. Perform physical device testing for PWA (Add to Home Screen & offline caching)
+2. Run Android Emulator / Firebase Test Lab for Expo React Native mobile app
+3. Finalize Google Play Console configuration for Stage 3 Native Android build

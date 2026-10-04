@@ -62,6 +62,8 @@ async def chat(request: ChatRequest):
 
             message = response.get("message", "") or ""
             if not message.strip() or message.strip().startswith(GENERIC_FALLBACK[:20]):
+                from backend.app.core.config import settings
+
                 llm_result = await model_router.acomplete(
                     messages=[
                         {
@@ -70,7 +72,7 @@ async def chat(request: ChatRequest):
                         },
                         {"role": "user", "content": request.message},
                     ],
-                    model="lmstudio/qwen/qwen3.5-9b",
+                    model=settings.DEFAULT_MODEL,
                     temperature=0.7,
                     max_tokens=32768,
                 )

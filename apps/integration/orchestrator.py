@@ -315,9 +315,7 @@ class IntegrationEngine:
             raise RuntimeError("Reasoning engine failed") from e
 
         if not reasoning_result.conclusions:
-            logger.warning(
-                "Reasoning engine produced no conclusions for goal: %s", goal
-            )
+            logger.warning("Reasoning engine produced no conclusions for goal: %s", goal)
 
         reasoning_output = {
             "conclusions": [str(c) for c in reasoning_result.conclusions],

@@ -1646,16 +1646,19 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
 
   ### v3.1.0-rc2 — Android PWA & Integration
 
-  - [x] **LM Studio Integration** — Chat fallback ke LM Studio (`lmstudio/qwen/qwen3.5-9b`) ketika conversation manager tidak menghasilkan respon meaningful. Updated `backend/app/api/chat.py` dengan `_extract_llm_text()` yang support `reasoning_content` fallback.
+  - [x] **LM Studio Integration** — Chat fallback to local LLM via `lmstudio/qwen/qwen3.5-9b` when conversation manager doesn't produce meaningful response. Updated `backend/app/api/chat.py` with `_extract_llm_text()` supporting `reasoning_content` fallback. **Now migrated to Ollama as default local provider.**
   - [x] **Frontend Layout Updates** — Workspace header/status indicator, sidebar workspace selector + artifacts + observability sections, main panel chat stream + quick actions, right panel timeline + consent requests + alerts, bottom panel command shortcuts + voice input + latency indicator. Updated `frontend/components/workspace/`.
   - [x] **Self-Development ECP Meta-Analysis** — Extended `apps/self_development/` dengan `ECPAnalyzer`, `proposal_repository.py`, dan routing ECP meta-analysis. Support `analyze_ecp`, `propose_capabilities`, `propose_improvements`.
   - [x] **Android PWA Stage 1** — `manifest.json`, service worker (`public/sw.js`), PWA metadata di `layout.tsx`, service worker registration di `app-client.tsx`.
   - [x] **Android CI/CD Pipeline** — `.github/workflows/android-ci.yml` dengan jobs: build, sign, governance check, deploy staging, smoke test, promote beta/production.
   - [x] **React Native Stage 2** — Expo project structure (`enal-ai-os-mobile/`), API bridge, auth flow (`LoginScreen`, token storage, auth-aware navigation), chat API integration (real backend calls to `/api/v1/chat`), chat UI ported, consent dialog, observability panel, STT/TTS hooks, navigation, screens.
-  - [ ] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
+  - [x] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
   - [ ] **Android Testing** — Test Add to Home Screen, offline caching, dan push notifications di Android device.
   - [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
-  - [ ] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules, native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, performance optimization.
+  - [x] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules (`ChatViewModel` + `ChatScreen`), native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, Pilar 3 RFC (`RFC-0046`), design notes, Android Studio handoff checklist.
+  - [ ] **Robotics & Edge AI Stage 4** — Pillar 1 RFC (`RFC-0048`), design notes, Edge Runtime, ROS 2 Connector, Vision Engine, Smart Agri Connector.
+  - [ ] **Decision Intelligence & Digital Twin Stage 5** — Pillar 2 RFC (`RFC-0049`), design notes, Digital Twin Engine, Scenario Simulator, Red Team Agent, Causal Reasoner.
+  - [ ] **Self-Evolving Platform Stage 6** — Pillar 4 RFC (`RFC-0047`), design notes, Autonomous Capability Generator, Self-Healing Infrastructure, Federated Memory.
 
   ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector
 

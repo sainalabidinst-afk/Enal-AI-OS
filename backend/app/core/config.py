@@ -27,8 +27,6 @@ class Settings(BaseSettings):
     GOOGLE_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    LM_STUDIO_BASE_URL: str = "http://host.docker.internal:1234/v1"
-    LM_STUDIO_API_KEY: str = "lm-studio"
 
     STT_PROVIDER: str = "whisper"
     STT_MODEL_PATH: str = ""
@@ -57,9 +55,9 @@ class Settings(BaseSettings):
     JENNY_TTS_VOICE_ID: str = "2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5"
     JENNY_LANGUAGE: str = "id"
 
-    DEFAULT_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
-    DEFAULT_REASONING_MODEL: str = "lmstudio/qwen/qwen3.5-9b"
-    DEFAULT_EMBEDDING_MODEL: str = "lmstudio/text-embedding-nomic-embed-text-v1.5"
+    DEFAULT_MODEL: str = "ollama/llama3"
+    DEFAULT_REASONING_MODEL: str = "ollama/llama3"
+    DEFAULT_EMBEDDING_MODEL: str = "ollama/nomic-embed-text"
 
     MAX_TOKENS: int = 4096
     TEMPERATURE: float = 0.7

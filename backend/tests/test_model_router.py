@@ -12,8 +12,6 @@ class FakeConfig:
     GOOGLE_API_KEY = "sk-goog-test"
     GEMINI_API_KEY = "sk-gemini-test"
     OLLAMA_BASE_URL = "http://localhost:11434"
-    LM_STUDIO_BASE_URL = "http://localhost:1234/v1"
-    LM_STUDIO_API_KEY = "lm-studio"
 
 
 class TestModelRouter:
@@ -58,16 +56,6 @@ class TestModelRouter:
         router = ModelRouter()
         config = router.get_provider_config("ollama/llama2")
         assert config["api_base"] == "http://localhost:11434"
-
-    def test_get_provider_config_lm_studio(self, monkeypatch):
-        import backend.app.core.model_router as mr_module
-
-        monkeypatch.setattr(mr_module, "settings", FakeConfig)
-        router = ModelRouter()
-        config = router.get_provider_config("lmstudio/qwen2.5-coder-7b-instruct")
-        assert config["model"] == "openai/qwen2.5-coder-7b-instruct"
-        assert config["api_base"] == "http://localhost:1234/v1"
-        assert config["api_key"] == "lm-studio"
 
     def test_complete_raises_on_failure(self, monkeypatch):
         import backend.app.core.model_router as mr_module

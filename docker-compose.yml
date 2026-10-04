@@ -213,8 +213,6 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minio123}
       MINIO_BUCKET: enal
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      LM_STUDIO_BASE_URL: ${LM_STUDIO_BASE_URL:-http://host.docker.internal:1234/v1}
-      LM_STUDIO_API_KEY: ${LM_STUDIO_API_KEY:-lm-studio}
       SECRET_KEY: ${SECRET_KEY:-dev-secret-key-change-in-production}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}

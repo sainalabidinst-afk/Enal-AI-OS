@@ -67,6 +67,7 @@ class VoiceProfile:
 # Default profiles
 # ---------------------------------------------------------------------------
 
+
 def _sexy_bratty_params() -> VoiceParams:
     return VoiceParams(
         pitch=1.25,

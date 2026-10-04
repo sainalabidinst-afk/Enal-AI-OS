@@ -172,7 +172,11 @@ class MemoryManager:
         return await mem.retrieve(key, session_id=session_id, project_id=project_id)
 
     async def search(
-        self, layer: str, query: str, limit: int = 10, session_id: str | None = None,
+        self,
+        layer: str,
+        query: str,
+        limit: int = 10,
+        session_id: str | None = None,
         project_id: str | None = None,
     ) -> list[dict]:
         mem = self._layers.get(layer)
@@ -185,7 +189,7 @@ class MemoryManager:
     ) -> bool:
         mem = self._layers.get(layer)
         if mem:
-            sig = mem.delete.__code__.co_varnames[:mem.delete.__code__.co_argcount]
+            sig = mem.delete.__code__.co_varnames[: mem.delete.__code__.co_argcount]
             kwargs = {}
             if "session_id" in sig and session_id is not None:
                 kwargs["session_id"] = session_id
@@ -195,12 +199,15 @@ class MemoryManager:
         return False
 
     async def list_keys(
-        self, layer: str, pattern: str = "*", session_id: str | None = None,
+        self,
+        layer: str,
+        pattern: str = "*",
+        session_id: str | None = None,
         project_id: str | None = None,
     ) -> list[str]:
         mem = self._layers.get(layer)
         if mem:
-            sig = mem.list_keys.__code__.co_varnames[:mem.list_keys.__code__.co_argcount]
+            sig = mem.list_keys.__code__.co_varnames[: mem.list_keys.__code__.co_argcount]
             kwargs = {}
             if "session_id" in sig and session_id is not None:
                 kwargs["session_id"] = session_id

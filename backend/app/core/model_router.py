@@ -18,22 +18,17 @@ class ModelRouter:
         config: dict[str, Any] = {"model": model}
         if "/" in model:
             provider = model.split("/", 1)[0]
-            if provider == "lmstudio":
-                config["model"] = f"openai/{model[len('lmstudio/'):]}"
-                config["api_base"] = settings.LM_STUDIO_BASE_URL
-                config["api_key"] = settings.LM_STUDIO_API_KEY
-            else:
-                config["model"] = model
-                if provider == "openai":
-                    config["api_key"] = settings.OPENAI_API_KEY
-                elif provider == "anthropic":
-                    config["api_key"] = settings.ANTHROPIC_API_KEY
-                elif provider == "gemini":
-                    config["api_key"] = (
-                        getattr(settings, "GEMINI_API_KEY", "") or settings.GOOGLE_API_KEY
-                    )
-                elif provider == "ollama":
-                    config["api_base"] = settings.OLLAMA_BASE_URL
+            config["model"] = model
+            if provider == "openai":
+                config["api_key"] = settings.OPENAI_API_KEY
+            elif provider == "anthropic":
+                config["api_key"] = settings.ANTHROPIC_API_KEY
+            elif provider == "gemini":
+                config["api_key"] = (
+                    getattr(settings, "GEMINI_API_KEY", "") or settings.GOOGLE_API_KEY
+                )
+            elif provider == "ollama":
+                config["api_base"] = settings.OLLAMA_BASE_URL
             return config
         if model.startswith("gpt"):
             config["model"] = f"openai/{model}"

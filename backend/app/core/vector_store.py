@@ -29,14 +29,6 @@ class VectorStore:
 
         model = self.embedding_model
         config = {"model": model, "input": text}
-        if model.startswith("lmstudio/"):
-            config.update(
-                {
-                    "model": f"openai/{model.removeprefix('lmstudio/')}",
-                    "api_base": settings.LM_STUDIO_BASE_URL,
-                    "api_key": settings.LM_STUDIO_API_KEY,
-                }
-            )
         response = embedding(**config)
         return response.data[0]["embedding"]
 

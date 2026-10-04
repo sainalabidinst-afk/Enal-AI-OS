@@ -94,8 +94,7 @@ def _provider_for_model(model: str) -> str | None:
         prefix = model.split("/", 1)[0]
         if prefix in ("openai", "anthropic", "gemini", "ollama"):
             return prefix
-        if prefix == "lmstudio":
-            return None
+        return None
     if model.startswith("gemini"):
         return "gemini"
     if model.startswith("gpt"):

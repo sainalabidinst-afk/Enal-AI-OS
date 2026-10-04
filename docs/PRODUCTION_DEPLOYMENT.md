@@ -53,13 +53,12 @@ to function. The LiteLLM router in `backend/app/core/model_router.py` supports:
 | Anthropic | `ANTHROPIC_API_KEY` | `claude-` |
 | Google | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | `gemini/` |
 | Ollama (local) | `OLLAMA_BASE_URL` | `ollama/` |
-| LM Studio (local) | `LM_STUDIO_BASE_URL` + `LM_STUDIO_API_KEY` | `lmstudio/` |
 
 For production, set:
 ```bash
-DEFAULT_MODEL=gpt-4o
-DEFAULT_REASONING_MODEL=gpt-4o
-DEFAULT_EMBEDDING_MODEL=text-embedding-3-small
+DEFAULT_MODEL=ollama/llama3:8b
+DEFAULT_REASONING_MODEL=ollama/llama3:8b
+DEFAULT_EMBEDDING_MODEL=ollama/nomic-embed-text
 ```
 
 ## Step 3: Docker Deployment
