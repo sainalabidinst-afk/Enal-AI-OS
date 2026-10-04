@@ -64,6 +64,10 @@ norecursedirs = ["tests/reference", "backend/tests/reference"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Ruff ignores exclude patterns for paths passed explicitly on the command line
+# unless force-exclude is set. CI lints `real_cases/` by path, so without this
+# the generated fixtures below get linted anyway (1289 spurious errors).
+force-exclude = true
 extend-exclude = [
     "real_cases",
     "golden",
@@ -88,6 +92,17 @@ ignore = []
 [tool.black]
 line-length = 100
 target-version = ["py311"]
+# Same rationale as [tool.ruff]: generated fixture trees are not production code.
+extend-exclude = """
+/(
+    real_cases
+  | golden
+  | golden_tests
+  | audit_output
+  | onboarding_output
+  | repo_inspect_output
+)/
+"""
 
 [tool.mypy]
 python_version = "3.11"

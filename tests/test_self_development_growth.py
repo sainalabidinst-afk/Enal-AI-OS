@@ -463,6 +463,96 @@ class TestCrossPackBridge:
         )
         assert result["result"]["status"] in {"failed", "skipped"}
 
+    def test_bridge_has_no_static_cross_pack_imports(self) -> None:
+        """Capability First Rule regression guard.
+
+        ``apps/self_development`` must not statically import other capability
+        packs. Reachability must stay data-driven (``PACK_ENTRYPOINTS``) and be
+        resolved through ``backend.app.runtime.load_app_engine``.
+        ``benchmarks/governance_checks.py`` flags ``apps.<pack>`` import nodes
+        anywhere in the file, including function-level ones.
+        """
+        import ast
+
+        from benchmarks.governance_checks import CAPABILITY_PACKS
+
+        source = (
+            Path(__file__).resolve().parents[1]
+            / "apps"
+            / "self_development"
+            / "cross_pack_bridge.py"
+        )
+        tree = ast.parse(source.read_text(encoding="utf-8"))
+        offenders: list[str] = []
+        for node in ast.walk(tree):
+            modules: list[str] = []
+            if isinstance(node, ast.Import):
+                modules = [alias.name for alias in node.names]
+            elif isinstance(node, ast.ImportFrom):
+                modules = [node.module or ""]
+            for module in modules:
+                for pack in CAPABILITY_PACKS:
+                    if pack == "self_development":
+                        continue
+                    if module == f"apps.{pack}" or module.startswith(f"apps.{pack}."):
+                        offenders.append(f"{module} (line {node.lineno})")
+
+        assert offenders == [], f"static cross-pack imports found: {offenders}"
+
+    def test_entrypoints_are_data_not_imports(self, bridge: CrossPackBridge) -> None:
+        from apps.self_development.cross_pack_bridge import PACK_ENTRYPOINTS
+
+        assert "trading-analyst" in PACK_ENTRYPOINTS
+        assert PACK_ENTRYPOINTS["trading-analyst"] == (
+            "apps.trading_analyst.backtest_engine",
+            "BacktestEngine",
+        )
+        assert set(bridge.known_packs()) >= {
+            "trading-analyst",
+            "system-architect",
+            "knowledge-engineer",
+            "research-assistant",
+            "data-engineer",
+        }
+
+    def test_real_entrypoint_resolves_through_runtime_loader(self, bridge: CrossPackBridge) -> None:
+        """The dynamic loader must reach a real class in another pack."""
+        resolved = bridge._entrypoint("knowledge-engineer")
+        assert resolved.__name__ == "KnowledgeEngineerWorker"
+
+    def test_unknown_pack_entrypoint_raises_typed_error(self, bridge: CrossPackBridge) -> None:
+        from apps.self_development.cross_pack_bridge import PackEntrypointUnavailableError
+
+        with pytest.raises(PackEntrypointUnavailableError):
+            bridge._entrypoint("no-such-pack")
+
+    def test_entrypoint_can_be_overridden_for_tests(
+        self, bridge: CrossPackBridge, analytics: LearningAnalytics
+    ) -> None:
+        """Cross-pack reachability is overridable without touching the source."""
+        import sys
+        import types
+
+        calls: list[dict[str, Any]] = []
+
+        class StubWorker:
+            async def execute(self, payload: dict[str, Any]) -> dict[str, Any]:
+                calls.append(payload)
+                return {"sources": [{"id": "s1"}], "confidence": 0.9, "summary": "stub"}
+
+        module = types.ModuleType("tests.stub_worker")
+        module.StubWorker = StubWorker  # type: ignore[attr-defined]
+        sys.modules["tests.stub_worker"] = module
+        try:
+            bridge.register_entrypoint("research-assistant", "tests.stub_worker", "StubWorker")
+            result = asyncio.run(bridge.run("research-digest", params={"query": "x"}))
+        finally:
+            del sys.modules["tests.stub_worker"]
+
+        assert result["result"]["status"] == "executed"
+        assert result["result"]["sources"] == 1
+        assert calls and calls[0]["query"] == "x"
+
 
 # ---------------------------------------------------------------------------
 # Engine integration

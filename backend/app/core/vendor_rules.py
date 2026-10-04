@@ -235,11 +235,15 @@ def get_vendor_rules(vendor: str) -> dict[str, dict[str, Any]]:
 
 
 def evaluate_against_vendor_rules(
-    config: dict[str, Any],
+    config: dict[str, Any] | str,
     vendor: str,
     categories: list[str] | None = None,
 ) -> list[dict[str, Any]]:
-    """Evaluate a configuration against vendor-specific rules."""
+    """Evaluate a configuration against vendor-specific rules.
+
+    ``config`` may be a structured config dict or a raw text blob (for example
+    LLM output being checked); every rule probe works off ``str(config)``.
+    """
     rules = get_vendor_rules(vendor)
     if not rules:
         return []
@@ -255,7 +259,7 @@ def evaluate_against_vendor_rules(
     return violations
 
 
-def _check_rule(rule: dict[str, Any], config: dict[str, Any]) -> dict[str, Any] | None:
+def _check_rule(rule: dict[str, Any], config: dict[str, Any] | str) -> dict[str, Any] | None:
     """Check a single rule against configuration. Returns violation or None."""
     rule_id = rule.get("id", "")
     check = rule.get("check", "").lower()
@@ -290,19 +294,19 @@ def _check_rule(rule: dict[str, Any], config: dict[str, Any]) -> dict[str, Any] 
     return None
 
 
-def _has_wildcard(config: dict[str, Any]) -> bool:
+def _has_wildcard(config: dict[str, Any] | str) -> bool:
     """Check if config contains wildcard permissions."""
     config_str = str(config).lower()
     return '"action": "*"' in config_str or '"resource": "*"' in config_str
 
 
-def _has_mfa(config: dict[str, Any]) -> bool:
+def _has_mfa(config: dict[str, Any] | str) -> bool:
     """Check if MFA is enabled in config."""
     config_str = str(config).lower()
     return "mfa" in config_str and "enabled" in config_str
 
 
-def _has_monitoring(config: dict[str, Any]) -> bool:
+def _has_monitoring(config: dict[str, Any] | str) -> bool:
     """Check if monitoring is enabled in config."""
     config_str = str(config).lower()
     return "cloudwatch" in config_str or "monitoring" in config_str

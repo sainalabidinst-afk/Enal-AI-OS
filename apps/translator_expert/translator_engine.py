@@ -983,8 +983,11 @@ class TranslationEngine:
             from transformers import pipeline  # type: ignore[import-untyped]
 
             if model_name not in self._model_cache:
-                self._model_cache[model_name] = pipeline(
-                    "translation",
+                # transformers ships incomplete overloads for pipeline(); the call
+                # below is valid at runtime, so the stub error is suppressed here
+                # rather than weakening the module-level import typing.
+                self._model_cache[model_name] = pipeline(  # type: ignore[call-overload]
+                    task="translation",
                     model=model_name,
                 )
 

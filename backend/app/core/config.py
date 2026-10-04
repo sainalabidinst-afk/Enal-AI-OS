@@ -1,12 +1,20 @@
-from pydantic import model_validator
+from pydantic import AliasChoices, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from backend.app.core.platform_version import resolve_version
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     PROJECT_NAME: str = "Enal AI OS"
-    VERSION: str = "3.0.0"
+    # Bound to ECP_VERSION only. A bare VERSION key in .env / the container env
+    # must not shadow the resolved value: generic VERSION vars are set by base
+    # images and previously pinned the API to 3.0.0 on a 3.1.0-rc1 checkout.
+    VERSION: str = Field(
+        default_factory=resolve_version,
+        validation_alias=AliasChoices("ECP_VERSION"),
+    )
     API_V1_STR: str = "/api/v1"
 
     DATABASE_URL: str = ""

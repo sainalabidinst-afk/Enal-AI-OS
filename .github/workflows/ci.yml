@@ -44,6 +44,9 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+    # The full suite (backend/tests/ + tests/) takes ~15 min locally. GitHub's
+    # implicit 6-hour job limit would let a hang burn that long; fail fast here.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

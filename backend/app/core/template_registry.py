@@ -132,8 +132,12 @@ class TemplateRegistry:
                 results.append(template)
         return results
 
-    def clone_template(self, template_id: str) -> dict[str, Any]:
-        """Produce a cloneable config from a template (with fresh ID)."""
+    def clone_template(self, template_id: str) -> dict[str, Any] | None:
+        """Produce a cloneable config from a template (with fresh ID).
+
+        Returns ``None`` when ``template_id`` is unknown — callers are expected
+        to resolve the template first and 404 on missing ids.
+        """
         template = self._templates.get(template_id)
         if template is None:
             return None

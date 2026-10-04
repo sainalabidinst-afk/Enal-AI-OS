@@ -8,6 +8,7 @@ including LLM calls, Python code, API calls, KB search, etc.
 from __future__ import annotations
 
 import logging
+from collections.abc import Awaitable, Callable
 from typing import Any
 
 import httpx
@@ -125,13 +126,14 @@ class StepExecutor:
         if not url:
             raise StepExecutionError("API call requires a URL")
         async with httpx.AsyncClient(timeout=30.0) as client:
-            request_fn = {
+            request_fns: dict[str, Callable[..., Awaitable[httpx.Response]]] = {
                 "GET": client.get,
                 "POST": client.post,
                 "PUT": client.put,
                 "DELETE": client.delete,
                 "PATCH": client.patch,
-            }.get(method, client.get)
+            }
+            request_fn = request_fns.get(method, client.get)
             response = await request_fn(
                 url,
                 headers=headers,

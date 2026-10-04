@@ -3,6 +3,7 @@ Qwen2.5-7B GPU Inference with vLLM
 No AVX2 CPU dependency - runs entirely on GPU
 """
 import argparse
+
 from vllm import LLM, SamplingParams
 
 

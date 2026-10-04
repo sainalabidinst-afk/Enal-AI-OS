@@ -3,8 +3,9 @@ Qwen2.5-7B GPU Inference with Hugging Face Transformers
 Fallback if vLLM has issues
 """
 import argparse
+
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 def main():

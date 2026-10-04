@@ -2,7 +2,7 @@
 Quick Qwen GPU Inference Test
 """
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "E:/Enal-AI-OS/models/qwen2.5-3b"
 prompt = "Hi"

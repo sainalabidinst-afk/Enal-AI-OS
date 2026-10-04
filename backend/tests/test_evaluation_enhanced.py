@@ -8,10 +8,10 @@ import pytest
 
 from backend.app.core.evaluation_schema import (
     DIMENSION_RUBRICS,
+    DimensionScore,
     EvaluationCase,
     EvaluationDimension,
     EvaluationResult,
-    DimensionScore,
 )
 from backend.app.core.evaluator_engine import evaluator_engine
 from backend.app.core.quality_scorer import quality_scorer
@@ -86,7 +86,10 @@ class TestVendorRules:
         assert any("wildcard" in v.get("remediation", "").lower() for v in violations)
 
     def test_evaluate_aws_no_violations(self):
-        config = '{"Action": "ec2:DescribeInstances", "Resource": "arn:aws:ec2:*", "monitoring": "enabled", "mfa": "enabled"}'
+        config = (
+            '{"Action": "ec2:DescribeInstances", "Resource": "arn:aws:ec2:*", '
+            '"monitoring": "enabled", "mfa": "enabled"}'
+        )
         violations = evaluate_against_vendor_rules(config, "AWS")
         assert len(violations) == 0
 

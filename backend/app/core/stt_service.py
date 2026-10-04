@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
@@ -172,7 +173,7 @@ class STTService:
     Calls real vendor APIs when API keys are configured; logs warnings otherwise.
     """
 
-    _SUPPORTED_PROVIDERS = {
+    _SUPPORTED_PROVIDERS: dict[str, Callable[[], STTProvider]] = {
         "whisper": WhisperSTTProvider,
         "deepgram": DeepgramSTTProvider,
         "google": GoogleSTTProvider,

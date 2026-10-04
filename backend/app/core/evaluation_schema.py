@@ -8,11 +8,11 @@ used by the enhanced quality scorer and evaluator engine.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 
-class EvaluationDimension(str, Enum):
+class EvaluationDimension(StrEnum):
     """Evaluation dimensions for multi-dimensional scoring."""
 
     PERFORMANCE = "performance"

@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
@@ -216,7 +217,7 @@ class TTSService:
     Supports Jenny's sexy/bratty voice personality through VoiceProfile.
     """
 
-    _SUPPORTED_PROVIDERS = {
+    _SUPPORTED_PROVIDERS: dict[str, Callable[[], TTSProvider]] = {
         "elevenlabs": ElevenLabsTTSProvider,
         "azure": AzureTTSProvider,
         "openai": OpenAITTSProvider,

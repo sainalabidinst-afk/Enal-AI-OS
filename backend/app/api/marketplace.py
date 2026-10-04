@@ -165,6 +165,8 @@ async def clone_template(template_id: str, target_project: str = "default"):
     if template is None:
         raise HTTPException(status_code=404, detail=f"Template {template_id} not found")
     clone = template_registry.clone_template(template_id)
+    if clone is None:
+        raise HTTPException(status_code=404, detail=f"Template {template_id} not found")
     user_id = str(uuid.uuid4())
     marketplace_service.record_clone(template_id, user_id)
     result = {
