@@ -173,3 +173,11 @@ async def delete_tool_blueprint(blueprint_id: str):
     if not deleted:
         raise HTTPException(status_code=404, detail="Blueprint not found")
     return {"message": "Deleted"}
+
+
+@router.get("/blueprints/{kind}/{blueprint_id}/dependencies")
+async def resolve_dependencies(kind: str, blueprint_id: str):
+    if kind not in ("agent", "tool"):
+        raise HTTPException(status_code=400, detail="kind must be 'agent' or 'tool'")
+    result = blueprint_repository.resolve_dependencies(blueprint_id, kind=kind)
+    return result

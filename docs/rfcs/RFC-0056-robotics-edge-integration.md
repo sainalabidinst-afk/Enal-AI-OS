@@ -1,4 +1,4 @@
-# RFC-0048 — Pilar 1: Physical & Autonomous Robotics Integration
+# RFC-0056 — Pilar 1: Physical & Autonomous Robotics Integration
 
 ## Status
 Proposed
@@ -83,7 +83,7 @@ Define the architecture and implementation boundaries for **Pilar 1: Physical & 
 ## Implementation Plan
 
 ### Phase 1 — Design
-- [x] RFC-0048 scope, components, and contracts.
+- [x] RFC-0056 scope, components, and contracts.
 - [ ] Detail Edge Runtime subset spec.
 - [ ] Detail ROS 2 node translation mapping.
 - [ ] Detail vision model selection and optimization.

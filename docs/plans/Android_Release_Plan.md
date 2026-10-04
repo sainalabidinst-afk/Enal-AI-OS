@@ -33,7 +33,7 @@
 - [ ] QA checklist: chat, consent, observability, STT/TTS
 
 ## Stage 4 — Robotics & Edge AI (v3.4.0)
-- [x] Pillar 1 RFC (`docs/rfcs/RFC-0048-robotics-edge-integration.md`)
+- [x] Pillar 1 RFC (`docs/rfcs/RFC-0056-robotics-edge-integration.md`)
 - [x] Pillar 1 design notes (`docs/pillar1/design/`)
 - [ ] Edge Runtime subset implementation
 - [ ] ROS 2 Connector integration
@@ -42,7 +42,7 @@
 - [ ] Edge device testing (ESP32, Raspberry Pi 5, Jetson Nano)
 
 ## Stage 5 — Decision Intelligence & Digital Twin (v3.5.0)
-- [x] Pillar 2 RFC (`docs/rfcs/RFC-0049-decision-intelligence-simulation.md`)
+- [x] Pillar 2 RFC (`docs/rfcs/RFC-0057-decision-intelligence-simulation.md`)
 - [x] Pillar 2 design notes (`docs/pillar2/design/`)
 - [ ] Digital Twin Engine implementation
 - [ ] Scenario Simulator + Monte Carlo Runner

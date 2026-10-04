@@ -73,3 +73,26 @@ class TestExecutionScheduler:
         task2 = ExecutionTask(id="t2", name="Task 2", dependencies=["t1"])
         queue = [task1, task2]
         assert scheduler._dependencies_met(task2, queue) is False
+
+    async def test_next_respects_dependency_order(self):
+        scheduler = ExecutionScheduler()
+        task1 = ExecutionTask(id="t1", name="Task 1")
+        task2 = ExecutionTask(id="t2", name="Task 2", dependencies=["t1"])
+        task3 = ExecutionTask(id="t3", name="Task 3", dependencies=["t2"])
+        graph = ExecutionGraph(
+            tasks={"t1": task1, "t2": task2, "t3": task3}, edges=[], entry_point="t1"
+        )
+        await scheduler.submit("sess-1", graph)
+
+        first = await scheduler.next("sess-1")
+        assert first is not None
+        assert first.id == "t1"
+
+        second = await scheduler.next("sess-1")
+        assert second is None
+
+        await scheduler.complete("sess-1", "t1", {})
+
+        second = await scheduler.next("sess-1")
+        assert second is not None
+        assert second.id == "t2"

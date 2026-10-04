@@ -45,30 +45,33 @@ services:
           memory: 512m
           cpus: '0.5'
 
-  minio:
-    image: minio/minio:RELEASE.2024-09-09T22-24-47Z-hotfix-848456184
-    command: server /data --console-address ":9090"
-    ports:
-      - "9000:9000"
-      - "9090:9090"
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio123}
-    volumes:
-      - minio_data:/data
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 15s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-    security_opt:
-      - no-new-privileges:true
-    deploy:
-      resources:
-        limits:
-          memory: 512m
-          cpus: '0.5'
+  # MinIO temporarily disabled — image not accessible in this environment
+  # minio:
+  #   image: minio/minio:RELEASE.2025-06-13T22-56-19Z
+  #   command: server /data --console-address ":9090"
+  #   ports:
+  #     - "9000:9000"
+  #     - "9090:9090"
+  #   environment:
+  #     MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+  #     MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio123}
+  #   volumes:
+  #     - minio_data:/data
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+  #     interval: 15s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 20s
+  #   tmpfs:
+  #     - /tmp
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 512m
+  #         cpus: '0.5'
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.6.0
@@ -234,6 +237,27 @@ services:
       TESTING: ${TESTING:-false}
       DEBUG: ${DEBUG:-false}
       ENABLE_BENCHMARK_RUNTIME: ${ENABLE_BENCHMARK_RUNTIME:-true}
+      STT_PROVIDER: ${STT_PROVIDER:-whisper}
+      STT_LANGUAGE: ${STT_LANGUAGE:-id}
+      STT_WHISPER_HOST: ${STT_WHISPER_HOST:-http://localhost:8082}
+      TTS_PROVIDER: ${TTS_PROVIDER:-elevenlabs}
+      TTS_VOICE: ${TTS_VOICE:-en}
+      TTS_VOICE_NAME: ${TTS_VOICE_NAME:-Jenny-SexyBrat}
+      TTS_VOICE_GENDER: ${TTS_VOICE_GENDER:-female}
+      TTS_VOICE_TONE: ${TTS_VOICE_TONE:-sexy}
+      TTS_VOICE_ATTITUDE: ${TTS_VOICE_ATTITUDE:-bratty}
+      TTS_SPEED: ${TTS_SPEED:-0.85}
+      TTS_ELEVENLABS_VOICE_ID: ${TTS_ELEVENLABS_VOICE_ID:-}
+      JENNY_VOICE_PROFILE: ${JENNY_VOICE_PROFILE:-jenny}
+      JENNY_TTS_VOICE_ID: ${JENNY_TTS_VOICE_ID:-2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5}
+      JENNY_LANGUAGE: ${JENNY_LANGUAGE:-id}
+      TTS_PITCH: ${TTS_PITCH:-1.25}
+      TTS_EMPHASIS: ${TTS_EMPHASIS:-1.4}
+      TTS_PAUSE_SCALE: ${TTS_PAUSE_SCALE:-1.2}
+      TTS_STYLE_EXAGGERATION: ${TTS_STYLE_EXAGGERATION:-0.85}
+      TTS_STABILITY: ${TTS_STABILITY:-0.35}
+      TTS_SIMILARITY_BOOST: ${TTS_SIMILARITY_BOOST:-0.85}
+      LOCAL_TTS_URL: ${LOCAL_TTS_URL:-http://localhost:8083}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 10s
@@ -245,6 +269,8 @@ services:
       - /tmp
     volumes:
       - backend_workspace:/app/workspace
+      - ./backend:/app/backend
+      - ./apps:/app/apps
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -263,8 +289,6 @@ services:
         condition: service_healthy
       ollama:
         condition: service_healthy
-      minio:
-        condition: service_healthy
       kafka:
         condition: service_started
 
@@ -275,7 +299,8 @@ services:
     ports:
       - "3001:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_PUBLIC_JENNY_TTS_VOICE_ID: ${JENNY_TTS_VOICE_ID:-2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5}
     depends_on:
       backend:
         condition: service_healthy

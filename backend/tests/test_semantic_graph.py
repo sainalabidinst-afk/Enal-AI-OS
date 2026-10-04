@@ -223,3 +223,16 @@ class TestSemanticProjectGraph:
         node = GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d")
         citation = graph._format_citation(node)
         assert citation == "Internal knowledge: P1"
+
+    @pytest.mark.asyncio
+    async def test_reload_from_disk(self, tmp_path):
+        graph1 = SemanticProjectGraph(base_path=str(tmp_path))
+        await graph1.add_node(
+            GraphNode(id="n1", node_type=NodeType.PROJECT, name="P1", description="d")
+        )
+        await graph1.add_edge("n1", "n2", RelationType.USES)
+
+        graph2 = SemanticProjectGraph(base_path=str(tmp_path))
+        assert "n1" in graph2._nodes
+        assert graph2._nodes["n1"].name == "P1"
+        assert len(graph2._edges) == 1

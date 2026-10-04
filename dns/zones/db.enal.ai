@@ -21,8 +21,7 @@ postgres        IN  A     127.0.0.1
 redis           IN  A     127.0.0.1
 qdrant          IN  A     127.0.0.1
 ollama          IN  A     127.0.0.1
-minio           IN  A     127.0.0.1
-minio-console   IN  A     127.0.0.1
+# minio and minio-console disabled — service not available in this env
 kafka           IN  A     127.0.0.1
 zookeeper       IN  A     127.0.0.1
 

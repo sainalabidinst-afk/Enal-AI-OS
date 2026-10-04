@@ -8,10 +8,13 @@ configuration that adjusts acoustic parameters and voice selection.
 
 from __future__ import annotations
 
+import json
 import logging
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
+
+import httpx
 
 from backend.app.core.config import settings
 from backend.app.core.jenny_voice_config import get_voice_profile
@@ -49,7 +52,7 @@ class TTSProvider(ABC):
 
 
 class ElevenLabsTTSProvider(TTSProvider):
-    """ElevenLabs TTS provider — supports Jenny's sexy bratty voice."""
+    """ElevenLabs TTS provider — calls real ElevenLabs API when key is configured."""
 
     async def synthesize(
         self,
@@ -60,27 +63,42 @@ class ElevenLabsTTSProvider(TTSProvider):
     ) -> bytes:
         params = {}
         voice_id = settings.TTS_ELEVENLABS_VOICE_ID or settings.JENNY_TTS_VOICE_ID
+        api_key = settings.TTS_API_KEY
 
         if voice_profile is not None:
             params = voice_profile.acoustic_params.to_provider_overrides()
             params["voice_id"] = voice_profile.voice_id
             model = "eleven_multilingual_low_latency_2025" if voice else "eleven_flash_v2.5"
             params["model_id"] = model
-            logger.info(
-                "ElevenLabs voice ID: %s | Profile: %s | Params: %s",
-                voice_profile.voice_id,
-                voice_profile.describe(),
-                params,
-            )
 
-        logger.info(
-            "Synthesizing speech with ElevenLabs (voice_id=%s, voice=%s, speed=%.2f, profile=%s)",
-            voice_id,
-            voice_profile.name if voice_profile else voice,
-            speed,
-            voice_profile.describe() if voice_profile else "none",
-        )
-        return b"[ElevenLabs audio data]"
+        if not api_key:
+            logger.warning("ElevenLabs API key not configured; returning placeholder audio")
+            return b"[ElevenLabs audio placeholder -- configure TTS_API_KEY for real synthesis]"
+
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                headers = {"xi-api-key": api_key, "Content-Type": "application/json"}
+                body = {
+                    "text": text,
+                    "model_id": params.get("model_id", "eleven_flash_v2.5"),
+                    "voice_settings": {
+                        "stability": settings.TTS_STABILITY,
+                        "similarity_boost": settings.TTS_SIMILARITY_BOOST,
+                        "speed": speed,
+                    },
+                }
+                if voice_id:
+                    body["voice_id"] = voice_id
+                response = await client.post(
+                    "https://api.elevenlabs.io/v1/text-to-speech/stream",
+                    json=body,
+                    headers=headers,
+                )
+                response.raise_for_status()
+                return response.content
+        except Exception as exc:
+            logger.error("ElevenLabs synthesis failed: %s", exc)
+            return f"[ElevenLabs error: {exc}]".encode()
 
 
 class AzureTTSProvider(TTSProvider):
@@ -93,30 +111,26 @@ class AzureTTSProvider(TTSProvider):
         speed: float = 1.0,
         voice_profile: Any = None,
     ) -> bytes:
-        profile_desc = voice_profile.describe() if voice_profile else "none"
-        logger.info(
-            "Synthesizing speech with Azure TTS (voice=%s, speed=%.2f, profile=%s)",
-            voice,
-            speed,
-            profile_desc,
-        )
-        return b"[Azure audio data]"
-
-    def _build_ssml(self, text: str, voice_profile: Any = None) -> str:
-        if voice_profile is None:
-            return text
-        p = voice_profile.acoustic_params
-        pitch_pct = int((p.pitch - 1.0) * 100)
-        speed_pct = int((p.speed - 1.0) * 100)
-        return (
-            "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis'>"
-            f"<prosody rate='{speed_pct}%' pitch='{pitch_pct}%' volume='medium'>"
-            f"{text}</prosody></speak>"
-        )
+        api_key = settings.TTS_API_KEY
+        if not api_key:
+            logger.warning("Azure TTS API key not configured; returning placeholder audio")
+            return b"[Azure audio placeholder -- configure TTS_API_KEY for real synthesis]"
+        try:
+            profile_desc = voice_profile.describe() if voice_profile else "none"
+            logger.info(
+                "Synthesizing speech with Azure TTS (voice=%s, speed=%.2f, profile=%s)",
+                voice,
+                speed,
+                profile_desc,
+            )
+            return b"[Azure audio placeholder -- SDK integration pending]"
+        except Exception as exc:
+            logger.error("Azure TTS synthesis failed: %s", exc)
+            return f"[Azure error: {exc}]".encode()
 
 
 class OpenAITTSProvider(TTSProvider):
-    """OpenAI TTS provider."""
+    """OpenAI TTS provider — calls real OpenAI API when key is configured."""
 
     async def synthesize(
         self,
@@ -125,16 +139,29 @@ class OpenAITTSProvider(TTSProvider):
         speed: float = 1.0,
         voice_profile: Any = None,
     ) -> bytes:
-        openai_voice = "nova" if voice_profile and voice_profile.gender == "female" else voice
-        adjusted_speed = speed * (voice_profile.acoustic_params.speed if voice_profile else 1.0)
-
-        logger.info(
-            "Synthesizing speech with OpenAI TTS (voice=%s, speed=%.2f)%s",
-            openai_voice,
-            adjusted_speed,
-            f", profile={voice_profile.describe()}" if voice_profile else "",
-        )
-        return b"[OpenAI audio data]"
+        api_key = settings.OPENAI_API_KEY or settings.TTS_API_KEY
+        if not api_key:
+            logger.warning("OpenAI TTS API key not configured; returning placeholder audio")
+            return b"[OpenAI audio placeholder -- configure OPENAI_API_KEY for real synthesis]"
+        try:
+            openai_voice = "nova" if voice_profile and voice_profile.gender == "female" else voice
+            adjusted_speed = speed * (voice_profile.acoustic_params.speed if voice_profile else 1.0)
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    "https://api.openai.com/v1/audio/speech",
+                    headers={"Authorization": f"Bearer {api_key}"},
+                    json={
+                        "model": "tts-1",
+                        "input": text,
+                        "voice": openai_voice,
+                        "speed": adjusted_speed,
+                    },
+                )
+                response.raise_for_status()
+                return response.content
+        except Exception as exc:
+            logger.error("OpenAI TTS synthesis failed: %s", exc)
+            return f"[OpenAI error: {exc}]".encode()
 
 
 class PyTTSX3Provider(TTSProvider):
@@ -153,7 +180,7 @@ class PyTTSX3Provider(TTSProvider):
             speed,
             f", profile={voice_profile.describe()}" if voice_profile else "",
         )
-        return b"[pyttsx3 audio data]"
+        return b"[pyttsx3 audio placeholder -- local engine integration pending]"
 
 
 class PiperTTSProvider(TTSProvider):
@@ -166,8 +193,21 @@ class PiperTTSProvider(TTSProvider):
         speed: float = 1.0,
         voice_profile: Any = None,
     ) -> bytes:
-        logger.info("Synthesizing speech with Piper TTS (voice=%s)", voice)
-        return b"[Piper audio data]"
+        api_key = settings.TTS_API_KEY
+        if not api_key:
+            logger.warning("Piper TTS local server not configured; returning placeholder audio")
+            return b"[Piper audio placeholder -- configure local Piper server for real synthesis]"
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    f"{settings.LOCAL_TTS_URL}/api/synthesize",
+                    json={"text": text, "voice": voice, "speed": speed},
+                )
+                response.raise_for_status()
+                return response.content
+        except Exception as exc:
+            logger.error("Piper TTS synthesis failed: %s", exc)
+            return f"[Piper error: {exc}]".encode()
 
 
 class TTSService:

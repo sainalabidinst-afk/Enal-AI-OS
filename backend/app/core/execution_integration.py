@@ -28,33 +28,36 @@ class ExecutionScheduler:
             return queue
 
     async def next(self, session_id: str) -> ExecutionTask | None:
-        queue = self._queues.get(session_id, [])
-        for task in queue:
-            if task.status == ExecutionStatus.pending and self._dependencies_met(task, queue):
-                task.status = ExecutionStatus.running
-                task.started_at = datetime.now(UTC)
-                return task
+        async with self._lock:
+            queue = self._queues.get(session_id, [])
+            for task in queue:
+                if task.status == ExecutionStatus.pending and self._dependencies_met(task, queue):
+                    task.status = ExecutionStatus.running
+                    task.started_at = datetime.now(UTC)
+                    return task
         return None
 
     async def complete(
         self, session_id: str, task_id: str, result: dict[str, Any]
     ) -> ExecutionTask | None:  # noqa: E501
-        queue = self._queues.get(session_id, [])
-        for task in queue:
-            if task.id == task_id:
-                task.status = ExecutionStatus.completed
-                task.completed_at = datetime.now(UTC)
-                task.result = result
-                return task
+        async with self._lock:
+            queue = self._queues.get(session_id, [])
+            for task in queue:
+                if task.id == task_id:
+                    task.status = ExecutionStatus.completed
+                    task.completed_at = datetime.now(UTC)
+                    task.result = result
+                    return task
         return None
 
     async def fail(self, session_id: str, task_id: str, error: str) -> ExecutionTask | None:
-        queue = self._queues.get(session_id, [])
-        for task in queue:
-            if task.id == task_id:
-                task.status = ExecutionStatus.failed
-                task.result = {"error": error}
-                return task
+        async with self._lock:
+            queue = self._queues.get(session_id, [])
+            for task in queue:
+                if task.id == task_id:
+                    task.status = ExecutionStatus.failed
+                    task.result = {"error": error}
+                    return task
         return None
 
     def _dependencies_met(self, task: ExecutionTask, queue: list[ExecutionTask]) -> bool:
@@ -156,7 +159,22 @@ class ExecutionIntegration:
         queue = await self.scheduler.submit(session.id, graph)
         results: dict[str, Any] = {}
 
-        for task in queue:
+        while True:
+            task = await self.scheduler.next(session.id)
+            if task is None:
+                all_done = all(
+                    t.status in (ExecutionStatus.completed, ExecutionStatus.failed) for t in queue
+                )
+                if all_done:
+                    break
+                any_failed = any(t.status == ExecutionStatus.failed for t in queue)
+                if any_failed:
+                    await execution_session_manager.update_status(
+                        session.id, ExecutionStatus.failed, error="One or more tasks failed"
+                    )
+                    raise RuntimeError("Pipeline failed due to task error")
+                break
+
             await execution_session_manager.update_progress(
                 session.id, (list(graph.tasks.keys()).index(task.id) / len(queue)) * 100.0
             )  # noqa: E501

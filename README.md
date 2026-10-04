@@ -55,7 +55,7 @@ User → [API Layer] → [Orchestrator] → [Cognitive Pipeline (8 services)] �
 |---|---|---|
 | `docs/ENGINEERING_BASELINE.md` | 297 | Baseline yang dibekukan — apa yang dikunci dan mengapa |
 | `docs/quality/QUALITY_GATES.md` | 137 | 12 quality gate dengan proses pengecualian |
-| `docs/adr/ADR-001.md` — `ADR-026.md` | 1,247 | 26 arsip keputusan arsitektur (Event Bus — Voice Interaction) |
+| `docs/adr/ADR-001.md` — `ADR-034.md` | 1,247 | 34 arsip keputusan arsitektur (Event Bus — Bulk, Scheduled & Evaluation) |
 | `docs/AES_ARCHITECTURE.md` | 734 | Architecture Engineering Specification (kondisi kode aktual) |
 | `docs/REFERENCE_ARCHITECTURE.md` | 635 | Pola, anti-pola, kerangka keputusan |
 | `docs/APP_DEV_GUIDE.md` | 798 | Panduan langkah-demi-langkah untuk membangun Capability Pack |
@@ -465,7 +465,7 @@ Lihat [Application Development Guide](docs/APP_DEV_GUIDE.md) untuk petunjuk lang
 | **App Development Guide** | `docs/APP_DEV_GUIDE.md` | Membangun capability pack baru |
 | **Engineering Baseline** | `docs/ENGINEERING_BASELINE.md` | Apa yang dibekukan dan mengapa |
 | **Quality Gates** | `docs/quality/QUALITY_GATES.md` | Persyaratan merge dan pengecualian |
-| **ADRs** | `docs/adr/ADR-001.md` — `ADR-026.md` | Mengapa keputusan arsitektur dibuat |
+| **ADRs** | `docs/adr/ADR-001.md` — `ADR-034.md` | Mengapa keputusan arsitektur dibuat |
 | **API Reference** | `docs/api_reference.md` | Dokumentasi endpoint |
 | **SDK Reference** | `sdk/README.md` | Penggunaan Python SDK |
 | **Infrastructure Engineer** | `docs/rfcs/RFC-0014.md` | Infrastructure design (K8s, HA, DR) |
@@ -656,10 +656,10 @@ python -m tools.audit.code_analysis        # Audit hygiene lengkap
 - [x] **PWA Icons & Screenshots** — Tambahkan icon PNG ke `frontend/public/icons/` dan screenshot ke `frontend/public/screenshots/`.
 - [ ] **Android Testing** — Test Add to Home Screen, offline caching, dan push notifications di Android device.
 - [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
-- [x] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules (`ChatViewModel` + `ChatScreen`), native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, Pilar 3 RFC (`RFC-0046`), design notes, Android Studio handoff checklist.
-- [ ] **Robotics & Edge AI Stage 4** — Pillar 1 RFC (`RFC-0048`), design notes, Edge Runtime, ROS 2 Connector, Vision Engine, Smart Agri Connector.
-- [ ] **Decision Intelligence & Digital Twin Stage 5** — Pillar 2 RFC (`RFC-0049`), design notes, Digital Twin Engine, Scenario Simulator, Red Team Agent, Causal Reasoner.
-- [ ] **Self-Evolving Platform Stage 6** — Pillar 4 RFC (`RFC-0047`), design notes, Autonomous Capability Generator, Self-Healing Infrastructure, Federated Memory.
+  - [x] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules (`ChatViewModel` + `ChatScreen`), native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, Pilar 3 RFC (`RFC-0054`), design notes, Android Studio handoff checklist.
+  - [ ] **Robotics & Edge AI Stage 4** — Pillar 1 RFC (`RFC-0056`), design notes, Edge Runtime, ROS 2 Connector, Vision Engine, Smart Agri Connector.
+  - [ ] **Decision Intelligence & Digital Twin Stage 5** — Pillar 2 RFC (`RFC-0057`), design notes, Digital Twin Engine, Scenario Simulator, Red Team Agent, Causal Reasoner.
+  - [ ] **Self-Evolving Platform Stage 6** — Pillar 4 RFC (`RFC-0055`), design notes, Autonomous Capability Generator, Self-Healing Infrastructure, Federated Memory.
 
 ---
 

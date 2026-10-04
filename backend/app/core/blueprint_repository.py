@@ -110,5 +110,26 @@ class BlueprintRepository:
             return True
         return False
 
+    def resolve_dependencies(self, blueprint_id: str, kind: str = "agent") -> dict[str, Any]:
+        store = self._agents if kind == "agent" else self._tools
+        blueprint = store.get(blueprint_id)
+        if not blueprint:
+            return {"resolved": [], "missing": []}
+
+        dependencies = blueprint.get("dependencies", [])
+        if not dependencies:
+            return {"resolved": [], "missing": []}
+
+        resolved: list[str] = []
+        missing: list[str] = []
+
+        for dep in dependencies:
+            if dep in store:
+                resolved.append(dep)
+            else:
+                missing.append(dep)
+
+        return {"resolved": resolved, "missing": missing, "total": len(dependencies)}
+
 
 blueprint_repository = BlueprintRepository()

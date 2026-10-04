@@ -1,0 +1,46 @@
+{
+  "id": "tpl-dpt-002",
+  "name": "Data Pipeline Tool",
+  "description": "ETL pipeline with validation, error handling, and automated schema detection",
+  "category": "Tools",
+  "type": "tool",
+  "tags": ["etl", "data", "validation", "pipeline"],
+  "config": {
+    "steps": [
+      {
+        "id": "extract",
+        "type": "api_call",
+        "name": "Extract Data",
+        "config": { "url": "https://api.example.com/data", "method": "GET" }
+      },
+      {
+        "id": "validate",
+        "type": "python_code",
+        "name": "Validate Schema",
+        "config": { "code": "assert 'id' in data, 'Missing id field'" }
+      },
+      {
+        "id": "transform",
+        "type": "llm_call",
+        "name": "Transform Records",
+        "config": { "prompt": "Normalize the following data records to standard JSON format:", "model": "gemma3" }
+      },
+      {
+        "id": "load",
+        "type": "database_query",
+        "name": "Load to Warehouse",
+        "config": { "query": "INSERT INTO warehouse VALUES (...)" }
+      }
+    ],
+    "error_handling": { "retry_count": 3, "on_failure": "notify" },
+    "schedule": "0 2 * * *"
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.5,
+    "clones": 187,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

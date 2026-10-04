@@ -42,6 +42,7 @@ class ExperienceLearning:
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._lessons: dict[str, Lesson] = {}
+        self.load_all()
 
     def record(
         self,

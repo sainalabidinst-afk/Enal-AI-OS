@@ -1,4 +1,4 @@
-# RFC-0049 — Pilar 2: Advanced Decision Intelligence & Simulation Engine
+# RFC-0057 — Pilar 2: Advanced Decision Intelligence & Simulation Engine
 
 ## Status
 Proposed
@@ -83,7 +83,7 @@ Define the architecture and implementation boundaries for **Pilar 2: Advanced De
 ## Implementation Plan
 
 ### Phase 1 — Design
-- [x] RFC-0049 scope, components, and contracts.
+- [x] RFC-0057 scope, components, and contracts.
 - [ ] Detail Digital Twin state synchronization protocol.
 - [ ] Detail Monte Carlo simulation parameters and stopping criteria.
 - [ ] Detail causal graph schema and do-calculus rules.

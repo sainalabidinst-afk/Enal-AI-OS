@@ -53,5 +53,25 @@ class SelfDevelopmentWorker:
     async def propose_improvements(self, ecp_root: str | None = None) -> list[dict[str, Any]]:
         return await self.engine.propose_improvements(ecp_root)
 
+    async def detect_gap(self, user_query: str) -> dict[str, Any]:
+        return await self.engine.detect_gap(user_query)
+
+    async def synthesize_pack(self, proposal: Any | None = None) -> dict[str, Any]:
+        return await self.engine.synthesize_pack(proposal)
+
+    async def detect_anomalies(self, samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return await self.engine.detect_anomalies(samples)
+
+    async def plan_remediation(self, anomaly: dict[str, Any]) -> dict[str, Any]:
+        return await self.engine.plan_remediation(anomaly)
+
+    async def publish_insight(
+        self, source_node: str, insight_type: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        return await self.engine.publish_insight(source_node, insight_type, payload)
+
+    async def list_insights(self) -> list[dict[str, Any]]:
+        return await self.engine.list_insights()
+
 
 self_development_worker = SelfDevelopmentWorker()

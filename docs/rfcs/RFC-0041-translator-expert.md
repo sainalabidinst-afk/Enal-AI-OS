@@ -112,7 +112,7 @@ Translation model imports (transformers, langdetect, torch) are **lazy-loaded** 
 | Milestone | Target |
 |---|---|
 | RFC Draft | 2026-10-02 |
-| ADR-015 | 2026-10-02 |
+| ADR-021 | 2026-10-02 |
 | Pack Implementation | 2026-10-02 |
 | Golden Tests | 2026-10-02 |
 | Benchmark | 2026-10-02 |

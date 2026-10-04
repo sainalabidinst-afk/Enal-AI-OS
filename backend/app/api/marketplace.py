@@ -15,6 +15,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, ConfigDict
 
 from backend.app.core.marketplace_service import marketplace_service
+from backend.app.core.template_registry import template_registry
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -34,8 +35,14 @@ class ShareResponse(BaseModel):
 
     id: str
     agent_id: str
-    status: str
-    created_at: str
+    name: str = ""
+    description: str = ""
+    category: str = "Agent"
+    author: str = "Enal-AI-OS"
+    tags: list[str] = []
+    rating: float = 0.0
+    status: str = "active"
+    created_at: str = ""
 
 
 class CloneRequest(BaseModel):
@@ -124,3 +131,46 @@ async def clone_agent(request: CloneRequest):
 async def get_analytics(agent_id: str):
     analytics = marketplace_service.get_analytics(agent_id)
     return AnalyticsResponse(agent_id=agent_id, **analytics)
+
+
+@router.get("/marketplace/templates")
+async def list_templates(
+    category: str | None = None,
+    search: str | None = None,
+) -> list[dict[str, Any]]:
+    """List pre-built templates, optionally filtered by category or search query."""
+    if search:
+        templates = template_registry.search(search)
+    elif category:
+        templates = template_registry.list_by_category(category)
+    else:
+        templates = template_registry.list_templates()
+    return [t.to_dict() for t in templates]
+
+
+@router.get("/marketplace/templates/{template_id}")
+async def get_template(template_id: str) -> dict[str, Any]:
+    """Get a specific template by ID."""
+    template = template_registry.get_template(template_id)
+    if template is None:
+        raise HTTPException(status_code=404, detail=f"Template {template_id} not found")
+    return template.to_dict()
+
+
+@router.post("/marketplace/clone/{template_id}", response_model=CloneResponse)
+async def clone_template(template_id: str, target_project: str = "default"):
+    """Clone a pre-built template into a new agent/tool."""
+    template = template_registry.get_template(template_id)
+    if template is None:
+        raise HTTPException(status_code=404, detail=f"Template {template_id} not found")
+    clone = template_registry.clone_template(template_id)
+    user_id = str(uuid.uuid4())
+    marketplace_service.record_clone(template_id, user_id)
+    result = {
+        "id": clone["id"],
+        "agent_id": template_id,
+        "project": target_project,
+        "cloned_at": datetime.now(UTC).isoformat(),
+    }
+    logger.info("Cloned template %s (%s)", template_id, clone["name"])
+    return CloneResponse(**result)

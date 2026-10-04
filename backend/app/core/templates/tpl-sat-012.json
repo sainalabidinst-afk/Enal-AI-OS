@@ -1,0 +1,52 @@
+{
+  "id": "tpl-sat-012",
+  "name": "Sentiment Analysis Tool",
+  "description": "Analyzes text sentiment, emotion, and intent from customer feedback across channels",
+  "category": "Tools",
+  "type": "tool",
+  "tags": ["nlp", "sentiment", "analytics", "feedback"],
+  "config": {
+    "steps": [
+      {
+        "id": "ingest",
+        "type": "api_call",
+        "name": "Get Feedback Data",
+        "config": { "url": "https://api.example.com/feedback", "method": "GET" }
+      },
+      {
+        "id": "analyze",
+        "type": "llm_call",
+        "name": "Analyze Sentiment",
+        "config": {
+          "prompt": "Analyze the sentiment and emotion of this feedback. Return JSON with sentiment (positive/egative/neutral), emotion, and key themes:\n{text}",
+          "model": "gpt-4o",
+          "response_format": "json"
+        }
+      },
+      {
+        "id": "score",
+        "type": "python_code",
+        "name": "Calculate Scores",
+        "config": { "code": "positive = sum(1 for r in results if r['sentiment'] == 'positive')\nnegative = sum(1 for r in results if r['sentiment'] == 'negative')\nnet_score = (positive - negative) / len(results)\nreturn {'net_sentiment': net_score, 'positive_pct': positive/len(results)*100}" }
+      },
+      {
+        "id": "report",
+        "type": "file_write",
+        "name": "Generate Report",
+        "config": { "path": "/workspace/sentiment_report.md", "format": "markdown" }
+      }
+    ],
+    "channels": ["email", "survey", "social", "chat"],
+    "min_confidence": 0.8,
+    "languages": ["en", "id", "es"],
+    "output_format": "json"
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.4,
+    "clones": 167,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

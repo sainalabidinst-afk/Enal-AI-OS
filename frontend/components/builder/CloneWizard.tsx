@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,6 +25,7 @@ interface CloneWizardProps {
     name: string;
     description: string;
     dependencies: string[];
+    kind?: string;
   };
   onComplete: () => void;
 }
@@ -39,19 +40,52 @@ const CloneWizard: React.FC<CloneWizardProps> = ({
   const [projectName, setProjectName] = useState(template.name);
   const [selectedProject, setSelectedProject] = useState('');
   const [resolvedDeps, setResolvedDeps] = useState<string[]>([]);
+  const [missingDeps, setMissingDeps] = useState<string[]>([]);
   const [isCloning, setIsCloning] = useState(false);
   const [cloneComplete, setCloneComplete] = useState(false);
+  const [dependencyError, setDependencyError] = useState<string | null>(null);
 
   const totalSteps = 3;
 
-  const handleNext = async () => {
-    if (step === 2) {
-      setIsCloning(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setResolvedDeps(template.dependencies);
-      setIsCloning(false);
-      setCloneComplete(true);
+  useEffect(() => {
+    if (step === 2 && !isCloning && resolvedDeps.length === 0 && missingDeps.length === 0) {
+      let cancelled = false;
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const kind = template.kind || 'agent';
+
+      async function resolveDeps() {
+        setIsCloning(true);
+        setDependencyError(null);
+        try {
+          const response = await fetch(
+            `${API_BASE}/api/v1/blueprints/${kind}/${template.id}/dependencies`
+          );
+          if (!response.ok) {
+            throw new Error(`Dependency resolution failed: ${response.status}`);
+          }
+          const data = await response.json();
+          if (cancelled) return;
+          setResolvedDeps(data.resolved || []);
+          setMissingDeps(data.missing || []);
+        } catch (err) {
+          if (!cancelled) {
+            setDependencyError(err instanceof Error ? err.message : 'Unknown error');
+          }
+        } finally {
+          if (!cancelled) {
+            setIsCloning(false);
+          }
+        }
+      }
+
+      resolveDeps();
+      return () => {
+        cancelled = true;
+      };
     }
+  }, [step, template.id, template.kind, isCloning, resolvedDeps.length, missingDeps.length]);
+
+  const handleNext = async () => {
     if (step < totalSteps) {
       setStep(step + 1);
     } else {
@@ -66,6 +100,9 @@ const CloneWizard: React.FC<CloneWizardProps> = ({
   const handleClose = () => {
     setStep(1);
     setCloneComplete(false);
+    setResolvedDeps([]);
+    setMissingDeps([]);
+    setDependencyError(null);
     onClose();
   };
 
@@ -137,21 +174,45 @@ const CloneWizard: React.FC<CloneWizardProps> = ({
               {step === 2 && (
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium text-gray-700">Dependencies</h3>
-                  {isCloning ? (
+                  {dependencyError ? (
+                    <div className="rounded-md border border-red-200 bg-red-50 p-3">
+                      <p className="text-sm text-red-700">{dependencyError}</p>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="mt-2"
+                        onClick={() => {
+                          setDependencyError(null);
+                          setResolvedDeps([]);
+                          setMissingDeps([]);
+                        }}
+                      >
+                        Retry
+                      </Button>
+                    </div>
+                  ) : isCloning ? (
                     <div className="space-y-2">
                       <p className="text-sm text-gray-500">Resolving dependencies...</p>
                       <Progress value={66} />
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      {resolvedDeps.length === 0 ? (
+                      {resolvedDeps.length === 0 && missingDeps.length === 0 ? (
                         <p className="text-sm text-gray-500">No dependencies to resolve.</p>
                       ) : (
-                        resolvedDeps.map((dep) => (
-                          <div key={dep} className="flex items-center gap-2">
-                            <Checkbox id={`dep-${dep}`} label={dep} checked readOnly />
-                          </div>
-                        ))
+                        <>
+                          {resolvedDeps.map((dep) => (
+                            <div key={dep} className="flex items-center gap-2">
+                              <Checkbox id={`dep-${dep}`} label={dep} checked readOnly />
+                            </div>
+                          ))}
+                          {missingDeps.map((dep) => (
+                            <div key={dep} className="flex items-center gap-2 text-sm text-red-600">
+                              <AlertCircle className="h-4 w-4" />
+                              <span>Missing: {dep}</span>
+                            </div>
+                          ))}
+                        </>
                       )}
                     </div>
                   )}

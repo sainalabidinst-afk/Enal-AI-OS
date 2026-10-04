@@ -30,12 +30,18 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from apps.self_development.anomaly_detector import AnomalyDetector
+from apps.self_development.capability_gap_detector import CapabilityGapDetector
 from apps.self_development.ecp_analyzer import ECPAnalyzer
+from apps.self_development.knowledge_sync import FederatedMemorySync
+from apps.self_development.pack_synthesizer import PackSynthesizer
 from apps.self_development.project_scanner import ProjectScanner, analyze_project
 from apps.self_development.proposal_repository import proposal_repository
+from apps.self_development.remediation_planner import RemediationConsentGate, RemediationPlanner
 from apps.self_development.risk_modeler import RiskModeler
 from apps.self_development.schemas import (
     ApprovalState,
+    CapabilityProposal,
     Patch,
     Problem,
     Solution,
@@ -54,6 +60,13 @@ class SelfDevelopmentEngine:
         self.taxonomy = SmellTaxonomy()
         self.risk_modeler = RiskModeler()
         self.suggestion_generator = SuggestionGenerator()
+        self.gap_detector = CapabilityGapDetector()
+        self.pack_synthesizer = PackSynthesizer()
+        self.anomaly_detector = AnomalyDetector()
+        self.remediation_planner = RemediationPlanner(
+            consent_gate=RemediationConsentGate(),
+        )
+        self.federated_sync = FederatedMemorySync()
         self._custom_problems: list[Problem] | None = None
 
     def set_problems(self, problems: list[Problem]) -> None:
@@ -229,6 +242,111 @@ class SelfDevelopmentEngine:
             }
             for p in persisted
         ]
+
+    async def detect_gap(self, user_query: str) -> dict[str, Any]:
+        result = self.gap_detector.detect(user_query)
+        payload: dict[str, Any] = {
+            "user_query": user_query,
+            "is_gap": result.is_gap,
+            "suggested_domain": result.suggested_domain,
+            "confidence": result.confidence,
+            "matched_capabilities": result.matched_capabilities,
+            "gap_reason": result.gap_reason,
+        }
+        if result.proposed_pack is not None:
+            payload["proposed_pack"] = {
+                "id": result.proposed_pack.id,
+                "name": result.proposed_pack.name,
+                "domain": result.proposed_pack.domain,
+                "description": result.proposed_pack.description,
+                "tier": result.proposed_pack.tier,
+                "estimated_effort": result.proposed_pack.estimated_effort,
+                "risk": result.proposed_pack.risk,
+                "confidence": result.proposed_pack.confidence,
+                "rationale": result.proposed_pack.rationale,
+                "status": result.proposed_pack.status,
+            }
+        return payload
+
+    async def synthesize_pack(self, proposal: CapabilityProposal | None = None) -> dict[str, Any]:
+        target = proposal or CapabilityProposal(
+            id="synthesized-pack",
+            name="Synthesized Pack",
+            domain="synthesized",
+            description="Auto-synthesized capability pack",
+            tier="tier_b",
+            reuse_potential=0,
+            estimated_effort="medium",
+            risk="medium",
+            confidence=0.6,
+            rationale="Synthesized from gap detection",
+            required_packs=[],
+            status="draft",
+        )
+        result = self.pack_synthesizer.synthesize(target)
+        return {
+            "pack_id": target.domain,
+            "status": "synthesized",
+            "artifacts": result.artifacts,
+            "schema_created": result.schema_created,
+            "engine_created": result.engine_created,
+            "worker_created": result.worker_created,
+            "tests_scaffolded": result.tests_scaffolded,
+        }
+
+    async def detect_anomalies(self, samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        anomalies = self.anomaly_detector.detect_batch(samples)
+        return [
+            {
+                "anomaly_id": a.anomaly_id,
+                "category": a.category,
+                "severity": a.severity,
+                "metric": a.metric,
+                "current_value": a.current_value,
+                "baseline": a.baseline,
+                "deviation_pct": a.deviation_pct,
+                "description": a.description,
+            }
+            for a in anomalies
+        ]
+
+    async def plan_remediation(self, anomaly: dict[str, Any]) -> dict[str, Any]:
+        from apps.self_development.anomaly_detector import Anomaly as AnomalyModel
+        anomaly_obj = AnomalyModel(
+            anomaly_id=anomaly.get("anomaly_id", ""),
+            category=anomaly.get("category", "performance"),
+            severity=anomaly.get("severity", "medium"),
+            metric=anomaly.get("metric", ""),
+            current_value=float(anomaly.get("current_value", 0)),
+            baseline=float(anomaly.get("baseline", 0)),
+            deviation_pct=float(anomaly.get("deviation_pct", 0)),
+            description=anomaly.get("description", ""),
+        )
+        playbook = self.remediation_planner.plan(anomaly_obj)
+        return {
+            "playbook_id": playbook.playbook_id,
+            "anomaly_id": playbook.anomaly_id,
+            "title": playbook.title,
+            "steps": playbook.steps,
+            "severity": playbook.severity,
+            "requires_consent": playbook.requires_consent,
+            "status": playbook.status,
+        }
+
+    async def publish_insight(
+        self, source_node: str, insight_type: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        insight = self.federated_sync.publish(source_node, insight_type, payload)
+        return {
+            "insight_id": insight.insight_id,
+            "source_node": insight.source_node,
+            "insight_type": insight.insight_type,
+            "pii_removed": insight.pii_removed,
+            "accepted": insight.accepted,
+        }
+
+    async def list_insights(self) -> list[dict[str, Any]]:
+        return self.federated_sync.list_insights()
 
     # ------------------------------------------------------------------
     # Internal helpers

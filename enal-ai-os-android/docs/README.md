@@ -4,7 +4,7 @@
 Design and contract artifacts for **Pilar 3: Native Android & Ubiquitous Experience**.
 
 ## What this folder contains
-- `RFC-0046-ubiquitous-android.md` — overarching RFC.
+- `RFC-0054-ubiquitous-android.md` — overarching RFC.
 - `design/hybrid-chat-router.md` — on-device vs backend chat routing contract.
 - `design/wake-word-engine.md` — wake-word detection requirements and consent flow.
 - `design/live-stream-session.md` — multi-modal stream contract for voice + camera.
@@ -13,7 +13,7 @@ Design and contract artifacts for **Pilar 3: Native Android & Ubiquitous Experie
 - Implement `enal-ai-os-android/app/src/main/java/com/enalai/os/android/agent/`
 - Implement `enal-ai-os-android/app/src/main/java/com/enalai/os/android/voice/`
 - Implement `enal-ai-os-android/app/src/main/java/com/enalai/os/android/camera/`
-- Add vendor SDKs per ADR linked from RFC-0046.
+- Add vendor SDKs per ADR linked from RFC-0054.
 
 ## Backend Contracts
 - Existing: `POST /api/v1/chat`

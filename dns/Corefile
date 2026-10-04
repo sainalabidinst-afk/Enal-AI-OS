@@ -9,7 +9,7 @@
     loop
     reload
     cache 300
-    deny
+    reload
 }
 
 enal.ai:53 {
@@ -28,9 +28,9 @@ enal.ai:53 {
     host postgres.enal.ai. { address postgres }
     host redis.enal.ai.    { address redis }
     host qdrant.enal.ai.   { address qdrant }
-    host ollama.enal.ai.   { address ollama }
-    host minio.enal.ai.    { address minio }
-    host kafka.enal.ai.     { address kafka }
+     host ollama.enal.ai.   { address ollama }
+     # host minio.enal.ai.    { address minio }  # minio service disabled
+     host kafka.enal.ai.     { address kafka }
     host zookeeper.enal.ai. { address zookeeper }
     
     # Load balancer

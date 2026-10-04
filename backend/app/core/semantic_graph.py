@@ -82,6 +82,53 @@ class SemanticProjectGraph:
         self.base_path.mkdir(parents=True, exist_ok=True)
         self._nodes: dict[str, GraphNode] = {}
         self._edges: dict[str, GraphEdge] = {}
+        self._load_from_disk()
+
+    def _load_from_disk(self) -> None:
+        """Load persisted nodes and edges from filesystem into in-memory index."""
+        for path in self.base_path.glob("node-*.json"):
+            try:
+                data = json.loads(path.read_text())
+                node_type_str = data.get("type", "component")
+                try:
+                    nt = NodeType(node_type_str)
+                except ValueError:
+                    nt = NodeType.COMPONENT
+                created_raw = data.get("created_at", datetime.now(UTC).isoformat())
+                try:
+                    created = datetime.fromisoformat(created_raw)
+                except ValueError:
+                    created = datetime.now(UTC)
+                node = GraphNode(
+                    id=data["id"],
+                    node_type=nt,
+                    name=data.get("name", ""),
+                    description=data.get("description", ""),
+                    properties=data.get("properties", {}),
+                    project_id=data.get("project_id"),
+                    created_at=created,
+                )
+                self._nodes[node.id] = node
+            except (json.JSONDecodeError, KeyError):
+                logger.warning(f"Failed to load graph node from {path}")
+        for path in self.base_path.glob("edge-*.json"):
+            try:
+                data = json.loads(path.read_text())
+                relation_str = data.get("relation", "uses")
+                try:
+                    rel = RelationType(relation_str)
+                except ValueError:
+                    rel = RelationType.USES
+                edge = GraphEdge(
+                    id=data["id"],
+                    source_id=data["source"],
+                    target_id=data["target"],
+                    relation=rel,
+                    properties=data.get("properties", {}),
+                )
+                self._edges[edge.id] = edge
+            except (json.JSONDecodeError, KeyError):
+                logger.warning(f"Failed to load graph edge from {path}")
 
     async def add_node(self, node: GraphNode) -> str:
         self._nodes[node.id] = node

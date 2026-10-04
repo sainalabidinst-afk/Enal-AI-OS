@@ -63,12 +63,13 @@ async def chat(request: ChatRequest):
             message = response.get("message", "") or ""
             if not message.strip() or message.strip().startswith(GENERIC_FALLBACK[:20]):
                 from backend.app.core.config import settings
+                from backend.app.core.jenny_voice_config import get_jenny_persona_prompt
 
                 llm_result = await model_router.acomplete(
                     messages=[
                         {
                             "role": "system",
-                            "content": "Kamu adalah Jenny, asisten AI Bos Enal.",
+                            "content": get_jenny_persona_prompt(),
                         },
                         {"role": "user", "content": request.message},
                     ],

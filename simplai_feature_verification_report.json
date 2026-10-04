@@ -1,0 +1,153 @@
+{
+  "features": [
+    {
+      "name": "Visual Agent Builder",
+      "status": "partial",
+      "evidence": "Frontend drag-drop UI exists (AgentBuilder.tsx, BuilderCanvas.tsx, AgentConfigPanel.tsx) with save/run buttons and form fields for name, model, tools, prompt, temperature, max_tokens. Backend API endpoints exist at /api/v1/blueprints/agent (blueprints.py). Backend services exist: blueprint_repository.py (in-memory + JSON persistence), agent_factory.py (creates base_config dict), agent_validator.py (validates required fields), agent_runtime.py (returns simulated success). Execution is simulated without real LLM/model-gateway calls. No dedicated tests found.",
+      "files": [
+        "frontend/components/builder/AgentBuilder.tsx",
+        "frontend/components/builder/BuilderCanvas.tsx",
+        "frontend/components/builder/AgentConfigPanel.tsx",
+        "frontend/components/builder/AgentNode.tsx",
+        "frontend/app/builder/agent/page.tsx",
+        "backend/app/api/blueprints.py",
+        "backend/app/core/blueprint_repository.py",
+        "backend/app/core/agent_factory.py",
+        "backend/app/core/agent_validator.py",
+        "backend/app/core/agent_runtime.py"
+      ],
+      "tests": "no"
+    },
+    {
+      "name": "Visual Tool Builder",
+      "status": "partial",
+      "evidence": "Frontend UI exists (ToolBuilder.tsx, StepConfigPanel.tsx, ToolNode.tsx) with step types: llm_call, python_code, api_call, kb_search, web_scraper, conditional, delay. Backend API endpoints exist at /api/v1/blueprints/tool. Backend services exist: step_executor.py (executes each step type), step_validator.py (validates step IDs/types), tool_engine.py (runs step graph). However, step execution returns simulated responses (e.g. 'Simulated LLM response', 'Simulated Python execution output'). No dedicated tests found.",
+      "files": [
+        "frontend/components/builder/ToolBuilder.tsx",
+        "frontend/components/builder/StepConfigPanel.tsx",
+        "frontend/components/builder/ToolNode.tsx",
+        "frontend/components/builder/BuilderCanvas.tsx",
+        "frontend/app/builder/tool/page.tsx",
+        "backend/app/api/blueprints.py",
+        "backend/app/core/step_executor.py",
+        "backend/app/core/step_validator.py",
+        "backend/app/core/tool_engine.py"
+      ],
+      "tests": "no"
+    },
+    {
+      "name": "Voice Agent",
+      "status": "partial",
+      "evidence": "Frontend VoiceAgentBuilder.tsx exists with STT/TTS provider selection, voice/language config, call simulation UI. Backend services exist: voice_vision_agent.py (VoiceAgent + VisionAgent skeleton), telephony_integration.py (inbound/outbound stubs returning dicts without real Twilio/Plivo calls), latency_monitor.py (tracks P50/P90/P99), stt_service.py (Whisper/Deepgram/Google providers returning stub transcriptions), tts_service.py (ElevenLabs/Azure/OpenAI providers returning stub audio bytes), voice_agent_runtime.py (STT→LLM→TTS pipeline with simulated LLM response), voice.py API (transcribe/speak/websocket endpoints). Tests exist (test_voice_vision_agent.py). VisionAgent.analyze/detect_objects/ocr raise NotImplementedError. Sub-second latency is not guaranteed because LLM step is simulated.",
+      "files": [
+        "frontend/components/builder/VoiceAgentBuilder.tsx",
+        "frontend/app/builder/voice/page.tsx",
+        "backend/app/core/voice_vision_agent.py",
+        "backend/app/core/telephony_integration.py",
+        "backend/app/core/latency_monitor.py",
+        "backend/app/core/stt_service.py",
+        "backend/app/core/tts_service.py",
+        "backend/app/core/voice_agent_runtime.py",
+        "backend/app/core/jenny_voice_config.py",
+        "backend/app/api/voice.py",
+        "backend/tests/test_voice_vision_agent.py"
+      ],
+      "tests": "yes"
+    },
+    {
+      "name": "Guardrails & Safety",
+      "status": "partial",
+      "evidence": "Frontend GuardrailConfig.tsx exists with toggles for 8 guardrails: pii, toxicLanguage, promptInjection, biasCheck, logicCheck, competitorCheck, gibberish, readingLevel. Backend guardrail_engine.py implements 8 validators (PIIGuardrail, ToxicLanguageGuardrail, PromptInjectionGuardrail, BiasCheckGuardrail, LogicCheckGuardrail, CompetitorCheckGuardrail, GibberishGuardrail, ReadingLevelGuardrail) with CorrectiveAction enum (FIX/NOOP/EXCEPTION). API endpoints exist at /api/v1/guardrails/test and /api/v1/guardrails (guardrails.py). Policy enforcement exists (policy_enforcement.py) with GDPR/ISO checks. Consent API exists (consent.py). However, validators use simple regex/word-list checks (stub-like). No dedicated guardrail tests found.",
+      "files": [
+        "frontend/components/builder/GuardrailConfig.tsx",
+        "backend/app/core/guardrail_engine.py",
+        "backend/app/api/guardrails.py",
+        "backend/app/core/policy_enforcement.py",
+        "backend/app/api/consent.py"
+      ],
+      "tests": "no"
+    },
+    {
+      "name": "Marketplace",
+      "status": "partial",
+      "evidence": "Frontend Marketplace.tsx and TemplateCard.tsx exist with search, categories, clone/use actions. marketplace/page.tsx route exists. Backend marketplace_service.py provides share/unshare/list/record_clone/record_view/get_analytics. marketplace.py API endpoints exist for share/clone/analytics. plugin_marketplace.py provides publish/install/search/rate/categories with disk persistence. Tests exist (test_plugin_marketplace.py). However, Marketplace.tsx uses hardcoded mockTemplates (Customer Support Agent, Data Pipeline Tool, Voice Receptionist) instead of fetching from backend. Analytics is basic (only clones/views counters). Visibility model (private/internal/public) is defined in RFC but not fully enforced.",
+      "files": [
+        "frontend/components/builder/Marketplace.tsx",
+        "frontend/components/builder/TemplateCard.tsx",
+        "frontend/components/builder/CloneWizard.tsx",
+        "frontend/app/marketplace/page.tsx",
+        "backend/app/core/marketplace_service.py",
+        "backend/app/api/marketplace.py",
+        "backend/app/core/plugin_marketplace.py",
+        "tests/test_plugin_marketplace.py"
+      ],
+      "tests": "yes"
+    },
+    {
+      "name": "A2A/MCP Integration",
+      "status": "partial",
+      "evidence": "Frontend components exist: A2AConfig.tsx (configure external agents), MCPConnector.tsx (connect MCP servers), ExternalAgentCard.tsx (display agent). Backend services exist: a2a_registry.py (register/list/unregister agents), a2a_invoker.py (invoke external agents), mcp_tool_registry.py (register/connect/disconnect/list servers), mcp_tool_proxy.py (call_tool on servers). API endpoints exist at /api/v1/a2a/register, /api/v1/a2a/invoke, /api/v1/a2a/list, /api/v1/mcp/register, /api/v1/mcp/connect, /api/v1/mcp/call, /api/v1/mcp/servers (a2a_mcp.py). However, actual HTTP invocation is simulated (returns 'Simulated A2A response' and 'Simulated MCP tool result'). No dedicated tests found.",
+      "files": [
+        "frontend/components/builder/A2AConfig.tsx",
+        "frontend/components/builder/MCPConnector.tsx",
+        "frontend/components/builder/ExternalAgentCard.tsx",
+        "backend/app/core/a2a_registry.py",
+        "backend/app/core/a2a_invoker.py",
+        "backend/app/core/mcp_tool_registry.py",
+        "backend/app/core/mcp_tool_proxy.py",
+        "backend/app/core/mcp_registry.py",
+        "backend/app/api/a2a_mcp.py"
+      ],
+      "tests": "no"
+    },
+    {
+      "name": "Bulk & Scheduled Execution",
+      "status": "partial",
+      "evidence": "Frontend components exist: BulkRun.tsx (simulated progress via setInterval), ScheduleConfig.tsx (add/remove cron schedules), bulk-evaluation/page.tsx route. Backend services exist: bulk_executor.py (asyncio.Semaphore concurrency control), scheduler_service.py (in-memory ScheduledJob store), webhook_service.py (logs and returns dict without actual HTTP calls), async_queue.py (priority queue with threading). API endpoints exist at /api/v1/bulk/run, /api/v1/schedule, /api/v1/schedule/{id}, /api/v1/evaluation, /api/v1/webhook (bulk_evaluation.py). However, scheduler_service stores jobs in memory without actual cron execution; webhook_service does not make real HTTP requests; frontend BulkRun.tsx simulates results with hardcoded success/fail pattern.",
+      "files": [
+        "frontend/components/builder/BulkRun.tsx",
+        "frontend/components/builder/ScheduleConfig.tsx",
+        "frontend/app/bulk-evaluation/page.tsx",
+        "backend/app/core/bulk_executor.py",
+        "backend/app/core/scheduler_service.py",
+        "backend/app/core/webhook_service.py",
+        "backend/app/core/async_queue.py",
+        "backend/app/api/bulk_evaluation.py",
+        "backend/tests/test_execution_scheduler.py"
+      ],
+      "tests": "partial"
+    },
+    {
+      "name": "Evaluation Framework",
+      "status": "partial",
+      "evidence": "Frontend EvaluationDashboard.tsx exists with evaluate/results/metrics tabs. MetricDetails.tsx exists. Backend services exist: evaluation.py (EvaluationFramework with benchmarks/quality gates), evaluator_engine.py (delegates to quality_scorer), quality_scorer.py (returns hardcoded score based on criteria presence with 'Simulated quality score' feedback), metric_details.py (returns empty metric details), scheduled_evaluator.py (runs and stores evaluation results). API endpoint exists at /api/v1/evaluation (bulk_evaluation.py). However, quality_scorer.score returns fixed scores (0.3 for relevance, 0.3 for accuracy, etc.) and hardcoded feedback. EvaluationDashboard.tsx uses setTimeout to set result.score=0.85 with hardcoded feedback. No dedicated evaluation tests found.",
+      "files": [
+        "frontend/components/builder/EvaluationDashboard.tsx",
+        "frontend/components/builder/MetricDetails.tsx",
+        "backend/app/core/evaluation.py",
+        "backend/app/core/evaluator_engine.py",
+        "backend/app/core/quality_scorer.py",
+        "backend/app/core/metric_details.py",
+        "backend/app/core/scheduled_evaluator.py",
+        "backend/app/api/bulk_evaluation.py"
+      ],
+      "tests": "no"
+    },
+    {
+      "name": "Templates System",
+      "status": "partial",
+      "evidence": "Frontend TemplateCard.tsx and CloneWizard.tsx exist. TemplateCard shows name, description, category, clones, rating, tags with clone/use actions. CloneWizard provides 3-step guided clone flow (select project, resolve deps, clone). Backend blueprint_repository.py stores agent/tool blueprints in-memory with JSON file persistence. plugin_marketplace.py provides publish/install/search/rate with disk persistence. Tests exist (test_plugin_marketplace.py). However, CloneWizard.tsx simulates cloning with setTimeout (1500ms) and sets resolvedDeps to template.dependencies without real dependency resolution. Marketplace.tsx uses hardcoded mockTemplates. Guided cloning workflow exists but backend dependency resolution is not implemented.",
+      "files": [
+        "frontend/components/builder/TemplateCard.tsx",
+        "frontend/components/builder/CloneWizard.tsx",
+        "backend/app/core/blueprint_repository.py",
+        "backend/app/core/plugin_marketplace.py",
+        "backend/app/core/marketplace_service.py",
+        "backend/app/api/marketplace.py",
+        "backend/app/api/blueprints.py",
+        "tests/test_plugin_marketplace.py"
+      ],
+      "tests": "yes"
+    }
+  ]
+}

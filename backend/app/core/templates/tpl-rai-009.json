@@ -1,0 +1,26 @@
+{
+  "id": "tpl-rai-009",
+  "name": "Research Assistant",
+  "description": "AI research assistant that searches academic papers, summarizes findings, and builds literature reviews",
+  "category": "Agents",
+  "type": "agent",
+  "tags": ["research", "academic", "summarization", "citation"],
+  "config": {
+    "system_prompt": "You are a research assistant. Search academic databases, read and summarize papers, extract key findings, and generate citations in APA format.",
+    "llm": "claude-3-5-sonnet",
+    "tools": ["web_search", "document_read", "pdf_extract", "citation_format"],
+    "memory_enabled": true,
+    "guardrails": ["fact_check", "logic_check"],
+    "research_domains": ["computer_science", "biology", "economics", "psychology"],
+    "output_format": "markdown_with_citations",
+    "max_papers": 50
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.6,
+    "clones": 143,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

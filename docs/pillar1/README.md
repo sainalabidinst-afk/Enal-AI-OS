@@ -4,7 +4,7 @@
 Design and contract artifacts for **Pilar 1: Physical & Autonomous Robotics Integration**.
 
 ## What this folder contains
-- `RFC-0048-robotics-edge-integration.md` — overarching RFC.
+- `RFC-0056-robotics-edge-integration.md` — overarching RFC.
 - `design/edge-runtime.md` — lightweight edge runtime subset.
 - `design/ros2-connector.md` — ROS 2 integration contract.
 - `design/vision-engine.md` — computer vision inference pipeline.

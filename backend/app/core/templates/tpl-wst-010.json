@@ -1,0 +1,48 @@
+{
+  "id": "tpl-wst-010",
+  "name": "Web Scraper Tool",
+  "description": "Extracts and processes data from websites with pagination handling and structured output",
+  "category": "Tools",
+  "type": "tool",
+  "tags": ["web", "scraping", "data-extraction", "automation"],
+  "config": {
+    "steps": [
+      {
+        "id": "fetch",
+        "type": "web_scraper",
+        "name": "Fetch URLs",
+        "config": { "start_url": "https://example.com", "crawl_depth": 2 }
+      },
+      {
+        "id": "extract",
+        "type": "python_code",
+        "name": "Extract Structured Data",
+        "config": { "code": "import json\ndata = json.loads(content)\nresult = {'title': data['title'], 'items': data.get('items', [])}" }
+      },
+      {
+        "id": "validate",
+        "type": "llm_call",
+        "name": "Validate Extraction",
+        "config": { "prompt": "Validate that this web data is complete and accurate:", "model": "gemma3" }
+      },
+      {
+        "id": "save",
+        "type": "file_write",
+        "name": "Save to CSV",
+        "config": { "path": "/workspace/scraped_data.csv", "format": "csv" }
+      }
+    ],
+    "rate_limit": { "requests_per_second": 2, "concurrent": 1 },
+    "user_agent": "EnalAIOS-Bot/1.0",
+    "output_format": "csv",
+    "max_pages": 100
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.1,
+    "clones": 134,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

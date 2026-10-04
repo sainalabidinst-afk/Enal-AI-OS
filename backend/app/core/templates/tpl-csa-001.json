@@ -1,0 +1,25 @@
+{
+  "id": "tpl-csa-001",
+  "name": "Customer Support Agent",
+  "description": "A customer support agent with knowledge base integration, ticket routing, and sentiment-aware responses",
+  "category": "Agents",
+  "type": "agent",
+  "tags": ["support", "kb", "sentiment", "ticketing"],
+  "config": {
+    "system_prompt": "You are a friendly and patient customer support agent. Always check the knowledge base first before answering. If the sentiment is negative, escalate to a human agent.",
+    "llm": "gpt-4o",
+    "tools": ["knowledge_base_search", "ticket_create", "sentiment_analyzer"],
+    "memory_enabled": true,
+    "guardrails": ["pii_protection", "toxic_language"],
+    "welcome_message": "Hello! How can I help you today?",
+    "language": "en"
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.7,
+    "clones": 342,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

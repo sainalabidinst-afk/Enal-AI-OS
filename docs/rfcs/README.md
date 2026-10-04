@@ -121,6 +121,10 @@ RFC terkait, dokumentasi, dll.
 - RFC-0051: Marketplace & Templates (Diterima — FASE 15)
 - RFC-0052: A2A/MCP Integration (Diterima — FASE 16)
 - RFC-0053: Bulk, Scheduled & Evaluation (Diterima — FASE 17)
+- RFC-0054: Pilar 3: Native Android & Ubiquitous Experience (Diusulkan)
+- RFC-0055: Pilar 4: Enterprise Autonomy & Self-Evolving Platform (Diusulkan)
+- RFC-0056: Pilar 1: Physical & Autonomous Robotics Integration (Diusulkan)
+- RFC-0057: Pilar 2: Advanced Decision Intelligence & Simulation Engine (Diusulkan)
 
 ## Indeks RFC
 
@@ -179,3 +183,7 @@ RFC terkait, dokumentasi, dll.
 |RFC-0051|Marketplace & Templates|Diterima — FASE 15|Platform|
 |RFC-0052|A2A/MCP Integration|Diterima — FASE 16|Platform|
 |RFC-0053|Bulk, Scheduled & Evaluation|Diterima — FASE 17|Platform|
+|RFC-0054|Pilar 3: Native Android & Ubiquitous Experience|Diusulkan|Platform|
+|RFC-0055|Pilar 4: Enterprise Autonomy & Self-Evolving Platform|Diusulkan|Platform|
+|RFC-0056|Pilar 1: Physical & Autonomous Robotics Integration|Diusulkan|Platform|
+|RFC-0057|Pilar 2: Advanced Decision Intelligence & Simulation Engine|Diusulkan|Platform|

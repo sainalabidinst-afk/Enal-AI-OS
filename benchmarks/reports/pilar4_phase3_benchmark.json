@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-10-04T07:34:34.264899",
+  "benchmarks": {
+    "gap_detector": {
+      "scenarios": 8,
+      "avg_latency_ms": 0.14,
+      "max_latency_ms": 0.3,
+      "results": [
+        {
+          "query": "Jalankan analisis keamanan jaringan",
+          "is_gap": false,
+          "suggested_domain": "trading",
+          "confidence": 0.7
+        },
+        {
+          "query": "Butuh bantuan menerjemahkan dokumen kontrak",
+          "is_gap": true,
+          "suggested_domain": "document-processing",
+          "confidence": 0.6
+        },
+        {
+          "query": "Apa yang bisa kamu lakukan?",
+          "is_gap": true,
+          "suggested_domain": "unknown",
+          "confidence": 0.4
+        },
+        {
+          "query": "Buatkan robot untuk otomatisasi pertanian",
+          "is_gap": false,
+          "suggested_domain": "general",
+          "confidence": 0.7000000000000001
+        },
+        {
+          "query": "Analisis tren inovasi AI",
+          "is_gap": false,
+          "suggested_domain": "trading",
+          "confidence": 0.7
+        },
+        {
+          "query": "Deploy aplikasi ke Kubernetes",
+          "is_gap": false,
+          "suggested_domain": "devops",
+          "confidence": 0.7
+        },
+        {
+          "query": "Review kode Python untuk bug",
+          "is_gap": false,
+          "suggested_domain": "code",
+          "confidence": 0.7
+        },
+        {
+          "query": "Buatkan dashboard BI untuk penjualan",
+          "is_gap": true,
+          "suggested_domain": "observability",
+          "confidence": 0.6
+        }
+      ]
+    },
+    "pack_synthesizer": {
+      "scenarios": 1,
+      "latency_ms": 0.55,
+      "schema_created": false,
+      "engine_created": false,
+      "worker_created": false,
+      "tests_scaffolded": false,
+      "artifacts": {
+        "pack_dir": "apps\\benchmark_pack",
+        "schema": "apps\\benchmark_pack\\schemas.py",
+        "engine": "apps\\benchmark_pack\\engine.py",
+        "worker": "apps\\benchmark_pack\\worker.py",
+        "tests": "apps\\benchmark_pack\\test_scaffold.py"
+      }
+    },
+    "anomaly_detector": {
+      "scenarios": 5,
+      "individual_avg_latency_ms": 0.01,
+      "batch_latency_ms": 0.04,
+      "anomalies_detected": 4,
+      "anomalies": [
+        {
+          "metric": "cpu_usage",
+          "severity": "high",
+          "deviation_pct": 90.0
+        },
+        {
+          "metric": "error_rate",
+          "severity": "critical",
+          "deviation_pct": 1400.0
+        },
+        {
+          "metric": "latency_p95",
+          "severity": "critical",
+          "deviation_pct": 400.0
+        },
+        {
+          "metric": "disk_usage",
+          "severity": "medium",
+          "deviation_pct": 15.0
+        }
+      ]
+    },
+    "remediation_planner": {
+      "scenarios": 2,
+      "avg_latency_ms": 0.01,
+      "results": [
+        {
+          "anomaly_id": "bench-anomaly-1",
+          "severity": "low",
+          "requires_consent": false,
+          "steps_count": 3
+        },
+        {
+          "anomaly_id": "bench-anomaly-2",
+          "severity": "critical",
+          "requires_consent": true,
+          "steps_count": 3
+        }
+      ]
+    },
+    "knowledge_abstractor": {
+      "scenarios": 4,
+      "avg_latency_ms": 0.02,
+      "pii_removed_count": 4,
+      "privacy_violation_rate": 0.0
+    },
+    "governance_metrics": {
+      "pack_synthesis_acceptance_rate": 0.8333,
+      "remediation_success_rate": 0.8,
+      "federated_privacy_violation_rate": 0.375,
+      "avg_gate_latency_ms": 190.0,
+      "pack_synthesis_attempts": 12,
+      "pack_synthesis_accepted": 10,
+      "remediation_attempts": 10,
+      "remediation_successes": 8,
+      "federated_syncs": 8,
+      "federated_privacy_violations": 3,
+      "updated_at": "2026-10-04T07:34:34.266900+00:00"
+    }
+  }
+}

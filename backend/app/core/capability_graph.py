@@ -47,5 +47,37 @@ class CapabilityGraph:
         skills = self.get_skills_for_capabilities(capabilities)
         return sorted(skills, key=lambda s: s.cost_weight)
 
+    def detect_cycles(self) -> list[list[str]]:
+        """Detect circular capability dependencies using DFS.
+
+        Returns a list of cycle paths, each as a list of capability names.
+        """
+        visited: set[str] = set()
+        rec_stack: set[str] = set()
+        cycles: list[list[str]] = []
+
+        def _dfs(node: str, path: list[str]) -> None:
+            visited.add(node)
+            rec_stack.add(node)
+            path.append(node)
+            for neighbor in self.graph.get(node, set()):
+                if neighbor not in visited:
+                    _dfs(neighbor, path)
+                elif neighbor in rec_stack:
+                    cycle_start = path.index(neighbor)
+                    cycles.append(path[cycle_start:] + [neighbor])
+            path.pop()
+            rec_stack.discard(node)
+
+        for cap in self.graph:
+            if cap not in visited:
+                _dfs(cap, [])
+
+        return cycles
+
+    def has_cycles(self) -> bool:
+        """Check if the capability graph contains any circular dependencies."""
+        return len(self.detect_cycles()) > 0
+
 
 capability_graph = CapabilityGraph()

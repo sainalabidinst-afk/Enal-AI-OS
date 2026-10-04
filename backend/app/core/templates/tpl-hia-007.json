@@ -1,0 +1,26 @@
+{
+  "id": "tpl-hia-007",
+  "name": "HR Interview Scheduler",
+  "description": "Automates interview scheduling, candidate screening, and calendar coordination",
+  "category": "Agents",
+  "type": "agent",
+  "tags": ["hr", "recruiting", "scheduling", "interviews"],
+  "config": {
+    "system_prompt": "You are an HR recruiting coordinator. Schedule interviews, screen candidates via chat, and coordinate calendars across interviewers.",
+    "llm": "gpt-4o",
+    "tools": ["calendar_check_availability", "calendar_create_event", "email_send", "questionnaire_ask"],
+    "memory_enabled": true,
+    "guardrails": ["pii_protection", "bias_check"],
+    "interview_types": ["phone_screen", "technical", "cultural_fit", "final"],
+    "available_interviewers": ["engineering_lead", "hr_manager", "team_member"],
+    "buffer_minutes": 15
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.5,
+    "clones": 89,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

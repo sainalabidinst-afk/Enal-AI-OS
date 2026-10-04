@@ -26,6 +26,12 @@ class MarketplaceService:
         listing = {
             "id": str(uuid.uuid4()),
             "agent_id": agent_id,
+            "name": config.get("name", agent_id),
+            "description": config.get("description", ""),
+            "category": config.get("category", "Agent"),
+            "author": config.get("author", "Enal-AI-OS"),
+            "tags": config.get("tags", []),
+            "rating": config.get("rating", 0.0),
             "config": config,
             "created_at": datetime.now(UTC).isoformat(),
             "status": "active",
@@ -44,7 +50,21 @@ class MarketplaceService:
         return self._listings.get(agent_id)
 
     def list_listings(self) -> list[dict[str, Any]]:
-        return list(self._listings.values())
+        return [
+            {
+                "id": listing["id"],
+                "agent_id": listing["agent_id"],
+                "name": listing.get("name", listing["agent_id"]),
+                "description": listing.get("description", ""),
+                "category": listing.get("category", "Agent"),
+                "author": listing.get("author", "Enal-AI-OS"),
+                "tags": listing.get("tags", []),
+                "rating": listing.get("rating", 0.0),
+                "created_at": listing.get("created_at", ""),
+                "status": listing.get("status", "active"),
+            }
+            for listing in self._listings.values()
+        ]
 
     def record_clone(self, agent_id: str, user_id: str) -> None:
         clone_event = {

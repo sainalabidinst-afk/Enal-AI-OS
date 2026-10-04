@@ -1,0 +1,41 @@
+{
+  "id": "tpl-vra-003",
+  "name": "Voice Receptionist (Jenny)",
+  "description": "Voice agent for handling inbound calls with IVR routing, appointment scheduling, and Jenny's sexy bratty personality",
+  "category": "Voice",
+  "type": "voice_agent",
+  "tags": ["voice", "telephony", "ivr", "appointments", "jenny"],
+  "config": {
+    "agent_name": "Jenny-SexyBrat",
+    "voice_profile": "jenny",
+    "voice_id": "2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5",
+    "tts_provider": "elevenlabs",
+    "stt_provider": "whisper",
+    "language": "id",
+    "personality": "manja_sexy",
+    "tts_params": {
+      "pitch": 1.25,
+      "speed": 0.85,
+      "emphasis": 1.4,
+      "pause_scale": 1.2,
+      "style_exaggeration": 0.85
+    },
+    "ivr_routes": {
+      "1": "sales_dept",
+      "2": "support_dept",
+      "3": "book_appointment"
+    },
+    "welcome_greeting": "Well, well... look who finally calls. Jenny here~ What do you need?",
+    "capabilities": ["call_transfer", "voicemail", "appointment_booking"],
+    "guardrails": ["sensitive_info_protection"],
+    "latency_target_ms": 500
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.8,
+    "clones": 98,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

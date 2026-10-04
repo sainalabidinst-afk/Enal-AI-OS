@@ -1,0 +1,29 @@
+{
+  "id": "tpl-saa-006",
+  "name": "Sales Assistant",
+  "description": "Proactive sales assistant that qualifies leads, schedules demos, and follows up on opportunities",
+  "category": "Agents",
+  "type": "agent",
+  "tags": ["sales", "lead-gen", "crms", "follow-up"],
+  "config": {
+    "system_prompt": "You are a proactive sales assistant. Qualify leads using BANT framework, schedule demos, and send follow-up emails. Always ask for permission before scheduling.",
+    "llm": "gpt-4o",
+    "tools": ["contact_enrich", "email_compose", "calendar_book", "crm_update"],
+    "memory_enabled": true,
+    "guardrails": ["pii_protection", "prompt_injection"],
+    "lead_qualification": {
+      "budget_threshold": 5000,
+      "authority_required": true,
+      "timeline_max_months": 6
+    },
+    "follow_up_sequence": ["email_1h", "email_1d", "email_3d", "call_1w"]
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.3,
+    "clones": 124,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

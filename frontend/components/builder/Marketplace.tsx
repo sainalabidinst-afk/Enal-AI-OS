@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabPanel } from '@/components/ui/tabs';
@@ -15,6 +15,8 @@ import {
   Users,
   Filter,
 } from 'lucide-react';
+import { api } from '@/services/api';
+import { speakText } from '@/services/voice';
 
 interface Template {
   id: string;
@@ -27,51 +29,80 @@ interface Template {
   tags: string[];
 }
 
-const mockTemplates: Template[] = [
-  {
-    id: 'tpl-1',
-    name: 'Customer Support Agent',
-    description: 'A customer support agent with knowledge base integration',
-    category: 'Agents',
-    author: 'Enal-AI-OS',
-    clones: 42,
-    rating: 4.5,
-    tags: ['support', 'kb'],
-  },
-  {
-    id: 'tpl-2',
-    name: 'Data Pipeline Tool',
-    description: 'ETL pipeline with validation and error handling',
-    category: 'Tools',
-    author: 'Enal-AI-OS',
-    clones: 28,
-    rating: 4.2,
-    tags: ['etl', 'data'],
-  },
-  {
-    id: 'tpl-3',
-    name: 'Voice Receptionist',
-    description: 'Voice agent for handling inbound calls',
-    category: 'Voice',
-    author: 'Enal-AI-OS',
-    clones: 15,
-    rating: 4.8,
-    tags: ['voice', 'telephony'],
-  },
-];
-
 const Marketplace: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredTemplates = mockTemplates.filter((tpl) => {
+  useEffect(() => {
+    // const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+    let cancelled = false;
+
+    async function fetchMarketplace() {
+        setLoading(true);
+        setError(null);
+        try {
+          const data = await api.get<Record<string, unknown>[]>('/api/v1/marketplace/templates');
+          if (cancelled) return;
+
+          const mapped: Template[] = data.map((item) => ({
+            id: String(item.id),
+            name: String(item.name),
+            description: String(item.description || ''),
+            category: String(item.category || 'Agent'),
+            author: String(item.author || 'Enal-AI-OS'),
+            clones: typeof item.clones === 'number' ? item.clones : 0,
+            rating: typeof item.rating === 'number' ? item.rating : 0,
+            tags: Array.isArray(item.tags) ? item.tags.map(String) : [],
+          }));
+          setTemplates(mapped);
+        } catch (err) {
+          if (!cancelled) {
+            setError(err instanceof Error ? err.message : 'Unknown error');
+          }
+        } finally {
+          if (!cancelled) {
+            setLoading(false);
+          }
+        }
+      }
+
+    fetchMarketplace();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filteredTemplates = templates.filter((tpl) => {
     const matchesSearch = tpl.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tpl.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || tpl.category.toLowerCase() === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const categories = ['all', ...Array.from(new Set(mockTemplates.map((t) => t.category.toLowerCase())))];
+  const categories = ['all', ...Array.from(new Set(templates.map((t) => t.category.toLowerCase())))];
+
+  if (loading) {
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-gray-50">
+        <p className="text-sm text-gray-500">Loading marketplace...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-gray-50">
+        <p className="text-sm text-red-500">{error}</p>
+        <Button variant="secondary" size="sm" className="mt-4" onClick={() => window.location.reload()}>
+          Retry
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen w-full flex-col bg-gray-50">

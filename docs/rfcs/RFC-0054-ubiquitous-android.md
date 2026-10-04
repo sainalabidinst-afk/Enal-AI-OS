@@ -1,4 +1,4 @@
-# RFC-0046 — Pilar 3: Native Android & Ubiquitous Experience
+# RFC-0054 — Pilar 3: Native Android & Ubiquitous Experience
 
 ## Status
 Proposed
@@ -58,7 +58,7 @@ Define the architecture and implementation boundaries for **Pilar 3: Native Andr
 ## Implementation Plan
 
 ### Phase 1 — Design
-- [x] RFC-0046 scope, contracts, and component boundaries.
+- [x] RFC-0054 scope, contracts, and component boundaries.
 - [ ] Detail data models for `HybridChatRequest`, `StreamSession`, `SlmCapabilities`.
 - [ ] Define consent requirements and risk classification.
 

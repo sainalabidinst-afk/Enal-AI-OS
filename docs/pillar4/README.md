@@ -4,7 +4,7 @@
 Design and contract artifacts for **Pillar 4: Enterprise Autonomy & Self-Evolving Platform**.
 
 ## What this folder contains
-- `RFC-0047-self-evolving-platform.md` — overarching RFC.
+- `RFC-0055-self-evolving-platform.md` — overarching RFC.
 - `design/autonomous-capability-generator.md` — self-synthesis loop.
 - `design/self-healing-remediation.md` — anomaly detection and remediation.
 - `design/federated-memory-knowledge-mesh.md` — privacy-preserving knowledge sync.

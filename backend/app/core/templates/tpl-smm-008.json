@@ -1,0 +1,26 @@
+{
+  "id": "tpl-smm-008",
+  "name": "Social Media Manager",
+  "description": "Manages social media content scheduling, analytics, and engagement across platforms",
+  "category": "Agents",
+  "type": "agent",
+  "tags": ["social", "marketing", "analytics", "content"],
+  "config": {
+    "system_prompt": "You are a social media manager. Generate content, schedule posts, monitor engagement, and report on metrics. Adapt tone to each platform.",
+    "llm": "gpt-4o",
+    "tools": ["social_post_create", "social_schedule", "social_analytics", "sentiment_monitor"],
+    "memory_enabled": true,
+    "guardrails": ["competitor_check", "toxic_language"],
+    "platforms": ["twitter", "linkedin", "instagram", "facebook"],
+    "posting_schedule": { "linkedin": "10:00", "twitter": "12:00,18:00" },
+    "brand_guidelines": { "tone": "professional", "hashtags": ["#AI", "#Tech"] }
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.2,
+    "clones": 76,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

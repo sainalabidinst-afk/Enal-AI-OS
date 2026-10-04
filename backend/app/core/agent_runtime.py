@@ -13,6 +13,7 @@ from typing import Any
 
 from backend.app.core.agent_factory import agent_factory
 from backend.app.core.agent_validator import AgentValidationError, agent_validator
+from backend.app.core.model_router import model_router
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +50,36 @@ class AgentRuntime:
                 validated.name,
                 validated.model,
             )
+
+            system_prompt = validated.prompt or "You are a helpful assistant."
+            user_message = task or context.get("user_input", "") if context else task or ""
+            if not user_message:
+                user_message = "Process the request based on your instructions."
+
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message},
+            ]
+
+            try:
+                response = await model_router.acomplete(
+                    messages,
+                    temperature=validated.temperature,
+                    max_tokens=validated.max_tokens,
+                    model=validated.model,
+                )
+                result_text = response.choices[0].message.content if response else ""
+                if not result_text:
+                    result_text = "Agent executed but returned empty response."
+            except Exception as llm_exc:
+                logger.error("LLM call failed for agent %s: %s", validated.name, llm_exc)
+                return {
+                    "success": False,
+                    "error": f"LLM execution failed: {llm_exc}",
+                    "agent_id": validated.id,
+                    "latency_ms": round((time.perf_counter() - started) * 1000, 2),
+                }
+
             latency_ms = round((time.perf_counter() - started) * 1000, 2)
             return {
                 "success": True,
@@ -56,7 +87,7 @@ class AgentRuntime:
                 "name": validated.name,
                 "model": validated.model,
                 "task": task,
-                "result": f"Agent {validated.name} executed successfully",
+                "result": result_text,
                 "config": config,
                 "latency_ms": latency_ms,
             }

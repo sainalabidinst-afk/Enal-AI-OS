@@ -1,0 +1,48 @@
+{
+  "id": "tpl-dqt-011",
+  "name": "Database Query Tool",
+  "description": "Natural language to SQL query builder with schema introspection and result visualization",
+  "category": "Tools",
+  "type": "tool",
+  "tags": ["database", "sql", "analytics", "query"],
+  "config": {
+    "steps": [
+      {
+        "id": "schema",
+        "type": "database_query",
+        "name": "Introspect Schema",
+        "config": { "query": "SELECT table_name, column_name FROM information_schema.columns WHERE table_schema = 'public'" }
+      },
+      {
+        "id": "nl_to_sql",
+        "type": "llm_call",
+        "name": "Generate SQL from NL",
+        "config": { "prompt": "Convert this natural language question to SQL:\n{question}\nSchema context:\n{schema}", "model": "gemma3" }
+      },
+      {
+        "id": "execute",
+        "type": "database_query",
+        "name": "Execute Query",
+        "config": { "query": "{generated_sql}", "dialect": "postgresql" }
+      },
+      {
+        "id": "format",
+        "type": "python_code",
+        "name": "Format Results",
+        "config": { "code": "import pandas as pd\ndf = pd.DataFrame(rows)\nreturn df.to_markdown(index=False)" }
+      }
+    ],
+    "connection_string_env": "DATABASE_URL",
+    "max_rows": 1000,
+    "timeout_seconds": 30,
+    "output_format": "table"
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.3,
+    "clones": 92,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

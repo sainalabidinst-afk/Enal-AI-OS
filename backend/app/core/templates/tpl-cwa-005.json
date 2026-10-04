@@ -1,0 +1,25 @@
+{
+  "id": "tpl-cwa-005",
+  "name": "Content Writer",
+  "description": "AI content writer for blogs, social media, and marketing copy with brand voice customization",
+  "category": "Agents",
+  "type": "agent",
+  "tags": ["writing", "marketing", "content", "seo"],
+  "config": {
+    "system_prompt": "You are a creative content writer specializing in blog posts, social media content, and marketing copy. Adapt tone to brand guidelines and optimize for SEO.",
+    "llm": "gpt-4o",
+    "tools": ["seo_keyword_research", "plagiarism_check", "readability_analyzer"],
+    "memory_enabled": true,
+    "guardrails": ["competitor_check", "reading_level"],
+    "welcome_message": "Ready to write some amazing content! What's the topic?",
+    "brand_voice": "professional_friendly"
+  },
+  "metadata": {
+    "author": "Enal-AI-OS",
+    "version": "1.0.0",
+    "rating": 4.4,
+    "clones": 156,
+    "created_at": "2026-10-04T00:00:00Z",
+    "updated_at": "2026-10-04T00:00:00Z"
+  }
+}

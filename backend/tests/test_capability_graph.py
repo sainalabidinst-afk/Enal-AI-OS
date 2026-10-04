@@ -133,3 +133,27 @@ class TestCapabilityGraph:
         assert len(plan) == 2
         assert plan[0].name == "skill-d"
         assert plan[1].name == "skill-c"
+
+    def test_detect_cycles_no_cycle(self):
+        graph = CapabilityGraph()
+        graph.graph = {"cap-a": {"skill-x"}, "skill-x": set()}
+        cycles = graph.detect_cycles()
+        assert cycles == []
+        assert graph.has_cycles() is False
+
+    def test_detect_cycles_with_cycle(self):
+        graph = CapabilityGraph()
+        graph.graph = {
+            "cap-a": {"skill-x"},
+            "skill-x": {"cap-a"},
+        }
+        cycles = graph.detect_cycles()
+        assert len(cycles) >= 1
+        assert graph.has_cycles() is True
+
+    def test_detect_cycles_self_loop(self):
+        graph = CapabilityGraph()
+        graph.graph = {"cap-a": {"cap-a"}}
+        cycles = graph.detect_cycles()
+        assert len(cycles) >= 1
+        assert graph.has_cycles() is True

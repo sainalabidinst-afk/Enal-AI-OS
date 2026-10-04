@@ -531,7 +531,7 @@ Devcontainer (VSCode) untuk setup cepat.
 
 ---
 
-## Arsip ADR: Capability Pack & Provider Architecture (ADR-019 hingga ADR-026)
+## Arsip ADR: Capability Pack & Provider Architecture (ADR-019 hingga ADR-034)
 
 Keputusan-keputusan berikut mendefinisikan arsitektur Capability Pack dan provider baru yang dibangun di atas Core yang telah dibekukan. Setiap keputusan ini tidak mengubah Inti, Kontrak Kemampuan, atau lapisan inti ECP. Dokumen rinci tersedia di `docs/adr/`.
 
@@ -710,3 +710,11 @@ Voice Interaction capability pack di `apps/voice_interaction/` yang mengintegras
 | ADR-024 | Action Connector Architecture | Provider Architecture | `docs/adr/ADR-024-action-connector-architecture.md` |
 | ADR-025 | Consent & Permission Architecture | Provider Architecture | `docs/adr/ADR-025-consent-permission-architecture.md` |
 | ADR-026 | Voice Interaction Capability Pack | Capability Pack | `docs/adr/ADR-026-voice-interaction-capability-pack.md` |
+| ADR-027 | Visual Builder Foundation Architecture | Capability Pack | `docs/adr/ADR-027-visual-builder-foundation.md` |
+| ADR-028 | Visual Agent Builder Architecture | Capability Pack | `docs/adr/ADR-028-visual-agent-builder.md` |
+| ADR-029 | Visual Tool Builder Architecture | Capability Pack | `docs/adr/ADR-029-visual-tool-builder.md` |
+| ADR-030 | Voice Agent Enhancements Architecture | Capability Pack | `docs/adr/ADR-030-voice-agent-enhancements.md` |
+| ADR-031 | Guardrails & Safety Architecture | Capability Pack | `docs/adr/ADR-031-guardrails-safety.md` |
+| ADR-032 | Marketplace & Templates Architecture | Capability Pack | `docs/adr/ADR-032-marketplace-templates.md` |
+| ADR-033 | A2A/MCP Integration Architecture | Provider Architecture | `docs/adr/ADR-033-a2a-mcp-integration.md` |
+| ADR-034 | Bulk, Scheduled & Evaluation Architecture | Capability Pack | `docs/adr/ADR-034-bulk-scheduled-evaluation.md` |

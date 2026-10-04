@@ -4,7 +4,7 @@
 Design and contract artifacts for **Pilar 2: Advanced Decision Intelligence & Digital Twin Simulation**.
 
 ## What this folder contains
-- `RFC-0049-decision-intelligence-simulation.md` — overarching RFC.
+- `RFC-0057-decision-intelligence-simulation.md` — overarching RFC.
 - `design/digital-twin-engine.md` — digital twin and Monte Carlo simulation.
 - `design/red-team-agent.md` — adversarial testing and hardening loop.
 - `design/causal-reasoner.md` — causal inference and counterfactual reasoning.

@@ -20,6 +20,7 @@ from .api import (
     ecosystem,
     end_to_end,
     execution,
+    governance,
     guardrails,
     health,
     integration,
@@ -183,6 +184,7 @@ app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
 app.include_router(integration.router, prefix=settings.API_V1_STR, tags=["integration"])
 app.include_router(blueprints.router, prefix=settings.API_V1_STR, tags=["blueprints"])
 app.include_router(guardrails.router, prefix=settings.API_V1_STR, tags=["guardrails"])
+app.include_router(governance.router, prefix=settings.API_V1_STR, tags=["governance"])
 app.include_router(marketplace.router, prefix=settings.API_V1_STR, tags=["marketplace"])
 app.include_router(a2a_mcp.router, prefix=settings.API_V1_STR, tags=["a2a-mcp"])
 app.include_router(bulk_evaluation.router, prefix=settings.API_V1_STR, tags=["bulk-evaluation"])

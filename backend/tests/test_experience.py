@@ -197,6 +197,20 @@ class TestExperienceLearning:
         assert lesson_id in manager2._lessons
         assert manager2._lessons[lesson_id].project_id == "p1"
 
+    def test_init_auto_loads_from_disk(self, tmp_path):
+        manager1 = ExperienceLearning(base_path=str(tmp_path))
+        lesson_id = manager1.record(
+            project_id="p1",
+            category="test",
+            situation="s",
+            action_taken="a",
+            outcome="o",
+            quality_score=0.9,
+        )
+        manager2 = ExperienceLearning(base_path=str(tmp_path))
+        assert lesson_id in manager2._lessons
+        assert manager2._lessons[lesson_id].project_id == "p1"
+
     def test_load_all_handles_invalid_json(self, manager, tmp_path):
         bad_file = Path(tmp_path) / "bad.json"
         bad_file.write_text("not json", encoding="utf-8")
