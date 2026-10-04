@@ -64,6 +64,8 @@ async def analyze_market(req: AnalyzeRequest):
     )
     from apps.trading_analyst.market_intelligence.summary import MarketSummaryGenerator
 
+    from backend.app.core.telemetry.service import record_cross_pack_correlation_event
+
     start = time.monotonic()
 
     try:
@@ -100,6 +102,19 @@ async def analyze_market(req: AnalyzeRequest):
             exchange=req.exchange,
             latency_ms=latency_ms,
         )
+
+        if result.confidence < 0.5:
+            record_cross_pack_correlation_event(
+                event_id=f"corr-{time.time()}",
+                source_pack="trading_analyst",
+                target_pack="governance",
+                correlation_type="low_confidence_trading",
+                confidence=result.confidence,
+                details=(
+                    f"Trading analysis for {symbol} returned low confidence "
+                    f"{result.confidence:.2f}"
+                ),
+            )
 
         return AnalyzeResponse(
             success=True,

@@ -175,6 +175,21 @@ class MarketFeedAdapter:
                 self.status.last_update = time.time()
                 self.status.error_count = 0
                 self.status.fallback_active = False
+                try:
+                    from backend.app.core.telemetry.service import record_trading_regime_event
+
+                    record_trading_regime_event(
+                        event_id=f"regime-{symbol}-{int(time.time())}",
+                        symbol=symbol,
+                        timeframe=timeframes[0] if timeframes else "1h",
+                        regime=snapshot.regime,
+                        confidence=snapshot.confidence,
+                        volatility=regime.volatility if self.regime_detector else "",
+                        trend_strength=regime.trend_strength if self.regime_detector else 0.0,
+                        source=snapshot.source,
+                    )
+                except Exception as telemetry_error:
+                    logger.debug("Telemetry record skipped: %s", telemetry_error)
                 for callback in self._subscribers:
                     try:
                         callback(snapshot)

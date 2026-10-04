@@ -14,10 +14,90 @@ export interface TraceSpan {
   error: string | null;
 }
 
+export interface TradingRegimeAlert {
+  event_id: string;
+  symbol: string;
+  timeframe: string;
+  regime: string;
+  confidence: number;
+  status: string;
+  timestamp: string;
+}
+
+export interface CrossPackCorrelationAlert {
+  event_id: string;
+  source_pack: string;
+  target_pack: string;
+  correlation_type: string;
+  confidence: number;
+  details: string;
+  status: string;
+  timestamp: string;
+}
+
+export interface AlertFeedResponse {
+  trading_regime: TradingRegimeAlert[];
+  cross_pack_correlations: CrossPackCorrelationAlert[];
+}
+
+export interface GrowthSeries {
+  granularity: string;
+  labels: string[];
+  hours: number[];
+  projects: number[];
+  activities: number[];
+  new_skills: number[];
+}
+
+export interface GrowthSkill {
+  skill: string;
+  level: string;
+  activities: number;
+  projects_completed: number;
+  minutes_spent: number;
+  last_practiced: string | null;
+}
+
+export interface GrowthProgress {
+  total_activities: number;
+  total_projects: number;
+  total_hours: number;
+  active_skills: number;
+  current_streak_weeks: number;
+  alignment_rate: number;
+  aligned_activities: number;
+  unaligned_activities: number;
+  generated_at: string;
+  series: GrowthSeries;
+  skills: GrowthSkill[];
+}
+
 export async function getTrace(traceId: string): Promise<TraceSpan[]> {
   return api.get<TraceSpan[]>(`/api/v1/observability/traces/${encodeURIComponent(traceId)}`);
 }
 
 export async function getObservabilityMetrics(): Promise<Record<string, unknown>> {
   return api.get<Record<string, unknown>>("/api/v1/observability/metrics");
+}
+
+export async function getTelemetryMetrics(): Promise<Record<string, unknown>> {
+  return api.get<Record<string, unknown>>("/api/v1/telemetry/metrics");
+}
+
+export async function getTelemetryAlerts(): Promise<AlertFeedResponse> {
+  return api.get<AlertFeedResponse>("/api/v1/telemetry/metrics/alerts");
+}
+
+export async function getPrometheusMetrics(): Promise<string> {
+  const response = await api.get<string>("/api/v1/telemetry/metrics/prometheus");
+  return response;
+}
+
+export async function getGrowthProgress(
+  granularity: "week" | "month" = "week",
+  periods: number = 12,
+): Promise<GrowthProgress> {
+  return api.get<GrowthProgress>(
+    `/api/v1/self-development/progress?granularity=${granularity}&weeks=${periods}`,
+  );
 }

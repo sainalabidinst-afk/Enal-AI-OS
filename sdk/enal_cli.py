@@ -26,7 +26,7 @@ import sys
 from typing import Any
 
 
-def _load_decorator_sdk() -> tuple[Any, Any, Any]:
+def _load_decorator_sdk() -> Any:
     """Import the decorator SDK lazily.
 
     ``sdk`` is a client-side package and must not import ``backend`` at module
@@ -35,11 +35,7 @@ def _load_decorator_sdk() -> tuple[Any, Any, Any]:
     development tool for that SDK — resolves it on first use instead.
     """
     try:
-        from backend.app.core.decorators import (
-            ChainBuilder,
-            DecoratorRegistry,
-            HotSwapManager,
-        )
+        import backend.app.core.decorators as decorator_sdk
     except ImportError as exc:  # pragma: no cover - depends on install layout
         print(
             f"Error: decorator SDK is unavailable ({exc}). "
@@ -48,17 +44,17 @@ def _load_decorator_sdk() -> tuple[Any, Any, Any]:
         )
         raise SystemExit(2) from exc
 
-    return ChainBuilder, DecoratorRegistry, HotSwapManager
+    return decorator_sdk
 
 
 def cmd_list(args: argparse.Namespace) -> int:
     """List all available decorators."""
-    _, DecoratorRegistry, _ = _load_decorator_sdk()
-    decorators = DecoratorRegistry.list_available()
+    decorator_sdk = _load_decorator_sdk()
+    decorators = decorator_sdk.DecoratorRegistry.list_available()
     print("Available Decorators:")
     print("-" * 40)
     for name in decorators:
-        decorator_cls = DecoratorRegistry.get(name)
+        decorator_cls = decorator_sdk.DecoratorRegistry.get(name)
         if decorator_cls:
             version = getattr(decorator_cls, "version", "unknown")
             print(f"  {name} (v{version})")
@@ -69,15 +65,15 @@ def cmd_list(args: argparse.Namespace) -> int:
 
 def cmd_decorate(args: argparse.Namespace) -> int:
     """Build a decorator chain and execute a task."""
-    ChainBuilder, _, _ = _load_decorator_sdk()
     if not args.chain:
         print("Error: --chain is required (comma-separated decorator names)")
         return 1
 
+    decorator_sdk = _load_decorator_sdk()
     decorator_names = [d.strip() for d in args.chain.split(",")]
     task: dict[str, Any] = json.loads(args.task) if args.task else {"input": "test"}
 
-    builder = ChainBuilder()
+    builder = decorator_sdk.ChainBuilder()
     for name in decorator_names:
         builder.add(name)
 
@@ -98,8 +94,8 @@ def cmd_decorate(args: argparse.Namespace) -> int:
 
 def cmd_chain(args: argparse.Namespace) -> int:
     """Print the active decorator chain for an app."""
-    _, _, HotSwapManager = _load_decorator_sdk()
-    manager = HotSwapManager()
+    decorator_sdk = _load_decorator_sdk()
+    manager = decorator_sdk.HotSwapManager()
     active = manager.get_active(args.app_id)
     if active is None:
         print(f"No active decorator chain for app '{args.app_id}'")

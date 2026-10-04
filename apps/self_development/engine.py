@@ -27,21 +27,30 @@ Pipeline:
 from __future__ import annotations
 
 import logging
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from apps.self_development.anomaly_detector import AnomalyDetector
 from apps.self_development.capability_gap_detector import CapabilityGapDetector
+from apps.self_development.cross_pack_bridge import cross_pack_bridge
 from apps.self_development.ecp_analyzer import ECPAnalyzer
+from apps.self_development.goal_aligner import goal_aligner
+from apps.self_development.growth_repository import activity_payload
+from apps.self_development.habit_tracker import habit_tracker
 from apps.self_development.knowledge_sync import FederatedMemorySync
+from apps.self_development.learning_analytics import learning_analytics
 from apps.self_development.pack_synthesizer import PackSynthesizer
 from apps.self_development.project_scanner import ProjectScanner, analyze_project
 from apps.self_development.proposal_repository import proposal_repository
+from apps.self_development.recommendation_engine import recommendation_engine
 from apps.self_development.remediation_planner import RemediationConsentGate, RemediationPlanner
 from apps.self_development.risk_modeler import RiskModeler
 from apps.self_development.schemas import (
     ApprovalState,
     CapabilityProposal,
+    Granularity,
+    HabitCadence,
     Patch,
     Problem,
     Solution,
@@ -312,6 +321,7 @@ class SelfDevelopmentEngine:
 
     async def plan_remediation(self, anomaly: dict[str, Any]) -> dict[str, Any]:
         from apps.self_development.anomaly_detector import Anomaly as AnomalyModel
+
         anomaly_obj = AnomalyModel(
             anomaly_id=anomaly.get("anomaly_id", ""),
             category=anomaly.get("category", "performance"),
@@ -347,6 +357,248 @@ class SelfDevelopmentEngine:
 
     async def list_insights(self) -> list[dict[str, Any]]:
         return self.federated_sync.list_insights()
+
+    # ------------------------------------------------------------------
+    # Public API - Growth Engine (Learning Analytics / Goals / Habits)
+    # ------------------------------------------------------------------
+
+    async def record_activity(
+        self,
+        title: str,
+        kind: str = "project",
+        duration_minutes: float = 0.0,
+        skills: list[str] | None = None,
+        goal_id: str | None = None,
+        source_pack: str | None = None,
+        completed_at: datetime | None = None,
+        notes: str = "",
+        metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Record a learning activity and validate it against development goals."""
+        activity = learning_analytics.record_activity(
+            title=title,
+            kind=kind,
+            duration_minutes=duration_minutes,
+            skills=skills,
+            goal_id=goal_id,
+            source_pack=source_pack,
+            completed_at=completed_at,
+            notes=notes,
+            metadata=metadata,
+        )
+        alignment = goal_aligner.record_activity_alignment(activity)
+        _record_growth_metrics()
+        return {
+            "activity": activity_payload(activity),
+            "alignment": {
+                "goal_id": alignment.goal_id,
+                "goal_title": alignment.goal_title,
+                "score": round(alignment.score, 2),
+                "verdict": alignment.verdict,
+                "matched_terms": alignment.matched_terms,
+                "suggestions": alignment.suggestions,
+            },
+        }
+
+    async def get_progress(
+        self, granularity: str = Granularity.WEEK.value, weeks: int = 12
+    ) -> dict[str, Any]:
+        """Return the learning progress snapshot for the console observability view."""
+        snapshot = learning_analytics.snapshot(granularity, weeks)
+        return {
+            "total_activities": snapshot.total_activities,
+            "total_projects": snapshot.total_projects,
+            "total_minutes": round(snapshot.total_minutes, 1),
+            "total_hours": round(snapshot.total_minutes / 60.0, 2),
+            "active_skills": snapshot.active_skills,
+            "current_streak_weeks": snapshot.current_streak_weeks,
+            "aligned_activities": snapshot.aligned_activities,
+            "unaligned_activities": snapshot.unaligned_activities,
+            "alignment_rate": round(snapshot.alignment_rate, 2),
+            "generated_at": snapshot.generated_at.isoformat(),
+            "buckets": [
+                {
+                    "period": b.period,
+                    "activities": b.activities,
+                    "projects_completed": b.projects_completed,
+                    "minutes_spent": round(b.minutes_spent, 1),
+                    "new_skills": b.new_skills,
+                }
+                for b in snapshot.buckets
+            ],
+            "skills": [
+                {
+                    "skill": s.skill,
+                    "level": s.level,
+                    "activities": s.activities,
+                    "projects_completed": s.projects_completed,
+                    "minutes_spent": round(s.minutes_spent, 1),
+                    "last_practiced": s.last_practiced.isoformat() if s.last_practiced else None,
+                }
+                for s in snapshot.skills
+            ],
+            "series": learning_analytics.series(granularity, weeks),
+            "chart": learning_analytics.render_chart(granularity, weeks),
+        }
+
+    async def render_progress_chart(
+        self,
+        granularity: str = Granularity.WEEK.value,
+        weeks: int = 12,
+        metric: str = "hours",
+    ) -> dict[str, Any]:
+        """Render the ASCII progress chart plus its sparkline."""
+        return {
+            "granularity": granularity,
+            "metric": metric,
+            "chart": learning_analytics.render_chart(granularity, weeks, metric),
+            "sparkline": learning_analytics.render_sparkline(weeks),
+            "series": learning_analytics.series(granularity, weeks),
+        }
+
+    async def create_goal(
+        self,
+        title: str,
+        kind: str = "milestone",
+        target_skills: list[str] | None = None,
+        success_criteria: list[str] | None = None,
+        target_date: str | None = None,
+        core_goal_id: str | None = None,
+    ) -> dict[str, Any]:
+        """Register a long-term development goal (certification, portfolio, milestone)."""
+        goal = goal_aligner.create_goal(
+            title=title,
+            kind=kind,
+            target_skills=target_skills,
+            success_criteria=success_criteria,
+            target_date=target_date,
+            core_goal_id=core_goal_id,
+        )
+        return _goal_payload(goal)
+
+    async def list_goals(self) -> dict[str, Any]:
+        """List development goals with progress and alignment coverage."""
+        goals = goal_aligner.list_goals()
+        return {
+            "goals": [_goal_payload(g) for g in goals],
+            "progress": [goal_aligner.goal_progress(g.id) for g in goals],
+        }
+
+    async def validate_relevance(
+        self, title: str, skills: list[str] | None = None, goal_id: str | None = None
+    ) -> dict[str, Any]:
+        """Validate whether a planned activity is relevant to a development goal."""
+        return goal_aligner.validate_relevance(title, skills, goal_id)
+
+    async def align_goals(self) -> dict[str, Any]:
+        """Re-align every stored activity and report goal drift."""
+        activities = learning_analytics.list_activities()
+        verdicts: dict[str, int] = {}
+        for activity in activities:
+            alignment = goal_aligner.record_activity_alignment(activity)
+            verdicts[alignment.verdict] = verdicts.get(alignment.verdict, 0) + 1
+        return {
+            "activities_checked": len(activities),
+            "verdicts": verdicts,
+            "goals": [goal_aligner.goal_progress(g.id) for g in goal_aligner.list_goals()],
+        }
+
+    async def recommend_next(self, limit: int = 5, goal_id: str | None = None) -> dict[str, Any]:
+        """Recommend the next project or skill based on progress, goals, and knowledge."""
+        recommendations = recommendation_engine.recommend(limit=limit, goal_id=goal_id)
+        return {
+            "recommendations": [
+                {
+                    "id": r.id,
+                    "kind": r.kind,
+                    "title": r.title,
+                    "rationale": r.rationale,
+                    "skills_gained": r.skills_gained,
+                    "difficulty": r.difficulty,
+                    "estimated_hours": r.estimated_hours,
+                    "confidence": round(r.confidence, 2),
+                    "source": r.source,
+                    "source_pack": r.source_pack,
+                    "goal_id": r.goal_id,
+                    "project_id": r.project_id,
+                }
+                for r in recommendations
+            ],
+            "ladder": recommendation_engine.explain(),
+        }
+
+    async def create_habit(
+        self,
+        name: str,
+        cadence: str = HabitCadence.DAILY.value,
+        target_per_period: int = 1,
+        goal_id: str | None = None,
+        reminder_hour: int = 9,
+    ) -> dict[str, Any]:
+        """Register a recurring learning habit."""
+        habit = habit_tracker.create_habit(
+            name=name,
+            cadence=cadence,
+            target_per_period=target_per_period,
+            goal_id=goal_id,
+            reminder_hour=reminder_hour,
+        )
+        return _habit_payload(habit)
+
+    async def check_in_habit(
+        self, habit_id: str, note: str = "", completed_at: datetime | None = None
+    ) -> dict[str, Any]:
+        """Check in to a habit and return the updated streak status."""
+        payload = habit_tracker.check_in(habit_id, checked_at=completed_at, note=note)
+        _record_growth_metrics()
+        return payload
+
+    async def habit_statuses(self) -> dict[str, Any]:
+        """Streak status for every registered habit plus open alerts."""
+        return {
+            "habits": habit_tracker.all_statuses(),
+            "reminders": [
+                {
+                    "alert_id": a.id,
+                    "severity": a.severity,
+                    "subject": a.subject,
+                    "message": a.message,
+                }
+                for a in habit_tracker.due_reminders()
+            ],
+        }
+
+    async def dispatch_growth_alerts(self) -> dict[str, Any]:
+        """Evaluate habit and goal alerts and publish them on the event bus."""
+        published = await habit_tracker.dispatch_alerts()
+        return {"alerts": published, "count": len(published)}
+
+    # ------------------------------------------------------------------
+    # Public API - Cross-Pack Learning Projects
+    # ------------------------------------------------------------------
+
+    async def learning_projects(self, goal_id: str | None = None) -> dict[str, Any]:
+        """List real projects that run through other packs but count as learning."""
+        return {"projects": cross_pack_bridge.catalog(goal_id)}
+
+    async def run_learning_project(
+        self,
+        project_id: str,
+        params: dict[str, Any] | None = None,
+        duration_minutes: float = 60.0,
+        goal_id: str | None = None,
+        notes: str = "",
+    ) -> dict[str, Any]:
+        """Run a learning project through its pack and record the progress."""
+        result = await cross_pack_bridge.run(
+            project_id,
+            params=params,
+            duration_minutes=duration_minutes,
+            goal_id=goal_id,
+            notes=notes,
+        )
+        _record_growth_metrics()
+        return result
 
     # ------------------------------------------------------------------
     # Internal helpers
@@ -401,3 +653,54 @@ class SelfDevelopmentEngine:
 
 
 self_development_engine = SelfDevelopmentEngine()
+
+
+# ----------------------------------------------------------------------
+# Module helpers
+# ----------------------------------------------------------------------
+
+
+def _goal_payload(goal: Any) -> dict[str, Any]:
+    """Serialize a development goal for engine and API responses."""
+    return {
+        "id": goal.id,
+        "title": goal.title,
+        "kind": goal.kind,
+        "target_skills": goal.target_skills,
+        "success_criteria": goal.success_criteria,
+        "target_date": goal.target_date,
+        "progress": round(goal.progress, 2),
+        "source": goal.source,
+        "core_goal_id": goal.core_goal_id,
+    }
+
+
+def _habit_payload(habit: Any) -> dict[str, Any]:
+    """Serialize a habit definition for engine and API responses."""
+    return {
+        "id": habit.id,
+        "name": habit.name,
+        "cadence": habit.cadence,
+        "target_per_period": habit.target_per_period,
+        "goal_id": habit.goal_id,
+        "reminder_hour": habit.reminder_hour,
+        "total_check_ins": len(habit.check_ins),
+        "created_at": habit.created_at.isoformat(),
+    }
+
+
+def _record_growth_metrics() -> None:
+    """Publish growth counters into the RFC-0001 metrics collector."""
+    try:
+        from backend.app.core.observability import metrics_collector
+
+        snapshot = learning_analytics.snapshot()
+        metrics_collector.gauge("self_development.activities", snapshot.total_activities)
+        metrics_collector.gauge("self_development.projects", snapshot.total_projects)
+        metrics_collector.gauge("self_development.hours", round(snapshot.total_minutes / 60.0, 2))
+        metrics_collector.gauge("self_development.skills", snapshot.active_skills)
+        metrics_collector.gauge(
+            "self_development.alignment_rate", round(snapshot.alignment_rate, 3)
+        )
+    except Exception:
+        logger.debug("Growth metrics unavailable", exc_info=True)

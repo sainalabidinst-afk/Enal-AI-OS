@@ -1,17 +1,28 @@
-"""Test GPU inference integration with ECP backend."""
+"""Smoke-test GPU inference directly against GPUInferenceService.
+
+Requires a local CUDA device plus weights at ``settings.GPU_MODEL_PATH``.
+    python scripts/test_gpu_integration.py
+"""
+
 import asyncio
 import logging
 
-from backend.app.core.gpu_inference_service import GPUInferenceService
+from backend.app.core.config import settings
+from backend.app.core.gpu_inference_service import GPUInferenceError, GPUInferenceService
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-async def main():
-    model_path = "E:/Enal-AI-OS/models/qwen2.5-3b"
-    service = GPUInferenceService(model_path=model_path)
-    await service.initialize()
+async def main() -> int:
+    service = GPUInferenceService(model_path=settings.GPU_MODEL_PATH)
+    logger.info("GPU service status: %s", service.status())
+
+    try:
+        await asyncio.to_thread(service.initialize)
+    except GPUInferenceError as exc:
+        logger.error("GPU model unavailable: %s", exc)
+        return 1
 
     messages = [
         {"role": "system", "content": "You are Jenny, a helpful assistant."},
@@ -22,7 +33,8 @@ async def main():
     print("\n=== GPU Inference Result ===")
     print(result)
     print("=== End of Result ===")
+    return 0
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    raise SystemExit(asyncio.run(main()))

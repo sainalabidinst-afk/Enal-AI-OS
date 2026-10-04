@@ -1,6 +1,6 @@
 # Self Development — Spesifikasi Capability
 
-**Versi:** 2.0.0
+**Versi:** 2.1.0
 **Status:** Bersertifikat (RFC-0022)
 **Target Kualitas:** A+ (≥95) — Level 4 — Pakar Domain
 
@@ -233,8 +233,125 @@ tests = await engine.generate_tests(patch.id)
 
 ---
 
-## 11. Riwayat Perubahan
+## 11. Growth Engine (Personal Growth)
+
+Growth Engine mengubah pack ini dari "dokumentasi aktivitas" menjadi **engine pertumbuhan
+pribadi**: analitik, goal alignment, rekomendasi, habit tracking, dan integrasi lintas pack.
+
+### 11.1 Modul
+
+| Modul | File | Tanggung Jawab |
+|-------|------|----------------|
+| Learning Analytics | `apps/self_development/learning_analytics.py` | Progres belajar, skill level, bucket per minggu/bulan, grafik konsol |
+| Goal Aligner | `apps/self_development/goal_aligner.py` | Mengaitkan aktivitas ke goal jangka panjang + validasi relevansi |
+| Recommendation Engine | `apps/self_development/recommendation_engine.py` | Rekomendasi project/skill berikutnya dari skill ladder, goal gap, dan Knowledge |
+| Habit Tracker | `apps/self_development/habit_tracker.py` | Check-in harian/mingguan, streak counter, reminder, alert |
+| Cross-Pack Bridge | `apps/self_development/cross_pack_bridge.py` | Menjalankan project nyata lewat pack lain dan menghitungnya sebagai progres |
+| Growth Repository | `apps/self_development/growth_repository.py` | Persisted store untuk aktivitas, goal, dan habit |
+
+### 11.2 Kontrak Pertumbuhan
+
+```json
+POST /api/v1/self-development/activities
+{
+  "title": "Bangun ETL pipeline",
+  "kind": "project",
+  "duration_minutes": 120,
+  "skills": ["python", "etl"],
+  "goal_id": "gdev-xxxxxxxx"
+}
+```
+
+```json
+POST /api/v1/self-development/goals
+{
+  "title": "Sertifikasi Data Engineer",
+  "kind": "certification",
+  "target_skills": ["python", "sql", "etl"],
+  "success_criteria": ["Lulus ujian sertifikasi"],
+  "target_date": "2026-12-31"
+}
+```
+
+### 11.3 Endpoint
+
+| Method | Path | Fungsi |
+|--------|------|--------|
+| GET | `/api/v1/self-development/report` | Laporan gabungan: progress, goals, habits, rekomendasi |
+| GET | `/api/v1/self-development/progress` | Snapshot analitik (`granularity=week\|month`) |
+| GET | `/api/v1/self-development/progress/chart` | Grafik ASCII + `series` untuk chart frontend |
+| POST | `/api/v1/self-development/activities` | Catat aktivitas belajar |
+| GET | `/api/v1/self-development/activities` | Daftar aktivitas (filter kind/skill/goal) |
+| GET/POST | `/api/v1/self-development/goals` | Goal jangka panjang + progres coverage |
+| POST | `/api/v1/self-development/goals/validate` | Validasi relevansi aktivitas → goal |
+| POST | `/api/v1/self-development/goals/align` | Re-align seluruh aktivitas |
+| GET | `/api/v1/self-development/recommendations` | Rekomendasi project/skill berikutnya |
+| GET/POST | `/api/v1/self-development/habits` | Habit + streak counter |
+| POST | `/api/v1/self-development/habits/{id}/check-in` | Check-in habit |
+| GET | `/api/v1/self-development/habits/reminders` | Reminder habit yang belum terpenuhi |
+| POST | `/api/v1/self-development/alerts/dispatch` | Evaluasi + publish alert ke event bus |
+| GET | `/api/v1/self-development/learning-projects` | Katalog project lintas pack |
+| POST | `/api/v1/self-development/learning-projects/{id}/run` | Jalankan project via pack tujuan |
+
+### 11.4 Goal Alignment
+
+Skoring menggabungkan cakupan skill target (65%) dan overlap kata kunci dengan judul goal
+plus success criteria (35%):
+
+| Skor | Verdict | Arti |
+|------|---------|------|
+| ≥ 0.60 | `aligned` | Aktivitas selaras penuh dengan goal |
+| ≥ 0.30 | `partial` | Relevan sebagian, perlu ditambah skill |
+| < 0.30 | `unrelated` | Goal drift — memicu alert |
+
+Goal dapat bersumber dari Growth Repository (sertifikasi, portfolio, milestone karier) atau
+dicerminkan dari **Goal Management** core (`backend/app/core/goal_engine.py`) melalui
+`core_goal_id`.
+
+### 11.5 Habit & Alert Pipeline
+
+Streak dihitung per periode (hari ISO atau minggu ISO) dan hanya menghitung periode
+berurutan yang berakhir pada periode berjalan. Reminder dievaluasi dari dua aturan:
+
+- `habit_reminder` — target periode belum terpenuhi (severity `critical` untuk harian).
+- `goal_drift` — aktivitas terbaru tidak selaras dengan goal mana pun.
+
+Alert dipublish ke stable event bus pada event type
+`self_development.habit.reminder`, `self_development.habit.streak`, dan
+`self_development.goal.drift`.
+
+### 11.6 Cross-Pack Learning Projects
+
+| Project id | Pack | Skill yang didapat |
+|------------|------|--------------------|
+| `trading-backtest` | trading-analyst | statistics, backtesting, risk-management |
+| `architecture-review` | system-architect | clean-architecture, ddd, architecture-review |
+| `knowledge-graph` | knowledge-engineer | knowledge-graph, ontology, data-modeling |
+| `research-digest` | research-assistant | research, evidence-evaluation |
+| `data-pipeline-etl` | data-engineer | data-engineering, etl, data-quality |
+
+Setiap project mendelegasikan ke engine pack tujuan (import lazy, tanpa duplikasi logika),
+lalu aktivitas tetap dihitung sebagai progres dan divalidasi terhadap goal.
+
+### 11.7 Observability
+
+Setiap pencatatan aktivitas, check-in, dan eksekusi project mempublish gauge ke RFC-0001
+`MetricsCollector`: `self_development.activities`, `.projects`, `.hours`, `.skills`,
+`.alignment_rate`. Panel **Learning progress** pada console observability
+(`/console/observability`) menampilkan hours, projects, skill level, dan grafik
+mingguan/bulanan.
+
+### 11.8 Penyimpanan
+
+State runtime disimpan pada `apps/self_development/growth.json` (diabaikan oleh git).
+Endpoint dan API tests memakai `GrowthRepository` dengan `tmp_path`, sehingga store
+produksi tidak tersentuh oleh pengujian.
+
+---
+
+## 12. Riwayat Perubahan
 
 | Versi | Tanggal | Perubahan |
 |-------|---------|-----------|
+| 2.1.0 | 2026-10-04 | Growth Engine: learning analytics, goal alignment, recommendation, habit tracking, cross-pack learning projects, 15 endpoint baru |
 | 2.0.0 | 2026-08-05 | Level 4 Domain Expert, A+ grade, 10 golden tests, security audit, performance optimization |

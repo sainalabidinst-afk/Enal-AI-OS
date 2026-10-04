@@ -23,6 +23,11 @@
 
 ## Fase Pengembangan
 
+> **Catatan 2026-10-04:** Roadmap *platform/produk* 6–12 bulan (console, GPU inference,
+> integrasi, alert, RBAC, multi-tenant) dicatat terpisah di
+> [ROADMAP_PLATFORM_6_12_BULAN.md](docs/ROADMAP_PLATFORM_6_12_BULAN.md). Bagian di bawah
+> tetap menjadi SSOT untuk **Capability Pack** (siapa pack apa, grade, benchmark, real cases).
+
 | Fase | Waktu | Total Pack | Fokus |
 |------|-------|------------|-------|
 | **Fase 1** — Capability Excellence | 0–12 bulan | 13 | Naikkan kualitas 13 pack ke A/A- |
@@ -1147,6 +1152,7 @@ Komponen berikut akan dikelola sebagai **plugin, service, atau infrastruktur pla
 | 2026-10-04 | Real-Time Market Feed Adapter implemented: backend/app/core/market_feed_adapter.py (MarketFeedAdapter with polling, fallback, subscribers); trading API extended with /regime/live, /feed/status, /feed/start, /feed/stop; frontend/services/trading.ts updated with live feed service; frontend/types/trading.ts added MarketRegimeLive and FeedStatusResponse; ruff clean | ✅ |
 | 2026-10-04 | Console Dashboard Trading Panel added: frontend/components/console/dashboard/trading-panel.tsx (live feed status, regime display, start/stop controls, confidence threshold alerts, alert history); confidence-threshold alert pipeline integrated with useConsolePreferences; market_feed_adapter strengthened with rate-limit handling (RateLimitError, exponential backoff with jitter, Retry-After parsing), reconnect logic with max_backoff cap; Binance API 429 handling added to provider.py; TypeScript clean | ✅ |
 | 2026-10-04 | Observability+Cockpit Integration: TradingPanel integrated into Observability Dashboard (frontend/components/console/observability/observability-view.tsx); console now shows governance metrics + live market regime in one screen; TypeScript clean (no new errors), ruff clean | ✅ |
+| 2026-10-04 | Observability-native alert pipeline: trading regime alerts + cross-pack correlations displayed directly in observability panel (not only toast); backend telemetry extended with trading_regime and cross_pack_correlation events; observability view shows alert feed with auto-refresh; Prometheus metrics export endpoint added (/api/v1/telemetry/metrics/prometheus); cross-pack correlation alerts when trading confidence < 0.5; frontend services/observability.ts extended with alert feeds and Prometheus URL; ruff clean, TypeScript clean | ✅ |
 
 ## SPRINT 8.5 — Frontend Cognitive Layer (Three-Level Thinking Architecture)
 

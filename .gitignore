@@ -42,6 +42,7 @@ Thumbs.db
 .pytest_cache/
 .coverage
 benchmarks/cce_history/
+apps/self_development/growth.json
 
 # Generated artifacts
 artifacts/

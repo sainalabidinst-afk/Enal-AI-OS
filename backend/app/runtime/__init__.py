@@ -18,6 +18,8 @@ Public services exposed:
   - knowledge         (knowledge graph services)
   - sandbox           (sandboxed execution)
   - workspace_service (workspace operations)
+  - stt_service / tts_service / voice_agent (voice I/O)
+  - get_voice_profile (Jenny multi-persona voice profiles)
 """
 
 from __future__ import annotations

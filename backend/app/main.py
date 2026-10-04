@@ -29,6 +29,7 @@ from .api import (
     notifications,
     orchestrator_v2,
     phase3,
+    self_development,
     telemetry,
     trading,
     voice,
@@ -181,6 +182,9 @@ app.include_router(consent_api.router, prefix=settings.API_V1_STR, tags=["consen
 app.include_router(telemetry.router, prefix=settings.API_V1_STR, tags=["telemetry"])
 app.include_router(benchmark.router, prefix=settings.API_V1_STR, tags=["benchmark"])
 app.include_router(trading.router, prefix=settings.API_V1_STR, tags=["trading"])
+app.include_router(
+    self_development.router, prefix=settings.API_V1_STR, tags=["self-development"]
+)
 app.include_router(integration.router, prefix=settings.API_V1_STR, tags=["integration"])
 app.include_router(blueprints.router, prefix=settings.API_V1_STR, tags=["blueprints"])
 app.include_router(guardrails.router, prefix=settings.API_V1_STR, tags=["guardrails"])

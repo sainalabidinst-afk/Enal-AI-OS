@@ -2,7 +2,18 @@
 Tests for Plugin Marketplace
 =============================
 Tests for plugin discovery, installation, and management.
+
+Every test gets its own ``plugins_dir``. ``PluginMarketplace`` persists manifests
+to disk on ``publish()`` and reloads them in ``__init__``, so sharing the default
+``.ecp/plugins`` directory leaks state between tests (and pollutes the repo).
 """
+
+
+def _marketplace(tmp_path):
+    """Build a marketplace backed by an isolated, empty plugins directory."""
+    from backend.app.core.plugin_marketplace import PluginMarketplace
+
+    return PluginMarketplace(plugins_dir=str(tmp_path / "plugins"))
 
 
 class TestPluginManifest:
@@ -26,14 +37,10 @@ class TestPluginManifest:
 class TestPluginMarketplace:
     """Tests for PluginMarketplace."""
 
-    def test_publish_plugin(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_publish_plugin(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="test-plugin",
             name="Test Plugin",
@@ -48,14 +55,30 @@ class TestPluginMarketplace:
         asyncio.run(mp.publish(manifest))
         assert mp.get_plugin("test-plugin") is not None
 
-    def test_install_plugin(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_publish_persists_manifest(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
+        manifest = PluginManifest(
+            id="persisted-plugin",
+            name="Persisted",
+            version="1.0.0",
+            description="Survives a restart",
+            author="test-author",
+            category="testing",
+            status=PluginStatus.PUBLISHED,
+        )
+        import asyncio
+
+        asyncio.run(mp.publish(manifest))
+
+        reloaded = _marketplace(tmp_path)
+        assert reloaded.get_plugin("persisted-plugin") is not None
+
+    def test_install_plugin(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
+
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="test-plugin",
             name="Test Plugin",
@@ -72,14 +95,10 @@ class TestPluginMarketplace:
         assert result is True
         assert "test-plugin" in mp.get_installed()
 
-    def test_install_unpublished_fails(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_install_unpublished_fails(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="draft-plugin",
             name="Draft Plugin",
@@ -95,14 +114,16 @@ class TestPluginMarketplace:
         result = asyncio.run(mp.install("draft-plugin"))
         assert result is False
 
-    def test_uninstall_plugin(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_install_unknown_plugin_fails(self, tmp_path):
+        import asyncio
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
+        assert asyncio.run(mp.install("does-not-exist")) is False
+
+    def test_uninstall_plugin(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
+
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="test-plugin",
             name="Test Plugin",
@@ -120,14 +141,10 @@ class TestPluginMarketplace:
         assert result is True
         assert "test-plugin" not in mp.get_installed()
 
-    def test_search_plugins(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_search_plugins(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="network-plugin",
             name="Network Analyzer",
@@ -144,14 +161,29 @@ class TestPluginMarketplace:
         results = mp.search("network")
         assert len(results) == 1
 
-    def test_list_categories(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_search_matches_tags(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
+        manifest = PluginManifest(
+            id="tagged-plugin",
+            name="Unrelated Name",
+            version="1.0.0",
+            description="Unrelated description",
+            author="test",
+            category="misc",
+            tags=["observability"],
+            status=PluginStatus.PUBLISHED,
+        )
+        import asyncio
+
+        asyncio.run(mp.publish(manifest))
+        assert [p.id for p in mp.search("observability")] == ["tagged-plugin"]
+
+    def test_list_categories(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
+
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="net-plugin",
             name="Net",
@@ -165,16 +197,12 @@ class TestPluginMarketplace:
 
         asyncio.run(mp.publish(manifest))
         categories = mp.get_categories()
-        assert "network" in categories
+        assert categories == ["network"]
 
-    def test_rate_plugin(self):
-        from backend.app.core.plugin_marketplace import (
-            PluginManifest,
-            PluginMarketplace,
-            PluginStatus,
-        )
+    def test_rate_plugin(self, tmp_path):
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
 
-        mp = PluginMarketplace()
+        mp = _marketplace(tmp_path)
         manifest = PluginManifest(
             id="rated-plugin",
             name="Rated",
@@ -190,3 +218,25 @@ class TestPluginMarketplace:
         asyncio.run(mp.rate("rated-plugin", 4.0))
         asyncio.run(mp.rate("rated-plugin", 5.0))
         assert mp.get_plugin("rated-plugin").rating == 4.5
+
+    def test_isolated_from_default_plugins_dir(self, tmp_path):
+        """A marketplace must not see manifests written by another instance."""
+        from backend.app.core.plugin_marketplace import PluginManifest, PluginStatus
+
+        first = _marketplace(tmp_path)
+        manifest = PluginManifest(
+            id="leaky-plugin",
+            name="Leaky",
+            version="1.0",
+            description="Should stay in its own directory",
+            author="a",
+            category="test",
+            status=PluginStatus.PUBLISHED,
+        )
+        import asyncio
+
+        asyncio.run(first.publish(manifest))
+
+        second = _marketplace(tmp_path / "other")
+        assert second.get_plugin("leaky-plugin") is None
+        assert second.get_categories() == []

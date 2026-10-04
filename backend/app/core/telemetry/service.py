@@ -86,4 +86,54 @@ def get_metrics() -> dict[str, Any]:
         "chat": aggregator.chat_kpis(),
         "parser": aggregator.parser_kpis(),
         "reasoning": aggregator.reasoning_kpis(),
+        "trading": aggregator.trading_regime_kpis(),
+        "cross_pack": aggregator.cross_pack_correlation_kpis(),
     }
+
+
+def record_trading_regime_event(
+    event_id: str,
+    symbol: str,
+    timeframe: str,
+    regime: str,
+    confidence: float,
+    volatility: str = "",
+    trend_strength: float = 0.0,
+    source: str = "live",
+    status: str = "success",
+    error: str | None = None,
+) -> None:
+    aggregator.record_trading_regime(
+        event_id=event_id,
+        symbol=symbol,
+        timeframe=timeframe,
+        regime=regime,
+        confidence=confidence,
+        volatility=volatility,
+        trend_strength=trend_strength,
+        source=source,
+        status=status,
+        error=error,
+    )
+
+
+def record_cross_pack_correlation_event(
+    event_id: str,
+    source_pack: str,
+    target_pack: str,
+    correlation_type: str,
+    confidence: float,
+    details: str = "",
+    status: str = "warning",
+    error: str | None = None,
+) -> None:
+    aggregator.record_cross_pack_correlation(
+        event_id=event_id,
+        source_pack=source_pack,
+        target_pack=target_pack,
+        correlation_type=correlation_type,
+        confidence=confidence,
+        details=details,
+        status=status,
+        error=error,
+    )

@@ -5,7 +5,11 @@ from typing import Any
 from litellm import acompletion, completion
 
 from backend.app.core.config import settings
-from backend.app.core.gpu_inference_service import get_gpu_service
+from backend.app.core.gpu_inference_service import (
+    GPUInferenceError,
+    GPUUnavailableError,
+    get_gpu_service,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -80,9 +84,19 @@ class ModelRouter:
     ) -> dict[str, Any]:
         service = get_gpu_service()
         if service is None:
-            raise RuntimeError("GPU inference service is not available")
+            return self._fallback_completion_sync(
+                messages, temperature=temperature, max_tokens=max_tokens
+            )
         prompt = _format_messages(messages)
-        text = service.generate(prompt, max_tokens=max_tokens, temperature=temperature)
+        try:
+            text = service.generate(prompt, max_tokens=max_tokens, temperature=temperature)
+        except GPUInferenceError as exc:
+            if not settings.GPU_FALLBACK_ENABLED:
+                raise
+            logger.warning("GPU inference failed (%s); using %s", exc, settings.FALLBACK_MODEL)
+            return self._fallback_completion_sync(
+                messages, temperature=temperature, max_tokens=max_tokens
+            )
         return {"choices": [{"message": {"content": text}}]}
 
     async def _gpu_completion_async(
@@ -93,9 +107,63 @@ class ModelRouter:
     ) -> dict[str, Any]:
         service = get_gpu_service()
         if service is None:
-            raise RuntimeError("GPU inference service is not available")
-        text = await service.chat(messages, max_tokens=max_tokens, temperature=temperature)
+            return await self._fallback_completion_async(
+                messages, temperature=temperature, max_tokens=max_tokens
+            )
+        try:
+            text = await service.chat(messages, max_tokens=max_tokens, temperature=temperature)
+        except GPUInferenceError as exc:
+            if not settings.GPU_FALLBACK_ENABLED:
+                raise
+            logger.warning("GPU inference failed (%s); using %s", exc, settings.FALLBACK_MODEL)
+            return await self._fallback_completion_async(
+                messages, temperature=temperature, max_tokens=max_tokens
+            )
         return {"choices": [{"message": {"content": text}}]}
+
+    def _fallback_completion_sync(
+        self,
+        messages: list[dict],
+        temperature: float = 0.7,
+        max_tokens: int = 4096,
+    ) -> dict[str, Any]:
+        if not settings.GPU_FALLBACK_ENABLED:
+            raise GPUUnavailableError(
+                "GPU inference is unavailable and GPU_FALLBACK_ENABLED is disabled"
+            )
+        logger.warning("GPU inference unavailable; falling back to %s", settings.FALLBACK_MODEL)
+        config = self.get_provider_config(settings.FALLBACK_MODEL)
+        config.update(
+            {
+                "messages": messages,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+                "stream": False,
+            }
+        )
+        return completion(**config)
+
+    async def _fallback_completion_async(
+        self,
+        messages: list[dict],
+        temperature: float = 0.7,
+        max_tokens: int = 4096,
+    ) -> dict[str, Any]:
+        if not settings.GPU_FALLBACK_ENABLED:
+            raise GPUUnavailableError(
+                "GPU inference is unavailable and GPU_FALLBACK_ENABLED is disabled"
+            )
+        logger.warning("GPU inference unavailable; falling back to %s", settings.FALLBACK_MODEL)
+        config = self.get_provider_config(settings.FALLBACK_MODEL)
+        config.update(
+            {
+                "messages": messages,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+                "stream": False,
+            }
+        )
+        return await acompletion(**config)
 
     def complete(
         self,
