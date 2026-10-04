@@ -23,7 +23,14 @@ import { Button } from "@/components/design-system/primitives/button";
 import { cn } from "@/lib/utils";
 
 const APP_ITEMS = [
-  { id: "trading" as const, label: "Trading", icon: LineChart, href: "/workspace/trading" },
+  {
+    id: "trading" as const,
+    label: "Trading",
+    sublabel: "Legacy — use /console/trading",
+    icon: LineChart,
+    href: "/console/trading",
+    deprecated: true,
+  },
   { id: "network" as const, label: "Network", icon: Network, href: "/workspace/network" },
   { id: "code" as const, label: "Code", icon: Code2, href: "/workspace/code" },
   { id: "security" as const, label: "Security", icon: Shield, href: "/workspace/security" },
@@ -107,14 +114,20 @@ export function WorkspaceSidebar({ activeApp }: { activeApp: string }) {
           {APP_ITEMS.map((item) => {
             const isActive = activeApp === item.id;
             return (
-              <SidebarItem
-                key={item.id}
-                icon={<item.icon className="h-4 w-4" />}
-                label={item.label}
-                active={isActive}
-                collapsed={sidebarCollapsed}
-                onClick={() => handleClick(item.id, item.href)}
-              />
+              <div key={item.id} className="relative">
+                <SidebarItem
+                  icon={<item.icon className="h-4 w-4" />}
+                  label={item.label}
+                  active={isActive || item.deprecated}
+                  collapsed={sidebarCollapsed}
+                  onClick={() => handleClick(item.id, item.href)}
+                />
+                {item.deprecated && !sidebarCollapsed && (
+                  <span className="ml-1 inline-flex items-center rounded border border-amber-300 bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+                    legacy
+                  </span>
+                )}
+              </div>
             );
           })}
         </SidebarGroup>

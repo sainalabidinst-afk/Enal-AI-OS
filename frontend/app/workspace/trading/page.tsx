@@ -1,19 +1,22 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { PageSkeleton } from "@/components/ui/loading-skeleton";
-
-const TradingWorkspace = dynamic(
-  () =>
-    import("@/components/workspace/apps/trading-workspace").then((m) => ({
-      default: m.TradingWorkspace,
-    })),
-  {
-    loading: () => <PageSkeleton />,
-    ssr: false,
-  }
-);
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function TradingWorkspacePage() {
-  return <TradingWorkspace />;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/console/trading");
+  }, [router]);
+
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <div className="text-center">
+        <p className="text-sm text-[var(--color-text-secondary)]">
+          Redirecting to <a href="/console/trading" className="text-[var(--color-accent)] underline">/console/trading</a>…
+        </p>
+      </div>
+    </div>
+  );
 }

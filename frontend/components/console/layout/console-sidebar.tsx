@@ -7,6 +7,7 @@ import {
   Boxes,
   Gauge,
   LayoutGrid,
+  LineChart,
   LogOut,
   Mic,
   Settings as SettingsIcon,
@@ -26,6 +27,7 @@ interface NavEntry {
 
 const PRIMARY_NAV: NavEntry[] = [
   { href: "/console", label: "Dashboard", icon: Gauge, hint: "Governance overview" },
+  { href: "/console/trading", label: "Trading", icon: LineChart, hint: "Market regime & analyst" },
   { href: "/console/packs", label: "Capability Packs", icon: Boxes, hint: "Registered packs" },
   { href: "/console/builder", label: "Builder", icon: Workflow, hint: "Agent / tool pipeline" },
   { href: "/console/evaluation", label: "Evaluation", icon: Activity, hint: "Scenario scoring" },

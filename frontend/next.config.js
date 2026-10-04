@@ -9,6 +9,15 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/workspace/trading',
+        destination: '/console/trading',
+        permanent: true,
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
