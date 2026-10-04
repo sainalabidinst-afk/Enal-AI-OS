@@ -66,7 +66,7 @@ class SessionMemory:
         return results
 
     async def delete(self, key: str, session_id: str | None = None) -> bool:
-        sid = session_id or key.split(":")[0] if ":" in key else key
+        sid = session_id or (key.split(":")[0] if ":" in key else key)  # noqa: E501
         if sid in self._sessions and key in self._sessions[sid]:
             del self._sessions[sid][key]
             self._persist_session(sid)
