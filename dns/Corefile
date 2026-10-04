@@ -2,65 +2,31 @@
     # CoreDNS configuration for Enal AI OS
     # Forwards queries to upstream resolvers for external names
     forward . /etc/resolv.conf 8.8.8.8 1.1.1.1
-    log . "{remote} - {>id} \"{type} {class} {name} {proto} {size} {>do} {>bufdo} - {rcode} {>rflags} {rsize {>duration}\"" 
+    log . "{remote} - {>id} \"{type} {class} {name} {proto} {size} {>do} {>bufdo} - {rcode} {>rflags} {rsize {>duration}\""
     errors
     health
     prometheus 0.0.0.0:8053
     loop
     reload
     cache 300
-    reload
 }
 
 enal.ai:53 {
     # Internal zone for Enal AI OS services
-    zone enal.ai.
-    
-    # Service discovery: each subdomain maps to container names
-    # The Kubernetes-style names map to docker-compose service names
-    
-    # Core services
-    host backend.enal.ai.  { address backend }
-    host frontend.enal.ai. { address frontend }
-    host api.enal.ai.     { address backend }
-    
-    # Infrastructure services
-    host postgres.enal.ai. { address postgres }
-    host redis.enal.ai.    { address redis }
-    host qdrant.enal.ai.   { address qdrant }
-     host ollama.enal.ai.   { address ollama }
-     # host minio.enal.ai.    { address minio }  # minio service disabled
-     host kafka.enal.ai.     { address kafka }
-    host zookeeper.enal.ai. { address zookeeper }
-    
-    # Load balancer
-    host lb.enal.ai.       { address nginx }
-    host gateway.enal.ai.  { address nginx }
-    
-    # DNS service itself
-    host dns.enal.ai.      { address coredns }
-    
-    # Wildcard for dynamic service discovery
-    # Any service.enal.ai resolves to the Docker container of the same name
-    # if it exists on the Docker network
-    import /etc/coredns/dynamic.conf
-    
-    log . "{remote} - {>id} \"{type} {class} {name} {proto} {size} - {rcode} {>duration}\"" 
+    # Forward to Docker's embedded DNS for container name resolution
+    forward . 127.0.0.11
+    log . "{remote} - {>id} \"{type} {class} {name} {proto} {size} - {rcode} {>duration}\""
     errors
     health
     prometheus 0.0.0.0:8053
-    cache 30  # short cache for internal lookups
+    cache 30
     reload
     loop
     bind 0.0.0.0
-
-    # Serve zone file (fallback)
-    file /etc/coredns/zones/db.enal.ai
 }
 
 local. {
     # Local development zone
-    host local. { address localhost }
     forward . /etc/resolv.conf
     log
     errors
