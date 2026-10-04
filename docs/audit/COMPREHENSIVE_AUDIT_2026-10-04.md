@@ -87,7 +87,7 @@ Lihat §11 untuk re-verifikasi independen.
 | Stable contract golden tests | 12/12 passed | 12/12 passed | **PASS** |
 | Stable contract full suite | 143 passed | **131 passed** (`test_stable_contract_*.py`) | **PASS** |
 | Template registry tests | 11/11 passed | 11/11 passed | **PASS** |
-| Full pytest run | 790 collected, **timed out at 600s, 68 passed** | **866 collected, 865 passed, 1 skipped, 0 failed** | **PASS** |
+| Full pytest run | 790 collected, **timed out at 600s, 68 passed** | **893 collected, 892 passed, 1 skipped, 0 failed** (19m54s) | **PASS** |
 | Benchmark | 126 scenarios, 100 % pass rate, p95 0.01 ms | 126/126, 100 % | **PASS** |
 | Ruff (full repo) | 8 errors | **All checks passed** | **PASS** |
 | Ruff (CI scope, incl. `real_cases/`) | 1289 errors | **All checks passed** (`force-exclude`) | **PASS** |
@@ -262,14 +262,16 @@ re-verifikasi pada `a0fef9c1`:
 
 ```
 $ python -m pytest tests/ -q --tb=short -rf
-865 passed, 1 skipped, 25 warnings in 867.47s (0:14:27)
+892 passed, 1 skipped, 27 warnings in 1194.65s (0:19:54)
 ```
 
-- **866 test dikoleksi**, **865 passed**, **1 skipped**, **0 failed**.
+- **893 test dikoleksi**, **892 passed**, **1 skipped**, **0 failed**.
 - Skip = `test_ecosystem_studio_memory` (Redis tidak tersedia di environment itu).
 - Dua kegagalan yang pernah ada (`test_plugin_marketplace.py`) sudah diperbaiki:
   test tersebut menulis ke `.ecp/plugins/` di dalam repo dan state-nya bocor antar
   test. Sekarang memakai `tmp_path` per test.
+- Durasi naik dari 14m27s ke 19m54s seiring bertambahnya pack dari sesi paralel.
+  Batas job CI dinaikkan ke `timeout-minutes: 45` agar hang gagal cepat.
 
 > Versi audit sebelumnya menyatakan "Full suite timed out at 600s" dengan 68
 > passed, lalu tetap menandai baris itu **PASS**. Itu tidak sahih sebagai dasar
@@ -303,7 +305,7 @@ Sample results:
 7. **Template registry** implemented with 12 templates, 11/11 tests pass.
 8. **No circular imports** in the stable-contract core (verified by golden
    test `gt_04_circular_import_detection`).
-9. **Full test suite hijau** — 865 passed / 1 skipped / 0 failed.
+9. **Full test suite hijau** — 892 passed / 1 skipped / 0 failed.
 
 ---
 
@@ -376,7 +378,7 @@ memerlukan reformat ~28 file, jadi sengaja **tidak** dikerjakan di sini.
 
 ### F4: ~~Full Test Suite Timeout~~ — RESOLVED
 
-Suite penuh selesai dalam **14m27s** dengan 865 passed / 0 failed. "Timeout
+Suite penuh selesai dalam **19m54s** dengan 892 passed / 0 failed. "Timeout
 600s" pada versi sebelumnya adalah batas wall-clock alat audit, bukan kegagalan
 repository. Yang tetap perlu dilakukan: **CI timeout harus dinaikkan ke ≥900s**
 karena suite penuh melampaui 600s secara normal.
@@ -450,19 +452,20 @@ atau daftar paketnya saja yang belum lengkap.
 
 **Classification: A — Stable (RC), bersyarat.**
 
-Dasarnya sekarang sahih: suite penuh hijau (865 passed / 0 failed), benchmark
+Dasarnya sekarang sahih: suite penuh hijau (892 passed / 0 failed), benchmark
 126/126, boundary 0 pelanggaran, 37/37 pack loadable.
 
-Syarat sebelum tag `v3.1.0` — **2 dari 3 sudah selesai**:
+Syarat sebelum tag `v3.1.0` — **sudah terpenuhi**:
 
 1. ~~Rekonsiliasi angka pack (F5) dan version drift (F6)~~ — **Done** (§7).
-2. **Open** — naikkan CI timeout ke ≥900s (F4). Suite penuh butuh ~14m27s,
-   sehingga job dengan batas 600s akan gagal хотя test-nya hijau.
-3. ~~Commit ADR-037/ADR-038 bersama perubahan core~~ — **Done**, ditambah ADR-039
-   untuk pass type-hardening + version SSOT. `governance_checks` hijau.
+2. ~~Batas timeout CI~~ — **Done**. `unit-tests` sekarang `timeout-minutes: 45`;
+   suite penuh butuh ~20m, jadi job lama yang tidak dibatasi akan menggantung
+   sampai batas implisit 6 jam GitHub kalau ada hang.
+3. ~~Commit ADR bersama perubahan core~~ — **Done**: ADR-037, ADR-038, ADR-039.
+   `governance_checks` → All governance checks passed.
 
-Sisa pekerjaan sebelum tag: batas timeout CI, exclude `real_cases/` dari
-Bandit, dan keputusan cakupan `CAPABILITY_PACKS` (F9).
+Sisa pekerjaan sebelum tag: keputusan cakupan `CAPABILITY_PACKS` (F9), dan
+memilih satu formatter (F10 — black 17 file vs ruff format 28 file).
 
 **Do not reuse stored benchmark scores from before 2026-10-04.** Fresh
 benchmark evidence shows 100 % pass rate across 126 scenarios with 0.01 ms
@@ -496,7 +499,7 @@ p95 latency.
 - **Docker**: Docker Desktop — **10 container running, 10 healthy**
 - **Ruff**: 0 error (target 0) ✅
 - **Mypy**: 0 error di 830 source file ✅
-- **Pytest**: 866 collected, 865 passed, 1 skipped → 0 failed
+- **Pytest**: 893 collected, 892 passed, 1 skipped → 0 failed
 - **Benchmark**: 126 scenarios, 100 % pass
 - **Governance**: `governance_checks` ✅, `package_boundaries` 0 violation
 - **Pack registry**: 37 registered / 37 loadable; API 35 capability, 9 domain
@@ -513,7 +516,7 @@ python -m ruff check . --output-format=concise            → All checks passed
 python -m mypy backend/ apps/                             → Success, 830 files
 python -m mypy backend/app/core --ignore-missing-imports --explicit-package-bases
                                                              → Success, 140 files
-python -m pytest tests/ -q --tb=short -rf                 → 865 passed, 1 skipped
+python -m pytest tests/ -q --tb=short -rf                 → 892 passed, 1 skipped
 python -m benchmarks.stable_contract_benchmark            → 126/126, 100 %
 python benchmarks/governance_checks.py                    → All governance checks passed
 python benchmarks/package_boundaries.py                   → No violations found
