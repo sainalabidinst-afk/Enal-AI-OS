@@ -29,7 +29,7 @@ class LongTermMemory(MemoryLayer):
             "key": key,
             "value": value,
             "created_at": time.time(),
-            "expires_at": time.time() + ttl if ttl else None,
+            "expires_at": time.time() + ttl if ttl is not None else None,
         }
         path.write_text(json.dumps(data, default=str))
 

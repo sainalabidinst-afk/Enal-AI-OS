@@ -33,7 +33,7 @@ class SessionMemory:
         session_id: str | None = None,
         project_id: str | None = None,
     ):  # noqa: E501
-        sid = session_id or key.split(":")[0] if ":" in key else key
+        sid = session_id or (key.split(":")[0] if ":" in key else key)  # noqa: E501
         if sid not in self._sessions:
             self._sessions[sid] = {}
         self._sessions[sid][key] = {"value": value, "timestamp": time.time()}
@@ -42,7 +42,7 @@ class SessionMemory:
     async def retrieve(
         self, key: str, session_id: str | None = None, project_id: str | None = None
     ) -> Any | None:  # noqa: E501
-        sid = session_id or key.split(":")[0] if ":" in key else key
+        sid = session_id or (key.split(":")[0] if ":" in key else key)  # noqa: E501
         return self._sessions.get(sid, {}).get(key, {}).get("value")
 
     async def search(

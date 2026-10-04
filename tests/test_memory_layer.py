@@ -2,11 +2,19 @@
 Tests for Memory Engine Enhancement
 ====================================
 Tests for Episodic Memory, Memory Consolidation, and Cross-session Retrieval.
+Also covers persistence-on-restart and TTL enforcement.
 """
 
 import tempfile
 
 import pytest
+
+from backend.app.core.memory_layer import (
+    KnowledgeMemory,
+    LongTermMemory,
+    MemoryManager,
+    SessionMemory,
+)
 
 
 class TestKnowledgeMemory:
@@ -14,7 +22,6 @@ class TestKnowledgeMemory:
 
     def _get_knowledge_memory_class(self):
         """Load KnowledgeMemory without triggering FastAPI import."""
-        from backend.app.core.memory_layer import KnowledgeMemory
 
         return KnowledgeMemory
 
@@ -38,6 +45,16 @@ class TestKnowledgeMemory:
 
             results = await mem.search("python", limit=5)
             assert len(results) >= 1
+
+    @pytest.mark.asyncio
+    async def test_knowledge_reload_from_disk(self):
+        KnowledgeMemory = self._get_knowledge_memory_class()  # noqa: N806
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem1 = KnowledgeMemory(base_path=tmpdir)
+            await mem1.store("k-reload", {"fact": "reloaded knowledge"})
+            mem2 = KnowledgeMemory(base_path=tmpdir)
+            result = await mem2.retrieve("k-reload")
+            assert result == {"fact": "reloaded knowledge"}
 
 
 class TestEpisodicMemory:
@@ -89,13 +106,42 @@ class TestEpisodicMemory:
             results = await mem.search("timeout", limit=5)
             assert len(results) >= 1
 
+    @pytest.mark.asyncio
+    async def test_episodic_reload_from_disk(self):
+        EpisodicMemory = self._get_episodic_memory_class()  # noqa: N806
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem1 = EpisodicMemory(base_path=tmpdir)
+            await mem1.store(
+                "ep-reload-1",
+                {
+                    "session_id": "sess-a",
+                    "event_type": "reload_test",
+                    "content": {"check": True},
+                    "summary": "Reload persistence test",
+                },
+            )
+            mem2 = EpisodicMemory(base_path=tmpdir)
+            result = await mem2.retrieve("ep-reload-1")
+            assert result is not None
+            assert result["event_type"] == "reload_test"
+
+    @pytest.mark.asyncio
+    async def test_episodic_list_keys_pattern(self):
+        EpisodicMemory = self._get_episodic_memory_class()  # noqa: N806
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem = EpisodicMemory(base_path=tmpdir)
+            await mem.store("ep-alpha", {"event_type": "t", "content": {}})
+            await mem.store("ep-beta", {"event_type": "t", "content": {}})
+            keys = await mem.list_keys(pattern="ep-alpha")
+            assert keys == ["ep-alpha"]
+
 
 class TestMemoryManager:
     """Tests for unified MemoryManager."""
 
     def _get_memory_manager_class(self):
         """Load MemoryManager without triggering FastAPI import."""
-        from backend.app.core.memory_layer import EpisodicMemory, KnowledgeMemory, MemoryManager
+        from backend.app.core.memory_layer import EpisodicMemory, MemoryManager
 
         return MemoryManager, KnowledgeMemory, EpisodicMemory
 
@@ -139,3 +185,50 @@ class TestMemoryManager:
             results = await manager.cross_session_search("task")
             assert len(results) >= 1
             assert any(r["layer"] == "episodic" for r in results)
+
+    @pytest.mark.asyncio
+    async def test_session_reload_from_disk(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem1 = SessionMemory(base_path=tmpdir)
+            await mem1.store("sess-key", {"data": "session-value"}, session_id="sess-1")
+            mem2 = SessionMemory(base_path=tmpdir)
+            result = await mem2.retrieve("sess-key", session_id="sess-1")
+            assert result == {"data": "session-value"}
+
+    @pytest.mark.asyncio
+    async def test_session_list_keys_pattern(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem = SessionMemory(base_path=tmpdir)
+            await mem.store("key-a", "val-a", session_id="s1")
+            await mem.store("key-b", "val-b", session_id="s1")
+            keys = await mem.list_keys(pattern="key-a", session_id="s1")
+            assert keys == ["key-a"]
+
+    @pytest.mark.asyncio
+    async def test_longterm_ttl_expiry(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem = LongTermMemory(base_path=tmpdir)
+            await mem.store("lt-key", {"info": "temp"}, ttl=0)
+            result = await mem.retrieve("lt-key")
+            assert result is None
+
+    @pytest.mark.asyncio
+    async def test_longterm_reload_from_disk(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            mem1 = LongTermMemory(base_path=tmpdir)
+            await mem1.store("lt-reload", {"info": "persisted"})
+            mem2 = LongTermMemory(base_path=tmpdir)
+            result = await mem2.retrieve("lt-reload")
+            assert result == {"info": "persisted"}
+
+    @pytest.mark.asyncio
+    async def test_manager_delete_with_session_id(self):
+        manager = MemoryManager()
+        manager._layers["session"] = SessionMemory()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            manager._layers["session"] = SessionMemory(base_path=tmpdir)
+            await manager.store("session", "m-key", {"v": 1}, session_id="sess-mgr")
+            deleted = await manager.delete("session", "m-key", session_id="sess-mgr")
+            assert deleted is True
+            result = await manager.retrieve("session", "m-key", session_id="sess-mgr")
+            assert result is None

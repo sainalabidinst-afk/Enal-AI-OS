@@ -24,12 +24,7 @@
       "package": "com.enalai.os.mobile",
       "versionCode": 1
     },
-    "plugins": [
-      "expo-speech",
-      "expo-av",
-      "expo-file-system",
-      "expo-notifications"
-    ],
+    "plugins": [],
     "scheme": "enal-ai-os",
     "description": "AI Operating System - Mobile Beta"
   }
