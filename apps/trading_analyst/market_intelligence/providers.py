@@ -68,7 +68,7 @@ class BinanceProvider(BaseMarketProvider):
     name = "binance"
     requires_api_key = False
 
-    BINANCE_BASE = "https://api.binance.com"
+    BINANCE_BASE = "https://api2.binance.com"
     TIMEFRAME_MAP = {
         "1m": "1m",
         "5m": "5m",

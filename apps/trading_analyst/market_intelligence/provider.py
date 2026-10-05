@@ -30,7 +30,7 @@ from apps.trading_analyst.market_intelligence.providers import (
 
 logger = logging.getLogger(__name__)
 
-BINANCE_BASE = "https://api.binance.com"
+BINANCE_BASE = "https://api2.binance.com"
 TIMEFRAME_MAP = {
     "1m": "1m",
     "5m": "5m",
