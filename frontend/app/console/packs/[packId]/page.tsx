@@ -1,9 +1,10 @@
 import { PackDetailView } from "@/components/console/packs/pack-detail-view";
 
-export default function ConsolePackDetailPage({
+export default async function ConsolePackDetailPage({
   params,
 }: {
-  params: { packId: string };
+  params: Promise<{ packId: string }>;
 }) {
-  return <PackDetailView packId={decodeURIComponent(params.packId)} />;
+  const { packId } = await params;
+  return <PackDetailView packId={decodeURIComponent(packId)} />;
 }

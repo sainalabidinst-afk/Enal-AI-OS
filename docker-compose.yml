@@ -305,8 +305,8 @@ services:
     tmpfs:
       - /tmp
       - /app/data
+      - /app/workspace
     volumes:
-      - backend_workspace:/app/workspace
       - ./backend:/app/backend
       - ./apps:/app/apps
     security_opt:
@@ -369,4 +369,3 @@ volumes:
   minio_data:
   kafka_data:
   nginx_data:
-  backend_workspace:
