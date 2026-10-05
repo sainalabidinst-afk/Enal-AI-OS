@@ -1,13 +1,13 @@
 # Git
 .git
-.gitignore
 .github
+.gitignore
 
 # IDE
 .vscode
 .idea
 
-# Python
+# Python runtime artifacts
 **/__pycache__
 **/*.pyc
 **/*.pyo
@@ -22,31 +22,45 @@ dist/
 build/
 .coverage
 
-# Node (frontend dev dependencies — not needed for backend image)
-frontend/node_modules
-frontend/.next
-frontend/out
-frontend/.env.local
+# Frontend — entirely excluded from backend image
+frontend/
+enal-ai-os-mobile/
 
-# Environment
+# Tests and benchmarks — not needed at runtime
+tests/
+benchmarks/
+golden_tests/
+golden/
+
+# Development and CI tooling
+scripts/
+plugins/
+models/
+data/
+docs/
+real_cases/
+artifacts/
+onboarding_output/
+repo_inspect_output_*/
+
+# Environment and secrets
 .env
 .env.*
+!.env.example
+!.env.production.example
 
-# Data
+# Data and runtime artifacts
 *.db
 *.sqlite
+*.log
 
 # Docker artifacts
-artifacts
+artifacts/
 
 # Workspace runtime data
 workspace/checkpoints
 workspace/sandbox
 
-# Logs
-*.log
-
 # OS
 .DS_Store
 Thumbs.db
-

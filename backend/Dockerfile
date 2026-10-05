@@ -1,27 +1,36 @@
-FROM python:3.11-slim
+FROM python:3.11-slim AS base
 
 WORKDIR /app
 
+# System dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the monorepo with the runtime ownership already applied.
-COPY --chown=appuser:appuser . .
+# Create non-root user
+RUN groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser
 
-# Ensure appuser owns all copied files and create writable workspace
-RUN mkdir -p /app/workspace \
-    && chown appuser:appuser /app/workspace
+# Install Python dependencies first for layer caching
+# Copy only pyproject.toml to leverage Docker layer cache
+COPY pyproject.toml ./
+COPY setup.py setup.cfg ./
+COPY backend/ ./backend/
+COPY apps/ ./apps/
+COPY sdk/ ./sdk/
 
-# Set PYTHONPATH so backend, apps, workspace, plugins are all resolvable from /app
-ENV PYTHONPATH=/app
+RUN pip install --no-cache-dir --no-deps -e . \
+    && pip install --no-cache-dir PyJWT uvicorn[standard] \
+    && chown -R appuser:appuser /usr/local/lib/python3.11/site-packages
 
-# Install backend package from monorepo root
-RUN pip install --no-cache-dir -e . && pip install --no-cache-dir PyJWT && chown -R appuser:appuser /usr/local/lib/python3.11/site-packages
-
+# Switch to non-root user
 USER appuser
 
+# Expose port
 EXPOSE 8000
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Start application
 CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]

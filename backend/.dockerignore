@@ -1,4 +1,4 @@
-# Python
+# Python artifacts
 __pycache__
 *.pyc
 *.pyo
@@ -11,35 +11,46 @@ venv
 *.egg-info/
 dist/
 build/
+.coverage
 
-# Environment
+# Frontend — entirely excluded
+../frontend/
+../enal-ai-os-mobile/
+
+# Tests and benchmarks — not needed at runtime
+../tests/
+../benchmarks/
+../golden_tests/
+../golden/
+
+# Development and CI tooling
+../scripts/
+../plugins/
+../models/
+../data/
+../docs/
+../real_cases/
+../artifacts/
+../onboarding_output/
+../repo_inspect_output*/
+
+# Environment and secrets
 .env
 .env.*
+!.env.example
+!.env.production.example
 
-# Data
+# Data and runtime artifacts
 *.db
 *.sqlite
-
-# Git
-.git
-.gitignore
-.github
-
-# IDE
-.vscode
-.idea
-
-# Node (frontend dev dependencies — not needed for backend image)
-frontend/.next
-frontend/node_modules
-frontend/out
-frontend/.env.local
+*.log
 
 # Docker artifacts
-artifacts
+artifacts/
 
 # Workspace runtime data
 workspace/checkpoints
+workspace/sandbox
 
 # OS
 .DS_Store
