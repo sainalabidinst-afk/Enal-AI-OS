@@ -52,7 +52,7 @@ function ExecutionsPageContent() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [selectedExecution?.id, selectedExecution?.status, refreshExecution]);
+  }, [selectedExecution, selectedExecution?.id, selectedExecution?.status, refreshExecution]);
 
   const handleStartExecution = useCallback(async (goalText: string) => {
     const wsId = workspaces[0]?.id;

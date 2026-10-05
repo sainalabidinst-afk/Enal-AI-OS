@@ -37,8 +37,9 @@ export function useCleanup() {
   const cleanupRef = useRef(new CleanupManager());
 
   useEffect(() => {
+    const manager = cleanupRef.current;
     return () => {
-      cleanupRef.current.dispose();
+      manager.dispose();
     };
   }, []);
 

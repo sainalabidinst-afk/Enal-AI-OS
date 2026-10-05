@@ -13,10 +13,12 @@ export function withPerformance<P extends object>(
 }
 
 export function useStableMemo<T>(factory: () => T, deps: unknown[]): T {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(factory, deps);
 }
 
 export function useStableCallback<T extends (...args: unknown[]) => unknown>(callback: T, deps: unknown[]): T {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useCallback(callback, deps);
 }
 
