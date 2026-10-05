@@ -12,14 +12,14 @@ export function getServiceHealth() {
 
 export function getModelProviders() {
   return api.get<ModelProviderStatus[] | Record<string, ModelProviderStatus>>(
-    "/api/v1/models/providers"
+    "/api/v1/providers"
   );
 }
 
 export function getModelHealth(provider?: string) {
   const query = provider ? `?provider=${encodeURIComponent(provider)}` : "";
   return api.get<Record<string, ModelProviderStatus>>(
-    `/api/v1/models/health${query}`
+    `/api/v1/health${query}`
   );
 }
 

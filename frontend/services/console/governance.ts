@@ -12,12 +12,12 @@ import type {
 
 export function listGovernancePacks(status?: string) {
   const query = status ? `?status=${encodeURIComponent(status)}` : "";
-  return api.get<GovernancePackList>(`/api/v1/governance/packs${query}`);
+  return api.get<GovernancePackList>(`/api/v1/packs${query}`);
 }
 
 export function getGovernancePack(packId: string) {
   return api.get<GovernancePack>(
-    `/api/v1/governance/packs/${encodeURIComponent(packId)}`
+    `/api/v1/packs/${encodeURIComponent(packId)}`
   );
 }
 
@@ -28,7 +28,7 @@ export function registerGovernancePack(payload: {
   status?: string;
   metadata?: Record<string, unknown>;
 }) {
-  return api.post<GovernancePack>("/api/v1/governance/packs", payload);
+  return api.post<GovernancePack>("/api/v1/packs", payload);
 }
 
 export function evaluateQualityGate(
@@ -40,20 +40,20 @@ export function evaluateQualityGate(
   }
 ) {
   return api.post<QualityGateResult>(
-    `/api/v1/governance/packs/${encodeURIComponent(packId)}/evaluate`,
+    `/api/v1/packs/${encodeURIComponent(packId)}/evaluate`,
     thresholds ?? {}
   );
 }
 
 export function createPackSandbox(packId: string) {
   return api.post<SandboxRecord>(
-    `/api/v1/governance/packs/${encodeURIComponent(packId)}/sandbox`
+    `/api/v1/packs/${encodeURIComponent(packId)}/sandbox`
   );
 }
 
 export function getAuditTrail(packId?: string) {
   const query = packId ? `?pack_id=${encodeURIComponent(packId)}` : "";
-  return api.get<AuditTrail>(`/api/v1/governance/audit${query}`);
+  return api.get<AuditTrail>(`/api/v1/audit${query}`);
 }
 
 export function listCapabilityLifecycle() {

@@ -5,14 +5,18 @@
 - [x] Git tag `v3.1.0-rc1` created and pushed
 - [x] Frontend lint: 0 errors, 0 warnings
 - [x] Frontend build verified: Next.js 16.3.8, 56 pages
-- [ ] Docker images pushed to registry (requires valid registry credentials):
-  - `registry/enal-ai-os-backend:3.1.0-rc1` (10.1GB)
-  - `registry/enal-ai-os-frontend:3.1.0-rc1` (230MB)
-- [ ] Images verified in registry with digest
-- [ ] Kubernetes manifests updated with new image tags
+- [x] Docker images pushed to Docker Hub:
+  - `docker.io/chokyrasta/enal-ai-os-backend:3.1.0-rc1` (956MB)
+  - `docker.io/chokyrasta/enal-ai-os-frontend:3.1.0-rc1` (270MB)
+- [x] Images verified in registry with digest:
+  - Backend: `sha256:0ba79df431fbd1d7355bb27af9c11124106c8b1a7c8def3591499806bd388c31`
+  - Frontend: `sha256:e0a8ca608a32b1b8c23b7ca73bae92e63f5f984d087730621e9fe3630a584614`
+- [x] Kubernetes manifests created: `k8s/enal-ai-os-v3.1.0-rc1.yaml`
+- [ ] Kubernetes manifests applied to cluster
 - [ ] Environment variables configured (`.env` or ConfigMap)
 
-> **Note:** Replace `registry/` with your actual registry hostname (e.g., `docker.io/yourorg/`, `ghcr.io/yourorg/`, `your-registry.example.com/`).
+> **Registry:** `docker.io/chokyrasta/` (Docker Hub)
+> **Manifest:** `k8s/enal-ai-os-v3.1.0-rc1.yaml`
 
 ## Security Notes
 
@@ -80,9 +84,13 @@ curl -X POST https://staging.enal-ai-os.example.com/api/v1/capabilities/execute 
 ```
 **Expected:** HTTP 200, response contains `topology_analysis` result
 
-## Backend Activation (Required for Observability)
+## Backend Activation (Multi-Provider Market Data)
 
-The Observability panel shows placeholders until backend engines are started. Execute these steps **before** validating the console:
+The trading feed uses a **multi-provider aggregator with automatic fallback**:
+1. **BinanceProvider** — public REST API, no key required (primary)
+2. **YahooFinanceProvider** — yfinance library, delayed data (fallback)
+
+If Binance fails (rate limit, connection error), the aggregator automatically falls back to Yahoo Finance. This ensures the smoke test is resilient to API issues.
 
 ### Step 1: Start Live Feed
 ```bash
@@ -91,7 +99,7 @@ curl -X POST http://localhost:8000/api/v1/trading/feed/start \
   -H "Authorization: Bearer <ACCESS_TOKEN>" \
   -d '{"symbol":"BTCUSDT","timeframes":["15m","1h","4h"]}'
 ```
-**Expected:** Feed starts polling Binance. Backend logs show tick publish events.
+**Expected:** Feed starts polling. Backend logs show provider attempts (Binance → Yahoo Finance fallback if needed).
 
 ### Step 2: Verify Feed Status
 ```bash
@@ -166,6 +174,47 @@ Trigger rollback if any of the following occur:
 - [ ] Frontend build fails to load (blank page or CSS/JS 404)
 - [ ] Database migration errors in backend logs
 - [ ] Memory usage > 90% on backend pods for > 5 minutes
+
+## Deployment to Kubernetes
+
+### Prerequisites
+- `kubectl` configured with cluster access
+- Docker Hub credentials configured (`kubectl create secret docker-registry ...`)
+- Secrets created: `enal-ai-os-secrets` with `secret-key` and `database-url`
+
+### Step 1: Apply Manifests
+```bash
+kubectl apply -f k8s/enal-ai-os-v3.1.0-rc1.yaml
+```
+
+### Step 2: Verify Rollout
+```bash
+kubectl rollout status deployment/enal-ai-os-backend -n enal-ai-os
+kubectl rollout status deployment/enal-ai-os-frontend -n enal-ai-os
+```
+
+### Step 3: Verify Image Tags
+```bash
+kubectl get deployment enal-ai-os-backend -n enal-ai-os -o jsonpath='{.spec.template.spec.containers[0].image}'
+kubectl get deployment enal-ai-os-frontend -n enal-ai-os -o jsonpath='{.spec.template.spec.containers[0].image}'
+```
+
+**Expected output:**
+```
+docker.io/chokyrasta/enal-ai-os-backend:3.1.0-rc1
+docker.io/chokyrasta/enal-ai-os-frontend:3.1.0-rc1
+```
+
+### Step 4: Verify Registry Digests
+```bash
+# Backend
+kubectl get deployment enal-ai-os-backend -n enal-ai-os -o jsonpath='{.spec.template.status.containerStatuses[0].imageID}'
+# Expected: docker-pullable://docker.io/chokyrasta/enal-ai-os-backend@sha256:0ba79df...
+
+# Frontend
+kubectl get deployment enal-ai-os-frontend -n enal-ai-os -o jsonpath='{.spec.template.status.containerStatuses[0].imageID}'
+# Expected: docker-pullable://docker.io/chokyrasta/enal-ai-os-frontend@sha256:e0a8ca6...
+```
 
 ## Rollback Command
 

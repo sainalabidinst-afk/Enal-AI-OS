@@ -2,12 +2,12 @@ import { api } from "./api";
 import type { ModelProvider, ModelRouteRequest, ModelRouteResponse, HealthStatus } from "@/types/models";
 
 export async function listModelProviders(): Promise<ModelProvider[]> {
-  return api.get<ModelProvider[]>("/api/v1/models/providers");
+  return api.get<ModelProvider[]>("/api/v1/providers");
 }
 
 export async function checkProviderHealth(provider?: string): Promise<HealthStatus | HealthStatus[]> {
   const qs = provider ? `?provider=${encodeURIComponent(provider)}` : "";
-  return api.get(`/api/v1/models/health${qs}`);
+  return api.get(`/api/v1/health${qs}`);
 }
 
 export async function routeModel(request: ModelRouteRequest): Promise<ModelRouteResponse> {
