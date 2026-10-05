@@ -9,6 +9,9 @@ Current implementation: Binance Public API (free, no API key required for public
 Future: Bybit, OKX, CSV, Manual input — all via same interface.
 """
 
+from __future__ import annotations
+
+import asyncio
 import json
 import logging
 import urllib.error
@@ -72,6 +75,11 @@ def _fetch_json(url: str) -> Any:
         raise MarketProviderError(f"Invalid JSON response: {e}")
     except Exception as e:
         raise MarketProviderError(f"Unexpected error: {e}")
+
+
+async def _fetch_json_async(url: str) -> Any:
+    """Async wrapper around :func:`_fetch_json` using :func:`asyncio.to_thread`."""
+    return await asyncio.to_thread(_fetch_json, url)
 
 
 def fetch_ohlcv(symbol: str, timeframe: str, limit: int = DEFAULT_LIMIT) -> list[dict]:
@@ -149,10 +157,67 @@ def fetch_multi_timeframe(
     return result
 
 
-def get_available_symbols() -> list[str]:
-    """Get list of available USDT trading pairs from Binance."""
+async def fetch_ohlcv_async(symbol: str, timeframe: str, limit: int = DEFAULT_LIMIT) -> list[dict]:
+    """Async version of :func:`fetch_ohlcv`."""
+    tf = TIMEFRAME_MAP.get(timeframe)
+    if not tf:
+        raise ValueError(f"Unsupported timeframe: {timeframe}. Use: {list(TIMEFRAME_MAP.keys())}")
+
+    url = f"{BINANCE_BASE}/api/v3/klines?symbol={symbol.upper()}&interval={tf}&limit={limit}"
+    data = await _fetch_json_async(url)
+
+    if not isinstance(data, list):
+        raise MarketProviderError(f"Unexpected response format: {type(data)}")
+
+    result = []
+    for candle in data:
+        result.append(
+            {
+                "timestamp": int(candle[0]) // 1000,
+                "open": float(candle[1]),
+                "high": float(candle[2]),
+                "low": float(candle[3]),
+                "close": float(candle[4]),
+                "volume": float(candle[5]),
+            }
+        )
+    return result
+
+
+async def fetch_current_price_async(symbol: str) -> float:
+    """Async version of :func:`fetch_current_price`."""
+    url = f"{BINANCE_BASE}/api/v3/ticker/price?symbol={symbol.upper()}"
+    data = await _fetch_json_async(url)
+    if isinstance(data, dict) and "price" in data:
+        return float(data["price"])
+    raise MarketProviderError(f"Could not fetch price for {symbol}: {data}")
+
+
+async def fetch_24hr_ticker_async(symbol: str) -> dict:
+    """Async version of :func:`fetch_24hr_ticker`."""
+    url = f"{BINANCE_BASE}/api/v3/ticker/24hr?symbol={symbol.upper()}"
+    return await _fetch_json_async(url)
+
+
+async def fetch_multi_timeframe_async(
+    symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT
+) -> dict[str, list[dict]]:
+    """Async version of :func:`fetch_multi_timeframe`."""
+    result: dict[str, list[dict]] = {}
+    for tf in timeframes:
+        try:
+            result[tf] = await fetch_ohlcv_async(symbol, tf, limit)
+            logger.debug("Fetched %d candles for %s %s", len(result[tf]), symbol, tf)
+        except Exception as e:
+            logger.warning("Failed to fetch %s %s: %s", symbol, tf, e)
+            result[tf] = []
+    return result
+
+
+async def get_available_symbols_async() -> list[str]:
+    """Async version of :func:`get_available_symbols`."""
     url = f"{BINANCE_BASE}/api/v3/exchangeInfo"
-    data = _fetch_json(url)
+    data = await _fetch_json_async(url)
     symbols = []
     for s in data.get("symbols", []):
         if s.get("quoteAsset") == "USDT" and s.get("status") == "TRADING":
@@ -160,10 +225,10 @@ def get_available_symbols() -> list[str]:
     return sorted(symbols)
 
 
-def validate_symbol(symbol: str) -> bool:
-    """Check if a symbol is valid on Binance."""
+async def validate_symbol_async(symbol: str) -> bool:
+    """Async version of :func:`validate_symbol`."""
     try:
-        fetch_current_price(symbol)
+        await fetch_current_price_async(symbol)
         return True
     except MarketProviderError:
         return False
@@ -171,9 +236,9 @@ def validate_symbol(symbol: str) -> bool:
 
 async def build_trading_context(
     symbol: str, timeframes: list[str], exchange: str = "binance"
-) -> TradingContext:  # noqa: E501
+) -> TradingContext:
     """Build a TradingContext by fetching market data for multiple timeframes."""
-    raw_data = fetch_multi_timeframe(symbol, timeframes)
+    raw_data = await fetch_multi_timeframe_async(symbol, timeframes)
     parsed: dict[str, list[OHLCV]] = {}
     for tf, candles in raw_data.items():
         parsed[tf] = [
@@ -198,3 +263,24 @@ async def build_trading_context(
             "fetched_timeframes": [tf for tf, candles in parsed.items() if candles],
         },
     )
+
+
+def get_available_symbols() -> list[str]:
+    """Get list of available USDT trading pairs from Binance."""
+    url = f"{BINANCE_BASE}/api/v3/exchangeInfo"
+    data = _fetch_json(url)
+    symbols = []
+    for s in data.get("symbols", []):
+        if s.get("quoteAsset") == "USDT" and s.get("status") == "TRADING":
+            symbols.append(s["symbol"])
+    return sorted(symbols)
+
+
+def validate_symbol(symbol: str) -> bool:
+    """Check if a symbol is valid on Binance."""
+    try:
+        fetch_current_price(symbol)
+        return True
+    except MarketProviderError:
+        return False
+

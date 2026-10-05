@@ -20,7 +20,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
-from apps.trading_analyst.market_intelligence.provider import RateLimitError, fetch_multi_timeframe
+from apps.trading_analyst.market_intelligence.provider import RateLimitError, fetch_multi_timeframe_async
 
 logger = logging.getLogger(__name__)
 
@@ -130,7 +130,7 @@ class MarketFeedAdapter:
         """Get latest market regime detection."""
         try:
             tf_list = self.status.timeframes or ["1h", "4h", "1d"]
-            raw_data = await asyncio.to_thread(fetch_multi_timeframe, symbol, tf_list)
+            raw_data = await fetch_multi_timeframe_async(symbol, tf_list)
             all_closes: list[float] = []
             all_volumes: list[float] = []
             for candles in raw_data.values():
@@ -161,7 +161,7 @@ class MarketFeedAdapter:
         rate_limit_hits = 0
         while self.status.running:
             try:
-                raw_data = await asyncio.to_thread(fetch_multi_timeframe, symbol, timeframes)
+                raw_data = await fetch_multi_timeframe_async(symbol, timeframes)
                 if not any(raw_data.values()):
                     raise ValueError(f"No data returned for {symbol}")
                 snapshot = self._build_snapshot(symbol, raw_data)
