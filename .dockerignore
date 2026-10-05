@@ -38,7 +38,6 @@ plugins/
 models/
 data/
 docs/
-real_cases/
 artifacts/
 onboarding_output/
 repo_inspect_output_*/

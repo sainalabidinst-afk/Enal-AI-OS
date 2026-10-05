@@ -20,6 +20,7 @@ RUN pip install --no-cache-dir . \
 COPY backend/ ./backend/
 COPY apps/ ./apps/
 COPY sdk/ ./sdk/
+COPY real_cases/ ./real_cases/
 
 # Switch to non-root user
 USER appuser
