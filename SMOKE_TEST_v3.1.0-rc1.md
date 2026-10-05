@@ -84,44 +84,64 @@ curl -X POST https://staging.enal-ai-os.example.com/api/v1/capabilities/execute 
 
 The Observability panel shows placeholders until backend engines are started. Execute these steps **before** validating the console:
 
-### Step 1: Start Feed Engine
+### Step 1: Start Live Feed
 ```bash
-curl -X POST http://localhost:8000/api/v1/trading/engine/start \
+curl -X POST http://localhost:8000/api/v1/trading/feed/start \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
   -d '{"symbol":"BTCUSDT","timeframes":["15m","1h","4h"]}'
 ```
-**Expected:** Backend state changes to `running`. Event ticks start publishing to Kafka.
+**Expected:** Feed starts polling Binance. Backend logs show tick publish events.
 
-### Step 2: Verify Ticks Incoming
+### Step 2: Verify Feed Status
 ```bash
-# Check backend logs for tick events
-docker logs enal-ai-os-backend-1 --tail 50 | grep -i "tick\|publish\|kafka"
-
-# Check Kafka for tick messages
-docker logs enal-ai-os-kafka-1 --tail 50 | grep -i "tick\|market"
+curl http://localhost:8000/api/v1/trading/feed/status \
+  -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
-**Expected:** Logs show tick publish events. Confidence trend appears after ≥2 ticks.
+**Expected:** `{"status":"running","symbol":"BTCUSDT",...}`
 
-### Step 3: Register Capability Pack
+### Step 3: Run Market Analysis
 ```bash
-curl -X POST http://localhost:8000/api/v1/governance/packs \
+curl -X POST http://localhost:8000/api/v1/trading/analyze \
   -H "Content-Type: application/json" \
-  -d '{"name":"demo-pack","capabilities":["analysis","evaluation"]}'
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -d '{"symbol":"BTCUSDT","timeframes":["1h","4h"]}'
 ```
-**Expected:** Governance panel starts displaying pack data.
+**Expected:** HTTP 200 with market analysis data.
 
-### Step 4: Run Evaluator
+### Step 4: Check Live Regime
 ```bash
-# Execute evaluator against a pipeline run
-curl -X POST http://localhost:8000/api/v1/evaluation/run \
-  -H "Content-Type: application/json" \
-  -d '{"pipeline_id":"demo-pack","metrics":["accuracy","improvement"]}'
+curl http://localhost:8000/api/v1/trading/regime/live \
+  -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
-**Expected:** Evaluation panel shows accuracy/improvement metrics.
+**Expected:** JSON with regime, confidence, volatility, trend_strength.
 
 ## Observability Validation
 
-After completing backend activation:
+> **Note:** The console requires authentication. Use the test account below to access protected views.
+
+### Test Account
+- **Username:** `test`
+- **Password:** `test`
+- **Permissions:** `default`
+
+### Quick Login via API
+```bash
+# Get access token
+curl -X POST http://localhost:8000/api/v1/auth/login \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=test&password=test"
+
+# Response: {"access_token":"<JWT>","token_type":"bearer","expires_in":3600}
+```
+
+### Browser Login
+1. Navigate to `http://localhost:3001/login`
+2. Enter username: `test`, password: `test`
+3. After login, navigate to `http://localhost:3001/console/observability`
+
+### Observability Panel Checks
+After completing backend activation and login:
 
 - [ ] **Market Engine** status shows `running` (not "Connecting...")
 - [ ] **Confidence trend** chart displays data points (≥2 ticks)

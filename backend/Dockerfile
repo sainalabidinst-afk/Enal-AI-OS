@@ -11,16 +11,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser
 
 # Install Python dependencies first for layer caching
-# Copy only pyproject.toml to leverage Docker layer cache
 COPY pyproject.toml ./
-COPY setup.py setup.cfg ./
+
+RUN pip install --no-cache-dir . \
+    && chown -R appuser:appuser /usr/local/lib/python3.11/site-packages
+
+# Copy application source code
 COPY backend/ ./backend/
 COPY apps/ ./apps/
 COPY sdk/ ./sdk/
-
-RUN pip install --no-cache-dir --no-deps -e . \
-    && pip install --no-cache-dir PyJWT uvicorn[standard] \
-    && chown -R appuser:appuser /usr/local/lib/python3.11/site-packages
 
 # Switch to non-root user
 USER appuser

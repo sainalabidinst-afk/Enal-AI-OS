@@ -283,7 +283,7 @@ services:
       TTS_SPEED: ${TTS_SPEED:-0.85}
       TTS_ELEVENLABS_VOICE_ID: ${TTS_ELEVENLABS_VOICE_ID:-}
       JENNY_VOICE_PROFILE: ${JENNY_VOICE_PROFILE:-jenny}
-      JENNY_TTS_VOICE_ID: ${JENNY_TTS_VOICE_ID:-2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5}
+      JENNY_TTS_VOICE_ID: ${JENNY_TTS_VOICE_ID:-2E0E83F1-1B49-4C73-9D92-A6C6E9A9A5}
       JENNY_LANGUAGE: ${JENNY_LANGUAGE:-id}
       TTS_PITCH: ${TTS_PITCH:-1.25}
       TTS_EMPHASIS: ${TTS_EMPHASIS:-1.4}
@@ -301,6 +301,7 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+      - /app/data
     volumes:
       - backend_workspace:/app/workspace
       - ./backend:/app/backend

@@ -1,24 +1,32 @@
 """
 Market Data Provider
-====================
+=====================
 
-Interface for fetching market data from various sources.
+Multi-provider aggregator with fallback for market data.
 
-Current implementation: Binance Public API (free, no API key required for public endpoints)
+Providers (in fallback order):
+1. BinanceProvider — public REST API, no key required
+2. YahooFinanceProvider — yfinance library, delayed data
 
-Future: Bybit, OKX, CSV, Manual input — all via same interface.
+Usage:
+    from apps.trading_analyst.market_intelligence.provider import get_provider
+    provider = get_provider()
+    data = await provider.get_ohlcv("BTCUSDT", "1h")
 """
 
 from __future__ import annotations
 
-import asyncio
-import json
 import logging
-import urllib.error
-import urllib.request
 from typing import Any
 
 from apps.trading_analyst.market_intelligence.models import OHLCV, TradingContext
+from apps.trading_analyst.market_intelligence.providers import (
+    BinanceProvider,
+    MarketDataAggregator,
+    MarketProviderError,
+    RateLimitError,
+    YahooFinanceProvider,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -34,253 +42,95 @@ TIMEFRAME_MAP = {
     "1w": "1w",
 }
 DEFAULT_TIMEFRAMES = ["15m", "1h", "4h", "1d"]
-DEFAULT_LIMIT = 100  # candles per request
+DEFAULT_LIMIT = 100
+
+# Default aggregator instance
+_provider: MarketDataAggregator | None = None
 
 
-class MarketProviderError(Exception):
-    """Raised when market data provider fails."""
+def get_provider() -> MarketDataAggregator:
+    """Get default market data provider aggregator."""
+    global _provider
+    if _provider is None:
+        _provider = MarketDataAggregator([BinanceProvider(), YahooFinanceProvider()])
+    return _provider
 
 
-class RateLimitError(Exception):
-    """Raised when market data provider rate limit is hit."""
-
-    def __init__(self, retry_after: float = 60.0, message: str = "Rate limited") -> None:
-        self.retry_after = retry_after
-        super().__init__(message)
-
-
-def _fetch_json(url: str) -> Any:
-    """Fetch JSON from URL with timeout and error handling."""
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "ECP-Trading/1.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        if e.code == 429:
-            retry_after = 60.0
-            try:
-                retry_header = e.headers.get("Retry-After") or e.headers.get("retry-after")
-                if retry_header:
-                    retry_after = float(retry_header)
-            except (TypeError, ValueError):
-                retry_after = 60.0
-            logger.warning("Rate limited by provider for %s. Retry-After=%s", url, retry_after)
-            raise RateLimitError(
-                retry_after=retry_after, message=f"Rate limited: retry after {retry_after}s"
-            )
-        raise MarketProviderError(f"HTTP {e.code}: {e.reason} for {url}")
-    except urllib.error.URLError as e:
-        raise MarketProviderError(f"Connection failed: {e.reason}")
-    except json.JSONDecodeError as e:
-        raise MarketProviderError(f"Invalid JSON response: {e}")
-    except Exception as e:
-        raise MarketProviderError(f"Unexpected error: {e}")
-
-
-async def _fetch_json_async(url: str) -> Any:
-    """Async wrapper around :func:`_fetch_json` using :func:`asyncio.to_thread`."""
-    return await asyncio.to_thread(_fetch_json, url)
-
-
+# Backward-compatible sync wrappers
 def fetch_ohlcv(symbol: str, timeframe: str, limit: int = DEFAULT_LIMIT) -> list[dict]:
-    """
-    Fetch OHLCV candlestick data from Binance Public API.
-
-    Args:
-        symbol: Trading pair, e.g., "BTCUSDT"
-        timeframe: "1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"
-        limit: Number of candles (max 1000)
-
-    Returns:
-        List of dicts with keys: timestamp, open, high, low, close, volume
-
-    Raises:
-        MarketProviderError: If API call fails
-    """
-    tf = TIMEFRAME_MAP.get(timeframe)
-    if not tf:
-        raise ValueError(f"Unsupported timeframe: {timeframe}. Use: {list(TIMEFRAME_MAP.keys())}")
-
-    url = f"{BINANCE_BASE}/api/v3/klines?symbol={symbol.upper()}&interval={tf}&limit={limit}"
-    data = _fetch_json(url)
-
-    if not isinstance(data, list):
-        raise MarketProviderError(f"Unexpected response format: {type(data)}")
-
-    result = []
-    for candle in data:
-        result.append(
-            {
-                "timestamp": int(candle[0]) // 1000,  # Binance returns ms
-                "open": float(candle[1]),
-                "high": float(candle[2]),
-                "low": float(candle[3]),
-                "close": float(candle[4]),
-                "volume": float(candle[5]),
-            }
-        )
-    return result
+    provider = get_provider()
+    return provider.fetch_ohlcv(symbol, timeframe, limit)
 
 
 def fetch_current_price(symbol: str) -> float:
-    """Fetch current price for a symbol."""
-    url = f"{BINANCE_BASE}/api/v3/ticker/price?symbol={symbol.upper()}"
-    data = _fetch_json(url)
-    if isinstance(data, dict) and "price" in data:
-        return float(data["price"])
-    raise MarketProviderError(f"Could not fetch price for {symbol}: {data}")
-
-
-def fetch_24hr_ticker(symbol: str) -> dict:
-    """Fetch 24hr ticker statistics."""
-    url = f"{BINANCE_BASE}/api/v3/ticker/24hr?symbol={symbol.upper()}"
-    return _fetch_json(url)
+    provider = get_provider()
+    return provider.fetch_current_price(symbol)
 
 
 def fetch_multi_timeframe(
     symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT
-) -> dict[str, list[dict]]:  # noqa: E501
-    """
-    Fetch OHLCV for multiple timeframes.
-
-    Returns:
-        dict mapping timeframe -> list of candles
-    """
-    result = {}
-    for tf in timeframes:
-        try:
-            result[tf] = fetch_ohlcv(symbol, tf, limit)
-            logger.debug("Fetched %d candles for %s %s", len(result[tf]), symbol, tf)
-        except Exception as e:
-            logger.warning("Failed to fetch %s %s: %s", symbol, tf, e)
-            result[tf] = []
-    return result
-
-
-async def fetch_ohlcv_async(symbol: str, timeframe: str, limit: int = DEFAULT_LIMIT) -> list[dict]:
-    """Async version of :func:`fetch_ohlcv`."""
-    tf = TIMEFRAME_MAP.get(timeframe)
-    if not tf:
-        raise ValueError(f"Unsupported timeframe: {timeframe}. Use: {list(TIMEFRAME_MAP.keys())}")
-
-    url = f"{BINANCE_BASE}/api/v3/klines?symbol={symbol.upper()}&interval={tf}&limit={limit}"
-    data = await _fetch_json_async(url)
-
-    if not isinstance(data, list):
-        raise MarketProviderError(f"Unexpected response format: {type(data)}")
-
-    result = []
-    for candle in data:
-        result.append(
-            {
-                "timestamp": int(candle[0]) // 1000,
-                "open": float(candle[1]),
-                "high": float(candle[2]),
-                "low": float(candle[3]),
-                "close": float(candle[4]),
-                "volume": float(candle[5]),
-            }
-        )
-    return result
-
-
-async def fetch_current_price_async(symbol: str) -> float:
-    """Async version of :func:`fetch_current_price`."""
-    url = f"{BINANCE_BASE}/api/v3/ticker/price?symbol={symbol.upper()}"
-    data = await _fetch_json_async(url)
-    if isinstance(data, dict) and "price" in data:
-        return float(data["price"])
-    raise MarketProviderError(f"Could not fetch price for {symbol}: {data}")
-
-
-async def fetch_24hr_ticker_async(symbol: str) -> dict:
-    """Async version of :func:`fetch_24hr_ticker`."""
-    url = f"{BINANCE_BASE}/api/v3/ticker/24hr?symbol={symbol.upper()}"
-    return await _fetch_json_async(url)
-
-
-async def fetch_multi_timeframe_async(
-    symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT
 ) -> dict[str, list[dict]]:
-    """Async version of :func:`fetch_multi_timeframe`."""
-    result: dict[str, list[dict]] = {}
-    for tf in timeframes:
-        try:
-            result[tf] = await fetch_ohlcv_async(symbol, tf, limit)
-            logger.debug("Fetched %d candles for %s %s", len(result[tf]), symbol, tf)
-        except Exception as e:
-            logger.warning("Failed to fetch %s %s: %s", symbol, tf, e)
-            result[tf] = []
-    return result
-
-
-async def get_available_symbols_async() -> list[str]:
-    """Async version of :func:`get_available_symbols`."""
-    url = f"{BINANCE_BASE}/api/v3/exchangeInfo"
-    data = await _fetch_json_async(url)
-    symbols = []
-    for s in data.get("symbols", []):
-        if s.get("quoteAsset") == "USDT" and s.get("status") == "TRADING":
-            symbols.append(s["symbol"])
-    return sorted(symbols)
-
-
-async def validate_symbol_async(symbol: str) -> bool:
-    """Async version of :func:`validate_symbol`."""
-    try:
-        await fetch_current_price_async(symbol)
-        return True
-    except MarketProviderError:
-        return False
-
-
-async def build_trading_context(
-    symbol: str, timeframes: list[str], exchange: str = "binance"
-) -> TradingContext:
-    """Build a TradingContext by fetching market data for multiple timeframes."""
-    raw_data = await fetch_multi_timeframe_async(symbol, timeframes)
-    parsed: dict[str, list[OHLCV]] = {}
-    for tf, candles in raw_data.items():
-        parsed[tf] = [
-            OHLCV(
-                timestamp=c["timestamp"],
-                open=c["open"],
-                high=c["high"],
-                low=c["low"],
-                close=c["close"],
-                volume=c["volume"],
-            )
-            for c in candles
-        ]
-    if not any(parsed.values()):
-        raise MarketProviderError(f"No market data available for {symbol} on requested timeframes")
-    return TradingContext(
-        symbol=symbol.upper(),
-        exchange=exchange,
-        timeframes=parsed,
-        metadata={
-            "requested_timeframes": timeframes,
-            "fetched_timeframes": [tf for tf, candles in parsed.items() if candles],
-        },
-    )
+    provider = get_provider()
+    return provider.fetch_multi_timeframe(symbol, timeframes, limit)
 
 
 def get_available_symbols() -> list[str]:
-    """Get list of available USDT trading pairs from Binance."""
-    url = f"{BINANCE_BASE}/api/v3/exchangeInfo"
-    data = _fetch_json(url)
-    symbols = []
-    for s in data.get("symbols", []):
-        if s.get("quoteAsset") == "USDT" and s.get("status") == "TRADING":
-            symbols.append(s["symbol"])
-    return sorted(symbols)
+    binance = BinanceProvider()
+    import asyncio
+
+    return asyncio.run(binance.fetch_available_symbols())
 
 
 def validate_symbol(symbol: str) -> bool:
-    """Check if a symbol is valid on Binance."""
     try:
         fetch_current_price(symbol)
         return True
     except MarketProviderError:
         return False
 
+
+# Async versions
+async def fetch_ohlcv_async(symbol: str, timeframe: str, limit: int = DEFAULT_LIMIT) -> list[dict]:
+    provider = get_provider()
+    return await provider.fetch_ohlcv(symbol, timeframe, limit)
+
+
+async def fetch_current_price_async(symbol: str) -> float:
+    provider = get_provider()
+    return await provider.fetch_current_price(symbol)
+
+
+async def fetch_multi_timeframe_async(
+    symbol: str, timeframes: list[str], limit: int = DEFAULT_LIMIT
+) -> dict[str, list[dict]]:
+    provider = get_provider()
+    return await provider.fetch_multi_timeframe(symbol, timeframes, limit)
+
+
+async def build_trading_context(
+    symbol: str, timeframes: list[str], exchange: str = "binance"
+) -> TradingContext:
+    provider = get_provider()
+    return await provider.build_trading_context(symbol, timeframes, exchange)
+
+
+__all__ = [
+    "get_provider",
+    "MarketDataAggregator",
+    "BinanceProvider",
+    "YahooFinanceProvider",
+    "MarketProviderError",
+    "RateLimitError",
+    "fetch_ohlcv",
+    "fetch_current_price",
+    "fetch_multi_timeframe",
+    "fetch_ohlcv_async",
+    "fetch_current_price_async",
+    "fetch_multi_timeframe_async",
+    "build_trading_context",
+    "get_available_symbols",
+    "validate_symbol",
+    "DEFAULT_TIMEFRAMES",
+    "DEFAULT_LIMIT",
+    "TIMEFRAME_MAP",
+]
