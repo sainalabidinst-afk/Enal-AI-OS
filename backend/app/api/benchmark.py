@@ -7,7 +7,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 from backend.app.core.benchmark.models import BenchmarkCase, BenchmarkSuite
 from backend.app.core.benchmark.runner import BenchmarkRunner
@@ -77,7 +77,10 @@ async def get_benchmark_suite():
 
 
 @router.post("/benchmark/run")
-async def run_benchmark():
+async def run_benchmark(request: Request):
+    auth_header = request.headers.get("Authorization", "")
+    auth_token = auth_header.split(" ", 1)[1] if auth_header.startswith("Bearer ") else None
+    
     suite = _load_suite_from_disk()
     if not suite.cases:
         return {
@@ -100,7 +103,8 @@ async def run_benchmark():
             capability_score,
         )
 
-    suite = await runner.run_suite(suite, progress=progress_callback)
+    benchmark_runner = BenchmarkRunner(auth_token=auth_token)
+    suite = await benchmark_runner.run_suite(suite, progress=progress_callback)
     results = [
         {
             "case_id": result.case_id,

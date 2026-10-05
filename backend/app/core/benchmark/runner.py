@@ -33,9 +33,12 @@ class ProgressCallback(Protocol):
 
 
 class BenchmarkRunner:
-    def __init__(self, base_url: str = "http://localhost:8000", concurrency: int = 5) -> None:
+    def __init__(
+        self, base_url: str = "http://localhost:8000", concurrency: int = 5, auth_token: str | None = None
+    ) -> None:
         self.base_url = base_url.rstrip("/")
         self.concurrency = concurrency
+        self.auth_token = auth_token
 
     async def run_suite(
         self,
@@ -51,6 +54,7 @@ class BenchmarkRunner:
                 max_connections=self.concurrency + 10,
                 max_keepalive_connections=self.concurrency,
             ),
+            headers={"Authorization": f"Bearer {self.auth_token}"} if self.auth_token else None,
         ) as client:
 
             async def run(case: BenchmarkCase) -> BenchmarkResult:

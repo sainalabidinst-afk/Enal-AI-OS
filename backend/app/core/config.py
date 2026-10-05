@@ -66,6 +66,7 @@ class Settings(BaseSettings):
     DEFAULT_MODEL: str = "ollama/llama3:8b"
     DEFAULT_REASONING_MODEL: str = "ollama/llama3:8b"
     DEFAULT_EMBEDDING_MODEL: str = "ollama/nomic-embed-text"
+    DEFAULT_TRADING_SYMBOL: str = "IHSG"
     FALLBACK_MODEL: str = "ollama/qwen2.5:0.5b"
     FALLBACK_REASONING_MODEL: str = "ollama/qwen2.5:0.5b"
     OLLAMA_FALLBACK_ENABLED: bool = True

@@ -244,7 +244,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/enal_ai_os
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/enal_ai_os
       REDIS_URL: redis://redis:6379/0
       QDRANT_URL: http://qdrant:6333
       OLLAMA_BASE_URL: http://ollama:11434

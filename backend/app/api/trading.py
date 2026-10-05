@@ -23,6 +23,8 @@ from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
+from backend.app.core.config import settings
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/trading", tags=["trading"])
@@ -189,7 +191,7 @@ async def get_feed_status():
 @router.get("/feed/stream")
 async def stream_feed(
     request: Request,
-    symbol: str = Query("BTCUSDT", min_length=2, max_length=20),
+    symbol: str = Query(default_factory=lambda: settings.DEFAULT_TRADING_SYMBOL, min_length=2, max_length=20),
     interval: float = Query(5.0, ge=1.0, le=60.0),
     lookback: int = Query(20, ge=5, le=200),
 ):

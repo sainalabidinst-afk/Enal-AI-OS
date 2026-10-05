@@ -4,6 +4,12 @@ from datetime import UTC, datetime
 from enum import StrEnum, Enum  # noqa: F401
 from typing import Any
 
+from sqlalchemy.orm import Session
+
+from backend.app.db.session import SessionLocal
+from backend.app.db.models.governance import PackModel
+from backend.app.core.enums import PackStatus
+
 logger = logging.getLogger(__name__)
 
 
@@ -122,15 +128,6 @@ policy_engine = PolicyEngine()
 # Pilar 4 Governance (RFC-0055)
 
 
-class PackStatus(StrEnum):
-    DRAFT = "draft"
-    TESTING = "testing"
-    APPROVED = "approved"
-    REJECTED = "rejected"
-    REGISTERED = "registered"
-    DEPRECATED = "deprecated"
-
-
 @dataclass
 class PackRecord:
     pack_id: str
@@ -181,14 +178,63 @@ class AuditEntry:
 class GovernanceEngine:
     """Governance engine for pack lifecycle and quality gates."""
 
-    def __init__(self) -> None:
+    def __init__(self, db: Session | None = None) -> None:
+        self._db = db
         self._packs: dict[str, PackRecord] = {}
         self._sandboxes: dict[str, GovernanceSandbox] = {}
         self._gates: dict[str, QualityGate] = {}
         self._audit: list[AuditEntry] = []
+        self._load_from_db()
+
+    def _get_db(self) -> Session:
+        if self._db:
+            return self._db
+        return SessionLocal()
+
+    def _load_from_db(self) -> None:
+        """Load all packs from database on startup."""
+        db = self._get_db()
+        try:
+            models = db.query(PackModel).all()
+            for model in models:
+                self._packs[model.pack_id] = model.to_record()
+            logger.info("Loaded %d packs from database", len(self._packs))
+        except Exception as e:
+            logger.warning("Failed to load packs from database: %s", e)
+        finally:
+            if not self._db:
+                SessionLocal().close()
+
+    def _save_pack(self, pack: PackRecord) -> None:
+        """Persist a pack to the database."""
+        db = self._get_db()
+        try:
+            model = db.query(PackModel).filter(PackModel.pack_id == pack.pack_id).first()
+            if model:
+                model.name = pack.name
+                model.domain = pack.domain
+                model.status = pack.status
+                model.benchmark_score = pack.benchmark_score
+                model.coverage = pack.coverage
+                model.tests_passed = pack.tests_passed
+                model.tests_total = pack.tests_total
+                model.metadata = pack.metadata
+                model.updated_at = pack.updated_at
+            else:
+                model = PackModel.from_record(pack)
+                db.add(model)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            logger.error("Failed to save pack %s: %s", pack.pack_id, e)
+            raise
+        finally:
+            if not self._db:
+                SessionLocal().close()
 
     def register_pack(self, pack: PackRecord) -> PackRecord:
         self._packs[pack.pack_id] = pack
+        self._save_pack(pack)
         self._audit.append(
             AuditEntry(
                 entry_id=f"aud-{pack.pack_id}-{len(self._audit) + 1}",
@@ -225,6 +271,7 @@ class GovernanceEngine:
             return None
         pack.status = status
         pack.updated_at = datetime.now(UTC)
+        self._save_pack(pack)
         self._audit.append(
             AuditEntry(
                 entry_id=f"aud-status-{pack_id}-{len(self._audit) + 1}",
