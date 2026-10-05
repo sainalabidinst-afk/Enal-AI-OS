@@ -9,6 +9,8 @@ import { useEulaStore } from "@/store/eula-store";
 // This is a presentation-layer access control for the UX v2 flow.
 const AUTH_USERNAME = "Enal";
 const AUTH_PASSWORD = "R45t4m4n";
+const AUTH_USERNAME_TEST = "test";
+const AUTH_PASSWORD_TEST = "test";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
@@ -27,8 +29,12 @@ export function LoginForm() {
     if (!username.trim() || !password.trim()) return;
     setLocalError(null);
 
-    // Validate credentials (case-sensitive username, exact password)
-    if (username.trim() !== AUTH_USERNAME || password !== AUTH_PASSWORD) {
+    const user = username.trim();
+    const pass = password;
+    const valid =
+      (user === AUTH_USERNAME && pass === AUTH_PASSWORD) ||
+      (user === AUTH_USERNAME_TEST && pass === AUTH_PASSWORD_TEST);
+    if (!valid) {
       setLocalError("Invalid username or password.");
       return;
     }

@@ -1,0 +1,65 @@
+# Kubernetes Job — Enal AI OS Smoke Evaluation
+# Runs the backend benchmark suite to populate heuristic scores.
+#
+# Prerequisites:
+# - Backend is reachable at http://enal-ai-os-backend:8000
+# - Service account with permission to create Jobs
+#
+# Usage:
+#   kubectl apply -f k8s/evaluation-job.yaml
+#   kubectl logs job/eval-smoke -n enal-ai-os -f
+#   kubectl delete job/eval -n enal-ai-os
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: eval-smoke
+  namespace: enal-ai-os
+  labels:
+    app: enal-ai-os
+    task: evaluation
+spec:
+  backoffLimit: 2
+  template:
+    metadata:
+      labels:
+        app: enal-ai-os
+        task: evaluation
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: evaluator
+          image: curlimages/curl:8.10.1
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -euo pipefail
+              echo "Waiting for backend..."
+              for i in $(seq 1 30); do
+                if curl -sf http://enal-ai-os-backend:8000/health >/dev/null; then
+                  echo "Backend is healthy"
+                  break
+                fi
+                echo "Backend not ready yet ($i/30)..."
+                sleep 5
+              done
+              echo "Triggering benchmark suite..."
+              curl -s -X POST http://enal-ai-os-backend:8000/api/v1/benchmark/run \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer ${EVAL_TOKEN}" \
+                | tee /tmp/benchmark-result.json
+              echo "Evaluation complete. Result saved to /tmp/benchmark-result.json"
+          env:
+            - name: EVAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: enal-ai-os-secrets
+                  key: eval-token
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

@@ -27,6 +27,11 @@ USER appuser
 # Expose port
 EXPOSE 8000
 
+# Observability / logging configuration
+ENV LOG_FORMAT=json \
+    LOG_LEVEL=INFO \
+    LOGGING_PROVIDER=console
+
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1

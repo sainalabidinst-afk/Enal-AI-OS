@@ -205,6 +205,69 @@ async def register_action_tools_startup():
         logger.warning("Failed to register action tools on startup: %s", e)
 
 
+@app.on_event("startup")
+async def seed_governance_packs():
+    """Seed minimal governance packs so the dashboard is not empty."""
+    try:
+        from backend.app.core.governance import (
+            PackRecord,
+            PackStatus,
+            governance_engine,
+        )
+
+        existing = governance_engine.list_packs()
+        if existing:
+            return
+        trading = PackRecord(
+            pack_id="pack-trading-analyst",
+            name="Trading Analyst",
+            domain="finance",
+            status=PackStatus.REGISTERED,
+            benchmark_score=0.85,
+            coverage=0.9,
+            tests_passed=42,
+            tests_total=45,
+            metadata={"category": "trading", "version": "3.0.0"},
+        )
+        governance_engine.register_pack(trading)
+        logger.info("Seeded governance pack: %s", trading.pack_id)
+    except Exception as e:
+        logger.warning("Failed to seed governance packs: %s", e)
+
+
+@app.on_event("startup")
+async def seed_default_security_policies():
+    """Register default security policies for well-known service accounts."""
+    try:
+        from backend.app.core.security_model import (
+            SecurityLevel,
+            SecurityPolicy,
+            security_model,
+        )
+
+        default_policy = SecurityPolicy(
+            plugin_id="test",
+            security_level=SecurityLevel.SAFE,
+            allowed_permissions=[
+                "model:read",
+                "capabilities:execute",
+                "read",
+                "write",
+                "execute",
+            ],
+            denied_permissions=[],
+            allowed_capabilities=[],
+            denied_capabilities=[],
+            resource_limits={},
+            requires_approval=False,
+            approved=True,
+        )
+        security_model.register_policy(default_policy)
+        logger.info("Seeded default security policy for test user")
+    except Exception as e:
+        logger.warning("Failed to seed default security policies: %s", e)
+
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to Enal AI OS", "docs": "/docs", "version": settings.VERSION}

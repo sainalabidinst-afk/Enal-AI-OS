@@ -21,6 +21,8 @@ class Permission(StrEnum):
     ADMIN = "admin"
     NETWORK = "network"
     SYSTEM = "system"
+    MODEL_READ = "model:read"
+    CAPABILITIES_EXECUTE = "capabilities:execute"
 
 
 class AccessModel(StrEnum):

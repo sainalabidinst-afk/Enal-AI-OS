@@ -295,6 +295,12 @@ class MarketDataAggregator:
                 result[tf] = []
         return result
 
+    async def fetch_multi_timeframe(
+        self, symbol: str, timeframes: list[str], limit: int = 100
+    ) -> dict[str, list[dict]]:
+        """Alias for get_multi_timeframe to match provider interface."""
+        return await self.get_multi_timeframe(symbol, timeframes, limit)
+
     async def build_trading_context(
         self, symbol: str, timeframes: list[str], exchange: str = "binance"
     ) -> TradingContext:

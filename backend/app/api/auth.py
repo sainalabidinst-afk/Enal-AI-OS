@@ -91,7 +91,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
         data={
             "sub": username,
             "roles": ["default"],
-            "permissions": ["default"],
+            "permissions": ["model:read", "capabilities:execute"],
         }
     )
     return LoginResponse(access_token=token)

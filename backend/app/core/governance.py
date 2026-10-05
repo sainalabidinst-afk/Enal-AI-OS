@@ -13,6 +13,8 @@ class Permission(StrEnum):
     EXECUTE = "execute"
     DEPLOY = "deploy"
     ADMIN = "admin"
+    MODEL_READ = "model:read"
+    CAPABILITIES_EXECUTE = "capabilities:execute"
 
 
 class ApprovalStatus(StrEnum):

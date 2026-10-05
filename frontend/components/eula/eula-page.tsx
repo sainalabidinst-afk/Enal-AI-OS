@@ -70,16 +70,18 @@ export function EulaPage() {
             memahami, dan menyetujui seluruh ketentuan berikut yang mengatur
             penggunaan platform Enal AI OS.
           </p>
-          {EULA_SECTIONS.map((section) => (
-            <div key={section.title}>
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
-                {section.title}
-              </h3>
-              <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-                {section.body}
-              </p>
-            </div>
-          ))}
+          <div className="mt-4 space-y-4">
+            {EULA_SECTIONS.map((section) => (
+              <div key={section.title} className="space-y-1">
+                <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+                  {section.title}
+                </h3>
+                <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Agree checkbox */}
