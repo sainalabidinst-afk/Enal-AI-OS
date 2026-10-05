@@ -1,6 +1,6 @@
-import { ChatGPTPage } from "@/components/chat/chatgpt-page";
+import { redirect } from "next/navigation";
 
 export default function DashboardRoute() {
-  return <ChatGPTPage />;
+  redirect("/console");
 }
 

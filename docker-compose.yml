@@ -333,7 +333,7 @@ services:
     ports:
       - "3001:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_PUBLIC_API_URL: http://backend:8000
       NEXT_PUBLIC_JENNY_TTS_VOICE_ID: ${JENNY_TTS_VOICE_ID:-2E0E83F1-1B49-4C73-9D92-A6C6E9A9A9A5}
     depends_on:
       backend:

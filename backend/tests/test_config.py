@@ -2,6 +2,8 @@ import os
 
 import pytest
 
+from backend.app.core.platform_version import resolve_version
+
 os.environ.setdefault("SECRET_KEY", "test-secret")
 
 
@@ -10,10 +12,10 @@ def test_settings_defaults():
 
     settings = Settings()
     assert settings.PROJECT_NAME == "Enal AI OS"
-    assert settings.VERSION == "3.0.0"
+    assert settings.VERSION == resolve_version()
     assert settings.API_V1_STR == "/api/v1"
     assert settings.DEFAULT_MODEL == "ollama/llama3:8b"
-    assert settings.MAX_TOKENS == 4096
+    assert settings.MAX_TOKENS == 8192
     assert settings.TEMPERATURE == 0.7
 
 

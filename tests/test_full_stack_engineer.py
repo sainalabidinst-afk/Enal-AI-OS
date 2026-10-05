@@ -82,8 +82,7 @@ def test_enums() -> None:
     assert {"json", "markdown", "html", "text"} == fmt
 
 
-@pytest.mark.asyncio
-async def test_engine_architecture_review() -> None:
+async def test_engine_architecture_review(tmp_path: Path) -> None:
     """F1: Architecture review returns a report with score and issues."""
     engine = FullStackEngineerEngine()
     request = FullStackRequest(
@@ -98,7 +97,6 @@ async def test_engine_architecture_review() -> None:
     assert report.raw["architecture_score"] >= 0.0
 
 
-@pytest.mark.asyncio
 async def test_engine_code_review() -> None:
     """F2: Code review returns findings and summary."""
     engine = FullStackEngineerEngine()
@@ -115,7 +113,6 @@ async def test_engine_code_review() -> None:
     assert report.code_review.summary.total_findings >= 0
 
 
-@pytest.mark.asyncio
 async def test_engine_refactoring_plan() -> None:
     """F3: Refactoring planner returns plans without executing changes."""
     engine = FullStackEngineerEngine()
@@ -129,7 +126,6 @@ async def test_engine_refactoring_plan() -> None:
     assert report.refactoring_plan.plans
 
 
-@pytest.mark.asyncio
 async def test_engine_test_engineering() -> None:
     """F4: Test engineering estimates coverage and plans."""
     engine = FullStackEngineerEngine()
@@ -143,7 +139,6 @@ async def test_engine_test_engineering() -> None:
     assert report.test_engineering.estimated_coverage >= 0.0
 
 
-@pytest.mark.asyncio
 async def test_engine_performance_analysis() -> None:
     """F5: Performance analysis detects issues in source code."""
     engine = FullStackEngineerEngine()
@@ -162,7 +157,6 @@ async def test_engine_performance_analysis() -> None:
     assert report.performance_analysis.issues
 
 
-@pytest.mark.asyncio
 async def test_engine_release_review() -> None:
     """F6: Release readiness validation returns checks."""
     engine = FullStackEngineerEngine()
@@ -177,13 +171,12 @@ async def test_engine_release_review() -> None:
     assert isinstance(report.release_review.checks, list)
 
 
-@pytest.mark.asyncio
-async def test_engine_full_stack_review() -> None:
+async def test_engine_full_stack_review(tmp_path: Path) -> None:
     """Full stack review aggregates all six operations."""
     engine = FullStackEngineerEngine()
     request = FullStackRequest(
         operation=OperationType.full_stack_review,
-        inputs={"repo_path": "."},
+        inputs={"repo_path": str(tmp_path)},
         context={"project_id": "full", "language": "python"},
     )
     report = await engine.review(request)
@@ -194,13 +187,12 @@ async def test_engine_full_stack_review() -> None:
     assert report.explanation
 
 
-@pytest.mark.asyncio
-async def test_worker_execute() -> None:
+async def test_worker_execute(tmp_path: Path) -> None:
     """Worker adapter delegates to the domain engine and returns a dict."""
     worker = FullStackEngineerWorker()
     task = {
         "operation": "architecture_review",
-        "inputs": {"repo_path": "."},
+        "inputs": {"repo_path": str(tmp_path)},
         "context": {"project_id": "worker-test", "language": "python"},
         "output_format": "json",
     }
@@ -210,11 +202,10 @@ async def test_worker_execute() -> None:
     assert "quality_score" in result
 
 
-@pytest.mark.asyncio
-async def test_worker_unknown_operation_falls_back() -> None:
+async def test_worker_unknown_operation_falls_back(tmp_path: Path) -> None:
     """Worker falls back to full_stack_review for unknown operations."""
     worker = FullStackEngineerWorker()
-    result = await worker.execute({"operation": "unknown", "inputs": {"repo_path": "."}})
+    result = await worker.execute({"operation": "unknown", "inputs": {"repo_path": str(tmp_path)}})
     assert result["operation"] == "full_stack_review"
 
 
@@ -240,7 +231,6 @@ def test_architecture_review_engine_scan(tmp_path: Path) -> None:
     assert "detected_style" in report
 
 
-@pytest.mark.asyncio
 async def test_engine_error_handling_invalid_repo() -> None:
     """Engine handles invalid repo path gracefully."""
     engine = FullStackEngineerEngine()
@@ -254,7 +244,6 @@ async def test_engine_error_handling_invalid_repo() -> None:
     assert report.architecture_review is not None
 
 
-@pytest.mark.asyncio
 async def test_engine_refactoring_plan_quality() -> None:
     """F3: Refactoring plan produces actionable plans."""
     engine = FullStackEngineerEngine()
@@ -283,14 +272,14 @@ class Everything:
     assert len(report.refactoring_plan.plans) > 0
 
 
-@pytest.mark.asyncio
-async def test_engine_test_engineering_analysis() -> None:
+async def test_engine_test_engineering_analysis(tmp_path: Path) -> None:
     """F4: Test engineering provides coverage insights."""
     engine = FullStackEngineerEngine()
     source_code = "def add(a, b):\n    return a + b\n"
+    tmp_path.joinpath("calculator.py").write_text(source_code, encoding="utf-8")
     request = FullStackRequest(
         operation=OperationType.test_engineering,
-        inputs={"source_path": ".", "module_path": "calculator.py", "source_code": source_code},
+        inputs={"source_path": str(tmp_path), "module_path": "calculator.py", "source_code": source_code},
         context={"project_id": "test-eng", "language": "python"},
     )
     report = await engine.review(request)
@@ -298,7 +287,6 @@ async def test_engine_test_engineering_analysis() -> None:
     assert report.test_engineering.estimated_coverage >= 0.0
 
 
-@pytest.mark.asyncio
 async def test_engine_output_formats() -> None:
     """Engine respects output_format parameter."""
     for output_format in ["json", "markdown"]:
@@ -314,21 +302,19 @@ async def test_engine_output_formats() -> None:
         assert report.code_review is not None
 
 
-@pytest.mark.asyncio
-async def test_engine_quality_score_range() -> None:
+async def test_engine_quality_score_range(tmp_path: Path) -> None:
     """Quality score is always between 0 and 1."""
     engine = FullStackEngineerEngine()
     request = FullStackRequest(
         operation=OperationType.full_stack_review,
-        inputs={"repo_path": "."},
+        inputs={"repo_path": str(tmp_path)},
         context={"project_id": "quality", "language": "python"},
     )
     report = await engine.review(request)
     assert 0.0 <= report.quality_score <= 1.0
 
 
-@pytest.mark.asyncio
-async def test_worker_returns_dict() -> None:
+async def test_worker_returns_dict(tmp_path: Path) -> None:
     """Worker always returns a dictionary result."""
     worker = FullStackEngineerWorker()
     operations = [
@@ -343,7 +329,7 @@ async def test_worker_returns_dict() -> None:
         result = await worker.execute(
             {
                 "operation": op,
-                "inputs": {"repo_path": "."},
+                "inputs": {"repo_path": str(tmp_path)},
                 "context": {"project_id": f"worker-{op}", "language": "python"},
             }
         )
@@ -352,8 +338,7 @@ async def test_worker_returns_dict() -> None:
         assert "quality_score" in result
 
 
-@pytest.mark.asyncio
-async def test_engine_multiple_languages() -> None:
+async def test_engine_multiple_languages(tmp_path: Path) -> None:
     """Engine handles different programming languages."""
     languages = ["python", "javascript", "typescript"]
     for lang in languages:

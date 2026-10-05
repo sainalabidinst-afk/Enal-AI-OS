@@ -196,7 +196,7 @@ export function System2AnalyticalLayer({ className }: System2AnalyticalLayerProp
             )}
             {activeArtifacts.length === 0 && !isLoadingArtifacts && (
               <span className="text-xs text-[var(--color-text-secondary)] mt-2 block">
-                No artifacts loaded. Click "Load Artifacts" to fetch.
+                No artifacts loaded. Click &quot;Load Artifacts&quot; to fetch.
               </span>
             )}
           </div>

@@ -228,7 +228,7 @@ const CloneWizard: React.FC<CloneWizardProps> = ({
                         <span className="font-medium">Clone Complete</span>
                       </div>
                       <p className="mt-2 text-sm text-green-700">
-                        Your template has been cloned successfully to project "{projectName}".
+                         Your template has been cloned successfully to project &quot;{projectName}&quot;.
                       </p>
                     </div>
                   ) : (
@@ -238,7 +238,7 @@ const CloneWizard: React.FC<CloneWizardProps> = ({
                         <span className="font-medium">Ready to Clone</span>
                       </div>
                       <p className="mt-2 text-sm text-blue-700">
-                        Click "Next" to clone "{template.name}" to your project.
+                         Click &quot;Next&quot; to clone &quot;{template.name}&quot; to your project.
                       </p>
                     </div>
                   )}

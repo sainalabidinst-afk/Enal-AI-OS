@@ -12,6 +12,21 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/workspace/:path*',
+        destination: '/console/:path*',
+        permanent: true,
+      },
+      {
+        source: '/dashboard',
+        destination: '/console',
+        permanent: true,
+      },
+      {
+        source: '/workspace',
+        destination: '/console/trading',
+        permanent: true,
+      },
+      {
         source: '/workspace/trading',
         destination: '/console/trading',
         permanent: true,
