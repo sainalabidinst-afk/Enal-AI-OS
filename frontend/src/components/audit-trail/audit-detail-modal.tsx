@@ -15,7 +15,7 @@ interface AuditDetailModalProps {
 export function AuditDetailModal({ auditId, isOpen, onOpenChange }: AuditDetailModalProps) {
   const { data, isLoading } = useQuery<{ entries?: Array<{ id: string }> }>({
     queryKey: ['audit', 'trail', auditId],
-    queryFn: () => apiClient.get(`/api/v1/governance/audit`),
+    queryFn: () => apiClient.get('/api/v1/audit'),
     enabled: !!auditId && isOpen,
   });
 

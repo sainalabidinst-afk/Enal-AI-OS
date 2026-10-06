@@ -6,16 +6,16 @@ import { MetricsCard } from '@/components/shared/metrics-card';
 
 interface MarketChartProps {
   symbol?: string;
-  data?: { data?: { confidence: number; timeframes: string[]; regimes: Record<string, { regime: string; confidence: number }> } };
+  data?: { confidence?: number; timeframes?: string[]; regimes?: Record<string, { regime?: string; confidence?: number }> };
 }
 
 export function MarketChart({ symbol = 'BTCUSDT', data }: MarketChartProps) {
   const chartData = useMemo(() => {
-    if (!data?.data) return [];
-    const inner = data.data;
-    return inner.timeframes.map((tf, idx) => ({
+    if (!data?.timeframes) return [];
+    const confidence = data.confidence ?? 0;
+    return data.timeframes.map((tf, idx) => ({
       timeframe: tf,
-      confidence: inner.confidence * (0.8 + idx * 0.05),
+      confidence: confidence * (0.8 + idx * 0.05),
     }));
   }, [data]);
 
@@ -23,8 +23,8 @@ export function MarketChart({ symbol = 'BTCUSDT', data }: MarketChartProps) {
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-3">
         <MetricsCard title="Symbol" value={symbol} />
-        <MetricsCard title="Confidence" value={data?.data ? `${Math.round(data.data.confidence * 100)}%` : '-'} />
-        <MetricsCard title="Regime" value={data?.data?.regimes ? Object.values(data.data.regimes)[0]?.regime ?? '-' : '-'} />
+        <MetricsCard title="Confidence" value={data?.confidence !== undefined ? `${Math.round((data.confidence as number) * 100)}%` : '-'} />
+        <MetricsCard title="Regime" value={data?.regimes ? Object.values(data.regimes)[0]?.regime ?? '-' : '-'} />
       </div>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">

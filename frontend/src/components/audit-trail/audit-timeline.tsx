@@ -10,12 +10,20 @@ const eventTypes = ['pack_register', 'evaluation_run', 'capability_execute'] as 
 export function AuditTimeline() {
   const { data, isLoading } = useQuery<{ entries?: Array<{ id?: string; action?: string; timestamp?: string; user?: string }> }>({
     queryKey: ['audit', 'trail'],
-    queryFn: () => apiClient.get('/api/v1/governance/audit'),
+    queryFn: () => apiClient.get('/api/v1/audit'),
   });
 
   if (isLoading) return <LoadingSkeleton className="mt-4 h-64 w-full" />;
 
   const entries = data?.entries ?? [];
+
+  if (!entries.length) {
+    return (
+      <div className="mt-4 rounded-md border border-dashed border-border px-4 py-8 text-center text-sm text-text-muted">
+        No activity yet. Execute a capability or register a pack to generate audit events.
+      </div>
+    );
+  }
 
   return (
     <div className="mt-4 space-y-4">

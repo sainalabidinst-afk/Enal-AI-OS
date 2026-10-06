@@ -8,7 +8,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 export function AuditTrailPreview({ limit = 5 }: { limit?: number }) {
   const { data, isLoading } = useQuery<{ entries?: Array<{ id?: string; action?: string; timestamp?: string; user?: string }> }>({
     queryKey: ['audit'],
-    queryFn: () => apiClient.get('/api/v1/governance/audit'),
+    queryFn: () => apiClient.get('/api/v1/audit'),
   });
 
   if (isLoading) {
@@ -22,6 +22,14 @@ export function AuditTrailPreview({ limit = 5 }: { limit?: number }) {
   }
 
   const entries = data?.entries?.slice(0, limit) ?? [];
+
+  if (!entries.length) {
+    return (
+      <div className="mt-4 rounded-md border border-dashed border-border px-4 py-6 text-center text-xs text-text-muted">
+        No audit activity yet. Register a pack or execute a capability to generate events.
+      </div>
+    );
+  }
 
   return (
     <div className="mt-4 space-y-2">

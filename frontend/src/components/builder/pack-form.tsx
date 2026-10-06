@@ -13,7 +13,7 @@ export function PackForm() {
   const { addToast } = useToast();
 
   const mutation = useMutation({
-    mutationFn: (payload: Record<string, unknown>) => apiClient.post('/api/v1/governance/packs', payload),
+    mutationFn: (payload: Record<string, unknown>) => apiClient.post('/api/v1/packs', payload),
     onSuccess: () => addToast('success', 'Pack registered successfully'),
     onError: () => addToast('error', 'Failed to register pack'),
   });

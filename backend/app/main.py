@@ -31,6 +31,7 @@ from .api import (
     orchestrator_v2,
     phase3,
     self_development,
+    settings as settings_api,
     telemetry,
     trading,
     voice,
@@ -97,6 +98,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
             "/openapi.json",
             "/redoc",
             "/health",
+            "/api/v1/health",
             "/api/v1/auth/login",
             "/api/v1/metrics",
             "/api/v1/capabilities",
@@ -156,7 +158,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(health.router, tags=["health"])
+app.include_router(health.router, prefix=settings.API_V1_STR, tags=["health"])
 app.include_router(auth.router, prefix=settings.API_V1_STR, tags=["auth"])
 app.include_router(chat.router, prefix=settings.API_V1_STR, tags=["chat"])
 app.include_router(orchestrator_v2.router, prefix=settings.API_V1_STR, tags=["orchestrator-v2"])
@@ -193,6 +195,7 @@ app.include_router(a2a_mcp.router, prefix=settings.API_V1_STR, tags=["a2a-mcp"])
 app.include_router(bulk_evaluation.router, prefix=settings.API_V1_STR, tags=["bulk-evaluation"])
 app.include_router(end_to_end.router, prefix=settings.API_V1_STR, tags=["end-to-end"])
 app.include_router(digital_twin.router, prefix=settings.API_V1_STR, tags=["digital-twin"])
+app.include_router(settings_api.router, prefix=settings.API_V1_STR, tags=["settings"])
 
 
 @app.on_event("startup")
@@ -219,6 +222,7 @@ async def seed_governance_packs():
 
         existing = governance_engine.list_packs()
         if existing:
+            logger.info("Governance packs already seeded: %d packs", len(existing))
             return
         trading = PackRecord(
             pack_id="pack-trading-analyst",

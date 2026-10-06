@@ -47,6 +47,34 @@ async def provider_info() -> dict[str, Any]:
     }
 
 
+@router.get("/context")
+async def voice_context() -> dict[str, Any]:
+    return {
+        "context": {},
+        "memory": [],
+        "providers": {
+            "stt": settings.STT_PROVIDER,
+            "tts": settings.TTS_PROVIDER,
+        },
+    }
+
+
+@router.post("/stt/start")
+async def stt_start() -> dict[str, Any]:
+    return {"status": "started", "provider": settings.STT_PROVIDER}
+
+
+@router.post("/stt/stop")
+async def stt_stop() -> dict[str, Any]:
+    return {"status": "stopped"}
+
+
+@router.post("/transcript")
+async def transcript_text(payload: dict[str, Any]) -> dict[str, Any]:
+    text = payload.get("text", "")
+    return {"text": text, "confidence": 1.0, "language": settings.STT_LANGUAGE}
+
+
 @router.post("/transcribe", response_model=VoiceTranscription)
 async def transcribe_audio(
     file: UploadFile = File(..., description="Audio file (WAV recommended)"),

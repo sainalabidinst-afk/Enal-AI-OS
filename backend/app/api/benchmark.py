@@ -259,3 +259,98 @@ async def get_cce_status():
         }
     except Exception as exc:
         return {"status": "error", "message": str(exc)}
+
+
+@router.get("/benchmark/dashboard")
+async def get_benchmark_dashboard():
+    suite = _load_suite_from_disk()
+    if not suite.cases:
+        return {"capabilities": {}}
+
+    async def progress_callback(
+        case_id: str,
+        passed: bool,
+        score: float,
+        capability_score: float,
+    ) -> None:
+        pass
+
+    suite = await runner.run_suite(suite, progress=progress_callback)
+
+    capabilities: dict[str, dict[str, Any]] = defaultdict(
+        lambda: {
+            "vendor": "",
+            "cases": 0,
+            "passed": 0,
+            "failed": 0,
+            "avg_score": 0.0,
+            "avg_capability_score": 0.0,
+        }
+    )
+
+    for result in suite.results:
+        vendor = result.case_id.split(":")[0]
+        cap = capabilities[vendor]
+        cap["vendor"] = vendor
+        cap["cases"] += 1
+        if result.passed:
+            cap["passed"] += 1
+        else:
+            cap["failed"] += 1
+        cap["avg_score"] += result.score
+        cap["avg_capability_score"] += result.capability_score
+
+    output: dict[str, Any] = {}
+    for vendor, cap in capabilities.items():
+        count = cap["cases"]
+        output[vendor] = {
+            "avg_score": round(cap["avg_score"] / count, 2) if count else 0.0,
+            "avg_capability_score": round(cap["avg_capability_score"] / count, 2) if count else 0.0,
+        }
+
+    return {"capabilities": output}
+
+
+@router.get("/benchmark/history")
+async def get_benchmark_history():
+    history_dir = CCE_HISTORY_DIR
+    if not history_dir.exists():
+        return []
+    entries = []
+    for path in sorted(history_dir.glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            entries.append({
+                "id": path.stem,
+                "avg_score": data.get("avg_score", 0),
+                "created_at": data.get("timestamp"),
+            })
+        except Exception:
+            continue
+    return entries
+
+
+@router.get("/benchmark/history/{benchmark_id}")
+async def get_benchmark_history_detail(benchmark_id: str):
+    latest_path = CCE_HISTORY_DIR / "latest.json"
+    if not latest_path.exists():
+        return {"id": benchmark_id, "results": [], "summary": {}}
+    try:
+        data = json.loads(latest_path.read_text(encoding="utf-8"))
+        return {
+            "id": benchmark_id,
+            "results": data.get("results", []),
+            "summary": {
+                "total": data.get("total_cases", 0),
+                "passed": data.get("passed_cases", 0),
+                "failed": data.get("failed_cases", 0),
+                "avg_score": data.get("avg_score", 0),
+            },
+        }
+    except Exception as exc:
+        return {"id": benchmark_id, "results": [], "summary": {}, "error": str(exc)}
+
+
+@router.get("/cce/status")
+async def get_cce_status_alias():
+    return await get_cce_status()

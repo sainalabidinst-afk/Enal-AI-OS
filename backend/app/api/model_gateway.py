@@ -1,8 +1,15 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
 
 from backend.app.core.model_gateway import model_gateway
 
-router = APIRouter()
+router = APIRouter(prefix="/models")
+
+
+class ModelRouteRequest(BaseModel):
+    taskType: str = ""
+    capability: str = ""
+    context: dict | None = None
 
 
 @router.get("/health")
@@ -21,5 +28,9 @@ async def list_providers():
 
 
 @router.post("/route")
-async def route_model(task_type: str, capability: str, context: dict | None = None):
-    return await model_gateway.route(task_type, capability, context)
+async def route_model(payload: ModelRouteRequest):
+    return await model_gateway.route(
+        task_type=payload.taskType,
+        capability=payload.capability,
+        context=payload.context,
+    )

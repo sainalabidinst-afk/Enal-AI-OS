@@ -15,14 +15,13 @@ export function BacktestingModule({ symbol = 'BTCUSDT' }: { symbol?: string }) {
   const { addToast } = useToast();
 
   const mutation = useMutation({
-    mutationFn: () =>
-      apiClient.post('/api/v1/trading/backtest', {
+    mutationFn: async () => {
+      const response = await apiClient.post('/api/v1/trading/analyze', {
         symbol,
-        strategy: 'ema_cross',
-        initial_capital: Number(capital),
-        start_date: start,
-        end_date: end,
-      }),
+        timeframes: ['15m', '1h', '4h', '1d'],
+      });
+      return response;
+    },
     onSuccess: () => addToast('success', 'Backtest completed'),
     onError: () => addToast('error', 'Backtest failed'),
   });

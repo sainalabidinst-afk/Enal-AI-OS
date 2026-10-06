@@ -8,7 +8,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 export function QualityGateList() {
   const { data, isLoading } = useQuery<Array<{ gate_id: string; pack_id: string; passed: boolean }>>({
     queryKey: ['governance', 'quality-gates'],
-    queryFn: () => apiClient.get('/api/v1/governance/quality-gates'),
+    queryFn: () => apiClient.get('/api/v1/packs'),
   });
 
   if (isLoading) return <LoadingSkeleton className="mt-4 h-64 w-full" />;

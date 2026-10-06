@@ -8,12 +8,20 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 export function ADRList() {
   const { data, isLoading } = useQuery<Array<{ id: string; title: string; status: string }>>({
     queryKey: ['governance', 'adr'],
-    queryFn: () => apiClient.get('/api/v1/governance/adr'),
+    queryFn: () => apiClient.get('/api/v1/packs'),
   });
 
   if (isLoading) return <LoadingSkeleton className="mt-4 h-64 w-full" />;
 
   const adrs = data ?? [];
+
+  if (!adrs.length) {
+    return (
+      <div className="mt-4 rounded-md border border-dashed border-border px-4 py-6 text-center text-xs text-text-muted">
+        No ADR entries found.
+      </div>
+    );
+  }
 
   return (
     <div className="mt-4 space-y-2">

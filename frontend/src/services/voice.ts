@@ -9,9 +9,9 @@ export async function sendTranscript(text: string) {
 }
 
 export async function getVoiceContext() {
-  return apiClient.get('/api/v1/voice/context');
+  return apiClient.get('/api/v1/voice/providers');
 }
 
 export async function updateVoiceContext(context: Record<string, unknown>) {
-  return apiClient.post('/api/v1/voice/context', context);
+  return apiClient.post('/api/v1/voice/providers', context);
 }

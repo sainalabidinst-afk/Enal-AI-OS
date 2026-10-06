@@ -61,6 +61,26 @@ class BlueprintResponse(BaseModel):
     updated_at: str = ""
 
 
+@router.post("/blueprints/import")
+async def import_blueprints(payload: dict[str, Any]) -> dict[str, Any]:
+    imported = []
+    for item in payload.get("blueprints", payload.get("items", [])):
+        kind = item.get("kind", item.get("type", "agent"))
+        if kind == "tool":
+            result = blueprint_repository.create_tool(item)
+        else:
+            result = blueprint_repository.create_agent(item)
+        imported.append(result)
+    return {"imported": imported}
+
+
+@router.get("/blueprints/export")
+async def export_blueprints() -> dict[str, Any]:
+    agents = blueprint_repository.list_agents()
+    tools = blueprint_repository.list_tools()
+    return {"blueprints": agents + tools}
+
+
 @router.post("/blueprints/agent", response_model=BlueprintResponse)
 async def create_agent_blueprint(request: CreateAgentBlueprintRequest):
     started = time.perf_counter()

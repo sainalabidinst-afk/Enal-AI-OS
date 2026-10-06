@@ -13,11 +13,11 @@ export async function getCapabilityScores() {
 }
 
 export async function getBenchmarkDashboard() {
-  return apiClient.get('/api/v1/benchmark/dashboard');
+  return apiClient.get('/api/v1/benchmark/capability-scores');
 }
 
 export async function getBenchmarkHistory() {
-  return apiClient.get('/api/v1/benchmark/history');
+  return apiClient.get('/api/v1/benchmark/capability-scores');
 }
 
 export async function getCCEStatus() {
