@@ -13,5 +13,5 @@ export async function getAlerts() {
 }
 
 export async function getPrometheusMetrics() {
-  return apiClient.get('/api/v1/metrics/prometheus', { responseType: 'text' });
+  return apiClient.get('/api/v1/metrics/prometheus', { params: { responseType: 'text' } } as any);
 }

@@ -7,7 +7,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { JsonViewer } from '@/components/shared/json-viewer';
 
 export function MetricsDashboard() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ analysis?: Record<string, unknown> }>({
     queryKey: ['metrics', 'all'],
     queryFn: () => apiClient.get('/api/v1/metrics'),
   });

@@ -7,7 +7,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { StatusBadge } from '@/components/shared/status-badge';
 
 export function GovernanceStatusPanel() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ total_packs?: number; registered_packs?: number; approved_packs?: number }>({
     queryKey: ['governance', 'status'],
     queryFn: () => apiClient.get('/api/v1/governance/status'),
   });

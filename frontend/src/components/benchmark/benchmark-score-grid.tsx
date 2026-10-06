@@ -6,7 +6,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function BenchmarkScoreGrid({ onSelect }: { onSelect?: (vendor: string) => void }) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ capabilities?: Record<string, { avg_score?: number; avg_capability_score?: number }> }>({
     queryKey: ['benchmark', 'dashboard'],
     queryFn: () => apiClient.get('/api/v1/benchmark/dashboard'),
   });

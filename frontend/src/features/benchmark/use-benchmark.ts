@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { runBenchmark, getBenchmarkSuite, getBenchmarkHistory } from '@/services/benchmark';
 import { useBenchmarkStore } from '@/features/benchmark/benchmark-store';
+import type { BenchmarkResult } from '@/types/benchmark';
 
 export function useBenchmark() {
   const queryClient = useQueryClient();
@@ -10,9 +11,9 @@ export function useBenchmark() {
   const setHeuristicScores = useBenchmarkStore((state) => state.setHeuristicScores);
 
   const runMutation = useMutation({
-    mutationFn: runBenchmark,
+    mutationFn: runBenchmark as () => Promise<{ results?: BenchmarkResult[] }>,
     onSuccess: (data) => {
-      setResults(data);
+      setResults(data.results ?? []);
       setHeuristicScores(data.results ?? []);
       queryClient.invalidateQueries({ queryKey: ['benchmark'] });
     },

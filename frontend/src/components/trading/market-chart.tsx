@@ -12,9 +12,10 @@ interface MarketChartProps {
 export function MarketChart({ symbol = 'BTCUSDT', data }: MarketChartProps) {
   const chartData = useMemo(() => {
     if (!data?.data) return [];
-    return data.data.timeframes.map((tf, idx) => ({
+    const inner = data.data;
+    return inner.timeframes.map((tf, idx) => ({
       timeframe: tf,
-      confidence: data.data.confidence * (0.8 + idx * 0.05),
+      confidence: inner.confidence * (0.8 + idx * 0.05),
     }));
   }, [data]);
 

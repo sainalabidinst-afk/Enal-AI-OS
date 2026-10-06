@@ -10,7 +10,7 @@ import { Loader2 } from 'lucide-react';
 
 export function PackForm() {
   const [form, setForm] = useState({ name: '', domain: '', capabilities: '', policy: '' });
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
 
   const mutation = useMutation({
     mutationFn: (payload: Record<string, unknown>) => apiClient.post('/api/v1/governance/packs', payload),

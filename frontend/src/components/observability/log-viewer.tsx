@@ -6,7 +6,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { JsonViewer } from '@/components/shared/json-viewer';
 
 export function LogViewer() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ analysis?: Array<{ id?: string; message?: string; timestamp?: string }> }>({
     queryKey: ['metrics', 'logs'],
     queryFn: () => apiClient.get('/api/v1/metrics'),
   });

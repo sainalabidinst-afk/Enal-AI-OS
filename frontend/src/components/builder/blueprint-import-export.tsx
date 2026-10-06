@@ -8,7 +8,7 @@ import { Loader2, Upload, Download } from 'lucide-react';
 
 export function BlueprintImportExport() {
   const fileRef = useRef<HTMLInputElement>(null);
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
 
   const importMutation = useMutation({
     mutationFn: (file: File) => {

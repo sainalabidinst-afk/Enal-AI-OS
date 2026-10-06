@@ -1,7 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { apiClient } from '@/lib/api-client';
 import { ConfirmationDialog } from '@/components/shared/confirmation-dialog';
+import { JsonViewer } from '@/components/shared/json-viewer';
 
 interface ProviderDetailModalProps {
   provider: string | null;
@@ -16,7 +19,7 @@ export function ProviderDetailModal({ provider, isOpen, onOpenChange }: Provider
     enabled: !!provider && isOpen,
   });
 
-  const providerData = provider ? data?.[provider] : null;
+  const providerData = provider ? (data as Record<string, { name?: string; status?: string; models?: string[] }> | undefined)?.[provider] : null;
 
   return (
     <ConfirmationDialog

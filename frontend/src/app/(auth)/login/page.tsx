@@ -12,7 +12,7 @@ export default function LoginPage() {
   const login = useAuthStore((state) => state.login);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const isLoading = useAuthStore((state) => state.isLoading);
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

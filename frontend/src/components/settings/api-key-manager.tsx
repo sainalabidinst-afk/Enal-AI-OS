@@ -11,10 +11,10 @@ import { Loader2, Plus, Trash2 } from 'lucide-react';
 export function ApiKeyManager() {
   const [name, setName] = useState('');
   const [scope, setScope] = useState('read');
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<Array<{ id: string; name: string; scope: string; key?: string }>>({
     queryKey: ['settings', 'api-keys'],
     queryFn: () => apiClient.get('/api/v1/settings/api-keys'),
   });

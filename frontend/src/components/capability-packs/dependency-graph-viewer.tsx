@@ -5,7 +5,7 @@ import { apiClient } from '@/lib/api-client';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function DependencyGraphViewer() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ capabilities?: Array<{ id: string; name: string }> }>({
     queryKey: ['capabilities'],
     queryFn: () => apiClient.get('/api/v1/capabilities'),
   });

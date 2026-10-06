@@ -1,7 +1,7 @@
 'use client';
 
 import { PerformanceSummary } from '@/components/trading/performance-summary';
-import { MarketChart } from '@/components/trading/market-chart';
+import { MarketFeedWidget } from '@/components/dashboard/market-feed-widget';
 import { StrategyPanel } from '@/components/trading/strategy-panel';
 import { TradeHistoryTable } from '@/components/trading/trade-history-table';
 import { RegimeBadge } from '@/components/trading/regime-badge';

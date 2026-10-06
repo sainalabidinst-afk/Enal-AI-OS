@@ -9,7 +9,7 @@ interface RegimeBadgeProps {
 }
 
 export function RegimeBadge({ symbol = 'BTCUSDT' }: RegimeBadgeProps) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ data?: { regime?: { regime: string; confidence: number } } }>({
     queryKey: ['trading', 'regime', symbol],
     queryFn: () => apiClient.get('/api/v1/trading/regime/live', { params: { symbol } }),
   });

@@ -17,7 +17,7 @@ const heuristics = [
 ];
 
 export function HeuristicTable() {
-  const { data } = useQuery({
+  const { data } = useQuery<Record<string, number>>({
     queryKey: ['benchmark', 'scores'],
     queryFn: () => apiClient.get('/api/v1/benchmark/capability-scores'),
   });

@@ -11,7 +11,7 @@ interface QualityGateDetailProps {
 }
 
 export function QualityGateDetail({ gateId }: QualityGateDetailProps) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ passed?: boolean }>({
     queryKey: ['governance', 'quality-gates', gateId],
     queryFn: () => apiClient.get(`/api/v1/governance/quality-gates/${gateId}`),
     enabled: !!gateId,

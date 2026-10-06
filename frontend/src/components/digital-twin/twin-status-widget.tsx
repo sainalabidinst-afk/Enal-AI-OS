@@ -7,7 +7,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function TwinStatusWidget() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ mirror_health?: string; twin_id?: string; active_simulations?: number; pending_adversarial_tests?: number; last_sync?: string; system_state_keys?: string[] }>({
     queryKey: ['twin', 'status'],
     queryFn: () => apiClient.get('/api/v1/twin/status'),
     refetchInterval: 5000,
@@ -47,7 +47,7 @@ export function TwinStatusWidget() {
           Last sync: {data?.last_sync || '—'}
         </span>
       </div>
-      {data?.system_state_keys?.length > 0 && (
+      {data?.system_state_keys && data.system_state_keys.length > 0 && (
         <p className="mt-2 text-xs text-text-secondary">
           State keys: {data.system_state_keys.slice(0, 10).join(', ')}
         </p>

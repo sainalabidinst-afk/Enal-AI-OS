@@ -14,7 +14,7 @@ export function MarketFeedWidget({ symbol = 'BTCUSDT' }: { symbol?: string }) {
 
   return (
     <div className="mt-4">
-      <MarketChart symbol={symbol} data={data} />
+      <MarketChart symbol={symbol} data={data as { data?: { confidence: number; timeframes: string[]; regimes: Record<string, { regime: string; confidence: number }> } } | undefined} />
     </div>
   );
 }

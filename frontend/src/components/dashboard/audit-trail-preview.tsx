@@ -6,7 +6,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { StatusBadge } from '@/components/shared/status-badge';
 
 export function AuditTrailPreview({ limit = 5 }: { limit?: number }) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ entries?: Array<{ id?: string; action?: string; timestamp?: string; user?: string }> }>({
     queryKey: ['audit'],
     queryFn: () => apiClient.get('/api/v1/governance/audit'),
   });

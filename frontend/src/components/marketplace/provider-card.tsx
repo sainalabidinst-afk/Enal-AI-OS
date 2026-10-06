@@ -1,6 +1,7 @@
 'use client';
 
 import { StatusBadge } from '@/components/shared/status-badge';
+import { ProviderStatusBadge } from './provider-status-badge';
 
 interface ProviderCardProps {
   name: string;

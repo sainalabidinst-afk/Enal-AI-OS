@@ -8,11 +8,11 @@ export function useNotifications() {
   const setNotifications = useNotificationStore((state) => state.setNotifications);
   const markRead = useNotificationStore((state) => state.markRead);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ entries?: Array<{ id: string; action: string; timestamp: string; user?: string }> }>({
     queryKey: ['notifications'],
-    queryFn: () => getAuditTrail(),
-    onSuccess: (data) => {
-      const notifications = (data?.entries ?? []).map((entry: { id: string; action: string; timestamp: string }) => ({
+    queryFn: () => getAuditTrail() as Promise<{ entries?: Array<{ id: string; action: string; timestamp: string; user?: string }> }>,
+    onSuccess: (data: { entries?: Array<{ id: string; action: string; timestamp: string; user?: string }> }) => {
+      const notifications = (data?.entries ?? []).map((entry: { id: string; action: string; timestamp: string; user?: string }) => ({
         id: entry.id,
         recipient: entry.user ?? 'system',
         message: entry.action,
@@ -22,10 +22,10 @@ export function useNotifications() {
       }));
       setNotifications(notifications);
     },
-  });
+  } as any);
 
-  const markReadMutation = useMutation({
-    mutationFn: (id: string) => markRead(id),
+  const markReadMutation = useMutation<void, Error, string>({
+    mutationFn: (id: string) => Promise.resolve(markRead(id)),
   });
 
   return {

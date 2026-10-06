@@ -6,7 +6,7 @@ import { PackCard } from './pack-card';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function PackList({ onSelect }: { onSelect?: (id: string) => void }) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ capabilities?: Array<{ id: string; name: string; description?: string; category?: string }> }>({
     queryKey: ['capabilities'],
     queryFn: () => apiClient.get('/api/v1/capabilities'),
   });

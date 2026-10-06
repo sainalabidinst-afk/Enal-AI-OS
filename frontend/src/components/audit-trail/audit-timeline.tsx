@@ -8,7 +8,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 const eventTypes = ['pack_register', 'evaluation_run', 'capability_execute'] as const;
 
 export function AuditTimeline() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ entries?: Array<{ id?: string; action?: string; timestamp?: string; user?: string }> }>({
     queryKey: ['audit', 'trail'],
     queryFn: () => apiClient.get('/api/v1/governance/audit'),
   });

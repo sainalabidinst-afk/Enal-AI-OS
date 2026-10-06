@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 
 export function BenchmarkRunner() {
   const queryClient = useQueryClient();
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
 
   const mutation = useMutation({
     mutationFn: () => apiClient.post('/api/v1/benchmark/run'),

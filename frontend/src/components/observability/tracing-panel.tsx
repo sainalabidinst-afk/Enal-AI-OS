@@ -6,7 +6,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { JsonViewer } from '@/components/shared/json-viewer';
 
 export function TracingPanel() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ cross_pack?: Array<{ id?: string; trace?: string }> }>({
     queryKey: ['metrics', 'tracing'],
     queryFn: () => apiClient.get('/api/v1/metrics'),
   });

@@ -10,7 +10,7 @@ import { Loader2, Mic, Square } from 'lucide-react';
 export function AgentConsole() {
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
   const queryClient = useQueryClient();
 
   const startMutation = useMutation({

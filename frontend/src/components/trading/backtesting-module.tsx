@@ -12,7 +12,7 @@ export function BacktestingModule({ symbol = 'BTCUSDT' }: { symbol?: string }) {
   const [capital, setCapital] = useState('10000');
   const [start, setStart] = useState('2026-01-01');
   const [end, setEnd] = useState('2026-10-06');
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
 
   const mutation = useMutation({
     mutationFn: () =>

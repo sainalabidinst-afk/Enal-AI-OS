@@ -6,7 +6,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function QualityGateList() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<Array<{ gate_id: string; pack_id: string; passed: boolean }>>({
     queryKey: ['governance', 'quality-gates'],
     queryFn: () => apiClient.get('/api/v1/governance/quality-gates'),
   });

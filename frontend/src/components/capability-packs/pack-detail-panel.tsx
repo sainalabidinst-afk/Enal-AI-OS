@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/lib/api-client';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { useToast } from '@/components/shared/toast';
@@ -13,9 +13,9 @@ interface PackDetailPanelProps {
 
 export function PackDetailPanel({ packId }: PackDetailPanelProps) {
   const [payload, setPayload] = useState('{}');
-  const addToast = useToast((state) => state.addToast);
+  const { addToast } = useToast();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ name?: string; category?: string; description?: string }>({
     queryKey: ['capability', packId],
     queryFn: () => apiClient.get(`/api/v1/capabilities/${packId}`),
     enabled: !!packId,

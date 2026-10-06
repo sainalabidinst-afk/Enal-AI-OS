@@ -10,9 +10,9 @@ export function AuditFilter() {
   const [packId, setPackId] = useState('');
   const [user, setUser] = useState('');
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ entries?: Array<{ id?: string; action?: string; timestamp?: string; user?: string }> }>({
     queryKey: ['audit', 'trail', packId, user],
-    queryFn: () => apiClient.get('/api/v1/governance/audit', { params: { pack_id: packId || undefined, user: user || undefined } }),
+    queryFn: () => apiClient.get('/api/v1/governance/audit', { params: { pack_id: packId as any, user: user as any } }),
   });
 
   if (isLoading) return <LoadingSkeleton className="mt-4 h-64 w-full" />;

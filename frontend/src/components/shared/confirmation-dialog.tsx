@@ -1,6 +1,7 @@
 'use client';
 
-import { type ReactNode, cn } from '@/lib/cn';
+import { type ReactNode } from 'react';
+import { cn } from '@/lib/cn';
 
 interface ConfirmationDialogProps {
   isOpen: boolean;

@@ -6,7 +6,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 import { LoadingSkeleton, CardSkeleton } from '@/components/shared/loading-skeleton';
 
 export function SystemHealthPanel() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ status?: string }>({
     queryKey: ['health'],
     queryFn: () => apiClient.get('/api/v1/health'),
   });

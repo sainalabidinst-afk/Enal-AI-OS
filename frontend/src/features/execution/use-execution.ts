@@ -9,7 +9,7 @@ export function useExecution(capabilityId: string) {
   const addExecution = useExecutionStore((state) => state.addExecution);
 
   const executeMutation = useMutation({
-    mutationFn: (payload: { message: string; workspace_id?: string }) => executeCapability(capabilityId, payload),
+    mutationFn: (payload: { message: string; workspace_id?: string }) => executeCapability(capabilityId, payload) as Promise<{ executionId?: string; conversationId?: string; workspaceId?: string }>,
     onSuccess: (data) => {
       addExecution({
         executionId: data.executionId ?? Date.now().toString(),

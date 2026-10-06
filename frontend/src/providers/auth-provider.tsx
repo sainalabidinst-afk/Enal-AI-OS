@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/auth-store';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchMe = useAuthStore((state) => state.fetchMe);
-  const token = useAuthStore((state) => token);
+  const token = useAuthStore((state) => state.token);
 
   useEffect(() => {
     if (token) {

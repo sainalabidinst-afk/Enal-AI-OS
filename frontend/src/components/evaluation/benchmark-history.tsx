@@ -5,7 +5,7 @@ import { apiClient } from '@/lib/api-client';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function BenchmarkHistory() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<Array<{ id?: string; created_at?: string; summary?: string }>>({
     queryKey: ['benchmark', 'history'],
     queryFn: () => apiClient.get('/api/v1/benchmark/history'),
   });

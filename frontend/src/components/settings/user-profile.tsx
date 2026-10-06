@@ -5,7 +5,7 @@ import { apiClient } from '@/lib/api-client';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function UserProfile() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ username?: string; roles?: string[]; permissions?: string[] }>({
     queryKey: ['auth', 'me'],
     queryFn: () => apiClient.get('/api/v1/auth/me'),
   });

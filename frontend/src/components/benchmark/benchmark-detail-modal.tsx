@@ -1,7 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { apiClient } from '@/lib/api-client';
 import { ConfirmationDialog } from '@/components/shared/confirmation-dialog';
+import { JsonViewer } from '@/components/shared/json-viewer';
 
 interface BenchmarkDetailModalProps {
   benchmarkId: string | null;

@@ -10,7 +10,7 @@ export function CausalTraceViewer() {
   const [conditions, setConditions] = useState('{}');
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  const mutation = useMutation<{ causal_effect?: number; confidence?: number; counterfactual?: string }>({
     mutationFn: () =>
       apiClient.post('/api/v1/twin/causal-trace', {
         treatment,
@@ -84,7 +84,7 @@ export function CausalTraceViewer() {
                 {mutation.data?.causal_effect?.toFixed(4) ?? '—'}
               </span>
               <span className="text-xs text-text-secondary">
-                Confidence: {(mutation.data?.confidence * 100)?.toFixed(1) ?? 0}%
+                Confidence: {((mutation.data?.confidence ?? 0) * 100)?.toFixed(1)}%
               </span>
             </div>
             {mutation.data?.counterfactual && (

@@ -10,7 +10,7 @@ interface PackProgressionPanelProps {
 }
 
 export function PackProgressionPanel({ packId }: PackProgressionPanelProps) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ stages?: Array<{ stage: string; status: string; timestamp?: string; note?: string }> }>({
     queryKey: ['governance', 'packs', packId, 'progression'],
     queryFn: () => apiClient.get(`/api/v1/governance/packs/${packId}/progression`),
     enabled: !!packId,

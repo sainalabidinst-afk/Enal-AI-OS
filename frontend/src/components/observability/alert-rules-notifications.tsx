@@ -6,7 +6,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { StatusBadge } from '@/components/shared/status-badge';
 
 export function AlertRulesNotifications() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ trading_regime?: Array<{ event_id?: string; symbol?: string; regime?: string; confidence?: number; status?: string }> }>({
     queryKey: ['metrics', 'alerts'],
     queryFn: () => apiClient.get('/api/v1/metrics/alerts'),
   });

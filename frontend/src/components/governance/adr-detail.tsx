@@ -10,7 +10,7 @@ interface ADRDetailProps {
 }
 
 export function ADRDetail({ adrId }: ADRDetailProps) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<{ title?: string; status?: string }>({
     queryKey: ['governance', 'adr', adrId],
     queryFn: () => apiClient.get(`/api/v1/governance/adr/${adrId}`),
     enabled: !!adrId,
