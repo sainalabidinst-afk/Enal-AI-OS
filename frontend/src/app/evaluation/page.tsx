@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { apiClient } from '@/lib/api-client';
 import { MetricsCard } from '@/components/shared/metrics-card';
 import { BenchmarkRunner } from '@/components/evaluation/benchmark-runner';
 import { HeuristicTable } from '@/components/evaluation/heuristic-table';
@@ -10,7 +11,7 @@ import { BenchmarkHistory } from '@/components/evaluation/benchmark-history';
 export default function EvaluationPage() {
   const { data: scores, isLoading: scoresLoading } = useQuery({
     queryKey: ['benchmark', 'scores'],
-    queryFn: () => fetch('/api/v1/benchmark/capability-scores').then((r) => r.json()),
+    queryFn: () => apiClient.get('/api/v1/benchmark/capability-scores'),
   });
 
   return (
