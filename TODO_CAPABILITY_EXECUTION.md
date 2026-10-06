@@ -1666,7 +1666,7 @@ Arsitektur lengkap dan status komponen ada di [`README.md`](README.md) → "Arsi
   - [ ] **React Native Testing** — Test on Android emulator, Firebase Test Lab, QA checklist.
   - [x] **Native Android Stage 3** — Kotlin/Jetpack Compose project (`enal-ai-os-android/`), networking/auth/chat modules (`ChatViewModel` + `ChatScreen`), native STT/TTS, Consent Manager, offline AI placeholder, observability bootstrap, Pilar 3 RFC (`RFC-0054`), design notes, Android Studio handoff checklist.
   - [ ] **Robotics & Edge AI Stage 4** — Pillar 1 RFC (`RFC-0056`), design notes, Edge Runtime, ROS 2 Connector, Vision Engine, Smart Agri Connector.
-  - [ ] **Decision Intelligence & Digital Twin Stage 5** — Pillar 2 RFC (`RFC-0057`), design notes, Digital Twin Engine, Scenario Simulator, Red Team Agent, Causal Reasoner.
+   - [x] **Decision Intelligence & Digital Twin Stage 5** — Pillar 2 RFC (`RFC-0057`), design notes, Digital Twin Engine, Scenario Simulator, Red Team Agent, Causal Reasoner.
   - [x] **Self-Evolving Platform Stage 6** — Pillar 4 RFC (`RFC-0055`), design notes, Autonomous Capability Generator, Self-Healing Infrastructure, Federated Memory.
 
   ### 🎯 End-to-End Scenario — Complex Multi-Modal Multi-Connector

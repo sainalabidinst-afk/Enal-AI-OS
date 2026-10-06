@@ -103,6 +103,7 @@ APPS = {
     "translator-expert": _load_app("translator_expert"),
     "document-processing": _load_app("document_processing"),
     "voice-interaction": _load_app("voice_interaction"),
+    "digital-twin-engine": _load_app("digital_twin_engine"),
 }
 
 

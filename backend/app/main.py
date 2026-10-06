@@ -17,6 +17,7 @@ from .api import (
     capability_execution,
     capability_lifecycle,
     chat,
+    digital_twin,
     ecosystem,
     end_to_end,
     execution,
@@ -191,6 +192,7 @@ app.include_router(marketplace.router, prefix=settings.API_V1_STR, tags=["market
 app.include_router(a2a_mcp.router, prefix=settings.API_V1_STR, tags=["a2a-mcp"])
 app.include_router(bulk_evaluation.router, prefix=settings.API_V1_STR, tags=["bulk-evaluation"])
 app.include_router(end_to_end.router, prefix=settings.API_V1_STR, tags=["end-to-end"])
+app.include_router(digital_twin.router, prefix=settings.API_V1_STR, tags=["digital-twin"])
 
 
 @app.on_event("startup")
