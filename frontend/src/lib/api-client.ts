@@ -1,5 +1,22 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
+function setCookie(name: string, value: string, days = 7) {
+  if (typeof document === 'undefined') return;
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
+function deleteCookie(name: string) {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax`;
+}
+
+function getCookie(name: string): string | null {
+  if (typeof document === 'undefined') return null;
+  const value = document.cookie.split('; ').find((row) => row.startsWith(`${name}=`));
+  return value ? decodeURIComponent(value.split('=')[1]) : null;
+}
+
 export class ApiClient {
   private baseUrl: string;
   private token: string | null = null;
@@ -7,18 +24,19 @@ export class ApiClient {
   constructor(baseUrl: string = API_BASE_URL) {
     this.baseUrl = baseUrl;
     if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('access_token');
+      this.token = getCookie('access_token') || localStorage.getItem('access_token');
     }
   }
 
   setToken(token: string | null) {
     this.token = token;
-    if (typeof window !== 'undefined') {
-      if (token) {
-        localStorage.setItem('access_token', token);
-      } else {
-        localStorage.removeItem('access_token');
-      }
+    if (typeof window === 'undefined') return;
+    if (token) {
+      localStorage.setItem('access_token', token);
+      setCookie('access_token', token);
+    } else {
+      localStorage.removeItem('access_token');
+      deleteCookie('access_token');
     }
   }
 
