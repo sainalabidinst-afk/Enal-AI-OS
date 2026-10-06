@@ -2,11 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import { Suspense } from 'react';
 import { apiClient } from '@/lib/api-client';
 import { JsonViewer } from '@/components/shared/json-viewer';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
-export default function SearchPage() {
+function SearchResults() {
   const searchParams = useSearchParams();
   const q = searchParams.get('q') ?? '';
 
@@ -28,5 +29,13 @@ export default function SearchPage() {
         <JsonViewer data={data} />
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<LoadingSkeleton className="h-64 w-full" />}>
+      <SearchResults />
+    </Suspense>
   );
 }
