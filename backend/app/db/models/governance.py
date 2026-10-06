@@ -20,7 +20,7 @@ class PackModel(Base):
     coverage = Column(Float, default=0.0)
     tests_passed = Column(Integer, default=0)
     tests_total = Column(Integer, default=0)
-    metadata = Column(JSON, default=dict)
+    pack_metadata = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -35,7 +35,7 @@ class PackModel(Base):
             coverage=self.coverage,
             tests_passed=self.tests_passed,
             tests_total=self.tests_total,
-            metadata=self.metadata or {},
+            metadata=self.pack_metadata or {},
             created_at=self.created_at,
             updated_at=self.updated_at,
         )
@@ -51,7 +51,7 @@ class PackModel(Base):
             coverage=record.coverage,
             tests_passed=record.tests_passed,
             tests_total=record.tests_total,
-            metadata=record.metadata,
+            pack_metadata=record.metadata,
             created_at=record.created_at,
             updated_at=record.updated_at,
         )

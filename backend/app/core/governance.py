@@ -218,7 +218,7 @@ class GovernanceEngine:
                 model.coverage = pack.coverage
                 model.tests_passed = pack.tests_passed
                 model.tests_total = pack.tests_total
-                model.metadata = pack.metadata
+                model.pack_metadata = pack.metadata
                 model.updated_at = pack.updated_at
             else:
                 model = PackModel.from_record(pack)

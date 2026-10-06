@@ -1,15 +1,31 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/lib/api-client';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
+import { useToast } from '@/components/shared/toast';
+import { Loader2, Play } from 'lucide-react';
+import { useState } from 'react';
 
 export function RedTeamAuditTab() {
+  const [subject, setSubject] = useState('');
+  const queryClient = useQueryClient();
+  const { addToast } = useToast();
+
   const { data, isLoading } = useQuery<{ audits?: Array<Record<string, unknown>> }>({
     queryKey: ['twin', 'audit'],
     queryFn: () => apiClient.get('/api/v1/twin/audit'),
     refetchInterval: 10000,
+  });
+
+  const runMutation = useMutation({
+    mutationFn: () => apiClient.post('/api/v1/twin/red-team', { subject: subject || 'plan', subject_type: 'plan' }),
+    onSuccess: () => {
+      addToast('success', 'Red team test executed');
+      queryClient.invalidateQueries({ queryKey: ['twin', 'audit'] });
+    },
+    onError: () => addToast('error', 'Red team test failed'),
   });
 
   if (isLoading) {
@@ -25,10 +41,23 @@ export function RedTeamAuditTab() {
 
   return (
     <div className="rounded-lg border border-border bg-surface-secondary p-4">
-      <h3 className="text-sm font-semibold">Red Team Audit</h3>
-      <p className="mt-1 text-xs text-text-secondary">
-        Recent adversarial test results against plans, strategies, and decisions.
-      </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-sm font-semibold">Red Team Audit</h3>
+          <p className="mt-1 text-xs text-text-secondary">
+            Recent adversarial test results against plans, strategies, and decisions.
+          </p>
+        </div>
+        <button
+          onClick={() => runMutation.mutate()}
+          disabled={runMutation.isPending}
+          className="flex items-center gap-2 rounded-md bg-primary px-3 py-1.5 text-xs text-white hover:bg-primary-hover disabled:opacity-70"
+        >
+          {runMutation.isPending && <Loader2 size={14} className="animate-spin" />}
+          <Play size={14} />
+          Run Red Team
+        </button>
+      </div>
       {audits.length === 0 ? (
         <p className="mt-4 text-xs text-text-secondary">No audits yet. Run a red team test to see results.</p>
       ) : (
