@@ -18,7 +18,7 @@ export interface AuthUser {
 }
 
 export async function login(username: string, password: string) {
-  return apiClient.post<LoginResponse>('/api/v1/auth/login', { username, password });
+  return apiClient.postForm<LoginResponse>('/api/v1/auth/login', { username, password });
 }
 
 export async function getMe() {

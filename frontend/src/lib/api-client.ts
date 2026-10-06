@@ -92,6 +92,31 @@ export class ApiClient {
     return response.json();
   }
 
+  async postForm<T>(path: string, formData: Record<string, string | number | boolean>): Promise<T> {
+    const searchParams = new URLSearchParams();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        searchParams.append(key, String(value));
+      }
+    });
+
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: 'POST',
+      headers: {
+        ...this.getHeaders(),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: searchParams.toString(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: response.statusText }));
+      throw new Error(error.detail || `POST ${path} failed`);
+    }
+
+    return response.json();
+  }
+
   async put<T>(path: string, body?: unknown, options?: RequestInit): Promise<T> {
     const response = await fetch(`${this.baseUrl}${path}`, {
       ...options,
