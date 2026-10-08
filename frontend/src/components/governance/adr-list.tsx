@@ -11,7 +11,7 @@ export function ADRList() {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
-  const { data, isLoading } = useQuery<Array<{ id: string; title: string; status: string }>>({
+  const { data, isLoading } = useQuery<{ packs?: Array<{ pack_id: string; name: string; status: string }> }>({
     queryKey: ['governance', 'adr'],
     queryFn: () => apiClient.get('/api/v1/packs'),
   });
@@ -25,7 +25,7 @@ export function ADRList() {
     onError: () => addToast('error', 'Failed to refresh ADR list'),
   });
 
-  const adrs = data ?? [];
+  const adrs = data?.packs ?? [];
 
   return (
     <div className="mt-4 space-y-2">
@@ -45,11 +45,11 @@ export function ADRList() {
           No ADR entries found.
         </div>
       ) : (
-        adrs.map((adr: { id: string; title: string; status: string }) => (
-          <div key={adr.id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
+        adrs.map((adr: { pack_id: string; name: string; status: string }) => (
+          <div key={adr.pack_id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
             <div>
-              <p className="text-sm font-medium">{adr.title}</p>
-              <p className="text-xs text-text-muted">{adr.id}</p>
+              <p className="text-sm font-medium">{adr.name}</p>
+              <p className="text-xs text-text-muted">{adr.pack_id}</p>
             </div>
             <StatusBadge status="info" label={adr.status} />
           </div>

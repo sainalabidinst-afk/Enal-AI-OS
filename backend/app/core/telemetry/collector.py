@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from datetime import datetime
 from pathlib import Path
@@ -14,13 +15,18 @@ from backend.app.core.telemetry.models import (
     ReasoningEvent,
 )
 
+logger = logging.getLogger(__name__)
+
 
 class TelemetryCollector:
     def __init__(self, base_dir: str | None = None) -> None:
         if base_dir is None:
             base_dir = os.path.join(os.getcwd(), "telemetry")
         self.base_dir = Path(base_dir)
-        self.base_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            self.base_dir.mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            logger.warning("TelemetryCollector directory %s is not writable; running in read-only mode", self.base_dir)
         self._files: dict[str, Any] = {}
 
     def _path(self, event_type: EventType | str) -> Path:

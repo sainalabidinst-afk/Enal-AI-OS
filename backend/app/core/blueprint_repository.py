@@ -22,7 +22,10 @@ class BlueprintRepository:
 
     def __init__(self, storage_path: str | Path = "data/blueprints") -> None:
         self.storage_path = Path(storage_path)
-        self.storage_path.mkdir(parents=True, exist_ok=True)
+        try:
+            self.storage_path.mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            logger.warning("BlueprintRepository directory %s is not writable; running in read-only mode", self.storage_path)
         self._agents: dict[str, dict[str, Any]] = {}
         self._tools: dict[str, dict[str, Any]] = {}
         self._load()

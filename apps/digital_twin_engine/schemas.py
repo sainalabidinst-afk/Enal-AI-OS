@@ -68,7 +68,7 @@ class SimulationResult(BaseModel):
     parameters: dict[str, Any] = Field(default_factory=dict, description="Parameters used")
     iterations: int = Field(default=100, description="Iterations executed")
     success: bool = Field(default=False, description="Whether simulation succeeded")
-    outcomes: list[dict[str, Any]] = Field(default_factory=list, description="Simulation outcomes")
+    outcomes: dict[str, Any] | list[dict[str, Any]] = Field(default_factory=dict, description="Simulation outcomes")
     statistics: dict[str, Any] = Field(default_factory=dict, description="Computed statistics")
     recommended_action: str = Field(
         default="proceed", description="Recommended action from simulation"

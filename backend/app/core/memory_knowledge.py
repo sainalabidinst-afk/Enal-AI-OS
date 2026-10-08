@@ -12,7 +12,10 @@ class KnowledgeMemory:
 
     def __init__(self, base_path: str = "./workspace/memory/knowledge"):
         self.base_path = Path(base_path)
-        self.base_path.mkdir(parents=True, exist_ok=True)
+        try:
+            self.base_path.mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            logger.warning("KnowledgeMemory directory %s is not writable; running in read-only mode", self.base_path)
         self._index: dict[str, list[str]] = {}
         self._load_from_disk()
 

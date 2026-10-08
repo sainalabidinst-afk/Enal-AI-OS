@@ -14,7 +14,7 @@ export function ApiKeyManager() {
   const { addToast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery<Array<{ id: string; name: string; scope: string; key?: string }>>({
+  const { data, isLoading } = useQuery<{ keys: Array<{ id: string; name: string; scope: string; key?: string }> }>({
     queryKey: ['settings', 'api-keys'],
     queryFn: () => apiClient.get('/api/v1/settings/api-keys'),
   });
@@ -46,7 +46,7 @@ export function ApiKeyManager() {
 
   if (isLoading) return <LoadingSkeleton className="mt-4 h-64 w-full" />;
 
-  const keys = data ?? [];
+  const keys = data?.keys ?? [];
 
   return (
     <div className="mt-4 space-y-4">

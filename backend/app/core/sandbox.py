@@ -35,7 +35,10 @@ class SandboxExecution:
 class SandboxRuntime:
     def __init__(self, base_path: str = "./workspace/sandbox"):
         self.base_path = Path(base_path)
-        self.base_path.mkdir(parents=True, exist_ok=True)
+        try:
+            self.base_path.mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            logger.warning("SandboxRuntime directory %s is not writable; running in read-only mode", self.base_path)
         self._allowed_tools: list[str] = []
         self._max_execution_time = 30
 

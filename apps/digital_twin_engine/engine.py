@@ -133,13 +133,13 @@ class DigitalTwinEngine:
             )
 
             result: SimulationResult = self.scenario_engine.run_simulation(request)
-            stats = result.statistics or {}
+            stats = result.to_dict().get("distribution", {})
             return DT_SimulationResult(
                 simulation_id=str(uuid.uuid4()),
                 scenario=scenario,
                 parameters=parameters,
                 iterations=iterations,
-                success=result.status == "completed",
+                success=result.iterations_run > 0,
                 outcomes=result.outcomes,
                 statistics=stats,
                 recommended_action=stats.get("recommended_action", "proceed"),

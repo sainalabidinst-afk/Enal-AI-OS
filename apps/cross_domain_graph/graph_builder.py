@@ -46,7 +46,10 @@ class GraphBuilder:
         extractor: EdgeExtractor | None = None,
     ) -> None:
         self.persist_path = Path(persist_path)
-        self.persist_path.mkdir(parents=True, exist_ok=True)
+        try:
+            self.persist_path.mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            logger.warning("GraphBuilder directory %s is not writable; running in read-only mode", self.persist_path)
         self._resolver = resolver or EntityResolver()
         self._extractor = extractor or EdgeExtractor(self._resolver)
 

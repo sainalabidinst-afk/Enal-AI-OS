@@ -11,7 +11,7 @@ export function QualityGateList() {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
-  const { data, isLoading } = useQuery<Array<{ gate_id: string; pack_id: string; passed: boolean }>>({
+  const { data, isLoading } = useQuery<{ packs?: Array<{ pack_id: string; name: string; status: string; benchmark_score?: number; coverage?: number }> }>({
     queryKey: ['governance', 'quality-gates'],
     queryFn: () => apiClient.get('/api/v1/packs'),
   });
@@ -25,7 +25,7 @@ export function QualityGateList() {
     onError: () => addToast('error', 'Quality gate evaluation failed'),
   });
 
-  const gates = data ?? [];
+  const gates = data?.packs ?? [];
 
   return (
     <div className="mt-4 space-y-2">
@@ -40,13 +40,13 @@ export function QualityGateList() {
           Run Quality Gate Check
         </button>
       </div>
-      {gates.map((gate: { gate_id: string; pack_id: string; passed: boolean }) => (
-        <div key={gate.gate_id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
+      {gates.map((gate: { pack_id: string; name: string; status: string; benchmark_score?: number; coverage?: number }) => (
+        <div key={gate.pack_id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
           <div>
-            <p className="text-sm font-medium">{gate.gate_id}</p>
+            <p className="text-sm font-medium">{gate.name}</p>
             <p className="text-xs text-text-muted">Pack: {gate.pack_id}</p>
           </div>
-          <StatusBadge status={gate.passed ? 'success' : 'danger'} label={gate.passed ? 'Pass' : 'Fail'} />
+          <StatusBadge status={gate.status === 'approved' ? 'success' : 'warning'} label={gate.status} />
         </div>
       ))}
     </div>

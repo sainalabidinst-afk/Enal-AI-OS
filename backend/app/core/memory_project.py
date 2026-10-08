@@ -12,7 +12,10 @@ class ProjectMemory:
 
     def __init__(self, base_path: str = "./workspace/memory/project"):
         self.base_path = Path(base_path)
-        self.base_path.mkdir(parents=True, exist_ok=True)
+        try:
+            self.base_path.mkdir(parents=True, exist_ok=True)
+        except PermissionError:
+            logger.warning("ProjectMemory directory %s is not writable; running in read-only mode", self.base_path)
 
     async def store(
         self,
