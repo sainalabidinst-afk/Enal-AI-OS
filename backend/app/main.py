@@ -31,7 +31,6 @@ from .api import (
     orchestrator_v2,
     phase3,
     self_development,
-    settings as settings_api,
     telemetry,
     trading,
     voice,
@@ -39,6 +38,9 @@ from .api import (
 )
 from .api import (
     consent as consent_api,
+)
+from .api import (
+    settings as settings_api,
 )
 from .core.config import settings
 
@@ -272,6 +274,31 @@ async def seed_default_security_policies():
         logger.info("Seeded default security policy for test user")
     except Exception as e:
         logger.warning("Failed to seed default security policies: %s", e)
+
+
+@app.on_event("startup")
+async def register_rea_mcp_server():
+    """Register the morluto/rea MCP server on startup."""
+    try:
+        from backend.app.core.mcp_tool_registry import mcp_tool_registry
+
+        existing = [
+            s
+            for s in mcp_tool_registry.list_servers()
+            if s.get("name") == "Reverse Engineer Anything (morluto)"
+        ]
+        if existing:
+            logger.info("REA MCP server already registered")
+            return
+        mcp_tool_registry.register_server(
+            name="Reverse Engineer Anything (morluto)",
+            command="npx",
+            args=["-y", "rea-agents@latest", "mcp"],
+            env={"NODE_ENV": "production"},
+        )
+        logger.info("Registered REA MCP server: reverse-engineer")
+    except Exception as e:
+        logger.warning("Failed to register REA MCP server: %s", e)
 
 
 @app.get("/")
