@@ -441,6 +441,7 @@ python scripts/gate0_validate.py   # Validasi pre-merge
 | **Translator Expert** | ✅ Platform Services Pack | A (≥90) | RFC-0041/ADR-021 |
 | **Document Processing** | ✅ Productivity Pack | A (≥90) | RFC-0042/ADR-022 |
 | **Voice Interaction** | ✅ Platform Professional | A (≥90) | RFC-0043/ADR-026 |
+| **Reverse Engineer** | ✅ Production Ready | A+ (≥95) | RFC-0046/ADR-027 |
 
 ### Membangun Capability Pack Baru
 
