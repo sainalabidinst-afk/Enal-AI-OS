@@ -10,6 +10,8 @@ RUN npm install
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+ARG NEXT_API_PROXY_URL=http://localhost:8000
+ENV NEXT_API_PROXY_URL=$NEXT_API_PROXY_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 

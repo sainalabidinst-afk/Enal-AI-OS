@@ -73,8 +73,9 @@ class DigitalTwinWorker:
                 treatment=treatment, outcome=outcome, conditions=conditions
             )
             return result.model_dump()
-        status = self._engine.get_status()
-        return status.model_dump()
+        if action == "status":
+            return self._engine.get_status().model_dump()
+        raise ValueError(f"Unsupported digital twin action: {action}")
 
     def execute_sync(self, task: dict[str, Any]) -> dict[str, Any]:
         """Synchronous variant for non-async contexts."""

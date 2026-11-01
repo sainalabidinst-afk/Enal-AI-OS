@@ -6,10 +6,13 @@ type Theme = 'dark' | 'light';
 
 interface UIState {
   sidebarCollapsed: boolean;
+  mobileNavOpen: boolean;
   theme: Theme;
   activeModule: string;
   isOnline: boolean;
   toggleSidebar: () => void;
+  toggleMobileNav: () => void;
+  closeMobileNav: () => void;
   setTheme: (theme: Theme) => void;
   setActiveModule: (module: string) => void;
   setIsOnline: (online: boolean) => void;
@@ -18,12 +21,18 @@ interface UIState {
 
 export const useUIStore = create<UIState>((set) => ({
   sidebarCollapsed: false,
+  mobileNavOpen: false,
   theme: 'dark',
   activeModule: 'dashboard',
   isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
 
   toggleSidebar: () =>
     set((state) => ({ sidebarCollapsed: !state.sidebarCollapsed })),
+
+  toggleMobileNav: () =>
+    set((state) => ({ mobileNavOpen: !state.mobileNavOpen })),
+
+  closeMobileNav: () => set({ mobileNavOpen: false }),
 
   setTheme: (theme) => {
     if (typeof window !== 'undefined') {

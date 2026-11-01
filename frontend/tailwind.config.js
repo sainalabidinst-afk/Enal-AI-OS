@@ -12,6 +12,11 @@ module.exports = {
         success: 'var(--color-success)',
         warning: 'var(--color-warning)',
         danger: 'var(--color-danger)',
+        text: {
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+          muted: 'var(--color-text-muted)',
+        },
         surface: {
           primary: 'var(--color-bg-primary)',
           secondary: 'var(--color-bg-secondary)',

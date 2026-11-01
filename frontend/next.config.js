@@ -21,6 +21,15 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    const apiTarget = process.env.NEXT_API_PROXY_URL || 'http://localhost:8000';
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${apiTarget}/api/:path*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

@@ -54,18 +54,19 @@ Each app uses:
 """
 
 from importlib import import_module
-from typing import Any
+
+from apps.base import BaseReferenceApp
 
 
-def _load_app(name: str) -> Any | None:
-    try:
-        module = import_module(f"apps.{name}")
-        return module.get_app()
-    except Exception:
-        return None
+def _load_app(name: str) -> BaseReferenceApp:
+    module = import_module(f"apps.{name}")
+    app = module.get_app()
+    if not isinstance(app, BaseReferenceApp):
+        raise TypeError(f"Capability app '{name}' does not implement BaseReferenceApp")
+    return app
 
 
-APPS = {
+APPS: dict[str, BaseReferenceApp] = {
     "trading-analyst": _load_app("trading_analyst"),
     "network-engineer": _load_app("network_engineer"),
     "devops-assistant": _load_app("devops_assistant"),
@@ -107,7 +108,7 @@ APPS = {
 }
 
 
-def get_app(name: str) -> Any | None:
+def get_app(name: str) -> BaseReferenceApp | None:
     """Get a reference application by name."""
     return APPS.get(name)
 
@@ -122,7 +123,6 @@ def list_apps() -> list[dict[str, str]]:
             "category": app.category,
         }
         for app in APPS.values()
-        if app is not None
     ]
 
 

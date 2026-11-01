@@ -220,9 +220,10 @@ class Aggregator:
     def chat_kpis(self) -> dict[str, Any]:
         events = self._chat_events
         if not events:
-            return {"total_messages": 0, "avg_latency_ms": 0.0}
+            return {"total_messages": 0, "total_characters": 0, "avg_latency_ms": 0.0}
         return {
-            "total_messages": sum(e["message_length"] for e in events),
+            "total_messages": len(events),
+            "total_characters": sum(e["message_length"] for e in events),
             "avg_latency_ms": round(
                 sum(e["total_time_ms"] for e in events) / max(len(events), 1), 2
             ),  # noqa: E501

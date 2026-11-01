@@ -16,7 +16,7 @@ export default function GovernancePage() {
 
       <section className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-lg border border-border bg-surface-secondary p-4">
-          <h3 className="text-sm font-semibold">ADR List</h3>
+          <h3 className="text-sm font-semibold">Registered Packs</h3>
           <ADRList />
         </div>
         <div className="rounded-lg border border-border bg-surface-secondary p-4">

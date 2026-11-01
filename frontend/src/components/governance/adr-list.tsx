@@ -20,9 +20,9 @@ export function ADRList() {
     mutationFn: () => apiClient.get('/api/v1/packs'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['governance', 'adr'] });
-      addToast('success', 'ADR list refreshed');
+      addToast('success', 'Pack list refreshed');
     },
-    onError: () => addToast('error', 'Failed to refresh ADR list'),
+    onError: () => addToast('error', 'Failed to refresh pack list'),
   });
 
   const adrs = data?.packs ?? [];
@@ -37,7 +37,7 @@ export function ADRList() {
         >
           {evaluateMutation.isPending && <Loader2 size={14} className="animate-spin" />}
           <Play size={14} />
-          Run ADR Check
+          Refresh Pack List
         </button>
       </div>
       {!adrs.length ? (

@@ -14,6 +14,8 @@ def _install_fake_sqlalchemy(monkeypatch):
     fake_sqlalchemy.ext.declarative.declarative_base = lambda: fake_base
     fake_sqlalchemy.orm = types.ModuleType("sqlalchemy.orm")
     fake_sqlalchemy.orm.sessionmaker = lambda *a, **k: fake_sessionmaker
+    fake_sqlalchemy.pool = types.ModuleType("sqlalchemy.pool")
+    fake_sqlalchemy.pool.StaticPool = type("StaticPool", (), {})
 
     for mod in list(sys.modules):
         if mod == "sqlalchemy" or mod.startswith("sqlalchemy."):
@@ -22,6 +24,7 @@ def _install_fake_sqlalchemy(monkeypatch):
     monkeypatch.setitem(sys.modules, "sqlalchemy.ext", fake_sqlalchemy.ext)
     monkeypatch.setitem(sys.modules, "sqlalchemy.ext.declarative", fake_sqlalchemy.ext.declarative)
     monkeypatch.setitem(sys.modules, "sqlalchemy.orm", fake_sqlalchemy.orm)
+    monkeypatch.setitem(sys.modules, "sqlalchemy.pool", fake_sqlalchemy.pool)
 
     return fake_engine, fake_sessionmaker, fake_base
 

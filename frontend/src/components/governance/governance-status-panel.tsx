@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/lib/api-client';
+import { getGovernanceStatus } from '@/services/governance';
 import { MetricsCard } from '@/components/shared/metrics-card';
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { StatusBadge } from '@/components/shared/status-badge';
@@ -12,18 +12,18 @@ export function GovernanceStatusPanel() {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
-  const { data, isLoading } = useQuery<{ total_packs?: number; registered_packs?: number; approved_packs?: number }>({
+  const { data } = useQuery({
     queryKey: ['governance', 'status'],
-    queryFn: () => apiClient.get('/api/v1/packs'),
+    queryFn: getGovernanceStatus,
   });
 
   const checkMutation = useMutation({
-    mutationFn: () => apiClient.get('/api/v1/packs'),
+    mutationFn: getGovernanceStatus,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['governance', 'status'] });
-      addToast('success', 'Governance check completed');
+      addToast('success', 'Governance status refreshed');
     },
-    onError: () => addToast('error', 'Governance check failed'),
+    onError: () => addToast('error', 'Failed to refresh governance status'),
   });
 
   return (
@@ -41,7 +41,7 @@ export function GovernanceStatusPanel() {
         >
           {checkMutation.isPending && <Loader2 size={14} className="animate-spin" />}
           <Play size={14} />
-          Run Governance Check
+          Refresh Status
         </button>
       </div>
     </div>

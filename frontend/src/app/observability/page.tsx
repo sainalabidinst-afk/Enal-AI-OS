@@ -26,7 +26,7 @@ export default function ObservabilityPage() {
         </div>
       </section>
 
-      <section className="rounded-lg border border-border bg-surface-secondary p-4">
+      <section id="alerts" className="rounded-lg border border-border bg-surface-secondary p-4">
         <h3 className="text-sm font-semibold">Alert Rules & Notifications</h3>
         <AlertRulesNotifications />
       </section>

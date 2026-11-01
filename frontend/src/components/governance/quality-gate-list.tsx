@@ -20,9 +20,9 @@ export function QualityGateList() {
     mutationFn: () => apiClient.get('/api/v1/packs'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['governance', 'quality-gates'] });
-      addToast('success', 'Quality gates evaluated');
+      addToast('success', 'Pack quality data refreshed');
     },
-    onError: () => addToast('error', 'Quality gate evaluation failed'),
+    onError: () => addToast('error', 'Failed to refresh pack quality data'),
   });
 
   const gates = data?.packs ?? [];
@@ -37,7 +37,7 @@ export function QualityGateList() {
         >
           {evaluateMutation.isPending && <Loader2 size={14} className="animate-spin" />}
           <Play size={14} />
-          Run Quality Gate Check
+          Refresh Quality Data
         </button>
       </div>
       {gates.map((gate: { pack_id: string; name: string; status: string; benchmark_score?: number; coverage?: number }) => (

@@ -10,7 +10,7 @@ export function MarketFeedWidget({ symbol = 'BTCUSDT' }: { symbol?: string }) {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['trading', 'analysis', symbol],
     queryFn: () => apiClient.post<{ success: boolean; data?: Record<string, unknown>; error?: string }>('/api/v1/trading/analyze', { symbol, timeframes: ['15m', '1h', '4h', '1d'] }),
   });
@@ -18,7 +18,7 @@ export function MarketFeedWidget({ symbol = 'BTCUSDT' }: { symbol?: string }) {
   const tradeMutation = useMutation({
     mutationFn: () => apiClient.post('/api/v1/trading/analyze', { symbol, timeframes: ['15m', '1h', '4h', '1d'] }),
     onSuccess: () => {
-      addToast('success', 'Trade simulation executed');
+      addToast('success', 'Trading analysis updated');
       queryClient.invalidateQueries({ queryKey: ['trading'] });
     },
     onError: () => addToast('error', 'Trade simulation failed'),
@@ -42,9 +42,14 @@ export function MarketFeedWidget({ symbol = 'BTCUSDT' }: { symbol?: string }) {
         >
           {tradeMutation.isPending && <Loader2 size={14} className="animate-spin" />}
           <Play size={14} />
-          Execute Trade Simulation
+          Refresh market analysis
         </button>
       </div>
+      {isError && (
+        <p className="rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning" role="status">
+          Market analysis is unavailable. Check the backend connection.
+        </p>
+      )}
       <MarketChart symbol={symbol} data={inner} />
     </div>
   );

@@ -1,30 +1,32 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/cn';
 import { useUIStore } from '@/stores/ui-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { SearchBar } from '@/components/layout/search-bar';
 import {
-  LayoutDashboard,
-  TrendingUp,
-  Package,
-  Hammer,
-  ClipboardList,
-  BarChart3,
-  Store,
-  Mic,
-  Settings,
   Activity,
-  FileText,
-  Search,
-  Sun,
-  Moon,
-  LogOut,
+  BarChart3,
+  Bell,
+  Brain,
   ChevronLeft,
   ChevronRight,
-  Bell,
+  ClipboardList,
+  FileText,
+  Hammer,
+  LayoutDashboard,
+  LogOut,
+  Mic,
+  Moon,
+  Package,
+  Search,
+  Settings,
+  Store,
+  Sun,
+  TrendingUp,
+  X,
 } from 'lucide-react';
 
 const navItems = [
@@ -40,37 +42,75 @@ const navItems = [
   { href: '/observability', label: 'Observability', icon: Activity },
   { href: '/governance', label: 'Governance Explorer', icon: FileText },
   { href: '/audit-trail', label: 'Audit Trail', icon: Search },
+  { href: '/digital-twin', label: 'Digital Twin', icon: Brain },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  mobile?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ mobile = false, onClose }: SidebarProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const sidebarCollapsed = useUIStore((state) => state.sidebarCollapsed);
   const toggleSidebar = useUIStore((state) => state.toggleSidebar);
+  const theme = useUIStore((state) => state.theme);
+  const setTheme = useUIStore((state) => state.setTheme);
   const { user, logout } = useAuthStore();
+  const collapsed = mobile ? false : sidebarCollapsed;
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+    onClose?.();
+  };
 
   return (
     <aside
       className={cn(
-        'flex h-full flex-col border-r border-border bg-surface-secondary transition-all duration-200',
-        sidebarCollapsed ? 'w-16' : 'w-64'
+        'app-sidebar flex h-full flex-col border-r border-border transition-all duration-200',
+        collapsed ? 'w-[4.5rem]' : 'w-64',
+        mobile && 'w-full'
       )}
     >
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
-        {!sidebarCollapsed && (
-          <span className="text-sm font-semibold tracking-wide">Enal Cognitive Platform</span>
+        {!collapsed && (
+          <div className="flex items-center gap-3">
+            <span className="brand-mark" aria-hidden="true">
+              E
+            </span>
+            <div>
+              <span className="block text-sm font-semibold tracking-wide">Enal AI OS</span>
+              <span className="block text-[10px] uppercase tracking-[0.18em] text-text-muted">
+                Cognitive platform
+              </span>
+            </div>
+          </div>
         )}
         <button
-          onClick={toggleSidebar}
-          className="rounded-md p-1.5 hover:bg-surface-hover"
-          aria-label="Toggle sidebar"
+          onClick={mobile ? onClose : toggleSidebar}
+          className="icon-button rounded-md p-2"
+          aria-label={mobile ? 'Close navigation' : 'Toggle sidebar'}
         >
-          {sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          {mobile ? (
+            <X size={18} />
+          ) : collapsed ? (
+            <ChevronRight size={18} />
+          ) : (
+            <ChevronLeft size={18} />
+          )}
         </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-2 py-3">
+      <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Primary navigation">
         <SearchBar />
-        <ul className="mt-2 space-y-1">
+        {!collapsed && (
+          <p className="px-3 pb-2 pt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+            Workspace
+          </p>
+        )}
+        <ul className="space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -78,15 +118,20 @@ export function Sidebar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={onClose}
+                  aria-label={item.label}
+                  title={collapsed ? item.label : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors',
+                    'sidebar-link flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors',
+                    collapsed && 'justify-center px-0',
                     isActive
-                      ? 'bg-primary/10 text-primary'
+                      ? 'sidebar-link-active text-primary'
                       : 'text-text-secondary hover:bg-surface-hover hover:text-text-primary'
                   )}
                 >
                   <Icon size={18} />
-                  {!sidebarCollapsed && <span>{item.label}</span>}
+                  {!collapsed && <span>{item.label}</span>}
                 </Link>
               </li>
             );
@@ -95,32 +140,50 @@ export function Sidebar() {
       </nav>
 
       <div className="border-t border-border px-2 py-3">
-        <div className="flex items-center gap-3 px-3 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-xs font-semibold">
+        <div className={cn('flex items-center gap-3 px-3 py-2', collapsed && 'justify-center px-0')}>
+          <div className="user-avatar flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold">
             {user?.username?.charAt(0).toUpperCase() ?? 'U'}
           </div>
-          {!sidebarCollapsed && (
+          {!collapsed && (
             <div className="flex-1">
               <p className="text-sm font-medium">{user?.username ?? 'Guest'}</p>
-              <p className="text-xs text-text-muted">{user?.roles?.join(', ') ?? ''}</p>
+              <p className="text-xs text-text-muted">
+                {user?.roles?.join(', ') || 'Workspace member'}
+              </p>
             </div>
           )}
         </div>
-        <div className="mt-2 flex items-center gap-2 px-3">
-          <button className="flex flex-1 items-center gap-2 rounded-md px-2 py-1.5 text-xs text-text-secondary hover:bg-surface-hover hover:text-text-primary">
-            <Sun size={14} />
-            {!sidebarCollapsed && <span>Theme</span>}
-          </button>
-          <button className="flex flex-1 items-center gap-2 rounded-md px-2 py-1.5 text-xs text-text-secondary hover:bg-surface-hover hover:text-text-primary">
-            <Bell size={14} />
-            {!sidebarCollapsed && <span>Alerts</span>}
+        <div className={cn('mt-2 flex items-center gap-2 px-3', collapsed && 'flex-col px-0')}>
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="sidebar-action flex flex-1 items-center gap-2 rounded-md px-2 py-2 text-xs text-text-secondary"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            aria-pressed={theme === 'light'}
+            title={collapsed ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme` : undefined}
+          >
+            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            {!collapsed && <span>Theme</span>}
           </button>
           <button
-            onClick={logout}
-            className="flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-danger hover:bg-surface-hover"
+            onClick={() => {
+              router.push('/observability#alerts');
+              onClose?.();
+            }}
+            className="sidebar-action flex flex-1 items-center gap-2 rounded-md px-2 py-2 text-xs text-text-secondary"
+            aria-label="Open alerts"
+            title={collapsed ? 'Open alerts' : undefined}
+          >
+            <Bell size={14} />
+            {!collapsed && <span>Alerts</span>}
+          </button>
+          <button
+            onClick={handleLogout}
+            className="sidebar-action flex items-center gap-2 rounded-md px-2 py-2 text-xs text-danger"
+            aria-label="Log out"
+            title={collapsed ? 'Log out' : undefined}
           >
             <LogOut size={14} />
-            {!sidebarCollapsed && <span>Logout</span>}
+            {!collapsed && <span>Logout</span>}
           </button>
         </div>
       </div>
