@@ -114,8 +114,9 @@ npm run dev
 Secara default, frontend mengirim request ke `/api` pada origin yang sama.
 Next.js meneruskan request tersebut ke `http://localhost:8000`; Docker Compose
 mengatur target internal `http://backend:8000`. Untuk target lain, atur
-`NEXT_API_PROXY_URL` saat build. `NEXT_PUBLIC_API_URL` dapat digunakan bila
-frontend perlu mengakses API secara langsung.
+`NEXT_API_PROXY_URL` saat build. `NEXT_PUBLIC_API_URL` dapat diisi saat build
+bila frontend memang perlu mengakses API secara langsung; nilai publik Next.js
+ditanam ke bundle ketika dibangun.
 
 ## Pemeriksaan dan test
 
@@ -144,6 +145,7 @@ atau log lama sebagai status terbaru.
 - [Arsitektur](docs/AES_ARCHITECTURE.md)
 - [Panduan pengembangan capability pack](docs/APP_DEV_GUIDE.md)
 - [Referensi API](docs/api_reference.md)
+- [Audit menyeluruh](docs/audit/COMPREHENSIVE_AUDIT.md)
 - [Panduan kontribusi](CONTRIBUTING.md)
 - [Kebijakan keamanan](SECURITY.md)
 - [Dokumentasi SDK](sdk/README.md)

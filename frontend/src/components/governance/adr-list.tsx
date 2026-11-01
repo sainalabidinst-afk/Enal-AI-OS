@@ -42,7 +42,7 @@ export function ADRList() {
       </div>
       {!adrs.length ? (
         <div className="rounded-md border border-dashed border-border px-4 py-6 text-center text-xs text-text-muted">
-          No ADR entries found.
+          No registered packs found.
         </div>
       ) : (
         adrs.map((adr: { pack_id: string; name: string; status: string }) => (

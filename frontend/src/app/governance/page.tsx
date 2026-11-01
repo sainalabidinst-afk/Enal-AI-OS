@@ -9,7 +9,9 @@ export default function GovernancePage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-semibold">Governance Explorer</h2>
-        <p className="text-sm text-text-secondary">ADR, Quality Gates, and governance status.</p>
+        <p className="text-sm text-text-secondary">
+          Capability packs, quality gates, and governance status.
+        </p>
       </div>
 
       <GovernanceStatusPanel />
