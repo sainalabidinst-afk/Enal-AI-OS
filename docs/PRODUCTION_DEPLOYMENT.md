@@ -47,6 +47,8 @@ It assumes a Linux host with Docker Engine available.
    and generate a password hash with `python backend/app/core/passwords.py`.
    The password hash command prompts without echoing the password. Add execution
    permissions to `AUTH_ACCOUNT.permissions` only for operators who need them.
+   Rotating `SECRET_KEY` or changing the configured account invalidates existing
+   JWT sessions; operators must sign in again after deployment.
 
 3. Verify all required variables are set:
    ```bash

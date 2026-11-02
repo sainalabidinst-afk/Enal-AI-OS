@@ -99,13 +99,14 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     username = form_data.username or ""
     password = form_data.password or ""
     account = settings.AUTH_ACCOUNT
-    if not account.username or not account.password_hash:
+    configured_password_hash = account.password_hash.get_secret_value()
+    if not account.username or not configured_password_hash:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Authentication is not configured on the server.",
         )
     username_matches = hmac.compare_digest(username.encode(), account.username.encode())
-    password_hash = account.password_hash if username_matches else _DUMMY_PASSWORD_HASH
+    password_hash = configured_password_hash if username_matches else _DUMMY_PASSWORD_HASH
     password_matches = verify_password(password, password_hash)
     if not username_matches or not password_matches:
         raise HTTPException(

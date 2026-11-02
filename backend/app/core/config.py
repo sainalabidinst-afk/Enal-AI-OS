@@ -1,4 +1,11 @@
-from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+from pydantic import (
+    AliasChoices,
+    BaseModel,
+    Field,
+    SecretStr,
+    field_validator,
+    model_validator,
+)
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from backend.app.core.passwords import is_password_hash
@@ -10,7 +17,7 @@ class AuthAccountSettings(BaseModel):
     """Environment-configured operator identity and permissions."""
 
     username: str = ""
-    password_hash: str = ""
+    password_hash: SecretStr = SecretStr("")
     roles: list[str] = Field(default_factory=lambda: ["default"])
     permissions: list[str] = Field(default_factory=lambda: ["model:read", "read"])
 
@@ -23,7 +30,11 @@ class AuthAccountSettings(BaseModel):
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+        hide_input_in_errors=True,
+    )
 
     PROJECT_NAME: str = "Enal AI OS"
     # Bound to ECP_VERSION only. A bare VERSION key in .env / the container env
@@ -122,18 +133,17 @@ class Settings(BaseSettings):
             raise ValueError(
                 "SECRET_KEY is required. Set it via environment variable or .env file."
             )
-        if not self.TESTING:
-            if len(self.SECRET_KEY) < 32 or self.SECRET_KEY in {
-                "change-this-in-production",
-                "dev-secret-key-change-in-production",
-            }:
-                raise ValueError("SECRET_KEY must be a unique secret of at least 32 characters.")
-            if not self.AUTH_ACCOUNT.username.strip() or not is_password_hash(
-                self.AUTH_ACCOUNT.password_hash
-            ):
-                raise ValueError(
-                    "AUTH_ACCOUNT must define a username and a valid scrypt password hash."
-                )
+        if len(self.SECRET_KEY) < 32 or self.SECRET_KEY in {
+            "change-this-in-production",
+            "dev-secret-key-change-in-production",
+        }:
+            raise ValueError("SECRET_KEY must be a unique secret of at least 32 characters.")
+        if not self.AUTH_ACCOUNT.username.strip() or not is_password_hash(
+            self.AUTH_ACCOUNT.password_hash.get_secret_value()
+        ):
+            raise ValueError(
+                "AUTH_ACCOUNT must define a username and a valid scrypt password hash."
+            )
         return self
 
     def require_database_url(self) -> str:

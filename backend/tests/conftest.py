@@ -12,7 +12,7 @@ os.environ["AUTH_ACCOUNT"] = json.dumps(
     {
         "username": "test",
         "password_hash": (
-            "scrypt$16384$ZWNwLXRlc3Qtc2FsdC12MQ$"
+            "scrypt:16384:ZWNwLXRlc3Qtc2FsdC12MQ:"
             "GNt1w6ZPt7m4gni1xOIdhPysV4g1mHqH_qLWh9WpYqU"
         ),
         "roles": ["default"],

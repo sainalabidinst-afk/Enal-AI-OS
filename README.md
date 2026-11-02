@@ -86,6 +86,8 @@ AUTH_ACCOUNT={"username":"admin","password_hash":"<hash>","roles":["admin"],"per
 ```
 
 Tidak ada akun/password bawaan. Berikan hanya permission yang diperlukan.
+Perubahan `SECRET_KEY`, nama akun, atau permission menginvalidasi sesi JWT yang
+sudah terbit; login kembali setelah backend dijalankan ulang.
 
 Alamat default:
 

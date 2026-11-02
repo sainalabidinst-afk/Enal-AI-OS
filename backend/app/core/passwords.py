@@ -14,7 +14,7 @@ KEY_LENGTH = 32
 
 def _decode_password_hash(encoded: str) -> tuple[bytes, bytes] | None:
     try:
-        algorithm, cost, salt, digest = encoded.split("$")
+        algorithm, cost, salt, digest = encoded.split(":")
         salt_bytes = base64.b64decode(
             salt + "=" * (-len(salt) % 4),
             altchars=b"-_",
@@ -56,7 +56,7 @@ def hash_password(password: str) -> str:
     )
     salt_encoded = base64.urlsafe_b64encode(salt).decode("ascii").rstrip("=")
     digest_encoded = base64.urlsafe_b64encode(digest).decode("ascii").rstrip("=")
-    return f"scrypt${SCRYPT_N}${salt_encoded}${digest_encoded}"
+    return f"scrypt:{SCRYPT_N}:{salt_encoded}:{digest_encoded}"
 
 
 def verify_password(password: str, encoded: str) -> bool:

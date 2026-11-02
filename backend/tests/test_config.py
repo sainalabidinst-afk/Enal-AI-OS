@@ -22,7 +22,7 @@ def test_settings_defaults():
 def test_require_database_url_raises_when_empty():
     from backend.app.core.config import Settings
 
-    settings = Settings(DATABASE_URL="", SECRET_KEY="test")
+    settings = Settings(DATABASE_URL="", SECRET_KEY="t" * 48)
     with pytest.raises(ValueError):
         settings.require_database_url()
 
@@ -30,5 +30,5 @@ def test_require_database_url_raises_when_empty():
 def test_require_database_url_returns_value():
     from backend.app.core.config import Settings
 
-    settings = Settings(DATABASE_URL="sqlite:///:memory:", SECRET_KEY="test")
+    settings = Settings(DATABASE_URL="sqlite:///:memory:", SECRET_KEY="t" * 48)
     assert settings.require_database_url() == "sqlite:///:memory:"

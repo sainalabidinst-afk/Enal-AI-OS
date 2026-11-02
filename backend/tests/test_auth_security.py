@@ -5,7 +5,8 @@ from pydantic import ValidationError
 
 from backend.app.core.config import AuthAccountSettings, Settings, settings
 from backend.app.core.passwords import hash_password, verify_password
-from backend.app.main import app
+from backend.app.core.security_model import Permission, security_model
+from backend.app.main import app, seed_default_security_policies
 
 client = TestClient(app)
 
@@ -77,12 +78,27 @@ def test_token_with_revoked_permission_is_rejected(monkeypatch):
     assert response.status_code == 401
 
 
-def test_production_settings_reject_weak_secret_and_missing_account():
+@pytest.mark.asyncio
+async def test_startup_policy_grants_only_configured_permissions(monkeypatch):
+    account = AuthAccountSettings(
+        username="policy-test",
+        password_hash=hash_password("test-password"),
+        permissions=["read"],
+    )
+    monkeypatch.setattr(settings, "AUTH_ACCOUNT", account)
+
+    await seed_default_security_policies()
+
+    assert security_model.check_permission("policy-test", Permission.READ)
+    assert not security_model.check_permission("policy-test", Permission.EXECUTE)
+
+
+def test_settings_reject_weak_secret_and_missing_account_even_in_testing():
     with pytest.raises(ValidationError, match="SECRET_KEY must be a unique secret"):
         Settings(
             _env_file=None,
             SECRET_KEY="short",
-            TESTING=False,
+            TESTING=True,
             AUTH_ACCOUNT={},
         )
 
@@ -90,6 +106,25 @@ def test_production_settings_reject_weak_secret_and_missing_account():
         Settings(
             _env_file=None,
             SECRET_KEY="s" * 48,
-            TESTING=False,
+            TESTING=True,
             AUTH_ACCOUNT={"username": "admin", "password_hash": "not-a-hash"},
         )
+
+
+def test_settings_accept_valid_operator_configuration():
+    account = {
+        "username": "operator",
+        "password_hash": hash_password("test-password"),
+        "roles": ["admin"],
+        "permissions": ["model:read", "read", "execute", "capabilities:execute"],
+    }
+
+    configured = Settings(
+        _env_file=None,
+        SECRET_KEY="s" * 48,
+        TESTING=False,
+        AUTH_ACCOUNT=account,
+    )
+
+    assert configured.AUTH_ACCOUNT.username == "operator"
+    assert configured.AUTH_ACCOUNT.password_hash.get_secret_value() == account["password_hash"]
