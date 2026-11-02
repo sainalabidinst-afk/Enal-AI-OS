@@ -14,8 +14,8 @@ from backend.app.main import app
 
 client = TestClient(app)
 
-TEST_USERNAME = "integration-test-user"
-TEST_PASSWORD = "integration-test-pass"
+TEST_USERNAME = "test"
+TEST_PASSWORD = "test"
 
 TEST_TOKEN = None
 TEST_WORKSPACE_ID = None
@@ -68,7 +68,7 @@ def test_root():
 def test_auth_login_success():
     response = client.post(
         "/api/v1/auth/login",
-        data={"username": "admin", "password": "secret"},
+        data={"username": "test", "password": "test"},
     )
     assert response.status_code == 200
     data = response.json()

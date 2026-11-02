@@ -1,7 +1,25 @@
-from pydantic import AliasChoices, Field, model_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from backend.app.core.passwords import is_password_hash
 from backend.app.core.platform_version import resolve_version
+from backend.app.core.security_model import Permission
+
+
+class AuthAccountSettings(BaseModel):
+    """Environment-configured operator identity and permissions."""
+
+    username: str = ""
+    password_hash: str = ""
+    roles: list[str] = Field(default_factory=lambda: ["default"])
+    permissions: list[str] = Field(default_factory=lambda: ["model:read", "read"])
+
+    @field_validator("permissions")
+    @classmethod
+    def validate_permissions(cls, permissions: list[str]) -> list[str]:
+        for permission in permissions:
+            Permission(permission)
+        return permissions
 
 
 class Settings(BaseSettings):
@@ -81,6 +99,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = ""
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 480
     TESTING: bool = False
+    AUTH_ACCOUNT: AuthAccountSettings = Field(default_factory=AuthAccountSettings)
 
     LANGCHAIN_TRACING_V2: bool = False
     LANGCHAIN_API_KEY: str = ""
@@ -103,6 +122,18 @@ class Settings(BaseSettings):
             raise ValueError(
                 "SECRET_KEY is required. Set it via environment variable or .env file."
             )
+        if not self.TESTING:
+            if len(self.SECRET_KEY) < 32 or self.SECRET_KEY in {
+                "change-this-in-production",
+                "dev-secret-key-change-in-production",
+            }:
+                raise ValueError("SECRET_KEY must be a unique secret of at least 32 characters.")
+            if not self.AUTH_ACCOUNT.username.strip() or not is_password_hash(
+                self.AUTH_ACCOUNT.password_hash
+            ):
+                raise ValueError(
+                    "AUTH_ACCOUNT must define a username and a valid scrypt password hash."
+                )
         return self
 
     def require_database_url(self) -> str:

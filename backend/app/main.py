@@ -247,35 +247,29 @@ async def seed_governance_packs():
 
 @app.on_event("startup")
 async def seed_default_security_policies():
-    """Register default security policies for well-known service accounts."""
-    try:
-        from backend.app.core.security_model import (
-            SecurityLevel,
-            SecurityPolicy,
-            security_model,
-        )
+    """Register the explicitly configured operator's permissions."""
+    from backend.app.core.security_model import (
+        Permission,
+        SecurityLevel,
+        SecurityPolicy,
+        security_model,
+    )
 
-        default_policy = SecurityPolicy(
-            plugin_id="test",
-            security_level=SecurityLevel.SAFE,
-            allowed_permissions=[
-                "model:read",
-                "capabilities:execute",
-                "read",
-                "write",
-                "execute",
-            ],
-            denied_permissions=[],
-            allowed_capabilities=[],
-            denied_capabilities=[],
-            resource_limits={},
-            requires_approval=False,
-            approved=True,
-        )
-        security_model.register_policy(default_policy)
-        logger.info("Seeded default security policy for test user")
-    except Exception as e:
-        logger.warning("Failed to seed default security policies: %s", e)
+    account = settings.AUTH_ACCOUNT
+    if not account.username:
+        logger.warning("No operator account configured; execution permissions are disabled")
+        return
+
+    policy = SecurityPolicy(
+        plugin_id=account.username,
+        security_level=SecurityLevel.SAFE,
+        allowed_permissions=[Permission(permission) for permission in account.permissions],
+        requires_approval=False,
+        approved=True,
+        metadata={"source": "environment"},
+    )
+    security_model.register_policy(policy)
+    logger.info("Seeded security policy for configured operator")
 
 
 @app.on_event("startup")

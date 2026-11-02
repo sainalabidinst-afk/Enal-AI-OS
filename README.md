@@ -68,11 +68,24 @@ konfigurasi tersendiri.
 
 Salin konfigurasi contoh, lalu sesuaikan nilainya sebelum menjalankan layanan.
 Jangan gunakan kredensial contoh untuk deployment dan jangan commit file `.env`.
+Sebelum menjalankan backend, isi `SECRET_KEY` dengan nilai acak minimal 32
+karakter dan konfigurasi akun operator. Hash password dibuat dengan prompt
+tersembunyi:
 
 ```powershell
 Copy-Item .env.example .env
+python -c "import secrets; print(secrets.token_urlsafe(48))"
+python .\backend\app\core\passwords.py
 docker compose up --build
 ```
+
+Masukkan hash yang dicetak ke `AUTH_ACCOUNT` dalam `.env`, misalnya:
+
+```text
+AUTH_ACCOUNT={"username":"admin","password_hash":"<hash>","roles":["admin"],"permissions":["model:read","read","execute","capabilities:execute"]}
+```
+
+Tidak ada akun/password bawaan. Berikan hanya permission yang diperlukan.
 
 Alamat default:
 

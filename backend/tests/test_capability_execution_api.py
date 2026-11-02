@@ -13,7 +13,7 @@ client = TestClient(app)
 def _auth_headers() -> dict[str, str]:
     response = client.post(
         "/api/v1/auth/login",
-        data={"username": "admin", "password": "secret"},
+        data={"username": "test", "password": "test"},
     )
     assert response.status_code == 200, f"Login failed: {response.text}"
     token = response.json()["access_token"]

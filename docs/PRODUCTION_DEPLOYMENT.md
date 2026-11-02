@@ -38,10 +38,15 @@ It assumes a Linux host with Docker Engine available.
    ```
    POSTGRES_PASSWORD=<strong-password>
    MINIO_ROOT_PASSWORD=<strong-password>
-   SECRET_KEY=<32+ char secret>
+   SECRET_KEY=<unique random secret, at least 32 characters>
+   AUTH_ACCOUNT={"username":"admin","password_hash":"<scrypt hash>","roles":["admin"],"permissions":["model:read","read"]}
    OPENAI_API_KEY=<or ANTHROPIC_API_KEY or GEMINI_API_KEY>
    LANGFUSE_SECRET_KEY=<if using Langfuse>
    ```
+   Generate the JWT secret with `python -c "import secrets; print(secrets.token_urlsafe(48))"`
+   and generate a password hash with `python backend/app/core/passwords.py`.
+   The password hash command prompts without echoing the password. Add execution
+   permissions to `AUTH_ACCOUNT.permissions` only for operators who need them.
 
 3. Verify all required variables are set:
    ```bash

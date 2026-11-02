@@ -17,8 +17,8 @@ from backend.app.studio.ai_studio import ai_studio  # noqa: E402
 
 client = TestClient(app)
 
-TEST_USERNAME = "comprehensive-test-user"
-TEST_PASSWORD = "comprehensive-test-pass"
+TEST_USERNAME = "test"
+TEST_PASSWORD = "test"
 
 security_model.register_policy(
     SecurityPolicy(
@@ -88,7 +88,7 @@ def test_root():
 def test_auth_login_success():
     response = client.post(
         "/api/v1/auth/login",
-        data={"username": "admin", "password": "secret"},
+        data={"username": "test", "password": "test"},
     )
     assert response.status_code == 200
     data = response.json()

@@ -253,7 +253,7 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minio123}
       MINIO_BUCKET: enal
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      SECRET_KEY: ${SECRET_KEY:-dev-secret-key-change-in-production}
+      SECRET_KEY: ${SECRET_KEY:?Set a unique SECRET_KEY of at least 32 characters in .env}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
