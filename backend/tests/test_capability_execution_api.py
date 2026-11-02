@@ -27,6 +27,14 @@ class TestCapabilityExecution:
         data = response.json()
         assert "capabilities" in data
 
+    def test_list_capability_packs_returns_registered_apps(self):
+        response = client.get("/api/v1/capability-packs")
+        assert response.status_code == 200
+        data = response.json()
+        pack_ids = {capability["id"] for capability in data["capabilities"]}
+        assert len(pack_ids) == 38
+        assert {"self-development", "qa-engineer"} <= pack_ids
+
     def test_get_capability_not_found(self):
         headers = _auth_headers()
         response = client.get("/api/v1/capabilities/nonexistent-capability-id", headers=headers)

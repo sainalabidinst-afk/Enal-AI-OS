@@ -23,7 +23,9 @@ COPY sdk/ ./sdk/
 COPY real_cases/ ./real_cases/
 COPY backend/entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /entrypoint.sh && mkdir -p /app/workspace/memory/knowledge && chown -R appuser:appuser /app/workspace
+RUN chmod +x /entrypoint.sh \
+    && mkdir -p /app/workspace/memory/knowledge /app/artifacts \
+    && chown -R appuser:appuser /app/workspace /app/artifacts
 
 # Switch to non-root user
 USER appuser

@@ -7,8 +7,8 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 
 export function PackList({ onSelect }: { onSelect?: (id: string) => void }) {
   const { data, isLoading } = useQuery<{ capabilities?: Array<{ id: string; name: string; description?: string; category?: string }> }>({
-    queryKey: ['capabilities'],
-    queryFn: () => apiClient.get('/api/v1/capabilities'),
+    queryKey: ['capability-packs'],
+    queryFn: () => apiClient.get('/api/v1/capability-packs'),
   });
 
   const capabilities = data?.capabilities ?? [];
@@ -18,9 +18,7 @@ export function PackList({ onSelect }: { onSelect?: (id: string) => void }) {
       {isLoading
         ? Array.from({ length: 6 }).map((_, i) => <LoadingSkeleton key={i} className="h-40 w-full" />)
         : capabilities.map((cap: { id: string; name: string; description?: string; category?: string }) => (
-            <button key={cap.id} onClick={() => onSelect?.(cap.id)} className="text-left">
-              <PackCard {...cap} />
-            </button>
+            <PackCard key={cap.id} {...cap} onSelect={() => onSelect?.(cap.id)} />
           ))}
     </div>
   );

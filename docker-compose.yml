@@ -307,6 +307,7 @@ services:
       - /app/data
       - /app/workspace
     volumes:
+      - artifacts_data:/app/artifacts
       - ./backend:/app/backend
       - ./apps:/app/apps
     security_opt:
@@ -367,6 +368,7 @@ volumes:
   redis_data:
   qdrant_data:
   ollama_data:
+  artifacts_data:
   minio_data:
   kafka_data:
   nginx_data:

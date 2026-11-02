@@ -12,17 +12,17 @@ interface PackDetailPanelProps {
 }
 
 export function PackDetailPanel({ packId }: PackDetailPanelProps) {
-  const [payload, setPayload] = useState('{}');
+  const [message, setMessage] = useState('');
   const { addToast } = useToast();
 
   const { data, isLoading } = useQuery<{ name?: string; category?: string; description?: string }>({
     queryKey: ['capability', packId],
-    queryFn: () => apiClient.get(`/api/v1/capabilities/${packId}`),
+    queryFn: () => apiClient.get(`/api/v1/capability-packs/${packId}`),
     enabled: !!packId,
   });
 
   const executeMutation = useMutation({
-    mutationFn: () => apiClient.post(`/api/v1/capabilities/${packId}/execute`, { message: 'Execute via UI', workspace_id: 'default' }),
+    mutationFn: () => apiClient.post(`/api/v1/capability-packs/${packId}/execute`, { message, workspace_id: 'default' }),
     onSuccess: () => addToast('success', 'Capability executed'),
     onError: () => addToast('error', 'Execution failed'),
   });
@@ -38,22 +38,24 @@ export function PackDetailPanel({ packId }: PackDetailPanelProps) {
       <p className="text-xs text-text-secondary">{data?.description}</p>
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium">Payload (JSON)</label>
+          <label className="block text-sm font-medium" htmlFor="capability-task">Task</label>
           <textarea
+            id="capability-task"
             className="mt-1 w-full rounded-md border border-border bg-surface-primary px-3 py-2 text-sm outline-none focus:border-primary font-mono"
-            value={payload}
-            onChange={(e) => setPayload(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Describe the task for this capability pack."
             rows={4}
           />
         </div>
         <div className="flex items-end">
           <button
             onClick={() => executeMutation.mutate()}
-            disabled={executeMutation.isPending}
+            disabled={executeMutation.isPending || !message.trim()}
             className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm text-white hover:bg-primary-hover disabled:opacity-70"
           >
             {executeMutation.isPending && <Loader2 size={14} className="animate-spin" />}
-            Execute
+            Run capability
           </button>
         </div>
       </div>

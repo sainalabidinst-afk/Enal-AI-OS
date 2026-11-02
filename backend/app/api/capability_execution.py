@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 @router.get("/capabilities")
+@router.get("/capability-packs")
 async def list_capabilities():
     from apps import APPS
 
@@ -33,6 +34,7 @@ async def list_capabilities():
 
 
 @router.get("/capabilities/{capability_id}")
+@router.get("/capability-packs/{capability_id}")
 async def get_capability(capability_id: str):
     from apps import get_app
 
@@ -44,6 +46,10 @@ async def get_capability(capability_id: str):
 
 @router.post(
     "/capabilities/{capability_id}/execute",
+    dependencies=[Depends(require_permission("execute"))],
+)
+@router.post(
+    "/capability-packs/{capability_id}/execute",
     dependencies=[Depends(require_permission("execute"))],
 )
 async def execute_capability(capability_id: str, request: ChatRequest):
