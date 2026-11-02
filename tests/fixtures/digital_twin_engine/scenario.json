@@ -1,0 +1,18 @@
+{
+  "initial_state": {
+    "requests_per_second": 100.0,
+    "error_rate": 0.02
+  },
+  "scenario": "Increase simulated request throughput by 10 percent",
+  "parameters": {
+    "variable_changes": [
+      {
+        "variable": "requests_per_second",
+        "change_type": "percent_delta",
+        "value": 0.1
+      }
+    ],
+    "seed": 42
+  },
+  "iterations": 25
+}

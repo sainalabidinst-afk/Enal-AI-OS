@@ -1,0 +1,21 @@
+{
+  "result": {
+    "evidence_id": "SYN-NATIVE-001",
+    "summary": "Synthetic native artifact inspection fixture",
+    "observations": [
+      "The fixture describes one exported function."
+    ],
+    "inferences": [
+      "The artifact exposes a callable entry point."
+    ],
+    "unknowns": [
+      "Runtime behavior was not executed."
+    ],
+    "metadata": {
+      "fixture": "synthetic"
+    },
+    "recommendations": [
+      "Validate the export against an authorized target."
+    ]
+  }
+}

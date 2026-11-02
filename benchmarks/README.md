@@ -23,7 +23,13 @@ python -m benchmarks.agent_quality
 
 - `agent_quality.py` — Kualitas respons agen
 - `capability_benchmark.py` — Capability Pack kualitas dalam 6 dimensi: Akurasi, Kelengkapan, Penjelasan, Keamanan, Efisiensi, Konsistensi
+- `digital_twin_engine_benchmark.py` — State mirroring dan simulasi deterministik Digital Twin
+- `reverse_engineer_benchmark.py` — Pemetaan evidence REA dari fixture offline
 - Kasus dunia nyata dari `real_cases/<capability_id>/` dimasukkan ke dalam tolok ukur kemampuan
+
+Benchmark Digital Twin dan Reverse Engineer memakai fixture sintetis deterministik
+di `tests/fixtures/`. Fixture tersebut bukan data kasus dunia nyata dan tidak
+menggantikan `real_cases/<capability_id>/`.
 
 ## Benchmark Jenis
 
@@ -65,4 +71,3 @@ python -m benchmarks.performance_benchmark
 Jika `GEMINI_API_KEY` atau model provider belum tersedia, command akan keluar
 non-zero dengan status `BENCHMARK BLOCKED` dan tidak menghasilkan score.
 Raw measurements hanya valid jika eksekusi provider benar-benar terjadi.
-

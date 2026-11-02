@@ -1,0 +1,43 @@
+{
+  "result": {
+    "summary": "Synthetic JavaScript application inspection fixture",
+    "evidence": [
+      {
+        "evidence_id": "SYN-JS-001",
+        "summary": "A renderer entry point is present.",
+        "observations": [
+          "The fixture includes a renderer entry point."
+        ],
+        "inferences": [
+          "The application has a renderer component."
+        ],
+        "unknowns": [
+          "IPC behavior was not executed."
+        ],
+        "metadata": {
+          "fixture": "synthetic"
+        }
+      }
+    ],
+    "artifacts": [
+      {
+        "artifact_id": "SYN-ART-001",
+        "artifact_type": "entry_point",
+        "path": "src/renderer.js",
+        "evidence_refs": [
+          "SYN-JS-001"
+        ],
+        "confidence": 0.75,
+        "details": {
+          "fixture": "synthetic"
+        }
+      }
+    ],
+    "recommendations": [
+      "Inspect IPC channels only on an authorized application."
+    ],
+    "metadata": {
+      "fixture": "synthetic"
+    }
+  }
+}

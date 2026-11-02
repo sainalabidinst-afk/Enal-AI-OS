@@ -15,8 +15,14 @@
         "security_engineer",
         "devsecops"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/cybersecurity_analyst"
+        }
+      }
     },
     {
       "id": "cap-ba22eb82",
@@ -33,8 +39,14 @@
         "ai_engineer",
         "decision_intelligence"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/ai_ethics_pack"
+        }
+      }
     },
     {
       "id": "cap-c5734157",
@@ -51,8 +63,14 @@
         "data_engineer",
         "business_analyst"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/supply_chain_analyst"
+        }
+      }
     },
     {
       "id": "cap-d232c6a0",
@@ -69,8 +87,14 @@
         "data_engineer",
         "ai_engineer"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/data_scientist"
+        }
+      }
     },
     {
       "id": "cap-1dd9019d",
@@ -87,8 +111,14 @@
         "data_engineer",
         "business_analyst"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/business_intelligence"
+        }
+      }
     },
     {
       "id": "cap-6d6a2aae",
@@ -105,8 +135,14 @@
         "research_assistant",
         "business_analyst"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/innovation_strategist"
+        }
+      }
     },
     {
       "id": "cap-7bcc9d0d",
@@ -123,8 +159,14 @@
         "document_processing",
         "research_assistant"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/translator_expert"
+        }
+      }
     },
     {
       "id": "cap-c7693f78",
@@ -141,8 +183,14 @@
         "ai_engineer",
         "data_engineer"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/document_processing"
+        }
+      }
     },
     {
       "id": "cap-abe1b7f2",
@@ -159,8 +207,14 @@
         "ai_engineer",
         "document_processing"
       ],
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/voice_interaction"
+        }
+      }
     }
   ],
   "improvements": [
@@ -174,8 +228,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/adversarial-testing.md"
+        }
+      }
     },
     {
       "id": "imp-f578133b",
@@ -187,8 +247,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/ai-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-362a93a7",
@@ -200,8 +266,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/ai-ethics-pack.md"
+        }
+      }
     },
     {
       "id": "imp-4b528b7f",
@@ -213,8 +285,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/business-analyst.md"
+        }
+      }
     },
     {
       "id": "imp-3d5d0c85",
@@ -226,8 +304,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/business-intelligence.md"
+        }
+      }
     },
     {
       "id": "imp-436c17f5",
@@ -239,8 +323,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/cloud-architect.md"
+        }
+      }
     },
     {
       "id": "imp-cb36ea91",
@@ -252,8 +342,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/code-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-d8710e90",
@@ -265,8 +361,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/compliance-officer.md"
+        }
+      }
     },
     {
       "id": "imp-594ce436",
@@ -278,8 +380,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/cross-domain-graph.md"
+        }
+      }
     },
     {
       "id": "imp-793fed52",
@@ -291,8 +399,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/cybersecurity-analyst.md"
+        }
+      }
     },
     {
       "id": "imp-1349699f",
@@ -304,8 +418,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/data-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-d232765d",
@@ -317,8 +437,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/data-scientist.md"
+        }
+      }
     },
     {
       "id": "imp-63fbfabe",
@@ -330,8 +456,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/database-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-259c0cc7",
@@ -343,8 +475,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/decision-intelligence.md"
+        }
+      }
     },
     {
       "id": "imp-3ffe0fcc",
@@ -356,8 +494,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/devops-assistant.md"
+        }
+      }
     },
     {
       "id": "imp-7de08a15",
@@ -369,8 +513,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Pack real-case assets already exist in the repository.",
+          "path": "real_cases/devsecops"
+        }
+      }
     },
     {
       "id": "imp-24e379f4",
@@ -382,8 +532,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/document-processing.md"
+        }
+      }
     },
     {
       "id": "imp-2df3736d",
@@ -395,8 +551,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/documentation-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-fe5c1b1c",
@@ -408,8 +570,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/finance-analyst.md"
+        }
+      }
     },
     {
       "id": "imp-242a6906",
@@ -421,8 +589,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/full-stack-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-4062b8af",
@@ -434,8 +608,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/hse-specialist.md"
+        }
+      }
     },
     {
       "id": "imp-2c73ab75",
@@ -447,8 +627,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/infrastructure-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-c97ed465",
@@ -460,8 +646,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/innovation-strategist.md"
+        }
+      }
     },
     {
       "id": "imp-bde33347",
@@ -473,8 +665,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/knowledge-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-114ecf47",
@@ -486,8 +684,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/legal-advisor.md"
+        }
+      }
     },
     {
       "id": "imp-be0e0ac5",
@@ -499,8 +703,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/network-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-7d4ec458",
@@ -512,8 +722,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Pack real-case assets already exist in the repository.",
+          "path": "real_cases/observability"
+        }
+      }
     },
     {
       "id": "imp-4358e066",
@@ -525,8 +741,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/product-manager.md"
+        }
+      }
     },
     {
       "id": "imp-120d4c1c",
@@ -538,8 +760,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/qa-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-e59fde0d",
@@ -551,8 +779,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/research-assistant.md"
+        }
+      }
     },
     {
       "id": "imp-4f19ab4b",
@@ -564,8 +798,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/scenario-simulator.md"
+        }
+      }
     },
     {
       "id": "imp-eb572c48",
@@ -577,8 +817,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/security-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-ee3e0f0c",
@@ -590,8 +836,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/self-development.md"
+        }
+      }
     },
     {
       "id": "imp-61cb84b6",
@@ -603,8 +855,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/sre-engineer.md"
+        }
+      }
     },
     {
       "id": "imp-1a73f98f",
@@ -616,8 +874,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/supply-chain-analyst.md"
+        }
+      }
     },
     {
       "id": "imp-9cdd06f5",
@@ -629,8 +893,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/system-architect.md"
+        }
+      }
     },
     {
       "id": "imp-fb9761d7",
@@ -642,8 +912,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/trading-analyst.md"
+        }
+      }
     },
     {
       "id": "imp-754a2291",
@@ -655,8 +931,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/translator-expert.md"
+        }
+      }
     },
     {
       "id": "imp-efb22cd3",
@@ -668,8 +950,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/ui-ux-designer.md"
+        }
+      }
     },
     {
       "id": "imp-8366eb0a",
@@ -681,8 +969,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/voice-interaction.md"
+        }
+      }
     },
     {
       "id": "imp-2c83d2fe",
@@ -694,8 +988,14 @@
       "risk": "medium",
       "confidence": 0.7,
       "expected_impact": "New capability: AI Ethics & Governance",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/ai_ethics_pack"
+        }
+      }
     },
     {
       "id": "imp-12b8df17",
@@ -707,8 +1007,14 @@
       "risk": "medium",
       "confidence": 0.7,
       "expected_impact": "New capability: Supply Chain Analyst",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/supply_chain_analyst"
+        }
+      }
     },
     {
       "id": "imp-0a85cc19",
@@ -720,333 +1026,14 @@
       "risk": "medium",
       "confidence": 0.7,
       "expected_impact": "New capability: Translator Expert",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-baa3898b",
-      "target_type": "cross_pack",
-      "target_id": "pattern-b6895a56",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-53aae971",
-      "target_type": "cross_pack",
-      "target_id": "pattern-827b2dae",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-14482e2a",
-      "target_type": "cross_pack",
-      "target_id": "pattern-1056a43a",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-7541c33a",
-      "target_type": "cross_pack",
-      "target_id": "pattern-f93952b2",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-7ce2a61c",
-      "target_type": "cross_pack",
-      "target_id": "pattern-e56413cd",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-90b45f18",
-      "target_type": "cross_pack",
-      "target_id": "pattern-d8cf0ece",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-32d80c10",
-      "target_type": "cross_pack",
-      "target_id": "pattern-789b6e39",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-d4bd204f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-3bf549d8",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-89c261dd",
-      "target_type": "cross_pack",
-      "target_id": "pattern-708573f7",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-d05bc269",
-      "target_type": "cross_pack",
-      "target_id": "pattern-4bcd6102",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-b6563ff2",
-      "target_type": "cross_pack",
-      "target_id": "pattern-f21544c8",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-df34a3b8",
-      "target_type": "cross_pack",
-      "target_id": "pattern-61e40e9e",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-de99a15e",
-      "target_type": "cross_pack",
-      "target_id": "pattern-0118bbe8",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-635c42f8",
-      "target_type": "cross_pack",
-      "target_id": "pattern-752ebbfb",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-812eee1c",
-      "target_type": "cross_pack",
-      "target_id": "pattern-59131da3",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-598c39d4",
-      "target_type": "cross_pack",
-      "target_id": "pattern-0baa9a8e",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-513ea8d0",
-      "target_type": "cross_pack",
-      "target_id": "pattern-334d072b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-cbbecdef",
-      "target_type": "cross_pack",
-      "target_id": "pattern-c5aa574b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-b2fbaf1d",
-      "target_type": "cross_pack",
-      "target_id": "pattern-3c16fa63",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-73088d3a",
-      "target_type": "cross_pack",
-      "target_id": "pattern-ce677618",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-98dafb9c",
-      "target_type": "cross_pack",
-      "target_id": "pattern-61487a30",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-f0241d7f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-642411e7",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-617b8161",
-      "target_type": "cross_pack",
-      "target_id": "pattern-c29c7717",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-0580ef2b",
-      "target_type": "cross_pack",
-      "target_id": "pattern-83aedaeb",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-5abfd950",
-      "target_type": "cross_pack",
-      "target_id": "pattern-00b330c4",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Equivalent capability pack already exists.",
+          "path": "apps/translator_expert"
+        }
+      }
     },
     {
       "id": "imp-0cb2e03d",
@@ -1058,8 +1045,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "rejected",
+      "metadata": {
+        "reconciliation": {
+          "action": "not_applicable",
+          "reason": "Target directory is not a discovered capability pack.",
+          "path": "apps/benchmark_pack"
+        }
+      }
     },
     {
       "id": "imp-882ec8c7",
@@ -1071,723 +1064,14 @@
       "risk": "low",
       "confidence": 0.9,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-dfa66154",
-      "target_type": "cross_pack",
-      "target_id": "pattern-345013d8",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-875cd681",
-      "target_type": "cross_pack",
-      "target_id": "pattern-93888b5b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-1ff39a49",
-      "target_type": "cross_pack",
-      "target_id": "pattern-dde455f7",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-d22c2694",
-      "target_type": "cross_pack",
-      "target_id": "pattern-e1c9d076",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-bd9c8506",
-      "target_type": "cross_pack",
-      "target_id": "pattern-3abf6ad0",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-e47b8af6",
-      "target_type": "cross_pack",
-      "target_id": "pattern-b3f6d645",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-8489ad05",
-      "target_type": "cross_pack",
-      "target_id": "pattern-4e3c1fde",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-e6d3576f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-7f69208a",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-4986dce6",
-      "target_type": "cross_pack",
-      "target_id": "pattern-954921f2",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-07ae0174",
-      "target_type": "cross_pack",
-      "target_id": "pattern-ac633eda",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-b17ec7ba",
-      "target_type": "cross_pack",
-      "target_id": "pattern-e189165d",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-f56eafd4",
-      "target_type": "cross_pack",
-      "target_id": "pattern-9906c787",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-bd8c56b1",
-      "target_type": "cross_pack",
-      "target_id": "pattern-35bf5901",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-fbeaf95a",
-      "target_type": "cross_pack",
-      "target_id": "pattern-ac4fa1fa",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-bc3b4403",
-      "target_type": "cross_pack",
-      "target_id": "pattern-77da08c0",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-c6d68f4f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-dc0d592f",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-3fe4d89f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-66fa65bb",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-40a50eb1",
-      "target_type": "cross_pack",
-      "target_id": "pattern-45d4dfb7",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-f12543d1",
-      "target_type": "cross_pack",
-      "target_id": "pattern-6a14baab",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-efe23326",
-      "target_type": "cross_pack",
-      "target_id": "pattern-91e34458",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-7aa3e543",
-      "target_type": "cross_pack",
-      "target_id": "pattern-11d6db7d",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-c7ab90f8",
-      "target_type": "cross_pack",
-      "target_id": "pattern-834af97b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-b161268a",
-      "target_type": "cross_pack",
-      "target_id": "pattern-33bd41ce",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-95578312",
-      "target_type": "cross_pack",
-      "target_id": "pattern-d48fb903",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-2b24923f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-5ed0bd91",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-de29da2c",
-      "target_type": "cross_pack",
-      "target_id": "pattern-b8041db3",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-e2eb5b24",
-      "target_type": "cross_pack",
-      "target_id": "pattern-bf345a41",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-c8d5b51e",
-      "target_type": "cross_pack",
-      "target_id": "pattern-a00581d2",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-864cba40",
-      "target_type": "cross_pack",
-      "target_id": "pattern-487364ba",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-59a94373",
-      "target_type": "cross_pack",
-      "target_id": "pattern-2ec65fa8",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-03cd6cc8",
-      "target_type": "cross_pack",
-      "target_id": "pattern-3d7cc3d7",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-86a629b2",
-      "target_type": "cross_pack",
-      "target_id": "pattern-904cb3bc",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-4585312c",
-      "target_type": "cross_pack",
-      "target_id": "pattern-58da9034",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-63de94b1",
-      "target_type": "cross_pack",
-      "target_id": "pattern-7086fb77",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-1e5fd524",
-      "target_type": "cross_pack",
-      "target_id": "pattern-6dc197c0",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-b664b37d",
-      "target_type": "cross_pack",
-      "target_id": "pattern-18b91237",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-7f69a5cb",
-      "target_type": "cross_pack",
-      "target_id": "pattern-37515469",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-70dc1b21",
-      "target_type": "cross_pack",
-      "target_id": "pattern-edcc9212",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-aa37cfb5",
-      "target_type": "cross_pack",
-      "target_id": "pattern-ed76f2c0",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-a63e4ee7",
-      "target_type": "cross_pack",
-      "target_id": "pattern-7b833090",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-5165fce1",
-      "target_type": "cross_pack",
-      "target_id": "pattern-c283b587",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-1e79daa3",
-      "target_type": "cross_pack",
-      "target_id": "pattern-3e80821f",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-e013d8ba",
-      "target_type": "cross_pack",
-      "target_id": "pattern-61a3e2d8",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-f5563e0f",
-      "target_type": "cross_pack",
-      "target_id": "pattern-f288ec3e",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-98b4f9b4",
-      "target_type": "cross_pack",
-      "target_id": "pattern-17f343ed",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-028c3f65",
-      "target_type": "cross_pack",
-      "target_id": "pattern-e36bb91c",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-6b2ba2e6",
-      "target_type": "cross_pack",
-      "target_id": "pattern-a0a3d13f",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-2190b1ff",
-      "target_type": "cross_pack",
-      "target_id": "pattern-7f7721cb",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-ed6a53d8",
-      "target_type": "cross_pack",
-      "target_id": "pattern-c30a26c3",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-04d8314e",
-      "target_type": "cross_pack",
-      "target_id": "pattern-e99a544b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-4b6e3430",
-      "target_type": "cross_pack",
-      "target_id": "pattern-7833388a",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: code_analysis",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-5fc96d55",
-      "target_type": "cross_pack",
-      "target_id": "pattern-85344375",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: testing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-14762af9",
-      "target_type": "cross_pack",
-      "target_id": "pattern-c0f06f8b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: deployment",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-94495966",
-      "target_type": "cross_pack",
-      "target_id": "pattern-e148dbb7",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: security",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
-    },
-    {
-      "id": "imp-732f60bb",
-      "target_type": "cross_pack",
-      "target_id": "pattern-d1cf016b",
-      "improvement_type": "refactor",
-      "description": "Extract shared pattern: data_processing",
-      "estimated_effort": "medium",
-      "risk": "low",
-      "confidence": 0.8,
-      "expected_impact": "Reduce duplication across packs",
-      "status": "draft",
-      "metadata": {}
+      "status": "rejected",
+      "metadata": {
+        "reconciliation": {
+          "action": "not_applicable",
+          "reason": "Target directory is not a discovered capability pack.",
+          "path": "apps/synthesized"
+        }
+      }
     },
     {
       "id": "imp-random9999",
@@ -1799,8 +1083,849 @@
       "risk": "low",
       "confidence": 0.95,
       "expected_impact": "Governance compliance improved",
-      "status": "draft",
-      "metadata": {}
+      "status": "rejected",
+      "metadata": {
+        "reconciliation": {
+          "action": "not_applicable",
+          "reason": "Legacy analyzer/test placeholder does not describe an actionable finding."
+        }
+      }
+    },
+    {
+      "id": "imp-84bbe618",
+      "target_type": "governance",
+      "target_id": "/app/apps/adversarial_testing",
+      "improvement_type": "governance",
+      "description": "Pack adversarial_testing missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/adversarial-testing.md"
+        }
+      }
+    },
+    {
+      "id": "imp-b6c7be31",
+      "target_type": "governance",
+      "target_id": "/app/apps/ai_engineer",
+      "improvement_type": "governance",
+      "description": "Pack ai_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/ai-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-95475d78",
+      "target_type": "governance",
+      "target_id": "/app/apps/ai_ethics_pack",
+      "improvement_type": "governance",
+      "description": "Pack ai_ethics_pack missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/ai-ethics-pack.md"
+        }
+      }
+    },
+    {
+      "id": "imp-d3aa3d4c",
+      "target_type": "governance",
+      "target_id": "/app/apps/benchmark_pack",
+      "improvement_type": "governance",
+      "description": "Pack benchmark_pack missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "rejected",
+      "metadata": {
+        "reconciliation": {
+          "action": "not_applicable",
+          "reason": "Target directory is not a discovered capability pack.",
+          "path": "apps/benchmark_pack"
+        }
+      }
+    },
+    {
+      "id": "imp-e8a10375",
+      "target_type": "governance",
+      "target_id": "/app/apps/business_analyst",
+      "improvement_type": "governance",
+      "description": "Pack business_analyst missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/business-analyst.md"
+        }
+      }
+    },
+    {
+      "id": "imp-153d8669",
+      "target_type": "governance",
+      "target_id": "/app/apps/business_intelligence",
+      "improvement_type": "governance",
+      "description": "Pack business_intelligence missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/business-intelligence.md"
+        }
+      }
+    },
+    {
+      "id": "imp-7d9ca4c5",
+      "target_type": "governance",
+      "target_id": "/app/apps/cloud_architect",
+      "improvement_type": "governance",
+      "description": "Pack cloud_architect missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/cloud-architect.md"
+        }
+      }
+    },
+    {
+      "id": "imp-97a2a994",
+      "target_type": "governance",
+      "target_id": "/app/apps/code_engineer",
+      "improvement_type": "governance",
+      "description": "Pack code_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/code-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-ac2f489c",
+      "target_type": "governance",
+      "target_id": "/app/apps/compliance_officer",
+      "improvement_type": "governance",
+      "description": "Pack compliance_officer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/compliance-officer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-5c5f667c",
+      "target_type": "governance",
+      "target_id": "/app/apps/cross_domain_graph",
+      "improvement_type": "governance",
+      "description": "Pack cross_domain_graph missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/cross-domain-graph.md"
+        }
+      }
+    },
+    {
+      "id": "imp-d25d0dc9",
+      "target_type": "governance",
+      "target_id": "/app/apps/cybersecurity_analyst",
+      "improvement_type": "governance",
+      "description": "Pack cybersecurity_analyst missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/cybersecurity-analyst.md"
+        }
+      }
+    },
+    {
+      "id": "imp-afb5edd1",
+      "target_type": "governance",
+      "target_id": "/app/apps/data_engineer",
+      "improvement_type": "governance",
+      "description": "Pack data_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/data-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-c1c5bbfb",
+      "target_type": "governance",
+      "target_id": "/app/apps/data_scientist",
+      "improvement_type": "governance",
+      "description": "Pack data_scientist missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/data-scientist.md"
+        }
+      }
+    },
+    {
+      "id": "imp-049f5d2c",
+      "target_type": "governance",
+      "target_id": "/app/apps/database_engineer",
+      "improvement_type": "governance",
+      "description": "Pack database_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/database-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-9783caa2",
+      "target_type": "governance",
+      "target_id": "/app/apps/decision_intelligence",
+      "improvement_type": "governance",
+      "description": "Pack decision_intelligence missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/decision-intelligence.md"
+        }
+      }
+    },
+    {
+      "id": "imp-73e873f2",
+      "target_type": "governance",
+      "target_id": "/app/apps/devops_assistant",
+      "improvement_type": "governance",
+      "description": "Pack devops_assistant missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/devops-assistant.md"
+        }
+      }
+    },
+    {
+      "id": "imp-f036a83e",
+      "target_type": "governance",
+      "target_id": "/app/apps/devsecops",
+      "improvement_type": "governance",
+      "description": "Pack devsecops missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/devsecops.md"
+        }
+      }
+    },
+    {
+      "id": "imp-42435e79",
+      "target_type": "governance",
+      "target_id": "/app/apps/digital_twin_engine",
+      "improvement_type": "governance",
+      "description": "Pack digital_twin_engine missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/digital-twin-engine.md"
+        }
+      }
+    },
+    {
+      "id": "imp-98b115f8",
+      "target_type": "governance",
+      "target_id": "/app/apps/document_processing",
+      "improvement_type": "governance",
+      "description": "Pack document_processing missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/document-processing.md"
+        }
+      }
+    },
+    {
+      "id": "imp-4c0b4ad1",
+      "target_type": "governance",
+      "target_id": "/app/apps/documentation_engineer",
+      "improvement_type": "governance",
+      "description": "Pack documentation_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/documentation-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-16103267",
+      "target_type": "governance",
+      "target_id": "/app/apps/finance_analyst",
+      "improvement_type": "governance",
+      "description": "Pack finance_analyst missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/finance-analyst.md"
+        }
+      }
+    },
+    {
+      "id": "imp-0431aafa",
+      "target_type": "governance",
+      "target_id": "/app/apps/full_stack_engineer",
+      "improvement_type": "governance",
+      "description": "Pack full_stack_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/full-stack-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-6a008243",
+      "target_type": "governance",
+      "target_id": "/app/apps/hse_specialist",
+      "improvement_type": "governance",
+      "description": "Pack hse_specialist missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/hse-specialist.md"
+        }
+      }
+    },
+    {
+      "id": "imp-11130ef3",
+      "target_type": "governance",
+      "target_id": "/app/apps/infrastructure_engineer",
+      "improvement_type": "governance",
+      "description": "Pack infrastructure_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/infrastructure-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-bf369605",
+      "target_type": "governance",
+      "target_id": "/app/apps/innovation_strategist",
+      "improvement_type": "governance",
+      "description": "Pack innovation_strategist missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/innovation-strategist.md"
+        }
+      }
+    },
+    {
+      "id": "imp-705d853e",
+      "target_type": "governance",
+      "target_id": "/app/apps/knowledge_engineer",
+      "improvement_type": "governance",
+      "description": "Pack knowledge_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/knowledge-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-bc6f95da",
+      "target_type": "governance",
+      "target_id": "/app/apps/legal_advisor",
+      "improvement_type": "governance",
+      "description": "Pack legal_advisor missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/legal-advisor.md"
+        }
+      }
+    },
+    {
+      "id": "imp-79b731a9",
+      "target_type": "governance",
+      "target_id": "/app/apps/network_engineer",
+      "improvement_type": "governance",
+      "description": "Pack network_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/network-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-78bc54c7",
+      "target_type": "governance",
+      "target_id": "/app/apps/observability",
+      "improvement_type": "governance",
+      "description": "Pack observability missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/observability.md"
+        }
+      }
+    },
+    {
+      "id": "imp-4d2f416d",
+      "target_type": "governance",
+      "target_id": "/app/apps/product_manager",
+      "improvement_type": "governance",
+      "description": "Pack product_manager missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/product-manager.md"
+        }
+      }
+    },
+    {
+      "id": "imp-a42d8e84",
+      "target_type": "governance",
+      "target_id": "/app/apps/qa_engineer",
+      "improvement_type": "governance",
+      "description": "Pack qa_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/qa-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-5123eb4f",
+      "target_type": "governance",
+      "target_id": "/app/apps/research_assistant",
+      "improvement_type": "governance",
+      "description": "Pack research_assistant missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/research-assistant.md"
+        }
+      }
+    },
+    {
+      "id": "imp-6eea3bce",
+      "target_type": "governance",
+      "target_id": "/app/apps/reverse_engineer",
+      "improvement_type": "governance",
+      "description": "Pack reverse_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/reverse-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-24886c3f",
+      "target_type": "governance",
+      "target_id": "/app/apps/scenario_simulator",
+      "improvement_type": "governance",
+      "description": "Pack scenario_simulator missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/scenario-simulator.md"
+        }
+      }
+    },
+    {
+      "id": "imp-ef5ab4a5",
+      "target_type": "governance",
+      "target_id": "/app/apps/security_engineer",
+      "improvement_type": "governance",
+      "description": "Pack security_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/security-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-f2aff311",
+      "target_type": "governance",
+      "target_id": "/app/apps/self_development",
+      "improvement_type": "governance",
+      "description": "Pack self_development missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/self-development.md"
+        }
+      }
+    },
+    {
+      "id": "imp-111f7c0b",
+      "target_type": "governance",
+      "target_id": "/app/apps/sre_engineer",
+      "improvement_type": "governance",
+      "description": "Pack sre_engineer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/sre-engineer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-cc189275",
+      "target_type": "governance",
+      "target_id": "/app/apps/supply_chain_analyst",
+      "improvement_type": "governance",
+      "description": "Pack supply_chain_analyst missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/supply-chain-analyst.md"
+        }
+      }
+    },
+    {
+      "id": "imp-f4da7244",
+      "target_type": "governance",
+      "target_id": "/app/apps/synthesized",
+      "improvement_type": "governance",
+      "description": "Pack synthesized missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "rejected",
+      "metadata": {
+        "reconciliation": {
+          "action": "not_applicable",
+          "reason": "Target directory is not a discovered capability pack.",
+          "path": "apps/synthesized"
+        }
+      }
+    },
+    {
+      "id": "imp-6c93f2a0",
+      "target_type": "governance",
+      "target_id": "/app/apps/system_architect",
+      "improvement_type": "governance",
+      "description": "Pack system_architect missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/system-architect.md"
+        }
+      }
+    },
+    {
+      "id": "imp-3025d1f0",
+      "target_type": "governance",
+      "target_id": "/app/apps/trading_analyst",
+      "improvement_type": "governance",
+      "description": "Pack trading_analyst missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/trading-analyst.md"
+        }
+      }
+    },
+    {
+      "id": "imp-6d35e7ca",
+      "target_type": "governance",
+      "target_id": "/app/apps/translator_expert",
+      "improvement_type": "governance",
+      "description": "Pack translator_expert missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/translator-expert.md"
+        }
+      }
+    },
+    {
+      "id": "imp-6b573beb",
+      "target_type": "governance",
+      "target_id": "/app/apps/ui_ux_designer",
+      "improvement_type": "governance",
+      "description": "Pack ui_ux_designer missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/ui-ux-designer.md"
+        }
+      }
+    },
+    {
+      "id": "imp-0822cd3f",
+      "target_type": "governance",
+      "target_id": "/app/apps/voice_interaction",
+      "improvement_type": "governance",
+      "description": "Pack voice_interaction missing capability docs",
+      "estimated_effort": "low",
+      "risk": "low",
+      "confidence": 0.9,
+      "expected_impact": "Governance compliance improved",
+      "status": "implemented",
+      "metadata": {
+        "reconciliation": {
+          "action": "implemented",
+          "reason": "Capability documentation exists and is now visible to the analyzer.",
+          "path": "docs/capabilities/voice-interaction.md"
+        }
+      }
     },
     {
       "id": "imp-9acacc6e",
@@ -1813,7 +1938,13 @@
       "confidence": 0.8,
       "expected_impact": "Reduce duplication across packs",
       "status": "draft",
-      "metadata": {}
+      "metadata": {
+        "reconciliation": {
+          "action": "deduplicated",
+          "reason": "Repeated legacy IDs described the same generic pattern; one unique draft is retained for code-level review.",
+          "duplicate_records": 17
+        }
+      }
     },
     {
       "id": "imp-bf3efce8",
@@ -1826,7 +1957,13 @@
       "confidence": 0.8,
       "expected_impact": "Reduce duplication across packs",
       "status": "draft",
-      "metadata": {}
+      "metadata": {
+        "reconciliation": {
+          "action": "deduplicated",
+          "reason": "Repeated legacy IDs described the same generic pattern; one unique draft is retained for code-level review.",
+          "duplicate_records": 17
+        }
+      }
     },
     {
       "id": "imp-1fca5b8d",
@@ -1839,7 +1976,13 @@
       "confidence": 0.8,
       "expected_impact": "Reduce duplication across packs",
       "status": "draft",
-      "metadata": {}
+      "metadata": {
+        "reconciliation": {
+          "action": "deduplicated",
+          "reason": "Repeated legacy IDs described the same generic pattern; one unique draft is retained for code-level review.",
+          "duplicate_records": 17
+        }
+      }
     },
     {
       "id": "imp-db0bedc9",
@@ -1852,7 +1995,13 @@
       "confidence": 0.8,
       "expected_impact": "Reduce duplication across packs",
       "status": "draft",
-      "metadata": {}
+      "metadata": {
+        "reconciliation": {
+          "action": "deduplicated",
+          "reason": "Repeated legacy IDs described the same generic pattern; one unique draft is retained for code-level review.",
+          "duplicate_records": 17
+        }
+      }
     },
     {
       "id": "imp-6cd9c3f7",
@@ -1865,7 +2014,13 @@
       "confidence": 0.8,
       "expected_impact": "Reduce duplication across packs",
       "status": "draft",
-      "metadata": {}
+      "metadata": {
+        "reconciliation": {
+          "action": "deduplicated",
+          "reason": "Repeated legacy IDs described the same generic pattern; one unique draft is retained for code-level review.",
+          "duplicate_records": 17
+        }
+      }
     }
   ]
 }

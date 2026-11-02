@@ -254,7 +254,6 @@ services:
       MINIO_BUCKET: enal
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SECRET_KEY: ${SECRET_KEY:?Set a unique SECRET_KEY of at least 32 characters in .env}
-      AUTH_ACCOUNT: ${AUTH_ACCOUNT:?Configure AUTH_ACCOUNT in .env}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
@@ -311,6 +310,9 @@ services:
       - artifacts_data:/app/artifacts
       - ./backend:/app/backend
       - ./apps:/app/apps
+      - ./benchmarks:/app/benchmarks:ro
+      - ./docs:/app/docs:ro
+      - ./real_cases:/app/real_cases:ro
     security_opt:
       - no-new-privileges:true
     cap_drop:

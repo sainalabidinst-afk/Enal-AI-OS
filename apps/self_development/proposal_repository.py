@@ -111,6 +111,7 @@ class ProposalRepository:
         return proposal
 
     def add_improvement(self, proposal: ImprovementProposal) -> ImprovementProposal:
+        self._canonicalize_cross_pack_pattern(proposal)
         existing = self._find_improvement_by_key(
             proposal.target_type, proposal.target_id, proposal.improvement_type
         )
@@ -122,6 +123,20 @@ class ProposalRepository:
         self._prune_improvements()
         self._save()
         return proposal
+
+    @staticmethod
+    def _canonicalize_cross_pack_pattern(proposal: ImprovementProposal) -> None:
+        prefix = "Extract shared pattern: "
+        if (
+            proposal.target_type != "cross_pack"
+            or proposal.improvement_type != "refactor"
+            or not proposal.description.startswith(prefix)
+        ):
+            return
+
+        pattern = proposal.description[len(prefix) :].strip()
+        if pattern and all(character.isalnum() or character in "_-" for character in pattern):
+            proposal.target_id = f"pattern-{pattern}"
 
     def _find_improvement_by_key(
         self, target_type: str, target_id: str, improvement_type: str
@@ -180,6 +195,7 @@ class ProposalRepository:
         self._capabilities = {p.id: p for p in self._capabilities.values()}
         improvements: dict[tuple[str, str, str], ImprovementProposal] = {}
         for proposal in self._improvements.values():
+            self._canonicalize_cross_pack_pattern(proposal)
             key = (proposal.target_type, proposal.target_id, proposal.improvement_type)
             improvements[key] = proposal
         self._improvements = {p.id: p for p in improvements.values()}
@@ -272,6 +288,7 @@ class ProposalRepository:
                     status=item.get("status", "draft"),
                     metadata=item.get("metadata", {}),
                 )
+                self._canonicalize_cross_pack_pattern(improvement)
                 key = (
                     improvement.target_type,
                     improvement.target_id,

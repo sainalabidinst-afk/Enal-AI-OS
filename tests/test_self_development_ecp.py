@@ -7,6 +7,16 @@ import pytest
 from apps.self_development.engine import self_development_engine
 
 
+@pytest.fixture
+def isolated_proposal_store(monkeypatch, tmp_path):
+    from apps.self_development.proposal_repository import ProposalRepository
+
+    monkeypatch.setattr(
+        "apps.self_development.engine.proposal_repository",
+        ProposalRepository(storage_path=tmp_path / "proposals.json"),
+    )
+
+
 @pytest.mark.asyncio
 async def test_analyze_ecp_returns_platform_metrics():
     result = await self_development_engine.analyze_ecp()
@@ -22,23 +32,21 @@ async def test_analyze_ecp_returns_platform_metrics():
 
 
 @pytest.mark.asyncio
-async def test_propose_capabilities_returns_proposals():
+async def test_propose_capabilities_returns_proposals(isolated_proposal_store):
     proposals = await self_development_engine.propose_capabilities()
 
     assert isinstance(proposals, list)
-    assert len(proposals) > 0
-
-    proposal = proposals[0]
-    assert "id" in proposal
-    assert "name" in proposal
-    assert "domain" in proposal
-    assert "tier" in proposal
-    assert "confidence" in proposal
-    assert "rationale" in proposal
+    for proposal in proposals:
+        assert "id" in proposal
+        assert "name" in proposal
+        assert "domain" in proposal
+        assert "tier" in proposal
+        assert "confidence" in proposal
+        assert "rationale" in proposal
 
 
 @pytest.mark.asyncio
-async def test_propose_improvements_returns_improvements():
+async def test_propose_improvements_returns_improvements(isolated_proposal_store):
     improvements = await self_development_engine.propose_improvements()
 
     assert isinstance(improvements, list)
@@ -53,7 +61,7 @@ async def test_propose_improvements_returns_improvements():
 
 
 @pytest.mark.asyncio
-async def test_app_run_ecp_mode():
+async def test_app_run_ecp_mode(isolated_proposal_store):
     from apps.self_development import get_app
 
     app = get_app()

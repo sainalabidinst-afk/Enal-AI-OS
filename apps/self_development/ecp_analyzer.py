@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import os
 from pathlib import Path
 from typing import Any
 
@@ -67,6 +68,42 @@ HOTSPOT_CANDIDATES = [
     "security_model.py",
 ]
 
+SOURCE_DIRS = ("backend", "apps", "frontend", "sdk", "tests")
+IGNORED_SOURCE_DIRS = {
+    ".git",
+    ".next",
+    ".venv",
+    "__pycache__",
+    "build",
+    "coverage",
+    "dist",
+    "node_modules",
+    "venv",
+}
+PACK_ALIASES = {
+    "ai-ethics": {"ai-ethics-pack"},
+    "supply-chain": {"supply-chain-analyst"},
+    "translator": {"translator-expert"},
+}
+REAL_CASE_ALIASES = {
+    "ai_ethics_pack": "ai-ethics-governance",
+    "business_analyst": "business",
+    "code_engineer": "code",
+    "data_engineer": "data",
+    "database_engineer": "database",
+    "decision_intelligence": "decision",
+    "devops_assistant": "devops",
+    "full_stack_engineer": "full_stack",
+    "network_engineer": "network",
+    "product_manager": "product",
+    "qa_engineer": "qa",
+    "research_assistant": "research",
+    "security_engineer": "security",
+    "system_architect": "system",
+    "trading_analyst": "trading",
+    "ui_ux_designer": "ui_ux",
+}
+
 
 class ECPAnalyzer:
     """Analyzes ECP platform for improvement opportunities."""
@@ -91,16 +128,17 @@ class ECPAnalyzer:
                 if d.is_dir()
                 and not d.name.startswith("__pycache__")
                 and d.name not in {"society", "organization", "integration"}
+                and ((d / "__init__.py").is_file() or (d / "skills.yaml").is_file())
             ]
         )
 
     def analyze(self) -> ECPPlatformAnalysis:
-        hotspots = self._find_hotspots()
+        py_files = self._python_files()
+        hotspots = self._find_hotspots(py_files)
         governance_issues = self._detect_governance_issues()
         pack_gaps = self._detect_pack_gaps()
         patterns = self._detect_cross_pack_patterns()
 
-        py_files = list(self.root.rglob("*.py"))
         core_dir = self.root / "backend" / "app" / "core"
         core_modules = (
             len([f for f in py_files if f.is_relative_to(core_dir)]) if core_dir.exists() else 0
@@ -128,7 +166,7 @@ class ECPAnalyzer:
 
     def propose_capabilities(self, analysis: ECPPlatformAnalysis) -> list[CapabilityProposal]:
         proposals: list[CapabilityProposal] = []
-        existing = {d.name.lower().replace("_", "-") for d in self._pack_dirs()}
+        existing = self._existing_pack_names()
 
         candidates = [
             (
@@ -200,7 +238,7 @@ class ECPAnalyzer:
         ]
 
         for domain, name, description, tier in candidates:
-            if domain not in existing:
+            if not self._has_pack(domain, existing):
                 reuse = self._estimate_reuse(domain, analysis)
                 effort = self._estimate_effort(tier)
                 risk = "low" if tier == CapabilityTier.TIER_C else "medium"
@@ -286,29 +324,75 @@ class ECPAnalyzer:
 
         return improvements
 
-    def _find_hotspots(self) -> list[str]:
+    def _find_hotspots(self, py_files: list[Path]) -> list[str]:
         hotspots: list[str] = []
-        for name in HOTSPOT_CANDIDATES:
-            for f in self.root.rglob(name):
-                hotspots.append(str(f.relative_to(self.root)))
+        candidates = set(HOTSPOT_CANDIDATES)
+        found: set[str] = set()
+        for path in py_files:
+            if path.name in candidates and path.name not in found:
+                hotspots.append(path.relative_to(self.root).as_posix())
+                found.add(path.name)
+            if found == candidates:
                 break
         return hotspots
+
+    def _python_files(self) -> list[Path]:
+        files: list[Path] = []
+        for source_dir in SOURCE_DIRS:
+            base = self.root / source_dir
+            if not base.is_dir():
+                continue
+            for current, dirs, filenames in os.walk(base):
+                dirs[:] = sorted(d for d in dirs if d not in IGNORED_SOURCE_DIRS)
+                files.extend(
+                    Path(current) / name for name in sorted(filenames) if name.endswith(".py")
+                )
+        return files
+
+    def _existing_pack_names(self) -> set[str]:
+        return {directory.name.lower().replace("_", "-") for directory in self._pack_dirs()}
+
+    @staticmethod
+    def _has_pack(domain: str, existing: set[str]) -> bool:
+        normalized = domain.lower().replace("_", "-")
+        aliases = PACK_ALIASES.get(normalized, set())
+        return normalized in existing or bool(aliases & existing)
 
     def _detect_governance_issues(self) -> list[dict[str, Any]]:
         issues: list[dict[str, Any]] = []
 
         for pack_dir in self._pack_dirs():
-            has_benchmark = (pack_dir / "benchmarks").exists() or (pack_dir / "benchmark").exists()
-            has_real_cases = (pack_dir / "real_cases").exists() or (pack_dir / "cases").exists()
+            pack_name = pack_dir.name.lower()
+            pack_slug = pack_name.replace("_", "-")
+            has_benchmark = (
+                (pack_dir / "benchmarks").exists()
+                or (pack_dir / "benchmark").exists()
+                or (self.root / "benchmarks" / f"{pack_name}_benchmark.py").is_file()
+                or (self.root / "benchmarks" / f"{pack_slug}_benchmark.py").is_file()
+            )
+            real_case_names = {
+                pack_name,
+                pack_slug,
+                REAL_CASE_ALIASES.get(pack_name, ""),
+            }
+            has_real_cases = (
+                (pack_dir / "real_cases").exists()
+                or (pack_dir / "cases").exists()
+                or any(
+                    (self.root / "real_cases" / name).is_dir() for name in real_case_names if name
+                )
+            )
             has_docs = (pack_dir / "docs").exists() or (
-                self.root / "docs" / "capabilities" / f"{pack_dir.name}.md"
-            ).exists()
+                (self.root / "docs" / "capabilities" / f"{pack_name}.md").is_file()
+                or (self.root / "docs" / "capabilities" / f"{pack_slug}.md").is_file()
+            )
+            location = pack_dir.relative_to(self.root).as_posix()
 
             if not has_benchmark:
                 issues.append(
                     {
                         "type": ProblemType.TEST_COVERAGE_GAP.value,
-                        "location": str(pack_dir),
+                        "location": location,
                         "description": f"Pack {pack_dir.name} missing benchmark",
                         "severity": "medium",
                     }
@@ -317,7 +401,7 @@ class ECPAnalyzer:
                 issues.append(
                     {
                         "type": ProblemType.TEST_COVERAGE_GAP.value,
-                        "location": str(pack_dir),
+                        "location": location,
                         "description": f"Pack {pack_dir.name} missing real_cases",
                         "severity": "medium",
                     }
@@ -326,7 +410,7 @@ class ECPAnalyzer:
                 issues.append(
                     {
                         "type": ProblemType.DOCUMENTATION_GAP.value,
-                        "location": str(pack_dir),
+                        "location": location,
                         "description": f"Pack {pack_dir.name} missing capability docs",
                         "severity": "low",
                     }
@@ -336,7 +420,7 @@ class ECPAnalyzer:
 
     def _detect_pack_gaps(self) -> list[dict[str, Any]]:
         gaps: list[dict[str, Any]] = []
-        existing = {d.name.lower().replace("_", "-") for d in self._pack_dirs()}
+        existing = self._existing_pack_names()
 
         expected = [
             (
@@ -361,7 +445,7 @@ class ECPAnalyzer:
         ]
 
         for domain, name, description in expected:
-            if domain not in existing:
+            if not self._has_pack(domain, existing):
                 gaps.append(
                     {
                         "pack": name,
