@@ -13,6 +13,7 @@ from backend.app.core.security_model import (  # noqa: E402
     security_model,
 )
 from backend.app.main import app  # noqa: E402
+from backend.app.studio.ai_studio import ai_studio  # noqa: E402
 
 client = TestClient(app)
 
@@ -543,21 +544,21 @@ def test_ecosystem_studio_graph(token, auth_headers):
     assert response.status_code in (200, 404, 422, 500)
 
 
-def test_ecosystem_studio_memory(token, auth_headers):
-    try:
-        import redis
+def test_ecosystem_studio_memory(token, auth_headers, monkeypatch):
+    expected = [{"key": "wm:test", "value": "test"}]
 
-        redis_client = redis.Redis(host="localhost", port=6379)
-        redis_client.ping()
-    except Exception:
-        pytest.skip("Redis not available in test environment")
+    async def get_memory(layer, query, limit=10):
+        assert (layer, query, limit) == ("working", "test", 5)
+        return expected
 
+    monkeypatch.setattr(ai_studio, "get_memory", get_memory)
     response = client.get(
         "/api/v1/studio/memory",
         headers=auth_headers,
         params={"layer": "working", "query": "test", "limit": 5},
-    )  # noqa: E501
-    assert response.status_code in (200, 404, 422, 500)
+    )
+    assert response.status_code == 200
+    assert response.json() == expected
 
 
 def test_ecosystem_studio_reputation(token, auth_headers):

@@ -43,11 +43,10 @@ async def test_trading_analysis_workflow_produces_context(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_trading_analysis_fails_when_market_data_is_unavailable(monkeypatch):
-    monkeypatch.setattr(
-        market_provider,
-        "fetch_multi_timeframe",
-        lambda symbol, timeframes, limit=100: {timeframe: [] for timeframe in timeframes},
-    )
+    async def unavailable_market_data(symbol, timeframes, exchange="binance"):
+        raise market_provider.MarketProviderError(f"No market data available for {symbol}")
+
+    monkeypatch.setattr(market_provider, "build_trading_context", unavailable_market_data)
     result = await IntegrationEngine().trading_analysis_with_knowledge(
         symbol="BTCUSDT",
         timeframes=["1h"],

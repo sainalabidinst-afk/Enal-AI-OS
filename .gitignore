@@ -51,5 +51,5 @@ audit_output.tar.gz
 onboarding_output/
 onboarding_output.tar.gz
 repo_inspect_output/
-docs/audit
-
+docs/audit/*
+!docs/audit/COMPREHENSIVE_AUDIT.md

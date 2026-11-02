@@ -2,7 +2,7 @@
 ECP Reference Applications
 ============================
 
-These 37 reference applications demonstrate ECP's capabilities and serve as
+These 38 reference applications demonstrate ECP's capabilities and serve as
 golden tests for the platform.
 
 Apps:
@@ -44,6 +44,7 @@ Apps:
   35. Translator Expert - Multi-domain translation, glossary enforcement
   36. Document Processing - Read, edit, produce, convert, annotate DOCX/XLSX/PPTX/PDF
   37. Voice Interaction - STT/TTS with multi-provider fallback, language detection
+  38. Digital Twin Engine - Digital twin simulation and reference workflows
 
 Each app uses:
 - SDK for agent/tool/workflow definitions
