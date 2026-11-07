@@ -19,8 +19,6 @@ RUN pip install --no-cache-dir . \
 # Copy application source code
 COPY backend/ ./backend/
 COPY apps/ ./apps/
-COPY benchmarks/ ./benchmarks/
-COPY docs/ ./docs/
 COPY sdk/ ./sdk/
 COPY real_cases/ ./real_cases/
 COPY backend/entrypoint.sh /entrypoint.sh

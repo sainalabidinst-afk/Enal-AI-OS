@@ -305,7 +305,7 @@ services:
     tmpfs:
       - /tmp
       - /app/data
-      - /app/workspace
+      - /app/workspace:uid=999,gid=999,mode=0775
     volumes:
       - artifacts_data:/app/artifacts
       - ./backend:/app/backend
